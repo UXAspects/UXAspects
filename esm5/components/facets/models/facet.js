@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Facet = (function () {
+var Facet = /** @class */ (function () {
     function Facet(title, data, count, disabled, id) {
         if (data === void 0) { data = {}; }
         if (disabled === void 0) { disabled = false; }

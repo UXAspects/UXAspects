@@ -15,20 +15,13 @@ export class MediaPlayerBaseExtensionDirective {
 MediaPlayerBaseExtensionDirective.decorators = [
     { type: Directive, args: [{
                 selector: '[mediaPlayerBaseExtension]'
-            },] },
+            },] }
 ];
 /** @nocollapse */
 MediaPlayerBaseExtensionDirective.ctorParameters = () => [
-    { type: MediaPlayerService, },
+    { type: MediaPlayerService }
 ];
 function MediaPlayerBaseExtensionDirective_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    MediaPlayerBaseExtensionDirective.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    MediaPlayerBaseExtensionDirective.ctorParameters;
     /** @type {?} */
     MediaPlayerBaseExtensionDirective.prototype.mediaPlayerService;
 }

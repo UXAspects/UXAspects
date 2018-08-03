@@ -5,7 +5,7 @@
 import * as tslib_1 from "tslib";
 import { KeyCode } from './keycode.enum';
 import { SelectionStrategy } from './selection.strategy';
-var SimpleSelectionStrategy = (function (_super) {
+var SimpleSelectionStrategy = /** @class */ (function (_super) {
     tslib_1.__extends(SimpleSelectionStrategy, _super);
     function SimpleSelectionStrategy() {
         return _super !== null && _super.apply(this, arguments) || this;

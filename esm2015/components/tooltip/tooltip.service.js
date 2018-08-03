@@ -10,18 +10,9 @@ export class TooltipService {
     }
 }
 TooltipService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-TooltipService.ctorParameters = () => [];
 function TooltipService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    TooltipService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    TooltipService.ctorParameters;
     /** @type {?} */
     TooltipService.prototype.shown$;
 }

@@ -1,5 +1,6 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
 import { MediaPlayerType } from './media-player.component';
@@ -9,7 +10,7 @@ export declare class MediaPlayerService {
     type: MediaPlayerType;
     loaded: boolean;
     playing: BehaviorSubject<boolean>;
-    initEvent: BehaviorSubject<boolean>;
+    initEvent: ReplaySubject<boolean>;
     abortEvent: Subject<void>;
     canPlayEvent: BehaviorSubject<boolean>;
     canPlayThroughEvent: BehaviorSubject<boolean>;
@@ -43,7 +44,7 @@ export declare class MediaPlayerService {
     quietMode: boolean;
     readonly mediaPlayerWidth: number;
     readonly mediaPlayerHeight: number;
-    readonly audioTracks: AudioTrackList;
+    readonly audioTracks: AudioTrackList | Array<any>;
     autoplay: boolean;
     readonly buffered: TimeRanges;
     crossOrigin: string;
@@ -64,8 +65,8 @@ export declare class MediaPlayerService {
     readonly seekable: TimeRanges;
     readonly seeking: boolean;
     src: string;
-    readonly textTracks: TextTrackList;
-    readonly videoTracks: VideoTrackList;
+    readonly textTracks: Array<TextTrack>;
+    readonly videoTracks: Array<VideoTrack>;
     volume: number;
     fullscreen: boolean;
     setMediaPlayer(hostElement: HTMLElement, mediaPlayer: HTMLMediaElement): void;
@@ -92,7 +93,7 @@ export declare class MediaPlayerService {
     /**
      * Adds a new text track to the audio/video
      */
-    addTextTrack(kind: string, label: string, language: string): TextTrack;
+    addTextTrack(kind: 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata', label: string, language: string): TextTrack;
     /**
      * Attempt to display media in fullscreen mode
      */
@@ -101,7 +102,7 @@ export declare class MediaPlayerService {
      * Exit full screen mode
      */
     exitFullscreen(): void;
-    fullscreenChange(event: Event): void;
+    fullscreenChange(): void;
     /**
      * Toggle Fullscreen State
      */
@@ -110,4 +111,5 @@ export declare class MediaPlayerService {
      * Extract the frames from the video
      */
     getFrames(width: number, height: number, skip: number): Observable<ExtractedFrame>;
+    hideSubtitleTracks(): void;
 }

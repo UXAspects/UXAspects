@@ -3,7 +3,7 @@
  * @suppress {checkTypes} checked by tsc
  */
 import * as tslib_1 from "tslib";
-var SelectionStrategy = (function () {
+var SelectionStrategy = /** @class */ (function () {
     function SelectionStrategy(selectionService) {
         this.selectionService = selectionService;
     }

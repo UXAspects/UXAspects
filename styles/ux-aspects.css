@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.17 
+* @ux-aspects/ux-aspects-docs - v1.6.0 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -1099,164 +1099,167 @@ ux-timeline .timeline:after {
 .hpe-street-view:before {
   content: "\f20e";
 }
-.hpe-subtract:before {
+.hpe-subtitles:before {
   content: "\f20f";
 }
-.hpe-support:before {
+.hpe-subtract:before {
   content: "\f210";
 }
-.hpe-sync:before {
+.hpe-support:before {
   content: "\f211";
 }
-.hpe-system:before {
+.hpe-sync:before {
   content: "\f212";
 }
-.hpe-tab-next:before {
+.hpe-system:before {
   content: "\f213";
 }
-.hpe-tab-previous:before {
+.hpe-tab-next:before {
   content: "\f214";
 }
-.hpe-tab-up:before {
+.hpe-tab-previous:before {
   content: "\f215";
 }
-.hpe-table-add:before {
+.hpe-tab-up:before {
   content: "\f216";
 }
-.hpe-table:before {
+.hpe-table-add:before {
   content: "\f217";
 }
-.hpe-tag:before {
+.hpe-table:before {
   content: "\f218";
 }
-.hpe-target:before {
+.hpe-tag:before {
   content: "\f219";
 }
-.hpe-task:before {
+.hpe-target:before {
   content: "\f21a";
 }
-.hpe-template:before {
+.hpe-task:before {
   content: "\f21b";
 }
-.hpe-test-desktop:before {
+.hpe-template:before {
   content: "\f21c";
 }
-.hpe-test:before {
+.hpe-test-desktop:before {
   content: "\f21d";
 }
-.hpe-text-wrap:before {
+.hpe-test:before {
   content: "\f21e";
 }
-.hpe-threats:before {
+.hpe-text-wrap:before {
   content: "\f21f";
 }
-.hpe-ticket:before {
+.hpe-threats:before {
   content: "\f220";
 }
-.hpe-tools:before {
+.hpe-ticket:before {
   content: "\f221";
 }
-.hpe-tooltip:before {
+.hpe-tools:before {
   content: "\f222";
 }
-.hpe-transaction:before {
+.hpe-tooltip:before {
   content: "\f223";
 }
-.hpe-trash:before {
+.hpe-transaction:before {
   content: "\f224";
 }
-.hpe-tree:before {
+.hpe-trash:before {
   content: "\f225";
 }
-.hpe-trigger:before {
+.hpe-tree:before {
   content: "\f226";
 }
-.hpe-trophy:before {
+.hpe-trigger:before {
   content: "\f227";
 }
-.hpe-troubleshooting:before {
+.hpe-trophy:before {
   content: "\f228";
 }
-.hpe-unlock:before {
+.hpe-troubleshooting:before {
   content: "\f229";
 }
-.hpe-up:before {
+.hpe-unlock:before {
   content: "\f22a";
 }
-.hpe-update:before {
+.hpe-up:before {
   content: "\f22b";
 }
-.hpe-upgrade:before {
+.hpe-update:before {
   content: "\f22c";
 }
-.hpe-upload:before {
+.hpe-upgrade:before {
   content: "\f22d";
 }
-.hpe-user-add:before {
+.hpe-upload:before {
   content: "\f22e";
 }
-.hpe-user-admin:before {
+.hpe-user-add:before {
   content: "\f22f";
 }
-.hpe-user-expert:before {
+.hpe-user-admin:before {
   content: "\f230";
 }
-.hpe-user-female:before {
+.hpe-user-expert:before {
   content: "\f231";
 }
-.hpe-user-manager:before {
+.hpe-user-female:before {
   content: "\f232";
 }
-.hpe-user-new:before {
+.hpe-user-manager:before {
   content: "\f233";
 }
-.hpe-user-police:before {
+.hpe-user-new:before {
   content: "\f234";
 }
-.hpe-user-settings:before {
+.hpe-user-police:before {
   content: "\f235";
 }
-.hpe-user-worker:before {
+.hpe-user-settings:before {
   content: "\f236";
 }
-.hpe-user:before {
+.hpe-user-worker:before {
   content: "\f237";
 }
-.hpe-validation:before {
+.hpe-user:before {
   content: "\f238";
 }
-.hpe-video:before {
+.hpe-validation:before {
   content: "\f239";
 }
-.hpe-view:before {
+.hpe-video:before {
   content: "\f23a";
 }
-.hpe-virtual-machine:before {
+.hpe-view:before {
   content: "\f23b";
 }
-.hpe-vm-maintenance:before {
+.hpe-virtual-machine:before {
   content: "\f23c";
 }
-.hpe-volume-low:before {
+.hpe-vm-maintenance:before {
   content: "\f23d";
 }
-.hpe-volume-mute:before {
+.hpe-volume-low:before {
   content: "\f23e";
 }
-.hpe-volume:before {
+.hpe-volume-mute:before {
   content: "\f23f";
 }
-.hpe-vulnerability:before {
+.hpe-volume:before {
   content: "\f240";
 }
-.hpe-waypoint:before {
+.hpe-vulnerability:before {
   content: "\f241";
 }
-.hpe-workshop:before {
+.hpe-waypoint:before {
   content: "\f242";
 }
-.hpe-zoom-in:before {
+.hpe-workshop:before {
   content: "\f243";
+}
+.hpe-zoom-in:before {
+  content: "\f244";
 }
 .hp-icon,
 .hpe-icon {
@@ -12288,10 +12291,9 @@ p.no-margin {
   display: flex;
   align-items: center;
   min-height: 36px;
-  margin: 0 -0.5em;
 }
-.uxd-customize-example .uxd-customize-row > div > * {
-  padding: 0 0.5em;
+.uxd-customize-example .uxd-customize-row > div > * + * {
+  margin-left: 1rem;
 }
 .uxd-customize-example .uxd-customize-row > div > input {
   min-width: 8rem;
@@ -13736,7 +13738,7 @@ form .button-primary.disabled {
 .el-checkbox-label .el-radiobutton.indeterminate:before,
 .el-radiobutton-label .el-radiobutton.indeterminate:before,
 .el-toggleswitch-label .el-radiobutton.indeterminate:before {
-  content: "\f20f";
+  content: "\f210";
 }
 .el-checkbox-label .el-checkbox.checked,
 .el-radiobutton-label .el-checkbox.checked,
@@ -14931,7 +14933,7 @@ ux-checkbox .ux-checkbox.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-chec
   background-color: #eee;
 }
 ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container:before {
-  content: "\f20f";
+  content: "\f210";
 }
 ux-checkbox .ux-checkbox .ux-checkbox-label {
   margin-left: 7px;
@@ -16233,16 +16235,18 @@ ux-marquee-wizard .marquee-wizard-content-panel .marquee-wizard-content {
   padding: 35px;
 }
 ux-media-player-controls {
+  position: relative;
   display: flex;
   padding: 2px 10px;
   align-items: center;
+  justify-content: center;
+  height: 40px;
 }
 ux-media-player-controls .hpe-icon {
   flex: none;
   cursor: pointer;
   padding: 2px 5px;
   font-size: 18px;
-  font-weight: 600;
   transition: color 0.3s ease-in-out;
 }
 ux-media-player-controls .hpe-icon.hpe-volume-low {
@@ -16253,12 +16257,52 @@ ux-media-player-controls .hpe-icon:hover {
 }
 ux-media-player-controls .control-button {
   fill: #666;
-  margin: 0 10px 8px;
+  margin: 0 10px;
   cursor: pointer;
   transition: fill 0.3s ease-in-out;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  line-height: 0;
 }
 ux-media-player-controls .control-button:hover {
   fill: #333;
+}
+ux-media-player-controls .control-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-media-player-controls .actions-list {
+  position: absolute;
+  display: inline-flex;
+  right: 10px;
+  top: 9px;
+}
+ux-media-player-controls .action-button-container {
+  position: relative;
+  margin-right: 7px;
+}
+ux-media-player-controls .action-button-container:last-of-type {
+  margin-right: 0;
+}
+ux-media-player-controls .action-button {
+  color: #666;
+  transition: fill 0.3s ease-in-out;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  line-height: 0;
+}
+ux-media-player-controls .action-button:hover {
+  color: #333;
+}
+ux-media-player-controls .action-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-media-player-controls .spacer {
   flex: 1;
@@ -16286,8 +16330,10 @@ ux-media-player-controls.quiet .volume-container .volume-slider-container .volum
   border: 1px solid #666;
 }
 ux-media-player-controls .volume-container {
-  position: relative;
+  position: absolute;
   height: 28px;
+  top: 9px;
+  left: 10px;
 }
 ux-media-player-controls .volume-container .volume-slider-container {
   position: absolute;
@@ -16301,34 +16347,76 @@ ux-media-player-controls .volume-container .volume-slider-container .volume-slid
   display: flex;
   justify-content: center;
   align-content: center;
-  padding-top: 1px;
+  padding: 1px 0 0;
+  border: none;
+  background-color: transparent;
+  width: 27px;
+  float: none;
 }
-ux-media-player-controls .volume-container .volume-slider-container .volume-slider {
+ux-media-player-controls .volume-container .volume-slider-container .volume-slider-icon:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-media-player-controls .volume-container .volume-slider-container .volume-slider-node {
+  flex: 1;
+  margin-top: 1px;
+  margin-left: 10px;
+}
+ux-media-player-controls .volume-container .volume-slider-container .volume-slider-node ux-slider {
   opacity: 0;
-  position: relative;
-  width: 70px;
-  height: 4px;
-  background-color: #eee;
-  margin: 10px 7px;
   transition: opacity 0.3s ease-in-out;
 }
-ux-media-player-controls .volume-container .volume-slider-container .volume-slider .volume-track-lower {
-  background-color: #666;
-  height: 100%;
+ux-media-player-controls .volume-container .volume-slider-container.active ux-slider {
+  opacity: 1;
 }
-ux-media-player-controls .volume-container .volume-slider-container .volume-slider .volume-slider-thumb {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-radius: 7px;
+ux-media-player-controls .media-player-subtitles-popover {
+  left: auto;
+  right: -35px;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-title {
   background-color: #fff;
-  border: 1px solid #666;
-  top: -5px;
-  cursor: pointer;
-  transform: translateX(-50%);
-  outline: none;
+  font-weight: 400;
+  font-size: 1rem;
 }
-ux-media-player-controls .volume-container .volume-slider-container.active .volume-slider {
+ux-media-player-controls .media-player-subtitles-popover.top > .arrow {
+  left: auto;
+  right: 37px;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content {
+  padding: 7px;
+  max-width: none;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  min-width: 150px;
+  font-size: 1rem;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 32px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item .hpe-icon {
+  color: #7b63a3;
+  opacity: 0;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item:hover {
+  background-color: #f5f5f5;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item.active .hpe-icon {
   opacity: 1;
 }
 ux-media-player-timeline {
@@ -16349,6 +16437,12 @@ ux-media-player-timeline .timeline-bar {
   height: 10px;
   background-color: #eee;
   cursor: pointer;
+}
+ux-media-player-timeline .timeline-bar:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-media-player-timeline .timeline-bar .buffered-bar {
   position: absolute;
@@ -16416,6 +16510,9 @@ ux-media-player-timeline.quiet .timeline-bar .media-progress-bar {
 ux-media-player-timeline.quiet .timeline-bar .scrub-handle {
   background-color: #999;
 }
+.ux-media-player-timeline-tooltip {
+  pointer-events: none;
+}
 ux-media-player {
   position: relative;
   display: block;
@@ -16444,6 +16541,12 @@ ux-media-player.quiet.hover .control-bar {
 ux-media-player.quiet .video-player-container {
   height: 100%;
 }
+ux-media-player .player-container {
+  height: 100%;
+}
+ux-media-player .player-container:focus {
+  outline: none;
+}
 ux-media-player .video-player-container {
   position: relative;
   height: calc(100% - 71px);
@@ -16451,6 +16554,9 @@ ux-media-player .video-player-container {
 ux-media-player .video-player-container .video-player {
   width: 100%;
   height: 100%;
+}
+ux-media-player .video-player-container .video-player:focus {
+  outline: none;
 }
 ux-media-player .video-player-container .video-overlay {
   position: absolute;
@@ -16502,7 +16608,11 @@ ux-media-player .audio-player .audio-file-size {
 }
 ux-media-player .control-bar {
   width: 100%;
+  min-height: 71px;
   background-color: #fff;
+}
+ux-media-player .control-bar.control-bar-visible {
+  opacity: 1;
 }
 ux-notification-list {
   position: fixed;
@@ -18000,7 +18110,7 @@ ux-timeline ux-timeline-event .timeline-badge span {
   }
 }
 ux-time-picker {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   justify-content: space-between;
 }

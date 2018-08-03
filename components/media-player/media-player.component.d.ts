@@ -8,7 +8,9 @@ export declare class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     private _elementRef;
     private _playerRef;
     hovering: boolean;
+    focused: boolean;
     audioMetadata: Observable<AudioMetadata>;
+    crossorigin: 'use-credentials' | 'anonymous';
     source: string;
     type: MediaPlayerType;
     quietMode: boolean;

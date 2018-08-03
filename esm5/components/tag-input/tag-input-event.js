@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var TagInputEvent = (function () {
+var TagInputEvent = /** @class */ (function () {
     function TagInputEvent(tag) {
         this.tag = tag;
         this._defaultPrevented = false;

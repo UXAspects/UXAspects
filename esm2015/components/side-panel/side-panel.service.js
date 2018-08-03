@@ -22,18 +22,9 @@ export class SidePanelService {
     }
 }
 SidePanelService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-SidePanelService.ctorParameters = () => [];
 function SidePanelService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    SidePanelService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    SidePanelService.ctorParameters;
     /** @type {?} */
     SidePanelService.prototype.open$;
 }

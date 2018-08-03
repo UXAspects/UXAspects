@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var TypeaheadOptionEvent = (function () {
+var TypeaheadOptionEvent = /** @class */ (function () {
     function TypeaheadOptionEvent(option) {
         this.option = option;
     }

@@ -1,13 +1,14 @@
-import { NgZone, OnDestroy, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { NgZone, OnDestroy } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 export declare class ResizeService implements OnDestroy {
-    private _ngZone;
-    private _renderer;
-    private _subscription;
-    constructor(rendererFactory: RendererFactory2, _ngZone: NgZone);
+    private _zone;
+    private _observer;
+    private _targets;
+    constructor(_zone: NgZone);
     ngOnDestroy(): void;
-    addResizeListener(nativeElement: HTMLElement): BehaviorSubject<ResizeDimensions>;
-    private waitUntilReady(iframe, callback);
+    addResizeListener(target: HTMLElement): ReplaySubject<ResizeDimensions>;
+    removeResizeListener(target: HTMLElement): void;
+    private elementDidResize(entries);
 }
 export interface ResizeDimensions {
     width: number;

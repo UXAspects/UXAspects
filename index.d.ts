@@ -37,6 +37,7 @@ export * from './components/tooltip/index';
 export * from './components/typeahead/index';
 export * from './components/virtual-scroll/index';
 export * from './components/wizard/index';
+export * from './directives/accessibility/index';
 export * from './directives/auto-grow/index';
 export * from './directives/click-outside/index';
 export * from './directives/drag/index';

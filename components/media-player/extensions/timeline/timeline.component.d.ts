@@ -5,11 +5,8 @@ export declare class MediaPlayerTimelineExtensionComponent extends MediaPlayerBa
     timelineRef: ElementRef;
     current: number;
     position: number;
-    duration: number;
     buffered: MediaPlayerBuffered[];
     mouseDown: boolean;
-    quietMode: boolean;
-    fullscreen: boolean;
     scrub: {
         visible: boolean;
         position: number;
@@ -19,7 +16,9 @@ export declare class MediaPlayerTimelineExtensionComponent extends MediaPlayerBa
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    updateScrub(event?: MouseEvent): void;
+    updateScrub(event: MouseEvent): void;
+    /** Skip a number of seconds in any direction */
+    skip(seconds: number): void;
 }
 export interface MediaPlayerBuffered {
     start: number;

@@ -149,9 +149,9 @@ export interface SliderHandleOptions {
     aria?: SliderAriaOptions;
 }
 export interface SliderAriaOptions {
-    thumb: string;
-    lowerThumb: string;
-    upperThumb: string;
+    thumb?: string;
+    lowerThumb?: string;
+    upperThumb?: string;
 }
 export interface SliderKeyboardOptions {
     major?: number;

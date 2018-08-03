@@ -10,18 +10,9 @@ export class MenuNavigationService {
     }
 }
 MenuNavigationService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-MenuNavigationService.ctorParameters = () => [];
 function MenuNavigationService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    MenuNavigationService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    MenuNavigationService.ctorParameters;
     /** @type {?} */
     MenuNavigationService.prototype.active$;
 }

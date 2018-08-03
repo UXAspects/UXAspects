@@ -13,6 +13,6 @@ export declare class NavigationMenuService implements INavigationMenuService {
 export declare function navigationMenuServiceFactory(injector: Injector): any;
 export declare const navigationMenuServiceProvider: {
     provide: string;
-    useFactory: (injector: Injector) => any;
+    useFactory: typeof navigationMenuServiceFactory;
     deps: string[];
 };

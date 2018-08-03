@@ -1,8 +1,32 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.5.17",
+  "version": "1.6.0",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "bundles/ux-aspects-ux-aspects.umd.js",
+  "files": [
+    "bundles/",
+    "components/",
+    "directives/",
+    "dist/",
+    "esm2015/",
+    "esm5/",
+    "fesm2015/",
+    "fesm5/",
+    "fonts/",
+    "hybrid/",
+    "img/",
+    "index.d.ts",
+    "less/",
+    "Licenses",
+    "ng1/",
+    "package.json",
+    "pipes/",
+    "README.md",
+    "services/",
+    "styles/",
+    "ux-aspects-ux-aspects.d.ts",
+    "ux-aspects-ux-aspects.metadata.json"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UXAspects/UXAspects.git"
@@ -39,19 +63,20 @@
     "ngx-mask": "^2.5.3",
     "angular-tree-component": "^5.2.0",
     "bootstrap": "^3.3.7",
-    "tslib": "^1.7.1"
+    "resize-observer-polyfill": "^1.5.0",
+    "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@types/chart.js": "^2.4.2",
     "@types/dragula": "^2.1.33"
   },
   "peerDependencies": {
-    "@angular/common": ">=4.0.0",
-    "@angular/compiler": ">=4.0.0",
-    "@angular/core": ">=4.0.0",
-    "@angular/forms": ">=4.0.0",
-    "@angular/upgrade": ">=4.0.0",
-    "@angular/animations": ">=4.0.0"
+    "@angular/common": ">=5.0.0",
+    "@angular/compiler": ">=5.0.0",
+    "@angular/core": ">=5.0.0",
+    "@angular/forms": ">=5.0.0",
+    "@angular/upgrade": ">=5.0.0",
+    "@angular/animations": ">=5.0.0"
   },
   "module": "fesm5/ux-aspects-ux-aspects.js",
   "es2015": "fesm2015/ux-aspects-ux-aspects.js",

@@ -28,18 +28,9 @@ export class FloatingActionButtonsService {
     }
 }
 FloatingActionButtonsService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-FloatingActionButtonsService.ctorParameters = () => [];
 function FloatingActionButtonsService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    FloatingActionButtonsService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    FloatingActionButtonsService.ctorParameters;
     /** @type {?} */
     FloatingActionButtonsService.prototype.open$;
 }

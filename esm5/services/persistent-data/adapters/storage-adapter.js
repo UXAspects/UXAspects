@@ -8,7 +8,7 @@
 var /**
  * @abstract
  */
-StorageAdapter = (function () {
+StorageAdapter = /** @class */ (function () {
     function StorageAdapter() {
     }
     return StorageAdapter;

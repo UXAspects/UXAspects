@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator } from './date-time-picker.utils';
-var DateTimePickerService = (function () {
+var DateTimePickerService = /** @class */ (function () {
     function DateTimePickerService(_config) {
         var _this = this;
         this._config = _config;
@@ -203,23 +203,16 @@ var DateTimePickerService = (function () {
         this.timezone$.next(timezone);
     };
     DateTimePickerService.decorators = [
-        { type: Injectable },
+        { type: Injectable }
     ];
     /** @nocollapse */
     DateTimePickerService.ctorParameters = function () { return [
-        { type: DateTimePickerConfig, },
+        { type: DateTimePickerConfig }
     ]; };
     return DateTimePickerService;
 }());
 export { DateTimePickerService };
 function DateTimePickerService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    DateTimePickerService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    DateTimePickerService.ctorParameters;
     /** @type {?} */
     DateTimePickerService.prototype.mode$;
     /** @type {?} */

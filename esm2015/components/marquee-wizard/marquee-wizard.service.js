@@ -16,18 +16,9 @@ export class MarqueeWizardService {
     }
 }
 MarqueeWizardService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-MarqueeWizardService.ctorParameters = () => [];
 function MarqueeWizardService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    MarqueeWizardService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    MarqueeWizardService.ctorParameters;
     /** @type {?} */
     MarqueeWizardService.prototype.valid$;
 }

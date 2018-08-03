@@ -48,18 +48,9 @@ export class DateTimePickerConfig {
     }
 }
 DateTimePickerConfig.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-DateTimePickerConfig.ctorParameters = () => [];
 function DateTimePickerConfig_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    DateTimePickerConfig.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    DateTimePickerConfig.ctorParameters;
     /** @type {?} */
     DateTimePickerConfig.prototype.showDate;
     /** @type {?} */

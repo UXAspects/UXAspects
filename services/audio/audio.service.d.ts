@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 export declare class AudioService {
     private _http;
@@ -7,7 +7,7 @@ export declare class AudioService {
     private _audioContext;
     private _gainNode;
     private _analyserNode;
-    constructor(_http: Http);
+    constructor(_http: HttpClient);
     getAudioFileMetadata(mediaElement: HTMLMediaElement): Observable<AudioMetadata>;
     getWaveformFromUrl(url: string): Observable<Float32Array[]>;
     getWaveformPoints(channels?: Float32Array[], skip?: number): WaveformPoint[];

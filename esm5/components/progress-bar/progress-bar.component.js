@@ -3,7 +3,7 @@
  * @suppress {checkTypes} checked by tsc
  */
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-var ProgressBarComponent = (function () {
+var ProgressBarComponent = /** @class */ (function () {
     function ProgressBarComponent() {
         this.value = 0;
         this.max = 100;
@@ -14,30 +14,19 @@ var ProgressBarComponent = (function () {
                     selector: 'ux-progress-bar',
                     template: "<div *ngIf=\"!indeterminate\" class=\"progressbar-track\" [style.width.%]=\"(value / max) * 100\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"indeterminate\" class=\"progressbar-track indeterminate\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>",
                     changeDetection: ChangeDetectionStrategy.OnPush
-                },] },
+                }] }
     ];
-    /** @nocollapse */
-    ProgressBarComponent.ctorParameters = function () { return []; };
     ProgressBarComponent.propDecorators = {
-        "value": [{ type: Input },],
-        "max": [{ type: Input },],
-        "indeterminate": [{ type: Input },],
-        "trackColor": [{ type: Input },],
-        "barColor": [{ type: Input },],
+        value: [{ type: Input }],
+        max: [{ type: Input }],
+        indeterminate: [{ type: Input }],
+        trackColor: [{ type: Input }],
+        barColor: [{ type: Input }]
     };
     return ProgressBarComponent;
 }());
 export { ProgressBarComponent };
 function ProgressBarComponent_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    ProgressBarComponent.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    ProgressBarComponent.ctorParameters;
-    /** @type {!Object<string,!Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
-    ProgressBarComponent.propDecorators;
     /** @type {?} */
     ProgressBarComponent.prototype.value;
     /** @type {?} */
@@ -50,4 +39,4 @@ function ProgressBarComponent_tsickle_Closure_declarations() {
     ProgressBarComponent.prototype.barColor;
 }
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJvZ3Jlc3MtYmFyLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B1eC1hc3BlY3RzL3V4LWFzcGVjdHMvIiwic291cmNlcyI6WyJjb21wb25lbnRzL3Byb2dyZXNzLWJhci9wcm9ncmVzcy1iYXIuY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLEtBQUssRUFBRSx1QkFBdUIsRUFBRSxNQUFNLGVBQWUsQ0FBQzs7O3FCQWE3QyxDQUFDO21CQUNILEdBQUc7NkJBQ1EsS0FBSzs7O2dCQWIxQyxTQUFTLFNBQUM7b0JBQ1AsUUFBUSxFQUFFLGlCQUFpQjtvQkFDM0IsUUFBUSxFQUFFLHFVQUtQO29CQUNILGVBQWUsRUFBRSx1QkFBdUIsQ0FBQyxNQUFNO2lCQUNsRDs7Ozs7MEJBRUksS0FBSzt3QkFDTCxLQUFLO2tDQUNMLEtBQUs7K0JBQ0wsS0FBSzs2QkFDTCxLQUFLOzsrQkFqQlY7O1NBWWEsb0JBQW9CIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ29tcG9uZW50LCBJbnB1dCwgQ2hhbmdlRGV0ZWN0aW9uU3RyYXRlZ3kgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuQENvbXBvbmVudCh7XG4gICAgc2VsZWN0b3I6ICd1eC1wcm9ncmVzcy1iYXInLFxuICAgIHRlbXBsYXRlOiBgPGRpdiAqbmdJZj1cIiFpbmRldGVybWluYXRlXCIgY2xhc3M9XCJwcm9ncmVzc2Jhci10cmFja1wiIFtzdHlsZS53aWR0aC4lXT1cIih2YWx1ZSAvIG1heCkgKiAxMDBcIiBbc3R5bGUuYmFja2dyb3VuZENvbG9yXT1cImJhckNvbG9yXCI+XG4gICAgPG5nLWNvbnRlbnQ+PC9uZy1jb250ZW50PlxuPC9kaXY+XG48ZGl2ICpuZ0lmPVwiaW5kZXRlcm1pbmF0ZVwiIGNsYXNzPVwicHJvZ3Jlc3NiYXItdHJhY2sgaW5kZXRlcm1pbmF0ZVwiIFtzdHlsZS5iYWNrZ3JvdW5kQ29sb3JdPVwiYmFyQ29sb3JcIj5cbiAgICA8bmctY29udGVudD48L25nLWNvbnRlbnQ+XG48L2Rpdj5gLFxuICAgIGNoYW5nZURldGVjdGlvbjogQ2hhbmdlRGV0ZWN0aW9uU3RyYXRlZ3kuT25QdXNoXG59KVxuZXhwb3J0IGNsYXNzIFByb2dyZXNzQmFyQ29tcG9uZW50IHtcbiAgICBASW5wdXQoKSB2YWx1ZTogbnVtYmVyID0gMDtcbiAgICBASW5wdXQoKSBtYXg6IG51bWJlciA9IDEwMDtcbiAgICBASW5wdXQoKSBpbmRldGVybWluYXRlOiBib29sZWFuID0gZmFsc2U7XG4gICAgQElucHV0KCkgdHJhY2tDb2xvcjogc3RyaW5nO1xuICAgIEBJbnB1dCgpIGJhckNvbG9yOiBzdHJpbmc7XG59XG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJvZ3Jlc3MtYmFyLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B1eC1hc3BlY3RzL3V4LWFzcGVjdHMvIiwic291cmNlcyI6WyJjb21wb25lbnRzL3Byb2dyZXNzLWJhci9wcm9ncmVzcy1iYXIuY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLEtBQUssRUFBRSx1QkFBdUIsRUFBRSxNQUFNLGVBQWUsQ0FBQzs7O3FCQVE3QyxDQUFDO21CQUNILEdBQUc7NkJBQ1EsS0FBSzs7O2dCQVIxQyxTQUFTLFNBQUM7b0JBQ1AsUUFBUSxFQUFFLGlCQUFpQjtvQkFDM0IsK1VBQTRDO29CQUM1QyxlQUFlLEVBQUUsdUJBQXVCLENBQUMsTUFBTTtpQkFDbEQ7Ozt3QkFFSSxLQUFLO3NCQUNMLEtBQUs7Z0NBQ0wsS0FBSzs2QkFDTCxLQUFLOzJCQUNMLEtBQUs7OytCQVpWOztTQU9hLG9CQUFvQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCwgSW5wdXQsIENoYW5nZURldGVjdGlvblN0cmF0ZWd5IH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbkBDb21wb25lbnQoe1xuICAgIHNlbGVjdG9yOiAndXgtcHJvZ3Jlc3MtYmFyJyxcbiAgICB0ZW1wbGF0ZVVybDogJy4vcHJvZ3Jlc3MtYmFyLmNvbXBvbmVudC5odG1sJyxcbiAgICBjaGFuZ2VEZXRlY3Rpb246IENoYW5nZURldGVjdGlvblN0cmF0ZWd5Lk9uUHVzaFxufSlcbmV4cG9ydCBjbGFzcyBQcm9ncmVzc0JhckNvbXBvbmVudCB7XG4gICAgQElucHV0KCkgdmFsdWU6IG51bWJlciA9IDA7XG4gICAgQElucHV0KCkgbWF4OiBudW1iZXIgPSAxMDA7XG4gICAgQElucHV0KCkgaW5kZXRlcm1pbmF0ZTogYm9vbGVhbiA9IGZhbHNlO1xuICAgIEBJbnB1dCgpIHRyYWNrQ29sb3I6IHN0cmluZztcbiAgICBASW5wdXQoKSBiYXJDb2xvcjogc3RyaW5nO1xufVxuIl19

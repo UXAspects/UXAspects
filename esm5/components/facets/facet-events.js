@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var FacetSelect = (function () {
+var FacetSelect = /** @class */ (function () {
     function FacetSelect(facet) {
         this.facet = facet;
     }
@@ -13,7 +13,7 @@ function FacetSelect_tsickle_Closure_declarations() {
     /** @type {?} */
     FacetSelect.prototype.facet;
 }
-var FacetDeselect = (function () {
+var FacetDeselect = /** @class */ (function () {
     function FacetDeselect(facet) {
         this.facet = facet;
     }
@@ -24,7 +24,7 @@ function FacetDeselect_tsickle_Closure_declarations() {
     /** @type {?} */
     FacetDeselect.prototype.facet;
 }
-var FacetDeselectAll = (function () {
+var FacetDeselectAll = /** @class */ (function () {
     function FacetDeselectAll() {
     }
     return FacetDeselectAll;

@@ -4,30 +4,23 @@
  */
 import { Directive } from '@angular/core';
 import { MediaPlayerService } from '../media-player.service';
-var MediaPlayerBaseExtensionDirective = (function () {
+var MediaPlayerBaseExtensionDirective = /** @class */ (function () {
     function MediaPlayerBaseExtensionDirective(mediaPlayerService) {
         this.mediaPlayerService = mediaPlayerService;
     }
     MediaPlayerBaseExtensionDirective.decorators = [
         { type: Directive, args: [{
                     selector: '[mediaPlayerBaseExtension]'
-                },] },
+                },] }
     ];
     /** @nocollapse */
     MediaPlayerBaseExtensionDirective.ctorParameters = function () { return [
-        { type: MediaPlayerService, },
+        { type: MediaPlayerService }
     ]; };
     return MediaPlayerBaseExtensionDirective;
 }());
 export { MediaPlayerBaseExtensionDirective };
 function MediaPlayerBaseExtensionDirective_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    MediaPlayerBaseExtensionDirective.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    MediaPlayerBaseExtensionDirective.ctorParameters;
     /** @type {?} */
     MediaPlayerBaseExtensionDirective.prototype.mediaPlayerService;
 }

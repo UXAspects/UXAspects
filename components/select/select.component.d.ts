@@ -34,10 +34,10 @@ export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, Co
     highlightedElement: HTMLElement;
     filter$: Observable<string>;
     propagateChange: (_: any) => void;
-    private _value;
+    private _value$;
     private _input$;
     private _dropdownOpen;
-    private _subscription;
+    private _onDestroy;
     constructor(_element: ElementRef, _document: any, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;

@@ -10,6 +10,6 @@ export declare class TimeAgoService implements ITimeAgoService {
 export declare function timeAgoServiceFactory(injector: Injector): any;
 export declare const timeAgoServiceProvider: {
     provide: string;
-    useFactory: (injector: Injector) => any;
+    useFactory: typeof timeAgoServiceFactory;
     deps: string[];
 };

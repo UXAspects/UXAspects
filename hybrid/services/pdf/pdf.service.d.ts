@@ -8,6 +8,6 @@ export declare class PdfService implements IPdfService {
 export declare function pdfServiceFactory(injector: Injector): any;
 export declare const pdfServiceProvider: {
     provide: string;
-    useFactory: (injector: Injector) => any;
+    useFactory: typeof pdfServiceFactory;
     deps: string[];
 };

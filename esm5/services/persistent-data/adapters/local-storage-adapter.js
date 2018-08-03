@@ -3,7 +3,7 @@
  * @suppress {checkTypes} checked by tsc
  */
 import { CookieAdapter } from './cookie-adapter';
-var LocalStorageAdapter = (function () {
+var LocalStorageAdapter = /** @class */ (function () {
     function LocalStorageAdapter() {
     }
     /**

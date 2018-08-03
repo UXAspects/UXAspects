@@ -11,18 +11,9 @@ export class TypeaheadService {
     }
 }
 TypeaheadService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-TypeaheadService.ctorParameters = () => [];
 function TypeaheadService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    TypeaheadService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    TypeaheadService.ctorParameters;
     /** @type {?} */
     TypeaheadService.prototype.open$;
     /** @type {?} */

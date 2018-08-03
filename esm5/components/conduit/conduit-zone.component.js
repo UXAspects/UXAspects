@@ -10,7 +10,7 @@ import { ConduitComponent } from './conduit.component';
 var /**
  * @abstract
  */
-ConduitZoneComponent = (function (_super) {
+ConduitZoneComponent = /** @class */ (function (_super) {
     tslib_1.__extends(ConduitZoneComponent, _super);
     function ConduitZoneComponent() {
         return _super !== null && _super.apply(this, arguments) || this;

@@ -1,14 +1,16 @@
-import { ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { SliderOptions } from '../../../slider/index';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 export declare class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, OnDestroy {
-    playing: boolean;
-    quietMode: boolean;
-    fullscreen: boolean;
     volumeActive: boolean;
-    volumeDragging: boolean;
-    volumeIcon: ElementRef;
-    volumeSlider: ElementRef;
-    volumeContainer: ElementRef;
+    volumeFocus: boolean;
+    returnFocus: boolean;
+    subtitlesId: string;
+    subtitlesOpen: boolean;
+    mouseEnterVolume: Subject<void>;
+    mouseLeaveVolume: Subject<void>;
+    options: SliderOptions;
     private _volume;
     private _previousVolume;
     private _onDestroy;
@@ -16,11 +18,9 @@ export declare class MediaPlayerControlsExtensionComponent extends MediaPlayerBa
     ngOnInit(): void;
     ngOnDestroy(): void;
     toggleMute(): void;
-    togglePlay(): void;
-    setFullscreen(): void;
     goToStart(): void;
     goToEnd(): void;
-    dragStart(event: MouseEvent): void;
-    dragMove(event: MouseEvent): void;
-    dragEnd(): void;
+    isSubtitleActive(): boolean;
+    setSubtitleTrack(track: TextTrack): void;
+    getSubtitleTrack(): string;
 }

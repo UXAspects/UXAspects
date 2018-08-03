@@ -1,10 +1,11 @@
-import { ElementRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadService } from './typeahead.service';
 export declare class TypeaheadComponent implements OnChanges, OnDestroy {
     typeaheadElement: ElementRef;
+    private _changeDetector;
     private _service;
     id: string;
     options: any[] | InfiniteScrollLoadFunction;
@@ -36,7 +37,7 @@ export declare class TypeaheadComponent implements OnChanges, OnDestroy {
     readonly highlighted: any;
     private _onDestroy;
     optionApi: TypeaheadOptionApi;
-    constructor(typeaheadElement: ElementRef, _service: TypeaheadService);
+    constructor(typeaheadElement: ElementRef, _changeDetector: ChangeDetectorRef, _service: TypeaheadService);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     mousedownHandler(): void;

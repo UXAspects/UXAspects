@@ -6,7 +6,7 @@ import * as tslib_1 from "tslib";
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ColorService } from '../../services/color/index';
-var NotificationService = (function () {
+var NotificationService = /** @class */ (function () {
     function NotificationService(_colorService) {
         this._colorService = _colorService;
         // provide default options
@@ -94,23 +94,16 @@ var NotificationService = (function () {
         this.notifications$.next(this.notifications$.getValue());
     };
     NotificationService.decorators = [
-        { type: Injectable },
+        { type: Injectable }
     ];
     /** @nocollapse */
     NotificationService.ctorParameters = function () { return [
-        { type: ColorService, },
+        { type: ColorService }
     ]; };
     return NotificationService;
 }());
 export { NotificationService };
 function NotificationService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    NotificationService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    NotificationService.ctorParameters;
     /** @type {?} */
     NotificationService.prototype.options;
     /** @type {?} */

@@ -62,19 +62,8 @@ export class PersistentDataService {
     }
 }
 PersistentDataService.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
-/** @nocollapse */
-PersistentDataService.ctorParameters = () => [];
-function PersistentDataService_tsickle_Closure_declarations() {
-    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
-    PersistentDataService.decorators;
-    /**
-     * @nocollapse
-     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
-     */
-    PersistentDataService.ctorParameters;
-}
 /** @enum {number} */
 const PersistentDataStorageType = {
     LocalStorage: 0,
