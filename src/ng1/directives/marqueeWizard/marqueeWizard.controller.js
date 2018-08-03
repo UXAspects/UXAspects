@@ -2,12 +2,24 @@ export default class MarqueeWizardCtrl {
 
   constructor($scope, $timeout) {
 
-    //watch for changes to the button options
-    $scope.$watch('buttonOptions', (nv, ov) => {
+    // watch for changes to the button options
+    const optionsWatcher = $scope.$watch('buttonOptions', (nv, ov) => {
       if (!angular.equals(nv, ov)) {
         this.updateButtonOptions();
       }
     }, true);
+
+    // watch for any changes to the visible steps
+    const stepWatcher = $scope.$watch(() => this.wizardSteps, () => this.updateButtonVisibility(), true);
+
+    // cleanup afterwards
+    $scope.$on('$destroy', () => {
+      // remove the options watcher
+      optionsWatcher();
+
+      // remove the step watcher
+      stepWatcher();
+    });
 
     // Delay initial setup until we have all the required values
     $timeout(() => this.initialise());
