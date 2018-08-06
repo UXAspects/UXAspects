@@ -1298,14 +1298,16 @@
                     "component": "ComponentsSingleSelectTableNg1Component",
                     "version": "AngularJS",
                     "hybrid": true,
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectListComponent"
                 },
                 {
                     "title": "Multiple Select Table",
                     "component": "ComponentsMultipleSelectTableNg1Component",
                     "version": "AngularJS",
                     "hybrid": true,
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectListComponent"
                 },
                 {
                     "title": "Select List",
