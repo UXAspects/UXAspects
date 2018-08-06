@@ -181,6 +181,10 @@ const ROUTES: Routes = [
         loadChildren: './select/select.module#SelectTestPageModule'
     },
     {
+        path: 'select-list',
+        loadChildren: './select-list/select-list.module#SelectListTestPageModule'
+    },
+    {
         path: 'selection',
         loadChildren: './selection/selection.module#SelectionTestPageModule'
     },

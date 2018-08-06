@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-5">
+        <input type="text" placeholder="Search..." class="form-control m-b" [(ngModel)]="query" (ngModelChange)="search()">
+
+        <ux-select-list class="select-table-example" [(selected)]="selected" [multiple]="multiple">
+            <ux-select-list-item *ngFor="let author of authors" [data]="author">
+                {{ author }}
+            </ux-select-list-item>
+        </ux-select-list>
+    </div>
+</div>
+
+<p>Selected items: <b>{{ selected.join(', ') }}</b></p>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="multiple">multiple</ux-checkbox>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>select-list</code> component can be used to allow users to select one or more items from a list.
+    The following can be used to customize and interact with the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="selected" type="any[]">
+        If specified, the items provided will be selected.
+    </tr>
+    <tr uxd-api-property name="multiple" type="boolean" defaultValue="false">
+        If <code>true</code>, multiple items can be selected by the user. If <code>false</code>, only one item can be selected at a time.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="any[]">
+        This event will emit any time the selection changes. The event will contain an array of the selected items.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The list items should be defined using a <code>ux-select-list-item</code> component.
+    The following can be used to configure the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="data" type="any">
+        This should define the data this item represents. This value will appear in the <code>selected</code> array whenever this item is selected.
+    </tr>
+</uxd-api-properties>
+
+
+<p>The sample code for the above example is:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
