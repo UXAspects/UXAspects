@@ -53,4 +53,8 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
             setTimeout(() => this._focusedElement.focus());
         }
     }
+
+    focusTabbableItem(): void {
+        this._tabbableList.focusTabbableItem();
+    }
 }

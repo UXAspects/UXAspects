@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app',
@@ -8,21 +9,16 @@ import { Component, AfterViewInit, TemplateRef, ViewChild } from '@angular/core'
 export class AppComponent implements AfterViewInit {
 
     cards: DragAndDropComponent[];
-
     list: DragAndDropComponent[];
-
     focus: DragAndDropComponent = null;
+    direction: string;
 
-    @ViewChild('dropdown')
-    dropdownTemplate: TemplateRef<any>;
+    @ViewChild('dropdown') dropdownTemplate: TemplateRef<any>;
+    @ViewChild('text') textTemplate: TemplateRef<any>;
+    @ViewChild('buttons') buttonsTemplate: TemplateRef<any>;
 
-    @ViewChild('text')
-    textTemplate: TemplateRef<any>;
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
 
-    @ViewChild('buttons')
-    buttonsTemplate: TemplateRef<any>;
-
-    constructor() {
         this.cards = [
             {
                 name: 'Actions',
@@ -58,6 +54,9 @@ export class AppComponent implements AfterViewInit {
         this.focus = item;
         event.preventDefault();
 
+        // announce the move
+        this._liveAnnouncer.announce('Item moved up.');
+
         // ngFor blurs the element when shifting up - we want to retain focus
         setTimeout(() => (<HTMLTableRowElement>event.target).focus());
     }
@@ -69,6 +68,9 @@ export class AppComponent implements AfterViewInit {
         collection[target] = item;
         this.focus = item;
         event.preventDefault();
+
+        // announce the move
+        this._liveAnnouncer.announce('Item moved down.');
     }
 
     toList(sourceCollection: DragAndDropComponent[], index: number, event: KeyboardEvent): void {
@@ -77,6 +79,9 @@ export class AppComponent implements AfterViewInit {
         sourceCollection.splice(index, 1);
         this.focus = item;
         event.preventDefault();
+
+        // announce the move
+        this._liveAnnouncer.announce('Item moved to list.');
     }
 
     toCard(sourceCollection: DragAndDropComponent[], index: number, event: KeyboardEvent): void {
@@ -85,6 +90,9 @@ export class AppComponent implements AfterViewInit {
         sourceCollection.splice(index, 1);
         this.focus = item;
         event.preventDefault();
+
+        // announce the move
+        this._liveAnnouncer.announce('Item moved to cards.');
     }
 }
 

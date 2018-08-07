@@ -1,46 +1,71 @@
 <div class="dnd-cards-demo">
 
-    <div class="dnd-cards-container card-view"
-        uxReorderable [(reorderableModel)]="cards" reorderableGroup="cards-demo">
+    <div role="list"
+        #cardContainer="ux-tabbable-list"
+        class="dnd-cards-container card-view"
+        uxReorderable
+        uxTabbableList
+        [allowAltModifier]="false"
+        [(reorderableModel)]="cards"
+        reorderableGroup="cards-demo">
 
-        <div *ngFor="let component of cards; let idx = index" class="card"
+        <div *ngFor="let component of cards; let idx = index"
+            class="card"
+            role="listitem"
+            uxTabbableListItem
             [uxReorderableModel]="component"
-            tabindex="0"
+            [attr.aria-label]="component.name"
             [focusIf]="component === focus"
-            (keydown.arrowup)="moveUp(cards, idx, $event)"
-            (keydown.arrowdown)="moveDown(cards, idx, $event)"
-            (keydown.arrowright)="toList(cards, idx, $event)">
+            (keydown.arrowright)="listContainer.focusTabbableItem()"
+            (keydown.alt.arrowup)="moveUp(cards, idx, $event)"
+            (keydown.alt.arrowdown)="moveDown(cards, idx, $event)"
+            (keydown.alt.arrowright)="toList(cards, idx, $event)">
 
             <div class="content">
-                <div uxReorderableHandle class="handle">
+                <div uxReorderableHandle class="handle" aria-hidden="true">
                     <span class="hpe-icon hpe-drag"></span>
                 </div>
+
                 <span class="hpe-icon" [ngClass]="component.icon"></span>
-                <div class="name">{{component.name}}</div>
-                <div class="type">{{component.type}}</div>
+                <div class="name">{{ component.name }}</div>
+                <div class="type">{{ component.type }}</div>
             </div>
 
         </div>
 
     </div>
 
-    <div class="dnd-list-container"
-        uxReorderable [(reorderableModel)]="list" reorderableGroup="cards-demo">
+    <div role="list"
+        #listContainer="ux-tabbable-list"
+        class="dnd-list-container"
+        uxReorderable
+        uxTabbableList
+        [allowAltModifier]="false"
+        [(reorderableModel)]="list"
+        reorderableGroup="cards-demo">
 
-        <div *ngFor="let component of list; let idx = index" class="demo-list-item"
+        <div *ngFor="let component of list; let idx = index"
+            #listItem="ux-tabbable-list-item"
+            role="listitem"
+            class="demo-list-item"
+            uxTabbableListItem
             [uxReorderableModel]="component"
-            tabindex="0"
+            [attr.aria-label]="component.name"
             [focusIf]="component === focus"
-            (keydown.arrowup)="moveUp(list, idx, $event)"
-            (keydown.arrowdown)="moveDown(list, idx, $event)"
-            (keydown.arrowleft)="toCard(list, idx, $event)">
+            (keydown.arrowleft)="cardContainer.focusTabbableItem()"
+            (keydown.alt.arrowup)="moveUp(list, idx, $event)"
+            (keydown.alt.arrowdown)="moveDown(list, idx, $event)"
+            (keydown.alt.arrowleft)="toCard(list, idx, $event)">
 
-            <div uxReorderableHandle class="handle">
+            <div uxReorderableHandle class="handle" aria-hidden="true">
                 <span class="hpe-icon hpe-drag"></span>
             </div>
-            <div class="title">{{component.name}}</div>
+
+            <div class="title">{{ component.name }}</div>
             <div class="component">
-                <ng-container *ngTemplateOutlet="component.content"></ng-container>
+                <ng-container
+                    *ngTemplateOutlet="component.content; context: { tabindex: listItem.tabindex }">
+                </ng-container>
             </div>
 
         </div>
@@ -49,30 +74,66 @@
 
 </div>
 
-<ng-template #dropdown>
-    <div class="btn-group" dropdown>
-        <button type="button" class="btn button-secondary">Action</button>
-        <button class="btn button-secondary dropdown-toggle" dropdownToggle
-            aria-label="Toggle Dropdown" aria-expanded="false">
+<ng-template #dropdown let-tabindex="tabindex">
+    <div class="btn-group" dropdown #dropdown="bs-dropdown">
+        <button type="button" class="btn button-secondary" [tabindex]="tabindex">Action</button>
+        <button class="btn button-secondary dropdown-toggle"
+            id="dropdown-btn"
+            [tabindex]="tabindex"
+            dropdownToggle
+            uxMenuNavigationToggle
+            #menuNavigationToggle="uxMenuNavigationToggle"
+            aria-label="Toggle Dropdown"
+            aria-haspopup="true"
+            [attr.aria-expanded]="dropdown.isOpen"
+            (keydown.enter)="dropdown.show()">
             <span class="hpe-icon hpe-down"></span>
         </button>
-        <ul class="dropdown-menu" role="menu" *dropdownMenu>
-            <li><a>Action</a></li>
-            <li><a>Another action</a></li>
+        <ul class="dropdown-menu"
+            aria-labelledby="dropdown-btn"
+            role="menu"
+            uxMenuNavigation
+            [toggleButton]="menuNavigationToggle"
+            toggleButtonPosition="top"
+            *dropdownMenu>
+            <li>
+                <a [tabindex]="tabindex"
+                   uxMenuNavigationItem
+                   (click)="dropdown.hide()">
+                   Action
+                </a>
+            </li>
+            <li>
+                <a [tabindex]="tabindex"
+                   uxMenuNavigationItem
+                   (click)="dropdown.hide()">
+                   Another action
+                </a>
+            </li>
         </ul>
     </div>
 </ng-template>
 
-<ng-template #text>
-    <textarea class="form-control" placeholder="Enter text" rows="4"></textarea>
+<ng-template #text let-tabindex="tabindex">
+    <textarea class="form-control" [tabindex]="tabindex" placeholder="Enter text" rows="4"></textarea>
 </ng-template>
 
-<ng-template #buttons>
+<ng-template #buttons let-tabindex="tabindex">
     <div class="btn-group">
-        <button type="button" class="btn button-toggle-primary" [(ngModel)]="direction" btnRadio="left">
+        <button type="button"
+            class="btn button-toggle-primary"
+            [(ngModel)]="direction"
+            btnRadio="left"
+            [tabindex]="tabindex"
+            [attr.aria-checked]="direction === 'left'">
             Left
         </button>
-        <button type="button" class="btn button-toggle-primary" [(ngModel)]="direction" btnRadio="right">
+        <button type="button"
+            class="btn button-toggle-primary"
+            [(ngModel)]="direction"
+            btnRadio="right"
+            [tabindex]="tabindex"
+            [attr.aria-checked]="direction === 'right'">
             Right
         </button>
     </div>

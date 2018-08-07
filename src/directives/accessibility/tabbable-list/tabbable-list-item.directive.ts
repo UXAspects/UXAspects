@@ -11,12 +11,14 @@ import { TabbableListService } from './tabbable-list.service';
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     @Input() disabled: boolean = false;
     @HostBinding() tabindex: number = -1;
+    initialized: boolean = false;
 
     private _onDestroy = new Subject<void>();
 
     constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {}
 
     ngOnDestroy(): void {
+
         // check if this is the currently focused item - if so we need to make another item tabbable
         if (this.tabindex === 0) {
             this._tabbableList.setFirstItemTabbable();
@@ -27,6 +29,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     }
 
     onInit(): void {
+        this.initialized = true;
+
         this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
     }
