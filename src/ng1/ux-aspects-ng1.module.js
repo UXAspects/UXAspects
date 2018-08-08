@@ -92,6 +92,7 @@ import './directives/spark/spark.module.js';
 import './directives/splitter/splitter.module.js';
 import './directives/staticTooltip/staticTooltip.module.js';
 import './directives/tagInput/tagInput.module.js';
+import './directives/templateOutlet/template-outlet.module';
 import './directives/thumbnail/thumbnail.module.js';
 import './directives/timeAgo/timeAgo.module.js';
 import './directives/toggleswitch/toggleswitch.module.js';
