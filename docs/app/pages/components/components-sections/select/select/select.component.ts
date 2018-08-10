@@ -56,13 +56,10 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
                 'SelectModule',
                 'CheckboxModule',
                 'RadioButtonModule',
-                'NumberPickerModule'
+                'NumberPickerModule',
+                'AccordionModule'
             ],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'ngx-bootstrap/accordion',
-            imports: ['AccordionModule'],
-            providers: ['AccordionModule.forRoot()']
         }]
     };
 

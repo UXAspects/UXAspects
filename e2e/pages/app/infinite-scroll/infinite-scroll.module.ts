@@ -1,18 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { InfiniteScrollModule, CheckboxModule, NumberPickerModule } from '../../../../dist';
-
-import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.testpage.component';
+import { AccordionModule, CheckboxModule, InfiniteScrollModule, NumberPickerModule } from '../../../../dist';
 import { InfiniteScrollFullscreenTestPageComponent } from './fullscreen/infinite-scroll-fullscreen.testpage.component';
+import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.testpage.component';
+
 
 @NgModule({
     imports: [
         CheckboxModule,
         NumberPickerModule,
-        AccordionModule.forRoot(),
+        AccordionModule,
         CommonModule,
         FormsModule,
         InfiniteScrollModule,
@@ -28,7 +27,7 @@ import { InfiniteScrollFullscreenTestPageComponent } from './fullscreen/infinite
         ])
     ],
     declarations: [
-        InfiniteScrollTestPageComponent, 
+        InfiniteScrollTestPageComponent,
         InfiniteScrollFullscreenTestPageComponent
     ]
 })

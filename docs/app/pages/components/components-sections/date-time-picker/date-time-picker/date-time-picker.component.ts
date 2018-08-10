@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { debounceTime } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { DateTimePickerTimezone } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -35,14 +35,9 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
             'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
-            { 
-                imports: ['DateTimePickerModule', 'CheckboxModule', 'PopoverModule'],
-                library: '@ux-aspects/ux-aspects'
-            },
             {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
+                imports: ['DateTimePickerModule', 'CheckboxModule', 'PopoverModule', 'AccordionModule'],
+                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

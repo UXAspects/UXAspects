@@ -39,8 +39,8 @@
     </div>
 </div>
 
-<accordion>
-    <accordion-group class="accordion-chevron" heading="Customize Example...">
+<ux-accordion>
+    <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
         <div class="row">
             <div class="col-md-4 col-sm-12">
                 <ux-checkbox [(value)]="addOnPaste">addOnPaste</ux-checkbox>
@@ -103,8 +103,8 @@
                     [disabled]="!typeaheadEnabled">up</ux-radio-button>
             </div>
         </div>
-    </accordion-group>
-</accordion>
+    </ux-accordion-panel>
+</ux-accordion>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
     <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>

@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ColorService, NotificationService } from '../../../../../../../src/index';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-notifications',
@@ -27,7 +27,7 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         this.colorService.getColor('warning').toHex(),
         this.colorService.getColor('critical').toHex()
     ];
-    
+
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -35,12 +35,8 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
             'app.component.css': this.snippets.raw.appCss,
         },
         modules: [{
-            imports: ['NotificationModule', 'NumberPickerModule', 'ColorServiceModule'],
+            imports: ['NotificationModule', 'NumberPickerModule', 'ColorServiceModule', 'AccordionModule'],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'ngx-bootstrap/accordion',
-            imports: ['AccordionModule'],
-            providers: ['AccordionModule.forRoot()']
         }]
     };
 

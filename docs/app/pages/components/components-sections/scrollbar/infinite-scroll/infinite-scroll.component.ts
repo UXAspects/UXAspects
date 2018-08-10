@@ -1,12 +1,10 @@
+import { Component } from '@angular/core';
 import 'chance';
-import {
-    BaseDocumentationSection
-} from '../../../../../components/base-documentation-section/base-documentation-section';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const chance = new Chance();
 
@@ -68,12 +66,8 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['InfiniteScrollModule', 'CheckboxModule', 'NumberPickerModule'],
+            imports: ['InfiniteScrollModule', 'CheckboxModule', 'NumberPickerModule', 'AccordionModule'],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'ngx-bootstrap/accordion',
-            imports: ['AccordionModule'],
-            providers: ['AccordionModule.forRoot()']
         }]
     };
 

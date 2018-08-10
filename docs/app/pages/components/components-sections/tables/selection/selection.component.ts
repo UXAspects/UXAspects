@@ -25,13 +25,8 @@ export class ComponentsSelectionComponent extends BaseDocumentationSection imple
         },
         modules: [
             {
-                imports: ['SelectionModule', 'CheckboxModule', 'RadioButtonModule'],
+                imports: ['SelectionModule', 'CheckboxModule', 'RadioButtonModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap',
-                forRoot: true
             }
         ]
     };

@@ -1,10 +1,10 @@
-import 'chance';
-import { BaseDocumentationSection} from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { Component } from '@angular/core';
+import 'chance';
 import { Subject } from 'rxjs/Subject';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
@@ -27,13 +27,8 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['VirtualScrollModule', 'CheckboxModule'],
+                imports: ['VirtualScrollModule', 'CheckboxModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
             }
         ]
     };
