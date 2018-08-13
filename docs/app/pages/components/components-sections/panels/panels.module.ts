@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ItemDisplayPanelModule } from '../../../../../../src/components/item-display-panel/index';
-import { AccordionModule, CheckboxModule, EboxModule, RadioButtonModule, SidePanelModule } from '../../../../../../src/index';
+import { AccessibilityModule, AccordionModule, CheckboxModule, EboxModule, RadioButtonModule, SidePanelModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -61,6 +61,7 @@ const ROUTES = [
         SparkModule,
         TabsModule.forRoot(),
         WrappersModule,
+        AccessibilityModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

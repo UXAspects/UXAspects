@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component } from '@angular/core';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -8,26 +8,14 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @Component({
     selector: 'uxd-item-display-panel-inline-component',
     templateUrl: './item-display-panel-inline.component.html',
-    styleUrls: ['./item-display-panel-inline.component.less'],
-    host: {
-        '(window:keydown.arrowup)': 'upArrow($event)',
-        '(window:keydown.arrowdown)': 'downArrow($event)'
-    }
+    styleUrls: ['./item-display-panel-inline.component.less']
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelInlineComponent')
 export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlunkProvider, AfterContentInit {
 
-    @ViewChild('modalDoc') modalDoc: TemplateRef<any>;
-    @ViewChild('modalPpt') modalPpt: TemplateRef<any>;
-    @ViewChild('modalPdf') modalPdf: TemplateRef<any>;
-
     visible: boolean = false;
-    selectedItem: DisplayPanelItem;
-    previousEnabled: boolean = true;
-    nextEnabled: boolean = true;
-    shadow: boolean = false;
-
     items: DisplayPanelItem[] = [];
+    selected: DisplayPanelItem;
 
     plunk: IPlunk = {
         files: {
@@ -46,24 +34,22 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
     }
 
     ngAfterContentInit(): void {
-        const extensions = ['.ppt', '.doc', '.pdf'];
-        const titles = ['Site Detail - UX Aspects (PPT)', 'Site Detail - UX Aspects (DOC)', 'Site Detail - UX Aspects (PDF)'];
-        const content = [this.modalPpt, this.modalDoc, this.modalPdf];
+        const extensions = ['ppt', 'doc', 'pdf'];
 
-        for (let i = 1; i < 10; i++) {
-            const idx = chance.integer({ min: 0, max: 2 });
+        for (let idx = 0; idx < 20; idx++) {
 
-            const item = {
-                id: i,
-                name: chance.name(),
-                dateString: chance.date({ string: true, american: false, year: 2017 }).toString(),
-                document: 'Document ' + i + extensions[idx],
-                extension: extensions[idx],
-                storage: chance.d100().toString(),
+            const extension = chance.pickone(extensions);
+
+            const item: DisplayPanelItem = {
+                id: idx,
+                author: chance.name(),
+                date: chance.date({ year: 2018, string: false }) as Date,
+                document: `Document ${idx}.${extension}`,
+                storage: chance.d100(),
                 active: chance.bool(),
                 panel: {
-                    title: titles[idx],
-                    content: content[idx]
+                    title: `Site Detail - UX Aspects (${extension.toUpperCase()})`,
+                    content: chance.paragraph()
                 }
             };
 
@@ -72,73 +58,48 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
     }
 
     selectItem(item: DisplayPanelItem): void {
-        this.shadow = true;
-        this.selectedItem = item;
-        this.updatePanel();
+        // this.shadow = true;
+        // this.selectedItem = item;
     }
 
     togglePanel(): void {
-        this.visible = !this.visible;
+        // this.visible = !this.visible;
     }
 
     previous(): void {
-        if (this.previousEnabled) {
-            let id = this.selectedItem.id - 1;
-            this.selectedItem = this.items[id - 1];
-            this.updatePanel();
-        }
+        // let id = this.selectedItem.id - 1;
+        // this.selectedItem = this.items[id - 1];
     }
 
     next(): void {
-        if (this.nextEnabled) {
-            let id = this.selectedItem.id + 1;
-            this.selectedItem = this.items[id - 1];
-            this.updatePanel();
-        }
+        // let id = this.selectedItem.id + 1;
+        // this.selectedItem = this.items[id - 1];
     }
 
     upArrow(event: KeyboardEvent): void {
-        if (this.visible) {
-            event.preventDefault();
-            this.previous();
-        }
+        // event.preventDefault();
+        // this.previous();
     }
 
     downArrow(event: KeyboardEvent): void {
-        if (this.visible) {
-            event.preventDefault();
-            this.next();
-        }
-    }
-
-    updatePanel(): void {
-
-        if (this.selectedItem.id < 10) {
-            this.nextEnabled = true;
-        } else {
-            this.nextEnabled = false;
-        }
-
-        if (this.selectedItem.id > 1) {
-            this.previousEnabled = true;
-        } else {
-            this.previousEnabled = false;
-        }
+        // if (this.visible) {
+        //     event.preventDefault();
+        //     this.next();
+        // }
     }
 }
 
 interface DisplayPanelItem {
     id: number;
-    name: string;
-    dateString: string;
     document: string;
-    extension: string;
-    storage: string;
+    author: string;
+    date: Date;
+    storage: number;
     active: boolean;
     panel: DisplayPanel;
 }
 
 interface DisplayPanel {
     title: string;
-    content: TemplateRef<any>;
+    content: string;
 }

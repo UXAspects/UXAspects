@@ -1,11 +1,10 @@
-import { ColorService } from './../../../../../../../src/services/color/color.service';
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { ItemDisplayPanelComponent } from '../../../../../../../src/index';
+import { ColorService } from './../../../../../../../src/services/color/color.service';
 
 @Component({
     selector: 'uxd-item-display-panel-component',
@@ -24,7 +23,6 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
     nextEnabled: boolean = true;
     shadow: boolean = true;
     animate: boolean = true;
-    
     sparkBarColor: string;
     sparkTrackColor: string;
 
@@ -102,7 +100,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item): void {
+    show($event: MouseEvent, item: Item): void {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
