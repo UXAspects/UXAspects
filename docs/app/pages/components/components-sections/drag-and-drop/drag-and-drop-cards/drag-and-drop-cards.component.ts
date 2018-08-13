@@ -1,8 +1,9 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-drag-and-drop-cards',
@@ -20,7 +21,7 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         },
         modules: [
             {
-                imports: ['FocusIfModule', 'ReorderableModule'],
+                imports: ['FocusIfModule', 'ReorderableModule', 'AccessibilityModule', 'MenuNavigationModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
@@ -33,25 +34,23 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
                 library: 'ngx-bootstrap/buttons',
                 forRoot: true
             },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y',
+            },
         ]
     };
 
     cards: DragAndDropComponent[];
-
     list: DragAndDropComponent[];
-
     focus: DragAndDropComponent = null;
+    direction: string;
 
-    @ViewChild('dropdown')
-    dropdownTemplate: TemplateRef<any>;
+    @ViewChild('dropdown') dropdownTemplate: TemplateRef<any>;
+    @ViewChild('text') textTemplate: TemplateRef<any>;
+    @ViewChild('buttons') buttonsTemplate: TemplateRef<any>;
 
-    @ViewChild('text')
-    textTemplate: TemplateRef<any>;
-
-    @ViewChild('buttons')
-    buttonsTemplate: TemplateRef<any>;
-
-    constructor() {
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.cards = [
@@ -89,6 +88,9 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         this.focus = item;
         event.preventDefault();
 
+        // announce the move
+        this._liveAnnouncer.announce('Item moved up.');
+
         // ngFor blurs the element when shifting up - we want to retain focus
         setTimeout(() => (<HTMLTableRowElement>event.target).focus());
     }
@@ -100,6 +102,9 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         collection[target] = item;
         this.focus = item;
         event.preventDefault();
+
+        // announce the move
+        this._liveAnnouncer.announce('Item moved down.');
     }
 
     toList(sourceCollection: DragAndDropComponent[], index: number, event: KeyboardEvent): void {
@@ -108,6 +113,9 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         sourceCollection.splice(index, 1);
         this.focus = item;
         event.preventDefault();
+
+        // announce the move
+        this._liveAnnouncer.announce('Item moved to list.');
     }
 
     toCard(sourceCollection: DragAndDropComponent[], index: number, event: KeyboardEvent): void {
@@ -116,6 +124,9 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
         sourceCollection.splice(index, 1);
         this.focus = item;
         event.preventDefault();
+
+        // announce the move
+        this._liveAnnouncer.announce('Item moved to cards.');
     }
 }
 

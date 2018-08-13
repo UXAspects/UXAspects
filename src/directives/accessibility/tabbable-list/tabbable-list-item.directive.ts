@@ -6,22 +6,32 @@ import { TabbableListService } from './tabbable-list.service';
 
 @Directive({
     selector: '[uxTabbableListItem]',
+    exportAs: 'ux-tabbable-list-item'
 })
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     @Input() disabled: boolean = false;
     @HostBinding() tabindex: number = -1;
+    initialized: boolean = false;
 
     private _onDestroy = new Subject<void>();
 
     constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {}
 
     ngOnDestroy(): void {
+
+        // check if this is the currently focused item - if so we need to make another item tabbable
+        if (this.tabindex === 0) {
+            this._tabbableList.setFirstItemTabbable();
+        }
+
         this._onDestroy.next();
         this._onDestroy.complete();
     }
 
     onInit(): void {
-        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(index => this._tabbableList.isItemActive(this)))
+        this.initialized = true;
+
+        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
     }
 
@@ -37,6 +47,12 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
+
+        // prevent anything happening when modifier keys are pressed if they have been disabled
+        if (!this._tabbableList.allowAltModifier && event.altKey || !this._tabbableList.allowCtrlModifier && event.ctrlKey) {
+            return;
+        }
+
         this._tabbableList.focusKeyManager.onKeydown(event);
     }
 }
