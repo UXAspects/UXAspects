@@ -1,6 +1,7 @@
 <div class="draggable-card-demo">
     <div class="ux-draggable-card-container"
          uxTabbableList
+         #list="ux-tabbable-list"
          [allowAltModifier]="false"
          direction="vertical"
          [wrap]="true">
@@ -41,15 +42,15 @@
                     {{ card.title }} <span class="text-muted">({{ card.count }})</span>
 
                     <button class="draggable-card-action"
-                    aria-label="Edit card"
-                    [tabindex]="tabbableItem.tabindex">
-                    <i class="hpe-icon hpe-edit"></i>
+                        aria-label="Edit card"
+                        [tabindex]="tabbableItem.tabindex">
+                        <i class="hpe-icon hpe-edit"></i>
                     </button>
                 </p>
 
                 <button class="draggable-card-action"
                     aria-label="Remove Card"
-                    (click)="remove(card)"
+                    (click)="remove(card, list)"
                     [tabindex]="tabbableItem.tabindex">
                     <i class="hpe-icon hpe-close"></i>
                 </button>

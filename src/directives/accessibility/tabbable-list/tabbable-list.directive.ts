@@ -1,3 +1,4 @@
+import { FocusKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit, ContentChildren, Directive, Input, OnDestroy, QueryList } from '@angular/core';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 import { TabbableListService } from './tabbable-list.service';
@@ -31,6 +32,10 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     @ContentChildren(TabbableListItemDirective, { descendants: true }) items: QueryList<TabbableListItemDirective>;
 
     private _focusedElement: HTMLElement;
+
+    get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {
+        return this._tabbableList.focusKeyManager;
+    }
 
     constructor(private _tabbableList: TabbableListService) {}
 

@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { ColorService } from '@ux-aspects/ux-aspects';
+import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
 import { ChartOptions } from 'chart.js';
 
 @Component({
@@ -100,12 +100,26 @@ export class AppComponent {
 
     constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {}
 
-    remove(card: DraggableCard): void {
+    remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
         // remove the card
         this.draggableCards = this.draggableCards.filter(_card => _card !== card);
 
         // announce the card has been removed
         this._liveAnnouncer.announce('Card has been removed');
+
+        // we want to focus the previous card
+        if (tabbableList.focusKeyManager) {
+
+            if (tabbableList.focusKeyManager.activeItemIndex > 0) {
+                tabbableList.focusKeyManager.setActiveItem(
+                    tabbableList.focusKeyManager.activeItemIndex - 1
+                );
+            } else {
+                tabbableList.focusKeyManager.setActiveItem(
+                    tabbableList.focusKeyManager.activeItemIndex + 1
+                );
+            }
+        }
     }
 
     move(card: DraggableCard, delta: number): void {

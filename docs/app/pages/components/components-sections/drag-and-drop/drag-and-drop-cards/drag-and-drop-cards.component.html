@@ -14,7 +14,7 @@
             role="listitem"
             uxTabbableListItem
             [uxReorderableModel]="component"
-            [attr.aria-label]="component.name"
+            attr.aria-label="{{ component.name }}. Press Alt up and alt down to reorder. Press Alt right to move to the list container."
             [focusIf]="component === focus"
             (keydown.arrowright)="listContainer.focusTabbableItem()"
             (keydown.alt.arrowup)="moveUp(cards, idx, $event)"
@@ -50,7 +50,7 @@
             class="demo-list-item"
             uxTabbableListItem
             [uxReorderableModel]="component"
-            [attr.aria-label]="component.name"
+            attr.aria-label="{{ component.name }}. Press Alt up and alt down to reorder. Press Alt left to move to the card container."
             [focusIf]="component === focus"
             (keydown.arrowleft)="cardContainer.focusTabbableItem()"
             (keydown.alt.arrowup)="moveUp(list, idx, $event)"

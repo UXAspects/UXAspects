@@ -1,5 +1,5 @@
 <div class="draggable-card-demo">
-	<div class="ux-draggable-card-container" uxTabbableList [allowAltModifier]="false" direction="vertical" [wrap]="true">
+	<div class="ux-draggable-card-container" uxTabbableList #list="ux-tabbable-list" [allowAltModifier]="false" direction="vertical" [wrap]="true">
 
     <!-- Fixed Cards -->
     <div class="ux-draggable-card right"
@@ -23,7 +23,7 @@
           uxFocusWithin
           #tabbableItem="ux-tabbable-list-item"
           *ngFor="let card of draggableCards"
-          attr.aria-label="{{ card.title }} {{ card.count }}. {{ card.subtitle }}"
+          attr.aria-label="{{ card.title }} {{ card.count }}. {{ card.subtitle }}. Press Alt up and alt down to reorder."
           [uxReorderableModel]="card"
           [class.active]="active === card"
           (click)="active = card"
@@ -46,7 +46,7 @@
 
             <button class="draggable-card-action"
               aria-label="Remove Card"
-              (click)="remove(card)"
+              (click)="remove(card, list)"
               [tabindex]="tabbableItem.tabindex">
               <i class="hpe-icon hpe-close"></i>
             </button>
