@@ -6,6 +6,9 @@
     [class.modal-panel]="modal"
     [style.position]="position"
     [style.width]="hostWidth"
-    [style.top]="cssTop">
+    [style.top]="cssTop"
+    [tabindex]="open ? 0 : -1"
+    [focusIf]="open && focusOnShow"
+    [cdkTrapFocus]="open && modal">
     <ng-content></ng-content>
 </div>

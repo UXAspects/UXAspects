@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FocusIfModule } from '../../directives/focus-if/focus-if.module';
 import { ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective } from './item-display-panel.component';
 
 const DECLARATIONS = [
@@ -10,7 +11,8 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        FocusIfModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

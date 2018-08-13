@@ -1,7 +1,7 @@
 <div class="ux-side-panel-inline-container demo-side-panel-container">
 
     <div class="demo-content">
-        <button type="button" class="btn button-primary"
+        <button #launch type="button" class="btn button-primary"
             (click)="open = !open; $event.stopPropagation()">
             Toggle Side Panel
         </button>
@@ -25,7 +25,7 @@
 
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
-            <button uxSidePanelClose type="button" class="btn btn-lg btn-link btn-icon button-secondary">
+            <button uxSidePanelClose (click)="launch.focus()" aria-label="Close Side Panel" type="button" class="btn btn-lg btn-link btn-icon button-secondary">
                 <span class="hpe-icon hpe-close"></span>
             </button>
         </div>
@@ -63,10 +63,10 @@
         </div>
 
         <div class="ux-side-panel-footer btn-container">
-            <button type="button" class="btn button-secondary" (click)="sidePanel.closePanel()">
+            <button type="button" class="btn button-secondary" (click)="sidePanel.closePanel(); launch.focus()">
                 Cancel
             </button>
-            <button type="button" class="btn button-primary" (click)="sidePanel.closePanel()">
+            <button type="button" class="btn button-primary" (click)="sidePanel.closePanel(); launch.focus()">
                 Save
             </button>
         </div>

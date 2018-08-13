@@ -1,9 +1,11 @@
 <button class="btn button-primary m-b-sm" (click)="togglePanel()">Toggle Preview</button>
 
 <div class="demo-attributes item-display-panel-inline-container item-display-panel-inline-demo">
-    
+
     <div class="table-responsive preview-pane-table-demo">
-        <table class="table table-hover item-display-panel-inline animate" [class.item-display-panel-visible]="visible">
+        <table class="table table-hover item-display-panel-inline animate"
+            [class.item-display-panel-visible]="visible">
+
             <thead>
                 <tr class="table-header-dark">
                     <th class="listview-document-th"></th>
@@ -14,8 +16,14 @@
                     <th class="text-center">STATUS</th>
                 </tr>
             </thead>
+
             <tbody>
-                <tr class="clickable single-select" [class.highlight]="item.id === selectedItem?.id && visible" *ngFor="let item of items" (click)="selectItem(item)">
+                <tr class="clickable single-select"
+                    [class.highlight]="item.id === selectedItem?.id && visible"
+                    [attr.aria-describedby]="item.id === selectedItem?.id && visible ? 'inline-display-panel' : null"
+                    *ngFor="let item of items"
+                    (click)="selectItem(item)">
+
                     <td class="text-center">
                         <div class="listview-page-icon"></div>
                     </td>
@@ -35,7 +43,17 @@
         </table>
     </div>
 
-    <ux-item-display-panel [boxShadow]="false" [preventClose]="true" [closeVisible]="false" [inline]="true" [(visible)]="visible" [shadow]="shadow" [header]="selectedItem?.panel.title" [animate]="true">
+    <ux-item-display-panel
+        id="inline-display-panel"
+        [boxShadow]="false"
+        [preventClose]="true"
+        [closeVisible]="false"
+        [inline]="true"
+        [focusOnShow]="false"
+        [(visible)]="visible"
+        [shadow]="shadow"
+        [header]="selectedItem?.panel.title"
+        [animate]="true">
 
         <div *ngIf="selectedItem" uxItemDisplayPanelContent>
             <div *ngTemplateOutlet="selectedItem?.panel.content"></div>

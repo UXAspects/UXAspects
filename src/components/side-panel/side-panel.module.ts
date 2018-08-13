@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
-
-import { SidePanelComponent } from './side-panel.component';
+import { NgModule } from '@angular/core';
+import { FocusIfModule } from '../../directives/focus-if/focus-if.module';
 import { SidePanelCloseDirective } from './side-panel-close.directive';
+import { SidePanelComponent } from './side-panel.component';
 
 const EXPORTS = [
     SidePanelComponent,
@@ -11,7 +12,9 @@ const EXPORTS = [
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        A11yModule,
+        FocusIfModule
     ],
     exports: EXPORTS,
     declarations: EXPORTS
