@@ -1,4 +1,4 @@
-import { AfterContentInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -11,7 +11,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./item-display-panel-inline.component.less']
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelInlineComponent')
-export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlunkProvider, AfterContentInit {
+export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     visible: boolean = false;
     items: DisplayPanelItem[] = [];
@@ -31,14 +31,10 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-
-    ngAfterContentInit(): void {
-        const extensions = ['ppt', 'doc', 'pdf'];
 
         for (let idx = 0; idx < 20; idx++) {
 
-            const extension = chance.pickone(extensions);
+            const extension = chance.pickone(['ppt', 'doc', 'pdf']);
 
             const item: DisplayPanelItem = {
                 id: idx,
@@ -55,37 +51,6 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
 
             this.items.push(item);
         }
-    }
-
-    selectItem(item: DisplayPanelItem): void {
-        // this.shadow = true;
-        // this.selectedItem = item;
-    }
-
-    togglePanel(): void {
-        // this.visible = !this.visible;
-    }
-
-    previous(): void {
-        // let id = this.selectedItem.id - 1;
-        // this.selectedItem = this.items[id - 1];
-    }
-
-    next(): void {
-        // let id = this.selectedItem.id + 1;
-        // this.selectedItem = this.items[id - 1];
-    }
-
-    upArrow(event: KeyboardEvent): void {
-        // event.preventDefault();
-        // this.previous();
-    }
-
-    downArrow(event: KeyboardEvent): void {
-        // if (this.visible) {
-        //     event.preventDefault();
-        //     this.next();
-        // }
     }
 }
 

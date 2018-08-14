@@ -8,3 +8,16 @@
     height: 800px;
     overflow-y: hidden;
 }
+
+.table thead th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+.preview-display {
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
