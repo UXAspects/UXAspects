@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SelectListModule } from '../../../../../../src/components/select-list/index';
-import { CheckboxModule, NumberPickerModule, RadioButtonModule, SelectModule, TabsetModule } from '../../../../../../src/index';
+import { CheckboxModule, HybridModule, NumberPickerModule, RadioButtonModule, SelectModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -48,7 +48,8 @@ const ROUTES = [
         WrappersModule,
         NumberPickerModule,
         SelectListModule,
-        TabsetModule
+        TabsetModule,
+        HybridModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
