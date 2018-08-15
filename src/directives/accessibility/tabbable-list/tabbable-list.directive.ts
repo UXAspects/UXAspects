@@ -1,3 +1,4 @@
+import { FocusKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit, ContentChildren, Directive, Input, OnDestroy, QueryList } from '@angular/core';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 import { TabbableListService } from './tabbable-list.service';
@@ -21,12 +22,22 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     /** Indicate whether or not focus should be returned to the previous element (only applicable when using focusOnShow) */
     @Input() returnFocus: boolean = false;
 
+    /** Prevent keyboard interaction when alt modifier key is pressed */
+    @Input() set allowAltModifier(value: boolean) { this._tabbableList.allowAltModifier = value; }
+
+    /** Prevent keyboard interaction when ctrl modifier key is pressed */
+    @Input() set allowCtrlModifier(value: boolean) { this._tabbableList.allowCtrlModifier = value; }
+
     /** Find all tabbable list items */
-    @ContentChildren(TabbableListItemDirective) items: QueryList<TabbableListItemDirective>;
+    @ContentChildren(TabbableListItemDirective, { descendants: true }) items: QueryList<TabbableListItemDirective>;
 
     private _focusedElement: HTMLElement;
 
-    constructor(private _tabbableList: TabbableListService) {}
+    get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {
+        return this._tabbableList.focusKeyManager;
+    }
+
+    constructor(private _tabbableList: TabbableListService) { }
 
     ngAfterContentInit(): void {
 
@@ -52,5 +63,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         if (this._tabbableList.focusKeyManager && this._tabbableList.focusKeyManager.activeItem) {
             this._tabbableList.focusKeyManager.activeItem.focus();
         }
+    }
+
+    focusTabbableItem(): void {
+        this._tabbableList.focusTabbableItem();
     }
 }
