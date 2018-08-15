@@ -1,7 +1,10 @@
-<ux-accordion [closeOthers]="true">
+<ux-accordion [collapseOthers]="true">
 
-    <ux-accordion-panel class="accordion-chevron" *ngFor="let group of groups" 
-                     [heading]="group.heading" [(isOpen)]="group.open">
+    <ux-accordion-panel
+        *ngFor="let group of groups"
+        class="accordion-chevron"
+        [heading]="group.heading"
+        [(expanded)]="group.open">
         <span>{{ group.content }}</span>
     </ux-accordion-panel>
 
