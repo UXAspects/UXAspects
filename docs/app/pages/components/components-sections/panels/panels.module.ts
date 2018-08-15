@@ -59,7 +59,7 @@ const ROUTES = [
         RadioButtonModule,
         SidePanelModule,
         SparkModule,
-        TabsModule.forRoot(),
+        TabsModule,
         WrappersModule,
         AccessibilityModule
     ],

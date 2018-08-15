@@ -38,7 +38,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         TabsetModule,
         CheckboxModule,
         CardTabsModule,

@@ -36,7 +36,7 @@ const ROUTES = [
         CheckboxModule,
         WrappersModule,
         DocumentationComponentsModule,
-        TabsModule.forRoot(),
+        TabsModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

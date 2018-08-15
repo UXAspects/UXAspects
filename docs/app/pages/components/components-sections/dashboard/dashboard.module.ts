@@ -26,7 +26,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule.forRoot(),
+        TabsModule,
         DashboardModule,
         SparkModule,
         ChartsModule,

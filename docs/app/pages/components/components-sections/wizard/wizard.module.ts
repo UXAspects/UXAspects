@@ -39,7 +39,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         AccordionModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
@@ -47,7 +47,7 @@ const ROUTES = [
         CheckboxModule,
         MarqueeWizardModule,
         ReactiveFormsModule,
-        ModalModule.forRoot(),
+        ModalModule,
         WizardModule
     ],
     exports: SECTIONS,

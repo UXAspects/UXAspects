@@ -7,6 +7,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { downgradeComponent, downgradeInjectable, UpgradeModule } from '@angular/upgrade/static';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { NgxMaskModule } from 'ngx-mask';
 import { PersistentDataService } from './../../src/services/persistent-data/persistent-data.service';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
@@ -41,6 +48,13 @@ const appRoutes: Routes = [
     DocumentationProvidersModule,
     WrappersModule,
     UpgradeModule,
+    BsDropdownModule.forRoot(),
+    ButtonsModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    TabsModule.forRoot(),
+    PaginationModule.forRoot(),
+    NgxMaskModule.forRoot(),
+    ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
   ],
   providers: [

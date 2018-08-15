@@ -42,7 +42,7 @@ const ROUTES = [
         FormsModule,
         NotificationModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         AccordionModule,
         NumberPickerModule,
         DocumentationComponentsModule,

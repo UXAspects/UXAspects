@@ -32,7 +32,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         FileUploadModule,
         ProgressBarModule,
         DocumentationComponentsModule,

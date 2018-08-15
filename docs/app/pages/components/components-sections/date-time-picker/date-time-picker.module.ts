@@ -45,7 +45,7 @@ const ROUTES = [
         NumberPickerModule,
         PopoverModule,
         RouterModule.forChild(ROUTES),
-        TabsModule.forRoot(),
+        TabsModule,
         TimePickerModule,
         WrappersModule,
     ],

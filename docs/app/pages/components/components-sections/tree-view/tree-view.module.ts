@@ -43,7 +43,7 @@ const ROUTES = [
         AccordionModule,
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         TreeModule,
         FormsModule,
         CheckboxModule,

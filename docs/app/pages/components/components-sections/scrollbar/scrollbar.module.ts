@@ -41,7 +41,7 @@ const ROUTES = [
         FormsModule,
         InfiniteScrollModule,
         RouterModule.forChild(ROUTES),
-        TabsModule.forRoot(),
+        TabsModule,
         NumberPickerModule,
         VirtualScrollModule,
         WrappersModule

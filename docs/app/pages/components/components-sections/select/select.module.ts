@@ -43,7 +43,7 @@ const ROUTES = [
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
         SelectModule,
-        TabsModule.forRoot(),
+        TabsModule,
         WrappersModule,
         NumberPickerModule,
         SelectListModule,

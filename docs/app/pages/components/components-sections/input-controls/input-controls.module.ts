@@ -69,7 +69,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         CheckboxModule,
         ToggleSwitchModule,
         RadioButtonModule,
@@ -88,7 +88,7 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         ReactiveFormsModule,
         AccordionModule,
-        NgxMaskModule.forRoot()
+        NgxMaskModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

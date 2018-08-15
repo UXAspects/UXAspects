@@ -50,7 +50,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        TabsModule.forRoot(),
+        TabsModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

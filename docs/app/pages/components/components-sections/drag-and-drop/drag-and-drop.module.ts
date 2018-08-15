@@ -42,13 +42,13 @@ const ROUTES = [
     imports: [
         CommonModule,
         FormsModule,
-        BsDropdownModule.forRoot(),
-        ButtonsModule.forRoot(),
+        BsDropdownModule,
+        ButtonsModule,
         ReorderableModule,
         FocusIfModule,
         WrappersModule,
         ChartsModule,
-        TabsModule.forRoot(),
+        TabsModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         ColorServiceModule
