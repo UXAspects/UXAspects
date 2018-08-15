@@ -1,9 +1,6 @@
-<div *ngIf="!indeterminate" class="progressbar-track" [style.width.%]="((value - min) / (max - min)) * 100" [style.backgroundColor]="barColor">
-    <ng-container *ngTemplateOutlet="content"></ng-container>
+<div *ngIf="!indeterminate" class="progressbar-track" [style.width.%]="(value / max) * 100" [style.backgroundColor]="barColor">
+    <ng-content></ng-content>
 </div>
 <div *ngIf="indeterminate" class="progressbar-track indeterminate" [style.backgroundColor]="barColor">
-    <ng-container *ngTemplateOutlet="content"></ng-container>
+    <ng-content></ng-content>
 </div>
-
-<!-- Workaround for Multiple ng-content tags issue: https://github.com/angular/angular/issues/22972 -->
-<ng-template #content><ng-content></ng-content></ng-template>
