@@ -1,6 +1,6 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TabbableListService } from './tabbable-list.service';
 
@@ -21,7 +21,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     }
 
     onInit(): void {
-        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(index => this._tabbableList.isItemActive(this)))
+        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), debounceTime(0), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
     }
 

@@ -1,178 +1,77 @@
-import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
-import { Component } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
+import { TabbableListItemDirective } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
-    host: {
-        '(window:keydown.arrowup)': 'upArrow($event)',
-        '(window:keydown.arrowdown)': 'downArrow($event)'
-    }
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-
     visible: boolean = false;
-    selectedItem: Item;
-    previousEnabled: boolean = true;
-    nextEnabled: boolean = true;
-    animate: boolean = true;
-    shadow: boolean = true;
-    
-    sparkBarColor: string;
-    sparkTrackColor: string;
+    selected: DisplayPanelItem;
+    items: DisplayPanelItem[] = [];
 
-    // templates
-    pdf = `<div class="p-r-md p-l-md p-t-sm">
-  <h1>Preview PDF</h1>
-  <p>Praesent venenatis eros vel felis vehicula dictum. Phasellus augue libero, vulputate euismod purus 
-  sed, dictum porta mauris. Nunc vitae purus vel velit dapibus porttitor et sagittis mauris. Etiam non 
-  semper odio, at ultricies velit. Duis non suscipit lectus, vitae fringilla turpis.</p>
-</div>`;
-
-    doc = `<div class="p-r-md p-l-md p-t-sm">
-  <h1>Preview DOC</h1>
-  <p>Donec sagittis augue et pellentesque ultrices. Nulla quis orci sit amet sem ornare auctor. Ut in 
-  lobortis turpis. Vivamus ante felis, viverra sed ornare ut, ultricies eget ipsum. 
-  Vivamus commodo convallis tortor.</p>
-</div>`;
-
-    ppt = `<div class="p-r-md p-l-md p-t-sm">
-  <h1>Preview PPT</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet faucibus 
-  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus 
-  interdum. Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum hendrerit ultrices.</p>
-</div>`;
-
-    items: Item[] = [{
-        id: 1,
-        name: chance.name(),
-        dateString: '3 Oct 2015',
-        document: 'Document 4.ppt',
-        extension: '.ppt',
-        storage: '95.25',
-        active: false,
-        panel: {
-            header: 'Site Detail - UX Aspects (PPT)',
-            content: this.ppt
-        }
-    }, {
-        id: 2,
-        name: chance.name(),
-        dateString: '3 Oct 2015',
-        document: 'Document 9.pdf',
-        extension: '.pdf',
-        storage: '15.25',
-        active: true,
-        panel: {
-            header: 'Site Detail - UX Aspects (PDF)',
-            content: this.pdf
-        }
-    }, {
-        id: 3,
-        name: chance.name(),
-        dateString: '3 Oct 2015',
-        document: 'Document 14.doc',
-        extension: '.doc',
-        storage: '25.25',
-        active: false,
-        panel: {
-            header: 'Site Detail - UX Aspects (DOC)',
-            content: this.doc
-        }
-    }, {
-        id: 4,
-        name: chance.name(),
-        dateString: '3 Oct 2015',
-        document: 'Document 29.pdf',
-        extension: '.pdf',
-        storage: '15.25',
-        active: true,
-        panel: {
-            header: 'Site Detail - UX Aspects (PDF)',
-            content: this.pdf
-        }
-    }, {
-        id: 5,
-        name: chance.name(),
-        dateString: '3 Oct 2015',
-        document: 'Document 34.doc',
-        extension: '.doc',
-        storage: '15.25',
-        active: false,
-        panel: {
-            header: 'Site Detail - UX Aspects (DOC)',
-            content: this.doc
-        }
-    }];
-
-    constructor(colorService: ColorService) {
-        this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
-        this.sparkBarColor = colorService.getColor('accent').toHex();
+    get isPreviousEnabled(): boolean {
+        return this.items.indexOf(this.selected) > 0;
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item): void {
-        $event.stopPropagation();
-        this.selectedItem = item;
-        this.updatePanel();
-        this.visible = true;
+    get isNextEnabled(): boolean {
+        return this.items.indexOf(this.selected) < this.items.length - 1;
+    }
+
+    @ViewChildren(TabbableListItemDirective) tabbableItems: QueryList<TabbableListItemDirective>;
+
+    constructor() {
+        for (let idx = 1; idx <= 5; idx++) {
+            const extension = chance.pickone(['ppt', 'pdf', 'doc']);
+
+            this.items.push({
+                author: chance.name(),
+                document: `Document ${idx}.${extension}`,
+                active: chance.bool(),
+                date: chance.date({ year: 2018, string: false }) as Date,
+                storage: chance.floating({ min: 10, max: 100, fixed: 2 }),
+                panel: {
+                    header: `Site Detail - UX Aspects (${extension.toUpperCase()})`,
+                    content: chance.paragraph()
+                }
+            });
+        }
     }
 
     previous(): void {
-        if (this.previousEnabled) {
-            let id = this.selectedItem.id - 1;
-            this.selectedItem = this.items[id - 1];
-            this.updatePanel();
+        if (this.isPreviousEnabled) {
+            // determine which item should be selected
+            const index = this.items.indexOf(this.selected) - 1;
+
+            // select the target item
+            this.selected = this.items[index];
+
+            // make the item focusable
+            this.tabbableItems.toArray()[index].focus();
         }
     }
 
     next(): void {
-        if (this.nextEnabled) {
-            let id = this.selectedItem.id + 1;
-            this.selectedItem = this.items[id - 1];
-            this.updatePanel();
+        if (this.isNextEnabled) {
+            // determine which item should be selected
+            const index = this.items.indexOf(this.selected) + 1;
+
+            // select the target item
+            this.selected = this.items[index];
+
+            // make the item focusable
+            this.tabbableItems.toArray()[index].focus();
         }
     }
-
-    upArrow(event: KeyboardEvent): void {
-        if (this.visible) {
-            event.preventDefault();
-            this.previous();
-        }
-    }
-
-    downArrow(event: KeyboardEvent): void {
-        if (this.visible) {
-            event.preventDefault();
-            this.next();
-        }
-    }
-
-    updatePanel(): void {
-
-        if (this.selectedItem.id < 5) {
-            this.nextEnabled = true;
-        } else {
-            this.nextEnabled = false;
-        }
-
-        if (this.selectedItem.id > 1) {
-            this.previousEnabled = true;
-        } else {
-            this.previousEnabled = false;
-        }
-    }
-
 }
 
-interface Item {
-    id: number;
-    name: string;
-    dateString: string;
+interface DisplayPanelItem {
+    author: string;
+    date: Date;
     document: string;
-    extension: string;
-    storage: string;
+    storage: number;
     active: boolean;
     panel: Panel;
 }

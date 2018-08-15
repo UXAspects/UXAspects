@@ -26,9 +26,11 @@ export class TabbableListService {
         }
 
         // make sure the first item in the list is tabbable
-        if (this._items.first) {
-            this._items.first.tabindex = 0;
-        }
+        setTimeout(() => {
+            if (!this._items.find(item => item.tabindex !== -1) && this._items.first) {
+                this._items.first.tabindex = 0;
+            }
+        });
 
         // call the init function on each item
         this._items.forEach(item => item.onInit());

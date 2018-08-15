@@ -10,39 +10,69 @@
                 <th class="text-center">STATUS</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody uxTabbableList #list="ux-tabbable-list">
             <tr class="clickable single-select"
-                [class.highlight]="item.id === selectedItem?.id && visible"
+                uxTabbableListItem
+                [class.highlight]="item === selected && visible"
                 *ngFor="let item of items"
-                (click)="show($event, item)">
+                (click)="selected = item; visible = true; $event.stopPropagation()"
+                (keydown.enter)="selected = item; visible = true"
+                (keydown.space)="selected = item; visible = true; $event.preventDefault()"
+                (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()">
 
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
                 </td>
                 <td class="listview-text-emphasis">{{ item.document }}</td>
+                <td>{{ item.author }}</td>
+                <td>{{ item.date | date: 'mediumDate' }}</td>
                 <td>
-                    <div>{{ item.name }}</div>
-                </td>
-                <td>{{ item.dateString }}</td>
-                <td>
-                    <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
+                    <ux-spark
+                        theme="accent"
+                        [value]="item.storage"
+                        [inlineLabel]="item.storage"
+                        [barHeight]="3">
+                    </ux-spark>
                 </td>
                 <td class="text-center vertical-center-icon">
-                    <div class="hpe-icon" [class.text-secondary]="item.active" [class.hpe-checkmark]="item.active"></div>
+                    <div class="hpe-icon"
+                        [class.text-secondary]="item.active"
+                        [class.hpe-checkmark]="item.active">
+                    </div>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<ux-item-display-panel [(visible)]="visible" [top]="53" [shadow]="shadow" [header]="selectedItem?.panel.header" [animate]="animate">
+<ux-item-display-panel
+    [(visible)]="visible"
+    (visibleChange)="visible === false ? list.focus() : null"
+    [top]="53"
+    [shadow]="true"
+    [header]="selected?.panel.header"
+    [animate]="true">
 
-    <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
+    <div class="preview-display" uxItemDisplayPanelContent>
+        <p>{{ selected?.panel.content }}</p>
+    </div>
 
     <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
         <span class="btn-pair">
-            <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
-            <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
+            <button #previousBtn
+                class="btn button-secondary"
+                [disabled]="!isPreviousEnabled"
+                (click)="previous(); previousBtn.focus()"
+                tabindex="0">
+                <i class="hpe-icon hpe-previous"></i> Previous
+            </button>
+            <button #nextBtn
+                class="btn button-secondary"
+                [disabled]="!isNextEnabled"
+                (click)="next(); nextBtn.focus()"
+                tabindex="0">
+                Next <i class="hpe-icon hpe-next"></i>
+            </button>
         </span>
     </div>
 
@@ -65,19 +95,19 @@
         The number of pixels from the top of the screen, this can be used to keep the item display panel below the page header.
     </tr>
     <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
-        Defines whether the item display panel will animate in and out from the side of the screen. 
+        Defines whether the item display panel will animate in and out from the side of the screen.
     </tr>
     <tr uxd-api-property name="shadow" type="boolean" defaultValue="false">
-        Defines whether the item display panel will have a rounded shadow visible under the header. 
+        Defines whether the item display panel will have a rounded shadow visible under the header.
     </tr>
     <tr uxd-api-property name="boxShadow" type="boolean" defaultValue="true">
         Defines whether the item display panel will have a box shadow.
     </tr>
     <tr uxd-api-property name="inline" type="boolean" defaultValue="false">
-        Defines whether the item display panel will be inline with the page content as opposed to coming in from the side of the screen .
+        Defines whether the item display panel will be inline with the page content as opposed to coming in from the side of the screen.
     </tr>
     <tr uxd-api-property name="preventClose" type="boolean" defaultValue="false">
-        Defines whether the item display panel should prevent closing when clicking outside the panel. 
+        Defines whether the item display panel should prevent closing when clicking outside the panel.
     </tr>
     <tr uxd-api-property name="closeVisible" type="boolean" defaultValue="true">
         Defines whether the close button should be visible on the item display panel.
@@ -108,5 +138,5 @@
     <tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </tab>
-    
+
 </tabset>

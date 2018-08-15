@@ -1,5 +1,5 @@
 import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
 
@@ -76,6 +76,6 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
     }
 
     ngOnInit() {
-        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
+        this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
     }
 }

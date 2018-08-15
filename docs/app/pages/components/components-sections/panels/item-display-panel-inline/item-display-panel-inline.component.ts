@@ -24,7 +24,7 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['ItemDisplayPanelModule', 'ColorServiceModule', 'SparkModule'],
+            imports: ['ItemDisplayPanelModule', 'ColorServiceModule', 'SparkModule', 'AccessibilityModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

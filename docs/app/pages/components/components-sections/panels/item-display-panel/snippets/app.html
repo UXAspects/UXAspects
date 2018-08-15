@@ -10,42 +10,68 @@
                 <th class="text-center">STATUS</th>
             </tr>
         </thead>
-        <tbody>
-            <tr class="clickable single-select" 
-            [class.highlight]="item.id === selectedItem?.id && visible" 
-            *ngFor="let item of items" (click)="show(panel, $event, item)">
+        <tbody uxTabbableList #list="ux-tabbable-list">
+            <tr class="clickable single-select"
+                uxTabbableListItem
+                [class.highlight]="item === selected && visible"
+                *ngFor="let item of items"
+                (click)="selected = item; visible = true; $event.stopPropagation()"
+                (keydown.enter)="selected = item; visible = true"
+                (keydown.space)="selected = item; visible = true; $event.preventDefault()"
+                (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()">
+
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
                 </td>
                 <td class="listview-text-emphasis">{{ item.document }}</td>
+                <td>{{ item.author }}</td>
+                <td>{{ item.date | date: 'mediumDate' }}</td>
                 <td>
-                    <div>{{ item.name }}</div>
-                </td>
-                <td>{{ item.dateString }}</td>
-                <td>
-                    <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" 
-                    [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
+                    <ux-spark
+                        theme="accent"
+                        [value]="item.storage"
+                        [inlineLabel]="item.storage"
+                        [barHeight]="3">
+                    </ux-spark>
                 </td>
                 <td class="text-center vertical-center-icon">
-                    <div class="hpe-icon" [class.text-secondary]="item.active" 
-                    [class.hpe-checkmark]="item.active"></div>
+                    <div class="hpe-icon"
+                        [class.text-secondary]="item.active"
+                        [class.hpe-checkmark]="item.active">
+                    </div>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<ux-item-display-panel [(visible)]="visible" [top]="53" [shadow]="shadow" 
-[header]="selectedItem?.panel.header" [animate]="animate">
+<ux-item-display-panel
+    [(visible)]="visible"
+    (visibleChange)="visible === false ? list.focus() : null"
+    [shadow]="true"
+    [header]="selected?.panel.header"
+    [animate]="true">
 
-    <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
+    <div class="preview-display" uxItemDisplayPanelContent>
+        <p>{{ selected?.panel.content }}</p>
+    </div>
 
     <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
         <span class="btn-pair">
-            <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" 
-            tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
-            <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" 
-            tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
+            <button #previousBtn
+                class="btn button-secondary"
+                [disabled]="!isPreviousEnabled"
+                (click)="previous(); previousBtn.focus()"
+                tabindex="0">
+                <i class="hpe-icon hpe-previous"></i> Previous
+            </button>
+            <button #nextBtn
+                class="btn button-secondary"
+                [disabled]="!isNextEnabled"
+                (click)="next(); nextBtn.focus()"
+                tabindex="0">
+                Next <i class="hpe-icon hpe-next"></i>
+            </button>
         </span>
     </div>
 

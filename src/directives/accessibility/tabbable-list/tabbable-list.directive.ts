@@ -4,6 +4,7 @@ import { TabbableListService } from './tabbable-list.service';
 
 @Directive({
     selector: '[uxTabbableList]',
+    exportAs: 'ux-tabbable-list',
     providers: [TabbableListService]
 })
 export class TabbableListDirective implements AfterContentInit, OnDestroy {
@@ -44,6 +45,12 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     ngOnDestroy(): void {
         if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
             setTimeout(() => this._focusedElement.focus());
+        }
+    }
+
+    focus(): void {
+        if (this._tabbableList.focusKeyManager && this._tabbableList.focusKeyManager.activeItem) {
+            this._tabbableList.focusKeyManager.activeItem.focus();
         }
     }
 }
