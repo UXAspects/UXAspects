@@ -1,5 +1,6 @@
 import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventEmitter, HostBinding, Input, OnDestroy, Output, QueryList } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionMode, SelectionService } from './selection.service';
 import { SelectionStrategy } from './strategies/selection.strategy';
@@ -21,15 +22,15 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
   }
 
   @Input() set mode(mode: SelectionMode | SelectionStrategy) {
-    this._selectionService.setMode(mode);
+    this._selectionService.setStrategy(mode);
   }
 
-  @Input() set clickSelection(enabled: boolean) {
-    this._selectionService.clickEnabled = enabled;
+  @Input() set clickSelection(isClickEnabled: boolean) {
+    this._selectionService.isClickEnabled = isClickEnabled;
   }
 
-  @Input() set keyboardSelection(enabled: boolean) {
-    this._selectionService.keyboardEnabled = enabled;
+  @Input() set keyboardSelection(isKeyboardEnabled: boolean) {
+    this._selectionService.isKeyboardEnabled = isKeyboardEnabled;
   }
 
   @Input() @HostBinding('attr.tabindex') tabindex: number = null;
@@ -38,10 +39,10 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
 
   @ContentChildren(SelectionItemDirective) items: QueryList<SelectionItemDirective>;
 
-  private _subscriptions = new Subscription();
+  private _onDestroy = new Subject<void>();
 
   constructor(private _selectionService: SelectionService, private _cdRef: ChangeDetectorRef) {
-    this._subscriptions.add(_selectionService.selection$.subscribe(items => this.uxSelectionChange.emit(items)));
+    _selectionService.selection$.pipe(takeUntil(this._onDestroy)).subscribe(items => this.uxSelectionChange.emit(items));
   }
 
   ngAfterContentInit(): void {
@@ -49,14 +50,15 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this.update();
 
     // if the list changes then inform the service
-    this._subscriptions.add(this.items.changes.subscribe(() => this.update()));
+    this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.update());
 
     // The above could trigger a change in the computed tabindex for selection items
     this._cdRef.detectChanges();
   }
 
   ngOnDestroy(): void {
-    this._subscriptions.unsubscribe();
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 
   /**
@@ -67,8 +69,8 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this._selectionService.dataset = this.items.map(item => item.uxSelectionItem);
 
     // Make sure that a tab target has been defined so that the component can be tabbed to.
-    if (this._selectionService.focusTarget$.getValue() === null && this._selectionService.dataset.length > 0) {
-      this._selectionService.focusTarget$.next(this._selectionService.dataset[0]);
+    if (this._selectionService.focus$.getValue() === null && this._selectionService.dataset.length > 0) {
+      this._selectionService.focus$.next(this._selectionService.dataset[0]);
     }
   }
 
@@ -76,7 +78,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
    * Select all the items in the list
    */
   selectAll(): void {
-    if (this._selectionService.enabled) {
+    if (this._selectionService.isEnabled) {
       this._selectionService.strategy.selectAll();
     }
   }
@@ -85,7 +87,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
    * Deselect all currently selected items
    */
   deselectAll(): void {
-    if (this._selectionService.enabled) {
+    if (this._selectionService.isEnabled) {
       this._selectionService.strategy.deselectAll();
     }
   }

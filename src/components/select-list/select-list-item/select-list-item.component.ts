@@ -1,8 +1,7 @@
-import { FocusableOption } from '@angular/cdk/a11y';
-import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { debounceTime, map, takeUntil } from 'rxjs/operators';
+import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { SelectListService } from '../select-list.service';
+import { SelectionService } from '../../../directives/selection/selection.service';
 
 @Component({
     selector: 'ux-select-list-item',
@@ -11,24 +10,33 @@ import { SelectListService } from '../select-list.service';
         role: 'listitem'
     }
 })
-export class SelectListItemComponent implements OnInit, OnDestroy, FocusableOption {
+export class SelectListItemComponent implements OnDestroy {
 
     @Input() data: any;
     @HostBinding('tabindex') tabindex: number = -1;
-    @HostBinding('class.selected') @HostBinding('attr.aria-selected') isSelected: boolean = false;
+
+    @HostBinding('class.selected')
+    @HostBinding('attr.aria-selected')
+    set selected(isSelected: boolean) {
+        isSelected ? this._selection.select(this.data) : this._selection.deselect(this.data);
+    }
+
+    get selected(): boolean {
+        return this._selection.isSelected(this.data);
+    }
 
     private _onDestroy = new Subject<void>();
 
-    constructor(private _selectTable: SelectListService, private _elementRef: ElementRef) { }
+    constructor(private _selection: SelectionService, elementRef: ElementRef) {
 
-    ngOnInit(): void {
+        _selection.active$.pipe(takeUntil(this._onDestroy), filter(data => data === this.data)).subscribe(active => {
+            _selection.focus$.next(active);
+            elementRef.nativeElement.focus();
+        });
 
-        // watch for changes to the selected state
-        this._selectTable.selected$.pipe(takeUntil(this._onDestroy), map((selected: any[]) => selected.indexOf(this.data) !== -1))
-            .subscribe(isSelected => this.isSelected = isSelected);
-
-        // watch for changes to the focus item - debounce to avoid expression has changed after check warning
-        this._selectTable.focused$.pipe(debounceTime(1), takeUntil(this._onDestroy)).subscribe(active => this.tabindex = active === this ? 0 : -1);
+        // make this item tabbable or not based on the focused element
+        _selection.focus$.pipe(takeUntil(this._onDestroy))
+            .subscribe(focused => this.tabindex = focused === this.data ? 0 : -1);
     }
 
     ngOnDestroy(): void {
@@ -36,21 +44,18 @@ export class SelectListItemComponent implements OnInit, OnDestroy, FocusableOpti
         this._onDestroy.complete();
     }
 
-    @HostListener('focus')
-    focus(): void {
-        this._elementRef.nativeElement.focus();
-        this._selectTable.focus(this);
+    @HostListener('mousedown', ['$event'])
+    onMouseDown(event: MouseEvent): void {
+        this._selection.strategy.mousedown(event, this.data);
     }
 
-    @HostListener('click')
-    @HostListener('keydown.enter')
-    select(): void {
-        // select or deselect the item accordingly
-        this.isSelected ? this._selectTable.deselect(this.data) : this._selectTable.select(this.data);
+    @HostListener('click', ['$event'])
+    onClick(event: MouseEvent): void {
+        this._selection.strategy.click(event, this.data);
     }
 
     @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
-        this._selectTable.onKeydown(event);
+        this._selection.strategy.keydown(event, this.data);
     }
 }

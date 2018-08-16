@@ -1,4 +1,4 @@
-import { KeyCode } from './keycode.enum';
+import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionStrategy } from './selection.strategy';
 
 export class SimpleSelectionStrategy extends SelectionStrategy {
@@ -6,7 +6,7 @@ export class SimpleSelectionStrategy extends SelectionStrategy {
   /**
    * When the item is clicked simply toggle the current selected state
    */
-  click(event: MouseEvent, data: any): void {
+  click(_event: MouseEvent, data: any): void {
     this.toggle(data);
   }
 
@@ -16,17 +16,17 @@ export class SimpleSelectionStrategy extends SelectionStrategy {
    */
   keydown(event: KeyboardEvent, data: any): void {
 
-    switch (event.keyCode) {
+    switch (event.which) {
 
-      case KeyCode.UpArrow:
+      case UP_ARROW:
         event.preventDefault();
         return this.selectionService.activateSibling(true);
 
-      case KeyCode.DownArrow:
+      case DOWN_ARROW:
         event.preventDefault();
         return this.selectionService.activateSibling(false);
 
-      case KeyCode.Spacebar:
+      case SPACE:
         event.preventDefault();
         return this.toggle(data);
     }
