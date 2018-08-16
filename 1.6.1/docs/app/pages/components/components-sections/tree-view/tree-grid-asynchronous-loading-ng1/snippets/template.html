@@ -1,0 +1,5 @@
+<div class="btn-group" ng-click="$event.stopPropagation()" ng-if="item.type !== 'folder'">
+    <button type="button" class="btn btn-sm button-toggle-primary" ng-model="item.priority" btn-radio="'Low'">Low</button>
+    <button type="button" class="btn btn-sm button-toggle-primary" ng-model="item.priority" btn-radio="'Medium'">Medium</button>
+    <button type="button" class="btn btn-sm button-toggle-primary" ng-model="item.priority" btn-radio="'High'">High</button>
+</div>
