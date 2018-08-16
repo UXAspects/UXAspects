@@ -6,6 +6,7 @@ export declare class TabbableListItemDirective implements FocusableOption, OnDes
     private _elementRef;
     disabled: boolean;
     tabindex: number;
+    initialized: boolean;
     private _onDestroy;
     constructor(_tabbableList: TabbableListService, _elementRef: ElementRef);
     ngOnDestroy(): void;

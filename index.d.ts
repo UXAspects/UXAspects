@@ -22,6 +22,7 @@ export * from './components/popover/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
 export * from './components/search-builder/index';
+export * from './components/select-list/index';
 export * from './components/select/index';
 export * from './components/side-panel/index';
 export * from './components/slider/index';

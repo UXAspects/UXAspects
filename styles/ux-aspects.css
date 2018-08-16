@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.6.0 
+* @ux-aspects/ux-aspects-docs - v1.6.1 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -9693,6 +9693,8 @@ Wizard
 }
 .marquee-wizard-user {
   background: url(../img/IconUser.png) no-repeat;
+}
+.marquee-wizard-icon {
   height: 48px;
 }
 .marquee-wizard-text {
@@ -11790,6 +11792,10 @@ p.no-margin {
 }
 .ux-draggable-card.active.left:after {
   border-right-color: #fff;
+}
+.ux-draggable-card:focus {
+  outline: none;
+  box-shadow: 0 0 1px 1px #00a7a2;
 }
 .ellipsis {
   white-space: nowrap;
@@ -16653,6 +16659,8 @@ ux-notification-list .notification .dismiss {
   top: 3px;
   cursor: pointer;
   transition: opacity 0.3s linear;
+  background-color: transparent;
+  border: none;
 }
 ux-notification-list .notification .dismiss:hover {
   opacity: 0.8;
@@ -17302,6 +17310,25 @@ ux-select ux-tag-input {
 }
 ux-select ux-tag-input ux-typeahead {
   font-size: initial;
+}
+ux-select-list {
+  display: block;
+  border: 2px solid #f5f5f5;
+  padding-top: 5px;
+  overflow-y: auto;
+}
+ux-select-list-item {
+  display: flex;
+  padding: 5px 10px;
+  cursor: pointer;
+  align-items: center;
+}
+ux-select-list-item:hover {
+  background-color: #f5f5f5;
+}
+ux-select-list-item.selected {
+  font-weight: 600;
+  background-color: #f5f5f5;
 }
 .ux-side-panel.open > .ux-side-panel-host {
   box-shadow: 1px 0 20px 0 rgba(51, 51, 51, 0.4);
