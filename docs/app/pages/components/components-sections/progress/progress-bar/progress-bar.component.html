@@ -1,5 +1,5 @@
 <ux-progress-bar class="m-b-md" [value]="value" max="100">
-    <span>{{ value }}%</span>
+    <span aria-hidden="true">{{ value }}%</span>
 </ux-progress-bar>
 
 <button type="button" class="btn btn-primary" (click)="randomize()">Random</button>
@@ -11,9 +11,16 @@
     bar by adding HTML inside the <code>ux-progress-bar</code> tag. The following attributes can be used to configure the appearance and behavior of the progress bar:
 </p>
 
+<p>
+    Additional contextual information can be provided to screen readers by adding an <code>aria-valuetext</code> attribute to the <code>ux-progress-bar</code>.
+</p>
+
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="value" type="number">
         The value the bar should represent. This will be compared to the <code>max</code> value to determine the width of the bar.
+    </tr>
+    <tr uxd-api-property name="min" type="number" defaultValue="0">
+        The lower limit of the bar.
     </tr>
     <tr uxd-api-property name="max" type="number" defaultValue="100">
         The upper limit of the bar.
@@ -22,7 +29,7 @@
         The color of the track.
     </tr>
     <tr uxd-api-property name="barColor" type="string" defaultValue="accent">
-        The color of the bar. 
+        The color of the bar.
     </tr>
 </uxd-api-properties>
 
