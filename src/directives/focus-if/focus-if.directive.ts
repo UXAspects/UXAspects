@@ -6,6 +6,7 @@ import { Directive, ElementRef, Input } from '@angular/core';
 export class FocusIfDirective {
 
     @Input() focusIfDelay: number = 0;
+    @Input() focusIfScroll: boolean = true;
 
     @Input()
     set focusIf(focus: boolean) {
@@ -18,7 +19,7 @@ export class FocusIfDirective {
 
         if (focus && this._timeout === null) {
             this._timeout = window.setTimeout(() => {
-                this._elementRef.nativeElement.focus();
+                this._elementRef.nativeElement.focus({ preventScroll: !this.focusIfScroll });
                 this._timeout = null;
             }, this.focusIfDelay);
         }

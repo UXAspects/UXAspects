@@ -9,6 +9,7 @@
     [style.top]="cssTop"
     [tabindex]="open ? 0 : -1"
     [focusIf]="open && focusOnShow"
+    [focusIfScroll]="false"
     [cdkTrapFocus]="open && modal">
     <ng-content></ng-content>
 </div>

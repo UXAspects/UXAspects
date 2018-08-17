@@ -15,7 +15,8 @@
 
     <ux-side-panel #sidePanel="ux-side-panel"
         [(open)]="open"
-        (openChange)="announce($event)"
+        (openChange)="$event ? announce($event) : launch.focus(); announce($event)"
+        [focusOnShow]="true"
         [inline]="inline"
         [attachTo]="attachTo"
         [top]="top"
@@ -27,7 +28,6 @@
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
             <button uxSidePanelClose
-                (click)="launch.focus()"
                 aria-label="Close Side Panel"
                 type="button"
                 class="btn btn-lg btn-link btn-icon button-secondary">
@@ -68,12 +68,10 @@
         </div>
 
         <div class="ux-side-panel-footer btn-container">
-            <button type="button" class="btn button-secondary"
-                (click)="sidePanel.closePanel(); launch.focus()">
+            <button type="button" class="btn button-secondary" (click)="sidePanel.closePanel()">
                 Cancel
             </button>
-            <button type="button" class="btn button-primary"
-                (click)="sidePanel.closePanel(); launch.focus()">
+            <button type="button" class="btn button-primary" (click)="sidePanel.closePanel()">
                 Save
             </button>
         </div>
