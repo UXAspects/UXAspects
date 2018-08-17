@@ -1,4 +1,4 @@
-import { KeyCode } from './keycode.enum';
+import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionStrategy } from './selection.strategy';
 
 export class RowSelectionStrategy extends SelectionStrategy {
@@ -45,15 +45,15 @@ export class RowSelectionStrategy extends SelectionStrategy {
    */
   keydown(event: KeyboardEvent, data: any): void {
 
-    switch (event.keyCode) {
+    switch (event.which) {
 
-      case KeyCode.UpArrow:
-      case KeyCode.DownArrow:
+      case UP_ARROW:
+      case DOWN_ARROW:
         event.preventDefault();
         this.navigate(event, data);
         break;
 
-      case KeyCode.Spacebar:
+      case SPACE:
         event.preventDefault();
         this.selectionService.strategy.toggle(data, true);
         break;
@@ -192,7 +192,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
     }
 
     // activate the sibling - if the up arrow is pressed then navigate to the previous sibling
-    const sibling = this.selectionService.activateSibling(event.keyCode === KeyCode.UpArrow);
+    const sibling = this.selectionService.activateSibling(event.which === UP_ARROW);
 
     // if the shift key is pressed then we also want to toggle the state if the item
     if (shiftKey && sibling) {

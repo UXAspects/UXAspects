@@ -1,165 +1,230 @@
-selectTableCtrl.$inject = ["$timeout", "$scope", "$filter"];
+export default class SelectTableController {
 
-export default function selectTableCtrl($timeout, $scope, $filter) {
-    var vm = this;
+    /**
+     * @param {ng.ITimeoutService} $timeout
+     * @param {ng.IScope} $scope
+     */
+    constructor($timeout, $scope) {
+        this.$timeout = $timeout;
+        this.$scope = $scope;
 
-    // initial delay to ensue we have all the values we need
-    $timeout(initialise.bind(vm));
-
-    function initialise() {
-
-        vm.tableHeight = vm.tableHeight || "300px";
-        vm.displayVals = vm.values;
-    
-        if (vm.multipleSelect) {
-            vm.selected = vm.selected || [];
-        }
-    
-        vm.reselectFilteredItems = vm.selectHiddenItems === "reselect";
-        vm.selectFilteredItems = !(vm.selectHiddenItems === "clear" || vm.selectHiddenItems === "reselect");
-    
-        vm.previouslySelected = null;
-    
-        $scope.$watch('vm.values', updateValues, true);
-        $scope.$watch('vm.searchText', updateValues);
+        // initialise once we have the necessary properties
+        $timeout(() => this.onInit());
     }
 
+    /**
+     * Initialise the select table component once we have all the initial values
+     */
+    onInit() {
 
-    vm.displayFn = function(value) {
-        return vm.selectKey ? value[vm.selectKey] : value;
-    };
+        /** @type {*[]} */
+        this.values = this.values;
 
-    vm.isselected = function(item) {
-        var select_val = vm.selected;
+        /** @type {*[]} */
+        this.visibleValues = this.values.slice();
 
-        // if the selected value is a string
-        if (!vm.multipleSelect) {
-            return item === select_val;
-        } else {
-            var found = false;
+        /** @type {(Readonly<any> | ReadonlyArray<any>)} */
+        this.selected = this.multipleSelect ? this.selected || [] : this.selected;
 
-            for (var i = 0; i < select_val.length; i++) {
+        /** @private @type {boolean} */
+        this._reselectFilteredItems = this.selectHiddenItems === 'reselect';
 
-                if (angular.equals(select_val[i], item)) {
-                    found = true;
-                    break;
-                }
-            }
-            return found;
-        }
-    };
+        /** @private @type {boolean} */
+        this._keepFilteredItemsSelected = this.selectHiddenItems !== 'clear' && this.selectHiddenItems !== 'reselect';
 
-    function updateScrollbar() {
+        /** @private @type {*} */
+        this._filteredSelection = null;
+
+        /** @private @type {*} */
+        this._lastSelection = null;
+
+        /** @private */
+        this._valueWatch = this.$scope.$watch(() => this.values, this.filter.bind(this), true);
+
+        /** @private */
+        this._searchWatch = this.$scope.$watch(() => this.searchText, this.filter.bind(this));
+
+        // cleanup after the component has been destroyed
+        this.$scope.$on('$destroy', () => this.onDestroy());
+    }
+
+    /**
+     * Remove all watches
+     */
+    onDestroy() {
+        this._valueWatch();
+        this._searchWatch();
+    }
+
+    /**
+     * Get the property that should be displayed in the list
+     * @param {*} value the item to return the text to display
+     * @returns {string}
+     */
+    getDisplayText(value) {
+        return this.selectKey ? value[this.selectKey] : value;
+    }
+
+    /**
+     * Determine if a given value is selected or not
+     * @param {*} value The item to determine the selected state of
+     * @returns {boolean}
+     */
+    isSelected(value) {
+        return this.multipleSelect ? this.selected.find(_item => _item === value) : value === this.selected;
+    }
+
+    /**
+     * Reinitialise the JScrollPane if one is present
+     */
+    reinitialiseScrollbar() {
 
         // ensure scrollpane has been initialised
-        if ($scope.pane === undefined) {
+        if (this.$scope.pane === undefined) {
             return;
         }
 
         // update the scrollpane on next digest
-        $timeout($scope.pane.reinitialise);
+        this.$timeout(this.$scope.pane.reinitialise, 0, false);
     }
 
-    function updateValues() {
+    /**
+     * Update the select table to only show items that match the search query
+     */
+    filter() {
+        // update which values should be visible based on the search query
+        this.visibleValues = this.values.filter(item => this.isVisible(item));
 
-        var matchValue = {};
-        matchValue[vm.selectKey] = vm.searchText;
-        var hasObjectProperties = vm.values[0] !== null && typeof vm.values[0] === 'object';
+        // This is to provide the option to deselect items when they are no longer visible based on the search text
+        if (!this.multipleSelect && !this._keepFilteredItemsSelected) {
 
-        if (hasObjectProperties) {
-            //it is an array of objects
-            vm.displayVals = $filter('filter')(vm.values, matchValue);
-        } else {
-            //it is an array of strings
-            vm.displayVals = $filter('filter')(vm.values, vm.searchText);
-        }
+            // if the item is selected but not visible then we should deselect it
+            if (this.selected && !this.isVisible(this.selected)) {
+                this.deselect(this.selected);
 
-        if (!vm.multipleSelect) {
-            //When this flag is passed as false, we need to check if
-            //the selected item is still visible, and deselect it if not.
-            if (!vm.selectFilteredItems) {
-                if (vm.selected && !vm.isValueVisible(hasObjectProperties, vm.selected)) {
-                    //record the selected value for reselection
-                    if (vm.reselectFilteredItems) {
-                        vm.previouslySelected = vm.selected;
-                    }
-                    //deselect
-                    vm.select(vm.selected);
-                } else if (vm.reselectFilteredItems && vm.previouslySelected && !vm.selected) {
-                    if (vm.isValueVisible(hasObjectProperties, vm.previouslySelected)) {
-                        vm.select(vm.previouslySelected);
-                    }
+                // if we want to restore previously selected items if they become visible again, store it
+                if (this._reselectFilteredItems) {
+                    this._filteredSelection = this.selected;
                 }
+            }
+
+            // if the item was previously selected and we want to restore selected items then reselect it
+            if (this._reselectFilteredItems && this._filteredSelection && !this.selected && this.isVisible(this._filteredSelection)) {
+                this.select(this._filteredSelection);
             }
         }
 
-        updateScrollbar();
+        // reinitialise the JScrollPane if present
+        this.reinitialiseScrollbar();
     }
 
-    vm.isValueVisible = function(hasObjectProperties, value) {
+    /**
+     * Determine whether a list item is visible based on the current search query
+     * @param {*} value The list item to determine the visibility of
+     * @returns {boolean}
+     */
+    isVisible(value) {
+        return this.getDisplayText(value).toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1;
+    }
 
-        //only need to act when an item is selected
-        if (value) {
-            //Case where the values are an object array
-            if (hasObjectProperties) {
-                return vm.displayVals.some(function(element) {
-                    return element === value;
-                });
-            } else {
-                //Case where the values are an array of strings
-                return !!~vm.displayVals.indexOf(value);
-            }
-        }
+    /**
+     * Toggle the selected state of a given item
+     * @param {*} value The value to toggle the selected state
+     */
+    toggle(value) {
+        this.isSelected(value) ? this.deselect(value) : this.select(value); // jshint ignore:line
+    }
 
-    };
+    /**
+     * Select an item in the list
+     * @param {*} value The item to select
+     */
+    select(value) {
+        this.selected = this.multipleSelect ? [...this.selected, value] : value;
 
-    vm.select = function(value, $event) {
-        var mouseEvent = false;
-        if ($event) {
-            mouseEvent = $event.screenX || $event.screenY;
-            mouseEvent = !!mouseEvent;
-        }
-        // if we are using multiple select, add selected value to vm.selected array. If not, just set vm.selected to be the value.
-        if (!vm.multipleSelect) {
-            //This is deselecting of already selected option
-            if (value === vm.selected) {
-                //clear selected value and index
-                vm.selected = "";
-                if (mouseEvent) {
-                    $event.currentTarget.blur();
-                }
-            } else {
-                //This is selecting an item
-                vm.selected = value;
-            }
-        } else {
-            var notFound = true;
+        // store the item once it has been selected
+        this._lastSelection = value;
+    }
 
-            for (var i = 0; i < vm.selected.length; i++) {
-                if (angular.equals(vm.selected[i], value)) {
-                    vm.selected.splice(i, 1);
-                    notFound = false;
-                    if (mouseEvent) {
-                        $event.currentTarget.blur();
-                    }
-                    break;
-                }
-            }
+    /**
+     * Select many items - eg. using shift click
+     * @param {*} start The first item in the selection
+     * @param {*} end The last item in the selection
+     */
+    selectRange(start, end) {
 
-            if (notFound) {
-                vm.selected.push(value);
-            }
-        }
-    };
+        // get the indexes of the start and end items
+        const startIdx = this.values.indexOf(start);
+        const endIdx = this.values.indexOf(end);
 
-    vm.keydown = function(e) {
+        // get the all items to select
+        const range = this.values.slice(Math.min(startIdx, endIdx), Math.max(startIdx, endIdx) + 1);
+
+        // perform the selection
+        range.filter(value => !this.isSelected(value)).forEach(value => this.select(value));
+
+        // reselect the first item as the last selection
+        this._lastSelection = start;
+    }
+
+    /**
+     * Deselect an item in the list
+     * @param {*} value The item to deselect
+     */
+    deselect(value) {
+        this.selected = this.multipleSelect ? this.selected.filter(item => item !== value) : null;
+
+        // clear the last selection value
+        this._lastSelection = null;
+    }
+
+    /**
+     * Allow the toggle of a selection state using the keyboard
+     * @param {KeyboardEvent} event The enter that triggered the toggle
+     * @param {*} value The item that the keypress occurred on
+     */
+    onKeydown(event, value) {
         //Enter or space, trigger a click
-        if (e.which === 13 || e.which === 32) {
-            $timeout(function() {
-                e.target.click();
-            });
-            e.stopPropagation();
-            e.preventDefault();
+        if (event.which === 13 || event.which === 32) {
+            this.toggle(value);
+            event.stopPropagation();
+            event.preventDefault();
         }
-    };
+    }
+
+    /**
+     * Handle item click events
+     * @param {MouseEvent} event The click event
+     * @param {*} value The value that was clicked
+     */
+    onClick(event, value) {
+
+        // ensure the element gets focus on click
+        event.currentTarget.focus();
+
+        /**
+         * Ensure all the following conditions are met:
+         * 1. We are in multiple select mode
+         * 2. The shift key is pressed
+         * 3. The is a last selection stored
+         * 4. We are not clicking on the last selected item
+         * 5. The last selection is not hidden by a filter
+         * 6. The last selection is still a selected item
+        */
+
+        if (this.multipleSelect &&
+            event.shiftKey &&
+            this._lastSelection &&
+            value !== this._lastSelection &&
+            this.visibleValues.indexOf(this._lastSelection) !== -1 &&
+            this.selected.indexOf(this._lastSelection) !== -1) {
+
+            return this.selectRange(this._lastSelection, value);
+        }
+
+        // otherwise simply perform a toggle operation
+        this.toggle(value);
+    }
 }
+
+SelectTableController.$inject = ['$timeout', '$scope'];

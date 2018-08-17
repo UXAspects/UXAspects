@@ -11,11 +11,6 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 @DocumentationSectionComponent('ComponentsSingleSelectTableNg1Component')
 export class ComponentsSingleSelectTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    selection: SingleSelectTableItem;
-    tableId: string = 'example-table';
-    query: string = '';
-    authors: SingleSelectTableItem[] = this.getRandomNameList(40);
-
     codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
@@ -24,21 +19,21 @@ export class ComponentsSingleSelectTableNg1Component extends BaseDocumentationSe
         js: [this.snippets.raw.sampleFullJs]
     };
 
+    selected: Author;
+    tableId = 'example-table';
+    query: string = '';
+    authors: Author[] = [];
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
-    getRandomNameList(total: number): SingleSelectTableItem[] {
-        const list: SingleSelectTableItem[] = [];
-
-        for (let idx = 0; idx < total; idx++) {
-            list.push({ id: idx + 1, name: chance.name() });
+        for (let idx = 0; idx < 40; idx++) {
+            this.authors.push({ id: idx + 1, name: chance.name() });
         }
-        return list;
     }
 }
 
-export interface SingleSelectTableItem {
+interface Author {
     id: number;
     name: string;
 }

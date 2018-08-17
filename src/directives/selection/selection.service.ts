@@ -10,22 +10,28 @@ import { SimpleSelectionStrategy } from './strategies/simple-selection.strategy'
 @Injectable()
 export class SelectionService implements OnDestroy {
 
-  private _selection = new Set();
-  private _strategyToDestroy: SelectionStrategy;
+  set dataset(dataset: ReadonlyArray<any>) {
+    this._dataset = dataset;
+    this.setFirstItemFocusable();
+  }
 
-  dataset: any[] = [];
-  enabled: boolean = true;
-  clickEnabled: boolean = true;
-  keyboardEnabled: boolean = true;
+  get dataset(): ReadonlyArray<any> {
+    return this._dataset;
+  }
+
   strategy: SelectionStrategy = new SimpleSelectionStrategy(this);
+  isEnabled: boolean = true;
+  isClickEnabled: boolean = true;
+  isKeyboardEnabled: boolean = true;
 
+  focus$ = new BehaviorSubject<any>(null);
   active$ = new BehaviorSubject<any>(null);
-  focusTarget$ = new BehaviorSubject<any>(null);
   selection$ = new BehaviorSubject<any[]>([]);
 
-  constructor() {
-    this._strategyToDestroy = this.strategy;
-  }
+  private _active: any;
+  private _dataset: ReadonlyArray<any> = [];
+  private _selection = new Set();
+  private _strategyToDestroy: SelectionStrategy = this.strategy;
 
   ngOnDestroy(): void {
     if (this._strategyToDestroy) {
@@ -75,7 +81,7 @@ export class SelectionService implements OnDestroy {
    * Return an observable specifically for notifying the subscriber
    * only when the selection state of a specific object has changed
    */
-  selected$(data: any): Observable<boolean> {
+  getSelectionState(data: any): Observable<boolean> {
     return this.selection$.pipe(map(() => this.isSelected(data)), distinctUntilChanged());
   }
 
@@ -85,7 +91,7 @@ export class SelectionService implements OnDestroy {
    * and mouse interactions while keeping each mode separated and
    * easily extensible if we want to add more modes in future!
    */
-  setMode(mode: SelectionMode | SelectionStrategy): void {
+  setStrategy(mode: SelectionMode | SelectionStrategy): void {
 
     if (this._strategyToDestroy) {
       // Destroy previous strategy if it was created internally
@@ -125,14 +131,16 @@ export class SelectionService implements OnDestroy {
    * Set the current active item
    */
   activate(data: any): void {
-    this.active$.next(data);
+    this._active = data;
+    this.active$.next(this._active);
   }
 
   /**
    * Deactive all items
    */
   deactivate(): void {
-    this.active$.next(null);
+    this._active = null;
+    this.active$.next(this._active);
   }
 
   /**
@@ -141,16 +149,13 @@ export class SelectionService implements OnDestroy {
    */
   getSibling(previous: boolean = false): any {
 
-    // get the currently active item
-    const current = this.active$.getValue();
-
     // check if there is a current active item
-    if (!current) {
+    if (!this._active) {
       return;
     }
 
     // get the index of the current item
-    const idx = this.dataset.indexOf(current);
+    const idx = this.dataset.indexOf(this._active);
     const target = this.dataset[previous ? idx - 1 : idx + 1];
 
     return target;
@@ -176,10 +181,11 @@ export class SelectionService implements OnDestroy {
 
   setDisabled(disabled: boolean): void {
     // store the current disabled state
-    this.enabled = !disabled;
+    this.isEnabled = !disabled;
 
     // clear any stateful data
-    this.active$.next(null);
+    this._active = null;
+    this.active$.next(this._active);
     this._selection.clear();
 
     // emit the selection change information
@@ -188,6 +194,15 @@ export class SelectionService implements OnDestroy {
 
   private selectionHasMutated(): void {
     this.selection$.next(Array.from(this._selection));
+  }
+
+  private setFirstItemFocusable(): void {
+    if (this._dataset.length > 0) {
+      this.focus$.next(this._dataset[0]);
+      this._active = this._dataset[0];
+    } else {
+      this._active = null;
+    }
   }
 }
 

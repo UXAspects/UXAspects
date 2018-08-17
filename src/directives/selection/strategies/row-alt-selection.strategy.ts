@@ -1,16 +1,16 @@
-import { KeyCode } from './keycode.enum';
+import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { RowSelectionStrategy } from './row-selection.strategy';
 
 export class RowAltSelectionStrategy extends RowSelectionStrategy {
     keydown(event: KeyboardEvent, data: any): void {
-        switch (event.keyCode) {
-            case KeyCode.UpArrow:
-            case KeyCode.DownArrow:
+        switch (event.which) {
+            case UP_ARROW:
+            case DOWN_ARROW:
                 event.preventDefault();
                 this.handleCursorKey(event, data);
                 break;
 
-            case KeyCode.Spacebar:
+            case SPACE:
                 event.preventDefault();
                 this.selectionService.strategy.toggle(data);
                 break;
@@ -31,9 +31,9 @@ export class RowAltSelectionStrategy extends RowSelectionStrategy {
         }
 
         if (ctrlKey) {
-            this.selectionService.activateSibling(event.keyCode === KeyCode.UpArrow);
+            this.selectionService.activateSibling(event.which === UP_ARROW);
         } else {
-            const sibling = this.selectionService.getSibling(event.keyCode === KeyCode.UpArrow);
+            const sibling = this.selectionService.getSibling(event.which === UP_ARROW);
             this.multipleSelect(sibling ? sibling : data);
         }
     }
