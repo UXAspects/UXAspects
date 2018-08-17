@@ -1,123 +1,51 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
+import { Component } from '@angular/core';
 import 'chance';
+
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    host: {
-        '(window:keydown.arrowup)': 'upArrow($event)',
-        '(window:keydown.arrowdown)': 'downArrow($event)'
-    }
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
 
-    @ViewChild('modalDoc') modalDoc: TemplateRef<any>;
-    @ViewChild('modalPpt') modalPpt: TemplateRef<any>;
-    @ViewChild('modalPdf') modalPdf: TemplateRef<any>;
-  
     visible: boolean = false;
-    selectedItem: DisplayPanelItem;
-    previousEnabled: boolean = true;
-    nextEnabled: boolean = true;
-    shadow: boolean = false;
-
     items: DisplayPanelItem[] = [];
+    selected: DisplayPanelItem;
 
-    ngAfterContentInit() {
-        let extensions = ['.ppt', '.doc', '.pdf'];
-        let titles = ['Site Detail - UX Aspects (PPT)', 'Site Detail - UX Aspects (DOC)', 
-        'Site Detail - UX Aspects (PDF)'];
-        let content = [this.modalPpt, this.modalDoc, this.modalPdf];
-        for (let i = 1; i < 21; i++) {
-            let idx = chance.integer({min: 0, max: 2});
+    constructor() {
+        for (let idx = 0; idx < 20; idx++) {
 
-            let item = {
-                id: i,
-                name: chance.name(),
-                dateString: chance.date({string: true, american: false, year: 2017}).toString(),
-                document: 'Document ' + i + extensions[idx],
-                extension: extensions[idx],
-                storage: chance.d100().toString(),
+            const extension = chance.pickone(['ppt', 'doc', 'pdf']);
+
+            const item: DisplayPanelItem = {
+                id: idx,
+                author: chance.name(),
+                date: chance.date({ year: 2018, string: false }) as Date,
+                document: `Document ${idx}.${extension}`,
+                storage: chance.d100(),
                 active: chance.bool(),
                 panel: {
-                    title: titles[idx],
-                    content: content[idx]
+                    title: `Site Detail - UX Aspects (${extension.toUpperCase()})`,
+                    content: chance.paragraph()
                 }
-            }; 
+            };
 
             this.items.push(item);
-        }
-    }
-
-    selectItem(item: DisplayPanelItem) {
-        this.shadow = true;
-        this.selectedItem = item;
-        this.updatePanel();
-    }
-
-    togglePanel() {
-        this.visible = !this.visible;
-    }
-
-    previous() {
-        if (this.previousEnabled) {
-            let id = this.selectedItem.id - 1;
-            this.selectedItem = this.items[id - 1];
-            this.updatePanel();
-        }
-    }
-
-    next() {
-        if (this.nextEnabled) {
-            let id = this.selectedItem.id + 1;
-            this.selectedItem = this.items[id - 1];
-            this.updatePanel();
-        }
-    }
-
-    upArrow(event: KeyboardEvent) {
-        if (this.visible) {
-            event.preventDefault();
-            this.previous();
-        }
-    }
-
-    downArrow(event: KeyboardEvent) {
-        if (this.visible) {
-            event.preventDefault();
-            this.next();
-        }
-    }
-
-    updatePanel() {
-
-        if (this.selectedItem.id < 20) {
-            this.nextEnabled = true;
-        } else {
-            this.nextEnabled = false;
-        }
-
-        if (this.selectedItem.id > 1) {
-            this.previousEnabled = true;
-        } else {
-            this.previousEnabled = false;
         }
     }
 }
 
 interface DisplayPanelItem {
     id: number;
-    name: string;
-    dateString: string;
     document: string;
-    extension: string;
-    storage: string;
+    author: string;
+    date: Date;
+    storage: number;
     active: boolean;
     panel: DisplayPanel;
 }
 
 interface DisplayPanel {
     title: string;
-    content: TemplateRef<any>;
+    content: string;
 }

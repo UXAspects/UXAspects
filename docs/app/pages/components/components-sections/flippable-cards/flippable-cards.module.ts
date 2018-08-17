@@ -34,7 +34,7 @@ const ROUTES = [
         CommonModule,
         WrappersModule,
         HybridModule,
-        TabsModule.forRoot(),
+        TabsModule,
         SparkModule,
         FlippableCardModule,
         ColorServiceModule,

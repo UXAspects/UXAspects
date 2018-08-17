@@ -1,6 +1,7 @@
 /*
   Export Components
 */
+export * from './components/accordion/index';
 export * from './components/breadcrumbs/index';
 export * from './components/card-tabs/index';
 export * from './components/checkbox/index';

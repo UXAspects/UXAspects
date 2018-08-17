@@ -57,8 +57,8 @@ const DOCUMENTATION_COMPONENTS = [
 
 @NgModule({
     imports: [
-        BsDropdownModule.forRoot(),
-        ButtonsModule.forRoot(),
+        BsDropdownModule,
+        ButtonsModule,
         CommonModule,
         EboxModule,
         FormsModule,
@@ -66,7 +66,7 @@ const DOCUMENTATION_COMPONENTS = [
         RouterModule,
         ScrollModule,
         TooltipModule,
-        TypeaheadModule.forRoot(),
+        TypeaheadModule,
         PersistentDataModule
     ],
     exports: DOCUMENTATION_COMPONENTS,

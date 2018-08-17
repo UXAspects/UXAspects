@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { NumberPickerModule } from '../../../../../../src/index';
+import { AccordionModule, NumberPickerModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -45,8 +44,8 @@ const ROUTES = [
         A11yModule,
         NotificationModule,
         WrappersModule,
-        TabsModule.forRoot(),
-        AccordionModule.forRoot(),
+        TabsModule,
+        AccordionModule,
         NumberPickerModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

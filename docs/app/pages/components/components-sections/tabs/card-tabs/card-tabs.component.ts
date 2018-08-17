@@ -21,13 +21,8 @@ export class ComponentsCardTabsComponent extends BaseDocumentationSection implem
         },
         modules: [
             {
-                imports: ['CardTabsModule', 'RadioButtonModule'],
+                imports: ['CardTabsModule', 'RadioButtonModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
             }
         ]
     };

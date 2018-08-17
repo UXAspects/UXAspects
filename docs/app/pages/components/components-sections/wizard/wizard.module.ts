@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, MarqueeWizardModule, RadioButtonModule, WizardModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, MarqueeWizardModule, RadioButtonModule, WizardModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -40,15 +39,15 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
-        AccordionModule.forRoot(),
+        TabsModule,
+        AccordionModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         RadioButtonModule,
         CheckboxModule,
         MarqueeWizardModule,
         ReactiveFormsModule,
-        ModalModule.forRoot(),
+        ModalModule,
         WizardModule
     ],
     exports: SECTIONS,

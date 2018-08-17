@@ -1,9 +1,9 @@
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'uxd-components-tags',
@@ -54,12 +54,8 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
             'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
-            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule'],
+            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule', 'AccordionModule'],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'ngx-bootstrap/accordion',
-            imports: ['AccordionModule'],
-            providers: ['AccordionModule.forRoot()']
         }]
     };
 

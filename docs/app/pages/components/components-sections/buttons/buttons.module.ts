@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
-import { FloatingActionButtonsModule, RadioButtonModule, TooltipModule } from '../../../../../../src/index';
+import { AccordionModule, FloatingActionButtonsModule, RadioButtonModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -65,15 +64,15 @@ const ROUTES = [
         CommonModule,
         HybridModule,
         WrappersModule,
-        TabsModule.forRoot(),
-        AccordionModule.forRoot()  ,
+        TabsModule,
+        AccordionModule  ,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         RadioButtonModule,
         FormsModule,
-        ButtonsModule.forRoot(),
-        PaginationModule.forRoot(),
-        BsDropdownModule.forRoot(),
+        ButtonsModule,
+        PaginationModule,
+        BsDropdownModule,
         StringFilterModule,
         FloatingActionButtonsModule,
         TooltipModule

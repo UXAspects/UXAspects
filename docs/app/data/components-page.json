@@ -978,24 +978,23 @@
                 {
                     "title": "Accordion",
                     "component": "ComponentsAccordionComponent",
-                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/accordion",
                     "version": "Angular",
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "accordion"
+                            "content": "ux-accordion"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "ux-accordion-panel"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "ux-accordion-panel-header"
                         },
                         {
                             "title": "Module",
                             "content": "AccordionModule"
-                        },
-                        {
-                            "title": "Import As",
-                            "content": "AccordionModule.forRoot()"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ngx-bootstrap"
                         }
                     ]
                 },

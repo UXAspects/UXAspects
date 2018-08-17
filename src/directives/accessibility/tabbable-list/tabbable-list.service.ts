@@ -92,6 +92,10 @@ export class TabbableListService implements OnDestroy {
 
     focusTabbableItem(): void {
 
+        if (!this._items) {
+            return;
+        }
+
         // find the item in the list with a tab index
         const index = this._items.toArray().findIndex(item => item.tabindex === 0);
 

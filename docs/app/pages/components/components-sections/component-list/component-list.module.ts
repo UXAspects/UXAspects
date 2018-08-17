@@ -31,7 +31,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         FormsModule,
         FocusIfModule,
         ReactiveFormsModule,

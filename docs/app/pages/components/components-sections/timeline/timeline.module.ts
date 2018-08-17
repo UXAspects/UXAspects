@@ -29,7 +29,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         CommonModule,
         TimelineModule,
         DocumentationComponentsModule,

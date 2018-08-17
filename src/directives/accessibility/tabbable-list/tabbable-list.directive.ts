@@ -37,7 +37,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         return this._tabbableList.focusKeyManager;
     }
 
-    constructor(private _tabbableList: TabbableListService) {}
+    constructor(private _tabbableList: TabbableListService) { }
 
     ngAfterContentInit(): void {
 
@@ -56,6 +56,12 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     ngOnDestroy(): void {
         if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
             setTimeout(() => this._focusedElement.focus());
+        }
+    }
+
+    focus(): void {
+        if (this._tabbableList.focusKeyManager && this._tabbableList.focusKeyManager.activeItem) {
+            this._tabbableList.focusKeyManager.activeItem.focus();
         }
     }
 

@@ -32,7 +32,7 @@ const ROUTES = [
     imports: [
         DocumentationComponentsModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

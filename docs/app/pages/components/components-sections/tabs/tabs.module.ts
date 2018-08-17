@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CardTabsModule, CheckboxModule, RadioButtonModule, TabsetModule } from '../../../../../../src';
+import { AccordionModule, CardTabsModule, CheckboxModule, RadioButtonModule, TabsetModule } from '../../../../../../src';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -39,12 +38,12 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         TabsetModule,
         CheckboxModule,
         CardTabsModule,
         RadioButtonModule,
-        AccordionModule.forRoot(),
+        AccordionModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

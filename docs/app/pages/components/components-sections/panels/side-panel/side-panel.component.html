@@ -1,7 +1,7 @@
 <div class="ux-side-panel-inline-container demo-side-panel-container">
 
     <div class="demo-content">
-        <button type="button" class="btn button-primary"
+        <button #launch type="button" class="btn button-primary"
             (click)="open = !open; $event.stopPropagation()">
             Toggle Side Panel
         </button>
@@ -15,6 +15,8 @@
 
     <ux-side-panel #sidePanel="ux-side-panel"
         [(open)]="open"
+        (openChange)="$event ? announce($event) : launch.focus(); announce($event)"
+        [focusOnShow]="true"
         [inline]="inline"
         [attachTo]="attachTo"
         [top]="top"
@@ -25,7 +27,7 @@
 
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
-            <button uxSidePanelClose type="button" class="btn btn-lg btn-link btn-icon button-secondary">
+            <button uxSidePanelClose aria-label="Close Side Panel" type="button" class="btn btn-lg btn-link btn-icon button-secondary">
                 <span class="hpe-icon hpe-close"></span>
             </button>
         </div>
@@ -77,8 +79,8 @@
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="inline">inline</ux-checkbox>
@@ -110,8 +112,8 @@
                         <ux-checkbox [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
                     </div>
                 </div>
-            </accordion-group>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>
 
@@ -179,6 +181,9 @@
     <tr uxd-api-property name="closeOnExternalClick" type="boolean" defaultValue="false">
         Whether the panel should close when the user clicks outside the panel. <strong>Note:</strong> if using this
         option, be sure to call <code>$event.stopPropagation()</code> in the click handler used to open the side panel.
+    </tr>
+    <tr uxd-api-property name="focusOnShow" type="boolean" defaultValue="false">
+        Whether the panel should become focused when it is opened.
     </tr>
 </uxd-api-properties>
 

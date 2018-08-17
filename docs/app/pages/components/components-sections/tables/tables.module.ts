@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
-import { CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TooltipModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -100,7 +99,7 @@ const ROUTES = [
         WrappersModule,
         CommonModule,
         FormsModule,
-        TabsModule.forRoot(),
+        TabsModule,
         CheckboxModule,
         RadioButtonModule,
         ColumnSortingModule,
@@ -109,9 +108,9 @@ const ROUTES = [
         SelectionModule,
         LayoutSwitcherModule,
         DocumentationComponentsModule,
-        BsDropdownModule.forRoot(),
-        ButtonsModule.forRoot(),
-        AccordionModule.forRoot(),
+        BsDropdownModule,
+        ButtonsModule,
+        AccordionModule,
         SliderModule,
         ReorderableModule,
         HoverActionModule,

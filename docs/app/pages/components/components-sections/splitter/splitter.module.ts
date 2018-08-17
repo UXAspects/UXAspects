@@ -35,7 +35,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule.forRoot(),
+        TabsModule,
         AngularSplitModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

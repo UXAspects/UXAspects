@@ -26,12 +26,8 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['RadioButtonModule', 'MediaPlayerModule'],
+            imports: ['RadioButtonModule', 'MediaPlayerModule', 'AccordionModule'],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            imports: ['AccordionModule'],
-            forRoot: true,
-            library: 'ngx-bootstrap/accordion'
         }]
     };
 

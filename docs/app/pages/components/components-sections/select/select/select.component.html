@@ -23,8 +23,8 @@
 </div>
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="dataSet">options</label>
@@ -69,8 +69,8 @@
                         <ux-number-picker [(value)]="pageSize" min="1" max="1000" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
                     </div>
                 </div>
-            </accordion-group>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>
 

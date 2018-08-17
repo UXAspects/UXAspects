@@ -36,7 +36,7 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        TabsModule.forRoot(),
+        TabsModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: [ChartsPageComponent],

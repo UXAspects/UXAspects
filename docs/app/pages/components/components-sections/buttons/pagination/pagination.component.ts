@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { DomSanitizer } from '@angular/platform-browser';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-buttons-pagination',
@@ -17,8 +18,8 @@ export class ComponentsPaginationComponent extends BaseDocumentationSection impl
     itemsPerPage: number = 10;
     totalPages: number;
     maxSize: number = 5;
-    previousButton = `<i class="hpe-icon hpe-previous" aria-label="previous page"></i>`;
-    nextButton = `<i class="hpe-icon hpe-next" aria-label="next page"></i>`;
+    previousButton = this._sanitizer.bypassSecurityTrustHtml(`<i class="hpe-icon hpe-previous" aria-label="previous page"></i>`);
+    nextButton = this._sanitizer.bypassSecurityTrustHtml(`<i class="hpe-icon hpe-next" aria-label="next page"></i>`);
 
     plunk: IPlunk = {
         files: {
@@ -32,7 +33,7 @@ export class ComponentsPaginationComponent extends BaseDocumentationSection impl
         }]
     };
 
-    constructor() {
+    constructor(private _sanitizer: DomSanitizer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

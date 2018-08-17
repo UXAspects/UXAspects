@@ -1,3 +1,4 @@
+
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
 import { buffer, debounceTime } from 'rxjs/operators';
@@ -40,13 +41,8 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['NotificationModule', 'NumberPickerModule', 'ColorServiceModule'],
+                imports: ['NotificationModule', 'NumberPickerModule', 'ColorServiceModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                library: 'ngx-bootstrap/accordion',
-                imports: ['AccordionModule'],
-                providers: ['AccordionModule.forRoot()']
             },
             {
                 imports: ['A11yModule'],

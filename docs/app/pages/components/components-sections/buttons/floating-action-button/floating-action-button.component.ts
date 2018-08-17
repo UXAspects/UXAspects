@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -7,27 +7,21 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @Component({
     selector: 'uxd-floating-action-button',
     templateUrl: './floating-action-button.component.html',
-    styleUrls: ['./floating-action-button.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./floating-action-button.component.less']
 })
 @DocumentationSectionComponent('ComponentsFloatingActionButtonComponent')
 export class ComponentsFloatingActionButtonComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.raw.appTs,                
+            'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [
             {
-                imports: ['FloatingActionButtonsModule', 'RadioButtonModule', 'TooltipModule'],
+                imports: ['FloatingActionButtonsModule', 'RadioButtonModule', 'TooltipModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
             }
         ]
     };

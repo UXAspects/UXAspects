@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostBinding, HostListener, ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { SidePanelService } from './side-panel.service';
 
 @Component({
@@ -47,6 +48,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Input()
     closeOnExternalClick = false;
 
+    @Input()
+    focusOnShow: boolean = false;
+
     @Output()
     openChange = new EventEmitter<boolean>();
 
@@ -86,7 +90,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         return this.inline ? '100%' : this.cssWidth;
     }
 
-    private _subscription: Subscription;
+    protected _onDestroy = new Subject<void>();
 
     constructor(
         protected service: SidePanelService,
@@ -94,13 +98,12 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._subscription = this.service.open$.subscribe((next) => {
-            this.openChange.emit(next);
-        });
+        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => this.openChange.emit(isOpen));
     }
 
     ngOnDestroy() {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     openPanel() {

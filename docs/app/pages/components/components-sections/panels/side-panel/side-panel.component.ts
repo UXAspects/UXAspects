@@ -1,8 +1,9 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-side-panel',
@@ -22,6 +23,10 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
             {
                 imports: ['SidePanelModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             },
         ]
     };
@@ -48,8 +53,12 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
     }
 
     private _attachTo = 'window';
-    
-    constructor() {
+
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    announce(isOpen: boolean): void {
+        this._liveAnnouncer.announce(`Side panel ${ isOpen ? 'opened' : 'closed' }.`);
     }
 }

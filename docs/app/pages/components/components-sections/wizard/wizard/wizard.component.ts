@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-wizard',
@@ -20,13 +20,8 @@ export class ComponentsWizardComponent extends BaseDocumentationSection implemen
         },
         modules: [
             {
-                library: 'ngx-bootstrap/accordion',
-                imports: ['AccordionModule'],
-                forRoot: true
-            },
-            {
                 library: '@ux-aspects/ux-aspects',
-                imports: ['RadioButtonModule', 'WizardModule']
+                imports: ['RadioButtonModule', 'WizardModule', 'AccordionModule']
             }
         ]
     };

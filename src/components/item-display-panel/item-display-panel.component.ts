@@ -1,5 +1,5 @@
-import { Component, Directive, Input, Output, EventEmitter, ContentChild, ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
 
@@ -21,7 +21,7 @@ export class ItemDisplayPanelFooterDirective { }
         'class': 'ux-side-panel ux-item-display-panel'
     }
 })
-export class ItemDisplayPanelComponent extends SidePanelComponent {
+export class ItemDisplayPanelComponent extends SidePanelComponent implements OnInit {
 
     @Input() header: string;
 
@@ -40,9 +40,10 @@ export class ItemDisplayPanelComponent extends SidePanelComponent {
 
     @Input() shadow: boolean = false;
 
-    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
-
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
+    @ViewChild('panel') panel: ElementRef;
 
     /**
      * @deprecated
@@ -68,8 +69,6 @@ export class ItemDisplayPanelComponent extends SidePanelComponent {
         return this.open;
     }
 
-    private _itemDisplayPanelSubscription: Subscription;
-
     constructor(service: SidePanelService, elementRef: ElementRef) {
         super(service, elementRef);
 
@@ -78,12 +77,12 @@ export class ItemDisplayPanelComponent extends SidePanelComponent {
     }
 
     ngOnInit() {
-        this._itemDisplayPanelSubscription = this.service.open$.subscribe((next) => {
-            this.visibleChange.emit(next);
-        });
+        this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
     }
 
-    ngOnDestroy() {
-        this._itemDisplayPanelSubscription.unsubscribe();
+    focus(): void {
+        if (this.panel) {
+            this.panel.nativeElement.focus();
+        }
     }
 }
