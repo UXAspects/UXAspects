@@ -23,7 +23,7 @@ export default class SelectTableController {
         /** @type {*[]} */
         this.visibleValues = this.values.slice();
 
-        /** @type {(* | *[])} */
+        /** @type {(Readonly<any> | ReadonlyArray<any>)} */
         this.selected = this.multipleSelect ? this.selected || [] : this.selected;
 
         /** @private @type {boolean} */
@@ -85,7 +85,7 @@ export default class SelectTableController {
         }
 
         // update the scrollpane on next digest
-        this.$timeout(this.$scope.pane.reinitialise);
+        this.$timeout(this.$scope.pane.reinitialise, 0, false);
     }
 
     /**
@@ -199,13 +199,28 @@ export default class SelectTableController {
      */
     onClick(event, value) {
 
-        // determine whether or not the shift key was pressed for group selection
-        if (this.multipleSelect && event.shiftKey && this._lastSelection && value !== this._lastSelection) {
-            this.selectRange(this._lastSelection, value);
-        } else {
-            this.toggle(value);
+        /**
+         * Ensure all the following conditions are met:
+         * 1. We are in multiple select mode
+         * 2. The shift key is pressed
+         * 3. The is a last selection stored
+         * 4. We are not clicking on the last selected item
+         * 5. The last selection is not hidden by a filter
+         * 6. The last selection is still a selected item
+        */
+
+        if (this.multipleSelect &&
+            event.shiftKey &&
+            this._lastSelection &&
+            value !== this._lastSelection &&
+            this.visibleValues.indexOf(this._lastSelection) !== -1 &&
+            this.selected.indexOf(this._lastSelection) !== -1) {
+
+            return this.selectRange(this._lastSelection, value);
         }
 
+        // otherwise simply perform a toggle operation
+        this.toggle(value);
     }
 }
 
