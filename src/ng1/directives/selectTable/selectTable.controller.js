@@ -199,6 +199,9 @@ export default class SelectTableController {
      */
     onClick(event, value) {
 
+        // ensure the element gets focus on click
+        event.currentTarget.focus();
+
         /**
          * Ensure all the following conditions are met:
          * 1. We are in multiple select mode
