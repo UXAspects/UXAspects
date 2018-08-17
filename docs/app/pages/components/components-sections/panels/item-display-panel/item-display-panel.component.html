@@ -13,12 +13,15 @@
         <tbody uxTabbableList #list="ux-tabbable-list">
             <tr class="clickable single-select"
                 uxTabbableListItem
+                aria-details="item-display-panel-content"
                 [class.highlight]="item === selected && visible"
                 *ngFor="let item of items"
+                (focus)="selected = item"
                 (click)="selected = item; visible = true; $event.stopPropagation()"
-                (keydown.enter)="selected = item; visible = true"
+                (keydown.enter)="selected = item; visible = true; $event.preventDefault()"
                 (keydown.space)="selected = item; visible = true; $event.preventDefault()"
-                (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()">
+                (keydown.spacebar)="selected = item; visible = true; $event.preventDefault()"
+                (keydown.arrowright)="panel.focus()">
 
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
@@ -46,15 +49,17 @@
 </div>
 
 <ux-item-display-panel
+    #panel
     [(visible)]="visible"
-    (visibleChange)="visible === false ? list.focus() : null"
+    (visibleChange)="list.focusTabbableItem()"
     [top]="53"
     [shadow]="true"
     [header]="selected?.panel.header"
-    [animate]="true">
+    [animate]="true"
+    (keydown.arrowleft)="list.focusTabbableItem()">
 
     <div class="preview-display" uxItemDisplayPanelContent>
-        <p>{{ selected?.panel.content }}</p>
+        <p id="item-display-panel-content">{{ selected?.panel.content }}</p>
     </div>
 
     <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">

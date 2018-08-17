@@ -49,7 +49,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     closeOnExternalClick = false;
 
     @Input()
-    focusOnShow: boolean = true;
+    focusOnShow: boolean = false;
 
     @Output()
     openChange = new EventEmitter<boolean>();

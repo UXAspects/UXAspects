@@ -23,10 +23,7 @@
                     [class.highlight]="item.id === selected?.id && visible"
                     [attr.aria-describedby]="item.id === selected?.id && visible ? 'inline-display-panel' : null"
                     *ngFor="let item of items"
-                    (click)="selected = item"
-                    (keydown.enter)="selected = item"
-                    (keydown.space)="selected = item; $event.preventDefault()"
-                    (keydown.spacebar)="selected = item; $event.preventDefault()">
+                    (focus)="selected = item">
 
                     <td class="text-center">
                         <div class="listview-page-icon"></div>

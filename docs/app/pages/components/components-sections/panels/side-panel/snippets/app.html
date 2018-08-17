@@ -15,6 +15,7 @@
 
     <ux-side-panel #sidePanel="ux-side-panel"
         [(open)]="open"
+        (openChange)="announce($event)"
         [inline]="inline"
         [attachTo]="attachTo"
         [top]="top"

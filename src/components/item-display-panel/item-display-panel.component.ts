@@ -1,4 +1,4 @@
-import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
@@ -40,9 +40,10 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
 
     @Input() shadow: boolean = false;
 
-    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
-
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
+    @ViewChild('panel') panel: ElementRef;
 
     /**
      * @deprecated
@@ -77,5 +78,11 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
 
     ngOnInit() {
         this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
+    }
+
+    focus(): void {
+        if (this.panel) {
+            this.panel.nativeElement.focus();
+        }
     }
 }
