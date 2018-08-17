@@ -8,7 +8,7 @@ import { WindowScrollAdapter } from "./adapters/window-scroll.adapter";
 export class InfiniteScrollController {
 
     get searchQuery() {
-        return this._query;
+        return this._query || '';
     }
 
     set searchQuery(value) {
