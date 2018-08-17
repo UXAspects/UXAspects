@@ -1,18 +1,24 @@
 <div class="select-table-container" ng-style="{ 'height': vm.tableHeight }">
-  <div scroll-config="{ autoReinitialise: false, showOnlyOnHover:false, enableKeyboardNavigation:true }" 
+
+  <div scroll-config="{ autoReinitialise: false, showOnlyOnHover:false, enableKeyboardNavigation:true }"
        style="overflow: auto; height: calc(100% - 5px);"
        scroll-pane id="{{ vm.id }}">
 
       <table class="table table-hover select-table">
         <tbody>
-          <tr tabindex="0" 
-              ng-keydown="vm.keydown($event)" 
-              ng-repeat="value in vm.displayVals track by $index" 
+          <tr tabindex="0"
+              ng-keydown="vm.keydown($event)"
+              ng-repeat="value in vm.displayVals track by $index"
               ng-click="vm.select(value, $event)"
               ng-class="{'highlight': vm.isselected(value) }">
-            
-              <td ng-bind="vm.displayFn(value)"></td>
 
+              <td ng-if="!vm.template && !vm.templateUrl" ng-bind="vm.displayFn(value)"></td>
+
+              <td ng-if="vm.template || vm.templateUrl"
+                  ng-template-outlet="vm.template"
+                  ng-template-outlet-url="vm.templateUrl"
+                  ng-template-outlet-context="value">
+              </td>
           </tr>
         </tbody>
       </table>

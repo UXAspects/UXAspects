@@ -1,4 +1,22 @@
-<uxd-single-select-table-wrapper></uxd-single-select-table-wrapper>
+<div class="row">
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <label class="m-l-sm m-t-xs">
+                    <b>Select an author</b>
+                </label>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <input type="text" [(ngModel)]="query" placeholder="Search" class="form-control">
+            </div>
+            <br/>
+            <br/>
+        </div>
+        <select-table [values]="authors" [(selected)]="selection" selectKey="name" [searchText]="query"></select-table>
+        <br/>
+        <p>Id of the selected value is : <b>{{ selection?.id }}</b></p>
+    </div>
+</div>
 
 <hr>
 
@@ -28,6 +46,12 @@
         Set to the string <code>'clear'</code> to clear the selected item when the search-text filter has removed
         it from the list of visible items. Alternatively, set to <code>'reselect'</code> to both clear the selected
         item, and reselect it when it becomes visible again.
+    </tr>
+    <tr uxd-api-property name="template" type="string" binding="variable">
+        Customize the content of each item by providing a template. The scope of the template will be the item data.
+    </tr>
+    <tr uxd-api-property name="template-url" type="string" binding="variable">
+        Customize the content of each item by providing a template url. The scope of the template will be the item data.
     </tr>
 </uxd-api-properties>
 

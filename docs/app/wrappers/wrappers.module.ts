@@ -61,9 +61,7 @@ import { SearchBuilderCodeComponent } from './examples/search-builder/search-bui
 import { SearchBuilderComponent } from './examples/search-builder/search-builder.component';
 import { SearchHistoryComponent } from './examples/search-builder/search-history.component';
 import { SearchToolbarComponent } from './examples/search-builder/search-toolbar.component';
-import { MultipleSelectTableComponent } from './examples/select/multiple-select.component';
 import { SelectComponent } from './examples/select/select.component';
-import { SingleSelectTableComponent } from './examples/select/single-select.component';
 import { SliderChartsComponent } from './examples/sliders/slider-charts.component';
 import { SlidersComponent } from './examples/sliders/sliders.component';
 import { LayoutSwitchingSplitterComponent } from './examples/splitter/layout-switching-splitter.component';
@@ -162,7 +160,6 @@ const WRAPPERS: any[] = [
     ModalComponent,
     ModalInsetPanelComponent,
     MultiColumnSortingComponent,
-    MultipleSelectTableComponent,
     NavigationComponent,
     NestedSplitterComponent,
     NotificationDropdownComponent,
@@ -188,7 +185,6 @@ const WRAPPERS: any[] = [
     SideModalComponent,
     SingleColumnSortingComponent,
     SingleLineOverflowTooltipComponent,
-    SingleSelectTableComponent,
     SingleToggleButtonComponent,
     SliderChartsComponent,
     SlidersComponent,
