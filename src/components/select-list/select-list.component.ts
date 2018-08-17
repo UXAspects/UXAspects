@@ -17,7 +17,7 @@ export class SelectListComponent implements AfterContentInit, OnDestroy {
 
     @Input() set multiple(multiple: boolean) {
         this._selection.strategy.deselectAll();
-        this._selection.setStrategy(multiple ? new MultipleSelectListStrategy() : new SingleSelectListStrategy())
+        this._selection.setStrategy(multiple ? new MultipleSelectListStrategy() : new SingleSelectListStrategy());
     }
 
     @Input() selected: any[] = [];
