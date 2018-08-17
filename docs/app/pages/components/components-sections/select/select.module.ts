@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SelectListModule } from '../../../../../../src/components/select-list/index';
-import { AccordionModule, CheckboxModule, NumberPickerModule, RadioButtonModule, SelectModule, TabsetModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, HybridModule, NumberPickerModule, RadioButtonModule, SelectModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -47,7 +47,8 @@ const ROUTES = [
         WrappersModule,
         NumberPickerModule,
         SelectListModule,
-        TabsetModule
+        TabsetModule,
+        HybridModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

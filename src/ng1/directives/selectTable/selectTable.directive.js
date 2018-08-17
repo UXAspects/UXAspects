@@ -9,7 +9,9 @@ export default function SelectTableDirective() {
             searchText: "=?",
             selectKey: "=?",
             multipleSelect: "=?",
-            selectHiddenItems: "=?"
+            selectHiddenItems: "=?",
+            template: "=?",
+            templateUrl: "=?",
         },
         controller: "selectTableCtrl as vm",
         bindToController: true,
