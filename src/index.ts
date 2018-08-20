@@ -5,6 +5,7 @@ export * from './components/accordion/index';
 export * from './components/breadcrumbs/index';
 export * from './components/card-tabs/index';
 export * from './components/checkbox/index';
+export * from './components/color-picker/index';
 export * from './components/column-sorting/index';
 export * from './components/conduit/index';
 export * from './components/dashboard/index';
@@ -79,7 +80,3 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
-
-
-
-

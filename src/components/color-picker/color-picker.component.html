@@ -1,0 +1,35 @@
+<div class="ux-color-picker">
+    <div class="ux-color-picker-swatch">
+        <button *ngFor="let colorItem of colors"
+            type="button"
+            [attr.aria-label]="colorItem.name"
+            class="btn btn-icon ux-color-picker-color"
+            [class.ux-color-picker-color-circle]="buttonStyle === 'circle'"
+            [class.selected]="colorItem.color === selected"
+            [style.background-color]="colorItem.color"
+            (click)="selected = colorItem.color"
+            [uxTooltip]="colorItem.name"></button>
+    </div>
+    <div *ngIf="showDetails" class="ux-color-picker-detail">
+        <div class="ux-color-picker-detail-input-label">
+            <label>{{colorEntryType.toUpperCase()}}</label>
+            <button type="button"
+                aria-label="Change input type"
+                class="btn btn-icon btn-link button-secondary"
+                (click)="toggleColorEntryType()"
+                uxTooltip="Change input type">
+                <span class="hpe-icon hpe-sync"></span>
+            </button>
+        </div>
+        <div class="ux-color-picker-detail-input">
+            <input type="text" class="form-control" [(ngModel)]="selected">
+            <div class="ux-color-picker-color"
+                [style.background-color]="selected"
+                [class.ux-color-picker-color-circle]="buttonStyle === 'circle'"></div>
+        </div>
+        <!-- <div *ngIf="colorEntryType === 'rgb'" class="ux-color-picker-detail-row">
+            <label>RGB</label>
+            <input type="text" class="form-control" [ngModel]="selectedRgb">
+        </div> -->
+    </div>
+</div>

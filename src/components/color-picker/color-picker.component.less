@@ -1,0 +1,70 @@
+.ux-color-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
+    border-radius: 3px;
+
+    .ux-color-picker-swatch {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 4px;
+
+        .ux-color-picker-color {
+            margin: 8px;
+        }
+    }
+
+    .ux-color-picker-color {
+        width: 32px;
+        height: 32px;
+        box-shadow: 0 0 6px 2px #ddd;
+
+        &.ux-color-picker-color-circle {
+            border-radius: 50%;
+        }
+
+        &.selected,
+        &.selected:focus {
+            border: 3px solid white;
+            box-shadow: 0 0 0 5px fade(@primary, 50%);
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px fade(@primary, 50%);
+        }
+    }
+
+    .ux-color-picker-detail {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-top: 1px solid @grey5;
+        padding: 8px 16px;
+
+        .ux-color-picker-detail-input-label {
+            label {
+                margin: 0 4px 0 0;
+            }
+        }
+
+        .ux-color-picker-detail-input {
+            display: flex;
+            align-items: center;
+
+            input {
+                flex: 1;
+                width: 100%;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .ux-color-picker-color {
+                margin-left: 8px;
+            }
+        }
+    }
+}

@@ -194,6 +194,17 @@
             ]
         },
         {
+            "title": "Color",
+            "link": "color",
+            "sections": [
+                {
+                    "title": "Color Picker",
+                    "component": "ComponentsColorPickerComponent",
+                    "version": "Angular"
+                }
+            ]
+        },
+        {
             "title": "Conduits",
             "link": "conduits",
             "sections": [
