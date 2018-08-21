@@ -1,6 +1,7 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import 'chance';
+import { Subject } from 'rxjs/Subject';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
@@ -13,13 +14,24 @@ export class AppComponent {
 
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
+    loading = false;
+
+    pageSize = 2000;
+    totalPages = 10;
+    totalItems: number;
+
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
+        this.totalItems = this.pageSize * this.totalPages;
+    }
 
     loadPage(pageNumber: number): void {
 
-        const pageSize = 2000;
-        const startIdx = pageNumber * pageSize;
-        const endIdx = startIdx + pageSize;
+        const startIdx = pageNumber * this.pageSize;
+        const endIdx = startIdx + this.pageSize;
         const employees: Employee[] = [];
+
+        this.loading = true;
+        this._liveAnnouncer.announce('Loading more items, please wait.');
 
         // generate sample employee data
         for (let idx = startIdx; idx < endIdx; idx++) {
@@ -30,13 +42,17 @@ export class AppComponent {
                 id: idx,
                 name: name,
                 email: name.toLowerCase().replace(' ', '.') + '@business.com',
-                department: chance.pickone(DEPARTMENTS)
+                department: chance.pickone(DEPARTMENTS),
+                position: idx
             });
         }
 
         // push the next batch of employees to the subject - (delay to simulate server time)
         setTimeout(() => {
             this.employees.next(employees);
+
+            this.loading = false;
+            this._liveAnnouncer.announce(`${employees.length} items loaded.`);
 
             // impose a limit of 10 pages
             if (pageNumber === 10) {
@@ -51,4 +67,5 @@ interface Employee {
     name: string;
     email: string;
     department: string;
+    position: number;
 }

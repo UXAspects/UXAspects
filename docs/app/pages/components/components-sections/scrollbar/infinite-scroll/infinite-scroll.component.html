@@ -1,16 +1,32 @@
 <div class="row">
     <div class="col-md-6 col-sm-12">
-        <input type="text" class="form-control" placeholder="Filter" [ngModel]="filterText | async" (ngModelChange)="filterText.next($event)">
+        <input type="text"
+            aria-label="Filter the employee list"
+            aria-controls="employee-infinite-scroll-list"
+            class="form-control"
+            placeholder="Filter"
+            [ngModel]="filterText | async" (ngModelChange)="filterText.next($event)">
     </div>
 </div>
 <div class="row m-t-sm">
     <div class="col-md-6 col-sm-12">
 
-        <div class="employee-list" [uxInfiniteScroll]="loadCallback" [(collection)]="loadedEmployees" [filter]="debouncedFilterText | async"
-            [pageSize]="pageSize" [loadOnScroll]="loadOnScroll">
+        <div id="employee-infinite-scroll-list" class="employee-list"
+            [uxInfiniteScroll]="loadCallback"
+            [(collection)]="loadedEmployees"
+            [filter]="debouncedFilterText | async"
+            [pageSize]="pageSize"
+            [loadOnScroll]="loadOnScroll"
+            (loading)="loading = true"
+            (loaded)="loading = false"
+            (loadError)="loading = false">
 
-            <ol>
-                <li *ngFor="let employee of loadedEmployees" class="employee-item">
+            <ol [attr.aria-busy]="loading" aria-label="Employee list with infinite scrolling">
+                <li *ngFor="let employee of loadedEmployees"
+                    [attr.aria-setsize]="totalItems"
+                    [attr.aria-posinset]="employee.position"
+                    class="employee-item">
+
                     <div class="employee-details">
                         <div>
                             <span class="employee-name">{{employee.name}}</span>
@@ -21,10 +37,14 @@
                         </div>
                     </div>
                     <div class="employee-id">{{employee.id}}</div>
+
                 </li>
             </ol>
 
-            <button *uxInfiniteScrollLoadButton type="button" class="btn btn-link button-primary employee-load-more">Load more</button>
+            <button *uxInfiniteScrollLoadButton
+                type="button"
+                aria-description="Load more items into the list"
+                class="btn btn-link button-primary employee-load-more">Load more</button>
 
             <div *uxInfiniteScrollLoading class="employee-loading">
                 <div class="spinner spinner-accent spinner-bounce-middle"></div>
@@ -66,18 +86,6 @@
     required.
 </p>
 
-<tabset>
-    <tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss" language="css"></uxd-snippet>
-    </tab>
-</tabset>
-
 <h4>Infinite Scroll</h4>
 
 <p>The
@@ -111,7 +119,7 @@
         The number of items to request in a page. This should ideally be more than twice the number of items which fit into the height of the scrolling view, but this is not required.
     </tr>
     <tr uxd-api-property name="loadOnScroll" type="boolean" defaultValue="true">
-        Controls whether additional data is loaded based on the scroll position. If set to true the the list will have the "infinite scroll" effect. 
+        Controls whether additional data is loaded based on the scroll position. If set to true the the list will have the "infinite scroll" effect.
     </tr>
     <tr uxd-api-property name="scrollElement" type="ElementRef | Element">
         The scrollable element which contains the data, if this is different from the element where the
@@ -182,3 +190,28 @@
 <p>See below for an example, and note the asterisk prefix to indicate use of a structural directive.</p>
 
 <uxd-snippet [content]="snippets.compiled.loadMoreSnippetHtml" language="html"></uxd-snippet>
+
+<h4>Accessibility</h4>
+
+<p>
+    On the list items, it is important to specify <code>aria-posinset</code> to indicate the position of the item in the
+    overall collection, and <code>aria-setsize</code> to specify the total number of items if known (use the value
+    <code>-1</code> otherwise).
+    Additionally, the example shows use of
+    <a href="https://material.angular.io/cdk/a11y/api#LiveAnnouncer"><code>LiveAnnouncer</code></a> to announce the
+    start and end of the loading period.
+</p>
+
+<h4>Sample Code</h4>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss" language="css"></uxd-snippet>
+    </tab>
+</tabset>

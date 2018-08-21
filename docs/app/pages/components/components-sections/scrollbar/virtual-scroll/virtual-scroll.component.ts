@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import 'chance';
 import { Subject } from 'rxjs/Subject';
@@ -18,6 +19,11 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
 
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
+    loading = false;
+
+    pageSize = 2000;
+    totalPages = 10;
+    totalItems: number;
 
     plunk: IPlunk = {
         files: {
@@ -29,20 +35,27 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
             {
                 imports: ['VirtualScrollModule', 'CheckboxModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             }
         ]
     };
 
-    constructor() {
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        this.totalItems = this.pageSize * this.totalPages;
     }
 
     loadPage(pageNumber: number): void {
 
-        const pageSize = 2000;
-        const startIdx = pageNumber * pageSize;
-        const endIdx = startIdx + pageSize;
+        const startIdx = pageNumber * this.pageSize;
+        const endIdx = startIdx + this.pageSize;
         const employees: Employee[] = [];
+
+        this.loading = true;
+        this._liveAnnouncer.announce('Loading more items, please wait.');
 
         // generate sample employee data
         for (let idx = startIdx; idx < endIdx; idx++) {
@@ -53,13 +66,17 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
                 id: idx,
                 name: name,
                 email: name.toLowerCase().replace(' ', '.') + '@business.com',
-                department: chance.pickone(DEPARTMENTS)
+                department: chance.pickone(DEPARTMENTS),
+                position: idx
             });
         }
 
         // push the next batch of employees to the subject - (delay to simulate server time)
         setTimeout(() => {
             this.employees.next(employees);
+
+            this.loading = false;
+            this._liveAnnouncer.announce(`${employees.length} items loaded.`);
 
             // impose a limit of 10 pages
             if (pageNumber === 10) {
@@ -74,4 +91,5 @@ interface Employee {
     name: string;
     email: string;
     department: string;
+    position: number;
 }
