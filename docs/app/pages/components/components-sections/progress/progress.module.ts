@@ -1,7 +1,6 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ProgressBarModule } from '../../../../../../src/index';
+import { ProgressBarModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -27,11 +26,11 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
-        ProgressBarModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        ProgressBarModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
