@@ -129,11 +129,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     }
 }
 
+export type ColorPickerInputColors = ColorPickerColor | string;
 export type ColorPickerButtonStyle = 'square' | 'circle';
 export type ColorPickerButtonSize = 'sm' | 'md' | 'lg';
 export type ColorPickerInputMode = 'hex' | 'rgba';
-
-type ColorPickerInputColors = ColorPickerColor | string;
 
 /**
  * Type representing a color, including its descriptive name.
