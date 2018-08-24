@@ -8,12 +8,14 @@
                 [class.ux-circle]="buttonStyle === 'circle'"
                 [class.ux-selected]="color === (selected$ | async)">
                 <button type="button"
-                    [attr.aria-label]="color.name"
+                    attr.aria-label="Select color {{color.name}}" i18n-aria-label
+                    aria-selected="color === (selected$ | async)"
                     class="btn btn-icon"
                     [style.background-color]="color.rgba"
                     (click)="selected$.next(color)"
                     uxTabbableListItem
-                    [uxTooltip]="color.name"></button>
+                    [uxTooltip]="color.name"
+                    [tooltipDisabled]="!showTooltips"></button>
             </div>
         </div>
     </div>
@@ -42,7 +44,7 @@
                 [ngModel]="(selected$ | async)[inputMode]"
                 (ngModelChange)="updateColorValue($event, inputMode)"
                 [pattern]="inputPatterns[inputMode].source"
-                (keydown.enter)="inputSubmit.emit()">
+                (keyup.enter)="inputSubmit.emit()">
             <span class="hpe-icon hpe-alert form-control-feedback"></span>
         </div>
     </div>
