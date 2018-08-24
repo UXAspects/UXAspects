@@ -1,0 +1,45 @@
+<div class="demo-color-picker-container">
+    <div class="btn-group"
+        (keydown.esc)="isPickerOpen = false"
+        dropdown
+        [(isOpen)]="isPickerOpen"
+        [autoClose]="false"
+        (onHidden)="toggleButton.focus()">
+
+        <button type="button"
+            aria-label="Select a color"
+            class="btn button-secondary dropdown-toggle"
+            #toggleButton
+            dropdownToggle>
+
+            <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
+                &nbsp;
+            </span>
+            <span class="hpe-icon hpe-chevron-down"></span>
+
+        </button>
+
+        <div *dropdownMenu class="dropdown-menu ux-color-picker-dropdown">
+            <ux-color-picker
+                [colors]="colors"
+                [(selected)]="selected"
+                (selectedChange)="colorPickerSelectedChange()"
+                [columns]="columns"
+                [buttonStyle]="buttonStyle"
+                [buttonSize]="buttonSize"
+                [showTooltips]="showTooltips"
+                [showInput]="showInput"
+                (inputSubmit)="isPickerOpen = false"></ux-color-picker>
+
+            <div *ngIf="showInput" class="btn-container demo-color-picker-close">
+                <button type="button" class="btn button-primary" (click)="isPickerOpen = false">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <span class="m-l-lg">
+        Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
+    </span>
+</div>

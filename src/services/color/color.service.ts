@@ -133,7 +133,7 @@ export class ThemeColor {
 
         const rgbaPattern = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
         const shortHexPattern = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        const longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/;
+        const longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
 
         const rgbaMatch = value.match(rgbaPattern);
         const shortHexMatch = value.match(shortHexPattern);

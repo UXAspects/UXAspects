@@ -200,7 +200,17 @@
                 {
                     "title": "Color Picker",
                     "component": "ComponentsColorPickerComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-color-picker"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ColorPickerModule"
+                        }
+                    ]
                 }
             ]
         },

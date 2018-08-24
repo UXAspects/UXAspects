@@ -1,70 +1,137 @@
+ux-color-picker {
+    display: block;
+}
+
 .ux-color-picker {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
-    border-radius: 3px;
+    font-size: @font-size;
 
     .ux-color-picker-swatch {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 4px;
+        flex-direction: column;
+        width: 100%;
+    }
 
-        .ux-color-picker-color {
-            margin: 8px;
-        }
+    .ux-color-picker-swatch-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
     .ux-color-picker-color {
+        border: 5px solid transparent;
+        padding: 3px;
+
+        > button {
+            width: 32px;
+            height: 32px;
+            box-shadow: 0 0 6px 2px #ddd;
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px fade(@primary, 50%);
+            }
+        }
+
+        &.ux-small > button {
+            width: 26px;
+            height: 26px;
+        }
+
+        &.ux-large > button {
+            width: 40px;
+            height: 40px;
+        }
+
+        &.ux-circle {
+            border-radius: 50%;
+
+            > button {
+                border-radius: 50%;
+            }
+        }
+
+        &.ux-selected {
+            border: 5px solid fade(@primary, 50%);
+
+            > button {
+                box-shadow: none;
+            }
+        }
+    }
+
+    .ux-color-picker-input-panel {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 4px;
+        border-top: 1px solid @grey5;
+
+        .ux-color-picker-input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 12px 8px 4px;
+
+            label {
+                margin: 0;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .ux-color-picker-input-toggle {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                padding-left: 9px;
+                padding-right: 5px;
+                font-size: inherit;
+            }
+        }
+
+        .ux-color-picker-input {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            position: relative;
+            min-width: 10rem;
+            margin: 4px 8px 8px;
+
+            input {
+                width: 100%;
+                height: 32px;
+                padding: 2px;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+    }
+
+    .ux-color-picker-preview {
         width: 32px;
         height: 32px;
         box-shadow: 0 0 6px 2px #ddd;
 
-        &.ux-color-picker-color-circle {
+        &.ux-circle {
             border-radius: 50%;
         }
-
-        &.selected,
-        &.selected:focus {
-            border: 3px solid white;
-            box-shadow: 0 0 0 5px fade(@primary, 50%);
-        }
-
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px fade(@primary, 50%);
-        }
     }
+}
 
-    .ux-color-picker-detail {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        border-top: 1px solid @grey5;
-        padding: 8px 16px;
+// Additional class for showing a color preview within a button.
+.ux-color-picker-button-preview {
+    display: inline-block;
+    width: 32px;
+    margin-right: 8px;
+    border: 1px solid #cbcbcb;
+}
 
-        .ux-color-picker-detail-input-label {
-            label {
-                margin: 0 4px 0 0;
-            }
-        }
-
-        .ux-color-picker-detail-input {
-            display: flex;
-            align-items: center;
-
-            input {
-                flex: 1;
-                width: 100%;
-                font-size: 16px;
-                text-align: center;
-            }
-
-            .ux-color-picker-color {
-                margin-left: 8px;
-            }
-        }
-    }
+.ux-color-picker-dropdown {
+    padding: 4px;
 }

@@ -1,35 +1,49 @@
-<div class="ux-color-picker">
+<div class="ux-color-picker" uxTabbableList direction="horizontal">
     <div class="ux-color-picker-swatch">
-        <button *ngFor="let colorItem of colors"
-            type="button"
-            [attr.aria-label]="colorItem.name"
-            class="btn btn-icon ux-color-picker-color"
-            [class.ux-color-picker-color-circle]="buttonStyle === 'circle'"
-            [class.selected]="colorItem.color === selected"
-            [style.background-color]="colorItem.color"
-            (click)="selected = colorItem.color"
-            [uxTooltip]="colorItem.name"></button>
+        <div *ngFor="let row of colors" class="ux-color-picker-swatch-row">
+            <div *ngFor="let color of row"
+                class="ux-color-picker-color"
+                [class.ux-small]="(buttonSize$ | async) === 'sm'"
+                [class.ux-large]="(buttonSize$ | async) === 'lg'"
+                [class.ux-circle]="buttonStyle === 'circle'"
+                [class.ux-selected]="color === (selected$ | async)">
+                <button type="button"
+                    [attr.aria-label]="color.name"
+                    class="btn btn-icon"
+                    [style.background-color]="color.rgba"
+                    (click)="selected$.next(color)"
+                    uxTabbableListItem
+                    [uxTooltip]="color.name"></button>
+            </div>
+        </div>
     </div>
-    <div *ngIf="showDetails" class="ux-color-picker-detail">
-        <div class="ux-color-picker-detail-input-label">
-            <label>{{colorEntryType.toUpperCase()}}</label>
+    <div *ngIf="showInput" class="ux-color-picker-input-panel">
+        <div class="ux-color-picker-input-header">
+            <div class="ux-color-picker-preview"
+                [style.background-color]="(selected$ | async).rgba"
+                [class.ux-circle]="buttonStyle === 'circle'"></div>
+            <label *ngIf="inputMode === 'hex'" attr.for="{{id}}-input-field">HEX</label>
+            <label *ngIf="inputMode === 'rgba'" attr.for="{{id}}-input-field">RGBA</label>
             <button type="button"
-                aria-label="Change input type"
-                class="btn btn-icon btn-link button-secondary"
-                (click)="toggleColorEntryType()"
-                uxTooltip="Change input type">
-                <span class="hpe-icon hpe-sync"></span>
+                attr.aria-label="Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}" i18n-aria-label
+                class="btn btn-link btn-icon button-secondary ux-color-picker-input-toggle"
+                (click)="toggleColorEntryType(); $event.stopPropagation()">
+                <span class="hpe-icon hpe-chevron-right"></span>
             </button>
         </div>
-        <div class="ux-color-picker-detail-input">
-            <input type="text" class="form-control" [(ngModel)]="selected">
-            <div class="ux-color-picker-color"
-                [style.background-color]="selected"
-                [class.ux-color-picker-color-circle]="buttonStyle === 'circle'"></div>
+        <div class="ux-color-picker-input"
+            [class.has-error]="inputField.errors"
+            [class.has-feedback]="inputField.errors">
+            <input type="text"
+                attr.id="{{id}}-input-field"
+                attr.aria-description="Edit {{inputMode}} color value" i18n-aria-description
+                class="form-control"
+                #inputField="ngModel"
+                [ngModel]="(selected$ | async)[inputMode]"
+                (ngModelChange)="updateColorValue($event, inputMode)"
+                [pattern]="inputPatterns[inputMode].source"
+                (keydown.enter)="inputSubmit.emit()">
+            <span class="hpe-icon hpe-alert form-control-feedback"></span>
         </div>
-        <!-- <div *ngIf="colorEntryType === 'rgb'" class="ux-color-picker-detail-row">
-            <label>RGB</label>
-            <input type="text" class="form-control" [ngModel]="selectedRgb">
-        </div> -->
     </div>
 </div>

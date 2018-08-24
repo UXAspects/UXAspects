@@ -1,0 +1,7 @@
+.btn-container.demo-color-picker-close {
+    margin: 0 8px 8px;
+}
+
+.btn-container.demo-color-picker-close > button {
+    width: 100%;
+}
