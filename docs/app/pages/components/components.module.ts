@@ -12,6 +12,7 @@ const ROUTES: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'buttons' },
             { path: 'buttons', loadChildren: './components-sections/buttons/buttons.module#ComponentsButtonsModule' },
             { path: 'component-list', loadChildren: './components-sections/component-list/component-list.module#ComponentsListModule' },
+            { path: 'color', loadChildren: './components-sections/color/color.module#ComponentsColorModule' },
             { path: 'conduits', loadChildren: './components-sections/conduits/conduits.module#ComponentsConduitsModule' },
             { path: 'contacts', loadChildren: './components-sections/contacts/contacts.module#ComponentsContactsModule' },
             { path: 'dashboard', loadChildren: './components-sections/dashboard/dashboard.module#ComponentsDashboardModule' },

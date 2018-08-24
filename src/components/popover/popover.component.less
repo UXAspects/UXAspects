@@ -1,6 +1,7 @@
 ux-popover {
     .popover {
         position: static;
+        max-width: none;
 
         &.top {
             transform: translateY(-11px);
@@ -16,6 +17,14 @@ ux-popover {
 
         &.left {
             transform: translateX(-11px);
+        }
+    }
+
+    .ux-popover-no-padding {
+        padding: 0;
+
+        .popover-content {
+            padding: 0;
         }
     }
 }
