@@ -62,8 +62,10 @@
 
 </div>
 
-<div class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation" *ngIf="secondaryNavigation && (selectedRoot$ | async)">
-    <ul class="nav nav-tabs" role="tablist" aria-label="Secondary Navigation" *ngIf="(selectedRoot$ | async)?.children; let children">
+<div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))"
+    class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation">
+    <ul *ngIf="(selectedRoot$ | async)?.children; let children"
+        class="nav nav-tabs" role="tablist" aria-label="Secondary Navigation">
         <li *ngFor="let child of children"
             [class.active]="child.selected"
             role="none"

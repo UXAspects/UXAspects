@@ -1,7 +1,8 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
@@ -23,7 +24,7 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     isOpen: boolean;
 
-    private _subscription: Subscription;
+    private _onDestroy = new Subject();
 
     constructor(
         public elementRef: ElementRef,
@@ -32,7 +33,7 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this._subscription = this._pageHeaderService.selected$.subscribe(next => {
+        this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(next => {
 
             // Update selected state for this item
             this._pageHeaderService.updateItem(this.item, next);
@@ -46,17 +47,18 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
         });
 
         if (this.menu) {
-            this._subscription.add(
-                this.menu.onHidden.subscribe(() => this.dropdowns.forEach(dropdown => dropdown.close()))
-            );
+            this.menu.onHidden
+                .pipe(takeUntil(this._onDestroy))
+                .subscribe(() => this.dropdowns.forEach(dropdown => dropdown.close()));
         }
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
-    select() {
+    select(): void {
 
         // if the item has children then do nothing at this stage
         if (this.item.children && this._pageHeaderService.secondary$.getValue() === false) {

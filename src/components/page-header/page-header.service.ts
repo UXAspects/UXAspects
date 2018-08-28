@@ -1,13 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { map } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 
 @Injectable()
 export class PageHeaderService implements OnDestroy {
-
     items$ = new BehaviorSubject<PageHeaderNavigationItem[]>([]);
     selected$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     selectedRoot$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
@@ -15,22 +15,40 @@ export class PageHeaderService implements OnDestroy {
     activeIconMenu$ = new BehaviorSubject<PageHeaderIconMenu>(null);
     secondaryNavigationAutoselect = false;
 
-    private _subscription: Subscription;
+    private _onDestroy = new Subject();
 
-    constructor() {
-        this._subscription = this.selected$.pipe(map(selected => this.getRoot(selected))).subscribe(root => this.selectedRoot$.next(root));
+    constructor(private _router: Router) {
+
+        this.selected$
+            .pipe(takeUntil(this._onDestroy), map(selected => this.getRoot(selected)))
+            .subscribe(root => this.selectedRoot$.next(root));
+
+        this._router.events
+            .pipe(takeUntil(this._onDestroy), filter(e => e instanceof NavigationEnd))
+            .subscribe(this.updateItemsWithActiveRoute.bind(this));
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     select(item: PageHeaderNavigationItem): void {
 
-        if (this.secondaryNavigationAutoselect && item && item.children && item.children.length > 0) {
+        if (!item) {
+            return;
+        }
+
+        if (item.routerLink) {
+
+            // Trigger router navigation
+            const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+            this._router.navigate(routerLink, item.routerExtras);
+
+        } else if (this.secondaryNavigationAutoselect && item.children && item.children.length > 0) {
 
             // Select the first child in secondaryNavigationAutoselect mode
-            this.selected$.next(item.children[0]);
+            this.select(item.children[0]);
 
         } else {
 
@@ -45,7 +63,6 @@ export class PageHeaderService implements OnDestroy {
     }
 
     deselect(item: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void {
-
         // deselect the current item
         item.selected = false;
 
@@ -60,9 +77,8 @@ export class PageHeaderService implements OnDestroy {
     }
 
     updateItem(item: PageHeaderNavigationItem, selected: PageHeaderNavigationItem): void {
-
         // Item is selected if it is the selected item, or one of the selected item's ancestors.
-        item.selected = (item === selected) || this.isParentOf(selected, item);
+        item.selected = item === selected || this.isParentOf(selected, item);
 
         if (item === selected) {
             // call the select function if present
@@ -79,8 +95,13 @@ export class PageHeaderService implements OnDestroy {
         this.items$.next(items);
 
         // Set up the initally selected item
+        // If nothing is set as selected, using the initial route
         const initialSelectedItem = items.find(item => item.selected === true);
-        this.select(initialSelectedItem);
+        if (initialSelectedItem) {
+            this.select(initialSelectedItem);
+        } else {
+            this.updateItemsWithActiveRoute();
+        }
     }
 
     setSecondaryNavigation(enabled: boolean): void {
@@ -92,6 +113,7 @@ export class PageHeaderService implements OnDestroy {
     }
 
     private setParent(item: PageHeaderNavigation, parent?: PageHeaderNavigation | null): void {
+
         // set the parent field
         item.parent = parent;
 
@@ -115,6 +137,36 @@ export class PageHeaderService implements OnDestroy {
 
         // if there are potentially grandparents then check them too
         return this.isParentOf(node.parent, parent);
+    }
+
+    private updateItemsWithActiveRoute(): void {
+        const selected = this.findActiveItem(this.items$.getValue());
+        if (selected) {
+            this.selected$.next(selected);
+        }
+    }
+
+    private findActiveItem(items: PageHeaderNavigationItem[]): PageHeaderNavigationItem {
+        for (var item of items) {
+            if (item.routerLink && this.isRouterLinkActive(item)) {
+                return item;
+            }
+            if (item.children) {
+                const activeItem = this.findActiveItem(item.children);
+                if (activeItem) {
+                    return activeItem;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private isRouterLinkActive(item: PageHeaderNavigationItem): boolean {
+        const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+        const urlTree = this._router.createUrlTree(routerLink, item.routerExtras);
+
+        return this._router.isActive(urlTree, true);
     }
 }
 

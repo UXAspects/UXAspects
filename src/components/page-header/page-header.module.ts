@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 import { ResizeModule } from '../../directives/resize/index';
@@ -16,12 +17,13 @@ import { PageHeaderComponent } from './page-header.component';
 
 @NgModule({
     imports: [
-        CommonModule,
         BreadcrumbsModule,
+        BsDropdownModule.forRoot(),
         ColorServiceModule,
-        ResizeModule,
+        CommonModule,
         MenuNavigationModule,
-        BsDropdownModule.forRoot()
+        ResizeModule,
+        RouterModule,
     ],
     exports: [
         PageHeaderComponent,
