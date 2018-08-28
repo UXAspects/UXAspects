@@ -1,14 +1,14 @@
-import { Component, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import 'chance';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { first } from 'rxjs/operators/first';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { SearchBuilderComponentDefinition, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextComponent, SearchDateRangeComponent, SearchDateRangeConfig, SearchTextConfig, SearchSelectComponent, SearchSelectConfig } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { first } from 'rxjs/operators/first';
-import 'chance';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-search-builder',

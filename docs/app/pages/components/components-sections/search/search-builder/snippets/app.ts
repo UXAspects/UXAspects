@@ -1,14 +1,10 @@
-import { Component, TemplateRef, OnDestroy } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { first } from 'rxjs/operators/first';
+import { Component, OnDestroy } from '@angular/core';
+import { SearchBuilderComponentDefinition, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { 
-    SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextComponent, 
-    SearchDateRangeComponent, SearchDateRangeConfig, SearchTextConfig, 
-    SearchSelectComponent, SearchSelectConfig 
-} from '@ux-aspects/ux-aspects';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { first } from 'rxjs/operators/first';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app',
@@ -88,8 +84,8 @@ export class AppComponent implements OnDestroy {
         label: 'File types',
         placeholder: 'Select File Types',
         options: [
-            'AVI', 'BMP', 'CSV', 'DOC', 'EXE', 
-            'GIF', 'JPG', 'MOV', 'PDF', 'PNG', 
+            'AVI', 'BMP', 'CSV', 'DOC', 'EXE',
+            'GIF', 'JPG', 'MOV', 'PDF', 'PNG',
             'PPT', 'RTF', 'TXT', 'XLS', 'ZIP'
         ],
         multiple: true
@@ -102,7 +98,7 @@ export class AppComponent implements OnDestroy {
         label: 'Repository',
         placeholder: 'Enter a Repository',
         options: [
-            'Filesystem', 'Records Manager', 'Email', 
+            'Filesystem', 'Records Manager', 'Email',
             'Legacy Email', 'Archives', 'Legacy Archives', 'Miscellaneous'
         ],
         multiple: true
