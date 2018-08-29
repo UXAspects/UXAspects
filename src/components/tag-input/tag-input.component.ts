@@ -1,7 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { delay } from 'rxjs/operators/delay';
 import { Subscription } from 'rxjs/Subscription';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
@@ -75,6 +74,9 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() tagClass: TagClassFunction = () => undefined;
     @Input() validationErrors: any = {};
     @Input('createTag') createTagHandler: (value: string) => any;
+
+    // Workaround for EL-3224 until the issue can be diagnosed.
+    @Input() trackAriaDescendant: boolean = true;
 
     @Output() tagAdding = new EventEmitter<TagInputEvent>();
     @Output() tagAdded = new EventEmitter<TagInputEvent>();
@@ -530,11 +532,13 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
             // Set up event handler for the highlighted element
             // Added a delay to move it out of the current change detection cycle
-            this._typeaheadSubscription.add(
-                this.typeahead.highlightedElementChange.subscribe((element: HTMLElement) => {
-                    this.highlightedElement = element;
-                })
-            );
+            if (this.trackAriaDescendant) {
+                this._typeaheadSubscription.add(
+                    this.typeahead.highlightedElementChange.subscribe((element: HTMLElement) => {
+                        this.highlightedElement = element;
+                    })
+                );
+            }
         }
     }
 
