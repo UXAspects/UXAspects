@@ -1,43 +1,49 @@
 <div class="ux-page-header" [class.page-header-condensed]="condensed" role="banner">
 
-    <!-- Display Upper Section when not condensed -->
-    <div class="page-header-actions" *ngIf="!condensed">
+    <div *ngIf="!condensed" class="page-header-content">
 
-        <div class="page-header-logo-container" role="presentation" [hidden]="!logo">
-            <img [attr.src]="logo" class="page-header-logo">
+        <!-- Logo/product acronym -->
+        <div class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground">
+            <img *ngIf="logo" [attr.src]="logo" [attr.alt]="header" class="page-header-logo">
+            <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
         </div>
 
-        <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
-
-            <!-- The Top Navigation Options -->
-            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
+        <!-- Sub-title -->
+        <div *ngIf="title || titleTemplate" class="page-header-subtitle-container">
+            <span *ngIf="title" class="page-header-subtitle">{{title}}</span>
+            <ng-container [ngTemplateOutlet]="titleTemplate"></ng-container>
         </div>
-
-        <div class="page-header-icon-menus" role="toolbar">
-            <ng-container *ngFor="let menu of customMenus" [ngTemplateOutlet]="menu"></ng-container>
-
-            <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
-        </div>
-    </div>
-
-    <!-- Display Lower Section When Not Condensed -->
-    <div class="page-header-details" *ngIf="!condensed">
 
         <div class="page-header-state-container" role="navigation">
 
+            <!-- Back button -->
             <button *ngIf="backVisible === true" class="page-header-back-button" (click)="goBack()" aria-label="Go Back">
                 <span class="hpe-icon hpe-previous text-primary"></span>
             </button>
 
+            <!-- Breadcrumbs and header -->
             <div class="page-header-title-container">
 
-                <ux-breadcrumbs [crumbs]="crumbs"></ux-breadcrumbs>
+                <ux-breadcrumbs *ngIf="crumbs && crumbs.length > 0"
+                    [class.ux-breadcrumbs-small]="crumbsStyle === 'small'"
+                    [crumbs]="crumbs"></ux-breadcrumbs>
 
-                <h1 class="page-header-title" [style.backgroundColor]="familyBackground" [style.color]="familyForeground">{{ header }}</h1>
+                <h1 class="page-header-title">{{header}}</h1>
+
             </div>
 
         </div>
 
+        <!-- Primary navigation -->
+        <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
+            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
+        </div>
+
+        <!-- Icon menus -->
+        <div class="page-header-icon-menus" role="toolbar">
+            <ng-container *ngFor="let menu of customMenus" [ngTemplateOutlet]="menu"></ng-container>
+            <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
+        </div>
     </div>
 
     <!-- Display This Section Optimized for Condensed Mode -->
@@ -64,8 +70,10 @@
 
 <div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))"
     class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation">
+
     <ul *ngIf="(selectedRoot$ | async)?.children; let children"
         class="nav nav-tabs" role="tablist" aria-label="Secondary Navigation">
+
         <li *ngFor="let child of children"
             [class.active]="child.selected"
             role="none"
@@ -78,5 +86,7 @@
                 (keydown.enter)="select(child)">{{ child.title }}</a>
 
         </li>
+
     </ul>
+
 </div>

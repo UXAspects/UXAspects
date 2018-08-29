@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChild, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
@@ -17,13 +17,15 @@ export class PageHeaderComponent {
 
     @Input() logo: string;
     @Input() header: string;
+    @Input() title: string;
     @Input() alignment: 'left' | 'right' | 'center' = 'center';
     @Input() condensed: boolean = false;
     @Input() iconMenus: PageHeaderIconMenu[];
     @Input() backVisible: boolean = true;
-    @Input() secondaryNavigationAlignment: string = 'center';
+    @Input() secondaryNavigationAlignment: 'left' | 'right' | 'center' = 'center';
 
-    @Input() set secondaryNavigationAutoselect(value: boolean) {
+    @Input()
+    set secondaryNavigationAutoselect(value: boolean) {
         this._pageHeaderService.secondaryNavigationAutoselect = value;
     }
 
@@ -31,11 +33,13 @@ export class PageHeaderComponent {
         return this._pageHeaderService.secondaryNavigationAutoselect;
     }
 
-    @Input() set items(items: PageHeaderNavigationItem[]) {
+    @Input()
+    set items(items: PageHeaderNavigationItem[]) {
         this._pageHeaderService.setItems(items);
     }
 
-    @Input() set secondaryNavigation(enabled: boolean) {
+    @Input()
+    set secondaryNavigation(enabled: boolean) {
         this._pageHeaderService.setSecondaryNavigation(enabled);
     }
 
@@ -43,7 +47,8 @@ export class PageHeaderComponent {
         return this._pageHeaderService.secondary$.getValue();
     }
 
-    @Input() set crumbs(crumbs: Breadcrumb[]) {
+    @Input()
+    set crumbs(crumbs: Breadcrumb[]) {
         this._crumbs = crumbs;
     }
 
@@ -51,25 +56,39 @@ export class PageHeaderComponent {
         return this.condensed ? [...this._crumbs, { title: this.header }] : this._crumbs;
     }
 
+    @Input() crumbsStyle: 'standard' | 'small' = 'standard';
+
     @Input()
-    set familyBackground(color: string) {
-        this._familyBackground = this._colorService.resolve(color);
+    set logoBackground(color: string) {
+        this._logoBackground = this._colorService.resolve(color);
     }
 
-    get familyBackground(): string {
-        return this._familyBackground;
+    get logoBackground(): string {
+        return this._logoBackground;
+    }
+
+    @Input()
+    set logoForeground(color: string) {
+        this._logoForeground = this._colorService.resolve(color);
+    }
+
+    get logoForeground(): string {
+        return this._logoForeground;
+    }
+
+    @Input()
+    set familyBackground(color: string) {
+        this.logoBackground = color;
     }
 
     @Input()
     set familyForeground(color: string) {
-        this._familyForeground = this._colorService.resolve(color);
-    }
-
-    get familyForeground(): string {
-        return this._familyForeground;
+        this.logoForeground = color;
     }
 
     @Output() backClick = new EventEmitter();
+
+    @ContentChild('title') titleTemplate: TemplateRef<any>;
 
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
 
@@ -77,8 +96,8 @@ export class PageHeaderComponent {
     selectedRoot$: BehaviorSubject<PageHeaderNavigationItem> = this._pageHeaderService.selectedRoot$;
 
     private _crumbs: Breadcrumb[] = [];
-    private _familyBackground: string;
-    private _familyForeground: string;
+    private _logoBackground: string;
+    private _logoForeground: string;
 
     constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
 

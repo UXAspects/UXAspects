@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { Breadcrumb } from '../../../../../../../src/components/breadcrumbs/index';
-import { PageHeaderNavigationItem, PageHeaderIconMenu } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { PageHeaderIconMenu, PageHeaderNavigationItem } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-page-header',
@@ -16,19 +16,25 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.ts': this.snippets.raw.appTs
         },
-        modules: [{
-            imports: ['PageHeaderModule'],
-            library: '@ux-aspects/ux-aspects'
-        },
-        {
-            library: 'ngx-bootstrap/dropdown',
-            imports: ['BsDropdownModule'],
-            providers: ['BsDropdownModule.forRoot()']
-        }]
+        modules: [
+            {
+                imports: ['PageHeaderModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['RouterModule'],
+                library: '@angular/router',
+                providers: ['RouterModule.forRoot([])']
+            },
+            {
+                imports: ['BsDropdownModule'],
+                library: 'ngx-bootstrap/dropdown',
+                providers: ['BsDropdownModule.forRoot()']
+            }
+        ]
     };
-
 
     condensed: boolean = false;
 
@@ -125,5 +131,4 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
-
 }
