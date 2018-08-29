@@ -3,8 +3,6 @@ ux-page-header {
     width: 100%;
 
     .ux-page-header {
-        display: flex;
-        flex-direction: column;
         height: 130px;
         width: 100%;
         padding-left: 23px;
@@ -12,104 +10,108 @@ ux-page-header {
         background-color: @page-header-bg;
         color: @white;
 
-        .page-header-actions {
+        .page-header-content {
+            position: relative;
+            height: 100%;
+        }
+
+        .page-header-logo-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 40px;
+            overflow: hidden;
+
+            .page-header-logo {
+                max-height: 100%;
+            }
+
+            .page-header-acronym {
+                display: none; // MF only
+            }
+        }
+
+        .page-header-subtitle-container {
+            display: none; // MF only
+        }
+
+        .page-header-state-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
             display: flex;
-            flex: 1;
+            align-items: center;
+            height: 70px;
 
-            .page-header-logo-container {
+            .page-header-back-button {
                 display: flex;
-                flex: none;
+                height: 28px;
+                width: 28px;
+                margin-top: 16px;
+                margin-right: 2px;
+                border: none;
+                justify-content: center;
                 align-items: center;
-                margin-top: 10px;
-                margin-right: 10px;
-                height: 40px;
-                overflow: hidden;
+                background-color: transparent;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out;
 
-                .page-header-logo {
-                    max-height: 100%;
+                &:hover,
+                &:focus {
+                    background-color: @page-header-back-button-hover-bg;
                 }
 
-                &[hidden] {
-                    display: none;
+                &:focus {
+                    .aspects-outline;
+                }
+
+                & > * {
+                    color: @page-header-back-button-color;
+
+                    &:hover {
+                        color: @page-header-back-button-hover-color;
+                    }
                 }
             }
 
-            .page-header-navigation {
+            ux-breadcrumbs {
+                height: 22px;
+            }
+
+            .page-header-title-container {
                 display: flex;
-                justify-content: center;
-                flex: 1;
+                flex-direction: column;
+                margin-right: 10px;
 
-                &.left {
-                    justify-content: flex-start;
-                }
-
-                &.right {
-                    justify-content: flex-end;
+                .page-header-title {
+                    margin-top: 0;
+                    margin-bottom: 8px;
+                    line-height: 35px;
                 }
             }
         }
 
-        .page-header-details {
+        .page-header-navigation {
             display: flex;
-            flex: none;
-            height: 70px;
+            justify-content: center;
+            flex: 1;
+            margin: 0 120px;
 
-            .page-header-state-container {
-                display: inline-flex;
-                align-items: center;
+            &.left {
+                justify-content: flex-start;
+            }
 
-                .page-header-back-button {
-                    display: flex;
-                    height: 28px;
-                    width: 28px;
-                    margin-top: 16px;
-                    margin-right: 2px;
-                    border: none;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: transparent;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease-in-out;
-
-                    &:hover,
-                    &:focus {
-                        background-color: @page-header-back-button-hover-bg;
-                    }
-
-                    &:focus {
-                        .aspects-outline;
-                    }
-
-                    & > * {
-                        color: @page-header-back-button-color;
-
-                        &:hover {
-                            color: @page-header-back-button-hover-color;
-                        }
-                    }
-                }
-
-                .page-header-title-container {
-                    display: inline-flex;
-                    flex-direction: column;
-                    margin-right: 10px;
-
-                    ux-breadcrumbs {
-                        height: 22px;
-                    }
-
-                    .page-header-title {
-                        margin-top: 0;
-                        margin-bottom: 8px;
-                        line-height: 35px;
-                    }
-                }
+            &.right {
+                justify-content: flex-end;
             }
         }
 
         .page-header-icon-menus {
+            position: absolute;
+            top: 0;
+            right: 0;
             display: flex;
-            flex: none;
+            height: 60px;
         }
 
         // Styling For Condensed Header
@@ -117,6 +119,7 @@ ux-page-header {
             height: 57px;
 
             .page-header-condensed-content {
+                position: relative;
                 display: flex;
 
                 .page-header-breadcrumbs {
@@ -137,6 +140,10 @@ ux-page-header {
                     display: flex;
                     flex: 1;
                     justify-content: center;
+                }
+
+                .page-header-icon-menus {
+                    position: static;
                 }
             }
         }
