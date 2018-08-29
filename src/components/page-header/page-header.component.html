@@ -4,7 +4,7 @@
 
         <!-- Logo/product acronym -->
         <div class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground">
-            <img *ngIf="logo" [attr.src]="logo" [attr.alt]="header" class="page-header-logo">
+            <img *ngIf="logo" [attr.src]="logo" [alt]="header" class="page-header-logo">
             <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
         </div>
 
