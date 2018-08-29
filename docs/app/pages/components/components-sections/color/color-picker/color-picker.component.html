@@ -12,12 +12,18 @@
             #toggleButton
             dropdownToggle>
 
-            <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">&nbsp;</span>
+            <span class="ux-color-picker-button-preview" [style.background-color]="selected.rgba">
+                &nbsp;
+            </span>
             <span class="hpe-icon hpe-chevron-down"></span>
 
         </button>
 
-        <div *dropdownMenu class="dropdown-menu ux-color-picker-dropdown">
+        <div *dropdownMenu
+            #dropdownMenu
+            id="color-picker-dropdown"
+            class="dropdown-menu ux-color-picker-dropdown">
+
             <ux-color-picker
                 [colors]="colors"
                 [(selected)]="selected"
@@ -30,15 +36,20 @@
                 (inputSubmit)="isPickerOpen = false"></ux-color-picker>
 
             <div *ngIf="showInput" class="btn-container demo-color-picker-close">
-                <button type="button" class="btn button-primary" (click)="isPickerOpen = false">Accept</button>
+                <button type="button" class="btn button-primary" (click)="isPickerOpen = false">
+                    Accept
+                </button>
             </div>
+
         </div>
     </div>
 
-    <span class="m-l-lg">Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code></span>
+    <span class="m-l-lg">
+        Selected: <code>{{selected.hex}}</code> &mdash; <code>{{selected.rgba}}</code>
+    </span>
 </div>
 
-<div class="uxd-customize-example">
+<div #customize class="uxd-customize-example">
     <ux-accordion>
         <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
             <div class="row uxd-customize-row">

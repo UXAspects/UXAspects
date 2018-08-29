@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ColorPickerColor, ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -17,8 +17,12 @@ export class AppComponent {
 
     isPickerOpen = true;
 
+    @ViewChild('toggleButton') toggleButton: ElementRef;
+    @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
+
     private _colorNames = [
-        ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1', 'Vibrant2'],
+        ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',
+            'Vibrant2'],
         ['Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8']
     ];
 
@@ -28,8 +32,19 @@ export class AppComponent {
         this.selected = this.colors[0][0];
     }
 
-    colorPickerSelectedChange() {
+    colorPickerSelectedChange(): void {
         if (!this.showInput) {
+            this.isPickerOpen = false;
+        }
+    }
+
+    @HostListener('document:click', ['$event.target'])
+    private clickHandler(target: Node): void {
+        // Close on outside click
+        if (
+            !this.toggleButton.nativeElement.contains(target) &&
+            !this.dropdownMenu.nativeElement.contains(target)
+        ) {
             this.isPickerOpen = false;
         }
     }

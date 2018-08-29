@@ -19,7 +19,11 @@
 
         </button>
 
-        <div *dropdownMenu class="dropdown-menu ux-color-picker-dropdown">
+        <div *dropdownMenu
+            #dropdownMenu
+            id="color-picker-dropdown"
+            class="dropdown-menu ux-color-picker-dropdown">
+
             <ux-color-picker
                 [colors]="colors"
                 [(selected)]="selected"
@@ -36,6 +40,7 @@
                     Accept
                 </button>
             </div>
+
         </div>
     </div>
 
