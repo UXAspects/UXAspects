@@ -27,6 +27,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     tagClass: TagClassFunction;
     validationErrors: any;
     createTagHandler: (value: string) => any;
+    trackAriaDescendant: boolean;
     tagAdding: EventEmitter<TagInputEvent>;
     tagAdded: EventEmitter<TagInputEvent>;
     tagInvalidated: EventEmitter<TagInputEvent>;

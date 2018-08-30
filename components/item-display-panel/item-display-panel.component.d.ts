@@ -1,18 +1,19 @@
-import { EventEmitter, ElementRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
 export declare class ItemDisplayPanelContentDirective {
 }
 export declare class ItemDisplayPanelFooterDirective {
 }
-export declare class ItemDisplayPanelComponent extends SidePanelComponent {
+export declare class ItemDisplayPanelComponent extends SidePanelComponent implements OnInit {
     header: string;
     boxShadow: boolean;
     closeVisible: boolean;
     preventClose: boolean;
     shadow: boolean;
-    footer: ItemDisplayPanelFooterDirective;
     visibleChange: EventEmitter<boolean>;
+    footer: ItemDisplayPanelFooterDirective;
+    panel: ElementRef;
     /**
      * @deprecated
      * Title used for adding tooltips and shouldn't be used as an input
@@ -21,8 +22,7 @@ export declare class ItemDisplayPanelComponent extends SidePanelComponent {
      */
     title: string;
     visible: boolean;
-    private _itemDisplayPanelSubscription;
     constructor(service: SidePanelService, elementRef: ElementRef);
     ngOnInit(): void;
-    ngOnDestroy(): void;
+    focus(): void;
 }

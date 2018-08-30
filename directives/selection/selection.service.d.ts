@@ -3,17 +3,18 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { SelectionStrategy } from './strategies/selection.strategy';
 export declare class SelectionService implements OnDestroy {
+    dataset: ReadonlyArray<any>;
+    strategy: SelectionStrategy;
+    isEnabled: boolean;
+    isClickEnabled: boolean;
+    isKeyboardEnabled: boolean;
+    focus$: BehaviorSubject<any>;
+    active$: BehaviorSubject<any>;
+    selection$: BehaviorSubject<any[]>;
+    private _active;
+    private _dataset;
     private _selection;
     private _strategyToDestroy;
-    dataset: any[];
-    enabled: boolean;
-    clickEnabled: boolean;
-    keyboardEnabled: boolean;
-    strategy: SelectionStrategy;
-    active$: BehaviorSubject<any>;
-    focusTarget$: BehaviorSubject<any>;
-    selection$: BehaviorSubject<any[]>;
-    constructor();
     ngOnDestroy(): void;
     /**
      * If the item is not currently selected then add it
@@ -36,14 +37,14 @@ export declare class SelectionService implements OnDestroy {
      * Return an observable specifically for notifying the subscriber
      * only when the selection state of a specific object has changed
      */
-    selected$(data: any): Observable<boolean>;
+    getSelectionState(data: any): Observable<boolean>;
     /**
      * Define how selections should be performed.
      * This allows us to use an strategy pattern to handle the various keyboard
      * and mouse interactions while keeping each mode separated and
      * easily extensible if we want to add more modes in future!
      */
-    setMode(mode: SelectionMode | SelectionStrategy): void;
+    setStrategy(mode: SelectionMode | SelectionStrategy): void;
     /**
      * Set the current active item
      */
@@ -66,5 +67,6 @@ export declare class SelectionService implements OnDestroy {
     activateSibling(previous?: boolean): any;
     setDisabled(disabled: boolean): void;
     private selectionHasMutated();
+    private setFirstItemFocusable();
 }
 export declare type SelectionMode = 'simple' | 'row' | 'row-alt';

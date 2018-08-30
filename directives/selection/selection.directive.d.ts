@@ -13,7 +13,7 @@ export declare class SelectionDirective implements AfterContentInit, OnDestroy {
     tabindex: number;
     uxSelectionChange: EventEmitter<any[]>;
     items: QueryList<SelectionItemDirective>;
-    private _subscriptions;
+    private _onDestroy;
     constructor(_selectionService: SelectionService, _cdRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

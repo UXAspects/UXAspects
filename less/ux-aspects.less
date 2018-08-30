@@ -5923,7 +5923,6 @@ h4 {
 
 .minimal-tab > li > a {
     padding: 8px 0 0;
-    min-width: 50px;
 }
 
 .minimal-tab > li.active > a,
@@ -9554,7 +9553,7 @@ table.select-table tr > td {
 }
 
 table.select-table tr:focus {
-    outline: none;
+    .aspects-outline();
 }
 
 table.select-table > tbody > tr.highlight {
@@ -21339,6 +21338,141 @@ tags-input .tags .input:-ms-input-placeholder {
 .ux-overlay-pane {
     position: absolute;
 }
+ux-accordion-panel {
+    display: block;
+}
+ux-accordion {
+    display: block;
+}
+ux-card-tabset {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &.bottom {
+        flex-direction: column-reverse;
+    }
+
+    .card-tabs {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 4px 0;
+    }
+
+    .card-tabs-list {
+        position: relative;
+        transition: transform 250ms ease-in-out;
+
+        .card-tab {
+            position: relative;
+            display: inline-block;
+            width: 190px;
+            height: 170px;
+            background-color: @card-tab-bg;
+            box-shadow: @card-tab-border 0 1px 8px;
+            cursor: pointer;
+            margin: 5px;
+            border: 1px solid @card-tab-border;
+            transition: border 500ms linear;
+            padding: 7px 9px;
+            outline: none;
+
+            &:hover,
+            &:focus {
+                border-color: @card-tab-hover-border;
+            }
+
+            &.active {
+                border-color: @card-tab-active-border;
+
+                &:before,
+                &:after {
+                    content: '';
+                    border: solid transparent;
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+
+                &.top {
+                    &:before,
+                    &:after {
+                        bottom: 100%;
+                        left: 50%;
+                    }
+
+                    &:before {
+                        border-bottom-color: @card-tab-active-border;
+                        margin-left: -10px;
+                        border-width: 10px;
+                    }
+
+                    &:after {
+                        border-bottom-color: @card-tab-bg;
+                        margin-left: -9px;
+                        border-width: 9px;
+                    }
+                }
+
+                &.bottom {
+                    &:before,
+                    &:after {
+                        top: 100%;
+                        left: 50%;
+                    }
+
+                    &:before {
+                        border-top-color: @card-tab-active-border;
+                        margin-left: -10px;
+                        border-width: 10px;
+                    }
+
+                    &:after {
+                        border-top-color: @card-tab-bg;
+                        margin-left: -9px;
+                        border-width: 9px;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-tabs-paging-btn {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: @card-tab-pagination-color;
+        cursor: pointer;
+        background-color: @card-tab-pagination-bg;
+        border-radius: 50%;
+        transition: background-color 250ms linear;
+        border: none;
+        z-index: 2;
+
+        &:focus {
+            .aspects-outline();
+        }
+
+        &:hover {
+            background-color: @card-tab-pagination-hover-bg;
+        }
+    }
+
+    .card-tabs-paging-btn-previous {
+        left: 10px;
+    }
+
+    .card-tabs-paging-btn-next {
+        right: 10px;
+    }
+}
 ux-checkbox {
     .ux-checkbox {
         display: inline-flex;
@@ -21485,134 +21619,142 @@ ux-checkbox {
         }
     }
 }
-ux-card-tabset {
+ux-color-picker {
+    display: block;
+}
+
+.ux-color-picker {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    align-items: center;
+    width: 100%;
+    font-size: @font-size;
 
-    &.bottom {
-        flex-direction: column-reverse;
+    .ux-color-picker-swatch {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 
-    .card-tabs {
-        position: relative;
-        white-space: nowrap;
-        overflow: hidden;
-        padding: 4px 0;
+    .ux-color-picker-swatch-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
-    .card-tabs-list {
-        position: relative;
-        transition: transform 250ms ease-in-out;
+    .ux-color-picker-color {
+        border: 5px solid transparent;
+        padding: 3px;
 
-        .card-tab {
-            position: relative;
-            display: inline-block;
-            width: 190px;
-            height: 170px;
-            background-color: @card-tab-bg;
-            box-shadow: @card-tab-border 0 1px 8px;
-            cursor: pointer;
-            margin: 5px;
-            border: 1px solid @card-tab-border;
-            transition: border 500ms linear;
-            padding: 7px 9px;
-            outline: none;
+        > button {
+            width: 32px;
+            height: 32px;
+            box-shadow: 0 0 6px 2px #ddd;
 
-            &:hover,
             &:focus {
-                border-color: @card-tab-hover-border;
+                outline: none;
+                box-shadow: 0 0 0 3px fade(@primary, 50%);
             }
+        }
 
-            &.active {
-                border-color: @card-tab-active-border;
+        &.ux-small > button {
+            width: 26px;
+            height: 26px;
+        }
 
-                &:before,
-                &:after {
-                    content: '';
-                    border: solid transparent;
-                    height: 0;
-                    width: 0;
-                    position: absolute;
-                    pointer-events: none;
-                }
+        &.ux-large > button {
+            width: 40px;
+            height: 40px;
+        }
 
-                &.top {
-                    &:before,
-                    &:after {
-                        bottom: 100%;
-                        left: 50%;
-                    }
+        &.ux-circle {
+            border-radius: 50%;
 
-                    &:before {
-                        border-bottom-color: @card-tab-active-border;
-                        margin-left: -10px;
-                        border-width: 10px;
-                    }
+            > button {
+                border-radius: 50%;
+            }
+        }
 
-                    &:after {
-                        border-bottom-color: @card-tab-bg;
-                        margin-left: -9px;
-                        border-width: 9px;
-                    }
-                }
+        &.ux-selected {
+            border: 5px solid fade(@primary, 50%);
 
-                &.bottom {
-                    &:before,
-                    &:after {
-                        top: 100%;
-                        left: 50%;
-                    }
-
-                    &:before {
-                        border-top-color: @card-tab-active-border;
-                        margin-left: -10px;
-                        border-width: 10px;
-                    }
-
-                    &:after {
-                        border-top-color: @card-tab-bg;
-                        margin-left: -9px;
-                        border-width: 9px;
-                    }
-                }
+            > button {
+                box-shadow: none;
             }
         }
     }
 
-    .card-tabs-paging-btn {
-        position: absolute;
+    .ux-color-picker-input-panel {
         display: flex;
         justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: @card-tab-pagination-color;
-        cursor: pointer;
-        background-color: @card-tab-pagination-bg;
-        border-radius: 50%;
-        transition: background-color 250ms linear;
-        border: none;
-        z-index: 2;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 4px;
+        border-top: 1px solid @grey5;
 
-        &:focus {
-            .aspects-outline();
+        .ux-color-picker-input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 12px 8px 4px;
+
+            label {
+                margin: 0;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .ux-color-picker-input-toggle {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                padding-left: 9px;
+                padding-right: 5px;
+                font-size: inherit;
+            }
         }
 
-        &:hover {
-            background-color: @card-tab-pagination-hover-bg;
+        .ux-color-picker-input {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            position: relative;
+            min-width: 10rem;
+            margin: 4px 8px 8px;
+
+            input {
+                width: 100%;
+                height: 32px;
+                padding: 2px;
+                font-size: 16px;
+                text-align: center;
+            }
         }
     }
 
-    .card-tabs-paging-btn-previous {
-        left: 10px;
-    }
+    .ux-color-picker-preview {
+        width: 32px;
+        height: 32px;
+        box-shadow: 0 0 6px 2px #ddd;
 
-    .card-tabs-paging-btn-next {
-        right: 10px;
+        &.ux-circle {
+            border-radius: 50%;
+        }
     }
+}
+
+// Additional class for showing a color preview within a button.
+.ux-color-picker-button-preview {
+    display: inline-block;
+    width: 32px;
+    margin-right: 8px;
+    border: 1px solid #cbcbcb;
+}
+
+.ux-color-picker-dropdown {
+    padding: 4px;
 }
 ux-column-sorting {
     .ux-column-sorting {
@@ -23714,8 +23856,6 @@ ux-page-header {
     width: 100%;
 
     .ux-page-header {
-        display: flex;
-        flex-direction: column;
         height: 130px;
         width: 100%;
         padding-left: 23px;
@@ -23723,104 +23863,108 @@ ux-page-header {
         background-color: @page-header-bg;
         color: @white;
 
-        .page-header-actions {
+        .page-header-content {
+            position: relative;
+            height: 100%;
+        }
+
+        .page-header-logo-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 40px;
+            overflow: hidden;
+
+            .page-header-logo {
+                max-height: 100%;
+            }
+
+            .page-header-acronym {
+                display: none; // MF only
+            }
+        }
+
+        .page-header-subtitle-container {
+            display: none; // MF only
+        }
+
+        .page-header-state-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
             display: flex;
-            flex: 1;
+            align-items: center;
+            height: 70px;
 
-            .page-header-logo-container {
+            .page-header-back-button {
                 display: flex;
-                flex: none;
+                height: 28px;
+                width: 28px;
+                margin-top: 16px;
+                margin-right: 2px;
+                border: none;
+                justify-content: center;
                 align-items: center;
-                margin-top: 10px;
-                margin-right: 10px;
-                height: 40px;
-                overflow: hidden;
+                background-color: transparent;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out;
 
-                .page-header-logo {
-                    max-height: 100%;
+                &:hover,
+                &:focus {
+                    background-color: @page-header-back-button-hover-bg;
                 }
 
-                &[hidden] {
-                    display: none;
+                &:focus {
+                    .aspects-outline;
+                }
+
+                & > * {
+                    color: @page-header-back-button-color;
+
+                    &:hover {
+                        color: @page-header-back-button-hover-color;
+                    }
                 }
             }
 
-            .page-header-navigation {
+            ux-breadcrumbs {
+                height: 22px;
+            }
+
+            .page-header-title-container {
                 display: flex;
-                justify-content: center;
-                flex: 1;
+                flex-direction: column;
+                margin-right: 10px;
 
-                &.left {
-                    justify-content: flex-start;
-                }
-
-                &.right {
-                    justify-content: flex-end;
+                .page-header-title {
+                    margin-top: 0;
+                    margin-bottom: 8px;
+                    line-height: 35px;
                 }
             }
         }
 
-        .page-header-details {
+        .page-header-navigation {
             display: flex;
-            flex: none;
-            height: 70px;
+            justify-content: center;
+            flex: 1;
+            margin: 0 120px;
 
-            .page-header-state-container {
-                display: inline-flex;
-                align-items: center;
+            &.left {
+                justify-content: flex-start;
+            }
 
-                .page-header-back-button {
-                    display: flex;
-                    height: 28px;
-                    width: 28px;
-                    margin-top: 16px;
-                    margin-right: 2px;
-                    border: none;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: transparent;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease-in-out;
-
-                    &:hover,
-                    &:focus {
-                        background-color: @page-header-back-button-hover-bg;
-                    }
-
-                    &:focus {
-                        .aspects-outline;
-                    }
-
-                    & > * {
-                        color: @page-header-back-button-color;
-
-                        &:hover {
-                            color: @page-header-back-button-hover-color;
-                        }
-                    }
-                }
-
-                .page-header-title-container {
-                    display: inline-flex;
-                    flex-direction: column;
-                    margin-right: 10px;
-
-                    ux-breadcrumbs {
-                        height: 22px;
-                    }
-
-                    .page-header-title {
-                        margin-top: 0;
-                        margin-bottom: 8px;
-                        line-height: 35px;
-                    }
-                }
+            &.right {
+                justify-content: flex-end;
             }
         }
 
         .page-header-icon-menus {
+            position: absolute;
+            top: 0;
+            right: 0;
             display: flex;
-            flex: none;
+            height: 60px;
         }
 
         // Styling For Condensed Header
@@ -23828,6 +23972,7 @@ ux-page-header {
             height: 57px;
 
             .page-header-condensed-content {
+                position: relative;
                 display: flex;
 
                 .page-header-breadcrumbs {
@@ -23849,6 +23994,10 @@ ux-page-header {
                     flex: 1;
                     justify-content: center;
                 }
+
+                .page-header-icon-menus {
+                    position: static;
+                }
             }
         }
     }
@@ -23856,6 +24005,7 @@ ux-page-header {
 ux-popover {
     .popover {
         position: static;
+        max-width: none;
 
         &.top {
             transform: translateY(-11px);
@@ -23871,6 +24021,14 @@ ux-popover {
 
         &.left {
             transform: translateX(-11px);
+        }
+    }
+
+    .ux-popover-no-padding {
+        padding: 0;
+
+        .popover-content {
+            padding: 0;
         }
     }
 }
@@ -24227,21 +24385,6 @@ ux-search-builder-group {
         padding: 15px;
     }
 }
-ux-select {
-    ux-tag-input {
-        font-size: 1.125rem;
-
-        ux-typeahead {
-            font-size: initial;
-        }
-    }
-}
-ux-select-list {
-    display: block;
-    border: 2px solid #f5f5f5;
-    padding-top: 5px;
-    overflow-y: auto;
-}
 ux-select-list-item {
     display: flex;
     padding: 5px 10px;
@@ -24252,9 +24395,28 @@ ux-select-list-item {
         background-color: #f5f5f5;
     }
 
+    &:focus {
+        .aspects-outline();
+    }
+
     &.selected {
         font-weight: 600;
         background-color: #f5f5f5;
+    }
+}
+ux-select-list {
+    display: block;
+    border: 2px solid #f5f5f5;
+    padding-top: 5px;
+    overflow-y: auto;
+}
+ux-select {
+    ux-tag-input {
+        font-size: 1.125rem;
+
+        ux-typeahead {
+            font-size: initial;
+        }
     }
 }
 .ux-side-panel {
@@ -24308,6 +24470,10 @@ ux-select-list-item {
         color: @display-panel-color;
         background: @display-panel-bg;
         z-index: @display-panel-z-index;
+
+        &:focus {
+            outline: none;
+        }
 
         &.modal-panel {
             z-index: @modal-z-index;
@@ -24730,6 +24896,15 @@ ux-spin-button {
         }
     }
 }
+ux-tab {
+    .tab-pane {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+}
 ux-tabset {
     .nav {
         .nav-item {
@@ -24738,15 +24913,6 @@ ux-tabset {
                     .aspects-outline();
                 }
             }
-        }
-    }
-}
-ux-tab {
-    .tab-pane {
-        display: none;
-
-        &.active {
-            display: block;
         }
     }
 }
@@ -24856,6 +25022,48 @@ ux-tag-input {
 
     &.invalid {
         border-color: @critical;
+    }
+}
+
+ux-time-picker {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .time-picker {
+        display: inline-flex;
+    }
+
+    .time-picker-column {
+        display: inline-flex;
+        flex-direction: column;
+        flex: none;
+    }
+
+    .time-picker-separator {
+        display: inline-flex;
+        flex: none;
+        width: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .time-picker-meridian {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14px;
+
+        .btn-group {
+            .btn {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+        }
+    }
+
+    .time-spinner {
+        width: 33px !important;
     }
 }
 
@@ -25114,48 +25322,6 @@ ux-timeline {
         }
     }
 }
-ux-time-picker {
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .time-picker {
-        display: inline-flex;
-    }
-
-    .time-picker-column {
-        display: inline-flex;
-        flex-direction: column;
-        flex: none;
-    }
-
-    .time-picker-separator {
-        display: inline-flex;
-        flex: none;
-        width: 14px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .time-picker-meridian {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 14px;
-
-        .btn-group {
-            .btn {
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-        }
-    }
-
-    .time-spinner {
-        width: 33px !important;
-    }
-}
-
 ux-toggleswitch {
     .ux-toggleswitch {
         position: relative;

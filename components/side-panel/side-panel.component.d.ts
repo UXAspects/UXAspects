@@ -1,4 +1,5 @@
-import { OnInit, EventEmitter, OnDestroy, ElementRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { SidePanelService } from './side-panel.service';
 export declare class SidePanelComponent implements OnInit, OnDestroy {
     protected service: SidePanelService;
@@ -11,13 +12,14 @@ export declare class SidePanelComponent implements OnInit, OnDestroy {
     modal: boolean;
     animate: boolean;
     closeOnExternalClick: boolean;
+    focusOnShow: boolean;
     openChange: EventEmitter<boolean>;
     readonly position: string;
     readonly cssWidth: string;
     readonly cssTop: string;
     readonly componentWidth: string;
     readonly hostWidth: string;
-    private _subscription;
+    protected _onDestroy: Subject<void>;
     constructor(service: SidePanelService, _elementRef: ElementRef);
     ngOnInit(): void;
     ngOnDestroy(): void;

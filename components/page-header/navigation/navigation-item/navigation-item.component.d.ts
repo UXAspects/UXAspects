@@ -14,7 +14,7 @@ export declare class PageHeaderNavigationItemComponent implements OnInit, OnDest
     item: PageHeaderNavigationItem;
     secondary$: BehaviorSubject<boolean>;
     isOpen: boolean;
-    private _subscription;
+    private _onDestroy;
     constructor(elementRef: ElementRef, _pageHeaderService: PageHeaderService);
     ngOnInit(): void;
     ngOnDestroy(): void;

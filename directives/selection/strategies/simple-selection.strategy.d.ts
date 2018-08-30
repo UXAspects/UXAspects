@@ -3,7 +3,7 @@ export declare class SimpleSelectionStrategy extends SelectionStrategy {
     /**
      * When the item is clicked simply toggle the current selected state
      */
-    click(event: MouseEvent, data: any): void;
+    click(_event: MouseEvent, data: any): void;
     /**
      * Add basic keyboard support for navigating
      * and selecting/deselecting items

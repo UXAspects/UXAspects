@@ -1,17 +1,14 @@
-import { FocusableOption } from '@angular/cdk/a11y';
-import { ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { SelectListService } from '../select-list.service';
-export declare class SelectListItemComponent implements OnInit, OnDestroy, FocusableOption {
-    private _selectTable;
-    private _elementRef;
+import { ElementRef, OnDestroy } from '@angular/core';
+import { SelectionService } from '../../../directives/selection/selection.service';
+export declare class SelectListItemComponent implements OnDestroy {
+    private _selection;
     data: any;
     tabindex: number;
-    isSelected: boolean;
+    selected: boolean;
     private _onDestroy;
-    constructor(_selectTable: SelectListService, _elementRef: ElementRef);
-    ngOnInit(): void;
+    constructor(_selection: SelectionService, elementRef: ElementRef);
     ngOnDestroy(): void;
-    focus(): void;
-    select(): void;
+    onMouseDown(event: MouseEvent): void;
+    onClick(event: MouseEvent): void;
     onKeydown(event: KeyboardEvent): void;
 }

@@ -2,10 +2,12 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-import { NgModule } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
-import { SidePanelComponent } from './side-panel.component';
+import { NgModule } from '@angular/core';
+import { FocusIfModule } from '../../directives/focus-if/focus-if.module';
 import { SidePanelCloseDirective } from './side-panel-close.directive';
+import { SidePanelComponent } from './side-panel.component';
 var /** @type {?} */ EXPORTS = [
     SidePanelComponent,
     SidePanelCloseDirective
@@ -16,7 +18,9 @@ var SidePanelModule = /** @class */ (function () {
     SidePanelModule.decorators = [
         { type: NgModule, args: [{
                     imports: [
-                        CommonModule
+                        CommonModule,
+                        A11yModule,
+                        FocusIfModule
                     ],
                     exports: EXPORTS,
                     declarations: EXPORTS
@@ -26,4 +30,4 @@ var SidePanelModule = /** @class */ (function () {
 }());
 export { SidePanelModule };
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2lkZS1wYW5lbC5tb2R1bGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AdXgtYXNwZWN0cy91eC1hc3BlY3RzLyIsInNvdXJjZXMiOlsiY29tcG9uZW50cy9zaWRlLXBhbmVsL3NpZGUtcGFuZWwubW9kdWxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBQ3pDLE9BQU8sRUFBRSxZQUFZLEVBQUUsTUFBTSxpQkFBaUIsQ0FBQztBQUUvQyxPQUFPLEVBQUUsa0JBQWtCLEVBQUUsTUFBTSx3QkFBd0IsQ0FBQztBQUM1RCxPQUFPLEVBQUUsdUJBQXVCLEVBQUUsTUFBTSw4QkFBOEIsQ0FBQztBQUV2RSxxQkFBTSxPQUFPLEdBQUc7SUFDWixrQkFBa0I7SUFDbEIsdUJBQXVCO0NBQzFCLENBQUM7Ozs7O2dCQUVELFFBQVEsU0FBQztvQkFDTixPQUFPLEVBQUU7d0JBQ0wsWUFBWTtxQkFDZjtvQkFDRCxPQUFPLEVBQUUsT0FBTztvQkFDaEIsWUFBWSxFQUFFLE9BQU87aUJBQ3hCOzswQkFqQkQ7O1NBa0JhLGVBQWUiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBOZ01vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgQ29tbW9uTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvY29tbW9uJztcblxuaW1wb3J0IHsgU2lkZVBhbmVsQ29tcG9uZW50IH0gZnJvbSAnLi9zaWRlLXBhbmVsLmNvbXBvbmVudCc7XG5pbXBvcnQgeyBTaWRlUGFuZWxDbG9zZURpcmVjdGl2ZSB9IGZyb20gJy4vc2lkZS1wYW5lbC1jbG9zZS5kaXJlY3RpdmUnO1xuXG5jb25zdCBFWFBPUlRTID0gW1xuICAgIFNpZGVQYW5lbENvbXBvbmVudCxcbiAgICBTaWRlUGFuZWxDbG9zZURpcmVjdGl2ZVxuXTtcblxuQE5nTW9kdWxlKHtcbiAgICBpbXBvcnRzOiBbXG4gICAgICAgIENvbW1vbk1vZHVsZVxuICAgIF0sXG4gICAgZXhwb3J0czogRVhQT1JUUyxcbiAgICBkZWNsYXJhdGlvbnM6IEVYUE9SVFNcbn0pXG5leHBvcnQgY2xhc3MgU2lkZVBhbmVsTW9kdWxlIHsgfVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2lkZS1wYW5lbC5tb2R1bGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AdXgtYXNwZWN0cy91eC1hc3BlY3RzLyIsInNvdXJjZXMiOlsiY29tcG9uZW50cy9zaWRlLXBhbmVsL3NpZGUtcGFuZWwubW9kdWxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUUsVUFBVSxFQUFFLE1BQU0sbUJBQW1CLENBQUM7QUFDL0MsT0FBTyxFQUFFLFlBQVksRUFBRSxNQUFNLGlCQUFpQixDQUFDO0FBQy9DLE9BQU8sRUFBRSxRQUFRLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFDekMsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLDJDQUEyQyxDQUFDO0FBQzFFLE9BQU8sRUFBRSx1QkFBdUIsRUFBRSxNQUFNLDhCQUE4QixDQUFDO0FBQ3ZFLE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxNQUFNLHdCQUF3QixDQUFDO0FBRTVELHFCQUFNLE9BQU8sR0FBRztJQUNaLGtCQUFrQjtJQUNsQix1QkFBdUI7Q0FDMUIsQ0FBQzs7Ozs7Z0JBRUQsUUFBUSxTQUFDO29CQUNOLE9BQU8sRUFBRTt3QkFDTCxZQUFZO3dCQUNaLFVBQVU7d0JBQ1YsYUFBYTtxQkFDaEI7b0JBQ0QsT0FBTyxFQUFFLE9BQU87b0JBQ2hCLFlBQVksRUFBRSxPQUFPO2lCQUN4Qjs7MEJBcEJEOztTQXFCYSxlQUFlIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQTExeU1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2Nkay9hMTF5JztcbmltcG9ydCB7IENvbW1vbk1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvbW1vbic7XG5pbXBvcnQgeyBOZ01vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgRm9jdXNJZk1vZHVsZSB9IGZyb20gJy4uLy4uL2RpcmVjdGl2ZXMvZm9jdXMtaWYvZm9jdXMtaWYubW9kdWxlJztcbmltcG9ydCB7IFNpZGVQYW5lbENsb3NlRGlyZWN0aXZlIH0gZnJvbSAnLi9zaWRlLXBhbmVsLWNsb3NlLmRpcmVjdGl2ZSc7XG5pbXBvcnQgeyBTaWRlUGFuZWxDb21wb25lbnQgfSBmcm9tICcuL3NpZGUtcGFuZWwuY29tcG9uZW50JztcblxuY29uc3QgRVhQT1JUUyA9IFtcbiAgICBTaWRlUGFuZWxDb21wb25lbnQsXG4gICAgU2lkZVBhbmVsQ2xvc2VEaXJlY3RpdmVcbl07XG5cbkBOZ01vZHVsZSh7XG4gICAgaW1wb3J0czogW1xuICAgICAgICBDb21tb25Nb2R1bGUsXG4gICAgICAgIEExMXlNb2R1bGUsXG4gICAgICAgIEZvY3VzSWZNb2R1bGVcbiAgICBdLFxuICAgIGV4cG9ydHM6IEVYUE9SVFMsXG4gICAgZGVjbGFyYXRpb25zOiBFWFBPUlRTXG59KVxuZXhwb3J0IGNsYXNzIFNpZGVQYW5lbE1vZHVsZSB7IH0iXX0=

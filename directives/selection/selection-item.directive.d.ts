@@ -11,7 +11,7 @@ export declare class SelectionItemDirective implements OnInit, OnDestroy {
     readonly attrTabIndex: number;
     private _selected;
     private _managedTabIndex;
-    private _subscriptions;
+    private _onDestroy;
     constructor(_selectionService: SelectionService, _elementRef: ElementRef);
     ngOnInit(): void;
     ngOnDestroy(): void;

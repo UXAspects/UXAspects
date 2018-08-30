@@ -1,4 +1,5 @@
 import { AfterViewInit, ElementRef, OnDestroy, QueryList } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ResizeService } from '../../../directives/resize/index';
 import { PageHeaderNavigation, PageHeaderService } from '../page-header.service';
@@ -20,6 +21,8 @@ export interface PageHeaderNavigationItem {
     icon?: string;
     title: string;
     selected?: boolean;
+    routerLink?: string | any[];
+    routerExtras?: NavigationExtras;
     select?: (item: PageHeaderNavigationItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
     parent?: PageHeaderNavigation;
@@ -27,6 +30,8 @@ export interface PageHeaderNavigationItem {
 export interface PageHeaderNavigationDropdownItem {
     title: string;
     selected?: boolean;
+    routerLink?: string | any[];
+    routerExtras?: NavigationExtras;
     select?: (item: PageHeaderNavigationDropdownItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
     parent?: PageHeaderNavigation;

@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.6.1 
+* @ux-aspects/ux-aspects-docs - v1.6.2 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -1958,7 +1958,6 @@ h4.panel-title {
 }
 .minimal-tab > li > a {
   padding: 8px 0 0;
-  min-width: 50px;
 }
 .minimal-tab > li.active > a,
 .minimal-tab > li.active > a:hover,
@@ -4783,7 +4782,10 @@ table.select-table tr > td {
   line-height: 25px;
 }
 table.select-table tr:focus {
-  outline: none;
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 table.select-table > tbody > tr.highlight td {
   background-color: #f5f5f5;
@@ -14892,109 +14894,11 @@ tags-input .tags .input:-ms-input-placeholder {
 .ux-overlay-pane {
   position: absolute;
 }
-ux-checkbox .ux-checkbox {
-  display: inline-flex;
-  align-items: baseline;
-  margin: 0;
-  cursor: pointer;
-  margin-bottom: 5px;
+ux-accordion-panel {
+  display: block;
 }
-ux-checkbox .ux-checkbox .ux-checkbox-container {
-  display: inline-flex;
-  flex: none;
-  color: transparent;
-  font-family: 'hpe-icons';
-  width: 24px;
-  height: 24px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-ux-checkbox .ux-checkbox .ux-checkbox-container:before {
-  content: "\f12c";
-}
-ux-checkbox .ux-checkbox .ux-checkbox-container .ux-checkbox-input {
-  position: absolute;
-  height: 0;
-  width: 0;
-  outline: none;
-  overflow: hidden;
-  border: none;
-  clip: rect(0 0 0 0);
-  margin: -1px;
-  padding: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-checked .ux-checkbox-container,
-ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container {
-  background-color: #7b63a3;
-  color: #fff;
-  border-color: transparent;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
-ux-checkbox .ux-checkbox.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
-  background-color: #eee;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container:before {
-  content: "\f210";
-}
-ux-checkbox .ux-checkbox .ux-checkbox-label {
-  margin-left: 7px;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-disabled .ux-checkbox-container {
-  border-color: #eee;
-  cursor: default;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-simplified .ux-checkbox-container {
-  border-color: transparent;
-  background-color: transparent;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-checked .ux-checkbox-container,
-ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-indeterminate .ux-checkbox-container {
-  color: #7b63a3;
-  background-color: transparent;
-  border-color: transparent;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
-ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
-  color: #ccc;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-disabled .ux-checkbox-container {
-  color: transparent;
-}
-ux-checkbox .ux-checkbox:hover .ux-checkbox-container {
-  border: 2px solid #7b63a3;
-}
-ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled {
-  cursor: default;
-}
-ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled .ux-checkbox-container {
-  border: 1px solid #eee;
-}
-ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled.ux-checkbox-simplified .ux-checkbox-container {
-  color: transparent;
-}
-ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified .ux-checkbox-container {
-  color: #ccc;
-  border-color: transparent;
-  border-width: 1px;
-}
-ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-checked .ux-checkbox-container,
-ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-indeterminate .ux-checkbox-container {
-  color: #7b63a3;
-}
-ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
-ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
-  color: #ccc;
-}
-ux-checkbox .ux-checkbox.ux-checkbox-focused .ux-checkbox-container {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
+ux-accordion {
+  display: block;
 }
 ux-card-tabset {
   display: flex;
@@ -15105,6 +15009,224 @@ ux-card-tabset .card-tabs-paging-btn-previous {
 }
 ux-card-tabset .card-tabs-paging-btn-next {
   right: 10px;
+}
+ux-checkbox .ux-checkbox {
+  display: inline-flex;
+  align-items: baseline;
+  margin: 0;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+ux-checkbox .ux-checkbox .ux-checkbox-container {
+  display: inline-flex;
+  flex: none;
+  color: transparent;
+  font-family: 'hpe-icons';
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+ux-checkbox .ux-checkbox .ux-checkbox-container:before {
+  content: "\f12c";
+}
+ux-checkbox .ux-checkbox .ux-checkbox-container .ux-checkbox-input {
+  position: absolute;
+  height: 0;
+  width: 0;
+  outline: none;
+  overflow: hidden;
+  border: none;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-checked .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container {
+  background-color: #7b63a3;
+  color: #fff;
+  border-color: transparent;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
+  background-color: #eee;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container:before {
+  content: "\f210";
+}
+ux-checkbox .ux-checkbox .ux-checkbox-label {
+  margin-left: 7px;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-disabled .ux-checkbox-container {
+  border-color: #eee;
+  cursor: default;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-simplified .ux-checkbox-container {
+  border-color: transparent;
+  background-color: transparent;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-checked .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-indeterminate .ux-checkbox-container {
+  color: #7b63a3;
+  background-color: transparent;
+  border-color: transparent;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
+  color: #ccc;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-disabled .ux-checkbox-container {
+  color: transparent;
+}
+ux-checkbox .ux-checkbox:hover .ux-checkbox-container {
+  border: 2px solid #7b63a3;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled {
+  cursor: default;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled .ux-checkbox-container {
+  border: 1px solid #eee;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled.ux-checkbox-simplified .ux-checkbox-container {
+  color: transparent;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified .ux-checkbox-container {
+  color: #ccc;
+  border-color: transparent;
+  border-width: 1px;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-checked .ux-checkbox-container,
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-indeterminate .ux-checkbox-container {
+  color: #7b63a3;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
+  color: #ccc;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-focused .ux-checkbox-container {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-color-picker {
+  display: block;
+}
+.ux-color-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: 1rem;
+}
+.ux-color-picker .ux-color-picker-swatch {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.ux-color-picker .ux-color-picker-swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.ux-color-picker .ux-color-picker-color {
+  border: 5px solid transparent;
+  padding: 3px;
+}
+.ux-color-picker .ux-color-picker-color > button {
+  width: 32px;
+  height: 32px;
+  box-shadow: 0 0 6px 2px #ddd;
+}
+.ux-color-picker .ux-color-picker-color > button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 167, 162, 0.5);
+}
+.ux-color-picker .ux-color-picker-color.ux-small > button {
+  width: 26px;
+  height: 26px;
+}
+.ux-color-picker .ux-color-picker-color.ux-large > button {
+  width: 40px;
+  height: 40px;
+}
+.ux-color-picker .ux-color-picker-color.ux-circle {
+  border-radius: 50%;
+}
+.ux-color-picker .ux-color-picker-color.ux-circle > button {
+  border-radius: 50%;
+}
+.ux-color-picker .ux-color-picker-color.ux-selected {
+  border: 5px solid rgba(0, 167, 162, 0.5);
+}
+.ux-color-picker .ux-color-picker-color.ux-selected > button {
+  box-shadow: none;
+}
+.ux-color-picker .ux-color-picker-input-panel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 4px;
+  border-top: 1px solid #ccc;
+}
+.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 12px 8px 4px;
+}
+.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input-header label {
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+}
+.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input-header .ux-color-picker-input-toggle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding-left: 9px;
+  padding-right: 5px;
+  font-size: inherit;
+}
+.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  min-width: 10rem;
+  margin: 4px 8px 8px;
+}
+.ux-color-picker .ux-color-picker-input-panel .ux-color-picker-input input {
+  width: 100%;
+  height: 32px;
+  padding: 2px;
+  font-size: 16px;
+  text-align: center;
+}
+.ux-color-picker .ux-color-picker-preview {
+  width: 32px;
+  height: 32px;
+  box-shadow: 0 0 6px 2px #ddd;
+}
+.ux-color-picker .ux-color-picker-preview.ux-circle {
+  border-radius: 50%;
+}
+.ux-color-picker-button-preview {
+  display: inline-block;
+  width: 32px;
+  margin-right: 8px;
+  border: 1px solid #cbcbcb;
+}
+.ux-color-picker-dropdown {
+  padding: 4px;
 }
 ux-column-sorting .ux-column-sorting {
   padding-left: 5px;
@@ -16899,8 +17021,6 @@ ux-page-header {
   width: 100%;
 }
 ux-page-header .ux-page-header {
-  display: flex;
-  flex-direction: column;
   height: 130px;
   width: 100%;
   padding-left: 23px;
@@ -16908,46 +17028,35 @@ ux-page-header .ux-page-header {
   background-color: #0c4751;
   color: #fff;
 }
-ux-page-header .ux-page-header .page-header-actions {
-  display: flex;
-  flex: 1;
+ux-page-header .ux-page-header .page-header-content {
+  position: relative;
+  height: 100%;
 }
-ux-page-header .ux-page-header .page-header-actions .page-header-logo-container {
-  display: flex;
-  flex: none;
-  align-items: center;
-  margin-top: 10px;
-  margin-right: 10px;
+ux-page-header .ux-page-header .page-header-logo-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 40px;
   overflow: hidden;
 }
-ux-page-header .ux-page-header .page-header-actions .page-header-logo-container .page-header-logo {
+ux-page-header .ux-page-header .page-header-logo-container .page-header-logo {
   max-height: 100%;
 }
-ux-page-header .ux-page-header .page-header-actions .page-header-logo-container[hidden] {
+ux-page-header .ux-page-header .page-header-logo-container .page-header-acronym {
   display: none;
 }
-ux-page-header .ux-page-header .page-header-actions .page-header-navigation {
+ux-page-header .ux-page-header .page-header-subtitle-container {
+  display: none;
+}
+ux-page-header .ux-page-header .page-header-state-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   display: flex;
-  justify-content: center;
-  flex: 1;
-}
-ux-page-header .ux-page-header .page-header-actions .page-header-navigation.left {
-  justify-content: flex-start;
-}
-ux-page-header .ux-page-header .page-header-actions .page-header-navigation.right {
-  justify-content: flex-end;
-}
-ux-page-header .ux-page-header .page-header-details {
-  display: flex;
-  flex: none;
+  align-items: center;
   height: 70px;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container {
-  display: inline-flex;
-  align-items: center;
-}
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button {
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button {
   display: flex;
   height: 28px;
   width: 28px;
@@ -16960,43 +17069,59 @@ ux-page-header .ux-page-header .page-header-details .page-header-state-container
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:hover,
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:focus {
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button:hover,
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button:focus {
   background-color: rgba(0, 0, 0, 0.1);
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:focus {
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button:focus {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button > * {
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button > * {
   color: #00a7a2;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button > *:hover {
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button > *:hover {
   color: #00a7a2;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-title-container {
-  display: inline-flex;
+ux-page-header .ux-page-header .page-header-state-container ux-breadcrumbs {
+  height: 22px;
+}
+ux-page-header .ux-page-header .page-header-state-container .page-header-title-container {
+  display: flex;
   flex-direction: column;
   margin-right: 10px;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-title-container ux-breadcrumbs {
-  height: 22px;
-}
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-title-container .page-header-title {
+ux-page-header .ux-page-header .page-header-state-container .page-header-title-container .page-header-title {
   margin-top: 0;
   margin-bottom: 8px;
   line-height: 35px;
 }
-ux-page-header .ux-page-header .page-header-icon-menus {
+ux-page-header .ux-page-header .page-header-navigation {
   display: flex;
-  flex: none;
+  justify-content: center;
+  flex: 1;
+  margin: 0 120px;
+}
+ux-page-header .ux-page-header .page-header-navigation.left {
+  justify-content: flex-start;
+}
+ux-page-header .ux-page-header .page-header-navigation.right {
+  justify-content: flex-end;
+}
+ux-page-header .ux-page-header .page-header-icon-menus {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  height: 60px;
 }
 ux-page-header .ux-page-header.page-header-condensed {
   height: 57px;
 }
 ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-content {
+  position: relative;
   display: flex;
 }
 ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-content .page-header-breadcrumbs {
@@ -17015,8 +17140,12 @@ ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-cont
   flex: 1;
   justify-content: center;
 }
+ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-content .page-header-icon-menus {
+  position: static;
+}
 ux-popover .popover {
   position: static;
+  max-width: none;
 }
 ux-popover .popover.top {
   transform: translateY(-11px);
@@ -17029,6 +17158,12 @@ ux-popover .popover.right {
 }
 ux-popover .popover.left {
   transform: translateX(-11px);
+}
+ux-popover .ux-popover-no-padding {
+  padding: 0;
+}
+ux-popover .ux-popover-no-padding .popover-content {
+  padding: 0;
 }
 ux-progress-bar {
   display: block;
@@ -17305,18 +17440,6 @@ ux-search-builder-group:last-of-type .search-builder-group-divider {
   text-align: right;
   padding: 15px;
 }
-ux-select ux-tag-input {
-  font-size: 1.125rem;
-}
-ux-select ux-tag-input ux-typeahead {
-  font-size: initial;
-}
-ux-select-list {
-  display: block;
-  border: 2px solid #f5f5f5;
-  padding-top: 5px;
-  overflow-y: auto;
-}
 ux-select-list-item {
   display: flex;
   padding: 5px 10px;
@@ -17326,9 +17449,27 @@ ux-select-list-item {
 ux-select-list-item:hover {
   background-color: #f5f5f5;
 }
+ux-select-list-item:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 ux-select-list-item.selected {
   font-weight: 600;
   background-color: #f5f5f5;
+}
+ux-select-list {
+  display: block;
+  border: 2px solid #f5f5f5;
+  padding-top: 5px;
+  overflow-y: auto;
+}
+ux-select ux-tag-input {
+  font-size: 1.125rem;
+}
+ux-select ux-tag-input ux-typeahead {
+  font-size: initial;
 }
 .ux-side-panel.open > .ux-side-panel-host {
   box-shadow: 1px 0 20px 0 rgba(51, 51, 51, 0.4);
@@ -17365,6 +17506,9 @@ ux-select-list-item.selected {
   color: #333;
   background: #fff;
   z-index: 999;
+}
+.ux-side-panel > .ux-side-panel-host:focus {
+  outline: none;
 }
 .ux-side-panel > .ux-side-panel-host.modal-panel {
   z-index: 10020;
@@ -17834,17 +17978,17 @@ ux-spin-button .form-control::-webkit-outer-spin-button,
 ux-spin-button .form-control::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
-ux-tabset .nav .nav-item .nav-link.highlighted {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
-}
 ux-tab .tab-pane {
   display: none;
 }
 ux-tab .tab-pane.active {
   display: block;
+}
+ux-tabset .nav .nav-item .nav-link.highlighted {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-tag-input {
   display: inline-block;
@@ -17936,6 +18080,39 @@ ux-tag-input.focus {
 }
 ux-tag-input.invalid {
   border-color: #ff454f;
+}
+ux-time-picker {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ux-time-picker .time-picker {
+  display: inline-flex;
+}
+ux-time-picker .time-picker-column {
+  display: inline-flex;
+  flex-direction: column;
+  flex: none;
+}
+ux-time-picker .time-picker-separator {
+  display: inline-flex;
+  flex: none;
+  width: 14px;
+  justify-content: center;
+  align-items: center;
+}
+ux-time-picker .time-picker-meridian {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 14px;
+}
+ux-time-picker .time-picker-meridian .btn-group .btn {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+ux-time-picker .time-spinner {
+  width: 33px !important;
 }
 ux-timeline .timeline {
   margin-top: 50px;
@@ -18135,39 +18312,6 @@ ux-timeline ux-timeline-event .timeline-badge span {
     left: -7px;
     top: 35px;
   }
-}
-ux-time-picker {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-ux-time-picker .time-picker {
-  display: inline-flex;
-}
-ux-time-picker .time-picker-column {
-  display: inline-flex;
-  flex-direction: column;
-  flex: none;
-}
-ux-time-picker .time-picker-separator {
-  display: inline-flex;
-  flex: none;
-  width: 14px;
-  justify-content: center;
-  align-items: center;
-}
-ux-time-picker .time-picker-meridian {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 14px;
-}
-ux-time-picker .time-picker-meridian .btn-group .btn {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-ux-time-picker .time-spinner {
-  width: 33px !important;
 }
 ux-toggleswitch .ux-toggleswitch {
   position: relative;

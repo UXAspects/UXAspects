@@ -23,5 +23,6 @@ export declare class TabbableListDirective implements AfterContentInit, OnDestro
     constructor(_tabbableList: TabbableListService);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    focus(): void;
     focusTabbableItem(): void;
 }
