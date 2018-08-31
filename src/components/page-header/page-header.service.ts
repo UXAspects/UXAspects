@@ -140,34 +140,57 @@ export class PageHeaderService implements OnDestroy {
     }
 
     private updateItemsWithActiveRoute(): void {
-        const selected = this.findActiveItem(this.items$.getValue());
-        if (selected) {
-            this.selected$.next(selected);
+        const activeItem = new PageHeaderActiveNavigationItem();
+        for (var item of this.items$.getValue()) {
+            this.findActiveItem(item, activeItem);
+            if (activeItem.exact) {
+                break;
+            }
+        }
+
+        if (activeItem.item) {
+            this.selected$.next(activeItem.item);
         }
     }
 
-    private findActiveItem(items: PageHeaderNavigationItem[]): PageHeaderNavigationItem {
-        for (var item of items) {
-            if (item.routerLink && this.isRouterLinkActive(item)) {
-                return item;
+    private findActiveItem(item: PageHeaderNavigationItem, activeItem: PageHeaderActiveNavigationItem): void {
+
+        if (item.routerLink) {
+
+            const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+            const urlTree = this._router.createUrlTree(routerLink, item.routerExtras);
+
+            if (this._router.isActive(urlTree, true) && !activeItem.exact) {
+
+                // When the item route is an exact match, no need to look any further
+                activeItem.item = item;
+                activeItem.exact = true;
+
+                return;
             }
-            if (item.children) {
-                const activeItem = this.findActiveItem(item.children);
-                if (activeItem) {
-                    return activeItem;
+
+            if (this._router.isActive(urlTree, false)) {
+
+                // Store an inexact match and continue looking
+                activeItem.item = item;
+                activeItem.exact = false;
+            }
+        }
+
+        if (item.children) {
+            for (let childItem of item.children) {
+                this.findActiveItem(childItem, activeItem);
+                if (activeItem.exact) {
+                    return;
                 }
             }
         }
-
-        return null;
-    }
-
-    private isRouterLinkActive(item: PageHeaderNavigationItem): boolean {
-        const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
-        const urlTree = this._router.createUrlTree(routerLink, item.routerExtras);
-
-        return this._router.isActive(urlTree, true);
     }
 }
 
 export type PageHeaderNavigation = PageHeaderNavigationItem | PageHeaderNavigationDropdownItem;
+
+class PageHeaderActiveNavigationItem {
+    item: PageHeaderNavigationItem;
+    exact: boolean;
+}
