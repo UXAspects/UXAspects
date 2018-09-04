@@ -1,11 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { debounceTime, delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
 let uniqueId = 0;
@@ -19,7 +20,10 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
 @Component({
     selector: 'ux-select',
     templateUrl: 'select.component.html',
-    providers: [SELECT_VALUE_ACCESSOR]
+    providers: [SELECT_VALUE_ACCESSOR],
+    host: {
+        'tabindex': '0'
+    }
 })
 export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
@@ -70,6 +74,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     @ViewChild('singleInput') singleInput: ElementRef;
+    @ViewChild('tagInput') tagInput: TagInputComponent;
     @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
     @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
 
@@ -138,6 +143,15 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    @HostListener('focus')
+    onfocus(): void {
+        if (this.singleInput) {
+            this.singleInput.nativeElement.focus();
+        } else if (this.tagInput) {
+            this.tagInput.focus();
+        }
     }
 
     writeValue(obj: any): void {

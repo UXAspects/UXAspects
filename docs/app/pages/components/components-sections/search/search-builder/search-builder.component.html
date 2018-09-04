@@ -1,65 +1,119 @@
-<button class="btn button-primary" (click)="modalOpen = true">
+<button type="button" class="btn button-primary" (click)="modalOpen = true">
     <span class="hpe-icon hpe-deployment m-r-xs" aria-hidden="true"></span>
     Launch Search Builder Modal
 </button>
-
-<hr>
 
 <h4>Search Query</h4>
 
 <pre>{{ preview }}</pre>
 
-<div *ngIf="modalOpen"
-     (onHidden)="cancel()"
-     [config]="{ show: true, animated: false }"
-     bsModal
-     #modal="bs-modal"
-     class="modal"
-     tabindex="-1"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="search-builder-title">
+<!-- Search Builder modal definition -->
+<div *ngIf="modalOpen" class="modal" tabindex="-1" role="dialog"
+    aria-modal="true" aria-labelledby="search-builder-title"
+    bsModal #modal="bs-modal" [config]="{ show: true, animated: false, focus: false }"
+    (onShown)="modalShown()" (onHidden)="cancel()">
 
-    <div class="modal-dialog modal-lg search-builder-modal" role="document">
+    <div role="document" class="modal-dialog modal-lg search-builder-modal"
+        [cdkTrapFocus]="modalOpen"
+        [cdkTrapFocusAutoCapture]="true">
+
         <div class="modal-content">
 
+            <!-- Close button -->
             <div class="search-builder-dismiss" (click)="cancel()">
-                <button class="btn btn-icon button-dark btn-circular btn-close">
+                <button type="button" class="btn btn-icon button-dark btn-circular btn-close"
+                    aria-label="Close search builder modal">
                     <i class="hpe-icon hpe-close"></i>
                 </button>
             </div>
 
+            <!-- Modal header -->
             <div class="search-builder-header">
                 <div class="search-builder-icon"></div>
                 <h1 id="search-builder-title" class="search-builder-title">Search builder</h1>
             </div>
 
-            <div class="search-builder-body">
+            <div #searchBuilderContent class="search-builder-body">
 
+                <!-- Search Builder -->
                 <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
-                    <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
-                    <ux-search-builder-group id="any" header="ANY of the following" operator="or" (add)="addField('any'); $event.stopPropagation()" [showPlaceholder]="placeholders.any"></ux-search-builder-group>
-                    <ux-search-builder-group id="all" header="ALL of the following" (add)="addField('all'); $event.stopPropagation()" [showPlaceholder]="placeholders.all"></ux-search-builder-group>
-                    <ux-search-builder-group id="none" header="NONE of the following" operator="not" (add)="addField('none'); $event.stopPropagation()" [showPlaceholder]="placeholders.none"></ux-search-builder-group>
+
+                    <ux-search-builder-group id="keywords"
+                        header="Text Keywords"
+                        addText="Add a keyword"
+                        (add)="addKeyword()">
+                    </ux-search-builder-group>
+
+                    <ux-search-builder-group id="any"
+                        header="ANY of the following"
+                        operator="or"
+                        (add)="addField('any', $event)"
+                        [showPlaceholder]="placeholders.any">
+                    </ux-search-builder-group>
+
+                    <ux-search-builder-group id="all"
+                        header="ALL of the following"
+                        (add)="addField('all', $event)"
+                        [showPlaceholder]="placeholders.all">
+                    </ux-search-builder-group>
+
+                    <ux-search-builder-group id="none"
+                        header="NONE of the following"
+                        operator="not"
+                        (add)="addField('none', $event)"
+                        [showPlaceholder]="placeholders.none">
+                    </ux-search-builder-group>
+
                 </ux-search-builder>
 
             </div>
 
+            <!-- Search/Cancel buttons -->
             <div class="search-builder-footer">
-                <button type="button" class="btn button-primary m-r-xs" [disabled]="!valid" (click)="save()">Search</button>
+                <button type="button" class="btn button-primary" [disabled]="!valid" (click)="save()">
+                    Search
+                </button>
                 <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
             </div>
 
-            <ux-item-display-panel class="search-builder-panel" [class.search-builder-panel-open]="panelOpen" [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen" (visibleChange)="onPanelEvent($event)" width="400px">
+            <!-- Side panel (used to select field type) -->
+            <ux-item-display-panel class="search-builder-panel"
+                [class.search-builder-panel-open]="panelOpen"
+                [animate]="true"
+                [inline]="true"
+                header="Add Field"
+                [(visible)]="panelOpen"
+                (visibleChange)="onPanelEvent($event)"
+                width="400px"
+                role="dialog"
+                aria-label="Field Type Panel"
+                aria-description="Select a field type to add it to the search builder.">
 
-                <div class="field-list-panel" uxItemDisplayPanelContent>
-                    <input type="text" placeholder="Find a field" class="form-control" [(ngModel)]="filter">
+                <div uxItemDisplayPanelContent class="field-list-panel"
+                    (keydown.esc)="panelOpen = false; $event.stopPropagation()"
+                    [cdkTrapFocus]="panelOpen"
+                    [cdkTrapFocusAutoCapture]="true">
 
-                    <ul class="field-list">
-                        <ng-container *ngFor="let field of fields">
-                            <li class="field-list-item" *ngIf="field.title.toLowerCase().indexOf(filter.toLowerCase()) !== -1" (click)="selectField(field)">{{ field.title }}</li>
-                        </ng-container>
-                    </ul>
+                    <!-- Field type filter field -->
+                    <input type="text"
+                        aria-description="Filter the field type list."
+                        placeholder="Find a field"
+                        class="form-control"
+                        [ngModel]="filter$ | async"
+                        (ngModelChange)="filter$.next($event)"
+                        [focusIf]="panelOpen">
+
+                    <!-- List of field types -->
+                    <ux-select-list *ngIf="panelOpen"
+                        aria-label="Field type list"
+                        aria-description="Select a field type to add it to the search builder."
+                        class="field-list"
+                        (selectedChange)="selectField($event[0])">
+                        <ux-select-list-item *ngFor="let field of filteredFields" [data]="field">
+                            {{field.title}}
+                        </ux-select-list-item>
+                    </ux-select-list>
+
                 </div>
             </ux-item-display-panel>
         </div>
@@ -73,26 +127,10 @@
     and within a modal.
 </p>
 
-<p>
-    The following code can be used to create the example above:
-</p>
-
-<tabset>
-    <tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
-
 <h4>Search Builder Component</h4>
 
 <p>
-    The <code>ux-search-builder</code> component is designed to act as a container for 
+    The <code>ux-search-builder</code> component is designed to act as a container for
     <code>ux-search-group</code> components. It will be responsible for creating the overall search query object. It can also be
     used to define custom components that can be used to create search queries.
 </p>
@@ -132,7 +170,7 @@
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="id" type="string" [required]="true">
-        This is a unique identifier for this group. 
+        This is a unique identifier for this group.
         This will be used in the search query object to identify which fields belong to this group.
     </tr>
     <tr uxd-api-property name="header" type="string">
@@ -146,18 +184,18 @@
     </tr>
     <tr uxd-api-property name="showPlaceholder" type="boolean" defaultValue="false">
         If true a placeholder field will be displayed. One common use case is to display a panel
-        containing a list of potential fields when the user clicks the 'Add a field' button. This allows 
+        containing a list of potential fields when the user clicks the 'Add a field' button. This allows
         the user to pick the desired field. The placeholder could be shown until a field is selected.
     </tr>
     <tr uxd-api-property name="placeholder" type="TemplateRef">
         Allows a custom template to be used as the placeholder.
     </tr>
-    
+
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="add" type="void">
-        This will be fired when the user clicks the 'Add a field' button. This event should be used to add 
+        This will be fired when the user clicks the 'Add a field' button. This event should be used to add
         a new entry to the query object.
     </tr>
     <tr uxd-api-property name="remove" type="SearchBuilderGroupQuery">
@@ -169,8 +207,8 @@
 
 <p>
     The Search Builder comes with several prebuilt components for you to easily consume and configure.
-    To begin consuming these components you must first create a components array in your component class. 
-    This allows you to define each type of field you need, to specify which component should be used and 
+    To begin consuming these components you must first create a components array in your component class.
+    This allows you to define each type of field you need, to specify which component should be used and
     provide any additional configuration.
 </p>
 
@@ -178,7 +216,7 @@
 
 <p>The following prebuilt components are available to use:</p>
 
-<uxd-api-properties tableTitle="Components">
+<uxd-api-properties>
     <tr uxd-api-property name="SearchTextComponent">
         <p class="m-b">A simple text input component. The following configuration options are available:</p>
 
@@ -198,7 +236,7 @@
             <li><code>validation</code> - If specified will allow custom validation to be used to determine if this field is valid.</li>
         </ul>
     </tr>
-    
+
     <tr uxd-api-property name="SearchDateRangeComponent">
         <p class="m-b">A date range picker component. The following configuration options are available:</p>
 
@@ -211,7 +249,6 @@
             <li><code>toPlaceholder</code> - If specified will display a placeholder in the second date picker.</li>
         </ul>
     </tr>
-    
 
     <tr uxd-api-property name="SearchDateComponent">
         <p class="m-b">A select component allowing both single and multiple selection. The following configuration options are available:</p>
@@ -240,11 +277,11 @@
 
 <p>
     A custom search component can be created simply by creating an Angular component and having it extend
-    <code>BaseSearchComponent</code>. 
+    <code>BaseSearchComponent</code>.
 </p>
 
 <p>
-    Simply give the class a <code>type</code> property which will be the component's identifier, and have it call 
+    Simply give the class a <code>type</code> property which will be the component's identifier, and have it call
     the <code>value</code> property passing it the latest value when changes are made.
 </p>
 
@@ -253,39 +290,93 @@
 </p>
 
 <p>
-    The function can also override the default <code>validate</code> function to provide custom validation. This function should 
+    The function can also override the default <code>validate</code> function to provide custom validation. This function should
     update the <code>valid</code> property on the class.
 </p>
 
 <p>
-    For example, we can create a component to allow users to enter a number as a search query. 
+    For example, we can create a component to allow users to enter a number as a search query.
     The following code can be used to create the component:
 </p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.customComponentHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.customComponentTs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>
     Custom components should then be defined in the <code>components</code> property on the <code>ux-search-builder</code> component, e.g.:
 </p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.searchBuilderComponentsHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.searchBuilderComponentsTs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <blockquote>
     <p>
-        <b>Note:</b> Any custom search components should be added to the entryComponents of the appropriate module.
+        <b>Note:</b> Any custom search components should be added to the <code>entryComponents</code> of the appropriate module.
     </p>
 </blockquote>
+
+<h4>Focus Service</h4>
+
+<p>
+    Since the search components are not directly exposed, <code>SearchBuilderFocusService</code> can be injected into
+    a controller to manage browser focus within the search builder.
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="setFocus" args="groupId: string, index: number">
+        Set focus on a search builder component.
+        <ul>
+            <li><code>groupId</code>: The <code>id</code> of the group containing the component.</li>
+            <li><code>index</code>: The (zero-based) index of the component.</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="clearFocus">
+        Removes focus from all components. If focus is not on a search builder component, this does nothing.
+    </tr>
+</uxd-api-properties>
+
+<h4>Accessibility</h4>
+
+<ul>
+    <li>
+        Consider using the <a href="https://material.angular.io/cdk/a11y/api#CdkTrapFocus"><code>cdkTrapFocus</code></a>
+        directive if hosting the search builder within a modal.
+    </li>
+
+    <li>
+        Use the <code>SearchBuilderFocusService</code> to set focus on newly created search components.
+    </li>
+
+    <li>
+        If creating a custom search component, the inherited <code>focus</code> property will be set to true when focus is
+        requested.
+        The <a routerLink="/components/utilities" fragment="focus-if"><code>focusIf</code></a> directive can be used in combination
+        with the <code>focus</code> property to automatically apply focus to the appropriate control in the component.
+    </li>
+</ul>
+
+<h4>Example Code</h4>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

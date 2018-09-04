@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
+import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderService } from '../search-builder.service';
 
 @Injectable()
@@ -7,7 +8,10 @@ export class SearchBuilderGroupService {
 
   private _id: string;
 
-  constructor(private _searchBuilderService: SearchBuilderService) { }
+  constructor(
+    private _searchBuilderService: SearchBuilderService,
+    private _searchBuilderFocusService: SearchBuilderFocusService
+  ) { }
 
   /**
    * Initialise the group by defining an id
@@ -28,14 +32,18 @@ export class SearchBuilderGroupService {
   }
 
   /**
-   * Remove a field from the search builder query
+   * Remove a field from the search builder query and return focus to the previous field.
    */
-  remove(field: SearchBuilderGroupQuery): void {
+  removeAtIndex(index: number): void {
+
     // get the query for this group
     const query = this.getQuery();
 
     // remove the field from the array
-    query.splice(query.indexOf(field), 1);
+    query.splice(index, 1);
+
+    // Focus the previous item if available
+    this._searchBuilderFocusService.setFocus(this._id, index <= 0 ? 0 : index - 1);
   }
 
   /**

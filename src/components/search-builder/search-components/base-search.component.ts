@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
-import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
 import { SearchBuilderService } from '../search-builder.service';
 
 @Component({
@@ -9,12 +8,14 @@ import { SearchBuilderService } from '../search-builder.service';
 })
 export class BaseSearchComponent implements OnDestroy {
 
+    get id(): string {
+        return `ux-search-builder-search-component-${this._id}`;
+    }
+
     type: string;
     config: any;
     context: SearchBuilderComponentContext;
-
-    private _id: number = this._searchBuilderService.generateComponentId();
-    private _valid: boolean = true;
+    focus: boolean;
 
     /**
      * Get the current value of the component
@@ -43,10 +44,10 @@ export class BaseSearchComponent implements OnDestroy {
         this._searchBuilderService.setValid(this._id, valid);
     }
 
-    constructor(
-        private _searchBuilderService: SearchBuilderService,
-        private _searchBuilderGroupService: SearchBuilderGroupService
-    ) { }
+    private _id: number = this._searchBuilderService.generateComponentId();
+    private _valid: boolean = true;
+
+    constructor(private _searchBuilderService: SearchBuilderService) { }
 
     /**
      * Make sure we clean up after ourselves
