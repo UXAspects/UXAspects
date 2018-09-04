@@ -11,8 +11,9 @@
                     <span class="input-group-addon p-r-xs" tabindex="1" (click)="fromPopover.show()">
                         <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                     </span>
-                    <input type="text" #fromPopover="ux-popover" [ngModel]="from | date:'dd MMMM yyyy'" [uxPopover]="fromPopoverTemplate" placement="bottom"
-                        popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="fromPlaceholder">
+                    <input type="text" #fromPopover="ux-popover" [ngModel]="from | date:'dd MMMM yyyy'"
+                        [uxPopover]="fromPopoverTemplate" placement="bottom" popoverClass="date-time-picker-popover"
+                        class="form-control" aria-label="Selected date" [placeholder]="fromPlaceholder" [focusIf]="focus">
                 </div>
             </div>
 
@@ -23,8 +24,9 @@
                     <span class="input-group-addon" tabindex="1" (click)="toPopover.show()">
                         <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                     </span>
-                    <input type="text" #toPopover="ux-popover" [ngModel]="to | date:'dd MMMM yyyy'" [uxPopover]="toPopoverTemplate" placement="bottom"
-                        popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="toPlaceholder">
+                    <input type="text" #toPopover="ux-popover" [ngModel]="to | date:'dd MMMM yyyy'"
+                        [uxPopover]="toPopoverTemplate" placement="bottom" popoverClass="date-time-picker-popover"
+                        class="form-control" aria-label="Selected date" [placeholder]="toPlaceholder">
                 </div>
             </div>
 

@@ -1,10 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import 'chance';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { takeUntil } from 'rxjs/operators';
 import { first } from 'rxjs/operators/first';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { SearchBuilderComponentDefinition, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '../../../../../../../src/index';
+import { SearchBuilderComponentDefinition, SearchBuilderFocusService, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -17,29 +18,6 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 })
 @DocumentationSectionComponent('ComponentsSearchBuilderComponent')
 export class ComponentsSearchBuilderComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
-
-    query: SearchBuilderQuery = {
-        keywords: [
-            {
-                type: 'keyword',
-                value: null
-            }
-        ],
-        any: [],
-        all: [],
-        none: []
-    };
-    preview: string = JSON.stringify(this.query, null, 2);
-    valid: boolean = true;
-    filter: string = '';
-    modalOpen: boolean = false;
-    panelOpen: boolean = false;
-
-    placeholders = {
-        any: false,
-        all: false,
-        none: false
-    };
 
     plunk: IPlunk = {
         files: {
@@ -58,6 +36,30 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
                 library: '@ux-aspects/ux-aspects'
             }
         ]
+    };
+
+    query: SearchBuilderQuery = {
+        keywords: [
+            {
+                type: 'keyword',
+                value: null
+            }
+        ],
+        any: [],
+        all: [],
+        none: []
+    };
+
+    preview: string = JSON.stringify(this.query, null, 2);
+    valid: boolean = true;
+    filter$ = new BehaviorSubject<string>('');
+    modalOpen: boolean = false;
+    panelOpen: boolean = false;
+
+    placeholders = {
+        any: false,
+        all: false,
+        none: false
     };
 
     components: SearchBuilderComponentDefinition[] = [
@@ -107,7 +109,8 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
             config: {
                 label: 'File types',
                 placeholder: 'Select File Types',
-                options: ['AVI', 'BMP', 'CSV', 'DOC', 'EXE', 'GIF', 'JPG', 'MOV', 'PDF', 'PNG', 'PPT', 'RTF', 'TXT', 'XLS', 'ZIP'],
+                options: ['AVI', 'BMP', 'CSV', 'DOC', 'EXE', 'GIF', 'JPG', 'MOV', 'PDF', 'PNG', 'PPT',
+                    'RTF', 'TXT', 'XLS', 'ZIP'],
                 multiple: true
             } as SearchSelectConfig
         },
@@ -117,7 +120,8 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
             config: {
                 label: 'Repository',
                 placeholder: 'Enter a Repository',
-                options: ['Filesystem', 'Records Manager', 'Email', 'Legacy Email', 'Archives', 'Legacy Archives', 'Miscellaneous'],
+                options: ['Filesystem', 'Records Manager', 'Email', 'Legacy Email', 'Archives',
+                    'Legacy Archives', 'Miscellaneous'],
                 multiple: true
             } as SearchSelectConfig
         },
@@ -132,48 +136,45 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
     ];
 
     fields: SearchBuilderField[] = [
-        {
-            title: 'Author',
-            type: 'author',
-        },
-        {
-            title: 'Custodian',
-            type: 'custodian'
-        },
-        {
-            title: 'Date Range',
-            type: 'date-range'
-        },
-        {
-            title: 'File Name',
-            type: 'file-name'
-        },
-        {
-            title: 'File Type',
-            type: 'file-type'
-        },
-        {
-            title: 'Repository',
-            type: 'repository'
-        },
-        {
-            title: 'Text',
-            type: 'text'
-        }
+        { title: 'Author', type: 'author', },
+        { title: 'Custodian', type: 'custodian' },
+        { title: 'Date Range', type: 'date-range' },
+        { title: 'File Name', type: 'file-name' },
+        { title: 'File Type', type: 'file-type' },
+        { title: 'Repository', type: 'repository' },
+        { title: 'Text', type: 'text' }
     ];
 
-    private _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
-    private _subscription: Subscription;
+    filteredFields: SearchBuilderField[];
 
-    constructor(private modalService: BsModalService) {
+    @ViewChild('searchBuilderContent')
+    searchBuilderContent: ElementRef<HTMLElement>;
+
+    private _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();
+    // private _subscription: Subscription;
+    private _onDestroy = new Subject<void>();
+
+    constructor(
+        private _modalService: BsModalService,
+        private _searchBuilderFocusService: SearchBuilderFocusService
+    ) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // if the modal is closed by clicking on backdrop perform cancel
-        this._subscription = this.modalService.onHide.subscribe(() => this.cancel());
+        this._modalService.onHide.pipe(takeUntil(this._onDestroy)).subscribe(() => this.cancel());
+
+        // Filter the field type list
+        this.filter$.pipe(takeUntil(this._onDestroy)).subscribe(value => {
+            this.filteredFields = this.fields.filter(field =>
+                field.title.toLowerCase().indexOf(value.toLowerCase()) >= 0
+            );
+        });
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        // this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     save(): void {
@@ -187,10 +188,15 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
     }
 
     addKeyword(): void {
-        this.query.keywords.push({ type: 'keyword', value: null });
+        const length = this.query.keywords.push({ type: 'keyword', value: null });
+
+        // Set focus on the newly added field
+        this._searchBuilderFocusService.setFocus('keywords', length - 1);
     }
 
-    addField(group: string): void {
+    addField(group: string, event: MouseEvent): void {
+
+        const button = <HTMLElement>event.currentTarget;
 
         // show the panel
         this.showPanel();
@@ -206,21 +212,31 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
 
             // if a field was selected then add it to the query
             if (field) {
-                this.query[group].push({ type: field.type, value: null });
+
+                const length = this.query[group].push({ type: field.type, value: null });
+
+                // Set focus on the newly added field
+                this._searchBuilderFocusService.setFocus(group, length - 1);
+
+            } else {
+
+                // Nothing selected so return focus to the original button
+                button.focus();
             }
         });
+
+        event.stopPropagation();
     }
 
     showPanel() {
         // clear any existing filters
-        this.filter = '';
+        this.filter$.next('');
 
         // show the panel
         this.panelOpen = true;
     }
 
     onPanelEvent(open: boolean): void {
-
         // if closing indication that no field was chosen
         if (!open) {
             this._field$.next(null);
@@ -228,12 +244,13 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
     }
 
     selectField(field: SearchBuilderField): void {
+        if (field) {
+            // emit the selected field
+            this._field$.next(field);
 
-        // emit the selected field
-        this._field$.next(field);
-
-        // close the panel
-        this.panelOpen = false;
+            // close the panel
+            this.panelOpen = false;
+        }
     }
 
     getCustodians(): string[] {
@@ -244,6 +261,11 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
         }
 
         return custodians;
+    }
+
+    modalShown(): void {
+        // Set focus on the first field in the keywords group
+        this._searchBuilderFocusService.setFocus('keywords', 0);
     }
 }
 

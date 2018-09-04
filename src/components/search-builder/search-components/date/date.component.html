@@ -4,8 +4,16 @@
     <span class="input-group-addon" tabindex="1" (click)="popover.show()">
         <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
     </span>
-    <input type="text" #popover="ux-popover" [ngModel]="value | date:'dd MMMM yyyy'" [uxPopover]="popoverTemplate"
-        placement="bottom" popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="placeholder">
+    <input type="text"
+        class="form-control"
+        aria-label="Selected date"
+        [placeholder]="placeholder"
+        #popover="ux-popover"
+        [ngModel]="value | date:'dd MMMM yyyy'"
+        [uxPopover]="popoverTemplate"
+        placement="bottom"
+        popoverClass="date-time-picker-popover"
+        [focusIf]="focus">
 </div>
 
 <ng-template #popoverTemplate>

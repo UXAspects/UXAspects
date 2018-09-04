@@ -21,6 +21,7 @@ const TAGINPUT_VALIDATOR = {
 
 @Component({
     selector: 'ux-tag-input',
+    exportAs: 'ux-tag-input',
     templateUrl: 'tag-input.component.html',
     providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
     host: {
@@ -167,6 +168,15 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     ngOnDestroy(): void {
         if (this._typeaheadSubscription) {
             this._typeaheadSubscription.unsubscribe();
+        }
+    }
+
+    /**
+     * Set focus on the input field.
+     */
+    focus(): void {
+        if (this.tagInput) {
+            this.tagInput.nativeElement.focus();
         }
     }
 

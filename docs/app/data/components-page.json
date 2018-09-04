@@ -825,6 +825,10 @@
                             "content": "ux-tag-input"
                         },
                         {
+                            "title": "Exported As",
+                            "content": "ux-tag-input"
+                        },
+                        {
                             "title": "Module",
                             "content": "TagInputModule"
                         }

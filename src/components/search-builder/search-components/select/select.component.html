@@ -1,9 +1,9 @@
 <label class="form-label" *ngIf="label">{{ label }}</label>
 
-<ux-select [(value)]="value" 
-           [options]="options" 
-           [multiple]="multiple" 
-           [placeholder]="placeholder" 
+<ux-select [(value)]="value"
+           [options]="options"
+           [multiple]="multiple"
+           [placeholder]="placeholder"
            [dropDirection]="dropDirection"
            [pageSize]="pageSize"
            [allowNull]="allowNull"
@@ -13,5 +13,6 @@
            [display]="config.display"
            [loadingTemplate]="config.loadingTemplate"
            [optionTemplate]="config.optionTemplate"
-           [noOptionsTemplate]="config.noOptionsTemplate">
+           [noOptionsTemplate]="config.noOptionsTemplate"
+           [focusIf]="focus">
 </ux-select>

@@ -48,7 +48,8 @@ ux-search-builder-group {
                 margin-right: 10px;
                 transition: background-color 300ms linear;
 
-                &:hover {
+                &:hover,
+                &.search-group-item-focus {
                     background-color: @search-builder-field-hover;
 
                     .search-group-item-remove {
@@ -79,9 +80,12 @@ ux-search-builder-group {
                     align-items: center;
                     flex: none;
                     margin: 9px;
-                    color: @search-builder-remove-color;
-                    cursor: pointer;
+                    border: none;
+                    padding: 0;
                     opacity: 0;
+                    color: @search-builder-remove-color;
+                    background-color: transparent;
+                    cursor: pointer;
                     transition: opacity 300ms linear;
                 }
             }
@@ -97,29 +101,37 @@ ux-search-builder-group {
             align-self: flex-end;
             cursor: pointer;
             margin-bottom: 5px;
+            border: none;
+            padding: 0;
+            background-color: transparent;
 
-            .btn {
-                transition: background-color 300ms linear;
-                pointer-events: none;
-                background-color: @search-builder-add-bg;
-                border: none;
+            .search-builder-group-add-field-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: none;
+                font-size: 0.875rem;
                 width: 30px;
                 height: 30px;
+                border: none;
+                border-radius: 50%;
+                color: @search-builder-add-icon-color;
+                background-color: @search-builder-add-bg;
+                transition: background-color 300ms linear;
             }
 
             .search-builder-group-add-field-label {
-                position: relative;
-                color: @search-builder-add-color;
                 font-size: 0.9375rem;
-                padding-left: 8px;
                 max-width: 120px;
+                padding-left: 8px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                color: @search-builder-add-color;
             }
 
             &:hover {
-                .btn {
+                .search-builder-group-add-field-icon {
                     background-color: @search-builder-add-hover-bg;
                 }
             }
