@@ -32,7 +32,11 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
                 forRoot: true
             },
             {
-                imports: ['SearchBuilderModule', 'ItemDisplayPanelModule'],
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y',
+            },
+            {
+                imports: ['SearchBuilderModule', 'ItemDisplayPanelModule', 'SelectListModule', 'FocusIfModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
