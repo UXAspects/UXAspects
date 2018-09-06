@@ -38,6 +38,7 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
     constructor(private _selectionService: SelectionService, private _elementRef: ElementRef) { }
 
     ngOnInit(): void {
+        console.log(`ngOnInit: ${JSON.stringify(this.uxSelectionItem)}`);
 
         // if there is no associated data then throw an error
         if (!this.uxSelectionItem) {
@@ -46,6 +47,8 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
 
         // subscribe to selection changes on this item
         this._selectionService.getSelectionState(this.uxSelectionItem).pipe(takeUntil(this._onDestroy)).subscribe(selected => {
+
+            console.log(`${JSON.stringify(this.uxSelectionItem)} --> selected = ${selected}`);
 
             // store the selected state
             this._selected = selected;

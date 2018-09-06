@@ -1,7 +1,7 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, HostBinding, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, UrlTree } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, NavigationEnd, NavigationExtras, Router } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: '[ux-navigation-item]',
@@ -9,30 +9,45 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
 
-    @Input() header: string;
-    @Input() icon: string;
-    @Input() link: string;
-    @Input() @HostBinding('class.selected') expanded: boolean = false;
+    @Input()
+    header: string;
 
-    @HostBinding('class.active')
-    get active(): boolean {
-        if (this.link) {
-            return this._router.isActive(this.link, true);
-        }
+    @Input()
+    icon: string;
+
+    @Input()
+    set link(value: string | string[]) {
+        this.routerLink = value;
     }
 
-    level: number = 1;
-    indentWithoutArrow: boolean = true;
+    @Input()
+    set routerLink(value: string | string[]) {
+        // Normalize routerLink
+        this.routerLinkNormalized = Array.isArray(value) ? value : [value];
+    }
 
-    private _navigationEnd: Subscription;
-    private _childrenChanges: Subscription;
+    @Input()
+    routerExtras: NavigationExtras;
 
-    @ContentChildren(NavigationItemComponent, { descendants: true })
-    private _children: QueryList<NavigationItemComponent>;
+    @Input()
+    @HostBinding('class.selected')
+    expanded: boolean = false;
+
+    @HostBinding('class.active')
+    active: boolean = false;
 
     get children(): NavigationItemComponent[] {
         return this._children.filter(item => item !== this);
     }
+
+    routerLinkNormalized: string[] = null;
+    indentWithoutArrow: boolean = true;
+
+    private _level: number = 1;
+    private _onDestroy = new Subject<void>();
+
+    @ContentChildren(NavigationItemComponent, { descendants: true })
+    private _children: QueryList<NavigationItemComponent>;
 
     constructor(
         private _elementRef: ElementRef,
@@ -41,10 +56,14 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         private _router: Router,
         private _activatedRoute: ActivatedRoute
     ) {
-        this.level = _parent ? _parent.level + 1 : 1;
+        this._level = _parent ? _parent._level + 1 : 1;
 
-        this._navigationEnd = _router.events.pipe(filter(event => event instanceof NavigationEnd))
-            .subscribe(() => this.expanded = this.hasActiveLink(this.link));
+        _router.events
+            .pipe(filter(event => event instanceof NavigationEnd), takeUntil(this._onDestroy))
+            .subscribe(() => {
+                this.active = this.isActiveLink();
+                this.expanded = this.active || this.children.some((child) => child.hasActiveLink());
+            });
     }
 
     ngAfterViewInit(): void {
@@ -64,32 +83,47 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         this.setIndentWithoutArrow();
 
         // Update 'indentWithoutArrow' in response to changes to children
-        this._childrenChanges = this._children.changes.subscribe(() => this.setIndentWithoutArrow());
+        this._children.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setIndentWithoutArrow());
     }
 
     ngOnDestroy(): void {
-        this._navigationEnd.unsubscribe();
-        this._childrenChanges.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
-    private hasActiveLink(link: string | UrlTree): boolean {
+    linkClick(): void {
+        if (!this.routerLinkNormalized) {
+            this.expanded = !this.expanded;
+        }
+    }
 
-        const tree = this._router.createUrlTree([link], {
+    private isActiveLink(): boolean {
+
+        if (!this.routerLinkNormalized) {
+            return false;
+        }
+
+        const tree = this._router.createUrlTree(this.routerLinkNormalized, {
             relativeTo: this._activatedRoute,
             queryParams: this._activatedRoute.snapshot.queryParams,
             fragment: this._activatedRoute.snapshot.fragment
         });
 
-        if (link && this._router.isActive(tree, true)) {
+        return this._router.isActive(tree, true);
+    }
+
+    private hasActiveLink(): boolean {
+
+        if (this.isActiveLink()) {
             return true;
         }
 
         // If this component has children, check if any of them, or their descendants, are active.
-        return this.children.some((item) => item.hasActiveLink(item.link));
+        return this.children.some((item) => item.hasActiveLink());
     }
 
     private getLevelClass(): string {
-        switch (this.level) {
+        switch (this._level) {
             case 2:
                 return 'nav-second-level';
             case 3:
