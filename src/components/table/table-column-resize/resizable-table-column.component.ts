@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostBinding, Input, OnDestroy } from '@angular/core';
-import { distinctUntilChanged, pluck, takeUntil } from 'rxjs/operators';
+import { Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ResizableTableService } from './resizable-table.service';
 
@@ -11,9 +11,6 @@ import { ResizableTableService } from './resizable-table.service';
   }
 })
 export class ResizableTableColumnComponent implements OnDestroy {
-
-  /** The column identifier */
-  @Input('uxResizableTableColumn') id: string;
 
   /** The percentage width of the column */
   @HostBinding('style.width.%') width: number = null;
@@ -33,7 +30,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
 
   ngOnInit(): void {
     this.table.sizes.pipe(
-      pluck(this.id),
+      map(sizes => sizes.get(this)),
       distinctUntilChanged(),
       takeUntil(this._onDestroy)
     ).subscribe((width: number) => this.width = width);
@@ -56,7 +53,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
     const movement = mouseX - (left + (width / 2));
 
     // perform resizing
-    this.table.resizeColumn(this.id, movement);
+    this.table.resizeColumn(this, movement);
   }
 
 }
