@@ -1,0 +1,26 @@
+.ux-resizable-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.ux-resizable-table-column {
+    position: relative;
+
+    &:last-of-type {
+        .ux-resizable-table-column-handle {
+            display: none;
+        }
+    }
+}
+
+.ux-resizable-table-column-handle {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 100%;
+    cursor: ew-resize;
+}

@@ -33,6 +33,7 @@ export * from './components/side-panel/index';
 export * from './components/slider/index';
 export * from './components/spark/index';
 export * from './components/spin-button/index';
+export * from './components/table/index';
 export * from './components/tabset/index';
 export * from './components/tag-input/index';
 export * from './components/time-picker/index';
@@ -80,3 +81,4 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
+

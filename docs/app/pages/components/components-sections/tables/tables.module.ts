@@ -7,11 +7,12 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
-import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TooltipModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsColumnResizingComponent } from './column-resizing/column-resizing.component';
 import { ComponentsColumnSortingComponent } from './column-sorting/column-sorting.component';
 import { ComponentsColumnVisibilityNg1Component } from './column-visibility-ng1/column-visibility-ng1.component';
 import { ComponentsCustomFiltersComponent } from './custom-filters-component/custom-filters.component';
@@ -81,7 +82,8 @@ const SECTIONS = [
     ComponentsFixedHeaderTableComponent,
     ComponentsFixedHeaderTableNg1Component,
     ComponentsSelectionComponent,
-    ComponentsSortingComponent
+    ComponentsSortingComponent,
+    ComponentsColumnResizingComponent
 ];
 
 const ROUTES = [
@@ -117,7 +119,8 @@ const ROUTES = [
         FixedHeaderTableModule,
         TooltipModule,
         RouterModule.forChild(ROUTES),
-        A11yModule
+        A11yModule,
+        TableModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

@@ -1,0 +1,8 @@
+<ng-content></ng-content>
+
+<div #handle
+     uxDrag
+     class="ux-resizable-table-column-handle"
+     *ngIf="!(table.isDisabled | async)"
+     (drag)="drag($event, handle)">
+</div>
