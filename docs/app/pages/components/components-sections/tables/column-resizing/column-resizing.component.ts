@@ -10,7 +10,26 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection {
 
+    documents: TableDocument[] = [];
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        // generate some dummy data
+        for (let idx = 0; idx < 5; idx++) {
+            this.documents.push({
+                selected: false,
+                title: `Document ${idx + 1}`,
+                author: chance.name(),
+                date: chance.date({ year: new Date().getFullYear() }) as Date
+            });
+        }
     }
+}
+
+interface TableDocument {
+    selected: boolean;
+    title: string;
+    author: string;
+    date: Date;
 }

@@ -3,6 +3,6 @@
 <div #handle
      uxDrag
      class="ux-resizable-table-column-handle"
-     *ngIf="!(table.isDisabled | async)"
+     *ngIf="!disabled"
      (drag)="drag($event, handle)">
 </div>

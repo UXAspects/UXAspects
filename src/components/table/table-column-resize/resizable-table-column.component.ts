@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnDestroy } from '@angular/core';
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ResizableTableService } from './resizable-table.service';
@@ -12,11 +12,13 @@ import { ResizableTableService } from './resizable-table.service';
 })
 export class ResizableTableColumnComponent implements OnDestroy {
 
+  @Input() disabled: boolean = false;
+
   /** The percentage width of the column */
   @HostBinding('style.width.%') width: number = null;
 
   get minWidth(): number {
-    return parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
+    return this.disabled ? this._elementRef.nativeElement.offsetWidth : parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
   }
 
   /** Ensure observables get destroyed correctly */

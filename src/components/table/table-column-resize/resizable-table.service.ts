@@ -85,8 +85,11 @@ export class ResizableTableService {
 
     // calculate the percentage size of each column
     this._columns.forEach(column =>
-      this.setColumnWidth(column, (column.getColumnWidth() / width) * 100)
+      this.setColumnWidth(column, ((column.getColumnWidth() / width) * 100))
     );
+
+    // ensure we are exactly 100%
+    this.verifyColumnWidths(this._columns.last);
 
     // emit the latest column sizes
     this.sizes.next(this._sizes);
@@ -115,7 +118,7 @@ export class ResizableTableService {
 
     // if the width does not total 100% exactly then adjust the column width
     if (width !== 100) {
-      this.setColumnWidth(adjustableColumn, this.getColumnWidth(adjustableColumn, sizes) + (100 - width));
+      this.setColumnWidth(adjustableColumn, this.getColumnWidth(adjustableColumn, sizes) + (100 - width), sizes);
     }
   }
 
