@@ -62,7 +62,7 @@ export class ResizableTableService {
     const percentage = this.getPercentage(value);
 
     // get the sibling column that will also be resized
-    const sibling = this.getSiblingColumn(column, transformation, percentage);
+    const sibling = this.getSiblingColumn(column, percentage);
 
     // if there is no sibling that can be resized then stop here
     if (!sibling) {
@@ -103,7 +103,11 @@ export class ResizableTableService {
     return width >= this.getPercentage(column.minWidth);
   }
 
-  verifyColumnWidths(adjustableColumn: ResizableTableColumnComponent, sizes: ColumnWidths = this._sizes): void {
+  /**
+   * Private Methods
+   */
+
+  private verifyColumnWidths(adjustableColumn: ResizableTableColumnComponent, sizes: ColumnWidths = this._sizes): void {
 
     // get the total widths of all columns combined
     const width = Object.keys(sizes).reduce((total, column) => sizes[column] + total, 0);
@@ -114,9 +118,6 @@ export class ResizableTableService {
     }
   }
 
-  /**
-   * Private Methods
-   */
   private getPercentage(value: number): number {
     return (Math.abs(value) / this._table.offsetWidth) * 100;
   }
@@ -129,37 +130,12 @@ export class ResizableTableService {
     return this._columns.toArray()[index];
   }
 
-  private getSiblingColumn(column: ResizableTableColumnComponent, transformation: ColumnTransform, delta: number): ResizableTableColumnComponent | null {
-    // get the index of this column
-    const index = this._columns.toArray().indexOf(column);
-
-    // if we are performing an expansion retrieve the sibling
-    if (transformation === ColumnTransform.Expand) {
-      return this.getResizableColumn(column, Direction.Forwards, delta);
-    }
-
-    // check if the current column can't be resized
-    if (delta > this.getColumnWidth(column) - this.getPercentage(column.minWidth)) {
-      return this.getResizableColumn(column, Direction.Backwards, delta);
-    }
-
-    return this.getResizableColumn(column, Direction.Forwards, delta);
-  }
-
-  private getResizableColumn(column: ResizableTableColumnComponent, direction: Direction, delta: number): ResizableTableColumnComponent | null {
+  private getSiblingColumn(column: ResizableTableColumnComponent, delta: number): ResizableTableColumnComponent | null {
     // get the index of this column
     const index = this._columns.toArray().indexOf(column);
 
     // get the sibling in that direction
-    const sibling = this.getColumnAtIndex(direction === Direction.Forwards ? index + 1 : index - 1);
-
-    // if there are no more siblings then return null
-    if (!sibling) {
-      return;
-    }
-
-    // check if the sibling can be shrunk - if not check the sibling's sibling
-    return (delta <= (this.getColumnWidth(sibling) - this.getPercentage(sibling.minWidth))) ? sibling : this.getResizableColumn(sibling, direction, delta);
+    return this.getColumnAtIndex(index + 1);
   }
 
   private getColumnTransform(value: number): ColumnTransform {
@@ -174,9 +150,4 @@ type ColumnWidths = { [key: string]: number };
 enum ColumnTransform {
   Shrink,
   Expand
-}
-
-enum Direction {
-  Forwards,
-  Backwards
 }
