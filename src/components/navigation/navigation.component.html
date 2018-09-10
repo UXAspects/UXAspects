@@ -1,50 +1,65 @@
 <nav class="ux-side-nav" [class.tree]="tree" role="navigation">
-    <ol class="nav" uxTabbableList>
-        <ng-container [ngTemplateOutlet]="navigationItem" [ngTemplateOutletContext]="{items: items}"></ng-container>
-        <!-- <li *ngFor="let child1 of items" [class.selected]="child1.expanded" [class.active]="rla1.isActive">
-            <a [routerLink]="child1.routerLink"
-                routerLinkActive
-                #rla1="routerLinkActive"
-                [routerLinkActiveOptions]="{exact: true}"
-                (click)="child1.expanded = !child1.expanded"
-                (keydown.arrowright)="child1.expanded = true"
-                uxTabbableListItem>
-                <span *ngIf="child1.icon" class="nav-icon hpe-icon" [ngClass]="child1.icon"></span>
-                <span class="nav-title">{{child1.title}}</span>
-            </a>
-            <ol *ngIf="child1.children && child1.expanded" class="nav nav-second-level collapse">
-                <li *ngFor="let child2 of child1.children" [class.selected]="child2.expanded" [class.active]="rla2.isActive">
-                    <a [routerLink]="child2.routerLink"
-                        routerLinkActive
-                        #rla2="routerLinkActive"
-                        [routerLinkActiveOptions]="{exact: true}"
-                        (click)="child2.expanded = !child2.expanded"
-                        (keydown.arrowleft)="child1.expanded = false"
-                        (keydown.arrowright)="child2.expanded = true"
-                        uxTabbableListItem>
-                        <span class="nav-title">{{child2.title}}</span>
-                    </a>
-                </li>
-            </ol>
-        </li> -->
-        <!-- <ng-content></ng-content> -->
-    </ol>
-</nav>
 
-<ng-template #navigationItem let-items="items">
-    <li *ngFor="let item of items" [class.selected]="item.expanded" [class.active]="rla1.isActive">
-        <a [routerLink]="item.routerLink"
-            routerLinkActive
-            #rla1="routerLinkActive"
-            [routerLinkActiveOptions]="{exact: true}"
-            (click)="item.expanded = !item.expanded"
-            (keydown.arrowright)="item.expanded = true"
-            uxTabbableListItem>
-            <span *ngIf="item.icon" class="nav-icon hpe-icon" [ngClass]="item.icon"></span>
-            <span class="nav-title">{{item.title}}</span>
-        </a>
-        <ol *ngIf="item.children && item.expanded" class="nav nav-second-level collapse">
-            <ng-container [ngTemplateOutlet]="navigationItem" [ngTemplateOutletContext]="{items: item.children}"></ng-container>
-        </ol>
-    </li>
-</ng-template>
+    <ol *ngIf="items" role="tree" class="nav" uxTabbableList [hierarchy]="true">
+
+        <ng-container *ngFor="let item of items; let rank = index"
+            [ngTemplateOutlet]="navigationNode"
+            [ngTemplateOutletContext]="{item: item, level: 1, rank: rank, indent: needsIndent(items)}">
+        </ng-container>
+
+        <ng-template #navigationNode let-item="item" let-parent="parent" let-level="level" let-rank="rank" let-indent="indent">
+
+            <li [attr.role]="(item.children && item.children.length > 0) ? 'treeitem' : 'none'"
+                [attr.aria-expanded]="item.expanded"
+                [class.selected]="item.expanded"
+                [class.active]="navigationLink.isActive">
+
+                <a uxNavigationLink
+                    #navigationLink="uxNavigationLink"
+                    [navigationItem]="item"
+                    [expanded]="item.expanded"
+                    [canExpand]="level < depthLimit"
+                    [indent]="indent"
+                    uxTabbableListItem
+                    #tli="ux-tabbable-list-item"
+                    [parent]="parent"
+                    [rank]="rank"
+                    (expandedChange)="item.expanded = $event">
+
+                    <span *ngIf="!navigationItemTemplate && item.children && item.children.length > 0 && level < depthLimit"
+                        aria-hidden="true"
+                        class="nav-expander"
+                        (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
+                    </span>
+                    <span *ngIf="!navigationItemTemplate && item.icon && !tree" class="nav-icon hpe-icon" [ngClass]="item.icon"></span>
+                    <img *ngIf="!navigationItemTemplate && item.iconUrl && !tree" class="nav-icon" [src]="item.iconUrl" alt="item.iconLabel">
+                    <span *ngIf="!navigationItemTemplate" class="nav-title">{{item.title}}</span>
+
+                    <ng-container [ngTemplateOutlet]="navigationItemTemplate"
+                        [ngTemplateOutletContext]="{item: item, level: level}">
+                    </ng-container>
+
+                </a>
+
+                <ol *ngIf="item.children && item.expanded && level < depthLimit"
+                    role="group" class="nav" [ngClass]="hierarchyClasses[level]">
+
+                    <ng-container *ngFor="let child of item.children; let rank = index"
+                        [ngTemplateOutlet]="navigationNode"
+                        [ngTemplateOutletContext]="{item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren}">
+                    </ng-container>
+
+                </ol>
+
+            </li>
+
+        </ng-template>
+
+    </ol>
+
+    <!-- Backward compatibility with the original ux-navigation -->
+    <ol *ngIf="!items" role="tree" class="nav">
+        <ng-content></ng-content>
+    </ol>
+
+</nav>

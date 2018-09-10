@@ -1,21 +1,7 @@
-<a *ngIf="routerLinkNormalized"
-    [class.has-arrow]="children.length > 0"
-    [class.no-arrow]="indentWithoutArrow"
-    [routerLink]="routerLinkNormalized"
-    uxTabbableListItem>
-
-    <span class="nav-title">{{header}}</span>
-
+<a *ngIf="link" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow" [routerLink]="link">
+    <span>{{header}}</span>
 </a>
-
-<a *ngIf="!routerLinkNormalized"
-    [class.has-arrow]="children.length > 0"
-    [class.no-arrow]="indentWithoutArrow"
-    (click)="expanded = !expanded"
-    uxTabbableListItem>
-
-    <span class="nav-title">{{header}}</span>
-
+<a *ngIf="!link" (click)="expanded = !expanded" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow">
+    <span>{{header}}</span>
 </a>
-
-<ng-content *ngIf="expanded"></ng-content>
+<ng-content></ng-content>

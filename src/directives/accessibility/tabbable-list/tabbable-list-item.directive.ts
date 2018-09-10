@@ -1,21 +1,63 @@
 import { FocusableOption } from '@angular/cdk/a11y';
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { delay, map, takeUntil, skip } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TabbableListService } from './tabbable-list.service';
+
+let nextId = 0;
 
 @Directive({
     selector: '[uxTabbableListItem]',
     exportAs: 'ux-tabbable-list-item'
 })
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
+
+    @Input() parent: TabbableListItemDirective;
+
+    @Input() rank: number = 0;
+
     @Input() disabled: boolean = false;
+
+    @Output() expandedChange = new EventEmitter<boolean>();
+
     @HostBinding() tabindex: number = -1;
+
+    id: number = nextId++;
+
     initialized: boolean = false;
+
+    children: TabbableListItemDirective[] = [];
+
+    expanded$ = new BehaviorSubject<boolean>(false);
 
     private _onDestroy = new Subject<void>();
 
-    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {}
+    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {
+
+        this.expanded$.pipe(skip(1), delay(0), takeUntil(this._onDestroy)).subscribe(expanded => {
+
+            // Emit event which may alter the DOM
+            this.expandedChange.emit(expanded);
+
+            // Activate the appropriate item
+            if (expanded) {
+                if (this.children.length > 0) {
+                    this._tabbableList.activate(this.children[0]);
+                }
+            } else {
+                this._tabbableList.activate(this);
+            }
+        });
+    }
+
+    onInit(): void {
+        this.initialized = true;
+
+        this._tabbableList.focusKeyManager.change
+            .pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
+            .subscribe(active => this.tabindex = active ? 0 : -1);
+    }
 
     ngOnDestroy(): void {
 
@@ -26,13 +68,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
         this._onDestroy.next();
         this._onDestroy.complete();
-    }
-
-    onInit(): void {
-        this.initialized = true;
-
-        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
-            .subscribe(active => this.tabindex = active ? 0 : -1);
     }
 
     @HostListener('focus')
@@ -47,12 +82,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
-
-        // prevent anything happening when modifier keys are pressed if they have been disabled
-        if (!this._tabbableList.allowAltModifier && event.altKey || !this._tabbableList.allowCtrlModifier && event.ctrlKey) {
-            return;
-        }
-
-        this._tabbableList.focusKeyManager.onKeydown(event);
+        this._tabbableList.onKeydown(this, event);
     }
 }
