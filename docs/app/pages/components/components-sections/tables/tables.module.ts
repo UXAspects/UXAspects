@@ -7,7 +7,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
-import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TooltipModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TabsetModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -102,6 +102,7 @@ const ROUTES = [
         CommonModule,
         FormsModule,
         TabsModule,
+        TabsetModule,
         CheckboxModule,
         RadioButtonModule,
         ColumnSortingModule,

@@ -1,0 +1,20 @@
+<table class="table" uxResizableTable>
+    <thead>
+        <tr>
+            <th uxResizableTableColumn [disabled]="true" class="checkbox-column"></th>
+            <th uxResizableTableColumn>Title</th>
+            <th uxResizableTableColumn>Author</th>
+            <th uxResizableTableColumn>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let document of documents">
+            <td>
+                <ux-checkbox [(ngModel)]="document.selected"></ux-checkbox>
+            </td>
+            <td>{{ document.title }}</td>
+            <td>{{ document.author }}</td>
+            <td>{{ document.date | date }}</td>
+        </tr>
+    </tbody>
+</table>

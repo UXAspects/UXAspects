@@ -1,9 +1,15 @@
-import { Injectable, QueryList } from '@angular/core';
+import { Injectable, OnDestroy, QueryList } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 
 @Injectable()
-export class ResizableTableService {
+export class ResizableTableService implements OnDestroy {
+
+  /** determine whether or not we are currently sizing */
+  resizing: boolean = false;
+
   /** store the percentage widths of all the columns */
   sizes = new ReplaySubject<Map<ResizableTableColumnComponent, number>>();
 
@@ -15,6 +21,14 @@ export class ResizableTableService {
 
   /** store the column sizes as an accessible object */
   private _sizes = new Map<ResizableTableColumnComponent, number>();
+
+  /** An observable to unsubscribe others automatically */
+  private _onDestroy = new Subject<void>();
+
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
   /** a setter to define the table element */
   setTable(table: HTMLTableElement): void {
@@ -30,16 +44,33 @@ export class ResizableTableService {
     this.setInitialWidths();
 
     // subscribe to future column changes
-    this._columns.changes.subscribe(() => this.setInitialWidths());
+    this._columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setInitialWidths());
+  }
+
+  /** We want to convert all units sizes to pixels to prevent browser jitter */
+  startResizing(): void {
+    this.resizing = true;
+
+    // convert all current percentages into pixel values
+    this._sizes.forEach((value, key) => this._sizes.set(key, (this._table.offsetWidth / 100) * value));
+
+    // emit the latest values
+    this.sizes.next(this._sizes);
+  }
+
+  /** Restore values back to percentage values */
+  endResizing(): void {
+    this.resizing = false;
+
+    // convert all values back to percentages
+    this._sizes.forEach((value, key) => this._sizes.set(key, (value / this._table.offsetWidth) * 100));
+
+    // emit the latest values
+    this.sizes.next(this._sizes);
   }
 
   /** apply a resize event to a column */
   resizeColumn(column: ResizableTableColumnComponent, value: number): void {
-    // determine the type of transformation required
-    const transformation = this.getColumnTransform(value);
-
-    // determine what percentage the movement represents
-    const percentage = this.getPercentage(value);
 
     // get the sibling column that will also be resized
     const sibling = this.getSiblingColumn(column);
@@ -53,8 +84,8 @@ export class ResizableTableService {
     const sizes = new Map(this._sizes);
 
     // resize the column to the desired size
-    this.setColumnWidth(column, transformation === ColumnTransform.Shrink ? this.getColumnWidth(column) - percentage : this.getColumnWidth(column) + percentage, sizes);
-    this.setColumnWidth(sibling, transformation === ColumnTransform.Shrink ? this.getColumnWidth(sibling) + percentage : this.getColumnWidth(sibling) - percentage, sizes);
+    this.setColumnWidth(column, this.getColumnWidth(column) + Math.round(value), sizes);
+    this.setColumnWidth(sibling, this.getColumnWidth(sibling) - Math.round(value), sizes);
 
     // if the move is not possible then stop here
     if (!this.isWidthValid(column, this.getColumnWidth(column, sizes)) || !this.isWidthValid(sibling, this.getColumnWidth(sibling, sizes))) {
@@ -88,9 +119,6 @@ export class ResizableTableService {
       this.setColumnWidth(column, ((column.getColumnWidth() / width) * 100))
     );
 
-    // ensure we are exactly 100%
-    this.verifyColumnWidths(this._columns.last);
-
     // emit the latest column sizes
     this.sizes.next(this._sizes);
   }
@@ -107,7 +135,7 @@ export class ResizableTableService {
 
   /** Determine whether a column is above or below its minimum width */
   private isWidthValid(column: ResizableTableColumnComponent, width: number): boolean {
-    return width >= this.getPercentage(column.minWidth);
+    return width >= column.minWidth;
   }
 
   /** Ensure that the total column widths is exactly 100% */
@@ -117,14 +145,9 @@ export class ResizableTableService {
     const width = Array.from(sizes.values()).reduce((total, column) => column + total, 0);
 
     // if the width does not total 100% exactly then adjust the column width
-    if (width !== 100) {
-      this.setColumnWidth(adjustableColumn, this.getColumnWidth(adjustableColumn, sizes) + (100 - width), sizes);
+    if (width !== this._table.offsetWidth) {
+      this.setColumnWidth(adjustableColumn, this.getColumnWidth(adjustableColumn, sizes) + (this._table.offsetWidth - width), sizes);
     }
-  }
-
-  /** Convert a pixel value to a percentage relative to the current width of the table */
-  private getPercentage(value: number): number {
-    return (Math.abs(value) / this._table.offsetWidth) * 100;
   }
 
   /** Get a column at a given index */
@@ -137,18 +160,15 @@ export class ResizableTableService {
     // get the index of this column
     const index = this._columns.toArray().indexOf(column);
 
-    // get the sibling in that direction
-    return this.getColumnAtIndex(index + 1);
-  }
+    // find the first sibling that is not disabled
+    for (let idx = index + 1; idx < this._columns.length; idx++) {
+      const sibling = this.getColumnAtIndex(idx);
 
-  /** Determine whether a transform is expanding or shrinking */
-  private getColumnTransform(value: number): ColumnTransform {
-    return value < 0 ? ColumnTransform.Shrink : ColumnTransform.Expand;
-  }
-}
+      if (!sibling.disabled) {
+        return sibling;
+      }
+    }
 
-/** identify the type of movement required */
-enum ColumnTransform {
-  Shrink,
-  Expand
+    return null;
+  }
 }
