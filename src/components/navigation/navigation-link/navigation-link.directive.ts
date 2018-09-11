@@ -51,11 +51,13 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
 
-        this._expanded$.pipe(delay(0), takeUntil(this._onDestroy)).subscribe(expanded => {
-            if (this.navigationItem.children && this.navigationItem.children.length > 0) {
-                this.ariaExpanded = `${expanded}`;
-                this._navigationService.setExpanded(this.navigationItem, expanded);
-            }
+        this._expanded$.pipe(takeUntil(this._onDestroy)).subscribe(expanded => {
+            requestAnimationFrame(() => {
+                if (this.navigationItem.children && this.navigationItem.children.length > 0) {
+                    this.ariaExpanded = `${expanded}`;
+                    this._navigationService.setExpanded(this.navigationItem, expanded);
+                }
+            });
         });
 
         this._router.events
