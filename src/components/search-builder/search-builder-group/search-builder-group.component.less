@@ -87,6 +87,10 @@ ux-search-builder-group {
                     background-color: transparent;
                     cursor: pointer;
                     transition: opacity 300ms linear;
+
+                    &:focus {
+                        .aspects-outline;
+                    }
                 }
             }
         }
@@ -104,6 +108,10 @@ ux-search-builder-group {
             border: none;
             padding: 0;
             background-color: transparent;
+
+            &:focus {
+                .aspects-outline;
+            }
 
             .search-builder-group-add-field-icon {
                 display: flex;
