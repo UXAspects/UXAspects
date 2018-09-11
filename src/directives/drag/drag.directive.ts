@@ -2,6 +2,7 @@ import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, 
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { DragService } from './drag.service';
 
 @Directive({
     selector: '[uxDrag]'
@@ -11,20 +12,38 @@ export class DragDirective implements OnDestroy {
     /** Detemine if we should show a clone when dragging */
     @Input() clone: boolean = false;
 
+    /** Define the group the drag event belongs to */
+    @Input() group: string;
+
+    /** Associate some data with the drag event */
+    @Input() model: any;
+
     /** Allow the dragging to be enabled/disabled */
     @Input() draggable: boolean = true;
 
     /** Emit an event when dragging starts */
-    @Output() dragstart = new EventEmitter<MouseEvent>();
+    @Output() onDragStart = new EventEmitter<MouseEvent>();
 
     /** Emit an event when the mouse moves while dragging */
-    @Output() drag = new EventEmitter<MouseEvent>();
+    @Output() onDrag = new EventEmitter<MouseEvent>();
 
     /** Emit an event when the dragging finishes */
-    @Output() dragend = new EventEmitter<void>();
+    @Output() onDragEnd = new EventEmitter<void>();
+
+    /** Emit when the user drops an item in a drop area */
+    @Output() onDrop = new EventEmitter<any>();
+
+    /** Emit when the user drags over a drop area */
+    @Output() onDropEnter = new EventEmitter<void>();
+
+    /** Emit when the user drags out of a drop area */
+    @Output() onDropLeave = new EventEmitter<void>();
 
     /** Store the element we have cloned */
     private _clone: Element;
+
+    /** Store the dragging state */
+    private _isDragging: boolean = false;
 
     /** Store the mouse offset for the cloned element position */
     private _offset: { x: number, y: number };
@@ -41,8 +60,29 @@ export class DragDirective implements OnDestroy {
     /** Use an observable to unsubscribe from all subscriptions */
     protected _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _ngZone: NgZone, private _renderer: Renderer2) {
+    constructor(private _elementRef: ElementRef, private _ngZone: NgZone, private _renderer: Renderer2, private _drag: DragService) {
+
+        // ensure all mouse down events on the object are captured
         this._mousedown$.pipe(filter(() => this.draggable), takeUntil(this._onDestroy)).subscribe(this.dragStart.bind(this));
+
+        // emit the outputs when drag events occur
+        _drag.onDragStart.pipe(takeUntil(this._onDestroy), filter(() => this._isDragging))
+            .subscribe(dragEvent => this.onDragStart.emit(dragEvent.event));
+
+        _drag.onDrag.pipe(takeUntil(this._onDestroy), filter(() => this._isDragging))
+            .subscribe(dragEvent => this.onDrag.emit(dragEvent.event));
+
+        _drag.onDragEnd.pipe(takeUntil(this._onDestroy), filter(() => this._isDragging))
+            .subscribe(() => this.onDragEnd.emit());
+
+        _drag.onDrop.pipe(takeUntil(this._onDestroy), filter(() => this._isDragging))
+            .subscribe(event => this.onDrop.emit(event));
+
+        _drag.onDropEnter.pipe(takeUntil(this._onDestroy), filter(() => this._isDragging))
+            .subscribe(() => this.onDropEnter.emit());
+
+        _drag.onDropLeave.pipe(takeUntil(this._onDestroy), filter(() => this._isDragging))
+            .subscribe(() => this.onDropLeave.emit());
     }
 
     /** Emit events and create clone when drag starts */
@@ -57,8 +97,11 @@ export class DragDirective implements OnDestroy {
         // apply a class to the element being dragged
         this._renderer.addClass(this._elementRef.nativeElement, 'ux-drag-dragging');
 
+        // store the dragging state
+        this._isDragging = true;
+
         // emit the drag start event
-        this._ngZone.run(() => this.dragstart.emit(event));
+        this._ngZone.run(() => this._drag.onDragStart.next({ event, group: this.group, data: this.model }));
 
         this._mousemove$.pipe(takeUntil(this._mouseup$), takeUntil(this._onDestroy))
             .subscribe(this.dragMove.bind(this), null, this.dragEnd.bind(this));
@@ -73,7 +116,7 @@ export class DragDirective implements OnDestroy {
         }
 
         // emit the drag start event
-        this._ngZone.run(() => this.drag.emit(event));
+        this._ngZone.run(() => this._drag.onDrag.next({ event, group: this.group, data: this.model }));
     }
 
     /** Emit event and destroy clone when dragging ends */
@@ -87,7 +130,11 @@ export class DragDirective implements OnDestroy {
         // remove the dragging class
         this._renderer.removeClass(this._elementRef.nativeElement, 'ux-drag-dragging');
 
-        this._ngZone.run(() => this.dragend.emit());
+        // emit the on drag end output
+        this._ngZone.run(() => this._drag.onDragEnd.next({ group: this.group, data: this.model }));
+
+        // store the dragging state
+        this._isDragging = false;
     }
 
     /** Create an exact clone of an element */
