@@ -1,0 +1,50 @@
+<table class="table" uxResizableTable>
+    <thead>
+        <tr>
+            <th uxResizableTableColumn [disabled]="true" class="checkbox-column"></th>
+            <th uxResizableTableColumn>Title</th>
+            <th uxResizableTableColumn>Author</th>
+            <th uxResizableTableColumn>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let document of documents">
+            <td>
+                <ux-checkbox [(ngModel)]="document.selected"></ux-checkbox>
+            </td>
+            <td>{{ document.title }}</td>
+            <td>{{ document.author }}</td>
+            <td>{{ document.date | date }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    The <code>uxResizableTable</code> and <code>uxResizableTableColumn</code> directives can be used to allow table columns
+    to be resized by dragging on the rightmost end of a column header.
+</p>
+
+<p>
+    The <code>uxResizableTable</code> directive should be applied to the <code>table</code> element
+    and the <code>uxResizableTableColumn</code> directive should be added to every <code>th</code> element.
+</p>
+
+<p>
+    To prevent a column from being resizable add a <code>disabled</code> attribute with a value of <code>true</code> to the <code>th</code> element.
+</p>
+
+<p>
+    The code below can be used to create the example above:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

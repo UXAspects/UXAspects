@@ -1,0 +1,10 @@
+<ng-content></ng-content>
+
+<div #handle
+     uxDrag
+     class="ux-resizable-table-column-handle"
+     *ngIf="!disabled"
+     (dragstart)="dragstart()"
+     (drag)="drag($event, handle)"
+     (dragend)="dragend()">
+</div>
