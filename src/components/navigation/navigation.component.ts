@@ -9,6 +9,7 @@ import { NavigationService } from './navigation.service';
 })
 export class NavigationComponent {
 
+    /** The navigation items to populate the menu with. */
     @Input()
     set items(items: NavigationItem[]) {
         this._navigationService.items = items;
@@ -17,9 +18,11 @@ export class NavigationComponent {
         return this._navigationService.items;
     }
 
+    /** Whether to present the menu as a hierarchical tree. */
     @Input()
     tree: boolean = true;
 
+    /** Whether to collapse other menu items when expanding a menu item. */
     @Input()
     set autoCollapse(autoCollapse: boolean) {
         this._navigationService.autoCollapse = autoCollapse;
@@ -53,6 +56,9 @@ export class NavigationComponent {
         }
     }
 
+    /**
+     * Returns true if the sets of items needs to be indented to make room for one or more expander.
+     */
     needsIndent(items: NavigationItem[]): boolean {
         return items && items.some(item => item.children && item.children.length > 0);
     }
