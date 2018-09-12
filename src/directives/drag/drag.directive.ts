@@ -144,11 +144,14 @@ export class DragDirective implements OnDestroy {
         this._clone = this._elementRef.nativeElement.cloneNode(true);
 
         // store the position within the draggable element
-        const { top, left } = this._elementRef.nativeElement.getBoundingClientRect();
+        const { top, left, width } = this._elementRef.nativeElement.getBoundingClientRect();
         this._offset = { x: event.clientX - left, y: event.clientY - top };
 
         // inline all styles so it looks identical regardless of its position in the DOM
         this.inlineStyles(this._elementRef.nativeElement, this._clone);
+
+        // IE doesn't always calculate the correct width value using getComputedStyles... use bounding client value instead
+        this._renderer.setStyle(this._clone, 'width', width + 'px');
 
         // ensure we can easily position the node an it is above all other elements
         this._renderer.setAttribute(this._clone, 'aria-hidden', 'true');
