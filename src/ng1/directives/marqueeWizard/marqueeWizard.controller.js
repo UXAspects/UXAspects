@@ -233,13 +233,27 @@ export default class MarqueeWizardCtrl {
     this.showFinish = false;
 
     //show buttons accordingly
-    if (this.stepIndex > 0 && this.buttonOptions.showPrevious === true) this.showPrevious = true;
-    if (this.stepIndex === this.wizardSteps.length - 1 && this.buttonOptions.showFinish === true) this.showFinish = true;
-    else if (this.buttonOptions.showNext) this.showNext = true;
+    if (this.stepIndex > 0 && this.buttonOptions.showPrevious === true) {
+      this.showPrevious = true;
+    }
+
+    if (this.stepIndex === this.wizardSteps.length - 1 && this.buttonOptions.showFinish === true) {
+      this.showFinish = true;
+    } else if (this.buttonOptions.showNext) {
+      this.showNext = true;
+    }
 
     if (!this.showFinish && this.buttonOptions.showFinish === true && this.stepIndex !== this.wizardSteps.length) {
       this.showFinish = this.wizardSteps.slice(this.stepIndex + 1).filter(step => step.hidden !== true).length === 0;
       this.showNext = !this.showFinish;
+    }
+
+    // Override per-step
+    if (angular.isFunction(this.buttonOptions.visibilityOnStep)) {
+      const visibility = this.buttonOptions.visibilityOnStep(this.stepIndex);
+      this.showPrevious = visibility.hasOwnProperty('previous') ? visibility.previous : this.showPrevious;
+      this.showNext = visibility.hasOwnProperty('next') ? visibility.next : this.showNext;
+      this.showFinish = visibility.hasOwnProperty('finish') ? visibility.finish : this.showFinish;
     }
   }
 

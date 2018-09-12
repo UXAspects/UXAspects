@@ -20,17 +20,17 @@
 <p>The below HTML and javascript controller code is for the template we use in the Marquee Wizard example above. Note the use
   of the <code>marquee-wizard</code> tag.</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset>
+  <ux-tab heading="HTML">
     <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-  </tab>
-  <tab heading="JavaScript">
+  </ux-tab>
+  <ux-tab heading="JavaScript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-  </tab>
-  <tab heading="Css">
+  </ux-tab>
+  <ux-tab heading="Css">
     <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <p>Attributes that can be defined for the Marquee Wizard:</p>
 
@@ -66,6 +66,11 @@
         <li><code>previousEnabled</code> - (default: true) - defines whether or not the 'Previous' button is enabled.</li>
         <li><code>nextEnabled</code> - (default: true) - defines whether or not the 'Next' button is enabled.</li>
         <li><code>finishEnabled</code> - (default: true) - defines whether or not the 'Finish' button is enabled.</li>
+        <li><code>visibilityOnStep</code> - (default: undefined) - define a function which can override the visibility
+          of the previous, next, and finish buttons on a per-step basis. This receives the step index as an argument,
+          and should a return an object. On the object, configure the button(s) to be shown or hidden by specifying the
+          boolean properties <code>previous</code>, <code>next</code>, and <code>finish</code>. Leave the property unset
+          to continue using the default show/hide behavior for the respective button.</li>
       </ul>
     </tr>
     <tr uxd-api-property name="on-changing" type="function" binding="variable">
