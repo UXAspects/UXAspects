@@ -75,9 +75,10 @@
       a number representing a step index to move to, overriding the <code>to</code> parameter.
     </tr>
     <tr uxd-api-property name="on-finishing" type="function" binding="variable">
-      Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated. The expression
-      should return a boolean or number result. If the function returns a number the wizard will go to that step. If it returns false current step goes into error state and the step change is stopped. e.g.
-      <code>on-finishing="canChange()"</code>.
+      Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated.
+      The expression should return a boolean, number or a promise that resolves to a boolean or number.
+      If the function or promise returns a number the wizard will go to that step.
+      If the function or promise returns false current step goes into error state and the step change is stopped. e.g. <code>on-finishing="canChange()"</code>.
     </tr>
     <tr uxd-api-property name="on-finished" type="function" binding="variable">
       Expression that is called when Finish is clicked, after <code>on-finishing</code> expression is evaluated. e.g. <code>on-finished="wizardComplete()"</code>.
