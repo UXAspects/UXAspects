@@ -1,8 +1,9 @@
 import { LocationStrategy } from '@angular/common';
 import { Directive, HostBinding, HostListener, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, takeUntil, delay } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../../common/index';
 import { NavigationItem } from '../navigation-item.inferface';
 import { NavigationService } from '../navigation.service';
 
@@ -51,13 +52,11 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
 
-        this._expanded$.pipe(takeUntil(this._onDestroy)).subscribe(expanded => {
-            requestAnimationFrame(() => {
-                if (this.navigationItem.children && this.navigationItem.children.length > 0) {
-                    this.ariaExpanded = `${expanded}`;
-                    this._navigationService.setExpanded(this.navigationItem, expanded);
-                }
-            });
+        this._expanded$.pipe(takeUntil(this._onDestroy), tick()).subscribe(expanded => {
+            if (this.navigationItem.children && this.navigationItem.children.length > 0) {
+                this.ariaExpanded = `${expanded}`;
+                this._navigationService.setExpanded(this.navigationItem, expanded);
+            }
         });
 
         this._router.events
