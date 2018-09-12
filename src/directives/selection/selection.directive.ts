@@ -50,10 +50,9 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this.update();
 
     // if the list changes then inform the service
-    this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.update());
-
-    // The above could trigger a change in the computed tabindex for selection items
-    this._cdRef.detectChanges();
+    this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.update();
+    });
   }
 
   ngOnDestroy(): void {
@@ -72,6 +71,9 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     if (this._selectionService.focus$.getValue() === null && this._selectionService.dataset.length > 0) {
       this._selectionService.focus$.next(this._selectionService.dataset[0]);
     }
+
+    // The above could trigger a change in the computed tabindex for selection items
+    this._cdRef.detectChanges();
   }
 
   /**

@@ -22,6 +22,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     /** Indicate whether or not focus should be returned to the previous element (only applicable when using focusOnShow) */
     @Input() returnFocus: boolean = false;
 
+    /** Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property. */
+    @Input() set hierarchy(value: boolean) { this._tabbableList.hierarchy = value; }
+
     /** Prevent keyboard interaction when alt modifier key is pressed */
     @Input() set allowAltModifier(value: boolean) { this._tabbableList.allowAltModifier = value; }
 
@@ -32,6 +35,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     @ContentChildren(TabbableListItemDirective, { descendants: true }) items: QueryList<TabbableListItemDirective>;
 
     private _focusedElement: HTMLElement;
+    private _orderedItems: QueryList<TabbableListItemDirective>;
 
     get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {
         return this._tabbableList.focusKeyManager;
@@ -44,8 +48,26 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         // store the currently focused element
         this._focusedElement = document.activeElement as HTMLElement;
 
+        if (this._tabbableList.hierarchy) {
+
+            // Sort items in a hierarchy
+            this._orderedItems = new QueryList<TabbableListItemDirective>();
+            this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
+
+            // Ensure that the child items remain sorted
+            this.items.changes.subscribe(() => {
+                this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
+                this._orderedItems.notifyOnChanges();
+            });
+
+        } else {
+
+            // Items are already in order
+            this._orderedItems = this.items;
+        }
+
         // Set up the focus monitoring
-        this._tabbableList.initialize(this.items, this.direction, this.wrap);
+        this._tabbableList.initialize(this._orderedItems, this.direction, this.wrap);
 
         // focus the first element if specified
         if (this.focusOnShow) {

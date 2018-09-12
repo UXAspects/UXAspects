@@ -3,15 +3,18 @@ import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
+import { UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW } from '@angular/cdk/keycodes';
 
 @Injectable()
 export class TabbableListService implements OnDestroy {
 
+    hierarchy: boolean = false;
     allowAltModifier: boolean = true;
     allowCtrlModifier: boolean = true;
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
 
     private _items: QueryList<TabbableListItemDirective>;
+    private _direction: 'horizontal' | 'vertical';
     private _onDestroy = new Subject<void>();
 
     ngOnDestroy(): void {
@@ -29,6 +32,7 @@ export class TabbableListService implements OnDestroy {
 
         // set the direction of the list
         direction === 'vertical' ? this.focusKeyManager.withVerticalOrientation() : this.focusKeyManager.withHorizontalOrientation('ltr');
+        this._direction = direction;
 
         // enable wrapping if required
         if (wrap) {
@@ -54,6 +58,10 @@ export class TabbableListService implements OnDestroy {
 
     activate(item: TabbableListItemDirective): void {
 
+        if (!item) {
+            return;
+        }
+
         // get the item index
         const index = this._items.toArray().indexOf(item);
 
@@ -64,12 +72,7 @@ export class TabbableListService implements OnDestroy {
     }
 
     isItemActive(item: TabbableListItemDirective): boolean {
-
-        // get the item index
-        const index = this._items.toArray().indexOf(item);
-
-        // active the item if it is not already active
-        return this.focusKeyManager.activeItemIndex === index;
+        return this.focusKeyManager.activeItem.id === item.id;
     }
 
     setFirstItemTabbable(): void {
@@ -103,5 +106,67 @@ export class TabbableListService implements OnDestroy {
         if (index !== -1) {
             this.focusKeyManager.setActiveItem(index);
         }
+    }
+
+
+    onKeydown(source: TabbableListItemDirective, event: KeyboardEvent): any {
+
+        // prevent anything happening when modifier keys are pressed if they have been disabled
+        if (!this.allowAltModifier && event.altKey || !this.allowCtrlModifier && event.ctrlKey) {
+            return;
+        }
+
+        this.focusKeyManager.onKeydown(event);
+
+        if (this.hierarchy) {
+
+            if (
+                (this._direction === 'horizontal' && event.keyCode === DOWN_ARROW) ||
+                (this._direction === 'vertical' && event.keyCode === RIGHT_ARROW)
+            ) {
+                source.expanded$.next(true);
+            } else if (
+                (this._direction === 'horizontal' && event.keyCode === UP_ARROW) ||
+                (this._direction === 'vertical' && event.keyCode === LEFT_ARROW)
+            ) {
+                if (source.children.length > 0 && source.expanded$.getValue()) {
+                    source.expanded$.next(false);
+                } else if (source.parent) {
+                    source.parent.expanded$.next(false);
+                }
+            }
+        }
+    }
+
+    sortItemsByHierarchy(list: QueryList<TabbableListItemDirective>): TabbableListItemDirective[] {
+
+        const topLevel: TabbableListItemDirective[] = [];
+
+        // Populating children - clear previously generated collection
+        list.forEach(item => item.children = []);
+
+        // Populating children - map from child -> parent relationship
+        list.forEach(item => {
+            if (item.parent) {
+                item.parent.children.push(item);
+            } else {
+                topLevel.push(item);
+            }
+        });
+
+        // Flatten the tree to produce the cursor key order
+        const result = this.flattenHierarchy(topLevel);
+
+        return result;
+    }
+
+    private flattenHierarchy(items: TabbableListItemDirective[]): TabbableListItemDirective[] {
+        const flatList: TabbableListItemDirective[] = [];
+        items.forEach(item => {
+            item.children.sort((a, b) => a.rank - b.rank);
+            const descendants = this.flattenHierarchy(item.children);
+            flatList.push(item, ...descendants);
+        });
+        return flatList;
     }
 }
