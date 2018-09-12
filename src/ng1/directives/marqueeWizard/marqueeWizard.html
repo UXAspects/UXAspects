@@ -22,7 +22,7 @@
                                     ng-if="!step.hidden">
       <div class="step-label">
         <div class="step-title">
-          <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div> 
+          <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div>
           <p ng-if="!step.html" class="title m-nil" ng-bind="step.title"></p>
         </div>
         <div class="step-complete">
@@ -46,9 +46,29 @@
   </div>
 
   <div class="marquee-footer">
-    <button type="button" class="btn button-secondary m-r-xs marquee-previous-btn" ng-disabled="!mc.buttonOptions.previousEnabled" ng-show="mc.showPrevious" ng-click="mc.goPrevious()" ng-bind="mc.buttonOptions.previousText"></button>
-    <button type="button" class="btn button-primary marquee-next-btn" ng-disabled="!mc.buttonOptions.nextEnabled" ng-show="mc.showNext" ng-click="mc.goNext()" ng-bind="mc.buttonOptions.nextText"></button>
-    <button type="button" class="btn button-primary marquee-finish-btn" ng-disabled="!mc.buttonOptions.finishEnabled" ng-show="mc.showFinish" ng-click="mc.finish()" ng-bind="mc.buttonOptions.finishText"></button>
+
+    <button type="button"
+      class="btn button-secondary marquee-previous-btn"
+      ng-disabled="!mc.buttonOptions.previousEnabled"
+      ng-show="mc.showPrevious"
+      ng-click="mc.goPrevious()"
+      ng-bind="mc.buttonOptions.previousText"></button>
+
+    <button type="button"
+      class="btn marquee-next-btn m-l-xs"
+      ng-class="{'button-primary': !mc.showFinish, 'button-secondary': mc.showFinish}"
+      ng-disabled="!mc.buttonOptions.nextEnabled"
+      ng-show="mc.showNext"
+      ng-click="mc.goNext()"
+      ng-bind="mc.buttonOptions.nextText"></button>
+
+    <button type="button"
+      class="btn button-primary marquee-finish-btn m-l-xs"
+      ng-disabled="!mc.buttonOptions.finishEnabled"
+      ng-show="mc.showFinish"
+      ng-click="mc.finish()"
+      ng-bind="mc.buttonOptions.finishText"></button>
+
   </div>
 
 </div>
