@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, Input, OnDestroy } from '@angular/core';
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../../common/index';
 import { ResizableTableService } from './resizable-table.service';
 
 @Component({
@@ -38,7 +39,8 @@ export class ResizableTableColumnComponent implements OnDestroy {
     this.table.sizes.pipe(
       map(sizes => sizes.get(this)),
       distinctUntilChanged(),
-      takeUntil(this._onDestroy)
+      takeUntil(this._onDestroy),
+      tick() // prevents expression has changed error
     ).subscribe((width: number) => this._width = width);
   }
 
