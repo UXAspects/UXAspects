@@ -1,5 +1,9 @@
 export default class MarqueeWizardCtrl {
 
+  /**
+   * @param {ng.IScope} $scope
+   * @param {ng.ITimeoutService} $timeout
+   */
   constructor($scope, $timeout) {
 
     // watch for changes to the button options
@@ -137,20 +141,42 @@ export default class MarqueeWizardCtrl {
 
     //if on finishing function specified call it and await its response
     if (typeof this.onFinishing === 'function') {
-      const response = this.onFinishing();
-
-      if (typeof response === 'number') {
-        this.goToStep(response);
-        return;
-      }
-
-      //dont go to the next page if the response is false
-      if (response === false) {
-        this.currentStep.error = true;
-        return;
-      }
-      this.currentStep.error = false;
+      // determine whether or not we can proceed
+      return this.canFinish(this.onFinishing());
     }
+
+    // if there is on onFinishing function then we can always complete
+    this.complete();
+  }
+
+  canFinish(response) {
+
+    // start by making the current step valid unless we detect otherwise
+    this.currentStep.error = false;
+
+    // if the response is true then proceed
+    if (response === true) {
+      return this.complete();
+    }
+
+    // if the response is false then do not proceed
+    if (response === false) {
+      this.currentStep.error = true;
+      return;
+    }
+
+    // if we returned a number then go to that specific step
+    if (typeof response === 'number') {
+      return this.goToStep(response);
+    }
+
+    // if a promise was return wait the promise response before continuing
+    if (response && typeof response.then === 'function') {
+      response.then(result => this.canFinish(result));
+    }
+  }
+
+  complete() {
 
     //mark the final step as complete
     this.currentStep.completed = true;
