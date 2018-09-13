@@ -11,9 +11,14 @@ export class ChangeLogPageComponent {
 
     logs: IChangeLog[];
 
-    constructor(private domSanitizer: DomSanitizer) {
+    constructor(domSanitizer: DomSanitizer) {
 
         this.logs = [
+            {
+                version: '1.6.3',
+                date: 'September 13th 2018',
+                content: require('./logs/release-v1.6.3.md')
+            },
             {
                 version: '1.6.2',
                 date: 'August 30th 2018',
