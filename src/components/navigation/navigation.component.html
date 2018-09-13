@@ -24,7 +24,7 @@
                     #tli="ux-tabbable-list-item"
                     [parent]="parent"
                     [rank]="rank"
-                    (expandedChange)="item.expanded = $event">
+                    [(expanded)]="item.expanded">
 
                     <span *ngIf="!navigationItemTemplate && item.children && item.children.length > 0 && level < depthLimit"
                         aria-hidden="true"

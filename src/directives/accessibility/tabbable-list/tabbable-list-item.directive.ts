@@ -1,8 +1,8 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { delay, map, takeUntil, skip } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../../common/index';
 import { TabbableListService } from './tabbable-list.service';
 
 let nextId = 0;
@@ -19,6 +19,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @Input() disabled: boolean = false;
 
+    @Input() expanded: boolean = false;
+
     @Output() expandedChange = new EventEmitter<boolean>();
 
     @HostBinding() tabindex: number = -1;
@@ -29,13 +31,13 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     children: TabbableListItemDirective[] = [];
 
-    expanded$ = new BehaviorSubject<boolean>(false);
+    keyboardExpanded$ = new Subject<boolean>();
 
     private _onDestroy = new Subject<void>();
 
     constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {
 
-        this.expanded$.pipe(skip(1), delay(0), takeUntil(this._onDestroy)).subscribe(expanded => {
+        this.keyboardExpanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
 
             // Emit event which may alter the DOM
             this.expandedChange.emit(expanded);

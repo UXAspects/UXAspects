@@ -124,15 +124,15 @@ export class TabbableListService implements OnDestroy {
                 (this._direction === 'horizontal' && event.keyCode === DOWN_ARROW) ||
                 (this._direction === 'vertical' && event.keyCode === RIGHT_ARROW)
             ) {
-                source.expanded$.next(true);
+                source.keyboardExpanded$.next(true);
             } else if (
                 (this._direction === 'horizontal' && event.keyCode === UP_ARROW) ||
                 (this._direction === 'vertical' && event.keyCode === LEFT_ARROW)
             ) {
-                if (source.children.length > 0 && source.expanded$.getValue()) {
-                    source.expanded$.next(false);
+                if (source.children.length > 0 && source.expanded) {
+                    source.keyboardExpanded$.next(false);
                 } else if (source.parent) {
-                    source.parent.expanded$.next(false);
+                    source.parent.keyboardExpanded$.next(false);
                 }
             }
         }
