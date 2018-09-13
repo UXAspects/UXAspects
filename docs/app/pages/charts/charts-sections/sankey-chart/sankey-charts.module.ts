@@ -1,13 +1,13 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ChartsSankeyChartNg1Component } from './sankey-chart-ng1/sankey-chart-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { TabsetModule } from '../../../../../../src/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsSankeyChartNg1Component } from './sankey-chart-ng1/sankey-chart-ng1.component';
+
 
 const SECTIONS = [
     ChartsSankeyChartNg1Component
@@ -25,7 +25,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsetModule,
         WrappersModule,
         HybridModule,
         DocumentationComponentsModule,

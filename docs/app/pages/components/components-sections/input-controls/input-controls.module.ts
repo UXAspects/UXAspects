@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxMaskModule } from 'ngx-mask';
-import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, NumberPickerModule, RadioButtonModule, SliderModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '../../../../../../src/index';
+import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -69,13 +68,12 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule,
         CheckboxModule,
         ToggleSwitchModule,
         RadioButtonModule,
         CommonModule,
         WrappersModule,
-        TabsModule,
+        TabsetModule,
         TagInputModule,
         TypeaheadModule,
         SliderModule,

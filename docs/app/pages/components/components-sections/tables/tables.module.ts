@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
 import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TabsetModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -101,7 +100,6 @@ const ROUTES = [
         WrappersModule,
         CommonModule,
         FormsModule,
-        TabsModule,
         TabsetModule,
         CheckboxModule,
         RadioButtonModule,

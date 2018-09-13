@@ -1,15 +1,14 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
-import { ChartsSparkChartNg1Component } from './spark-chart-ng1/spark-chart-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
-import { SparkModule, ColorServiceModule } from '../../../../../../src/index';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { ColorServiceModule, SparkModule, TabsetModule } from '../../../../../../src/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsSparkChartNg1Component } from './spark-chart-ng1/spark-chart-ng1.component';
+import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
+
 
 const SECTIONS = [
     ChartsSparkChartNg1Component,
@@ -28,7 +27,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsetModule,
         WrappersModule,
         HybridModule,
         SparkModule,

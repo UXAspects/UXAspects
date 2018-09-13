@@ -5,11 +5,11 @@
 <p>To create radio buttons create a <code>.btn-group</code> with the required <code>.btns</code> &amp; including <code>button-toggle-primary</code> or <code>button-toggle-accent</code> class inside.
 On each <code>.btn</code> set <code>ng-model</code> to the property required and specify the <code>btn-radio</code> attribute with the value the button should have.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.radioButtonsHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet [content]="snippets.compiled.radioButtonsJs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

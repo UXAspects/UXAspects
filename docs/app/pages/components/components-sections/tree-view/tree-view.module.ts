@@ -3,8 +3,7 @@ import { ComponentFactoryResolver, Injector, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TreeModule } from 'angular-tree-component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccordionModule, CheckboxModule, FocusIfModule, HybridModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, FocusIfModule, HybridModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -43,7 +42,7 @@ const ROUTES = [
         AccordionModule,
         CommonModule,
         WrappersModule,
-        TabsModule,
+        TabsetModule,
         TreeModule,
         FormsModule,
         CheckboxModule,

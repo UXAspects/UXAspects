@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import 'chart.js';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabsetModule } from '../../../../src/index';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { ChartsPageComponent } from './charts.component';
 
@@ -36,7 +36,7 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        TabsModule,
+        TabsetModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: [ChartsPageComponent],

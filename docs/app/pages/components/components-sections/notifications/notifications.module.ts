@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccordionModule, NumberPickerModule } from '../../../../../../src/index';
+import { AccordionModule, NumberPickerModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -44,7 +43,7 @@ const ROUTES = [
         A11yModule,
         NotificationModule,
         WrappersModule,
-        TabsModule,
+        TabsetModule,
         AccordionModule,
         NumberPickerModule,
         DocumentationComponentsModule,
