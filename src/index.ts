@@ -1,7 +1,3 @@
-/**
- * Export Common Utilities
- */
-export * from './common/index';
 /*
   Export Components
 */
