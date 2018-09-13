@@ -48,17 +48,17 @@
     </li>
 </ul>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="filterContainerCode"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Javascript">
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="filterControllerCode"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+</ux-tabset>
 
 <h4 id="fixed-items">Fixed Items</h4>
 

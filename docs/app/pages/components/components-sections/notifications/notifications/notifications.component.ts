@@ -58,7 +58,7 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // buffer notifications then announce them
-        this._notifications.pipe(buffer(this._notifications.pipe(debounceTime(1000)))).subscribe(notifications => {
+        this._subscription = this._notifications.pipe(buffer(this._notifications.pipe(debounceTime(1000)))).subscribe(notifications => {
             this._liveAnnouncer.announce(notifications.map(notification => `Notification: ${notification}.`).join());
         });
 

@@ -42,12 +42,12 @@
 
 <p>For example, if a colored button was a help center menu item which can be directly searched, the code would be as below:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.helpCenterButtonSnippetHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Javascript">
+    </ux-tab>
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.helpCenterSnippetJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 

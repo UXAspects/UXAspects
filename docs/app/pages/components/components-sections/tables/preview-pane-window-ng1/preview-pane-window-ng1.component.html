@@ -51,19 +51,19 @@
 
 <p>You can see the code used in our example above by selecting the appropriate tabs below:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="jsCode"></uxd-snippet>
-    </tab>
-    
-    <tab heading="CSS">
+    </ux-tab>
+
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="cssCode"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>
     The preview pane window has the class <code>.preview-pane-window-contents</code> class which can be used to style things

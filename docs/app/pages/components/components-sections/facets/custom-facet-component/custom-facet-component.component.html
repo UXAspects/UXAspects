@@ -87,20 +87,20 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Facet HTML">
+    <ux-tab heading="Facet HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.facetComponentHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Facet TypeScript">
+    <ux-tab heading="Facet TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.facetComponentTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Facet CSS">
+    <ux-tab heading="Facet CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.facetComponentCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

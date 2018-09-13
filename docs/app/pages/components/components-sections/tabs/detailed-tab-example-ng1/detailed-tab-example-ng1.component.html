@@ -4,38 +4,38 @@
 
 <p>Above is a more detailed example of how the tabs can be used within an application, its is recommended to follow this design to avoid errors.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
-<tabset>
-    <tab heading="Bar Chart HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="Bar Chart HTML">
         <uxd-snippet [code]="barHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Bar Chart JavaScript">
+    </ux-tab>
+    <ux-tab heading="Bar Chart JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.tabBarJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
-<tabset>
-    <tab heading="Sankey HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="Sankey HTML">
         <uxd-snippet [code]="sankeyHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Sankey JavaScript">
+    </ux-tab>
+    <ux-tab heading="Sankey JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.tabSankeyJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
-<tabset>
-    <tab heading="Table HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="Table HTML">
         <uxd-snippet [code]="tableHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Table JavaScript">
+    </ux-tab>
+    <ux-tab heading="Table JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.tabTableJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

@@ -72,14 +72,14 @@
 
 <p>Below is an example for the use of this directive:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.dynamicFacetsSnippetHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Javascript">
+    </ux-tab>
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.dynamicFacetsSnippetJs"></uxd-snippet>
-    </tab>
-    <tab heading="Facet Option Template">
+    </ux-tab>
+    <ux-tab heading="Facet Option Template">
         <uxd-snippet language="html" [content]="snippets.compiled.facetOptionTemplateSnippetHtml"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
