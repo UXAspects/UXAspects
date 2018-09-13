@@ -4,7 +4,7 @@
      uxDrag
      class="ux-resizable-table-column-handle"
      *ngIf="!disabled"
-     (dragstart)="dragstart()"
-     (drag)="drag($event, handle)"
-     (dragend)="dragend()">
+     (onDragStart)="dragstart()"
+     (onDrag)="drag($event, handle)"
+     (onDragEnd)="dragend()">
 </div>
