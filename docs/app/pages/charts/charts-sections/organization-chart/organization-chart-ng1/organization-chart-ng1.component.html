@@ -13,24 +13,24 @@
 <p>The organization chart can be used to present hierarchical data in an interactive and user friendly way. The chart can be
     added to a page using the following code:</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Node HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.chartNodeHtml"></uxd-snippet>        
-    </tab>
-    <tab heading="Search HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.searchItemHtml"></uxd-snippet>        
-    </tab>
-    <tab heading="Javascript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>        
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>        
-    </tab>
-</tabset>
+    </ux-tab>
+    <ux-tab heading="Node HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartNodeHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="Search HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.searchItemHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
 
 <p>The organization chart is designed to fill the size of the parent element.</p>
 

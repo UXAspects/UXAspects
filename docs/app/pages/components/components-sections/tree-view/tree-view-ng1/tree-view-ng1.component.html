@@ -6,14 +6,14 @@
     Explorer-like format and supports dynamic data and editing of content, and is designed for use with an accompanying List
     View or Detail View.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The data to be displayed in the Tree View should be set to the <code>data</code> attribute of the directive. It should adhere
     to the following interface:</p>

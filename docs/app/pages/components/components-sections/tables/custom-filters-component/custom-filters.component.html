@@ -18,24 +18,24 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="TypeScript">
+    <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Filter HTML">
+    <ux-tab heading="Filter HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Filter TypeScript">
+    <ux-tab heading="Filter TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Filter CSS">
+    <ux-tab heading="Filter CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

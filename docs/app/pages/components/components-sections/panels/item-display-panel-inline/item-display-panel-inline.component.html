@@ -75,18 +75,18 @@
 
 <p>The code to create this demo can be found below:</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="TypeScript">
+    <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="CSS">
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+</ux-tabset>

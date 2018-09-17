@@ -1,11 +1,10 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FocusIfModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { FocusIfModule } from './../../../../../../src/directives/focus-if/focus-if.module';
 import { ComponentsColorServiceNg1Component } from './color-service-ng1/color-service-ng1.component';
 import { ComponentsColorServiceComponent } from './color-service/color-service.component';
 import { ComponentsExpandingContentNg1Component } from './expanding-content-ng1/expanding-content-ng1.component';
@@ -50,7 +49,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule,
+        TabsetModule,
         FocusIfModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

@@ -42,36 +42,36 @@
 
 <p>The source for the example above is as follows:</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-  </tab>
-  <tab heading="JavaScript">
+  </ux-tab>
+  <ux-tab heading="JavaScript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <h4>Actions</h4>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet [code]="actionsHtml"></uxd-snippet>
-  </tab>
-  <tab heading="JavaScript">
+  </ux-tab>
+  <ux-tab heading="JavaScript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.actionsJs"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <h4>Display Panel</h4>
 
-<tabset>
-  <tab heading="Display Panel HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="Display Panel HTML">
     <uxd-snippet [code]="displayPanel"></uxd-snippet>
-  </tab>
-  <tab heading="Display Panel Footer HTML">
+  </ux-tab>
+  <ux-tab heading="Display Panel Footer HTML">
     <uxd-snippet [code]="displayPanelFooter"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <p>The attributes which can be applied to the <code>treegrid</code> directive are described in more detail below.</p>
 

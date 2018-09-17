@@ -35,16 +35,16 @@
 
 <p>The CodePen example uses the following example code and styles.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.layoutSnippetHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.stylesCss" language="css"></uxd-snippet>
-    </tab>
-    <tab heading="Side Panel HTML">
+    </ux-tab>
+    <ux-tab heading="Side Panel HTML">
         <uxd-snippet [content]="snippets.compiled.panelSnippetHtml" language="html"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The side panel contents can contain any content. The developer is responsible for the styling of the content of this panel.</p>

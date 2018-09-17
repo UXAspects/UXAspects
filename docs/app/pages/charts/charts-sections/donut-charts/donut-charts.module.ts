@@ -1,8 +1,8 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { TabsetModule } from '../../../../../../src/index';
 import { ColorServiceModule } from '../../../../../../src/services/color/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -32,7 +32,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        TabsModule,
+        TabsetModule,
         WrappersModule,
         HybridModule,
         ChartsModule,

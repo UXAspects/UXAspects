@@ -52,21 +52,21 @@
 
 <p>The following code can be used to create the example above: </p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.liveChartHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.liveChartTs"></uxd-snippet>
-    </tab>
-    
-    <tab heading="CSS">
-        <uxd-snippet language="css"[content]="snippets.compiled.liveChartCss"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.liveChartTs"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css"[content]="snippets.compiled.liveChartCss"></uxd-snippet>
+    </ux-tab>
+
+</ux-tabset>
 
 <br>
 

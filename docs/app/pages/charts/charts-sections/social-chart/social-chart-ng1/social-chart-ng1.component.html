@@ -120,15 +120,15 @@
 <p>The Social Chart is defined by the <code>social-chart</code> directive. The nodes should have a
   <code>label</code> and <code>id</code> defined.</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-  </tab>
+  </ux-tab>
 
-  <tab heading="Javascript">
+  <ux-tab heading="Javascript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <p>Nodes can also have the optional <code>community</code> attribute set, which should be a string corresponding to an entry
   in the <code>communities</code> map passed to the directive (see below). Extra data properties can be set to the <code>additional</code>  property; this object will be copied to the nodes rendered in the chart, and so can contain any required information or

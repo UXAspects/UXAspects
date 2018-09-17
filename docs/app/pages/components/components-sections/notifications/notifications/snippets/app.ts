@@ -34,7 +34,7 @@ export class AppComponent implements OnDestroy {
         private _liveAnnouncer: LiveAnnouncer) {
 
         // buffer notifications then announce them
-        this._notifications.pipe(
+        this._subscription = this._notifications.pipe(
             buffer(this._notifications.pipe(debounceTime(1000)))
         ).subscribe(notifications => {
             this._liveAnnouncer.announce(

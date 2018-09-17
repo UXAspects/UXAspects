@@ -4,8 +4,7 @@ import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccordionModule, ColorServiceModule, FocusIfModule, ItemDisplayPanelModule, RadioButtonModule, SearchBuilderModule, SelectListModule, ToggleSwitchModule, ToolbarSearchModule, TooltipModule, TabsetModule } from '../../../../../../src/index';
+import { AccordionModule, ColorServiceModule, FocusIfModule, ItemDisplayPanelModule, RadioButtonModule, SearchBuilderModule, SelectListModule, TabsetModule, ToggleSwitchModule, ToolbarSearchModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -50,7 +49,6 @@ const ROUTES = [
         SearchBuilderModule,
         SelectListModule,
         TabsetModule,
-        TabsModule,
         ToggleSwitchModule,
         ToolbarSearchModule,
         TooltipModule,
