@@ -168,7 +168,9 @@ export default class DynamicSelectCtrl {
             nextElement = $element.find('.el-dynamicselect-dropdown-item:not(.selected)').first();
           }
           // Show panel
-          $scope.$apply(() => this.setDropdownOpen(true));
+          if (!this.dropdownOpen) {
+            $scope.$apply(() => this.setDropdownOpen(true));
+          }
           break;
 
         case ENTER:
@@ -277,7 +279,17 @@ export default class DynamicSelectCtrl {
 
     this.dropdownScope = this.$scope.$new();
 
-    return this.$compile(dropdown)(this.dropdownScope);
+    // hide the element until the scrollpane is ready
+    dropdown.css({ visibility: 'hidden' });
+
+    // compile the element
+    const compiled = this.$compile(dropdown)(this.dropdownScope);
+
+    // once the scrollpane has initialised make the dropdown visible
+    setTimeout(() => dropdown.css({ visibility: '' }));
+
+    // return the compiled dropdown element
+    return compiled;
   }
 
   getItemValue(item) {
@@ -397,6 +409,12 @@ export default class DynamicSelectCtrl {
    * @param {boolean} open
    */
   setDropdownOpen(open) {
+
+    // if the dropdown is already open then do nothing
+    if (this.dropdownOpen === true && open === true) {
+      return;
+    }
+
     this.dropdownOpen = (open && !this.ngDisabled);
 
     if (open === true) {
