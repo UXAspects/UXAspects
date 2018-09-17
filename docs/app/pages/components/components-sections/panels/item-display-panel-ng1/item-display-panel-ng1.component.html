@@ -12,6 +12,12 @@
 
 <p>The following defining the modal are set in the <code>panel</code> property of each <code>item</code>.</p>
 
+<p>
+    If you have a modal that appears over the top of a display panel ensure you
+    add <code>ng-mouseup="$event.stopPropagation()"</code> to the modal element and any buttons within the modal
+    to prevent the display panel from closing when mouse events occur.
+</p>
+
 <uxd-api-properties>
     <tr uxd-api-property name="title" type="string">
         Defines the Header title of the item display panel.
