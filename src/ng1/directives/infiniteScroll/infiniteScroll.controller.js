@@ -8,7 +8,7 @@ import { WindowScrollAdapter } from "./adapters/window-scroll.adapter";
 export class InfiniteScrollController {
 
     get searchQuery() {
-        return this._query;
+        return this._query || '';
     }
 
     set searchQuery(value) {
@@ -99,7 +99,7 @@ export class InfiniteScrollController {
         }
 
         // otherwise check if the position is greater than the loading position
-        if (position >= this.pagePosition) {
+        if (position >= this.pagePosition && !this.complete) {
             this.getNextPage();
         }
     }
@@ -149,8 +149,8 @@ export class InfiniteScrollController {
      */
     setPageItems(page, items) {
 
-        // if no items are returned then we have loaded all pages
-        if (items.length === 0) {
+        // if we return less items that the specified page size then we have loaded all items
+        if (items.length < this.pageSize) {
             this.complete = true;
         }
 
