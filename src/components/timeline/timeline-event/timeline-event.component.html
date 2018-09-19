@@ -1,6 +1,7 @@
-<div class="timeline-badge" [ngClass]="badgeColor">
-    <span>{{badgeTitle}}</span>
+<div class="timeline-badge" [ngClass]="badgeColor" [attr.aria-describedby]="id">
+    <span>{{ badgeTitle }}</span>
 </div>
-<div class="timeline-panel">
+
+<div class="timeline-panel" [id]="id">
     <ng-content></ng-content>
 </div>
