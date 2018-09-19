@@ -12,6 +12,13 @@
 
 <p>The following defining the modal are set in the <code>panel</code> property of each <code>item</code>.</p>
 
+<p>
+    If you have a modal that appears over the top of a display panel ensure you
+    add <code>ng-mouseup="$event.stopPropagation()"</code> to the modal element and any buttons within the modal
+    to prevent the display panel from closing when mouse events occur. Alternatively, setting the <code>outsideClick</code>
+    property to <code>false</code> in the display panel options can also be used.
+</p>
+
 <uxd-api-properties>
     <tr uxd-api-property name="title" type="string">
         Defines the Header title of the item display panel.
@@ -36,6 +43,9 @@
     </tr>
     <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
         A boolean value to set the panel to animate in and out of the screen.
+    </tr>
+    <tr uxd-api-property name="outsideClick" type="boolean" defaultValue="true">
+        A boolean value to indicate whether or not clicking outside of the panel should close it.
     </tr>
 </uxd-api-properties>
 
