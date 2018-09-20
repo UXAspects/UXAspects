@@ -13,7 +13,7 @@ export class ResizableTableDirective implements AfterViewInit {
 
   @ContentChildren(ResizableTableColumnComponent) columns: QueryList<ResizableTableColumnComponent>;
 
-  constructor(private _elementRef: ElementRef<HTMLTableElement>, private _table: ResizableTableService) { }
+  constructor(private _elementRef: ElementRef, private _table: ResizableTableService) { }
 
   ngAfterViewInit(): void {
     this._table.setTable(this._elementRef.nativeElement);
