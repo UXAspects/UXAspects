@@ -29,7 +29,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
   /** Ensure observables get destroyed correctly */
   private _onDestroy = new Subject<void>();
 
-  constructor(public table: ResizableTableService, private _elementRef: ElementRef<HTMLTableHeaderCellElement>) { }
+  constructor(public table: ResizableTableService, private _elementRef: ElementRef) { }
 
   getColumnWidth(): number {
     return this._elementRef.nativeElement.offsetWidth;
