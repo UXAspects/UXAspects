@@ -12,7 +12,9 @@ export class SelectionService implements OnDestroy {
 
   set dataset(dataset: ReadonlyArray<any>) {
     this._dataset = dataset;
-    this.setFirstItemFocusable();
+    if (this._dataset.indexOf(this._active) === -1) {
+      this.setFirstItemFocusable();
+    }
   }
 
   get dataset(): ReadonlyArray<any> {

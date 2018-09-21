@@ -1,81 +1,132 @@
-.treegrid {
-    outline: none;
+.treegrid-expand-header {
+    margin-left: 58px;
 
-    .treegrid-expand-header {
-        margin-left: 58px;
+    &.has-checkbox {
+        margin-left: 0;
+    }
+}
 
-        &.has-checkbox {
-            margin-left: 0;
-        }
+.treegrid-header-checkbox {
+    margin-left: 31px;
+}
+
+.treegrid-header {
+    th:first-of-type {
+        padding-left: 66px;
+    }
+}
+
+.treegrid-row {
+    &:focus {
+        .aspects-outline();
+    }
+}
+
+// AngularJS row indent
+.treegrid-indent {
+    display: inline-block;
+
+    &.treegrid-level-0 {
+        width: 0;
     }
 
-    .treegrid-header-checkbox {
-        margin-left: 31px;
+    &.treegrid-level-1 {
+        width: 25px;
     }
 
-    .treegrid-indent {
-        display: inline-block;
-
-        &.treegrid-level-0 {
-            width: 0;
-        }
-
-        &.treegrid-level-1 {
-            width: 25px;
-        }
-
-        &.treegrid-level-2 {
-            width: 50px;
-        }
-
-        &.treegrid-level-3 {
-            width: 75px;
-        }
-
-        &.treegrid-level-4 {
-            width: 100px;
-        }
-
-        &.treegrid-level-5 {
-            width: 125px;
-        }
+    &.treegrid-level-2 {
+        width: 50px;
     }
 
-    .treegrid-expand {
-        display: inline-block;
-        min-width: 20px;
+    &.treegrid-level-3 {
+        width: 75px;
+    }
+
+    &.treegrid-level-4 {
+        width: 100px;
+    }
+
+    &.treegrid-level-5 {
+        width: 125px;
+    }
+}
+
+// Angular row indent
+.treegrid-levels(@count, @i: 0) when (@i < @count) {
+    tr.treegrid-level-@{i} > td:first-of-type {
+        padding-left: 7px + (@i * 25px);
+    }
+    .treegrid-levels(@count, @i + 1);
+}
+
+.treegrid-levels(10);
+
+// AngularJS expander
+.treegrid-expand {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 3px;
+
+    .treegrid-expand-toggle {
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+// Angular expander
+.treegrid-expander {
+    display: inline-block;
+    min-width: 28px;
+    margin-left: 2px;
+    margin-right: 3px;
+
+    button {
+        width: 100%;
+        margin: 0;
+        border: none;
+        background-color: transparent;
         text-align: center;
-        margin-left: 2px;
-        margin-right: 3px;
 
-        .treegrid-expand-toggle {
-            cursor: pointer;
+        .treegrid-expander-icon {
             opacity: 0.5;
+            transition: transform linear 0.15s;
 
             &:hover {
                 opacity: 1;
             }
         }
     }
+}
 
-    .treegrid-checkbox {
-        margin-right: 5px;
+.treegrid-row-expanded {
+    .treegrid-expander-icon {
+        transform: rotate(90deg);
+    }
+}
 
-        .treegrid-multiple-select-checkbox {
+.treegrid-checkbox {
+    margin-right: 5px;
+
+    .treegrid-multiple-select-checkbox {
+        margin: 0;
+
+        .el-checkbox-content {
             margin: 0;
-
-            .el-checkbox-content {
-                margin: 0;
-            }
         }
     }
+}
 
-    .treegrid-icon {
-        display: inline-block;
-        min-width: 20px;
-        text-align: center;
-        margin-right: 5px;
-    }
+.treegrid-icon {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    margin-right: 5px;
 }
 
 .treegrid-loading {

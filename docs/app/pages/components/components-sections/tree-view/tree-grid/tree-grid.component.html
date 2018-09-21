@@ -1,0 +1,260 @@
+<ux-accordion [collapseOthers]="true">
+    <ux-accordion-panel class="accordion-chevron" heading="Tree Grid with Preloaded Data" [expanded]="true">
+
+        <table class="table table-hover" [uxTreeGrid]="items" [(rows)]="rows">
+            <thead>
+                <tr class="treegrid-header table-header-dark">
+                    <th>
+                        <ux-checkbox [(value)]="selectAll"></ux-checkbox>
+                        <span>Title</span>
+                    </th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody [(uxSelection)]="selected" mode="row">
+
+                <tr *ngFor="let row of rows"
+                    class="clickable"
+                    [uxTreeGridRow]="row"
+                    [(expanded)]="row.expanded"
+                    #treeGridRow="uxTreeGridRow"
+                    [uxSelectionItem]="row">
+
+                    <td>
+                        <span class="treegrid-expander">
+                            <button *ngIf="row.children && row.children.length > 0"
+                                aria-hidden="true"
+                                type="button"
+                                tabindex="-1"
+                                (click)="treeGridRow.toggle(); $event.stopPropagation()">
+                                <span *ngIf="!treeGridRow.loading"
+                                    class="treegrid-expander-icon hpe-icon hpe-chevron-right"></span>
+                                <span *ngIf="treeGridRow.loading"
+                                    class="spinner spinner-accent spinner-bounce-middle"></span>
+                            </button>
+                        </span>
+
+                        <span class="treegrid-icon">
+                            <span class="hpe-icon"
+                                [class.hpe-folder]="row.type === 'folder' && !row.expanded"
+                                [class.hpe-folder-open]="row.type === 'folder' && row.expanded"
+                                [class.hpe-document]="row.type === 'file'"></span>
+                        </span>
+
+                        <span>{{ row.title }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.date | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="m-t-md">
+            Selected items:
+            <span *ngFor="let item of selected; let last = last">{{ item.title + (last ? '.' : ', ') }}</span>
+            <em *ngIf="selected?.length === 0">none</em>
+        </p>
+
+    </ux-accordion-panel>
+    <ux-accordion-panel class="accordion-chevron" heading="Tree Grid with Asynchronous Loading">
+
+        <div class="btn-container">
+            <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, true)">
+                <span class="hpe-icon hpe-chevron-down"></span> Expand All
+            </button>
+            <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, false)">
+                <span class="hpe-icon hpe-chevron-right"></span> Contract All
+            </button>
+            <button type="button" class="btn button-secondary" (click)="clearChildren()">
+                <span class="hpe-icon hpe-close"></span> Clear Cached Data
+            </button>
+        </div>
+
+        <table class="table table-hover" [uxTreeGrid]="asyncItems" [(rows)]="asyncRows" [loadChildren]="loadChildrenFn">
+            <thead>
+                <tr class="treegrid-header table-header-dark">
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody [(uxSelection)]="asyncSelected" mode="row">
+
+                <tr *ngFor="let row of asyncRows"
+                    class="clickable"
+                    [uxTreeGridRow]="row"
+                    [canExpand]="row.type === 'folder'"
+                    [(expanded)]="row.expanded"
+                    #treeGridRow="uxTreeGridRow"
+                    [uxSelectionItem]="row">
+
+                    <td>
+                        <span class="treegrid-expander">
+                            <button *ngIf="row.type === 'folder'"
+                                aria-hidden="true"
+                                type="button"
+                                tabindex="-1"
+                                (click)="treeGridRow.toggle(); $event.stopPropagation()">
+                                <span *ngIf="!treeGridRow.loading"
+                                    class="treegrid-expander-icon hpe-icon hpe-chevron-right"></span>
+                                <span *ngIf="treeGridRow.loading"
+                                    class="spinner spinner-accent spinner-bounce-middle"></span>
+                            </button>
+                        </span>
+
+                        <span class="treegrid-icon">
+                            <span class="hpe-icon"
+                                [class.hpe-folder]="row.type === 'folder' && !row.expanded"
+                                [class.hpe-folder-open]="row.type === 'folder' && row.expanded"
+                                [class.hpe-document]="row.type === 'file'"></span>
+                        </span>
+
+                        <span>{{ row.title }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.author }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.date | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="m-t-md">
+            Selected items:
+            <span *ngFor="let item of asyncSelected; let last = last">{{ item.title + (last ? '.' : ', ') }}</span>
+            <em *ngIf="asyncSelected?.length === 0">none</em>
+        </p>
+
+    </ux-accordion-panel>
+</ux-accordion>
+
+<hr>
+
+<p>
+    A tree grid allows hierarchical data to be displayed and navigated along with the benefits of a tabular
+    presentation.
+    A tree grid is created by applying the <code>uxTreeGrid</code> directive to a <code>table</code> element, and the
+    <code>uxTreeGridRow</code> to each of the rows.
+    Many of the table components and directives can also be applied to a tree grid, such as selection and column
+    sorting.
+</p>
+
+<p>
+    The tree grid also supports lazy loading of data, as illustrated in the "Tree Grid with Asynchronous Loading"
+    example above.
+    This allows a function to be called when expanding certain rows, which can return the child items either
+    synchronously or asynchronously.
+    By doing so, the initial load time of a component containing a large tree grid can be reduced.
+</p>
+
+<h4>uxTreeGrid</h4>
+
+<p>The following properties are available to configure the <code>uxTreeGrid</code> directive.</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxTreeGrid" type="TreeGridItem[]" [required]="true">
+        The items to display in the tree grid.
+        See below for details of the <code>TreeGridItem</code> interface.
+    </tr>
+    <tr uxd-api-property name="rows" type="TreeGridItem[]" [required]="true">
+        The visible rows to render in the table.
+        This is a two-way binding property which is managed by the directive.
+        Use this array in combination with the <code>ngFor</code> directive to populate the table rows, after applying
+        any required filtering.
+    </tr>
+    <tr uxd-api-property name="loadChildren" type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]>">
+        <p>
+            A function which provides the array of child items of a particular row.
+            This can be used for lazy loading of tree content, and supports promises to allow loading data
+            asynchronously.
+        </p>
+        <p>
+            Use this in combination with <code>canExpand</code> on the <code>uxTreeGridRow</code> to specify which
+            rows can potentially have child items.
+        </p>
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="rowsChange" type="TreeGridItem[]">
+        Emitted when the <code>rows</code> array changes.
+        This happens when the <code>uxTreeGrid</code> input array is changed.
+    </tr>
+</uxd-api-properties>
+
+<h4>uxTreeGridRow</h4>
+
+<p>The following properties are available to configure the <code>uxTreeGridRow</code> directive.</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxTreeGridRow" type="TreeGridItem" [required]="true">
+        The item that the row displays.
+        This should be a member of the <code>rows</code> array emitted by the <code>uxTreeGrid</code> directive, which
+        manages the visible rows and their states.
+    </tr>
+    <tr uxd-api-property name="canExpand" type="boolean">
+        Whether the row can expand or not.
+        This is required when <code>loadChildren</code> is being used to lazy-load tree content; otherwise it can be
+        omitted.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        Whether the row is expanded or not.
+        This expression can used to programmatically control the expanded state of rows.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="expandedChange" type="boolean">
+        Emitted when the expanded state of the row changes.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Functions">
+    <tr uxd-api-property name="toggle">
+        Toggles the expanded state of the row.
+    </tr>
+    <tr uxd-api-property name="collapse">
+        Collapses the row, if it is expanded.
+    </tr>
+    <tr uxd-api-property name="expand">
+        Expands the row, if it can be expanded.
+    </tr>
+</uxd-api-properties>
+
+<h4>TreeGridItem</h4>
+
+<p>
+    The tree grid directives use the <code>TreeGridItem</code> interface to define objects which can be displayed as
+    rows.
+    When defining a type for the data to load into a tree grid, ensure that it implements <code>TreeGridItem</code>.
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="children" type="TreeGridItem[]">
+        <p>
+            The child items.
+            Providing this array will allow the row to be expanded, displaying the child items.
+        </p>
+        <p>
+            If the child items are to be lazy loaded when the user attempts to expand the row, leave this property
+            unset and specify a <code>loadChildren</code> function. The tree grid will automatically populate this
+            array when the data is successfully loaded.
+        </p>
+        <p>
+            Set this property to undefined or null to trigger a subsequent call to <code>loadChildren</code> when the
+            user next expands the row.
+        </p>
+    </tr>
+    <tr uxd-api-property name="treeGridState" type="TreeGridState">
+        This property will be set by the tree grid to store the row's current state.
+        For example, the <code>level</code> property will indicate the row's depth within the tree hierarchy.
+    </tr>
+</uxd-api-properties>
+
+<h4>Example Code</h4>

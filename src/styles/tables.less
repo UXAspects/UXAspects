@@ -471,24 +471,27 @@ table {
     }
 }
 
-//shift/ctrl select item
-//disable hover actions
-.table > tbody > tr.shift-select-selected-bg {
-    background-color: @shift-select-selected-light;
-
-    & > td.item-actions .list-hover-actions {
+// Shift/ctrl select item
+.table {
+    tr.shift-select-selected-bg,
+    tr.ux-selection-selected {
         background-color: @shift-select-selected-light;
-        box-shadow: none;
-    }
-
-    &:hover,
-    &:focus,
-    &.child-focus {
-        background-color: @shift-select-selected-hover-light;
 
         & > td.item-actions .list-hover-actions {
-            background-color: @shift-select-selected-hover-light;
+            background-color: @shift-select-selected-light;
             box-shadow: none;
+        }
+
+        &:hover,
+        &:focus,
+        &.child-focus,
+        &.ux-selection-focused {
+            background-color: @shift-select-selected-hover-light;
+
+            & > td.item-actions .list-hover-actions {
+                background-color: @shift-select-selected-hover-light;
+                box-shadow: none;
+            }
         }
     }
 }
