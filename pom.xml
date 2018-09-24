@@ -16,90 +16,90 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.github.cafapi</groupId>
-		<artifactId>caf-common-parent</artifactId>
-		<version>1.1.0-SNAPSHOT</version>
-		<relativePath/>
-	</parent>
+    <parent>
+        <groupId>com.github.cafapi</groupId>
+        <artifactId>caf-common-parent</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
 
-	<groupId>com.github.uxaspects</groupId>
-	<artifactId>aspects-core</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <groupId>com.github.uxaspects</groupId>
+    <artifactId>aspects-core</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
 
-	<properties>
-		<maven.install.skip>true</maven.install.skip>
-		<maven.deploy.skip>true</maven.deploy.skip>
-		<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
-	</properties>
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
+    </properties>
 
-	<dependencies>
-	</dependencies>
+    <dependencies>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.6</version>
-				<configuration>
-					<nodeVersion>v8.11.3</nodeVersion>
-					<installDirectory>target</installDirectory>
-					<workingDirectory>${basedir}</workingDirectory>
-					<environmentVariables>
-						<project-version>${project.version}</project-version>
-					</environmentVariables>
-				</configuration>
-				<executions>
-					<!-- install node & npm -->
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<phase>generate-resources</phase>
-						<configuration>
-						</configuration>
-					</execution>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <nodeVersion>v8.11.3</nodeVersion>
+                    <installDirectory>target</installDirectory>
+                    <workingDirectory>${basedir}</workingDirectory>
+                    <environmentVariables>
+                        <project-version>${project.version}</project-version>
+                    </environmentVariables>
+                </configuration>
+                <executions>
+                    <!-- install node & npm -->
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                        </configuration>
+                    </execution>
 
-					<!--npm install -->
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
+                    <!--npm install -->
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
 
-					<execution>
-						<id>npm build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
+                    <execution>
+                        <id>npm build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
 
-						<!-- optional: the default phase is "generate-resources" -->
-						<phase>compile</phase>
-						<!--TODO Failure to copy resources is not resulting in build failure-->
+                        <!-- optional: the default phase is "generate-resources" -->
+                        <phase>compile</phase>
+                        <!--TODO Failure to copy resources is not resulting in build failure-->
 
-						<configuration>
-							<!-- optional: if not specified, it will run Grunt's default
+                        <configuration>
+                            <!-- optional: if not specified, it will run Grunt's default
                             task (and you can remove this whole <configuration> section.) -->
-							<arguments>run build:library</arguments>
-						</configuration>
-					</execution>
+                            <arguments>run build:library</arguments>
+                        </configuration>
+                    </execution>
 
-				</executions>
+                </executions>
 
-			</plugin>
-		</plugins>
-	</build>
+            </plugin>
+        </plugins>
+    </build>
 </project>
