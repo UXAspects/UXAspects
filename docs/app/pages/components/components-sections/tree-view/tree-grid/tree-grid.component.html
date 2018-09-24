@@ -11,14 +11,15 @@
                     <th>Date</th>
                 </tr>
             </thead>
-            <tbody [(uxSelection)]="selected" mode="row">
+            <tbody [(uxSelection)]="selected" mode="simple">
 
                 <tr *ngFor="let row of rows"
                     class="clickable"
                     [uxTreeGridRow]="row"
                     [(expanded)]="row.expanded"
                     #treeGridRow="uxTreeGridRow"
-                    [uxSelectionItem]="row">
+                    [uxSelectionItem]="row"
+                    [(selected)]="row.selected">
 
                     <td>
                         <span class="treegrid-expander">
@@ -33,6 +34,8 @@
                                     class="spinner spinner-accent spinner-bounce-middle"></span>
                             </button>
                         </span>
+
+                        <ux-checkbox [(value)]="row.selected"></ux-checkbox>
 
                         <span class="treegrid-icon">
                             <span class="hpe-icon"

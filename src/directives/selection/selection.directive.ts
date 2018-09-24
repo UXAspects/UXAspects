@@ -14,6 +14,8 @@ import { SelectionStrategy } from './strategies/selection.strategy';
 export class SelectionDirective implements AfterContentInit, OnDestroy {
 
   @Input() set uxSelection(items: any[]) {
+    console.log(`uxSelection = ${items.length} items`);
+
     this._selectionService.select(...items);
   }
 

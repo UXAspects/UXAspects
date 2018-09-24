@@ -201,4 +201,5 @@ interface FileNode extends TreeGridItem {
     date?: Date;
     type: 'folder' | 'file';
     children?: FileNode[];
+    selected?: boolean;
 }
