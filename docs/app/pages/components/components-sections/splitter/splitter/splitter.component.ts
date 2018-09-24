@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-splitter',
@@ -23,6 +23,10 @@ export class ComponentsSplitterComponent extends BaseDocumentationSection implem
             {
                 imports: ['AngularSplitModule'],
                 library: 'angular-split'
+            },
+            {
+                imports: ['AccessibilityModule'],
+                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

@@ -1,6 +1,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { NgModule } from '@angular/core';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
+import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 
@@ -8,7 +9,8 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     declarations: [
         FocusWithinDirective,
         TabbableListDirective,
-        TabbableListItemDirective
+        TabbableListItemDirective,
+        SplitterAccessibilityDirective
     ],
     imports: [
         A11yModule
@@ -16,7 +18,8 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     exports: [
         FocusWithinDirective,
         TabbableListDirective,
-        TabbableListItemDirective
+        TabbableListItemDirective,
+        SplitterAccessibilityDirective
     ]
 })
 export class AccessibilityModule {}
