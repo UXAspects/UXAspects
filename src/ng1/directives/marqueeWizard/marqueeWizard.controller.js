@@ -232,8 +232,11 @@ export default class MarqueeWizardCtrl {
     this.showNext = false;
     this.showFinish = false;
 
+    // calculate the first visible step index
+    const firstStepIdx = this.wizardSteps.findIndex(step => !step.hidden);
+
     //show buttons accordingly
-    if (this.stepIndex > 0 && this.buttonOptions.showPrevious === true) {
+    if (this.stepIndex > firstStepIdx && this.buttonOptions.showPrevious === true) {
       this.showPrevious = true;
     }
 
