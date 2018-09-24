@@ -31,9 +31,26 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<distributionManagement>
+		<repository>
+			<id>corporate-maven-releases</id>
+			<name>Internal Company Releases</name>
+			<url>${corporateMavenReleaseRepositoryUrl}</url>
+		</repository>
+		<snapshotRepository>
+			<id>corporate-maven-snapshots</id>
+			<name>Internal Company Snapshots</name>
+			<url>${corporateMavenSnapshotRepositoryUrl}</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
+		<!--Forcing artifactory until we decide what to do with this pom-->
+		<corporateMavenSnapshotRepositoryUrl>https://svsartifactory.swinfra.net:443/artifactory/saas-snapshot-local</corporateMavenSnapshotRepositoryUrl>
+		<corporateMavenReleaseRepositoryUrl>https://svsartifactory.swinfra.net:443/artifactory/saas-release-local</corporateMavenReleaseRepositoryUrl>
+
 	</properties>
 
 	<dependencies>
