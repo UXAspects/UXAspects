@@ -34,7 +34,7 @@ export default class MarqueeWizardCtrl {
     this.processSteps();
 
     //select the first step initially
-    this.stepIndex = 0;
+    this.stepIndex = this.wizardSteps.findIndex(step => !step.hidden);
     this.currentStep = this.wizardSteps[this.stepIndex];
     this.currentStep.visited = true;
     this.currentStep.error = false;
