@@ -201,6 +201,10 @@ const ROUTES: Routes = [
         loadChildren: './sliders/sliders.module#SlidersTestPageModule'
     },
     {
+        path: 'splitter',
+        loadChildren: './splitter/splitter.module#SplitterTestPageModule'
+    },
+    {
         path: 'split-button-dropdowns',
         loadChildren:
             './split-button-dropdowns/split-button-dropdowns.module#SplitButtonDropdownsTestPageModule'

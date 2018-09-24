@@ -66,6 +66,14 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
         this._onDestroy.complete();
     }
 
+    /** We should focus the gutter when it is clicked */
+    @HostListener('click', ['$event'])
+    onClick(event: MouseEvent): void {
+        if (this.isSplitterGutter(event.target as HTMLElement)) {
+            (event.target as HTMLElement).focus();
+        }
+    }
+
     /** Find all the gutters and set their attributes */
     private onGutterChange(): void {
         this._gutters = this.getGutters();
@@ -148,55 +156,63 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
 
     @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
-        this.gutterKeydown.emit(event);
-    }
-
-    @HostListener('keydown.ArrowDown', ['$event.target'])
-    @HostListener('keydown.ArrowRight', ['$event.target'])
-    onIncreaseKey(target: HTMLElement): void {
-        // only perform a move if a gutter is focused
-        if (this.isSplitterGutter(target)) {
-            this.setGutterPosition(target, -0.01);
+        if (this.isSplitterGutter(event.target as HTMLElement)) {
+            this.gutterKeydown.emit(event);
         }
     }
 
-    @HostListener('keydown.ArrowUp', ['$event.target'])
-    @HostListener('keydown.ArrowLeft', ['$event.target'])
-    onDecreaseKey(target: HTMLElement): void {
+    @HostListener('keydown.ArrowDown', ['$event'])
+    @HostListener('keydown.ArrowRight', ['$event'])
+    onIncreaseKey(event: KeyboardEvent): void {
         // only perform a move if a gutter is focused
-        if (this.isSplitterGutter(target)) {
-            this.setGutterPosition(target, 0.01);
-        }
-    }
-
-    @HostListener('keydown.Home', ['$event', '$event.target'])
-    onHomeKey(event: MouseEvent, target: HTMLElement): void {
-        if (this.isSplitterGutter(target)) {
-            // get the affected panels
-            const areas = this.getAreasFromGutter(target);
-
-            // set the previous area to it's minimum size
-            const delta = areas.previous.size - areas.previous.comp.minSize;
-
-            // update the sizes accordingly
-            this.setGutterPosition(target, delta);
+        if (this.isSplitterGutter(event.target as HTMLElement)) {
+            this.setGutterPosition(event.target as HTMLElement, -0.01);
 
             // stop the browser from scrolling
             event.preventDefault();
         }
     }
 
-    @HostListener('keydown.End', ['$event', '$event.target'])
-    onEndKey(event: MouseEvent, target: HTMLElement): void {
-        if (this.isSplitterGutter(target)) {
+    @HostListener('keydown.ArrowUp', ['$event'])
+    @HostListener('keydown.ArrowLeft', ['$event'])
+    onDecreaseKey(event: KeyboardEvent): void {
+        // only perform a move if a gutter is focused
+        if (this.isSplitterGutter(event.target as HTMLElement)) {
+            this.setGutterPosition(event.target as HTMLElement, 0.01);
+
+            // stop the browser from scrolling
+            event.preventDefault();
+        }
+    }
+
+    @HostListener('keydown.Home', ['$event'])
+    onHomeKey(event: KeyboardEvent): void {
+        if (this.isSplitterGutter(event.target as HTMLElement)) {
             // get the affected panels
-            const areas = this.getAreasFromGutter(target);
+            const areas = this.getAreasFromGutter(event.target as HTMLElement);
+
+            // set the previous area to it's minimum size
+            const delta = areas.previous.size - areas.previous.comp.minSize;
+
+            // update the sizes accordingly
+            this.setGutterPosition(event.target as HTMLElement, delta);
+
+            // stop the browser from scrolling
+            event.preventDefault();
+        }
+    }
+
+    @HostListener('keydown.End', ['$event'])
+    onEndKey(event: KeyboardEvent): void {
+        if (this.isSplitterGutter(event.target as HTMLElement)) {
+            // get the affected panels
+            const areas = this.getAreasFromGutter(event.target as HTMLElement);
 
             // set the next area to it's minimum size
             const delta = areas.next.size - areas.next.comp.minSize;
 
             // update the sizes accordingly
-            this.setGutterPosition(target, -delta);
+            this.setGutterPosition(event.target as HTMLElement, -delta);
 
             // stop the browser from scrolling
             event.preventDefault();
