@@ -31,20 +31,22 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<distributionManagement>
-		<repository>
-			<id>corporate-maven-releases</id>
-			<name>Internal Company Releases</name>
-			<url>${corporateMavenReleaseRepositoryUrl}</url>
-		</repository>
-		<snapshotRepository>
-			<id>corporate-maven-snapshots</id>
-			<name>Internal Company Snapshots</name>
-			<url>${corporateMavenSnapshotRepositoryUrl}</url>
-		</snapshotRepository>
-	</distributionManagement>
+	<!--<distributionManagement>-->
+		<!--<repository>-->
+			<!--<id>corporate-maven-releases</id>-->
+			<!--<name>Internal Company Releases</name>-->
+			<!--<url>${corporateMavenReleaseRepositoryUrl}</url>-->
+		<!--</repository>-->
+		<!--<snapshotRepository>-->
+			<!--<id>corporate-maven-snapshots</id>-->
+			<!--<name>Internal Company Snapshots</name>-->
+			<!--<url>${corporateMavenSnapshotRepositoryUrl}</url>-->
+		<!--</snapshotRepository>-->
+	<!--</distributionManagement>-->
 
 	<properties>
+		<maven.install.skip>true</maven.install.skip>
+		<maven.deploy.skip>true</maven.deploy.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
 		<!--Forcing artifactory until we decide what to do with this pom-->
@@ -65,6 +67,9 @@
 					<nodeVersion>v8.11.3</nodeVersion>
 					<installDirectory>target</installDirectory>
 					<workingDirectory>${basedir}</workingDirectory>
+					<environmentVariables>
+						<project-version>${project.version}</project-version>
+					</environmentVariables>
 				</configuration>
 				<executions>
 					<!-- install node & npm -->
@@ -74,6 +79,8 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<phase>generate-resources</phase>
+						<configuration>
+						</configuration>
 					</execution>
 
 					<!--npm install -->
