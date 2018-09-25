@@ -1,19 +1,12 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
+import { TreeGridItem, TreeGridLoadFunction } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { TreeGridItem, TreeGridLoadFunction } from '../../../../../../../src/index';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
-    selector: 'uxd-tree-grid',
-    templateUrl: './tree-grid.component.html',
-    styleUrls: ['./tree-grid.component.less'],
-    encapsulation: ViewEncapsulation.None
+    selector: 'app',
+    templateUrl: './app.component.html'
 })
-@DocumentationSectionComponent('ComponentsTreeGridComponent')
-export class ComponentsTreeGridComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class AppComponent {
 
     selected: FileNode[] = [];
 
@@ -154,23 +147,6 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection implem
     ];
 
     loadChildrenFn: TreeGridLoadFunction = this.loadChildren.bind(this);
-
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [
-            {
-                imports: ['AccordionModule', 'CheckboxModule', 'SelectionModule', 'TreeGridModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
-    };
-
-    constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
     select(row: FileNode): void {
 

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TreeModule } from 'angular-tree-component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccordionModule, CheckboxModule, FocusIfModule, HybridModule, TreeGridModule, SelectionModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, FocusIfModule, HybridModule, SelectionModule, TabsetModule, TreeGridModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -50,6 +50,7 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         SelectionModule,
         TabsModule,
+        TabsetModule,
         TreeGridModule,
         TreeModule,
         WrappersModule,

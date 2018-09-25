@@ -1,0 +1,161 @@
+<ux-accordion [collapseOthers]="true">
+    <ux-accordion-panel class="accordion-chevron"
+                        heading="Tree Grid with Preloaded Data"
+                        [expanded]="true">
+
+        <table class="table table-hover"
+               [uxTreeGrid]="items"
+               [(rows)]="rows">
+            <thead>
+                <tr class="treegrid-header table-header-dark">
+                    <th>
+                        <ux-checkbox [(value)]="selectAll"></ux-checkbox>
+                        <span>Title</span>
+                    </th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody [uxSelection]="selected"
+                   mode="simple">
+
+                <tr *ngFor="let row of rows"
+                    class="clickable"
+                    [uxTreeGridRow]="row"
+                    [canExpand]="row.type === 'folder'"
+                    [(expanded)]="row.expanded"
+                    #treeGridRow="uxTreeGridRow"
+                    [uxSelectionItem]="row"
+                    [selected]="isSelected(row)"
+                    (selectedChange)="$event ? select(row) : deselect(row)">
+
+                    <td uxTreeGridIndent>
+                        <span class="treegrid-expander">
+                            <button *ngIf="row.children && row.children.length > 0"
+                                    aria-hidden="true"
+                                    type="button"
+                                    tabindex="-1"
+                                    (click)="treeGridRow.toggle(); $event.stopPropagation()">
+                                <span *ngIf="!treeGridRow.loading"
+                                      class="treegrid-expander-icon hpe-icon hpe-chevron-right"></span>
+                                <span *ngIf="treeGridRow.loading"
+                                      class="spinner spinner-accent spinner-bounce-middle"></span>
+                            </button>
+                        </span>
+
+                        <ux-checkbox [value]="isSelected(row)"
+                                     (valueChange)="$event ? select(row) : deselect(row)"></ux-checkbox>
+
+                        <span class="treegrid-icon">
+                            <span class="hpe-icon"
+                                  [class.hpe-folder]="row.type === 'folder' && !row.expanded"
+                                  [class.hpe-folder-open]="row.type === 'folder' && row.expanded"
+                                  [class.hpe-document]="row.type === 'file'"></span>
+                        </span>
+
+                        <span>{{ row.title }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.date | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="m-t-md">
+            Selected items:
+            <span *ngFor="let item of selected; let last = last">
+                {{ item.title + (last ? '.' : ', ') }}
+            </span>
+            <em *ngIf="selected?.length === 0">none</em>
+        </p>
+
+    </ux-accordion-panel>
+    <ux-accordion-panel class="accordion-chevron"
+                        heading="Tree Grid with Asynchronous Loading">
+
+        <div class="btn-container">
+            <button type="button"
+                    class="btn button-secondary"
+                    (click)="setExpanded(asyncItems, true)">
+                <span class="hpe-icon hpe-chevron-down"></span> Expand All
+            </button>
+            <button type="button"
+                    class="btn button-secondary"
+                    (click)="setExpanded(asyncItems, false)">
+                <span class="hpe-icon hpe-chevron-right"></span> Contract All
+            </button>
+            <button type="button"
+                    class="btn button-secondary"
+                    (click)="clearChildren()">
+                <span class="hpe-icon hpe-close"></span> Clear Cached Data
+            </button>
+        </div>
+
+        <table class="table table-hover"
+               [uxTreeGrid]="asyncItems"
+               [(rows)]="asyncRows"
+               [loadChildren]="loadChildrenFn">
+            <thead>
+                <tr class="treegrid-header table-header-dark">
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody [(uxSelection)]="asyncSelected"
+                   mode="row">
+
+                <tr *ngFor="let row of asyncRows"
+                    class="clickable"
+                    [uxTreeGridRow]="row"
+                    [canExpand]="row.type === 'folder'"
+                    [(expanded)]="row.expanded"
+                    #treeGridRow="uxTreeGridRow"
+                    [uxSelectionItem]="row">
+
+                    <td uxTreeGridIndent>
+                        <span class="treegrid-expander">
+                            <button *ngIf="row.type === 'folder'"
+                                    aria-hidden="true"
+                                    type="button"
+                                    tabindex="-1"
+                                    (click)="treeGridRow.toggle(); $event.stopPropagation()">
+                                <span *ngIf="!treeGridRow.loading"
+                                      class="treegrid-expander-icon hpe-icon hpe-chevron-right"></span>
+                                <span *ngIf="treeGridRow.loading"
+                                      class="spinner spinner-accent spinner-bounce-middle"></span>
+                            </button>
+                        </span>
+
+                        <span class="treegrid-icon">
+                            <span class="hpe-icon"
+                                  [class.hpe-folder]="row.type === 'folder' && !row.expanded"
+                                  [class.hpe-folder-open]="row.type === 'folder' && row.expanded"
+                                  [class.hpe-document]="row.type === 'file'"></span>
+                        </span>
+
+                        <span>{{ row.title }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.author }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.date | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="m-t-md">
+            Selected items:
+            <span *ngFor="let item of asyncSelected; let last = last">
+                {{ item.title + (last ? '.' : ', ') }}
+            </span>
+            <em *ngIf="asyncSelected?.length === 0">none</em>
+        </p>
+
+    </ux-accordion-panel>
+</ux-accordion>
