@@ -169,11 +169,11 @@
 
 <p>The code below can be used to create the example shown above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

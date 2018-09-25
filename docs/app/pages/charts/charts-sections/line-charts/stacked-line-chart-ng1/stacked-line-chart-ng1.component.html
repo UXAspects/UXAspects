@@ -43,15 +43,15 @@
 <p>Stacked Line Charts are defined by the <code>flot</code> directive. The dataset and options attributes define the chart data
     and options respectively. Dataset and Options are defined within the StackedLineChartCtrl.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Javascript">
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <uxd-api-properties>
     <tr uxd-api-property name="stack" type="boolean">
@@ -72,20 +72,20 @@
 
 <p>The legends are custom-styled in this example. To place the legends separately from the chart, you can define a <code>div</code>    with an id and specify this in legend options. The styles and options applied here are:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.legendHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
+    </ux-tab>
+
+</ux-tabset>
 
 <blockquote>
     <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>

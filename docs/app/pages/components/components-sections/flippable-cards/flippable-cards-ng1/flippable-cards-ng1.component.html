@@ -31,14 +31,14 @@ This content will be placed within the <code>card-front</code> and <code>card-ba
 
 <p>The following code was used in the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Javascript">
+    </ux-tab>
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

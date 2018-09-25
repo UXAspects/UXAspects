@@ -91,15 +91,15 @@ to define the interval.</p>
     </tr>
 </uxd-api-properties>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>To provide accessibility for users with assistive technologies, include a <code>span</code> with the <code>sr-only</code> class which conveys the same information as the chart. 
 For updating charts and line charts, the most appropriate information to provide will depend on the purpose of the chart.</p>

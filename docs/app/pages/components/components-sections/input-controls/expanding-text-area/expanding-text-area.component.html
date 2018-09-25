@@ -18,11 +18,11 @@
 
 <p>To create an expanding textarea use the <code>uxAutoGrow</code> directive.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="this.snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="this.snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

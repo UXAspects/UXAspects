@@ -207,7 +207,6 @@ export default function splitter($compile, $timeout) {
               Create a toggle for the side panel
             */
             function createToggleButton(mainPanel, sidePanel) {
-
                 var toggleDirection;
 
                 options = getOptions();
@@ -409,7 +408,9 @@ export default function splitter($compile, $timeout) {
                     //side panel to the right of main panel
                     gutterIndex = sidePanelIndex - 1;
                 }
-                return element.find(".gutter").eq(gutterIndex);
+
+                // find gutters that are immediate children (in case there are nested splitters)
+                return element.find("> .gutter").eq(gutterIndex);
             }
 
             function getWidths(mainPanel, sidePanel) {

@@ -23,15 +23,15 @@
 <p>Donut Charts are defined by the <code>flot</code> directive. The dataset and options attribute define the donut chart data
     and options respectively. Dataset and Options are defined within the DonutChartCtrl.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <uxd-api-properties>
     <tr uxd-api-property name="series" type="string" required="true">
@@ -166,15 +166,15 @@
     the <code>flot</code> directive and add the following to the controller. Now if any of the values in this object change
     the labels will automatically update to reflect the new values.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.labelsHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.labelsJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <h4 id="custom-legend-styling">Custom Legend Styling</h4>
 
@@ -183,17 +183,17 @@
     label in the legend updated. This is useful when a series is too small visually to be seen on the chart so that the user
     understands why it is not visible.</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="Javascript">
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="CSS">
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+</ux-tabset>
 
 <blockquote>
     <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>

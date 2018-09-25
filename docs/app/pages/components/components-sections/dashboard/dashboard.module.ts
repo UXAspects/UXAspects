@@ -2,9 +2,8 @@ import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import 'chart.js';
 import { ChartsModule } from 'ng2-charts';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DashboardModule } from '../../../../../../src/components/dashboard/index';
-import { ColorServiceModule, SparkModule } from '../../../../../../src/index';
+import { ColorServiceModule, SparkModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -26,7 +25,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsetModule,
         DashboardModule,
         SparkModule,
         ChartsModule,

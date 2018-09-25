@@ -6,14 +6,14 @@
 
 <p>When the date range is changed the chart will only show points on the chart that fall between those dates. It will also recalculate the ticks on the Y axis to show a more appropriate scale based on the visible points. This may also be desired when using a Timeline Chart. In the sample code below the function <code>updateChartYAxis</code> is responsible for calculating a new Y axis scale. This function should be used as a basis to provide such functionality for any chart that needs to rescale its Y axis.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Javascript">
+    </ux-tab>
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>        
-    </tab>
-</tabset>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

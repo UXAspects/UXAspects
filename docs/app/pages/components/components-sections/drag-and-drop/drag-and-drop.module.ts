@@ -6,8 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccessibilityModule, ColorServiceModule, FocusIfModule, MenuNavigationModule, ReorderableModule } from '../../../../../../src';
+import { AccessibilityModule, ColorServiceModule, FocusIfModule, MenuNavigationModule, ReorderableModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -49,7 +48,7 @@ const ROUTES = [
         FocusIfModule,
         WrappersModule,
         ChartsModule,
-        TabsModule,
+        TabsetModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         ColorServiceModule,

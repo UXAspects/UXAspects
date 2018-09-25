@@ -3,7 +3,6 @@ import { ComponentFactoryResolver, Injector, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TreeModule } from 'angular-tree-component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AccordionModule, CheckboxModule, FocusIfModule, HybridModule, SelectionModule, TabsetModule, TreeGridModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -41,6 +40,11 @@ const ROUTES = [
 @NgModule({
     imports: [
         AccordionModule,
+        CommonModule,
+        WrappersModule,
+        TabsetModule,
+        TreeModule,
+        FormsModule,
         CheckboxModule,
         CommonModule,
         DocumentationComponentsModule,
@@ -49,7 +53,6 @@ const ROUTES = [
         HybridModule,
         RouterModule.forChild(ROUTES),
         SelectionModule,
-        TabsModule,
         TabsetModule,
         TreeGridModule,
         TreeModule,

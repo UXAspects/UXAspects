@@ -36,15 +36,15 @@
 <p>Live Charts are defined by the <code>flot</code> directive. The dataset and options attribute define the live chart data and options respectively.
 Dataset and Options are defined within the LiveChartCtrl.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <uxd-api-properties>
     <tr uxd-api-property name="markings" type="array">

@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FileUploadModule } from 'ng2-file-upload';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ProgressBarModule } from '../../../../../../src/index';
+import { ProgressBarModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -32,7 +31,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule,
+        TabsetModule,
         FileUploadModule,
         ProgressBarModule,
         DocumentationComponentsModule,

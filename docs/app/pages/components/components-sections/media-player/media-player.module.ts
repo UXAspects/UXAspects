@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccordionModule, MediaPlayerModule, RadioButtonModule } from '../../../../../../src/index';
+import { AccordionModule, MediaPlayerModule, RadioButtonModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -24,7 +23,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsetModule,
         MediaPlayerModule,
         RadioButtonModule,
         AccordionModule,

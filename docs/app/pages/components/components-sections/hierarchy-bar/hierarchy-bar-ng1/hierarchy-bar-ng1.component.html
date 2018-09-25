@@ -5,15 +5,15 @@
 <p>Hierarchy Bar defines a hierarchy of nodes in any component which are contained inside a <code>hierarchy-bar</code> element.
     The popover in the hierarchy bar lists the child nodes and when clicked will highlight that node.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Javascript">
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>A <code>hierarchy-bar</code> element has the following attributes:</p>
 

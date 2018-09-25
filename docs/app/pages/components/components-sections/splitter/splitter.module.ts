@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularSplitModule } from 'angular-split';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AccessibilityModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -34,8 +34,9 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         WrappersModule,
-        TabsModule,
+        TabsetModule,
         AngularSplitModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

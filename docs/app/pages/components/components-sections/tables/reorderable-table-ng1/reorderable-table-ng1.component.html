@@ -8,19 +8,19 @@
     individual rows.
 </p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="jsCode"></uxd-snippet>
-    </tab>
-    
-    <tab heading="CSS">
+    </ux-tab>
+
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="cssCode"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The following attributes are available to configure the behavior:</p>
 
@@ -80,12 +80,12 @@
     the appropriate item from the model array, after which the table will re-render showing the correct items., e.g.:
 </p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="removeRowHtmlCode"></uxd-snippet>
-    </tab>
-    
-    <tab heading="Javascript">
+    </ux-tab>
+
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="removeRowJsCode"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

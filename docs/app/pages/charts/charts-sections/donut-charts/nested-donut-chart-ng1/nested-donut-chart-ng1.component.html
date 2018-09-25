@@ -91,19 +91,19 @@
     <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
 </blockquote>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Javascript">
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="CSS">
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <blockquote>
     <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>

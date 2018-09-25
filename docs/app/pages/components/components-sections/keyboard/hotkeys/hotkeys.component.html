@@ -91,14 +91,14 @@
 
 <p>The above example was was produced using the following code:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <blockquote>
   <p><strong>Note</strong>: Refer to the <a routerLink="/components/utilities" fragment="focus-if">Focus If</a> page for details on how to use the <code>focusIf</code> directive.</p>

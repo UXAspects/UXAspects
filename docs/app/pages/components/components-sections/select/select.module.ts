@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SelectListModule } from '../../../../../../src/components/select-list/index';
 import { AccordionModule, CheckboxModule, HybridModule, NumberPickerModule, RadioButtonModule, SelectModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -43,7 +42,6 @@ const ROUTES = [
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
         SelectModule,
-        TabsModule,
         WrappersModule,
         NumberPickerModule,
         SelectListModule,
