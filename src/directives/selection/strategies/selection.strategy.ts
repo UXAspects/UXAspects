@@ -46,7 +46,9 @@ export class SelectionStrategy {
    * Deselect all items - default behavior
    */
   deselectAll(): void {
-    this.deselect(...this.selectionService.dataset);
+
+    // call deselect on all items in the dataset
+    this.selectionService.deselectAll();
   }
 
   destroy(): void { }

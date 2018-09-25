@@ -66,6 +66,17 @@ export class SelectionService implements OnDestroy {
   }
 
   /**
+   * Remove all items from the list of selected items
+   */
+  deselectAll(): void {
+    // remove all items in the array
+    this.deselect(...this._dataset);
+
+    // clear the set in case any items have been removed from the DOM but are still selected
+    this._selection.clear();
+  }
+
+  /**
    * Toggle the selected state of any specified items
    */
   toggle(...selections: any[]): void {
