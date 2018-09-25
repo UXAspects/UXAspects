@@ -173,10 +173,10 @@
         Use this array in combination with the <code>ngFor</code> directive to populate the table rows, after applying
         any required filtering.
     </tr>
-    <tr uxd-api-property name="loadChildren" type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]>">
+    <tr uxd-api-property name="loadChildren" type="(parent: TreeGridItem) => TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>">
         <p>
             A function which provides the array of child items of a particular row.
-            This can be used for lazy loading of tree content, and supports promises to allow loading data
+            This can be used for lazy loading of tree content, and supports observables and promises to allow loading data
             asynchronously.
         </p>
         <p>

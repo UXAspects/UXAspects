@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TreeGridItem } from './tree-grid-item.interface';
@@ -59,17 +60,34 @@ export class TreeGridService implements OnDestroy {
     }
 
     /** Load any children dynamically */
-    private async getChildren(item: TreeGridItem) {
+    private async getChildren(item: TreeGridItem): Promise<void> {
         if (!item.children && this.loadChildren) {
             item.state.loading$.next(true);
 
             try {
-                item.children = await this.loadChildren(item);
+                item.children = await this.getNormalizedChildren(this.loadChildren(item));
             }
             finally {
                 item.state.loading$.next(false);
             }
         }
+    }
+
+    /** We want to support an array, a promise and an observable. This will return all types as a promise */
+    private async getNormalizedChildren(response: TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>): Promise<TreeGridItem[]> {
+
+        // if it is already an observable do nothing
+        if (response instanceof Observable) {
+            return await response.toPromise();
+        }
+
+        // if it is a promise wrap it as an observable
+        if (response instanceof Promise) {
+            return await response;
+        }
+
+        // if it is an array then make it an observable
+        return response;
     }
 
     /** Insert the children into the flattened tree at the correct location */
