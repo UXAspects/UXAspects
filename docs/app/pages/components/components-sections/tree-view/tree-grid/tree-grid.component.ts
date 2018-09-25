@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import 'chance';
-import { TreeGridItem, TreeGridLoadFunction } from '../../../../../../../src';
+import { TreeGridItem, TreeGridLoadFunction } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
@@ -23,6 +23,7 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection {
             this.selected = [...this.itemsFlat];
         }
     }
+
     get selectAll(): boolean | -1 {
         if (this.selected.length === 0) {
             return false;
@@ -154,6 +155,34 @@ export class ComponentsTreeGridComponent extends BaseDocumentationSection {
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    select(row: FileNode): void {
+
+        // if the row is not currently selected then select it
+        if (this.selected.indexOf(row) === -1) {
+            this.selected = [...this.selected, row];
+        }
+
+        // if the row has any children select them also
+        if (row.children) {
+            row.children.forEach(child => this.select(child));
+        }
+    }
+
+    deselect(row: FileNode): void {
+
+        // deselect the current row
+        this.selected = this.selected.filter(_row => _row !== row);
+
+        // if the row has any children deselect them also
+        if (row.children) {
+            row.children.forEach(child => this.deselect(child));
+        }
+    }
+
+    isSelected(row: FileNode): boolean {
+        return this.selected.indexOf(row) !== -1;
     }
 
     loadChildren(parent: FileNode): Promise<FileNode[]> {

@@ -1,14 +1,17 @@
-import { Directive, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs-compat/BehaviorSubject';
-import { distinctUntilChanged, takeUntil, pairwise, skip } from 'rxjs/operators';
+import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { tick } from '../../common/operators/tick.operator';
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridService } from './tree-grid.service';
-import { Subject } from 'rxjs/Subject';
 
 @Directive({
     selector: '[uxTreeGridRow]',
-    exportAs: 'uxTreeGridRow'
+    exportAs: 'uxTreeGridRow',
+    host: {
+        '[class.treegrid-row]': 'true'
+    }
 })
 export class TreeGridRowDirective implements OnInit, OnDestroy {
 
@@ -33,10 +36,7 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
     loading: boolean = false;
 
     @HostBinding('class.treegrid-row-expanded')
-    private _rowExpanded: boolean = false;
-
-    @HostBinding('class')
-    private _class: string;
+    isExpanded: boolean = false;
 
     private _expanded$ = new BehaviorSubject(false);
 
@@ -46,18 +46,18 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
         this._expanded$.pipe(skip(1), tick(), distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(expanded => {
             this.expandedChange.emit(expanded);
             this._treeGridService.setExpanded(this.item, expanded);
-            this._rowExpanded = expanded;
+            this.isExpanded = expanded;
         });
     }
 
     ngOnInit(): void {
-        this._class = `treegrid-row treegrid-level-${this.item.treeGridState.level}`;
 
-        if (!this.item || !this.item.treeGridState) {
+        if (!this.item || !this.item.state) {
             throw new Error('uxTreeGridRow should be configured with an object emitted by uxTreeGrid.rows.');
         }
 
-        this.item.treeGridState.loading$.subscribe(loading => this.loading = loading);
+        this.item.state.loading$.pipe(takeUntil(this._onDestroy))
+            .subscribe(loading => this.loading = loading);
     }
 
     ngOnDestroy(): void {
@@ -67,7 +67,9 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
 
     @HostListener('keydown.ArrowLeft', ['$event'])
     collapse(event?: Event): void {
+
         this.expanded = false;
+
         if (event) {
             event.preventDefault();
         }
@@ -75,13 +77,16 @@ export class TreeGridRowDirective implements OnInit, OnDestroy {
 
     @HostListener('keydown.ArrowRight', ['$event'])
     expand(event?: Event): void {
-        this.expanded = true;
+
+        // take into account whether or not the item can expanded
+        this.expanded = this.canExpand && true;
+
         if (event) {
             event.preventDefault();
         }
     }
 
     toggle(): void {
-        this.expanded = !this.expanded;
+        this.expanded ? this.collapse() : this.expand();
     }
 }

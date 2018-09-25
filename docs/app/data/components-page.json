@@ -1970,14 +1970,16 @@
                     "title": "Tree Grid",
                     "component": "ComponentsTreeGridNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 },
                 {
                     "title": "Tree Grid Asynchronous Loading",
                     "component":
                         "ComponentsTreeGridAsynchronousLoadingNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 }
             ]
         },

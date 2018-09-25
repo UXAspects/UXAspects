@@ -12,7 +12,7 @@
 
 .treegrid-header {
     th:first-of-type {
-        padding-left: 66px;
+        padding-left: 41px;
     }
 }
 
@@ -50,16 +50,6 @@
         width: 125px;
     }
 }
-
-// Angular row indent
-.treegrid-levels(@count, @i: 0) when (@i < @count) {
-    tr.treegrid-level-@{i} > td:first-of-type {
-        padding-left: 7px + (@i * 25px);
-    }
-    .treegrid-levels(@count, @i + 1);
-}
-
-.treegrid-levels(10);
 
 // AngularJS expander
 .treegrid-expand {

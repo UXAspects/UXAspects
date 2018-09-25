@@ -11,17 +11,19 @@
                     <th>Date</th>
                 </tr>
             </thead>
-            <tbody [(uxSelection)]="selected" mode="simple">
+            <tbody [uxSelection]="selected" mode="simple">
 
                 <tr *ngFor="let row of rows"
                     class="clickable"
                     [uxTreeGridRow]="row"
+                    [canExpand]="row.type === 'folder'"
                     [(expanded)]="row.expanded"
                     #treeGridRow="uxTreeGridRow"
                     [uxSelectionItem]="row"
-                    [(selected)]="row.selected">
+                    [selected]="isSelected(row)"
+                    (selectedChange)="$event ? select(row) : deselect(row)">
 
-                    <td>
+                    <td uxTreeGridIndent>
                         <span class="treegrid-expander">
                             <button *ngIf="row.children && row.children.length > 0"
                                 aria-hidden="true"
@@ -35,7 +37,7 @@
                             </button>
                         </span>
 
-                        <ux-checkbox [(value)]="row.selected"></ux-checkbox>
+                        <ux-checkbox [value]="isSelected(row)" (valueChange)="$event ? select(row) : deselect(row)"></ux-checkbox>
 
                         <span class="treegrid-icon">
                             <span class="hpe-icon"
@@ -93,7 +95,7 @@
                     #treeGridRow="uxTreeGridRow"
                     [uxSelectionItem]="row">
 
-                    <td>
+                    <td uxTreeGridIndent>
                         <span class="treegrid-expander">
                             <button *ngIf="row.type === 'folder'"
                                 aria-hidden="true"
@@ -203,8 +205,6 @@
     </tr>
     <tr uxd-api-property name="canExpand" type="boolean">
         Whether the row can expand or not.
-        This is required when <code>loadChildren</code> is being used to lazy-load tree content; otherwise it can be
-        omitted.
     </tr>
     <tr uxd-api-property name="expanded" type="boolean">
         Whether the row is expanded or not.
@@ -230,6 +230,13 @@
     </tr>
 </uxd-api-properties>
 
+<h4>uxTreeGridIndent</h4>
+
+<p>
+    Apply the <code>uxTreeGridIndent</code> attribute directive to the first <code>td</code> of every row to apply the correct level of indentation.
+    By default the indentation is <code>25px</code> however you can provide the attribute with a value indicating how many pixels it should indent.
+</p>
+
 <h4>TreeGridItem</h4>
 
 <p>
@@ -254,7 +261,7 @@
             user next expands the row.
         </p>
     </tr>
-    <tr uxd-api-property name="treeGridState" type="TreeGridState">
+    <tr uxd-api-property name="state" type="TreeGridState">
         This property will be set by the tree grid to store the row's current state.
         For example, the <code>level</code> property will indicate the row's depth within the tree hierarchy.
     </tr>
