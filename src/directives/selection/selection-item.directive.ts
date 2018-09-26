@@ -55,8 +55,6 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
         });
 
         this._selected = this._selectionService.isSelected(this.uxSelectionItem);
-        console.log(`isSelected = ${this._selected}`);
-
 
         this.selectedChange.emit(this._selected);
 
