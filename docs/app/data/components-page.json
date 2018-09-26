@@ -1948,6 +1948,46 @@
                     "deprecated": true
                 },
                 {
+                    "title": "Tree View",
+                    "component": "ComponentsTreeViewComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://angular2-tree.readme.io/docs",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "tree-root"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TreeModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "angular-tree-component"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tree View - Custom Nodes",
+                    "component": "ComponentsTreeViewCustomNodeComponent",
+                    "externalUrl": "https://angular2-tree.readme.io/docs",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "tree-root"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TreeModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "angular-tree-component"
+                        }
+                    ]
+                },
+                {
                     "title": "Tree Grid",
                     "component": "ComponentsTreeGridComponent",
                     "version": "Angular",

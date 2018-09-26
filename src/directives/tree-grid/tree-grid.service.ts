@@ -47,9 +47,9 @@ export class TreeGridService implements OnDestroy {
     /** A function to flatten tree data */
     private getFlattenedTree(data: TreeGridItem[], parent?: TreeGridItem): TreeGridItem[] {
         // flatten the nodes at this level
-        return data.reduce((previous, item) => {
+        return data.reduce((previous, item, index) => {
 
-            item.state = new TreeGridState(parent ? parent.state.level + 1 : 0);
+            item.state = new TreeGridState(parent ? parent.state.level + 1 : 0, data.length, index + 1);
 
             // Convert any child nodes
             const children = (item.children && item.expanded) ? this.getFlattenedTree(item.children, item) : [];
