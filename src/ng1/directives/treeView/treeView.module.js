@@ -1,7 +1,7 @@
-import TreeViewDirective from './treeView.directive.js';
-import TreeViewController from './treeView.controller.js';
+import '../../external/angular-ui-tree/angular-ui-tree';
+import TreeViewController from './treeView.controller';
+import TreeViewDirective from './treeView.directive';
 
-import '../../external/angular-ui-tree/angular-ui-tree.js';
 
 // load template into ng-template cache
 require('./treeView.partial.html');
