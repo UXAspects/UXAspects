@@ -12,7 +12,9 @@ export class SelectionService implements OnDestroy {
 
   set dataset(dataset: ReadonlyArray<any>) {
     this._dataset = dataset;
-    this.setFirstItemFocusable();
+    if (this._dataset.indexOf(this._active) === -1) {
+      this.setFirstItemFocusable();
+    }
   }
 
   get dataset(): ReadonlyArray<any> {
@@ -61,6 +63,17 @@ export class SelectionService implements OnDestroy {
 
     // propagate the changes
     this.selectionHasMutated();
+  }
+
+  /**
+   * Remove all items from the list of selected items
+   */
+  deselectAll(): void {
+    // remove all items in the array
+    this.deselect(...this._dataset);
+
+    // clear the set in case any items have been removed from the DOM but are still selected
+    this._selection.clear();
   }
 
   /**
