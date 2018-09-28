@@ -26,6 +26,10 @@ export declare class SelectionService implements OnDestroy {
      */
     deselect(...selections: any[]): void;
     /**
+     * Remove all items from the list of selected items
+     */
+    deselectAll(): void;
+    /**
      * Toggle the selected state of any specified items
      */
     toggle(...selections: any[]): void;

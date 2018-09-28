@@ -27,6 +27,10 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     tagClass: TagClassFunction;
     validationErrors: any;
     createTagHandler: (value: string) => any;
+    /**
+     * @deprecated
+     * Workaround for EL-3224 - No longer needed
+     */
     trackAriaDescendant: boolean;
     tagAdding: EventEmitter<TagInputEvent>;
     tagAdded: EventEmitter<TagInputEvent>;
@@ -47,22 +51,27 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     private _tags;
     private _onChangeHandler;
     private _onTouchedHandler;
-    private _typeaheadSubscription;
+    private _subscription;
+    private _onDestroy;
     constructor(_element: ElementRef, _document: any, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
     writeValue(value: any[]): void;
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
-    ngOnDestroy(): void;
+    /**
+     * Set focus on the input field.
+     */
+    focus(): void;
     /**
      * Validate the value of the control (tags property).
      */
     validate(): void;
     keyHandler(event: KeyboardEvent): void;
-    focusOutHandler(event: FocusEvent): void;
+    focusOutHandler(): void;
     tagClickHandler(event: MouseEvent, tag: any, index: number): void;
     inputClickHandler(): void;
     inputFocusHandler(): void;
@@ -86,9 +95,9 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     backspace(): void;
     /**
      * Move the highlighted option forwards or backwards in the list. Wraps at the limits.
-     * @param d Value to be added to the selected index, i.e. -1 to move backwards, +1 to move forwards.
+     * @param delta Value to be added to the selected index, i.e. -1 to move backwards, +1 to move forwards.
      */
-    moveSelection(d: number): void;
+    moveSelection(delta: number): void;
     /**
      * Returns a value to display for the given tag. Uses display function/property name if set, otherwise assumes that the tag is a simple string.
      */

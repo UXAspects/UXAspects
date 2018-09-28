@@ -24,7 +24,6 @@ export declare class PageHeaderService implements OnDestroy {
     private setParent(item, parent?);
     private isParentOf(node, parent);
     private updateItemsWithActiveRoute();
-    private findActiveItem(items);
-    private isRouterLinkActive(item);
+    private findActiveItem(item, activeItem);
 }
 export declare type PageHeaderNavigation = PageHeaderNavigationItem | PageHeaderNavigationDropdownItem;

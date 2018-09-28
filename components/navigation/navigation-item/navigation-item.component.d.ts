@@ -1,15 +1,14 @@
 import { AfterContentInit, AfterViewInit, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 export declare class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     private _elementRef;
     private _renderer;
     private _parent;
     private _router;
-    private _activatedRoute;
     header: string;
     icon: string;
-    link: string;
     expanded: boolean;
+    link: string;
     readonly active: boolean;
     level: number;
     indentWithoutArrow: boolean;
@@ -17,7 +16,7 @@ export declare class NavigationItemComponent implements AfterViewInit, AfterCont
     private _childrenChanges;
     private _children;
     readonly children: NavigationItemComponent[];
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _parent: NavigationItemComponent, _router: Router, _activatedRoute: ActivatedRoute);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _parent: NavigationItemComponent, _router: Router);
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

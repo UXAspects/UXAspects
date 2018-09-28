@@ -12,6 +12,8 @@ export declare class TabbableListDirective implements AfterContentInit, OnDestro
     focusOnShow: boolean;
     /** Indicate whether or not focus should be returned to the previous element (only applicable when using focusOnShow) */
     returnFocus: boolean;
+    /** Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property. */
+    hierarchy: boolean;
     /** Prevent keyboard interaction when alt modifier key is pressed */
     allowAltModifier: boolean;
     /** Prevent keyboard interaction when ctrl modifier key is pressed */
@@ -19,6 +21,7 @@ export declare class TabbableListDirective implements AfterContentInit, OnDestro
     /** Find all tabbable list items */
     items: QueryList<TabbableListItemDirective>;
     private _focusedElement;
+    private _orderedItems;
     readonly focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
     constructor(_tabbableList: TabbableListService);
     ngAfterContentInit(): void;

@@ -1,15 +1,13 @@
 import { OnDestroy } from '@angular/core';
 import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
-import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
 import { SearchBuilderService } from '../search-builder.service';
 export declare class BaseSearchComponent implements OnDestroy {
     private _searchBuilderService;
-    private _searchBuilderGroupService;
+    readonly id: string;
     type: string;
     config: any;
     context: SearchBuilderComponentContext;
-    private _id;
-    private _valid;
+    focus: boolean;
     /**
      * Get the current value of the component
      */
@@ -18,7 +16,9 @@ export declare class BaseSearchComponent implements OnDestroy {
      */
     value: any;
     valid: boolean;
-    constructor(_searchBuilderService: SearchBuilderService, _searchBuilderGroupService: SearchBuilderGroupService);
+    private _id;
+    private _valid;
+    constructor(_searchBuilderService: SearchBuilderService);
     /**
      * Make sure we clean up after ourselves
      */

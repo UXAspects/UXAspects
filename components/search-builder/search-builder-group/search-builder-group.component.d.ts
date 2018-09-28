@@ -1,10 +1,10 @@
-import { OnInit, EventEmitter, TemplateRef } from '@angular/core';
-import { SearchBuilderGroupService } from './search-builder-group.service';
-import { SearchBuilderService } from '../search-builder.service';
+import { EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
-export declare class SearchBuilderGroupComponent implements OnInit {
+import { SearchBuilderFocusService } from '../search-builder-focus.service';
+import { SearchBuilderGroupService } from './search-builder-group.service';
+export declare class SearchBuilderGroupComponent implements OnInit, OnDestroy {
     searchBuilderGroupService: SearchBuilderGroupService;
-    private _searchBuilderService;
+    private _searchBuilderFocusService;
     id: string;
     header: string;
     operator: SearchBuilderGroupOperator;
@@ -13,8 +13,14 @@ export declare class SearchBuilderGroupComponent implements OnInit {
     showPlaceholder: boolean;
     add: EventEmitter<MouseEvent>;
     remove: EventEmitter<SearchBuilderGroupQuery>;
-    constructor(searchBuilderGroupService: SearchBuilderGroupService, _searchBuilderService: SearchBuilderService);
+    focusIndex: number;
+    private _onDestroy;
+    constructor(searchBuilderGroupService: SearchBuilderGroupService, _searchBuilderFocusService: SearchBuilderFocusService);
     ngOnInit(): void;
-    removeField(field: SearchBuilderGroupQuery): void;
+    ngOnDestroy(): void;
+    addField(event: MouseEvent): void;
+    removeFieldAtIndex(index: number, field: SearchBuilderGroupQuery): void;
+    setFocus(index: number): void;
+    clearFocus(): void;
 }
 export declare type SearchBuilderGroupOperator = 'and' | 'or' | 'not';

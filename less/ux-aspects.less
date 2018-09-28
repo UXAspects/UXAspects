@@ -10330,24 +10330,27 @@ table {
     }
 }
 
-//shift/ctrl select item
-//disable hover actions
-.table > tbody > tr.shift-select-selected-bg {
-    background-color: @shift-select-selected-light;
-
-    & > td.item-actions .list-hover-actions {
+// Shift/ctrl select item
+.table {
+    tr.shift-select-selected-bg,
+    tr.ux-selection-selected {
         background-color: @shift-select-selected-light;
-        box-shadow: none;
-    }
-
-    &:hover,
-    &:focus,
-    &.child-focus {
-        background-color: @shift-select-selected-hover-light;
 
         & > td.item-actions .list-hover-actions {
-            background-color: @shift-select-selected-hover-light;
+            background-color: @shift-select-selected-light;
             box-shadow: none;
+        }
+
+        &:hover,
+        &:focus,
+        &.child-focus,
+        &.ux-selection-focused {
+            background-color: @shift-select-selected-hover-light;
+
+            & > td.item-actions .list-hover-actions {
+                background-color: @shift-select-selected-hover-light;
+                box-shadow: none;
+            }
         }
     }
 }
@@ -19654,6 +19657,17 @@ p.no-margin {
         border-radius: 0 20px 20px 0;
     }
 }
+
+/*
+ * Angular Splitter
+ */
+split {
+    split-gutter {
+        &:focus {
+            .aspects-outline();
+        }
+    }
+}
 form {
     .form-group-validate {
         margin-bottom: 30px;
@@ -20529,83 +20543,154 @@ tags-input .tags .input:-ms-input-placeholder {
     }
 }
 .treegrid {
-    outline: none;
-
-    .treegrid-expand-header {
-        margin-left: 58px;
-
-        &.has-checkbox {
-            margin-left: 0;
-        }
+    &.table > thead > tr > th {
+        border-bottom: none;
     }
 
-    .treegrid-header-checkbox {
-        margin-left: 31px;
-    }
-
-    .treegrid-indent {
-        display: inline-block;
-
-        &.treegrid-level-0 {
-            width: 0;
-        }
-
-        &.treegrid-level-1 {
-            width: 25px;
-        }
-
-        &.treegrid-level-2 {
-            width: 50px;
-        }
-
-        &.treegrid-level-3 {
-            width: 75px;
-        }
-
-        &.treegrid-level-4 {
-            width: 100px;
-        }
-
-        &.treegrid-level-5 {
-            width: 125px;
+    th, td {
+        ux-checkbox .ux-checkbox {
+            margin-bottom: 0;
         }
     }
+}
 
-    .treegrid-expand {
-        display: inline-block;
-        min-width: 20px;
+.treegrid-expand-header {
+    margin-left: 58px;
+
+    &.has-checkbox {
+        margin-left: 0;
+    }
+}
+
+.treegrid-header-checkbox {
+    margin-left: 31px;
+}
+
+.treegrid-header {
+    th:first-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 40px;
+
+        .treegrid-header-text {
+            margin-left: 25px;
+        }
+    }
+}
+
+.treegrid-row {
+    &:focus {
+        background-color: @table-hover-bg;
+        .aspects-outline();
+    }
+
+    > td:first-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+// AngularJS row indent
+.treegrid-indent {
+    display: inline-block;
+
+    &.treegrid-level-0 {
+        width: 0;
+    }
+
+    &.treegrid-level-1 {
+        width: 25px;
+    }
+
+    &.treegrid-level-2 {
+        width: 50px;
+    }
+
+    &.treegrid-level-3 {
+        width: 75px;
+    }
+
+    &.treegrid-level-4 {
+        width: 100px;
+    }
+
+    &.treegrid-level-5 {
+        width: 125px;
+    }
+}
+
+// AngularJS expander
+.treegrid-expand {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 3px;
+
+    .treegrid-expand-toggle {
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+// Angular expander
+.treegrid-expander {
+    display: inline-block;
+    width: 28px;
+    margin-left: 2px;
+    margin-right: 3px;
+
+    button {
+        width: 100%;
+        margin: 0;
+        border: none;
+        background-color: transparent;
         text-align: center;
-        margin-left: 2px;
-        margin-right: 3px;
 
-        .treegrid-expand-toggle {
-            cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+
+        .treegrid-expander-icon {
             opacity: 0.5;
+            transition: transform linear 0.15s;
 
             &:hover {
                 opacity: 1;
             }
         }
     }
+}
 
-    .treegrid-checkbox {
-        margin-right: 5px;
+.treegrid-row-expanded {
+    .treegrid-expander-icon {
+        transform: rotate(90deg);
+    }
+}
 
-        .treegrid-multiple-select-checkbox {
+.treegrid-checkbox {
+    margin-right: 5px;
+
+    .treegrid-multiple-select-checkbox {
+        margin: 0;
+
+        .el-checkbox-content {
             margin: 0;
-
-            .el-checkbox-content {
-                margin: 0;
-            }
         }
     }
+}
 
-    .treegrid-icon {
-        display: inline-block;
-        min-width: 20px;
-        text-align: center;
-        margin-right: 5px;
-    }
+.treegrid-icon {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    margin-right: 5px;
 }
 
 .treegrid-loading {
@@ -24240,7 +24325,8 @@ ux-search-builder-group {
                 margin-right: 10px;
                 transition: background-color 300ms linear;
 
-                &:hover {
+                &:hover,
+                &.search-group-item-focus {
                     background-color: @search-builder-field-hover;
 
                     .search-group-item-remove {
@@ -24271,10 +24357,17 @@ ux-search-builder-group {
                     align-items: center;
                     flex: none;
                     margin: 9px;
-                    color: @search-builder-remove-color;
-                    cursor: pointer;
+                    border: none;
+                    padding: 0;
                     opacity: 0;
+                    color: @search-builder-remove-color;
+                    background-color: transparent;
+                    cursor: pointer;
                     transition: opacity 300ms linear;
+
+                    &:focus {
+                        .aspects-outline;
+                    }
                 }
             }
         }
@@ -24289,29 +24382,41 @@ ux-search-builder-group {
             align-self: flex-end;
             cursor: pointer;
             margin-bottom: 5px;
+            border: none;
+            padding: 0;
+            background-color: transparent;
 
-            .btn {
-                transition: background-color 300ms linear;
-                pointer-events: none;
-                background-color: @search-builder-add-bg;
-                border: none;
+            &:focus {
+                .aspects-outline;
+            }
+
+            .search-builder-group-add-field-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: none;
+                font-size: 0.875rem;
                 width: 30px;
                 height: 30px;
+                border: none;
+                border-radius: 50%;
+                color: @search-builder-add-icon-color;
+                background-color: @search-builder-add-bg;
+                transition: background-color 300ms linear;
             }
 
             .search-builder-group-add-field-label {
-                position: relative;
-                color: @search-builder-add-color;
                 font-size: 0.9375rem;
-                padding-left: 8px;
                 max-width: 120px;
+                padding-left: 8px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                color: @search-builder-add-color;
             }
 
             &:hover {
-                .btn {
+                .search-builder-group-add-field-icon {
                     background-color: @search-builder-add-hover-bg;
                 }
             }
@@ -24330,6 +24435,7 @@ ux-search-builder-group {
         }
     }
 }
+
 .search-builder-modal {
     width: 1100px;
     max-width: ~'calc(100% - 50px)';
@@ -24344,7 +24450,6 @@ ux-search-builder-group {
             height: 40px;
             box-shadow: none;
             background-color: #333;
-            outline: none;
             transform: translateX(-50%) translateY(-50%);
             z-index: 10021;
 
@@ -24378,11 +24483,16 @@ ux-search-builder-group {
     }
 
     .search-builder-footer {
+        display: flex;
+        justify-content: flex-end;
         width: 100%;
         height: 60px;
-        background-color: #f2f2f2;
-        text-align: right;
         padding: 15px;
+        background-color: @search-builder-modal-footer-bg;
+
+        .btn + .btn {
+            margin-left: 8px;
+        }
     }
 }
 ux-select-list-item {
@@ -25751,4 +25861,33 @@ ux-wizard {
 
 .table tr.ux-reorderable-moving td:last-of-type:after {
     border-right: 1px dashed @primary;
+}
+.ux-resizable-table {
+    table-layout: fixed;
+}
+
+.ux-resizable-table-column {
+    position: relative;
+
+    &:last-of-type {
+        .ux-resizable-table-column-handle {
+            display: none;
+        }
+    }
+}
+
+.ux-resizable-table-column-handle {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 100%;
+    cursor: ew-resize;
+
+    &:hover,
+    &.ux-drag-dragging {
+        background-color: @table-hover-bg;
+    }
 }

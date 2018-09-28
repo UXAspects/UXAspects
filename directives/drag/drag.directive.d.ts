@@ -1,21 +1,35 @@
 import { ElementRef, EventEmitter, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { DragService } from './drag.service';
 export declare class DragDirective implements OnDestroy {
     private _elementRef;
     private _ngZone;
     private _renderer;
+    private _drag;
     /** Detemine if we should show a clone when dragging */
     clone: boolean;
+    /** Define the group the drag event belongs to */
+    group: string;
+    /** Associate some data with the drag event */
+    model: any;
     /** Allow the dragging to be enabled/disabled */
     draggable: boolean;
     /** Emit an event when dragging starts */
-    dragstart: EventEmitter<MouseEvent>;
+    onDragStart: EventEmitter<MouseEvent>;
     /** Emit an event when the mouse moves while dragging */
-    drag: EventEmitter<MouseEvent>;
+    onDrag: EventEmitter<MouseEvent>;
     /** Emit an event when the dragging finishes */
-    dragend: EventEmitter<void>;
+    onDragEnd: EventEmitter<void>;
+    /** Emit when the user drops an item in a drop area */
+    onDrop: EventEmitter<any>;
+    /** Emit when the user drags over a drop area */
+    onDropEnter: EventEmitter<void>;
+    /** Emit when the user drags out of a drop area */
+    onDropLeave: EventEmitter<void>;
     /** Store the element we have cloned */
     private _clone;
+    /** Store the dragging state */
+    private _isDragging;
     /** Store the mouse offset for the cloned element position */
     private _offset;
     /** Create an observable from the mouse down event */
@@ -26,7 +40,7 @@ export declare class DragDirective implements OnDestroy {
     private _mouseup$;
     /** Use an observable to unsubscribe from all subscriptions */
     protected _onDestroy: Subject<void>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _renderer: Renderer2);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, _renderer: Renderer2, _drag: DragService);
     /** Emit events and create clone when drag starts */
     dragStart(event: MouseEvent): void;
     /** Emit event and update clone position when dragging moves */

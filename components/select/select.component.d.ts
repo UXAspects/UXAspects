@@ -2,6 +2,7 @@ import { ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, 
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 export declare const SELECT_VALUE_ACCESSOR: StaticProvider;
 export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
@@ -29,6 +30,7 @@ export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, Co
     inputChange: EventEmitter<string>;
     dropdownOpenChange: EventEmitter<boolean>;
     singleInput: ElementRef;
+    tagInput: TagInputComponent;
     multipleTypeahead: TypeaheadComponent;
     singleTypeahead: TypeaheadComponent;
     highlightedElement: HTMLElement;
@@ -42,6 +44,7 @@ export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, Co
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
+    onfocus(): void;
     writeValue(obj: any): void;
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
