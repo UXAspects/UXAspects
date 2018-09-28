@@ -1,10 +1,9 @@
 <div class="demo-color-picker-container">
     <div class="btn-group"
-        (keydown.esc)="isPickerOpen = false"
+        (keydown.esc)="isPickerOpen = false; toggleButton.focus()"
         dropdown
         [(isOpen)]="isPickerOpen"
-        [autoClose]="false"
-        (onHidden)="toggleButton.focus()">
+        [autoClose]="false">
 
         <button type="button"
             aria-label="Select a color"
