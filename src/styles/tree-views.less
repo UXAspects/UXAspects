@@ -1,3 +1,15 @@
+.treegrid {
+    &.table > thead > tr > th {
+        border-bottom: none;
+    }
+
+    th, td {
+        ux-checkbox .ux-checkbox {
+            margin-bottom: 0;
+        }
+    }
+}
+
 .treegrid-expand-header {
     margin-left: 58px;
 
@@ -11,7 +23,10 @@
 }
 
 .treegrid-header {
-    th:first-of-type {
+    th:first-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         padding-left: 40px;
 
         .treegrid-header-text {
@@ -24,6 +39,12 @@
     &:focus {
         background-color: @table-hover-bg;
         .aspects-outline();
+    }
+
+    > td:first-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
 }
 
