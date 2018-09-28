@@ -30,6 +30,26 @@ UX ASPECTS OPEN SOURCE LICENSES
  * Released under the MIT license.
  * http://jquery.org/license
 -----------------------------------------------------------------------------------
+/* Javascript plotting library for jQuery, version 0.8.3.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+-----------------------------------------------------------------------------------
+Flot plugin for rendering pie charts.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+
+The plugin assumes that each series has a single data value, and that each
+value is a positive integer or zero.  Negative numbers don't make sense for a
+pie chart, and have unpredictable results.  The values do NOT need to be
+passed in as percentages; the plugin will calculate the total and per-slice
+percentages internally.
+
+* Created by Brian Medendorp
+
+* Updated with contributions from btburnett3, Anthony Aragues and Xavi Ivars
+-----------------------------------------------------------------------------------
 /* Flot plugin for automatically redrawing plots as the placeholder resizes.
 
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
@@ -52,25 +72,11 @@ can just fix the size of their placeholders.
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
 -----------------------------------------------------------------------------------
-/* Javascript plotting library for jQuery, version 0.8.3.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
------------------------------------------------------------------------------------
-Flot plugin for rendering pie charts.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
-
-The plugin assumes that each series has a single data value, and that each
-value is a positive integer or zero.  Negative numbers don't make sense for a
-pie chart, and have unpredictable results.  The values do NOT need to be
-passed in as percentages; the plugin will calculate the total and per-slice
-percentages internally.
-
-* Created by Brian Medendorp
-
-* Updated with contributions from btburnett3, Anthony Aragues and Xavi Ivars
+* Flot plugin that provides spline interpolation for line graphs
+ * author: Alex Bardas < alex.bardas@gmail.com >
+ * modified by: Avi Kohn https://github.com/AMKohn
+ * based on the spline interpolation described at:
+ *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
 -----------------------------------------------------------------------------------
 Copyright (c) 2010-2015, Michael Bostock
 All rights reserved.
@@ -99,16 +105,15 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------------
-* Flot plugin that provides spline interpolation for line graphs
- * author: Alex Bardas < alex.bardas@gmail.com >
- * modified by: Avi Kohn https://github.com/AMKohn
- * based on the spline interpolation described at:
- *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
------------------------------------------------------------------------------------
 Flot plugin for stacking data sets rather than overlyaing them.
 
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
 Licensed under the MIT license.
+-----------------------------------------------------------------------------------
+Flot plugin that adds some extra symbols for plotting points.
+
+ Copyright (c) 2007-2014 IOLA and Ole Laursen.
+ Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 Pretty handling of time axes.
 
@@ -117,11 +122,6 @@ Licensed under the MIT license.
 
 Set axis.mode to "time" to enable. See the section "Time series data" in
 API.txt for details.
------------------------------------------------------------------------------------
-Flot plugin that adds some extra symbols for plotting points.
-
- Copyright (c) 2007-2014 IOLA and Ole Laursen.
- Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 * jquery.flot.tooltip
  *
@@ -147,10 +147,6 @@ Flot plugin that adds some extra symbols for plotting points.
 * Original homepage: http://sites.google.com/site/petrsstuff/projects/flotvallab
 * Released under the MIT license by Petr Blahos, December 2009.
 -----------------------------------------------------------------------------------
-* Jasny Bootstrap v3.1.1 (http://jasny.github.io/bootstrap)
- * Copyright 2012-2014 Arnold Daniels
- * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
------------------------------------------------------------------------------------
 *	jQuery dotdotdot 1.7.4
  *
  *	Copyright (c) Fred Heusschen
@@ -161,6 +157,10 @@ Flot plugin that adds some extra symbols for plotting points.
  *
  *	Licensed under the MIT license.
  *	http://en.wikipedia.org/wiki/MIT_License
+-----------------------------------------------------------------------------------
+* Jasny Bootstrap v3.1.1 (http://jasny.github.io/bootstrap)
+ * Copyright 2012-2014 Arnold Daniels
+ * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
 -----------------------------------------------------------------------------------
 * metismenu - v1.0.3
  * Easy menu jQuery plugin for Twitter Bootstrap 3
@@ -253,6 +253,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -----------------------------------------------------------------------------------
+* The MIT License (MIT)
+ 
+ * Copyright (c) 2014 Brian Hines
+ 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+-----------------------------------------------------------------------------------
 angular-file-upload v1.1.5
  https://github.com/nervgh/angular-file-upload
 
@@ -280,49 +302,6 @@ angular-file-upload v1.1.5
 -----------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014 Alec LaLonde and contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
------------------------------------------------------------------------------------
-* The MIT License (MIT)
- 
- * Copyright (c) 2014 Brian Hines
- 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
------------------------------------------------------------------------------------
-The MIT License (MIT)
-
 Copyright (c) 2014 Geoffrey Bauduin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -342,6 +321,27 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+-----------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014 Alec LaLonde and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
 Copyright 2015 Robert Pocklington
 http://github.com/rpocklin/angular-timeline
@@ -365,14 +365,14 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
+* @license Angular UI Tree v2.9.0
+ * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree
+ * License: MIT
+-----------------------------------------------------------------------------------
 * State-based routing for AngularJS
  * @version v0.2.13
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
------------------------------------------------------------------------------------
-* @license Angular UI Tree v2.9.0
- * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree
- * License: MIT
 -----------------------------------------------------------------------------------
 * ngTagsInput v3.2.0
  * http://mbenford.github.io/ngTagsInput

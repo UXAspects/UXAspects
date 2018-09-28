@@ -5670,21 +5670,33 @@ table.dataTable {
   visibility: hidden;
   opacity: 0;
 }
-.table > tbody > tr.shift-select-selected-bg {
+.table tr.shift-select-selected-bg,
+.table tr.ux-selection-selected {
   background-color: #e7f1f9;
 }
-.table > tbody > tr.shift-select-selected-bg > td.item-actions .list-hover-actions {
+.table tr.shift-select-selected-bg > td.item-actions .list-hover-actions,
+.table tr.ux-selection-selected > td.item-actions .list-hover-actions {
   background-color: #e7f1f9;
   box-shadow: none;
 }
-.table > tbody > tr.shift-select-selected-bg:hover,
-.table > tbody > tr.shift-select-selected-bg:focus,
-.table > tbody > tr.shift-select-selected-bg.child-focus {
+.table tr.shift-select-selected-bg:hover,
+.table tr.ux-selection-selected:hover,
+.table tr.shift-select-selected-bg:focus,
+.table tr.ux-selection-selected:focus,
+.table tr.shift-select-selected-bg.child-focus,
+.table tr.ux-selection-selected.child-focus,
+.table tr.shift-select-selected-bg.ux-selection-focused,
+.table tr.ux-selection-selected.ux-selection-focused {
   background-color: #daeaf5;
 }
-.table > tbody > tr.shift-select-selected-bg:hover > td.item-actions .list-hover-actions,
-.table > tbody > tr.shift-select-selected-bg:focus > td.item-actions .list-hover-actions,
-.table > tbody > tr.shift-select-selected-bg.child-focus > td.item-actions .list-hover-actions {
+.table tr.shift-select-selected-bg:hover > td.item-actions .list-hover-actions,
+.table tr.ux-selection-selected:hover > td.item-actions .list-hover-actions,
+.table tr.shift-select-selected-bg:focus > td.item-actions .list-hover-actions,
+.table tr.ux-selection-selected:focus > td.item-actions .list-hover-actions,
+.table tr.shift-select-selected-bg.child-focus > td.item-actions .list-hover-actions,
+.table tr.ux-selection-selected.child-focus > td.item-actions .list-hover-actions,
+.table tr.shift-select-selected-bg.ux-selection-focused > td.item-actions .list-hover-actions,
+.table tr.ux-selection-selected.ux-selection-focused > td.item-actions .list-hover-actions {
   background-color: #daeaf5;
   box-shadow: none;
 }
@@ -13355,6 +13367,15 @@ p.no-margin {
   left: 0;
   border-radius: 0 20px 20px 0;
 }
+/*
+ * Angular Splitter
+ */
+split split-gutter:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 form .form-group-validate {
   margin-bottom: 30px;
 }
@@ -14254,63 +14275,114 @@ tags-input .tags .input:-ms-input-placeholder {
   background-color: #7b63a3;
   opacity: 0.5;
 }
-.treegrid {
-  outline: none;
+.treegrid.table > thead > tr > th {
+  border-bottom: none;
 }
-.treegrid .treegrid-expand-header {
+.treegrid th ux-checkbox .ux-checkbox,
+.treegrid td ux-checkbox .ux-checkbox {
+  margin-bottom: 0;
+}
+.treegrid-expand-header {
   margin-left: 58px;
 }
-.treegrid .treegrid-expand-header.has-checkbox {
+.treegrid-expand-header.has-checkbox {
   margin-left: 0;
 }
-.treegrid .treegrid-header-checkbox {
+.treegrid-header-checkbox {
   margin-left: 31px;
 }
-.treegrid .treegrid-indent {
+.treegrid-header th:first-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 40px;
+}
+.treegrid-header th:first-child .treegrid-header-text {
+  margin-left: 25px;
+}
+.treegrid-row:focus {
+  background-color: #f5f5f5;
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.treegrid-row > td:first-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.treegrid-indent {
   display: inline-block;
 }
-.treegrid .treegrid-indent.treegrid-level-0 {
+.treegrid-indent.treegrid-level-0 {
   width: 0;
 }
-.treegrid .treegrid-indent.treegrid-level-1 {
+.treegrid-indent.treegrid-level-1 {
   width: 25px;
 }
-.treegrid .treegrid-indent.treegrid-level-2 {
+.treegrid-indent.treegrid-level-2 {
   width: 50px;
 }
-.treegrid .treegrid-indent.treegrid-level-3 {
+.treegrid-indent.treegrid-level-3 {
   width: 75px;
 }
-.treegrid .treegrid-indent.treegrid-level-4 {
+.treegrid-indent.treegrid-level-4 {
   width: 100px;
 }
-.treegrid .treegrid-indent.treegrid-level-5 {
+.treegrid-indent.treegrid-level-5 {
   width: 125px;
 }
-.treegrid .treegrid-expand {
+.treegrid-expand {
   display: inline-block;
   min-width: 20px;
   text-align: center;
   margin-left: 2px;
   margin-right: 3px;
 }
-.treegrid .treegrid-expand .treegrid-expand-toggle {
+.treegrid-expand .treegrid-expand-toggle {
   cursor: pointer;
   opacity: 0.5;
 }
-.treegrid .treegrid-expand .treegrid-expand-toggle:hover {
+.treegrid-expand .treegrid-expand-toggle:hover {
   opacity: 1;
 }
-.treegrid .treegrid-checkbox {
+.treegrid-expander {
+  display: inline-block;
+  width: 28px;
+  margin-left: 2px;
+  margin-right: 3px;
+}
+.treegrid-expander button {
+  width: 100%;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+}
+.treegrid-expander button:focus {
+  outline: none;
+}
+.treegrid-expander button .treegrid-expander-icon {
+  opacity: 0.5;
+  transition: transform linear 0.15s;
+}
+.treegrid-expander button .treegrid-expander-icon:hover {
+  opacity: 1;
+}
+.treegrid-row-expanded .treegrid-expander-icon {
+  transform: rotate(90deg);
+}
+.treegrid-checkbox {
   margin-right: 5px;
 }
-.treegrid .treegrid-checkbox .treegrid-multiple-select-checkbox {
+.treegrid-checkbox .treegrid-multiple-select-checkbox {
   margin: 0;
 }
-.treegrid .treegrid-checkbox .treegrid-multiple-select-checkbox .el-checkbox-content {
+.treegrid-checkbox .treegrid-multiple-select-checkbox .el-checkbox-content {
   margin: 0;
 }
-.treegrid .treegrid-icon {
+.treegrid-icon {
   display: inline-block;
   min-width: 20px;
   text-align: center;
