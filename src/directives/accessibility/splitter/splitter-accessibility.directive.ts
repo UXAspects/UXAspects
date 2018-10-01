@@ -25,7 +25,7 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     private _onDestroy = new Subject<void>();
 
     constructor(
-        private _elementRef: ElementRef<HTMLElement>,
+        private _elementRef: ElementRef,
         private _renderer: Renderer2,
         @Inject(PLATFORM_ID) private _platform: string,
         private _splitter: SplitComponent

@@ -1,0 +1,89 @@
+<ul class="list-group" uxTabbableList>
+    <li class="list-group-item" uxTabbableListItem *ngFor="let post of posts">
+        <h4 class="list-group-item-heading">{{ post.title }}</h4>
+        <p class="list-group-item-subheading">{{ post.date | date }}</p>
+        <p class="list-group-item-text">{{ post.content }}</p>
+    </li>
+</ul>
+
+<hr>
+
+<p>
+    The <code>uxTabbableList</code> directive can be used to easily make a list of items keyboard accessible.
+    It will automatically make only on item focusable at any given time and provide arrow key functionality to
+    shift focus between items.
+</p>
+
+<p>
+    It supports lists of items presented both horizontally and vertically and can wrap focus, so whenever the user
+    reaches the end of a the list, pressing the down arrow would return focus to the first item in the list.
+</p>
+
+<p>
+    Hierarchical lists are also possible, for example a menu that has options that can be expanded to reveal child elements.
+</p>
+
+<h4>uxTabbableList</h4>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="direction" type="'horizontal' | 'vertical'" defaultValue="vertical">
+        Indicate if the list is displayed horizontally or vertically.
+    </tr>
+    <tr uxd-api-property name="wrap" type="boolean" defaultValue="true">
+        Indicate whether or not focus should loop back to the first element after the last.
+    </tr>
+    <tr uxd-api-property name="focusOnShow" type="boolean" defaultValue="false">
+        Indicate whether or not the first item should receive focus on show.
+        This is useful when displaying the list in a modal or popover.
+    </tr>
+    <tr uxd-api-property name="returnFocus" type="boolean" defaultValue="false">
+        Indicate whether or not focus should be returned to the previous element when the list is destroyed (only applicable when using focusOnShow).
+    </tr>
+    <tr uxd-api-property name="hierarchy" type="boolean" defaultValue="false">
+        Enabling handling of hierarchical lists via use of the <code>TabbableListItemDirective.parent</code> property.
+    </tr>
+    <tr uxd-api-property name="allowAltModifier" type="boolean" defaultValue="true">
+        Prevent keyboard interaction when alt modifier key is pressed.
+    </tr>
+    <tr uxd-api-property name="allowCtrlModifier" type="boolean" defaultValue="true">
+        Prevent keyboard interaction when ctrl modifier key is pressed.
+    </tr>
+</uxd-api-properties>
+
+<h4>uxTabbableListItem</h4>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="parent" type="TabbableListItemDirective">
+        Indicate the parent tabbable list item if one is present.
+    </tr>
+    <tr uxd-api-property name="rank" type="number" defaultValue="0">
+        Indicate level of indentation if used in a hierarchy.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        Indicate if expansion is disabled if used as a hierarchichal item.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean" defaultValue="false">
+        Indicate if the item is expanded if used as a hierarchichal item.
+    </tr>
+</uxd-api-properties>
+
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="expandedChange" type="boolean">
+        Emit when the expanded state changes.
+    </tr>
+</uxd-api-properties>
+
+<p>The example above can created using the following code:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
