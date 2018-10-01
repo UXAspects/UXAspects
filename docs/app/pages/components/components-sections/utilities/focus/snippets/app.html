@@ -26,27 +26,3 @@
     <p *ngSwitchCase="true" class="focus-label text-primary">Element Focused</p>
     <p *ngSwitchCase="false" class="focus-label text-danger">No Element Focused</p>
 </ng-container>
-
-<hr>
-
-<p>
-    The <code>uxFocusWithin</code> and <code>uxBlurWithin</code> directives can be used to
-    identify when any child of an element gains or loses focus. This can be particularly useful
-    when it comes to making your components more accessible.
-</p>
-
-<p>
-    The following code can be used to create the example above:
-</p>
-
-<ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </ux-tab>
-</ux-tabset>
