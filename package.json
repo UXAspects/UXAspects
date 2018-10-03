@@ -15,14 +15,14 @@
     "prepack": "mv src/package.json src_package.json",
     "postpack": "mv src_package.json src/package.json",
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
-    "start:https": "webpack-dev-server --config configs/webpack.dev.config.js --https --pfx configs/webpack.docs.dev.pfx",
-    "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
-    "e2e": "concurrently \"npm run serve:e2e\" \"grunt protractor:e2e\" --kill-others --success first",
-    "build:library": "ng-packagr -p ./src/ng-package.json",
-    "build:documentation:prod": "node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.docs.prod.config.js",
-    "package:library": "grunt build:library",
-    "lint": "grunt lint",
-    "e2e:develop": "concurrently \"webpack --watch --progress --colors --config configs/webpack.e2e.config.js\" \"tsc -w --project .\\e2e\\tsconfig.json\" \"npm run serve:e2e\""
+    "start-https": "webpack-dev-server --config configs/webpack.dev.config.js --https --pfx configs/webpack.docs.dev.pfx",
+    "e2e": "concurrently \"npm run e2e-serve\" \"grunt protractor:e2e\" --kill-others --success first",
+    "e2e-serve": "lite-server -c=e2e/bs-config.e2e.json",
+    "e2e-develop": "concurrently \"webpack --watch --progress --colors --config configs/webpack.e2e.config.js\" \"tsc -w --project .\\e2e\\tsconfig.json\" \"npm run e2e-serve\"",
+    "documentation-build": "node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.docs.prod.config.js",
+    "library-build": "grunt build:library",
+    "library-components-build": "ng-packagr -p ./src/ng-package.json",
+    "lint": "grunt lint"
   },
   "dependencies": {
     "@angular/animations": "^6.0.9",

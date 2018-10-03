@@ -12,10 +12,10 @@ module.exports = {
         exec: 'npm run e2e',
     },
     build_library: {
-        exec: 'npm run build:library'
+        exec: 'npm run library-build'
     },
     build_documentation_production: {
-        exec: 'npm run build:documentation:prod'
+        exec: 'npm run documentation-build'
     },
     npm_pack: {
         options: {
