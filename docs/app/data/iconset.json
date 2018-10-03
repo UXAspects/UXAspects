@@ -577,6 +577,10 @@
             "classname": "hpe-halt"
         },
         {
+            "name": "help-circle",
+            "classname": "hpe-help-circle"
+        },
+        {
             "name": "help",
             "classname": "hpe-help"
         },
