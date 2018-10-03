@@ -1,0 +1,30 @@
+<div class="focus-container" (uxFocusWithin)="focus = true" (uxBlurWithin)="focus = false">
+
+    <div class="form-group">
+        <label class="form-label" for="full-name">Full Name</label>
+        <input type="text"
+                id="full-name"
+                placeholder="Enter full name"
+                class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="email-address">Email</label>
+        <input type="email"
+                id="email-address"
+                placeholder="Enter email"
+                class="form-control">
+    </div>
+
+    <div class="clearfix">
+        <button class="btn button-primary pull-right"
+                type="submit">Submit
+        </button>
+    </div>
+
+</div>
+
+<ng-container [ngSwitch]="focus">
+    <p *ngSwitchCase="true" class="focus-label text-primary">Element Focused</p>
+    <p *ngSwitchCase="false" class="focus-label text-danger">No Element Focused</p>
+</ng-container>

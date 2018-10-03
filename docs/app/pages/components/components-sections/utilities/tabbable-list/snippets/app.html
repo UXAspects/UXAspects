@@ -1,0 +1,9 @@
+<ul class="list-group" uxTabbableList>
+
+    <li class="list-group-item" uxTabbableListItem *ngFor="let post of posts">
+        <h4 class="list-group-item-heading">{{ post.title }}</h4>
+        <p class="list-group-item-subheading">{{ post.date | date }}</p>
+        <p class="list-group-item-text">{{ post.content }}</p>
+    </li>
+
+</ul>
