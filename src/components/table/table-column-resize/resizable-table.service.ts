@@ -1,174 +1,141 @@
-import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
+import { Injectable, QueryList } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 
 @Injectable()
-export class ResizableTableService implements OnDestroy {
+export class ResizableTableService {
 
-  /** determine whether or not we are currently sizing */
-  resizing: boolean = false;
+  /** Indicate when the columns are ready */
+  isInitialised = new BehaviorSubject<boolean>(false);
 
-  /** store the percentage widths of all the columns */
-  sizes = new ReplaySubject<Map<ResizableTableColumnComponent, number>>();
+  /** Determine if we are currently resizing */
+  isResizing: boolean = false;
 
-  /** store the table elements for use when calculating widths */
-  private _table: HTMLTableElement;
+  /** Store the percentage widths of each column */
+  columns: ReadonlyArray<number> = [];
 
-  /** store the column classes */
+  /** Store the current width of the table */
+  tableWidth: number = 0;
+
+  /** Store the QueryList of columns */
   private _columns: QueryList<ResizableTableColumnComponent>;
 
-  /** store the column sizes as an accessible object */
-  private _sizes = new Map<ResizableTableColumnComponent, number>();
-
-  /** An observable to unsubscribe others automatically */
-  private _onDestroy = new Subject<void>();
-
-  ngOnDestroy(): void {
-    this._onDestroy.next();
-    this._onDestroy.complete();
-  }
-
-  /** a setter to define the table element */
-  setTable(table: HTMLTableElement): void {
-    this._table = table;
-  }
-
-  /** a setter to define the query list of columns */
+  /** Store the size of each column */
   setColumns(columns: QueryList<ResizableTableColumnComponent>): void {
-    // store a reference to the columns
+
+    // store the current columns
     this._columns = columns;
 
-    // set up the initial colums sizes
-    this.setInitialWidths();
+    // store the sizes
+    this.columns = columns.map(column => (column.getNaturalWidth() / this.tableWidth) * 100);
 
-    // subscribe to future column changes
-    this._columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setInitialWidths());
+    // indicate we are now initialised
+    if (this.isInitialised.value === false) {
+      this.isInitialised.next(true);
+    }
   }
 
-  /** We want to convert all units sizes to pixels to prevent browser jitter */
-  startResizing(): void {
-    this.resizing = true;
-
-    // convert all current percentages into pixel values
-    this._sizes.forEach((value, key) => this._sizes.set(key, (this._table.offsetWidth / 100) * value));
-
-    // emit the latest values
-    this.sizes.next(this._sizes);
+  /** Update the resizing state */
+  setResizing(isResizing: boolean): void {
+    this.isResizing = isResizing;
   }
 
-  /** Restore values back to percentage values */
-  endResizing(): void {
-    this.resizing = false;
+  /** Get the width of a column in a specific unit */
+  getColumnWidth(index: number, unit: ColumnUnit, columns: ReadonlyArray<number> = this.columns): number {
 
-    // convert all values back to percentages
-    this._sizes.forEach((value, key) => this._sizes.set(key, (value / this._table.offsetWidth) * 100));
+    switch (unit) {
 
-    // emit the latest values
-    this.sizes.next(this._sizes);
+      case ColumnUnit.Percentage:
+        return columns[index];
+
+      case ColumnUnit.Pixel:
+        return (this.tableWidth / 100) * columns[index];
+    }
+
   }
 
-  /** apply a resize event to a column */
-  resizeColumn(column: ResizableTableColumnComponent, value: number): void {
+  /** Allow setting the column size in any unit */
+  setColumnWidth(index: number, value: number, unit: ColumnUnit, columns: ReadonlyArray<number> = this.columns): ReadonlyArray<number> {
+
+    // create a new array so we keep the instance array immutable
+    const sizes = [...columns];
+
+    switch (unit) {
+
+      case ColumnUnit.Percentage:
+        sizes[index] = value;
+        break;
+
+      case ColumnUnit.Pixel:
+        sizes[index] = (value / this.tableWidth) * 100;
+        break;
+    }
+
+    // update the instance variable
+    return sizes;
+  }
+
+  /** Resize a column by a specific pixel amount */
+  resizeColumn(index: number, delta: number): void {
 
     // get the sibling column that will also be resized
-    const sibling = this.getSiblingColumn(column);
+    const sibling = this.getSiblingColumn(index);
 
     // if there is no sibling that can be resized then stop here
     if (!sibling) {
       return;
     }
 
-    // create a new object for the sizes
-    const sizes = new Map(this._sizes);
+    // create a new array for the sizes
+    let columns = [...this.columns] as number[];
 
     // resize the column to the desired size
-    this.setColumnWidth(column, this.getColumnWidth(column) + Math.round(value), sizes);
-    this.setColumnWidth(sibling, this.getColumnWidth(sibling) - Math.round(value), sizes);
+    columns = this.setColumnWidth(index, this.getColumnWidth(index, ColumnUnit.Pixel) + Math.round(delta), ColumnUnit.Pixel, columns) as number[];
+    columns = this.setColumnWidth(sibling, this.getColumnWidth(sibling, ColumnUnit.Pixel) - Math.round(delta), ColumnUnit.Pixel, columns) as number[];
 
     // if the move is not possible then stop here
-    if (!this.isWidthValid(column, this.getColumnWidth(column, sizes)) || !this.isWidthValid(sibling, this.getColumnWidth(sibling, sizes))) {
+    if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit.Pixel, columns)) || !this.isWidthValid(sibling, this.getColumnWidth(sibling, ColumnUnit.Pixel, columns))) {
       return;
     }
 
-    // ensure that the column widths total exactly 100%
-    this.verifyColumnWidths(sibling, sizes);
-
     // store the new sizes
-    this._sizes = sizes;
-
-    // emit the latest size values
-    this.sizes.next(this._sizes);
-  }
-
-  /**
-   * Private Methods
-   */
-
-  /** initially convert the default pixel widths of each column to percentages */
-  private setInitialWidths(): void {
-    // get the table width so we don't have to keep accessing the dom
-    const width = this._table.offsetWidth;
-
-    // create a new object containing all column widths
-    this._sizes = new Map();
-
-    // calculate the percentage size of each column
-    this._columns.forEach(column =>
-      this.setColumnWidth(column, ((column.getColumnWidth() / width) * 100))
-    );
-
-    // emit the latest column sizes
-    this.sizes.next(this._sizes);
-  }
-
-  /** Get the percentage width of a specific column */
-  private getColumnWidth(column: ResizableTableColumnComponent, sizes: Map<ResizableTableColumnComponent, number> = this._sizes): number {
-    return sizes.get(column);
-  }
-
-  /** Set the percentage width for a specific column */
-  private setColumnWidth(column: ResizableTableColumnComponent, width: number, sizes: Map<ResizableTableColumnComponent, number> = this._sizes): void {
-    sizes.set(column, width);
+    this.columns = columns;
   }
 
   /** Determine whether a column is above or below its minimum width */
-  private isWidthValid(column: ResizableTableColumnComponent, width: number): boolean {
-    return width >= column.minWidth;
-  }
+  private isWidthValid(index: number, width: number): boolean {
 
-  /** Ensure that the total column widths is exactly 100% */
-  private verifyColumnWidths(adjustableColumn: ResizableTableColumnComponent, sizes: Map<ResizableTableColumnComponent, number> = this._sizes): void {
+    // get the column at a given position
+    const column = this.getColumnInstance(index);
 
-    // get the total widths of all columns combined
-    const width = Array.from(sizes.values()).reduce((total, column) => column + total, 0);
-
-    // if the width does not total 100% exactly then adjust the column width
-    if (width !== this._table.offsetWidth) {
-      this.setColumnWidth(adjustableColumn, this.getColumnWidth(adjustableColumn, sizes) + (this._table.offsetWidth - width), sizes);
-    }
-  }
-
-  /** Get a column at a given index */
-  private getColumnAtIndex(index: number): ResizableTableColumnComponent | undefined {
-    return this._columns.toArray()[index];
+    // determine if the specified width is greater than the min width
+    return column && width >= column.minWidth;
   }
 
   /** Get the next column in the sequence of columns */
-  private getSiblingColumn(column: ResizableTableColumnComponent): ResizableTableColumnComponent | null {
-    // get the index of this column
-    const index = this._columns.toArray().indexOf(column);
+  private getSiblingColumn(index: number): number | null {
 
     // find the first sibling that is not disabled
-    for (let idx = index + 1; idx < this._columns.length; idx++) {
-      const sibling = this.getColumnAtIndex(idx);
+    for (let idx = index + 1; idx < this.columns.length; idx++) {
 
-      if (!sibling.disabled) {
-        return sibling;
+      const sibling = this.getColumnInstance(idx);
+
+      if (!sibling || !sibling.disabled) {
+        return idx;
       }
     }
 
     return null;
   }
+
+  /** Get the column class from our query list */
+  private getColumnInstance(index: number): ResizableTableColumnComponent | null {
+    return this._columns ? this._columns.toArray()[index] : null;
+  }
+
+}
+
+export enum ColumnUnit {
+  Pixel,
+  Percentage
 }

@@ -1,6 +1,9 @@
-import { AfterViewInit, ContentChildren, Directive, ElementRef, QueryList } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, OnDestroy, QueryList } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { ResizableTableService } from './resizable-table.service';
+import { ResizeService } from '../../../directives/resize/index';
 
 @Directive({
   selector: '[uxResizableTable]',
@@ -9,14 +12,37 @@ import { ResizableTableService } from './resizable-table.service';
     class: 'ux-resizable-table'
   }
 })
-export class ResizableTableDirective implements AfterViewInit {
+export class ResizableTableDirective implements AfterViewInit, OnDestroy {
 
-  @ContentChildren(ResizableTableColumnComponent) columns: QueryList<ResizableTableColumnComponent>;
+  /** Get all the column headers */
+  @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
 
-  constructor(private _elementRef: ElementRef, private _table: ResizableTableService) { }
+  /** Unsubscribe from the observables */
+  private _onDestroy = new Subject<void>();
 
+  constructor(private _elementRef: ElementRef, private _table: ResizableTableService, resize: ResizeService) {
+    // watch for the table being resized
+    resize.addResizeListener(this._elementRef.nativeElement)
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(dimensions => _table.tableWidth = dimensions.width);
+  }
+
+  /** Once we have the columns make them resizable and watch for changes to columns */
   ngAfterViewInit(): void {
-    this._table.setTable(this._elementRef.nativeElement);
-    this._table.setColumns(this.columns);
+
+    // ensure we initially set the table width
+    this._table.tableWidth = this._elementRef.nativeElement.offsetWidth;
+
+    // set the columns - prevent expression changed error
+    requestAnimationFrame(() => this._table.setColumns(this.columns));
+
+    // watch for any future changes to the columns
+    this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this._table.setColumns(this.columns));
+  }
+
+  /** Cleanup after the component is destroyed */
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 }
