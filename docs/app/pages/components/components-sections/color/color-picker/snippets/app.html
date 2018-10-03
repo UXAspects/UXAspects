@@ -26,7 +26,7 @@
             <ux-color-picker
                 [colors]="colors"
                 [(selected)]="selected"
-                (selectedChange)="colorPickerSelectedChange()"
+                (selectedChange)="colorPickerSelectedChange(); toggleButton.focus()"
                 [columns]="columns"
                 [buttonStyle]="buttonStyle"
                 [buttonSize]="buttonSize"
