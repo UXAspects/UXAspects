@@ -11,11 +11,11 @@ module.exports = {
     e2e: {
         exec: 'npm run e2e',
     },
-    build_library: {
+    library_build: {
         exec: 'npm run library-build'
     },
-    build_documentation_production: {
-        exec: 'npm run documentation-build'
+    documentation_build: {
+        exec: 'node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.docs.prod.config.js'
     },
     npm_pack: {
         options: {
