@@ -24,14 +24,14 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
     // watch for the table being resized
     resize.addResizeListener(this._elementRef.nativeElement)
       .pipe(takeUntil(this._onDestroy))
-      .subscribe(dimensions => _table.tableWidth = dimensions.width);
+      .subscribe(dimensions => _table.tableWidth = this.getScrollWidth());
   }
 
   /** Once we have the columns make them resizable and watch for changes to columns */
   ngAfterViewInit(): void {
 
     // ensure we initially set the table width
-    this._table.tableWidth = this._elementRef.nativeElement.offsetWidth;
+    this._table.tableWidth = this.getScrollWidth();
 
     // set the columns - prevent expression changed error
     requestAnimationFrame(() => this._table.setColumns(this.columns));
@@ -44,5 +44,11 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this._onDestroy.next();
     this._onDestroy.complete();
+  }
+
+  /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
+  private getScrollWidth(): number {
+    return Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies)
+      .reduce((width, tbody) => Math.min(width, tbody.scrollWidth), (this._elementRef.nativeElement as HTMLTableElement).offsetWidth);
   }
 }

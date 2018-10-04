@@ -90,12 +90,20 @@ export class ResizableTableService {
     let columns = [...this.columns] as number[];
 
     // resize the column to the desired size
-    columns = this.setColumnWidth(index, this.getColumnWidth(index, ColumnUnit.Pixel) + Math.round(delta), ColumnUnit.Pixel, columns) as number[];
-    columns = this.setColumnWidth(sibling, this.getColumnWidth(sibling, ColumnUnit.Pixel) - Math.round(delta), ColumnUnit.Pixel, columns) as number[];
+    columns = this.setColumnWidth(index, Math.round(this.getColumnWidth(index, ColumnUnit.Pixel) + delta), ColumnUnit.Pixel, columns) as number[];
+    columns = this.setColumnWidth(sibling, Math.round(this.getColumnWidth(sibling, ColumnUnit.Pixel) - delta), ColumnUnit.Pixel, columns) as number[];
 
     // if the move is not possible then stop here
     if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit.Pixel, columns)) || !this.isWidthValid(sibling, this.getColumnWidth(sibling, ColumnUnit.Pixel, columns))) {
       return;
+    }
+
+    // check that we add up to exactly 100%
+    const total = columns.reduce((count, column) => column + count, 0);
+
+    // if the columns to not add to 100 ensure we make them
+    if (total !== 100) {
+      columns[index] += (100 - total);
     }
 
     // store the new sizes

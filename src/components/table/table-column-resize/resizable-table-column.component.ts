@@ -15,6 +15,11 @@ export class ResizableTableColumnComponent {
 
   /** The percentage width of the column */
   @HostBinding('style.width') get width(): string {
+
+    if (!this._table.isInitialised.value) {
+      return;
+    }
+
     return this._table.isResizing ?
       `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
       `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
@@ -81,6 +86,7 @@ export class ResizableTableColumnComponent {
     this._table.setResizing(false);
   }
 
+  /** Get the column index this cell is part of */
   private getCellIndex(): number {
     return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
   }

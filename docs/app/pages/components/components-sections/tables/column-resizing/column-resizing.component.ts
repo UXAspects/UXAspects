@@ -12,6 +12,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlunkProvider {
 
+    type: string = 'table';
     documents: TableDocument[] = [];
 
     plunk: IPlunk = {
@@ -22,8 +23,12 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['TableModule', 'CheckboxModule'],
+                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: [ 'ButtonsModule' ],
+                library: 'ngx-bootstrap/buttons'
             }
         ]
     };
@@ -32,7 +37,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // generate some dummy data
-        for (let idx = 0; idx < 5; idx++) {
+        for (let idx = 0; idx < 15; idx++) {
             this.documents.push({
                 selected: false,
                 title: `Document ${idx + 1}`,

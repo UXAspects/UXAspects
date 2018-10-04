@@ -11,5 +11,6 @@ td, th {
 }
 
 .checkbox-column {
-    width: 40px;
+    width: 50px;
+    max-width: 50px;
 }

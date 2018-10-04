@@ -8,11 +8,12 @@ import 'chance';
 })
 export class AppComponent {
 
+    type: string = 'table';
     documents: TableDocument[] = [];
 
     constructor() {
         // generate some dummy data
-        for (let idx = 0; idx < 5; idx++) {
+        for (let idx = 0; idx < 15; idx++) {
             this.documents.push({
                 selected: false,
                 title: `Document ${idx + 1}`,
