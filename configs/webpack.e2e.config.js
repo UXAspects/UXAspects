@@ -86,7 +86,7 @@ module.exports = {
 
         new AngularCompilerPlugin({
             mainPath: join(cwd(), 'e2e', 'pages', 'main.ts'),
-            tsConfigPath: join(cwd(), 'e2e', 'tsconfig-app.json'),
+            tsConfigPath: join(cwd(), 'e2e', 'tsconfig.app.json'),
             sourceMap: false,
             skipCodeGeneration: true
         }),
@@ -157,6 +157,7 @@ module.exports = {
     },
 
     devServer: {
+        port: 4000,
         historyApiFallback: true,
         stats: {
             colors: true,
