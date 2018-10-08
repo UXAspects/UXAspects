@@ -12,5 +12,8 @@ module.exports = {
     },
     shim: {
         src: [ path.join(process.cwd(), 'scripts', 'shim.js') ]
+    },
+    protractor: {
+        src: [ path.join(process.cwd(), 'scripts', 'protractor.js') ]
     }
 };
