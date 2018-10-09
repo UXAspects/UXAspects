@@ -8,14 +8,11 @@ module.exports = {
         cmd: 'certutil',
         args: ['-f', '-importpfx', certificateFile]
     },
-    e2e: {
-        exec: 'npm run e2e',
+    angular_components_build: {
+        exec: 'node ./node_modules/ng-packagr/cli/main.js -p ./src/ng-package.json'
     },
-    build_library: {
-        exec: 'npm run build:library'
-    },
-    build_documentation_production: {
-        exec: 'npm run build:documentation:prod'
+    documentation_build: {
+        exec: 'node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.docs.prod.config.js'
     },
     npm_pack: {
         options: {
