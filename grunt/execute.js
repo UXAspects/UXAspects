@@ -16,5 +16,8 @@ module.exports = {
     },
     protractor: {
         src: [ join(cwd(), 'scripts', 'protractor.js') ]
+    },
+    version: {
+        src: [ join(cwd(), 'scripts', 'version.js') ]
     }
 };
