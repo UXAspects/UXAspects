@@ -11,7 +11,6 @@ module.exports = function (grunt) {
         configPath: path.join(process.cwd(), 'grunt'),
         jitGrunt: {
             staticMappings: {
-                'webpack-dev-server': 'grunt-webpack',
                 'usebanner': 'grunt-banner',
                 'protractor': 'grunt-protractor-runner',
                 'makeReport': 'grunt-istanbul'
@@ -33,9 +32,8 @@ module.exports = function (grunt) {
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
     grunt.registerTask('package:library', ['run:npm_pack', 'copy:npm_tgz', 'clean:npm_tgz']);
     grunt.registerTask('package:library_bower', ['compress:bower']);
-    grunt.registerTask('package:docs', ['run:npm_pack_docs', 'copy:npm_docs_tgz', 'clean:npm_docs_tgz']);
+    grunt.registerTask('package:docs', ['compress:documentation', 'run:npm_pack_docs', 'copy:npm_docs_tgz', 'clean:npm_docs_tgz']);
 
-    grunt.registerTask('documentation:serve', ['library', 'iconset', 'styles', 'webpack-dev-server:documentation']);
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'run:documentation_build']);
 
     grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'execute:protractor', 'makeReport']);
@@ -46,6 +44,6 @@ module.exports = function (grunt) {
     grunt.registerTask('releasebuild', ['build']);
 
     // default task will run dev environment
-    grunt.registerTask('default', ['documentation:serve']);
+    grunt.registerTask('default', ['build']);
 
 };
