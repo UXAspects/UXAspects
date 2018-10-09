@@ -19,5 +19,19 @@ module.exports = {
                 dest: '/'
             }
         ]
+    },
+    documentation: {
+        options: {
+            archive: path.join(process.cwd(), 'target', 'docs', 'ux-aspects-docs-<%= package.version %>.tgz'),
+            mode: 'tgz'
+        },
+        files: [
+            {
+                cwd: path.join(process.cwd(), 'dist', 'docs'),
+                src: ['**'],
+                dest: '/',
+                expand: true
+            }
+        ]
     }
 };
