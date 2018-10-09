@@ -13,6 +13,7 @@ if (!version) {
 // update the versions in all locations
 setVersion(join(cwd(), 'bower.json'));
 setVersion(join(cwd(), 'package.json'));
+setVersion(join(cwd(), 'package-lock.json'));
 setVersion(join(cwd(), 'src', 'package.json'));
 
 // end the script
