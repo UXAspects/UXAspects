@@ -27,15 +27,8 @@ module.exports = {
         },
         files: [
             {
-                cwd: path.join(process.cwd()),
-                src: [
-                    'configs/**',
-                    'docs/**',
-                    'src/**',
-                    'LICENSE.md',
-                    'package.json',
-                    'README.md'
-                ],
+                cwd: path.join(process.cwd(), 'dist', 'docs'),
+                src: ['**'],
                 dest: '/',
                 expand: true
             }
