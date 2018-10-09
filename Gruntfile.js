@@ -32,14 +32,14 @@ module.exports = function (grunt) {
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
     grunt.registerTask('package:library', ['run:npm_pack', 'copy:npm_tgz', 'clean:npm_tgz']);
     grunt.registerTask('package:library_bower', ['compress:bower']);
-    grunt.registerTask('package:docs', ['compress:documentation', 'run:npm_pack_docs', 'copy:npm_docs_tgz', 'clean:npm_docs_tgz']);
+    grunt.registerTask('package:docs', ['run:npm_pack_docs', 'copy:npm_docs_tgz', 'clean:npm_docs_tgz']);
 
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'run:documentation_build']);
 
     grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'execute:protractor', 'makeReport']);
 
     // Tasks with larger chains of events
-    grunt.registerTask('build', ['clean', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs']);
+    grunt.registerTask('build', ['clean', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs', 'compress:documentation']);
     grunt.registerTask('build:library', ['clean', 'lint', 'library', 'scripts', 'iconset', 'styles', 'minify', 'assets:library', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs']);
     grunt.registerTask('releasebuild', ['build']);
 
