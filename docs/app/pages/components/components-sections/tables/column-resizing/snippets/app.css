@@ -10,7 +10,7 @@ td, th {
     word-break: break-all;
 }
 
-.checkbox-column {
+.fixed-column {
     width: 50px;
     max-width: 50px;
 }
