@@ -8,7 +8,7 @@
 
         <div *ngFor="let stp of steps; let index = index"
             role="tab"
-            uxFocusOrigin
+            cdkMonitorElementFocus
             uxTabbableListItem
             [disabled]="!stp.visited"
             class="wizard-step"
