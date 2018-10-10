@@ -21,7 +21,8 @@
     "build:library": "grunt build:library",
     "lint": "grunt lint",
     "test": "grunt test && grunt e2e",
-    "test:e2e": "grunt e2e"
+    "test:e2e": "grunt e2e",
+    "setversion": "grunt execute:version"
   },
   "dependencies": {
     "@angular/animations": "^6.0.9",
