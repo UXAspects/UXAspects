@@ -21,9 +21,8 @@ export class MarqueeWizardComponent extends WizardComponent {
     constructor(marqueeWizardService: MarqueeWizardService) {
         super();
 
-        marqueeWizardService.valid$.pipe(
-            filter((event: MarqueeWizardValidEvent) => !event.valid)
-        ).subscribe(this.validChange.bind(this));
+        marqueeWizardService.valid$.pipe(filter((event: MarqueeWizardValidEvent) => !event.valid))
+            .subscribe(this.validChange.bind(this));
     }
 
     /**
