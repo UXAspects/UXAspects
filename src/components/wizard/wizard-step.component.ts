@@ -1,11 +1,16 @@
 import { Component, Input, EventEmitter } from '@angular/core';
 
+let uniqueId: number = 0;
+
 @Component({
     selector: 'ux-wizard-step',
-    templateUrl: './wizard-step.component.html'
+    templateUrl: './wizard-step.component.html',
+    host: {
+        role: 'tabpanel'
+    }
 })
 export class WizardStepComponent {
-    
+
     @Input() header: string;
     @Input() valid: boolean = true;
     @Input() visitedChange = new EventEmitter<boolean>();
@@ -13,7 +18,7 @@ export class WizardStepComponent {
     private _active: boolean = false;
     private _visited: boolean = false;
 
-    @Input() 
+    @Input()
     get visited(): boolean {
         return this._visited;
     }
@@ -24,7 +29,7 @@ export class WizardStepComponent {
     }
 
     set active(value: boolean) {
-        
+
         // store the active state of the step
         this._active = value;
 
