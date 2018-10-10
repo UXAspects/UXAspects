@@ -1,19 +1,28 @@
 <div class="wizard-body">
 
     <div class="wizard-steps"
+        uxTabbableList
+        [direction]="orientation"
         role="tablist"
         [attr.aria-orientation]="orientation">
 
-        <div *ngFor="let step of steps; let index = index"
+        <div *ngFor="let stp of steps; let index = index"
             role="tab"
+            uxFocusOrigin
+            uxTabbableListItem
+            [disabled]="!stp.visited"
             class="wizard-step"
-            [class.active]="step.active"
-            [class.visited]="step.visited"
-            [class.invalid]="step.active && !step.valid && invalidIndicator"
+            [class.active]="stp.active"
+            [class.visited]="stp.visited"
+            [class.invalid]="stp.active && !step.valid && invalidIndicator"
             [attr.aria-posinset]="index + 1"
             [attr.aria-setsize]="steps.length"
-            (click)="gotoStep(step)">
-            {{ step.header }}
+            [attr.aria-selected]="stp.active"
+            [attr.aria-controls]="stp.id"
+            [id]="stp.id + '-label'"
+            (click)="gotoStep(stp)"
+            (keydown.enter)="gotoStep(stp)">
+            {{ stp.header }}
         </div>
 
     </div>
@@ -30,6 +39,7 @@
             *ngIf="previousVisible"
             [uxTooltip]="previousTooltip"
             [disabled]="previousDisabled || step === 0"
+            [attr.aria-label]="previousTooltip"
             (click)="previous(); tip.hide()">
         {{ previousText }}
     </button>
@@ -39,6 +49,7 @@
             *ngIf="nextVisible && !isLastStep()"
             [uxTooltip]="nextTooltip"
             [disabled]="nextDisabled"
+            [attr.aria-label]="nextTooltip"
             (click)="next(); tip.hide()">
         {{ nextText }}
     </button>
@@ -48,6 +59,7 @@
             *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
             [uxTooltip]="finishTooltip"
             [disabled]="finishDisabled"
+            [attr.aria-label]="finishTooltip"
             (click)="finish(); tip.hide()">
         {{ finishText }}
     </button>
@@ -57,6 +69,7 @@
             *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
             [uxTooltip]="cancelTooltip"
             [disabled]="cancelDisabled"
+            [attr.aria-label]="cancelTooltip"
             (click)="cancel(); tip.hide()">
         {{ cancelText }}
     </button>

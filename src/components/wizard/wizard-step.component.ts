@@ -1,12 +1,11 @@
-import { Component, Input, EventEmitter } from '@angular/core';
-
-let uniqueId: number = 0;
+import { Component, Input, EventEmitter, Host, HostBinding, Inject, forwardRef } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
     templateUrl: './wizard-step.component.html',
     host: {
-        role: 'tabpanel'
+        'role': 'tabpanel',
+        '[attr.aria-labelledby]': 'id + "-label"'
     }
 })
 export class WizardStepComponent {
@@ -39,8 +38,10 @@ export class WizardStepComponent {
         }
     }
 
+    @HostBinding('attr.aria-expanded')
     get active(): boolean {
         return this._active;
     }
 
+    @HostBinding('id') id: string;
 }

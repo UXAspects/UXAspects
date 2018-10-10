@@ -49,6 +49,16 @@ ux-wizard {
                 &:last-of-type {
                     margin-right: 0;
                 }
+
+                &:focus {
+                    &.cdk-mouse-focused {
+                        outline: none;
+                    }
+
+                    &.cdk-keyboard-focused {
+                        .aspects-outline();
+                    }
+                }
             }
         }
 

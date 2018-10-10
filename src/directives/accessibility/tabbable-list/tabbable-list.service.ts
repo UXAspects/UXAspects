@@ -155,17 +155,14 @@ export class TabbableListService implements OnDestroy {
         });
 
         // Flatten the tree to produce the cursor key order
-        const result = this.flattenHierarchy(topLevel);
-
-        return result;
+        return this.flattenHierarchy(topLevel);
     }
 
     private flattenHierarchy(items: TabbableListItemDirective[]): TabbableListItemDirective[] {
         const flatList: TabbableListItemDirective[] = [];
         items.forEach(item => {
             item.children.sort((a, b) => a.rank - b.rank);
-            const descendants = this.flattenHierarchy(item.children);
-            flatList.push(item, ...descendants);
+            flatList.push(item, ...this.flattenHierarchy(item.children));
         });
         return flatList;
     }

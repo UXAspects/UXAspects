@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList, OnDestroy } from '@angular/core';
 import { WizardStepComponent } from './wizard-step.component';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 let uniqueId: number = 0;
 
@@ -10,7 +12,7 @@ let uniqueId: number = 0;
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements AfterViewInit {
+export class WizardComponent implements AfterViewInit, OnDestroy {
 
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
 
@@ -73,11 +75,28 @@ export class WizardComponent implements AfterViewInit {
     }
 
     private _step: number = 0;
+    private _onDestroy = new Subject<void>();
 
     ngAfterViewInit(): void {
 
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
+
+        // initially set the ids for each step
+        this.setWizardStepIds();
+
+        // if the steps change then update the ids
+        this.steps.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setWizardStepIds());
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
+    /** Set ids for each of the wizard steps */
+    setWizardStepIds(): void {
+        this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
     }
 
     /**

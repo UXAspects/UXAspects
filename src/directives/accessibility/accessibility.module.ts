@@ -4,10 +4,12 @@ import { FocusWithinDirective } from './focus-within/focus-within.directive';
 import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
+import { FocusOriginDirective } from './focus-origin/focus-origin.directive';
 
 @NgModule({
     declarations: [
         FocusWithinDirective,
+        FocusOriginDirective,
         TabbableListDirective,
         TabbableListItemDirective,
         SplitterAccessibilityDirective
@@ -17,6 +19,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     ],
     exports: [
         FocusWithinDirective,
+        FocusOriginDirective,
         TabbableListDirective,
         TabbableListItemDirective,
         SplitterAccessibilityDirective
