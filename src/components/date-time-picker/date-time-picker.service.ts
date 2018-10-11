@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { DateTimePickerConfig } from './date-time-picker.config';
-import { dateComparator, weekdaysShort, timezones, DateTimePickerTimezone } from './date-time-picker.utils';
+import { dateComparator, weekdaysShort, timezones, DateTimePickerTimezone, months, monthsShort } from './date-time-picker.utils';
 
 @Injectable()
 export class DateTimePickerService {
@@ -31,6 +31,9 @@ export class DateTimePickerService {
     header$ = new BehaviorSubject<string>(null);
     headerEvent$ = new Subject<DatePickerHeaderEvent>();
     modeDirection: ModeDirection = ModeDirection.None;
+
+    months: string[] = this._config ? this._config.months : months;
+    monthsShort: string[] = this._config ? this._config.monthsShort : monthsShort;
 
     private _subscription: Subscription;
 

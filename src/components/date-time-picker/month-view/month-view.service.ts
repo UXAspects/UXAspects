@@ -2,9 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
-import { gridify, range, monthsShort } from '../date-time-picker.utils';
-import { DateTimePickerConfig } from '../date-time-picker.config';
-import { Optional } from '@angular/core';
+import { gridify, range } from '../date-time-picker.utils';
 
 @Injectable()
 export class MonthViewService implements OnDestroy {
@@ -14,7 +12,7 @@ export class MonthViewService implements OnDestroy {
 
     private _subscription: Subscription;
 
-    constructor(private _datepicker: DateTimePickerService, @Optional() private _config: DateTimePickerConfig | undefined) {
+    constructor(private _datepicker: DateTimePickerService) {
         this._subscription = _datepicker.year$.subscribe(year => this.createMonthGrid(year));
     }
 
@@ -45,7 +43,7 @@ export class MonthViewService implements OnDestroy {
         // create a 4x3 grid of month numbers
         const months: MonthViewItem[] = range(0, 11).map(month => {
             return {
-                name: this._config ? this._config.monthsShort[month] : monthsShort[month],
+                name: this._datepicker.monthsShort[month],
                 month: month,
                 year: year,
                 isCurrentMonth: year === currentYear && month === currentMonth,

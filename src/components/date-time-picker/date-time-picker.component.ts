@@ -42,6 +42,14 @@ export class DateTimePickerComponent implements OnDestroy {
     this.datepicker.weekdays$.next(value);
   }
 
+  @Input() set months(months: string[]) {
+    this.datepicker.months = months;
+  }
+
+  @Input() set monthsShort(months: string[]) {
+    this.datepicker.monthsShort = months;
+  }
+
   @Input() set nowBtnText(value: string) {
     this.datepicker.nowBtnText$.next(value);
   }

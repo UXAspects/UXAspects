@@ -3,9 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
-import { compareDays, dateRange, gridify, months } from '../date-time-picker.utils';
-import { DateTimePickerConfig } from '../date-time-picker.config';
-import { Optional } from '@angular/core';
+import { compareDays, dateRange, gridify } from '../date-time-picker.utils';
 
 @Injectable()
 export class DayViewService implements OnDestroy {
@@ -15,7 +13,7 @@ export class DayViewService implements OnDestroy {
 
     private _subscription: Subscription;
 
-    constructor(private _datepicker: DateTimePickerService, @Optional() private _config: DateTimePickerConfig | undefined) {
+    constructor(private _datepicker: DateTimePickerService) {
         this._subscription = combineLatest(_datepicker.month$, _datepicker.year$)
             .subscribe(([month, year]) => this.createDayGrid(month, year));
     }
@@ -34,11 +32,8 @@ export class DayViewService implements OnDestroy {
 
     private createDayGrid(month: number, year: number): void {
 
-        // get the list of months
-        const monthList = this._config ? this._config.months : months;
-
         // update the header
-        this._datepicker.setHeader(monthList[month] + ' ' + year);
+        this._datepicker.setHeader(this._datepicker.months[month] + ' ' + year);
 
         // find the lower and upper boundaries
         const start = new Date(year, month, 1);
