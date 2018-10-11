@@ -22,7 +22,7 @@
 
             <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
-                <button class="modal-close" (click)="close()" type="button" aria-label="Close Modal">
+                <button class="modal-close" (click)="close()" type="button" aria-label="Close Modal" tabindex="0">
                     <i class="hpe-icon hpe-close"></i>
                 </button>
             </div>
@@ -190,6 +190,18 @@
     </tr>
     <tr uxd-api-property name="finishTooltip" type="string">
         Defines the text displayed in the tooltip when the 'Finish' button is hovered.
+    </tr>
+    <tr uxd-api-property name="nextAriaLabel" type="string">
+        Defines the text for the aria label on the 'Next' button.
+    </tr>
+    <tr uxd-api-property name="previousAriaLabel" type="string">
+        Defines the text for the aria label on the 'Previous' button.
+    </tr>
+    <tr uxd-api-property name="cancelAriaLabel" type="string">
+        Defines the text for the aria label on the 'Cancel' button.
+    </tr>
+    <tr uxd-api-property name="finishAriaLabel" type="string">
+        Defines the text for the aria label on the 'Finish' button.
     </tr>
     <tr uxd-api-property name="nextDisabled" type="boolean">
         If set to

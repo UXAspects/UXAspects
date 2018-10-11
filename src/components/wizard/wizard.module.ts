@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { A11yModule } from '@angular/cdk/a11y';
 import { WizardComponent } from './wizard.component';
 import { WizardStepComponent } from './wizard-step.component';
 import { TooltipModule } from '../tooltip/index';
@@ -15,8 +14,7 @@ const DECLARATIONS = [
     imports: [
         CommonModule,
         TooltipModule,
-        AccessibilityModule,
-        A11yModule
+        AccessibilityModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

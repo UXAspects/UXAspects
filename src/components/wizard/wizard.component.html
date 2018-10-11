@@ -8,7 +8,6 @@
 
         <div *ngFor="let stp of steps; let index = index"
             role="tab"
-            cdkMonitorElementFocus
             uxTabbableListItem
             [disabled]="!stp.visited"
             class="wizard-step"
@@ -39,7 +38,7 @@
             *ngIf="previousVisible"
             [uxTooltip]="previousTooltip"
             [disabled]="previousDisabled || step === 0"
-            [attr.aria-label]="previousTooltip"
+            [attr.aria-label]="previousAriaLabel"
             (click)="previous(); tip.hide()">
         {{ previousText }}
     </button>
@@ -49,7 +48,7 @@
             *ngIf="nextVisible && !isLastStep()"
             [uxTooltip]="nextTooltip"
             [disabled]="nextDisabled"
-            [attr.aria-label]="nextTooltip"
+            [attr.aria-label]="nextAriaLabel"
             (click)="next(); tip.hide()">
         {{ nextText }}
     </button>
@@ -59,7 +58,7 @@
             *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
             [uxTooltip]="finishTooltip"
             [disabled]="finishDisabled"
-            [attr.aria-label]="finishTooltip"
+            [attr.aria-label]="finishAriaLabel"
             (click)="finish(); tip.hide()">
         {{ finishText }}
     </button>
@@ -69,7 +68,7 @@
             *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
             [uxTooltip]="cancelTooltip"
             [disabled]="cancelDisabled"
-            [attr.aria-label]="cancelTooltip"
+            [attr.aria-label]="cancelAriaLabel"
             (click)="cancel(); tip.hide()">
         {{ cancelText }}
     </button>

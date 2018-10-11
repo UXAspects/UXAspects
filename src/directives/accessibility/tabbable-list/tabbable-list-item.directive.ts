@@ -1,4 +1,4 @@
-import { FocusableOption } from '@angular/cdk/a11y';
+import { FocusableOption, FocusMonitor } from '@angular/cdk/a11y';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
@@ -35,7 +35,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
-    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {
+    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef, focusMonitor: FocusMonitor) {
 
         this.keyboardExpanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
 
@@ -51,6 +51,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
                 this._tabbableList.activate(this);
             }
         });
+
+        // add classes to indicate the origin of the focus event
+        focusMonitor.monitor(_elementRef.nativeElement, false).pipe(takeUntil(this._onDestroy)).subscribe();
     }
 
     onInit(): void {

@@ -6,15 +6,13 @@ import { MarqueeWizardComponent } from './marquee-wizard.component';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { TooltipModule } from '../tooltip/index';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
     imports: [
         CommonModule,
         WizardModule,
         TooltipModule,
-        AccessibilityModule,
-        A11yModule
+        AccessibilityModule
     ],
     exports: [
         MarqueeWizardComponent,

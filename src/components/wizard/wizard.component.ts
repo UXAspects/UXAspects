@@ -26,6 +26,11 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     @Input() cancelTooltip: string = 'Cancel the wizard';
     @Input() finishTooltip: string = 'Finish the wizard';
 
+    @Input() nextAriaLabel: string = 'Go to the next step';
+    @Input() previousAriaLabel: string = 'Go to the previous step';
+    @Input() cancelAriaLabel: string = 'Cancel the wizard';
+    @Input() finishAriaLabel: string = 'Finish the wizard';
+
     @Input() nextDisabled: boolean = false;
     @Input() previousDisabled: boolean = false;
     @Input() cancelDisabled: boolean = false;
