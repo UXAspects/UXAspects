@@ -11,6 +11,7 @@ import { MonthViewComponent } from './month-view/month-view.component';
 import { TimeViewComponent } from './time-view/time-view.component';
 import { YearViewComponent } from './year-view/year-view.component';
 import { FocusIfModule } from '../../directives/focus-if/index';
+import { ModuleWithProviders } from '@angular/core';
 
 @NgModule({
     imports: [
@@ -21,9 +22,15 @@ import { FocusIfModule } from '../../directives/focus-if/index';
         FocusIfModule
     ],
     exports: [DateTimePickerComponent],
-    declarations: [DateTimePickerComponent, HeaderComponent, DayViewComponent, MonthViewComponent, YearViewComponent, TimeViewComponent],
-    providers: [
-        DateTimePickerConfig
-    ]
+    declarations: [DateTimePickerComponent, HeaderComponent, DayViewComponent, MonthViewComponent, YearViewComponent, TimeViewComponent]
 })
-export class DateTimePickerModule { }
+export class DateTimePickerModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: DateTimePickerModule,
+            providers: [
+                DateTimePickerConfig
+            ]
+        };
+    }
+}

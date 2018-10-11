@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { DatePickerMode, DateTimePickerService, DateTimePickerTimezone } from './date-time-picker.service';
-import { dateComparator, timezoneComparator } from './date-time-picker.utils';
+import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
+import { dateComparator, timezoneComparator, DateTimePickerTimezone } from './date-time-picker.utils';
 
 @Component({
   selector: 'ux-date-time-picker',
