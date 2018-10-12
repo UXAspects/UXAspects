@@ -1,12 +1,9 @@
-import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { FilterEvent } from './events/filter-event';
 import { FilterService } from './filter.service';
 import { Filter } from './interfaces/filter.interface';
-import { FilterEvent } from './events/filter-event';
-import { FilterAddEvent } from './events/filter-add-event';
-import { FilterRemoveEvent } from './events/filter-remove-event';
-import { FilterRemoveAllEvent } from './events/filter-remove-all-event';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-filter-container',

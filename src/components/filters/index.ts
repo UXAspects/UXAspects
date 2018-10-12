@@ -8,5 +8,7 @@ export * from './filter-dropdown/filter-dropdown.component';
 export * from './filter-dynamic/filter-dynamic.component';
 export * from './filter-dynamic/filter-typeahead-highlight.pipe';
 export * from './filter.module';
+export * from './filter.service';
 export * from './interfaces/filter-dynamic-list-config.interface';
 export * from './interfaces/filter.interface';
+

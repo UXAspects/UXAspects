@@ -1,6 +1,7 @@
-import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, 
-    FilterRemoveAllEvent } from '@ux-aspects/ux-aspects';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
+import { ColorService, Filter, FilterAddEvent, FilterEvent,
+    FilterRemoveAllEvent, FilterRemoveEvent } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -9,7 +10,7 @@ import 'chance';
 })
 export class AppComponent {
 
-   activeFilters: Filter[] = [];  
+   activeFilters: Filter[] = [];
 
     table: FilterSampleItem[] = [{
         id: 1,
@@ -133,13 +134,16 @@ export class AppComponent {
     sparkTrackColor: string = this.colorService.getColor('accent').setAlpha(0.2).toRgba();
     sparkBarColor: string = this.colorService.getColor('accent').toHex();
 
-    constructor(private colorService: ColorService) { }
+    constructor(private colorService: ColorService, private _announcer: LiveAnnouncer) { }
 
     filtersChanged(event: FilterEvent) {
 
         // apply a newly added filter
         if (event instanceof FilterAddEvent) {
             this.applyFilter(event.filter);
+
+            // announce the selection
+            this._announcer.announce(`Filter ${event.filter.name} selected.`);
         }
 
         // remove an active filter
@@ -147,12 +151,18 @@ export class AppComponent {
             this.resetData();
             this.activeFilters = this.activeFilters.filter(filter => filter !== event.filter);
             this.activeFilters.forEach(filter => this.applyFilter(filter));
+
+            // announce the deselection
+            this._announcer.announce(`Filter ${event.filter.name} deselected.`);
         }
 
         // remove all filters
         if (event instanceof FilterRemoveAllEvent) {
             this.resetData();
             this.resetFilters();
+
+            // announce the deselection
+            this._announcer.announce(`All filters deselected.`);
         }
     }
 
@@ -167,7 +177,7 @@ export class AppComponent {
     applyFilter(filter: Filter): void {
 
         switch (filter.group) {
-            
+
             case 'author':
                 this.filteredTable = this.filteredTable.filter(item => item.author === filter.name);
                 break;

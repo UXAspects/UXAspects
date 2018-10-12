@@ -19,7 +19,7 @@ let uniqueId = 1;
 export class FilterDynamicComponent implements OnDestroy {
 
     /** The list of possible filter options */
-    @Input() filters: Filter[];
+    @Input() filters: Filter[] = [];
 
     /** Specify if there should be an initially selected filter */
     @Input() initial: Filter;
@@ -76,6 +76,15 @@ export class FilterDynamicComponent implements OnDestroy {
 
         // The initially selected item should be set the the specified initial item
         this.selected = this.initial;
+
+        // watch for changes to the selected filters
+        this._filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
+            filters.forEach(filter => {
+                if (this.filters.indexOf(filter) !== -1) {
+                    this.selected = filter;
+                }
+            });
+        });
 
         // get the items to be displayed in the typeahead
         this.typeaheadItems = this.getItems();

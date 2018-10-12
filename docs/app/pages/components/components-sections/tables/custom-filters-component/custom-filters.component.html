@@ -2,10 +2,11 @@
 
 <h4>Creating a Custom Filter Component</h4>
 
-<p>Your custom filter component should extend the FilterBaseComponent class. This base class will provide you with the following functions:</p>
+<p>Your custom filter component should inject the FilterService. This service will provide you with the following functions:</p>
 <ul>
-    <li><code>addFilter(filter: Filter): void</code> – Will add a filter to the list of active filters.</li>
-    <li><code>removeFilter(filter: Filter):void</code> – Will remove a filter from the list of active filters.</li>
+    <li><code>add(filter: Filter): void</code> – Will add a filter to the list of active filters.</li>
+    <li><code>remove(filter: Filter):void</code> – Will remove a filter from the list of active filters.</li>
+    <li><code>removeAll():void</code> – Will remove all filters from the list of active filters.</li>
 </ul>
 
 <h4>Sample Custom Filter Component</h4>

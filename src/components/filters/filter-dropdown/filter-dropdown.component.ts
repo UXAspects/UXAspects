@@ -12,7 +12,7 @@ import { Filter } from '../interfaces/filter.interface';
 export class FilterDropdownComponent implements OnInit, OnDestroy {
 
     /** The list of items to display in the dropdown */
-    @Input() filters: Filter[];
+    @Input() filters: Filter[] = [];
 
     /** Define an initial item to select */
     @Input() initial: Filter;
@@ -28,6 +28,15 @@ export class FilterDropdownComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.selected = this.initial;
+
+        // check to see if any of the filters have been preselected or changes to selected filters
+        this._filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
+            filters.forEach(filter => {
+                if (this.filters.indexOf(filter) !== -1) {
+                    this.selected = filter;
+                }
+            });
+        });
     }
 
     ngOnDestroy(): void {

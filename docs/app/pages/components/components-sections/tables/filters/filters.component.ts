@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemoveEvent } from '../../../../../../../src/components/filters/index';
 import { ColorService } from '../../../../../../../src/index';
@@ -139,16 +140,22 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml
         },
-        modules: [{
-            imports: ['FilterModule', 'ColorServiceModule', 'SparkModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['FilterModule', 'ColorServiceModule', 'SparkModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
+            }
+        ]
     };
 
     sparkTrackColor: string = this.colorService.getColor('accent').setAlpha(0.2).toRgba();
     sparkBarColor: string = this.colorService.getColor('accent').toHex();
 
-    constructor(private colorService: ColorService) {
+    constructor(private colorService: ColorService, private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
@@ -157,6 +164,9 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
         // apply a newly added filter
         if (event instanceof FilterAddEvent) {
             this.applyFilter(event.filter);
+
+            // announce the selection
+            this._announcer.announce(`Filter ${event.filter.name} selected.`);
         }
 
         // remove an active filter
@@ -164,12 +174,18 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
             this.resetData();
             this.activeFilters = this.activeFilters.filter(filter => filter !== event.filter);
             this.activeFilters.forEach(filter => this.applyFilter(filter));
+
+            // announce the deselection
+            this._announcer.announce(`Filter ${event.filter.name} deselected.`);
         }
 
         // remove all filters
         if (event instanceof FilterRemoveAllEvent) {
             this.resetData();
             this.resetFilters();
+
+            // announce the deselection
+            this._announcer.announce(`All filters deselected.`);
         }
     }
 
