@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@angular/core';
 import { IPlunk } from '../../interfaces/IPlunk';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 
-
 const ASSETS_URL_PLACEHOLDER_REGEX = /\$\{assetsUrl\}/g;
 const MODULES_PLACEHOLDER = /\$\{modules\}/g;
 const DECLARATIONS_PLACEHOLDER = /\$\{declarations\}/g;
@@ -16,9 +15,6 @@ export class PlunkerService {
     indexTemplate: string;
     mainTs: string;
     libraries: Library[] = [];
-
-    private _assetsUrl = this._appConfig.get('assetsUrl');
-    private _plunkerPostUrl = this._appConfig.get('plunker');
 
     constructor(@Inject(DOCUMENT) private _document: Document, private _appConfig: AppConfiguration) { }
 
@@ -86,7 +82,7 @@ export class PlunkerService {
 
         if (!this.indexTemplate) {
             this.indexTemplate = require('./templates/index_html.txt')
-                .replace(ASSETS_URL_PLACEHOLDER_REGEX, this._assetsUrl);
+                .replace(ASSETS_URL_PLACEHOLDER_REGEX, this._appConfig.assetsUrl);
         }
 
         if (!this.mainTs) {
@@ -119,7 +115,7 @@ export class PlunkerService {
 
         const form = this._document.createElement('form');
 
-        form.action = this._plunkerPostUrl;
+        form.action = this._appConfig.plunker;
         form.method = 'POST';
         form.target = '_blank';
 
