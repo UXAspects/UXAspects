@@ -88,7 +88,7 @@ export const monthsShort = months.map(month => month.substring(0, 3));
 /**
  * Export an array of all the available days of the week
  */
-export const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+export const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const weekdaysShort = weekdays.map(weekday => weekday.substring(0, 3));
 
 /** Export the default set of time zone */
