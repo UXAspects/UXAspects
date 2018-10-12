@@ -67,6 +67,6 @@ export class AppConfiguration {
 
     private getBaseUrl(): string {
         const path = this._location.prepareExternalUrl(this._location.path());
-        return window.location.href.substr(0, window.location.href.indexOf(path));
+        return window.location.href.substr(0, window.location.href.lastIndexOf(path));
     }
 }
