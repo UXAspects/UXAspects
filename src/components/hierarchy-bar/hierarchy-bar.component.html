@@ -33,15 +33,15 @@
 
         <!-- Show a dropdown arrow if there are children -->
         <button *ngIf="node.children"
-              #popover="ux-popover"
-              aria-label="Show children"
-              role="button"
-              class="hierarchy-bar-node-arrow hpe-icon hpe-next"
-              [uxPopover]="content"
-              [popoverContext]="{ node: node, popover: popover }"
-              placement="bottom"
-              popoverClass="hierarchy-bar-popover"
-              tabindex="0">
+                #popover="ux-popover"
+                aria-label="Show children"
+                role="button"
+                class="hierarchy-bar-node-arrow hpe-icon hpe-next"
+                [uxPopover]="content"
+                [popoverContext]="{ node: node, popover: popover }"
+                placement="bottom"
+                popoverClass="hierarchy-bar-popover"
+                tabindex="0">
         </button>
 
     </div>
@@ -65,12 +65,12 @@
     </ul>
 
     <!-- List of children -->
-    <ul class="hierarchy-bar-node-list" *ngIf="!(hierarchyBar.getChildren(node) | async).loading">
+    <ul class="hierarchy-bar-node-list" *ngIf="!(hierarchyBar.getChildren(node) | async).loading" uxTabbableList [returnFocus]="true">
 
         <li *ngFor="let child of (hierarchyBar.getChildren(node) | async).children; let first = first"
-            class="hierarchy-bar-node-list-item"
             [focusIf]="first"
-            tabindex="0"
+            uxTabbableListItem
+            class="hierarchy-bar-node-list-item"
             (keydown.enter)="hierarchyBar.selectNode(child); popover.hide()"
             (click)="hierarchyBar.selectNode(child); popover.hide()">
 
@@ -88,12 +88,12 @@
 <!-- Template for the overflow popover list -->
 <ng-template #overflow let-popover="popover">
 
-    <ul class="hierarchy-bar-node-list">
+    <ul class="hierarchy-bar-node-list" uxTabbableList [returnFocus]="true">
 
         <li *ngFor="let child of overflowNodes$ | async; let first = first"
-            class="hierarchy-bar-node-list-item"
-            tabindex="0"
             [focusIf]="first"
+            uxTabbableListItem
+            class="hierarchy-bar-node-list-item"
             (click)="hierarchyBar.selectNode(child); popover.hide()"
             (keydown.enter)="hierarchyBar.selectNode(child); popover.hide()">
 
