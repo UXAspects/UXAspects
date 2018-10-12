@@ -1,45 +1,35 @@
-import { OnDestroy, QueryList } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { QueryList } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
-export declare class ResizableTableService implements OnDestroy {
-    /** determine whether or not we are currently sizing */
-    resizing: boolean;
-    /** store the percentage widths of all the columns */
-    sizes: ReplaySubject<Map<ResizableTableColumnComponent, number>>;
-    /** store the table elements for use when calculating widths */
-    private _table;
-    /** store the column classes */
+export declare class ResizableTableService {
+    /** Indicate when the columns are ready */
+    isInitialised: BehaviorSubject<boolean>;
+    /** Determine if we are currently resizing */
+    isResizing: boolean;
+    /** Store the percentage widths of each column */
+    columns: ReadonlyArray<number>;
+    /** Store the current width of the table */
+    tableWidth: number;
+    /** Store the QueryList of columns */
     private _columns;
-    /** store the column sizes as an accessible object */
-    private _sizes;
-    /** An observable to unsubscribe others automatically */
-    private _onDestroy;
-    ngOnDestroy(): void;
-    /** a setter to define the table element */
-    setTable(table: HTMLTableElement): void;
-    /** a setter to define the query list of columns */
+    /** Store the size of each column */
     setColumns(columns: QueryList<ResizableTableColumnComponent>): void;
-    /** We want to convert all units sizes to pixels to prevent browser jitter */
-    startResizing(): void;
-    /** Restore values back to percentage values */
-    endResizing(): void;
-    /** apply a resize event to a column */
-    resizeColumn(column: ResizableTableColumnComponent, value: number): void;
-    /**
-     * Private Methods
-     */
-    /** initially convert the default pixel widths of each column to percentages */
-    private setInitialWidths();
-    /** Get the percentage width of a specific column */
-    private getColumnWidth(column, sizes?);
-    /** Set the percentage width for a specific column */
-    private setColumnWidth(column, width, sizes?);
+    /** Update the resizing state */
+    setResizing(isResizing: boolean): void;
+    /** Get the width of a column in a specific unit */
+    getColumnWidth(index: number, unit: ColumnUnit, columns?: ReadonlyArray<number>): number;
+    /** Allow setting the column size in any unit */
+    setColumnWidth(index: number, value: number, unit: ColumnUnit, columns?: ReadonlyArray<number>): ReadonlyArray<number>;
+    /** Resize a column by a specific pixel amount */
+    resizeColumn(index: number, delta: number): void;
     /** Determine whether a column is above or below its minimum width */
-    private isWidthValid(column, width);
-    /** Ensure that the total column widths is exactly 100% */
-    private verifyColumnWidths(adjustableColumn, sizes?);
-    /** Get a column at a given index */
-    private getColumnAtIndex(index);
+    private isWidthValid(index, width);
     /** Get the next column in the sequence of columns */
-    private getSiblingColumn(column);
+    private getSiblingColumn(index);
+    /** Get the column class from our query list */
+    private getColumnInstance(index);
+}
+export declare enum ColumnUnit {
+    Pixel = 0,
+    Percentage = 1,
 }

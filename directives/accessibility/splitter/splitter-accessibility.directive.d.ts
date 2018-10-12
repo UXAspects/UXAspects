@@ -15,7 +15,7 @@ export declare class SplitterAccessibilityDirective implements AfterViewInit, On
     private _observer;
     /** Teardown our observables on destroy */
     private _onDestroy;
-    constructor(_elementRef: ElementRef<HTMLElement>, _renderer: Renderer2, _platform: string, _splitter: SplitComponent);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: string, _splitter: SplitComponent);
     /** Once initialised make the gutters accessible */
     ngAfterViewInit(): void;
     /** Destroy all observables and observers */
