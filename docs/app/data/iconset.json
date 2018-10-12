@@ -1299,6 +1299,10 @@
         {
             "name": "zoom-in",
             "classname": "hpe-zoom-in"
+        },
+        {
+            "name": "zoom-out",
+            "classname": "hpe-zoom-out"
         }
     ]
 }
