@@ -18,6 +18,11 @@
     "no-bitwise": true,
     "no-shadowed-variable": true,
     "no-unused-expression": true,
+    "import-blacklist": [
+      true,
+      "rxjs/Rx",
+      "rxjs"
+    ],
     "one-line": [
       true,
       "check-catch",

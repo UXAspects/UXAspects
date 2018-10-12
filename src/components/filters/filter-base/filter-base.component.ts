@@ -1,10 +1,16 @@
-
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directive, Host, Input, OnDestroy } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
+import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
+import { FilterContainerComponent } from '../filter-container.component';
+import { Filter } from '../interfaces/filter.interface';
 
+/**
+ * @deprecated
+ * This should no longer be used as we now have the FilterService
+ * which is easier to use than this base component.
+ */
 @Directive({
     selector: 'ux-filter-base'
 })
@@ -24,7 +30,7 @@ export class FilterBaseComponent implements OnDestroy {
 
     addFilter(_filter: Filter): void {
         if (!_filter.initial) {
-            this.filtersContainer.addFilter(_filter);
+            this.filtersContainer.filterService.add(_filter);
             this._announcer.announce(`Filter ${_filter.name} selected.`);
         }
     }
@@ -34,7 +40,7 @@ export class FilterBaseComponent implements OnDestroy {
             return;
         }
 
-        this.filtersContainer.removeFilter(_filter);
+        this.filtersContainer.filterService.remove(_filter);
         this._announcer.announce(`Filter ${_filter.name} deselected.`);
     }
 

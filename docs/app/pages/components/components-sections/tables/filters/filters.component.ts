@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { FilterEvent } from '../../../../../../../src/components/filters/index';
+import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent, FilterRemoveEvent } from '../../../../../../../src/components/filters/index';
 import { ColorService } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Filter, FilterAddEvent, FilterRemoveAllEvent, FilterRemoveEvent } from './../../../../../../../src/components/filters/filter-container.component';
 
 @Component({
     selector: 'uxd-components-filters',
@@ -14,7 +13,7 @@ import { Filter, FilterAddEvent, FilterRemoveAllEvent, FilterRemoveEvent } from 
 @DocumentationSectionComponent('ComponentsFiltersComponent')
 export class ComponentsFiltersComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    activeFilters: Filter[] = [];  
+    activeFilters: Filter[] = [];
 
     table: FilterSampleItem[] = [{
         id: 1,
@@ -185,7 +184,7 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
     applyFilter(filter: Filter): void {
 
         switch (filter.group) {
-            
+
             case 'author':
                 this.filteredTable = this.filteredTable.filter(item => item.author === filter.name);
                 break;
