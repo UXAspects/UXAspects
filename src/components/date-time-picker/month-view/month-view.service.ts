@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
-import { gridify, monthsShort, range } from '../date-time-picker.utils';
+import { gridify, range } from '../date-time-picker.utils';
 
 @Injectable()
 export class MonthViewService implements OnDestroy {
@@ -43,7 +43,7 @@ export class MonthViewService implements OnDestroy {
         // create a 4x3 grid of month numbers
         const months: MonthViewItem[] = range(0, 11).map(month => {
             return {
-                name: monthsShort[month],
+                name: this._datepicker.monthsShort[month],
                 month: month,
                 year: year,
                 isCurrentMonth: year === currentYear && month === currentMonth,
@@ -59,7 +59,7 @@ export class MonthViewService implements OnDestroy {
 
         // if there is no focused month select the first one
         if (this._datepicker.modeDirection === ModeDirection.Descend && this.focused$.value === null) {
-            
+
             // check if the selected month is in view
             const selectedMonth = months.find(month => month.isActiveMonth);
 

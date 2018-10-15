@@ -2,11 +2,11 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsu
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { debounceTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { DateTimePickerTimezone } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DateTimePickerTimezone } from '../../../../../../../src/components/date-time-picker/date-time-picker.utils';
 
 @Component({
     selector: 'uxd-components-date-time-picker',
@@ -41,7 +41,7 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
             }
         ]
     };
-    
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

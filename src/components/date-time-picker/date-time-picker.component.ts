@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { DatePickerMode, DateTimePickerService, DateTimePickerTimezone } from './date-time-picker.service';
-import { dateComparator, timezoneComparator } from './date-time-picker.utils';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
+import { dateComparator, DateTimePickerTimezone, timezoneComparator } from './date-time-picker.utils';
 
 @Component({
   selector: 'ux-date-time-picker',
@@ -11,8 +11,6 @@ import { dateComparator, timezoneComparator } from './date-time-picker.utils';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateTimePickerComponent implements OnDestroy {
-
-  private _timezone: DateTimePickerTimezone;
 
   @Input() set showDate(value: boolean) {
     this.datepicker.showDate$.next(value);
@@ -42,6 +40,14 @@ export class DateTimePickerComponent implements OnDestroy {
     this.datepicker.weekdays$.next(value);
   }
 
+  @Input() set months(months: string[]) {
+    this.datepicker.months = months;
+  }
+
+  @Input() set monthsShort(months: string[]) {
+    this.datepicker.monthsShort = months;
+  }
+
   @Input() set nowBtnText(value: string) {
     this.datepicker.nowBtnText$.next(value);
   }
@@ -49,7 +55,6 @@ export class DateTimePickerComponent implements OnDestroy {
   @Input() set timezones(value: DateTimePickerTimezone[]) {
     this.datepicker.timezones$.next(value);
   }
-
 
   @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
   @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
@@ -69,18 +74,19 @@ export class DateTimePickerComponent implements OnDestroy {
   // expose enum to view
   DatePickerMode = DatePickerMode;
 
-  private _subscription = new Subscription();
+  private _onDestroy = new Subject<void>();
 
   constructor(public datepicker: DateTimePickerService) {
-    const valueChange = datepicker.selected$.pipe(distinctUntilChanged(dateComparator))
+    datepicker.selected$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(dateComparator))
       .subscribe(date => this.dateChange.emit(date));
 
-    const timezoneChange = datepicker.timezone$.pipe(distinctUntilChanged(timezoneComparator))
+    datepicker.timezone$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(timezoneComparator))
       .subscribe((timezone: DateTimePickerTimezone) => this.timezoneChange.emit(timezone));
   }
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 
   /**

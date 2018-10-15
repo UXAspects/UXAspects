@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { DateTimePickerConfig } from './date-time-picker.config';
-import { dateComparator } from './date-time-picker.utils';
+import { dateComparator, weekdaysShort, timezones, DateTimePickerTimezone, months, monthsShort } from './date-time-picker.utils';
 
 @Injectable()
 export class DateTimePickerService {
@@ -18,23 +18,26 @@ export class DateTimePickerService {
     month$: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getMonth());
     year$: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getFullYear());
 
-    showDate$ = new BehaviorSubject<boolean>(this._config.showDate);
-    showTime$ = new BehaviorSubject<boolean>(this._config.showTime);
-    showTimezone$ = new BehaviorSubject<boolean>(this._config.showTimezone);
-    showSeconds$ = new BehaviorSubject<boolean>(this._config.showSeconds);
-    showMeridian$ = new BehaviorSubject<boolean>(this._config.showMeridian);
-    showSpinners$ = new BehaviorSubject<boolean>(this._config.showSpinners);
-    weekdays$ = new BehaviorSubject<string[]>(this._config.weekdays);
-    nowBtnText$ = new BehaviorSubject<string>(this._config.nowBtnText);
-    timezones$ = new BehaviorSubject<DateTimePickerTimezone[]>(this._config.timezones);
+    showDate$ = new BehaviorSubject<boolean>(this._config ? this._config.showDate : true);
+    showTime$ = new BehaviorSubject<boolean>(this._config ? this._config.showTime : true);
+    showTimezone$ = new BehaviorSubject<boolean>(this._config ? this._config.showTimezone : true);
+    showSeconds$ = new BehaviorSubject<boolean>(this._config ? this._config.showSeconds : false);
+    showMeridian$ = new BehaviorSubject<boolean>(this._config ? this._config.showMeridian : true);
+    showSpinners$ = new BehaviorSubject<boolean>(this._config ? this._config.showSpinners : true);
+    weekdays$ = new BehaviorSubject<string[]>(this._config ? this._config.weekdays : weekdaysShort);
+    nowBtnText$ = new BehaviorSubject<string>(this._config ? this._config.nowBtnText : 'Today');
+    timezones$ = new BehaviorSubject<DateTimePickerTimezone[]>(this._config ? this._config.timezones : timezones);
 
     header$ = new BehaviorSubject<string>(null);
     headerEvent$ = new Subject<DatePickerHeaderEvent>();
     modeDirection: ModeDirection = ModeDirection.None;
 
+    months: string[] = this._config ? this._config.months : months;
+    monthsShort: string[] = this._config ? this._config.monthsShort : monthsShort;
+
     private _subscription: Subscription;
 
-    constructor(private _config: DateTimePickerConfig) {
+    constructor(@Optional() private _config: DateTimePickerConfig) {
 
         // when the active date changes set the currently selected date
         this._subscription = this.selected$.pipe(distinctUntilChanged(dateComparator)).subscribe(date => {
@@ -126,7 +129,8 @@ export class DateTimePickerService {
 
     getCurrentTimezone(): DateTimePickerTimezone {
         const offset = new Date().getTimezoneOffset();
-        return this._config.timezones.find(timezone => timezone.offset === offset);
+        const zones = this._config ? this._config.timezones : timezones;
+        return zones.find(timezone => timezone.offset === offset);
     }
 
     setTimezone(timezone: DateTimePickerTimezone): void {
@@ -149,9 +153,4 @@ export enum ModeDirection {
 export enum DatePickerHeaderEvent {
     Previous,
     Next
-}
-
-export interface DateTimePickerTimezone {
-    name: string;
-    offset: number;
 }
