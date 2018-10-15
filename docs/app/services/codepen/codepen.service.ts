@@ -3,27 +3,43 @@ import { Inject, Injectable } from '@angular/core';
 import { ICodePen } from '../../interfaces/ICodePen';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 
-
 @Injectable()
 export class CodePenService {
 
     colorSet: ColorSetName = 'keppel';
-    private codepenAssetsBaseUrl = this.appConfig.get('assetsUrl');
-    private codePenUrl = this.appConfig.get('codePen');
-    
-    constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) {}
+
+    /** CSS dependencies */
+    codepenStylesheets = [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+        this._appConfig.assetsUrl + '/css/ux-aspects.css'
+    ];
+
+    /** JS dependencies */
+    codepenScripts = [
+        'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/chance/0.8.0/chance.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.6/angular.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js',
+        this._appConfig.assetsUrl + '/ng1/ux-aspects-ng1.js'
+    ];
+
+    constructor(@Inject(DOCUMENT) private _document: Document, private _appConfig: AppConfiguration) {}
 
     launch(title: string, codepen: ICodePen) {
-        
+
         const form = this.initForm(title, codepen);
 
-        this.document.body.appendChild(form);
+        this._document.body.appendChild(form);
 
         form.submit();
 
-        this.document.body.removeChild(form);
+        this._document.body.removeChild(form);
     }
-    
+
     private initForm(title: string, codepen: ICodePen): HTMLFormElement {
 
         // Set up the contents of each of the three editors
@@ -45,16 +61,18 @@ export class CodePenService {
             js_pre_processor: 'none',
             head: `<meta name="viewport" content="width=device-width, initial-scale=1">`,
             css_external: this.codepenStylesheets.join(';'),
-            js_external: this.CODEPEN_SCRIPTS.join(';')
+            js_external: this.codepenScripts.join(';')
         };
 
-        const optionsString = JSON.stringify(options).replace(/"/g, '&​quot;').replace(/'/g, '&apos;');
+        const optionsString = JSON.stringify(options)
+            .replace(/"/g, '&​quot;')
+            .replace(/'/g, '&apos;');
 
         // create form object
         const form = document.createElement('form');
 
         // set form attributes
-        form.action = this.codePenUrl;
+        form.action = this._appConfig.codePen;
         form.method = 'POST';
         form.target = '_blank';
 
@@ -74,7 +92,9 @@ export class CodePenService {
 
     private getBoilerPlate() {
         return {
-            prefix: `angular.module('app', ['ux-aspects']).run(['$colorService', function($colorService) {$colorService.setColorSet('${this.colorSet}'); }]);`,
+            prefix: `angular.module('app', ['ux-aspects']).run(['$colorService', function($colorService) {
+                $colorService.setColorSet('${this.colorSet}');
+            }]);`,
             suffix: `angular.bootstrap(document, ['app']);`
         };
     }
@@ -88,9 +108,8 @@ export class CodePenService {
         // Wrap the main HTML fragment in a div with specified attributes
         let result = this.wrapHtml(codepen.html, null, htmlAttributes);
         if (codepen.htmlTemplates) {
-
             // Append each template provided inside <script> or <template> tags
-            codepen.htmlTemplates.forEach((htmlTemplate) => {
+            codepen.htmlTemplates.forEach(htmlTemplate => {
                 result += '\n\n' + this.wrapHtml(htmlTemplate.content, htmlTemplate.id, htmlTemplate.attributes);
             });
         }
@@ -136,7 +155,7 @@ export class CodePenService {
 
         if (codepen.css) {
             // Simply append the CSS fragments to each other
-            codepen.css.forEach((cssString) => {
+            codepen.css.forEach(cssString => {
                 result += cssString + '\n\n';
             });
         }
@@ -150,7 +169,7 @@ export class CodePenService {
 
         // Append the code fragments with trailing semicolon in case it was missed
         if (codepen.js) {
-            codepen.js.forEach((codeString) => {
+            codepen.js.forEach(codeString => {
                 result += codeString + ';\n\n';
             });
         }
@@ -160,25 +179,6 @@ export class CodePenService {
 
         return result;
     }
-
-    // Stylesheets for CodePen to reference
-    codepenStylesheets = [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-        this.codepenAssetsBaseUrl + '/css/ux-aspects.css'
-    ];
-
-    // Script files for CodePen to reference
-    private CODEPEN_SCRIPTS = [
-        'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js',
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/chance/0.8.0/chance.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.6/angular.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js',
-        this.codepenAssetsBaseUrl + '/ng1/ux-aspects-ng1.js'
-    ];
 }
 
 export type ColorSetName = 'keppel' | 'microFocus';

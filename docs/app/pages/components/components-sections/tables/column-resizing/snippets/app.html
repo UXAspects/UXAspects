@@ -1,16 +1,16 @@
-<table class="table" uxResizableTable>
+<table *ngIf="type === 'table'" class="table" uxResizableTable>
     <thead>
         <tr>
-            <th uxResizableTableColumn [disabled]="true" class="checkbox-column"></th>
+            <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
             <th uxResizableTableColumn>Title</th>
             <th uxResizableTableColumn>Author</th>
             <th uxResizableTableColumn>Date</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let document of documents">
-            <td>
-                <ux-checkbox [(ngModel)]="document.selected"></ux-checkbox>
+        <tr *ngFor="let document of documents | slice:0:5">
+            <td class="fixed-column">
+                <ux-checkbox class="ux-checkbox-inline" [(ngModel)]="document.selected"></ux-checkbox>
             </td>
             <td>{{ document.title }}</td>
             <td>{{ document.author }}</td>
@@ -18,3 +18,31 @@
         </tr>
     </tbody>
 </table>
+
+<table *ngIf="type === 'fixed'" class="table" uxResizableTable uxFixedHeaderTable [tableHeight]="230">
+    <thead>
+        <tr>
+            <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
+            <th uxResizableTableColumn>Title</th>
+            <th uxResizableTableColumn>Author</th>
+            <th uxResizableTableColumn>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let document of documents">
+            <td class="fixed-column" uxResizableTableCell>
+                <ux-checkbox class="ux-checkbox-inline" [(ngModel)]="document.selected"></ux-checkbox>
+            </td>
+            <td uxResizableTableCell>{{ document.title }}</td>
+            <td uxResizableTableCell>{{ document.author }}</td>
+            <td uxResizableTableCell>{{ document.date | date }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="btn-group">
+    <button type="button" class="btn button-toggle-primary"
+        [(ngModel)]="type" btnRadio="table">Standard Table</button>
+    <button type="button" class="btn button-toggle-primary"
+        [(ngModel)]="type" btnRadio="fixed">Fixed Header Table</button>
+</div>

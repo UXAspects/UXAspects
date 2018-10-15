@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
-import { compareDays, dateRange, gridify, months } from '../date-time-picker.utils';
+import { compareDays, dateRange, gridify } from '../date-time-picker.utils';
 
 @Injectable()
 export class DayViewService implements OnDestroy {
@@ -33,7 +33,7 @@ export class DayViewService implements OnDestroy {
     private createDayGrid(month: number, year: number): void {
 
         // update the header
-        this._datepicker.setHeader(months[month] + ' ' + year);
+        this._datepicker.setHeader(this._datepicker.months[month] + ' ' + year);
 
         // find the lower and upper boundaries
         const start = new Date(year, month, 1);
@@ -73,7 +73,7 @@ export class DayViewService implements OnDestroy {
 
                 // find the first day of the month
                 const first = dates.find(date => date.day === 1);
-    
+
                 // focus the date
                 this.setFocus(first.day, first.month, first.year);
             }

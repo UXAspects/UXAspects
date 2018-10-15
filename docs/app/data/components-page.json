@@ -1989,16 +1989,37 @@
                 },
                 {
                     "title": "Tree Grid",
+                    "component": "ComponentsTreeGridComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxTreeGrid]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxTreeGridRow]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TreeGridModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tree Grid",
                     "component": "ComponentsTreeGridNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 },
                 {
                     "title": "Tree Grid Asynchronous Loading",
                     "component":
                         "ComponentsTreeGridAsynchronousLoadingNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 }
             ]
         },
@@ -2018,21 +2039,6 @@
             "link": "utilities",
             "sections": [
                 {
-                    "title": "Focus If",
-                    "component": "ComponentsFocusIfComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[focusIf]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "FocusIfModule"
-                        }
-                    ]
-                },
-                {
                     "title": "Color Service",
                     "component": "ComponentsColorServiceComponent",
                     "version": "Angular",
@@ -2050,25 +2056,69 @@
                     "deprecated": true
                 },
                 {
+                    "title": "Expanding Content",
+                    "component": "ComponentsExpandingContentNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Focus",
+                    "component": "ComponentsFocusComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "uxFocusWithin"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "uxBlurWithin"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AccessibilityModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Force Focus",
                     "component": "ComponentsForceFocusNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Focus If",
+                    "component": "ComponentsFocusIfComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[focusIf]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FocusIfModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Focus On Show",
                     "component": "ComponentsFocusOnShowNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Expanding Content",
-                    "component": "ComponentsExpandingContentNg1Component",
-                    "version": "AngularJS"
+                    "title": "List Item Filter",
+                    "component": "ComponentsListItemFilterNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "PDF Service",
                     "component": "ComponentsPdfServiceNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 },
                 {
                     "title": "Persistent Data Service",
@@ -2082,31 +2132,48 @@
                     ]
                 },
                 {
-                    "title": "Safe Timeout",
-                    "component": "ComponentsSafeTimeoutNg1Component",
-                    "version": "AngularJS"
-                },
-                {
                     "title": "Safe Interval",
                     "component": "ComponentsSafeIntervalNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Safe Timeout",
+                    "component": "ComponentsSafeTimeoutNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Tabbable List",
+                    "component": "ComponentsTabbableListComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxTabbableList]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxTabbableListItem]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AccessibilityModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Time Ago Service",
                     "component": "ComponentsTimeAgoServiceNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
-                },
-                {
-                    "title": "List Item Filter",
-                    "component": "ComponentsListItemFilterNg1Component",
-                    "version": "AngularJS"
+                    "hybrid": true,
+                    "deprecated": true
                 },
                 {
                     "title": "Window Communication Service",
-                    "component":
-                        "ComponentsWindowCommunicationServiceNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsWindowCommunicationServiceNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

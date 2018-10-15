@@ -1893,6 +1893,38 @@ tree-view > div:first-child > ol:nth-of-type(1) {
     -o-user-select: none;
     user-select: none;
     cursor: pointer;
+
+    &.disabled {
+        color: @link-btn-disabled-color;
+        cursor: default;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        > .chevron,
+        > .chevron .hpe-icon,
+        > .icon,
+        > .title-readonly,
+        > .tree-action-button {
+            cursor: default;
+            color: @link-btn-disabled-color;
+
+            &:focus,
+            &:active,
+            &:hover {
+                outline: none;
+                color: @link-btn-disabled-color;
+                background-color: transparent;
+            }
+        }
+
+        > .chevron .hpe-icon,
+        > .chevron .hpe-icon:hover,
+        > .chevron .hpe-icon:focus, {
+            opacity: 1;
+        }
+    }
 }
 
 .tree-handle {

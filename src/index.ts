@@ -64,6 +64,7 @@ export * from './directives/reorderable/index';
 export * from './directives/resize/index';
 export * from './directives/scroll/index';
 export * from './directives/selection/index';
+export * from './directives/tree-grid/index';
 /*
   Export Hybrid Components
 */

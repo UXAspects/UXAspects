@@ -1,81 +1,152 @@
 .treegrid {
-    outline: none;
-
-    .treegrid-expand-header {
-        margin-left: 58px;
-
-        &.has-checkbox {
-            margin-left: 0;
-        }
+    &.table > thead > tr > th {
+        border-bottom: none;
     }
 
-    .treegrid-header-checkbox {
-        margin-left: 31px;
-    }
-
-    .treegrid-indent {
-        display: inline-block;
-
-        &.treegrid-level-0 {
-            width: 0;
-        }
-
-        &.treegrid-level-1 {
-            width: 25px;
-        }
-
-        &.treegrid-level-2 {
-            width: 50px;
-        }
-
-        &.treegrid-level-3 {
-            width: 75px;
-        }
-
-        &.treegrid-level-4 {
-            width: 100px;
-        }
-
-        &.treegrid-level-5 {
-            width: 125px;
+    th, td {
+        ux-checkbox .ux-checkbox {
+            margin-bottom: 0;
         }
     }
+}
 
-    .treegrid-expand {
-        display: inline-block;
-        min-width: 20px;
+.treegrid-expand-header {
+    margin-left: 58px;
+
+    &.has-checkbox {
+        margin-left: 0;
+    }
+}
+
+.treegrid-header-checkbox {
+    margin-left: 31px;
+}
+
+.treegrid-header {
+    th:first-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 40px;
+
+        .treegrid-header-text {
+            margin-left: 25px;
+        }
+    }
+}
+
+.treegrid-row {
+    &:focus {
+        background-color: @table-hover-bg;
+        .aspects-outline();
+    }
+
+    > td:first-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+// AngularJS row indent
+.treegrid-indent {
+    display: inline-block;
+
+    &.treegrid-level-0 {
+        width: 0;
+    }
+
+    &.treegrid-level-1 {
+        width: 25px;
+    }
+
+    &.treegrid-level-2 {
+        width: 50px;
+    }
+
+    &.treegrid-level-3 {
+        width: 75px;
+    }
+
+    &.treegrid-level-4 {
+        width: 100px;
+    }
+
+    &.treegrid-level-5 {
+        width: 125px;
+    }
+}
+
+// AngularJS expander
+.treegrid-expand {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 3px;
+
+    .treegrid-expand-toggle {
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+// Angular expander
+.treegrid-expander {
+    display: inline-block;
+    width: 28px;
+    margin-left: 2px;
+    margin-right: 3px;
+
+    button {
+        width: 100%;
+        margin: 0;
+        border: none;
+        background-color: transparent;
         text-align: center;
-        margin-left: 2px;
-        margin-right: 3px;
 
-        .treegrid-expand-toggle {
-            cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+
+        .treegrid-expander-icon {
             opacity: 0.5;
+            transition: transform linear 0.15s;
 
             &:hover {
                 opacity: 1;
             }
         }
     }
+}
 
-    .treegrid-checkbox {
-        margin-right: 5px;
+.treegrid-row-expanded {
+    .treegrid-expander-icon {
+        transform: rotate(90deg);
+    }
+}
 
-        .treegrid-multiple-select-checkbox {
+.treegrid-checkbox {
+    margin-right: 5px;
+
+    .treegrid-multiple-select-checkbox {
+        margin: 0;
+
+        .el-checkbox-content {
             margin: 0;
-
-            .el-checkbox-content {
-                margin: 0;
-            }
         }
     }
+}
 
-    .treegrid-icon {
-        display: inline-block;
-        min-width: 20px;
-        text-align: center;
-        margin-right: 5px;
-    }
+.treegrid-icon {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+    margin-right: 5px;
 }
 
 .treegrid-loading {

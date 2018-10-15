@@ -33,5 +33,6 @@ module.exports = {
     e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage', 'e2e/html', 'e2e/xml'],
     shim: 'dist/dist',
     bower: 'target/bower',
-    npm: 'target/npm'
+    npm: 'target/npm',
+    docs: 'target/docs',
 };

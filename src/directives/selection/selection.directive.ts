@@ -50,9 +50,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this.update();
 
     // if the list changes then inform the service
-    this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-      this.update();
-    });
+    this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.update());
   }
 
   ngOnDestroy(): void {

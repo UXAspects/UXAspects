@@ -1,0 +1,16 @@
+.list-group-item:focus {
+    z-index: 1;
+    outline: 2px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+}
+
+.list-group-item-heading {
+    color: #000;
+}
+
+.list-group-item-subheading {
+    color: #888;
+    font-size: 14px;
+}

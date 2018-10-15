@@ -52,7 +52,7 @@ export class DayViewComponent implements OnDestroy {
     return index;
   }
 
-  trackDayByFn(index: number, item: DayViewItem): string {
+  trackDayByFn(_index: number, item: DayViewItem): string {
     return `${ item.day } ${ item.month } ${ item.year }`;
   }
 

@@ -1,4 +1,4 @@
-UX Aspects 1.6.2 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
+UX Aspects 1.6.3 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
 
 New Features:
 * [Column Resizing (Angular)](https://uxaspects.github.io/UXAspects/#/components/tables#column-resizing)

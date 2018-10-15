@@ -1,32 +1,73 @@
-<div class="tree-node tree-node-content {{node.className}}" data-nodrag ng-click="tv.select(this)" ng-class="{highlight : tv.isSelected(this)}" >
+<div class="tree-node tree-node-content {{ node.className }}"
+     data-nodrag
+     ng-click="node.disabled ? null : tv.select(this)"
+     ng-class="{ highlight : tv.isSelected(this), disabled: node.disabled }">
 
-<a class="btn btn-link button-secondary btn-icon btn-sm toggle chevron" ng-if="node.allowChildren && (node.nodes || node.nodes.length > 0)" ng-disabled="!node.nodes || node.nodes.length <= 0" ng-click="toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur();" tabIndex="0" href>
-  <span ng-if="node.nodes.length > 0"
-    class="hpe-icon"
-    ng-class="{
-      'hpe-chevron-right': collapsed,
-      'hpe-chevron-down': !collapsed
-    }">
+  <a class="btn btn-link button-secondary btn-icon btn-sm toggle chevron"
+     ng-if="node.allowChildren && (node.nodes || node.nodes.length > 0)"
+     ng-disabled="node.disabled || !node.nodes || node.nodes.length <= 0"
+     ng-click="node.disabled ? null : toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur()"
+     tabindex="{{ node.disabled ? -1 : 0 }}">
+
+    <span ng-if="node.nodes.length > 0"
+          class="hpe-icon"
+          ng-class="{'hpe-chevron-right': collapsed, 'hpe-chevron-down': !collapsed }">
     </span>
-</a>
-<span ng-if="!node.allowChildren" style="padding-left: 17px;"></span>
+  </a>
+  <span ng-if="!node.allowChildren"
+        style="padding-left: 17px;">
+  </span>
 
-<span class="icon"><i class="hpe-icon" ng-class="tv.getIcon(node.type, collapsed)"></i><span class="sr-only" ng-bind="node.type"></span></span>
+  <span class="icon">
+    <i class="hpe-icon"
+       ng-class="tv.getIcon(node.type, collapsed)">
+    </i>
+    <span class="sr-only"
+          ng-bind="node.type">
+    </span>
+  </span>
 
-<span class="title-readonly" tooltip="{{ tv.getTooltip(node) }}" ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation();" ng-show="!tv.isBeingEdited(this)" tabIndex="0" ng-keydown="tv.keyboardSelect(this,$event);">{{node.title}}</span>
-<input class="title-edit" ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation();" ng-keypress="tv.finishEdit(this,$event)" ng-blur="tv.finishEdit(this,$event)"
-ng-show="tv.isBeingEdited(this)" ng-model="node.title" focus-on-show tabIndex="0">
+  <span class="title-readonly"
+        tooltip="{{ tv.getTooltip(node) }}"
+        ng-click="node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
+        ng-show="!tv.isBeingEdited(this)"
+        tabindex="{{ node.disabled ? -1 : 0 }}"
+        ng-keydown="tv.keyboardSelect(this,$event)">
+    {{node.title}}
+  </span>
 
-<a class="pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button" ng-show="tv.inlineEdit && tv.canDeleteItem(this)" data-nodrag ng-click="tv.remove(this); $event.preventDefault(); $event.stopPropagation();" tabIndex="0">
-  <span class="hpe-icon hpe-close"></span>
-</a>
+  <input class="title-edit"
+         ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
+         ng-keypress="tv.finishEdit(this,$event)"
+         ng-blur="tv.finishEdit(this,$event)"
+         ng-show="tv.isBeingEdited(this)"
+         ng-model="node.title"
+         focus-on-show
+         tabindex="{{ node.disabled ? -1 : 0 }}">
 
-<a class="pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button" ng-show="tv.inlineEdit && tv.canAddItem(this)" data-nodrag ng-click="tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation();" tabIndex="0">
-  <span class="hpe-icon hpe-add"></span>
-</a>
+  <a class="pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button"
+     ng-show="tv.inlineEdit && tv.canDeleteItem(this)"
+     data-nodrag
+     ng-click="tv.remove(this); $event.preventDefault(); $event.stopPropagation()"
+     tabindex="{{ node.disabled ? -1 : 0 }}">
+    <span class="hpe-icon hpe-close"></span>
+  </a>
+
+  <a class="pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button"
+     ng-show="tv.inlineEdit && tv.canAddItem(this)"
+     data-nodrag
+     ng-click="tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation()"
+     tabindex="{{ node.disabled ? -1 : 0 }}">
+    <span class="hpe-icon hpe-add"></span>
+  </a>
 
 </div>
 
-<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
-	<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'directives/treeView/treeView.partial.html'"></li>
+<ol ui-tree-nodes=""
+    ng-model="node.nodes"
+    ng-class="{ hidden: collapsed }">
+  <li ng-repeat="node in node.nodes"
+      ui-tree-node
+      ng-include="'directives/treeView/treeView.partial.html'">
+  </li>
 </ol>
