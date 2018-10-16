@@ -194,10 +194,6 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
         });
     }
 
-    applyFilter(filter: Filter): void {
-        this.filters.push(filter);
-    }
-
 }
 
 interface FilterSampleItem {

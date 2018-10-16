@@ -170,11 +170,6 @@ export class AppComponent {
             }
         });
     }
-
-    applyFilter(filter: Filter): void {
-        this.filters.push(filter);
-    }
-
 }
 
 interface FilterSampleItem {
