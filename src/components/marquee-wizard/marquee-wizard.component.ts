@@ -39,6 +39,8 @@ export class MarqueeWizardComponent extends WizardComponent {
 
             // mark this step as completed
             step.setCompleted(true);
+        } else {
+            this.stepError.next(this.step);
         }
     }
 
@@ -56,6 +58,8 @@ export class MarqueeWizardComponent extends WizardComponent {
             // if the step is valid indicate that it is now complete
             if (step.valid) {
                 step.setCompleted(true);
+            } else {
+                this.stepError.next(this.step);
             }
         });
     }

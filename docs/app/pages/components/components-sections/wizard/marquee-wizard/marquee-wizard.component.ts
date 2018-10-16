@@ -1,5 +1,7 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MarqueeWizardComponent } from '../../../../../../../src';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -42,7 +44,7 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
         ]
     };
 
-    constructor() {
+    constructor(private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
@@ -55,5 +57,18 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
         this.skip = false;
         this.error = false;
         this.requiredText.reset();
+    }
+
+    onChange(step: number, wizard: MarqueeWizardComponent): void {
+
+        // get the step header
+        const header = wizard.steps.toArray()[step].header;
+
+        // announce the step error
+        this._announcer.announce(`${header} activated`);
+    }
+
+    onError(): void {
+        // this._announcer.announce(`The current step is invalid`);
     }
 }

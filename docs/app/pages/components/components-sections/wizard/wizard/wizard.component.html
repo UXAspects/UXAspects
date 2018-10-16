@@ -1,19 +1,7 @@
-<ux-wizard [orientation]="orientation">
+<ux-wizard [orientation]="orientation" (stepChange)="onStepChange($event)">
 
-    <ux-wizard-step header="1. First Step">
-        <p>Content of step 1.</p>
-    </ux-wizard-step>
-
-    <ux-wizard-step header="2. Second Step">
-        <p>Content of step 2.</p>
-    </ux-wizard-step>
-
-    <ux-wizard-step header="3. Third Step">
-        <p>Content of step 3.</p>
-    </ux-wizard-step>
-
-    <ux-wizard-step header="4. Fourth Step">
-        <p>Content of step 4.</p>
+    <ux-wizard-step *ngFor="let step of steps" [header]="step.header">
+        <p>{{ step.content }}</p>
     </ux-wizard-step>
 
 </ux-wizard>
@@ -129,6 +117,9 @@
     </tr>
     <tr uxd-api-property name="stepChange" type="number">
         Emits when the current step has changed.
+    </tr>
+    <tr uxd-api-property name="stepError" type="number">
+        Emits when the user tries to continue but the current step is invalid.
     </tr>
     <tr uxd-api-property name="onNext" type="number">
         Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.

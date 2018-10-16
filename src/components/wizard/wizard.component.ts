@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList, OnDestroy } from '@angular/core';
-import { WizardStepComponent } from './wizard-step.component';
-import { Subject } from 'rxjs/Subject';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { WizardStepComponent } from './wizard-step.component';
 
 let uniqueId: number = 0;
 
@@ -50,6 +50,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     @Output() onFinish = new EventEmitter<void>();
     @Output() stepChanging = new EventEmitter<StepChangingEvent>();
     @Output() stepChange = new EventEmitter<number>();
+    @Output() stepError = new EventEmitter<number>();
 
     @ContentChildren(WizardStepComponent) steps = new QueryList<WizardStepComponent>();
 
@@ -114,6 +115,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         // check if current step is invalid
         if (!this.getCurrentStep().valid) {
             this.invalidIndicator = true;
+            this.stepError.next(this.step);
             return;
         }
 
@@ -162,6 +164,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
                 // only fires when the finish button is clicked and the step is valid
                 if (this.getCurrentStep().valid) {
                     this.onFinish.next();
+                } else {
+                    this.stepError.next(this.step);
                 }
 
                 resolve();

@@ -27,7 +27,7 @@
                 </button>
             </div>
 
-            <ux-marquee-wizard class="marquee-wizard" [description]="icon" (onFinishing)="validate = true" (onFinish)="close()" (onCancel)="close()">
+            <ux-marquee-wizard #wizard class="marquee-wizard" [description]="icon" (stepChange)="onChange($event, wizard)" (stepError)="onError()" (onFinishing)="validate = true" (onFinish)="close()" (onCancel)="close()">
 
                 <ng-template #icon>
                     <img src="../../../../../assets/img/IconUser.png" alt="">
@@ -254,6 +254,9 @@
     </tr>
     <tr uxd-api-property name="stepChange" type="number">
         Emits when the current step has changed.
+    </tr>
+    <tr uxd-api-property name="stepError" type="number">
+        Emits when the user tries to continue but the current step is invalid.
     </tr>
     <tr uxd-api-property name="onNext" type="number">
         Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.

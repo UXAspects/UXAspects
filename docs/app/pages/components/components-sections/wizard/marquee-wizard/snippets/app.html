@@ -24,8 +24,11 @@
                 </button>
             </div>
 
-            <ux-marquee-wizard class="marquee-wizard"
+            <ux-marquee-wizard #wizard
+                class="marquee-wizard"
                 [description]="icon"
+                (stepChange)="onChange($event, wizard)"
+                (stepError)="onError()"
                 (onFinishing)="validate = true"
                 (onFinish)="close()"
                 (onCancel)="close()">
