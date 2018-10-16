@@ -59,16 +59,20 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
         this.requiredText.reset();
     }
 
-    onChange(step: number, wizard: MarqueeWizardComponent): void {
+    onChange(index: number, wizard: MarqueeWizardComponent): void {
 
         // get the step header
-        const header = wizard.steps.toArray()[step].header;
+        const step = wizard.steps.toArray()[index];
 
         // announce the step error
-        this._announcer.announce(`${header} activated`);
+        if (step.valid) {
+            this._announcer.announce(`${step.header} activated`);
+        } else {
+            this._announcer.announce(`${step.header} activated. This step is invalid.`);
+        }
     }
 
     onError(): void {
-        // this._announcer.announce(`The current step is invalid`);
+        this._announcer.announce(`The current step is invalid`);
     }
 }
