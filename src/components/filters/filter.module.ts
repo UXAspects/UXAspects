@@ -9,7 +9,8 @@ import { TypeaheadModule } from '../typeahead/typeahead.module';
 import { FilterBaseComponent } from './filter-base/filter-base.component';
 import { FilterContainerComponent } from './filter-container.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
-import { FilterDynamicComponent, FilterTypeaheadHighlight } from './filter-dynamic/filter-dynamic.component';
+import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
+import { FilterTypeaheadHighlight } from './filter-dynamic/filter-typeahead-highlight.pipe';
 
 const DECLARATIONS = [
     FilterBaseComponent,

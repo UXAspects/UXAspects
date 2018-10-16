@@ -5,9 +5,9 @@
     tabindex="0"
     aria-label="Clear all filters"
     i18n-aria-label
-    *ngIf="filters.length > 0"
+    *ngIf="(filterService.filters$ | async).length > 0"
     [uxTooltip]="clearTooltip || 'Clear All'"
-    (click)="removeAll()">
+    (click)="filterService.removeAll()">
 
     <svg class="filter-selected-clear-graphic" width="100%" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
         <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
