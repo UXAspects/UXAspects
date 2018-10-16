@@ -71,22 +71,13 @@
 <div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))"
     class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation">
 
-    <ul *ngIf="(selectedRoot$ | async)?.children; let children"
-        class="nav nav-tabs" role="tablist" aria-label="Secondary Navigation">
-
-        <li *ngFor="let child of children"
-            [class.active]="child.selected"
-            role="none"
+    <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children">
+        <ux-tab *ngFor="let child of children"
+            [heading]="child.title"
+            [active]="child.selected"
+            (select)="select(child)"
             [uxPageHeaderNavigationSecondaryItem]="child">
-
-            <a role="tab"
-                [attr.aria-selected]="child.selected"
-                tabindex="0"
-                (click)="select(child)"
-                (keydown.enter)="select(child)">{{ child.title }}</a>
-
-        </li>
-
-    </ul>
+        </ux-tab>
+    </ux-tabset>
 
 </div>
