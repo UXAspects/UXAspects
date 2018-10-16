@@ -3,11 +3,18 @@
 <h4>Creating a Custom Filter Component</h4>
 
 <p>Your custom filter component should inject the FilterService. This service will provide you with the following functions:</p>
-<ul>
-    <li><code>add(filter: Filter): void</code> – Will add a filter to the list of active filters.</li>
-    <li><code>remove(filter: Filter):void</code> – Will remove a filter from the list of active filters.</li>
-    <li><code>removeAll():void</code> – Will remove all filters from the list of active filters.</li>
-</ul>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="add" args="filter: Filter">
+        Will add a filter to the list of active filters.
+    </tr>
+    <tr uxd-api-property name="remove" args="filter: Filter">
+        Will remove a filter to the list of active filters.
+    </tr>
+    <tr uxd-api-property name="removeAll">
+        Will remove all filters from the list of active filters.
+    </tr>
+</uxd-api-properties>
 
 <h4>Sample Custom Filter Component</h4>
 

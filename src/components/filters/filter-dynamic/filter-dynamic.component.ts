@@ -69,6 +69,13 @@ export class FilterDynamicComponent implements OnDestroy {
         // listen for remove all events in which case we should deselect event initial filters
         _filterService.events$.pipe(takeUntil(this._onDestroy), rxFilter(event => event instanceof FilterRemoveAllEvent))
             .subscribe(() => this.removeFilter());
+
+        // ensure that the current selected filter is still selected when the active filters change
+        _filterService.filters$.pipe(takeUntil(this._onDestroy)).subscribe(filters => {
+            if (this.selected && filters.indexOf(this.selected) === -1) {
+                this.removeFilter();
+            }
+        });
     }
 
     /** Set up the initial conditions */
