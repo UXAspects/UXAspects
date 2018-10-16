@@ -1478,17 +1478,6 @@
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Custom Filters Component",
-                    "component": "ComponentsCustomFiltersComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Module",
-                            "content": "FilterModule"
-                        }
-                    ]
-                },
-                {
                     "title": "Filters",
                     "component": "ComponentsFiltersComponent",
                     "version": "Angular",
@@ -1497,6 +1486,17 @@
                             "title": "Selector",
                             "content": "ux-filter-container"
                         },
+                        {
+                            "title": "Module",
+                            "content": "FilterModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Custom Filters",
+                    "component": "ComponentsCustomFiltersComponent",
+                    "version": "Angular",
+                    "usage": [
                         {
                             "title": "Module",
                             "content": "FilterModule"
