@@ -17,12 +17,14 @@
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "start:https": "npm run start -- --https --pfx configs/webpack.docs.dev.pfx",
     "start:e2e": "webpack-dev-server --config configs/webpack.e2e.config.js --progress --colors",
+    "setversion": "grunt execute:version",
+    "compile": "grunt compile",
     "build": "grunt build",
     "build:library": "grunt build:library",
     "lint": "grunt lint",
-    "test": "grunt test && grunt e2e",
-    "test:e2e": "grunt e2e",
-    "setversion": "grunt execute:version"
+    "package": "grunt package",
+    "test": "grunt jasmine:ng1 && grunt e2e",
+    "test:e2e": "grunt e2e"
   },
   "dependencies": {
     "@angular/animations": "^6.0.9",
@@ -44,7 +46,7 @@
     "chart.js": "~2.6.0",
     "core-js": "^2.5.7",
     "dragula": "^3.7.2",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "9.12.0",
     "jquery": "^3.2.1",
     "jquery-ui": "^1.12.1",
     "json-templater": "1.1.0",

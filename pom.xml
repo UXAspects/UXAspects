@@ -80,20 +80,39 @@
                         </configuration>
                     </execution>
 
+                    <!-- Compile -->
                     <execution>
-                        <id>npm build</id>
+                        <id>npm compile</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
-
-                        <!-- optional: the default phase is "generate-resources" -->
                         <phase>compile</phase>
-                        <!--TODO Failure to copy resources is not resulting in build failure-->
-
                         <configuration>
-                            <!-- optional: if not specified, it will run Grunt's default
-                            task (and you can remove this whole <configuration> section.) -->
-                            <arguments>run build:library</arguments>
+                            <arguments>run compile</arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Test -->
+                    <execution>
+                        <id>npm test</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <arguments>run test</arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Package -->
+                    <execution>
+                        <id>npm package</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <arguments>run package</arguments>
                         </configuration>
                     </execution>
 
