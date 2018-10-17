@@ -21,9 +21,8 @@ export class MarqueeWizardComponent extends WizardComponent {
     constructor(marqueeWizardService: MarqueeWizardService) {
         super();
 
-        marqueeWizardService.valid$.pipe(
-            filter((event: MarqueeWizardValidEvent) => !event.valid)
-        ).subscribe(this.validChange.bind(this));
+        marqueeWizardService.valid$.pipe(filter((event: MarqueeWizardValidEvent) => !event.valid))
+            .subscribe(this.validChange.bind(this));
     }
 
     /**
@@ -40,6 +39,8 @@ export class MarqueeWizardComponent extends WizardComponent {
 
             // mark this step as completed
             step.setCompleted(true);
+        } else {
+            this.stepError.next(this.step);
         }
     }
 
@@ -57,6 +58,8 @@ export class MarqueeWizardComponent extends WizardComponent {
             // if the step is valid indicate that it is now complete
             if (step.valid) {
                 step.setCompleted(true);
+            } else {
+                this.stepError.next(this.step);
             }
         });
     }

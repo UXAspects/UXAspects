@@ -1,9 +1,11 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { Validators, FormControl } from '@angular/forms';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { FormControl, Validators } from '@angular/forms';
+import { MarqueeWizardComponent } from '../../../../../../../src';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-marquee-wizard',
@@ -18,7 +20,7 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
     validate: boolean = false;
     modalOpen: boolean = false;
     requiredText = new FormControl('', Validators.required);
-    
+
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -34,11 +36,15 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
             {
                 imports: ['MarqueeWizardModule', 'CheckboxModule', 'FocusIfModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             }
         ]
     };
 
-    constructor() {
+    constructor(private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
@@ -51,5 +57,22 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
         this.skip = false;
         this.error = false;
         this.requiredText.reset();
+    }
+
+    onChange(index: number, wizard: MarqueeWizardComponent): void {
+
+        // get the step header
+        const step = wizard.steps.toArray()[index];
+
+        // announce the step error
+        if (step.valid) {
+            this._announcer.announce(`${step.header} activated`);
+        } else {
+            this._announcer.announce(`${step.header} activated. This step is invalid.`);
+        }
+    }
+
+    onError(): void {
+        this._announcer.announce(`The current step is invalid`);
     }
 }

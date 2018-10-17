@@ -1,19 +1,7 @@
-<ux-wizard [orientation]="orientation">
-        
-    <ux-wizard-step header="1. First Step">
-        <p>Content of step 1.</p>
-    </ux-wizard-step>
-    
-    <ux-wizard-step header="2. Second Step">
-        <p>Content of step 2.</p>
-    </ux-wizard-step>
-    
-    <ux-wizard-step header="3. Third Step">
-        <p>Content of step 3.</p>
-    </ux-wizard-step>
-    
-    <ux-wizard-step header="4. Fourth Step">
-        <p>Content of step 4.</p>
+<ux-wizard [orientation]="orientation" (stepChange)="onStepChange($event)">
+
+    <ux-wizard-step *ngFor="let step of steps" [header]="step.header">
+        <p>{{ step.content }}</p>
     </ux-wizard-step>
 
 </ux-wizard>

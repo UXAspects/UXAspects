@@ -13,17 +13,21 @@
      aria-modal="true"
      aria-labelledby="marquee-wizard-title">
 
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg"
+        role="document"
+        [cdkTrapFocus]="modal.isShown"
+        [cdkTrapFocusAutoCapture]="true">
+
         <div class="modal-content">
 
             <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
-                <button class="modal-close" (click)="close()" type="button">
+                <button class="modal-close" (click)="close()" type="button" aria-label="Close Modal" tabindex="0">
                     <i class="hpe-icon hpe-close"></i>
                 </button>
             </div>
 
-            <ux-marquee-wizard class="marquee-wizard" [description]="icon" (onFinishing)="validate = true" (onFinish)="close()" (onCancel)="close()">
+            <ux-marquee-wizard #wizard class="marquee-wizard" [description]="icon" (stepChange)="onChange($event, wizard)" (stepError)="onError()" (onFinishing)="validate = true" (onFinish)="close()" (onCancel)="close()">
 
                 <ng-template #icon>
                     <img src="../../../../../assets/img/IconUser.png" alt="">
@@ -36,7 +40,7 @@
                         <div class="col-xs-7">
                             <div class="form-group">
                                 <label class="form-label">Name</label>
-                                <input type="text" placeholder="Enter name" class="form-control">
+                                <input type="text" placeholder="Enter name" class="form-control" [focusIf]="modal.isShown">
                             </div>
 
                             <div class="form-group">
@@ -187,6 +191,18 @@
     <tr uxd-api-property name="finishTooltip" type="string">
         Defines the text displayed in the tooltip when the 'Finish' button is hovered.
     </tr>
+    <tr uxd-api-property name="nextAriaLabel" type="string">
+        Defines the text for the aria label on the 'Next' button.
+    </tr>
+    <tr uxd-api-property name="previousAriaLabel" type="string">
+        Defines the text for the aria label on the 'Previous' button.
+    </tr>
+    <tr uxd-api-property name="cancelAriaLabel" type="string">
+        Defines the text for the aria label on the 'Cancel' button.
+    </tr>
+    <tr uxd-api-property name="finishAriaLabel" type="string">
+        Defines the text for the aria label on the 'Finish' button.
+    </tr>
     <tr uxd-api-property name="nextDisabled" type="boolean">
         If set to
         <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.
@@ -238,6 +254,9 @@
     </tr>
     <tr uxd-api-property name="stepChange" type="number">
         Emits when the current step has changed.
+    </tr>
+    <tr uxd-api-property name="stepError" type="number">
+        Emits when the user tries to continue but the current step is invalid.
     </tr>
     <tr uxd-api-property name="onNext" type="number">
         Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.
