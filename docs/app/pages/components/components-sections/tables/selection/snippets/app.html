@@ -15,7 +15,7 @@
             [(selected)]="item.selected">
 
             <td>
-                <ux-checkbox class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
+                <ux-checkbox aria-hidden="true" class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
             </td>
             <td>{{ item.name }}</td>
             <td>{{ item.author }}</td>

@@ -11,7 +11,9 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
 
     @Input() uxSelectionItem: any;
 
-    @Input() @HostBinding('class.ux-selection-selected')
+    @Input()
+    @HostBinding('class.ux-selection-selected')
+    @HostBinding('attr.aria-selected')
     set selected(selected: boolean) {
         selected ? this.select() : this.deselect();
     }

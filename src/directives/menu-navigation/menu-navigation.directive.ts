@@ -1,6 +1,8 @@
+import { DOWN_ARROW, END, ESCAPE, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
 import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';
 import { MenuNavigationService } from './menu-navigation.service';
@@ -29,40 +31,32 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
     }
 
     private _itemsOrdered: MenuNavigationItemDirective[];
-
-    private _document: any;
-
-    private _subscription = new Subscription();
+    private _onDestroy = new Subject<void>();
 
     constructor(
         private _service: MenuNavigationService,
         private _elementRef: ElementRef,
-        @Inject(DOCUMENT) document: any
-    ) {
-        this._document = document;
-    }
+        @Inject(DOCUMENT) private _document: any
+    ) { }
 
     ngOnInit(): void {
         if (this.toggleButton) {
-            this._subscription.add(
-                this.toggleButton.keyEnter.subscribe(this.focusFirst.bind(this))
-            );
+            this.toggleButton.keyEnter.pipe(takeUntil(this._onDestroy))
+                .subscribe(() => this.focusFirst());
         }
     }
 
     ngAfterContentInit(): void {
 
-        this._subscription.add(
-            this.items.changes.subscribe(() => {
-                this._itemsOrdered = this.items.toArray();
-            })
-        );
+        this.items.changes.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._itemsOrdered = this.items.toArray());
 
         this._itemsOrdered = this.items.toArray();
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     focusFirst(): void {
@@ -79,47 +73,43 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
 
         let handled = false;
 
-        switch (event.key) {
+        switch (event.which) {
 
-            case 'ArrowUp':
-            case 'Up':
+            case UP_ARROW:
                 this.movePrevious(event);
                 handled = true;
                 break;
 
-            case 'ArrowDown':
-            case 'Down':
+            case DOWN_ARROW:
                 this.moveNext(event);
                 handled = true;
                 break;
 
-            case 'ArrowLeft':
-            case 'Left':
+            case LEFT_ARROW:
                 if (this.toggleButtonPosition === 'left') {
                     this.moveToToggleButton(event);
                     handled = true;
                 }
                 break;
 
-            case 'ArrowRight':
-            case 'Right':
+            case RIGHT_ARROW:
                 if (this.toggleButtonPosition === 'right') {
                     this.moveToToggleButton(event);
                     handled = true;
                 }
                 break;
 
-            case 'Home':
+            case HOME:
                 this.moveFirst();
                 handled = true;
                 break;
 
-            case 'End':
+            case END:
                 this.moveLast();
                 handled = true;
                 break;
 
-            case 'Escape':
+            case ESCAPE:
                 this.navigatedOut.emit(event);
                 handled = true;
                 break;

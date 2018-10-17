@@ -999,20 +999,24 @@ table {
     }
 
     .sort-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         height: 34px;
         margin-right: 1px;
         float: right;
         padding: 6px;
-        padding-top: 10px;
         cursor: pointer;
+        border: none;
+        background-color: transparent;
 
         &:hover,
         &:focus {
-            background: @table-sort-hover-bg;
+            background-color: @table-sort-hover-bg;
         }
 
         &:focus {
-            outline: 1px solid @table-sort-focus-outline;
+            .aspects-outline();
         }
     }
 }

@@ -1,17 +1,30 @@
 <div class="sorter-container">
     <span class="sorter-title">Sort by</span>
 
-    <div class="btn-group filter sort-direction-toggle" dropdown>
+    <div class="btn-group filter sort-direction-toggle"
+        uxMenuNavigation
+        (navigatedOut)="toggle.focus()"
+        [toggleButton]="toggle"
+        dropdown
+        #dropdown="bs-dropdown">
 
         <!-- Dropdown Button -->
-        <button dropdownToggle class="btn dropdown-toggle filter-dropdown">
+        <button #toggle="uxMenuNavigationToggle"
+            uxMenuNavigationToggle
+            [(menuOpen)]="dropdown.isOpen"
+            dropdownToggle
+            class="btn dropdown-toggle filter-dropdown">
             {{ selected }} <span class="hpe-icon hpe-down"></span>
         </button>
 
         <!-- Dropdown List -->
         <ul *dropdownMenu class="dropdown-menu" role="menu">
             <li role="menuitem" *ngFor="let option of options">
-                <a (click)="sort(option)">
+                <a (click)="sort(option)"
+                   (keydown.enter)="sort(option); toggle.focus()"
+                   tabindex="-1"
+                   uxMenuNavigationItem>
+
                     <i class="hpe-icon hpe-checkmark sorter-icon"
                         [class.invisible]="option !== selected">
                     </i>
@@ -21,11 +34,13 @@
         </ul>
 
         <!-- Sort Direction Toggle -->
-        <span class="sort-icon hpe-icon text-muted"
+        <button class="sort-icon hpe-icon text-muted"
+            aria-label="Toggle sort direction"
+            [attr.aria-sort]="descending ? 'descending' : 'ascending'"
             [class.hpe-descend]="descending"
             [class.hpe-ascend]="!descending"
             (click)="descending = !descending">
-        </span>
+        </button>
     </div>
 </div>
 

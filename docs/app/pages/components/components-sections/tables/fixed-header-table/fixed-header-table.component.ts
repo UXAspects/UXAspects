@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-fixed-header-table',
@@ -14,6 +14,7 @@ export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSectio
 
     people: Person[] = [];
     loading: boolean = false;
+    total: number = 250;
 
     private _page: number = 0;
 

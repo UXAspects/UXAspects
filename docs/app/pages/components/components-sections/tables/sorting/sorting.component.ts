@@ -11,7 +11,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 })
 @DocumentationSectionComponent('ComponentsSortingComponent')
 export class ComponentsSortingComponent extends BaseDocumentationSection implements IPlunkProvider {
-    
+
     options: string[] = [
         'Date Modified',
         'Name',
@@ -31,6 +31,10 @@ export class ComponentsSortingComponent extends BaseDocumentationSection impleme
                 imports: ['BsDropdownModule'],
                 library: 'ngx-bootstrap',
                 forRoot: true
+            },
+            {
+                imports: ['MenuNavigationModule'],
+                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

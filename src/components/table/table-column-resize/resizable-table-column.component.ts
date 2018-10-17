@@ -86,6 +86,14 @@ export class ResizableTableColumnComponent {
     this._table.setResizing(false);
   }
 
+  onMoveLeft(): void {
+    this._table.resizeColumn(this.getCellIndex(), -10);
+  }
+
+  onMoveRight(): void {
+    this._table.resizeColumn(this.getCellIndex(), 10);
+  }
+
   /** Get the column index this cell is part of */
   private getCellIndex(): number {
     return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;

@@ -10,7 +10,10 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let person of people">
+        <tr *ngFor="let person of people; let index = index"
+            [attr.aria-setsize]="total"
+            [attr.aria-posinset]="index">
+
             <td class="table-col-id">{{ person.id }}</td>
             <td>{{ person.name }}</td>
             <td>{{ person.address }}</td>
