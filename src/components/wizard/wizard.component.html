@@ -13,7 +13,7 @@
             class="wizard-step"
             [class.active]="stp.active"
             [class.visited]="stp.visited"
-            [class.invalid]="stp.active && !step.valid && invalidIndicator"
+            [class.invalid]="stp.active && !stp.valid && invalidIndicator"
             [attr.aria-posinset]="index + 1"
             [attr.aria-setsize]="steps.length"
             [attr.aria-selected]="stp.active"
