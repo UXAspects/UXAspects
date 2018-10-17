@@ -1,12 +1,44 @@
-<div class="btn-group ux-filter-custom" dropdown>
-    <button dropdownToggle type="button" class="filter-dropdown btn dropdown-toggle"
-    [class.active]="selected !== initial">{{ selected?.title }}
+<div class="btn-group ux-custom-filter"
+    dropdown
+    #dropdown="bs-dropdown"
+    [autoClose]="true">
+
+    <button type="button"
+        tabindex="0"
+        dropdownToggle
+        uxMenuNavigationToggle
+        #toggle="uxMenuNavigationToggle"
+        [(menuOpen)]="dropdown.isOpen"
+        aria-haspopup="true"
+        [attr.aria-expanded]="dropdown.isOpen"
+        class="filter-dropdown btn dropdown-toggle"
+        [class.active]="selected !== initial">
+        {{ selected?.title }}
         <span class="hpe-icon hpe-down"></span>
     </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <li class="dropdown-list-item" *ngFor="let filter of filters" role="menuitem">
-            <ux-radio-button (click)="selectFilter(filter)" name="filterGroup" [(value)]="selected"
-            [option]="filter">{{ filter.name }}</ux-radio-button>
+
+    <ul *dropdownMenu
+        uxMenuNavigation
+        [toggleButton]="toggle"
+        class="dropdown-menu"
+        role="menu">
+
+        <li class="dropdown-list-item"
+            *ngFor="let filter of filters"
+            role="none">
+
+            <a class="dropdown-item"
+                role="listitem"
+                tabindex="-1"
+                uxMenuNavigationItem
+                [attr.aria-selected]="filter === selected"
+                (click)="selectFilter(filter, $event); toggle.focus()"
+                (keydown.enter)="selectFilter(filter, $event); toggle.focus()"
+                (keydown.escape)="toggle.focus()">
+
+                <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+                <span class="filter-dropdown-title">{{ filter.name }}</span>
+            </a>
         </li>
     </ul>
 </div>

@@ -23,6 +23,7 @@ export class MenuNavigationToggleDirective {
     @Output()
     menuOpenChange = new EventEmitter<boolean>();
 
+    @Output()
     keyEnter = new EventEmitter<void>();
 
     private _menuOpen: boolean;
