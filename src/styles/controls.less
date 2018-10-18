@@ -2166,6 +2166,17 @@ search-builder {
             &:focus {
                 opacity: 1;
             }
+
+            &.hover-action-disabled {
+                opacity: 0.3;
+                cursor: default;
+
+                &:hover,
+                &:focus {
+                    opacity: 0.3;
+                    outline: none;
+                }
+            }
         }
     }
 }
