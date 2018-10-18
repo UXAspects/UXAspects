@@ -64,6 +64,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @Input() multiple: boolean = false;
     @Input() pageSize: number = 20;
     @Input() placeholder: string;
+    @Input() autocomplete: string = 'off';
 
     @Input() loadingTemplate: TemplateRef<any>;
     @Input() noOptionsTemplate: TemplateRef<any>;

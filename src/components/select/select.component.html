@@ -3,6 +3,7 @@
     [id]="id + '-input'"
     [(tags)]="value"
     [(input)]="input"
+    [autocomplete]="autocomplete"
     [addOnPaste]="false"
     [disabled]="disabled"
     [display]="display"
@@ -43,6 +44,7 @@
 
     <input #singleInput type="text" [attr.id]="id + '-input'" class="form-control"
         [attr.aria-activedescendant]="highlightedElement?.id"
+        [autocomplete]="autocomplete"
         aria-autocomplete="list"
         [attr.aria-controls]="singleTypeahead.id"
         aria-multiline="false"

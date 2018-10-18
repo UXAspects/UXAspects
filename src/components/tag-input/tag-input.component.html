@@ -15,6 +15,7 @@
     <li *ngIf="isInputVisible()" class="ux-tag-input" role="none">
         <input #tagInput type="text" [attr.id]="id" class="ux-tag-input"
             [(ngModel)]="input"
+            [autocomplete]="autocomplete"
             [class.invalid]="!inputValid"
             [attr.aria-activedescendant]="highlightedElement?.id"
             [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
