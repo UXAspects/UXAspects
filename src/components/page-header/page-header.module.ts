@@ -13,7 +13,7 @@ import { PageHeaderNavigationItemComponent } from './navigation/navigation-item/
 import { PageHeaderNavigationSecondaryItemDirective } from './navigation/navigation-secondary-item/navigation-secondary-item.directive';
 import { PageHeaderNavigationComponent } from './navigation/navigation.component';
 import { PageHeaderComponent } from './page-header.component';
-
+import { TabsetModule } from '../tabset/index';
 
 @NgModule({
     imports: [
@@ -24,6 +24,7 @@ import { PageHeaderComponent } from './page-header.component';
         MenuNavigationModule,
         ResizeModule,
         RouterModule,
+        TabsetModule
     ],
     exports: [
         PageHeaderComponent,
