@@ -74,7 +74,7 @@
     <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children">
         <ux-tab *ngFor="let child of children"
             [heading]="child.title"
-            [active]="child.selected"
+            [active]="child === (selected$ | async)"
             (select)="select(child)"
             [uxPageHeaderNavigationSecondaryItem]="child">
         </ux-tab>
