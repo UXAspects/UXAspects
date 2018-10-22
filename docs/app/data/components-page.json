@@ -62,7 +62,7 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "pagination"
+                            "content": "ux-pagination"
                         },
                         {
                             "title": "Module",
