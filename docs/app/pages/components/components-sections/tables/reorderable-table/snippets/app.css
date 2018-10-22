@@ -2,6 +2,13 @@
     background-color: #fff;
 }
 
+.reorderable-row:focus {
+    outline: 2px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+}
+
 .table tr:hover .drag-handle-column {
     color: #dcdedf;
 }

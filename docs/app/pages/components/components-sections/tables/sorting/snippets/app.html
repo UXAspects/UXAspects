@@ -19,8 +19,9 @@
 
         <!-- Dropdown List -->
         <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem" *ngFor="let option of options">
+            <li *ngFor="let option of options">
                 <a (click)="sort(option)"
+                    role="menuitem"
                     (keydown.enter)="sort(option); toggle.focus()"
                     tabindex="-1"
                     uxMenuNavigationItem>
@@ -35,8 +36,8 @@
 
         <!-- Sort Direction Toggle -->
         <button class="sort-icon hpe-icon text-muted"
-            aria-label="Toggle sort direction"
-            [attr.aria-sort]="descending ? 'descending' : 'ascending'"
+            attr.aria-label="{{ descending ? 'Descending' : 'Ascending' }} sort applied, activate
+            to apply a {{ !descending ? 'descending' : 'ascending' }} sort"
             [class.hpe-descend]="descending"
             [class.hpe-ascend]="!descending"
             (click)="descending = !descending">
