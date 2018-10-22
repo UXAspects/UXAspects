@@ -31,7 +31,11 @@ export default function hoverAction() {
       // apply a class if the item is disabled
       scope.$watch('disabled', isDisabled => {
         // add or remove the class accordingly
-        isDisabled ? element.addClass('hover-action-disabled') : element.removeClass('hover-action-disabled');
+        if (isDisabled) {
+          element.addClass('hover-action-disabled');
+        } else {
+          element.removeClass('hover-action-disabled');
+        }
 
         // set the tab index accordingly
         element.attr('tabindex', isDisabled ? '-1' : '0');
