@@ -23,6 +23,9 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   /** Specify if the component should be disabled */
   @Input() disabled: boolean = false;
 
+  /** Apply classes to the bootstrap pagination element */
+  @Input('class') classes: string;
+
   /** Allow custom class to be added to page buttons */
   @Input() pageBtnClass: string;
 
