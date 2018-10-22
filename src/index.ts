@@ -23,6 +23,7 @@ export * from './components/navigation/index';
 export * from './components/notification/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
+export * from './components/pagination/index';
 export * from './components/popover/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
@@ -82,3 +83,4 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
+

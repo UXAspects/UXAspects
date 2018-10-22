@@ -59,8 +59,6 @@
                     "title": "Pagination",
                     "component": "ComponentsPaginationComponent",
                     "version": "Angular",
-                    "externalUrl":
-                        "http://valor-software.com/ngx-bootstrap/#/pagination",
                     "usage": [
                         {
                             "title": "Selector",
@@ -69,14 +67,6 @@
                         {
                             "title": "Module",
                             "content": "PaginationModule"
-                        },
-                        {
-                            "title": "Import As",
-                            "content": "PaginationModule.forRoot()"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ngx-bootstrap"
                         }
                     ]
                 },

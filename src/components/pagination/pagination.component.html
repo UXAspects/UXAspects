@@ -1,0 +1,62 @@
+<ul class="pagination" uxTabbableList direction="horizontal" [allowBoundaryKeys]="true">
+
+  <li class="pagination-prev page-item"
+      *ngIf="directionButtons"
+      [class.disabled]="page === 1 || disabled">
+
+    <a class="page-link"
+       uxTabbableListItem
+       cdkMonitorElementFocus
+       [attr.aria-label]="previousAriaLabel"
+       [disabled]="page === 1 || disabled"
+       [ngClass]="pageBtnClass"
+       (click)="select(page - 1)"
+       (keydown.enter)="select(page - 1)">
+      <ng-container [ngTemplateOutlet]="previousBtnTemplate || defaultPreviousBtnTemplate"></ng-container>
+    </a>
+  </li>
+
+  <li *ngFor="let pg of pages; trackBy: trackByFn"
+      [class.disabled]="disabled"
+      [class.active]="page === pg.index"
+      class="pagination-page page-item">
+
+    <a class="page-link"
+       [ngClass]="pageBtnClass"
+       uxTabbableListItem
+       cdkMonitorElementFocus
+       [attr.aria-selected]="page === pg.index"
+       [attr.aria-setsize]="pageCount"
+       [attr.aria-posinset]="pg.index"
+       (click)="select(pg.index)"
+       (keydown.enter)="select(pg.index)">
+        {{ pg.index }}
+    </a>
+  </li>
+
+  <li class="pagination-next page-item"
+      *ngIf="directionButtons"
+      [class.disabled]="page === pageCount || disabled">
+
+    <a class="page-link"
+       uxTabbableListItem
+       cdkMonitorElementFocus
+       [attr.aria-label]="nextAriaLabel"
+       [disabled]="page === pageCount || disabled"
+       [ngClass]="pageBtnClass"
+       (click)="select(page + 1)"
+       (keydown.enter)="select(page + 1)">
+
+      <ng-container [ngTemplateOutlet]="nextBtnTemplate || defaultNextBtnTemplate"></ng-container>
+    </a>
+  </li>
+
+</ul>
+
+<ng-template #defaultPreviousBtnTemplate>
+  <span class="hpe-icon hpe-previous"></span>
+</ng-template>
+
+<ng-template #defaultNextBtnTemplate>
+  <span class="hpe-icon hpe-next"></span>
+</ng-template>

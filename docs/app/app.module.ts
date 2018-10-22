@@ -10,7 +10,6 @@ import { downgradeComponent, downgradeInjectable, UpgradeModule } from '@angular
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NgxMaskModule } from 'ngx-mask';
 import { PersistentDataService } from './../../src/services/persistent-data/persistent-data.service';
@@ -50,7 +49,6 @@ const appRoutes: Routes = [
     BsDropdownModule.forRoot(),
     ButtonsModule.forRoot(),
     TypeaheadModule.forRoot(),
-    PaginationModule.forRoot(),
     NgxMaskModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
