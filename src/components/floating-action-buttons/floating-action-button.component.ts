@@ -68,26 +68,30 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
         switch (event.which) {
 
             case UP_ARROW:
-                if (this.fab.isVertical) {
-                    this.fab.focusSibling(false);
+                if (this.fab.isVertical()) {
+                    this.fab.focusSibling(this.fab.direction$.value !== 'bottom');
+                    event.preventDefault();
                 }
                 break;
 
             case DOWN_ARROW:
-                if (this.fab.isVertical) {
-                    this.fab.focusSibling(true);
+                if (this.fab.isVertical()) {
+                    this.fab.focusSibling(this.fab.direction$.value === 'bottom');
+                    event.preventDefault();
                 }
                 break;
 
             case LEFT_ARROW:
-                if (this.fab.isHorizontal) {
-                    this.fab.focusSibling(false);
+                if (this.fab.isHorizontal()) {
+                    this.fab.focusSibling(this.fab.direction$.value !== 'right');
+                    event.preventDefault();
                 }
                 break;
 
             case RIGHT_ARROW:
-                if (this.fab.isHorizontal) {
-                    this.fab.focusSibling(true);
+                if (this.fab.isHorizontal()) {
+                    this.fab.focusSibling(this.fab.direction$.value === 'right');
+                    event.preventDefault();
                 }
                 break;
 
