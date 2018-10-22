@@ -1,9 +1,8 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostListener, Input, OnDestroy, QueryList, Output, EventEmitter } from '@angular/core';
-import { TooltipDirective } from 'ngx-bootstrap/tooltip';
-import { filter } from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { FloatingActionButtonsService } from './floating-action-buttons.service';
+import { FloatingActionButtonComponent } from './floating-action-button.component';
+import { FloatingActionButtonDirection, FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({
     selector: 'ux-floating-action-buttons',
@@ -25,9 +24,14 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
 
-    @Input() direction: FloatingActionButtonDirection = 'top';
-    @ContentChildren(TooltipDirective) tooltips: QueryList<TooltipDirective>;
+    /** Specify the direction that the FAB should display */
+    @Input() set direction(direction: FloatingActionButtonDirection) { this.fab.direction$.next(direction); }
+
+    /** Emit whenever the open state changes */
     @Output() openChange = new EventEmitter<boolean>();
+
+    /** Get all child FAB buttons */
+    @ContentChildren(FloatingActionButtonComponent) buttons: QueryList<FloatingActionButtonComponent>;
 
     private _subscription: Subscription = new Subscription();
 
@@ -36,8 +40,7 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
     }
 
     ngAfterViewInit(): void {
-        this._subscription.add(this.fab.open$.pipe(filter(open => open === false))
-            .subscribe(() => this.tooltips.forEach(tooltip => tooltip.hide())));
+        this.fab.setButtons(this.buttons);
     }
 
     ngOnDestroy(): void {
@@ -53,5 +56,3 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
         }
     }
 }
-
-export type FloatingActionButtonDirection = 'top' | 'right' | 'bottom' | 'left';
