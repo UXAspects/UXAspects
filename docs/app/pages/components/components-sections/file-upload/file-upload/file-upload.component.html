@@ -1,8 +1,15 @@
-<label for="file-upload-demo" ng2FileDrop [class.file-upload-dropping]="fileOver" (fileOver)="fileOver = $event" [uploader]="uploader" class="file-upload-dropzone">
+<label for="file-upload-demo"
+    tabindex="0"
+    ng2FileDrop
+    [class.file-upload-dropping]="fileOver"
+    (fileOver)="fileOver = $event"
+    [uploader]="uploader"
+    class="file-upload-dropzone"
+    (keydown.enter)="upload.click()">
     Click here or Drag and Drop to upload files
 </label>
 
-<input type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
+<input #upload type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
 
 <ux-progress-bar [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
 
@@ -22,11 +29,11 @@
     <button type="button" class="btn button-primary" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
         Upload All
     </button>
-    
+
     <button type="button" class="btn button-secondary" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
         Cancel All
     </button>
-    
+
     <button type="button" class="btn button-secondary" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
         Clear All
     </button>

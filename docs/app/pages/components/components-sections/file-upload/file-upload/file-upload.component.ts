@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { FileUploader } from 'ng2-file-upload';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-file-upload',
@@ -11,10 +11,10 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 })
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
 export class ComponentsFileUploadComponent extends BaseDocumentationSection implements IPlunkProvider {
-    
+
     fileOver: boolean = false;
     uploader: FileUploader = new FileUploader({});
-    
+
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
