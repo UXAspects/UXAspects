@@ -54,7 +54,7 @@
                     <installDirectory>target</installDirectory>
                     <workingDirectory>${basedir}</workingDirectory>
                     <environmentVariables>
-                        <project-version>${project.version}</project-version>
+                        <VERSION>${project.version}</VERSION>
                     </environmentVariables>
                 </configuration>
                 <executions>
@@ -133,20 +133,6 @@
                     <!--
                     <execution>
                         <id>publish-rc</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>install</phase>
-                        <configuration>
-                            <arguments>publish</arguments>
-                        </configuration>
-                    </execution>
-                    -->
-
-                    <!-- Deploy to npmjs.org(?) -->
-                    <!--
-                    <execution>
-                        <id>publish-release</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
