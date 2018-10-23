@@ -8,21 +8,32 @@
             *ngFor="let item of items.controls; let idx = index">
 
             <div class="component-content">
-                <input class="form-control" [focusIf]="true" [formControlName]="idx" placeholder="Enter text">
+                <input class="form-control"
+                    [focusIf]="true"
+                    [formControlName]="idx"
+                    placeholder="Enter text">
+
+                <button class="component-remove"
+                    *ngIf="items.controls.length > 1"
+                    aria-label="Remove field"
+                    (click)="remove(idx)">
+                    <i class="hpe-icon hpe-close"></i>
+                </button>
             </div>
 
-            <button class="component-remove" aria-label="Remove" (click)="remove(idx)">
-                <i class="hpe-icon hpe-close"></i>
-            </button>
 
         </div>
     </div>
 
-    <div class="component-actions" [class.disabled]="form.invalid" (click)="add()">
-        <button class="component-add-btn" [disabled]="form.invalid">
-            <span class="hpe-icon hpe-add"></span>
-        </button>
-        <p class="component-add-text">Add a field</p>
-    </div>
+    <button type="button"
+        class="component-actions"
+        [tabIndex]="form.invalid ? -1 : 0"
+        [class.disabled]="form.invalid"
+        (click)="add()">
+        <span class="component-add-btn">
+            <i class="hpe-icon hpe-add"></i>
+        </span>
+        <span class="component-add-text">Add a field</span>
+    </button>
 
 </form>
