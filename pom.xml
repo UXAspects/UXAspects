@@ -64,7 +64,7 @@
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
-                        <phase>generate-resources</phase>
+                        <phase>initialize</phase>
                         <configuration>
                         </configuration>
                     </execution>
@@ -75,14 +75,27 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                        <phase>initialize</phase>
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
 
+                    <!-- Version -->
+                    <execution>
+                        <id>version</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <arguments>run setversion</arguments>
+                        </configuration>
+                    </execution>
+
                     <!-- Compile -->
                     <execution>
-                        <id>npm compile</id>
+                        <id>compile</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -94,7 +107,7 @@
 
                     <!-- Test -->
                     <execution>
-                        <id>npm test</id>
+                        <id>test</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -106,7 +119,7 @@
 
                     <!-- Package -->
                     <execution>
-                        <id>npm package</id>
+                        <id>package</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -115,6 +128,34 @@
                             <arguments>run package</arguments>
                         </configuration>
                     </execution>
+
+                    <!-- Deploy to artifactory(?) -->
+                    <!--
+                    <execution>
+                        <id>publish-rc</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>install</phase>
+                        <configuration>
+                            <arguments>publish</arguments>
+                        </configuration>
+                    </execution>
+                    -->
+
+                    <!-- Deploy to npmjs.org(?) -->
+                    <!--
+                    <execution>
+                        <id>publish-release</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <arguments>publish</arguments>
+                        </configuration>
+                    </execution>
+                    -->
 
                 </executions>
 
