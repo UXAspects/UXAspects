@@ -106,7 +106,7 @@
                     </execution>
 
                     <!-- Test -->
-                    <execution>
+                    <!-- <execution>
                         <id>test</id>
                         <goals>
                             <goal>npm</goal>
@@ -115,7 +115,7 @@
                         <configuration>
                             <arguments>run test</arguments>
                         </configuration>
-                    </execution>
+                    </execution> -->
 
                     <!-- Package -->
                     <execution>
