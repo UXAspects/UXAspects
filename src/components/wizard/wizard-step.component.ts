@@ -1,11 +1,15 @@
-import { Component, Input, EventEmitter } from '@angular/core';
+import { Component, Input, EventEmitter, Host, HostBinding, Inject, forwardRef } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
-    templateUrl: './wizard-step.component.html'
+    templateUrl: './wizard-step.component.html',
+    host: {
+        'role': 'tabpanel',
+        '[attr.aria-labelledby]': 'id + "-label"'
+    }
 })
 export class WizardStepComponent {
-    
+
     @Input() header: string;
     @Input() valid: boolean = true;
     @Input() visitedChange = new EventEmitter<boolean>();
@@ -13,7 +17,7 @@ export class WizardStepComponent {
     private _active: boolean = false;
     private _visited: boolean = false;
 
-    @Input() 
+    @Input()
     get visited(): boolean {
         return this._visited;
     }
@@ -24,7 +28,7 @@ export class WizardStepComponent {
     }
 
     set active(value: boolean) {
-        
+
         // store the active state of the step
         this._active = value;
 
@@ -34,8 +38,10 @@ export class WizardStepComponent {
         }
     }
 
+    @HostBinding('attr.aria-expanded')
     get active(): boolean {
         return this._active;
     }
 
+    @HostBinding('id') id: string;
 }

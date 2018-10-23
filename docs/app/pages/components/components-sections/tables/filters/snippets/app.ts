@@ -1,6 +1,7 @@
-import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, 
-    FilterRemoveAllEvent } from '@ux-aspects/ux-aspects';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
+import { Filter, FilterAddEvent, FilterEvent, FilterRemoveAllEvent,
+    FilterRemoveEvent } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -8,66 +9,7 @@ import 'chance';
     templateUrl: './app.component.html',
 })
 export class AppComponent {
-
-   activeFilters: Filter[] = [];  
-
-    table: FilterSampleItem[] = [{
-        id: 1,
-        name: 'Document',
-        author: 'Lily Clarke',
-        date: '18 Dec 2016',
-        completed: 97,
-        active: chance.bool()
-    }, {
-        id: 2,
-        name: 'Email',
-        author: 'Jesse Bass',
-        date: '22 Dec 2016',
-        completed: 15,
-        active: chance.bool()
-    }, {
-        id: 3,
-        name: 'Email',
-        author: 'Iva Rogers',
-        date: '12 Dec 2016',
-        completed: 20,
-        active: chance.bool()
-    }, {
-        id: 4,
-        name: 'Email',
-        author: 'Nina Copeland',
-        date: '16 Dec 2016',
-        completed: 74,
-        active: chance.bool()
-    }, {
-        id: 5,
-        name: 'Email',
-        author: 'Bradley Mason',
-        date: '17 Dec 2016',
-        completed: 63,
-        active: chance.bool()
-    }, {
-        id: 6,
-        name: 'Document',
-        author: 'Aaron Scott',
-        date: '21 Dec 2016',
-        completed: 21,
-        active: chance.bool()
-    }, {
-        id: 7,
-        name: 'Document',
-        author: 'Lily Clarke',
-        date: '17 Dec 2016',
-        completed: 85,
-        active: chance.bool()
-    }, {
-        id: 8,
-        name: 'Document',
-        author: 'Lily Clarke',
-        date: '17 Dec 2016',
-        completed: 11,
-        active: chance.bool()
-    }];
+    filters: Filter[] = [];
 
     statusFilters: Filter[] = [{
         group: 'status',
@@ -128,60 +70,106 @@ export class AppComponent {
         minCharacters: 1
     };
 
-    filteredTable: FilterSampleItem[] = this.table;
+    dataSource: ReadonlyArray<FilterSampleItem> = [{
+        id: 1,
+        name: 'Document',
+        author: 'Lily Clarke',
+        date: '18 Dec 2016',
+        completed: 97,
+        active: chance.bool()
+    }, {
+        id: 2,
+        name: 'Email',
+        author: 'Jesse Bass',
+        date: '22 Dec 2016',
+        completed: 15,
+        active: chance.bool()
+    }, {
+        id: 3,
+        name: 'Email',
+        author: 'Iva Rogers',
+        date: '12 Dec 2016',
+        completed: 20,
+        active: chance.bool()
+    }, {
+        id: 4,
+        name: 'Email',
+        author: 'Nina Copeland',
+        date: '16 Dec 2016',
+        completed: 74,
+        active: chance.bool()
+    }, {
+        id: 5,
+        name: 'Email',
+        author: 'Bradley Mason',
+        date: '17 Dec 2016',
+        completed: 63,
+        active: chance.bool()
+    }, {
+        id: 6,
+        name: 'Document',
+        author: 'Aaron Scott',
+        date: '21 Dec 2016',
+        completed: 21,
+        active: chance.bool()
+    }, {
+        id: 7,
+        name: 'Document',
+        author: 'Lily Clarke',
+        date: '17 Dec 2016',
+        completed: 85,
+        active: chance.bool()
+    }, {
+        id: 8,
+        name: 'Document',
+        author: 'Lily Clarke',
+        date: '17 Dec 2016',
+        completed: 11,
+        active: chance.bool()
+    }];
 
-    sparkTrackColor: string = this.colorService.getColor('accent').setAlpha(0.2).toRgba();
-    sparkBarColor: string = this.colorService.getColor('accent').toHex();
+    documents: ReadonlyArray<FilterSampleItem> = [...this.dataSource];
 
-    constructor(private colorService: ColorService) { }
+    constructor(private _announcer: LiveAnnouncer) {}
 
-    filtersChanged(event: FilterEvent) {
+    /** Provide accesibility feedback */
+    onEvent(event: FilterEvent) {
 
-        // apply a newly added filter
+        // announce the selection
         if (event instanceof FilterAddEvent) {
-            this.applyFilter(event.filter);
+            this._announcer.announce(`Filter ${event.filter.name} selected.`);
         }
 
-        // remove an active filter
+        // announce the deselection
         if (event instanceof FilterRemoveEvent) {
-            this.resetData();
-            this.activeFilters = this.activeFilters.filter(filter => filter !== event.filter);
-            this.activeFilters.forEach(filter => this.applyFilter(filter));
+            this._announcer.announce(`Filter ${event.filter.name} deselected.`);
         }
 
-        // remove all filters
+        // announce the deselection of all filters
         if (event instanceof FilterRemoveAllEvent) {
-            this.resetData();
-            this.resetFilters();
+            this._announcer.announce(`All filters deselected.`);
         }
     }
 
-    resetFilters(): void {
-        this.activeFilters = [];
+    apply(): void {
+
+        // restore the table data to the full datasource
+        this.documents = [...this.dataSource];
+
+        // apply each filter
+        this.filters.forEach(filter => {
+            switch (filter.group) {
+
+                case 'author':
+                    this.documents = this.documents.filter(item => item.author === filter.name);
+                    break;
+
+                case 'status':
+                    this.documents = this.documents.filter(item => item.active === (filter.name === 'Active'));
+                    break;
+            }
+        });
     }
-
-    resetData(): void {
-        this.filteredTable = this.table.slice();
-    }
-
-    applyFilter(filter: Filter): void {
-
-        switch (filter.group) {
-            
-            case 'author':
-                this.filteredTable = this.filteredTable.filter(item => item.author === filter.name);
-                break;
-
-            case 'status':
-                this.filteredTable = this.filteredTable.filter(
-                    item => item.active === (filter.name === 'Active')
-                );
-                break;
-        }
-
-        this.activeFilters.push(filter);
-    }
-
 }
 
 interface FilterSampleItem {

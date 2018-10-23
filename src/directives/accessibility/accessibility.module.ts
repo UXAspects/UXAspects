@@ -19,7 +19,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         FocusWithinDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        SplitterAccessibilityDirective
+        SplitterAccessibilityDirective,
     ]
 })
 export class AccessibilityModule {}

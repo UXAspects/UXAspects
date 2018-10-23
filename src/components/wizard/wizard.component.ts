@@ -1,5 +1,9 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { WizardStepComponent } from './wizard-step.component';
+
+let uniqueId: number = 0;
 
 @Component({
     selector: 'ux-wizard',
@@ -8,11 +12,7 @@ import { WizardStepComponent } from './wizard-step.component';
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements AfterViewInit {
-
-    private _step: number = 0;
-
-    @ContentChildren(WizardStepComponent) steps = new QueryList<WizardStepComponent>();
+export class WizardComponent implements AfterViewInit, OnDestroy {
 
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
 
@@ -25,6 +25,11 @@ export class WizardComponent implements AfterViewInit {
     @Input() previousTooltip: string = 'Go to the previous step';
     @Input() cancelTooltip: string = 'Cancel the wizard';
     @Input() finishTooltip: string = 'Finish the wizard';
+
+    @Input() nextAriaLabel: string = 'Go to the next step';
+    @Input() previousAriaLabel: string = 'Go to the previous step';
+    @Input() cancelAriaLabel: string = 'Cancel the wizard';
+    @Input() finishAriaLabel: string = 'Finish the wizard';
 
     @Input() nextDisabled: boolean = false;
     @Input() previousDisabled: boolean = false;
@@ -45,7 +50,11 @@ export class WizardComponent implements AfterViewInit {
     @Output() onFinish = new EventEmitter<void>();
     @Output() stepChanging = new EventEmitter<StepChangingEvent>();
     @Output() stepChange = new EventEmitter<number>();
+    @Output() stepError = new EventEmitter<number>();
 
+    @ContentChildren(WizardStepComponent) steps = new QueryList<WizardStepComponent>();
+
+    id: string = `ux-wizard-${uniqueId++}`;
     invalidIndicator: boolean = false;
 
     @Input()
@@ -71,10 +80,29 @@ export class WizardComponent implements AfterViewInit {
         }
     }
 
+    private _step: number = 0;
+    private _onDestroy = new Subject<void>();
+
     ngAfterViewInit(): void {
 
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
+
+        // initially set the ids for each step
+        this.setWizardStepIds();
+
+        // if the steps change then update the ids
+        this.steps.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setWizardStepIds());
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
+    /** Set ids for each of the wizard steps */
+    setWizardStepIds(): void {
+        this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
     }
 
     /**
@@ -87,6 +115,7 @@ export class WizardComponent implements AfterViewInit {
         // check if current step is invalid
         if (!this.getCurrentStep().valid) {
             this.invalidIndicator = true;
+            this.stepError.next(this.step);
             return;
         }
 
@@ -134,7 +163,9 @@ export class WizardComponent implements AfterViewInit {
 
                 // only fires when the finish button is clicked and the step is valid
                 if (this.getCurrentStep().valid) {
-                    this.onFinish.next();        
+                    this.onFinish.next();
+                } else {
+                    this.stepError.next(this.step);
                 }
 
                 resolve();

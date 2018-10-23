@@ -78,6 +78,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() tagTemplate: TemplateRef<any>;
     @Input() tagClass: TagClassFunction = () => undefined;
     @Input() validationErrors: any = {};
+    @Input() autocomplete: string = 'off';
     @Input('createTag') createTagHandler: (value: string) => any;
 
     /**
