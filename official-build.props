@@ -1,2 +1,2 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
-SEPG_BUILD_ENV_IMAGE=rh7-artifactory.svs.hpeswlab.net:8443/sepg/maven-sepg-saas-image:1.0.0-SNAPSHOT
+SEPG_BUILD_ENV_IMAGE=cafinternal/prereleases:buildenv-1.0.0-SNAPSHOT

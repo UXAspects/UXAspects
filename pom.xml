@@ -30,7 +30,6 @@
     <version>1.6.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-
     <properties>
         <maven.install.skip>true</maven.install.skip>
         <maven.deploy.skip>true</maven.deploy.skip>
@@ -48,25 +47,12 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.6</version>
                 <configuration>
-                    <nodeVersion>v8.12.0</nodeVersion>
-                    <installDirectory>target</installDirectory>
                     <workingDirectory>${basedir}</workingDirectory>
                     <environmentVariables>
                         <VERSION>${project.version}</VERSION>
                     </environmentVariables>
                 </configuration>
                 <executions>
-                    <!-- install node & npm -->
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                        <configuration>
-                        </configuration>
-                    </execution>
-
                     <!--npm install -->
                     <execution>
                         <id>npm install</id>
@@ -140,7 +126,6 @@
                         </configuration>
                     </execution>
                     -->
-
                 </executions>
 
             </plugin>
