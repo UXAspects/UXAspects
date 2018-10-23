@@ -190,6 +190,16 @@ table {
             outline: 0;
         }
     }
+
+    .hover-action-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+
+        &:focus {
+            .aspects-outline();
+        }
+    }
 }
 
 .table > tbody > tr {
@@ -1164,5 +1174,14 @@ th {
         overflow-y: scroll;
         min-height: 1px;
         margin-top: -1px;
+    }
+}
+
+/*
+ * Reorderable Table
+ */
+.reorderable-row {
+    &:focus {
+        .aspects-outline();
     }
 }

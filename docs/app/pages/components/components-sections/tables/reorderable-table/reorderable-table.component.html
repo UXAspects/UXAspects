@@ -28,7 +28,7 @@
                 <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+                <div [attr.aria-label]="item.active ? 'Approved' : 'Not approved'" class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
             </td>
         </tr>
     </tbody>

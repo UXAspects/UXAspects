@@ -29,7 +29,10 @@
                     [inlineLabel]="item.completed + '%'"></ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+                <div class="hpe-icon"
+                    [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
+                    [class.hpe-checkmark]="item.active">
+                </div>
             </td>
         </tr>
     </tbody>

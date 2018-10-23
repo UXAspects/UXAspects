@@ -15,7 +15,7 @@
             <td>{{ person.name }}</td>
             <td>{{ person.address }}</td>
             <td>{{ person.phone }}</td>
-            <td>
+            <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
                 <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
             </td>
         </tr>
