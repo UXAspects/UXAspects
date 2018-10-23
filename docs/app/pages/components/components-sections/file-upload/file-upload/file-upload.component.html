@@ -9,17 +9,17 @@
     Click here or Drag and Drop to upload files
 </label>
 
-<input #upload type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
+<input #upload tabindex="-1" type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
 
-<ux-progress-bar [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
+<ux-progress-bar aria-label="Upload progress" [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
 
 <p class="file-upload-progress-indicator">{{ uploader.progress ? uploader.progress : 0 }}%</p>
 
-<ul *ngIf="uploader.queue.length" class="file-upload-queue">
+<ul uxTabbableList direction="horizontal" *ngIf="uploader.queue.length" class="file-upload-queue">
     <li *ngFor="let item of uploader.queue">
-        <a (click)="item.remove()">
+        <a #file uxTabbableListItem [attr.aria-label]="item.file.name">
             <span>{{ item.file.name }}</span>
-            <span class="file-upload-queue-remove hpe-icon hpe-close"></span>
+            <button [tabIndex]="file.tabIndex" class="file-upload-queue-remove hpe-icon hpe-close" type="button" (click)="item.remove()" aria-label="Remove file"></button>
         </a>
     </li>
 </ul>

@@ -1,8 +1,9 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ProgressBarModule, TabsetModule } from '../../../../../../src/index';
+import { AccessibilityModule, ProgressBarModule, TabsetModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -29,6 +30,8 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        A11yModule,
+        AccessibilityModule,
         CommonModule,
         WrappersModule,
         TabsetModule,

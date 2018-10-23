@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -26,14 +27,20 @@ export class ComponentsFileUploadComponent extends BaseDocumentationSection impl
                 library: 'ng2-file-upload'
             },
             {
-                imports: ['ProgressBarModule'],
+                imports: ['ProgressBarModule', 'AccessibilityModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             }
         ]
     };
 
-    constructor() {
+    constructor(announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
     }
 
 }
