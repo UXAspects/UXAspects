@@ -7,10 +7,14 @@
             <th uxResizableTableColumn>Date</th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let document of documents | slice:0:5">
+    <tbody [(uxSelection)]="selection">
+        <tr *ngFor="let document of documents | slice:0:5"
+            [attr.aria-selected]="document.selected"
+            [uxSelectionItem]="document"
+            [(selected)]="document.selected">
+
             <td class="fixed-column">
-                <ux-checkbox class="ux-checkbox-inline" [(ngModel)]="document.selected"></ux-checkbox>
+                <ux-checkbox aria-hidden="true" tabindex="-1" class="ux-checkbox-inline" [(ngModel)]="document.selected"></ux-checkbox>
             </td>
             <td>{{ document.title }}</td>
             <td>{{ document.author }}</td>
@@ -28,10 +32,14 @@
             <th uxResizableTableColumn>Date</th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let document of documents">
+    <tbody [(uxSelection)]="selection">
+        <tr *ngFor="let document of documents"
+            [attr.aria-selected]="document.selected"
+            [uxSelectionItem]="document"
+            [(selected)]="document.selected">
+
             <td class="fixed-column" uxResizableTableCell>
-                <ux-checkbox class="ux-checkbox-inline" [(ngModel)]="document.selected"></ux-checkbox>
+                <ux-checkbox aria-hidden="true" tabindex="-1" class="ux-checkbox-inline" [(ngModel)]="document.selected"></ux-checkbox>
             </td>
             <td uxResizableTableCell>{{ document.title }}</td>
             <td uxResizableTableCell>{{ document.author }}</td>
