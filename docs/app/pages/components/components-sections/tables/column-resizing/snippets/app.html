@@ -1,4 +1,4 @@
-<table *ngIf="type === 'table'" class="table" uxResizableTable>
+<table *ngIf="type === 'table'" aria-multiselectable="true" class="table" uxResizableTable>
     <thead>
         <tr>
             <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
@@ -28,6 +28,7 @@
 </table>
 
 <table *ngIf="type === 'fixed'"
+    aria-multiselectable="true"
     class="table"
     uxResizableTable
     uxFixedHeaderTable
