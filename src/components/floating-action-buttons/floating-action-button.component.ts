@@ -3,7 +3,7 @@ import { AfterViewInit, Attribute, ChangeDetectionStrategy, Component, ElementRe
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { TooltipDirective } from '../tooltip';
+import { TooltipDirective } from '../tooltip/index';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({
