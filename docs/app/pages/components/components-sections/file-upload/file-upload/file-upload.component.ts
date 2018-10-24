@@ -1,9 +1,10 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { FileUploader } from 'ng2-file-upload';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-file-upload',
@@ -11,10 +12,10 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 })
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
 export class ComponentsFileUploadComponent extends BaseDocumentationSection implements IPlunkProvider {
-    
+
     fileOver: boolean = false;
     uploader: FileUploader = new FileUploader({});
-    
+
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -26,14 +27,20 @@ export class ComponentsFileUploadComponent extends BaseDocumentationSection impl
                 library: 'ng2-file-upload'
             },
             {
-                imports: ['ProgressBarModule'],
+                imports: ['ProgressBarModule', 'AccessibilityModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             }
         ]
     };
 
-    constructor() {
+    constructor(announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
     }
 
 }
