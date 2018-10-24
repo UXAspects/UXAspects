@@ -14,6 +14,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
 
     type: string = 'table';
     documents: TableDocument[] = [];
+    selection: TableDocument[] = [];
 
     plunk: IPlunk = {
         files: {
@@ -23,7 +24,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule'],
+                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

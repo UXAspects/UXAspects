@@ -10,6 +10,7 @@ export class AppComponent {
 
     type: string = 'table';
     documents: TableDocument[] = [];
+    selection: TableDocument[] = [];
 
     constructor() {
         // generate some dummy data
