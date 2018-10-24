@@ -29,6 +29,9 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   /** Allow custom class to be added to page buttons */
   @Input() pageBtnClass: string;
 
+  /** Aria Label for the component navigation */
+  @Input('aria-label') ariaLabel: string = 'Pagination Navigation';
+
   /** Aria label for the previous button */
   @Input() previousAriaLabel: string = 'Navigate to the previous page';
 
