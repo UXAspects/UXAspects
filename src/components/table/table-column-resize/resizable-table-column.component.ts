@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2 } from '@angular/core';
 import { ColumnUnit, ResizableTableService } from './resizable-table.service';
 
 @Component({
@@ -13,8 +13,21 @@ export class ResizableTableColumnComponent {
   /** Disabled the column resizing */
   @Input() disabled: boolean = false;
 
+  /** Define the width of a column */
+  @Input() set width(width: number) {
+    this._table.setColumnWidth(this.getCellIndex(), width, ColumnUnit.Pixel);
+
+    // if we have not initialised then set the element width
+    if (!this._table.isInitialised.value) {
+      this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${width}px`);
+    }
+  }
+
+  /** Emit the current column width */
+  @Output() widthChange = new EventEmitter<number>();
+
   /** The percentage width of the column */
-  @HostBinding('style.width') get width(): string {
+  @HostBinding('style.width') get columnWidth(): string {
 
     if (!this._table.isInitialised.value) {
       return;
@@ -48,7 +61,7 @@ export class ResizableTableColumnComponent {
   /** Store the position of the mouse within the drag hanlde */
   private _offset: number;
 
-  constructor(private _elementRef: ElementRef, private _table: ResizableTableService) { }
+  constructor(private _elementRef: ElementRef, private _table: ResizableTableService, private _renderer: Renderer2) { }
 
   /** Get the natural pixel width of the column */
   getNaturalWidth(): number {
@@ -79,11 +92,16 @@ export class ResizableTableColumnComponent {
 
     this._table.setResizing(true);
 
+    // emit the current column width
+    this.widthChange.emit(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
   }
 
   /** When the dragging ends */
   onDragEnd(): void {
     this._table.setResizing(false);
+
+    // emit the current column width
+    this.widthChange.emit(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
   }
 
   onMoveLeft(): void {
