@@ -31,6 +31,7 @@
             </td>
             <td class="text-center vertical-center-icon">
                 <div class="hpe-icon"
+                    [attr.aria-label]="document.active ? 'Approved' : 'Not approved'"
                     [class.text-accent]="document.active"
                     [class.hpe-checkmark]="document.active">
                 </div>

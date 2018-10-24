@@ -30,7 +30,8 @@
                 uxMenuNavigationItem
                 [attr.aria-selected]="filter === selected"
                 (click)="selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()"
-                (keydown.enter)="selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()">
+                (keydown.enter)="selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()"
+                (keydown.escape)="menuNavigationToggle.focus()">
 
                 <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
                 <span class="filter-dropdown-title">{{ filter.name }}</span>

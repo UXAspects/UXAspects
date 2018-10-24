@@ -34,7 +34,8 @@
                 uxMenuNavigationItem
                 [attr.aria-selected]="initial === selected"
                 (click)="removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()"
-                (keydown.enter)="removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()">
+                (keydown.enter)="removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()"
+                (keydown.escape)="menuNavigationToggle.focus()">
 
                 <i class="hpe-icon" [class.hpe-checkmark]="initial === selected"></i>
                 <span class="filter-dropdown-title">{{ initial.name }}</span>

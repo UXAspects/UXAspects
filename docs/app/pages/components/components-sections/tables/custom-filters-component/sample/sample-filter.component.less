@@ -1,15 +1,25 @@
-.ux-filter-custom {
-    .filter-dropdown {
-        &.active {
-            font-weight: 600;
-        }
+.ux-custom-filter {
+    &.active {
+        font-weight: 600;
+    }
 
-        .hpe-down {
-            font-size: 0.625rem;
-        }
+    .hpe-down {
+        font-size: 0.625rem;
     }
 
     .dropdown-menu {
-        padding: 10px;
+        .dropdown-list-item {
+            .dropdown-item {
+                padding-left: 10px;
+
+                .hpe-icon {
+                    width: 16px;
+                }
+
+                .filter-dropdown-title {
+                    padding-left: 10px;
+                }
+            }
+        }
     }
 }

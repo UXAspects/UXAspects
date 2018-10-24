@@ -9,6 +9,7 @@ export class AppComponent {
 
     people: Person[] = [];
     loading: boolean = false;
+    total: number = 250;
 
     private _page: number = 0;
 

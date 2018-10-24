@@ -1449,6 +1449,25 @@
             "link": "tables",
             "sections": [
                 {
+                    "title": "Column Resizing",
+                    "component": "ComponentsColumnResizingComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxResizableTable]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxResizableTableColumn]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TableModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Column Sorting",
                     "component": "ComponentsColumnSortingComponent",
                     "version": "Angular",
@@ -1470,12 +1489,14 @@
                 {
                     "title": "Detail Row Responsive Table",
                     "component": "ComponentsDetailRowResponsiveNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Detail Row Header",
                     "component": "ComponentsDetailRowHeaderNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Filters",
@@ -1539,12 +1560,30 @@
                 {
                     "title": "Indices",
                     "component": "ComponentsIndicesNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Grouping",
                     "component": "ComponentsGroupingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Hover Actions",
+                    "component": "ComponentsHoverActionsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selectors",
+                            "content":
+                                "[uxHoverActionContainer], [uxHoverAction]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "HoverActionModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Layout Switching",
@@ -1581,22 +1620,6 @@
                     "deprecated": true
                 },
                 {
-                    "title": "Hover Actions",
-                    "component": "ComponentsHoverActionsComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selectors",
-                            "content":
-                                "[uxHoverActionContainer], [uxHoverAction]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "HoverActionModule"
-                        }
-                    ]
-                },
-                {
                     "title": "Preview Pane",
                     "component": "ComponentsPreviewPaneNg1Component",
                     "version": "AngularJS",
@@ -1605,7 +1628,8 @@
                 {
                     "title": "Preview Pane Window",
                     "component": "ComponentsPreviewPaneWindowNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Reorderable Table",
@@ -1739,31 +1763,14 @@
                 {
                     "title": "Column Visibility",
                     "component": "ComponentsColumnVisibilityNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Custom Responsive Table",
                     "component": "ComponentsCustomResponsiveTableNg1Component",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Column Resizing",
-                    "component": "ComponentsColumnResizingComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "[uxResizableTable]"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[uxResizableTableColumn]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "TableModule"
-                        }
-                    ]
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

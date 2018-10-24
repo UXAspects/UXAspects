@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
-import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TabsetModule, TooltipModule } from '../../../../../../src/index';
+import { AccordionModule, CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, MenuNavigationModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TableModule, TabsetModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -97,29 +97,30 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        CommonModule,
-        FormsModule,
-        TabsetModule,
-        CheckboxModule,
-        RadioButtonModule,
-        ColumnSortingModule,
-        SparkModule,
-        FilterModule,
-        SelectionModule,
-        LayoutSwitcherModule,
-        DocumentationComponentsModule,
+        A11yModule,
+        AccordionModule,
         BsDropdownModule,
         ButtonsModule,
-        AccordionModule,
-        SliderModule,
-        ReorderableModule,
-        HoverActionModule,
+        CheckboxModule,
+        ColumnSortingModule,
+        CommonModule,
+        DocumentationComponentsModule,
+        FilterModule,
         FixedHeaderTableModule,
-        TooltipModule,
+        FormsModule,
+        HoverActionModule,
+        LayoutSwitcherModule,
+        MenuNavigationModule,
+        RadioButtonModule,
+        ReorderableModule,
         RouterModule.forChild(ROUTES),
-        A11yModule,
-        TableModule
+        SelectionModule,
+        SliderModule,
+        SparkModule,
+        TableModule,
+        TabsetModule,
+        TooltipModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

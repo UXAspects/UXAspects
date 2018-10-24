@@ -1,4 +1,4 @@
-<table class="table table-hover">
+<table class="table table-hover" aria-multiselectable="true">
     <thead>
         <tr>
             <th></th>
@@ -7,15 +7,16 @@
             <th>Created Date</th>
         </tr>
     </thead>
-    <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode" [disabled]="false">
+    <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode">
 
         <tr *ngFor="let item of data"
             class="clickable"
             [uxSelectionItem]="item"
+            [attr.aria-selected]="item.selected"
             [(selected)]="item.selected">
 
             <td>
-                <ux-checkbox class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
+                <ux-checkbox tabindex="-1" aria-hidden="true" class="m-b-nil" [(value)]="item.selected"></ux-checkbox>
             </td>
             <td>{{ item.name }}</td>
             <td>{{ item.author }}</td>

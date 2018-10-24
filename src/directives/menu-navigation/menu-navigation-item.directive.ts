@@ -1,4 +1,5 @@
 import { Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuNavigationService } from './menu-navigation.service';
 
@@ -7,16 +8,13 @@ import { MenuNavigationService } from './menu-navigation.service';
 })
 export class MenuNavigationItemDirective implements OnDestroy {
 
-    @Output() activated = new EventEmitter();
+    @Output() activated = new EventEmitter<void>();
 
     private _subscription: Subscription;
 
     constructor(service: MenuNavigationService, private _elementRef: ElementRef) {
-        this._subscription = service.active$.subscribe((next) => {
-            if (next === this) {
-                this.setActive();
-            }
-        });
+        this._subscription = service.active$.pipe(filter(item => item === this))
+            .subscribe(() => this.setActive());
     }
 
     ngOnDestroy(): void {

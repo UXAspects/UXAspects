@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { Filter } from '../../../../../../../src/index';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-custom-filters',
@@ -36,7 +36,7 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
             'sample-filter.component.ts': this.snippets.raw.sampleTs
         },
         modules: [{
-            imports: ['FilterModule', 'RadioButtonModule'],
+            imports: ['FilterModule', 'RadioButtonModule', 'MenuNavigationModule'],
             library: '@ux-aspects/ux-aspects'
         }, {
             imports: ['SampleFilterCustomComponent'],

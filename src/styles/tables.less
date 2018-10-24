@@ -190,6 +190,16 @@ table {
             outline: 0;
         }
     }
+
+    .hover-action-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+
+        &:focus {
+            .aspects-outline();
+        }
+    }
 }
 
 .table > tbody > tr {
@@ -999,20 +1009,24 @@ table {
     }
 
     .sort-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         height: 34px;
         margin-right: 1px;
         float: right;
         padding: 6px;
-        padding-top: 10px;
         cursor: pointer;
+        border: none;
+        background-color: transparent;
 
         &:hover,
         &:focus {
-            background: @table-sort-hover-bg;
+            background-color: @table-sort-hover-bg;
         }
 
         &:focus {
-            outline: 1px solid @table-sort-focus-outline;
+            .aspects-outline();
         }
     }
 }
@@ -1160,5 +1174,14 @@ th {
         overflow-y: scroll;
         min-height: 1px;
         margin-top: -1px;
+    }
+}
+
+/*
+ * Reorderable Table
+ */
+.reorderable-row {
+    &:focus {
+        .aspects-outline();
     }
 }

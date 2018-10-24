@@ -1,11 +1,19 @@
-.ux-filter-custom .filter-dropdown.active {
+.ux-custom-filter.active {
     font-weight: 600;
 }
 
-.ux-filter-custom .filter-dropdown .hpe-down {
+.ux-custom-filter .hpe-down {
     font-size: 0.625rem;
 }
 
-.ux-filter-custom .dropdown-menu {
-    padding: 10px;
+.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item {
+    padding-left: 10px;
+}
+
+.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item .hpe-icon {
+    width: 16px;
+}
+
+.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item .filter-dropdown-title {
+    padding-left: 10px;
 }

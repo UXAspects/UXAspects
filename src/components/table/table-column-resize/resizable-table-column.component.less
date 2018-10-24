@@ -15,12 +15,25 @@
 .ux-resizable-table-column-handle {
     content: '';
     position: absolute;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     right: 0;
     width: 16px;
     height: 100%;
     cursor: ew-resize;
+
+    &.cdk-keyboard-focused {
+        .aspects-outline();
+    }
+
+    .ux-resizable-table-column-handle-icon {
+        width: 5px;
+        height: 24px;
+        background-repeat: no-repeat;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
+    }
 
     &:hover,
     &.ux-drag-dragging {

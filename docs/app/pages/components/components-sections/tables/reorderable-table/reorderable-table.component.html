@@ -14,6 +14,7 @@
             *ngFor="let item of data; let idx = index"
             [uxReorderableModel]="item"
             tabindex="0"
+            attr.aria-label="{{ item.document }} by {{ item.author }}. Use arrow keys to reorder items."
             (keydown.arrowdown)="movedown(item, idx, $event)"
             (keydown.arrowup)="moveup(item, idx, $event)">
 
@@ -27,7 +28,7 @@
                 <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+                <div [attr.aria-label]="item.active ? 'Approved' : 'Not approved'" class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
             </td>
         </tr>
     </tbody>
