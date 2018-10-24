@@ -149,14 +149,13 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
     // create all possible pages
     for (let index = 1; index <= this.pageCount; index++) {
-      pages.push({ index });
+      pages.push({ index, visible: this.isPageVisible(index) });
     }
 
     // emit the number of pages
     this.numPages.emit(this.pageCount);
 
-    // store the new pages that will be visible
-    return pages.filter(page => this.isPageVisible(page.index));
+    return pages;
   }
 
   private isPageVisible(index: number): boolean {
@@ -184,4 +183,5 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
 export interface Page {
   index: number;
+  visible: boolean;
 }
