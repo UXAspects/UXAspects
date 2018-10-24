@@ -9,7 +9,7 @@
       *ngIf="directionButtons"
       [class.disabled]="page === 1 || disabled">
 
-    <a class="page-link"
+    <a class="page-link ux-keyboard-focus"
        tabindex="0"
        cdkMonitorElementFocus
        [attr.aria-label]="previousAriaLabel"
@@ -25,7 +25,7 @@
       [class.active]="page === pg.index"
       class="pagination-page page-item">
 
-    <a class="page-link"
+    <a class="page-link ux-keyboard-focus"
        tabindex="0"
        [ngClass]="pageBtnClass"
        cdkMonitorElementFocus
@@ -43,7 +43,7 @@
       *ngIf="directionButtons"
       [class.disabled]="page === pageCount || disabled">
 
-    <a class="page-link"
+    <a class="page-link ux-keyboard-focus"
        tabindex="0"
        cdkMonitorElementFocus
        [attr.aria-label]="nextAriaLabel"
