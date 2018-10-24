@@ -39,7 +39,9 @@ module.exports = function (grunt) {
     grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'execute:protractor', 'makeReport']);
 
     // Tasks with larger chains of events
-    grunt.registerTask('build', ['clean', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs', 'compress:documentation']);
+    grunt.registerTask('compile', ['clean', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim']);
+    grunt.registerTask('package', ['package:library', 'package:library_bower', 'package:docs', 'compress:documentation']);
+    grunt.registerTask('build', ['compile', 'package']);
     grunt.registerTask('build:library', ['clean', 'lint', 'library', 'scripts', 'iconset', 'styles', 'minify', 'assets:library', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs']);
     grunt.registerTask('releasebuild', ['build']);
 

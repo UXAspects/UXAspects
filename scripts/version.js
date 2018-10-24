@@ -2,8 +2,12 @@ const { env, cwd, exit } = require('process');
 const { readFileSync, writeFileSync } = require('fs');
 const { join } = require('path');
 
+const regex = /(\d+)\.(\d+)\.(\d+)\.(\d+)/;
+
 // extract the version from the environment variable
-const version = env.VERSION;
+const version = toSemVer(env.VERSION);
+
+console.log(version);
 
 // if there is no version specified then throw an error
 if (!version) {
@@ -18,6 +22,15 @@ setVersion(join(cwd(), 'src', 'package.json'));
 
 // end the script
 exit();
+
+function toSemVer(version) {
+    const m = regex.exec(version);
+    if (m) {
+        return `${m[1]}.${m[2]}.${m[3]}+build.${m[4]}`;
+    }
+
+    return version;
+}
 
 function setVersion(path) {
     // read file contents

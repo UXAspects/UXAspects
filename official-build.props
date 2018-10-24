@@ -1,1 +1,2 @@
-ALT_DOCUMENTATION_FOLDER=target
+ALT_DOCUMENTATION_FOLDER=target/docs
+SEPG_BUILD_ENV_IMAGE=cafinternal/prereleases:buildenv-1.0.0-SNAPSHOT
