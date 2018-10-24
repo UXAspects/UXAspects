@@ -1,14 +1,18 @@
-<ul class="pagination" [ngClass]="classes" uxTabbableList direction="horizontal" [allowBoundaryKeys]="true">
+<ul #container class="pagination"
+  [ngClass]="classes"
+  direction="horizontal"
+  (blur)="isKeyboardEvent = false"
+  (keydown.ArrowLeft)="select(page - 1); isKeyboardEvent = true"
+  (keydown.ArrowRight)="select(page + 1); isKeyboardEvent = true">
 
   <li class="pagination-prev page-item"
       *ngIf="directionButtons"
       [class.disabled]="page === 1 || disabled">
 
     <a class="page-link"
-       uxTabbableListItem
+       tabindex="0"
        cdkMonitorElementFocus
        [attr.aria-label]="previousAriaLabel"
-       [disabled]="page === 1 || disabled"
        [ngClass]="pageBtnClass"
        (click)="select(page - 1)"
        (keydown.enter)="select(page - 1)">
@@ -22,9 +26,10 @@
       class="pagination-page page-item">
 
     <a class="page-link"
+       tabindex="0"
        [ngClass]="pageBtnClass"
-       uxTabbableListItem
        cdkMonitorElementFocus
+       [focusIf]="isKeyboardEvent && page === pg.index"
        [attr.aria-selected]="page === pg.index"
        [attr.aria-setsize]="pageCount"
        [attr.aria-posinset]="pg.index"
@@ -39,10 +44,9 @@
       [class.disabled]="page === pageCount || disabled">
 
     <a class="page-link"
-       uxTabbableListItem
+       tabindex="0"
        cdkMonitorElementFocus
        [attr.aria-label]="nextAriaLabel"
-       [disabled]="page === pageCount || disabled"
        [ngClass]="pageBtnClass"
        (click)="select(page + 1)"
        (keydown.enter)="select(page + 1)">

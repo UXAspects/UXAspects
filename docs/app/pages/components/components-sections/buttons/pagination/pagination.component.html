@@ -16,6 +16,15 @@
 </p>
 
 <p>
+    The direction button content can be customized by adding an <code>ng-template</code> as a child of the <code>ux-pagination</code> component.
+</p>
+
+<ul>
+    <li>To customize the content of the previous button add <code>#previousBtnTemplate</code> to the <code>ng-template</code> element.</li>
+    <li>To customize the content of the previous next add <code>#nextBtnTemplate</code> to the <code>ng-template</code> element.</li>
+</ul>
+
+<p>
     The following properties can be used to configure the component:
 </p>
 
@@ -47,12 +56,6 @@
     </tr>
     <tr uxd-api-property name="nextAriaLabel" type="string">
         Allows an aria label to be defined for the previous button.
-    </tr>
-    <tr uxd-api-property name="previousBtnTemplate" type="TemplateRef">
-        Allows the content of the previous button to be customized.
-    </tr>
-    <tr uxd-api-property name="nextBtnTemplate" type="TemplateRef">
-        Allows the content of the next button to be customized.
     </tr>
 </uxd-api-properties>
 

@@ -85,6 +85,8 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   onTouched: Function = () => {};
   onChange: Function = () => {};
 
+  isKeyboardEvent: boolean = false;
+
   private _page: number = 1;
   private _total: number = 100;
   private _pagesize: number = 10;
