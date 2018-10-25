@@ -12,10 +12,17 @@ export class AppConfiguration {
         return this._config['version'];
     }
 
+    get baseUrl(): string {
+        if (!this._config['baseUrl']) {
+            this._config['baseUrl'] = this.getBaseUrl();
+        }
+        return this._config['baseUrl'];
+    }
+
     get assetsUrl(): string {
         if (!this._config['assetsUrl']) {
             // If not configured, derive from the application's base URL.
-            this._config['assetsUrl'] = Location.joinWithSlash(this.getBaseUrl(), 'assets');
+            this._config['assetsUrl'] = Location.joinWithSlash(this.baseUrl, 'assets');
         }
         return this._config['assetsUrl'];
     }
@@ -67,6 +74,6 @@ export class AppConfiguration {
 
     private getBaseUrl(): string {
         const path = this._location.prepareExternalUrl(this._location.path());
-        return window.location.href.substr(0, window.location.href.lastIndexOf(path));
+        return window.location.href.substr(0, window.location.href.lastIndexOf(path)).replace(/\/+$/, '');
     }
 }

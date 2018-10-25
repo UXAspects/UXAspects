@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IChangeLog } from '../../interfaces/IChangeLog';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-changelog-page',
@@ -11,9 +12,14 @@ export class ChangeLogPageComponent {
 
     logs: IChangeLog[];
 
-    constructor(domSanitizer: DomSanitizer) {
+    constructor(domSanitizer: DomSanitizer, appConfig: AppConfiguration) {
 
         this.logs = [
+            {
+                version: '1.6.6',
+                date: 'October 25th 2018',
+                content: require('./logs/release-v1.6.6.md')
+            },
             {
                 version: '1.6.5',
                 date: 'October 11th 2018',
@@ -211,9 +217,9 @@ export class ChangeLogPageComponent {
             }
         ];
 
-        // santize blog posts
         this.logs.forEach(log => {
-            log.content = domSanitizer.bypassSecurityTrustHtml(log.content) as string;
+            const markdown = log.content.replace(/{{baseUrl}}/g, appConfig.baseUrl);
+            log.content = domSanitizer.bypassSecurityTrustHtml(markdown) as string;
         });
 
     }
