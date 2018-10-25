@@ -123,7 +123,7 @@ export class SelectionService<T> implements OnDestroy {
       switch (mode.toLowerCase().trim()) {
 
         case 'simple':
-          this.strategy = this._strategyToDestroy = new SimpleSelectionStrategy(this);
+          this.strategy = this._strategyToDestroy = new SimpleSelectionStrategy<T>(this);
           break;
 
         case 'row':
