@@ -1,4 +1,4 @@
-UX Aspects 1.6.6 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
+UX Aspects 1.6.7 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
 
 #### New Features
 * Accessibility (WCAG 2.0 AA level):
