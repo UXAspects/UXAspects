@@ -1,9 +1,9 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionStrategy } from '../../directives/selection/strategies/selection.strategy';
 
-export class SingleSelectListStrategy extends SelectionStrategy {
+export class SingleSelectListStrategy<T> extends SelectionStrategy<T> {
 
-    click(_event: MouseEvent, data: any): void {
+    click(_event: MouseEvent, data: T): void {
 
         if (!this.selectionService.isSelected(data)) {
             // deselect all other items
@@ -17,7 +17,7 @@ export class SingleSelectListStrategy extends SelectionStrategy {
         this.toggle(data);
     }
 
-    keydown(event: KeyboardEvent, data: any): void {
+    keydown(event: KeyboardEvent, data: T): void {
 
         switch (event.which) {
 

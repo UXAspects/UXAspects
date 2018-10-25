@@ -13,21 +13,35 @@ import { SingleSelectListStrategy } from './single-select-list.strategy';
         role: 'list'
     }
 })
-export class SelectListComponent implements AfterContentInit, OnDestroy {
+export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
 
+    /** Determine if we allow multiple items to be selected */
     @Input() set multiple(multiple: boolean) {
         this._selection.strategy.deselectAll();
         this._selection.setStrategy(multiple ? new MultipleSelectListStrategy() : new SingleSelectListStrategy());
     }
 
-    @Input() selected: any[] = [];
-    @Output() selectedChange = new EventEmitter<any[]>();
+    /** Set the selected items */
+    @Input() set selected(selected: T | T[]) {
 
-    @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent>;
+        // deselect all currently selected items
+        this._selection.deselectAll();
+
+        // select only the specified items
+        if (Array.isArray(selected)) {
+            this._selection.select(...selected);
+        } else {
+            this._selection.select(selected);
+        }
+    }
+
+    @Output() selectedChange = new EventEmitter<T[]>();
+
+    @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent<T>>;
 
     private _subscription: Subscription;
 
-    constructor(private _selection: SelectionService) {
+    constructor(private _selection: SelectionService<T>) {
         // set the selection strategy to single by default
         this._selection.setStrategy(new SingleSelectListStrategy());
 

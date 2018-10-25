@@ -1,16 +1,16 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionStrategy } from '../../directives/selection/strategies/selection.strategy';
 
-export class MultipleSelectListStrategy extends SelectionStrategy {
+export class MultipleSelectListStrategy<T> extends SelectionStrategy<T> {
 
-    private _lastSelection: any;
+    private _lastSelection: T;
 
     /** Prevent the browser from highlighting text on shift click */
     mousedown(event: MouseEvent): void {
         event.preventDefault();
     }
 
-    click(event: MouseEvent, data: any): void {
+    click(event: MouseEvent, data: T): void {
 
         // activate the clicked item
         this.selectionService.activate(data);
@@ -30,7 +30,7 @@ export class MultipleSelectListStrategy extends SelectionStrategy {
         }
     }
 
-    keydown(event: KeyboardEvent, data: any): void {
+    keydown(event: KeyboardEvent, data: T): void {
 
         switch (event.which) {
 
@@ -65,12 +65,13 @@ export class MultipleSelectListStrategy extends SelectionStrategy {
         }
     }
 
-    multipleSelect(data: any): void {
+    multipleSelect(data: T): void {
 
         // if there is no start item selected
         if (!this._lastSelection) {
             this.select(data);
-            return this._lastSelection = data;
+            this._lastSelection = data;
+            return;
         }
 
         // if there already is a start item then find the items in the range
@@ -80,7 +81,7 @@ export class MultipleSelectListStrategy extends SelectionStrategy {
         this._lastSelection = data;
     }
 
-    private getSelectedItems(start: any, end: any): any[] {
+    private getSelectedItems(start: T, end: T): T[] {
 
         // get the latest dataset
         const { dataset } = this.selectionService;

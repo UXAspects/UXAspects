@@ -5,15 +5,14 @@ import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionMode, SelectionService } from './selection.service';
 import { SelectionStrategy } from './strategies/selection.strategy';
 
-
 @Directive({
   selector: '[uxSelection]',
   exportAs: 'ux-selection',
   providers: [ SelectionService ]
 })
-export class SelectionDirective implements AfterContentInit, OnDestroy {
+export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
 
-  @Input() set uxSelection(items: any[]) {
+  @Input() set uxSelection(items: T[]) {
     this._selectionService.select(...items);
   }
 
@@ -21,7 +20,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this._selectionService.setDisabled(disabled);
   }
 
-  @Input() set mode(mode: SelectionMode | SelectionStrategy) {
+  @Input() set mode(mode: SelectionMode | SelectionStrategy<T>) {
     this._selectionService.setStrategy(mode);
   }
 
@@ -35,13 +34,13 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
 
   @Input() @HostBinding('attr.tabindex') tabindex: number = null;
 
-  @Output() uxSelectionChange = new EventEmitter<any[]>();
+  @Output() uxSelectionChange = new EventEmitter<T[]>();
 
-  @ContentChildren(SelectionItemDirective) items: QueryList<SelectionItemDirective>;
+  @ContentChildren(SelectionItemDirective) items: QueryList<SelectionItemDirective<T>>;
 
   private _onDestroy = new Subject<void>();
 
-  constructor(private _selectionService: SelectionService, private _cdRef: ChangeDetectorRef) {
+  constructor(private _selectionService: SelectionService<T>, private _cdRef: ChangeDetectorRef) {
     _selectionService.selection$.pipe(takeUntil(this._onDestroy)).subscribe(items => this.uxSelectionChange.emit(items));
   }
 

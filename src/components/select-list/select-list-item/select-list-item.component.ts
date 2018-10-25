@@ -10,9 +10,9 @@ import { SelectionService } from '../../../directives/selection/selection.servic
         role: 'listitem'
     }
 })
-export class SelectListItemComponent implements OnDestroy {
+export class SelectListItemComponent<T> implements OnDestroy {
 
-    @Input() data: any;
+    @Input() data: T;
     @HostBinding('tabindex') tabindex: number = -1;
 
     @HostBinding('class.selected')
@@ -27,7 +27,7 @@ export class SelectListItemComponent implements OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
-    constructor(private _selection: SelectionService, elementRef: ElementRef) {
+    constructor(private _selection: SelectionService<T>, elementRef: ElementRef) {
 
         _selection.active$.pipe(takeUntil(this._onDestroy), filter(data => data === this.data)).subscribe(active => {
             _selection.focus$.next(active);

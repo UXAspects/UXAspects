@@ -7,9 +7,9 @@ import { SelectionService } from './selection.service';
     selector: '[uxSelectionItem]',
     exportAs: 'ux-selection-item'
 })
-export class SelectionItemDirective implements OnInit, OnDestroy {
+export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
-    @Input() uxSelectionItem: any;
+    @Input() uxSelectionItem: T;
 
     @Input()
     @HostBinding('class.ux-selection-selected')
@@ -37,7 +37,7 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
     private _managedTabIndex: number = -1;
     private _onDestroy = new Subject<void>();
 
-    constructor(private _selectionService: SelectionService, private _elementRef: ElementRef) { }
+    constructor(private _selectionService: SelectionService<T>, private _elementRef: ElementRef) { }
 
     ngOnInit(): void {
 
