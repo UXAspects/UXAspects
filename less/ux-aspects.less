@@ -551,9 +551,13 @@ tree-root .angular-tree-component-rtl .tree-children {
 @file-upload-dropzone-border: rgba(0, 0, 0, 0.3);
 @file-upload-dropzone-color: @text-color;
 
-@file-upload-queue-border: #e5e5e5;
-@file-upload-queue-color: @text-color;
-@file-upload-queue-hover-bg: #f5f5f5;
+@file-upload-queue-bg: @tag-input-tag-bg;
+@file-upload-queue-border: @tag-input-tag-border;
+@file-upload-queue-border-radius: @tag-input-tag-border-radius;
+@file-upload-queue-color: @tag-input-tag-color;
+@file-upload-queue-active-bg: @accent;
+@file-upload-queue-active-border: @accent;
+@file-upload-queue-active-color: @white;
 
 // Float Labels
 @float-label-border: #e5e6e7;
@@ -4933,6 +4937,16 @@ body > div#ux-codepen-container {
  	.hpe-icon-zoom-in();
 }
 
+.hpe-icon-zoom-out() {
+	&:before {
+		content:"\f246";
+	}
+	
+}
+.hpe-zoom-out{
+ 	.hpe-icon-zoom-out();
+}
+
 .hp-icon,
 .hpe-icon {
     vertical-align: baseline;
@@ -5540,6 +5554,17 @@ ng\:form {
     outline: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+// Support focus when cdk-keyboard-focus class is present
+.ux-keyboard-focus {
+    &:focus {
+        outline: none !important;
+
+        &.cdk-keyboard-focused {
+            .aspects-outline() !important;
+        }
+    }
 }
 .nav > li > a {
     font-weight: 600;
@@ -6542,6 +6567,10 @@ h4 {
             text-decoration: none;
             background-color: @dropdown-hover-bg;
             color: @dropdown-hover-color;
+        }
+
+        &:focus {
+            .aspects-outline();
         }
     }
 
@@ -9558,6 +9587,17 @@ search-builder {
             &:focus {
                 opacity: 1;
             }
+
+            &.hover-action-disabled {
+                opacity: 0.3;
+                cursor: default;
+
+                &:hover,
+                &:focus {
+                    opacity: 0.3;
+                    outline: none;
+                }
+            }
         }
     }
 }
@@ -10092,6 +10132,16 @@ table {
             outline: 0;
         }
     }
+
+    .hover-action-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+
+        &:focus {
+            .aspects-outline();
+        }
+    }
 }
 
 .table > tbody > tr {
@@ -10394,6 +10444,10 @@ table {
                 background-color: @shift-select-selected-hover-light;
                 box-shadow: none;
             }
+        }
+
+        &.ux-selection-focused:focus {
+            .aspects-outline();
         }
     }
 }
@@ -10901,20 +10955,24 @@ table {
     }
 
     .sort-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         height: 34px;
         margin-right: 1px;
         float: right;
         padding: 6px;
-        padding-top: 10px;
         cursor: pointer;
+        border: none;
+        background-color: transparent;
 
         &:hover,
         &:focus {
-            background: @table-sort-hover-bg;
+            background-color: @table-sort-hover-bg;
         }
 
         &:focus {
-            outline: 1px solid @table-sort-focus-outline;
+            .aspects-outline();
         }
     }
 }
@@ -11062,6 +11120,15 @@ th {
         overflow-y: scroll;
         min-height: 1px;
         margin-top: -1px;
+    }
+}
+
+/*
+ * Reorderable Table
+ */
+.reorderable-row {
+    &:focus {
+        .aspects-outline();
     }
 }
 .timeline {
@@ -13044,6 +13111,10 @@ strong {
 
         &:hover {
             background-color: #222;
+        }
+
+        &:focus {
+            .aspects-outline();
         }
     }
 }
@@ -20510,7 +20581,12 @@ tags-input .tags .input:-ms-input-placeholder {
             }
 
             .component-content {
+                display: flex;
                 flex: 1;
+
+                *:focus ~ .component-remove {
+                    opacity: 1;
+                }
             }
 
             .component-remove {
@@ -20526,6 +20602,7 @@ tags-input .tags .input:-ms-input-placeholder {
 
                 &:focus {
                     opacity: 1;
+                    .aspects-outline();
                 }
 
                 .hpe-icon {
@@ -20542,6 +20619,9 @@ tags-input .tags .input:-ms-input-placeholder {
         flex: none;
         margin-bottom: 7px;
         margin-left: 48px;
+        border: none;
+        background-color: transparent;
+        padding: 0;
 
         .component-add-btn {
             align-items: center;
@@ -20558,6 +20638,15 @@ tags-input .tags .input:-ms-input-placeholder {
         }
 
         &:hover {
+            .component-add-btn {
+                background-color: @component-list-add-hover-bg;
+                opacity: @component-list-add-hover-bg-opacity;
+            }
+        }
+
+        &:focus {
+            .aspects-outline();
+
             .component-add-btn {
                 background-color: @component-list-add-hover-bg;
                 opacity: @component-list-add-hover-bg-opacity;
@@ -21252,6 +21341,10 @@ tags-input .tags .input:-ms-input-placeholder {
     color: @file-upload-dropzone-color;
     cursor: pointer;
     margin-bottom: 24px;
+
+    &:focus {
+        .aspects-outline();
+    }
 }
 
 .file-upload-progress-indicator {
@@ -21272,17 +21365,41 @@ tags-input .tags .input:-ms-input-placeholder {
         flex: none;
 
         > a {
-            padding: 5px;
-            display: block;
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
             border: 1px solid @file-upload-queue-border;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            border-radius: @file-upload-queue-border-radius;
+            margin-right: 5px;
+            margin-bottom: 5px;
             color: @file-upload-queue-color;
+            background-color: @file-upload-queue-bg;
 
-            &:hover {
-                background-color: @file-upload-queue-hover-bg;
+            &:focus {
+                outline: none;
+                background-color: @file-upload-queue-active-bg;
+                border-color: @file-upload-queue-active-border;
+                color: @file-upload-queue-active-color;
             }
         }
+    }
+}
+
+.file-upload-queue-remove {
+    border: none;
+    background-color: transparent;
+    font-size: 80%;
+    opacity: 0.7;
+    height: 22px;
+    padding-top: 4px;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+    }
+
+    &:focus {
+        .aspects-outline();
     }
 }
 /*
@@ -21602,12 +21719,20 @@ ux-card-tabset {
     }
 }
 ux-checkbox {
+    &:focus {
+        outline: none;
+    }
+
     .ux-checkbox {
         display: inline-flex;
         align-items: baseline;
         margin: 0;
         cursor: pointer;
         margin-bottom: 5px;
+
+        &:focus {
+            outline: none;
+        }
 
         .ux-checkbox-container {
             display: inline-flex;
@@ -23213,6 +23338,14 @@ ux-marquee-wizard {
                 .marquee-wizard-step-status {
                     flex: none;
                 }
+
+                &:focus {
+                    outline: none;
+
+                    &.cdk-keyboard-focused {
+                        .aspects-outline();
+                    }
+                }
             }
         }
     }
@@ -24143,6 +24276,14 @@ ux-page-header {
         }
     }
 }
+ux-pagination {
+    .pagination > li.page-item {
+        .page-link {
+            user-select: none;
+        }
+    }
+}
+
 ux-popover {
     .popover {
         position: static;
@@ -25797,6 +25938,14 @@ ux-wizard {
                 &:last-of-type {
                     margin-right: 0;
                 }
+
+                &:focus {
+                    outline: none;
+
+                    &.cdk-keyboard-focused {
+                        .aspects-outline();
+                    }
+                }
             }
         }
 
@@ -25934,12 +26083,25 @@ ux-wizard {
 .ux-resizable-table-column-handle {
     content: '';
     position: absolute;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     right: 0;
     width: 16px;
     height: 100%;
     cursor: ew-resize;
+
+    &.cdk-keyboard-focused {
+        .aspects-outline();
+    }
+
+    .ux-resizable-table-column-handle-icon {
+        width: 5px;
+        height: 24px;
+        background-repeat: no-repeat;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
+    }
 
     &:hover,
     &.ux-drag-dragging {

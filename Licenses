@@ -1,5 +1,11 @@
 UX ASPECTS OPEN SOURCE LICENSES
 -----------------------------------------------------------------------------------
+* jQuery Mousewheel 3.1.12
+ *
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+-----------------------------------------------------------------------------------
 * jScrollPane - v2.0.22 - 2015-04-25
  * http://jscrollpane.kelvinluck.com/
  *
@@ -23,12 +29,6 @@ UX ASPECTS OPEN SOURCE LICENSES
 // http://jscrollpane.kelvinluck.com/MIT-LICENSE.txt
 // http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
 //
------------------------------------------------------------------------------------
-* jQuery Mousewheel 3.1.12
- *
- * Copyright 2014 jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
 -----------------------------------------------------------------------------------
 Flot plugin for rendering pie charts.
 
@@ -72,16 +72,16 @@ can just fix the size of their placeholders.
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
 Licensed under the MIT license.
 -----------------------------------------------------------------------------------
+Flot plugin for stacking data sets rather than overlyaing them.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+-----------------------------------------------------------------------------------
 * Flot plugin that provides spline interpolation for line graphs
  * author: Alex Bardas < alex.bardas@gmail.com >
  * modified by: Avi Kohn https://github.com/AMKohn
  * based on the spline interpolation described at:
  *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
------------------------------------------------------------------------------------
-Flot plugin for stacking data sets rather than overlyaing them.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 Flot plugin that adds some extra symbols for plotting points.
 
@@ -123,6 +123,16 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------------
+* jquery.flot.tooltip
+ *
+ * description: easy-to-use tooltips for Flot charts
+ * version: 0.8.5
+ * authors: Krzysztof Urbas @krzysu [myviews.pl],Evan Steinkerchner @Roundaround
+ * website: https://github.com/krzysu/flot.tooltip
+ *
+ * build on 2015-06-12
+ * released under MIT License, 2012
+-----------------------------------------------------------------------------------
 * Value Labels Plugin for flot.
 * https://github.com/winne27/flot-valuelabels
 * https://github.com/winne27/flot-valuelabels/wiki
@@ -136,20 +146,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 * Original homepage: http://sites.google.com/site/petrsstuff/projects/flotvallab
 * Released under the MIT license by Petr Blahos, December 2009.
------------------------------------------------------------------------------------
-* jquery.flot.tooltip
- *
- * description: easy-to-use tooltips for Flot charts
- * version: 0.8.5
- * authors: Krzysztof Urbas @krzysu [myviews.pl],Evan Steinkerchner @Roundaround
- * website: https://github.com/krzysu/flot.tooltip
- *
- * build on 2015-06-12
- * released under MIT License, 2012
------------------------------------------------------------------------------------
-* Jasny Bootstrap v3.1.1 (http://jasny.github.io/bootstrap)
- * Copyright 2012-2014 Arnold Daniels
- * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
 -----------------------------------------------------------------------------------
 *	jQuery dotdotdot 1.7.4
  *
@@ -189,6 +185,10 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
+* Jasny Bootstrap v3.1.1 (http://jasny.github.io/bootstrap)
+ * Copyright 2012-2014 Arnold Daniels
+ * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
+-----------------------------------------------------------------------------------
 * jquery.inputmask.bundle.js
 * http://github.com/RobinHerbots/jquery.inputmask
 * Copyright (c) 2010 - 2015 Robin Herbots
@@ -227,31 +227,6 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
-angular-file-upload v1.1.5
- https://github.com/nervgh/angular-file-upload
-
- The MIT License
-
- Copyright (c) 2013 nerv. https://github.com/nervgh
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
------------------------------------------------------------------------------------
 angular-breadcrumb - v0.3.2-dev-2014-12-14
  * http://ncuillery.github.io/angular-breadcrumb
  * Copyright (c) 2014 Nicolas Cuillery; Licensed MIT
@@ -277,6 +252,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+-----------------------------------------------------------------------------------
+angular-file-upload v1.1.5
+ https://github.com/nervgh/angular-file-upload
+
+ The MIT License
+
+ Copyright (c) 2013 nerv. https://github.com/nervgh
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
 -----------------------------------------------------------------------------------
 * The MIT License (MIT)
  

@@ -22,6 +22,8 @@ export declare class ResizableTableColumnComponent {
     onDragMove(event: MouseEvent, handle: HTMLDivElement): void;
     /** When the dragging ends */
     onDragEnd(): void;
+    onMoveLeft(): void;
+    onMoveRight(): void;
     /** Get the column index this cell is part of */
     private getCellIndex();
 }

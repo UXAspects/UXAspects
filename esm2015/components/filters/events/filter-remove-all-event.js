@@ -1,0 +1,8 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+export class FilterRemoveAllEvent {
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZmlsdGVyLXJlbW92ZS1hbGwtZXZlbnQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AdXgtYXNwZWN0cy91eC1hc3BlY3RzLyIsInNvdXJjZXMiOlsiY29tcG9uZW50cy9maWx0ZXJzL2V2ZW50cy9maWx0ZXItcmVtb3ZlLWFsbC1ldmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsTUFBTTtDQUE4QiIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBGaWx0ZXJSZW1vdmVBbGxFdmVudCB7fSJdfQ==

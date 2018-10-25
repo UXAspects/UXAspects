@@ -1,4 +1,3 @@
-import { DateTimePickerTimezone } from './date-time-picker.service';
 /**
  * Convert a single dimension array to a double dimension array
  * @param items the single dimension array to convert
@@ -41,3 +40,9 @@ export declare const monthsShort: string[];
  */
 export declare const weekdays: string[];
 export declare const weekdaysShort: string[];
+/** Export the default set of time zone */
+export declare const timezones: DateTimePickerTimezone[];
+export interface DateTimePickerTimezone {
+    name: string;
+    offset: number;
+}

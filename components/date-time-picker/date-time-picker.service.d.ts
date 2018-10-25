@@ -1,6 +1,7 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { DateTimePickerConfig } from './date-time-picker.config';
+import { DateTimePickerTimezone } from './date-time-picker.utils';
 export declare class DateTimePickerService {
     private _config;
     mode$: BehaviorSubject<DatePickerMode>;
@@ -21,6 +22,8 @@ export declare class DateTimePickerService {
     header$: BehaviorSubject<string>;
     headerEvent$: Subject<DatePickerHeaderEvent>;
     modeDirection: ModeDirection;
+    months: string[];
+    monthsShort: string[];
     private _subscription;
     constructor(_config: DateTimePickerConfig);
     ngOnDestroy(): void;
@@ -50,8 +53,4 @@ export declare enum ModeDirection {
 export declare enum DatePickerHeaderEvent {
     Previous = 0,
     Next = 1,
-}
-export interface DateTimePickerTimezone {
-    name: string;
-    offset: number;
 }

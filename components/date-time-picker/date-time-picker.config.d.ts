@@ -1,4 +1,4 @@
-import { DateTimePickerTimezone } from './date-time-picker.service';
+import { DateTimePickerTimezone } from './date-time-picker.utils';
 export declare class DateTimePickerConfig {
     showDate: boolean;
     showTime: boolean;
@@ -9,4 +9,6 @@ export declare class DateTimePickerConfig {
     weekdays: string[];
     nowBtnText: string;
     timezones: DateTimePickerTimezone[];
+    months: string[];
+    monthsShort: string[];
 }

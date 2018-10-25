@@ -23,6 +23,7 @@ export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, Co
     multiple: boolean;
     pageSize: number;
     placeholder: string;
+    autocomplete: string;
     loadingTemplate: TemplateRef<any>;
     noOptionsTemplate: TemplateRef<any>;
     optionTemplate: TemplateRef<any>;

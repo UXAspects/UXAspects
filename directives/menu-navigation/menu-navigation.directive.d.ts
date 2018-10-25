@@ -5,15 +5,15 @@ import { MenuNavigationService } from './menu-navigation.service';
 export declare class MenuNavigationDirective implements OnInit, AfterContentInit, OnDestroy {
     private _service;
     private _elementRef;
+    private _document;
     toggleButton: MenuNavigationToggleDirective;
     toggleButtonPosition: 'top' | 'right' | 'bottom' | 'left';
     navigatedOut: EventEmitter<KeyboardEvent>;
     items: QueryList<MenuNavigationItemDirective>;
     readonly activeIndex: number;
     private _itemsOrdered;
-    private _document;
-    private _subscription;
-    constructor(_service: MenuNavigationService, _elementRef: ElementRef, document: any);
+    private _onDestroy;
+    constructor(_service: MenuNavigationService, _elementRef: ElementRef, _document: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

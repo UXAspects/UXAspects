@@ -1,8 +1,8 @@
 import { EventEmitter, OnDestroy } from '@angular/core';
-import { DatePickerMode, DateTimePickerService, DateTimePickerTimezone } from './date-time-picker.service';
+import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
+import { DateTimePickerTimezone } from './date-time-picker.utils';
 export declare class DateTimePickerComponent implements OnDestroy {
     datepicker: DateTimePickerService;
-    private _timezone;
     showDate: boolean;
     showTime: boolean;
     showTimezone: boolean;
@@ -10,6 +10,8 @@ export declare class DateTimePickerComponent implements OnDestroy {
     showMeridian: boolean;
     showSpinners: boolean;
     weekdays: string[];
+    months: string[];
+    monthsShort: string[];
     nowBtnText: string;
     timezones: DateTimePickerTimezone[];
     dateChange: EventEmitter<Date>;
@@ -17,7 +19,7 @@ export declare class DateTimePickerComponent implements OnDestroy {
     date: Date;
     timezone: DateTimePickerTimezone;
     DatePickerMode: typeof DatePickerMode;
-    private _subscription;
+    private _onDestroy;
     constructor(datepicker: DateTimePickerService);
     ngOnDestroy(): void;
     /**

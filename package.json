@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.6.5",
+  "version": "1.6.7",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "bundles/ux-aspects-ux-aspects.umd.js",
   "files": [

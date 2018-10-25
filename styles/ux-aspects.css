@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.6.5 
+* @ux-aspects/ux-aspects-docs - v1.6.7 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -1264,6 +1264,9 @@ ux-timeline .timeline:after {
 .hpe-zoom-in:before {
   content: "\f245";
 }
+.hpe-zoom-out:before {
+  content: "\f246";
+}
 .hp-icon,
 .hpe-icon {
   vertical-align: baseline;
@@ -1699,6 +1702,15 @@ ng\:form {
   outline: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+.ux-keyboard-focus:focus {
+  outline: none !important;
+}
+.ux-keyboard-focus:focus.cdk-keyboard-focused {
+  outline: 2px dotted !important;
+  outline: auto -webkit-focus-ring-color !important;
+  outline-color: #00a7a2 !important;
+  outline-offset: 0 !important;
 }
 .nav > li > a {
   font-weight: 600;
@@ -2442,6 +2454,12 @@ h4.panel-title {
   text-decoration: none;
   background-color: #f5f5f5;
   color: #676a6c;
+}
+.dropdown-menu li > a:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .dropdown-menu li.dropdown-indent > a {
   padding-left: 52px;
@@ -4799,6 +4817,21 @@ search-builder .search-group .group-divider {
 .hover-actions.action-hovered .hover-action:focus {
   opacity: 1;
 }
+.hover-actions.hovered .hover-action.hover-action-disabled,
+.hover-actions.focused .hover-action.hover-action-disabled,
+.hover-actions.action-hovered .hover-action.hover-action-disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.hover-actions.hovered .hover-action.hover-action-disabled:hover,
+.hover-actions.focused .hover-action.hover-action-disabled:hover,
+.hover-actions.action-hovered .hover-action.hover-action-disabled:hover,
+.hover-actions.hovered .hover-action.hover-action-disabled:focus,
+.hover-actions.focused .hover-action.hover-action-disabled:focus,
+.hover-actions.action-hovered .hover-action.hover-action-disabled:focus {
+  opacity: 0.3;
+  outline: none;
+}
 .select-table-container {
   border: 2px solid #f5f5f5;
   padding-top: 5px;
@@ -5399,6 +5432,17 @@ table.dataTable {
 .table > tbody > tr.hover-actions:focus {
   outline: 0;
 }
+.table > tbody > tr .hover-action-btn {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+.table > tbody > tr .hover-action-btn:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 .table > tbody > tr.hover-actions:focus,
 .table > tbody > tr.hover-actions:hover,
 .table > tbody > tr.hover-actions.child-focus {
@@ -5746,6 +5790,13 @@ table.dataTable {
 .table tr.ux-selection-selected.ux-selection-focused > td.item-actions .list-hover-actions {
   background-color: #daeaf5;
   box-shadow: none;
+}
+.table tr.shift-select-selected-bg.ux-selection-focused:focus,
+.table tr.ux-selection-selected.ux-selection-focused:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .affix-toolbar.multiple-select-mode {
   background: #fff;
@@ -6121,19 +6172,26 @@ table.dataTable {
   margin-bottom: 0;
 }
 .sort-direction-toggle .sort-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   height: 34px;
   margin-right: 1px;
   float: right;
   padding: 6px;
-  padding-top: 10px;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 .sort-direction-toggle .sort-icon:hover,
 .sort-direction-toggle .sort-icon:focus {
-  background: #ebebeb;
+  background-color: #ebebeb;
 }
 .sort-direction-toggle .sort-icon:focus {
-  outline: 1px solid #7b63a3;
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .detail-row-header {
   white-space: nowrap;
@@ -6232,6 +6290,15 @@ th:hover .detail-row-header.sort .sort .number {
   overflow-y: scroll;
   min-height: 1px;
   margin-top: -1px;
+}
+/*
+ * Reorderable Table
+ */
+.reorderable-row:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .timeline {
   padding: 0;
@@ -7853,6 +7920,12 @@ strong {
 }
 .marquee-modal-window .modal-close:hover {
   background-color: #222;
+}
+.marquee-modal-window .modal-close:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 @media (max-width: 1140px) {
   .marquee-modal-window .modal-dialog.modal-lg {
@@ -14262,7 +14335,11 @@ tags-input .tags .input:-ms-input-placeholder {
   cursor: pointer;
 }
 .component-list-container .component-list .component-list-component .component-content {
+  display: flex;
   flex: 1;
+}
+.component-list-container .component-list .component-list-component .component-content *:focus ~ .component-remove {
+  opacity: 1;
 }
 .component-list-container .component-list .component-list-component .component-remove {
   display: flex;
@@ -14277,6 +14354,10 @@ tags-input .tags .input:-ms-input-placeholder {
 }
 .component-list-container .component-list .component-list-component .component-remove:focus {
   opacity: 1;
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .component-list-container .component-list .component-list-component .component-remove .hpe-icon {
   color: #abacad;
@@ -14288,6 +14369,9 @@ tags-input .tags .input:-ms-input-placeholder {
   flex: none;
   margin-bottom: 7px;
   margin-left: 48px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
 }
 .component-list-container .component-actions .component-add-btn {
   align-items: center;
@@ -14303,6 +14387,16 @@ tags-input .tags .input:-ms-input-placeholder {
   border: none;
 }
 .component-list-container .component-actions:hover .component-add-btn {
+  background-color: #7b63a3;
+  opacity: 1;
+}
+.component-list-container .component-actions:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.component-list-container .component-actions:focus .component-add-btn {
   background-color: #7b63a3;
   opacity: 1;
 }
@@ -14848,6 +14942,12 @@ tags-input .tags .input:-ms-input-placeholder {
   cursor: pointer;
   margin-bottom: 24px;
 }
+.file-upload-dropzone:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 .file-upload-progress-indicator {
   margin-top: 8px;
   line-height: 12px;
@@ -14865,15 +14965,39 @@ tags-input .tags .input:-ms-input-placeholder {
   flex: none;
 }
 .file-upload-queue > li > a {
-  padding: 5px;
-  display: block;
-  border: 1px solid #e5e5e5;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  color: #676a6c;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  border: 1px solid #d8d9db;
+  border-radius: 1px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  color: #555;
+  background-color: #e2e3e5;
 }
-.file-upload-queue > li > a:hover {
-  background-color: #f5f5f5;
+.file-upload-queue > li > a:focus {
+  outline: none;
+  background-color: #7b63a3;
+  border-color: #7b63a3;
+  color: #fff;
+}
+.file-upload-queue-remove {
+  border: none;
+  background-color: transparent;
+  font-size: 80%;
+  opacity: 0.7;
+  height: 22px;
+  padding-top: 4px;
+}
+.file-upload-queue-remove:hover,
+.file-upload-queue-remove:focus {
+  opacity: 1;
+}
+.file-upload-queue-remove:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 /*
     Static tooltip styling (AngularJS)
@@ -15125,12 +15249,18 @@ ux-card-tabset .card-tabs-paging-btn-previous {
 ux-card-tabset .card-tabs-paging-btn-next {
   right: 10px;
 }
+ux-checkbox:focus {
+  outline: none;
+}
 ux-checkbox .ux-checkbox {
   display: inline-flex;
   align-items: baseline;
   margin: 0;
   cursor: pointer;
   margin-bottom: 5px;
+}
+ux-checkbox .ux-checkbox:focus {
+  outline: none;
 }
 ux-checkbox .ux-checkbox .ux-checkbox-container {
   display: inline-flex;
@@ -16477,6 +16607,15 @@ ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wiza
 ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step .marquee-wizard-step-status {
   flex: none;
 }
+ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step:focus {
+  outline: none;
+}
+ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step:focus.cdk-keyboard-focused {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 ux-marquee-wizard .marquee-wizard-content-panel {
   display: flex;
   flex-direction: column;
@@ -17267,6 +17406,9 @@ ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-cont
 }
 ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-content .page-header-icon-menus {
   position: static;
+}
+ux-pagination .pagination > li.page-item .page-link {
+  user-select: none;
 }
 ux-popover .popover {
   position: static;
@@ -18727,6 +18869,15 @@ ux-wizard .wizard-body .wizard-steps .wizard-step:first-of-type {
 ux-wizard .wizard-body .wizard-steps .wizard-step:last-of-type {
   margin-right: 0;
 }
+ux-wizard .wizard-body .wizard-steps .wizard-step:focus {
+  outline: none;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step:focus.cdk-keyboard-focused {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 ux-wizard .wizard-body .wizard-content {
   flex: none;
   background-color: #fafafa;
@@ -18830,12 +18981,26 @@ ux-wizard.vertical .wizard-body .wizard-content {
 .ux-resizable-table-column-handle {
   content: '';
   position: absolute;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   right: 0;
   width: 16px;
   height: 100%;
   cursor: ew-resize;
+}
+.ux-resizable-table-column-handle.cdk-keyboard-focused {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.ux-resizable-table-column-handle .ux-resizable-table-column-handle-icon {
+  width: 5px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
 }
 .ux-resizable-table-column-handle:hover,
 .ux-resizable-table-column-handle.ux-drag-dragging {

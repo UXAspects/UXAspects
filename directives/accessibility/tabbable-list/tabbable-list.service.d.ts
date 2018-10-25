@@ -5,6 +5,7 @@ export declare class TabbableListService implements OnDestroy {
     hierarchy: boolean;
     allowAltModifier: boolean;
     allowCtrlModifier: boolean;
+    allowBoundaryKeys: boolean;
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
     private _items;
     private _direction;

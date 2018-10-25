@@ -26,6 +26,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     tagTemplate: TemplateRef<any>;
     tagClass: TagClassFunction;
     validationErrors: any;
+    autocomplete: string;
     createTagHandler: (value: string) => any;
     /**
      * @deprecated

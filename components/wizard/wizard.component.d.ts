@@ -1,8 +1,6 @@
-import { AfterViewInit, EventEmitter, QueryList } from '@angular/core';
+import { AfterViewInit, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { WizardStepComponent } from './wizard-step.component';
-export declare class WizardComponent implements AfterViewInit {
-    private _step;
-    steps: QueryList<WizardStepComponent>;
+export declare class WizardComponent implements AfterViewInit, OnDestroy {
     orientation: 'horizontal' | 'vertical';
     nextText: string;
     previousText: string;
@@ -12,6 +10,10 @@ export declare class WizardComponent implements AfterViewInit {
     previousTooltip: string;
     cancelTooltip: string;
     finishTooltip: string;
+    nextAriaLabel: string;
+    previousAriaLabel: string;
+    cancelAriaLabel: string;
+    finishAriaLabel: string;
     nextDisabled: boolean;
     previousDisabled: boolean;
     cancelDisabled: boolean;
@@ -29,9 +31,17 @@ export declare class WizardComponent implements AfterViewInit {
     onFinish: EventEmitter<void>;
     stepChanging: EventEmitter<StepChangingEvent>;
     stepChange: EventEmitter<number>;
+    stepError: EventEmitter<number>;
+    steps: QueryList<WizardStepComponent>;
+    id: string;
     invalidIndicator: boolean;
     step: number;
+    private _step;
+    private _onDestroy;
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    /** Set ids for each of the wizard steps */
+    setWizardStepIds(): void;
     /**
      * Navigate to the next step
      */

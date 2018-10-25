@@ -18,6 +18,8 @@ export declare class TabbableListDirective implements AfterContentInit, OnDestro
     allowAltModifier: boolean;
     /** Prevent keyboard interaction when ctrl modifier key is pressed */
     allowCtrlModifier: boolean;
+    /** Focus the first or last item when Home or End keys are pressed */
+    allowBoundaryKeys: boolean;
     /** Find all tabbable list items */
     items: QueryList<TabbableListItemDirective>;
     private _focusedElement;

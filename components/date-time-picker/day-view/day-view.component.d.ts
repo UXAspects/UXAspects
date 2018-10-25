@@ -21,7 +21,7 @@ export declare class DayViewComponent implements OnDestroy {
      */
     select(date: Date): void;
     trackWeekByFn(index: number): number;
-    trackDayByFn(index: number, item: DayViewItem): string;
+    trackDayByFn(_index: number, item: DayViewItem): string;
     focusDate(item: DayViewItem, dayOffset: number): void;
     getTabbable(item: DayViewItem): boolean;
 }

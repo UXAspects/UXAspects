@@ -7,4 +7,5 @@ export declare class WizardStepComponent {
     private _visited;
     visited: boolean;
     active: boolean;
+    id: string;
 }
