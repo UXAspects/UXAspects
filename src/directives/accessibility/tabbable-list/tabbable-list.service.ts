@@ -1,9 +1,9 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
+import { DOWN_ARROW, END, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
-import { UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW } from '@angular/cdk/keycodes';
 
 @Injectable()
 export class TabbableListService implements OnDestroy {
@@ -11,6 +11,7 @@ export class TabbableListService implements OnDestroy {
     hierarchy: boolean = false;
     allowAltModifier: boolean = true;
     allowCtrlModifier: boolean = true;
+    allowBoundaryKeys: boolean = false;
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
 
     private _items: QueryList<TabbableListItemDirective>;
@@ -77,9 +78,12 @@ export class TabbableListService implements OnDestroy {
 
     setFirstItemTabbable(): void {
         // delay to prevent expression changed after check error
-        setTimeout(() => {
-            if (this._items.first) {
-                this._items.first.tabindex = 0;
+        requestAnimationFrame(() => {
+            // find the first item that is not disabled
+            const first = this._items.find(item => !item.disabled);
+
+            if (first) {
+                first.tabindex = 0;
             }
         });
     }
@@ -118,17 +122,29 @@ export class TabbableListService implements OnDestroy {
 
         this.focusKeyManager.onKeydown(event);
 
+        // if the key is a boundary key and boundary keys are enabled
+        if (this.allowBoundaryKeys) {
+            switch (event.which) {
+                case HOME:
+                    this.focusKeyManager.setFirstItemActive();
+                    event.preventDefault();
+                    break;
+
+                case END:
+                    this.focusKeyManager.setLastItemActive();
+                    event.preventDefault();
+                    break;
+            }
+        }
+
         if (this.hierarchy) {
 
-            if (
-                (this._direction === 'horizontal' && event.keyCode === DOWN_ARROW) ||
-                (this._direction === 'vertical' && event.keyCode === RIGHT_ARROW)
-            ) {
+            if ((this._direction === 'horizontal' && event.keyCode === DOWN_ARROW) ||
+                (this._direction === 'vertical' && event.keyCode === RIGHT_ARROW)) {
                 source.keyboardExpanded$.next(true);
-            } else if (
-                (this._direction === 'horizontal' && event.keyCode === UP_ARROW) ||
-                (this._direction === 'vertical' && event.keyCode === LEFT_ARROW)
-            ) {
+            } else if ((this._direction === 'horizontal' && event.keyCode === UP_ARROW) ||
+                (this._direction === 'vertical' && event.keyCode === LEFT_ARROW)) {
+
                 if (source.children.length > 0 && source.expanded) {
                     source.keyboardExpanded$.next(false);
                 } else if (source.parent) {

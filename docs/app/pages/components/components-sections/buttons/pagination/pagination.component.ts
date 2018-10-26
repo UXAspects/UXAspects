@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -18,8 +17,6 @@ export class ComponentsPaginationComponent extends BaseDocumentationSection impl
     itemsPerPage: number = 10;
     totalPages: number;
     maxSize: number = 5;
-    previousButton = this._sanitizer.bypassSecurityTrustHtml(`<i class="hpe-icon hpe-previous" aria-label="previous page"></i>`);
-    nextButton = this._sanitizer.bypassSecurityTrustHtml(`<i class="hpe-icon hpe-next" aria-label="next page"></i>`);
 
     plunk: IPlunk = {
         files: {
@@ -27,13 +24,12 @@ export class ComponentsPaginationComponent extends BaseDocumentationSection impl
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
-            library: 'ngx-bootstrap/pagination',
-            imports: ['PaginationModule'],
-            providers: ['PaginationModule.forRoot()']
+            library: '@ux-aspects/ux-aspects',
+            imports: ['PaginationModule']
         }]
     };
 
-    constructor(private _sanitizer: DomSanitizer) {
+    constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

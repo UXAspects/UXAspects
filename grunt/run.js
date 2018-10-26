@@ -18,9 +18,9 @@ module.exports = {
         options: {
             cwd: join(cwd(), 'dist')
         },
-        exec: 'npm pack'
+        exec: 'npm pack --quiet'
     },
     npm_pack_docs: {
-        exec: 'npm pack'
+        exec: 'npm pack --quiet'
     }
 };

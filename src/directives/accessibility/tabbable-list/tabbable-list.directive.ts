@@ -31,6 +31,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     /** Prevent keyboard interaction when ctrl modifier key is pressed */
     @Input() set allowCtrlModifier(value: boolean) { this._tabbableList.allowCtrlModifier = value; }
 
+    /** Focus the first or last item when Home or End keys are pressed */
+    @Input() set allowBoundaryKeys(value: boolean) { this._tabbableList.allowBoundaryKeys = value; }
+
     /** Find all tabbable list items */
     @ContentChildren(TabbableListItemDirective, { descendants: true }) items: QueryList<TabbableListItemDirective>;
 

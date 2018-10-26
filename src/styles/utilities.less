@@ -526,3 +526,14 @@ ng\:form {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+
+// Support focus when cdk-keyboard-focus class is present
+.ux-keyboard-focus {
+    &:focus {
+        outline: none !important;
+
+        &.cdk-keyboard-focused {
+            .aspects-outline() !important;
+        }
+    }
+}

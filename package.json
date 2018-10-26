@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.6.5",
+  "version": "1.6.7",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -17,12 +17,14 @@
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "start:https": "npm run start -- --https --pfx configs/webpack.docs.dev.pfx",
     "start:e2e": "webpack-dev-server --config configs/webpack.e2e.config.js --progress --colors",
+    "setversion": "grunt execute:version",
+    "compile": "grunt compile",
     "build": "grunt build",
     "build:library": "grunt build:library",
     "lint": "grunt lint",
-    "test": "grunt test && grunt e2e",
-    "test:e2e": "grunt e2e",
-    "setversion": "grunt execute:version"
+    "package": "grunt package",
+    "test": "grunt jasmine:ng1 && grunt e2e",
+    "test:e2e": "grunt e2e"
   },
   "dependencies": {
     "@angular/animations": "^6.0.9",

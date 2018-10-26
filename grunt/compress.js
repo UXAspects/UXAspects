@@ -22,7 +22,7 @@ module.exports = {
     },
     documentation: {
         options: {
-            archive: path.join(process.cwd(), 'target', 'docs', 'ux-aspects-docs-<%= package.version %>.tgz'),
+            archive: path.join(process.cwd(), 'target', 'docs', 'ux-aspects-docs-<%= package.version %>.tar.gz'),
             mode: 'tgz'
         },
         files: [
