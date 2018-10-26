@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../../common/index';
 import { SelectionService } from '../../../directives/selection/selection.service';
 
 @Component({
@@ -35,7 +36,7 @@ export class SelectListItemComponent<T> implements OnDestroy {
         });
 
         // make this item tabbable or not based on the focused element
-        _selection.focus$.pipe(takeUntil(this._onDestroy))
+        _selection.focus$.pipe(takeUntil(this._onDestroy), tick())
             .subscribe(focused => this.tabindex = focused === this.data ? 0 : -1);
     }
 

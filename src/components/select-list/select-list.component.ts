@@ -40,7 +40,7 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     @Output() selectedChange = new EventEmitter<T[]>();
 
     /** Find all select list items */
-    @ContentChildren(SelectListItemComponent, { descendants: true }) items: QueryList<SelectListItemComponent<T>>;
+    @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent<T>>;
 
     /** Automatically unsubscribe all observables */
     private _onDestroy = new Subject<void>();
