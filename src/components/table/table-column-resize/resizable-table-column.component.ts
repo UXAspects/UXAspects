@@ -1,3 +1,4 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2 } from '@angular/core';
 import { ColumnUnit, ResizableTableService } from './resizable-table.service';
 
@@ -15,6 +16,9 @@ export class ResizableTableColumnComponent {
 
   /** Define the width of a column */
   @Input() set width(width: number) {
+
+    // ensure width is a valid number
+    width = coerceNumberProperty(width);
 
     // if we have not initialised then set the element width
     if (!this._table.isInitialised.value) {
