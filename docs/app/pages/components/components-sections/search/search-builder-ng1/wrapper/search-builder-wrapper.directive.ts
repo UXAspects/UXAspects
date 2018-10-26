@@ -226,7 +226,7 @@ function CustodianComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
         placeholder: 'Select Custodians'
     };
 
-    vm.custodians = [
+    var names = [
         'Flora Morris',
         'Micheal Gilbert',
         'Isabella Goodman',
@@ -243,6 +243,9 @@ function CustodianComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
         'Rena Gomes',
         'Ann Garcia'
     ];
+    vm.custodians = names.map(function(name, i) {
+        return { id: i, name: name };
+    });
 
     vm.showPanel = function () {
         searchBuilderPanel.setPanelHeader('Select Custodians');

@@ -89,7 +89,7 @@ export default class DynamicSelectCtrl {
     // Update UI when model changes
     this.watchers.push($scope.$watch(() => this.ngModel, query => {
       if (this.multiple) {
-        this.tagsModel = this.initTagsModel(query);
+        this.tagsModel = this.initTagsModel(query || []);
       }
       else {
         if (query !== null) {
@@ -311,7 +311,7 @@ export default class DynamicSelectCtrl {
    * @param {string} key
    */
   getModelIndex(key) {
-    return this.ngModel.findIndex(item => this.getItemKey(item) === key);
+    return Array.isArray(this.ngModel) ? this.ngModel.findIndex(item => this.getItemKey(item) === key) : -1;
   }
 
   select(item) {
