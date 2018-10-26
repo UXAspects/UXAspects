@@ -25,7 +25,7 @@ function CustodianPanelCtrl($scope, searchBuilderPanel) {
         var custodians = [];
 
         selectedCustodians.forEach(function (custodian) {
-            custodians.push(custodian.name);
+            custodians.push(custodian.data);
         });
 
         if (deferred) deferred.resolve(custodians);
@@ -41,7 +41,7 @@ function CustodianPanelCtrl($scope, searchBuilderPanel) {
 
         custodians.forEach(function (custodian) {
             vm.custodians.push({
-                name: custodian,
+                data: custodian,
                 checked: false
             });
         });
@@ -52,7 +52,7 @@ function CustodianPanelCtrl($scope, searchBuilderPanel) {
         data.selected.forEach(function (selected) {
             vm.custodians.forEach(function (custodian) {
                 //if it is a match set the checked value to true
-                if (custodian.name === selected) custodian.checked = true;
+                if (custodian.data.id === selected.id) { custodian.checked = true; }
             });
         });
     }
