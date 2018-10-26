@@ -15,11 +15,17 @@ export class ResizableTableColumnComponent {
 
   /** Define the width of a column */
   @Input() set width(width: number) {
-    this._table.setColumnWidth(this.getCellIndex(), width, ColumnUnit.Pixel);
 
     // if we have not initialised then set the element width
     if (!this._table.isInitialised.value) {
       this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${width}px`);
+    } else {
+
+      // if it is initialised then resize the column
+      const currentWidth = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
+
+      // resize the column by the difference in size
+      this._table.resizeColumn(this.getCellIndex(), width - currentWidth);
     }
   }
 

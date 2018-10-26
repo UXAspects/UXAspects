@@ -68,13 +68,29 @@
 </p>
 
 <p>
-    To prevent a column from being resizable add a <code>disabled</code> attribute with a value of <code>true</code> to the <code>th</code> element.
-</p>
-
-<p>
     If you are adding resizable columns to a <code>uxFixedHeaderTable</code> you will also need to add the <code>uxResizableTableCell</code> directive to every
     <code>td</code> element in the table.
 </p>
+
+<p>The following properties can be used to configure the columns:</p>
+
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="width" type="number">
+        Defines the number of pixels wide the column should be.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        Specifies if the column is resizable and if the drag handle should be shown.
+    </tr>
+</uxd-api-properties>
+
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="widthChange" type="number">
+        Emits with the width of the column when the column is resized.
+    </tr>
+</uxd-api-properties>
+
 
 <p>
     The code below can be used to create the example above:
