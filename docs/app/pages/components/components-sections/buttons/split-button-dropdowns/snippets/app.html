@@ -1,0 +1,68 @@
+<div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+    <!-- Standalone Action Buttons -->
+    <button type="button" class="btn button-secondary">Action</button>
+
+    <!-- Dropdown Toggle Button -->
+    <button #toggle
+        id="split-button-toggle"
+        dropdownToggle
+        tabindex="0"
+        class="btn button-secondary dropdown-toggle"
+        aria-label="Toggle Dropdown"
+        aria-haspopup="true"
+        [attr.aria-expanded]="dropdown.isOpen"
+        uxMenuNavigationToggle
+        [(menuOpen)]="dropdown.isOpen"
+        #menuNavigationToggle="uxMenuNavigationToggle">
+
+        <span class="hpe-icon hpe-down"></span>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <ul *dropdownMenu
+        class="dropdown-menu"
+        aria-labelledby="split-button-toggle"
+        role="menu"
+        uxMenuNavigation
+        [toggleButton]="menuNavigationToggle"
+        toggleButtonPosition="top">
+
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Action
+            </a>
+        </li>
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Another action
+            </a>
+        </li>
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Something else here
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Separated link
+            </a>
+        </li>
+    </ul>
+</div>

@@ -27,11 +27,13 @@
                 },
                 {
                     "title": "Button Dropdowns",
-                    "component": "CssButtonDropdownsComponent"
+                    "component": "CssButtonDropdownsComponent",
+                    "deprecated": true
                 },
                 {
                     "title": "Split Button Dropdowns",
-                    "component": "CssSplitButtonDropdownsComponent"
+                    "component": "CssSplitButtonDropdownsComponent",
+                    "deprecated": true
                 }
             ]
         },
@@ -107,7 +109,8 @@
             "sections": [
                 {
                     "title": "Page Title",
-                    "component": "CssPageTitleComponent"
+                    "component": "CssPageTitleComponent",
+                    "version": "AngularJS"
                 }
             ]
         },
@@ -117,7 +120,8 @@
             "sections": [
                 {
                     "title": "Navigation Header",
-                    "component": "CssNavigationHeaderComponent"
+                    "component": "CssNavigationHeaderComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Breadcrumb",
@@ -125,23 +129,28 @@
                 },
                 {
                     "title": "Breadcrumb from States",
-                    "component": "CssBreadcrumbFromStatesComponent"
+                    "component": "CssBreadcrumbFromStatesComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Breadcrumb with Tab State",
-                    "component": "CssBreadcrumbWithTabStateComponent"
+                    "component": "CssBreadcrumbWithTabStateComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Condensed Header",
-                    "component": "CssCondensedHeaderComponent"
+                    "component": "CssCondensedHeaderComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Condensed Header & Toolbar",
-                    "component": "CssCondensedHeaderToolbarComponent"
+                    "component": "CssCondensedHeaderToolbarComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Standard Header",
-                    "component": "CssStandardHeaderComponent"
+                    "component": "CssStandardHeaderComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Product Name and Logo",
@@ -149,27 +158,33 @@
                 },
                 {
                     "title": "Header Content Panel",
-                    "component": "CssHeaderContentPanelComponent"
+                    "component": "CssHeaderContentPanelComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Back Button",
-                    "component": "CssBackButtonComponent"
+                    "component": "CssBackButtonComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Dynamic Name Callout",
-                    "component": "CssDynamicNameCalloutComponent"
+                    "component": "CssDynamicNameCalloutComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Standard Header & Toolbar",
-                    "component": "CssStandardHeaderToolbarComponent"
+                    "component": "CssStandardHeaderToolbarComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Header with Navigation Tab & Toolbar",
-                    "component": "CssHeaderNavTabToolbarComponent"
+                    "component": "CssHeaderNavTabToolbarComponent",
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Page Header Example",
-                    "component": "CssPageHeaderExampleComponent"
+                    "component": "CssPageHeaderExampleComponent",
+                    "version": "AngularJS"
                 }
             ]
         },

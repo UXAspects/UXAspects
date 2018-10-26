@@ -1,0 +1,92 @@
+<div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+    <!-- Standalone Action Buttons -->
+    <button type="button" class="btn button-secondary">Action</button>
+
+    <!-- Dropdown Toggle Button -->
+    <button #toggle
+        id="split-button-toggle"
+        dropdownToggle
+        tabindex="0"
+        class="btn button-secondary dropdown-toggle"
+        aria-label="Toggle Dropdown"
+        aria-haspopup="true"
+        [attr.aria-expanded]="dropdown.isOpen"
+        uxMenuNavigationToggle
+        [(menuOpen)]="dropdown.isOpen"
+        #menuNavigationToggle="uxMenuNavigationToggle">
+
+        <span class="hpe-icon hpe-down"></span>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <ul *dropdownMenu
+        class="dropdown-menu"
+        aria-labelledby="split-button-toggle"
+        role="menu"
+        uxMenuNavigation
+        [toggleButton]="menuNavigationToggle"
+        toggleButtonPosition="top">
+
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Action
+            </a>
+        </li>
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Another action
+            </a>
+        </li>
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Something else here
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li role="menuitem">
+            <a (click)="toggle.focus()"
+                (keydown.enter)="toggle.focus()"
+                (keydown.escape)="toggle.focus()"
+                uxMenuNavigationItem
+                tabindex="-1">
+                Separated link
+            </a>
+        </li>
+    </ul>
+</div>
+
+<hr>
+
+<p>
+    Split buttons are rendered as two separate buttons, one with the button text and the other drops down to open the menu.
+</p>
+
+<p>
+    Split button dropdowns use the <code>.btn-group</code> class to group the button and the dropdown icon.
+    The menu is contained in the <code>.dropdown-menu</code> class.
+</p>
+
+<p>
+    The ngx-bootstrap dropdown functionality can be used to create the dropdown.
+    See <a routerLink="/components/buttons" fragment="dropdowns">Dropdowns</a> for more information.
+</p>
+
+<p>The example above can be created using the following code:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
