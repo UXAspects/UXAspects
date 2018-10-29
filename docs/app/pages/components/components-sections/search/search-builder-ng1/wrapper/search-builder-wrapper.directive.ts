@@ -226,7 +226,7 @@ function CustodianComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
         placeholder: 'Select Custodians'
     };
 
-    vm.custodians = [
+    var names = [
         'Flora Morris',
         'Micheal Gilbert',
         'Isabella Goodman',
@@ -243,6 +243,9 @@ function CustodianComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
         'Rena Gomes',
         'Ann Garcia'
     ];
+    vm.custodians = names.map(function(name, i) {
+        return { id: i, name: name };
+    });
 
     vm.showPanel = function () {
         searchBuilderPanel.setPanelHeader('Select Custodians');
@@ -438,7 +441,7 @@ function CustodianPanelCtrl($scope: ng.IScope, searchBuilderPanel: any) {
         var custodians: any = [];
 
         selectedCustodians.forEach(function (custodian: any) {
-            custodians.push(custodian.name);
+            custodians.push(custodian.data);
         });
 
         if (deferred) { deferred.resolve(custodians); }
@@ -454,7 +457,7 @@ function CustodianPanelCtrl($scope: ng.IScope, searchBuilderPanel: any) {
 
         custodians.forEach(function (custodian: any) {
             vm.custodians.push({
-                name: custodian,
+                data: custodian,
                 checked: false
             });
         });
@@ -465,7 +468,7 @@ function CustodianPanelCtrl($scope: ng.IScope, searchBuilderPanel: any) {
         data.selected.forEach(function (selected: any) {
             vm.custodians.forEach(function (custodian: any) {
                 // if it is a match set the checked value to true
-                if (custodian.name === selected) { custodian.checked = true; }
+                if (custodian.data.id === selected.id) { custodian.checked = true; }
             });
         });
     }

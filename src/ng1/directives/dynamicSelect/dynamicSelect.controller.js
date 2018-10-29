@@ -89,7 +89,7 @@ export default class DynamicSelectCtrl {
     // Update UI when model changes
     this.watchers.push($scope.$watch(() => this.ngModel, query => {
       if (this.multiple) {
-        this.tagsModel = this.initTagsModel(query);
+        this.tagsModel = this.initTagsModel(query || []);
       }
       else {
         if (query !== null) {
@@ -261,8 +261,14 @@ export default class DynamicSelectCtrl {
     }
 
     if (!this.isPaging) {
+
+      let repeatExpr = 'item in filteredItems = (vm.source | filter: vm.dropdownFilterFn)';
+      if (this.trackBy) {
+        repeatExpr += ` track by item.${this.trackBy}`;
+      }
+
       const li = angular.element('<li/>', {
-        'ng-repeat'    : 'item in filteredItems = (vm.source | filter: vm.dropdownFilterFn)',
+        'ng-repeat'    : repeatExpr,
         'class'        : 'el-dynamicselect-dropdown-item',
         'ng-class'     : '{ "selected": vm.itemApi.isSelected(item), "highlighted": vm.itemApi.isHighlighted(item) }',
         'data-key'     : '{{ vm.itemApi.getKey(item) }}',
@@ -311,7 +317,7 @@ export default class DynamicSelectCtrl {
    * @param {string} key
    */
   getModelIndex(key) {
-    return this.ngModel.findIndex(item => this.getItemKey(item) === key);
+    return Array.isArray(this.ngModel) ? this.ngModel.findIndex(item => this.getItemKey(item) === key) : -1;
   }
 
   select(item) {
