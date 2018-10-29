@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { SelectionService } from '../../directives/selection/selection.service';
 import { MultipleSelectListStrategy } from './multiple-select-list.strategy';
 import { SelectListItemComponent } from './select-list-item/select-list-item.component';
@@ -13,26 +14,44 @@ import { SingleSelectListStrategy } from './single-select-list.strategy';
         role: 'list'
     }
 })
-export class SelectListComponent implements AfterContentInit, OnDestroy {
+export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
 
+    /** Determine if we allow multiple items to be selected */
     @Input() set multiple(multiple: boolean) {
         this._selection.strategy.deselectAll();
-        this._selection.setStrategy(multiple ? new MultipleSelectListStrategy() : new SingleSelectListStrategy());
+        this._selection.setStrategy(multiple ? new MultipleSelectListStrategy<T>() : new SingleSelectListStrategy<T>());
     }
 
-    @Input() selected: any[] = [];
-    @Output() selectedChange = new EventEmitter<any[]>();
+    /** Set the selected items */
+    @Input() set selected(selected: T | T[]) {
 
-    @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent>;
+        // deselect all currently selected items
+        this._selection.deselectAll();
 
-    private _subscription: Subscription;
+        // select only the specified items
+        if (Array.isArray(selected)) {
+            this._selection.select(...selected);
+        } else {
+            this._selection.select(selected);
+        }
+    }
 
-    constructor(private _selection: SelectionService) {
+    /** Emit when the selection changes */
+    @Output() selectedChange = new EventEmitter<T[]>();
+
+    /** Find all select list items */
+    @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent<T>>;
+
+    /** Automatically unsubscribe all observables */
+    private _onDestroy = new Subject<void>();
+
+    constructor(private _selection: SelectionService<T>) {
         // set the selection strategy to single by default
-        this._selection.setStrategy(new SingleSelectListStrategy());
+        this._selection.setStrategy(new SingleSelectListStrategy<T>());
 
         // emit the selection changes when they occur
-        this._subscription = this._selection.selection$.subscribe(selection => this.selectedChange.emit(selection));
+        this._selection.selection$.pipe(takeUntil(this._onDestroy))
+            .subscribe(selection => this.selectedChange.emit(selection));
     }
 
     ngAfterContentInit(): void {
@@ -41,10 +60,11 @@ export class SelectListComponent implements AfterContentInit, OnDestroy {
         this._selection.dataset = this.items.map(item => item.data);
 
         // if the item set changes update the list
-        this.items.changes.subscribe(() => this._selection.dataset = this.items.map(item => item.data));
+        this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this._selection.dataset = this.items.map(item => item.data));
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 }

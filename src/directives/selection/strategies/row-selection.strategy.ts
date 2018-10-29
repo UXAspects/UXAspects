@@ -1,10 +1,10 @@
 import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionStrategy } from './selection.strategy';
 
-export class RowSelectionStrategy extends SelectionStrategy {
+export class RowSelectionStrategy<T> extends SelectionStrategy<T> {
 
   // store the most recently selected row
-  private _selection: Selection = { start: null, end: null };
+  private _selection: Selection<T> = { start: null, end: null };
 
   /**
    * By default on shift click the browser will highlight
@@ -17,7 +17,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
   /**
    * When a row is clicked we want to handle selection
    */
-  click(event: MouseEvent, data: any): void {
+  click(event: MouseEvent, data: T): void {
 
     // determine which modifier keys are pressed
     const { ctrlKey, shiftKey } = event;
@@ -43,7 +43,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
    * 3. Shift + Arrow keys to multiple select
    * 4. Ctrl + Arrow keys to allow retained selection and navigation
    */
-  keydown(event: KeyboardEvent, data: any): void {
+  keydown(event: KeyboardEvent, data: T): void {
 
     switch (event.which) {
 
@@ -55,7 +55,10 @@ export class RowSelectionStrategy extends SelectionStrategy {
 
       case SPACE:
         event.preventDefault();
-        this.selectionService.strategy.toggle(data, true);
+        this.selectionService.strategy.toggle(data);
+
+        // also activate the item
+        this.selectionService.activate(data);
         break;
 
     }
@@ -65,23 +68,18 @@ export class RowSelectionStrategy extends SelectionStrategy {
    * Override the standard toggle function to store or clear the
    * most recently selected item
    */
-  toggle(data: any, activate: boolean = false): void {
+  toggle(data: T): void {
     super.toggle(data);
 
     // store or clear the selection
     this.selectionService.isSelected(data) ? this.setSelectionStart(data) : this.clearSelection();
-
-    // if we want to keep the item activated then activate
-    if (activate) {
-      this.selectionService.activate(data);
-    }
   }
 
   /**
    * Clear all other selected items and select only
    * the most recently selected item
    */
-  private singleSelect(data: any): void {
+  private singleSelect(data: T): void {
 
     // deselect all other rows if neither modifier key is pressed
     this.deselectAll();
@@ -99,7 +97,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
    * 2. If a start item has been selected - select all in between
    * 3. If a start and end item have been selected clear the range and then select the new range
    */
-  protected multipleSelect(data: any): void {
+  protected multipleSelect(data: T): void {
 
     // if no selection currently exists then perform initial selection
     if (!this._selection.start) {
@@ -127,7 +125,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
    * Set the selection start point. If there was previously a
    * selection end point then clear it as this is a new selection
    */
-  private setSelectionStart(data: any): void {
+  private setSelectionStart(data: T): void {
     this._selection.start = data;
     this._selection.end = null;
 
@@ -138,7 +136,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
   /**
    * Set the selection end point
    */
-  private setSelectionEnd(data: any): void {
+  private setSelectionEnd(data: T): void {
     this._selection.end = data;
 
     // activate the item
@@ -164,7 +162,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
    * Note that the end point may be above the start point so
    * we need to account for this.
    */
-  private getSelectedItems(): any[] {
+  private getSelectedItems(): T[] {
 
     // get the latest dataset
     const { dataset } = this.selectionService;
@@ -180,7 +178,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
   /**
    * Activate the sibling item when arrow keys are pressed
    */
-  private navigate(event: KeyboardEvent, data: any): void {
+  private navigate(event: KeyboardEvent, data: T): void {
 
     // determine which modifier keys are pressed
     const { ctrlKey, shiftKey } = event;
@@ -207,7 +205,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
   }
 }
 
-export interface Selection {
-  start: any;
-  end: any;
+export interface Selection<T> {
+  start: T;
+  end: T;
 }

@@ -1,37 +1,37 @@
 import { SelectionService } from '../selection.service';
 
-export class SelectionStrategy {
+export class SelectionStrategy<T = any> {
 
-  constructor(protected selectionService?: SelectionService) { }
+  constructor(protected selectionService?: SelectionService<T>) { }
 
-  setSelectionService(selectionService: SelectionService): void {
+  setSelectionService(selectionService: SelectionService<T>): void {
     this.selectionService = selectionService;
   }
 
-  mousedown(event: MouseEvent, data: any): void { }
+  mousedown(event: MouseEvent, data: T): void { }
 
-  click(event: MouseEvent, data: any): void { }
+  click(event: MouseEvent, data: T): void { }
 
-  keydown(event: KeyboardEvent, data: any): void { }
+  keydown(event: KeyboardEvent, data: T): void { }
 
   /**
    * Select the item - default behavior
    */
-  select(...data: any[]): void {
+  select(...data: T[]): void {
     this.selectionService.select(...data);
   }
 
   /**
    * Toggle the item's selected state - default behavior
    */
-  toggle(...data: any[]): void {
+  toggle(...data: T[]): void {
     this.selectionService.toggle(...data);
   }
 
   /**
    * Deselect the item - default behavior
    */
-  deselect(...data: any[]): void {
+  deselect(...data: T[]): void {
     this.selectionService.deselect(...data);
   }
 

@@ -1,8 +1,8 @@
 import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { RowSelectionStrategy } from './row-selection.strategy';
 
-export class RowAltSelectionStrategy extends RowSelectionStrategy {
-    keydown(event: KeyboardEvent, data: any): void {
+export class RowAltSelectionStrategy<T> extends RowSelectionStrategy<T> {
+    keydown(event: KeyboardEvent, data: T): void {
         switch (event.which) {
             case UP_ARROW:
             case DOWN_ARROW:
@@ -20,7 +20,7 @@ export class RowAltSelectionStrategy extends RowSelectionStrategy {
     /**
      * Select the sibling item when arrow keys are pressed
      */
-    private handleCursorKey(event: KeyboardEvent, data: any): void {
+    private handleCursorKey(event: KeyboardEvent, data: T): void {
         // determine which modifier keys are pressed
         const { ctrlKey, shiftKey } = event;
 

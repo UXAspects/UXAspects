@@ -8,32 +8,32 @@ import { SelectionStrategy } from './strategies/selection.strategy';
 import { SimpleSelectionStrategy } from './strategies/simple-selection.strategy';
 
 @Injectable()
-export class SelectionService implements OnDestroy {
+export class SelectionService<T> implements OnDestroy {
 
-  set dataset(dataset: ReadonlyArray<any>) {
+  set dataset(dataset: ReadonlyArray<T>) {
     this._dataset = dataset;
     if (this._dataset.indexOf(this._active) === -1) {
       this.setFirstItemFocusable();
     }
   }
 
-  get dataset(): ReadonlyArray<any> {
+  get dataset(): ReadonlyArray<T> {
     return this._dataset;
   }
 
-  strategy: SelectionStrategy = new SimpleSelectionStrategy(this);
+  strategy: SelectionStrategy<T> = new SimpleSelectionStrategy<T>(this);
   isEnabled: boolean = true;
   isClickEnabled: boolean = true;
   isKeyboardEnabled: boolean = true;
 
-  focus$ = new BehaviorSubject<any>(null);
-  active$ = new BehaviorSubject<any>(null);
-  selection$ = new BehaviorSubject<any[]>([]);
+  focus$ = new BehaviorSubject<T>(null);
+  active$ = new BehaviorSubject<T>(null);
+  selection$ = new BehaviorSubject<T[]>([]);
 
-  private _active: any;
-  private _dataset: ReadonlyArray<any> = [];
+  private _active: T;
+  private _dataset: ReadonlyArray<T> = [];
   private _selection = new Set();
-  private _strategyToDestroy: SelectionStrategy = this.strategy;
+  private _strategyToDestroy: SelectionStrategy<T> = this.strategy;
 
   ngOnDestroy(): void {
     if (this._strategyToDestroy) {
@@ -45,7 +45,7 @@ export class SelectionService implements OnDestroy {
    * If the item is not currently selected then add it
    * to the list of selected items
    */
-  select(...selections: any[]): void {
+  select(...selections: T[]): void {
 
     // add each selection to the set
     selections.forEach(selection => this._selection.add(selection));
@@ -57,7 +57,7 @@ export class SelectionService implements OnDestroy {
   /**
    * Remove an item from the list of selected items
    */
-  deselect(...selections: any[]): void {
+  deselect(...selections: T[]): void {
     // remove each item from the set
     selections.forEach(selection => this._selection.delete(selection));
 
@@ -79,14 +79,14 @@ export class SelectionService implements OnDestroy {
   /**
    * Toggle the selected state of any specified items
    */
-  toggle(...selections: any[]): void {
+  toggle(...selections: T[]): void {
     selections.forEach(selection => this.isSelected(selection) ? this.deselect(selection) : this.select(selection));
   }
 
   /**
    * Determine whether or not a specific item is currently selected
    */
-  isSelected(data: any): boolean {
+  isSelected(data: T): boolean {
     return this._selection.has(data);
   }
 
@@ -94,7 +94,7 @@ export class SelectionService implements OnDestroy {
    * Return an observable specifically for notifying the subscriber
    * only when the selection state of a specific object has changed
    */
-  getSelectionState(data: any): Observable<boolean> {
+  getSelectionState(data: T): Observable<boolean> {
     return this.selection$.pipe(map(() => this.isSelected(data)), distinctUntilChanged());
   }
 
@@ -104,7 +104,7 @@ export class SelectionService implements OnDestroy {
    * and mouse interactions while keeping each mode separated and
    * easily extensible if we want to add more modes in future!
    */
-  setStrategy(mode: SelectionMode | SelectionStrategy): void {
+  setStrategy(mode: SelectionMode | SelectionStrategy<T>): void {
 
     if (this._strategyToDestroy) {
       // Destroy previous strategy if it was created internally
@@ -123,15 +123,15 @@ export class SelectionService implements OnDestroy {
       switch (mode.toLowerCase().trim()) {
 
         case 'simple':
-          this.strategy = this._strategyToDestroy = new SimpleSelectionStrategy(this);
+          this.strategy = this._strategyToDestroy = new SimpleSelectionStrategy<T>(this);
           break;
 
         case 'row':
-          this.strategy = this._strategyToDestroy = new RowSelectionStrategy(this);
+          this.strategy = this._strategyToDestroy = new RowSelectionStrategy<T>(this);
           break;
 
         case 'row-alt':
-          this.strategy = this._strategyToDestroy = new RowAltSelectionStrategy(this);
+          this.strategy = this._strategyToDestroy = new RowAltSelectionStrategy<T>(this);
           break;
 
         default:
@@ -143,7 +143,7 @@ export class SelectionService implements OnDestroy {
   /**
    * Set the current active item
    */
-  activate(data: any): void {
+  activate(data: T): void {
     this._active = data;
     this.active$.next(this._active);
   }
@@ -160,7 +160,7 @@ export class SelectionService implements OnDestroy {
    * Return the next or previous sibling of the current active item.
    * @param previous If true, the previous sibling will be returned.
    */
-  getSibling(previous: boolean = false): any {
+  getSibling(previous: boolean = false): T {
 
     // check if there is a current active item
     if (!this._active) {
@@ -180,7 +180,7 @@ export class SelectionService implements OnDestroy {
    * rather than the next sibling. This function will also return the
    * data of the newly activated sibling
    */
-  activateSibling(previous: boolean = false): any {
+  activateSibling(previous: boolean = false): T {
 
     const target = this.getSibling(previous);
 
