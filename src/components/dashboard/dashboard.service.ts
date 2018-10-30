@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { delay, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
-export class DashboardService {
+export class DashboardService implements OnDestroy {
 
     private _widgetOrigin: { column?: number, row?: number, columnSpan?: number, rowSpan?: number };
     private _actionWidget: DashboardAction;
@@ -18,36 +18,45 @@ export class DashboardService {
     widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
     options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
     dimensions$ = new BehaviorSubject<DashboardDimensions>({});
-    height$: Observable<number> = this.dimensions$.pipe(delay(0), map((dimensions: DashboardDimensions) => dimensions.height), distinctUntilChanged());
+    height$: Observable<number> = this.dimensions$.pipe(delay(0), map(dimensions => dimensions.height), distinctUntilChanged());
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
     layout$ = new Subject<DashboardLayoutData[]>();
     stacked$ = new BehaviorSubject<boolean>(false);
+    isDragMode$ = new BehaviorSubject<boolean>(false);
 
-    get options() {
+    get options(): DashboardOptions {
         return this.options$.getValue();
     }
 
-    get widgets() {
+    get widgets(): DashboardWidgetComponent[] {
         return this.widgets$.getValue();
     }
 
-    get stacked() {
+    get stacked(): boolean {
         return this.stacked$.getValue();
     }
 
-    get dimensions() {
+    get dimensions(): DashboardDimensions {
         return this.dimensions$.getValue();
     }
 
-    get columnWidth() {
+    get columnWidth(): number {
         return this.dimensions.width / this.options.columns;
     }
 
+    /** Unsubscribe from all observables on destroy */
+    private _onDestroy = new Subject<void>();
+
     constructor() {
-        this.layout$.subscribe(this.setLayoutData.bind(this));
-        this.stacked$.pipe(filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
-        this.widgets$.pipe(delay(0)).subscribe(() => this.renderDashboard());
-        this.dimensions$.pipe(delay(0)).subscribe(() => this.renderDashboard());
+        this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+        this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
+        this.widgets$.pipe(takeUntil(this._onDestroy), delay(0)).subscribe(() => this.renderDashboard());
+        this.dimensions$.pipe(takeUntil(this._onDestroy), delay(0)).subscribe(() => this.renderDashboard());
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     /**
@@ -1128,22 +1137,27 @@ export class DashboardService {
         this.onDragEnd();
     }
 
+    /** Handle keyboard resizing up */
     resizeWidgetUp(widget: DashboardWidgetComponent): void {
         this.onResize(widget, ActionDirection.Top);
     }
 
+    /** Handle keyboard resizing right */
     resizeWidgetRight(widget: DashboardWidgetComponent): void {
         this.onResize(widget, ActionDirection.Right);
     }
 
+    /** Handle keyboard resizing down */
     resizeWidgetDown(widget: DashboardWidgetComponent): void {
         this.onResize(widget, ActionDirection.Bottom);
     }
 
+    /** Handle keyboard resizing left */
     resizeWidgetLeft(widget: DashboardWidgetComponent): void {
         this.onResize(widget, ActionDirection.Left);
     }
 
+    /** Handle keyboard resizing */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
         // do not perform resizing if we are in stacked mode

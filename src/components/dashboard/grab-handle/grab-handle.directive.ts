@@ -1,4 +1,5 @@
 import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 
 @Directive({
@@ -9,11 +10,20 @@ export class DashboardGrabHandleDirective {
 
     @Input() @HostBinding('tabIndex') tabIndex: number = 0;
 
-    constructor(private _widget: DashboardWidgetComponent) {
+    constructor(private _widget: DashboardWidgetComponent, private _dashboard: DashboardService) {
 
         if (!_widget) {
             throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
         }
+    }
+
+    setDragMode(isEnabled: boolean): void {
+        this._dashboard.isDragMode$.next(isEnabled);
+    }
+
+    @HostListener('keydown.space', ['$event'])
+    onToggleDragMode(): void {
+        this.setDragMode(!this._dashboard.isDragMode$.value);
     }
 
     @HostListener('keydown.arrowup', ['$event'])
