@@ -1,10 +1,16 @@
-<table *ngIf="type === 'table'" aria-multiselectable="true" class="table" uxResizableTable>
+<table *ngIf="type === 'table'" class="table" aria-multiselectable="true" uxResizableTable>
     <thead>
         <tr>
-            <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
-            <th uxResizableTableColumn>Title</th>
-            <th uxResizableTableColumn>Author</th>
-            <th uxResizableTableColumn>Date</th>
+            <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+            <th uxResizableTableColumn [(width)]="titleWidth">
+                Title <small>{{ titleWidth | number }}px</small>
+            </th>
+            <th uxResizableTableColumn [(width)]="authorWidth">
+                Author <small>{{ authorWidth | number }}px</small>
+            </th>
+            <th uxResizableTableColumn (widthChange)="dateWidth = $event">
+                Date <small>{{ dateWidth | number }}px</small>
+            </th>
         </tr>
     </thead>
     <tbody [(uxSelection)]="selection">
@@ -28,18 +34,23 @@
 </table>
 
 <table *ngIf="type === 'fixed'"
-    aria-multiselectable="true"
     class="table"
+    aria-multiselectable="true"
     uxResizableTable
     uxFixedHeaderTable
     [tableHeight]="230">
-
     <thead>
         <tr>
-            <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
-            <th uxResizableTableColumn>Title</th>
-            <th uxResizableTableColumn>Author</th>
-            <th uxResizableTableColumn>Date</th>
+            <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+            <th uxResizableTableColumn [(width)]="titleWidth">
+                Title <small>{{ titleWidth | number }}px</small>
+            </th>
+            <th uxResizableTableColumn [(width)]="authorWidth">
+                Author <small>{{ authorWidth | number }}px</small>
+            </th>
+            <th uxResizableTableColumn (widthChange)="dateWidth = $event">
+                Date <small>{{ dateWidth | number }}px</small>
+            </th>
         </tr>
     </thead>
     <tbody [(uxSelection)]="selection">

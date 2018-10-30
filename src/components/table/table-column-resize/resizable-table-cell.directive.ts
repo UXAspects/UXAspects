@@ -22,7 +22,7 @@ export class ResizableTableCellDirective {
       return 'none';
     }
 
-    return this._table.isInitialised.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+    return this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
   }
 
   constructor(private _elementRef: ElementRef, private _table: ResizableTableService) { }

@@ -1,12 +1,13 @@
-import { Injectable, QueryList } from '@angular/core';
+import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 
 @Injectable()
-export class ResizableTableService {
+export class ResizableTableService implements OnDestroy {
 
   /** Indicate when the columns are ready */
-  isInitialised = new BehaviorSubject<boolean>(false);
+  isInitialised$ = new BehaviorSubject<boolean>(false);
 
   /** Determine if we are currently resizing */
   isResizing: boolean = false;
@@ -17,8 +18,16 @@ export class ResizableTableService {
   /** Store the current width of the table */
   tableWidth: number = 0;
 
+  /** Emit an event whenever a column is resized */
+  onResize$ = new Subject<ColumnResizeEvent>();
+
   /** Store the QueryList of columns */
   private _columns: QueryList<ResizableTableColumnComponent>;
+
+  /** Cleanup when service is disposed */
+  ngOnDestroy(): void {
+    this.onResize$.complete();
+  }
 
   /** Store the size of each column */
   setColumns(columns: QueryList<ResizableTableColumnComponent>): void {
@@ -30,8 +39,8 @@ export class ResizableTableService {
     this.columns = columns.map(column => (column.getNaturalWidth() / this.tableWidth) * 100);
 
     // indicate we are now initialised
-    if (this.isInitialised.value === false) {
-      this.isInitialised.next(true);
+    if (this.isInitialised$.value === false) {
+      this.isInitialised$.next(true);
     }
   }
 
@@ -108,6 +117,10 @@ export class ResizableTableService {
 
     // store the new sizes
     this.columns = columns;
+
+    // emit the resize event for each column
+    this.onResize$.next({ index, size: this.getColumnWidth(index, ColumnUnit.Pixel) });
+    this.onResize$.next({ index: sibling, size: this.getColumnWidth(sibling, ColumnUnit.Pixel) });
   }
 
   /** Determine whether a column is above or below its minimum width */
@@ -146,4 +159,9 @@ export class ResizableTableService {
 export enum ColumnUnit {
   Pixel,
   Percentage
+}
+
+export interface ColumnResizeEvent {
+  index: number;
+  size: number;
 }

@@ -12,6 +12,10 @@ export class AppComponent {
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
+    titleWidth: number = 300;
+    authorWidth: number = 300;
+    dateWidth: number;
+
     constructor() {
         // generate some dummy data
         for (let idx = 0; idx < 15; idx++) {

@@ -1,5 +1,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { ColumnUnit, ResizableTableService } from './resizable-table.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { ColumnUnit, ResizableTableService } from './resizable-table.service';
     class: 'ux-resizable-table-column'
   }
 })
-export class ResizableTableColumnComponent {
+export class ResizableTableColumnComponent implements OnDestroy {
 
   /** Disabled the column resizing */
   @Input() disabled: boolean = false;
@@ -18,18 +20,18 @@ export class ResizableTableColumnComponent {
   @Input() set width(width: number) {
 
     // ensure width is a valid number
-    width = coerceNumberProperty(width);
+    this._width = coerceNumberProperty(width);
 
     // if we have not initialised then set the element width
-    if (!this._table.isInitialised.value) {
-      this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${width}px`);
+    if (!this._table.isInitialised$.value) {
+      this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${this._width}px`);
     } else {
 
       // if it is initialised then resize the column
       const currentWidth = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
 
       // resize the column by the difference in size
-      this._table.resizeColumn(this.getCellIndex(), width - currentWidth);
+      this._table.resizeColumn(this.getCellIndex(), this._width - currentWidth);
     }
   }
 
@@ -39,8 +41,12 @@ export class ResizableTableColumnComponent {
   /** The percentage width of the column */
   @HostBinding('style.width') get columnWidth(): string {
 
-    if (!this._table.isInitialised.value) {
+    if (!this._table.isInitialised$.value) {
       return;
+    }
+
+    if (this.disabled) {
+      return `${this._width}px`;
     }
 
     return this._table.isResizing ?
@@ -52,11 +58,11 @@ export class ResizableTableColumnComponent {
   @HostBinding('style.flex') get flex(): string {
 
     // if we are resizing then always return 'none' to allow free movement
-    if (this._table.isResizing) {
+    if (this._table.isResizing || this.disabled) {
       return 'none';
     }
 
-    return this._table.isInitialised.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+    return this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
   }
 
   /** Get the minimum width allowed by the column */
@@ -68,10 +74,31 @@ export class ResizableTableColumnComponent {
     return this.disabled ? this._elementRef.nativeElement.offsetWidth : isNaN(computed) ? 0 : computed;
   }
 
+  /** Store the width specifically set by the input */
+  private _width: number;
+
   /** Store the position of the mouse within the drag hanlde */
   private _offset: number;
 
-  constructor(private _elementRef: ElementRef, private _table: ResizableTableService, private _renderer: Renderer2) { }
+  /** Emit when all observables should be unsubscribed */
+  private _onDestroy = new Subject<void>();
+
+  constructor(private _elementRef: ElementRef, private _table: ResizableTableService, private _renderer: Renderer2) {
+
+    // initially emit the size when we have initialised
+    _table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
+      .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
+
+    // ensure the correct width gets emitted on column size change
+    _table.onResize$.pipe(takeUntil(this._onDestroy), filter(event => event.index === this.getCellIndex()))
+      .subscribe(event => this.widthChange.emit(event.size));
+  }
+
+  /** Cleanup when component is destroyed */
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
   /** Get the natural pixel width of the column */
   getNaturalWidth(): number {
@@ -100,24 +127,21 @@ export class ResizableTableColumnComponent {
     // perform resizing
     this._table.resizeColumn(this.getCellIndex(), delta);
 
+    // set the resizing state
     this._table.setResizing(true);
-
-    // emit the current column width
-    this.widthChange.emit(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
   }
 
   /** When the dragging ends */
   onDragEnd(): void {
     this._table.setResizing(false);
-
-    // emit the current column width
-    this.widthChange.emit(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
   }
 
+  /** Shrink the column when the left arrow key is pressed */
   onMoveLeft(): void {
     this._table.resizeColumn(this.getCellIndex(), -10);
   }
 
+  /** Grow the column when the right arrow key is pressed */
   onMoveRight(): void {
     this._table.resizeColumn(this.getCellIndex(), 10);
   }
