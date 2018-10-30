@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
-import { AccordionModule, FloatingActionButtonsModule, PaginationModule, RadioButtonModule, TabsetModule, TooltipModule } from '../../../../../../src/index';
+import { AccordionModule, FloatingActionButtonsModule, MenuNavigationModule, PaginationModule, RadioButtonModule, TabsetModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -22,6 +22,7 @@ import { ComponentsPaginationComponent } from './pagination/pagination.component
 import { ComponentsRadioButtonsNg1Component } from './radio-buttons-ng1/radio-buttons-ng1.component';
 import { ComponentsRadioButtonsComponent } from './radio-buttons/radio-buttons.component';
 import { ComponentsSingleToggleButtonNg1Component } from './single-toggle-button-ng1/single-toggle-button-ng1.component';
+import { ComponentsSplitButtonDropdownsComponent } from './split-button-dropdowns/split-button-dropdowns.component';
 import { ComponentsThumbnailNg1Component } from './thumbnail-ng1/thumbnail-ng1.component';
 import { ComponentsToggleButtonsNg1Component } from './toggle-buttons-ng1/toggle-buttons-ng1.component';
 import { ComponentsToggleButtonsComponent } from './toggle-buttons/toggle-buttons.component';
@@ -40,7 +41,8 @@ const SECTIONS = [
     ComponentsCheckboxButtonsNg1Component,
     ComponentsRadioButtonsNg1Component,
     ComponentsDropdownNg1Component,
-    ComponentsThumbnailNg1Component
+    ComponentsThumbnailNg1Component,
+    ComponentsSplitButtonDropdownsComponent
 ];
 
 const ROUTES = [
@@ -59,7 +61,7 @@ const ROUTES = [
         HybridModule,
         WrappersModule,
         TabsetModule,
-        AccordionModule  ,
+        AccordionModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         RadioButtonModule,
@@ -69,7 +71,8 @@ const ROUTES = [
         BsDropdownModule,
         StringFilterModule,
         FloatingActionButtonsModule,
-        TooltipModule
+        TooltipModule,
+        MenuNavigationModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

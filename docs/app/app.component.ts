@@ -1,6 +1,5 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
-
+import { Component, NgZone, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavigationService } from './services/navigation/navigation.service';
 
 @Component({
