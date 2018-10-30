@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
-import { DashboardService, ActionDirection } from '../dashboard.service';
+import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActionDirection, DashboardService } from '../dashboard.service';
 
 @Component({
     selector: 'ux-dashboard-widget',
@@ -66,7 +66,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      */
     update(): void {
 
-        // get the current options at the time 
+        // get the current options at the time
         const { padding, columns } = this.dashboardService.options;
 
         this.padding = padding;
@@ -147,11 +147,11 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
-        this.dashboardService.onResizeStart({ widget: this, direction: direction, event: event, handle: handle });
+        this.dashboardService.onResizeStart({ widget: this, direction, event, handle });
     }
 
     drag(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
-        this.dashboardService.onResizeDrag({ widget: this, direction: direction, event: event, handle: handle });
+        this.dashboardService.onResizeDrag({ widget: this, direction, event, handle });
     }
 
     dragend(): void {

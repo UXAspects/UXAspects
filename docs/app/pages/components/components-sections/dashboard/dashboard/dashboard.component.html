@@ -1,7 +1,7 @@
 <ux-dashboard class="customizable-dashboard" [options]="options">
 
     <ux-dashboard-widget id="analytics-1-widget" [colSpan]="4" [rowSpan]="2" [resizable]="true">
-        <div class="widget-content" uxDashboardWidgetDragHandle>
+        <div class="widget-content" uxDashboardWidgetDragHandle uxDashboardGrabHandle>
             <h3 class="widget-title">Usage Analytics</h3>
 
             <div class="widget-chart">
@@ -13,7 +13,7 @@
     </ux-dashboard-widget>
 
     <ux-dashboard-widget id="subscription-widget" [colSpan]="2">
-        <div class="widget-content" uxDashboardWidgetDragHandle>
+        <div class="widget-content" uxDashboardWidgetDragHandle uxDashboardGrabHandle>
             <div class="dashboard-split-panel">
                 <div class="dashboard-section-large dashboard-section-divider">
                     <h3 class="widget-title">Service status</h3>
@@ -40,7 +40,7 @@
     </ux-dashboard-widget>
 
     <ux-dashboard-widget id="users-widget">
-        <div class="widget-content" uxDashboardWidgetDragHandle>
+        <div class="widget-content" uxDashboardWidgetDragHandle uxDashboardGrabHandle>
             <h3 class="widget-title">Users</h3>
 
             <div class="widget-split">
@@ -59,7 +59,7 @@
     </ux-dashboard-widget>
 
     <ux-dashboard-widget id="alert-widget">
-        <div class="widget-content prominent" uxDashboardWidgetDragHandle>
+        <div class="widget-content prominent" uxDashboardWidgetDragHandle uxDashboardGrabHandle>
             <h3 class="widget-title">Alert</h3>
 
             <p class="info-title">18 Dec, 2016 10:17 AM</p>
