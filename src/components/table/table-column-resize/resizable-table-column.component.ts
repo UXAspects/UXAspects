@@ -22,6 +22,9 @@ export class ResizableTableColumnComponent implements OnDestroy {
     // ensure width is a valid number
     this._width = coerceNumberProperty(width);
 
+    // note that this column has a fixed width
+    this.isFixedWidth = true;
+
     // if we have not initialised then set the element width
     if (!this._table.isInitialised$.value) {
       this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${this._width}px`);
@@ -74,6 +77,9 @@ export class ResizableTableColumnComponent implements OnDestroy {
     return this.disabled ? this._elementRef.nativeElement.offsetWidth : isNaN(computed) ? 0 : computed;
   }
 
+  /** Determine if this column is a variable width column */
+  isFixedWidth: boolean = false;
+
   /** Store the width specifically set by the input */
   private _width: number;
 
@@ -90,8 +96,8 @@ export class ResizableTableColumnComponent implements OnDestroy {
       .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
 
     // ensure the correct width gets emitted on column size change
-    _table.onResize$.pipe(takeUntil(this._onDestroy), filter(event => event.index === this.getCellIndex()))
-      .subscribe(event => this.widthChange.emit(event.size));
+    _table.onResize$.pipe(takeUntil(this._onDestroy))
+      .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
   }
 
   /** Cleanup when component is destroyed */
@@ -102,7 +108,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
 
   /** Get the natural pixel width of the column */
   getNaturalWidth(): number {
-    return this._elementRef.nativeElement.offsetWidth;
+    return this._width || this._elementRef.nativeElement.offsetWidth;
   }
 
   /** When the dragging starts */
@@ -147,7 +153,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
   }
 
   /** Get the column index this cell is part of */
-  private getCellIndex(): number {
+  getCellIndex(): number {
     return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
   }
 }

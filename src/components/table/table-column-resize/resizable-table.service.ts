@@ -19,7 +19,7 @@ export class ResizableTableService implements OnDestroy {
   tableWidth: number = 0;
 
   /** Emit an event whenever a column is resized */
-  onResize$ = new Subject<ColumnResizeEvent>();
+  onResize$ = new Subject<void>();
 
   /** Store the QueryList of columns */
   private _columns: QueryList<ResizableTableColumnComponent>;
@@ -112,15 +112,39 @@ export class ResizableTableService implements OnDestroy {
 
     // if the columns to not add to 100 ensure we make them
     if (total !== 100) {
-      columns[index] += (100 - total);
+
+      // get the column with a variable width
+      const target = this.getVariableColumn(100 - total);
+
+      if (target) {
+        columns[this._columns.toArray().indexOf(target)] += (100 - total);
+      } else {
+        columns[index] += (100 - total);
+      }
     }
 
     // store the new sizes
     this.columns = columns;
 
     // emit the resize event for each column
-    this.onResize$.next({ index, size: this.getColumnWidth(index, ColumnUnit.Pixel) });
-    this.onResize$.next({ index: sibling, size: this.getColumnWidth(sibling, ColumnUnit.Pixel) });
+    this.onResize$.next();
+  }
+
+  getVariableColumn(delta: number): ResizableTableColumnComponent | null {
+
+    // get all variable width columns that are not disabled
+    const variableColumns = this._columns.filter(column => !column.isFixedWidth && !column.disabled);
+
+    // find one that is greater than its min width by enough
+    return variableColumns.reverse().find(column => this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel) >= column.minWidth + delta);
+  }
+
+  getColumn(index: number): ResizableTableColumnComponent | null {
+    return this._columns ? this._columns.toArray()[index] : null;
+  }
+
+  getColumnDisabled(index: number): boolean {
+    return this.getColumn(index) ? this.getColumn(index).disabled : false;
   }
 
   /** Determine whether a column is above or below its minimum width */
@@ -159,9 +183,4 @@ export class ResizableTableService implements OnDestroy {
 export enum ColumnUnit {
   Pixel,
   Percentage
-}
-
-export interface ColumnResizeEvent {
-  index: number;
-  size: number;
 }
