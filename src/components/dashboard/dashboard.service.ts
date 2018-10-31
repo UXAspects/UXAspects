@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
@@ -18,11 +19,11 @@ export class DashboardService implements OnDestroy {
     widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
     options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
     dimensions$ = new BehaviorSubject<DashboardDimensions>({});
-    height$: Observable<number> = this.dimensions$.pipe(delay(0), map(dimensions => dimensions.height), distinctUntilChanged());
+    height$: Observable<number> = this.dimensions$.pipe(tick(), map(dimensions => dimensions.height), distinctUntilChanged());
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
     layout$ = new Subject<DashboardLayoutData[]>();
     stacked$ = new BehaviorSubject<boolean>(false);
-    isDragMode$ = new BehaviorSubject<boolean>(false);
+    isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
 
     get options(): DashboardOptions {
         return this.options$.getValue();
@@ -50,8 +51,8 @@ export class DashboardService implements OnDestroy {
     constructor() {
         this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
         this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
-        this.widgets$.pipe(takeUntil(this._onDestroy), delay(0)).subscribe(() => this.renderDashboard());
-        this.dimensions$.pipe(takeUntil(this._onDestroy), delay(0)).subscribe(() => this.renderDashboard());
+        this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
+        this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
     }
 
     ngOnDestroy(): void {
@@ -164,8 +165,8 @@ export class DashboardService implements OnDestroy {
     getWidgetsByOrder(): DashboardWidgetComponent[] {
         return this.widgets.sort((w1, w2) => {
 
-            const w1Position = w1.getColumn() * w1.getRow();
-            const w2Position = w2.getColumn() * w2.getRow();
+            const w1Position = w1.getColumn() + (w1.getRow() * this.options.columns);
+            const w2Position = w2.getColumn() + (w2.getRow() * this.options.columns);
 
             if (w1Position < w2Position) {
                 return -1;
@@ -504,18 +505,32 @@ export class DashboardService implements OnDestroy {
         return this._rowHeight;
     }
 
-    cacheWidgets(): void {
-        this._cache = this.widgets.map(widget => ({ id: widget.id, column: widget.getColumn(), row: widget.getRow() }));
+    cacheWidgets(): DashboardCache[] {
+        this._cache = this.widgets.map(widget => ({
+            id: widget.id,
+            column: widget.getColumn(),
+            row: widget.getRow(),
+            columnSpan: widget.getColumnSpan(),
+            rowSpan: widget.getRowSpan(),
+        }));
+
+        // return a new array of the cache for custom caching
+        return [...this._cache];
     }
 
-    restoreWidgets(ignoreActionWidget: boolean = false): void {
-        this._cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
+    restoreWidgets(ignoreActionWidget: boolean = false, cache: DashboardCache[] = this._cache, restoreSize: boolean = false): void {
+        cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
 
             const match = this.widgets.find(wgt => wgt.id === widget.id);
 
             if (match) {
                 match.setColumn(widget.column);
                 match.setRow(widget.row);
+
+                if (restoreSize) {
+                    match.setColumnSpan(widget.columnSpan);
+                    match.setRowSpan(widget.rowSpan);
+                }
             }
         });
     }
@@ -1284,6 +1299,8 @@ export interface DashboardCache {
     id: string;
     column: number;
     row: number;
+    columnSpan: number;
+    rowSpan: number;
 }
 
 export interface DashboardLayoutData {

@@ -15,6 +15,9 @@ export class DashboardDragHandleDirective extends DragDirective {
 
         super(elementRef, ngZone, renderer, drag);
 
+        // inform the widget that it can be dragged
+        widget.isDraggable = true;
+
         this.onDragStart.pipe(takeUntil(this._onDestroy))
             .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
 

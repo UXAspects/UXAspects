@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { ActionDirection, DashboardService } from '../dashboard.service';
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() id: string;
+    @Input() name: string;
     @Input() col: number;
     @Input() row: number;
     @Input() colSpan: number = 1;
@@ -22,14 +24,17 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.padding.px') padding: number = 0;
     @HostBinding('style.z-index') zIndex: number = 0;
 
+    isDraggable: boolean = false;
+
     private _column: StackableValue = { regular: undefined, stacked: undefined };
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
-    private _subscription: Subscription;
+    private _onDestroy = new Subject<void>();
 
     constructor(public dashboardService: DashboardService) {
-        this._subscription = dashboardService.options$.subscribe(() => this.update());
+        // subscribe to option changes
+        dashboardService.options$.pipe(takeUntil(this._onDestroy)).subscribe(() => this.update());
     }
 
     ngOnInit(): void {
@@ -57,7 +62,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * If component is removed, then unregister it from the service
      */
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
         this.dashboardService.removeWidget(this);
     }
 

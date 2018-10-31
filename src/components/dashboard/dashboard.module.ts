@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DragModule } from '../../directives/drag/index';
@@ -17,6 +18,7 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
+        A11yModule,
         CommonModule,
         ResizeModule,
         DragModule
