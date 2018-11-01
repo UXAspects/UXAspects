@@ -46,7 +46,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
 
     constructor(public dashboardService: DashboardService, private _grabHandleService: DashboardGrabHandleService) {
 
-        dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.setAriaLabel()))
+        dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
             .subscribe(layout => this.layoutChange.emit(layout));
 
         // subscribe to changes to the grab mode
@@ -74,21 +74,22 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
         this.dashboardService.setDimensions(event.width, event.height);
     }
 
-    setAriaLabel(): void {
+    getAriaLabel(): string {
         if (this.customAriaLabel && typeof this.customAriaLabel === 'string') {
-            return this.ariaLabel = this.customAriaLabel;
+            return this.customAriaLabel;
+        } else if (this.customAriaLabel && typeof this.customAriaLabel === 'function') {
+            return this.customAriaLabel(this.dashboardService.widgets, this.dashboardService.options);
         }
 
-        if (this.customAriaLabel && typeof this.customAriaLabel === 'function') {
-            this.ariaLabel = this.customAriaLabel(this.dashboardService.widgets, this.dashboardService.options);
-        }
+        return this.ariaLabel;
     }
 
     private getDefaultAriaLabel(widgets: DashboardWidgetComponent[], options: DashboardOptions): string {
+        return `Dashboard with ${options.columns} columns, containing ${widgets.length} panels. ${widgets.map(this.getWidgetAriaLabel).join(' ')}`;
+    }
 
-        const descriptions = widgets.map(widget => `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high.`);
-
-        return `Dashboard with ${options.columns} columns, containing ${widgets.length} panels. ${descriptions.join(' ')}`;
+    private getWidgetAriaLabel(widget: DashboardWidgetComponent): string {
+        return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high.`;
     }
 }
 

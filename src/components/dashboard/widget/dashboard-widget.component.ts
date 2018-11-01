@@ -16,6 +16,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
     @Input() resizable: boolean = false;
+    @Input('aria-label') customAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
     @HostBinding('style.left.px') x: number = 0;
     @HostBinding('style.top.px') y: number = 0;
@@ -23,6 +24,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.height.px') height: number = 100;
     @HostBinding('style.padding.px') padding: number = 0;
     @HostBinding('style.z-index') zIndex: number = 0;
+    @HostBinding('attr.aria-label') ariaLabel: string;
 
     isDraggable: boolean = false;
 
@@ -34,7 +36,12 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     constructor(public dashboardService: DashboardService) {
         // subscribe to option changes
-        dashboardService.options$.pipe(takeUntil(this._onDestroy)).subscribe(() => this.update());
+        dashboardService.options$.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.update());
+
+        // every time the layout changes we want to update the aria label
+        dashboardService.layout$.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.ariaLabel = this.getAriaLabel());
     }
 
     ngOnInit(): void {
@@ -162,6 +169,31 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
     dragend(): void {
         this.dashboardService.onResizeEnd();
+    }
+
+    getAriaLabel(): string {
+        if (this.customAriaLabel && typeof this.customAriaLabel === 'string') {
+            return this.customAriaLabel;
+        } else if (this.customAriaLabel && typeof this.customAriaLabel === 'function') {
+            return this.customAriaLabel(this);
+        }
+
+        return this.ariaLabel;
+    }
+
+    private getDefaultAriaLabel(widget: DashboardWidgetComponent): string {
+
+        let options: string = '';
+
+        if (widget.resizable && widget.isDraggable) {
+            options = 'It can be moved and resized.';
+        } else if (widget.resizable) {
+            options = 'It can be resized.';
+        } else if (widget.isDraggable) {
+            options = 'It can be moved.';
+        }
+
+        return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. ${options}`;
     }
 
     /**
