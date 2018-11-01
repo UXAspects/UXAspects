@@ -1,7 +1,9 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { DashboardCache, DashboardService } from '../dashboard.service';
+import { ActionDirection, DashboardCache, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 import { DashboardGrabHandleService } from './grab-handle.service';
 
@@ -9,16 +11,26 @@ import { DashboardGrabHandleService } from './grab-handle.service';
     selector: '[uxDashboardGrabHandle]',
     exportAs: 'ux-dashboard-grab-handle'
 })
-export class DashboardGrabHandleDirective implements OnDestroy {
+export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
     @Input() uxGrabAllowMove: boolean = true;
     @Input() uxGrabAllowResize: boolean = true;
+
+    @Input('aria-label') uxGrabAriaLabel: (widget: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel.bind(this);
+
+    @Input() uxGrabChangeSuccessAnnouncement: (widget: DashboardWidgetComponent, differences: DashboardLayoutDiff[]) => string | string = this.getChangeSuccessAnnouncement.bind(this);
+    @Input() uxGrabStartAnnouncement: (widget: DashboardWidgetComponent) => string | string = this.getStartAnnouncement.bind(this);
+    @Input() uxGrabMoveFailAnnouncement: (widget: DashboardWidgetComponent, direction: ActionDirection) => string | string = this.getMoveFailAnnouncement.bind(this);
+    @Input() uxGrabResizeFailAnnouncement: (widget: DashboardWidgetComponent, direction: ActionDirection) => string | string = this.getResizeFailAnnouncement.bind(this);
+    @Input() uxGrabConfirmAnnouncement: (widget: DashboardWidgetComponent) => string | string = this.getConfirmAnnouncement.bind(this);
+    @Input() uxGrabCancelAnnouncement: (widget: DashboardWidgetComponent) => string | string = this.getCancellationAnnouncement.bind(this);
 
     @Output() uxGrabStart = new EventEmitter<void>();
     @Output() uxGrabEnd = new EventEmitter<void>();
     @Output() uxGrabCancel = new EventEmitter<void>();
 
-    @HostBinding('tabIndex') tabIndex: number = 0;
+    @HostBinding('attr.aria-label') ariaLabel: string;
+    @HostBinding('tabIndex') tabIndex: number = -1;
 
     isGrabbing: boolean = false;
 
@@ -29,7 +41,13 @@ export class DashboardGrabHandleDirective implements OnDestroy {
         public widget: DashboardWidgetComponent,
         private _dashboard: DashboardService,
         private _handle: DashboardGrabHandleService,
-        private _elementRef: ElementRef) {
+        private _elementRef: ElementRef,
+        private _announcer: LiveAnnouncer) {
+
+        // TODO: Delete this
+        (_announcer as any).announce = function(input: string) {
+            console.log(input);
+        };
 
         if (!widget) {
             throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
@@ -38,6 +56,20 @@ export class DashboardGrabHandleDirective implements OnDestroy {
         // subscribe to changes to the current grab state
         _dashboard.isGrabbing$.pipe(takeUntil(this._onDestroy), map(_widget => _widget === widget))
             .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
+    }
+
+    ngOnInit(): void {
+
+        if (!this.widget.name) {
+            console.warn(`Dashboard widget ${this.widget.id} must have a valid 'name' to use uxDashboardGrabHandle`);
+        }
+
+        // set the initial aria label
+        this.ariaLabel = this.getAnnouncement(this.uxGrabAriaLabel);
+
+        // update the aria label when layout changes occur
+        this._dashboard.layout$.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.ariaLabel = this.getAnnouncement(this.uxGrabAriaLabel));
     }
 
     /** Unsubscribe from all observables */
@@ -58,6 +90,9 @@ export class DashboardGrabHandleDirective implements OnDestroy {
 
             // emit the grab start event
             this.uxGrabStart.emit();
+
+            // announce the grab start
+            this._announcer.announce(this.getAnnouncement(this.uxGrabStartAnnouncement));
         }
     }
 
@@ -66,6 +101,9 @@ export class DashboardGrabHandleDirective implements OnDestroy {
         if (this.isGrabbing) {
             this._dashboard.isGrabbing$.next(null);
             this.uxGrabEnd.emit();
+
+            // announce the confirmation
+            this._announcer.announce(this.getAnnouncement(this.uxGrabConfirmAnnouncement));
         }
     }
 
@@ -77,6 +115,9 @@ export class DashboardGrabHandleDirective implements OnDestroy {
             this._dashboard.layout$.next(this._dashboard.getLayoutData());
             this._dashboard.isGrabbing$.next(null);
             this.uxGrabCancel.emit();
+
+            // announce the cancellation
+            this._announcer.announce(this.getAnnouncement(this.uxGrabCancelAnnouncement));
         }
     }
 
@@ -104,84 +145,270 @@ export class DashboardGrabHandleDirective implements OnDestroy {
         this.disableDragMode();
     }
 
-    @HostListener('keydown.escape')
-    onEscape(): void {
-        this.cancelDragMode();
+    @HostListener('keydown', ['$event', '$event.which', '$event.ctrlKey'])
+    onKeydown(event: KeyboardEvent, key: number, ctrlKey: boolean): void {
+
+        switch (key) {
+            case ESCAPE:
+                this.cancelDragMode();
+                break;
+
+            case SPACE:
+            case ENTER:
+                this.toggleDragMode();
+                event.preventDefault();
+                event.stopPropagation();
+                break;
+
+            case UP_ARROW:
+            case RIGHT_ARROW:
+            case DOWN_ARROW:
+            case LEFT_ARROW:
+                if (this.isGrabbing) {
+                    ctrlKey ? this.resizeWidget(event, key) : this.moveWidget(event, key);
+                } else {
+                    this.moveFocus(event, key);
+                }
+        }
+
     }
 
-    @HostListener('keydown.enter', ['$event'])
-    @HostListener('keydown.space', ['$event'])
-    @HostListener('keydown.spacebar', ['$event']) // IE
-    onToggleDragMode(event: KeyboardEvent): void {
-        this.toggleDragMode();
+    private moveWidget(event: KeyboardEvent, key: number): void {
+
+        // attempt to perform the move
+        this._dashboard.onShift(this.widget, this.getDirectionFromKey(key));
+
+        // get the announcable diff
+        const changes = this.getLayoutDiff();
+
+        // if there were changes then announce them
+        if (changes.length > 0) {
+            this._announcer.announce(this.getAnnouncement(this.uxGrabChangeSuccessAnnouncement, changes));
+        } else {
+            this._announcer.announce(this.getAnnouncement(this.uxGrabMoveFailAnnouncement, this.getDirectionFromKey(key)));
+        }
+
         event.preventDefault();
+        event.stopPropagation();
     }
 
-    @HostListener('keydown.arrowup', ['$event'])
-    onMoveUp(event: KeyboardEvent): void {
-        this.isGrabbing && this.uxGrabAllowMove && this.widget.isDraggable ?
-            this.widget.dashboardService.shiftWidgetUp(this.widget) :
+    private resizeWidget(event: KeyboardEvent, key: number): void {
+        this._dashboard.onResize(this.widget, this.getDirectionFromKey(key));
+
+        // get the announcable diff
+        const changes = this.getLayoutDiff();
+
+        // if there were changes then announce them
+        if (changes.length > 0) {
+            this._announcer.announce(this.getAnnouncement(this.uxGrabChangeSuccessAnnouncement, changes));
+        } else {
+            this._announcer.announce(this.getAnnouncement(this.uxGrabResizeFailAnnouncement, this.getDirectionFromKey(key)));
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    private moveFocus(event: KeyboardEvent, key: number): void {
+        if (key === UP_ARROW || key === LEFT_ARROW) {
             this._handle.setPreviousItemFocus();
+        }
 
-        event.preventDefault();
-    }
-
-    @HostListener('keydown.arrowright', ['$event'])
-    onMoveRight(event: KeyboardEvent): void {
-        this.isGrabbing && this.uxGrabAllowMove && this.widget.isDraggable ?
-            this.widget.dashboardService.shiftWidgetRight(this.widget) :
+        if (key === DOWN_ARROW || key === RIGHT_ARROW) {
             this._handle.setNextItemFocus();
+        }
 
         event.preventDefault();
+        event.stopPropagation();
     }
 
-    @HostListener('keydown.arrowdown', ['$event'])
-    onMoveDown(event: KeyboardEvent): void {
-        this.isGrabbing && this.uxGrabAllowMove && this.widget.isDraggable ?
-            this.widget.dashboardService.shiftWidgetDown(this.widget) :
-            this._handle.setNextItemFocus();
+    private getDirectionFromKey(key: number): ActionDirection {
+        switch (key) {
 
-        event.preventDefault();
-    }
+            case UP_ARROW:
+                return ActionDirection.Top;
 
-    @HostListener('keydown.arrowleft', ['$event'])
-    onMoveLeft(event: KeyboardEvent): void {
-        this.isGrabbing && this.uxGrabAllowMove && this.widget.isDraggable ?
-            this.widget.dashboardService.shiftWidgetLeft(this.widget) :
-            this._handle.setPreviousItemFocus();
+            case RIGHT_ARROW:
+                return ActionDirection.Right;
 
-        event.preventDefault();
-    }
+            case DOWN_ARROW:
+                return ActionDirection.Bottom;
 
-    @HostListener('keydown.control.arrowup', ['$event'])
-    onResizeUp(event: KeyboardEvent): void {
-        if (this.isGrabbing && this.uxGrabAllowResize && this.widget.resizable) {
-            this.widget.dashboardService.resizeWidgetUp(this.widget);
-            event.preventDefault();
+            case LEFT_ARROW:
+                return ActionDirection.Left;
         }
     }
 
-    @HostListener('keydown.control.arrowright', ['$event'])
-    onResizeRight(event: KeyboardEvent): void {
-        if (this.isGrabbing && this.uxGrabAllowResize && this.widget.resizable) {
-            this.widget.dashboardService.resizeWidgetRight(this.widget);
-            event.preventDefault();
+    getAnnouncement(announcement: Function | string, ...args: any[]): string {
+        return typeof announcement === 'function' ? announcement(this.widget, ...args) : announcement;
+    }
+
+    private getDefaultAriaLabel(widget: DashboardWidgetComponent): string {
+        if (widget.resizable && this.uxGrabAllowResize && widget.isDraggable && this.uxGrabAllowMove) {
+            return `Press space to move and resize the ${widget.name} panel.`;
+        } else if (widget.resizable && this.uxGrabAllowResize) {
+            return `Press space to resize the ${widget.name} panel.`;
+        } else if (widget.isDraggable && this.uxGrabAllowMove) {
+            return `Press space to move the ${widget.name} panel.`;
         }
     }
 
-    @HostListener('keydown.control.arrowdown', ['$event'])
-    onResizeDown(event: KeyboardEvent): void {
-        if (this.isGrabbing && this.uxGrabAllowResize && this.widget.resizable) {
-            this.widget.dashboardService.resizeWidgetDown(this.widget);
-            event.preventDefault();
+    private getChangeSuccessAnnouncement(widget: DashboardWidgetComponent, differences: DashboardLayoutDiff[]): string {
+
+        // map the differences to strings
+        const announcements = differences.map(diff => {
+
+            const changes: string[] = [];
+
+            // Handle movement strings
+            if (diff.isMovedHorizontally && diff.isMovedVertically) {
+                changes.push(`moved to row ${diff.currentRow}, column ${diff.currentColumn}`);
+            } else if (diff.isMovedDown) {
+                changes.push(`moved down to row ${diff.currentRow}, column ${diff.currentColumn}`);
+            } else if (diff.isMovedUp) {
+                changes.push(`moved up to row ${diff.currentRow}, column ${diff.currentColumn}`);
+            } else if (diff.isMovedLeft) {
+                changes.push(`moved left to row ${diff.currentRow}, column ${diff.currentColumn}`);
+            } else if (diff.isMovedRight) {
+                changes.push(`moved right to row ${diff.currentRow}, column ${diff.currentColumn}`);
+            }
+
+            // handle resize strings
+            if (diff.isResized) {
+                changes.push(`resized to ${diff.currentColumnSpan} columns wide and ${diff.currentRowSpan} rows high`);
+            }
+
+            return `${widget.name} panel is ${changes.join(' and ')}.`;
+        });
+
+        return `${announcements.join(' ')}. Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
+    }
+
+    private getMoveFailAnnouncement(widget: DashboardWidgetComponent, direction: ActionDirection): string {
+
+        switch (direction) {
+
+            case ActionDirection.Top:
+                return `Cannot move the ${widget.name} panel up, because it is at the top edge of the dashboard`;
+
+            case ActionDirection.Bottom:
+                return `Cannot move the ${widget.name} panel down, because it is at the bottom edge of the dashboard`;
+
+            case ActionDirection.Right:
+                return `Cannot move the ${widget.name} panel right, because it is at the right edge of the dashboard`;
+
+            case ActionDirection.Left:
+                return `Cannot move the ${widget.name} panel left, because it is at the left edge of the dashboard`;
         }
     }
 
-    @HostListener('keydown.control.arrowleft', ['$event'])
-    onResizeLeft(event: KeyboardEvent): void {
-        if (this.isGrabbing && this.widget.resizable) {
-            this.widget.dashboardService.resizeWidgetLeft(this.widget);
-            event.preventDefault();
+    private getResizeFailAnnouncement(widget: DashboardWidgetComponent, direction: ActionDirection): string {
+        switch (direction) {
+
+            case ActionDirection.Top:
+                return `Cannot make the ${widget.name} panel shorter, because it is currently at its minimum height.`;
+
+            case ActionDirection.Bottom:
+                return `Cannot make the ${widget.name} panel taller, because it is currently at its maximum height.`;
+
+            case ActionDirection.Right:
+                return `Cannot make the ${widget.name} panel wider, because it is at the right edge of the dashboard.`;
+
+            case ActionDirection.Left:
+                return `Cannot make the ${widget.name} panel narrower, because it is currently at its minimum width.`;
         }
     }
+
+    private getStartAnnouncement(widget: DashboardWidgetComponent): string {
+        if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
+            return `${widget.name} panel is currently on row ${widget.getRow()}, column ${widget.getColumn()} and is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. Use the cursor keys to move the widget and the cursor keys with the control modifier to resize the widget. Press enter to commit changes and press escape to cancel changes.`;
+        } else if (widget.isDraggable && this.uxGrabAllowMove) {
+            return `${widget.name} panel is currently on row ${widget.getRow()}, column ${widget.getColumn()}. Use the cursor keys to move the widget. Press enter to commit changes and press escape to cancel changes.`;
+        } else if (widget.resizable && this.uxGrabAllowResize) {
+            return `${widget.name} panel is currently on row ${widget.getRow()}, column ${widget.getColumn()} and is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. Use the cursor keys with the control modifier to resize the widget. Press enter to commit changes and press escape to cancel changes.`;
+        }
+    }
+
+    private getConfirmAnnouncement(widget: DashboardWidgetComponent): string {
+        if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
+            return `Moving and resizing complete. ${this.getDashboardAriaLabel()}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+        } else if (widget.isDraggable && this.uxGrabAllowMove) {
+            return `Moving complete. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+        } else if (widget.resizable && this.uxGrabAllowResize) {
+            return `Resizing complete. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+        }
+    }
+
+    private getCancellationAnnouncement(widget: DashboardWidgetComponent): string {
+        if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
+            return `Moving and resizing cancelled. ${this.getDashboardAriaLabel()}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+        } else if (widget.isDraggable && this.uxGrabAllowMove) {
+            return `Moving cancelled. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+        } else if (widget.resizable && this.uxGrabAllowResize) {
+            return `Resizing cancelled. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+        }
+    }
+
+    private getDashboardAriaLabel(): string {
+        return `Dashboard with ${this._dashboard.options.columns} columns, containing ${this._dashboard.widgets.length} panels. ${this._dashboard.widgets.map(this.getWidgetAriaLabel).join(' ')}`;
+    }
+
+    private getWidgetAriaLabel(widget: DashboardWidgetComponent): string {
+        return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high.`;
+    }
+
+    private getLayoutDiff(): DashboardLayoutDiff[] {
+
+        // find all changes
+        const diffs = this._dashboard.getLayoutData().map(layout => {
+
+            // get the actual widget
+            const widget = this._dashboard.widgets.find(_widget => _widget.id === layout.id);
+
+            // get previous position
+            const previousLayout = this._cache.find(_widget => _widget.id === layout.id);
+
+            return {
+                widget,
+                currentRow: layout.row,
+                currentColumn: layout.col,
+                currentRowSpan: layout.rowSpan,
+                currentColumnSpan: layout.colSpan,
+                previousColumn: previousLayout.column,
+                previousRow: previousLayout.row,
+                previousColumnSpan: previousLayout.columnSpan,
+                previousRowSpan: previousLayout.rowSpan,
+                isMovedLeft: layout.col < previousLayout.column,
+                isMovedRight: layout.col > previousLayout.column,
+                isMovedUp: layout.row < previousLayout.row,
+                isMovedDown: layout.row > previousLayout.row,
+                isMovedHorizontally: layout.col !== previousLayout.column,
+                isMovedVertically: layout.row !== previousLayout.row,
+                isMoved: layout.col !== previousLayout.column || layout.row !== previousLayout.row,
+                isResized: previousLayout.columnSpan !== layout.colSpan || previousLayout.rowSpan !== layout.rowSpan
+            } as DashboardLayoutDiff;
+        });
+
+        // only return items that have been repositioned or resized
+        return diffs.filter(diff => diff.isMoved || diff.isResized);
+    }
+}
+export interface DashboardLayoutDiff {
+    widget: DashboardWidgetComponent;
+    previousColumn: number;
+    currentColumn: number;
+    previousRow: number;
+    currentRow: number;
+    previousColumnSpan: number;
+    currentColumnSpan: number;
+    previousRowSpan: number;
+    currentRowSpan: number;
+    isMovedLeft: boolean;
+    isMovedRight: boolean;
+    isMovedUp: boolean;
+    isMovedDown: boolean;
+    isMovedHorizontally: boolean;
+    isMovedVertically: boolean;
+    isResized: boolean;
+    isMoved: boolean;
 }

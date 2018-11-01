@@ -660,16 +660,26 @@ export class DashboardService implements OnDestroy {
             return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
         });
 
+        // check if any of the target spaces are out of bounds
+        if (targetSpaces.find(space => space.column < 0)) {
+            return false;
+        }
+
         // check if there are widget in the required positions and if so, can they move right?
         const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt)));
 
         if (performMove && moveable) {
 
-            // move all widgets to the right
+            // move all widgets to the left
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
 
-            // move current widget to the right
-            widget.setColumn(widget.getColumn() - 1);
+            // find the target column
+            const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
+
+            // move current widget to the left
+            if (column !== Infinity) {
+                widget.setColumn(column);
+            }
         }
 
         return moveable;
@@ -690,16 +700,29 @@ export class DashboardService implements OnDestroy {
             return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
         });
 
+        // check if any of the target spaces are out of bounds
+        if (targetSpaces.find(space => space.column >= this.getColumnCount())) {
+            return false;
+        }
+
         // check if there are widget in the required positions and if so, can they move right?
-        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveRight(wgt)));
+        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row)
+            .filter(wgt => wgt !== space.widget)
+            .every(wgt => this.canWidgetMoveRight(wgt))
+        );
 
         if (performMove && moveable) {
 
             // move all widgets to the right
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
 
+            // find the target column
+            const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
+
             // move current widget to the right
-            widget.setColumn(widget.getColumn() + 1);
+            if (column !== Infinity) {
+                widget.setColumn(column);
+            }
         }
 
         return moveable;
@@ -1084,23 +1107,6 @@ export class DashboardService implements OnDestroy {
     getColumnCount(): number {
         return this.stacked ? 1 : this.options.columns;
     }
-
-    shiftWidgetUp(widget: DashboardWidgetComponent): void {
-        this.onShift(widget, ActionDirection.Top);
-    }
-
-    shiftWidgetRight(widget: DashboardWidgetComponent): void {
-        this.onShift(widget, ActionDirection.Right);
-    }
-
-    shiftWidgetDown(widget: DashboardWidgetComponent): void {
-        this.onShift(widget, ActionDirection.Bottom);
-    }
-
-    shiftWidgetLeft(widget: DashboardWidgetComponent): void {
-        this.onShift(widget, ActionDirection.Left);
-    }
-
     onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
         this.onDragStart({ direction, widget });
@@ -1152,26 +1158,6 @@ export class DashboardService implements OnDestroy {
         this.onDragEnd();
     }
 
-    /** Handle keyboard resizing up */
-    resizeWidgetUp(widget: DashboardWidgetComponent): void {
-        this.onResize(widget, ActionDirection.Top);
-    }
-
-    /** Handle keyboard resizing right */
-    resizeWidgetRight(widget: DashboardWidgetComponent): void {
-        this.onResize(widget, ActionDirection.Right);
-    }
-
-    /** Handle keyboard resizing down */
-    resizeWidgetDown(widget: DashboardWidgetComponent): void {
-        this.onResize(widget, ActionDirection.Bottom);
-    }
-
-    /** Handle keyboard resizing left */
-    resizeWidgetLeft(widget: DashboardWidgetComponent): void {
-        this.onResize(widget, ActionDirection.Left);
-    }
-
     /** Handle keyboard resizing */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
@@ -1182,6 +1168,7 @@ export class DashboardService implements OnDestroy {
 
         // begin the resizing
         this.onResizeStart({ widget, direction });
+        this.setWidgetOrigin();
 
         // perform the resizing
         let deltaX = 0, deltaY = 0;

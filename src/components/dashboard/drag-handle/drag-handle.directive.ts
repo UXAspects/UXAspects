@@ -1,5 +1,5 @@
 import { Directive, ElementRef, NgZone, Renderer2 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { DragDirective } from '../../../directives/drag/drag.directive';
 import { DragService } from '../../../directives/drag/index';
 import { ActionDirection, DashboardService } from '../dashboard.service';
@@ -18,7 +18,7 @@ export class DashboardDragHandleDirective extends DragDirective {
         // inform the widget that it can be dragged
         widget.isDraggable = true;
 
-        this.onDragStart.pipe(takeUntil(this._onDestroy))
+        this.onDragStart.pipe(takeUntil(this._onDestroy), tap(() => dashboardService.isGrabbing$.next(null)))
             .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
 
         this.onDrag.pipe(takeUntil(this._onDestroy))
