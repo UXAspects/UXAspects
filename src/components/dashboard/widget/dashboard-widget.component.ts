@@ -16,7 +16,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @Input() colSpan: number = 1;
     @Input() rowSpan: number = 1;
     @Input() resizable: boolean = false;
-    @Input('aria-label') customAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
+    @Input() widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
     @HostBinding('style.left.px') x: number = 0;
     @HostBinding('style.top.px') y: number = 0;
@@ -172,10 +172,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     getAriaLabel(): string {
-        if (this.customAriaLabel && typeof this.customAriaLabel === 'string') {
-            return this.customAriaLabel;
-        } else if (this.customAriaLabel && typeof this.customAriaLabel === 'function') {
-            return this.customAriaLabel(this);
+        if (this.widgetAriaLabel && typeof this.widgetAriaLabel === 'string') {
+            return this.widgetAriaLabel;
+        } else if (this.widgetAriaLabel && typeof this.widgetAriaLabel === 'function') {
+            return this.widgetAriaLabel(this);
         }
 
         return this.ariaLabel;
