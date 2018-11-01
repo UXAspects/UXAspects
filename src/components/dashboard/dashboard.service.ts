@@ -1107,6 +1107,8 @@ export class DashboardService implements OnDestroy {
     getColumnCount(): number {
         return this.stacked ? 1 : this.options.columns;
     }
+
+    /** Programmatically move a widget in a given direction */
     onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
         this.onDragStart({ direction, widget });
@@ -1158,7 +1160,7 @@ export class DashboardService implements OnDestroy {
         this.onDragEnd();
     }
 
-    /** Handle keyboard resizing */
+    /** Programmatically resize a widget in a given direction */
     onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
 
         // do not perform resizing if we are in stacked mode

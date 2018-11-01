@@ -7,16 +7,21 @@ import { DashboardGrabHandleDirective } from './grab-handle.directive';
 @Injectable()
 export class DashboardGrabHandleService implements OnDestroy {
 
+    /** Store the querylist of all the grab handles */
     private _handles: QueryList<DashboardGrabHandleDirective>;
+
+    /** Automatically unsubscribe from all observables when destroyed */
     private _onDestroy = new Subject<void>();
 
     constructor(private _dashboard: DashboardService) { }
 
+    /** Perform unsubscriptions */
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
     }
 
+    /** Provide the service with the list of grab handles */
     setHandles(handles: QueryList<DashboardGrabHandleDirective>): void {
 
         // store the grab handles
@@ -33,10 +38,12 @@ export class DashboardGrabHandleService implements OnDestroy {
             .subscribe(() => this.setFirstItemFocusable());
     }
 
+    /** Make the first visual item in the list focusable */
     setFirstItemFocusable(): void {
         this.setItemFocus(0, false);
     }
 
+    /** Set an item at a given index focused */
     setItemFocus(index: number, focusElement: boolean = true): void {
 
         // if the list is empty then do nothing
@@ -60,14 +67,17 @@ export class DashboardGrabHandleService implements OnDestroy {
         this.ensureFocusable();
     }
 
+    /** Focus the previous grab handle */
     setPreviousItemFocus(): void {
         this.setItemFocus(this.getFocusableIndex() - 1);
     }
 
+    /** Focus the next grab handle */
     setNextItemFocus(): void {
         this.setItemFocus(this.getFocusableIndex() + 1);
     }
 
+    /** Get the index of the currently focused handle */
     private getFocusableIndex(): number {
         return this.getHandlesInOrder().findIndex(handle => handle.tabIndex === 0);
     }
@@ -79,6 +89,7 @@ export class DashboardGrabHandleService implements OnDestroy {
         }
     }
 
+    /** Get handles in the order they appear rather than the order they are in the DOM */
     private getHandlesInOrder(): DashboardGrabHandleDirective[] {
         const widgets = this._dashboard.getWidgetsByOrder();
         const handles = this._handles.toArray();

@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ActionDirection, DashboardCache, DashboardService } from '../dashboard.service';
@@ -13,29 +13,49 @@ import { DashboardGrabHandleService } from './grab-handle.service';
 })
 export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
+    /** Specify whether or not this handle can be used to perform moving */
     @Input() uxGrabAllowMove: boolean = true;
+
+    /** Specify whether or not this handle can be used to perform resizing */
     @Input() uxGrabAllowResize: boolean = true;
 
-    @Input('aria-label') uxGrabAriaLabel: (widget: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel.bind(this);
+    /** The aria label for the grab handle */
+    @Input() uxGrabAriaLabel: (widget: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel.bind(this);
 
+    /** Customize the announcement that is made whenever an item has successfully been moved or resized */
     @Input() uxGrabChangeSuccessAnnouncement: (widget: DashboardWidgetComponent, differences: DashboardLayoutDiff[]) => string | string = this.getChangeSuccessAnnouncement.bind(this);
+
+    /** Customize the announcement that is made whenever an item enters 'grab' mode */
     @Input() uxGrabStartAnnouncement: (widget: DashboardWidgetComponent) => string | string = this.getStartAnnouncement.bind(this);
+
+    /** Customize the announcement thqt is made whenever an item cannot be moved */
     @Input() uxGrabMoveFailAnnouncement: (widget: DashboardWidgetComponent, direction: ActionDirection) => string | string = this.getMoveFailAnnouncement.bind(this);
+
+    /** Customize the announcement thqt is made whenever an item cannot be resized */
     @Input() uxGrabResizeFailAnnouncement: (widget: DashboardWidgetComponent, direction: ActionDirection) => string | string = this.getResizeFailAnnouncement.bind(this);
+
+    /** Customize the announcement made whenever the moving/resizing is commited */
     @Input() uxGrabConfirmAnnouncement: (widget: DashboardWidgetComponent) => string | string = this.getConfirmAnnouncement.bind(this);
+
+    /** Customize the announcement made whenever the moving/resizing is cancelled */
     @Input() uxGrabCancelAnnouncement: (widget: DashboardWidgetComponent) => string | string = this.getCancellationAnnouncement.bind(this);
 
-    @Output() uxGrabStart = new EventEmitter<void>();
-    @Output() uxGrabEnd = new EventEmitter<void>();
-    @Output() uxGrabCancel = new EventEmitter<void>();
-
+    /** Binding for the grab handle aria label */
     @HostBinding('attr.aria-label') ariaLabel: string;
+
+    /** We must programmatically control the focus of the drag handles */
     @HostBinding('tabIndex') tabIndex: number = -1;
 
+    /** Store the current dragging state */
     isGrabbing: boolean = false;
 
+    /** Store the current layout when we enter 'grab' mode */
     private _cache: DashboardCache[];
+
+    /** Store the layout after the most recent successful move or resize */
     private _lastMovement: DashboardCache[];
+
+    /** Emit when the directive is destroyed to unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -54,6 +74,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
     }
 
+    /** Set the initial aria label and subscribe to layout changes */
     ngOnInit(): void {
 
         if (!this.widget.name) {
@@ -84,9 +105,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             // store the current widget being grabbed
             this._dashboard.isGrabbing$.next(this.widget);
 
-            // emit the grab start event
-            this.uxGrabStart.emit();
-
             // announce the grab start
             this._announcer.announce(this.getAnnouncement(this.uxGrabStartAnnouncement));
         }
@@ -96,7 +114,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     disableDragMode(): void {
         if (this.isGrabbing) {
             this._dashboard.isGrabbing$.next(null);
-            this.uxGrabEnd.emit();
 
             // announce the confirmation
             this._announcer.announce(this.getAnnouncement(this.uxGrabConfirmAnnouncement));
@@ -110,7 +127,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             this._dashboard.setDashboardHeight();
             this._dashboard.layout$.next(this._dashboard.getLayoutData());
             this._dashboard.isGrabbing$.next(null);
-            this.uxGrabCancel.emit();
 
             // announce the cancellation
             this._announcer.announce(this.getAnnouncement(this.uxGrabCancelAnnouncement));
@@ -136,11 +152,13 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         this.tabIndex = -1;
     }
 
+    /** When the grab handle loses focus then exit 'grab' mode */
     @HostListener('blur')
     onBlur(): void {
         this.disableDragMode();
     }
 
+    /** Handle key events */
     @HostListener('keydown', ['$event', '$event.which', '$event.ctrlKey'])
     onKeydown(event: KeyboardEvent, key: number, ctrlKey: boolean): void {
 
@@ -166,9 +184,9 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
                     this.moveFocus(event, key);
                 }
         }
-
     }
 
+    /** Move the widget in a given direction based on arrow keys */
     private moveWidget(event: KeyboardEvent, key: number): void {
 
         // attempt to perform the move
@@ -191,6 +209,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
+    /** Resize the widgets accordingly based on the arrow keys */
     private resizeWidget(event: KeyboardEvent, key: number): void {
         this._dashboard.onResize(this.widget, this.getDirectionFromKey(key));
 
@@ -211,6 +230,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
+    /** Shift focus between the variour grab handles */
     private moveFocus(event: KeyboardEvent, key: number): void {
         if (key === UP_ARROW || key === LEFT_ARROW) {
             this._handle.setPreviousItemFocus();
@@ -224,6 +244,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
+    /** Convert an arrow key code into an ActionDirection enum */
     private getDirectionFromKey(key: number): ActionDirection {
         switch (key) {
 
@@ -241,10 +262,12 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get an announcement from the inputs - they may be a string or a function so handle both */
     getAnnouncement(announcement: Function | string, ...args: any[]): string {
         return typeof announcement === 'function' ? announcement(this.widget, ...args) : announcement;
     }
 
+    /** Supply the default grab handle aria label based on the provided constraints */
     private getDefaultAriaLabel(widget: DashboardWidgetComponent): string {
         if (widget.resizable && this.uxGrabAllowResize && widget.isDraggable && this.uxGrabAllowMove) {
             return `Press space to move and resize the ${widget.name} panel.`;
@@ -255,6 +278,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get the default announcement whenever a movement or resize was successful */
     private getChangeSuccessAnnouncement(widget: DashboardWidgetComponent, differences: DashboardLayoutDiff[]): string {
 
         // map the differences to strings
@@ -286,6 +310,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         return `${announcements.join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
     }
 
+    /** Get the default announcement whenever a movement is not possible due to dashboard boundaries */
     private getMoveFailAnnouncement(widget: DashboardWidgetComponent, direction: ActionDirection): string {
 
         switch (direction) {
@@ -304,6 +329,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get the default announcement whenever a resize is not possible due to either widget constraints of dashboard bounds */
     private getResizeFailAnnouncement(widget: DashboardWidgetComponent, direction: ActionDirection): string {
         switch (direction) {
 
@@ -321,6 +347,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get the default announcement whenever we enter 'grab' mode */
     private getStartAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
             return `${widget.name} panel is currently on row ${widget.getRow()}, column ${widget.getColumn()} and is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. Use the cursor keys to move the widget and the cursor keys with the control modifier to resize the widget. Press enter to commit changes and press escape to cancel changes.`;
@@ -331,6 +358,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get the default announcement whenever grab mode is exited after a movement or resize */
     private getConfirmAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
             return `Moving and resizing complete. ${this.getDashboardAriaLabel()}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
@@ -341,6 +369,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get the default announcement whenever grab mode is exited after being cancelled */
     private getCancellationAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
             return `Moving and resizing cancelled. ${this.getDashboardAriaLabel()}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
@@ -351,14 +380,17 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get a description of all dashboard widgets, their positions and sizes */
     private getDashboardAriaLabel(): string {
         return `Dashboard with ${this._dashboard.options.columns} columns, containing ${this._dashboard.widgets.length} panels. ${this._dashboard.widgets.map(this.getWidgetAriaLabel).join(' ')}`;
     }
 
+    /** Get a description of a given widget */
     private getWidgetAriaLabel(widget: DashboardWidgetComponent): string {
         return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high.`;
     }
 
+    /** Get an object describing all the changes that have been made to all widgets since the last change */
     private getLayoutDiff(): DashboardLayoutDiff[] {
 
         // find all changes
@@ -398,6 +430,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         return diffs.filter(diff => diff.isMoved || diff.isResized);
     }
 }
+
 export interface DashboardLayoutDiff {
     widget: DashboardWidgetComponent;
     previousColumn: number;
