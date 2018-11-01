@@ -35,6 +35,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     isGrabbing: boolean = false;
 
     private _cache: DashboardCache[];
+    private _lastMovement: DashboardCache[];
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -43,11 +44,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         private _handle: DashboardGrabHandleService,
         private _elementRef: ElementRef,
         private _announcer: LiveAnnouncer) {
-
-        // TODO: Delete this
-        (_announcer as any).announce = function(input: string) {
-            console.log(input);
-        };
 
         if (!widget) {
             throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
@@ -83,7 +79,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         if (!this.isGrabbing) {
 
             // cache the widgets so we can restore when escape is pressed
-            this._cache = this._dashboard.cacheWidgets();
+            this._cache = this._lastMovement = this._dashboard.cacheWidgets();
 
             // store the current widget being grabbed
             this._dashboard.isGrabbing$.next(this.widget);
@@ -188,6 +184,9 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             this._announcer.announce(this.getAnnouncement(this.uxGrabMoveFailAnnouncement, this.getDirectionFromKey(key)));
         }
 
+        // store the current layout
+        this._lastMovement = this._dashboard.cacheWidgets();
+
         event.preventDefault();
         event.stopPropagation();
     }
@@ -204,6 +203,9 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         } else {
             this._announcer.announce(this.getAnnouncement(this.uxGrabResizeFailAnnouncement, this.getDirectionFromKey(key)));
         }
+
+        // store the current layout
+        this._lastMovement = this._dashboard.cacheWidgets();
 
         event.preventDefault();
         event.stopPropagation();
@@ -281,7 +283,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             return `${widget.name} panel is ${changes.join(' and ')}.`;
         });
 
-        return `${announcements.join(' ')}. Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
+        return `${announcements.join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
     }
 
     private getMoveFailAnnouncement(widget: DashboardWidgetComponent, direction: ActionDirection): string {
@@ -362,11 +364,14 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         // find all changes
         const diffs = this._dashboard.getLayoutData().map(layout => {
 
+            // get the most recent cache
+            const cache = this._lastMovement || this._cache;
+
             // get the actual widget
             const widget = this._dashboard.widgets.find(_widget => _widget.id === layout.id);
 
             // get previous position
-            const previousLayout = this._cache.find(_widget => _widget.id === layout.id);
+            const previousLayout = cache.find(_widget => _widget.id === layout.id);
 
             return {
                 widget,

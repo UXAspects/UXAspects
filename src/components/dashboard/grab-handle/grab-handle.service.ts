@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DashboardService } from '../dashboard.service';
 import { DashboardGrabHandleDirective } from './grab-handle.directive';
@@ -27,6 +27,10 @@ export class DashboardGrabHandleService implements OnDestroy {
 
         // watch for any future changes to the list of handles
         this._handles.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.ensureFocusable());
+
+        // if a drag is performed by the mouse we should update the focusable item to be the first again
+        this._dashboard.layout$.pipe(takeUntil(this._onDestroy), filter(() => !this._dashboard.isGrabbing$.value))
+            .subscribe(() => this.setFirstItemFocusable());
     }
 
     setFirstItemFocusable(): void {
