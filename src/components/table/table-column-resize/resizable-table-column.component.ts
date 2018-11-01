@@ -34,7 +34,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
       const currentWidth = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
 
       // resize the column by the difference in size
-      this._table.resizeColumn(this.getCellIndex(), this._width - currentWidth);
+      this._table.resizeColumn(this.getCellIndex(), this._width - currentWidth, false);
     }
   }
 

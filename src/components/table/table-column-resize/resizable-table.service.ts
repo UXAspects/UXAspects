@@ -85,7 +85,7 @@ export class ResizableTableService implements OnDestroy {
   }
 
   /** Resize a column by a specific pixel amount */
-  resizeColumn(index: number, delta: number): void {
+  resizeColumn(index: number, delta: number, isDragging: boolean = true): void {
 
     // get the sibling column that will also be resized
     const sibling = this.getSiblingColumn(index);
@@ -116,7 +116,7 @@ export class ResizableTableService implements OnDestroy {
       // get the column with a variable width
       const target = this.getVariableColumn(100 - total);
 
-      if (target) {
+      if (target && !isDragging) {
         columns[this._columns.toArray().indexOf(target)] += (100 - total);
       } else {
         columns[index] += (100 - total);
