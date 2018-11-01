@@ -9,7 +9,8 @@ export class ResizableTableCellDirective {
 
   /** The percentage width of the column */
   @HostBinding('style.width') get width(): string {
-    return this._table.isResizing ?
+
+    return this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex()) ?
       `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
       `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
   }
@@ -18,11 +19,11 @@ export class ResizableTableCellDirective {
   @HostBinding('style.flex') get flex(): string {
 
     // if we are resizing then always return 'none' to allow free movement
-    if (this._table.isResizing) {
+    if (this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex())) {
       return 'none';
     }
 
-    return this._table.isInitialised.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+    return this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
   }
 
   constructor(private _elementRef: ElementRef, private _table: ResizableTableService) { }

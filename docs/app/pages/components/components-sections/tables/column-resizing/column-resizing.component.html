@@ -1,10 +1,10 @@
 <table *ngIf="type === 'table'" class="table" aria-multiselectable="true" uxResizableTable>
     <thead>
         <tr>
-            <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
-            <th uxResizableTableColumn>Title</th>
-            <th uxResizableTableColumn>Author</th>
-            <th uxResizableTableColumn>Date</th>
+            <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+            <th uxResizableTableColumn [(width)]="titleWidth">Title <small>{{ titleWidth | number }}px</small></th>
+            <th uxResizableTableColumn [(width)]="authorWidth">Author <small>{{ authorWidth | number }}px</small></th>
+            <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date <small>{{ dateWidth | number }}px</small></th>
         </tr>
     </thead>
     <tbody [(uxSelection)]="selection">
@@ -26,10 +26,10 @@
 <table *ngIf="type === 'fixed'" class="table" aria-multiselectable="true" uxResizableTable uxFixedHeaderTable [tableHeight]="230">
     <thead>
         <tr>
-            <th uxResizableTableColumn [disabled]="true" class="fixed-column"></th>
-            <th uxResizableTableColumn>Title</th>
-            <th uxResizableTableColumn>Author</th>
-            <th uxResizableTableColumn>Date</th>
+            <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+            <th uxResizableTableColumn [(width)]="titleWidth">Title <small>{{ titleWidth | number }}px</small></th>
+            <th uxResizableTableColumn [(width)]="authorWidth">Author <small>{{ authorWidth | number }}px</small></th>
+            <th uxResizableTableColumn (widthChange)="dateWidth = $event">Date <small>{{ dateWidth | number }}px</small></th>
         </tr>
     </thead>
     <tbody [(uxSelection)]="selection">
@@ -68,13 +68,36 @@
 </p>
 
 <p>
-    To prevent a column from being resizable add a <code>disabled</code> attribute with a value of <code>true</code> to the <code>th</code> element.
-</p>
-
-<p>
     If you are adding resizable columns to a <code>uxFixedHeaderTable</code> you will also need to add the <code>uxResizableTableCell</code> directive to every
     <code>td</code> element in the table.
 </p>
+
+<p>
+    The width of each column can be specified by using the <code>width</code> property.
+    If all columns have a specified width and the column widths do not match the width of the table,
+    columns will be scaled proportionally to fill the available space.
+    If you wish to prevent this proportional scaling, omit the <code>width</code> property from one column, giving it a variable width.
+</p>
+
+<p>The following properties can be used to configure the columns:</p>
+
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="width" type="number">
+        Defines the number of pixels wide the column should be.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        Specifies if the column is resizable and if the drag handle should be shown.
+    </tr>
+</uxd-api-properties>
+
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="widthChange" type="number">
+        Emits with the width of the column when the column is resized.
+    </tr>
+</uxd-api-properties>
+
 
 <p>
     The code below can be used to create the example above:

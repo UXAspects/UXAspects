@@ -1,9 +1,9 @@
 import { AfterViewInit, ContentChildren, Directive, ElementRef, OnDestroy, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { ResizeService } from '../../../directives/resize/index';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { ResizableTableService } from './resizable-table.service';
-import { ResizeService } from '../../../directives/resize/index';
 
 @Directive({
   selector: '[uxResizableTable]',
@@ -24,7 +24,7 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
     // watch for the table being resized
     resize.addResizeListener(this._elementRef.nativeElement)
       .pipe(takeUntil(this._onDestroy))
-      .subscribe(dimensions => _table.tableWidth = this.getScrollWidth());
+      .subscribe(() => _table.tableWidth = this.getScrollWidth());
   }
 
   /** Once we have the columns make them resizable and watch for changes to columns */

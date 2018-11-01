@@ -16,6 +16,10 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
+    titleWidth: number = 300;
+    authorWidth: number = 300;
+    dateWidth: number;
+
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,

@@ -1,12 +1,13 @@
-import { Injectable, QueryList } from '@angular/core';
+import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 
 @Injectable()
-export class ResizableTableService {
+export class ResizableTableService implements OnDestroy {
 
   /** Indicate when the columns are ready */
-  isInitialised = new BehaviorSubject<boolean>(false);
+  isInitialised$ = new BehaviorSubject<boolean>(false);
 
   /** Determine if we are currently resizing */
   isResizing: boolean = false;
@@ -17,8 +18,16 @@ export class ResizableTableService {
   /** Store the current width of the table */
   tableWidth: number = 0;
 
+  /** Emit an event whenever a column is resized */
+  onResize$ = new Subject<void>();
+
   /** Store the QueryList of columns */
   private _columns: QueryList<ResizableTableColumnComponent>;
+
+  /** Cleanup when service is disposed */
+  ngOnDestroy(): void {
+    this.onResize$.complete();
+  }
 
   /** Store the size of each column */
   setColumns(columns: QueryList<ResizableTableColumnComponent>): void {
@@ -30,8 +39,8 @@ export class ResizableTableService {
     this.columns = columns.map(column => (column.getNaturalWidth() / this.tableWidth) * 100);
 
     // indicate we are now initialised
-    if (this.isInitialised.value === false) {
-      this.isInitialised.next(true);
+    if (this.isInitialised$.value === false) {
+      this.isInitialised$.next(true);
     }
   }
 
@@ -76,7 +85,7 @@ export class ResizableTableService {
   }
 
   /** Resize a column by a specific pixel amount */
-  resizeColumn(index: number, delta: number): void {
+  resizeColumn(index: number, delta: number, isDragging: boolean = true): void {
 
     // get the sibling column that will also be resized
     const sibling = this.getSiblingColumn(index);
@@ -103,11 +112,39 @@ export class ResizableTableService {
 
     // if the columns to not add to 100 ensure we make them
     if (total !== 100) {
-      columns[index] += (100 - total);
+
+      // get the column with a variable width
+      const target = this.getVariableColumn(100 - total);
+
+      if (target && !isDragging) {
+        columns[this._columns.toArray().indexOf(target)] += (100 - total);
+      } else {
+        columns[index] += (100 - total);
+      }
     }
 
     // store the new sizes
     this.columns = columns;
+
+    // emit the resize event for each column
+    this.onResize$.next();
+  }
+
+  getVariableColumn(delta: number): ResizableTableColumnComponent | null {
+
+    // get all variable width columns that are not disabled
+    const variableColumns = this._columns.filter(column => !column.isFixedWidth && !column.disabled);
+
+    // find one that is greater than its min width by enough
+    return variableColumns.reverse().find(column => this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel) >= column.minWidth + delta);
+  }
+
+  getColumn(index: number): ResizableTableColumnComponent | null {
+    return this._columns ? this._columns.toArray()[index] : null;
+  }
+
+  getColumnDisabled(index: number): boolean {
+    return this.getColumn(index) ? this.getColumn(index).disabled : false;
   }
 
   /** Determine whether a column is above or below its minimum width */
