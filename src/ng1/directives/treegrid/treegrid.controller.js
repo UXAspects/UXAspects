@@ -192,10 +192,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   function updateView() {
     vm.loading = true;
     getTreeData(getChildren(), 0)
-      .then(function (rows) {
-        // Populate top level rows
-        vm.treeData = rows;
-      })
+      .then(rows => vm.treeData = rows)
       .then(function () {
         // Expand top level items if configured
         var promises = [];
@@ -212,12 +209,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
         vm.loading = false;
         console.error("Data load error: " + err);
       })
-      .finally(function () {
-        vm.loading = false;
-
-        // ensure any selected items get selected
-        updateSelection(vm.selected);
-      });
+      .finally(() => vm.loading = false);
   }
 
   // Get row data suitable for angular binding from an array of source data
