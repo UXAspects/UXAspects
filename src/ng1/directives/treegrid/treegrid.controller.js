@@ -73,6 +73,10 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     // perform initial selection if there is any
     updateSelection(vm.selected);
 
+    if (vm.selectionManager) {
+      vm.selectionManager({ $selection: vm.multipleSelectInstance });
+    }
+
     $scope.$digest();
   };
 
