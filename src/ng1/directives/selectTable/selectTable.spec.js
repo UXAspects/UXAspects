@@ -149,7 +149,6 @@ describe('Select table', function () {
 
             expect(vm.selectedVal).toBeFalsy();
 
-            debugger;
             $scope.$apply(function () {
                 vm.searchText = "";
             });
