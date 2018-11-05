@@ -105,6 +105,8 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             // store the current widget being grabbed
             this._dashboard.isGrabbing$.next(this.widget);
 
+            this._dashboard.onShiftStart(this.widget);
+
             // announce the grab start
             this._announcer.announce(this.getAnnouncement(this.uxGrabStartAnnouncement));
         }
@@ -115,6 +117,8 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         if (this.isGrabbing) {
             this._dashboard.isGrabbing$.next(null);
 
+            this._dashboard.onShiftEnd();
+
             // announce the confirmation
             this._announcer.announce(this.getAnnouncement(this.uxGrabConfirmAnnouncement));
         }
@@ -123,6 +127,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     /** Finish the drag mode and restore the original state */
     cancelDragMode(): void {
         if (this.isGrabbing) {
+            this._dashboard.onShiftEnd();
             this._dashboard.restoreWidgets(false, this._cache, true);
             this._dashboard.setDashboardHeight();
             this._dashboard.layout$.next(this._dashboard.getLayoutData());
@@ -256,7 +261,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
                 break;
 
             case RIGHT_ARROW:
-                this._handle.setNextItemFocus();
+                this._handle.setNextItemFocus(this);
                 break;
 
             case DOWN_ARROW:
@@ -264,7 +269,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
                 break;
 
             case LEFT_ARROW:
-                this._handle.setPreviousItemFocus();
+                this._handle.setPreviousItemFocus(this);
                 break;
         }
 

@@ -69,13 +69,13 @@ export class DashboardGrabHandleService implements OnDestroy {
     }
 
     /** Focus the previous grab handle */
-    setPreviousItemFocus(): void {
-        this.setItemFocus(this.getFocusableIndex() - 1);
+    setPreviousItemFocus(handle: DashboardGrabHandleDirective): void {
+        this.setItemFocus(this.getHandleIndex(handle) - 1);
     }
 
     /** Focus the next grab handle */
-    setNextItemFocus(): void {
-        this.setItemFocus(this.getFocusableIndex() + 1);
+    setNextItemFocus(handle: DashboardGrabHandleDirective): void {
+        this.setItemFocus(this.getHandleIndex(handle) + 1);
     }
 
     /** Focus the grab handle on the widget above */
@@ -110,11 +110,6 @@ export class DashboardGrabHandleService implements OnDestroy {
 
     private getHandleIndex(handle: DashboardGrabHandleDirective): number {
         return this.getHandlesInOrder().findIndex(_handle => _handle === handle);
-    }
-
-    /** Get the index of the currently focused handle */
-    private getFocusableIndex(): number {
-        return this.getHandlesInOrder().findIndex(handle => handle.tabIndex === 0);
     }
 
     /** If the current focusable handle is removed we need to make another one focusable */

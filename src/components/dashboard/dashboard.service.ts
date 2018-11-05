@@ -1108,10 +1108,12 @@ export class DashboardService implements OnDestroy {
         return this.stacked ? 1 : this.options.columns;
     }
 
+    onShiftStart(widget: DashboardWidgetComponent): void {
+        this.onDragStart({ direction: ActionDirection.Move, widget });
+    }
+
     /** Programmatically move a widget in a given direction */
     onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
-
-        this.onDragStart({ direction, widget });
 
         // get the current mouse position
         let deltaX = 0, deltaY = 0;
@@ -1125,9 +1127,7 @@ export class DashboardService implements OnDestroy {
                 deltaX = this.getColumnWidth();
                 break;
             case ActionDirection.Bottom: {
-                const sibling = this.getWidgetBelow(widget);
-                deltaY = this.getRowHeight() + (this.getRowHeight() * (sibling ? sibling.getRowSpan() : 1));
-
+                deltaY = this.getRowHeight();
                 break;
             }
             case ActionDirection.Left:
@@ -1142,14 +1142,22 @@ export class DashboardService implements OnDestroy {
             height: widget.height
         };
 
-        this.restoreWidgets(true);
-
-        // update widget position
-        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
+        // update widget position
+        const { x, y } = this.placeholder$.value;
+
+        // move the widget to the placeholder position
+        widget.setBounds(x - this.options.padding, y - this.options.padding, dimensions.width, dimensions.height);
+
+        // update the height of the dashboard
+        this.setDashboardHeight();
+
+    }
+
+    onShiftEnd(): void {
         // show the widget positions if the current positions and sizes were to persist
         this.shiftWidgets();
 
@@ -1167,10 +1175,6 @@ export class DashboardService implements OnDestroy {
         if (this.stacked) {
             return;
         }
-
-        // begin the resizing
-        this.onResizeStart({ widget, direction });
-        this.setWidgetOrigin();
 
         // perform the resizing
         let deltaX = 0, deltaY = 0;
@@ -1212,36 +1216,30 @@ export class DashboardService implements OnDestroy {
             dimensions.height = currentHeight;
         }
 
-        if ((dimensions.x + dimensions.width) > this.dimensions.width) {
-            dimensions.width = this.dimensions.width - dimensions.x;
+        if ((dimensions.x + dimensions.width) > this.getColumnWidth() * this.getColumnCount()) {
+            dimensions.width = this.getColumnWidth() * this.getColumnCount();
         }
 
         // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
-        if (dimensions.width < this.options.minWidth) {
+        if (dimensions.width < this.getColumnWidth()) {
             dimensions.x = widget.x;
-            dimensions.width = this.options.minWidth;
+            dimensions.width = this.getColumnWidth();
         }
 
         // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
-        if (dimensions.height < this.options.minHeight) {
+        if (dimensions.height < this.getRowHeight()) {
             dimensions.y = widget.y;
-            dimensions.height = this.options.minHeight;
+            dimensions.height = this.getRowHeight();
         }
 
-        // update widget position
+        // move the widget to the placeholder position
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
         // update placeholder position and value
         this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-
         // the height of the dashboard may have changed after moving widgets
         this.setDashboardHeight();
-
-        // end the resizing
-        this.onResizeEnd();
     }
 
     getSurroundingWidgets(widget: DashboardWidgetComponent, direction: ActionDirection): DashboardWidgetComponent[] {
