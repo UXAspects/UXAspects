@@ -186,8 +186,18 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         }
     }
 
+    /** Get an announcement from the inputs - they may be a string or a function so handle both */
+    getAnnouncement(announcement: Function | string, ...args: any[]): string {
+        return typeof announcement === 'function' ? announcement(this.widget, ...args) : announcement;
+    }
+
     /** Move the widget in a given direction based on arrow keys */
     private moveWidget(event: KeyboardEvent, key: number): void {
+
+        // check if moving is allowed
+        if (!this.widget.isDraggable || !this.uxGrabAllowMove) {
+            return;
+        }
 
         // attempt to perform the move
         this._dashboard.onShift(this.widget, this.getDirectionFromKey(key));
@@ -211,6 +221,12 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
     /** Resize the widgets accordingly based on the arrow keys */
     private resizeWidget(event: KeyboardEvent, key: number): void {
+
+        // check if resizing is allowed
+        if (!this.widget.resizable || !this.uxGrabAllowResize) {
+            return;
+        }
+
         this._dashboard.onResize(this.widget, this.getDirectionFromKey(key));
 
         // get the announcable diff
@@ -232,12 +248,24 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
     /** Shift focus between the variour grab handles */
     private moveFocus(event: KeyboardEvent, key: number): void {
-        if (key === UP_ARROW || key === LEFT_ARROW) {
-            this._handle.setPreviousItemFocus();
-        }
 
-        if (key === DOWN_ARROW || key === RIGHT_ARROW) {
-            this._handle.setNextItemFocus();
+        switch (key) {
+
+            case UP_ARROW:
+                this._handle.setSiblingItemFocus(this.widget, ActionDirection.Top);
+                break;
+
+            case RIGHT_ARROW:
+                this._handle.setNextItemFocus();
+                break;
+
+            case DOWN_ARROW:
+                this._handle.setSiblingItemFocus(this.widget, ActionDirection.Bottom);
+                break;
+
+            case LEFT_ARROW:
+                this._handle.setPreviousItemFocus();
+                break;
         }
 
         event.preventDefault();
@@ -260,11 +288,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             case LEFT_ARROW:
                 return ActionDirection.Left;
         }
-    }
-
-    /** Get an announcement from the inputs - they may be a string or a function so handle both */
-    getAnnouncement(announcement: Function | string, ...args: any[]): string {
-        return typeof announcement === 'function' ? announcement(this.widget, ...args) : announcement;
     }
 
     /** Supply the default grab handle aria label based on the provided constraints */
@@ -304,7 +327,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
                 changes.push(`resized to ${diff.currentColumnSpan} columns wide and ${diff.currentRowSpan} rows high`);
             }
 
-            return `${widget.name} panel is ${changes.join(' and ')}.`;
+            return `${diff.widget.name} panel is ${changes.join(' and ')}.`;
         });
 
         return `${announcements.join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
@@ -426,8 +449,24 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             } as DashboardLayoutDiff;
         });
 
+        // get the order the widgets appear visually
+        const order = this._handle.getHandlesInOrder().map(handle => handle.widget);
+
         // only return items that have been repositioned or resized
-        return diffs.filter(diff => diff.isMoved || diff.isResized);
+        return diffs.filter(diff => diff.isMoved || diff.isResized).sort((diffOne, diffTwo) => {
+
+            // sort this so that the item that the user moved is first in the list, and the remainder are in their new order as seen in the dashboard
+            if (diffOne.widget === this.widget) {
+                return -1;
+            }
+
+            if (diffTwo.widget === this.widget) {
+                return 1;
+            }
+
+            // otherwise sort based on their visual order
+            return order.indexOf(diffOne.widget) < order.indexOf(diffTwo.widget) ? -1 : 1;
+        });
     }
 }
 

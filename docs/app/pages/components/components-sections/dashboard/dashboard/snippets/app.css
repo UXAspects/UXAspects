@@ -12,7 +12,7 @@
     right: 10px;
     border: none;
     background-color: transparent;
-    cursor: default;
+    cursor: move;
 }
 
 .customizable-dashboard .widget-content .widget-grab-handle:focus {

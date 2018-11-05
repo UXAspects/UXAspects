@@ -792,7 +792,7 @@ export class DashboardService implements OnDestroy {
     getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false): DashboardWidgetComponent[] {
         return this.getOccupiedSpaces()
             .filter(space => space.column === column && space.row === row)
-            .filter(space => space.widget !== this._actionWidget.widget || !ignoreResizing)
+            .filter(space => this._actionWidget && space.widget !== this._actionWidget.widget || !ignoreResizing)
             .map(space => space.widget);
     }
 
@@ -1242,6 +1242,26 @@ export class DashboardService implements OnDestroy {
 
         // end the resizing
         this.onResizeEnd();
+    }
+
+    getSurroundingWidgets(widget: DashboardWidgetComponent, direction: ActionDirection): DashboardWidgetComponent[] {
+        let widgets: DashboardWidgetComponent[] = [];
+
+        for (let column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
+
+            switch (direction) {
+
+                case ActionDirection.Top:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1)];
+                    break;
+
+                case ActionDirection.Bottom:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan())];
+                    break;
+            }
+        }
+
+        return widgets;
     }
 }
 

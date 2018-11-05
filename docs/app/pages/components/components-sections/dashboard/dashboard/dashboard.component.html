@@ -10,13 +10,13 @@
         [resizable]="true">
 
         <div class="widget-content"
-            [class.widget-grabbing]="usageHandle.isGrabbing"
-            uxDashboardWidgetDragHandle>
+            [class.widget-grabbing]="usageHandle.isGrabbing">
 
             <h3 class="widget-title">Usage Analytics</h3>
 
             <button class="widget-grab-handle"
                 uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
                 #usageHandle="ux-dashboard-grab-handle">
                 <span class="hpe-icon hpe-pan"></span>
             </button>
@@ -36,11 +36,11 @@
 
     <ux-dashboard-widget id="services-widget" name="Services" [colSpan]="2">
         <div class="widget-content"
-            [class.widget-grabbing]="servicesHandle.isGrabbing"
-            uxDashboardWidgetDragHandle>
+            [class.widget-grabbing]="servicesHandle.isGrabbing">
 
             <button class="widget-grab-handle"
                 uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
                 #servicesHandle="ux-dashboard-grab-handle">
                 <span class="hpe-icon hpe-pan"></span>
             </button>
@@ -72,13 +72,13 @@
 
     <ux-dashboard-widget id="users-widget" name="Users">
         <div class="widget-content"
-            [class.widget-grabbing]="usersHandle.isGrabbing"
-            uxDashboardWidgetDragHandle>
+            [class.widget-grabbing]="usersHandle.isGrabbing">
 
             <h3 class="widget-title">Users</h3>
 
             <button class="widget-grab-handle"
                 uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
                 #usersHandle="ux-dashboard-grab-handle">
                 <span class="hpe-icon hpe-pan"></span>
             </button>
@@ -103,13 +103,13 @@
 
     <ux-dashboard-widget id="alert-widget" name="Alerts">
         <div class="widget-content prominent"
-            [class.widget-grabbing]="alertHandle.isGrabbing"
-            uxDashboardWidgetDragHandle>
+            [class.widget-grabbing]="alertHandle.isGrabbing">
 
             <h3 class="widget-title">Alert</h3>
 
             <button class="widget-grab-handle"
                 uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
                 #alertHandle="ux-dashboard-grab-handle">
                 <span class="hpe-icon hpe-pan"></span>
             </button>
