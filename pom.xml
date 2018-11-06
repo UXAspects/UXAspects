@@ -28,7 +28,7 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>1.6.7-SNAPSHOT</version>
+    <version>1.6.8-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -37,19 +37,6 @@
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
     </properties>
-
-    <dependencies>
-        <!-- <dependency>
-            <groupId>com.microfocus.caf.qtm</groupId>
-            <artifactId>quantum</artifactId>
-            <version>1.6.7-SNAPSHOT</version>
-        </dependency> -->
-        <dependency>
-            <groupId>com.microfocus.caf.ux-aspects-micro-focus</groupId>
-            <artifactId>ux-aspects-micro-focus</artifactId>
-            <version>1.6.7-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
