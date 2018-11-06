@@ -10,7 +10,8 @@ export default function TreegridDirective() {
             treeData: '=?',
             selected: '=?',
             currentRow: '=?',
-            options: '=?'
+            options: '=?',
+            selectionManager: '&?'
         }
     };
 }

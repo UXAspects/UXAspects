@@ -14,21 +14,24 @@ describe('treegrid', function () {
   describe("treegrid directive", function () {
 
     var DummyEvent = {
-      stopPropagation: function() {},
-      preventDefault: function() {}
+      stopPropagation: function () { },
+      preventDefault: function () { }
     };
 
-    it("should initialise with empty data", function() {
-      var ctrl = instantiateController({
+    it("should initialise with empty data", function (done) {
+      instantiateController({
         data: [],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows).toEqual([]);
+        done();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows).toEqual([]);
     });
 
-    it("should show top level items to start with", function() {
-      var ctrl = instantiateController({
+    it("should show top level items to start with", function (done) {
+
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [{
@@ -39,17 +42,20 @@ describe('treegrid', function () {
           nodes: []
         }],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        expect(rows[0].level).toBe(0);
+        expect(rows[0].canExpand).toBe(true);
+        expect(rows[0].expanded).toBe(false);
+        expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
+        done();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      expect(rows[0].level).toBe(0);
-      expect(rows[0].canExpand).toBe(true);
-      expect(rows[0].expanded).toBe(false);
-      expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
     });
 
-    it("should include child rows when expanded", function(done) {
-      var ctrl = instantiateController({
+    it("should include child rows when expanded", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [{
@@ -60,27 +66,29 @@ describe('treegrid', function () {
           nodes: []
         }],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        // Expand "Row 1"
+        ctrl.expanderClick(rows[0], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].expanded).toBe(true);
+            expect(rows[1].level).toBe(1);
+            expect(rows[1].canExpand).toBe(false);
+            expect(rows[1].expanded).toBe(false);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
+
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      // Expand "Row 1"
-      ctrl.expanderClick(rows[0], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].expanded).toBe(true);
-          expect(rows[1].level).toBe(1);
-          expect(rows[1].canExpand).toBe(false);
-          expect(rows[1].expanded).toBe(false);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should exclude child rows when contracted", function(done) {
-      var ctrl = instantiateController({
+    it("should exclude child rows when contracted", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [{
@@ -91,32 +99,33 @@ describe('treegrid', function () {
           nodes: []
         }],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        // Expand "Row 1"
+        ctrl.expanderClick(rows[0], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].expanded).toBe(true);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
+          })
+          // Contract "Row 1"
+          .then(function () { return ctrl.expanderClick(rows[0], DummyEvent); })
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(2);
+            expect(rows[0].expanded).toBe(false);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      // Expand "Row 1"
-      ctrl.expanderClick(rows[0], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].expanded).toBe(true);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
-        })
-        // Contract "Row 1"
-        .then(function() { return ctrl.expanderClick(rows[0], DummyEvent); })
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(2);
-          expect(rows[0].expanded).toBe(false);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should use the configured property to identify child nodes", function(done) {
-      var ctrl = instantiateController({
+    it("should use the configured property to identify child nodes", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [],
@@ -131,35 +140,36 @@ describe('treegrid', function () {
         }],
         columns: [{ name: "test", value: "test" }],
         options: { childrenProperty: "children" }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        expect(rows[0].canExpand).toBe(true);
+        expect(rows[1].canExpand).toBe(false);
+        // Expand "Row 1"
+        ctrl.expanderClick(rows[0], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].expanded).toBe(true);
+            expect(rows[1].level).toBe(1);
+            expect(rows[1].canExpand).toBe(false);
+            expect(rows[1].expanded).toBe(false);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
+          })
+          // Expand "Row 2" (should do nothing)
+          .then(function () { return ctrl.expanderClick(rows[2], DummyEvent); })
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      expect(rows[0].canExpand).toBe(true);
-      expect(rows[1].canExpand).toBe(false);
-      // Expand "Row 1"
-      ctrl.expanderClick(rows[0], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].expanded).toBe(true);
-          expect(rows[1].level).toBe(1);
-          expect(rows[1].canExpand).toBe(false);
-          expect(rows[1].expanded).toBe(false);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
-        })
-        // Expand "Row 2" (should do nothing)
-        .then(function() { return ctrl.expanderClick(rows[2], DummyEvent); })
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should format values with provided function", function() {
-      var ctrl = instantiateController({
+    it("should format values with provided function", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: []
@@ -169,31 +179,35 @@ describe('treegrid', function () {
         }],
         columns: [{
           name: "format test",
-          value: function(item) {
+          value: function (item) {
             return item.test.replace("Row", "Formatted");
           }
         }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        expect(rows[0].api.getValueForColumn(0)).toBe("Formatted 1");
+        expect(rows[1].api.getValueForColumn(0)).toBe("Formatted 2");
+        done();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      expect(rows[0].api.getValueForColumn(0)).toBe("Formatted 1");
-      expect(rows[1].api.getValueForColumn(0)).toBe("Formatted 2");
     });
 
-    it("should show nothing if property is missing", function() {
-      var ctrl = instantiateController({
+    it("should show nothing if property is missing", function (done) {
+      instantiateController({
         data: [{
           nodes: []
         }],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(1);
+        expect(rows[0].api.getValueForColumn(0)).toBe("");
+        done();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(1);
-      expect(rows[0].api.getValueForColumn(0)).toBe("");
     });
 
-    it("should limit expansion depth to the configured maxDepth", function(done) {
-      var ctrl = instantiateController({
+    it("should limit expansion depth to the configured maxDepth", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [{
@@ -209,40 +223,41 @@ describe('treegrid', function () {
         }],
         columns: [{ name: "test", value: "test" }],
         options: { maxDepth: 2 }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(1);
+        expect(rows[0].level).toBe(0);
+        expect(rows[0].canExpand).toBe(true);
+        // Expand "Row 1"
+        ctrl.expanderClick(rows[0], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(2);
+            expect(rows[1].level).toBe(1);
+            expect(rows[1].canExpand).toBe(true);
+          })
+          // Expand "Row 1.1"
+          .then(function () { return ctrl.expanderClick(rows[1], DummyEvent); })
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[2].level).toBe(2);
+            expect(rows[2].canExpand).toBe(false);
+          })
+          // Expand "Row 1.1.1" (should do nothing)
+          .then(function () { return ctrl.expanderClick(rows[2], DummyEvent); })
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(1);
-      expect(rows[0].level).toBe(0);
-      expect(rows[0].canExpand).toBe(true);
-      // Expand "Row 1"
-      ctrl.expanderClick(rows[0], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(2);
-          expect(rows[1].level).toBe(1);
-          expect(rows[1].canExpand).toBe(true);
-        })
-        // Expand "Row 1.1"
-        .then(function() { return ctrl.expanderClick(rows[1], DummyEvent); })
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[2].level).toBe(2);
-          expect(rows[2].canExpand).toBe(false);
-        })
-        // Expand "Row 1.1.1" (should do nothing)
-        .then(function() { return ctrl.expanderClick(rows[2], DummyEvent); })
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should should sort according to sort option", function() {
-      var ctrl = instantiateController({
+    it("should should sort according to sort option", function (done) {
+      instantiateController({
         data: [{
           test: "Row 2",
           num: 1,
@@ -272,30 +287,32 @@ describe('treegrid', function () {
           value: "num"
         }],
         options: {
-          sort: function(a, b) {
+          sort: function (a, b) {
             // Sort by 'test' ascending
             var at = a.dataItem.test;
             var bt = b.dataItem.test;
             return at < bt ? -1 : (at > bt ? 1 : 0);
           }
         }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(5);
+        expect(rows[0].api.getValueForColumn(0)).toBe("");
+        expect(rows[0].api.getValueForColumn(1)).toBe(5);
+        expect(rows[1].api.getValueForColumn(0)).toBe("A");
+        expect(rows[1].api.getValueForColumn(1)).toBe(3);
+        expect(rows[2].api.getValueForColumn(0)).toBe("AA");
+        expect(rows[2].api.getValueForColumn(1)).toBe(4);
+        expect(rows[3].api.getValueForColumn(0)).toBe("Row 1");
+        expect(rows[3].api.getValueForColumn(1)).toBe(2);
+        expect(rows[4].api.getValueForColumn(0)).toBe("Row 2");
+        expect(rows[4].api.getValueForColumn(1)).toBe(1);
+        done();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(5);
-      expect(rows[0].api.getValueForColumn(0)).toBe("");
-      expect(rows[0].api.getValueForColumn(1)).toBe(5);
-      expect(rows[1].api.getValueForColumn(0)).toBe("A");
-      expect(rows[1].api.getValueForColumn(1)).toBe(3);
-      expect(rows[2].api.getValueForColumn(0)).toBe("AA");
-      expect(rows[2].api.getValueForColumn(1)).toBe(4);
-      expect(rows[3].api.getValueForColumn(0)).toBe("Row 1");
-      expect(rows[3].api.getValueForColumn(1)).toBe(2);
-      expect(rows[4].api.getValueForColumn(0)).toBe("Row 2");
-      expect(rows[4].api.getValueForColumn(1)).toBe(1);
     });
 
-    it("should should sort dates correctly", function() {
-      var ctrl = instantiateController({
+    it("should should sort dates correctly", function (done) {
+      instantiateController({
         data: [{
           test: new Date('2015-08-03'),
           nodes: []
@@ -311,24 +328,26 @@ describe('treegrid', function () {
         }],
         columns: [{ name: "test", value: "test" }],
         options: {
-          sort: function(a, b) {
+          sort: function (a, b) {
             // Sort by 'test' ascending
             var at = a.dataItem.test;
             var bt = b.dataItem.test;
             return at < bt ? -1 : (at > bt ? 1 : 0);
           }
         }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(4);
+        expect(rows[0].api.getValueForColumn(0)).toEqual(new Date('2014-08-03'));
+        expect(rows[1].api.getValueForColumn(0)).toEqual(new Date('2015-01-01'));
+        expect(rows[2].api.getValueForColumn(0)).toEqual(new Date('2015-03-08'));
+        expect(rows[3].api.getValueForColumn(0)).toEqual(new Date('2015-08-03'));
+        done();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(4);
-      expect(rows[0].api.getValueForColumn(0)).toEqual(new Date('2014-08-03'));
-      expect(rows[1].api.getValueForColumn(0)).toEqual(new Date('2015-01-01'));
-      expect(rows[2].api.getValueForColumn(0)).toEqual(new Date('2015-03-08'));
-      expect(rows[3].api.getValueForColumn(0)).toEqual(new Date('2015-08-03'));
     });
 
-    it("should should sort child rows independently", function(done) {
-      var ctrl = instantiateController({
+    it("should should sort child rows independently", function (done) {
+      instantiateController({
         data: [{
           test: "D",
           nodes: []
@@ -344,34 +363,35 @@ describe('treegrid', function () {
         }],
         columns: [{ name: "test", value: "test" }],
         options: {
-          sort: function(a, b) {
+          sort: function (a, b) {
             // Sort by 'test' ascending
             var at = a.dataItem.test;
             var bt = b.dataItem.test;
             return at < bt ? -1 : (at > bt ? 1 : 0);
           }
         }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        expect(rows[0].api.getValueForColumn(0)).toBe("C");
+        // Expand "C"
+        ctrl.expanderClick(rows[0], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(4);
+            expect(rows[0].api.getValueForColumn(0)).toBe("C");
+            expect(rows[1].api.getValueForColumn(0)).toBe("A");
+            expect(rows[2].api.getValueForColumn(0)).toBe("B");
+            expect(rows[3].api.getValueForColumn(0)).toBe("D");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      expect(rows[0].api.getValueForColumn(0)).toBe("C");
-      // Expand "C"
-      ctrl.expanderClick(rows[0], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(4);
-          expect(rows[0].api.getValueForColumn(0)).toBe("C");
-          expect(rows[1].api.getValueForColumn(0)).toBe("A");
-          expect(rows[2].api.getValueForColumn(0)).toBe("B");
-          expect(rows[3].api.getValueForColumn(0)).toBe("D");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should use the rowClass property to apply a class to the table row", function(done) {
-      var ctrl = instantiateController({
+    it("should use the rowClass property to apply a class to the table row", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           myClass: "medium",
@@ -385,28 +405,29 @@ describe('treegrid', function () {
         }],
         columns: [{ name: "test", value: "test" }],
         options: { rowClass: "myClass" }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        // Expand "Row 2"
+        ctrl.expanderClick(rows[1], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
+            expect(rows[0].rowClass).toBe("medium");
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+            expect(rows[1].rowClass).toBe(null);
+            expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
+            expect(rows[2].rowClass).toBe("high");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      // Expand "Row 2"
-      ctrl.expanderClick(rows[1], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
-          expect(rows[0].rowClass).toBe("medium");
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
-          expect(rows[1].rowClass).toBe(null);
-          expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
-          expect(rows[2].rowClass).toBe("high");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should use the rowClass function to apply a class to the table row", function(done) {
-      var ctrl = instantiateController({
+    it("should use the rowClass function to apply a class to the table row", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: []
@@ -418,36 +439,37 @@ describe('treegrid', function () {
         }],
         columns: [{ name: "test", value: "test" }],
         options: {
-          rowClass: function(dataItem) {
+          rowClass: function (dataItem) {
             return dataItem.test.toLowerCase().replace(/[^\w]/g, '-');
           }
         }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        // Expand "Row 2"
+        ctrl.expanderClick(rows[1], DummyEvent)
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
+            expect(rows[0].rowClass).toBe("row-1");
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+            expect(rows[1].rowClass).toBe("row-2");
+            expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
+            expect(rows[2].rowClass).toBe("row-2-1");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      // Expand "Row 2"
-      ctrl.expanderClick(rows[1], DummyEvent)
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
-          expect(rows[0].rowClass).toBe("row-1");
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
-          expect(rows[1].rowClass).toBe("row-2");
-          expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
-          expect(rows[2].rowClass).toBe("row-2-1");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
   });
 
-  describe("api", function() {
+  describe("api", function () {
 
-    it("should expand child rows on expand() call", function(done) {
-      var ctrl = instantiateController({
+    it("should expand child rows on expand() call", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [{
@@ -458,27 +480,28 @@ describe('treegrid', function () {
           nodes: []
         }],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        // Expand "Row 1"
+        rows[0].api.expand()
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].expanded).toBe(true);
+            expect(rows[1].level).toBe(1);
+            expect(rows[1].canExpand).toBe(false);
+            expect(rows[1].expanded).toBe(false);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      // Expand "Row 1"
-      rows[0].api.expand()
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].expanded).toBe(true);
-          expect(rows[1].level).toBe(1);
-          expect(rows[1].canExpand).toBe(false);
-          expect(rows[1].expanded).toBe(false);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
-    it("should contract child rows on contract() call", function(done) {
-      var ctrl = instantiateController({
+    it("should contract child rows on contract() call", function (done) {
+      instantiateController({
         data: [{
           test: "Row 1",
           nodes: [{
@@ -489,33 +512,34 @@ describe('treegrid', function () {
           nodes: []
         }],
         columns: [{ name: "test", value: "test" }]
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(2);
+        // Expand "Row 1"
+        rows[0].api.expand()
+          .then(function () {
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(3);
+            expect(rows[0].expanded).toBe(true);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
+          })
+          // Contract "Row 1"
+          .then(function () {
+            rows[0].api.contract();
+            rows = ctrl.getGridRows();
+            expect(rows.length).toBe(2);
+            expect(rows[0].expanded).toBe(false);
+            expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+          })
+          .catch(failTest)
+          .finally(done);
+        $rootScope.$apply();
       });
-      var rows = ctrl.getGridRows();
-      expect(rows.length).toBe(2);
-      // Expand "Row 1"
-      rows[0].api.expand()
-        .then(function () {
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(3);
-          expect(rows[0].expanded).toBe(true);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 1.1");
-        })
-        // Contract "Row 1"
-        .then(function () {
-          rows[0].api.contract();
-          rows = ctrl.getGridRows();
-          expect(rows.length).toBe(2);
-          expect(rows[0].expanded).toBe(false);
-          expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
-        })
-        .catch(failTest)
-        .finally(done);
-      $rootScope.$apply();
     });
 
   });
 
-  function instantiateController(props) {
+  function instantiateController(props, callback) {
 
     // create a new scope
     $scope = $rootScope.$new();
@@ -539,8 +563,14 @@ describe('treegrid', function () {
     // perform initial digest
     $scope.$digest();
 
-    return ctrl;
-}
+    const initFunction = ctrl.onInit;
+
+    // wait for the component to initialise
+    ctrl.onInit = function () {
+      initFunction();
+      callback(ctrl);
+    };
+  }
 
   function failTest(error) {
     expect(error).toBeUndefined();

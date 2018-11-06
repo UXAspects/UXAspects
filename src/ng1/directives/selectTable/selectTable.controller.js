@@ -100,12 +100,13 @@ export default class SelectTableController {
 
             // if the item is selected but not visible then we should deselect it
             if (this.selected && !this.isVisible(this.selected)) {
-                this.deselect(this.selected);
 
                 // if we want to restore previously selected items if they become visible again, store it
                 if (this._reselectFilteredItems) {
                     this._filteredSelection = this.selected;
                 }
+
+                this.deselect(this.selected);
             }
 
             // if the item was previously selected and we want to restore selected items then reselect it

@@ -82,8 +82,8 @@ describe('tree view', function () {
   });
 
   it('should assign the correct names to the nodes', function () {
-    expect(element.find('.title-readonly:first').text()).toBe("Documents");
-    expect(element.find('.title-readonly:last').text()).toBe("Alcazar");
+    expect(element.find('.title-readonly:first').text().trim()).toBe("Documents");
+    expect(element.find('.title-readonly:last').text().trim()).toBe("Alcazar");
   });
 
   it('should have the correct icon when showing or hiding children', function () {
@@ -129,22 +129,22 @@ describe('tree view', function () {
   });
 
   it('should add a new item', function () {
-    expect(element.find('.title-readonly:last').text()).toBe("Alcazar");
+    expect(element.find('.title-readonly:last').text().trim()).toBe("Alcazar");
     element.find('li:first ol:first .title-readonly:first').trigger("click");
     $scope.$digest();
     element.find('#add:first').trigger("click");
     $scope.$digest();
-    expect(element.find('.title-readonly:last').text()).toBe("New User Defined Item");
+    expect(element.find('.title-readonly:last').text().trim()).toBe("New User Defined Item");
   });
 
   it('should delete the last element', function (done) {
-    expect(element.find('.title-readonly:last').text()).toBe("Alcazar");
+    expect(element.find('.title-readonly:last').text().trim()).toBe("Alcazar");
     element.find('.title-readonly:last').trigger("click");
     $scope.$digest();
     element.find('#delete:first').trigger("click");
     $scope.$digest();
     $timeout(function () {
-      expect(element.find('.title-readonly:last').text()).toBe("Pictures");
+      expect(element.find('.title-readonly:last').text().trim()).toBe("Pictures");
       done();
     });
     $timeout.flush();

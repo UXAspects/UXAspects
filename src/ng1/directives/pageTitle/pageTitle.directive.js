@@ -17,3 +17,5 @@ export default function pageTitle($rootScope) {
     }
   };
 }
+
+pageTitle.$inject = ['$rootScope'];
