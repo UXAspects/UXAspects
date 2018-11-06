@@ -1,20 +1,35 @@
 <div class="demo-chart-container">
+    <canvas aria-label="Horizontal bar chart showing file type totals"
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [colors]="barChartColors"
+        chartType="horizontalBar">
 
-    <canvas baseChart 
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [colors]="barChartColors"
-            chartType="horizontalBar">
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>File Type</th>
+                    <th>Number of Files</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of barChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>{{barChartData[0].data[idx]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
-
 </div>
 
 <hr>
 
 <p>
-    Horizontal Bar Charts can be added using the <code>ng2-charts</code> library. 
+    Horizontal Bar Charts can be added using the <code>ng2-charts</code> library.
     The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code> needs to be added to the appropriate NgModule.
 </p>
 
@@ -75,7 +90,7 @@
 
     <p class="m-b-nil">
         <b>Dependencies: </b>
-        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>, 
+        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>,
         <a class="hyperlink" href="https://www.npmjs.com/package/chart.js">chart.js</a>
     </p>
 
@@ -92,7 +107,7 @@
 
     <p class="m-b-nil">
         <b>Documentation: </b>
-        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>, 
+        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>,
         <a class="hyperlink" href="http://www.chartjs.org/docs/">Chart Library Documentation</a>
     </p>
 </blockquote>

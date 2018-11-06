@@ -1,12 +1,33 @@
 <div class="demo-chart-container-stack">
 
-    <canvas baseChart 
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [colors]="barChartColors"
-            chartType="bar">
+    <canvas aria-label="Stacked bar chart showing financial breakdown"
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [colors]="barChartColors"
+        chartType="bar">
+
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Marketing</th>
+                    <th>R&amp;D</th>
+                    <th>Logistics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of barChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>&euro;{{barChartData[0].data[idx]}}</td>
+                    <td>&euro;{{barChartData[1].data[idx]}}</td>
+                    <td>&euro;{{barChartData[2].data[idx]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
 
 </div>
@@ -14,7 +35,7 @@
 <hr>
 
 <p>
-    Stacked Bar Charts can be added using the <code>ng2-charts</code> library. 
+    Stacked Bar Charts can be added using the <code>ng2-charts</code> library.
     The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code> needs to be added to the appropriate NgModule.
 </p>
 
@@ -75,7 +96,7 @@
 
     <p class="m-b-nil">
         <b>Dependencies: </b>
-        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>, 
+        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>,
         <a class="hyperlink" href="https://www.npmjs.com/package/chart.js">chart.js</a>
     </p>
 
@@ -92,7 +113,7 @@
 
     <p class="m-b-nil">
         <b>Documentation: </b>
-        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>, 
+        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>,
         <a class="hyperlink" href="http://www.chartjs.org/docs/">Chart Library Documentation</a>
     </p>
 </blockquote>

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
@@ -14,8 +15,6 @@ import { ChartsHorizontalBarChartNg1Component } from './horizontal-bar-chart-ng1
 import { ChartsHorizontalBarChartComponent } from './horizontal-bar-chart/horizontal-bar-chart.component';
 import { ChartsStackedBarChartNg1Component } from './stacked-bar-chart-ng1/stacked-bar-chart-ng1.component';
 import { ChartsStackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
-
-
 
 const SECTIONS = [
     ChartsBarChartComponent,
@@ -38,6 +37,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        CommonModule,
         DocumentationComponentsModule,
         TabsetModule,
         WrappersModule,
