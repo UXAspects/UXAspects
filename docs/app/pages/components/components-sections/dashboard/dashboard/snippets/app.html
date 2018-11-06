@@ -1,20 +1,50 @@
-<ux-dashboard class="customizable-dashboard" [options]="options">
+<ux-dashboard #dashboard
+    class="customizable-dashboard"
+    [class.dashboard-grabbing]="dashboard.isGrabbing"
+    [options]="options">
 
-    <ux-dashboard-widget id="analytics-1-widget" [colSpan]="4" [rowSpan]="2" [resizable]="true">
-        <div class="widget-content" uxDashboardWidgetDragHandle>
+    <ux-dashboard-widget id="analytics-1-widget"
+        name="Usage Analytics"
+        [colSpan]="4"
+        [rowSpan]="2"
+        [resizable]="true">
+
+        <div class="widget-content"
+            [class.widget-grabbing]="usageHandle.isGrabbing">
+
             <h3 class="widget-title">Usage Analytics</h3>
 
+            <button class="widget-grab-handle"
+                uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
+                #usageHandle="ux-dashboard-grab-handle">
+                <span class="hpe-icon hpe-pan"></span>
+            </button>
+
             <div class="widget-chart">
-                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" 
-                        [labels]="lineChartLabels" [legend]="lineChartLegend"
-                    [colors]="lineChartColors" chartType="line">
+                <canvas baseChart
+                    [datasets]="lineChartData"
+                    [options]="lineChartOptions"
+                    [labels]="lineChartLabels"
+                    [legend]="lineChartLegend"
+                    [colors]="lineChartColors"
+                    chartType="line">
                 </canvas>
             </div>
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="subscription-widget" [colSpan]="2">
-        <div class="widget-content" uxDashboardWidgetDragHandle>
+    <ux-dashboard-widget id="services-widget" name="Services" [colSpan]="2">
+        <div class="widget-content"
+            [class.widget-grabbing]="servicesHandle.isGrabbing">
+
+            <button class="widget-grab-handle"
+                uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
+                #servicesHandle="ux-dashboard-grab-handle">
+                <span class="hpe-icon hpe-pan"></span>
+            </button>
+
             <div class="dashboard-split-panel">
                 <div class="dashboard-section-large dashboard-section-divider">
                     <h3 class="widget-title">Service status</h3>
@@ -40,17 +70,28 @@
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="users-widget">
-        <div class="widget-content" uxDashboardWidgetDragHandle>
+    <ux-dashboard-widget id="users-widget" name="Users">
+        <div class="widget-content"
+            [class.widget-grabbing]="usersHandle.isGrabbing">
+
             <h3 class="widget-title">Users</h3>
+
+            <button class="widget-grab-handle"
+                uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
+                #usersHandle="ux-dashboard-grab-handle">
+                <span class="hpe-icon hpe-pan"></span>
+            </button>
 
             <div class="widget-split">
                 <h1 class="text-count text-primary">5</h1>
                 <h1 class="text-count text-black">18</h1>
             </div>
 
-            <ux-spark [value]="28" [barHeight]="5" 
-                [trackColor]="colorService.getColor('grey6').toHex()"></ux-spark>
+            <ux-spark [value]="28"
+                [barHeight]="5"
+                [trackColor]="colorService.getColor('grey6').toHex()">
+            </ux-spark>
 
             <div class="widget-split">
                 <p class="text-label">Logged in</p>
@@ -60,9 +101,18 @@
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="alert-widget">
-        <div class="widget-content prominent" uxDashboardWidgetDragHandle>
+    <ux-dashboard-widget id="alert-widget" name="Alerts">
+        <div class="widget-content prominent"
+            [class.widget-grabbing]="alertHandle.isGrabbing">
+
             <h3 class="widget-title">Alert</h3>
+
+            <button class="widget-grab-handle"
+                uxDashboardGrabHandle
+                uxDashboardWidgetDragHandle
+                #alertHandle="ux-dashboard-grab-handle">
+                <span class="hpe-icon hpe-pan"></span>
+            </button>
 
             <p class="info-title">18 Dec, 2016 10:17 AM</p>
             <p class="info-value m-t text-black">

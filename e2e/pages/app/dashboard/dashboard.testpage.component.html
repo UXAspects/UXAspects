@@ -1,11 +1,17 @@
-<ux-dashboard id="dashboardWidgetContainer" class="customizable-dashboard" [options]="options">
+<ux-dashboard #dashboard id="dashboardWidgetContainer" class="customizable-dashboard" [class.dashboard-grabbing]="dashboard.isGrabbing" [options]="options">
 
-    <ux-dashboard-widget id="analytics-1-widget" colSpan="4" rowSpan="2" [resizable]="true">
-        <div class="widget-content" ux-dashboard-widget-drag-handle>
+    <ux-dashboard-widget id="analytics-1-widget" name="Usage Analytics" colSpan="4" rowSpan="2" [resizable]="true">
+        <div class="widget-content" [class.widget-grabbing]="usageHandle.isGrabbing" ux-dashboard-widget-drag-handle>
             <h3 class="widget-title">Usage Analytics</h3>
 
+            <button class="widget-grab-handle"
+                uxDashboardGrabHandle
+                #usageHandle="ux-dashboard-grab-handle">
+                <span class="hpe-icon hpe-pan"></span>
+            </button>
+
             <div class="widget-chart">
-                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" 
+                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions"
                         [labels]="lineChartLabels" [legend]="lineChartLegend"
                     [colors]="lineChartColors" chartType="line">
                 </canvas>
@@ -13,7 +19,7 @@
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="subscription-widget" colSpan="2">
+    <ux-dashboard-widget id="subscription-widget" name="Service" colSpan="2">
         <div class="widget-content" ux-dashboard-widget-drag-handle>
             <div class="dashboard-split-panel">
                 <div class="dashboard-section-large dashboard-section-divider">
@@ -40,7 +46,7 @@
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="users-widget">
+    <ux-dashboard-widget id="users-widget" name="Users">
         <div class="widget-content" ux-dashboard-widget-drag-handle>
             <h3 class="widget-title">Users</h3>
 
@@ -60,7 +66,7 @@
         </div>
     </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="alert-widget">
+    <ux-dashboard-widget id="alert-widget" name="Alert">
         <div class="widget-content prominent" ux-dashboard-widget-drag-handle>
             <h3 class="widget-title">Alert</h3>
 

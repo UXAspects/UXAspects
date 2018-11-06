@@ -2,6 +2,15 @@ ux-dashboard-widget {
     position: absolute;
     display: inline-block;
     overflow: hidden;
+    transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out;
+
+    &.dragging {
+        transition: transform 250ms ease-in-out;
+    }
+
+    &.grabbing {
+        transform: translateX(10px) translateY(10px);
+    }
 
     .widget-content {
         width: 100%;
@@ -79,5 +88,14 @@ ux-dashboard-widget {
             left: 0;
             z-index: 3;
         }
+    }
+
+    &.ux-dashboard-grabbing {
+        opacity: 0.5;
+    }
+
+    &.ux-dashboard-grabbing-active {
+        opacity: 1;
+        box-shadow: 0 0 0 5px rgba(0, 115, 231, 0.5);
     }
 }

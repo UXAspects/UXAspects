@@ -109,3 +109,30 @@
     font-weight: 300;
     font-size: 0.875rem;
 }
+
+.customizable-dashboard .widget-content .widget-grab-handle {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: move;
+}
+
+.customizable-dashboard.dashboard-grabbing .widget-content {
+    opacity: 0.5;
+}
+
+.customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing {
+    opacity: 1;
+    outline: 2px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+    box-shadow: 0 4px 10px 0 #999;
+    transition: box-shadow 250ms ease-in-out;
+}
+
+.customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing .widget-grab-handle {
+    outline: none;
+}
