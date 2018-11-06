@@ -301,11 +301,11 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     }
 
     /** Get the default announcement whenever a movement or resize was successful */
-    private getChangeSuccessAnnouncement(widget: DashboardWidgetComponent): string {
-        return `${this.getDiffAnnouncements(widget).join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
+    private getChangeSuccessAnnouncement(): string {
+        return `${this.getDiffAnnouncements().join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
     }
 
-    private getDiffAnnouncements(widget: DashboardWidgetComponent): string[] {
+    private getDiffAnnouncements(): string[] {
         // map the differences to strings
         return this.getLayoutDiff().map(diff => {
 
@@ -384,18 +384,18 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     /** Get the default announcement whenever grab mode is exited after a movement or resize */
     private getConfirmAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
-            return `Moving and resizing complete. ${this.getDiffAnnouncements(widget)}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Moving and resizing complete. ${ this.getDiffAnnouncements().join(' ') } ${ this.getAnnouncement(this.uxGrabAriaLabel) }`;
         } else if (widget.isDraggable && this.uxGrabAllowMove) {
-            return `Moving complete. ${this.getDiffAnnouncements(widget)} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Moving complete. ${ this.getDiffAnnouncements().join(' ') } ${ this.getAnnouncement(this.uxGrabAriaLabel) }`;
         } else if (widget.resizable && this.uxGrabAllowResize) {
-            return `Resizing complete. ${this.getDiffAnnouncements(widget)} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Resizing complete. ${ this.getDiffAnnouncements().join(' ') } ${ this.getAnnouncement(this.uxGrabAriaLabel) }`;
         }
     }
 
     /** Get the default announcement whenever grab mode is exited after being cancelled */
     private getCancellationAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
-            return `Moving and resizing cancelled. ${this.getDashboardAriaLabel()}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Moving and resizing cancelled. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         } else if (widget.isDraggable && this.uxGrabAllowMove) {
             return `Moving cancelled. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         } else if (widget.resizable && this.uxGrabAllowResize) {
@@ -427,6 +427,17 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
             // get previous position
             const previousLayout = cache.find(_widget => _widget.id === layout.id);
+
+            // ensure they are all numbers
+            layout.row = Number(layout.row);
+            layout.rowSpan = Number(layout.rowSpan);
+            layout.col = Number(layout.col);
+            layout.colSpan = Number(layout.colSpan);
+
+            previousLayout.row = Number(previousLayout.row);
+            previousLayout.rowSpan = Number(previousLayout.rowSpan);
+            previousLayout.column = Number(previousLayout.column);
+            previousLayout.columnSpan = Number(previousLayout.columnSpan);
 
             return {
                 widget,
