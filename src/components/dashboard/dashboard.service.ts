@@ -23,6 +23,7 @@ export class DashboardService implements OnDestroy {
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
     layout$ = new Subject<DashboardLayoutData[]>();
     stacked$ = new BehaviorSubject<boolean>(false);
+    isDragging$ = new BehaviorSubject<DashboardWidgetComponent>(null);
     isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
 
     get options(): DashboardOptions {
@@ -458,12 +459,17 @@ export class DashboardService implements OnDestroy {
         this.setWidgetOrigin();
 
         this.cacheWidgets();
+
+        // emit the widget we are dragging
+        this.isDragging$.next(action.widget);
     }
 
     onDragEnd(): void {
         this.onResizeEnd();
 
         this._widgetOrigin = {};
+
+        this.isDragging$.next(null);
     }
 
     onDrag(action: DashboardAction): void {
@@ -712,17 +718,11 @@ export class DashboardService implements OnDestroy {
         );
 
         if (performMove && moveable) {
-
             // move all widgets to the right
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
 
-            // find the target column
-            const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
-
             // move current widget to the right
-            if (column !== Infinity) {
-                widget.setColumn(column);
-            }
+            widget.setColumn(widget.getColumn() + 1);
         }
 
         return moveable;
@@ -1144,7 +1144,7 @@ export class DashboardService implements OnDestroy {
 
 
         // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
         // update widget position
         const { x, y } = this.placeholder$.value;
@@ -1217,7 +1217,7 @@ export class DashboardService implements OnDestroy {
         }
 
         if ((dimensions.x + dimensions.width) > this.getColumnWidth() * this.getColumnCount()) {
-            dimensions.width = this.getColumnWidth() * this.getColumnCount();
+            dimensions.width = widget.width;
         }
 
         // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
@@ -1236,7 +1236,7 @@ export class DashboardService implements OnDestroy {
         widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
         // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
         // the height of the dashboard may have changed after moving widgets
         this.setDashboardHeight();

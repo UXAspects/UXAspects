@@ -136,6 +136,7 @@
     outline: auto -webkit-focus-ring-color;
     outline-color: #00a7a2;
     outline-offset: 0;
+    box-shadow: 0 2px 20px 0 #ccc;
 }
 
 .customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing .widget-grab-handle {

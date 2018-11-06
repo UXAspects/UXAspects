@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 
@@ -25,6 +25,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.padding.px') padding: number = 0;
     @HostBinding('style.z-index') zIndex: number = 0;
     @HostBinding('attr.aria-label') ariaLabel: string;
+    @HostBinding('class.dragging') isDragging: boolean = false;
 
     isDraggable: boolean = false;
 
@@ -42,6 +43,14 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         // every time the layout changes we want to update the aria label
         dashboardService.layout$.pipe(takeUntil(this._onDestroy))
             .subscribe(() => this.ariaLabel = this.getAriaLabel());
+
+        // allow widget movements to be animated
+        dashboardService.isDragging$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
+            .subscribe(isDragging => this.isDragging = isDragging);
+
+        // allow widget movements to be animated
+        dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
+            .subscribe(isGrabbing => this.padding = isGrabbing ? this.dashboardService.options.padding + 5 : this.dashboardService.options.padding);
     }
 
     ngOnInit(): void {
@@ -160,6 +169,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
+        this.dashboardService.isGrabbing$.next(null);
         this.dashboardService.onResizeStart({ widget: this, direction, event, handle });
     }
 
