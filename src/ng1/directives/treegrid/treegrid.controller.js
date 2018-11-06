@@ -45,6 +45,18 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   vm.multipleSelectInstance = multipleSelectProvider.getComponentInstance(treegridId);
   vm.allSelected = false;
 
+  // private fields
+  vm._selected = [];
+  vm._subscription = null;
+
+  Object.defineProperty(vm, 'selected', {
+    set: selection => {
+      vm._selected = selection;
+      updateSelection(vm._selected);
+    },
+    get: () => vm._selected
+  });
+
   // Delay Initialising the function until we have all the inputs
   requestAnimationFrame(() => vm.onInit());
 
@@ -55,9 +67,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     // Watch for changes to the tree data and update the view when it changes
     $scope.$watch('vm.data', updateView, true);
 
-    // watch for changes to the selected items
-    $scope.$watch('vm.selected', updateSelection, true);
-
     // watch for changes to the options
     $scope.$watch('vm.options', nv => vm.allOptions = angular.extend({}, defaultOptions, nv), true);
 
@@ -67,11 +76,13 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       }
     }, true);
 
+    // watch for changes to select all
+    vm._subscription = vm.multipleSelectInstance.onSelectAll.subscribe(() =>
+      vm.selected = flatten(vm.treeData.map(data => data.dataItem))
+    );
+
     // Initial load of top-level items
     updateView();
-
-    // perform initial selection if there is any
-    updateSelection(vm.selected);
 
     if (vm.selectionManager) {
       vm.selectionManager({ $selection: vm.multipleSelectInstance });
@@ -109,6 +120,10 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
 
   $scope.$on("$destroy", function () {
     vm.multipleSelectInstance.reset();
+
+    if (vm._subscription) {
+      vm._subscription.unsubscribe();
+    }
   });
 
   // Retrieves array for ng-repeat of grid rows
@@ -367,5 +382,25 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       return rowClassProperty(dataItem);
     }
     return null;
+  }
+
+  function flatten(nodes, list) {
+    if (!list) {
+      list = [];
+    }
+
+    if (!nodes) {
+      return list;
+    }
+
+    nodes.forEach(node => {
+      list.push(node);
+
+      if (node.nodes) {
+        flatten(node.nodes, list);
+      }
+    });
+
+    return list;
   }
 }

@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs/Subject';
+
 export default function multipleSelectProvider() {
 
     multipleSelectFactory.$inject = ["$timeout"];
@@ -51,6 +53,9 @@ class MultipleSelect {
         this.keyFn = null;
         this.nextComponentId = 0;
         this.componentInstances = {};
+
+        // emit whenever the selection changes
+        this.onSelectAll = new Subject();
     }
 
     getNextComponentId() {
@@ -149,6 +154,9 @@ class MultipleSelect {
         this.selectAllTotal = this.total;
         this.updateCount();
         this.onSelect({ item: null });
+
+        // emit the select all event
+        this.onSelectAll.next();
     }
 
     isSelected(item) {
