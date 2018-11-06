@@ -1,6 +1,6 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
 SEPG_BUILD_ENV_IMAGE=cafinternal/prereleases:buildenv-1.0.0-SNAPSHOT
-GENERIC_PRERELEASE_REPO=http://rh7-artifactory.svs.hpeswlab.net:8081/artifactory/npm-dev-local
-GENERIC_ARTIFACTS_FOLDER_NAME=target/artifactory
-GENERIC_FILETYPES_TO_DEPLOY=tgz
-GENERIC_SUPPRESS_BUILDNUMBER_FOLDER=true
+
+GENERIC_TARGET_URL=${genericRepoMgr}/npm-dev-local/${path}/${filename}
+GENERIC_ARTIFACTS=target/artifactory/**/*.tgz
+GENERIC_EXPECTED_ARTIFACT_COUNT=2
