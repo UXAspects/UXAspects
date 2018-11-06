@@ -26,6 +26,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.z-index') zIndex: number = 0;
     @HostBinding('attr.aria-label') ariaLabel: string;
     @HostBinding('class.dragging') isDragging: boolean = false;
+    @HostBinding('class.grabbing') isGrabbing: boolean = false;
 
     isDraggable: boolean = false;
 
@@ -50,7 +51,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
         // allow widget movements to be animated
         dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
-            .subscribe(isGrabbing => this.padding = isGrabbing ? this.dashboardService.options.padding + 5 : this.dashboardService.options.padding);
+            .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
     }
 
     ngOnInit(): void {

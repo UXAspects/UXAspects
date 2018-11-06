@@ -2,10 +2,14 @@ ux-dashboard-widget {
     position: absolute;
     display: inline-block;
     overflow: hidden;
-    transition: padding 100ms linear, top 250ms ease-in-out, left 250ms ease-in-out;
+    transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out;
 
     &.dragging {
-        transition: padding 100ms linear;
+        transition: transform 250ms ease-in-out;
+    }
+
+    &.grabbing {
+        transform: translateX(10px) translateY(10px);
     }
 
     .widget-content {

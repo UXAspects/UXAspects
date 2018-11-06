@@ -217,9 +217,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             this._announcer.announce(this.getAnnouncement(this.uxGrabMoveFailAnnouncement, this.getDirectionFromKey(key)));
         }
 
-        // store the current layout
-        this._lastMovement = this._dashboard.cacheWidgets();
-
         event.preventDefault();
         event.stopPropagation();
     }
@@ -243,9 +240,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         } else {
             this._announcer.announce(this.getAnnouncement(this.uxGrabResizeFailAnnouncement, this.getDirectionFromKey(key)));
         }
-
-        // store the current layout
-        this._lastMovement = this._dashboard.cacheWidgets();
 
         event.preventDefault();
         event.stopPropagation();
@@ -307,10 +301,13 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     }
 
     /** Get the default announcement whenever a movement or resize was successful */
-    private getChangeSuccessAnnouncement(widget: DashboardWidgetComponent, differences: DashboardLayoutDiff[]): string {
+    private getChangeSuccessAnnouncement(widget: DashboardWidgetComponent): string {
+        return `${this.getDiffAnnouncements(widget).join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
+    }
 
+    private getDiffAnnouncements(widget: DashboardWidgetComponent): string[] {
         // map the differences to strings
-        const announcements = differences.map(diff => {
+        return this.getLayoutDiff().map(diff => {
 
             const changes: string[] = [];
 
@@ -334,8 +331,6 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
             return `${diff.widget.name} panel is ${changes.join(' and ')}.`;
         });
-
-        return `${announcements.join(' ')} Use the cursor keys to continue moving and resizing, enter to commit, or escape to cancel.`;
     }
 
     /** Get the default announcement whenever a movement is not possible due to dashboard boundaries */
@@ -389,11 +384,11 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     /** Get the default announcement whenever grab mode is exited after a movement or resize */
     private getConfirmAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
-            return `Moving and resizing complete. ${this.getDashboardAriaLabel()}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Moving and resizing complete. ${this.getDiffAnnouncements(widget)}. ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         } else if (widget.isDraggable && this.uxGrabAllowMove) {
-            return `Moving complete. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Moving complete. ${this.getDiffAnnouncements(widget)} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         } else if (widget.resizable && this.uxGrabAllowResize) {
-            return `Resizing complete. ${this.getDashboardAriaLabel()} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
+            return `Resizing complete. ${this.getDiffAnnouncements(widget)} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         }
     }
 

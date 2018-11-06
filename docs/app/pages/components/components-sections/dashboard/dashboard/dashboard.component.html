@@ -189,6 +189,44 @@
     <tr uxd-api-property name="resizable" type="boolean">Defines whether or not this widget can be resized.</tr>
 </uxd-api-properties>
 
+<p>
+    The <code>uxDashboardGrabHandle</code> directive can be used to provide keyboard accessibility and screen reader feedback for your dashboard widgets.
+    Simply add the directive to any element within the widget. Focusing on this element and pressing the space key which enable "grab" mode
+    which will allow the user to position or resize the widget. Pressing the space key again would confirm the changes, pressing escape would revert the changes.
+</p>
+
+<p>The following inputs can be used to configure the <code>uxDashboardGrabHandle</code> directive:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxGrabAllowMove" type="boolean" defaultValue="true">
+        Specify whether or not this grab handle allows moving the widget.
+    </tr>
+    <tr uxd-api-property name="uxGrabAllowResize" type="boolean" defaultValue="true">
+        Specify whether or not this grab handle allows resizing the widget if the widget can be resized.
+    </tr>
+    <tr uxd-api-property name="uxGrabAriaLabel" type="(widget: DashboardWidgetComponent) => string | string">
+        Specify the aria label for the grab handle.
+    </tr>
+    <tr uxd-api-property name="uxGrabChangeSuccessAnnouncement" type="(widget: DashboardWidgetComponent, differences: DashboardLayoutDiff[]) => string | string">
+        Specify the announcement that is made whenever an item has successfully been moved or resized.
+    </tr>
+    <tr uxd-api-property name="uxGrabStartAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
+        Specify the announcement that is made whenever an item enters 'grab' mode.
+    </tr>
+    <tr uxd-api-property name="uxGrabMoveFailAnnouncement" type="(widget: DashboardWidgetComponent, direction: ActionDirection) => string | string">
+        Specify the announcement that is made whenever an item cannot be moved.
+    </tr>
+    <tr uxd-api-property name="uxGrabResizeFailAnnouncement" type="(widget: DashboardWidgetComponent, direction: ActionDirection) => string | string">
+        Specify the announcement thqt is made whenever an item cannot be resized.
+    </tr>
+    <tr uxd-api-property name="uxGrabConfirmAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
+        Specify the announcement made whenever the moving/resizing is commited.
+    </tr>
+    <tr uxd-api-property name="uxGrabCancelAnnouncement" type="(widget: DashboardWidgetComponent) => string | string">
+        Specify the announcement made whenever the moving/resizing is cancelled.
+    </tr>
+</uxd-api-properties>
+
 <p>The following code can be used to create the example above.</p>
 
 <ux-tabset [minimal]="false">
