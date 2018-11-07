@@ -1,12 +1,29 @@
 <div class="demo-chart-container">
 
-    <canvas baseChart 
-            [datasets]="donutChartData"
-            [labels]="donutChartLabels"
-            [options]="donutChartOptions"
-            [legend]="donutChartLegend"
-            [colors]="donutChartColors"
-            chartType="doughnut">
+    <canvas aria-label="Donut chart showing sales"
+        baseChart
+        [datasets]="donutChartData"
+        [labels]="donutChartLabels"
+        [options]="donutChartOptions"
+        [legend]="donutChartLegend"
+        [colors]="donutChartColors"
+        chartType="doughnut">
+
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>Sales</th>
+                    <th>Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of donutChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>{{donutChartData[0].data[idx]}}%</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
 
 </div>
@@ -14,11 +31,9 @@
 <hr>
 
 <p>
-    Donut Charts can be added using the <code>ng2-charts</code> library. 
+    Donut Charts can be added using the <code>ng2-charts</code> library.
     The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code> needs to be added to the appropriate NgModule.
 </p>
-
-<br>
 
 <p>The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the following attributes can be used to customize the chart behavior and appearance:</p>
 
@@ -75,7 +90,7 @@
 
     <p class="m-b-nil">
         <b>Dependencies: </b>
-        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>, 
+        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>,
         <a class="hyperlink" href="https://www.npmjs.com/package/chart.js">chart.js</a>
     </p>
 
@@ -92,7 +107,7 @@
 
     <p class="m-b-nil">
         <b>Documentation: </b>
-        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>, 
+        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>,
         <a class="hyperlink" href="http://www.chartjs.org/docs/">Chart Library Documentation</a>
     </p>
 </blockquote>

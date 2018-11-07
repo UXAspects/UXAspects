@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
@@ -11,7 +12,6 @@ import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ChartsDonutChartNg1Component } from './donut-chart-ng1/donut-chart-ng1.component';
 import { ChartsDonutChartComponent } from './donut-chart/donut-chart.component';
 import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nested-donut-chart-ng1.component';
-
 
 const SECTIONS = [
     ChartsDonutChartNg1Component,
@@ -31,13 +31,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        ChartsModule,
+        ColorServiceModule,
+        CommonModule,
         DocumentationComponentsModule,
+        HybridModule,
+        RouterModule.forChild(ROUTES),
         TabsetModule,
         WrappersModule,
-        HybridModule,
-        ChartsModule,
-        RouterModule.forChild(ROUTES),
-        ColorServiceModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

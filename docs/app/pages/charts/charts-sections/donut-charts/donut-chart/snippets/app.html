@@ -1,12 +1,29 @@
 <div class="demo-chart-container">
 
-    <canvas baseChart 
-            [datasets]="donutChartData"
-            [labels]="donutChartLabels"
-            [options]="donutChartOptions"
-            [legend]="donutChartLegend"
-            [colors]="donutChartColors"
-            chartType="doughnut">
+    <canvas aria-label="Donut chart showing sales"
+        baseChart
+        [datasets]="donutChartData"
+        [labels]="donutChartLabels"
+        [options]="donutChartOptions"
+        [legend]="donutChartLegend"
+        [colors]="donutChartColors"
+        chartType="doughnut">
+
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>Sales</th>
+                    <th>Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of donutChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>{{donutChartData[0].data[idx]}}%</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
 
 </div>
