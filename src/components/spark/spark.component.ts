@@ -18,12 +18,14 @@ export class SparkComponent {
     @Input() bottomLeftLabel: string;
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
+    @Input('aria-label') ariaLabel: string;
+    @Input('aria-description') ariaDescription: string;
 
     private _trackColor: string;
-    private _theme: ColorIdentifier = 'primary';    
+    private _theme: ColorIdentifier = 'primary';
     private _barColor: string | string[] = [];
-    
-    @Input() 
+
+    @Input()
     set theme(value: string) {
         this._theme = this._colorService.resolveColorName(value);
     }
@@ -32,7 +34,7 @@ export class SparkComponent {
         return this._theme;
     }
 
-    @Input() 
+    @Input()
     set trackColor(value: string) {
         this._trackColor = this._colorService.resolve(value);
     }
@@ -41,7 +43,7 @@ export class SparkComponent {
         return this._trackColor;
     }
 
-    @Input() 
+    @Input()
     set barColor(value: string | string[]) {
 
         if (Array.isArray(value)) {

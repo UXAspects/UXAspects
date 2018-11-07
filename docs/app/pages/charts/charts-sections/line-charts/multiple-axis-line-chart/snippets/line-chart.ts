@@ -82,7 +82,7 @@ export class AppComponent implements AfterViewInit {
 
                 let sets = chart.data.datasets.map((dataset: Chart.ChartDataSets) => {
                     return `<li class="multi-axis-legend-list-item">
-                                <span class="multi-axis-legend-box" style="background-color: ${dataset.backgroundColor}; border-color: ${dataset.borderColor}"></span> 
+                                <span class="multi-axis-legend-box" style="background-color: ${dataset.backgroundColor}; border-color: ${dataset.borderColor}"></span>
                                 <span class="multi-axis-legend-text">${dataset.label}</span>
                             </li>`;
                 });
@@ -184,6 +184,10 @@ export class AppComponent implements AfterViewInit {
         setTimeout(() => {
             this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(this.baseChart.chart.generateLegend());
         });
+    }
+
+    formatDate(date: number): string {
+        return new Date(date).toLocaleDateString();
     }
 
 }
