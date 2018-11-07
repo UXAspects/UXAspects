@@ -82,17 +82,17 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
                     });
 
                     // Handler for row click, or external change to selection via multipleSelectProvider
-                    scope.$watch(function () {
-                        return multipleSelectInstance.isSelected(treeGridRow.dataItem);
-                    }, function (nv) {
-                        setSelected(treeGridRow, nv);
-                    });
+                    scope.$watch(() => multipleSelectInstance.isSelected(treeGridRow.dataItem), isSelected => setSelected(treeGridRow, isSelected));
+
+                    // watch for changes to the select all state
+                    const subscription = multipleSelectInstance.onSelectAll.subscribe(() => setSelected(treeGridRow, true));
 
                     scope.$on("destroy", function () {
                         element.off("click.multiSelect");
                         element.off("keydown.multiSelect");
                         element.off("receivedSelection.keyboardNavigableTable");
                         element.off("selectstart");
+                        subscription.unsubscribe();
                     });
                 }
             }
