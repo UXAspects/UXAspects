@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
@@ -14,7 +15,6 @@ import { ChartsMultipleAxisLineChartNg1Component } from './multiple-axis-line-ch
 import { ChartsMultipleAxisLineChartComponent } from './multiple-axis-line-chart/multiple-axis-line-chart.component';
 import { ChartsStackedLineChartNg1Component } from './stacked-line-chart-ng1/stacked-line-chart-ng1.component';
 import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
-
 
 const SECTIONS = [
     ChartsLineChartNg1Component,
@@ -37,13 +37,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsetModule,
-        WrappersModule,
-        HybridModule,
-        DocumentationComponentsModule,
         ChartsModule,
         ColorServiceModule,
-        RouterModule.forChild(ROUTES)
+        CommonModule,
+        DocumentationComponentsModule,
+        HybridModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

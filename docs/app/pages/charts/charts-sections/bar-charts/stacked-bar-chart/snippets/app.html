@@ -1,12 +1,33 @@
 <div class="demo-chart-container-stack">
 
-    <canvas baseChart 
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [colors]="barChartColors"
-            chartType="bar">
+    <canvas aria-label="Stacked bar chart showing financial breakdown"
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [colors]="barChartColors"
+        chartType="bar">
+
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Marketing</th>
+                    <th>R&amp;D</th>
+                    <th>Logistics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of barChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>&euro;{{barChartData[0].data[idx]}}</td>
+                    <td>&euro;{{barChartData[1].data[idx]}}</td>
+                    <td>&euro;{{barChartData[2].data[idx]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
 
 </div>

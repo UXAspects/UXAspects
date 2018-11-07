@@ -37,14 +37,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        ChartsModule,
+        ColorServiceModule,
         CommonModule,
         DocumentationComponentsModule,
+        HybridModule,
+        RouterModule.forChild(ROUTES),
         TabsetModule,
         WrappersModule,
-        HybridModule,
-        ChartsModule,
-        RouterModule.forChild(ROUTES),
-        ColorServiceModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
