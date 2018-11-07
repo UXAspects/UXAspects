@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs-compat/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../common/operators/tick.operator';
