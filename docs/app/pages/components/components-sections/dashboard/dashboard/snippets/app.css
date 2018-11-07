@@ -4,6 +4,7 @@
     box-shadow: 0 2px 10px 0 #ccc;
     padding: 15px;
     overflow: hidden;
+    transition: box-shadow 250ms ease-in-out;
 }
 
 .customizable-dashboard .widget-content .widget-grab-handle {
@@ -137,7 +138,6 @@
     outline-color: #00a7a2;
     outline-offset: 0;
     box-shadow: 0 4px 10px 0 #999;
-    transition: box-shadow 250ms ease-in-out;
 }
 
 .customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing .widget-grab-handle {
