@@ -116,7 +116,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     disableDragMode(): void {
         if (this.isGrabbing) {
             this._dashboard.isGrabbing$.next(null);
-
+            this._lastMovement = null;
             this._dashboard.onShiftEnd();
 
             // announce the confirmation
@@ -207,6 +207,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         // attempt to perform the move
         this._dashboard.onShift(this.widget, this.getDirectionFromKey(key));
 
+
         // get the announcable diff
         const changes = this.getLayoutDiff();
 
@@ -216,6 +217,8 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         } else {
             this._announcer.announce(this.getAnnouncement(this.uxGrabMoveFailAnnouncement, this.getDirectionFromKey(key)));
         }
+
+        this._lastMovement = this._dashboard.cacheWidgets();
 
         event.preventDefault();
         event.stopPropagation();
@@ -240,6 +243,8 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
         } else {
             this._announcer.announce(this.getAnnouncement(this.uxGrabResizeFailAnnouncement, this.getDirectionFromKey(key)));
         }
+
+        this._lastMovement = this._dashboard.cacheWidgets();
 
         event.preventDefault();
         event.stopPropagation();
@@ -384,11 +389,11 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
     /** Get the default announcement whenever grab mode is exited after a movement or resize */
     private getConfirmAnnouncement(widget: DashboardWidgetComponent): string {
         if (widget.isDraggable && widget.resizable && this.uxGrabAllowMove && this.uxGrabAllowResize) {
-            return `Moving and resizing complete. ${ this.getDiffAnnouncements().join(' ') } ${ this.getAnnouncement(this.uxGrabAriaLabel) }`;
+            return `Moving and resizing complete. ${this.getDiffAnnouncements().join(' ')} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         } else if (widget.isDraggable && this.uxGrabAllowMove) {
-            return `Moving complete. ${ this.getDiffAnnouncements().join(' ') } ${ this.getAnnouncement(this.uxGrabAriaLabel) }`;
+            return `Moving complete. ${this.getDiffAnnouncements().join(' ')} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         } else if (widget.resizable && this.uxGrabAllowResize) {
-            return `Resizing complete. ${ this.getDiffAnnouncements().join(' ') } ${ this.getAnnouncement(this.uxGrabAriaLabel) }`;
+            return `Resizing complete. ${this.getDiffAnnouncements().join(' ')} ${this.getAnnouncement(this.uxGrabAriaLabel)}`;
         }
     }
 
