@@ -1,9 +1,9 @@
 import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { SelectionService } from './selection.service';
-export declare class SelectionItemDirective implements OnInit, OnDestroy {
+export declare class SelectionItemDirective<T> implements OnInit, OnDestroy {
     private _selectionService;
     private _elementRef;
-    uxSelectionItem: any;
+    uxSelectionItem: T;
     selected: boolean;
     tabindex: number;
     selectedChange: EventEmitter<boolean>;
@@ -12,7 +12,7 @@ export declare class SelectionItemDirective implements OnInit, OnDestroy {
     private _selected;
     private _managedTabIndex;
     private _onDestroy;
-    constructor(_selectionService: SelectionService, _elementRef: ElementRef);
+    constructor(_selectionService: SelectionService<T>, _elementRef: ElementRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     click(event: MouseEvent): void;

@@ -1,7 +1,7 @@
 import { AfterViewInit, ElementRef, OnDestroy, QueryList } from '@angular/core';
+import { ResizeService } from '../../../directives/resize/index';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { ResizableTableService } from './resizable-table.service';
-import { ResizeService } from '../../../directives/resize/index';
 export declare class ResizableTableDirective implements AfterViewInit, OnDestroy {
     private _elementRef;
     private _table;

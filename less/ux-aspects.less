@@ -10204,7 +10204,6 @@ table {
 .list-hover-actions {
     position: relative;
     margin-top: 3px;
-    background-color: @table-hover-bg;
     box-shadow: -2px 0 4px @table-hover-bg;
 
     a.list-hover-action {
@@ -10430,7 +10429,6 @@ table {
         background-color: @shift-select-selected-light;
 
         & > td.item-actions .list-hover-actions {
-            background-color: @shift-select-selected-light;
             box-shadow: none;
         }
 
@@ -10441,7 +10439,6 @@ table {
             background-color: @shift-select-selected-hover-light;
 
             & > td.item-actions .list-hover-actions {
-                background-color: @shift-select-selected-hover-light;
                 box-shadow: none;
             }
         }
@@ -22101,6 +22098,16 @@ ux-dashboard-widget {
     position: absolute;
     display: inline-block;
     overflow: hidden;
+    transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out;
+
+    &.dragging {
+        transition: transform 250ms ease-in-out;
+    }
+
+    &.grabbing {
+        transform: translateX(10px) translateY(10px);
+        transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out;
+    }
 
     .widget-content {
         width: 100%;
@@ -22178,6 +22185,15 @@ ux-dashboard-widget {
             left: 0;
             z-index: 3;
         }
+    }
+
+    &.ux-dashboard-grabbing {
+        opacity: 0.5;
+    }
+
+    &.ux-dashboard-grabbing-active {
+        opacity: 1;
+        box-shadow: 0 0 0 5px rgba(0, 115, 231, 0.5);
     }
 }
 ux-date-time-picker {

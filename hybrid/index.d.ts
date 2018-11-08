@@ -18,14 +18,17 @@ export * from './components/select-table/select-table.component';
 export * from './components/slider-chart/slider-chart.directive';
 export * from './components/social-chart/social-chart.component';
 export * from './components/sort-direction-toggle/sort-direction-toggle.component';
-export * from './components/tree-grid/tree-grid.component';
 export * from './components/thumbnail/thumbnail.component';
+export * from './components/tree-grid/tree-grid.component';
+export * from './hybrid.module';
+export * from './services/navigation-menu/navigation-menu.interface';
 export * from './services/navigation-menu/navigation-menu.service';
-export * from './services/pdf/pdf.service';
-export * from './services/time-ago/time-ago.service';
+export * from './services/pdf/pdf.interface';
 /**
  * Export Interfaces
  */
-export { PdfOptions, PdfColumns, PdfDocument } from './services/pdf/pdf.interface';
+export { PdfColumns, PdfDocument, PdfOptions } from './services/pdf/pdf.interface';
+export * from './services/pdf/pdf.service';
+export * from './services/time-ago/time-ago.interface';
 export { TimeAgoLocalizedTimes } from './services/time-ago/time-ago.interface';
-export * from './hybrid.module';
+export * from './services/time-ago/time-ago.service';

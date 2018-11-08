@@ -1,14 +1,15 @@
+import { OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
-export declare class DashboardService {
+export declare class DashboardService implements OnDestroy {
     private _widgetOrigin;
     private _actionWidget;
     private _rowHeight;
     private _cache;
-    private _mouseEvent;
+    private _event;
     widgets$: BehaviorSubject<DashboardWidgetComponent[]>;
     options$: BehaviorSubject<DashboardOptions>;
     dimensions$: BehaviorSubject<DashboardDimensions>;
@@ -16,12 +17,17 @@ export declare class DashboardService {
     placeholder$: BehaviorSubject<DashboardPlaceholder>;
     layout$: Subject<DashboardLayoutData[]>;
     stacked$: BehaviorSubject<boolean>;
+    isDragging$: BehaviorSubject<DashboardWidgetComponent>;
+    isGrabbing$: BehaviorSubject<DashboardWidgetComponent>;
     readonly options: DashboardOptions;
     readonly widgets: DashboardWidgetComponent[];
     readonly stacked: boolean;
     readonly dimensions: DashboardDimensions;
     readonly columnWidth: number;
+    /** Unsubscribe from all observables on destroy */
+    private _onDestroy;
     constructor();
+    ngOnDestroy(): void;
     /**
      * Add a widget to the dashboard
      * @param widget The widget component to add to the dashboard
@@ -78,8 +84,8 @@ export declare class DashboardService {
     onDragEnd(): void;
     onDrag(action: DashboardAction): void;
     getRowHeight(): number;
-    cacheWidgets(): void;
-    restoreWidgets(ignoreActionWidget?: boolean): void;
+    cacheWidgets(): DashboardCache[];
+    restoreWidgets(ignoreActionWidget?: boolean, cache?: DashboardCache[], restoreSize?: boolean): void;
     /**
      * When dragging any widgets that need to be moved should be moved to an appropriate position
      */
@@ -171,10 +177,18 @@ export declare class DashboardService {
      * @param callback The function to be called for each space, should expect a column and row argument witht he context being the widget
      */
     forEachBlock(widget: DashboardWidgetComponent, callback: (column: number, row: number) => void): void;
+    getWidgetBelow(widget: DashboardWidgetComponent): DashboardWidgetComponent | null;
     /**
      * Returns the number of columns available
      */
     getColumnCount(): number;
+    onShiftStart(widget: DashboardWidgetComponent): void;
+    /** Programmatically move a widget in a given direction */
+    onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void;
+    onShiftEnd(): void;
+    /** Programmatically resize a widget in a given direction */
+    onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void;
+    getSurroundingWidgets(widget: DashboardWidgetComponent, direction: ActionDirection): DashboardWidgetComponent[];
 }
 export declare const defaultOptions: DashboardOptions;
 export interface DashboardDimensions {
@@ -190,7 +204,7 @@ export interface DashboardWidgetDimensions {
 export interface DashboardAction {
     widget: DashboardWidgetComponent;
     direction: ActionDirection;
-    event: MouseEvent;
+    event?: MouseEvent;
     handle?: HTMLElement;
 }
 export interface DashboardSpace {
@@ -213,6 +227,8 @@ export interface DashboardCache {
     id: string;
     column: number;
     row: number;
+    columnSpan: number;
+    rowSpan: number;
 }
 export interface DashboardLayoutData {
     id: string;

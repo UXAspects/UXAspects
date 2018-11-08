@@ -2,19 +2,19 @@ import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
 import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionMode, SelectionService } from './selection.service';
 import { SelectionStrategy } from './strategies/selection.strategy';
-export declare class SelectionDirective implements AfterContentInit, OnDestroy {
+export declare class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     private _selectionService;
     private _cdRef;
-    uxSelection: any[];
+    uxSelection: T[];
     disabled: boolean;
-    mode: SelectionMode | SelectionStrategy;
+    mode: SelectionMode | SelectionStrategy<T>;
     clickSelection: boolean;
     keyboardSelection: boolean;
     tabindex: number;
-    uxSelectionChange: EventEmitter<any[]>;
-    items: QueryList<SelectionItemDirective>;
+    uxSelectionChange: EventEmitter<T[]>;
+    items: QueryList<SelectionItemDirective<T>>;
     private _onDestroy;
-    constructor(_selectionService: SelectionService, _cdRef: ChangeDetectorRef);
+    constructor(_selectionService: SelectionService<T>, _cdRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**

@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.6.7 
+* @ux-aspects/ux-aspects-docs - v1.6.8 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -5483,7 +5483,6 @@ table.dataTable {
 .list-hover-actions {
   position: relative;
   margin-top: 3px;
-  background-color: #f5f5f5;
   box-shadow: -2px 0 4px #f5f5f5;
 }
 .list-hover-actions a.list-hover-action {
@@ -5767,7 +5766,6 @@ table.dataTable {
 }
 .table tr.shift-select-selected-bg > td.item-actions .list-hover-actions,
 .table tr.ux-selection-selected > td.item-actions .list-hover-actions {
-  background-color: #e7f1f9;
   box-shadow: none;
 }
 .table tr.shift-select-selected-bg:hover,
@@ -5788,7 +5786,6 @@ table.dataTable {
 .table tr.ux-selection-selected.child-focus > td.item-actions .list-hover-actions,
 .table tr.shift-select-selected-bg.ux-selection-focused > td.item-actions .list-hover-actions,
 .table tr.ux-selection-selected.ux-selection-focused > td.item-actions .list-hover-actions {
-  background-color: #daeaf5;
   box-shadow: none;
 }
 .table tr.shift-select-selected-bg.ux-selection-focused:focus,
@@ -15539,6 +15536,14 @@ ux-dashboard-widget {
   position: absolute;
   display: inline-block;
   overflow: hidden;
+  transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out;
+}
+ux-dashboard-widget.dragging {
+  transition: transform 250ms ease-in-out;
+}
+ux-dashboard-widget.grabbing {
+  transform: translateX(10px) translateY(10px);
+  transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out;
 }
 ux-dashboard-widget .widget-content {
   width: 100%;
@@ -15607,6 +15612,13 @@ ux-dashboard-widget .resizer-handle.handle-top-left {
   top: 0;
   left: 0;
   z-index: 3;
+}
+ux-dashboard-widget.ux-dashboard-grabbing {
+  opacity: 0.5;
+}
+ux-dashboard-widget.ux-dashboard-grabbing-active {
+  opacity: 1;
+  box-shadow: 0 0 0 5px rgba(0, 115, 231, 0.5);
 }
 ux-date-time-picker {
   display: block;

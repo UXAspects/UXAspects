@@ -11,6 +11,7 @@ export declare class TreeGridNg1Component extends UpgradeComponent {
     selectedChange: EventEmitter<any[]>;
     currentRowChange: EventEmitter<any>;
     treeDataChange: EventEmitter<TreeGridData[]>;
+    selectionManager: EventEmitter<any>;
     constructor(elementRef: ElementRef, injector: Injector);
 }
 export interface TreeGridColumn {

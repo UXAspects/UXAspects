@@ -1,5 +1,5 @@
 import { SelectionStrategy } from './selection.strategy';
-export declare class RowSelectionStrategy extends SelectionStrategy {
+export declare class RowSelectionStrategy<T> extends SelectionStrategy<T> {
     private _selection;
     /**
      * By default on shift click the browser will highlight
@@ -9,7 +9,7 @@ export declare class RowSelectionStrategy extends SelectionStrategy {
     /**
      * When a row is clicked we want to handle selection
      */
-    click(event: MouseEvent, data: any): void;
+    click(event: MouseEvent, data: T): void;
     /**
      * To support full keyboard control we need to support the following:
      * 1. Arrow keys to navigate up and down
@@ -17,12 +17,12 @@ export declare class RowSelectionStrategy extends SelectionStrategy {
      * 3. Shift + Arrow keys to multiple select
      * 4. Ctrl + Arrow keys to allow retained selection and navigation
      */
-    keydown(event: KeyboardEvent, data: any): void;
+    keydown(event: KeyboardEvent, data: T): void;
     /**
      * Override the standard toggle function to store or clear the
      * most recently selected item
      */
-    toggle(data: any, activate?: boolean): void;
+    toggle(data: T): void;
     /**
      * Clear all other selected items and select only
      * the most recently selected item
@@ -34,7 +34,7 @@ export declare class RowSelectionStrategy extends SelectionStrategy {
      * 2. If a start item has been selected - select all in between
      * 3. If a start and end item have been selected clear the range and then select the new range
      */
-    protected multipleSelect(data: any): void;
+    protected multipleSelect(data: T): void;
     /**
      * Set the selection start point. If there was previously a
      * selection end point then clear it as this is a new selection
@@ -59,7 +59,7 @@ export declare class RowSelectionStrategy extends SelectionStrategy {
      */
     private navigate(event, data);
 }
-export interface Selection {
-    start: any;
-    end: any;
+export interface Selection<T> {
+    start: T;
+    end: T;
 }

@@ -1,24 +1,30 @@
-import { OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { DashboardService, ActionDirection } from '../dashboard.service';
+import { AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { ActionDirection, DashboardService } from '../dashboard.service';
 export declare class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
     dashboardService: DashboardService;
     id: string;
+    name: string;
     col: number;
     row: number;
     colSpan: number;
     rowSpan: number;
     resizable: boolean;
+    widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string;
     x: number;
     y: number;
     width: number;
     height: number;
     padding: number;
     zIndex: number;
+    ariaLabel: string;
+    isDragging: boolean;
+    isGrabbing: boolean;
+    isDraggable: boolean;
     private _column;
     private _row;
     private _columnSpan;
     private _rowSpan;
-    private _subscription;
+    private _onDestroy;
     constructor(dashboardService: DashboardService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -48,6 +54,8 @@ export declare class DashboardWidgetComponent implements OnInit, AfterViewInit, 
     dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void;
     drag(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void;
     dragend(): void;
+    getAriaLabel(): string;
+    private getDefaultAriaLabel(widget);
     /**
      * Allows automatic setting of stackable value
      * @param property The current StackableValue object

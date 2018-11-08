@@ -9,6 +9,8 @@ export declare class SparkComponent {
     bottomLeftLabel: string;
     bottomRightLabel: string;
     tooltip: string;
+    ariaLabel: string;
+    ariaDescription: string;
     private _trackColor;
     private _theme;
     private _barColor;
