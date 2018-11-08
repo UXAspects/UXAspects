@@ -1,0 +1,273 @@
+<div class ="preview-display">
+    <div class='p-b-xs' style="margin-top: -10px;">Author - {{author}}</div>
+    <div ng-show="'{{documentName}}'.length>1" class='p-b-xs' style="margin-top: -10px;">Name - {{documentName}}</div>
+    <div class="p-b-xl ">
+                <spark type="vm.sparklabel.type" value="vm.sparklabel.percentComplete" fillheight="5" inline-label="vm.sparklabel.inlineLabel" top-left-label="vm.sparklabel.topLeftLabel"
+               class="col-md-4 col-sm-5" tooltip="{{vm.sparklabel.tooltip}}"></spark>
+
+    </div>
+<hr/>
+    <div style ="float:left;">
+<p>
+    Meridio Technical Note
+</p>
+<p>
+    <a name="_Toc361712653"></a>
+    <a name="KPosition"></a>
+    Change Document Category
+</p>
+<div>
+    <table cellspacing="0" cellpadding="0" hspace="0" vspace="0" width="387" align="left">
+        <tbody>
+        <tr>
+            <td valign="top" align="left">
+                <p>
+                    Issue: 0/1
+                </p>
+                <p>
+                    <a name="_Toc361712656">Author:</a>
+                    <a name="_Toc361712657"></a>
+                    Desmond Murphy
+                </p>
+                <p>
+                    <a name="_Toc361712654">Date:</a>
+                    9/5/2011
+                </p>
+                <p>
+                    Reference: Change Category
+                </p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<table cellpadding="0" cellspacing="0" align="left">
+    <tbody>
+    <tr>
+        <td width="55" height="778">
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <img width="272" height="50" src=""/>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<strong>
+    <br clear="all"/>
+</strong>
+<br clear="ALL"/>
+<div>
+    <h1>
+        <a name="_Toc4380332">Introduction</a>
+    </h1>
+</div>
+<p>
+    <a name="StartTyping"></a>
+    Currently the document category can only be set when a document is created, it cannot be modified after a document is created. The custom properties
+    assigned to a document depend on the category. Record Disposal Schedule chains are specific to a particular category and can only be applied to documents
+    belonging to that category. To enable users to change the category of an existing document/record in the Web/Outlook clients the following changes will be
+    made.
+</p>
+<h2>
+    General Client Changes
+</h2>
+<p>
+    Make category changeable in document/record properties page, present drop down list of available categories with current category selected. On changing
+    category, controls to enter the appropriate custom properties for the category will be displayed and will be initialised with values obtained from the new
+</p>
+<p>
+    DMWS method <strong>GetDocumentCustomPropertiesForNewCategory</strong>, described below.
+</p>
+<p>
+    If a Disposal Schedule chain is applied directly to a record then it must be related to the old category. When the category is changed for an existing
+    record then the Disposal Schedule chain must be set to a blank value, and the list of disposal Schedule chains in the drop down changed to ones matching
+    the new Category.
+</p>
+<h2>
+    Database Changes
+</h2>
+<p>
+    Make document categoryid property writable.
+</p>
+<p>
+    update KPROPERTY set ReadOnly = 0 where Object = 9 and Type = 1 and PropertyID = 15
+</p>
+<p>
+    The rm2PropertyDef entry for rm2vrecord.categoryId is already set as readOnly = 0
+</p>
+<p>
+    We need to create CustomProperty0000x rows for properties in the new category if they do not already exist. Code for setting custom properties must already
+    cope with creating CustomProperty0000x rows when required (e.g. new custom property created since custom props were last set requiring a new
+    CustomProperty0000x table) so there should be no extra work for this.
+</p>
+<p>
+    CategoryId is one of the properties stored in IDOL. We need to reindex documents in IDOL if category is changed. This will happen automatically provided
+    document modified sp called for property change.
+</p>
+<h2>
+    DMWS changes
+</h2>
+<p>
+    To change a category, the client will call the DMWS method ApplyChanges. The implementation of this method will be extended to look for a change in
+    category of an existing document specified in the DOCUMENTS table in the DMDataSet by checking the value of the existing newDocCategoryId field. The
+    newDocCategoryId field is currently only used when documents are created. We will not use the property PROP_categoryId as according to the DMWS naming
+    convention for fixed properties that property is readonly. We could change the name to PROP_W_categoryId but as this would break a lot of existing code
+    including custom clients we will leave the name as it is. In AppyChanges, if newDocCategoryId is set then the new value will be copied to PROP_categoryId
+    before the update is applied to SOAP. The new custom property values will be stored in the DMDataSet's DOCUMENT_CUSTOMPROPS table. When setting the custom
+    properties for the new category the rows in DOCUMENT_CUSTOMPROPS must be set to ROWState modified (not added) otherwise DMUpdateLib::extractPropertyChanges
+    will ignore the changes to the properties.
+</p>
+<p>
+    In the DMWS module DMUpdateLib the method getFixedPropertyChanges() filters out changes to properties not beginning with PROP_W or PROP_A. Change to allow
+    PROP_categoryId to be included as property that can be updated.
+</p>
+<p>
+    New method added to get custom properties for a document for a new category:
+</p>
+<p>
+    DMDataSet <strong>GetDocumentCustomPropertiesForNewCategory</strong> (uint docId, uint newCategoryId, uint containerId). This method will use a new stored
+    Procedure, also called G<strong>etDocumentCustomPropertiesForNewCategory, </strong>to determine the new custom property values. The DMWS will call this
+    Stored procedure directly, it will not go through SOAP. This method will inherit overlapping custom properties from the old category to new (any matching
+    category specific property with same name and type in both categories will be copied). It will leave global custom property values as they are. It will
+    re-inherit from parent container any custom properties in new category that match properties in container's custom properties if container/folder inherit
+    property is true and custom property does not match existing custom property with same name in the old category. If container is not known (indicated by
+    containerId = 0, perhaps due to launching properties from search results) inherit properties from first parent container found for the document if any.
+    Often, the document will be in only one container/folder. Custom property values will be returned in the DMDataSet's DOCUMENT_CUSTOMPROPS table, all other
+    tables will be empty.
+</p>
+<h2>
+    Web client
+</h2>
+<p>
+    Remove special casing from \source\libsrc\PropertyGroupController\PropertyGroupController.cs so that Category is presented as user editable dropdown in
+    both add and edit modes.
+</p>
+<p>
+    <u>CreateDocumentConfiguration</u>
+</p>
+<p>
+    propertyGroupDescription.Add(new PropertyItem("DOCUMENTS.Fixed.PROP_categoryName", false, PropertyItemType.Fixed), new DisplayMode[] {DisplayMode.Add});
+</p>
+<p>
+    propertyGroupDescription.Add(new PropertyItem("SPECIAL.DOCUMENTS.Fixed.PROP_categoryName", false, PropertyItemType.Fixed,
+    typeof(StringProperty).ToString()), new DisplayMode[] {DisplayMode.Edit});
+</p>
+<p>
+    becomes
+</p>
+<p>
+    propertyGroupDescription.Add(new PropertyItem("DOCUMENTS.Fixed.PROP_categoryName", false, PropertyItemType.Fixed), new DisplayMode[] {DisplayMode.Add    <strong>, DisplayMode.Edit </strong>});
+</p>
+<p>
+    <s>
+        propertyGroupDescription.Add(
+    </s>
+    <s>
+        new
+    </s>
+    <s>
+        PropertyItem("SPECIAL.DOCUMENTS.Fixed.PROP_categoryName",
+    </s>
+    <s>
+        false
+    </s>
+    <s>
+        , PropertyItemType.Fixed,
+    </s>
+    <s>
+        typeof
+    </s>
+    <s>
+        (StringProperty).ToString()),
+    </s>
+    <s>
+        new
+    </s>
+    <s>
+        DisplayMode[] {DisplayMode.Edit});
+    </s>
+</p>
+<p>
+    Second line is removed.
+</p>
+<p>
+    in <u>CreateRecordConfiguration</u>
+</p>
+<p>
+    change
+</p>
+<p>
+    propertyGroupDescription.Add(new PropertyItem("SPECIAL.rm2vRecord.Fixed.categoryName", false, PropertyItemType.Fixed, typeof(StringProperty).ToString()),
+    new DisplayMode[] {DisplayMode.Edit});
+</p>
+<p>
+    to
+</p>
+<p>
+    propertyGroupDescription.Add(new PropertyItem("rm2vRecord.Fixed.categoryName", false, PropertyItemType.Fixed), new DisplayMode[] {DisplayMode.Edit});
+</p>
+<p>
+    Need to pass containerid into record properties page as record properties page doesn't currently know container/folder id. Document properties page passes
+    the folderId already when displaying properties from container/folder browsing.
+</p>
+<p>
+    The SmartItem Document object Properties list only includes custom properties for the current category. We will need to extend the Properties list to allow
+    setting of custom properties in a different category.
+</p>
+<p>
+    Also see General Client changes section above.
+</p>
+<h2>
+    Outlook client
+</h2>
+<p>
+    Update libsrc\ControlLibraryDotNet\Meridio.Clients.Libraries.Controls\MetadataControl\ MetadataControl.cs to make category property an editable property
+    when updating document/record properties and to display correct custom properties when category is changed.
+</p>
+<p>
+    In Clients\Mapi\MeridioOutlookUI\Source\MeridioOutlookUIImpl.cpp CMeridioOutlookUIImpl::Execute pass folderId to MetadataControl if parent is container or
+    folder.
+</p>
+<p>
+    Need to refresh document SDK object in Outlook after category changed.
+</p>
+<p>
+    Also see General Client changes section above.
+</p>
+<h2>
+    RPC Server
+</h2>
+<p>
+    Create new "Change Category" audit event and audit when category is changed.
+</p>
+<h2>
+    Remaining Questions
+</h2>
+<ul type="disc">
+    <li>
+        Allow change from mail category to another category even if mandatory mail category setting is true? Filing Category already overrides this setting.
+    </li>
+</ul>
+<ul type="disc">
+    <li>
+        If email stored as RTF and parent mail category change, do we need to change attachments' category too if same category as parent originally?
+    </li>
+</ul>
+<ul type="disc">
+    <li>
+        Should we prompt user for confirmation of category change as it could result in loss of custom property and Disposal Schedule chain information?
+    </li>
+</ul>
+<ul type="disc">
+    <li>
+        Should we have a special privilege for changing category, or just go on ACL and require Manage permission to the doc as we require for other property
+        changes?
+    </li>
+</ul>
+</div>
+
+</div>
