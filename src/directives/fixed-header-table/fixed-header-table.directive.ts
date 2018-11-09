@@ -53,6 +53,10 @@ export class FixedHeaderTableDirective<T> implements OnInit {
    */
   setLayout(): void {
 
+    if (!this._tableBody || !this._tableHead) {
+      return;
+    }
+
     // calculate the size of the scrollbar
     const scrollbar = this._tableBody.offsetWidth - this._tableBody.clientWidth;
 
