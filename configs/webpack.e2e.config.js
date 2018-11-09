@@ -1,14 +1,17 @@
 const { join } = require('path');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const { cwd } = require('process');
+const { ProgressPlugin } = require('webpack');
 const rxAlias = require('rxjs/_esm5/path-mapping');
+const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 
-    mode: 'development',
+    mode: 'production',
 
     entry: {
         main: join(cwd(), 'e2e', 'pages', 'main.ts'),
@@ -88,35 +91,13 @@ module.exports = {
             mainPath: join(cwd(), 'e2e', 'pages', 'main.ts'),
             tsConfigPath: join(cwd(), 'e2e', 'tsconfig.app.json'),
             sourceMap: false,
-            skipCodeGeneration: true
-        }),
-
-        new ScriptsWebpackPlugin({
-            name: 'scripts',
-            sourceMap: false,
-            filename: `scripts.js`,
-            scripts: [
-                join('node_modules', 'jquery', 'dist', 'jquery.min.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'version.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widget.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'data.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'ie.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'scroll-parent.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'position.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'unique-id.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'mouse.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'sortable.js'),
-                join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.min.js'),
-                join('node_modules', 'angular', 'angular.min.js'),
-            ],
-            basePath: cwd(),
+            skipCodeGeneration: false
         }),
 
         new IndexHtmlWebpackPlugin({
             input: './e2e/pages/index.html',
             output: 'index.html',
             entrypoints: [
-                'scripts',
                 'polyfills',
                 'styles',
                 'main'
@@ -127,11 +108,15 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'styles.css'
         }),
+
+        new ProgressPlugin()
     ],
 
     optimization: {
         noEmitOnErrors: true,
         runtimeChunk: 'single',
+        namedModules: true,
+        namedChunks: true,
         splitChunks: {
             cacheGroups: {
                 default: {
@@ -147,13 +132,33 @@ module.exports = {
                     priority: 5
                 },
                 vendors: false,
-                vendor: {
-                    name: 'vendor',
-                    chunks: 'initial',
-                    enforce: true
-                }
+                vendor: false
             }
-        }
+        },
+        minimizer: [
+            new CleanCssWebpackPlugin({
+                sourceMap: false,
+                test: (file) => /\.(?:css|less)$/.test(file),
+            }),
+            new UglifyJSPlugin({
+                extractComments: false,
+                sourceMap: false,
+                cache: false,
+                parallel: true,
+                uglifyOptions: {
+                    output: {
+                        ascii_only: true,
+                        comments: false
+                    },
+                    ecma: 5,
+                    warnings: false,
+                    ie8: false,
+                    compress: true,
+                    mangle: false
+                }
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
     },
 
     devServer: {
@@ -161,7 +166,8 @@ module.exports = {
         historyApiFallback: true,
         stats: {
             colors: true,
-            reasons: true
+            reasons: true,
+            warnings: false
         }
     }
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardModule } from '../../../../dist';
+import { WizardModule } from '@ux-aspects/ux-aspects';
 
 import { WizardTestPageComponent } from './wizard.testpage.component';
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PageHeaderModule } from '../../../../dist';
+import { PageHeaderModule } from '@ux-aspects/ux-aspects';
 
 import { PageHeaderTestPageComponent } from './page-header.testpage.component';
 

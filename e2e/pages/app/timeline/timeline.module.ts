@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TimelineModule } from '../../../../dist';
+import { TimelineModule } from '@ux-aspects/ux-aspects';
 
 import { TimelineTestPageComponent } from './timeline.testpage.component';
 

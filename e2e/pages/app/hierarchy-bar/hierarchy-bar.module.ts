@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HierarchyBarModule } from '../../../../dist';
+import { HierarchyBarModule } from '@ux-aspects/ux-aspects';
 import { HierarchyBarTestPageComponent } from './hierarchy-bar.testpage.component';
 
 

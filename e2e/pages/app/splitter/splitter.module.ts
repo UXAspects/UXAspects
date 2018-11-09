@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularSplitModule } from 'angular-split';
-import { AccessibilityModule } from '../../../../dist';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { SplitterTestPageComponent } from './splitter.testpage.component';
 
 @NgModule({
