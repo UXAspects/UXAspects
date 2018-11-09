@@ -38,9 +38,6 @@
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
     </properties>
 
-    <dependencies>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -63,7 +60,8 @@
                         <configuration>
                             <executable>npm</executable>
                             <arguments>
-                                <argument>install</argument>
+                                <argument>ci</argument>
+                                <argument>--unsafe-perm=true</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -131,23 +129,6 @@
                             </arguments>
                         </configuration>
                     </execution>
-
-                    <!-- Deploy to artifactory(?) -->
-                    <!--
-                    <execution>
-                        <id>exec-npm-publish</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>publish</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    -->
                 </executions>
             </plugin>
         </plugins>

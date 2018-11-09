@@ -34,5 +34,6 @@ module.exports = {
     shim: 'dist/dist',
     bower: 'target/bower',
     npm: 'target/npm',
+    artifactory: 'target/artifactory',
     docs: 'target/docs',
 };

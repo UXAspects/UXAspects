@@ -30,9 +30,9 @@ module.exports = function (grunt) {
     grunt.registerTask('licenses', ['execute:licenses', 'usebanner:ng1']);
     grunt.registerTask('test', ['build', 'jasmine:ng1']);
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
-    grunt.registerTask('package:library', ['run:npm_pack', 'copy:npm_tgz', 'clean:npm_tgz']);
+    grunt.registerTask('package:library', ['run:npm_pack', 'copy:npm_tgz', 'copy:artifactory_tgz', 'clean:npm_tgz']);
     grunt.registerTask('package:library_bower', ['compress:bower']);
-    grunt.registerTask('package:docs', ['run:npm_pack_docs', 'copy:npm_docs_tgz', 'clean:npm_docs_tgz']);
+    grunt.registerTask('package:docs', ['run:npm_pack_docs', 'copy:npm_docs_tgz', 'copy:artifactory_docs_tgz', 'clean:npm_docs_tgz']);
 
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'run:documentation_build']);
 
