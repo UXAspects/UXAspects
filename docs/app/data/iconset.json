@@ -37,6 +37,10 @@
             "classname": "hpe-alarm"
         },
         {
+            "name": "alert-filled",
+            "classname": "hpe-alert-filled"
+        },
+        {
             "name": "alert",
             "classname": "hpe-alert"
         },
@@ -85,6 +89,10 @@
             "classname": "hpe-book"
         },
         {
+            "name": "bookmark-filled",
+            "classname": "hpe-bookmark-filled"
+        },
+        {
             "name": "bookmark",
             "classname": "hpe-bookmark"
         },
@@ -99,6 +107,10 @@
         {
             "name": "calendar",
             "classname": "hpe-calendar"
+        },
+        {
+            "name": "camera-filled",
+            "classname": "hpe-camera-filled"
         },
         {
             "name": "camera",
@@ -149,8 +161,16 @@
             "classname": "hpe-chapter-add"
         },
         {
+            "name": "chapter-next-filled",
+            "classname": "hpe-chapter-next-filled"
+        },
+        {
             "name": "chapter-next",
             "classname": "hpe-chapter-next"
+        },
+        {
+            "name": "chapter-previous-filled",
+            "classname": "hpe-chapter-previous-filled"
         },
         {
             "name": "chapter-previous",
@@ -257,6 +277,10 @@
             "classname": "hpe-computer-personal"
         },
         {
+            "name": "configuration-filled",
+            "classname": "hpe-configuration-filled"
+        },
+        {
             "name": "configuration",
             "classname": "hpe-configuration"
         },
@@ -267,6 +291,10 @@
         {
             "name": "contact-card",
             "classname": "hpe-contact-card"
+        },
+        {
+            "name": "contact-us-filled",
+            "classname": "hpe-contact-us-filled"
         },
         {
             "name": "contact-us",
@@ -281,12 +309,20 @@
             "classname": "hpe-copy"
         },
         {
+            "name": "cube-filled",
+            "classname": "hpe-cube-filled"
+        },
+        {
             "name": "cube",
             "classname": "hpe-cube"
         },
         {
             "name": "cubes",
             "classname": "hpe-cubes"
+        },
+        {
+            "name": "cursor-filled",
+            "classname": "hpe-cursor-filled"
         },
         {
             "name": "cursor",
@@ -335,6 +371,10 @@
         {
             "name": "directions",
             "classname": "hpe-directions"
+        },
+        {
+            "name": "dislike-filled",
+            "classname": "hpe-dislike-filled"
         },
         {
             "name": "dislike",
@@ -505,8 +545,16 @@
             "classname": "hpe-duplicate"
         },
         {
+            "name": "edit-filled",
+            "classname": "hpe-edit-filled"
+        },
+        {
             "name": "edit",
             "classname": "hpe-edit"
+        },
+        {
+            "name": "eject-filled",
+            "classname": "hpe-eject-filled"
         },
         {
             "name": "eject",
@@ -521,12 +569,24 @@
             "classname": "hpe-fan"
         },
         {
+            "name": "fast-forward-filled",
+            "classname": "hpe-fast-forward-filled"
+        },
+        {
             "name": "fast-forward",
             "classname": "hpe-fast-forward"
         },
         {
+            "name": "favorite-filled",
+            "classname": "hpe-favorite-filled"
+        },
+        {
             "name": "favorite",
             "classname": "hpe-favorite"
+        },
+        {
+            "name": "filter-filled",
+            "classname": "hpe-filter-filled"
         },
         {
             "name": "filter",
@@ -535,6 +595,10 @@
         {
             "name": "first-aid",
             "classname": "hpe-first-aid"
+        },
+        {
+            "name": "flag-filled",
+            "classname": "hpe-flag-filled"
         },
         {
             "name": "flag",
@@ -551,6 +615,10 @@
         {
             "name": "folder",
             "classname": "hpe-folder"
+        },
+        {
+            "name": "gallery-filled",
+            "classname": "hpe-gallery-filled"
         },
         {
             "name": "gallery",
@@ -589,6 +657,10 @@
             "classname": "hpe-history"
         },
         {
+            "name": "home-filled",
+            "classname": "hpe-home-filled"
+        },
+        {
             "name": "home",
             "classname": "hpe-home"
         },
@@ -599,6 +671,10 @@
         {
             "name": "host",
             "classname": "hpe-host"
+        },
+        {
+            "name": "image-filled",
+            "classname": "hpe-image-filled"
         },
         {
             "name": "image",
@@ -621,12 +697,24 @@
             "classname": "hpe-inbox"
         },
         {
+            "name": "indicator-filled",
+            "classname": "hpe-indicator-filled"
+        },
+        {
             "name": "indicator",
             "classname": "hpe-indicator"
         },
         {
+            "name": "information-filled",
+            "classname": "hpe-information-filled"
+        },
+        {
             "name": "information",
             "classname": "hpe-information"
+        },
+        {
+            "name": "inherit-filled",
+            "classname": "hpe-inherit-filled"
         },
         {
             "name": "inherit",
@@ -641,8 +729,16 @@
             "classname": "hpe-integration"
         },
         {
+            "name": "iteration-filled",
+            "classname": "hpe-iteration-filled"
+        },
+        {
             "name": "iteration",
             "classname": "hpe-iteration"
+        },
+        {
+            "name": "java-filled",
+            "classname": "hpe-java-filled"
         },
         {
             "name": "java",
@@ -657,8 +753,16 @@
             "classname": "hpe-launch"
         },
         {
+            "name": "license-filled",
+            "classname": "hpe-license-filled"
+        },
+        {
             "name": "license",
             "classname": "hpe-license"
+        },
+        {
+            "name": "like-filled",
+            "classname": "hpe-like-filled"
         },
         {
             "name": "like",
@@ -699,6 +803,14 @@
         {
             "name": "list",
             "classname": "hpe-list"
+        },
+        {
+            "name": "location-filled",
+            "classname": "hpe-location-filled"
+        },
+        {
+            "name": "location-pin-filled",
+            "classname": "hpe-location-pin-filled"
         },
         {
             "name": "location-pin",
@@ -745,6 +857,10 @@
             "classname": "hpe-menu"
         },
         {
+            "name": "microphone-filled",
+            "classname": "hpe-microphone-filled"
+        },
+        {
             "name": "microphone",
             "classname": "hpe-microphone"
         },
@@ -781,6 +897,10 @@
             "classname": "hpe-notes"
         },
         {
+            "name": "notification-filled",
+            "classname": "hpe-notification-filled"
+        },
+        {
             "name": "notification",
             "classname": "hpe-notification"
         },
@@ -799,6 +919,10 @@
         {
             "name": "pan",
             "classname": "hpe-pan"
+        },
+        {
+            "name": "pause-filled",
+            "classname": "hpe-pause-filled"
         },
         {
             "name": "pause",
@@ -823,6 +947,10 @@
         {
             "name": "payment-visa",
             "classname": "hpe-payment-visa"
+        },
+        {
+            "name": "pin-filled",
+            "classname": "hpe-pin-filled"
         },
         {
             "name": "pin",
@@ -865,6 +993,10 @@
             "classname": "hpe-platform-windows"
         },
         {
+            "name": "play-filled",
+            "classname": "hpe-play-filled"
+        },
+        {
             "name": "play",
             "classname": "hpe-play"
         },
@@ -899,6 +1031,10 @@
         {
             "name": "resources",
             "classname": "hpe-resources"
+        },
+        {
+            "name": "rewind-filled",
+            "classname": "hpe-rewind-filled"
         },
         {
             "name": "rewind",
@@ -979,6 +1115,10 @@
         {
             "name": "shield-configure",
             "classname": "hpe-shield-configure"
+        },
+        {
+            "name": "shield-filled",
+            "classname": "hpe-shield-filled"
         },
         {
             "name": "shield",
@@ -1065,6 +1205,10 @@
             "classname": "hpe-stakeholder"
         },
         {
+            "name": "star-filled",
+            "classname": "hpe-star-filled"
+        },
+        {
             "name": "star-half",
             "classname": "hpe-star-half"
         },
@@ -1073,12 +1217,32 @@
             "classname": "hpe-star"
         },
         {
+            "name": "status-approved-filled",
+            "classname": "hpe-status-approved-filled"
+        },
+        {
+            "name": "status-error-filled",
+            "classname": "hpe-status-error-filled"
+        },
+        {
+            "name": "status-warning-filled",
+            "classname": "hpe-status-warning-filled"
+        },
+        {
+            "name": "steps-filled",
+            "classname": "hpe-steps-filled"
+        },
+        {
             "name": "steps",
             "classname": "hpe-steps"
         },
         {
             "name": "storage",
             "classname": "hpe-storage"
+        },
+        {
+            "name": "street-view-filled",
+            "classname": "hpe-street-view-filled"
         },
         {
             "name": "street-view",
@@ -1125,6 +1289,10 @@
             "classname": "hpe-table"
         },
         {
+            "name": "tag-filled",
+            "classname": "hpe-tag-filled"
+        },
+        {
             "name": "tag",
             "classname": "hpe-tag"
         },
@@ -1169,8 +1337,16 @@
             "classname": "hpe-tooltip"
         },
         {
+            "name": "transaction-filled",
+            "classname": "hpe-transaction-filled"
+        },
+        {
             "name": "transaction",
             "classname": "hpe-transaction"
+        },
+        {
+            "name": "trash-filled",
+            "classname": "hpe-trash-filled"
         },
         {
             "name": "trash",
@@ -1183,6 +1359,10 @@
         {
             "name": "trigger",
             "classname": "hpe-trigger"
+        },
+        {
+            "name": "trophy-filled",
+            "classname": "hpe-trophy-filled"
         },
         {
             "name": "trophy",
@@ -1205,12 +1385,20 @@
             "classname": "hpe-update"
         },
         {
+            "name": "upgrade-filled",
+            "classname": "hpe-upgrade-filled"
+        },
+        {
             "name": "upgrade",
             "classname": "hpe-upgrade"
         },
         {
             "name": "upload",
             "classname": "hpe-upload"
+        },
+        {
+            "name": "user-add-filled",
+            "classname": "hpe-user-add-filled"
         },
         {
             "name": "user-add",
@@ -1225,8 +1413,16 @@
             "classname": "hpe-user-expert"
         },
         {
+            "name": "user-female-filled",
+            "classname": "hpe-user-female-filled"
+        },
+        {
             "name": "user-female",
             "classname": "hpe-user-female"
+        },
+        {
+            "name": "user-filled",
+            "classname": "hpe-user-filled"
         },
         {
             "name": "user-manager",
@@ -1253,12 +1449,24 @@
             "classname": "hpe-user"
         },
         {
+            "name": "validation-filled",
+            "classname": "hpe-validation-filled"
+        },
+        {
             "name": "validation",
             "classname": "hpe-validation"
         },
         {
+            "name": "video-filled",
+            "classname": "hpe-video-filled"
+        },
+        {
             "name": "video",
             "classname": "hpe-video"
+        },
+        {
+            "name": "view-filled",
+            "classname": "hpe-view-filled"
         },
         {
             "name": "view",
@@ -1273,8 +1481,20 @@
             "classname": "hpe-vm-maintenance"
         },
         {
+            "name": "volume-filled",
+            "classname": "hpe-volume-filled"
+        },
+        {
+            "name": "volume-low-filled",
+            "classname": "hpe-volume-low-filled"
+        },
+        {
             "name": "volume-low",
             "classname": "hpe-volume-low"
+        },
+        {
+            "name": "volume-mute-filled",
+            "classname": "hpe-volume-mute-filled"
         },
         {
             "name": "volume-mute",
@@ -1287,6 +1507,10 @@
         {
             "name": "vulnerability",
             "classname": "hpe-vulnerability"
+        },
+        {
+            "name": "waypoint-filled",
+            "classname": "hpe-waypoint-filled"
         },
         {
             "name": "waypoint",
