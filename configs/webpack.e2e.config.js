@@ -29,69 +29,81 @@ module.exports = {
         alias: rxAlias()
     },
 
+    performance: {
+        hints: false,
+    },
+
     module: {
         rules: [{
-                test: /\.ts$/,
-                use: '@ngtools/webpack'
-            },
+            test: /\.ts$/,
+            use: [
+                {
+                    loader: '@angular-devkit/build-optimizer/webpack-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                },
+                '@ngtools/webpack'
+            ]
+        },
 
-            {
-                test: /\.html$/,
-                use: 'raw-loader'
-            },
+        {
+            test: /\.html$/,
+            use: 'raw-loader'
+        },
 
-            {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
-                use: 'file-loader?name=assets/[name].[ext]'
-            },
+        {
+            test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
+            use: 'file-loader?name=assets/[name].[ext]'
+        },
 
-            {
-                test: /\.less$/,
-                include: join(cwd(), 'e2e', 'pages', 'app'),
-                use: ['raw-loader', 'less-loader']
-            },
+        {
+            test: /\.less$/,
+            include: join(cwd(), 'e2e', 'pages', 'app'),
+            use: ['raw-loader', 'less-loader']
+        },
 
-            {
-                test: /\.css$/,
-                exclude: join(cwd(), 'e2e', 'pages', 'app'),
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            },
+        {
+            test: /\.css$/,
+            exclude: join(cwd(), 'e2e', 'pages', 'app'),
+            use: [MiniCssExtractPlugin.loader, 'css-loader']
+        },
 
-            {
-                test: /\.css$/,
-                include: join(cwd(), 'e2e', 'pages', 'app'),
-                use: 'raw-loader'
-            },
-            {
-              test: /\.js$|\.ts$/,
-              use: {
+        {
+            test: /\.css$/,
+            include: join(cwd(), 'e2e', 'pages', 'app'),
+            use: 'raw-loader'
+        },
+        {
+            test: /\.js$|\.ts$/,
+            use: {
                 loader: 'istanbul-instrumenter-loader',
                 options: { esModules: true }
-              },
-              enforce: 'post',
-              exclude: [
+            },
+            enforce: 'post',
+            exclude: [
                 /node_modules/,
                 /ng1/,
                 /e2e\\pages/,
                 /\.e2e-spec\.ts$/,
                 /\.po\.spec\.ts$/
-              ]
-            },
-            // Ignore warnings about System.import in Angular
-            {
-                test: /[\/\\]@angular[\/\\].+\.js$/,
-                parser: { system: true }
-            }
+            ]
+        },
+        // Ignore warnings about System.import in Angular
+        {
+            test: /[\/\\]@angular[\/\\].+\.js$/,
+            parser: { system: true }
+        }
         ]
     },
 
     plugins: [
-
         new AngularCompilerPlugin({
             mainPath: join(cwd(), 'e2e', 'pages', 'main.ts'),
             tsConfigPath: join(cwd(), 'e2e', 'tsconfig.app.json'),
             sourceMap: false,
-            skipCodeGeneration: false
+            skipCodeGeneration: false,
+            nameLazyFiles: false
         }),
 
         new IndexHtmlWebpackPlugin({
@@ -115,8 +127,6 @@ module.exports = {
     optimization: {
         noEmitOnErrors: true,
         runtimeChunk: 'single',
-        namedModules: true,
-        namedChunks: true,
         splitChunks: {
             cacheGroups: {
                 default: {
@@ -148,13 +158,19 @@ module.exports = {
                 uglifyOptions: {
                     output: {
                         ascii_only: true,
-                        comments: false
+                        comments: false,
+                        webkit: true,
+                    },
+                    compress: {
+                        pure_getters: true,
+                        passes: 3,
+                        global_defs: {
+                            ngDevMode: false,
+                        },
                     },
                     ecma: 5,
                     warnings: false,
-                    ie8: false,
-                    compress: true,
-                    mangle: false
+                    safari10: true
                 }
             }),
             new OptimizeCSSAssetsPlugin({})
@@ -169,6 +185,8 @@ module.exports = {
             reasons: true,
             warnings: false
         }
-    }
+    },
+
+    node: false
 
 };
