@@ -113,7 +113,7 @@ module.exports = {
         }),
 
         new IndexHtmlWebpackPlugin({
-            input: './e2e/pages/index.html',
+            input: join(cwd(), 'e2e', 'pages', 'index.html'),
             output: 'index.html',
             entrypoints: [
                 'scripts',
