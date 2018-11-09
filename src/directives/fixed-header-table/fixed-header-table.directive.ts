@@ -1,11 +1,18 @@
 import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[uxFixedHeaderTable]'
+  selector: '[uxFixedHeaderTable]',
+  exportAs: 'ux-fixed-header-table'
 })
-export class FixedHeaderTableDirective implements OnInit {
+export class FixedHeaderTableDirective<T> implements OnInit {
 
+  /** Allow dataset changes to trigger re-layout */
+  @Input() set dataset(_dataset: ReadonlyArray<T>) { this.setLayout(); }
+
+  /** Define the table height */
   @Input() tableHeight: number | string;
+
+  /** Emit when the table tries to load more data */
   @Output() tablePaging: EventEmitter<number> = new EventEmitter<number>();
 
   private _tableHead: HTMLElement;
@@ -41,21 +48,10 @@ export class FixedHeaderTableDirective implements OnInit {
   }
 
   /**
-   * Handle scroll events
-   */
-  private onScroll(): void {
-
-    // determine if we are scrolled to the bottom and if so load the next page
-    if (this._tableBody.scrollTop === (this._tableBody.scrollHeight - this._tableBody.offsetHeight)) {
-      this.tablePaging.emit();
-    }
-  }
-
-  /**
    * Update the size of the table header to account for the scrollbar.
    * This is important to keep the columns aligned
    */
-  private setLayout(): void {
+  setLayout(): void {
 
     // calculate the size of the scrollbar
     const scrollbar = this._tableBody.offsetWidth - this._tableBody.clientWidth;
@@ -65,6 +61,17 @@ export class FixedHeaderTableDirective implements OnInit {
 
     // set the desired height of the table body
     this._renderer.setStyle(this._tableBody, 'height', typeof this.tableHeight === 'number' ? `${this.tableHeight}px` : this.tableHeight);
+  }
+
+  /**
+   * Handle scroll events
+   */
+  private onScroll(): void {
+
+    // determine if we are scrolled to the bottom and if so load the next page
+    if (this._tableBody.scrollTop === (this._tableBody.scrollHeight - this._tableBody.offsetHeight)) {
+      this.tablePaging.emit();
+    }
   }
 
 }
