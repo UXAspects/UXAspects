@@ -6,7 +6,7 @@ const { cwd } = require('process');
 const { ProgressPlugin } = require('webpack');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
@@ -150,27 +150,26 @@ module.exports = {
                 sourceMap: false,
                 test: (file) => /\.(?:css|less)$/.test(file),
             }),
-            new UglifyJSPlugin({
-                extractComments: false,
+            new TerserPlugin({
                 sourceMap: false,
-                cache: false,
                 parallel: true,
-                uglifyOptions: {
+                cache: true,
+                terserOptions: {
+                    ecma: 5,
+                    warnings: false,
+                    safari10: true,
                     output: {
                         ascii_only: true,
                         comments: false,
                         webkit: true,
                     },
-                    compress: {
+                    compress: ({
                         pure_getters: true,
                         passes: 3,
                         global_defs: {
                             ngDevMode: false,
-                        },
-                    },
-                    ecma: 5,
-                    warnings: false,
-                    safari10: true
+                        }
+                    }),
                 }
             }),
             new OptimizeCSSAssetsPlugin({})
