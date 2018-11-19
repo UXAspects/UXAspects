@@ -10,7 +10,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -143,13 +143,9 @@ module.exports = {
                 ],
                 use: {
                     loader: 'babel-loader',
-                    query: {
-                        cacheDirectory: true,
-                        presets: [
-                            ['env', {
-                                modules: false
-                            }]
-                        ]
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        cacheDirectory: true
                     }
                 }
             },
@@ -201,21 +197,26 @@ module.exports = {
                 sourceMap: false,
                 test: (file) => /\.(?:css|less)$/.test(file),
             }),
-            new UglifyJSPlugin({
-                extractComments: false,
+            new TerserPlugin({
                 sourceMap: false,
-                cache: false,
                 parallel: true,
-                uglifyOptions: {
-                    output: {
-                        ascii_only: true,
-                        comments: false
-                    },
+                cache: true,
+                terserOptions: {
                     ecma: 5,
                     warnings: false,
-                    ie8: false,
-                    compress: true,
-                    mangle: false
+                    safari10: true,
+                    output: {
+                        ascii_only: true,
+                        comments: false,
+                        webkit: true,
+                    },
+                    compress: ({
+                        pure_getters: true,
+                        passes: 3,
+                        global_defs: {
+                            ngDevMode: false,
+                        }
+                    }),
                 }
             }),
             new OptimizeCSSAssetsPlugin({})

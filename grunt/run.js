@@ -22,5 +22,8 @@ module.exports = {
     },
     npm_pack_docs: {
         exec: 'npm pack --quiet'
+    },
+    webpack_ng1: {
+        exec: 'node ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.ng1.config.js'
     }
 };
