@@ -1995,6 +1995,10 @@
                             "content": "TreeModule"
                         },
                         {
+                            "title": "Import As",
+                            "content": "TreeModule.forRoot()"
+                        },
+                        {
                             "title": "Library",
                             "content": "angular-tree-component"
                         }
@@ -2013,6 +2017,10 @@
                         {
                             "title": "Module",
                             "content": "TreeModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "TreeModule.forRoot()"
                         },
                         {
                             "title": "Library",
