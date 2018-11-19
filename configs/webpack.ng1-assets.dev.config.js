@@ -31,13 +31,9 @@ module.exports = {
             exclude: /(node_modules|plugins|external)/,
             use: {
                 loader: 'babel-loader',
-                query: {
-                    cacheDirectory: true,
-                    presets: [
-                        ['env', {
-                            modules: false
-                        }]
-                    ]
+                options: {
+                    presets: ['@babel/preset-env'],
+                    cacheDirectory: true
                 }
             }
         }, {

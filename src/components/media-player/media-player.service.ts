@@ -300,12 +300,12 @@ export class MediaPlayerService {
 
         if (this._hostElement.requestFullscreen) {
             this._hostElement.requestFullscreen();
-        } else if (this._hostElement.webkitRequestFullscreen) {
-            this._hostElement.webkitRequestFullscreen();
-        } else if ((<any>this._hostElement).msRequestFullscreen) {
-            (<any>this._hostElement).msRequestFullscreen();
-        } else if ((<any>this._hostElement).mozRequestFullScreen) {
-            (<any>this._hostElement).mozRequestFullScreen();
+        } else if ((this._hostElement as any).webkitRequestFullscreen) {
+            (this._hostElement as any).webkitRequestFullscreen();
+        } else if ((this._hostElement as any).msRequestFullscreen) {
+            (this._hostElement as any).msRequestFullscreen();
+        } else if ((this._hostElement as any).mozRequestFullScreen) {
+            (this._hostElement as any).mozRequestFullScreen();
         }
     }
 
@@ -314,19 +314,19 @@ export class MediaPlayerService {
      */
     exitFullscreen(): void {
 
-        if ((<any>this._hostElement).exitFullscreen) {
+        if ((this._hostElement as any).exitFullscreen) {
             document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if ((<any>document).msExitFullscreen) {
-            (<any>document).msExitFullscreen();
-        } else if ((<any>document).mozCancelFullScreen) {
-            (<any>document).mozCancelFullScreen();
+        } else if ((document as any).webkitExitFullscreen) {
+            (document as any).webkitExitFullscreen();
+        } else if ((document as any).msExitFullscreen) {
+            (document as any).msExitFullscreen();
+        } else if ((document as any).mozCancelFullScreen) {
+            (document as any).mozCancelFullScreen();
         }
     }
 
     fullscreenChange() {
-        this.fullscreen = (<any>document).fullscreen || document.webkitIsFullScreen || (<any>document).mozFullScreen || (<any>document).msFullscreenElement !== null && (<any>document).msFullscreenElement !== undefined;
+        this.fullscreen = (document as any).fullscreen || (document as any).webkitIsFullScreen || (document as any).mozFullScreen || (document as any).msFullscreenElement !== null && (document as any).msFullscreenElement !== undefined;
         this.fullscreenEvent.next(this.fullscreen);
     }
 
