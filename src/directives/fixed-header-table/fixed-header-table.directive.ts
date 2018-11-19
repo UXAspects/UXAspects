@@ -7,7 +7,9 @@ import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 }
 export class FixedHeaderTableDirective<T> implements OnInit {
 
   /** Allow dataset changes to trigger re-layout */
-  @Input() set dataset(_dataset: ReadonlyArray<T>) { this.setLayout(); }
+  @Input() set dataset(_dataset: ReadonlyArray<T>) {
+    requestAnimationFrame(() => this.setLayout());
+  }
 
   /** Define the table height */
   @Input() tableHeight: number | string;
