@@ -39,7 +39,7 @@
     "@angular/router": "^6.0.9",
     "@angular/upgrade": "^6.0.9",
     "angular": "~1.3.2",
-    "angular-split": "^1.0.0-rc.3",
+    "angular-split": "1.0.0-rc.3",
     "angular-tree-component": "^5.2.1",
     "bootstrap": "^3.3.7",
     "chance": "^1.0.10",
