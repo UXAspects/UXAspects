@@ -1,9 +1,9 @@
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 
@@ -312,12 +312,31 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // ensure placement is defined
         this.placement = this.placement || 'top';
 
-        if (this.placement == 'top' || this.placement == 'bottom') {
-            return { originX: 'center', originY: this.placement };
-        } else if (this.placement == 'left') {
-            return { originX: 'start', originY: 'center' };
-        } else if (this.placement == 'right') {
-            return { originX: 'end', originY: 'center' };
+        switch (this.placement) {
+
+            case 'top':
+                return { originX: 'center', originY: 'top' };
+
+            case 'top-left':
+                return { originX: 'start', originY: 'top' };
+
+            case 'top-right':
+                return { originX: 'end', originY: 'top' };
+
+            case 'right':
+                return { originX: 'end', originY: 'center' };
+
+            case 'bottom':
+                return { originX: 'center', originY: 'bottom' };
+
+            case 'bottom-left':
+                return { originX: 'start', originY: 'bottom' };
+
+            case 'bottom-right':
+                return { originX: 'end', originY: 'bottom' };
+
+            case 'left':
+                return { originX: 'start', originY: 'center' };
         }
     }
 
@@ -327,14 +346,31 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // ensure placement is defined
         this.placement = this.placement || 'top';
 
-        if (this.placement == 'top') {
-            return { overlayX: 'center', overlayY: 'bottom' };
-        } else if (this.placement == 'bottom') {
-            return { overlayX: 'center', overlayY: 'top' };
-        } else if (this.placement == 'left') {
-            return { overlayX: 'end', overlayY: 'center' };
-        } else if (this.placement == 'right') {
-            return { overlayX: 'start', overlayY: 'center' };
+        switch (this.placement) {
+
+            case 'top':
+                return { overlayX: 'center', overlayY: 'bottom' };
+
+            case 'top-left':
+                return { overlayX: 'start', overlayY: 'bottom' };
+
+            case 'top-right':
+                return { overlayX: 'end', overlayY: 'bottom' };
+
+            case 'right':
+                return { overlayX: 'start', overlayY: 'center' };
+
+            case 'bottom':
+                return { overlayX: 'center', overlayY: 'top' };
+
+            case 'bottom-left':
+                return { overlayX: 'start', overlayY: 'top' };
+
+            case 'bottom-right':
+                return { overlayX: 'end', overlayY: 'top' };
+
+            case 'left':
+                return { overlayX: 'end', overlayY: 'center' };
         }
     }
 
@@ -426,4 +462,4 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 }
 
-export type AnchorPlacement = 'top' | 'right' | 'bottom' | 'left';
+export type AnchorPlacement = 'top' | 'top-right' | 'top-left' | 'right'| 'bottom' | 'bottom-right' | 'bottom-left' | 'left';
