@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AutoGrowModule } from '../../../../dist';
+import { AutoGrowModule } from '@ux-aspects/ux-aspects';
 
 import { ExpandingTextAreaTestPageComponent } from './expanding-text-area.testpage.component';
 

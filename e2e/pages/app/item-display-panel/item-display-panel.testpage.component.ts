@@ -1,4 +1,4 @@
-import { ColorService, ItemDisplayPanelComponent } from '../../../../dist';
+import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
 import { Component } from '@angular/core';
 import 'chance';
 

@@ -1,7 +1,7 @@
-import { ElementFinder, browser, by, element } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class InfiniteScrollPage {
-        
+
     getPage(): void {
         browser.get('#/infinite-scroll');
     }
@@ -10,13 +10,12 @@ export class InfiniteScrollPage {
     employees = element(by.id('employees'));
     loadMoreButton = element(by.id('button1'));
     loading = element(by.id('loading'));
-    panel = element(by.id('panel'));
     loadOnScrollCheckbox = element(by.id('checkbox1'));
     pageSize = element(by.id('numberPicker'));
-    
-    
+
+
     confirmClassExists(elem: ElementFinder, soughtClass: string) {
-        return elem.getAttribute('class').then(function(classes: string) {
+        return elem.getAttribute('class').then(function (classes: string) {
             var allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
@@ -25,11 +24,7 @@ export class InfiniteScrollPage {
             }
         });
     }
-    
-    confirmCustomizeExamplePanelIsExpanded() {
-        return this.confirmClassExists(this.panel, 'panel-open');
-    }
-    
+
     confirmLoadOnScrollIsChecked() {
         return this.confirmClassExists(this.getCheckbox(), 'ux-checkbox-checked');
     }
@@ -37,13 +32,13 @@ export class InfiniteScrollPage {
     confirmPageSizeButtonIsDisabled(direction: string) {
         if (direction === 'down') {
             return this.confirmClassExists(this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down'),
-                                           'disabled');
+                'disabled');
         } else {
             return this.confirmClassExists(this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up'),
-                                           'disabled');
+                'disabled');
         }
     }
-    
+
     confirmLoadMoreIsVisible() {
         return this.loadMoreButton.isPresent();
     }
@@ -51,17 +46,13 @@ export class InfiniteScrollPage {
     confirmValueIsInvalid() {
         return this.confirmClassExists(this.pageSize, 'has-error');
     }
-    
-    
+
+
     // get item
     getEmployee(index: number) {
         return this.employees.$$('li.employee-item').get(index);
     }
-    
-    getPanel() {
-        return this.panel.$('div.panel').$('div.panel-heading').$('div.panel-title').$('div.accordion-toggle').$('div');
-    }
-    
+
     getCheckbox() {
         return this.loadOnScrollCheckbox.$('.ux-checkbox');
     }
@@ -69,8 +60,8 @@ export class InfiniteScrollPage {
     getPageSize() {
         return this.pageSize.$('input.form-control');
     }
-    
-    
+
+
     // get text
     getEmployeeText(index: number) {
         return this.getEmployee(index).$('div.employee-details').$$('div').first().$('span.employee-name').getText();
@@ -88,12 +79,6 @@ export class InfiniteScrollPage {
         return this.getEmployee(index).$('div.employee-id').getText();
     }
 
-    
-    // click
-    clickOnCustomizeExamplePanel() {
-        this.getPanel().click();
-    }
-
     clickOnLoadOnScroll() {
         this.getCheckbox().click();
     }
@@ -109,14 +94,14 @@ export class InfiniteScrollPage {
     clickOnDecrementPageSize() {
         this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').$('span.hpe-down').click();
     }
-    
-    
+
+
     // other
     getNumberOfEmployees() {
         return this.employees.$$('li.employee-item').count();
     }
-    
+
     hoverOverLastEmployee() {
         browser.actions().mouseMove(this.employees.$$('li.employee-item').last()).perform();
     }
- }
+}

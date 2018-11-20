@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder, protractor } from 'protractor';
+import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export class PageHeaderPage {
 

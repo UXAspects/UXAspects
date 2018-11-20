@@ -1,14 +1,17 @@
 const { join } = require('path');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const { cwd } = require('process');
+const { ProgressPlugin } = require('webpack');
 const rxAlias = require('rxjs/_esm5/path-mapping');
+const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 
-    mode: 'development',
+    mode: 'production',
 
     entry: {
         main: join(cwd(), 'e2e', 'pages', 'main.ts'),
@@ -26,97 +29,87 @@ module.exports = {
         alias: rxAlias()
     },
 
+    performance: {
+        hints: false,
+    },
+
     module: {
         rules: [{
-                test: /\.ts$/,
-                use: '@ngtools/webpack'
-            },
+            test: /\.ts$/,
+            use: [
+                {
+                    loader: '@angular-devkit/build-optimizer/webpack-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                },
+                '@ngtools/webpack'
+            ]
+        },
 
-            {
-                test: /\.html$/,
-                use: 'raw-loader'
-            },
+        {
+            test: /\.html$/,
+            use: 'raw-loader'
+        },
 
-            {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
-                use: 'file-loader?name=assets/[name].[ext]'
-            },
+        {
+            test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
+            use: 'file-loader?name=assets/[name].[ext]'
+        },
 
-            {
-                test: /\.less$/,
-                include: join(cwd(), 'e2e', 'pages', 'app'),
-                use: ['raw-loader', 'less-loader']
-            },
+        {
+            test: /\.less$/,
+            include: join(cwd(), 'e2e', 'pages', 'app'),
+            use: ['raw-loader', 'less-loader']
+        },
 
-            {
-                test: /\.css$/,
-                exclude: join(cwd(), 'e2e', 'pages', 'app'),
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            },
+        {
+            test: /\.css$/,
+            exclude: join(cwd(), 'e2e', 'pages', 'app'),
+            use: [MiniCssExtractPlugin.loader, 'css-loader']
+        },
 
-            {
-                test: /\.css$/,
-                include: join(cwd(), 'e2e', 'pages', 'app'),
-                use: 'raw-loader'
-            },
-            {
-              test: /\.js$|\.ts$/,
-              use: {
+        {
+            test: /\.css$/,
+            include: join(cwd(), 'e2e', 'pages', 'app'),
+            use: 'raw-loader'
+        },
+        {
+            test: /\.js$|\.ts$/,
+            use: {
                 loader: 'istanbul-instrumenter-loader',
                 options: { esModules: true }
-              },
-              enforce: 'post',
-              exclude: [
+            },
+            enforce: 'post',
+            exclude: [
                 /node_modules/,
                 /ng1/,
                 /e2e\\pages/,
                 /\.e2e-spec\.ts$/,
                 /\.po\.spec\.ts$/
-              ]
-            },
-            // Ignore warnings about System.import in Angular
-            {
-                test: /[\/\\]@angular[\/\\].+\.js$/,
-                parser: { system: true }
-            }
+            ]
+        },
+        // Ignore warnings about System.import in Angular
+        {
+            test: /[\/\\]@angular[\/\\].+\.js$/,
+            parser: { system: true }
+        }
         ]
     },
 
     plugins: [
-
         new AngularCompilerPlugin({
             mainPath: join(cwd(), 'e2e', 'pages', 'main.ts'),
             tsConfigPath: join(cwd(), 'e2e', 'tsconfig.app.json'),
             sourceMap: false,
-            skipCodeGeneration: true
-        }),
-
-        new ScriptsWebpackPlugin({
-            name: 'scripts',
-            sourceMap: false,
-            filename: `scripts.js`,
-            scripts: [
-                join('node_modules', 'jquery', 'dist', 'jquery.min.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'version.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widget.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'data.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'ie.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'scroll-parent.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'position.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'unique-id.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'mouse.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'sortable.js'),
-                join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.min.js'),
-                join('node_modules', 'angular', 'angular.min.js'),
-            ],
-            basePath: cwd(),
+            skipCodeGeneration: false,
+            nameLazyFiles: false
         }),
 
         new IndexHtmlWebpackPlugin({
             input: join(cwd(), 'e2e', 'pages', 'index.html'),
             output: 'index.html',
             entrypoints: [
-                'scripts',
                 'polyfills',
                 'styles',
                 'main'
@@ -127,6 +120,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'styles.css'
         }),
+
+        new ProgressPlugin()
     ],
 
     optimization: {
@@ -147,13 +142,38 @@ module.exports = {
                     priority: 5
                 },
                 vendors: false,
-                vendor: {
-                    name: 'vendor',
-                    chunks: 'initial',
-                    enforce: true
-                }
+                vendor: false
             }
-        }
+        },
+        minimizer: [
+            new CleanCssWebpackPlugin({
+                sourceMap: false,
+                test: (file) => /\.(?:css|less)$/.test(file),
+            }),
+            new TerserPlugin({
+                sourceMap: false,
+                parallel: true,
+                cache: true,
+                terserOptions: {
+                    ecma: 5,
+                    warnings: false,
+                    safari10: true,
+                    output: {
+                        ascii_only: true,
+                        comments: false,
+                        webkit: true,
+                    },
+                    compress: ({
+                        pure_getters: true,
+                        passes: 3,
+                        global_defs: {
+                            ngDevMode: false,
+                        }
+                    }),
+                }
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
     },
 
     devServer: {
@@ -161,8 +181,11 @@ module.exports = {
         historyApiFallback: true,
         stats: {
             colors: true,
-            reasons: true
+            reasons: true,
+            warnings: false
         }
-    }
+    },
+
+    node: false
 
 };

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextComponent, SearchDateRangeComponent, SearchDateRangeConfig, SearchTextConfig, SearchSelectComponent, SearchSelectConfig, SearchDateComponent, SearchDateConfig } from '../../../../dist';
+import { SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextComponent, SearchDateRangeComponent, SearchDateRangeConfig, SearchTextConfig, SearchSelectComponent, SearchSelectConfig, SearchDateComponent, SearchDateConfig } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({

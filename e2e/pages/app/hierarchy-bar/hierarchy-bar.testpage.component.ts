@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { HierarchyBarNode } from '../../../../dist';
+import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-hierarchy-bar',

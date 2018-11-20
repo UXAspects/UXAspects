@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { FacetCheckListPage } from './facet-check-list.po.spec';
 
 describe('FacetCheckListPage Tests', () => {
 
   let page: FacetCheckListPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new FacetCheckListPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should start with no facets', () => {

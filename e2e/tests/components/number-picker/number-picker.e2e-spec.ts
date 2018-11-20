@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { NumberPickerPage } from './number-picker.po.spec';
 
 describe('Number Picker Tests', () => {
 
   let page: NumberPickerPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new NumberPickerPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {

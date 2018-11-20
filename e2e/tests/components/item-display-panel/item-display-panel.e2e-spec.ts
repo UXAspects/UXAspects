@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { ItemDisplayPanelPage } from './item-display-panel.po.spec';
 
 describe('Item Display Panel Tests', () => {
 
   let page: ItemDisplayPanelPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new ItemDisplayPanelPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {

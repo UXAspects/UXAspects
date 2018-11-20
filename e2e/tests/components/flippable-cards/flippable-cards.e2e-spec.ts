@@ -1,4 +1,4 @@
-import { browser, Key } from 'protractor';
+import { browser } from 'protractor';
 import { FlippableCardsPage } from './flippable-cards.po.spec';
 
 describe('Flippable Cards Tests', () => {
@@ -7,15 +7,10 @@ describe('Flippable Cards Tests', () => {
   const FLIP_DELAY_MS = 2000;
   
   let page: FlippableCardsPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new FlippableCardsPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {
