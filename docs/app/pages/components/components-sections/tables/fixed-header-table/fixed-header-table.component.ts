@@ -12,7 +12,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @DocumentationSectionComponent('ComponentsFixedHeaderTableComponent')
 export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    people: Person[] = [];
+    people: ReadonlyArray<Person> = [];
     loading: boolean = false;
     total: number = 250;
 
@@ -56,7 +56,7 @@ export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSectio
         setTimeout(() => {
 
             // update the list of people and increment the current page
-            this.people = this.people.concat(this.getPeople(this._page++, 50));
+            this.people = [...this.people, ...this.getPeople(this._page++, 50)];
 
             // set the loading state to false
             this.loading = false;
@@ -65,7 +65,7 @@ export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSectio
     }
 
     /**
-     * Generate some data about people 
+     * Generate some data about people
      */
     private getPeople(page: number, count: number): Person[] {
 

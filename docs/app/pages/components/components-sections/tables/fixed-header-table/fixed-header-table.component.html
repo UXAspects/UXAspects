@@ -1,4 +1,4 @@
-<table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
+<table class="table" uxFixedHeaderTable [dataset]="people" (tablePaging)="loadPage()" [tableHeight]="500">
     <thead>
         <tr>
             <th class="table-col-id">Id</th>
@@ -34,7 +34,7 @@
 <hr>
 
 <p>
-    A fixed header table can be created by using the <code>uxFixedHeaderTable</code> directive. 
+    A fixed header table can be created by using the <code>uxFixedHeaderTable</code> directive.
     This allows the table header to remain fixed in place and visible while the table content is scrolled.
 </p>
 
@@ -46,10 +46,15 @@
 <p>The properties of this directive are:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="tableHeight" required="true" type="number | string">
-        This defines the maximum height of the table. 
-        When a number is provided the unit will default to pixels. 
+    <tr uxd-api-property name="tableHeight" [required]="true" type="number | string">
+        This defines the maximum height of the table.
+        When a number is provided the unit will default to pixels.
         If a string is provided then the CSS unit will need to be specifed as part of the string, e.g. <code>'50%'</code>.
+    </tr>
+    <tr uxd-api-property name="dataset" [required]="false" type="ReadonlyArray<any>">
+        If specifed, any time the dataset changes the layout will be recalculated to ensure the columns headers remain
+        aligned with the columns after a scrollbar has appeared or disappeared. The dataset should be immutable to ensure
+        changes are detected. TypeScript can enforce this immutability by using the <code>ReadonlyArray</code> type.
     </tr>
 </uxd-api-properties>
 
@@ -57,6 +62,12 @@
     <tr uxd-api-property name="tablePaging" type="void">
         This event will be triggered when the user scrolls to the bottom of the table. This can be used to implement paging functionality.
         This event will also be triggered when the table initially loads to allow loading of the first page.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="setLayout" type="void">
+        This will recalculate the layout of the table to ensure the columns headers remain aligned with the columns after a scrollbar has appeared or disappeared.
     </tr>
 </uxd-api-properties>
 
