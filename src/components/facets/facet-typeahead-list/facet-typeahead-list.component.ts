@@ -1,12 +1,12 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ElementRef, Input, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { map, mergeMap, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
-import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
-import { FacetContainerComponent } from '../facet-container.component';
+import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
 import { FacetTypeaheadListItemComponent } from './typeahead-list-item/facet-typeahead-list-item.component';
 
@@ -16,7 +16,7 @@ let uniqueId = 1;
     selector: 'ux-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
-export class FacetTypeaheadListComponent extends FacetBaseComponent implements AfterViewInit {
+export class FacetTypeaheadListComponent implements AfterViewInit, OnDestroy {
 
     @Input() facets: Facet[] | Observable<Facet[]>;
     @Input() header: string;
@@ -42,13 +42,13 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
     typeaheadOpen: boolean = false;
     typeaheadOptions: Facet[] = [];
     highlightedElement: HTMLElement;
+    selected: Facet[] = [];
 
+    private _onDestroy = new Subject<void>();
     private _config: FacetTypeaheadListConfig = { placeholder: '', maxResults: 50, minCharacters: 1 };
     private _focusKeyManager: FocusKeyManager<FacetTypeaheadListItemComponent>;
 
-    constructor(public typeaheadKeyService: TypeaheadKeyService, facetContainer: FacetContainerComponent, elementRef: ElementRef, private _announcer: LiveAnnouncer) {
-        super(facetContainer, elementRef);
-    }
+    constructor(public typeaheadKeyService: TypeaheadKeyService, public facetService: FacetService, private _announcer: LiveAnnouncer) { }
 
     ngAfterViewInit(): void {
 
@@ -72,6 +72,11 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
     }
 
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
     onKeydown(event: KeyboardEvent): void {
         this._focusKeyManager.onKeydown(event);
     }
@@ -83,7 +88,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
     }
 
     toggleFacet(index: number, facet: Facet): void {
-        this.toggleFacetSelection(facet);
+        this.facetService.toggle(facet);
         this._focusKeyManager.setActiveItem(index);
     }
 
@@ -104,7 +109,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
         }
 
         // select the facet
-        this.selectFacet(event.option);
+        this.facetService.select(event.option);
 
         // clear the typeahead
         this.query$.next('');

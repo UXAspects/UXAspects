@@ -12,7 +12,7 @@
     <ux-facet-check-list-item *ngFor="let facet of facets; let index = index"
         [facet]="facet"
         [tabbable]="activeIndex === index"
-        [selected]="isFacetSelected(facet)"
+        [selected]="facetService.isSelected(facet)"
         (selectedChange)="toggleFacet(index, facet)"
         (keydown)="onKeydown($event)"
         (itemFocus)="isFocused = true; onFocus(index)"

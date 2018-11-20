@@ -1,7 +1,8 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
+import { Subject } from 'rxjs/Subject';
+import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
 import { FacetCheckListItemComponent } from './check-list-item/facet-check-list-item.component';
 
@@ -9,7 +10,7 @@ import { FacetCheckListItemComponent } from './check-list-item/facet-check-list-
     selector: 'ux-facet-check-list',
     templateUrl: './facet-check-list.component.html'
 })
-export class FacetCheckListComponent extends FacetBaseComponent implements AfterViewInit {
+export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
 
     @Input() facets: Facet[] = [];
     @Input() header: string;
@@ -21,13 +22,21 @@ export class FacetCheckListComponent extends FacetBaseComponent implements After
     isFocused: boolean = false;
     activeIndex: number = 0;
 
+    private _onDestroy = new Subject<void>();
     private _focusKeyManager: FocusKeyManager<FacetCheckListItemComponent>;
+
+    constructor(public facetService: FacetService) {}
 
     ngAfterViewInit(): void {
         this._focusKeyManager = new FocusKeyManager(this.options)
             .withVerticalOrientation();
 
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     onFocus(index: number): void {
@@ -41,7 +50,7 @@ export class FacetCheckListComponent extends FacetBaseComponent implements After
     }
 
     toggleFacet(index: number, facet: Facet): void {
-        this.toggleFacetSelection(facet);
+        this.facetService.toggle(facet);
         this._focusKeyManager.setActiveItem(index);
     }
 }
