@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { SearchBuilderPage } from './search-builder.po.spec';
 
 describe('Search Builder Tests', () => {
 
     let page: SearchBuilderPage.Page;
-    let browserName: string;
 
     beforeEach(() => {
         page = new SearchBuilderPage.Page();
         page.getPage();
-
-        browser.getCapabilities().then(function (caps) {
-            browserName = caps.get('browserName');
-        });
     });
 
     it('should have the correct initial state', async () => {

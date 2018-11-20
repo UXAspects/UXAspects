@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule, NumberPickerModule, CheckboxModule, RadioButtonModule, AccordionModule } from '../../../../dist';
-import { SelectTestPageComponent } from './standard/select.testpage.component';
+import { RouterModule } from '@angular/router';
+import { AccordionModule, CheckboxModule, NumberPickerModule, RadioButtonModule, ResizeModule, SelectModule } from '@ux-aspects/ux-aspects';
 import { SelectFormsTestPageComponent } from './forms/select-forms.testpage.component';
+import { SelectTestPageComponent } from './standard/select.testpage.component';
 
 @NgModule({
     imports: [
@@ -15,6 +15,7 @@ import { SelectFormsTestPageComponent } from './forms/select-forms.testpage.comp
         SelectModule,
         NumberPickerModule,
         FormsModule,
+        ResizeModule,
         RouterModule.forChild([
             {
                 path: '',

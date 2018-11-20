@@ -1,5 +1,5 @@
-import 'chance';
 import { Component } from '@angular/core';
+import 'chance';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { debounceTime } from 'rxjs/operators';
 
@@ -44,7 +44,7 @@ export class InfiniteScrollTestPageComponent {
                     .filter((e) => this.isFilterMatch(e))
                     .slice(pageStart, pageStart + pageSize);
                 resolve(newItems);
-            }, 2000);
+            }, 200);
         });
 
         return promise;

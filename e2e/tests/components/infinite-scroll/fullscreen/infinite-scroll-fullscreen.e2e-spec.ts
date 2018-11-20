@@ -1,4 +1,4 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
 import { InfiniteScrollFullscreenPage } from './infinite-scroll-fullscreen.po.spec';
 
 describe('Infinite Scroll (Fullscreen) Tests', () => {
@@ -12,9 +12,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
     it('should have correct initial states', () => {
 
-        // panel hidden
-        expect(page.confirmCustomizeExamplePanelIsExpanded()).toBeFalsy();
-
         // 20 visible employees
         expect<any>(page.getNumberOfEmployees()).toEqual(20);
 
@@ -22,7 +19,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
         expect(page.confirmLoadMoreIsVisible()).toBeFalsy();
 
         // loadOnScroll checked
-        page.clickOnCustomizeExamplePanel();
         expect(page.confirmLoadOnScrollIsChecked()).toBeTruthy();
 
         // arrows enabled
@@ -61,7 +57,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
     it('should react to clicking on the loadOnScroll checkbox', () => {
 
         // unchecking
-        page.clickOnCustomizeExamplePanel();
         page.clickOnLoadOnScroll();
         expect(page.confirmLoadOnScrollIsChecked()).toBeFalsy();
 
@@ -73,7 +68,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
     it('should display more employees when the LOAD MORE button is clicked', () => {
 
-        page.clickOnCustomizeExamplePanel();
         page.clickOnLoadOnScroll();
 
         // default number of visible employees
@@ -100,7 +94,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
     it('should display the LOAD MORE button when appropriate', () => {
 
         // visible when loadOnScroll is unchecked
-        page.clickOnCustomizeExamplePanel();
         page.clickOnLoadOnScroll();
         expect(page.confirmLoadMoreIsVisible()).toBeTruthy();
 
@@ -201,7 +194,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
         expect<any>(page.getEmployeeText(20)).toBe('employee_110');
 
         // uncheck loadOnScroll
-        page.clickOnCustomizeExamplePanel();
         page.clickOnLoadOnScroll();
 
         // set page size to 2

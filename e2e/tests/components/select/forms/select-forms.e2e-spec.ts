@@ -22,11 +22,7 @@ describe('Select (forms) Tests', () => {
     // selected location(s) - null
     expect<any>(page.getSelectedLocationText()).toBe('null');
 
-    // customize panel not expanded
-    expect(page.confirmPanelIsExpanded()).toBeFalsy();
-
     // expand panel and check inital state
-    page.clickOnPanel();
     expect(page.checkSelectedOptionsButton()).toBeTruthy();
     expect(page.checkSelectedDirectionButton()).toBeTruthy();
     expect(page.confirmIsChecked(page.checkboxMulti)).toBeFalsy();
@@ -62,7 +58,6 @@ describe('Select (forms) Tests', () => {
   it('should react to button clicks', () => {
 
     // options radio button
-    page.clickOnPanel();
     page.clickOnObjects();
     expect(page.checkSelectedOptionsButton()).toBeFalsy();
     page.clickOnStrings();
@@ -192,7 +187,6 @@ describe('Select (forms) Tests', () => {
     expect<any>(page.getSelectedLocationText()).toBe('"Honduras"');
 
     // click on objects button
-    page.clickOnPanel();
     page.clickOnObjects();
     expect<any>(page.getSelectedLocationText()).toBe('null');
 
@@ -227,7 +221,6 @@ describe('Select (forms) Tests', () => {
     // click on checkbox when country is selected
     page.clickOnDropdown(false);
     page.clickOnCountry(false, 150);
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxMulti);
     expect<any>(page.getSelectedLocationText()).toBe('null');
 
@@ -258,7 +251,6 @@ describe('Select (forms) Tests', () => {
   it('should disable selected countries when in multiple mode', () => {
 
     // click on multiple button
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxMulti);
 
     // confirm countries are not disabled
@@ -289,7 +281,6 @@ describe('Select (forms) Tests', () => {
   it('should be possible to remove tags', () => {
 
     // select 3 countries in multiple mode
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxMulti);
     page.clickOnDropdown(true);
     page.clickOnCountry(true, 80);
@@ -332,7 +323,6 @@ describe('Select (forms) Tests', () => {
     expect(page.confirmCountryIsHighlighted(false, 140)).toBeFalsy();
 
     // multiple mode
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxMulti);
     page.clickOnDropdown(true);
     expect(page.confirmCountryIsHighlighted(true, 0)).toBeTruthy();
@@ -364,7 +354,6 @@ describe('Select (forms) Tests', () => {
   it('should be possible to disable access to the list of countries', () => {
 
     // no selected countries
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxDisabled);
     page.clickOnDropdown(false);
     expect(page.confirmDropdownIsExpanded()).toBeFalsy();
@@ -397,7 +386,6 @@ describe('Select (forms) Tests', () => {
   it('should react to changes in the status of the "allowNull" checkbox', () => {
 
     // unselectable in multiple mode
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxMulti);
     expect(page.confirmAllowNullIsDisabled()).toBeTruthy();
     page.clickOnCheckbox(page.checkboxAllowNull);
@@ -441,7 +429,6 @@ describe('Select (forms) Tests', () => {
   it('should display the placeholder text', () => {
 
     // change placeholder text
-    page.clickOnPanel();
     page.clickOnPlaceholder();
     page.getPlaceholder().clear();
     page.getPlaceholder().sendKeys('COUNTRIES');
@@ -472,7 +459,6 @@ describe('Select (forms) Tests', () => {
   it('should react to changes in the status of the "Enable Option Paging" button', () => {
 
     // enable paging
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxPaging);
     expect(page.confirmPageSizeIsDisabled()).toBeFalsy();
     expect(page.confirmPageSizeButtonIsDisabled('down')).toBeFalsy();
@@ -495,7 +481,6 @@ describe('Select (forms) Tests', () => {
     expect<any>(page.getNumberOfCountries(false)).toEqual(numberOfCountries);
 
     // enable paging
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxPaging);
     var result;
 
@@ -522,7 +507,6 @@ describe('Select (forms) Tests', () => {
   it('should allow increases of the paging size', () => {
 
     // enable paging
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxPaging);
     var result;
 
@@ -546,7 +530,6 @@ describe('Select (forms) Tests', () => {
   it('should allow decreases of the paging size', () => {
 
     // enable paging
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxPaging);
     var result;
 
@@ -570,7 +553,6 @@ describe('Select (forms) Tests', () => {
   it('should use the paging size in multiple mode', () => {
 
     // enable paging & multiple mode
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxMulti);
     page.clickOnCheckbox(page.checkboxPaging);
     var result;
@@ -591,7 +573,6 @@ describe('Select (forms) Tests', () => {
   it('should use the paging size when filtering the countries', () => {
 
     // enable paging
-    page.clickOnPanel();
     page.clickOnCheckbox(page.checkboxPaging);
     var result;
     var pageSize = 20;

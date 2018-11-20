@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FacetsModule } from '../../../../dist';
+import { FacetsModule } from '@ux-aspects/ux-aspects';
 
 import { FacetTypeaheadListPageComponent } from './facet-typeahead-list.testpage.component';
 

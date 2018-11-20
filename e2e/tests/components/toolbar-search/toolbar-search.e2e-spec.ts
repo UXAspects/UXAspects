@@ -1,6 +1,6 @@
-import { browser, Key, until, protractor } from 'protractor';
-import { ToolbarSearchPage } from './toolbar-search.po.spec';
+import { browser, protractor } from 'protractor';
 import { Constants, Functions } from '../common/common.spec';
+import { ToolbarSearchPage } from './toolbar-search.po.spec';
 
 const ec = protractor.ExpectedConditions;
 
@@ -9,7 +9,6 @@ describe('Toolbar Search', () => {
   const ANIMATION_TIMEOUT = 500;
 
   let page: ToolbarSearchPage;
-  let browserName: string;
   const constants = new Constants();
   const functions = new Functions();
 
@@ -17,10 +16,6 @@ describe('Toolbar Search', () => {
 
     page = new ToolbarSearchPage();
     page.getPage();
-
-    browser.getCapabilities().then(function (caps) {
-      browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {

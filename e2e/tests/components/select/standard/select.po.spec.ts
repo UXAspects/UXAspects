@@ -1,17 +1,12 @@
-import { ElementFinder, browser, by, element, protractor } from 'protractor';
+import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export const numberOfCountries: number = 249;
 export const scrollingTimeout: number = 5000;
 
 export class SelectPage {
 
-    getPage(): void {
-        browser.get('#/select');
-    }
-
     dropdown = element(by.id('dropdown'));
     selectedLocation = element(by.id('selectedLocation'));
-    panel = element(by.id('panel'));
     radioOptions = element(by.id('radio1'));
     radioDirection = element(by.id('radio2'));
     checkboxMulti = element(by.id('checkbox1'));
@@ -21,6 +16,9 @@ export class SelectPage {
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
 
+    getPage(): void {
+        browser.get('#/select');
+    }
 
     // confirm & check
     confirmClassExists(item: ElementFinder, soughtClass: string) {
@@ -36,10 +34,6 @@ export class SelectPage {
 
     confirmDropdownIsExpanded() {
         return this.dropdown.$('div.inner-addon').$('ux-typeahead.open').isPresent();
-    }
-
-    confirmPanelIsExpanded() {
-        return this.confirmClassExists(this.panel, 'panel-open');
     }
 
     // use Truthy for "strings" button and Falsy for "objects" button
@@ -148,10 +142,6 @@ export class SelectPage {
 
     clickOnCountry(allowMultiple: boolean, index: number) {
         this.getCountry(allowMultiple, index).click();
-    }
-
-    clickOnPanel() {
-        this.panel.$('div.panel').$('div.panel-heading').$('div.panel-title').$('div.accordion-toggle').$('div').click();
     }
 
     clickOnStrings() {

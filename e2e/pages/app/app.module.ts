@@ -1,39 +1,10 @@
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { downgradeComponent, UpgradeModule } from '@angular/upgrade/static';
 import { AppComponent } from './app.component';
-import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
-import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
-import { SideInsetPanelSplitterNg1TestPageComponent } from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
-import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
-import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
-import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
-import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
-import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
-declare const angular: ng.IAngularStatic;
 
-let app = angular.module('app');
-
-
-
-const ROUTES: Routes = [
-    {
-        path: 'button-dropdowns',
-        loadChildren:
-            './button-dropdowns/button-dropdowns.module#ButtonDropdownsTestPageModule'
-    },
-    {
-        path: 'button-size-variations',
-        loadChildren:
-            './button-size-variations/button-size-variation.module#ButtonSizeVariationsTestPageModule'
-    },
-    {
-        path: 'buttons-radio-buttons',
-        loadChildren:
-            './buttons-radio-buttons/buttons-radio-buttons.module#ButtonsRadioButtonsTestPageModule'
-    },
+const routes: Routes = [
     {
         path: 'card-tabs',
         loadChildren: './card-tabs/card-tabs.module#CardTabsTestPageModule'
@@ -43,19 +14,8 @@ const ROUTES: Routes = [
         loadChildren: './checkbox/checkbox.module#CheckboxTestPageModule'
     },
     {
-        path: 'circular-icon-buttons',
-        loadChildren:
-            './circular-icon-buttons/circular-icon-buttons.module#CircularIconButtonsTestPageModule'
-    },
-    {
         path: 'custom-facet',
-        loadChildren:
-            './custom-facet/custom-facet.module#CustomFacetTestPageModule'
-    },
-    {
-        path: 'colored-buttons',
-        loadChildren:
-            './colored-buttons/colored-buttons.module#ColoredButtonsTestPageModule'
+        loadChildren: './custom-facet/custom-facet.module#CustomFacetTestPageModule'
     },
     {
         path: 'conduits',
@@ -66,27 +26,20 @@ const ROUTES: Routes = [
         loadChildren: './dashboard/dashboard.module#DashboardTestPageModule'
     },
     {
-        path: 'dropdowns',
-        loadChildren: './dropdowns/dropdowns.module#DropdownsTestPageModule'
-    },
-    {
         path: 'expanding-text-area',
         loadChildren: './expanding-text-area/expanding-text-area.module#ExpandingTextAreaModule'
     },
     {
         path: 'facet-check-list',
-        loadChildren:
-            './facet-check-list/facet-check-list.module#FacetCheckListTestPageModule'
+        loadChildren: './facet-check-list/facet-check-list.module#FacetCheckListTestPageModule'
     },
     {
         path: 'facet-container',
-        loadChildren:
-            './facet-container/facet-container.module#FacetContainerTestPageModule'
+        loadChildren: './facet-container/facet-container.module#FacetContainerTestPageModule'
     },
     {
         path: 'facet-typeahead-list',
-        loadChildren:
-            './facet-typeahead-list/facet-typeahead-list.module#FacetTypeaheadListPageModule'
+        loadChildren: './facet-typeahead-list/facet-typeahead-list.module#FacetTypeaheadListPageModule'
     },
     {
         path: 'filters',
@@ -94,8 +47,7 @@ const ROUTES: Routes = [
     },
     {
         path: 'flippable-cards',
-        loadChildren:
-            './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
+        loadChildren: './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
     },
     {
         path: 'float-label',
@@ -103,50 +55,31 @@ const ROUTES: Routes = [
     },
     {
         path: 'floating-action-buttons',
-        loadChildren:
-            './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'
-    },
-    {
-        path: 'floating-action-buttons-ng1',
-        component: FloatingActionButtonsNg1TestPageComponent
+        loadChildren: './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'
     },
     {
         path: 'hierarchy-bar',
         loadChildren: './hierarchy-bar/hierarchy-bar.module#HierarchyBarTestPageModule'
     },
     {
-        path: 'hyperlinks',
-        loadChildren: './hyperlinks/hyperlinks.module#HyperlinksTestPageModule'
-    },
-    {
         path: 'infinite-scroll',
-        loadChildren:
-            './infinite-scroll/infinite-scroll.module#InfiniteScrollTestPageModule'
+        loadChildren: './infinite-scroll/infinite-scroll.module#InfiniteScrollTestPageModule'
     },
     {
         path: 'item-display-panel',
-        loadChildren:
-            './item-display-panel/item-display-panel.module#ItemDisplayPanelTestPageModule'
-    },
-    {
-        path: 'link-buttons',
-        loadChildren:
-            './link-buttons/link-buttons.module#LinkButtonsTestPageModule'
+        loadChildren: './item-display-panel/item-display-panel.module#ItemDisplayPanelTestPageModule'
     },
     {
         path: 'marquee-wizard',
-        loadChildren:
-            './marquee-wizard/marquee-wizard.module#MarqueeWizardTestPageModule'
+        loadChildren: './marquee-wizard/marquee-wizard.module#MarqueeWizardTestPageModule'
     },
     {
         path: 'number-picker',
-        loadChildren:
-            './number-picker/number-picker.module#NumberPickerTestPageModule'
+        loadChildren: './number-picker/number-picker.module#NumberPickerTestPageModule'
     },
     {
         path: 'page-header',
-        loadChildren:
-            './page-header/page-header.module#PageHeaderTestPageModule'
+        loadChildren: './page-header/page-header.module#PageHeaderTestPageModule'
     },
     {
         path: 'pagination',
@@ -158,23 +91,19 @@ const ROUTES: Routes = [
     },
     {
         path: 'radiobuttons',
-        loadChildren:
-            './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
+        loadChildren: './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
     },
     {
         path: 'reorderable-table',
-        loadChildren:
-            './reorderable-table/reorderable-table.module#ReorderableTableTestPageModule'
+        loadChildren: './reorderable-table/reorderable-table.module#ReorderableTableTestPageModule'
     },
     {
         path: 'reorderable-group',
-        loadChildren:
-            './reorderable-group/reorderable-group.module#ReorderableGroupTestPageModule'
+        loadChildren: './reorderable-group/reorderable-group.module#ReorderableGroupTestPageModule'
     },
     {
         path: 'search-builder',
-        loadChildren:
-            './search-builder/search-builder.module#SearchBuilderTestPageModule'
+        loadChildren: './search-builder/search-builder.module#SearchBuilderTestPageModule'
     },
     {
         path: 'select',
@@ -189,10 +118,6 @@ const ROUTES: Routes = [
         loadChildren: './selection/selection.module#SelectionTestPageModule'
     },
     {
-        path: 'side-inset-panel-splitter',
-        component: SideInsetPanelSplitterNg1TestPageComponent
-    },
-    {
         path: 'side-panel',
         loadChildren: './side-panel/side-panel.module#SidePanelTestPageModule'
     },
@@ -203,19 +128,6 @@ const ROUTES: Routes = [
     {
         path: 'splitter',
         loadChildren: './splitter/splitter.module#SplitterTestPageModule'
-    },
-    {
-        path: 'split-button-dropdowns',
-        loadChildren:
-            './split-button-dropdowns/split-button-dropdowns.module#SplitButtonDropdownsTestPageModule'
-    },
-    {
-        path: 'stacked-tabs',
-        component: StackedTabsNg1TestPageComponent
-    },
-    {
-        path: 'tabs-ng1',
-        component: TabsNg1TestPageComponent
     },
     {
         path: 'tabs',
@@ -230,14 +142,8 @@ const ROUTES: Routes = [
         loadChildren: './timeline/timeline.module#TimelineTestPageModule'
     },
     {
-        path: 'toggle-button',
-        loadChildren:
-            './toggle-button/toggle-button.module#ToggleButtonTestPageModule'
-    },
-    {
         path: 'toggleswitches',
-        loadChildren:
-            './toggleswitches/toggleswitches.module#ToggleSwitchesTestPageModule'
+        loadChildren: './toggleswitches/toggleswitches.module#ToggleSwitchesTestPageModule'
     },
     {
         path: 'toolbar-search',
@@ -248,14 +154,8 @@ const ROUTES: Routes = [
         loadChildren: './tooltips/tooltips.module#TooltipsTestPageModule'
     },
     {
-        path: 'tree-grid',
-        loadChildren:
-            './tree-grid-ng1/tree-grid-ng1.module#TreeGridNg1TestPageModule'
-    },
-    {
         path: 'virtual-scroll',
-        loadChildren:
-            './virtual-scroll/virtual-scroll.module#VirtualScrollTestPageModule'
+        loadChildren: './virtual-scroll/virtual-scroll.module#VirtualScrollTestPageModule'
     },
     {
         path: 'wizard',
@@ -266,39 +166,14 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         BrowserModule,
-        RouterModule.forRoot(ROUTES, {
-            initialNavigation: false,
-            useHash: true
-        }),
-        UpgradeModule,
+        RouterModule.forRoot(routes, { useHash: true }),
         BrowserAnimationsModule
     ],
     declarations: [
-        AppComponent,
-        TabsComponent,
-        TabsNg1TestPageComponent,
-        StackedTabsNg1TestPageComponent,
-        StackedTabsComponent,
-        SideInsetPanelSplitterNg1TestPageComponent,
-        SideInsetPanelSplitterComponent,
-        FloatingActionButtonsNg1TestPageComponent,
-        FloatingActionButtonComponent
+        AppComponent
     ],
-    providers: [
-        {
-            provide: '$navigationMenu',
-            useFactory: (injector: Injector) => injector.get('$navigationMenu'),
-            deps: ['$injector']
-        }
-    ],
-    entryComponents: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
-export class AppModule {
-    constructor(private _upgrade: UpgradeModule) {}
-
-    ngDoBootstrap() {
-        this._upgrade.bootstrap(document.body, ['app'], { strictDi: true });
-    }
-}
-
-app.directive('myApp', downgradeComponent({ component: AppComponent }));
+export class AppModule { }

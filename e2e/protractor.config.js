@@ -1,9 +1,8 @@
-var fs = require('fs');
-var path = require('canonical-path');
-var _ = require('lodash');
-
-var JasmineReporters = require('jasmine-reporters');
-var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+const fs = require('fs');
+const path = require('canonical-path');
+const _ = require('lodash');
+const JasmineReporters = require('jasmine-reporters');
+const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 exports.config = {
   directConnect: true,  // Set to false if using Selenium Grid
@@ -14,17 +13,19 @@ exports.config = {
     browserName: 'chrome',
     chromeOptions: {
       args: ["--headless", "--disable-gpu", "--no-sandbox", "--window-size=800x600"]
-    }
+    },
+    shardTestFiles: true,
+    maxInstances: 5
   },
 
   // Test one browser at a time
-  maxSessions: 1,
+  maxSessions: 5,
 
   // Framework to use. Jasmine is recommended.
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/*e2e-spec.ts'],
+  specs: ['./tests/**/**/*e2e-spec.ts'],
 
   // protractor_istanbul_plugin package
   plugins: [{

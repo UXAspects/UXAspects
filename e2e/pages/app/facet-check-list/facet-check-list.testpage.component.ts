@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../dist';
+import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({

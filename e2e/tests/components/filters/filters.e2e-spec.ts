@@ -1,18 +1,13 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
 import { FiltersPage } from './filters.po.spec';
 
 describe('Filters Tests', () => {
 
   let page: FiltersPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new FiltersPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
  
   it('should have correct initial states', () => {

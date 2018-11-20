@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CheckboxModule } from '../../../../dist';
+import { CheckboxModule } from '@ux-aspects/ux-aspects';
 
 import { CheckboxTestPageComponent } from './checkbox.testpage.component';
 
