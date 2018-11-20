@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { ColorPickerColor } from '../../../../../../../src/components/color-picker/color-picker.component';
+import { ColorPickerColor } from '../../../../../../../src/components/color-picker/index';
 import { ColorService } from '../../../../../../../src/services/color';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';

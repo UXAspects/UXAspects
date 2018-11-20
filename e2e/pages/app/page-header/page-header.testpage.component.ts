@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Breadcrumb, PageHeaderNavigationItem, PageHeaderIconMenu } from '../../../../dist';
+import { Breadcrumb, PageHeaderNavigationItem, PageHeaderIconMenu } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'page-header-app',

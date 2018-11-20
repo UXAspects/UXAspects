@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PopoverModule } from '../../../../dist';
+import { PopoverModule } from '@ux-aspects/ux-aspects';
 import { PopoverTestPageComponent } from './popover.testpage.component';
 
 @NgModule({

@@ -1,24 +1,18 @@
-import { browser, Key } from 'protractor';
-import { TimelinePage } from './timeline.po.spec';
 import { Constants, Functions } from '../common/common.spec';
+import { TimelinePage } from './timeline.po.spec';
 
 describe('TimelinePage Tests', () => {
 
   let page: TimelinePage;
-  let browserName: string;
   let constants: Constants;
   let functions: Functions;
 
   beforeEach(() => {
     page = new TimelinePage();
     page.getPage();
-    
+
     constants = new Constants();
     functions = new Functions();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should start with 4 events', () => {

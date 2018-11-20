@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from '../../../../dist';
+import { TooltipModule } from '@ux-aspects/ux-aspects';
 import { TooltipsTestPageComponent } from './tooltips.testpage.component';
 
 @NgModule({

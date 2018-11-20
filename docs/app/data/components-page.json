@@ -1568,6 +1568,10 @@
                         {
                             "title": "Module",
                             "content": "FixedHeaderTableModule"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-fixed-header-table"
                         }
                     ]
                 },

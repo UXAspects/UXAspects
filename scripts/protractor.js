@@ -4,7 +4,8 @@ const launcher = require('protractor/built/launcher');
 const config = require('../configs/webpack.e2e.config');
 
 const compiler = webpack(config);
-compiler.plugin('done', () => launcher.init('./e2e/protractor.config.js'));
+
+compiler.hooks.done.tap('Protractor', () => launcher.init('./e2e/protractor.config.js'));
 
 const server = new webpackDevServer(compiler, config.devServer);
 

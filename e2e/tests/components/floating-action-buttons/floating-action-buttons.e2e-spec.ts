@@ -1,11 +1,9 @@
-import { browser, Key } from 'protractor';
-import { FloatingActionButtonsPage } from './floating-action-buttons.po.spec';
 import { Constants, Functions } from '../common/common.spec';
+import { FloatingActionButtonsPage } from './floating-action-buttons.po.spec';
 
 describe('Floating Action Button Tests', () => {
 
   let page: FloatingActionButtonsPage;
-  let browserName: string;
   let constants = new Constants();
   let functions = new Functions();
 
@@ -13,10 +11,6 @@ describe('Floating Action Button Tests', () => {
 
     page = new FloatingActionButtonsPage();
     page.getPage();
-
-    browser.getCapabilities().then(function (caps) {
-      browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {

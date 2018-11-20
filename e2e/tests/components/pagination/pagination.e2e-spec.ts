@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { PaginationPage } from './pagination.po.spec';
 
 describe('Pagination Tests', () => {
 
   let page: PaginationPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new PaginationPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {
