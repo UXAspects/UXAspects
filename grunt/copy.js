@@ -26,25 +26,25 @@ module.exports = {
         dest: join(cwd(), 'dist', 'docs', 'assets', 'ng1'),
         expand: true
     },
-    'npm_tgz': {
+    'npm_ux-aspects_tgz': {
         cwd: join(cwd(), 'dist'),
         src: 'ux-aspects-ux-aspects-*.*.*.tgz',
         dest: join(cwd(), 'target', 'npm'),
         expand: true
     },
-    'npm_docs_tgz': {
+    'npm_ux-aspects-docs_tgz': {
         cwd: cwd(),
         src: 'ux-aspects-ux-aspects-docs-*.*.*.tgz',
         dest: join(cwd(), 'target', 'npm'),
         expand: true
     },
-    'artifactory_tgz': {
+    'artifactory_ux-aspects_tgz': {
         cwd: join(cwd(), 'dist'),
         src: 'ux-aspects-ux-aspects-*.*.*.tgz',
         dest: join(cwd(), 'target', 'artifactory', '@ux-aspects', 'ux-aspects', '-', '@ux-aspects'),
         expand: true
     },
-    'artifactory_docs_tgz': {
+    'artifactory_ux-aspects-docs_tgz': {
         cwd: cwd(),
         src: 'ux-aspects-ux-aspects-docs-*.*.*.tgz',
         dest: join(cwd(), 'target', 'artifactory', '@ux-aspects', 'ux-aspects-docs', '-', '@ux-aspects'),

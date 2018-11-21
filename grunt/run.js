@@ -14,13 +14,13 @@ module.exports = {
     documentation_build: {
         exec: 'node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.docs.prod.config.js'
     },
-    npm_pack: {
+    'npm_pack_ux-aspects': {
         options: {
             cwd: join(cwd(), 'dist')
         },
         exec: 'npm pack --quiet'
     },
-    npm_pack_docs: {
+    'npm_pack_ux-aspects-docs': {
         exec: 'npm pack --quiet'
     },
     webpack_ng1: {
