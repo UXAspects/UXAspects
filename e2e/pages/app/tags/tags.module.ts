@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TagInputModule, TypeaheadModule, CheckboxModule, NumberPickerModule, RadioButtonModule, AccordionModule } from '../../../../dist';
+import { TagInputModule, TypeaheadModule, CheckboxModule, NumberPickerModule, RadioButtonModule, AccordionModule } from '@ux-aspects/ux-aspects';
 
 import { TagsTestPageComponent } from './tags.testpage.component';
 

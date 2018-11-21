@@ -5,6 +5,9 @@ import { FacetContainerComponent } from '../../facet-container.component';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../../facet-events';
 import { Facet } from '../../models/facet';
 
+/**
+ * @deprecated - Use Facet Service instead - retained only for backwards compatability
+ */
 @Component({
     selector: 'ux-facet-base',
     template: '',

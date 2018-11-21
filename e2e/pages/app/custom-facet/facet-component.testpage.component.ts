@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FacetBaseComponent, Facet, FacetDeselect, FacetDeselectAll } from '../../../../dist';
+import { filter } from 'rxjs/operators';
+import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'my-custom-facet-component',
     templateUrl: './facet-component.testpage.component.html',
     styleUrls: ['./facet-component.testpage.component.css']
 })
-export class SampleCustomFacetComponent extends FacetBaseComponent implements OnInit {
+export class SampleCustomFacetComponent implements OnInit {
 
     expanded: boolean = true;
 
@@ -16,32 +17,34 @@ export class SampleCustomFacetComponent extends FacetBaseComponent implements On
         new Facet('CSS', { checked: false })
     ];
 
-    ngOnInit() {
+    constructor(private _facetService: FacetService) {}
+
+    ngOnInit(): void {
 
         // if a facet is deselected externally we need to update checkbox state
-        this.events.filter(event => event instanceof FacetDeselect).subscribe((event: FacetDeselect) => {
+        this._facetService.events$.pipe(filter(event => event instanceof FacetDeselect)).subscribe((event: FacetDeselect) => {
             event.facet.data.checked = false;
         });
 
         // if all facets are deselected externally we need to update checkbox states
-        this.events.filter(event => event instanceof FacetDeselectAll).subscribe(event => {
+        this._facetService.events$.pipe(filter(event => event instanceof FacetDeselectAll)).subscribe(() => {
             this.facets.forEach(facet => facet.data.checked = false);
         });
     }
 
-    updateFacet(facet: Facet, selected: boolean) {
+    updateFacet(facet: Facet, selected: boolean): void {
 
         // update the checked value
         facet.data.checked = selected;
 
         // if the selected state is true and the facet isnt currently selected then select it
-        if (selected === true && !this.isFacetSelected(facet)) {
-            this.selectFacet(facet);
+        if (selected === true && !this._facetService.isSelected(facet)) {
+            this._facetService.select(facet);
         }
 
         // if the selected state is false and the facet is current selected then deselect it
-        if (selected === false && this.isFacetSelected(facet)) {
-            this.deselectFacet(facet);
+        if (selected === false && this._facetService.isSelected(facet)) {
+            this._facetService.deselect(facet);
         }
     }
 

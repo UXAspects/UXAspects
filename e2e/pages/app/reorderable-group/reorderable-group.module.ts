@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReorderableModule } from '../../../../dist';
+import { ReorderableModule } from '@ux-aspects/ux-aspects';
 import { ReorderableGroupTestPageComponent } from './reorderable-group.testpage.component';
 
 @NgModule({

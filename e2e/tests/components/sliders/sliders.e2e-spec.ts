@@ -1,28 +1,23 @@
-import { browser, Key } from 'protractor';
+import { browser } from 'protractor';
 import { SlidersPage } from './sliders.po.spec';
 
 describe('SlidersPage Tests', () => {
 
   let page: SlidersPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new SlidersPage();
     page.getPage();
-    
+
     browser.driver.manage().window().maximize();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should display the expected drag handles', () => {
-    
+
     // Confirm the appropriate handles are displayed for each slider.
     expect(page.getHandleAttribute(page.slider1, 'lower', 'hidden')).toBeNull();
     expect(page.getHandleAttribute(page.slider1, 'upper', 'hidden')).not.toBeNull();
-    
+
     expect(page.getHandleAttribute(page.slider2, 'lower', 'hidden')).toBeNull();
     expect(page.getHandleAttribute(page.slider2, 'upper', 'hidden')).not.toBeNull();
     

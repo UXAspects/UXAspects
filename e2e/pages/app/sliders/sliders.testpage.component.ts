@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '../../../../dist';
+import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '@ux-aspects/ux-aspects';
 
 @Component({
   selector: 'sliders-app',

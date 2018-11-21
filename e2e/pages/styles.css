@@ -1,3 +1,2 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import "../../dist/styles/ux-aspects.css";
-
+@import "../../dist/styles/ux-aspects.min.css";
