@@ -32,5 +32,5 @@ module.exports = {
     md: 'dist/*.md',
     e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage', 'e2e/html', 'e2e/xml'],
     shim: 'dist/dist',
-    target: ['target/bower', 'target/npm', 'target/artifactory', 'target/docs']
+    target: ['target/bower', 'target/npm', 'target/artifactory', 'target/release-staging', 'target/docs']
 };

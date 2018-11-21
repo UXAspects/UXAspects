@@ -14,6 +14,9 @@ module.exports = {
     documentation_build: {
         exec: 'node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.docs.prod.config.js'
     },
+    npm_setversion_release: {
+        exec: 'node ./node_modules/@ux-aspects/ux-aspects-scripts/bin/setversion-release.js'
+    },
     'npm_pack_ux-aspects': {
         options: {
             cwd: join(cwd(), 'dist')

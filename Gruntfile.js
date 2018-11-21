@@ -29,19 +29,35 @@ module.exports = function(grunt) {
     grunt.registerTask('licenses', ['execute:licenses', 'usebanner:ng1']);
     grunt.registerTask('test', ['build:library', 'jasmine:ng1']);
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
+
     grunt.registerTask('package:ux-aspects', [
         'run:npm_pack_ux-aspects',
         'copy:npm_ux-aspects_tgz',
         'copy:artifactory_ux-aspects_tgz',
         'clean:ux-aspects_tgz'
     ]);
+
     grunt.registerTask('package:ux-aspects_bower', ['compress:bower']);
+
     grunt.registerTask('package:ux-aspects-docs', [
         'run:npm_pack_ux-aspects-docs',
         'copy:npm_ux-aspects-docs_tgz',
         'copy:artifactory_ux-aspects-docs_tgz',
         'clean:ux-aspects-docs_tgz'
     ]);
+
+    grunt.registerTask('package:release:ux-aspects', [
+        'run:npm_pack_ux-aspects',
+        'copy:staging_ux-aspects_tgz',
+        'clean:ux-aspects_tgz'
+    ]);
+
+    grunt.registerTask('package:release:ux-aspects-docs', [
+        'run:npm_pack_ux-aspects-docs',
+        'copy:staging_ux-aspects-docs_tgz',
+        'clean:ux-aspects-docs_tgz'
+    ]);
+
     grunt.registerTask('build:documentation', [
         'tslint:documentation',
         'clean:documentation',
@@ -72,6 +88,13 @@ module.exports = function(grunt) {
         'package:ux-aspects_bower',
         'package:ux-aspects-docs',
         'compress:documentation'
+    ]);
+
+    // package:release: update version to the release and
+    grunt.registerTask('package:release', [
+        'run:npm_setversion_release',
+        'package:release:ux-aspects',
+        'package:release:ux-aspects-docs'
     ]);
 
     // build: build and package for all targets.

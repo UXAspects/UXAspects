@@ -50,6 +50,18 @@ module.exports = {
         dest: join(cwd(), 'target', 'artifactory', '@ux-aspects', 'ux-aspects-docs', '-', '@ux-aspects'),
         expand: true
     },
+    'staging_ux-aspects_tgz': {
+        cwd: join(cwd(), 'dist'),
+        src: 'ux-aspects-ux-aspects-*.*.*.tgz',
+        dest: join(cwd(), 'target', 'release-staging', '@ux-aspects', 'ux-aspects', '-', '@ux-aspects'),
+        expand: true
+    },
+    'staging_ux-aspects-docs_tgz': {
+        cwd: cwd(),
+        src: 'ux-aspects-ux-aspects-docs-*.*.*.tgz',
+        dest: join(cwd(), 'target', 'release-staging', '@ux-aspects', 'ux-aspects-docs', '-', '@ux-aspects'),
+        expand: true
+    },
     'md': {
         cwd: cwd(),
         src: ['README.md', 'LICENSE.md'],
