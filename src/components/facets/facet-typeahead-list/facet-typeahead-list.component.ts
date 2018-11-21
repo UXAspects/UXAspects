@@ -1,12 +1,13 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ElementRef, Input, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { map, mergeMap, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
-import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
-import { FacetContainerComponent } from '../facet-container.component';
+import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';
+import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';
 import { FacetTypeaheadListItemComponent } from './typeahead-list-item/facet-typeahead-list-item.component';
 
@@ -16,13 +17,21 @@ let uniqueId = 1;
     selector: 'ux-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
-export class FacetTypeaheadListComponent extends FacetBaseComponent implements AfterViewInit {
+export class FacetTypeaheadListComponent implements AfterViewInit, OnDestroy {
+
+    @Input() set selected(selection: Facet[]) {
+        if (Array.isArray(selection)) {
+            selection.forEach(facet => this.facetService.select(facet));
+        }
+    }
 
     @Input() facets: Facet[] | Observable<Facet[]>;
     @Input() header: string;
     @Input() expanded: boolean = true;
     @Input() suggestions: Facet[] = [];
     @Input() simplified: boolean = true;
+    @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
+    @Output() selectedChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
 
     @Input()
     set typeaheadConfig(config: FacetTypeaheadListConfig) {
@@ -43,11 +52,31 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
     typeaheadOptions: Facet[] = [];
     highlightedElement: HTMLElement;
 
+    private _selected: Facet[] = [];
+    private _onDestroy = new Subject<void>();
     private _config: FacetTypeaheadListConfig = { placeholder: '', maxResults: 50, minCharacters: 1 };
     private _focusKeyManager: FocusKeyManager<FacetTypeaheadListItemComponent>;
 
-    constructor(public typeaheadKeyService: TypeaheadKeyService, facetContainer: FacetContainerComponent, elementRef: ElementRef, private _announcer: LiveAnnouncer) {
-        super(facetContainer, elementRef);
+    constructor(public typeaheadKeyService: TypeaheadKeyService, public facetService: FacetService, private _announcer: LiveAnnouncer) {
+        facetService.events$.pipe(takeUntil(this._onDestroy)).subscribe(event => {
+
+            // deselect all events should always be emitted
+            if (event instanceof FacetDeselectAll) {
+                this.events.next(event);
+                this.selectedChange.next([]);
+            }
+
+            // if deselected remove the facet from our internal list of selected facets
+            if (event instanceof FacetDeselect && this.isOwnFacet(event.facet)) {
+                this._selected = this._selected.filter(_facet => _facet !== event.facet);
+            }
+
+            // selection and deselection events should only be emitted when the facet belongs to this component
+            if ((event instanceof FacetSelect || event instanceof FacetDeselect) && this.isOwnFacet(event.facet)) {
+                this.events.next(event);
+                this.selectedChange.next(this._selected);
+            }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -60,7 +89,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
                 this.typeaheadOptions = [];
             }),
             mergeMap(() => this.getFacetObservable().pipe(map(facets => {
-                return facets.filter(facet => !facet.disabled && !this.selected.find(selectedFacet => selectedFacet === facet))
+                return facets.filter(facet => !facet.disabled && !this.facetService.facets$.value.find(selectedFacet => selectedFacet === facet))
                     .slice(0, this._config.maxResults);
             })))
         ).subscribe(facets => {
@@ -70,6 +99,11 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
 
         this._focusKeyManager = new FocusKeyManager(this.options).withVerticalOrientation();
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     onKeydown(event: KeyboardEvent): void {
@@ -83,7 +117,15 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
     }
 
     toggleFacet(index: number, facet: Facet): void {
-        this.toggleFacetSelection(facet);
+
+        if (this.facetService.isSelected(facet)) {
+            this.facetService.deselect(facet);
+            this._selected = this._selected.filter(_facet => _facet !== facet);
+        } else {
+            this._selected.push(facet);
+            this.facetService.select(facet);
+        }
+
         this._focusKeyManager.setActiveItem(index);
     }
 
@@ -99,18 +141,25 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
     select(event: TypeaheadOptionEvent) {
 
         // check to make sure that the item is not currently selected
-        if (this.selected.find(facet => facet === event.option)) {
+        if (this.facetService.isSelected(event.option)) {
             return;
         }
 
+        // add this to the list of internal selected facets
+        this._selected.push(event.option);
+
         // select the facet
-        this.selectFacet(event.option);
+        this.facetService.select(event.option);
 
         // clear the typeahead
         this.query$.next('');
 
         // announce the selected facet
         this._announcer.announce(`${(event.option as Facet).title} selected.`);
+    }
+
+    private isOwnFacet(facet: Facet): boolean {
+        return this._selected.indexOf(facet) !== -1;
     }
 }
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import 'chance';
+import { Facet } from '../../../../../../../src/index';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import 'chance';
 
 @Component({
     selector: 'uxd-components-facet-check-list',

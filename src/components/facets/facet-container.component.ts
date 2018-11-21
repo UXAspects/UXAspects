@@ -1,39 +1,53 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { ReorderEvent } from '../../directives/reorderable/index';
-import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from './facet-events';
+import { FacetDeselect, FacetEvent } from './facet-events';
+import { FacetService } from './facet.service';
 import { Facet } from './models/facet';
 
 @Component({
     selector: 'ux-facet-container',
-    templateUrl: './facet-container.component.html'
+    templateUrl: './facet-container.component.html',
+    providers: [FacetService]
 })
 export class FacetContainerComponent implements OnDestroy {
 
     @Input() header: string = 'Selected:';
     @Input() clearTooltip: string = 'Clear All';
     @Input() emptyText: string = 'No Items';
-    @Input() facets: Facet[] = [];
     @Input() facetsReorderable: boolean = false;
+
+    @Input() set facets(facets: Facet[]) {
+        this.facetService.facets$.next(facets);
+    }
+
+    get facets(): Facet[] {
+        return this.facetService.facets$.value;
+    }
 
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();
 
-    constructor(private _announcer: LiveAnnouncer) { }
+    private _onDestroy = new Subject<void>();
+
+    constructor(private _announcer: LiveAnnouncer, public facetService: FacetService) {
+        facetService.facets$.subscribe(facets => this.facetsChange.next(facets));
+        facetService.events$.subscribe(event => this.triggerEvent(event));
+
+        // announce deselection
+        facetService.events$.pipe(filter<FacetDeselect>(event => event instanceof FacetDeselect))
+            .subscribe(event => this._announcer.announce(`Option ${event.facet.title} deselected.`, 'assertive'));
+    }
 
     ngOnDestroy(): void {
-        this.events.complete();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     selectFacet(facet: Facet): void {
-        // push the facet on to the list
-        this.facets.push(facet);
-
-        // update the two way binding
-        this.facetsChange.emit(this.facets);
-
-        // trigger event
-        this.triggerEvent(new FacetSelect(facet));
+        this.facetService.select(facet);
     }
 
     deselectFacet(facet: Facet, tag?: HTMLElement): void {
@@ -47,13 +61,7 @@ export class FacetContainerComponent implements OnDestroy {
         }
 
         // remove the last item
-        this.facets.splice(idx, 1);
-
-        // update the two way binding
-        this.facetsChange.emit(this.facets);
-
-        // trigger event
-        this.triggerEvent(new FacetDeselect(facet));
+        this.facetService.deselect(facet);
 
         // announce the facet removal
         this._announcer.announce(`Option ${facet.title} deselected.`, 'assertive');
@@ -72,13 +80,7 @@ export class FacetContainerComponent implements OnDestroy {
     deselectAllFacets(): void {
 
         // empty the selected array
-        this.facets = [];
-
-        // update the two way binding
-        this.facetsChange.emit(this.facets);
-
-        // trigger event
-        this.triggerEvent(new FacetDeselectAll());
+        this.facetService.deselectAll();
 
         // announce the facet removal
         this._announcer.announce(`All options deselected.`, 'assertive');

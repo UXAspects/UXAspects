@@ -8,7 +8,7 @@
             *ngFor="let facet of suggestions; let index = index"
             [facet]="facet"
             [tabbable]="activeIndex === index"
-            [selected]="isFacetSelected(facet)"
+            [selected]="facetService.isSelected(facet)"
             (selectedChange)="toggleFacet(index, facet)"
             (keydown)="onKeydown($event)"
             (itemFocus)="onFocus(index)">

@@ -2,7 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import 'chance';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/debounceTime';
+import { debounceTime } from 'rxjs/operators';
 
 const chance = new Chance();
 
@@ -16,7 +16,7 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
 export class AppComponent {
 
     filterText = new BehaviorSubject<string>('');
-    debouncedFilterText = this.filterText.debounceTime(500);
+    debouncedFilterText = this.filterText.pipe(debounceTime(500));
     allEmployees: any[] = [];
     loadedEmployees: any[] = [];
     loadCallback = this.load.bind(this);

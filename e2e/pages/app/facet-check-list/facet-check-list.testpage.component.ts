@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { Facet, FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'facet-check-list-app',
@@ -22,7 +22,7 @@ export class FacetCheckListTestPageComponent {
         this.facets.sort((facetOne, facetTwo) => {
             if (facetOne.title < facetTwo.title) {
                 return -1;
-            } 
+            }
 
             if (facetOne.title > facetTwo.title) {
                 return 1;
