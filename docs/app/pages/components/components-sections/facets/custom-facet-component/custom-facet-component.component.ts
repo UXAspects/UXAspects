@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
+import 'chance';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import 'chance';
 
 @Component({
     selector: 'uxd-components-custom-facet-component',
@@ -30,7 +29,7 @@ export class ComponentsCustomFacetComponent extends BaseDocumentationSection imp
             declaration: true
         }]
     };
-    
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
