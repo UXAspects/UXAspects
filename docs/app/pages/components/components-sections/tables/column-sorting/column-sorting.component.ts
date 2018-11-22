@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
+import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

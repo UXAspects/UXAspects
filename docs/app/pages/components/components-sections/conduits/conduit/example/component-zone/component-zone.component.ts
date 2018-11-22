@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConduitZone, ConduitZoneComponent } from '../../../../../../../../../src/components/conduit/index';
+import { ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'uxd-conduit-example-zone',

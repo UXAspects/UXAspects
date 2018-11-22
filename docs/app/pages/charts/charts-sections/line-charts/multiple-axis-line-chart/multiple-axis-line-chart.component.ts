@@ -1,11 +1,11 @@
-import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-charts-multi-axis-line-chart',

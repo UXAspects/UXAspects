@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ColorService } from '../../../../../../../src/index';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 
 @Component({
     selector: 'uxd-charts-donut-chart-ng1',

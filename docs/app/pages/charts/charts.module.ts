@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TabsetModule } from '@ux-aspects/ux-aspects';
 import 'chart.js';
-import { TabsetModule } from '../../../../src/index';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { ChartsPageComponent } from './charts.component';
 

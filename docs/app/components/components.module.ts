@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { EboxModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { EboxModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '../../../src/index';
 // Import UI Components
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
 import { ApiPropertyComponent } from './api-property/api-property.component';

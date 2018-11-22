@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '@ux-aspects/ux-aspects';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { Facet, FacetDeselect, FacetDeselectAll, FacetService } from '../../../../../../../../src/index';
 
 @Component({
     selector: 'my-custom-facet-component',

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { HierarchyBarNode } from '../../../../../../../src/components/hierarchy-bar';
+import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-hierarchy-bar',

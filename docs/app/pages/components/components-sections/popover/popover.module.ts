@@ -1,7 +1,6 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PopoverModule } from '../../../../../../src/components/popover/index';
-import { TabsetModule } from '../../../../../../src/index';
+import { PopoverModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';

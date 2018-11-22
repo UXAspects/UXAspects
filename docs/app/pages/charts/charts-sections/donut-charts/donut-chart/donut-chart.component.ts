@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { ColorService } from '@ux-aspects/ux-aspects';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-donut-chart',
