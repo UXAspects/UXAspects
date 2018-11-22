@@ -13,6 +13,7 @@ import { FacetCheckListComponent } from './facet-check-list/facet-check-list.com
 import { FacetContainerComponent } from './facet-container.component';
 import { FacetTypeaheadHighlight, FacetTypeaheadListComponent } from './facet-typeahead-list/facet-typeahead-list.component';
 import { FacetTypeaheadListItemComponent } from './facet-typeahead-list/typeahead-list-item/facet-typeahead-list-item.component';
+import { FacetClearButtonDirective } from './facet-clear-button/facet-clear-button.directive';
 
 const DECLARATIONS = [
     FacetContainerComponent,
@@ -22,7 +23,8 @@ const DECLARATIONS = [
     FacetCheckListItemComponent,
     FacetTypeaheadListComponent,
     FacetTypeaheadListItemComponent,
-    FacetTypeaheadHighlight
+    FacetTypeaheadHighlight,
+    FacetClearButtonDirective
 ];
 
 @NgModule({

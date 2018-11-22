@@ -1,8 +1,9 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ReorderEvent } from '../../directives/reorderable/index';
+import { FacetClearButtonDirective } from './facet-clear-button/facet-clear-button.directive';
 import { FacetDeselect, FacetEvent } from './facet-events';
 import { FacetService } from './facet.service';
 import { Facet } from './models/facet';
@@ -29,6 +30,9 @@ export class FacetContainerComponent implements OnDestroy {
 
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();
+
+    /** Allow a custom clear button */
+    @ContentChild(FacetClearButtonDirective, { read: TemplateRef }) clearButton: TemplateRef<FacetClearButtonDirective>;
 
     private _onDestroy = new Subject<void>();
 
