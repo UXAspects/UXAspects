@@ -40,11 +40,6 @@ const ROUTES = [
 @NgModule({
     imports: [
         AccordionModule,
-        CommonModule,
-        WrappersModule,
-        TabsetModule,
-        TreeModule,
-        FormsModule,
         CheckboxModule,
         CommonModule,
         DocumentationComponentsModule,
@@ -55,7 +50,7 @@ const ROUTES = [
         SelectionModule,
         TabsetModule,
         TreeGridModule,
-        TreeModule,
+        TreeModule.forRoot(),
         WrappersModule,
     ],
     exports: SECTIONS,
