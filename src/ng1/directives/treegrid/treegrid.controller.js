@@ -244,7 +244,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
           levelClass: "treegrid-level-" + level,
           rowClass: getRowClass(data[i]),
           canExpand: canExpand,
-          expanded: false,
           expanding: false,
           expander: {
             type: vm.allOptions.expander.type,
@@ -259,6 +258,17 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
           dataItem: data[i],
           children: []
         };
+
+        // Link the `expanded` property to the data object property if defined
+        if (vm.allOptions.expandedProperty) {
+          Object.defineProperty(row, 'expanded', {
+            get: () => this.dataItem[vm.allOptions.expandedProperty],
+            set: (value) => this.dataItem[vm.allOptions.expandedProperty] = value
+          });
+        } else {
+          row.expanded = false;
+        }
+
         row.api = rowApi(row);
         rows.push(row);
       }
@@ -343,7 +353,8 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       .then(function (newRows) {
         row.children = newRows;
         row.expanded = true;
-        return row;
+        return $q.all(newRows.filter(row => row.expanded).map(row => expand(row))).then(() => row);
+        // return row;
       })
       .catch(function (err) {
         console.error("Data load error: " + err);
