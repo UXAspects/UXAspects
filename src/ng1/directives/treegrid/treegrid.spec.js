@@ -464,6 +464,35 @@ describe('treegrid', function () {
       });
     });
 
+    it("should initially expand nodes according to the expandedProperty configuration", function (done) {
+      instantiateController({
+        data: [{
+          test: "Row 1",
+          expanded: false,
+          nodes: [{
+            test: "Row 1.1"
+          }]
+        }, {
+          test: "Row 2",
+          expanded: true,
+          nodes: [{
+            test: "Row 2.1"
+          }]
+        }],
+        columns: [{ name: "test", value: "test" }],
+        options: {
+          expandedProperty: "expanded"
+        }
+      }, function (ctrl) {
+        var rows = ctrl.getGridRows();
+        expect(rows.length).toBe(3);
+        expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
+        expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+        expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
+        done();
+      });
+    });
+
   });
 
   describe("api", function () {
