@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, TemplateRef, OnDestroy } from '@angular/core';
-import { AnchorPlacement } from './tooltip.directive';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { AnchorAlignment, AnchorPlacement } from './tooltip.directive';
 
 let uniqueTooltipId = 0;
 
@@ -25,6 +25,9 @@ export class TooltipComponent implements OnDestroy {
 
   /** The position the tooltip should display relative to the associated element */
   placement: AnchorPlacement;
+
+  /** The position the callout should display relative to the popover element */
+  alignment: AnchorAlignment;
 
   /** Allow a custom class to be added to the tooltip to allow custom styling */
   customClass: string = '';
@@ -62,6 +65,17 @@ export class TooltipComponent implements OnDestroy {
     }
 
     this.placement = placement;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** This will update the tooltip alignment and trigger change detection */
+  setAlignment(alignment: AnchorAlignment) {
+
+    if (!alignment) {
+      return;
+    }
+
+    this.alignment = alignment;
     this._changeDetectorRef.markForCheck();
   }
 

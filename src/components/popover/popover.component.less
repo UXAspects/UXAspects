@@ -10,9 +10,7 @@ ux-popover {
             }
         }
 
-        &.bottom,
-        &.bottom-left,
-        &.bottom-right {
+        &.bottom {
             margin-top: 10px;
             transform: translateY(0);
 
@@ -34,9 +32,7 @@ ux-popover {
             }
         }
 
-        &.top,
-        &.top-left,
-        &.top-right {
+        &.top {
             margin-top: -10px;
             transform: translateY(-11px);
 
@@ -58,22 +54,30 @@ ux-popover {
             }
         }
 
-        &.bottom-left > .arrow,
-        &.top-left > .arrow {
-            left: 15%;
-        }
-
-        &.bottom-right > .arrow,
-        &.top-right > .arrow {
-            left: 85%;
-        }
-
         &.left {
             transform: translateX(-11px);
         }
 
         &.right {
             transform: translateX(0);
+        }
+
+        &.popover-align-start > .arrow {
+            left: 23px;
+        }
+
+        &.popover-align-end > .arrow {
+            left: auto;
+            right: 0;
+        }
+
+        &.popover-align-top > .arrow {
+            top: 15px;
+        }
+
+        &.popover-align-bottom > .arrow {
+            top: auto;
+            bottom: 5px;
         }
     }
 
