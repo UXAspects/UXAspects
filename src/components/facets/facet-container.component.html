@@ -8,22 +8,7 @@
         <span class="facets-selected-header-label">{{ header }}</span>
 
         <!-- Add a Clear Button -->
-        <button class="btn btn-link btn-icon button-secondary"
-            tabindex="0"
-            [attr.aria-label]="clearTooltip"
-            [uxTooltip]="clearTooltip"
-            placement="left"
-            (click)="deselectAllFacets()"
-            *ngIf="(facetService.facets$ | async).length > 0">
-
-            <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
-                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
-                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
-                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
-                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
-                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
-            </svg>
-        </button>
+        <ng-container *ngIf="(facetService.facets$ | async).length > 0" [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
 
     </div>
 
@@ -72,3 +57,21 @@
 <div class="facets-region">
     <ng-content></ng-content>
 </div>
+
+<ng-template #clearButtonDefault>
+    <button class="btn btn-link btn-icon button-secondary"
+            tabindex="0"
+            [attr.aria-label]="clearTooltip"
+            [uxTooltip]="clearTooltip"
+            placement="left"
+            (click)="deselectAllFacets()">
+
+            <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
+                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
+                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
+                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
+                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
+            </svg>
+        </button>
+</ng-template>
