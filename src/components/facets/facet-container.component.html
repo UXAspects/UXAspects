@@ -8,7 +8,7 @@
         <span class="facets-selected-header-label">{{ header }}</span>
 
         <!-- Add a Clear Button -->
-        <ng-container [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
+        <ng-container *ngIf="(facetService.facets$ | async).length > 0" [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
 
     </div>
 
@@ -64,8 +64,7 @@
             [attr.aria-label]="clearTooltip"
             [uxTooltip]="clearTooltip"
             placement="left"
-            (click)="deselectAllFacets()"
-            *ngIf="(facetService.facets$ | async).length > 0">
+            (click)="deselectAllFacets()">
 
             <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
                 <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
