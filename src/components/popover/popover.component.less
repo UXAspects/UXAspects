@@ -54,6 +54,18 @@ ux-popover {
             }
         }
 
+        &.top,
+        &.bottom {
+            &.popover-align-start > .arrow {
+                left: 23px;
+            }
+
+            &.popover-align-end > .arrow {
+                left: auto;
+                right: 0;
+            }
+        }
+
         &.left {
             transform: translateX(-11px);
         }
@@ -62,22 +74,21 @@ ux-popover {
             transform: translateX(0);
         }
 
-        &.popover-align-start > .arrow {
-            left: 23px;
-        }
+        &.left,
+        &.right {
+            > .arrow {
+                margin-top: 0;
+                transform: translateY(-50%);
+            }
 
-        &.popover-align-end > .arrow {
-            left: auto;
-            right: 0;
-        }
+            &.popover-align-start > .arrow {
+                top: 15px;
+            }
 
-        &.popover-align-top > .arrow {
-            top: 15px;
-        }
-
-        &.popover-align-bottom > .arrow {
-            top: auto;
-            bottom: 5px;
+            &.popover-align-end > .arrow {
+                top: auto;
+                bottom: -5px;
+            }
         }
     }
 

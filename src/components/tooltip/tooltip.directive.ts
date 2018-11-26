@@ -325,11 +325,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         }
 
         if (this.placement === 'left') {
-            return { originX: 'start', originY: this.alignment as VerticalConnectionPos };
+            return { originX: 'start', originY: this.getVerticalAlignment() };
         }
 
         if (this.placement === 'right') {
-            return { originX: 'end', originY: this.alignment as VerticalConnectionPos };
+            return { originX: 'end', originY: this.getVerticalAlignment() };
         }
     }
 
@@ -348,11 +348,26 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         }
 
         if (this.placement === 'left') {
-            return { overlayX: 'end', overlayY: this.alignment as VerticalConnectionPos };
+            return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
         }
 
         if (this.placement === 'right') {
-            return { overlayX: 'start', overlayY: this.alignment as VerticalConnectionPos };
+            return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
+        }
+    }
+
+    /** Convert the alignment property to a valid CDK alignment value */
+    private getVerticalAlignment(): VerticalConnectionPos {
+
+        switch (this.alignment) {
+            case 'start':
+                return 'top';
+
+            case 'end':
+                return 'bottom';
+
+            default:
+                return this.alignment;
         }
     }
 
@@ -439,5 +454,5 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 }
 
-export type AnchorPlacement = 'top' | 'right'| 'bottom' | 'left';
-export type AnchorAlignment = HorizontalConnectionPos | VerticalConnectionPos;
+export type AnchorPlacement = 'top' | 'right' | 'bottom' | 'left';
+export type AnchorAlignment = 'start' | 'center' | 'end';
