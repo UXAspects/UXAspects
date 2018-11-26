@@ -126,6 +126,10 @@ const routes: Routes = [
         loadChildren: './sliders/sliders.module#SlidersTestPageModule'
     },
     {
+        path: 'spark',
+        loadChildren: './spark/spark.module#SparkTestPageModule',
+    },
+    {
         path: 'splitter',
         loadChildren: './splitter/splitter.module#SplitterTestPageModule'
     },
