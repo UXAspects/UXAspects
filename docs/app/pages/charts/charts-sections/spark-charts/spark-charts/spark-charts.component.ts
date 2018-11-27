@@ -60,7 +60,8 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             value: [70, 20, 10],
             barColor: ['#1aac60', '#fcdb1f', '#e5004c'],
             barHeight: 6,
-            topLeftLabel: "<span class='spark-label'>Multi-value</span>"
+            topLeftLabel: "<span class='spark-label'>Multi-value</span>",
+            ariaLabel: ['Document', 'Audio', 'Video']
         },
         {
             theme: 'vibrant2',
@@ -102,4 +103,5 @@ interface SparkChart {
     bottomRightLabel?: string;
     inlineLabel?: string;
     tooltip?: string;
+    ariaLabel?: string | string[];
 }
