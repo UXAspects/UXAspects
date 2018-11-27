@@ -14,7 +14,7 @@
     },
     "overview": {
         "title": "About UX Aspects",
-        "description": "UX Aspects provides all of the essentials required for your big data project, allowing you to swiftly create dashboards and reports that provide users with the insights they crave from their big data applications. UX Aspects is based on best-of-breed, open source technologies, including Angular, Bootstrap and D3. It is easy to include in your web applications with a package manager.",
+        "description": "UX Aspects provides all of the essentials required for your big data project, allowing you to swiftly create dashboards and reports that provide users with the insights they crave from their big data applications. UX Aspects is based on best-of-breed, open source technologies, including Angular, Bootstrap and D3. It is easy to include in your web applications with NPM.",
         "features": [{
             "image": "assets/img/angular-icon.png",
             "title": "Angular",
@@ -24,13 +24,13 @@
             "title": "Analytics",
             "description": "UX Aspects has a wide range of powerful charts giving you many ways to present data."
         }, {
-            "image": "assets/img/custom-icon.png",
-            "title": "Customizable",
-            "description": "All our components are configurable and can be customized to suit your needs."
+            "image": "assets/img/accessibility-icon.png",
+            "title": "Accessible",
+            "description": "Components and examples are designed to help applications meet the Web Content Accessibility Guidelines."
         }, {
             "image": "assets/img/responsive-icon.png",
             "title": "Responsive",
-            "description": "Components are designed to be responsive, working great on mobile, desktop and tablets."
+            "description": "Components are designed to be responsive, working great on mobile, desktop, and tablets."
         }]
     },
     "showcase": {
