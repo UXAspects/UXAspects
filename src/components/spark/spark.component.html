@@ -11,7 +11,7 @@
         </div>
 
         <div role="progressbar"
-            [attr.aria-label]="ariaLabel || tooltip"
+            [attr.aria-label]="getAriaLabel()"
             [attr.aria-description]="ariaDescription"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -20,7 +20,13 @@
             [style.height.px]="barHeight"
             [style.backgroundColor]="trackColor"
             [uxTooltip]="tooltip">
-            <div class="ux-spark-bar" *ngFor="let line of values; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
+
+            <div class="ux-spark-bar"
+                *ngFor="let line of values; let idx = index"
+                [attr.aria-label]="getSegmentAriaLabel(idx)"
+                [style.width.%]="line"
+                [style.backgroundColor]="barColor[idx]">
+            </div>
         </div>
 
         <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
@@ -43,7 +49,7 @@
     </div>
 
     <div role="progressbar"
-        [attr.aria-label]="ariaLabel || tooltip"
+        [attr.aria-label]="getAriaLabel()"
         [attr.aria-description]="ariaDescription"
         aria-valuemin="0"
         aria-valuemax="100"
@@ -53,7 +59,13 @@
         [style.height.px]="barHeight"
         [style.backgroundColor]="trackColor"
         [uxTooltip]="tooltip">
-        <div class="ux-spark-bar" *ngFor="let line of value; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
+
+        <div class="ux-spark-bar"
+            *ngFor="let line of value; let idx = index"
+            [attr.aria-label]="getSegmentAriaLabel(idx)"
+            [style.width.%]="line"
+            [style.backgroundColor]="barColor[idx]">
+        </div>
     </div>
 
     <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
