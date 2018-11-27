@@ -63,7 +63,7 @@ export class AppComponent {
             barColor: ['#1aac60', '#fcdb1f', '#e5004c'],
             barHeight: 6,
             topLeftLabel: `<span class='spark-label'>Multi-value</span>`,
-            ariaLabel: ['Document', 'Audio', 'Video']
+            ariaLabel: ['70% Documents', '20% Audio', '10% Video']
         },
         {
             theme: 'vibrant2',
