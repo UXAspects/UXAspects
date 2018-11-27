@@ -1,10 +1,10 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Directive, HostBinding, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { takeUntil } from 'rxjs/operators';
-import { TooltipDirective } from '../tooltip/index';
+import { TooltipDirective, TooltipService } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';
 
 @Directive({
@@ -55,6 +55,18 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     /** Internally store the type of this component - usual for distinctions when extending the tooltip class */
     protected _type: string = 'popover';
 
+    constructor(
+        elementRef: ElementRef,
+        viewContainerRef: ViewContainerRef,
+        overlay: Overlay,
+        scrollDispatcher: ScrollDispatcher,
+        changeDetectorRef: ChangeDetectorRef,
+        renderer: Renderer2,
+        tooltipService: TooltipService
+    ) {
+        super(elementRef, viewContainerRef, overlay, scrollDispatcher, changeDetectorRef, renderer, tooltipService);
+    }
+
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
     ngOnInit(): void {
 
@@ -87,6 +99,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         instance.setTitle(this.title);
         instance.setContent(this.content);
         instance.setPlacement(this.placement);
+        instance.setAlignment(this.alignment);
         instance.setClass(this.customClass);
         instance.setContext(this.context);
         instance.setRole(this.role);

@@ -2,20 +2,93 @@ ux-popover {
     .popover {
         position: static;
 
-        &.top {
-            transform: translateY(-11px);
+        > .arrow {
+            border-width: 11px;
+
+            &:after {
+                content: " ";
+            }
         }
 
         &.bottom {
+            margin-top: 10px;
             transform: translateY(0);
+
+            > .arrow {
+                left: 50%;
+                border-top-width: 0;
+                border-bottom-color: rgba(0, 0, 0, 0.25);
+                top: -11px;
+                margin-left: 0;
+                transform: translateX(-50%);
+
+                &:after {
+                    margin-left: 0;
+                    top: 1px;
+                    border-top-width: 0;
+                    border-bottom-color: #fff;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        &.top {
+            margin-top: -10px;
+            transform: translateY(-11px);
+
+            > .arrow {
+                left: 50%;
+                border-bottom-width: 0;
+                border-top-color: rgba(0, 0, 0, 0.25);
+                bottom: -11px;
+                margin-left: 0;
+                transform: translateX(-50%);
+
+                &:after {
+                    margin-left: 0;
+                    bottom: 1px;
+                    border-bottom-width: 0;
+                    border-top-color: #fff;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        &.top,
+        &.bottom {
+            &.popover-align-start > .arrow {
+                left: 23px;
+            }
+
+            &.popover-align-end > .arrow {
+                left: auto;
+                right: 0;
+            }
+        }
+
+        &.left {
+            transform: translateX(-11px);
         }
 
         &.right {
             transform: translateX(0);
         }
 
-        &.left {
-            transform: translateX(-11px);
+        &.left,
+        &.right {
+            > .arrow {
+                margin-top: 0;
+                transform: translateY(-50%);
+            }
+
+            &.popover-align-start > .arrow {
+                top: 15px;
+            }
+
+            &.popover-align-end > .arrow {
+                top: auto;
+                bottom: -5px;
+            }
         }
     }
 

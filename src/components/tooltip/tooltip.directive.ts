@@ -1,9 +1,9 @@
-import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
+import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 
@@ -36,6 +36,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     /** Customize how the tooltip should be positioned relative to the element */
     @Input() placement: AnchorPlacement = 'top';
+
+    /** Customize the position of the callout */
+    @Input() alignment: AnchorAlignment = 'center';
 
     /** Specify which events should show the tooltip */
     @Input() showTriggers: string[] = ['mouseenter', 'focus'];
@@ -124,6 +127,10 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
         if (this._instance && changes.placement) {
             this._instance.setPlacement(changes.placement.currentValue);
+        }
+
+        if (this._instance && changes.alignment) {
+            this._instance.setAlignment(changes.alignment.currentValue);
         }
 
         if (this._instance && changes.content) {
@@ -247,6 +254,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // supply the tooltip with the correct properties
         instance.setContent(this.content);
         instance.setPlacement(this.placement);
+        instance.setAlignment(this.alignment);
         instance.setClass(this.customClass);
         instance.setContext(this.context);
         instance.setRole(this.role);
@@ -312,12 +320,16 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // ensure placement is defined
         this.placement = this.placement || 'top';
 
-        if (this.placement == 'top' || this.placement == 'bottom') {
-            return { originX: 'center', originY: this.placement };
-        } else if (this.placement == 'left') {
-            return { originX: 'start', originY: 'center' };
-        } else if (this.placement == 'right') {
-            return { originX: 'end', originY: 'center' };
+        if (this.placement === 'top' || this.placement === 'bottom') {
+            return { originX: this.alignment as HorizontalConnectionPos, originY: this.placement };
+        }
+
+        if (this.placement === 'left') {
+            return { originX: 'start', originY: this.getVerticalAlignment() };
+        }
+
+        if (this.placement === 'right') {
+            return { originX: 'end', originY: this.getVerticalAlignment() };
         }
     }
 
@@ -327,14 +339,35 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // ensure placement is defined
         this.placement = this.placement || 'top';
 
-        if (this.placement == 'top') {
-            return { overlayX: 'center', overlayY: 'bottom' };
-        } else if (this.placement == 'bottom') {
-            return { overlayX: 'center', overlayY: 'top' };
-        } else if (this.placement == 'left') {
-            return { overlayX: 'end', overlayY: 'center' };
-        } else if (this.placement == 'right') {
-            return { overlayX: 'start', overlayY: 'center' };
+        if (this.placement === 'top') {
+            return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'bottom' };
+        }
+
+        if (this.placement === 'bottom') {
+            return { overlayX: this.alignment as HorizontalConnectionPos, overlayY: 'top' };
+        }
+
+        if (this.placement === 'left') {
+            return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
+        }
+
+        if (this.placement === 'right') {
+            return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
+        }
+    }
+
+    /** Convert the alignment property to a valid CDK alignment value */
+    private getVerticalAlignment(): VerticalConnectionPos {
+
+        switch (this.alignment) {
+            case 'start':
+                return 'top';
+
+            case 'end':
+                return 'bottom';
+
+            default:
+                return this.alignment;
         }
     }
 
@@ -348,7 +381,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the click event - show or hide accordingly */
-    protected onClick(event: MouseEvent): void {
+    protected onClick(_: MouseEvent): void {
 
         // if its not visible and click is a show trigger open it
         if (!this.isVisible && this.includes(this.showTriggers, 'click')) {
@@ -363,7 +396,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the mouse enter event - show or hide accordingly */
-    protected onMouseEnter(event: MouseEvent): void {
+    protected onMouseEnter(_: MouseEvent): void {
 
         // this is an show only trigger - if already open or it isn't a trigger do nothing
         if (this.isVisible || !this.includes(this.showTriggers, 'mouseenter')) {
@@ -375,7 +408,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the mouse leave event - show or hide accordingly */
-    protected onMouseLeave(event: MouseEvent): void {
+    protected onMouseLeave(_: MouseEvent): void {
 
         // this is an hide only trigger - if not open or it isn't a trigger do nothing
         if (!this.isVisible || !this.includes(this.hideTriggers, 'mouseleave')) {
@@ -387,7 +420,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the focus event - show or hide accordingly */
-    protected onFocus(event: Event): void {
+    protected onFocus(_: Event): void {
 
         // this is an show only trigger - if already open or it isn't a trigger do nothing
         if (this.isVisible || !this.includes(this.showTriggers, 'focus')) {
@@ -399,7 +432,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** Handle the blur event - show or hide accordingly */
-    protected onBlur(event: Event): void {
+    protected onBlur(_: Event): void {
 
         // this is an hide only trigger - if not open or it isn't a trigger do nothing
         if (!this.isVisible || !this.includes(this.hideTriggers, 'blur')) {
@@ -408,11 +441,6 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
         // otherwise close the tooltip
         this.hide();
-    }
-
-    /** Determine if the trigger element is focused */
-    private isFocused(): boolean {
-        return document.activeElement === this._elementRef.nativeElement;
     }
 
     /** Programmatically update the aria-describedby property */
@@ -427,3 +455,4 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 }
 
 export type AnchorPlacement = 'top' | 'right' | 'bottom' | 'left';
+export type AnchorAlignment = 'start' | 'center' | 'end';

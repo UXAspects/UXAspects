@@ -214,14 +214,9 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       .then(rows => vm.treeData = rows)
       .then(function () {
         // Expand top level items if configured
-        var promises = [];
-        if (vm.allOptions.expandTopLevel) {
-          for (var i = 0; i < vm.treeData.length; i += 1) {
-            if (vm.treeData[i].canExpand) {
-              promises.push(expand(vm.treeData[i]));
-            }
-          }
-        }
+        var promises = vm.treeData
+          .filter(row => row.canExpand && (vm.allOptions.expandTopLevel || row.expanded))
+          .map(row => expand(row));
         return $q.all(promises);
       })
       .catch(function (err) {
@@ -244,7 +239,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
           levelClass: "treegrid-level-" + level,
           rowClass: getRowClass(data[i]),
           canExpand: canExpand,
-          expanded: false,
           expanding: false,
           expander: {
             type: vm.allOptions.expander.type,
@@ -259,6 +253,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
           dataItem: data[i],
           children: []
         };
+        configureRowExpandedProperty(row);
         row.api = rowApi(row);
         rows.push(row);
       }
@@ -267,6 +262,22 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       }
       return rows;
     });
+  }
+
+  function configureRowExpandedProperty(row) {
+    // Link the `expanded` property to the dataItem property if defined
+    if (vm.allOptions.expandedProperty) {
+      Object.defineProperty(row, 'expanded', {
+        get: function() {
+          return this.dataItem[vm.allOptions.expandedProperty];
+        },
+        set: function(value) {
+          this.dataItem[vm.allOptions.expandedProperty] = value;
+        }
+      });
+    } else {
+      row.expanded = false;
+    }
   }
 
   // Set up functions for the row
@@ -343,7 +354,9 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       .then(function (newRows) {
         row.children = newRows;
         row.expanded = true;
-        return row;
+        // Expand any child rows
+        var promises = newRows.filter(row => row.canExpand && row.expanded).map(row => expand(row));
+        return $q.all(promises).then(() => row);
       })
       .catch(function (err) {
         console.error("Data load error: " + err);
