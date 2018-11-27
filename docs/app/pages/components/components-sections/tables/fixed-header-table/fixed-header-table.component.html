@@ -47,9 +47,10 @@
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="tableHeight" [required]="true" type="number | string">
-        This defines the maximum height of the table.
+        This defines the height of the table body.
         When a number is provided the unit will default to pixels.
         If a string is provided then the CSS unit will need to be specifed as part of the string, e.g. <code>'50%'</code>.
+        If using a percentage value, the table element should also have an explicit height set.
     </tr>
     <tr uxd-api-property name="dataset" [required]="false" type="ReadonlyArray<any>">
         If specifed, any time the dataset changes the layout will be recalculated to ensure the columns headers remain
