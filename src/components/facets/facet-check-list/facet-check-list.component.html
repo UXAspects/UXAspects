@@ -11,6 +11,7 @@
     <!-- Iterate through each possible facet -->
     <ux-facet-check-list-item *ngFor="let facet of facets; let index = index"
         [facet]="facet"
+        [simplified]="simplified"
         [tabbable]="activeIndex === index"
         [selected]="facetService.isSelected(facet)"
         (selectedChange)="toggleFacet(index, facet)"

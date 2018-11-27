@@ -68,11 +68,13 @@ export class FacetTypeaheadListComponent implements AfterViewInit, OnDestroy {
 
             // if deselected remove the facet from our internal list of selected facets
             if (event instanceof FacetDeselect && this.isOwnFacet(event.facet)) {
+                this.events.next(event);
                 this._selected = this._selected.filter(_facet => _facet !== event.facet);
+                this.selectedChange.next(this._selected);
             }
 
             // selection and deselection events should only be emitted when the facet belongs to this component
-            if ((event instanceof FacetSelect || event instanceof FacetDeselect) && this.isOwnFacet(event.facet)) {
+            if (event instanceof FacetSelect && this.isOwnFacet(event.facet)) {
                 this.events.next(event);
                 this.selectedChange.next(this._selected);
             }
