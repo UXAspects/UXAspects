@@ -24,7 +24,7 @@ module.exports = {
         exec: 'npm pack --quiet'
     },
     'npm_pack_ux-aspects-docs': {
-        exec: 'npm pack --quiet'
+        exec: 'npm pack --quiet --unsafe-perm'
     },
     webpack_ng1: {
         exec: 'node ./node_modules/webpack/bin/webpack.js --colors --config ./configs/webpack.ng1.config.js'
