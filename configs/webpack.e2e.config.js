@@ -86,7 +86,8 @@ module.exports = {
                 /ng1/,
                 /e2e\\pages/,
                 /\.e2e-spec\.ts$/,
-                /\.po\.spec\.ts$/
+                /\.po\.spec\.ts$/,
+                /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/
             ]
         },
         // Ignore warnings about System.import in Angular

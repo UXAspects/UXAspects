@@ -17,7 +17,7 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
 
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
-
+    query: string = '';
     users: Facet[] = [];
 
     plunk: IPlunk = {
@@ -57,15 +57,11 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
 
         // Create an observable which can be used for fetching data from server
         this.facets = Observable.create((observer: Observer<Facet[]>) => {
-
-            // get the search query
-            const searchQuery = (<any>observer).destination.outerValue;
-
             // simulate server request
             setTimeout(() => {
 
                 // return list of filtered users from "server"
-                observer.next(this.users.filter(user => user.title.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1));
+                observer.next(this.users.filter(user => user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1));
             }, 750);
         });
 

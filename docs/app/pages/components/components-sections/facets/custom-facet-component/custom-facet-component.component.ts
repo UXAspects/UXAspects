@@ -29,7 +29,7 @@ export class ComponentsCustomFacetComponent extends BaseDocumentationSection imp
             declaration: true
         }]
     };
-    
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

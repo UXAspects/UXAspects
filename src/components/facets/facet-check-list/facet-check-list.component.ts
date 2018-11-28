@@ -22,6 +22,7 @@ export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
     @Input() facets: Facet[] = [];
     @Input() header: string;
     @Input() scrollbar: boolean = true;
+    @Input() simplified: boolean = false;
     @Input() expanded: boolean = true;
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
     @Output() selectedChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();

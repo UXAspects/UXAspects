@@ -1,14 +1,10 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
 SEPG_BUILD_ENV_IMAGE=cafinternal/prereleases:buildenv-1.0.0-SNAPSHOT
 
-GENERIC_TARGET_URL=${genericRepoMgr}/npm-dev-local/${path}/${filename}
-GENERIC_ARTIFACTS=target/artifactory/**/*.tgz
-GENERIC_EXPECTED_ARTIFACT_COUNT=2
+GENERIC_1_TARGET_URL=${genericRepoMgr}/npm-dev-local/${path}/${filename}
+GENERIC_1_ARTIFACTS=target/artifactory/**/*.tgz
+GENERIC_1_EXPECTED_ARTIFACT_COUNT=2
 
-#GENERIC_0_TARGET_URL=${genericRepoMgr}/npm-prerelease-local/${path}/${filename}
-#GENERIC_0_ARTIFACTS=target/artifactory/**/*.tgz
-#GENERIC_0_EXPECTED_ARTIFACT_COUNT=2
-
-#GENERIC_1_TARGET_URL=${sepgStagingRepo}/npm-dev-local/${path}/${filename}
-#GENERIC_1_ARTIFACTS=target/release-staging/**/*.tgz
-#GENERIC_1_EXPECTED_ARTIFACT_COUNT=2
+GENERIC_2_TARGET_URL=${sepgStagingRepo}/npm-release-local/${path}/${filename}
+GENERIC_2_ARTIFACTS=target/release-staging/**/*.tgz
+GENERIC_2_EXPECTED_ARTIFACT_COUNT=2

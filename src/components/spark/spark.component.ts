@@ -1,14 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ColorService } from '../../services/color/index';
-import { ColorIdentifier } from '../../index';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ColorIdentifier, ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-spark',
     templateUrl: './spark.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SparkComponent {
-
     values: number[] = [];
 
     @Input() barHeight: number = 10;
@@ -18,7 +16,7 @@ export class SparkComponent {
     @Input() bottomLeftLabel: string;
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
-    @Input('aria-label') ariaLabel: string;
+    @Input('aria-label') ariaLabel: string | string[];
     @Input('aria-description') ariaDescription: string;
 
     private _trackColor: string;
@@ -45,7 +43,6 @@ export class SparkComponent {
 
     @Input()
     set barColor(value: string | string[]) {
-
         if (Array.isArray(value)) {
             this._barColor = value.map(color => this._colorService.resolve(color));
         } else {
@@ -59,7 +56,6 @@ export class SparkComponent {
 
     @Input()
     set value(value: number | number[]) {
-
         // ensure 'value' is an array at this point
         const values = Array.isArray(value) ? value : [value];
 
@@ -74,5 +70,24 @@ export class SparkComponent {
         return this.values;
     }
 
-    constructor(private _colorService: ColorService) { }
+    constructor(private _colorService: ColorService) {}
+
+    /**
+     * Get the aria label for the spark chart
+     */
+    getAriaLabel(): string | undefined {
+        if (!Array.isArray(this.ariaLabel)) {
+            return this.ariaLabel || this.tooltip;
+        }
+    }
+
+    /**
+     * If this is a multi-value chart and we have multiple aria
+     * labels then provide the appropriate label
+     */
+    getSegmentAriaLabel(segment: number): string | undefined {
+        if (Array.isArray(this.ariaLabel)) {
+            return this.ariaLabel[segment];
+        }
+    }
 }

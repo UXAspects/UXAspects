@@ -76,6 +76,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
         title: 'Emails',
         date: new Date('2013-03-17'),
         type: 'folder',
+        expanded: true,
         nodes: [{
             id: 21,
             title: 'Inbox',
@@ -149,6 +150,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
 
     options = {
         childrenProperty: 'nodes',
+        expandedProperty: 'expanded',
         select: {
             row: true,
             check: false,
