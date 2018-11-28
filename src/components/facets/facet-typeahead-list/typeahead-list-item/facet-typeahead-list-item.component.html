@@ -11,7 +11,7 @@
 
     <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled">
         <span class="facet-typeahead-list-selected-option-title">{{ facet?.title }}</span>
-        <span class="facet-typeahead-list-selected-option-count">({{ facet?.count }})</span>
+        <span *ngIf="facet.count !== undefined" class="facet-typeahead-list-selected-option-count">({{ facet?.count }})</span>
     </ux-checkbox>
 
 </div>

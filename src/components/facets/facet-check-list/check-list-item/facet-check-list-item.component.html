@@ -13,20 +13,8 @@
     [class.disabled]="facet?.disabled">
 
     <!-- Show check icon to indicate the state -->
-    <span class="facet-check-list-item-check" aria-hidden="true">
-        <span class="hpe-icon hpe-active"></span>
-    </span>
-
-    <!-- Display the title -->
-    <span class="facet-check-list-item-title">
-        {{ facet?.title }}
-    </span>
-
-    <!-- Display the count if specified -->
-    <span class="facet-check-list-item-count"
-        *ngIf="facet?.count !== undefined"
-        attr.aria-label="{{ facet?.count }}"
-        i18n-aria-label>
-        ({{ facet?.count }})
-    </span>
+    <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled">
+        <span class="facet-check-list-item-title">{{ facet?.title }}</span>
+        <span *ngIf="facet.count !== undefined" class="facet-check-list-item-count">({{ facet?.count }})</span>
+    </ux-checkbox>
 </div>

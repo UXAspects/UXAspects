@@ -19,16 +19,12 @@ ux-facet-check-list {
                 .aspects-outline();
             }
 
-            .facet-check-list-item-check {
-                display: flex;
-                flex: none;
-                justify-content: flex-start;
-                align-items: center;
-                color: @accent;
-                opacity: 0;
-                width: 22px;
-                margin-right: 5px;
-                margin-left: 5px;
+            ux-checkbox {
+                pointer-events: none;
+
+                .ux-checkbox {
+                    margin-bottom: 0;
+                }
             }
 
             .facet-check-list-item-title {
@@ -46,10 +42,6 @@ ux-facet-check-list {
             &:hover,
             &:focus {
                 background-color: @grey7;
-
-                .facet-check-list-item-check {
-                    opacity: 0.5;
-                }
             }
 
             &.disabled {
@@ -57,10 +49,6 @@ ux-facet-check-list {
             }
 
             &.facet-active {
-                .facet-check-list-item-check {
-                    opacity: 1;
-                }
-
                 &:hover,
                 &:focus {
                     opacity: 1;

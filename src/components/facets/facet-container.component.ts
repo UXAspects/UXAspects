@@ -15,7 +15,7 @@ import { Facet } from './models/facet';
 })
 export class FacetContainerComponent implements OnDestroy {
 
-    @Input() header: string = 'Selected:';
+    @Input() header: string = 'Selected';
     @Input() clearTooltip: string = 'Clear All';
     @Input() emptyText: string = 'No Items';
     @Input() facetsReorderable: boolean = false;
