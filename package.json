@@ -12,8 +12,8 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "prepack": "mv src/package.json src_package.json",
-    "postpack": "mv src_package.json src/package.json",
+    "prepack": "node scripts/prepack-docs.js",
+    "postpack": "node scripts/postpack-docs.js",
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "start:https": "npm run start -- --https --pfx configs/webpack.docs.dev.pfx",
     "start:e2e": "webpack-dev-server --config configs/webpack.e2e.config.js --progress --colors",
