@@ -9,6 +9,5 @@ const ng1AssetsConfig = require('./webpack.ng1-assets.dev.config.js');
 docsConfig.mode = 'development';
 cssAssetsConfig.mode = 'development';
 libAssetsConfig.mode = 'development';
-ng1AssetsConfig.mode = 'development';
 
 module.exports = [docsConfig, cssAssetsConfig, libAssetsConfig, ng1AssetsConfig];
