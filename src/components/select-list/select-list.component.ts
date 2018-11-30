@@ -25,6 +25,16 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     /** Set the selected items */
     @Input() set selected(selected: T | T[]) {
 
+        // if the selection entered is the same as the current selection then do nothing
+        if (this._selection.selection$.value === selected) {
+            return;
+        }
+
+        // if selected is an array and has not items and there are no items currently selected also do nothing
+        if (Array.isArray(selected) && selected.length === 0 && this._selection.selection$.value.length === 0) {
+            return;
+        }
+
         // deselect all currently selected items
         this._selection.deselectAll();
 
