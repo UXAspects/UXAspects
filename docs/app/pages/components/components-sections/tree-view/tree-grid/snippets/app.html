@@ -9,7 +9,7 @@
             <thead>
                 <tr class="treegrid-header table-header-dark">
                     <th>
-                        <ux-checkbox aria-label="Select all rows" [(value)]="selectAll"></ux-checkbox>
+                        <ux-checkbox class="m-r-sm" aria-label="Select all rows" [(value)]="selectAll"></ux-checkbox>
                         <span class="treegrid-header-text">Title</span>
                     </th>
                     <th>Date</th>
@@ -46,7 +46,7 @@
                             </button>
                         </span>
 
-                        <ux-checkbox aria-label="Toggle row selection"
+                        <ux-checkbox class="m-r-sm" aria-label="Toggle row selection"
                             [value]="isSelected(row)"
                             (valueChange)="$event ? select(row) : deselect(row)"></ux-checkbox>
 

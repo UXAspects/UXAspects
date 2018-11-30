@@ -1,21 +1,21 @@
-<div>
+<div class="m-b-xs">
     <ux-checkbox [(value)]="checkModel.option1" [disabled]="disableCheck" [simplified]="simplified">
     Option1</ux-checkbox>
 </div>
 
-<div>
-    <ux-checkbox [(value)]="checkModel.option2" [indeterminateValue]="indeterminateValue" 
+<div class="m-b-xs">
+    <ux-checkbox [(value)]="checkModel.option2" [indeterminateValue]="indeterminateValue"
     [simplified]="simplified">Option2</ux-checkbox>
 </div>
 
-<div>
+<div class="m-b-xs">
     <ux-checkbox [(value)]="checkModel.option3" [simplified]="simplified">Option3</ux-checkbox>
 </div>
 
-<div>
-    <ux-checkbox [(value)]="checkModel.option4" [simplified]="simplified">Onsectetur adipiscing elit. 
-        Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing 
-        elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur 
+<div class="m-b-xs">
+    <ux-checkbox [(value)]="checkModel.option4" [simplified]="simplified">Onsectetur adipiscing elit.
+        Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing
+        elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur
         adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.</ux-checkbox>
 </div>
 
@@ -31,17 +31,17 @@
 <br>
 
 <div>
-    <button class="btn button-primary m-r-xs" 
+    <button class="btn button-primary m-r-xs"
             (click)="disableCheck = !disableCheck">
             {{ disableCheck ? 'Click to enable Option1' : 'Click to disable Option1' }}
     </button>
 
-    <button class="btn button-secondary m-r-xs" 
+    <button class="btn button-secondary m-r-xs"
             (click)="checkModel.option2 = indeterminateValue">
             Set Option2 to indeterminate state
     </button>
 
-    <button class="btn button-accent" 
+    <button class="btn button-accent"
             (click)="simplified = !simplified">
             {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
     </button>

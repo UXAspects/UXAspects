@@ -6,7 +6,7 @@
         <h4>Input:</h4>
 
         <ng-container *ngFor="let zone of zones">
-            <ux-checkbox [ngModel]="isZoneSelected(zone)" (ngModelChange)="setZoneSelected(zone, $event)">{{ zone }}</ux-checkbox>
+            <ux-checkbox class="m-b-xs" [ngModel]="isZoneSelected(zone)" (ngModelChange)="setZoneSelected(zone, $event)">{{ zone }}</ux-checkbox>
             <br>
         </ng-container>
     </ng-container>

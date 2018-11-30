@@ -1,7 +1,7 @@
 <ux-facet-header header="Category" [(expanded)]="expanded"></ux-facet-header>
 
 <div *ngIf="expanded" class="sample-facet-checkbox-container">
-    <ux-checkbox class="sample-facet-checkbox"
+    <ux-checkbox class="sample-facet-checkbox m-b-xs"
         *ngFor="let facet of facets"
         [value]="facet.data.checked"
         (valueChange)="updateFacet(facet, $event)">
