@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FlippableCardModule } from '../../../../src/components/flippable-card/index';
+import { FlippableCardModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { TeamPageComponent } from './team.component';
 

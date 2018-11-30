@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { SearchBuilderComponentDefinition, SearchBuilderFocusService, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { takeUntil } from 'rxjs/operators';
 import { first } from 'rxjs/operators/first';
 import { Subject } from 'rxjs/Subject';
-import { SearchBuilderComponentDefinition, SearchBuilderFocusService, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

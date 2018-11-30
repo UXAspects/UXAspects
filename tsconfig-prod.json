@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@ux-aspects/ux-aspects/*": [
+              "./dist"
+            ],
+            "@ux-aspects/ux-aspects": [
+              "./dist"
+            ]
+          }
+    }
+}

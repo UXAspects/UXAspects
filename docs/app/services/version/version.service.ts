@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { ISection } from '../../interfaces/ISection';
-import { PersistentDataService } from '../../../../src/index';
+
 
 @Injectable()
 export class VersionService {
