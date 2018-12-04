@@ -5,10 +5,14 @@
     <ng-container *ngIf="takesInput">
         <h4>Input:</h4>
 
-        <ng-container *ngFor="let zone of zones">
-            <ux-checkbox class="m-b-xs" [ngModel]="isZoneSelected(zone)" (ngModelChange)="setZoneSelected(zone, $event)">{{ zone }}</ux-checkbox>
-            <br>
-        </ng-container>
+        <div class="checkbox-container">
+            <ux-checkbox *ngFor="let zone of zones"
+                class="m-b-xs"
+                [ngModel]="isZoneSelected(zone)"
+                (ngModelChange)="setZoneSelected(zone, $event)">
+                {{ zone }}
+            </ux-checkbox>
+        </div>
     </ng-container>
 
     <ng-container *ngIf="isProducer">
