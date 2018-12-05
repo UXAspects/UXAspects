@@ -12,7 +12,6 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "angularCompilerOptions": {
-    "debug": true,
     "skipMetadataEmit": true,
     "preserveWhitespaces": true
   },

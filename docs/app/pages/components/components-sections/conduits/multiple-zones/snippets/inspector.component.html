@@ -7,7 +7,6 @@
 
         <div class="checkbox-container">
             <ux-checkbox *ngFor="let zone of zones"
-                class="m-b-xs"
                 [ngModel]="isZoneSelected(zone)"
                 (ngModelChange)="setZoneSelected(zone, $event)">
                 {{ zone }}
