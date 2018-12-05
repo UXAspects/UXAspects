@@ -12,7 +12,7 @@ export class AppComponent {
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
-    titleWidth: number = 300;
+    titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
 

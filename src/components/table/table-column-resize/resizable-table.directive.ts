@@ -6,49 +6,49 @@ import { ResizableTableColumnComponent } from './resizable-table-column.componen
 import { ResizableTableService } from './resizable-table.service';
 
 @Directive({
-  selector: '[uxResizableTable]',
-  providers: [ResizableTableService],
-  host: {
-    class: 'ux-resizable-table'
-  }
+    selector: '[uxResizableTable]',
+    providers: [ResizableTableService],
+    host: {
+        class: 'ux-resizable-table'
+    }
 })
 export class ResizableTableDirective implements AfterViewInit, OnDestroy {
 
-  /** Get all the column headers */
-  @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
+    /** Get all the column headers */
+    @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
 
-  /** Unsubscribe from the observables */
-  private _onDestroy = new Subject<void>();
+    /** Unsubscribe from the observables */
+    private _onDestroy = new Subject<void>();
 
-  constructor(private _elementRef: ElementRef, private _table: ResizableTableService, resize: ResizeService) {
-    // watch for the table being resized
-    resize.addResizeListener(this._elementRef.nativeElement)
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => _table.tableWidth = this.getScrollWidth());
-  }
+    constructor(private _elementRef: ElementRef, private _table: ResizableTableService, resize: ResizeService) {
+        // watch for the table being resized
+        resize.addResizeListener(this._elementRef.nativeElement)
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => _table.tableWidth = this.getScrollWidth());
+    }
 
-  /** Once we have the columns make them resizable and watch for changes to columns */
-  ngAfterViewInit(): void {
+    /** Once we have the columns make them resizable and watch for changes to columns */
+    ngAfterViewInit(): void {
 
-    // ensure we initially set the table width
-    this._table.tableWidth = this.getScrollWidth();
+        // ensure we initially set the table width
+        this._table.tableWidth = this.getScrollWidth();
 
-    // set the columns - prevent expression changed error
-    requestAnimationFrame(() => this._table.setColumns(this.columns));
+        // set the columns - prevent expression changed error
+        requestAnimationFrame(() => this._table.setColumns(this.columns));
 
-    // watch for any future changes to the columns
-    this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this._table.setColumns(this.columns));
-  }
+        // watch for any future changes to the columns
+        this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.ngAfterViewInit());
+    }
 
-  /** Cleanup after the component is destroyed */
-  ngOnDestroy(): void {
-    this._onDestroy.next();
-    this._onDestroy.complete();
-  }
+    /** Cleanup after the component is destroyed */
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
 
-  /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
-  private getScrollWidth(): number {
-    return Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies)
-      .reduce((width, tbody) => Math.min(width, tbody.scrollWidth), (this._elementRef.nativeElement as HTMLTableElement).offsetWidth);
-  }
+    /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
+    private getScrollWidth(): number {
+        return Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies)
+            .reduce((width, tbody) => Math.min(width, tbody.scrollWidth), (this._elementRef.nativeElement as HTMLTableElement).offsetWidth);
+    }
 }
