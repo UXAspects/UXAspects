@@ -138,6 +138,8 @@ module.exports = {
                 exclude: [
                     /node_modules/,
                     /snippets/,
+                    /dist/,
+                    /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                     join(cwd(), 'src', 'ng1', 'plugins'),
                     join(cwd(), 'src', 'ng1', 'external')
                 ],
