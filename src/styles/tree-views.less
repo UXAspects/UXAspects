@@ -2,12 +2,6 @@
     &.table > thead > tr > th {
         border-bottom: none;
     }
-
-    th, td {
-        ux-checkbox .ux-checkbox {
-            margin-bottom: 0;
-        }
-    }
 }
 
 .treegrid-expand-header {
@@ -45,6 +39,10 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+
+        > ux-checkbox {
+            margin-right: 10px;
+        }
     }
 }
 
@@ -159,6 +157,12 @@
     .tree-node {
         &:hover {
             background-color: transparent;
+        }
+
+        > .node-wrapper {
+            > ux-checkbox {
+                margin-right: 5px;
+            }
         }
     }
 

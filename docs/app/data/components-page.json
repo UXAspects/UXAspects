@@ -672,7 +672,8 @@
                 {
                     "title": "Custom Dropdown",
                     "component": "ComponentsCustomDropdownNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Expanding Text Area",

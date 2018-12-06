@@ -21,6 +21,7 @@
     }
   },
   "angularCompilerOptions": {
+    "skipMetadataEmit": true,
     "preserveWhitespaces": true
   },
   "exclude": [
