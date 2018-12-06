@@ -53,7 +53,6 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
-    "@angular/cdk": "5.2.5",
     "angular-split": "1.0.0-rc.3",
     "chart.js": "~2.6.0",
     "dragula": "^3.7.2",
@@ -75,6 +74,7 @@
     "@angular/forms": ">=5.0.0",
     "@angular/upgrade": ">=5.0.0",
     "@angular/animations": ">=5.0.0",
-    "angular-tree-component": ">=5.2.0"
+    "angular-tree-component": ">=5.2.0",
+    "@angular/cdk": ">=5.2.5"
   }
 }
