@@ -1,6 +1,6 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
+import { TabbableListItemDirective } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { TabbableListItemDirective } from '../../../../../../../src';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

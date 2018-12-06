@@ -1,5 +1,5 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { SelectionStrategy } from '../../directives/selection/strategies/selection.strategy';
+import { SelectionStrategy } from '../../../directives/selection/index';
 
 export class MultipleSelectListStrategy<T> extends SelectionStrategy<T> {
 

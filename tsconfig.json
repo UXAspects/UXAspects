@@ -7,9 +7,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es2017", "dom"],
+    "baseUrl": "./",
     "noImplicitAny": true,
     "declaration": false,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "paths": {
+      "@ux-aspects/ux-aspects/*": [
+        "./src"
+      ],
+      "@ux-aspects/ux-aspects": [
+        "./src"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "skipMetadataEmit": true,

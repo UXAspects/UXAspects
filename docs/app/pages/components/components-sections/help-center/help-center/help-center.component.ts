@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Breadcrumb, HelpCenterItem, HelpCenterService, PageHeaderIconMenu } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { Subscription } from 'rxjs/Subscription';
-import { Breadcrumb, HelpCenterItem, HelpCenterService, PageHeaderIconMenu } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

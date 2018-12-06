@@ -1,5 +1,5 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
-SEPG_BUILD_ENV_IMAGE=cafinternal/prereleases:buildenv-1.0.0-SNAPSHOT
+SEPG_BUILD_ENV_IMAGE=uxaspects/buildenv:1.0.0
 
 GENERIC_1_TARGET_URL=${genericRepoMgr}/npm-dev-local/${path}/${filename}
 GENERIC_1_ARTIFACTS=target/artifactory/**/*.tgz

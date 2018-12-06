@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Filter, FilterRemoveAllEvent, FilterService } from '@ux-aspects/ux-aspects';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { Filter, FilterRemoveAllEvent, FilterService } from '../../../../../../../../src/index';
 
 @Component({
     selector: 'ux-filter-custom',

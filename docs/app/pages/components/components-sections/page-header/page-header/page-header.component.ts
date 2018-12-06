@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Breadcrumb } from '../../../../../../../src/components/breadcrumbs/index';
-import { PageHeaderIconMenu, PageHeaderNavigationItem } from '../../../../../../../src/index';
+import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

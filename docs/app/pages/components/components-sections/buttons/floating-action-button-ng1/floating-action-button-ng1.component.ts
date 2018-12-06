@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FloatingActionButtonItem } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { FloatingActionButtonItem } from '../../../../../../../src/index';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 
 @Component({
     selector: 'uxd-floating-action-button-ng1',

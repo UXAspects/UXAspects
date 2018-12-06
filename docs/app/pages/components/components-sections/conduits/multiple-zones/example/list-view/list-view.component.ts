@@ -1,8 +1,8 @@
 import { Component, forwardRef, OnDestroy } from '@angular/core';
+import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
-import { Conduit, ConduitZone, ConduitZoneComponent } from '../../../../../../../../../src/components/conduit/index';
 
 @Component({
     selector: 'uxd-components-conduit-list-view',

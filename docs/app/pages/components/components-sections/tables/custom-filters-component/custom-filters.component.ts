@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Filter } from '../../../../../../../src/index';
+import { Filter } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

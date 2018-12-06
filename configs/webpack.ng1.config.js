@@ -4,7 +4,7 @@ const { IgnorePlugin } = require('webpack');
 
 module.exports = {
 
-    mode: 'production',
+    mode: 'development',
 
     entry: {
         'ux-aspects-ng1': join(cwd(), 'src', 'ng1', 'ux-aspects-ng1.module.js'),

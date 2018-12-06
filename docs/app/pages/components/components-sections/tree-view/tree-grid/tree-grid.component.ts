@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { TreeGridItem, TreeGridLoadFunction } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { TreeGridItem, TreeGridLoadFunction } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

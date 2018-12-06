@@ -1,9 +1,9 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ColorService } from '@ux-aspects/ux-aspects';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ColorService } from '../../../../../../../src/index';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
   selector: 'uxd-charts-multiple-axis-line-chart-ng1',

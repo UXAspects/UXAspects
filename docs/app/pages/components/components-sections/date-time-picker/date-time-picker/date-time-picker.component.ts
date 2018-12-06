@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { debounceTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,7 +7,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { DateTimePickerTimezone } from '../../../../../../../src/components/date-time-picker/date-time-picker.utils';
 
 @Component({
     selector: 'uxd-components-date-time-picker',

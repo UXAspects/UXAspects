@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
+import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
 import { ChartOptions } from 'chart.js';
-import { ColorService, TabbableListDirective } from '../../../../../../../src';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -156,7 +156,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
 
         // Announce the move if the order has changed
         if (this.draggableCards.indexOf(card) !== index) {
-            this._liveAnnouncer.announce(`Card moved ${ delta > 0 ? 'down' : 'up' }`);
+            this._liveAnnouncer.announce(`Card moved ${delta > 0 ? 'down' : 'up'}`);
         }
     }
 

@@ -278,7 +278,7 @@ module.exports = {
 
         new AngularCompilerPlugin({
             entryModule: join(cwd(), './docs/app/app.module#AppModule'),
-            tsConfigPath: join(cwd(), 'tsconfig.json'),
+            tsConfigPath: join(cwd(), 'tsconfig-prod.json'),
             sourceMap: false,
             skipCodeGeneration: false,
             nameLazyFiles: false

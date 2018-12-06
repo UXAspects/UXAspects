@@ -2,9 +2,9 @@ import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDe
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { SelectionService } from '../../directives/selection/selection.service';
-import { MultipleSelectListStrategy } from './multiple-select-list.strategy';
+import { MultipleSelectListStrategy } from './strategies/multiple-select-list.strategy';
 import { SelectListItemComponent } from './select-list-item/select-list-item.component';
-import { SingleSelectListStrategy } from './single-select-list.strategy';
+import { SingleSelectListStrategy } from './strategies/single-select-list.strategy';
 
 @Component({
     selector: 'ux-select-list',
@@ -25,14 +25,21 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     /** Set the selected items */
     @Input() set selected(selected: T | T[]) {
 
-        // deselect all currently selected items
-        this._selection.deselectAll();
+        // if the selection entered is the same as the current selection then do nothing
+        if (this._selection.selection$.value === selected) {
+            return;
+        }
+
+        // if selected is an array and has not items and there are no items currently selected also do nothing
+        if (Array.isArray(selected) && selected.length === 0 && this._selection.selection$.value.length === 0) {
+            return;
+        }
 
         // select only the specified items
         if (Array.isArray(selected)) {
-            this._selection.select(...selected);
+            this._selection.selectOnly(...selected);
         } else {
-            this._selection.select(selected);
+            this._selection.selectOnly(selected);
         }
     }
 
