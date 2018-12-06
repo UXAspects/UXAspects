@@ -11,10 +11,12 @@ import { environment } from './environments/environment';
 */
 
 if (environment.production) {
-  enableProdMode();
+    enableProdMode();
 }
 
 /*
   Bootstrap Angular
 */
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(AppModule, {
+    preserveWhitespaces: true
+});
