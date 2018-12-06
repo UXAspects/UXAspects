@@ -1399,6 +1399,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 
 .popover {
     &.date-picker-popover {
+        width: 276px;
+
         .popover-content {
             padding: 0;
         }
@@ -1440,6 +1442,34 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
                     left: 10%;
                     margin-left: -7px;
                     bottom: -6px;
+                }
+            }
+        }
+
+        &.right {
+            left: 40px;
+
+            .date-picker-popover-arrow {
+                left: -16px !important; // required to override inline style added by bootstrap.js
+                transform: translateY(3px);
+
+                &:after {
+                    margin-left: -7px;
+                    bottom: -7px;
+                }
+            }
+        }
+
+        &.left {
+            left: 40px;
+
+            .date-picker-popover-arrow {
+                right: -16px !important; // required to override inline style added by bootstrap.js
+                transform: translateY(3px);
+
+                &:after {
+                    right: -6px;
+                    bottom: -7px;
                 }
             }
         }
