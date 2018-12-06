@@ -90,6 +90,7 @@ export const monthsShort = months.map(month => month.substring(0, 3));
  */
 export const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const weekdaysShort = weekdays.map(weekday => weekday.substring(0, 3));
+export const meridians = ['AM', 'PM'];
 
 /** Export the default set of time zone */
 export const timezones: DateTimePickerTimezone[] = [
