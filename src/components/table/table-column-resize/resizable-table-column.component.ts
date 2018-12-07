@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ColumnUnit, ResizableTableService } from './resizable-table.service';
@@ -41,33 +41,6 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Emit the current column width */
     @Output() widthChange = new EventEmitter<number>();
 
-    /** The percentage width of the column */
-    @HostBinding('style.width') get columnWidth(): string {
-
-        if (!this._table.isInitialised$.value) {
-            return;
-        }
-
-        if (this.disabled) {
-            return `${this._width}px`;
-        }
-
-        return this._table.isResizing ?
-            `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
-            `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
-    }
-
-    /** The flex width of the column */
-    @HostBinding('style.flex') get flex(): string {
-
-        // if we are resizing then always return 'none' to allow free movement
-        if (this._table.isResizing || this.disabled) {
-            return 'none';
-        }
-
-        return this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
-    }
-
     /** Get the minimum width allowed by the column */
     get minWidth(): number {
         // determine the minimum width of the column based on its computed CSS value
@@ -96,8 +69,18 @@ export class ResizableTableColumnComponent implements OnDestroy {
             .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
 
         // ensure the correct width gets emitted on column size change
-        _table.onResize$.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
+        _table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            this.setColumnWidth();
+            this.setColumnFlex();
+
+            // get the current table width
+            const width = _table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
+
+            // check if the width actually changed - otherwise don't emit
+            if (Math.max(width, this._width) - Math.min(width, this._width) >= 1) {
+                this.widthChange.emit(width);
+            }
+        });
     }
 
     /** Cleanup when component is destroyed */
@@ -154,5 +137,38 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Get the column index this cell is part of */
     getCellIndex(): number {
         return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
+    }
+
+    /** The percentage width of the column */
+    private setColumnWidth(): void {
+
+        if (!this._table.isInitialised$.value) {
+            return;
+        }
+
+        if (this.disabled) {
+            this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${this._width}px`);
+            this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', `${this._width}px`);
+            return;
+        }
+
+        const width = this._table.isResizing ?
+            `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
+            `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
+
+        this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
+        this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', null);
+    }
+
+    /** The flex width of the column */
+    private setColumnFlex(): void {
+
+        // if we are resizing then always return 'none' to allow free movement
+        if (this._table.isResizing || this.disabled) {
+            this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
+        }
+
+        const flex = this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+        this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
     }
 }

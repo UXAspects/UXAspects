@@ -37,7 +37,9 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
         requestAnimationFrame(() => this._table.setColumns(this.columns));
 
         // watch for any future changes to the columns
-        this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.ngAfterViewInit());
+        this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() =>
+            requestAnimationFrame(() => this._table.setColumns(this.columns))
+        );
     }
 
     /** Cleanup after the component is destroyed */
