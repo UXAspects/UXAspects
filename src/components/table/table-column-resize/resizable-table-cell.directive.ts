@@ -1,35 +1,55 @@
-import { Directive, ElementRef, HostBinding } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { ColumnUnit, ResizableTableService } from './resizable-table.service';
 
 @Directive({
-  selector: '[uxResizableTableCell]'
+    selector: '[uxResizableTableCell]'
 })
-export class ResizableTableCellDirective {
+export class ResizableTableCellDirective implements OnInit, OnDestroy {
 
+    /** Unsubscribe from all subscriptions on destroy */
+    private readonly _onDestroy = new Subject<void>();
 
-  /** The percentage width of the column */
-  @HostBinding('style.width') get width(): string {
+    constructor(private _elementRef: ElementRef, private _renderer: Renderer2, private _table: ResizableTableService) { }
 
-    return this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex()) ?
-      `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
-      `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
-  }
-
-  /** The flex width of the column */
-  @HostBinding('style.flex') get flex(): string {
-
-    // if we are resizing then always return 'none' to allow free movement
-    if (this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex())) {
-      return 'none';
+    ngOnInit(): void {
+        // update the sizes when columns are resized
+        this._table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            this.setColumnWidth();
+            this.setColumnFlex();
+        });
     }
 
-    return this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
-  }
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
 
-  constructor(private _elementRef: ElementRef, private _table: ResizableTableService) { }
+    /** Get the column index this cell is part of */
+    private getCellIndex(): number {
+        return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
+    }
 
-  /** Get the column index this cell is part of */
-  private getCellIndex(): number {
-    return (this._elementRef.nativeElement as HTMLTableCellElement).cellIndex;
-  }
+    /** Set the width of the column */
+    private setColumnWidth(): void {
+        const width = this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex()) ?
+            `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
+            `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
+
+        this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
+    }
+
+    /** Set the flex value of the column */
+    private setColumnFlex(): void {
+        // if we are resizing then always return 'none' to allow free movement
+        if (this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex())) {
+            this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
+            return;
+        }
+
+        const flex = this._table.isInitialised$.value ? `0 1 ${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%` : '';
+
+        this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
+    }
 }

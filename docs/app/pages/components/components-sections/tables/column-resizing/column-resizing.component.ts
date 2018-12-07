@@ -16,7 +16,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
-    titleWidth: number = 300;
+    titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
 
@@ -32,7 +32,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
                 library: '@ux-aspects/ux-aspects'
             },
             {
-                imports: [ 'ButtonsModule' ],
+                imports: ['ButtonsModule'],
                 library: 'ngx-bootstrap/buttons'
             }
         ]
