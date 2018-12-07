@@ -48,6 +48,10 @@ export class DateTimePickerComponent implements OnDestroy {
     this.datepicker.monthsShort = months;
   }
 
+  @Input() set meridians(meridians: string[]) {
+    this.datepicker.meridians = meridians;
+  }
+
   @Input() set nowBtnText(value: string) {
     this.datepicker.nowBtnText$.next(value);
   }

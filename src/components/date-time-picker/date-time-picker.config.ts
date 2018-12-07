@@ -5,7 +5,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { weekdaysShort, timezones, months, DateTimePickerTimezone, monthsShort } from './date-time-picker.utils';
+import { weekdaysShort, timezones, months, DateTimePickerTimezone, monthsShort, meridians } from './date-time-picker.utils';
 
 @Injectable()
 export class DateTimePickerConfig {
@@ -21,4 +21,5 @@ export class DateTimePickerConfig {
     timezones: DateTimePickerTimezone[] = timezones;
     months: string[] = months;
     monthsShort: string[] = monthsShort;
+    meridians: string[] = meridians;
 }
