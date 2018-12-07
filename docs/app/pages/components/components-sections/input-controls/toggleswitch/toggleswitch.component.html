@@ -1,13 +1,10 @@
-<div>
+<div class="toggleswitch-container">
   <ux-toggleswitch [(value)]="toggleSwitches.option1" [disabled]="toggleSwitchDisable">Toggle 1</ux-toggleswitch>
-</div>
-<div class="m-t-xs">
+
   <ux-toggleswitch [(value)]="toggleSwitches.option2">Toggle 2</ux-toggleswitch>
-</div>
-<div class="m-t-xs">
+
   <ux-toggleswitch [(value)]="toggleSwitches.option3">Toggle 3</ux-toggleswitch>
-</div>
-<div class="m-t-sm">
+
   <ux-toggleswitch class="toggleswitch-lg" [(value)]="toggleSwitches.option4">Large Toggle</ux-toggleswitch>
 </div>
 <p class="m-t-md">
@@ -46,7 +43,7 @@ to control the disabled state.</p>
       If this value is set to <code>true</code> then the toggle switch will be disabled.
     </tr>
     <tr uxd-api-property name="clickable" type="boolean" defaultValue="true">
-      If set to <code>false</code> the switch will not be updated when clicking on it, can be used if 
+      If set to <code>false</code> the switch will not be updated when clicking on it, can be used if
       something else is updating the state of the switch.
     </tr>
 </uxd-api-properties>
