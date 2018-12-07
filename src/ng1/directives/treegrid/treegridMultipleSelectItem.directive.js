@@ -3,7 +3,7 @@ treegridMultipleSelectItem.$inject = ["multipleSelectProvider"];
 /**
  * This directive handles the `row.selected` state and updates the `multipleSelectProvider`.
  */
-export default function treegridMultipleSelectItem(multipleSelectProvider) {
+export function treegridMultipleSelectItem(multipleSelectProvider) {
 
     return {
         restrict: "A",
@@ -12,6 +12,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             if (attrs.treegridMultipleSelectItem) {
 
                 var treeGridRow = scope.$eval(attrs.treegridMultipleSelectItem);
+                var isDisabled = scope.$eval(attrs.treegridMultipleSelectItemDisabled) || false;
                 var options = scope.$eval(attrs.treegridMultipleSelectOptions) || {};
                 var selectOptions = options.select || {};
 
@@ -29,18 +30,20 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                     //set up click
                     element.on("click.multiSelect", function (e) {
-                        if (!selectOptions.row) return;
+
+                        // do nothing if row selection is not enabled or the row itself is disabled
+                        if (!selectOptions.row || isDisabled) {
+                            return;
+                        }
 
                         if (e.shiftKey) {
                             extendOrStartSelection();
-                        }
-                        else if (e.ctrlKey) {
+                        } else if (e.ctrlKey) {
                             addToOrStartSelection();
-                        }
-                        else {
+                        } else {
                             startSelection();
                         }
-                        element.focus();  // Workaround for IE, make sure parent element gets focus
+                        element.focus(); // Workaround for IE, make sure parent element gets focus
                         e.preventDefault();
                         e.stopImmediatePropagation();
                         scope.$apply();
@@ -59,14 +62,15 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
                     });
 
                     // Custom event triggered by keyboardNavigableTable to handle shift key extension
-                    element.on("receivedSelection.keyboardNavigableTable", function (e) {
-                        if (!selectOptions.row) return;
+                    element.on("treegrid-navigation-focused", event => {
+                        if (!selectOptions.row) {
+                            return;
+                        }
 
-                        if (!e.ctrlKey) {
-                            if (e.shiftKey) {
+                        if (!event.ctrlKey) {
+                            if (event.shiftKey) {
                                 extendSelectionFromPrevious();
-                            }
-                            else {
+                            } else {
                                 // if shift key not held then dont select any
                                 multipleSelectInstance.selectNone();
                                 multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
@@ -117,14 +121,12 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             function addToOrStartSelection() {
                 if (!multipleSelectInstance.state.selecting) {
                     startSelection();
-                }
-                else {
+                } else {
                     multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
                     if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
                         multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                         setSelected(treeGridRow, true);
-                    }
-                    else {
+                    } else {
                         setSelected(treeGridRow, false);
                     }
                 }
@@ -134,8 +136,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             function extendOrStartSelection() {
                 if (!multipleSelectInstance.state.selecting) {
                     startSelection();
-                }
-                else {
+                } else {
                     extendSelection();
                 }
             }
@@ -151,12 +152,18 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             }
 
             function extendSelection() {
-                var rows = getRowDataItemsToSelect(multipleSelectInstance.multipleRowSelectOriginIndex, scope.$index);
-                var dataItems = rows.map(function(row) { return row.dataItem; });
-                var isSelected = multipleSelectInstance.rangeClicked(dataItems);
-                for (var row of rows) {
-                    setSelected(row, isSelected);
-                }
+
+                // get all the rows between the start point and current focused row
+                const rows = getRowDataItemsToSelect(multipleSelectInstance.multipleRowSelectOriginIndex, scope.$index);
+
+                // map to the item data, filtering out any disabled ones
+                const dataItems = rows.map(row => row.dataItem).filter(data => !data.disabled);
+
+                // determine the selected state
+                const isSelected = multipleSelectInstance.rangeClicked(dataItems);
+
+                // iterate each enabled row and update the selected state
+                rows.filter(row => !row.dataItem || row.dataItem.disabled !== true).forEach(row => setSelected(row, isSelected));
             }
 
             function getRowDataItemsToSelect(lastIndex, currentIndex) {
@@ -167,8 +174,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
                     //If this is the first item clicked there's no previous index to look at
                     if (lastIndex === null || lastIndex === undefined) {
                         result.push(getRowDataFromTableRow(currentIndex));
-                    }
-                    else {
+                    } else {
                         var from = Math.min(lastIndex, currentIndex);
                         var to = Math.max(lastIndex, currentIndex);
 

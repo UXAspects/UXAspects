@@ -1,4 +1,4 @@
-export default function TreegridDirective() {
+export function TreegridDirective() {
     return {
         restrict: 'E',
         template: require('./treegrid.html'),
