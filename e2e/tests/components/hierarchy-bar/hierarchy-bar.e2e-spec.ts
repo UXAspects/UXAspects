@@ -3,8 +3,12 @@ import { HierarchyBarPage } from './hierarchy-bar.po.spec';
 
 describe('Hierarchy Bar Tests', () => {
 
-    let page: HierarchyBarPage = new HierarchyBarPage();
-    page.getPage();
+    let page: HierarchyBarPage;
+
+    beforeEach(() => {
+        page = new HierarchyBarPage();
+        page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 
