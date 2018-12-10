@@ -12,12 +12,13 @@ export class TooltipsPage {
     programmaticallyShowBtn = $('#programmatically-show-btn');
     programmaticallyHideBtn = $('#programmatically-hide-btn');
     programmaticallyToggleBtn = $('#programmatically-toggle-btn');
+    resetBtn = $('#reset-btn');
 
     cdkOverlayContainer = $('.cdk-overlay-container');
     tooltip = $('.tooltip');
 
-    getPage(): void {
-        browser.get('#/tooltips');
+    getPage() {
+        return browser.get('#/tooltips');
     }
 
     async showTooltip(): Promise<void> {
@@ -70,6 +71,10 @@ export class TooltipsPage {
         const classes = await this.getTooltipClasses();
 
         return classes.indexOf(className) !== -1;
+    }
+
+    reset() {
+        return this.resetBtn.click();
     }
 
 }

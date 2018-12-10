@@ -1,75 +1,71 @@
-import { Constants, Functions } from '../common/common.spec';
 import { TimelinePage } from './timeline.po.spec';
 
 describe('TimelinePage Tests', () => {
 
-  let page: TimelinePage;
-  let constants: Constants;
-  let functions: Functions;
-
-  beforeEach(() => {
-    page = new TimelinePage();
+    let page: TimelinePage = new TimelinePage();
     page.getPage();
 
-    constants = new Constants();
-    functions = new Functions();
-  });
+    it('should start with 4 events', async () => {
 
-  it('should start with 4 events', () => {
-    
-    // Four events should be visible.
-    expect(page.timeline.isPresent()).toBeTruthy();
-    expect<any>(page.getNumberOfEvents()).toEqual(4);
-    expect(page.addEvent.isPresent()).toBeTruthy();
-    
-  });
-  
-  it('should allow the addition of events', () => {
-    
-    // Create events, checking the number displayed.
-    page.addEvent.click();
-    page.addEvent.click();
-    expect<any>(page.getNumberOfEvents()).toEqual(6);
-    
-  });
+        // Four events should be visible.
+        expect(page.timeline.isPresent()).toBeTruthy();
+        expect<any>(page.getNumberOfEvents()).toEqual(4);
+        expect(page.addEvent.isPresent()).toBeTruthy();
 
-  it('should display the correct information for events', () => {    
 
-    // Check elements of various events.
+        await page.reset();
+    });
 
-    const now = Date.now();
+    it('should allow the addition of events', async () => {
 
-    const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const dayInMilliSeconds = 24 * 60 * 60 * 1000;
-    
-    // Third event.
-    let thirdEvent = new Date(now + (dayInMilliSeconds * 2));
-    let dayOfWeek = weekdays[thirdEvent.getDay()];
-    let month = months[thirdEvent.getMonth()];
-    let day = thirdEvent.getDate();
-    let badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
-    expect<any>(page.getEventBadgeTitle(1)).toEqual(badgeTitle);
+        // Create events, checking the number displayed.
+        page.addEvent.click();
+        page.addEvent.click();
+        expect<any>(page.getNumberOfEvents()).toEqual(6);
 
-    expect<any>(page.getEventBadge(1).getAttribute('class')).toContain('alternate2');
 
-    // First event.
-    expect<any>(page.getEventBadge(3).getAttribute('class')).toContain('primary');
+        await page.reset();
+    });
 
-    expect<any>(page.getEventPanelText(3)).toContain('was recorded by');
+    it('should display the correct information for events', async () => {
 
-    // Add a fifth event and check it.
-    page.addEvent.click();
+        // Check elements of various events.
 
-    let newEvent = new Date(now + (dayInMilliSeconds * 4));    
-    dayOfWeek = weekdays[newEvent.getDay()];
-    month = months[newEvent.getMonth()];
-    day = newEvent.getDate();
-    badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
-    expect<any>(page.getEventBadgeTitle(0)).toEqual(badgeTitle);
+        const now = Date.now();
 
-    expect<any>(page.getEventBadge(0).getAttribute('class')).toContain('grey4');
+        const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const dayInMilliSeconds = 24 * 60 * 60 * 1000;
 
-    expect<any>(page.getEventPanelText(0)).toContain('was updated by');
-  });
+        // Third event.
+        let thirdEvent = new Date(now + (dayInMilliSeconds * 2));
+        let dayOfWeek = weekdays[thirdEvent.getDay()];
+        let month = months[thirdEvent.getMonth()];
+        let day = thirdEvent.getDate();
+        let badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
+        expect<any>(page.getEventBadgeTitle(1)).toEqual(badgeTitle);
+
+        expect<any>(page.getEventBadge(1).getAttribute('class')).toContain('alternate2');
+
+        // First event.
+        expect<any>(page.getEventBadge(3).getAttribute('class')).toContain('primary');
+
+        expect<any>(page.getEventPanelText(3)).toContain('was recorded by');
+
+        // Add a fifth event and check it.
+        page.addEvent.click();
+
+        let newEvent = new Date(now + (dayInMilliSeconds * 4));
+        dayOfWeek = weekdays[newEvent.getDay()];
+        month = months[newEvent.getMonth()];
+        day = newEvent.getDate();
+        badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
+        expect<any>(page.getEventBadgeTitle(0)).toEqual(badgeTitle);
+
+        expect<any>(page.getEventBadge(0).getAttribute('class')).toContain('grey4');
+
+        expect<any>(page.getEventPanelText(0)).toContain('was updated by');
+
+        await page.reset();
+    });
 });

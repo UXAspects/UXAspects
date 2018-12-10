@@ -10,6 +10,11 @@ export class PaginationTestPageComponent {
     itemsPerPage: number = 10;
     totalPages: number;
     maxSize: number = 5;
-    previousButton = `<i class="hpe-icon hpe-previous" aria-label="previous page"></i>`;
-    nextButton = `<i class="hpe-icon hpe-next" aria-label="next page"></i>`;
+
+    reset(): void {
+        this.currentPage = 1;
+        this.totalItems = 100;
+        this.itemsPerPage = 10;
+        this.maxSize = 5;
+    }
 }

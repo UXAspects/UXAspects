@@ -1,18 +1,16 @@
-import { Key, browser } from 'protractor';
+import { browser, Key } from 'protractor';
 import { TooltipsPage } from './tooltips.po.spec';
 
 describe('Tooltips', () => {
 
-    let page: TooltipsPage;
-
-    beforeEach(() => {
-        page = new TooltipsPage();
-        page.getPage();
-    });
+    let page: TooltipsPage = new TooltipsPage();
+    page.getPage();
 
     it('should have correct initial states', async () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
         expect(await page.tooltip.isPresent()).toBe(false);
+
+        await page.reset();
     });
 
     it('should show tooltip on mouse enter', async () => {
@@ -23,6 +21,8 @@ describe('Tooltips', () => {
         // the tooltip should now be visible
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.tooltip.isPresent()).toBe(true);
+
+        await page.reset();
     });
 
     it('should hide tooltip on mouse leave', async () => {
@@ -40,22 +40,28 @@ describe('Tooltips', () => {
         // the tooltip should now be hidden but the overlay container should remain
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.tooltip.isPresent()).toBe(false);
+
+        await page.reset();
     });
 
-    it ('should be able to programmatically show the tooltip', async () => {
+    it('should be able to programmatically show the tooltip', async () => {
         await page.showTooltip();
         expect(await page.tooltip.isPresent()).toBe(true);
+
+        await page.reset();
     });
 
-    it ('should be able to programmatically hide the tooltip', async () => {
+    it('should be able to programmatically hide the tooltip', async () => {
         await page.showTooltip();
         expect(await page.tooltip.isPresent()).toBe(true);
 
         await page.hideTooltip();
         expect(await page.tooltip.isPresent()).toBe(false);
+
+        await page.reset();
     });
 
-    it ('should be able to programmatically toggle the tooltip', async () => {
+    it('should be able to programmatically toggle the tooltip', async () => {
         await page.toggleTooltip();
         expect(await page.tooltip.isPresent()).toBe(true);
 
@@ -64,9 +70,11 @@ describe('Tooltips', () => {
 
         await page.toggleTooltip();
         expect(await page.tooltip.isPresent()).toBe(true);
+
+        await page.reset();
     });
 
-    it ('should be able to position the tooltip', async () => {
+    it('should be able to position the tooltip', async () => {
         // by default the tooltip should be displayed on top
         expect(await page.getTooltipPlacement()).toBe('top');
 
@@ -86,13 +94,17 @@ describe('Tooltips', () => {
         await page.placementTopBtn.click();
         expect(await page.getTooltipPlacement()).toBe('top');
 
+        await page.reset();
+
     });
 
-    it ('should show the correct content', async () => {
+    it('should show the correct content', async () => {
         expect(await page.getTooltipContent()).toBe('Some content here');
+
+        await page.reset();
     });
 
-    it ('should allow a custom class', async () => {
+    it('should allow a custom class', async () => {
 
         // should not initially have the class
         expect(await page.tooltipHasClass('my-custom-class')).toBe(false);
@@ -102,9 +114,11 @@ describe('Tooltips', () => {
 
         // should now have the class
         expect(await page.tooltipHasClass('my-custom-class')).toBe(true);
+
+        await page.reset();
     });
 
-    it ('should allow a TemplateRef to be used', async () => {
+    it('should allow a TemplateRef to be used', async () => {
         // the original content should initially be shown
         expect(await page.getTooltipContent()).toBe('Some content here');
 
@@ -113,9 +127,14 @@ describe('Tooltips', () => {
 
         // the content should now have changed
         expect(await page.getTooltipContent()).toBe('My Template Here');
+
+        await page.reset();
     });
 
-    it ('should show the tooltip on button focus', async () => {
+    it('should show the tooltip on button focus', async () => {
+
+        // we need to reload this page
+        await page.getPage();
 
         // the tooltip should initially be hidden
         expect(await page.tooltip.isPresent()).toBe(false);
@@ -125,9 +144,14 @@ describe('Tooltips', () => {
 
         // the tooltip should be visible
         expect(await page.tooltip.isPresent()).toBe(true);
+
+        await page.reset();
     });
 
-    it ('should hide the tooltip on button blur', async () => {
+    it('should hide the tooltip on button blur', async () => {
+
+        // we need to reload this page
+        await page.getPage();
 
         // the tooltip should initially be hidden
         expect(await page.tooltip.isPresent()).toBe(false);
@@ -143,5 +167,7 @@ describe('Tooltips', () => {
 
         // the tooltip should be hidden again
         expect(await page.tooltip.isPresent()).toBe(false);
+
+        await page.reset();
     });
 });

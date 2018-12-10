@@ -1,6 +1,13 @@
-<pagination id="pagination" [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
-    [maxSize]="maxSize" (numPages)="totalPages = $event"
-    [previousText]="previousButton" [nextText]="nextButton">
-</pagination>
+<ux-pagination id="pagination"
+    [(page)]="currentPage"
+    [totalItems]="totalItems"
+    [itemsPerPage]="itemsPerPage"
+    [maxSize]="maxSize"
+    (numPages)="totalPages = $event">
+</ux-pagination>
 
-<p id="text">Page {{currentPage}} of {{totalPages}}</p>
+<p id="text">Page {{ currentPage }} of {{ totalPages }}</p>
+
+<br>
+
+<button id="reset-button" class="btn button-primary" (click)="reset()">Reset</button>
