@@ -19,7 +19,8 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
             row: true,
             check: false,
             selectChildren: false,
-            rowClass: "shift-select-selected-bg"
+            rowClass: "shift-select-selected-bg",
+            indeterminate: false
         },
         expander: {
             type: "class",
@@ -95,10 +96,10 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
 
     // Set up multi select to work standalone
     if (!vm.multipleSelectInstance.keyFn) {
-        vm.multipleSelectInstance.keyFn = function (e) {
+        vm.multipleSelectInstance.keyFn = function (event) {
 
             // get a new instance of the object
-            const item = Object.assign({}, e.item);
+            const item = Object.assign({}, event.item);
 
             // check if there is a $$hashKey property - if so we need to remove it
             if (item.hasOwnProperty('$$hashKey')) {
@@ -116,9 +117,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
     }
 
     // Event for reloading the grid to its initial state
-    $scope.$on("treegrid.reload", function () {
-        updateView();
-    });
+    $scope.$on("treegrid.reload", () => updateView());
 
     $scope.$on("$destroy", function () {
         vm.multipleSelectInstance.reset();
@@ -138,7 +137,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
 
     vm.toggleAllRows = function () {
         vm.allSelected = !vm.allSelected;
-        vm.gridRows.forEach(row => vm.multipleSelectInstance.setSelected(row.dataItem, vm.allSelected));
+        vm.gridRows.filter(row => !vm.isDisabled(row)).forEach(row => vm.multipleSelectInstance.setSelected(row.dataItem, vm.allSelected));
     };
 
     vm.expanderClick = function (row, event) {
@@ -345,21 +344,28 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
 
     // Flatten the treeData structure into an array of items and expanded children for the grid.
     function populateGridRows(treeData, output) {
-        for (var i = 0; i < treeData.length; i += 1) {
-            output.push(treeData[i]);
-            if (treeData[i].expanded) {
-                populateGridRows(treeData[i].children, output);
+
+        treeData.forEach(row => {
+
+            // add the row to the output array
+            output.push(row);
+
+            // if it is expanded also add any children
+            if (row.expanded) {
+                populateGridRows(row.children, output);
             }
-        }
+        });
     }
 
     // Toggle the expanded state of a row and update the view model accordingly
     function toggleExpand(row) {
-        if (!row.canExpand) return;
-        if (row.expanded) {
-            return contract(row);
+
+        // if expansion is not allowed then do nothing
+        if (!row.canExpand) {
+            return;
         }
-        return expand(row);
+
+        return row.expanded ? contract(row) : expand(row);
     }
 
     // Remove children of a row from the view model

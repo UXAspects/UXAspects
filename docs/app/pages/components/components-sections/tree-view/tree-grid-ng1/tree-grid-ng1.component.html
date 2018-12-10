@@ -20,16 +20,23 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(ngModel)]="options.select.row">select.row</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(ngModel)]="options.select.check">select.check</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox
                             [(ngModel)]="!options.select.row && options.select.selectChildren"
                             [disabled]="options.select.row">select.selectChildren</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox
+                            [(ngModel)]="options.select.indeterminate"
+                            [disabled]="!options.select.selectChildren">
+                            select.indeterminate
+                        </ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -213,6 +220,9 @@
     <tr uxd-api-property name="level" type="number" required="true">
         The depth of the row in the tree grid. The top level items will have the value 0. This property is read only.
     </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        Specifies whether or not this row can be selected.
+    </tr>
     <tr uxd-api-property name="api" type="object" required="true">
         <span>Contains functions which may be used to control the row. The following functions are available:</span>
         <ul>
@@ -279,6 +289,10 @@
                 <code>selectChildren</code> (boolean) - when set to true, selecting a row also selects its
                 currently-loaded children. This should be used in conjunction with the <code>check</code> option.
                 Default is false.
+            </li>
+            <li>
+                <code>indeterminate</code> (boolean) - If <code>selectChildren</code> is also set to true this will display an
+                indeterminate checkbox state when some of the children items are selected.
             </li>
             <li>
                 <code>rowClass</code> (string) - the name of a class which will be applied to the row while it is

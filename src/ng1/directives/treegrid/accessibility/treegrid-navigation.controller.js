@@ -22,20 +22,11 @@ export class TreeGridNavigationController {
     }
 
     focusFirst(event) {
-        // get the first item in the list
-        const first = this.items.reduceRight((previous, current) => current.isDisabled || previous.index < current.index ? previous : current);
-
-        // focus the item
-        this.focus(event, first.index);
+        this.focus(event, 0);
     }
 
     focusLast(event) {
-
-        // get the last item in the list
-        const last = this.items.reduce((previous, current) => current.isDisabled || previous.index > current.index ? previous : current);
-
-        // focus the item
-        this.focus(event, last.index);
+        this.focus(event, this.items.length - 1);
     }
 
     /**
@@ -55,8 +46,8 @@ export class TreeGridNavigationController {
             return;
         }
 
-        // get all enabled items in the correct order
-        const items = this.items.filter(item => !item.isDisabled).sort((a, b) => a.index - b.index);
+        // get all items in the correct order
+        const items = this.items.sort((a, b) => a.index - b.index);
 
         // get the position in the array of the starting item
         const currentIndex = items.findIndex(item => item.index === index);

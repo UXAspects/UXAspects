@@ -49,7 +49,12 @@
 // AngularJS row (avoiding naming conflict with Angular component)
 .treegrid-row-ng1 {
     &.disabled {
+        cursor: default;
         color: @form-control-disabled-color;
+
+        .treegrid-expand {
+            color: @text-color;
+        }
     }
 }
 
