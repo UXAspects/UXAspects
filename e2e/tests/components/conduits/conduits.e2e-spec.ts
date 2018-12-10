@@ -2,8 +2,12 @@ import { ConduitsPage, Zone } from './conduits.po.spec';
 
 describe('Conduit Tests', () => {
 
-    let page: ConduitsPage = new ConduitsPage();
-    page.getPage();
+    let page: ConduitsPage;
+
+    beforeEach(() => {
+        page = new ConduitsPage();
+        page.getPage();
+    });
 
     it('should have correct initial states', async () => {
         expect(await page.getConduitValue(Zone.One)).toBe('');
