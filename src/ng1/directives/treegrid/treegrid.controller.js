@@ -212,7 +212,18 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
     };
 
     vm.isDisabled = function (row) {
-        return row.dataItem && row.dataItem.disabled ? true : false;
+        const data = row.dataItem;
+        const disabledProperty = vm.allOptions.disabled;
+
+        if (angular.isString(disabledProperty)) {
+            return data.hasOwnProperty(disabledProperty) ? data[disabledProperty] : false;
+        }
+
+        if (angular.isFunction(disabledProperty)) {
+            return disabledProperty(data);
+        }
+
+        return false;
     };
 
     function updateSelection(selection) {

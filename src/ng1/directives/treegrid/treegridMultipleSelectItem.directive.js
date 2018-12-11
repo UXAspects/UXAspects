@@ -169,19 +169,34 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
                 extendSelection();
             }
 
+            function isRowDisabled(row) {
+                const data = row.dataItem || row;
+                const disabledProperty = options.disabled;
+
+                if (angular.isString(disabledProperty)) {
+                    return data.hasOwnProperty(disabledProperty) ? data[disabledProperty] : false;
+                }
+
+                if (angular.isFunction(disabledProperty)) {
+                    return disabledProperty(data);
+                }
+
+                return false;
+            }
+
             function extendSelection() {
 
                 // get all the rows between the start point and current focused row
                 const rows = getRowDataItemsToSelect(multipleSelectInstance.multipleRowSelectOriginIndex, scope.$index);
 
                 // map to the item data, filtering out any disabled ones
-                const dataItems = rows.map(row => row.dataItem).filter(data => !data.disabled);
+                const dataItems = rows.map(row => row.dataItem).filter(data => !isRowDisabled(data));
 
                 // determine the selected state
                 const isSelected = multipleSelectInstance.rangeClicked(dataItems);
 
                 // iterate each enabled row and update the selected state
-                rows.filter(row => !row.dataItem || row.dataItem.disabled !== true).forEach(row => setSelected(row, isSelected));
+                rows.filter(row => !row.dataItem || isRowDisabled(row) !== true).forEach(row => setSelected(row, isSelected));
             }
 
             function getRowDataItemsToSelect(lastIndex, currentIndex) {
@@ -227,7 +242,7 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
             function setIndeterminateState() {
 
                 // check if we need to update indeterminate state
-                if (treeGridRow.dataItem.disabled === true || selectOptions.selectChildren !== true || selectOptions.indeterminate !== true) {
+                if (isRowDisabled(treeGridRow) === true || selectOptions.selectChildren !== true || selectOptions.indeterminate !== true) {
                     return;
                 }
 
@@ -268,7 +283,7 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
                 const children = dataItem[options.childrenProperty] || [];
 
                 // iterate through each enabled child and selt the selection
-                children.filter(child => !child.disabled).forEach(child => {
+                children.filter(child => !isRowDisabled(child)).forEach(child => {
 
                     // update the selected state of the child node
                     multipleSelectInstance.setSelected(child, isSelected);

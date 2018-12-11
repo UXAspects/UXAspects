@@ -220,9 +220,6 @@
     <tr uxd-api-property name="level" type="number" required="true">
         The depth of the row in the tree grid. The top level items will have the value 0. This property is read only.
     </tr>
-    <tr uxd-api-property name="disabled" type="boolean">
-        Specifies whether or not this row can be selected.
-    </tr>
     <tr uxd-api-property name="api" type="object" required="true">
         <span>Contains functions which may be used to control the row. The following functions are available:</span>
         <ul>
@@ -345,6 +342,11 @@
         If a string is provided, this is used as the name of a property on the source data object to bind as a class on
         the corresponding tree grid row. If a function is provided, this is called with the source data object as an
         argument, and the return value is bound as a class on the corresponding tree grid row.
+    </tr>
+    <tr uxd-api-property name="disabled" type="string or function">
+        If a string is provided, this is used as the name of a property on the source data object to determine if selection is disabled on
+        the corresponding tree grid row. If a function is provided, this is called with the source data object as an
+        argument, and should return true or false to indicate whether or not selection on the corresponding tree grid row should be disabled.
     </tr>
     <tr uxd-api-property name="sort" type="function" required="true">
         <span>
