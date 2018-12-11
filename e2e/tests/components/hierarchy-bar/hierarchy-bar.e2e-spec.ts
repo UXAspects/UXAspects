@@ -10,7 +10,7 @@ describe('Hierarchy Bar Tests', () => {
         page.getPage();
     });
 
-      it('should have correct initial states', async () => {
+    it('should have correct initial states', async () => {
 
         // should initially only select the root node
         expect(await page.getNodeCount()).toBe(1);
@@ -18,9 +18,9 @@ describe('Hierarchy Bar Tests', () => {
         // ensure that the selected change event emits the select node
         expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
 
-      });
+    });
 
-      it('can programmatically set the selected node', async () => {
+    it('can programmatically set the selected node', async () => {
 
         // set the selected input
         await page.selectButton.click();
@@ -31,14 +31,14 @@ describe('Hierarchy Bar Tests', () => {
         // ensure that the selected change event emits the select node
         expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
 
-      });
+    });
 
-      it('should display arrow when item has children', async () => {
+    it('should display arrow when item has children', async () => {
 
         // check if the arrow appears on the root node
         expect(await page.nodeHasChildren(0)).toBe(true);
 
-      });
+    });
 
     it('should display children in popover', async () => {
         const titles = await page.getNodeChildrenTitles(0);
@@ -82,7 +82,7 @@ describe('Hierarchy Bar Tests', () => {
     });
 
     it('should show overflow indicator when overflow occurs', async () => {
-        
+
         // select many children
         await page.selectPopoverNode(0, 1);
         await page.selectPopoverNode(1, 0);
@@ -100,19 +100,19 @@ describe('Hierarchy Bar Tests', () => {
 
         // get the overflow nodes
         const titles = await page.getOverflowNodeTitles();
-        
+
         // expect there to be nodes in the overflow popover
         expect(JSON.stringify(titles)).toBe(JSON.stringify(['Theresa Chandler']));
 
         // increase browser size
         await browser.driver.manage().window().setSize(1000, 700);
-        
+
         // overflow indicator should no longer be visible
         expect(await page.isOverflowIndicatorVisible()).toBe(false);
-        
+
         // restore window
         await browser.driver.manage().window().maximize();
-        
+
     });
 
 });

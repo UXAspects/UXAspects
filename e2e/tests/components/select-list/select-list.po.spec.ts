@@ -7,9 +7,10 @@ export class SelectListPage {
     items = $$('ux-select-list-item');
     output = $('#select-output');
     toggleButton = $('#toggle-btn');
+    resetButton = $('#reset-btn');
 
-    getPage(): void {
-        browser.get('#/select-list');
+    getPage() {
+        return browser.get('#/select-list');
     }
 
     async getItemCount(): Promise<number> {
@@ -37,5 +38,9 @@ export class SelectListPage {
     async getTabbableItem(): Promise<string> {
         const items = await this.items.filter(element => element.getAttribute('tabindex').then(tabindex => tabindex === '0'));
         return await items[0].getText();
+    }
+
+    async reset(): Promise<void> {
+        return this.resetButton.click();
     }
 }

@@ -56,6 +56,7 @@ describe('Conduit Tests', () => {
     });
 
     it('should still receive input from other zones when producesOutput is set to false', async () => {
+
         await page.setConduitValue(Zone.One, 'UX Aspects');
 
         expect(await page.getConduitValue(Zone.One)).toBe('UX Aspects');

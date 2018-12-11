@@ -10,36 +10,38 @@ export class TimelineTestPageComponent {
     private _now = Date.now();
     private _dayInMilliSeconds = 24 * 60 * 60 * 1000;
     private _daysAfterFirstEvent = 3;
-    
+
     events: TimelineEvent[] = [{
         color: 'accent',
         date: new Date(this._now + (this._dayInMilliSeconds * 3)),
         url: '#',
-        id: chance.integer({min: 1000, max: 9999}),
+        id: chance.integer({ min: 1000, max: 9999 }),
         action: 'tested',
         assignee: chance.name()
     }, {
         color: 'alternate2',
         date: new Date(this._now + (this._dayInMilliSeconds * 2)),
         url: '#',
-        id: chance.integer({min: 1000, max: 9999}),
+        id: chance.integer({ min: 1000, max: 9999 }),
         action: 'reviewed',
         assignee: chance.name()
     }, {
         color: 'grey4',
         date: new Date(this._now + this._dayInMilliSeconds),
         url: '#',
-        id: chance.integer({min: 1000, max: 9999}),
+        id: chance.integer({ min: 1000, max: 9999 }),
         action: 'developed',
         assignee: chance.name()
     }, {
         color: 'primary',
         date: new Date(this._now),
         url: '#',
-        id: chance.integer({min: 1000, max: 9999}),
+        id: chance.integer({ min: 1000, max: 9999 }),
         action: 'recorded',
         assignee: chance.name()
     }];
+
+    private _events = [...this.events];
 
     addEvent(): void {
         this._daysAfterFirstEvent++;
@@ -47,10 +49,15 @@ export class TimelineTestPageComponent {
             color: 'grey4',
             date: new Date(this._now + (this._dayInMilliSeconds * this._daysAfterFirstEvent)),
             url: '#',
-            id: chance.integer({min: 1000, max: 9999}),
+            id: chance.integer({ min: 1000, max: 9999 }),
             action: 'updated',
             assignee: chance.name()
         });
+    }
+
+    reset(): void {
+        this.events = [...this._events];
+        this._daysAfterFirstEvent = 3;
     }
 }
 

@@ -44,8 +44,12 @@
         Set Option2 to indeterminate state
     </button>
 
-    <button id="button3" class="btn button-accent"
+    <button id="button3" class="btn button-accent m-r-xs"
         (click)="simplified = !simplified">
         {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
+    </button>
+
+    <button id="button4" class="btn button-accent" (click)="reset()">
+        Reset
     </button>
 </div>

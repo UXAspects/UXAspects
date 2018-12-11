@@ -1,7 +1,7 @@
 import { browser, by, element } from 'protractor';
 
 export class ExpandingTextAreaPage {
-        
+
     textarea = element(by.tagName('textarea'));
 
     getPage(): void {
@@ -18,5 +18,9 @@ export class ExpandingTextAreaPage {
 
     async getHeight(): Promise<number> {
         return (await this.textarea.getSize()).height;
+    }
+
+    async clear(): Promise<void> {
+        return this.textarea.clear();
     }
 }

@@ -26,7 +26,7 @@ export class CustomFacetPage {
     }
 
     closeFacet(index: number) {
-        this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
+        return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
     }
 
     getNoItemsLabel() {

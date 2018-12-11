@@ -42,4 +42,12 @@ export class SelectListTestPageComponent {
     search(): void {
         this.authors = this._authors.filter(author => author.toLowerCase().indexOf(this.query.toLowerCase()) !== -1);
     }
+
+    reset(): void {
+        this.multiple = false;
+        this.selected = [];
+        this.authors = [];
+        this.query = '';
+        this.search();
+    }
 }
