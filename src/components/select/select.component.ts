@@ -18,7 +18,7 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
 };
 
 @Component({
-    selector: 'ux-select',
+    selector: 'ux-select, ux-combobox, ux-dropdown',
     templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR],
     host: {
@@ -108,9 +108,9 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         // Changes to the input field
         this._input$.pipe(
             takeUntil(this._onDestroy),
-            filter(value => this.allowNull),
+            filter(() => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value))
-        ).subscribe(value => this.value = null);
+        ).subscribe(() => this.value = null);
 
         // Set up filter from input
         this.filter$ = this._input$.pipe(
