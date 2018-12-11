@@ -32,7 +32,6 @@
     <packaging>pom</packaging>
 
     <properties>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
     </properties>
 
