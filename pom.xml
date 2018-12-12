@@ -32,6 +32,8 @@
     <packaging>pom</packaging>
 
     <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <skipLicenseHeadersCheck>true</skipLicenseHeadersCheck>
     </properties>
 

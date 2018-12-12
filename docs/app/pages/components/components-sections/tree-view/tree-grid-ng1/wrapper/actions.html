@@ -1,4 +1,4 @@
-<div ng-controller="TreeGridActionsCtrl as vm" class="item-actions">
+<div ng-controller="TreeGridActionsCtrl as vm" class="item-actions" ng-if="!item.disabled">
     <list-hover-actions>
         <list-hover-action name="Share" icon="hpe-share" click="vm.share(item)">
         </list-hover-action>

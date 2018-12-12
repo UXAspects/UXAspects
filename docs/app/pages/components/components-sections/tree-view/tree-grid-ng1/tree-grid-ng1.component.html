@@ -20,16 +20,23 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(ngModel)]="options.select.row">select.row</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(ngModel)]="options.select.check">select.check</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox
                             [(ngModel)]="!options.select.row && options.select.selectChildren"
                             [disabled]="options.select.row">select.selectChildren</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox
+                            [(ngModel)]="options.select.indeterminate"
+                            [disabled]="!options.select.selectChildren">
+                            select.indeterminate
+                        </ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -281,6 +288,10 @@
                 Default is false.
             </li>
             <li>
+                <code>indeterminate</code> (boolean) - If <code>selectChildren</code> is also set to true this will display an
+                indeterminate checkbox state when some of the children items are selected.
+            </li>
+            <li>
                 <code>rowClass</code> (string) - the name of a class which will be applied to the row while it is
                 selected. To remove the default appearance, set this to null or an empty string.
             </li>
@@ -331,6 +342,11 @@
         If a string is provided, this is used as the name of a property on the source data object to bind as a class on
         the corresponding tree grid row. If a function is provided, this is called with the source data object as an
         argument, and the return value is bound as a class on the corresponding tree grid row.
+    </tr>
+    <tr uxd-api-property name="disabled" type="string or function">
+        If a string is provided, this is used as the name of a property on the source data object to determine if selection is disabled on
+        the corresponding tree grid row. If a function is provided, this is called with the source data object as an
+        argument, and should return true or false to indicate whether or not selection on the corresponding tree grid row should be disabled.
     </tr>
     <tr uxd-api-property name="sort" type="function" required="true">
         <span>

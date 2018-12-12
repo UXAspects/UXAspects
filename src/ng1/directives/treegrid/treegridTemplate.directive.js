@@ -1,6 +1,6 @@
 treegridTemplate.$inject = ["$templateRequest", "$compile"];
 
-export default function treegridTemplate($templateRequest, $compile) {
+export function treegridTemplate($templateRequest, $compile) {
     return {
         restrict: 'E',
         replace: true,
@@ -8,9 +8,9 @@ export default function treegridTemplate($templateRequest, $compile) {
             url: '=',
             item: '='
         },
-        link: function(scope, elem) {
+        link: function (scope, elem) {
             if (scope.url) {
-                $templateRequest(scope.url).then(function(html) {
+                $templateRequest(scope.url).then(function (html) {
                     var template = angular.element(html);
                     elem.replaceWith(template);
                     $compile(template)(scope);
