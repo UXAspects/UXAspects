@@ -86,7 +86,6 @@ export class ChartsSparkChartNg1Component extends BaseDocumentationSection imple
                 bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>'
             }
         ];
-
     }
 }
 
@@ -100,5 +99,5 @@ interface ISparkChart {
     bottomLeftLabel?: string;
     bottomRightLabel?: string;
     inlineLabel?: string;
-    tooltip?: string;
+    tooltip?: string | string[];
 }

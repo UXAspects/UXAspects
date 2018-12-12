@@ -1,4 +1,4 @@
-angular.module("app").controller("SparkChartCtrl", SparkChartCtrl);
+angular.module('app').controller('SparkChartCtrl', SparkChartCtrl);
 
 function SparkChartCtrl() {
     var vm = this;
@@ -58,7 +58,8 @@ function SparkChartCtrl() {
             barColor: ['#1aac60', '#fcdb1f', '#e5004c'],
             value: [70, 20, 10],
             fillHeight: 6,
-            topLeftLabel: `<span class='spark-label'>Multi-value</span>`
+            topLeftLabel: `<span class='spark-label'>Multi-value</span>`,
+            tooltip: ['Complete', 'In Progress', 'To Do']
         },
         {
             type: 'spark-vibrant2',
