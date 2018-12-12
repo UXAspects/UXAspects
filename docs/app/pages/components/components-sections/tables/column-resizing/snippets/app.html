@@ -19,7 +19,7 @@
             [uxSelectionItem]="document"
             [(selected)]="document.selected">
 
-            <td class="fixed-column">
+            <td class="checkbox-column">
                 <ux-checkbox aria-hidden="true"
                     tabindex="-1"
                     [(ngModel)]="document.selected">
@@ -42,13 +42,13 @@
         <tr>
             <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
             <th uxResizableTableColumn [(width)]="titleWidth">
-                Title <small>{{ titleWidth | number }}px</small>
+                Title <small class="m-l-xs">{{ titleWidth | number }}px</small>
             </th>
             <th uxResizableTableColumn [(width)]="authorWidth">
-                Author <small>{{ authorWidth | number }}px</small>
+                Author <small class="m-l-xs">{{ authorWidth | number }}px</small>
             </th>
             <th uxResizableTableColumn (widthChange)="dateWidth = $event">
-                Date <small>{{ dateWidth | number }}px</small>
+                Date <small class="m-l-xs">{{ dateWidth | number }}px</small>
             </th>
         </tr>
     </thead>
@@ -58,7 +58,7 @@
             [uxSelectionItem]="document"
             [(selected)]="document.selected">
 
-            <td class="fixed-column" uxResizableTableCell>
+            <td class="checkbox-column" uxResizableTableCell>
                 <ux-checkbox aria-hidden="true"
                     tabindex="-1"
                     [(ngModel)]="document.selected">
