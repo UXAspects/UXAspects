@@ -39,7 +39,7 @@ export default function SparkCtrl($colorService) {
 
     sc.segmentTooltip = function(index) {
         return Array.isArray(sc.sparkTooltips) && sc.sparkTooltips.length > index ? sc.sparkTooltips[index] : undefined;
-    }
+    };
 }
 
 SparkCtrl.$inject = ['$colorService'];
