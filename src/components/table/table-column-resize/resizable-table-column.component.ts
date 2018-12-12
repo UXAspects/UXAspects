@@ -38,6 +38,10 @@ export class ResizableTableColumnComponent implements OnDestroy {
         }
     }
 
+    get width(): number {
+        return this._width;
+    }
+
     /** Emit the current column width */
     @Output() widthChange = new EventEmitter<number>();
 
@@ -77,7 +81,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
             const width = _table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
 
             // check if the width actually changed - otherwise don't emit
-            if (Math.max(width, this._width) - Math.min(width, this._width) >= 1) {
+            if (this._width === undefined || Math.max(width, this._width) - Math.min(width, this._width) >= 1) {
                 this.widthChange.emit(width);
             }
         });

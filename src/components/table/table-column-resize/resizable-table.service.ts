@@ -38,6 +38,9 @@ export class ResizableTableService implements OnDestroy {
         // store the sizes
         this.columns = columns.map(column => (column.getNaturalWidth() / this.tableWidth) * 100);
 
+        // check if there is any overflow
+        this.columns = this.ensureNoOverflow(this.columns);
+
         // ensure all the columns fit
         this._columns.forEach((column, idx) => {
             if (!column.disabled) {
@@ -49,6 +52,55 @@ export class ResizableTableService implements OnDestroy {
         if (this.isInitialised$.value === false) {
             this.isInitialised$.next(true);
         }
+    }
+
+    ensureNoOverflow(columns: ReadonlyArray<number>): ReadonlyArray<number> {
+
+        // get the total width
+        const total = columns.reduce((width, column) => width + column);
+
+        // if we have no overflow then we don't need to do anything
+        if (total <= 100) {
+            return columns;
+        }
+
+        // if there is overflow identify which columns can be resized
+        const variableColumns = this._columns.filter(column => !column.disabled && this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns) > column.minWidth);
+
+        // if there are no columns that can be resized then stop here
+        if (variableColumns.length === 0) {
+            return columns;
+        }
+
+        // determine the total width of the variable columns
+        const totalWidth = this._columns.reduce((width, column) => width + this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns), 0);
+
+        // determine to the width of all the variable columns
+        const variableColumnsWidth = variableColumns.reduce((width, column) => width + this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns), 0);
+
+        // determine how much the columns are currently too large (ignoring fixed columns)
+        const targetWidth = this.tableWidth - (totalWidth - variableColumnsWidth);
+
+        // determine how much we need to reduce a column by
+        const difference = variableColumnsWidth - targetWidth;
+
+        // find the column with the largest size
+        const target = variableColumns.reduce((widest, column) => {
+            const columnWidth = this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns);
+            const widestWidth = this.getColumnWidth(widest.getCellIndex(), ColumnUnit.Pixel, columns);
+
+            return columnWidth > widestWidth ? column : widest;
+        });
+
+        // perform the resize
+        columns = this.setColumnWidth(target.getCellIndex(), this.getColumnWidth(target.getCellIndex(), ColumnUnit.Pixel, columns) - difference, ColumnUnit.Pixel, columns);
+
+        // check if we are still over the limit (allow some variance for javascript double precision)
+        if (columns.reduce((width, column) => width + column) > 100.01) {
+            return this.ensureNoOverflow(columns);
+        }
+
+        return columns;
     }
 
     /** Update the resizing state */
