@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
@@ -16,6 +16,7 @@ export class SparkChartComponent extends UpgradeComponent {
     @Input() bottomLeftLabel: any;
     @Input() bottomRightLabel: any;
     @Input() sparkTooltip: any;
+    @Input() sparkTooltips: any;
     @Input() barColor: any;
     @Input() trackColor: any;
 

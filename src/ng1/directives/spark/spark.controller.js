@@ -5,7 +5,7 @@ export default function SparkCtrl($colorService) {
 
     // give the chart a default theme
     sc.type = sc.type || 'spark-chart1';
-        
+
     // ensure 'value' is an array at this point
     const values = Array.isArray(sc.value) ? sc.value : [sc.value];
 
@@ -28,13 +28,17 @@ export default function SparkCtrl($colorService) {
     if (sc.trackColor) {
         sc.trackColor = $colorService.resolve(sc.trackColor);
     }
-    
-    sc.barColor = Array.isArray(sc.barColor) ? sc.barColor : [sc.barColor]; 
+
+    sc.barColor = Array.isArray(sc.barColor) ? sc.barColor : [sc.barColor];
 
     sc.styles = {
         height: sc.fillheight + 'px',
         marginTop: (sc.top !== undefined) ? sc.top : 0 + 'px',
         backgroundColor: sc.trackColor
+    };
+
+    sc.segmentTooltip = function(index) {
+        return Array.isArray(sc.sparkTooltips) && sc.sparkTooltips.length > index ? sc.sparkTooltips[index] : undefined;
     };
 }
 
