@@ -1,16 +1,21 @@
-import TreeGridController from './treegrid.controller.js';
-import TreeGridDirective from './treegrid.directive.js';
-import TreeGridCellDirective from './treegridCell.directive.js';
-import TreeGridRowKeyHandlerDirective from './treegridRowKeyHandler.directive.js';
-import TreegridMultipleSelectItem from './treegridMultipleSelectItem.directive.js';
-
-import '../../services/keyboardService/keyboardService.module.js';
-import '../multipleSelect/multipleSelect.module.js';
-import '../keyboardNavigableTable/keyboardNavigableTable.module.js';
+import '../../services/keyboardService/keyboardService.module';
+import '../keyboardNavigableTable/keyboardNavigableTable.module';
+import '../multipleSelect/multipleSelect.module';
+import { TreeGridNavigationItemController } from './accessibility/treegrid-navigation-item.controller';
+import { treegridNavigationItem } from './accessibility/treegrid-navigation-item.directive';
+import { TreeGridNavigationController } from './accessibility/treegrid-navigation.controller';
+import { treegridNavigation } from './accessibility/treegrid-navigation.directive';
+import { TreeGridController } from './treegrid.controller';
+import { TreegridDirective } from './treegrid.directive';
+import { treegridCell } from './treegridCell.directive';
+import { treegridMultipleSelectItem } from './treegridMultipleSelectItem.directive';
 
 angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.keyboardService', 'ux-aspects.keyboardNavigableTable'])
     .controller("TreegridCtrl", TreeGridController)
-    .directive('treegrid', TreeGridDirective)
-    .directive('treegridCell', TreeGridCellDirective)
-    .directive('treegridRowKeyHandler', TreeGridRowKeyHandlerDirective)
-    .directive('treegridMultipleSelectItem', TreegridMultipleSelectItem);
+    .controller("TreeGridNavigationCtrl", TreeGridNavigationController)
+    .controller("TreeGridNavigationItemCtrl", TreeGridNavigationItemController)
+    .directive('treegrid', TreegridDirective)
+    .directive('treegridCell', treegridCell)
+    .directive('treegridMultipleSelectItem', treegridMultipleSelectItem)
+    .directive('treegridNavigation', treegridNavigation)
+    .directive('treegridNavigationItem', treegridNavigationItem);

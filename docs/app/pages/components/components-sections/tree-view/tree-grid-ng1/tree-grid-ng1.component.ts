@@ -155,6 +155,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
             row: true,
             check: false,
             selectChildren: false,
+            indeterminate: false,
             rowClass: 'shift-select-selected-bg'
         }
     };
