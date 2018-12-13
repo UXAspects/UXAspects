@@ -6,8 +6,8 @@
     <div class="row-divider"></div>
 
     <p>UX Aspects components can be used in Angular projects (Angular or AngularJS 1.x), and those shown in the
-        <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using the components 
-        are shown below. The installation instructions are broken down into four alternative methods as detailed in the 
+        <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using the components
+        are shown below. The installation instructions are broken down into four alternative methods as detailed in the
         following tabsets:</p>
 
     <ux-tabset [minimal]="false">
@@ -16,21 +16,7 @@
                 <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
                 <li>Install the UX Aspects package and its dependencies: <kbd>npm install @ux-aspects/ux-aspects --save</kbd></li>
                 <li>Install <code>rxjs-compat</code> for Angular 6 applications: <kbd>npm install rxjs-compat --save</kbd></li>
-            </ol>
-        </ux-tab>
-        <ux-tab heading="Bower">
-            <ol>
-                <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
-                <li>Install <a href="https://www.typescriptlang.org/">TypeScript</a>: <kbd>npm install typescript --save-dev</kbd></li>
-                <li>Install <a href="https://angular.io/">Angular</a> and other dependencies:
-                    <div>
-                        <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli @angular/core @angular/forms
-                            @angular/http @angular/platform-browser @angular/platform-browser-dynamic
-                            @angular/router rxjs rxjs-compat zone.js chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
-                    </div>
-                </li>
-                <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
-                <li>Install the UX Aspects bower package: <kbd>bower install ux-aspects#{{ version }}</kbd></li>
+                <li>Install the Angular CDK: <kbd>npm install @angular/cdk --save</kbd></li>
             </ol>
         </ux-tab>
         <ux-tab heading="Direct Download">
