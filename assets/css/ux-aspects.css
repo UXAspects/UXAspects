@@ -4360,6 +4360,9 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .timepicker-light {
   padding: 12px;
 }
+.popover.date-picker-popover {
+  width: 276px;
+}
 .popover.date-picker-popover .popover-content {
   padding: 0;
 }
@@ -4395,6 +4398,28 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   left: 10%;
   margin-left: -7px;
   bottom: -6px;
+}
+.popover.date-picker-popover.right {
+  left: 40px;
+}
+.popover.date-picker-popover.right .date-picker-popover-arrow {
+  left: -16px !important;
+  transform: translateY(3px);
+}
+.popover.date-picker-popover.right .date-picker-popover-arrow:after {
+  margin-left: -7px;
+  bottom: -7px;
+}
+.popover.date-picker-popover.left {
+  left: 40px;
+}
+.popover.date-picker-popover.left .date-picker-popover-arrow {
+  right: -16px !important;
+  transform: translateY(3px);
+}
+.popover.date-picker-popover.left .date-picker-popover-arrow:after {
+  right: -6px;
+  bottom: -7px;
 }
 .date-picker {
   font-family: 'Source Sans Pro' !important;
@@ -14472,6 +14497,23 @@ tags-input .tags .input:-ms-input-placeholder {
   color: #ccc;
   opacity: 1;
 }
+.checkbox-container,
+.radio-button-container,
+.toggleswitch-container {
+  display: flex;
+  flex-direction: column;
+}
+.checkbox-container ux-checkbox,
+.radio-button-container ux-checkbox,
+.toggleswitch-container ux-checkbox,
+.checkbox-container ux-radio-button,
+.radio-button-container ux-radio-button,
+.toggleswitch-container ux-radio-button,
+.checkbox-container ux-toggleswitch,
+.radio-button-container ux-toggleswitch,
+.toggleswitch-container ux-toggleswitch {
+  margin-bottom: 5px;
+}
 .component-list-container {
   align-items: flex-end;
   display: flex;
@@ -14584,10 +14626,6 @@ tags-input .tags .input:-ms-input-placeholder {
 .treegrid.table > thead > tr > th {
   border-bottom: none;
 }
-.treegrid th ux-checkbox .ux-checkbox,
-.treegrid td ux-checkbox .ux-checkbox {
-  margin-bottom: 0;
-}
 .treegrid-expand-header {
   margin-left: 58px;
 }
@@ -14617,6 +14655,16 @@ tags-input .tags .input:-ms-input-placeholder {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+.treegrid-row > td:first-child > ux-checkbox {
+  margin-right: 10px;
+}
+.treegrid-row-ng1.disabled {
+  cursor: default;
+  color: #b3b3b3;
+}
+.treegrid-row-ng1.disabled .treegrid-expand {
+  color: #676a6c;
 }
 .treegrid-indent {
   display: inline-block;
@@ -14700,6 +14748,9 @@ tags-input .tags .input:-ms-input-placeholder {
 }
 .angular-tree-component .tree-node:hover {
   background-color: transparent;
+}
+.angular-tree-component .tree-node > .node-wrapper > ux-checkbox {
+  margin-right: 5px;
 }
 .angular-tree-component .node-content-wrapper {
   width: 100%;
@@ -15414,6 +15465,9 @@ ux-card-tabset .card-tabs-paging-btn-previous {
 ux-card-tabset .card-tabs-paging-btn-next {
   right: 10px;
 }
+ux-checkbox {
+  display: inline-block;
+}
 ux-checkbox:focus {
   outline: none;
 }
@@ -15422,7 +15476,6 @@ ux-checkbox .ux-checkbox {
   align-items: baseline;
   margin: 0;
   cursor: pointer;
-  margin-bottom: 5px;
 }
 ux-checkbox .ux-checkbox:focus {
   outline: none;
@@ -15471,6 +15524,9 @@ ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container:before
 }
 ux-checkbox .ux-checkbox .ux-checkbox-label {
   margin-left: 7px;
+}
+ux-checkbox .ux-checkbox .ux-checkbox-label:empty {
+  margin-left: 0;
 }
 ux-checkbox .ux-checkbox.ux-checkbox-disabled .ux-checkbox-container {
   border-color: #eee;
@@ -15527,12 +15583,6 @@ ux-checkbox .ux-checkbox.ux-checkbox-focused .ux-checkbox-container {
 ux-checkbox.ux-checkbox-inline {
   display: inline-flex;
   vertical-align: bottom;
-}
-ux-checkbox.ux-checkbox-inline .ux-checkbox {
-  margin-bottom: 0;
-}
-ux-checkbox.ux-checkbox-inline .ux-checkbox .ux-checkbox-container {
-  margin-bottom: 0;
 }
 ux-color-picker {
   display: block;
@@ -16148,9 +16198,6 @@ ux-facet-check-list .facet-check-list-container .facet-check-list-item:focus {
 ux-facet-check-list .facet-check-list-container .facet-check-list-item ux-checkbox {
   pointer-events: none;
 }
-ux-facet-check-list .facet-check-list-container .facet-check-list-item ux-checkbox .ux-checkbox {
-  margin-bottom: 0;
-}
 ux-facet-check-list .facet-check-list-container .facet-check-list-item .facet-check-list-item-title {
   margin-right: 5px;
   overflow: hidden;
@@ -16311,9 +16358,6 @@ ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-se
 }
 ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option ux-checkbox {
   pointer-events: none;
-}
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option ux-checkbox .ux-checkbox {
-  margin-bottom: 0;
 }
 ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option .facet-typeahead-list-selected-option-title {
   margin-right: 5px;
@@ -17679,12 +17723,14 @@ ux-progress-bar .progressbar-track {
   font-size: 14px;
   transition: width 0.6s ease;
 }
+ux-radio-button {
+  display: inline-block;
+}
 ux-radio-button .ux-radio-button {
   display: inline-flex;
   align-items: baseline;
   margin: 0;
   cursor: pointer;
-  margin-bottom: 5px;
 }
 ux-radio-button .ux-radio-button .ux-radio-button-container {
   display: inline-flex;
@@ -17726,6 +17772,9 @@ ux-radio-button .ux-radio-button.ux-radio-button-checked.ux-radio-button-disable
 }
 ux-radio-button .ux-radio-button .ux-radio-button-label {
   margin-left: 7px;
+}
+ux-radio-button .ux-radio-button .ux-radio-button-label:empty {
+  margin-left: 0;
 }
 ux-radio-button .ux-radio-button.ux-radio-button-disabled .ux-radio-button-container {
   border-color: #eee;
@@ -18836,12 +18885,15 @@ ux-timeline ux-timeline-event .timeline-badge span {
     top: 35px;
   }
 }
+ux-toggleswitch {
+  display: inline-block;
+}
 ux-toggleswitch .ux-toggleswitch {
   position: relative;
   display: inline-flex;
   cursor: pointer;
-  margin-bottom: 5px;
   white-space: nowrap;
+  margin-bottom: 0;
 }
 ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-input {
   position: absolute;
@@ -18885,6 +18937,9 @@ ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-label {
   align-items: center;
   margin-left: 7px;
   white-space: nowrap;
+}
+ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-label:empty {
+  margin-left: 0;
 }
 ux-toggleswitch .ux-toggleswitch.ux-toggleswitch-disabled {
   cursor: default;
