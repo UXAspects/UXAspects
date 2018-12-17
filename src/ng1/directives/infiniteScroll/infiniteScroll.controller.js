@@ -177,6 +177,7 @@ export class InfiniteScrollController {
 
         // reset the loading state and cancel any pending requests
         this.loading = false;
+        this.complete = false;
 
         // cancel any pending requests
         if (this._subscriptions) {

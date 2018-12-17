@@ -147,8 +147,8 @@
         importantly, the property which contains child nodes can be set here. This is also where the icon set and
         expander graphics can be customised.
     </tr>
-    <tr uxd-api-property name="selection-manager" type="MultipleSelectProvider" binding="expression">
-        This expression will be executed when the component initializes. A <code>$selection</code>
+    <tr uxd-api-property name="selection-manager" type="SelectionModel" binding="expression">
+        This expression will be executed when the component initializes. A <code>$model</code>
         variable will be emitted which can be stored and used to directly manipulate the selected items.
     </tr>
 </uxd-api-properties>
@@ -203,7 +203,7 @@
 <p>The <code>tree-data</code> attribute receives an array of objects with the following properties:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="dataItem" type="onject" required="true">
+    <tr uxd-api-property name="dataItem" type="object" required="true">
         A reference to the custom data object representing the row in the tree grid.
     </tr>
     <tr uxd-api-property name="children" type="array" required="true">
