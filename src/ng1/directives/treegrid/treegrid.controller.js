@@ -73,6 +73,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
 
         $scope.$watch("vm.multipleSelectInstance.selectedItems", nv => {
             if (angular.isArray(nv)) {
+                // vm._selected = nv.map(selection => JSON.parse(selection));
                 $timeout(() => vm.selected = nv.map(selection => JSON.parse(selection)));
             }
         }, true);
@@ -104,6 +105,16 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
             // check if there is a $$hashKey property - if so we need to remove it
             if (item.hasOwnProperty('$$hashKey')) {
                 delete item.$$hashKey;
+            }
+
+            // check if there is an expanded property - if so we need to remove it
+            if (item.hasOwnProperty('expanded')) {
+                delete item.expanded;
+            }
+
+            // check if there is an expanded property - if so we need to remove it
+            if (item.hasOwnProperty((vm.allOptions || defaultOptions).childrenProperty)) {
+                delete item[(vm.allOptions || defaultOptions).childrenProperty];
             }
 
             return JSON.stringify(item);

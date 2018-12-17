@@ -100,7 +100,7 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
                     scope.$watch(() => multipleSelectInstance.isSelected(treeGridRow.dataItem), isSelected => setSelected(treeGridRow, isSelected));
 
                     // check if the indeterminate state changes
-                    scope.$watch(() => getIndeterminateState(), (oldValue, newValue) => {
+                    scope.$watch(() => getIndeterminateState(treeGridRow.dataItem), (oldValue, newValue) => {
                         if (oldValue !== newValue) {
                             setIndeterminateState();
                         }
@@ -228,7 +228,7 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
             function setSelected(row, isSelected, shouldUpdateChildren = true) {
 
                 // if the item is not selected but indeterinate
-                const isIndeterminate = getIndeterminateState() === -1;
+                const isIndeterminate = getIndeterminateState(treeGridRow.dataItem) === -1;
 
                 // Set status for checkbox and the API
                 row.selected = isIndeterminate ? -1 : isSelected;
@@ -242,11 +242,11 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
             function setIndeterminateState() {
 
                 // check if we need to update indeterminate state
-                if (isRowDisabled(treeGridRow) === true || selectOptions.selectChildren !== true || selectOptions.indeterminate !== true) {
+                if (selectOptions.selectChildren !== true || selectOptions.indeterminate !== true) {
                     return;
                 }
 
-                const isSelected = getIndeterminateState();
+                const isSelected = getIndeterminateState(treeGridRow.dataItem);
 
                 // set the selected state of this row accordingly
                 setSelected(treeGridRow, isSelected, false);
@@ -261,17 +261,17 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
                 }
             }
 
-            function getIndeterminateState() {
+            function getIndeterminateState(dataItem) {
 
                 // check if we need to update indeterminate state
-                if (selectOptions.selectChildren !== true || selectOptions.indeterminate !== true || !treeGridRow.canExpand || treeGridRow.children.length === 0) {
+                if (selectOptions.selectChildren !== true || selectOptions.indeterminate !== true || getChildrenFromDataItem(treeGridRow.dataItem).length === 0) {
                     return;
                 }
 
                 // if there are children, update the state depending on the selection state of its children
-                const isSelected = treeGridRow.children.some(row => row.selected === true);
-                const isDeselected = treeGridRow.children.some(row => row.selected === false);
-                const isIndeterminate = treeGridRow.children.some(row => row.selected === -1);
+                const isSelected = getChildrenFromDataItem(dataItem).some(row => multipleSelectInstance.isSelected(row));
+                const isDeselected = getChildrenFromDataItem(dataItem).some(row => !multipleSelectInstance.isSelected(row));
+                const isIndeterminate = getChildrenFromDataItem(dataItem).some(row => getIndeterminateState(row) === -1);
 
                 // determine the new selection state
                 return isIndeterminate || (isSelected && isDeselected) ? -1 : isSelected;
@@ -280,7 +280,7 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
             function setSelectedChildren(dataItem, isSelected) {
 
                 // get all the child nodes
-                const children = dataItem[options.childrenProperty] || [];
+                const children = getChildrenFromDataItem(dataItem);
 
                 // iterate through each enabled child and selt the selection
                 children.filter(child => !isRowDisabled(child)).forEach(child => {
@@ -291,6 +291,10 @@ export function treegridMultipleSelectItem(multipleSelectProvider) {
                     // check if there are any additional children that also need selected
                     setSelectedChildren(child, isSelected);
                 });
+            }
+
+            function getChildrenFromDataItem(item) {
+                return item[options.childrenProperty] || [];
             }
         }
     };
