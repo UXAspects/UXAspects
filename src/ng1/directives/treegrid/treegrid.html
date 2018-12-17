@@ -28,6 +28,7 @@
             <tr ng-repeat="row in vm.getGridRows()"
                 class="clickable hover-actions treegrid-row-ng1"
                 ng-class="[row.rowClass, vm.isDisabled(row) ? 'disabled' : '', row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']"
+                treegrid-multiple-select-model="vm.selectionModel"
                 treegrid-multiple-select-item="row"
                 treegrid-multiple-select-item-disabled="vm.isDisabled(row)"
                 treegrid-multiple-select-options="vm.allOptions"
