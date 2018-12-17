@@ -382,24 +382,4 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         }
         return null;
     }
-
-    function flatten(nodes, list) {
-        if (!list) {
-            list = [];
-        }
-
-        if (!nodes) {
-            return list;
-        }
-
-        nodes.forEach(node => {
-            list.push(node);
-
-            if (node.nodes) {
-                flatten(node.nodes, list);
-            }
-        });
-
-        return list;
-    }
 }
