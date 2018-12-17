@@ -1,7 +1,7 @@
 import { MultipleSelectBridge } from "./selection/multiple-select-bridge";
 import { SelectionModel } from "./selection/tree-grid-selection-model";
 
-TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
+TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider"];
 
 /**
  * @param {ng.IScope} $scope
@@ -9,7 +9,7 @@ TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeou
  * @param {*} multipleSelectProvider
  * @param {ng.ITimeoutService} $timeout
  */
-export function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
+export function TreeGridController($scope, $q, multipleSelectProvider) {
     var vm = this;
 
     var treegridId = multipleSelectProvider.getNextComponentId();
