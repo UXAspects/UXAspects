@@ -1,6 +1,6 @@
 import { SPACE } from '@angular/cdk/keycodes';
-import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * This directive handles the `row.selected` state and updates the `multipleSelectProvider`.

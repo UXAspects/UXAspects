@@ -1,4 +1,5 @@
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from "rxjs/Subject";
 
 export class SelectionModel {
 
@@ -9,9 +10,19 @@ export class SelectionModel {
         this.onDeselect = new Subject();
         this.onSelectionChange = new BehaviorSubject([]);
 
-        // handle ctrl and shift selection
+        /** @type {number} */
+        this.origin = null;
+
+        /** @type {boolean} */
+        this.isSelecting = false;
+
+    }
+
+    reset() {
+        this._selection = [];
         this.origin = null;
         this.isSelecting = false;
+        this.onSelectionChange.next(this._selection);
     }
 
     select(item) {
@@ -20,6 +31,12 @@ export class SelectionModel {
             this.onSelect.next(item);
             this.onSelectionChange.next(this._selection);
         }
+    }
+
+    selectAll(items) {
+
+        // populate the array with the data provided
+        this.setSelection(...items);
     }
 
     deselect(item) {
@@ -31,7 +48,7 @@ export class SelectionModel {
     }
 
     deselectAll() {
-        this._selection.forEach(item => this.deselect(item))
+        this._selection.forEach(item => this.deselect(item));
     }
 
     toggle(item) {

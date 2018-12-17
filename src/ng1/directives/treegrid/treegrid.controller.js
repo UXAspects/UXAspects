@@ -1,3 +1,4 @@
+import { MultipleSelectBridge } from "./selection/multiple-select-bridge";
 import { SelectionModel } from "./selection/tree-grid-selection-model";
 
 TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
@@ -74,7 +75,8 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
 
         if (vm.selectionManager) {
             vm.selectionManager({
-                $selection: vm.multipleSelectInstance
+                $selection: new MultipleSelectBridge(vm.selectionModel, this),
+                $model: vm.selectionModel
             });
         }
 
