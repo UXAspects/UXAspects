@@ -4,7 +4,7 @@
 
 <div class="card-tabs" #tabs>
 
-    <button class="card-tabs-paging-btn card-tabs-paging-btn-previous" aria-label="Previous Tabs" (click)="previous()" *ngIf="offset < bounds.lower">
+    <button type="button" class="card-tabs-paging-btn card-tabs-paging-btn-previous" aria-label="Previous Tabs" (click)="previous()" *ngIf="offset < bounds.lower">
         <i class="hpe-icon hpe-previous"></i>
     </button>
 
@@ -26,7 +26,7 @@
 
     </div>
 
-    <button class="card-tabs-paging-btn card-tabs-paging-btn-next" aria-label="Next Tabs" (click)="next()" *ngIf="offset > bounds.upper">
+    <button type="button" class="card-tabs-paging-btn card-tabs-paging-btn-next" aria-label="Next Tabs" (click)="next()" *ngIf="offset > bounds.upper">
         <i class="hpe-icon hpe-next"></i>
     </button>
 </div>

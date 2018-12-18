@@ -5,7 +5,8 @@
     container="body"
     placement="bottom left">
 
-    <button role="menuitem"
+    <button type="button"
+        role="menuitem"
         class="horizontal-navigation-button"
         [class.selected]="item.selected"
         [class.open]="isOpen"
@@ -24,6 +25,7 @@
     </button>
 
     <div *dropdownMenu
+        type="button"
         role="menu"
         class="dropdown-menu horizontal-navigation-dropdown-menu"
         uxMenuNavigation
@@ -42,6 +44,7 @@
 </div>
 
 <button *ngIf="!item.children || item.children.length === 0 || (secondary$ | async)"
+    type="button"
     role="menuitem"
     class="horizontal-navigation-button"
     [class.selected]="item.selected"

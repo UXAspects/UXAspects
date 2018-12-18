@@ -37,7 +37,8 @@
             <span class="facet-selected-tag-label">{{ facet.title }}</span>
 
             <!-- Display Remove Icon -->
-            <button class="facet-selected-remove-btn"
+            <button type="button"
+                class="facet-selected-remove-btn"
                 i18n-aria-label
                 aria-label="Deselect Facet"
                 (click)="deselectFacet(facet, tag)">
@@ -59,7 +60,8 @@
 </div>
 
 <ng-template #clearButtonDefault>
-    <button class="btn btn-link btn-icon button-secondary"
+    <button type="button"
+            class="btn btn-link btn-icon button-secondary"
             tabindex="0"
             [attr.aria-label]="clearTooltip"
             [uxTooltip]="clearTooltip"

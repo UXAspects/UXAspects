@@ -1,4 +1,5 @@
-<button class="spin-button"
+<button type="button"
+        class="spin-button"
         *ngIf="spinners"
         tabindex="-1"
         [disabled]="disabled"
@@ -30,7 +31,8 @@
        (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
        (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
 
-<button class="spin-button"
+<button type="button"
+        class="spin-button"
         *ngIf="spinners"
         tabindex="-1"
         [disabled]="disabled"
