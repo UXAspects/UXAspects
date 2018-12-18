@@ -5903,6 +5903,22 @@ module.exports = "(function(){\"use strict\";var B=this,C=\"addEventListener\",F
 
 /***/ }),
 
+/***/ "./node_modules/rxjs-compat/BehaviorSubject.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/rxjs-compat/BehaviorSubject.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+exports.BehaviorSubject = rxjs_1.BehaviorSubject;
+//# sourceMappingURL=BehaviorSubject.js.map
+
+/***/ }),
+
 /***/ "./node_modules/rxjs-compat/Subject.js":
 /*!*********************************************!*\
   !*** ./node_modules/rxjs-compat/Subject.js ***!
@@ -5948,6 +5964,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 exports.of = rxjs_1.of;
 //# sourceMappingURL=of.js.map
+
+/***/ }),
+
+/***/ "./node_modules/rxjs/BehaviorSubject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/rxjs/BehaviorSubject.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(/*! rxjs-compat/BehaviorSubject */ "./node_modules/rxjs-compat/BehaviorSubject.js"));
+//# sourceMappingURL=BehaviorSubject.js.map
 
 /***/ }),
 
@@ -27734,7 +27768,8 @@ function () {
       this.items = [];
       this.pages = []; // reset the loading state and cancel any pending requests
 
-      this.loading = false; // cancel any pending requests
+      this.loading = false;
+      this.complete = false; // cancel any pending requests
 
       if (this._subscriptions) {
         this._subscriptions.forEach(function (request) {
@@ -45332,6 +45367,257 @@ function treegridNavigation() {
 
 /***/ }),
 
+/***/ "./src/ng1/directives/treegrid/selection/multiple-select-bridge.js":
+/*!*************************************************************************!*\
+  !*** ./src/ng1/directives/treegrid/selection/multiple-select-bridge.js ***!
+  \*************************************************************************/
+/*! exports provided: MultipleSelectBridge */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MultipleSelectBridge", function() { return MultipleSelectBridge; });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * This is a wrapper to prevent breaking changes.
+ * We previously used the multiple select provider
+ * but we now use the SelectionModel instead. This
+ * is a compatibility layer that provides the same API
+ * as the multiple select provider but uses the SelectionModel
+ */
+var MultipleSelectBridge =
+/*#__PURE__*/
+function () {
+  function MultipleSelectBridge(selectionModel, treeGridCtrl) {
+    _classCallCheck(this, MultipleSelectBridge);
+
+    this._selectionModel = selectionModel;
+    this._treeGridCtrl = treeGridCtrl;
+  }
+
+  _createClass(MultipleSelectBridge, [{
+    key: "reset",
+    value: function reset() {
+      this._selectionModel.reset();
+    }
+  }, {
+    key: "selectNone",
+    value: function selectNone() {
+      this._selectionModel.deselectAll();
+    }
+  }, {
+    key: "selectAll",
+    value: function selectAll() {
+      this._selectionModel.selectAll(this._treeGridCtrl.getGridRows());
+    }
+  }, {
+    key: "isSelected",
+    value: function isSelected(item) {
+      return this._selectionModel.isSelected(item);
+    }
+  }, {
+    key: "setSelected",
+    value: function setSelected(item, isSelected) {
+      return isSelected ? this._selectionModel.select(item) : this._selectionModel.deselect(item);
+    }
+  }, {
+    key: "rangeClicked",
+    value: function rangeClicked(items) {
+      var _this$_selectionModel;
+
+      (_this$_selectionModel = this._selectionModel).setSelection.apply(_this$_selectionModel, _toConsumableArray(items));
+    }
+  }, {
+    key: "itemClicked",
+    value: function itemClicked(item) {
+      this._selectionModel.toggle(item);
+
+      return this._selectionModel.isSelected(item);
+    } // These methods no longer do anything - keep them present to avoid errors
+
+  }, {
+    key: "getNextComponentId",
+    value: function getNextComponentId() {}
+  }, {
+    key: "getComponentInstance",
+    value: function getComponentInstance() {}
+  }, {
+    key: "validateSelection",
+    value: function validateSelection() {}
+  }, {
+    key: "itemsSelected",
+    value: function itemsSelected() {}
+  }, {
+    key: "displayError",
+    value: function displayError() {}
+  }, {
+    key: "cancel",
+    value: function cancel() {}
+  }, {
+    key: "proceed",
+    value: function proceed() {}
+  }, {
+    key: "updateCount",
+    value: function updateCount() {}
+  }]);
+
+  return MultipleSelectBridge;
+}();
+
+/***/ }),
+
+/***/ "./src/ng1/directives/treegrid/selection/tree-grid-selection-model.js":
+/*!****************************************************************************!*\
+  !*** ./src/ng1/directives/treegrid/selection/tree-grid-selection-model.js ***!
+  \****************************************************************************/
+/*! exports provided: SelectionModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionModel", function() { return SelectionModel; });
+/* harmony import */ var rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/BehaviorSubject */ "./node_modules/rxjs/BehaviorSubject.js");
+/* harmony import */ var rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/Subject.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Subject__WEBPACK_IMPORTED_MODULE_1__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var SelectionModel =
+/*#__PURE__*/
+function () {
+  function SelectionModel() {
+    _classCallCheck(this, SelectionModel);
+
+    /** @type {ReadonlyArray<*>} */
+    this._selection = [];
+    this.onSelect = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+    this.onDeselect = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+    this.onSelectionChange = new rxjs_BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"]([]);
+    /** @type {number} */
+
+    this.origin = null;
+    /** @type {boolean} */
+
+    this.isSelecting = false;
+  }
+
+  _createClass(SelectionModel, [{
+    key: "reset",
+    value: function reset() {
+      this._selection = [];
+      this.origin = null;
+      this.isSelecting = false;
+      this.onSelectionChange.next(this._selection);
+    }
+  }, {
+    key: "select",
+    value: function select(item) {
+      if (!this.isSelected(item)) {
+        this._selection = _toConsumableArray(this._selection).concat([item]);
+        this.onSelect.next(item);
+        this.onSelectionChange.next(this._selection);
+      }
+    }
+  }, {
+    key: "selectAll",
+    value: function selectAll(items) {
+      // populate the array with the data provided
+      this.setSelection.apply(this, _toConsumableArray(items));
+    }
+  }, {
+    key: "deselect",
+    value: function deselect(item) {
+      if (this.isSelected(item)) {
+        this._selection = this._selection.filter(function (_item) {
+          return _item !== item;
+        });
+        this.onDeselect.next(item);
+        this.onSelectionChange.next(this._selection);
+      }
+    }
+  }, {
+    key: "deselectAll",
+    value: function deselectAll() {
+      var _this = this;
+
+      this._selection.forEach(function (item) {
+        return _this.deselect(item);
+      });
+    }
+  }, {
+    key: "toggle",
+    value: function toggle(item) {
+      return this.isSelected(item) ? this.deselect(item) : this.select(item);
+    }
+  }, {
+    key: "isSelected",
+    value: function isSelected(item) {
+      return this._selection.find(function (_item) {
+        return _item === item;
+      });
+    }
+  }, {
+    key: "setSelection",
+    value: function setSelection() {
+      var _this2 = this;
+
+      for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
+        items[_key] = arguments[_key];
+      }
+
+      // check if the selection has changed
+      if (items.length === this._selection.length && items.every(function (item) {
+        return _this2.isSelected(item);
+      })) {
+        return;
+      } // deselect all currently selected items
+
+
+      this.deselectAll(); // select the new selection
+
+      items.forEach(function (item) {
+        return _this2.select(item);
+      });
+    }
+  }, {
+    key: "getSelection",
+    value: function getSelection() {
+      return this._selection;
+    }
+  }]);
+
+  return SelectionModel;
+}();
+
+/***/ }),
+
 /***/ "./src/ng1/directives/treegrid/treegrid.controller.js":
 /*!************************************************************!*\
   !*** ./src/ng1/directives/treegrid/treegrid.controller.js ***!
@@ -45342,7 +45628,19 @@ function treegridNavigation() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TreeGridController", function() { return TreeGridController; });
-TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
+/* harmony import */ var _selection_multiple_select_bridge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selection/multiple-select-bridge */ "./src/ng1/directives/treegrid/selection/multiple-select-bridge.js");
+/* harmony import */ var _selection_tree_grid_selection_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selection/tree-grid-selection-model */ "./src/ng1/directives/treegrid/selection/tree-grid-selection-model.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+
+
+TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider"];
 /**
  * @param {ng.IScope} $scope
  * @param {ng.IQProvider} $q
@@ -45350,7 +45648,7 @@ TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeou
  * @param {ng.ITimeoutService} $timeout
  */
 
-function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
+function TreeGridController($scope, $q, multipleSelectProvider) {
   var vm = this;
   var treegridId = multipleSelectProvider.getNextComponentId();
   var defaultOptions = {
@@ -45384,18 +45682,18 @@ function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
   vm.loading = false;
   vm.gridRows = [];
   vm.treeData = [];
-  vm.multipleSelectInstance = multipleSelectProvider.getComponentInstance(treegridId);
+  vm.selectionModel = new _selection_tree_grid_selection_model__WEBPACK_IMPORTED_MODULE_1__["SelectionModel"]();
   vm.allSelected = false; // private fields
 
   vm._selected = [];
-  vm._subscription = null;
   Object.defineProperty(vm, 'selected', {
     set: function set(selection) {
-      vm._selected = selection;
-      updateSelection(vm._selected);
+      var _vm$selectionModel;
+
+      return (_vm$selectionModel = vm.selectionModel).setSelection.apply(_vm$selectionModel, _toConsumableArray(selection));
     },
     get: function get() {
-      return vm._selected;
+      return vm.selectionModel.getSelection();
     }
   }); // Delay Initialising the function until we have all the inputs
 
@@ -45411,66 +45709,23 @@ function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
 
     $scope.$watch('vm.options', function (nv) {
       return vm.allOptions = angular.extend({}, defaultOptions, nv);
-    }, true);
-    $scope.$watch("vm.multipleSelectInstance.selectedItems", function (nv) {
-      if (angular.isArray(nv)) {
-        $timeout(function () {
-          return vm.selected = nv.map(function (selection) {
-            return JSON.parse(selection);
-          });
-        });
-      }
-    }, true); // watch for changes to select all
-
-    vm._subscription = vm.multipleSelectInstance.onSelectAll.subscribe(function () {
-      return vm.selected = flatten(vm.treeData.map(function (data) {
-        return data.dataItem;
-      }));
-    }); // Initial load of top-level items
+    }, true); // Initial load of top-level items
 
     updateView();
 
     if (vm.selectionManager) {
       vm.selectionManager({
-        $selection: vm.multipleSelectInstance
+        $selection: new _selection_multiple_select_bridge__WEBPACK_IMPORTED_MODULE_0__["MultipleSelectBridge"](vm.selectionModel, this),
+        $model: vm.selectionModel
       });
     }
 
     $scope.$digest();
-  }; // Set up multi select to work standalone
-
-
-  if (!vm.multipleSelectInstance.keyFn) {
-    vm.multipleSelectInstance.keyFn = function (event) {
-      // get a new instance of the object
-      var item = Object.assign({}, event.item); // check if there is a $$hashKey property - if so we need to remove it
-
-      if (item.hasOwnProperty('$$hashKey')) {
-        delete item.$$hashKey;
-      }
-
-      return JSON.stringify(item);
-    };
-  }
-
-  if (!vm.multipleSelectInstance.onSelect) {
-    vm.multipleSelectInstance.onSelect = function () {};
-  }
-
-  if (!vm.multipleSelectInstance.onDeselect) {
-    vm.multipleSelectInstance.onDeselect = function () {};
-  } // Event for reloading the grid to its initial state
+  }; // Event for reloading the grid to its initial state
 
 
   $scope.$on("treegrid.reload", function () {
     return updateView();
-  });
-  $scope.$on("$destroy", function () {
-    vm.multipleSelectInstance.reset();
-
-    if (vm._subscription) {
-      vm._subscription.unsubscribe();
-    }
   }); // Retrieves array for ng-repeat of grid rows
 
   vm.getGridRows = function () {
@@ -45485,7 +45740,7 @@ function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
     vm.gridRows.filter(function (row) {
       return !vm.isDisabled(row);
     }).forEach(function (row) {
-      return vm.multipleSelectInstance.setSelected(row.dataItem, vm.allSelected);
+      return vm.allSelected ? vm.selectionModel.select(row.dataItem) : vm.selectionModel.deselect(row.dataItem);
     });
   };
 
@@ -45504,7 +45759,7 @@ function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
       return;
     }
 
-    vm.multipleSelectInstance.itemClicked(row.dataItem);
+    vm.selectionModel.toggle(row.dataItem);
     event.stopPropagation();
     event.preventDefault();
   }; // Expand the specified row if possible. Returns true if the row is expandable.
@@ -45578,20 +45833,6 @@ function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
 
     return false;
   };
-
-  function updateSelection(selection) {
-    // if the selection is not an array then do nothing
-    if (!Array.isArray(selection)) {
-      return;
-    } // set the selected items
-
-
-    vm.multipleSelectInstance.selectedItems = selection.map(function (item) {
-      return vm.multipleSelectInstance.keyFn({
-        item: item.dataItem || item
-      });
-    });
-  }
 
   function updateView() {
     vm.loading = true;
@@ -45803,25 +46044,6 @@ function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
 
     return null;
   }
-
-  function flatten(nodes, list) {
-    if (!list) {
-      list = [];
-    }
-
-    if (!nodes) {
-      return list;
-    }
-
-    nodes.forEach(function (node) {
-      list.push(node);
-
-      if (node.nodes) {
-        flatten(node.nodes, list);
-      }
-    });
-    return list;
-  }
 }
 
 /***/ }),
@@ -45866,7 +46088,7 @@ function TreegridDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"table-container\">\n<table class=\"table table-hover treegrid\" treegrid-navigation>\n<thead>\n<tr class=\"table-header-dark\">\n<th ng-repeat=\"column in vm.columns\" ng-class=\"column.headerClass\" ng-style=\"{'width': column.width}\">\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-header-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"selected\" ng-click=\"vm.toggleAllRows($event); $event.preventDefault();\">\n</checkbox>\n</span>\n<span ng-class=\"[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']\" ng-bind=\"column.name\">\n</span>\n</th>\n</tr>\n</thead>\n<tbody ng-if=\"!vm.loading\">\n<tr ng-repeat=\"row in vm.getGridRows()\" class=\"clickable hover-actions treegrid-row-ng1\" ng-class=\"[row.rowClass, vm.isDisabled(row) ? 'disabled' : '', row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']\" treegrid-multiple-select-item=\"row\" treegrid-multiple-select-item-disabled=\"vm.isDisabled(row)\" treegrid-multiple-select-options=\"vm.allOptions\" treegrid-expand=\"vm.expand(row)\" treegrid-contract=\"vm.contract(row)\" treegrid-navigation-item=\"row\" treegrid-navigation-item-index=\"$index\" treegrid-navigation-item-disabled=\"vm.isDisabled(row)\" ng-focus=\"vm.rowFocus(row, $event)\" tabindex=\"-1\">\n<td ng-repeat=\"col in vm.columns\" ng-class=\"col.cellClass\">\n<span ng-if=\"$first\" class=\"treegrid-indent\" ng-class=\"row.levelClass\"></span>\n<span ng-if=\"$first\" class=\"treegrid-expand\">\n<span ng-if=\"row.canExpand && !row.expanding\" class=\"treegrid-expand-toggle\" ng-click=\"vm.expanderClick(row, $event)\" ng-mousedown=\"$event.preventDefault()\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expanded ? row.expander.expanded : row.expander.contracted}}\" alt=\"expander\"/>\n</span>\n<span ng-if=\"row.expanding\" class=\"treegrid-expand-toggle\" tooltip=\"Loading\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expander.expanding)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expander.expanding}}\" alt=\"expander\"/>\n</span>\n</span>\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"row.selected\" indeterminate-value=\"-1\" ng-click=\"vm.checkboxClick($event, row);\" ng-disabled=\"vm.isDisabled(row)\" clickable=\"false\">\n</checkbox>\n</span>\n<span ng-if=\"$first\" class=\"treegrid-icon\">\n<i ng-if=\"row.icon.type === 'class'\" class=\"hpe-icon\" ng-class=\"row.icon.get(row.dataItem, row.expanded)\">\n</i>\n<img ng-if=\"row.icon.type === 'url'\" ng-src=\"{{row.icon.get(row.dataItem, row.expanded)}}\" alt=\"icon\"/>\n</span>\n<treegrid-cell row=\"row\" column=\"col\"></treegrid-cell>\n</td>\n</tr>\n</tbody>\n</table>\n<div ng-if=\"vm.loading\" class=\"treegrid-loading\">\nLoading...\n</div>\n</div>";
+var v1="<div class=\"table-container\">\n<table class=\"table table-hover treegrid\" treegrid-navigation>\n<thead>\n<tr class=\"table-header-dark\">\n<th ng-repeat=\"column in vm.columns\" ng-class=\"column.headerClass\" ng-style=\"{'width': column.width}\">\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-header-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"selected\" ng-click=\"vm.toggleAllRows($event); $event.preventDefault();\">\n</checkbox>\n</span>\n<span ng-class=\"[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']\" ng-bind=\"column.name\">\n</span>\n</th>\n</tr>\n</thead>\n<tbody ng-if=\"!vm.loading\">\n<tr ng-repeat=\"row in vm.getGridRows()\" class=\"clickable hover-actions treegrid-row-ng1\" ng-class=\"[row.rowClass, vm.isDisabled(row) ? 'disabled' : '', row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']\" treegrid-multiple-select-model=\"vm.selectionModel\" treegrid-multiple-select-item=\"row\" treegrid-multiple-select-item-disabled=\"vm.isDisabled(row)\" treegrid-multiple-select-options=\"vm.allOptions\" treegrid-expand=\"vm.expand(row)\" treegrid-contract=\"vm.contract(row)\" treegrid-navigation-item=\"row\" treegrid-navigation-item-index=\"$index\" treegrid-navigation-item-disabled=\"vm.isDisabled(row)\" ng-focus=\"vm.rowFocus(row, $event)\" tabindex=\"-1\">\n<td ng-repeat=\"col in vm.columns\" ng-class=\"col.cellClass\">\n<span ng-if=\"$first\" class=\"treegrid-indent\" ng-class=\"row.levelClass\"></span>\n<span ng-if=\"$first\" class=\"treegrid-expand\">\n<span ng-if=\"row.canExpand && !row.expanding\" class=\"treegrid-expand-toggle\" ng-click=\"vm.expanderClick(row, $event)\" ng-mousedown=\"$event.preventDefault()\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expanded ? row.expander.expanded : row.expander.contracted}}\" alt=\"expander\"/>\n</span>\n<span ng-if=\"row.expanding\" class=\"treegrid-expand-toggle\" tooltip=\"Loading\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expander.expanding)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expander.expanding}}\" alt=\"expander\"/>\n</span>\n</span>\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"row.selected\" indeterminate-value=\"-1\" ng-click=\"vm.checkboxClick($event, row);\" ng-disabled=\"vm.isDisabled(row)\" clickable=\"false\">\n</checkbox>\n</span>\n<span ng-if=\"$first\" class=\"treegrid-icon\">\n<i ng-if=\"row.icon.type === 'class'\" class=\"hpe-icon\" ng-class=\"row.icon.get(row.dataItem, row.expanded)\">\n</i>\n<img ng-if=\"row.icon.type === 'url'\" ng-src=\"{{row.icon.get(row.dataItem, row.expanded)}}\" alt=\"icon\"/>\n</span>\n<treegrid-cell row=\"row\" column=\"col\"></treegrid-cell>\n</td>\n</tr>\n</tbody>\n</table>\n<div ng-if=\"vm.loading\" class=\"treegrid-loading\">\nLoading...\n</div>\n</div>";
 var id1="directives/treegrid/treegrid.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -45982,25 +46204,38 @@ function treegridCell($templateRequest, $compile) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "treegridMultipleSelectItem", function() { return treegridMultipleSelectItem; });
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/Subject.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-treegridMultipleSelectItem.$inject = ['multipleSelectProvider'];
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+
+
+
 /**
  * This directive handles the `row.selected` state and updates the `multipleSelectProvider`.
  */
 
-function treegridMultipleSelectItem(multipleSelectProvider) {
+function treegridMultipleSelectItem() {
   return {
     restrict: 'A',
     link: function link(scope, element, attrs) {
       if (attrs.treegridMultipleSelectItem) {
+        var selectionModel = scope.$eval(attrs.treegridMultipleSelectModel);
         var treeGridRow = scope.$eval(attrs.treegridMultipleSelectItem);
         var options = scope.$eval(attrs.treegridMultipleSelectOptions) || {};
         var selectOptions = options.select || {};
         var isDisabled = scope.$eval(attrs.treegridMultipleSelectItemDisabled) || false;
+        var unsubscribe = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
 
         if (treeGridRow) {
-          var multipleSelectInstance = multipleSelectProvider.getComponentInstance(treeGridRow.treegridId); // Prevent text selection on shift-click
-
+          // Prevent text selection on shift-click
           angular.element(element).children('*').css({
             'user-select': 'none',
             '-ms-user-select': 'none',
@@ -46038,7 +46273,7 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
               if (selectOptions.row) {
                 addToOrStartSelection();
               } else {
-                setSelected(treeGridRow, !treeGridRow.selected);
+                selectionModel.toggle(treeGridRow.dataItem);
               }
 
               event.preventDefault();
@@ -46058,8 +46293,8 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
                 extendSelectionFromPrevious();
               } else {
                 // if shift key not held then dont select any
-                multipleSelectInstance.selectNone();
-                multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
+                selectionModel.deselectAll();
+                selectionModel.origin = scope.$index;
               }
             }
 
@@ -46071,59 +46306,59 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
             return false;
           }); // Handler for row click, or external change to selection via multipleSelectProvider
 
-          scope.$watch(function () {
-            return multipleSelectInstance.isSelected(treeGridRow.dataItem);
-          }, function (isSelected) {
-            return setSelected(treeGridRow, isSelected);
+          selectionModel.onSelect.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(unsubscribe), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (item) {
+            return item === treeGridRow.dataItem;
+          })).subscribe(function () {
+            return setSelected(treeGridRow, true);
+          });
+          selectionModel.onDeselect.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(unsubscribe), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (item) {
+            return item === treeGridRow.dataItem;
+          })).subscribe(function () {
+            return setSelected(treeGridRow, false);
           }); // check if the indeterminate state changes
 
-          scope.$watch(function () {
-            return getIndeterminateState();
-          }, function (oldValue, newValue) {
-            if (oldValue !== newValue) {
-              setIndeterminateState();
-            }
-          }); // watch for changes to the select all state
+          selectionModel.onSelectionChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(unsubscribe), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () {
+            return getIndeterminateState(treeGridRow.dataItem);
+          }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["distinctUntilChanged"])()).subscribe(function () {
+            setIndeterminateState();
+          }); // check if the item should initially be selected
 
-          var subscription = multipleSelectInstance.onSelectAll.subscribe(function () {
-            return setSelected(treeGridRow);
-          });
+          if (selectionModel.isSelected(treeGridRow.dataItem)) {
+            setSelected(treeGridRow, true);
+          }
+
           scope.$on('destroy', function () {
             element.off('click.multiSelect');
             element.off('keydown.multiSelect');
             element.off('treegrid-navigation-focused');
             element.off('selectstart');
-            subscription.unsubscribe();
+            unsubscribe.next();
+            unsubscribe.complete();
           });
         }
       } // Clear selection and select this row
 
 
       function startSelection() {
-        multipleSelectInstance.state.selecting = true;
+        selectionModel.isSelecting = true;
+        selectionModel.deselectAll();
+        selectionModel.toggle(treeGridRow.dataItem);
 
-        if (multipleSelectInstance.state.selectedFromButton === false) {
-          multipleSelectInstance.state.selectedFromCheckBox = true;
-        }
-
-        multipleSelectInstance.selectNone();
-        multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
-
-        if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
-          multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
+        if (selectionModel.isSelected(treeGridRow.dataItem)) {
+          selectionModel.origin = scope.$index;
           setSelected(treeGridRow, true);
         }
       } // Add this row to the current selection
 
 
       function addToOrStartSelection() {
-        if (!multipleSelectInstance.state.selecting) {
+        if (!selectionModel.isSelecting) {
           startSelection();
         } else {
-          multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
+          selectionModel.toggle(treeGridRow.dataItem);
 
-          if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
-            multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
+          if (selectionModel.isSelected(treeGridRow.dataItem)) {
+            selectionModel.origin = scope.$index;
             setSelected(treeGridRow, true);
           } else {
             setSelected(treeGridRow, false);
@@ -46133,7 +46368,7 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
 
       function extendOrStartSelection() {
-        if (!multipleSelectInstance.state.selecting) {
+        if (!selectionModel.isSelecting) {
           startSelection();
         } else {
           extendSelection();
@@ -46142,13 +46377,7 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
 
       function extendSelectionFromPrevious() {
-        multipleSelectInstance.state.selecting = true;
-
-        if (multipleSelectInstance.state.selectedFromButton === false) {
-          multipleSelectInstance.state.selectedFromCheckBox = true;
-        }
-
-        multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
+        selectionModel.isSelecting = true;
         extendSelection();
       }
 
@@ -46169,7 +46398,7 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
       function extendSelection() {
         // get all the rows between the start point and current focused row
-        var rows = getRowDataItemsToSelect(multipleSelectInstance.multipleRowSelectOriginIndex, scope.$index); // map to the item data, filtering out any disabled ones
+        var rows = getRowDataItemsToSelect(selectionModel.origin, scope.$index); // map to the item data, filtering out any disabled ones
 
         var dataItems = rows.map(function (row) {
           return row.dataItem;
@@ -46177,12 +46406,12 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
           return !isRowDisabled(data);
         }); // determine the selected state
 
-        var isSelected = multipleSelectInstance.rangeClicked(dataItems); // iterate each enabled row and update the selected state
+        selectionModel.setSelection.apply(selectionModel, _toConsumableArray(dataItems)); // iterate each enabled row and update the selected state
 
         rows.filter(function (row) {
           return !row.dataItem || isRowDisabled(row) !== true;
         }).forEach(function (row) {
-          return setSelected(row, isSelected);
+          return setSelected(row, true);
         });
       }
 
@@ -46214,7 +46443,7 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
       function setSelected(row, isSelected) {
         var shouldUpdateChildren = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
         // if the item is not selected but indeterinate
-        var isIndeterminate = getIndeterminateState() === -1; // Set status for checkbox and the API
+        var isIndeterminate = getIndeterminateState(treeGridRow.dataItem) === -1; // Set status for checkbox and the API
 
         row.selected = isIndeterminate ? -1 : isSelected; // If selectChildren is set, set the selection state for the children
 
@@ -46225,54 +46454,80 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
       function setIndeterminateState() {
         // check if we need to update indeterminate state
-        if (isRowDisabled(treeGridRow) === true || selectOptions.selectChildren !== true || selectOptions.indeterminate !== true) {
+        if (selectOptions.selectChildren !== true || selectOptions.indeterminate !== true) {
           return;
         }
 
-        var isSelected = getIndeterminateState(); // set the selected state of this row accordingly
+        var isSelected = getIndeterminateState(treeGridRow.dataItem);
+
+        if (isSelected === undefined) {
+          return;
+        } // set the selected state of this row accordingly
+
 
         setSelected(treeGridRow, isSelected, false); // if the row was selected but is now indeterminate or deselected then deselect it
 
-        if (multipleSelectInstance.isSelected(treeGridRow.dataItem) && isSelected !== true) {
-          multipleSelectInstance.setSelected(treeGridRow.dataItem, false);
+        if (selectionModel.isSelected(treeGridRow.dataItem) && isSelected !== true) {
+          selectionModel.deselect(treeGridRow.dataItem);
         } // if the row was indeterminate or deselected then select it
-        else if (!multipleSelectInstance.isSelected(treeGridRow.dataItem) && isSelected === true) {
-            multipleSelectInstance.setSelected(treeGridRow.dataItem, true);
+        else if (!selectionModel.isSelected(treeGridRow.dataItem) && isSelected === true) {
+            selectionModel.select(treeGridRow.dataItem);
           }
       }
 
-      function getIndeterminateState() {
+      function getIndeterminateState(dataItem) {
         // check if we need to update indeterminate state
-        if (selectOptions.selectChildren !== true || selectOptions.indeterminate !== true || !treeGridRow.canExpand || treeGridRow.children.length === 0) {
+        if (selectOptions.selectChildren !== true || selectOptions.indeterminate !== true || getChildrenFromDataItem(treeGridRow.dataItem).length === 0) {
           return;
-        } // if there are children, update the state depending on the selection state of its children
+        } // get al nested children
 
 
-        var isSelected = treeGridRow.children.some(function (row) {
-          return row.selected === true;
+        var children = getAllChildren(dataItem); // if there are children, update the state depending on the selection state of its children
+
+        var isSelected = children.some(function (row) {
+          return selectionModel.isSelected(row);
         });
-        var isDeselected = treeGridRow.children.some(function (row) {
-          return row.selected === false;
-        });
-        var isIndeterminate = treeGridRow.children.some(function (row) {
-          return row.selected === -1;
+        var isDeselected = children.some(function (row) {
+          return !selectionModel.isSelected(row);
         }); // determine the new selection state
 
-        return isIndeterminate || isSelected && isDeselected ? -1 : isSelected;
+        return isSelected && isDeselected ? -1 : isSelected;
       }
 
       function setSelectedChildren(dataItem, isSelected) {
         // get all the child nodes
-        var children = dataItem[options.childrenProperty] || []; // iterate through each enabled child and selt the selection
+        var children = getChildrenFromDataItem(dataItem); // iterate through each enabled child and selt the selection
 
         children.filter(function (child) {
           return !isRowDisabled(child);
         }).forEach(function (child) {
           // update the selected state of the child node
-          multipleSelectInstance.setSelected(child, isSelected); // check if there are any additional children that also need selected
+          if (isSelected) {
+            selectionModel.select(child);
+          } else {
+            selectionModel.deselect(child);
+          } // check if there are any additional children that also need selected
+
 
           setSelectedChildren(child, isSelected);
         });
+      }
+
+      function getChildrenFromDataItem(item) {
+        return item[options.childrenProperty] || [];
+      }
+
+      function getAllChildren(item) {
+        var children = getChildrenFromDataItem(item);
+
+        if (children.length === 0) {
+          return children;
+        }
+
+        var nested = children.reduce(function (list, child) {
+          return _toConsumableArray(list).concat(_toConsumableArray(getAllChildren(child)));
+        }, []);
+        return _toConsumableArray(children).concat(_toConsumableArray(nested));
       }
     }
   };

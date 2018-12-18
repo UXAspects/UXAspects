@@ -29951,7 +29951,14 @@
          */
             function () {
                 // determine if we are scrolled to the bottom and if so load the next page
-                if (this._tableBody.scrollTop === (this._tableBody.scrollHeight - this._tableBody.offsetHeight)) {
+                /** @type {?} */
+                var scrollTop = this._tableBody.scrollTop;
+                /** @type {?} */
+                var scrollHeight = this._tableBody.scrollHeight - this._tableBody.offsetHeight;
+                /** @type {?} */
+                var delta = Math.max(scrollTop, scrollHeight) - Math.min(scrollTop, scrollHeight);
+                // its possible for the difference to be a value < 1 when we are at the bottom. Account for this:
+                if (delta < 1) {
                     this.tablePaging.emit();
                 }
             };
