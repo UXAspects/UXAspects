@@ -1,7 +1,8 @@
 <ng-content></ng-content>
 
 <!-- Add a Clear Button -->
-<button class="btn btn-link btn-icon btn-secondary m-l-xs"
+<button type="button"
+    class="btn btn-link btn-icon btn-secondary m-l-xs"
     tabindex="0"
     [attr.aria-label]="clearAriaLabel"
     *ngIf="(filterService.filters$ | async).length > 0"

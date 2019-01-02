@@ -9,6 +9,7 @@
         (uxBlurWithin)="volumeFocus = false">
 
         <button #volumeIcon
+                type="button"
                 class="volume-slider-icon"
                 [attr.aria-label]="mediaPlayerService.muteAriaLabel(volume)"
                 [uxTooltip]="muteTooltip"
@@ -31,6 +32,7 @@
 </div>
 
 <button #startButton
+    type="button"
     class="control-button"
     (click)="goToStart()"
     (mouseup)="startButton.blur()"
@@ -43,6 +45,7 @@
 </button>
 
 <button #playButton
+    type="button"
     class="control-button"
     [attr.aria-label]="mediaPlayerService.playAriaLabel(mediaPlayerService.playing | async)"
     (click)="mediaPlayerService.togglePlay()"
@@ -58,6 +61,7 @@
 </button>
 
 <button #endButton
+    type="button"
     class="control-button"
     (click)="goToEnd()"
     (mouseup)="endButton.blur()"
@@ -75,6 +79,7 @@
 
     <div class="action-button-container" *ngIf="mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'">
         <button #subtitlesButton
+            type="button"
             class="action-button"
             (keydown)="returnFocus = true"
             (click)="subtitlesOpen = !subtitlesOpen"
@@ -126,6 +131,7 @@
     <div class="action-button-container">
         <button #fullscreenButton
             *ngIf="mediaPlayerService.type !== 'audio'"
+            type="button"
             class="action-button"
             [attr.aria-label]="mediaPlayerService.fullscreenAriaLabel(mediaPlayerService.fullscreen)"
             (click)="mediaPlayerService.toggleFullscreen()"

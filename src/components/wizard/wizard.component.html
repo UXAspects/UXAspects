@@ -34,6 +34,7 @@
 
 <div class="wizard-footer">
     <button #tip="ux-tooltip"
+            type="button"
             class="btn button-secondary"
             *ngIf="previousVisible"
             [uxTooltip]="previousTooltip"
@@ -44,6 +45,7 @@
     </button>
 
     <button #tip="ux-tooltip"
+            type="button"
             class="btn button-primary"
             *ngIf="nextVisible && !isLastStep()"
             [uxTooltip]="nextTooltip"
@@ -54,6 +56,7 @@
     </button>
 
     <button #tip="ux-tooltip"
+            type="button"
             class="btn button-primary"
             *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
             [uxTooltip]="finishTooltip"
@@ -64,6 +67,7 @@
     </button>
 
     <button #tip="ux-tooltip"
+            type="button"
             class="btn button-secondary"
             *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
             [uxTooltip]="cancelTooltip"
