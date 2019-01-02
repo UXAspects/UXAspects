@@ -1,7 +1,8 @@
 <div class="calendar" role="grid">
   <div class="calendar-row" *ngFor="let row of monthService.grid$ | async; trackBy: trackRowByFn" role="row">
 
-    <button role="gridcell"
+    <button type="button"
+         role="gridcell"
          class="calendar-item"
          *ngFor="let item of row; trackBy: trackMonthByFn"
          [focusIf]="(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year"

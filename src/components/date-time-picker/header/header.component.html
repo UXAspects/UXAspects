@@ -1,6 +1,7 @@
 <header class="header">
 
-  <button class="header-navigation"
+  <button type="button"
+          class="header-navigation"
           (click)="previous(); $event.stopPropagation()"
           [attr.aria-label]="previousAria$ | async"
           tabindex="0">
@@ -8,7 +9,8 @@
     <i class="hpe-icon hpe-previous"></i>
   </button>
 
-  <button class="header-title"
+  <button type="button"
+          class="header-title"
           [attr.aria-label]="headerAria$ | async"
           [class.active]="canAscend$ | async"
           (click)="ascend(); $event.stopPropagation()"
@@ -16,7 +18,8 @@
        {{ datepicker.header$ | async }}
   </button>
 
-  <button class="header-navigation"
+  <button type="button"
+          class="header-navigation"
           (click)="next(); $event.stopPropagation()"
           [attr.aria-label]="nextAria$ | async"
           tabindex="0">
