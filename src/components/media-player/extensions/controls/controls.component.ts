@@ -1,20 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs/observable/timer';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { SliderOptions, SliderSize } from '../../../slider/index';
-import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
+import { MediaPlayerService } from '../../media-player.service';
 
 let uniqueId: number = 1;
 
 @Component({
     selector: 'ux-media-player-controls',
     templateUrl: './controls.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
     }
 })
-export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, OnDestroy {
+export class MediaPlayerControlsExtensionComponent implements OnInit, OnDestroy {
 
     volumeActive: boolean = false;
     volumeFocus: boolean = false;
@@ -49,6 +50,8 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
     private _volume: number = 50;
     private _previousVolume = 50;
     private _onDestroy = new Subject<void>();
+
+    constructor(public mediaPlayerService: MediaPlayerService) { }
 
     get volume(): number {
         return this._volume;
@@ -123,7 +126,7 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
             }
         }
 
-        return 'No subtitles';
+        return this.mediaPlayerService.noSubtitlesAriaLabel;
     }
 
 }

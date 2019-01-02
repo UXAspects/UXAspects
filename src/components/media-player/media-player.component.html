@@ -1,7 +1,6 @@
 <div class="player-container"
      tabindex="0"
-     aria-label="Media Player"
-     i18n-aria-label
+     [attr.aria-label]="mediaPlayerService.mediaPlayerAriaLabel"
      [cdkTrapFocus]="mediaPlayerService.fullscreen">
 
     <div class="video-player-container" *ngIf="type === 'video'">

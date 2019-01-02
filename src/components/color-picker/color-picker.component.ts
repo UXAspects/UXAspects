@@ -1,7 +1,6 @@
-import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { pairwise, takeUntil } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ColorPickerColor } from './color-picker-color';
 
@@ -18,7 +17,8 @@ let uniqueId = 0;
 @Component({
     selector: 'ux-color-picker',
     exportAs: 'ux-color-picker',
-    templateUrl: 'color-picker.component.html'
+    templateUrl: 'color-picker.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColorPickerComponent implements OnInit, OnDestroy {
 
@@ -26,8 +26,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @HostBinding('attr.id')
     id: string = `ux-color-picker-${uniqueId++}`;
 
-    @Input('colors')
-    set inputColors(colors: ColorPickerInputColors[] | ColorPickerInputColors[][]) {
+    @Input()
+    set colors(colors: ColorPickerInputColors[] | ColorPickerInputColors[][]) {
 
         let normalizedColors: ColorPickerInputColors[][];
 
@@ -39,28 +39,28 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
         }
 
         // Convert any string colors to ColorPickerColor
-        this.colors = normalizedColors.map(row => {
-            return row.map(color => color instanceof ColorPickerColor ? color : new ColorPickerColor(color, color));
-        });
+        this._colors = normalizedColors.map(row =>
+            row.map(color => color instanceof ColorPickerColor ? color : new ColorPickerColor(color, color)));
     }
 
     @Input()
-    set selected(selected: ColorPickerColor) {
-        this.selected$.next(selected);
+    set selected(value: ColorPickerColor) {
+        this._selected = value;
+        this.setInputValue();
+    }
+
+    get selected(): ColorPickerColor {
+        return this._selected;
     }
 
     @Input()
-    set columns(columns: number) {
-        this.columns$.next(columns);
-    }
+    columns: number = -1;
 
     @Input()
     buttonStyle: ColorPickerButtonStyle = 'circle';
 
     @Input()
-    set buttonSize(buttonSize: ColorPickerButtonSize) {
-        this.buttonSize$.next(buttonSize);
-    }
+    buttonSize: ColorPickerButtonSize = 'md';
 
     @Input()
     showTooltips: boolean = false;
@@ -71,46 +71,36 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @Input()
     inputMode: ColorPickerInputMode = 'hex';
 
+    @Input()
+    colorAriaLabel: (color: ColorPickerColor) => string = this.getColorAriaLabel;
+
+    @Input()
+    switchModeAriaLabel: (mode: ColorPickerInputMode) => string = this.getSwitchModeAriaLabel;
+
+    @Input()
+    inputAriaLabel: (mode: ColorPickerInputMode) => string = this.getInputAriaLabel;
+
     @Output()
     selectedChange = new EventEmitter<ColorPickerColor>();
 
     @Output()
     inputSubmit = new EventEmitter<void>();
 
-    @HostBinding('style.width')
-    cssWidth = 'auto';
-
-    colors: ColorPickerColor[][] = [];
-    selected$ = new BehaviorSubject<ColorPickerColor>(null);
-    columns$ = new BehaviorSubject<number>(-1);
-    buttonSize$ = new BehaviorSubject<ColorPickerButtonSize>('md');
     inputPatterns = {
         'hex': /^#(?:[\da-fA-F]{3}){1,2}$/,
         'rgba': /^(?:rgb\(\d{1,3},\s*\d{1,3},\s*\d{1,3}\))|(?:rgba\(\d{1,3},\s*\d{1,3},\s*\d{1,3},\s*\d(\.\d+)?\))$/
     };
 
-    private _onDestroy = new Subject();
+    // Fields that should be private but are required in the view
+    _colors: ColorPickerColor[][] = [];
+    _input = new FormControl(this._selection, [Validators.pattern(this._pattern)]);
+
+    private _selected: ColorPickerColor = null;
+    private _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
-
-        // Skip emitting the initial selectedChange
-        this.selected$.pipe(pairwise(), takeUntil(this._onDestroy)).subscribe(([prev, curr]) => {
-            if (prev) {
-                this.selectedChange.emit(curr);
-            }
-        });
-
-        // Set the width based on column count and button size
-        combineLatest(this.columns$, this.buttonSize$)
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(([columns, buttonSize]) => {
-                if (columns > 0) {
-                    const w = columns * (BUTTON_WIDTHS[buttonSize] + (2 * BUTTON_MARGIN));
-                    this.cssWidth = `${w}px`;
-                } else {
-                    this.cssWidth = 'auto';
-                }
-            });
+        this.setInputValue();
+        this._input.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(value => this.setColorValue(value));
     }
 
     ngOnDestroy(): void {
@@ -118,14 +108,61 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
         this._onDestroy.complete();
     }
 
-    updateColorValue(input: string, mode: ColorPickerInputMode): void {
-        if (this.inputPatterns[mode].test(input)) {
-            this.selected$.next(new ColorPickerColor('Custom', input, mode));
+    @HostBinding('style.width')
+    get _width(): string {
+        return this.columns > 0 ? `${this.columns * (BUTTON_WIDTHS[this.buttonSize] + (2 * BUTTON_MARGIN))}px` : 'auto';
+    }
+
+    get _selection(): string {
+        return this.selected ? this.selected[this.inputMode] : null;
+    }
+
+    get _pattern(): RegExp {
+        return this.inputPatterns[this.inputMode];
+    }
+
+    setColorValue(value: string): void {
+        if (this._pattern.test(value)) {
+
+            // update the input value and input validation
+            this.setInputValue();
+
+            // emit the latest value
+            this.selectedChange.emit(new ColorPickerColor('Custom', value, this.inputMode));
         }
     }
 
-    toggleColorEntryType(): void {
-        this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
+    toggleInputMode(): void {
+
+        // update the input type to the next option
+        this.inputMode = this.inputMode === 'hex' ? 'rgba' : 'hex';
+
+        // update the value to display in the correct format
+        this.setInputValue();
+    }
+
+    private setInputValue(): void {
+
+        // update the value to display in the correct format
+        this._input.setValue(this._selection, { emitEvent: false });
+
+        // update the FormControl validators to reflect the new format
+        this._input.setValidators([Validators.pattern(this._pattern)]);
+
+        // perform validation
+        this._input.updateValueAndValidity({ emitEvent: false });
+    }
+
+    private getColorAriaLabel(color: ColorPickerColor): string {
+        return `Select color ${color.name}`;
+    }
+
+    private getSwitchModeAriaLabel(mode: ColorPickerInputMode): string {
+        return `Switch input mode to ${mode === 'hex' ? 'RGBA' : 'hex'}`;
+    }
+
+    private getInputAriaLabel(mode: ColorPickerInputMode): string {
+        return `Edit ${mode} color value`;
     }
 }
 

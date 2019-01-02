@@ -15,9 +15,20 @@ export class MediaPlayerService {
     type: MediaPlayerType = 'video';
     loaded: boolean = false;
 
-    /*
-        Create observables for media player events
-    */
+    /** Aria Labels */
+    muteAriaLabel: (volume: number) => string = this.getMuteAriaLabel;
+    playAriaLabel: (isPlaying: boolean) => string = this.getPlayAriaLabel;
+    fullscreenAriaLabel: (isFullscreen: boolean) => string = this.getFullscreenAriaLabel;
+    selectSubtitlesAriaLabel: (track: string) => string = this.getSubtitlesAriaLabel;
+    goToStartAriaLabel: string = 'Go to start';
+    goToEndAriaLabel: string = 'Go to end';
+    subtitlesTitleAriaLabel: string = 'Subtitles';
+    subtitlesOffAriaLabel: string = 'Subtitles Off';
+    noSubtitlesAriaLabel: string = 'No subtitles';
+    mediaPlayerAriaLabel: string = 'Media Player';
+    seekAriaLabel: string = 'Seek Slider';
+
+    /** Create observables for media player events */
     playing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     initEvent: ReplaySubject<boolean> = new ReplaySubject<boolean>();
     abortEvent: Subject<void> = new Subject<void>();
@@ -307,6 +318,8 @@ export class MediaPlayerService {
         } else if ((this._hostElement as any).mozRequestFullScreen) {
             (this._hostElement as any).mozRequestFullScreen();
         }
+
+        this.fullscreen = true;
     }
 
     /**
@@ -323,17 +336,15 @@ export class MediaPlayerService {
         } else if ((document as any).mozCancelFullScreen) {
             (document as any).mozCancelFullScreen();
         }
-    }
 
-    fullscreenChange() {
-        this.fullscreen = (document as any).fullscreen || (document as any).webkitIsFullScreen || (document as any).mozFullScreen || (document as any).msFullscreenElement !== null && (document as any).msFullscreenElement !== undefined;
-        this.fullscreenEvent.next(this.fullscreen);
+        this.fullscreen = false;
     }
 
     /**
      * Toggle Fullscreen State
      */
     toggleFullscreen(): void {
+        debugger;
         if (this.fullscreen) {
             this.exitFullscreen();
         } else {
@@ -357,5 +368,21 @@ export class MediaPlayerService {
         for (let index = 0; index < this.textTracks.length; index++) {
             this.textTracks[index].mode = 'hidden';
         }
+    }
+
+    private getMuteAriaLabel(volume: number): string {
+        return volume === 0 ? 'Unmute' : 'Mute';
+    }
+
+    private getPlayAriaLabel(isPlaying: boolean): string {
+        return isPlaying ? 'Pause' : 'Play';
+    }
+
+    private getFullscreenAriaLabel(isFullscreen: boolean): string {
+        return isFullscreen ? 'Exit full screen' : 'Full screen';
+    }
+
+    private getSubtitlesAriaLabel(track: string): string {
+        return `Select subtitles, ${track} currently selected.`;
     }
 }

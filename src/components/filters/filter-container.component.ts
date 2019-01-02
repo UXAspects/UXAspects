@@ -8,7 +8,7 @@ import { Filter } from './interfaces/filter.interface';
 @Component({
     selector: 'ux-filter-container',
     templateUrl: './filter-container.component.html',
-    providers: [ FilterService ]
+    providers: [FilterService]
 })
 export class FilterContainerComponent implements OnDestroy {
 
@@ -17,6 +17,9 @@ export class FilterContainerComponent implements OnDestroy {
 
     /** Define the tooltip text */
     @Input() clearTooltip: string;
+
+    /** Define the aria-label for the clear all button */
+    @Input() clearAriaLabel: string = 'Clear All Filters';
 
     /** Emit when the active filters chance */
     @Output() filtersChange = new EventEmitter<Filter[]>();

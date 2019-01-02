@@ -19,6 +19,8 @@ export class FacetContainerComponent implements OnDestroy {
     @Input() clearTooltip: string = 'Clear All';
     @Input() emptyText: string = 'No Items';
     @Input() facetsReorderable: boolean = false;
+    @Input() clearAriaLabel: string = 'Clear All';
+    @Input() deselectFacetAriaLabel: string = 'Deselect Facet';
 
     @Input() set facets(facets: Facet[]) {
         this.facetService.facets$.next(facets);

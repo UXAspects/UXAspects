@@ -24,10 +24,10 @@ export class ItemDisplayPanelFooterDirective { }
 export class ItemDisplayPanelComponent extends SidePanelComponent implements OnInit {
 
     @Input() header: string;
-
     @Input() boxShadow: boolean = true;
-
     @Input() closeVisible: boolean = true;
+    @Input() shadow: boolean = false;
+    @Input() closeAriaLabel: string = 'Close';
 
     get preventClose(): boolean {
         return !this.closeOnExternalClick;
@@ -37,8 +37,6 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
     set preventClose(value: boolean) {
         this.closeOnExternalClick = !value;
     }
-
-    @Input() shadow: boolean = false;
 
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 

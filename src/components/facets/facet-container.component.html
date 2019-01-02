@@ -38,8 +38,7 @@
 
             <!-- Display Remove Icon -->
             <button class="facet-selected-remove-btn"
-                i18n-aria-label
-                aria-label="Deselect Facet"
+                [attr.aria-label]="deselectFacetAriaLabel"
                 (click)="deselectFacet(facet, tag)">
 
                 <i class="hpe-icon hpe-close"></i>
@@ -61,7 +60,7 @@
 <ng-template #clearButtonDefault>
     <button class="btn btn-link btn-icon button-secondary"
             tabindex="0"
-            [attr.aria-label]="clearTooltip"
+            [attr.aria-label]="clearAriaLabel"
             [uxTooltip]="clearTooltip"
             placement="left"
             (click)="deselectAllFacets()">

@@ -3,8 +3,7 @@
 <!-- Add a Clear Button -->
 <button class="btn btn-link btn-icon btn-secondary m-l-xs"
     tabindex="0"
-    aria-label="Clear all filters"
-    i18n-aria-label
+    [attr.aria-label]="clearAriaLabel"
     *ngIf="(filterService.filters$ | async).length > 0"
     [uxTooltip]="clearTooltip || 'Clear All'"
     (click)="filterService.removeAll()">

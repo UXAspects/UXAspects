@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
-
+import { tick } from '../../../../common/index';
+import { MediaPlayerService } from '../../media-player.service';
 
 @Component({
     selector: 'ux-media-player-timeline',
@@ -13,7 +13,7 @@ import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
         '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
     }
 })
-export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
+export class MediaPlayerTimelineExtensionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('progressThumb') thumb: ElementRef;
     @ViewChild('timeline') timelineRef: ElementRef;
@@ -23,15 +23,16 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     buffered: MediaPlayerBuffered[] = [];
     mouseDown: boolean = false;
     scrub = { visible: false, position: 0, time: 0 };
+    duration$ = this.mediaPlayerService.durationChangeEvent.pipe(tick());
 
     private _onDestroy = new Subject<void>();
+
+    constructor(public mediaPlayerService: MediaPlayerService) { }
 
     ngOnInit(): void {
 
         // watch for changes to the current time
-        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(fullscreen => {
-            this.scrub.position = 0;
-        });
+        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.scrub.position = 0);
 
         this.mediaPlayerService.timeUpdateEvent.pipe(takeUntil(this._onDestroy)).subscribe(current => {
             this.current = current;

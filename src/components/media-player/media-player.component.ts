@@ -19,10 +19,7 @@ import { MediaPlayerService } from './media-player.service';
         '[class.video]': 'type === "video"',
         '[class.audio]': 'type === "audio"',
         '(mouseenter)': 'hovering = true',
-        '(mouseleave)': 'hovering = false',
-        '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
-        '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
-        '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()'
+        '(mouseleave)': 'hovering = false'
     }
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
@@ -60,6 +57,61 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     @Input()
     set quietMode(value: boolean) {
         this.mediaPlayerService.quietMode = value;
+    }
+
+    @Input()
+    set muteAriaLabel(fn: (volume: number) => string) {
+        this.mediaPlayerService.muteAriaLabel = fn;
+    }
+
+    @Input()
+    set playAriaLabel(fn: (isPlaying: boolean) => string) {
+        this.mediaPlayerService.playAriaLabel = fn;
+    }
+
+    @Input()
+    set fullscreenAriaLabel(fn: (isFullscreen: boolean) => string) {
+        this.mediaPlayerService.fullscreenAriaLabel = fn;
+    }
+
+    @Input()
+    set selectSubtitlesAriaLabel(fn: (track: string) => string) {
+        this.mediaPlayerService.selectSubtitlesAriaLabel = fn;
+    }
+
+    @Input()
+    set goToStartAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.goToStartAriaLabel = ariaLabel;
+    }
+
+    @Input()
+    set goToEndAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.goToEndAriaLabel = ariaLabel;
+    }
+
+    @Input()
+    set subtitlesTitleAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.subtitlesTitleAriaLabel = ariaLabel;
+    }
+
+    @Input()
+    set subtitlesOffAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.subtitlesOffAriaLabel = ariaLabel;
+    }
+
+    @Input()
+    set noSubtitlesAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.noSubtitlesAriaLabel = ariaLabel;
+    }
+
+    @Input()
+    set mediaPlayerAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.mediaPlayerAriaLabel = ariaLabel;
+    }
+
+    @Input()
+    set seekAriaLabel(ariaLabel: string) {
+        this.mediaPlayerService.seekAriaLabel = ariaLabel;
     }
 
     private _onDestroy = new Subject<void>();
