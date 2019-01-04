@@ -5,9 +5,26 @@
 
     <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
 
-        <a class="navigation-bar-item" *ngFor="let link of links" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
+        <a class="navigation-bar-item"
+           *ngFor="let link of links"
+           [routerLink]="link.link"
+           routerLinkActive="active">
+           {{ link.title }}
+        </a>
+
         <div class="navigation-bar-spacer"></div>
-        <a class="navigation-bar-item" *ngFor="let link of social" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
+
+        <a class="navigation-bar-item"
+           *ngFor="let link of social"
+           [routerLink]="link.link"
+           routerLinkActive="active">
+           {{ link.title }}
+
+           <div *ngIf="link.indicator" class="navigation-bar-item-indicator">
+               <i class="hpe-icon hpe-star-filled"></i>
+           </div>
+        </a>
+
         <uxd-navigation-bar-search></uxd-navigation-bar-search>
 
     </div>
