@@ -17,8 +17,6 @@ export class DayViewService implements OnDestroy {
     constructor(private _datepicker: DateTimePickerService) {
         this._subscription = combineLatest(_datepicker.month$, _datepicker.year$, _datepicker.startOfWeek$)
             .subscribe(([month, year]) => this.createDayGrid(month, year));
-
-        _datepicker.startOfWeek$.subscribe(() => this.createDayGrid(_datepicker.month$.value, _datepicker.year$.value));
     }
 
     ngOnDestroy(): void {
