@@ -1,0 +1,14 @@
+<ux-date-time-picker
+    class="date-time-picker"
+    [(date)]="date"
+    [(timezone)]="timezone"
+    [showTime]="showTime"
+    [showMeridian]="showMeridians"
+    [showSpinners]="showSpinners"
+    [showTimezone]="showTimezones"
+    [startOfWeek]="startOfWeek">
+</ux-date-time-picker>
+
+<br>
+
+<button id="change-start-of-week" class="btn button-primary" (click)="startOfWeek = startOfWeek + 1">Change StartOfWeek</button>

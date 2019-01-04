@@ -1,7 +1,8 @@
+import { WeekDay } from '@angular/common';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Subscription } from 'rxjs/Subscription';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
 import { compareDays, dateRange, gridify } from '../date-time-picker.utils';
 
@@ -14,8 +15,10 @@ export class DayViewService implements OnDestroy {
     private _subscription: Subscription;
 
     constructor(private _datepicker: DateTimePickerService) {
-        this._subscription = combineLatest(_datepicker.month$, _datepicker.year$)
+        this._subscription = combineLatest(_datepicker.month$, _datepicker.year$, _datepicker.startOfWeek$)
             .subscribe(([month, year]) => this.createDayGrid(month, year));
+
+        _datepicker.startOfWeek$.subscribe(() => this.createDayGrid(_datepicker.month$.value, _datepicker.year$.value));
     }
 
     ngOnDestroy(): void {
@@ -39,8 +42,13 @@ export class DayViewService implements OnDestroy {
         const start = new Date(year, month, 1);
         const end = new Date(year, month + 1, 0);
 
-        // we always want to show from the sunday - this may include showing some dates from the previous month
-        start.setDate(start.getDate() - start.getDay());
+        // ensure the startOfWeek value is between 0-6 to prevent any infinite loop
+        const startOfWeek = Math.min(WeekDay.Saturday, Math.max(WeekDay.Sunday, this._datepicker.startOfWeek$.value));
+
+        // we always want to show from the specified start of week - this may include showing some dates from the previous month
+        while (start.getDay() !== startOfWeek) {
+            start.setDate(start.getDate() - 1);
+        }
 
         // we also want to make sure that the range ends on a saturday
         end.setDate(end.getDate() + (6 - end.getDay()));
