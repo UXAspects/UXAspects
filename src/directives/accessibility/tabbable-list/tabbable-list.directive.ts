@@ -1,5 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit, ContentChildren, Directive, Input, OnDestroy, QueryList } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 import { TabbableListService } from './tabbable-list.service';
 
@@ -39,6 +41,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
     private _focusedElement: HTMLElement;
     private _orderedItems: QueryList<TabbableListItemDirective>;
+    private _onDestroy = new Subject<void>();
 
     get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {
         return this._tabbableList.focusKeyManager;
@@ -58,7 +61,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
             this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
 
             // Ensure that the child items remain sorted
-            this.items.changes.subscribe(() => {
+            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
                 this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
                 this._orderedItems.notifyOnChanges();
             });
@@ -82,6 +85,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
             setTimeout(() => this._focusedElement.focus());
         }
+
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     focus(): void {

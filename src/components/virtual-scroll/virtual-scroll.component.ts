@@ -1,19 +1,21 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, AfterContentInit, ContentChild, TemplateRef, OnDestroy, SimpleChanges } from '@angular/core';
-import { ResizeService } from '../../directives/resize/index';
-import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loading.directive';
-import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';
-import { VirtualScrollCellDirective } from './directives/virtual-scroll-cell.directive';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { takeUntil } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
+import { ResizeService } from '../../directives/resize/index';
+import { VirtualScrollCellDirective } from './directives/virtual-scroll-cell.directive';
+import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';
+import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loading.directive';
 
 @Component({
     selector: 'ux-virtual-scroll',
     templateUrl: './virtual-scroll.component.html'
 })
-export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestroy {
+export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDestroy {
 
-    @Input() collection: Observable<any[]> = Observable.create();
+    @Input() collection: Observable<T[]> = Observable.create();
     @Input() cellHeight: number;
     @Input() loadOnScroll: boolean = true;
 
@@ -23,23 +25,26 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
     @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef }) loadingIndicatorTemplate: TemplateRef<any>;
     @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef }) loadButtonTemplate: TemplateRef<any>;
 
-    cells: BehaviorSubject<any[]> = new BehaviorSubject([]);
+    cells: BehaviorSubject<T[]> = new BehaviorSubject([]);
     scrollTop: number = 0;
     isLoading: boolean = false;
     pageNumber: number = 0;
-    data: any[] = [];
+    data: ReadonlyArray<T> = [];
     loadingComplete: boolean = false;
 
+    private _buffer: number = 5;
     private _subscription: Subscription;
     private _height: number;
+    private _onDestroy = new Subject<void>();
 
     constructor(private _elementRef: ElementRef, resizeService: ResizeService) {
 
         // watch for any future changes to size
-        resizeService.addResizeListener(_elementRef.nativeElement).subscribe(event => this._height = event.height);
+        resizeService.addResizeListener(_elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
+            .subscribe(event => this._height = event.height);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         if (!this.cellHeight) {
             throw new Error('Virtual Scroll Component requires "cellHeight" property to be defined.');
@@ -66,6 +71,8 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
 
     ngOnDestroy(): void {
         this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     setupObservable(): void {
@@ -76,7 +83,7 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
         }
 
         this._subscription = this.collection.subscribe(collection => {
-            this.data.push(...collection);
+            this.data = [...this.data, ...collection];
             this.renderCells();
             this.isLoading = false;
         }, null, () => {
@@ -97,7 +104,7 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
         }
     }
 
-    getVisibleCells(): any[] {
+    getVisibleCells(): T[] {
 
         // store the initial element height
         if (!this._height) {
@@ -107,13 +114,17 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
         // perform some calculations
         const scrollTop = this._elementRef.nativeElement.scrollTop;
         const startCell = Math.floor(scrollTop / this.cellHeight);
-        const endCell = Math.ceil(this._height / this.cellHeight) + 1;
+        const endCell = Math.ceil(this._height / this.cellHeight);
+
+        // we want to add some buffer cells on both the top and bottom of the visible list
+        const startBuffer = Math.max(0, startCell - this._buffer);
+        const endBuffer = startCell + (startCell - startBuffer) + Math.min(this.data.length, endCell + this._buffer);
 
         // update the scroll position
-        this.scrollTop = scrollTop - (scrollTop % this.cellHeight);
+        this.scrollTop = (scrollTop - (scrollTop % this.cellHeight)) - ((startCell - startBuffer) * this.cellHeight);
 
         // return a sublist of items visible on the screen
-        return this.data.slice(startCell, startCell + endCell);
+        return this.data.slice(startBuffer, endBuffer);
     }
 
     getTotalHeight(): number {
@@ -144,5 +155,4 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
         // reload first page
         this.loadNextPage();
     }
-
 }

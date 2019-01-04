@@ -89,4 +89,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     onKeydown(event: KeyboardEvent): void {
         this._tabbableList.onKeydown(this, event);
     }
+
+    getFocused(): boolean {
+        return this._elementRef.nativeElement === document.activeElement;
+    }
 }

@@ -54,6 +54,21 @@ export class TabbableListService implements OnDestroy {
 
             // ensure there is at least one item tabbable at all times
             this.ensureTabbableItem();
+
+            // check if an item is currently focused
+            const focusedElement = this._items.find(item => item.getFocused());
+
+            // if there is an item focused we need to ensure we update it's index within the list (required for virtual scrolling)
+            if (focusedElement) {
+
+                debugger;
+                // CDK version 5 specific - Deprecated and removed in CDK v8.0
+                if (this.focusKeyManager.updateActiveItemIndex) {
+                    this.focusKeyManager.updateActiveItemIndex(this._items.toArray().indexOf(focusedElement));
+                } else if ((this.focusKeyManager as any).updateActiveItem) {
+                    (this.focusKeyManager as any).updateActiveItem(focusedElement);
+                }
+            }
         });
     }
 
@@ -112,6 +127,7 @@ export class TabbableListService implements OnDestroy {
         }
     }
 
+    counter: number = 0;
 
     onKeydown(source: TabbableListItemDirective, event: KeyboardEvent): any {
 
@@ -120,6 +136,11 @@ export class TabbableListService implements OnDestroy {
             return;
         }
 
+        this.counter++;
+
+        if (this.counter === 6) {
+            debugger;
+        }
         this.focusKeyManager.onKeydown(event);
 
         // if the key is a boundary key and boundary keys are enabled
