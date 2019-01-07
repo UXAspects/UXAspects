@@ -3,7 +3,7 @@
 
     <!-- Virtually Render Cells -->
     <ng-container *ngFor="let cell of cells | async">
-        <ng-container *ngTemplateOutlet="cellTemplate; context: { cell: cell }"></ng-container>
+        <ng-container *ngTemplateOutlet="cellTemplate; context: { cell: cell.data, index: cell.index }"></ng-container>
     </ng-container>
 
     <!-- Loading Indicator -->

@@ -1,8 +1,8 @@
 import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { ResizeService } from '../../directives/resize/index';
 import { VirtualScrollCellDirective } from './directives/virtual-scroll-cell.directive';
@@ -25,7 +25,7 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDe
     @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef }) loadingIndicatorTemplate: TemplateRef<any>;
     @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef }) loadButtonTemplate: TemplateRef<any>;
 
-    cells: BehaviorSubject<T[]> = new BehaviorSubject([]);
+    cells: BehaviorSubject<VirtualCell<T>[]> = new BehaviorSubject([]);
     scrollTop: number = 0;
     isLoading: boolean = false;
     pageNumber: number = 0;
@@ -104,7 +104,7 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDe
         }
     }
 
-    getVisibleCells(): T[] {
+    getVisibleCells(): VirtualCell<T>[] {
 
         // store the initial element height
         if (!this._height) {
@@ -124,7 +124,10 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDe
         this.scrollTop = (scrollTop - (scrollTop % this.cellHeight)) - ((startCell - startBuffer) * this.cellHeight);
 
         // return a sublist of items visible on the screen
-        return this.data.slice(startBuffer, endBuffer);
+        const cells = this.data.slice(startBuffer, endBuffer);
+
+        // now map these cells to a virtual cell interface
+        return cells.map((cell, index) => ({ data: cell, index: startBuffer + index }));
     }
 
     getTotalHeight(): number {
@@ -155,4 +158,9 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDe
         // reload first page
         this.loadNextPage();
     }
+}
+
+export interface VirtualCell<T> {
+    data: T;
+    index: number;
 }

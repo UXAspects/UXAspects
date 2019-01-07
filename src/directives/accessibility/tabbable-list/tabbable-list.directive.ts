@@ -53,11 +53,11 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
         // store the currently focused element
         this._focusedElement = document.activeElement as HTMLElement;
+        this._orderedItems = new QueryList<TabbableListItemDirective>();
 
         if (this._tabbableList.hierarchy) {
 
             // Sort items in a hierarchy
-            this._orderedItems = new QueryList<TabbableListItemDirective>();
             this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
 
             // Ensure that the child items remain sorted
@@ -68,8 +68,17 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
         } else {
 
-            // Items are already in order
-            this._orderedItems = this.items;
+            // Sort items by the specified order
+            this._orderedItems.reset(this.items.toArray().sort((itemOne, itemTwo) => itemOne.order - itemTwo.order));
+
+            // Ensure that the child items remain sorted
+            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+                this._orderedItems.reset(this.items.toArray().sort((itemOne, itemTwo) => {
+                    debugger;
+                    return itemOne.order - itemTwo.order;
+                }));
+                this._orderedItems.notifyOnChanges();
+            });
         }
 
         // Set up the focus monitoring

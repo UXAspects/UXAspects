@@ -21,6 +21,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @Input() expanded: boolean = false;
 
+    @Input() order: number = 0;
+
     @Output() expandedChange = new EventEmitter<boolean>();
 
     @HostBinding() tabindex: number = -1;
