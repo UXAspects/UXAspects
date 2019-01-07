@@ -39,8 +39,8 @@ export class FloatingActionButtonsService {
     setButtons(buttons: QueryList<FloatingActionButtonComponent>): void {
         this._buttons = buttons;
 
-        // make the first button tabbable
-        this.setPrimaryButtonFocusable();
+        // make the first button tabbable (after a delay to prevent expression changed error)
+        requestAnimationFrame(() => this.setPrimaryButtonFocusable());
     }
 
     /** Make only the first button tabbable */
