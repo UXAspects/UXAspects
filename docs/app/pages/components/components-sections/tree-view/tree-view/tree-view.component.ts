@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { TreeComponent, TreeNode } from 'angular-tree-component';
+import { Component } from '@angular/core';
+import { TreeNode } from 'angular-tree-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
@@ -79,9 +79,17 @@ export class ComponentsTreeViewComponent extends BaseDocumentationSection {
     /**
      * If tree view is tabbed to, focus the node
      */
-    focus(node: TreeNode, element: HTMLElement): void {
+    focus(node: TreeNode): void {
         node.focus();
         node.treeModel.setFocus(true);
+    }
+
+    /** Ensure the blur state is updated consistently */
+    blur(node: TreeNode): void {
+        if (this.focused === node) {
+            node.blur();
+            node.treeModel.setFocus(false);
+        }
     }
 }
 

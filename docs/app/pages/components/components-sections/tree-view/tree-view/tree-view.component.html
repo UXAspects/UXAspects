@@ -7,14 +7,15 @@
                  [attr.aria-expanded]="node.hasChildren ? node.isExpanded || false : null"
                  [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
                  (focus)="focus(node)"
+                 (blur)="blur(node)"
                  [focusIf]="node === focused">
 
-                <div class="node-content-wrapper" 
+                <div class="node-content-wrapper"
                      [class.node-content-wrapper-active]="node.isActive"
                      [class.node-content-wrapper-focused]="node.isFocused">
 
                     <tree-node-expander class="m-r-xs" [node]="node"></tree-node-expander>
-                    
+
                     <span class="hpe-icon m-r-xxs"
                         [class.hpe-folder]="node.hasChildren && !node.isExpanded"
                         [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
