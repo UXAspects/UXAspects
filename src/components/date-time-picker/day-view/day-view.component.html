@@ -1,7 +1,7 @@
 <table class="calendar">
     <thead>
         <tr>
-            <th *ngFor="let day of datePicker.weekdays$ | async" class="weekday" [attr.aria-label]="day">{{ day }}</th>
+            <th *ngFor="let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)" class="weekday" [attr.aria-label]="day">{{ day }}</th>
         </tr>
     </thead>
 

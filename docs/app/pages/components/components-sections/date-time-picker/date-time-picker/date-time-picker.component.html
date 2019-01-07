@@ -76,8 +76,8 @@
         Will set the selected timezone.
     </tr>
     <tr uxd-api-property name="timezones" type="DateTimePickerTimezone[]">
-        Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that 
-        each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>, 
+        Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that
+        each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>,
         and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
     </tr>
     <tr uxd-api-property name="showDate" type="boolean">
@@ -112,6 +112,9 @@
     </tr>
     <tr uxd-api-property name="nowBtnText" type="string">
         Defines the text to be displayed in the button used to set the selected time to the current time.
+    </tr>
+    <tr uxd-api-property name="startOfWeek" type="WeekDay" defaultValue="WeekDay.Sunday">
+        Defines the day of the week that should appear in the first column. <code>WeekDay</code> is an enumeration available in <code>@angular/common</code>.
     </tr>
 </uxd-api-properties>
 

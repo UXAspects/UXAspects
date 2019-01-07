@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: './dashboard/dashboard.module#DashboardTestPageModule'
     },
     {
+        path: 'date-time-picker',
+        loadChildren: './date-time-picker/date-time-picker.module#DateTimePickerTestPageModule'
+    },
+    {
         path: 'expanding-text-area',
         loadChildren: './expanding-text-area/expanding-text-area.module#ExpandingTextAreaModule'
     },

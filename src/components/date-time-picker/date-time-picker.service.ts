@@ -1,10 +1,11 @@
+import { WeekDay } from '@angular/common';
 import { Injectable, Optional } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { distinctUntilChanged } from 'rxjs/operators';
 import { DateTimePickerConfig } from './date-time-picker.config';
-import { dateComparator, weekdaysShort, timezones, DateTimePickerTimezone, months, monthsShort, meridians } from './date-time-picker.utils';
+import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
 
 @Injectable()
 export class DateTimePickerService {
@@ -31,6 +32,7 @@ export class DateTimePickerService {
     header$ = new BehaviorSubject<string>(null);
     headerEvent$ = new Subject<DatePickerHeaderEvent>();
     modeDirection: ModeDirection = ModeDirection.None;
+    startOfWeek$ = new BehaviorSubject<WeekDay>(WeekDay.Sunday);
 
     months: string[] = this._config ? this._config.months : months;
     monthsShort: string[] = this._config ? this._config.monthsShort : monthsShort;
