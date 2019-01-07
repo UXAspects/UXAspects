@@ -1,17 +1,19 @@
 <input type="number"
-       role="spinbutton"
-       class="form-control number-picker-input"
-       [(ngModel)]="value"
-       [min]="min"
-       [max]="max"
-       (keydown.ArrowDown)="decrement($event)"
-       (keydown.ArrowUp)="increment($event)"
-       (wheel)="onScroll($event)"
-       step="any"
-       [disabled]="disabled"
-       [attr.aria-valuemin]="min"
-       [attr.aria-valuenow]="value"
-       [attr.aria-valuemax]="max">
+    [id]="id"
+    role="spinbutton"
+    class="form-control number-picker-input"
+    [(ngModel)]="value"
+    [min]="min"
+    [max]="max"
+    (keydown.ArrowDown)="decrement($event)"
+    (keydown.ArrowUp)="increment($event)"
+    (wheel)="onScroll($event)"
+    step="any"
+    [disabled]="disabled"
+    [attr.aria-valuemin]="min"
+    [attr.aria-valuenow]="value"
+    [attr.aria-valuemax]="max"
+    [attr.aria-labelledby]="labelledBy">
 
 <div class="number-picker-controls">
 

@@ -1,3 +1,4 @@
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -24,13 +25,16 @@ export class NumberPickerComponent implements ControlValueAccessor {
     private _value: number = 0;
     private _propagateChange = (_: any) => { };
 
+    @Input() id: string;
     @Input() valid: boolean = true;
+    @Input('aria-labelledby') labelledBy: string;
     @Output() valueChange = new EventEmitter<number>();
 
-    @Input('value')
+    @Input()
     get value(): number {
         return this._value;
     }
+
     set value(value: number) {
         this._value = value;
         this.valueChange.emit(value);
@@ -41,32 +45,36 @@ export class NumberPickerComponent implements ControlValueAccessor {
     get min(): number {
         return this._min;
     }
+
     set min(value) {
-        this._min = typeof value === 'string' ? parseFloat(value) : value;
+        this._min = coerceNumberProperty(value);
     }
 
     @Input()
     get max(): number {
         return this._max;
     }
+
     set max(value) {
-        this._max = typeof value === 'string' ? parseFloat(value) : value;
+        this._max = coerceNumberProperty(value);
     }
 
     @Input()
     get step(): number {
         return this._step;
     }
+
     set step(value) {
-        this._step = typeof value === 'string' ? parseFloat(value) : value;
+        this._step = coerceNumberProperty(value);
     }
 
     @Input()
     get disabled(): boolean {
         return this._disabled;
     }
+
     set disabled(value) {
-        this._disabled = typeof value === 'string' && (value === '' || value === 'true' || value === 'disabled') || value === true;
+        this._disabled = coerceBooleanProperty(value);
     }
 
     increment(event: MouseEvent | KeyboardEvent): void {
@@ -95,26 +103,24 @@ export class NumberPickerComponent implements ControlValueAccessor {
 
     onScroll(event: WheelEvent): void {
 
-        let scrollValue = event.deltaY || event.wheelDelta;
+        // get the distance scrolled
+        const scrollValue = event.deltaY || (event as any).wheelDelta;
 
-        if (scrollValue < 0) {
-            this.increment(event);
-        } else {
-            this.decrement(event);
-        }
+        // increment or decrement accordingly
+        scrollValue < 0 ? this.increment(event) : this.decrement(event);
     }
 
-    writeValue(value: any): void {
+    writeValue(value: number): void {
         if (value !== undefined) {
             this._value = value;
         }
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: (_: any) => {}): void {
         this._propagateChange = fn;
     }
 
-    registerOnTouched(fn: any): void { }
+    registerOnTouched(fn: (_: any) => {}): void { }
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
