@@ -537,3 +537,14 @@ ng\:form {
         }
     }
 }
+
+// Support controlled focus using the uxFocus directive
+.ux-focus {
+    &:focus {
+        outline: none !important;
+
+        &.ux-focus-indicator {
+            .aspects-outline() !important;
+        }
+    }
+}
