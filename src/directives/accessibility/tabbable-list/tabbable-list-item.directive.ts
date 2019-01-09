@@ -22,8 +22,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @Input() expanded: boolean = false;
 
-    @Input() order: number = 0;
-
     /** Provide a unique key to help identify items when used in a virtual list */
     @Input() key: any = `tabbable-list-key-${uniqueKey++}`;
 

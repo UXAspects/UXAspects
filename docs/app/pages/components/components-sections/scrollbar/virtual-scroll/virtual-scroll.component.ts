@@ -66,8 +66,7 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
                 id: idx,
                 name: name,
                 email: name.toLowerCase().replace(' ', '.') + '@business.com',
-                department: chance.pickone(DEPARTMENTS),
-                position: idx
+                department: chance.pickone(DEPARTMENTS)
             });
         }
 
@@ -91,5 +90,4 @@ interface Employee {
     name: string;
     email: string;
     department: string;
-    position: number;
 }

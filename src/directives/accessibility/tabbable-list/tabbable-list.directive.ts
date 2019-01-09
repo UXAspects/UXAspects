@@ -68,28 +68,20 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
         } else {
 
-            // Sort items by the specified order
-            this._orderedItems.reset(this.items.toArray().sort((itemOne, itemTwo) => itemOne.order - itemTwo.order));
+            // Items are already in order
+            this._orderedItems = this.items;
 
-            // Ensure that the items remain sorted
-            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            // Ensure we reselect a selected item after the querylist has changed
+            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe((items: QueryList<TabbableListItemDirective>) => {
+
                 // check if an item is currently focused
                 const activeItem = this._tabbableList.focusKeyManager.activeItem;
-
-                // get the new array of items sorted
-                const items = this.items.toArray().sort((itemOne, itemTwo) => itemOne.order - itemTwo.order);
-
-                // reset the list of items
-                this._orderedItems.reset(items);
-
-                // emit the change event
-                this._orderedItems.notifyOnChanges();
 
                 // restore the selected item if there was one and it is still visible
                 if (activeItem) {
 
                     // find the matching index
-                    const index = items.findIndex(item => item.key === activeItem.key);
+                    const index = items.toArray().findIndex(item => item.key === activeItem.key);
 
                     // if the item is still in the list we want to focus it
                     if (index > -1) {
