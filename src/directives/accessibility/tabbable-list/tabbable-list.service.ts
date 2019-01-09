@@ -12,6 +12,7 @@ export class TabbableListService implements OnDestroy {
     allowAltModifier: boolean = true;
     allowCtrlModifier: boolean = true;
     allowBoundaryKeys: boolean = false;
+    shouldScrollInView: boolean = true;
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
 
     private _items: QueryList<TabbableListItemDirective>;

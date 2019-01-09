@@ -6,6 +6,7 @@ import { tick } from '../../../common/index';
 import { TabbableListService } from './tabbable-list.service';
 
 let nextId = 0;
+let uniqueKey = 0;
 
 @Directive({
     selector: '[uxTabbableListItem]',
@@ -22,6 +23,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     @Input() expanded: boolean = false;
 
     @Input() order: number = 0;
+
+    /** Provide a unique key to help identify items when used in a virtual list */
+    @Input() key: any = `tabbable-list-key-${uniqueKey++}`;
 
     @Output() expandedChange = new EventEmitter<boolean>();
 
@@ -81,7 +85,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     focus(): void {
 
         // apply focus to the element
-        this._elementRef.nativeElement.focus();
+        (this._elementRef.nativeElement as HTMLElement).focus({ preventScroll: !this._tabbableList.shouldScrollInView });
 
         // ensure the focus key manager updates the active item correctly
         this._tabbableList.activate(this);

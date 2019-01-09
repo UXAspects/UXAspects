@@ -15,10 +15,16 @@ import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loadi
 })
 export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDestroy {
 
+    /** Provide the collection of items to display */
     @Input() collection: Observable<T[]> = Observable.create();
+
+    /** Specify the height of each cell */
     @Input() cellHeight: number;
+
+    /** Indicate whether pages should be loaded on scroll or button click */
     @Input() loadOnScroll: boolean = true;
 
+    /** Emit when we need to load another page */
     @Output() loading: EventEmitter<number> = new EventEmitter<number>();
 
     @ContentChild(VirtualScrollCellDirective, { read: TemplateRef }) cellTemplate: TemplateRef<any>;

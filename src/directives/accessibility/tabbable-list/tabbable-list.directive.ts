@@ -71,13 +71,39 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
             // Sort items by the specified order
             this._orderedItems.reset(this.items.toArray().sort((itemOne, itemTwo) => itemOne.order - itemTwo.order));
 
-            // Ensure that the child items remain sorted
+            // Ensure that the items remain sorted
             this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-                this._orderedItems.reset(this.items.toArray().sort((itemOne, itemTwo) => {
-                    debugger;
-                    return itemOne.order - itemTwo.order;
-                }));
+                // check if an item is currently focused
+                const activeItem = this._tabbableList.focusKeyManager.activeItem;
+
+                // get the new array of items sorted
+                const items = this.items.toArray().sort((itemOne, itemTwo) => itemOne.order - itemTwo.order);
+
+                // reset the list of items
+                this._orderedItems.reset(items);
+
+                // emit the change event
                 this._orderedItems.notifyOnChanges();
+
+                // restore the selected item if there was one and it is still visible
+                if (activeItem) {
+
+                    // find the matching index
+                    const index = items.findIndex(item => item.key === activeItem.key);
+
+                    // if the item is still in the list we want to focus it
+                    if (index > -1) {
+
+                        // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
+                        this._tabbableList.shouldScrollInView = false;
+
+                        // refocus the item again
+                        this._tabbableList.focusKeyManager.setActiveItem(index);
+
+                        // re-enable scrolling into view
+                        this._tabbableList.shouldScrollInView = true;
+                    }
+                }
             });
         }
 
