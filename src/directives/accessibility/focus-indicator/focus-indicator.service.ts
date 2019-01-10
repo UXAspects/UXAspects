@@ -1,11 +1,11 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { AccessibilityConfigurationService } from '../configuration/accessibility-configuration.service';
-import { FocusHandler } from './focus-handler';
-import { FocusHandlerOptions } from './focus-handler-options.interface';
+import { FocusIndicator } from './focus-indicator';
+import { FocusIndicatorOptions } from './focus-indicator-options.interface';
 
 @Injectable()
-export class FocusService {
+export class FocusIndicatorService {
 
     private _renderer: Renderer2;
 
@@ -15,8 +15,8 @@ export class FocusService {
     }
 
     /** This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global config each time */
-    monitor(element: HTMLElement, options: FocusHandlerOptions): FocusHandler {
-        return new FocusHandler(element, this._focusMonitor, this._renderer, { ...this._config, ...options });
+    monitor(element: HTMLElement, options: FocusIndicatorOptions): FocusIndicator {
+        return new FocusIndicator(element, this._focusMonitor, this._renderer, { ...this._config, ...options });
     }
 
 }

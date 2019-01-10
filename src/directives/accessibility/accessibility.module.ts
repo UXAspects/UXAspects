@@ -3,16 +3,16 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AccessibilityConfiguration } from './configuration/accessibility-configuration.interface';
 import { AccessibilityConfigurationService } from './configuration/accessibility-configuration.service';
 import { ACCESSIBILITY_CONFIG_TOKEN } from './configuration/accessibility-configuration.token';
+import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
+import { FocusIndicatorService } from './focus-indicator/focus-indicator.service';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
-import { FocusDirective } from './focus/focus.directive';
-import { FocusService } from './focus/focus.service';
 import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 
 @NgModule({
     declarations: [
-        FocusDirective,
+        FocusIndicatorDirective,
         FocusWithinDirective,
         TabbableListDirective,
         TabbableListItemDirective,
@@ -22,7 +22,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         A11yModule
     ],
     exports: [
-        FocusDirective,
+        FocusIndicatorDirective,
         FocusWithinDirective,
         TabbableListDirective,
         TabbableListItemDirective,
@@ -30,7 +30,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     ],
     providers: [
         AccessibilityConfigurationService,
-        FocusService
+        FocusIndicatorService
     ]
 })
 export class AccessibilityModule {

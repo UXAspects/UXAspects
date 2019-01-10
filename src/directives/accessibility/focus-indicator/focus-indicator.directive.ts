@@ -1,12 +1,12 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { AccessibilityConfigurationService } from '../configuration/accessibility-configuration.service';
-import { FocusHandler } from './focus-handler';
-import { FocusService } from './focus.service';
+import { FocusIndicator } from './focus-indicator';
+import { FocusIndicatorService } from './focus-indicator.service';
 
 @Directive({
-    selector: '[uxFocus]'
+    selector: '[uxFocusIndicator]'
 })
-export class FocusDirective implements OnInit, OnDestroy {
+export class FocusIndicatorDirective implements OnInit, OnDestroy {
 
     /** Specify whether or not we should mark this element as having focus if a child is focused */
     @Input() checkChildren: boolean = false;
@@ -24,13 +24,13 @@ export class FocusDirective implements OnInit, OnDestroy {
     @Input() programmaticFocusOutline: boolean = this._config.options.programmaticFocusOutline;
 
     /** Store a reference to the focus handler */
-    private _focusHandler: FocusHandler;
+    private _focusHandler: FocusIndicator;
 
-    constructor(private _elementRef: ElementRef, private _focusService: FocusService, private _config: AccessibilityConfigurationService) { }
+    constructor(private _elementRef: ElementRef, private _focusIndicatorService: FocusIndicatorService, private _config: AccessibilityConfigurationService) { }
 
     /** Setup the focus monitoring */
     ngOnInit(): void {
-        this._focusHandler = this._focusService.monitor(this._elementRef.nativeElement, {
+        this._focusHandler = this._focusIndicatorService.monitor(this._elementRef.nativeElement, {
             checkChildren: this.checkChildren,
             mouseFocusOutline: this.mouseFocusOutline,
             touchFocusOutline: this.touchFocusOutline,

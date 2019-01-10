@@ -2,9 +2,9 @@ import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Renderer2 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { FocusHandlerOptions } from './focus-handler-options.interface';
+import { FocusIndicatorOptions } from './focus-indicator-options.interface';
 
-export class FocusHandler {
+export class FocusIndicator {
 
     /** Apply a class when the item is focused */
     set isFocused(value: boolean) {
@@ -19,7 +19,7 @@ export class FocusHandler {
         private _element: HTMLElement,
         private _focusMonitor: FocusMonitor,
         private _renderer: Renderer2,
-        private _options: FocusHandlerOptions) {
+        private _options: FocusIndicatorOptions) {
         this.initialise();
     }
 
