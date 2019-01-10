@@ -28,7 +28,7 @@
   </span>
 
   <span class="title-readonly"
-        tooltip="{{ tv.getTooltip(node) }}"
+        tooltip-html="tv.getTooltip(node)"
         ng-click="node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
         ng-show="!tv.isBeingEdited(this)"
         tabindex="{{ node.disabled ? -1 : 0 }}"
