@@ -26,7 +26,11 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Store a reference to the focus handler */
     private _focusHandler: FocusIndicator;
 
-    constructor(private _elementRef: ElementRef, private _focusIndicatorService: FocusIndicatorService, private _config: AccessibilityConfigurationService) { }
+    constructor(
+        private _elementRef: ElementRef,
+        private _focusIndicatorService: FocusIndicatorService,
+        private _config: AccessibilityConfigurationService
+    ) { }
 
     /** Setup the focus monitoring */
     ngOnInit(): void {

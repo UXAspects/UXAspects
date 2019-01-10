@@ -7,6 +7,7 @@ import { FocusIndicatorOptions } from './focus-indicator-options.interface';
 @Injectable()
 export class FocusIndicatorService {
 
+    /** We need the renderer to add and remove classes */
     private _renderer: Renderer2;
 
     constructor(private _focusMonitor: FocusMonitor, private _config: AccessibilityConfigurationService, rendererFactory: RendererFactory2) {
