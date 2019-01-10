@@ -1,7 +1,7 @@
-import { browser, $, element, by } from 'protractor';
+import { $$, browser, by, element, ElementFinder } from 'protractor';
 
 export class ReorderableTablePage {
-    
+
     row1 = element(by.id('row-0'));
     handle1 = element(by.id('handle-0'));
 
@@ -11,9 +11,19 @@ export class ReorderableTablePage {
     row3 = element(by.id('row-2'));
     handle3 = element(by.id('handle-2'));
 
-    data = $('.data-model');
-
     getPage(): void {
         browser.get('#/reorderable-table');
+    }
+
+    async getDocumentOrder(): Promise<string[]> {
+        const documents: ElementFinder[] = await $$('.document-name');
+
+        const names = [];
+
+        for (let idx = 0; idx < documents.length; idx++) {
+            names.push(await documents[idx].getText());
+        }
+
+        return names;
     }
 }

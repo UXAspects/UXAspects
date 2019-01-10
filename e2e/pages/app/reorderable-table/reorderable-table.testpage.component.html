@@ -18,7 +18,7 @@
             <td class="drag-handle-column">
                 <span uxReorderableHandle id="handle-{{ idx }}" class="hpe-icon hpe-more hpe-rotate-90"></span>
             </td>
-            <td>{{ item.document }}</td>
+            <td class="document-name">{{ item.document }}</td>
             <td>{{ item.author }}</td>
             <td>{{ item.date | date }}</td>
             <td>
@@ -30,5 +30,3 @@
         </tr>
     </tbody>
 </table>
-
-<p class="data-model">{{ data | map | json }}</p>
