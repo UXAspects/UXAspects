@@ -1,12 +1,10 @@
-import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { AccessibilityConfigurationService } from '../configuration/accessibility-configuration.service';
+import { FocusHandler } from './focus-handler';
+import { FocusService } from './focus.service';
 
 @Directive({
-    selector: '[uxFocus]',
-    exportAs: 'ux-focus'
+    selector: '[uxFocus]'
 })
 export class FocusDirective implements OnInit, OnDestroy {
 
@@ -14,75 +12,37 @@ export class FocusDirective implements OnInit, OnDestroy {
     @Input() checkChildren: boolean = false;
 
     /** Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting */
-    @Input() mouseFocusOutline?: boolean;
+    @Input() mouseFocusOutline: boolean = this._config.options.mouseFocusOutline;
 
     /** Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting */
-    @Input() touchFocusOutline?: boolean;
+    @Input() touchFocusOutline: boolean = this._config.options.touchFocusOutline;
 
     /** Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting */
-    @Input() keyboardFocusOutline?: boolean;
+    @Input() keyboardFocusOutline: boolean = this._config.options.keyboardFocusOutline;
 
     /** Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting */
-    @Input() programmaticFocusOutline?: boolean;
+    @Input() programmaticFocusOutline: boolean = this._config.options.programmaticFocusOutline;
 
-    /** Apply a class when the item is focused */
-    set isFocused(value: boolean) {
-        value ? this._renderer.addClass(this._elementRef.nativeElement, 'ux-focus-indicator') :
-            this._renderer.removeClass(this._elementRef.nativeElement, 'ux-focus-indicator');
-    }
+    /** Store a reference to the focus handler */
+    private _focusHandler: FocusHandler;
 
-    /** Destroy any subscriptions */
-    private readonly _onDestroy = new Subject<void>();
-
-    constructor(
-        private _focusMonitor: FocusMonitor,
-        private _elementRef: ElementRef,
-        private _renderer: Renderer2,
-        private _configService: AccessibilityConfigurationService
-    ) { }
+    constructor(private _elementRef: ElementRef, private _focusService: FocusService, private _config: AccessibilityConfigurationService) { }
 
     /** Setup the focus monitoring */
     ngOnInit(): void {
-
-        // add a class to the element to specify we are controlling the focus
-        this._renderer.addClass(this._elementRef.nativeElement, 'ux-focus');
-
-        // watch for any changes to the focus state
-        this._focusMonitor.monitor(this._elementRef.nativeElement, this.checkChildren)
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(this.onFocusChange.bind(this));
+        this._focusHandler = this._focusService.monitor(this._elementRef.nativeElement, {
+            checkChildren: this.checkChildren,
+            mouseFocusOutline: this.mouseFocusOutline,
+            touchFocusOutline: this.touchFocusOutline,
+            keyboardFocusOutline: this.keyboardFocusOutline,
+            programmaticFocusOutline: this.programmaticFocusOutline
+        });
     }
 
     /** Tear down the directive */
     ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-
-    /** Monitor changes to an elements focus state */
-    onFocusChange(origin: FocusOrigin): void {
-
-        switch (origin) {
-
-            case 'mouse':
-                this.isFocused = this.mouseFocusOutline || this._configService.options.mouseFocusOutline;
-                break;
-
-            case 'touch':
-                this.isFocused = this.touchFocusOutline || this._configService.options.touchFocusOutline;
-                break;
-
-            case 'keyboard':
-                debugger;
-                this.isFocused = this.keyboardFocusOutline || this._configService.options.keyboardFocusOutline;
-                break;
-
-            case 'program':
-                this.isFocused = this.programmaticFocusOutline || this._configService.options.programmaticFocusOutline;
-                break;
-
-            default:
-                this.isFocused = false;
+        if (this._focusHandler) {
+            this._focusHandler.destroy();
         }
     }
 }

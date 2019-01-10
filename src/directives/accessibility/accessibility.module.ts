@@ -5,6 +5,7 @@ import { AccessibilityConfigurationService } from './configuration/accessibility
 import { ACCESSIBILITY_CONFIG_TOKEN } from './configuration/accessibility-configuration.token';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
 import { FocusDirective } from './focus/focus.directive';
+import { FocusService } from './focus/focus.service';
 import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
@@ -28,7 +29,8 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         SplitterAccessibilityDirective,
     ],
     providers: [
-        AccessibilityConfigurationService
+        AccessibilityConfigurationService,
+        FocusService
     ]
 })
 export class AccessibilityModule {
