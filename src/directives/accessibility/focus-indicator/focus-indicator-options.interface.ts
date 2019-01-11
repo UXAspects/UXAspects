@@ -1,5 +1,5 @@
-import { AccessibilityConfiguration } from '../configuration/accessibility-configuration.interface';
+import { AccessibilityOptions } from '../options/accessibility-options.interface';
 
-export interface FocusIndicatorOptions extends AccessibilityConfiguration {
+export interface FocusIndicatorOptions extends AccessibilityOptions {
     checkChildren: boolean;
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, FocusIfModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, AccordionModule, CheckboxModule, FocusIfModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -10,6 +10,7 @@ import { ComponentsColorServiceNg1Component } from './color-service-ng1/color-se
 import { ComponentsColorServiceComponent } from './color-service/color-service.component';
 import { ComponentsExpandingContentNg1Component } from './expanding-content-ng1/expanding-content-ng1.component';
 import { ComponentsFocusIfComponent } from './focus-if/focus-if.component';
+import { ComponentsFocusIndicatorComponent } from './focus-indicator/focus-indicator.component';
 import { ComponentsFocusOnShowNg1Component } from './focus-on-show-ng1/focus-on-show-component';
 import { ComponentsFocusComponent } from './focus/focus.component';
 import { ComponentsForceFocusNg1Component } from './force-focus-ng1/force-focus-ng1.component';
@@ -38,7 +39,8 @@ const SECTIONS = [
     ComponentsWindowCommunicationServiceNg1Component,
     ComponentsPersistentDataServiceComponent,
     ComponentsTabbableListComponent,
-    ComponentsFocusComponent
+    ComponentsFocusComponent,
+    ComponentsFocusIndicatorComponent
 ];
 
 const ROUTES = [
@@ -53,13 +55,15 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsetModule,
-        CommonModule,
-        FocusIfModule,
         AccessibilityModule,
+        AccordionModule,
+        CheckboxModule,
+        CommonModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FocusIfModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

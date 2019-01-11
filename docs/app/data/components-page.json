@@ -2148,6 +2148,21 @@
                     ]
                 },
                 {
+                    "title": "Focus Indicator",
+                    "component": "ComponentsFocusIndicatorComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxFocusIndicator]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AccessibilityModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Focus On Show",
                     "component": "ComponentsFocusOnShowNg1Component",
                     "version": "AngularJS",

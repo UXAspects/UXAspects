@@ -1,11 +1,11 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { AccessibilityConfiguration } from './configuration/accessibility-configuration.interface';
-import { AccessibilityConfigurationService } from './configuration/accessibility-configuration.service';
-import { ACCESSIBILITY_CONFIG_TOKEN } from './configuration/accessibility-configuration.token';
 import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
 import { FocusIndicatorService } from './focus-indicator/focus-indicator.service';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
+import { AccessibilityOptions } from './options/accessibility-options.interface';
+import { AccessibilityOptionsService } from './options/accessibility-options.service';
+import { ACCESSIBILITY_OPTIONS_TOKEN } from './options/accessibility-options.token';
 import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
@@ -29,17 +29,17 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         SplitterAccessibilityDirective,
     ],
     providers: [
-        AccessibilityConfigurationService,
+        AccessibilityOptionsService,
         FocusIndicatorService
     ]
 })
 export class AccessibilityModule {
 
-    static forRoot(options: AccessibilityConfiguration): ModuleWithProviders {
+    static forRoot(options: AccessibilityOptions): ModuleWithProviders {
         return {
             ngModule: AccessibilityModule,
             providers: [
-                { provide: ACCESSIBILITY_CONFIG_TOKEN, useValue: options }
+                { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options }
             ]
         };
     }

@@ -1,13 +1,13 @@
-export interface AccessibilityConfiguration {
+export interface AccessibilityOptions {
     /** Indicate whether or not mouse events should cause the focus indicator to appear */
-    mouseFocusOutline?: boolean;
+    mouseFocusIndicator?: boolean;
 
     /** Indicate whether or not touch events should cause the focus indicator to appear */
-    touchFocusOutline?: boolean;
+    touchFocusIndicator?: boolean;
 
     /** Indicate whether or not keyboard events should cause the focus indicator to appear */
-    keyboardFocusOutline?: boolean;
+    keyboardFocusIndicator?: boolean;
 
     /** Indicate whether or not programmatic events should cause the focus indicator to appear */
-    programmaticFocusOutline?: boolean;
+    programmaticFocusIndicator?: boolean;
 }

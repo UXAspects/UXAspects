@@ -1,4 +1,4 @@
-<div class="focus-demo-box aspects-focus-outline" tabindex="0" [focusIf]="focused">
+<div class="focus-demo-box aspects-focus-outline" tabindex="0" [focusIf]="focused" (blur)="focused = false">
     <p class="p-sm">Click the button below to focus on this box</p>
 </div>
 
@@ -6,7 +6,7 @@
 
 <hr>
 
-<p>The <code>focusIf</code> directive should be used as an attribute. When the attribute value is true the element will gain focus. 
+<p>The <code>focusIf</code> directive should be used as an attribute. When the attribute value is true the element will gain focus.
     In the above example when we click the button a variable is updated and the box will get focus.</p>
 
 <p>The code to produce the example is below:<p>
