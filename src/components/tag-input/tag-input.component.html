@@ -4,7 +4,7 @@
         [ngClass]="tagClass(tag, i, isSelected(i))"
         [attr.tabindex]="disabled ? null : 0"
         [focusIf]="isSelected(i)"
-        (click)="tagClickHandler($event, tag, i)"
+        (click)="tagClickHandler($event, tag, i); $event.stopPropagation()"
         (focus)="selectTagAt(i)">
 
         <ng-container [ngTemplateOutlet]="tagTemplate"

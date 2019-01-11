@@ -1,6 +1,6 @@
 import { ENTER } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -142,15 +142,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
-    }
-
-    @HostListener('click')
-    onClick(): void {
-        if (this.singleInput) {
-            this.singleInput.nativeElement.focus();
-        } else if (this.tagInput) {
-            this.tagInput.focus();
-        }
     }
 
     writeValue(obj: T): void {
