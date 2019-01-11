@@ -9,10 +9,10 @@ export class ButtonComponent implements OnDestroy {
     constructor(focusIndicatorService: FocusIndicatorService, elementRef: ElementRef) {
         // begin controlling focus indicator with defined options
         this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement, {
-            mouseFocusOutline: true,
-            touchFocusOutline: true,
-            keyboardFocusOutline: true,
-            programmaticFocusOutline: true
+            mouseFocusIndicator: true,
+            touchFocusIndicator: true,
+            keyboardFocusIndicator: true,
+            programmaticFocusIndicator: true
         });
     }
 
