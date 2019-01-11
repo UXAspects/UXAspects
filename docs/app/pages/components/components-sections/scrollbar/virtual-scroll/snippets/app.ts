@@ -15,7 +15,6 @@ export class AppComponent {
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
     loading = false;
-
     pageSize = 2000;
     totalPages = 10;
     totalItems: number;
@@ -42,8 +41,7 @@ export class AppComponent {
                 id: idx,
                 name: name,
                 email: name.toLowerCase().replace(' ', '.') + '@business.com',
-                department: chance.pickone(DEPARTMENTS),
-                position: idx
+                department: chance.pickone(DEPARTMENTS)
             });
         }
 
@@ -67,5 +65,4 @@ interface Employee {
     name: string;
     email: string;
     department: string;
-    position: number;
 }

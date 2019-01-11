@@ -1,5 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit, ContentChildren, Directive, Input, OnDestroy, QueryList } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 import { TabbableListService } from './tabbable-list.service';
 
@@ -39,6 +41,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
     private _focusedElement: HTMLElement;
     private _orderedItems: QueryList<TabbableListItemDirective>;
+    private _onDestroy = new Subject<void>();
 
     get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {
         return this._tabbableList.focusKeyManager;
@@ -50,15 +53,15 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
         // store the currently focused element
         this._focusedElement = document.activeElement as HTMLElement;
+        this._orderedItems = new QueryList<TabbableListItemDirective>();
 
         if (this._tabbableList.hierarchy) {
 
             // Sort items in a hierarchy
-            this._orderedItems = new QueryList<TabbableListItemDirective>();
             this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
 
             // Ensure that the child items remain sorted
-            this.items.changes.subscribe(() => {
+            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
                 this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
                 this._orderedItems.notifyOnChanges();
             });
@@ -67,6 +70,33 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
             // Items are already in order
             this._orderedItems = this.items;
+
+            // Ensure we reselect a selected item after the querylist has changed
+            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe((items: QueryList<TabbableListItemDirective>) => {
+
+                // check if an item is currently focused
+                const activeItem = this._tabbableList.focusKeyManager.activeItem;
+
+                // restore the selected item if there was one and it is still visible
+                if (activeItem) {
+
+                    // find the matching index
+                    const index = items.toArray().findIndex(item => item.key === activeItem.key);
+
+                    // if the item is still in the list we want to focus it
+                    if (index > -1) {
+
+                        // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
+                        this._tabbableList.shouldScrollInView = false;
+
+                        // refocus the item again
+                        this._tabbableList.focusKeyManager.setActiveItem(index);
+
+                        // re-enable scrolling into view
+                        this._tabbableList.shouldScrollInView = true;
+                    }
+                }
+            });
         }
 
         // Set up the focus monitoring
@@ -82,6 +112,9 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
             setTimeout(() => this._focusedElement.focus());
         }
+
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     focus(): void {

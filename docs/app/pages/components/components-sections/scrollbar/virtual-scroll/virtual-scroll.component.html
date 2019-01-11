@@ -7,10 +7,10 @@
     [loadOnScroll]="loadOnScroll"
     (loading)="loadPage($event)">
 
-    <div *uxVirtualScrollCell="let cell = cell"
+    <div *uxVirtualScrollCell="let cell = cell; let index = index"
         role="listitem"
         [attr.aria-setsize]="totalItems"
-        [attr.aria-posinset]="cell.position"
+        [attr.aria-posinset]="index"
         class="virtual-cell">
 
         <div class="employee-details">
