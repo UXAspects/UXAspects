@@ -25,11 +25,14 @@
 <p>The number picker behavior can be customized by using the following attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="id" type="string">
+        Sets the id of the number picker. The child <code>input</code> will have this value with a <code>-input</code> suffix as its id.
+    </tr>
     <tr uxd-api-property name="value" type="number">
         Sets the value displayed in the number picker component.
     </tr>
     <tr uxd-api-property name="step" type="number" defaultValue="1">
-        Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. 
+        Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used.
     </tr>
     <tr uxd-api-property name="min" type="number" defaultValue="-Infinity">
         Defines the minimum value the number picker can set.
@@ -38,7 +41,7 @@
         	Defines the maximum value the number picker can set.
     </tr>
     <tr uxd-api-property name="valid" type="boolean">
-        Can be used to show a red outline around the input to indicate an invalid value. By default the 
+        Can be used to show a red outline around the input to indicate an invalid value. By default the
         error state will appear if the user enters a number below the minimum value or above the maximum value.
     </tr>
 </uxd-api-properties>
