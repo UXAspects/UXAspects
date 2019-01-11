@@ -2,6 +2,8 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+let uniqueId = 0;
+
 export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => NumberPickerComponent),
@@ -25,7 +27,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
     private _value: number = 0;
     private _propagateChange = (_: any) => { };
 
-    @Input() id: string;
+    @Input() id: string = `ux-number-picker-${uniqueId++}`;
     @Input() valid: boolean = true;
     @Input('aria-labelledby') labelledBy: string;
     @Output() valueChange = new EventEmitter<number>();
@@ -75,6 +77,10 @@ export class NumberPickerComponent implements ControlValueAccessor {
 
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
+    }
+
+    get inputId(): string {
+        return this.id + '-input';
     }
 
     increment(event: MouseEvent | KeyboardEvent): void {
