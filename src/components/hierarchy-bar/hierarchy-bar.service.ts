@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import { of } from 'rxjs/observable/of';
+import { Observer } from 'rxjs/Observer';
 import { first } from 'rxjs/operators';
+import { HierarchyBarNodeChildren } from './interfaces/hierarchy-bar-node-children.interface';
+import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
 
 @Injectable()
 export class HierarchyBarService {
@@ -136,17 +138,4 @@ export class HierarchyBarService {
         // return the remaining chain of selected items
         return child ? [node, ...this.getSelectedChildren(child)] : [node];
     }
-}
-
-export interface HierarchyBarNode {
-    icon?: string;
-    title: string;
-    selected?: boolean;
-    parent?: HierarchyBarNode;
-    children?: HierarchyBarNode[] | Observable<HierarchyBarNode[]>;
-}
-
-export interface HierarchyBarNodeChildren {
-    loading: boolean;
-    children: HierarchyBarNode[];
 }

@@ -1,121 +1,31 @@
-<!-- Allow content to be placed on the left of the items -->
-<aside class="hierarchy-bar-addons">
+<!-- Hierarchy Bar - Standard Layout -->
+<ux-hierarchy-bar-standard
+    *ngIf="mode === 'standard'"
+    [loadingIndicator]="loadingIndicator"
+    [popoverShowTriggers]="popoverShowTriggers"
+    [popoverHideTriggers]="popoverHideTriggers"
+    (selectedChange)="selectedChange.emit($event)">
+
+    <!-- Forward the content to the correct layout -->
+    <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>
+    <ng-container ngProjectAs="right-addons" [ngTemplateOutlet]="rightAddons"></ng-container>
+
+</ux-hierarchy-bar-standard>
+
+<!-- Hierarchy Bar - Collapsed Layout -->
+<ux-hierarchy-bar-collapsed *ngIf="mode==='collapsed'" [loadingIndicator]="loadingIndicator">
+
+    <!-- Forward the content to the correct layout -->
+    <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>
+    <ng-container ngProjectAs="right-addons" [ngTemplateOutlet]="rightAddons"></ng-container>
+
+</ux-hierarchy-bar-collapsed>
+
+<!-- We can only have one ng-content so this allows us to use it more than once -->
+<ng-template #leftAddons>
     <ng-content select="[uxHierarchyBarLeftAddon]"></ng-content>
-</aside>
+</ng-template>
 
-<main #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
-
-    <div *ngIf="overflow$ | async"
-         #popover="ux-popover"
-         class="hierarchy-bar-overflow-indicator"
-         [style.left.px]="nodelist.scrollLeft"
-         [uxPopover]="overflow"
-         [popoverContext]="{ popover: popover }"
-         placement="bottom"
-         popoverClass="hierarchy-bar-popover">
-        . . .
-    </div>
-
-    <div #nodeElement class="hierarchy-bar-node"
-         *ngFor="let node of hierarchyBar.nodes$ | async">
-
-        <button type="button"
-                class="hierarchy-bar-node-content"
-                [attr.aria-label]="node.title"
-                (click)="hierarchyBar.selectNode(node)">
-
-            <!-- Show an icon if specifed -->
-            <img class="hierarchy-bar-node-icon" *ngIf="node.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
-
-            <!-- Show the name of the current node -->
-            <span class="hierarchy-bar-node-title">{{ node.title }}</span>
-
-        </button>
-
-        <!-- Show a dropdown arrow if there are children -->
-        <button type="button"
-                *ngIf="node.children"
-                #popover="ux-popover"
-                aria-label="Show children"
-                role="button"
-                class="hierarchy-bar-node-arrow hpe-icon hpe-next"
-                [uxPopover]="content"
-                [popoverContext]="{ node: node, popover: popover }"
-                placement="bottom"
-                popoverClass="hierarchy-bar-popover"
-                tabindex="0">
-        </button>
-
-    </div>
-
-</main>
-
-<!-- Allow content to be placed on the right of the items -->
-<aside class="hierarchy-bar-addons">
+<ng-template #rightAddons>
     <ng-content select="[uxHierarchyBarRightAddon]"></ng-content>
-</aside>
-
-<!-- Template for the popover list -->
-<ng-template #content let-node="node" let-popover="popover">
-
-    <!-- Loading Indicator -->
-    <ul class="hierarchy-bar-node-list" *ngIf="(hierarchyBar.getChildren(node) | async).loading">
-
-        <li class="hierarchy-bar-node-list-item">
-            <ng-container [ngTemplateOutlet]="loadingIndicator || defaultLoadingIndicator"></ng-container>
-        </li>
-    </ul>
-
-    <!-- List of children -->
-    <ul class="hierarchy-bar-node-list" *ngIf="!(hierarchyBar.getChildren(node) | async).loading" uxTabbableList [returnFocus]="true">
-
-        <li *ngFor="let child of (hierarchyBar.getChildren(node) | async).children; let first = first"
-            [focusIf]="first"
-            uxTabbableListItem
-            class="hierarchy-bar-node-list-item"
-            (keydown.enter)="hierarchyBar.selectNode(child); popover.hide()"
-            (click)="hierarchyBar.selectNode(child); popover.hide()">
-
-            <!-- Show an icon if specifed -->
-            <img class="hierarchy-bar-node-icon" *ngIf="child.icon" [src]="child.icon" alt="Hierarchy Bar Icon">
-
-            <!-- Show the name of the current node -->
-            <span class="hierarchy-bar-node-title">{{ child.title }}</span>
-
-        </li>
-
-    </ul>
-</ng-template>
-
-<!-- Template for the overflow popover list -->
-<ng-template #overflow let-popover="popover">
-
-    <ul class="hierarchy-bar-node-list" uxTabbableList [returnFocus]="true">
-
-        <li *ngFor="let child of overflowNodes$ | async; let first = first"
-            [focusIf]="first"
-            uxTabbableListItem
-            class="hierarchy-bar-node-list-item"
-            (click)="hierarchyBar.selectNode(child); popover.hide()"
-            (keydown.enter)="hierarchyBar.selectNode(child); popover.hide()">
-
-            <!-- Show an icon if specifed -->
-            <img class="hierarchy-bar-node-icon" *ngIf="child.icon" [src]="child.icon" alt="Hierarchy Bar Icon">
-
-            <!-- Show the name of the current node -->
-            <span class="hierarchy-bar-node-title">{{ child.title }}</span>
-
-        </li>
-
-    </ul>
-</ng-template>
-
-<!-- Loading Indicator Template -->
-<ng-template #defaultLoadingIndicator>
-    <div class="hierarchy-bar-node-icon" alt="Hierarchy Bar Loading Indicator">
-        <div class="spinner spinner-accent spinner-bounce-middle"></div>
-    </div>
-
-    <!-- Show the name of the current node -->
-    <span class="hierarchy-bar-node-title">Loading...</span>
 </ng-template>

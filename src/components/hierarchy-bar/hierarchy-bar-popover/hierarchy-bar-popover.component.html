@@ -1,0 +1,29 @@
+<!-- Loading Indicator -->
+<ul class="hierarchy-bar-node-list" *ngIf="loading">
+
+    <li class="hierarchy-bar-loading-indicator">
+        <ng-container [ngTemplateOutlet]="loadingIndicator || defaultLoadingIndicator"></ng-container>
+    </li>
+</ul>
+
+<!-- List of children -->
+<div class="hierarchy-bar-node-list" *ngIf="!loading" uxTabbableList [returnFocus]="true">
+
+    <ux-hierarchy-bar-popover-item *ngFor="let node of nodes; let first = first"
+        [node]="node"
+        [focusIf]="first"
+        uxTabbableListItem
+        (select)="select.emit($event)">
+    </ux-hierarchy-bar-popover-item>
+
+</div>
+
+<!-- Loading Indicator Template -->
+<ng-template #defaultLoadingIndicator>
+    <div class="hierarchy-bar-loading-icon" alt="Hierarchy Bar Loading Indicator">
+        <div class="spinner spinner-accent spinner-bounce-middle"></div>
+    </div>
+
+    <!-- Show the name of the current node -->
+    <span class="hierarchy-bar-loading-title">Loading...</span>
+</ng-template>

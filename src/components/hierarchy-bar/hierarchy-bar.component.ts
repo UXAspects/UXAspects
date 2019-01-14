@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
-import { debounceTime } from 'rxjs/operators';
-import { HierarchyBarNode, HierarchyBarService } from './hierarchy-bar.service';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { OverlayTrigger } from '../tooltip/index';
+import { HierarchyBarService } from './hierarchy-bar.service';
+import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
+import { HierarchyBarMode, IHierachyBarComponent } from './interfaces/hierarchy-bar.interface';
 
 @Component({
     selector: 'ux-hierarchy-bar',
@@ -10,74 +10,32 @@ import { HierarchyBarNode, HierarchyBarService } from './hierarchy-bar.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     viewProviders: [HierarchyBarService]
 })
-export class HierarchyBarComponent implements OnDestroy {
+export class HierarchyBarComponent implements IHierachyBarComponent {
 
+    /** Define which presentational mode we should display */
+    @Input() mode: HierarchyBarMode = 'collapsed';
+
+    /** Define the root node of the hierarchy bar */
     @Input() set root(node: HierarchyBarNode) {
-        this.hierarchyBar.setRootNode(node);
+        this._hierarchyBar.setRootNode(node);
     }
 
+    /** Define the selected node in the hierarchy bar */
     @Input() set selected(node: HierarchyBarNode) {
-        this.hierarchyBar.selectNode(node);
+        this._hierarchyBar.selectNode(node);
     }
 
+    /** Provide a custom loading indicator */
     @Input() loadingIndicator: TemplateRef<any>;
 
+    /** Define the events that show the popover when interacting with the arrows */
+    @Input() popoverShowTriggers: OverlayTrigger[] = ['click'];
+
+    /** Define the events that hide the popover when interacting with the arrows */
+    @Input() popoverHideTriggers: OverlayTrigger[] = ['click', 'clickoutside', 'escape'];
+
+    /** Emit when the selected node changes */
     @Output() selectedChange = new EventEmitter<HierarchyBarNode>();
-    @ViewChild('nodelist') nodelist: ElementRef;
-    @ViewChildren('nodeElement') nodes: QueryList<ElementRef>;
 
-    overflow$ = new BehaviorSubject<boolean>(false);
-    overflowNodes$ = new BehaviorSubject<HierarchyBarNode[]>([]);
-
-    private _subscription = new Subscription();
-
-    constructor(public hierarchyBar: HierarchyBarService) {
-
-        // subscribe to changes in the selected node
-        const selected = hierarchyBar.nodes$.subscribe(nodes => this.selectedChange.emit(nodes.length === 0 ? null : nodes[nodes.length - 1]));
-        const changed = hierarchyBar.nodes$.pipe(debounceTime(0)).subscribe(() => this.scrollIntoView());
-
-        // store subscriptions
-        this._subscription.add(selected);
-        this._subscription.add(changed);
-    }
-
-    ngOnDestroy(): void {
-        this._subscription.unsubscribe();
-    }
-
-    /**
-     * When there is overflow ensure that the rightmost
-     * node remains in view at all times. The nodes no longer
-     * visible be be displayed in a popover available on the
-     * overflow indicator
-     */
-    scrollIntoView(): void {
-
-        if (!this.nodelist) {
-            return;
-        }
-
-        // get the native element
-        const { nativeElement } = this.nodelist;
-
-        // emit whether or not there is overflow
-        this.overflow$.next(nativeElement.scrollWidth > nativeElement.offsetWidth);
-
-        // if the hierarchy bar contents do not overflow then do nothing
-        if (nativeElement.scrollWidth > nativeElement.offsetWidth) {
-
-            // determine the amount of overflow
-            const overflowAmount = nativeElement.scrollWidth - nativeElement.offsetWidth;
-
-            // determine which nodes are not fully visible
-            this.overflowNodes$.next(
-                this.nodes.filter(node => node.nativeElement.offsetLeft < overflowAmount)
-                    .map((node, index) => this.hierarchyBar.nodes$.value[index])
-            );
-
-            // move the scroll position to always show the last itme
-            this.nodelist.nativeElement.scrollLeft = overflowAmount;
-        }
-    }
+    constructor(private readonly _hierarchyBar: HierarchyBarService) { }
 }

@@ -1,0 +1,63 @@
+<!-- Allow content to be placed on the left of the items -->
+<div class="hierarchy-bar-addons">
+    <ng-content select="left-addons"></ng-content>
+</div>
+
+<div class="hierarchy-bar-nodes">
+
+    <ux-hierarchy-bar-node
+        [popoverTemplate]="content"
+        [node]="_first"
+        (select)="hierarchyBar.selectNode($event)">
+    </ux-hierarchy-bar-node>
+
+    <div class="hierarchy-bar-overflow" *ngIf="_links.length > 0">
+        <i class="hpe-icon hpe-more"></i>
+
+        <button aria-label="Show children"
+            class="hierarchy-bar-node-arrow"
+            placement="bottom"
+            [uxPopover]="links"
+            popoverClass="hierarchy-bar-popover"
+            role="button"
+            tabindex="0"
+            #popover="ux-popover"
+            [popoverContext]="{ popover: popover }"
+            placement="bottom"
+            type="button">
+            <i class="hpe-icon hpe-next"></i>
+        </button>
+    </div>
+
+
+    <ux-hierarchy-bar-node
+        *ngIf="_last !== _first"
+        [popoverTemplate]="content"
+        [node]="_last"
+        (select)="hierarchyBar.selectNode($event)">
+    </ux-hierarchy-bar-node>
+
+</div>
+
+<!-- Allow content to be placed on the right of the items -->
+<div class="hierarchy-bar-addons">
+    <ng-content select="right-addons"></ng-content>
+</div>
+
+<!-- Template for the popover list -->
+<ng-template #content let-node="node" let-popover="popover">
+    <ux-hierarchy-bar-popover
+        [loading]="(hierarchyBar.getChildren(node) | async)?.loading"
+        [nodes]="(hierarchyBar.getChildren(node) | async)?.children"
+        [loadingIndicator]="loadingIndicator"
+        (select)="hierarchyBar.selectNode($event); popover.hide()">
+    </ux-hierarchy-bar-popover>
+</ng-template>
+
+<!-- Template for the links popover list -->
+<ng-template #links let-popover="popover">
+    <ux-hierarchy-bar-popover
+        [nodes]="_links"
+        (select)="hierarchyBar.selectNode($event); popover.hide()">
+    </ux-hierarchy-bar-popover>
+</ng-template>

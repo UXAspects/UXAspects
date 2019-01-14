@@ -41,10 +41,10 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     @Input() alignment: AnchorAlignment = 'center';
 
     /** Specify which events should show the tooltip */
-    @Input() showTriggers: string[] = ['mouseenter', 'focus'];
+    @Input() showTriggers: OverlayTrigger[] = ['mouseenter', 'focus'];
 
     /** Specify which events should hide the tooltip */
-    @Input() hideTriggers: string[] = ['mouseleave', 'blur'];
+    @Input() hideTriggers: OverlayTrigger[] = ['mouseleave', 'blur'];
 
     /** Emits an event when the tooltip is shown */
     @Output() shown = new EventEmitter<void>();
@@ -456,3 +456,4 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 export type AnchorPlacement = 'top' | 'right' | 'bottom' | 'left';
 export type AnchorAlignment = 'start' | 'center' | 'end';
+export type OverlayTrigger = 'click' | 'clickoutside' | 'escape' | 'mouseenter' | 'focus' | 'mouseleave' | 'blur';
