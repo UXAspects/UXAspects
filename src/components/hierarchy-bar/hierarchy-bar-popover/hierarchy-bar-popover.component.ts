@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
 @Component({
@@ -14,10 +15,9 @@ export class HierarchyBarPopoverComponent {
     /** Define the loading state */
     @Input() loading: boolean;
 
-    /** Provide a custom loading template for the loading indicator */
-    @Input() loadingIndicator: TemplateRef<any>;
-
     /** Emit a select event when an item ahs been clicked or enter key pressed */
     @Output() select = new EventEmitter<HierarchyBarNode>();
+
+    constructor(public readonly hierarchyBar: HierarchyBarService) { }
 
 }

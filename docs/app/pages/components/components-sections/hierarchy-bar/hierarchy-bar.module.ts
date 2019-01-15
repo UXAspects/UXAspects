@@ -1,6 +1,7 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HierarchyBarModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, HierarchyBarModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -26,11 +27,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsetModule,
-        HierarchyBarModule,
+        AccordionModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FormsModule,
+        HierarchyBarModule,
+        RadioButtonModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

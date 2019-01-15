@@ -1,8 +1,25 @@
-<ux-hierarchy-bar [root]="node" [(selected)]="selected">
+<ux-hierarchy-bar [root]="node" [mode]="mode" [(selected)]="selected">
     <button class="hierarchy-bar-search" uxHierarchyBarRightAddon>
         <i class="hpe-icon hpe-search"></i>
     </button>
 </ux-hierarchy-bar>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>
 
 <hr>
 
@@ -24,8 +41,35 @@
         If specified, this node will be selected when the component is initialized.
     </tr>
 
+    <tr uxd-api-property name="mode" type="'standard' | 'collapsed'" defaultValue="standard">
+        Defines how the hierarchy bar should present nodes.
+        <ul>
+            <li>
+                The <code>standard</code> mode will display all parent nodes of the selected node.
+            </li>
+            <li>
+                The <code>collapsed</code> mode will display only the root node and the selected node.
+                All nodes in between will be hidden and accessible using a dropdown.
+            </li>
+        </ul>
+    </tr>
+
     <tr uxd-api-property name="loadingIndicator" type="TemplateRef">
         If specified, this will allow customization of the loading indicator that is displayed in a popover when node children are loaded using an observable.
+    </tr>
+
+    <tr uxd-api-property name="overflowTemplate" type="TemplateRef">
+        If specified, this will allow customization of the overflow region.
+    </tr>
+
+    <tr uxd-api-property name="popoverShowTriggers" type="string[]" defaultValue="['click']">
+        Specifies which events will cause the popovers to appear.
+        Possible events are <code>click</code>, <code>mouseenter</code> and <code>focus</code>.
+    </tr>
+
+    <tr uxd-api-property name="popoverHideTriggers" type="string[]" defaultValue="['click', 'escape', 'clickoutside']">
+        Specifies which events will cause the popovers to hide.
+        Possible events are <code>click</code>, <code>clickoutside</code>, <code>escape</code>, <code>mouseleave</code> and <code>blur</code>.
     </tr>
 
 </uxd-api-properties>

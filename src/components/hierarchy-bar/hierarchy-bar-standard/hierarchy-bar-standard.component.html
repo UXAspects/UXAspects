@@ -10,20 +10,18 @@
          class="hierarchy-bar-overflow-indicator"
          [style.left.px]="nodelist.scrollLeft"
          [uxPopover]="overflow"
-         [showTriggers]="popoverShowTriggers"
-         [hideTriggers]="popoverHideTriggers"
+         [showTriggers]="hierarchyBar.popoverShowTriggers"
+         [hideTriggers]="hierarchyBar.popoverHideTriggers"
          [popoverContext]="{ popover: popover }"
          placement="bottom"
          popoverClass="hierarchy-bar-popover">
-        <ng-container [ngTemplateOutlet]="overflowTemplate || defaultOverflowTemplate"></ng-container>
+        <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"></ng-container>
     </div>
 
     <ux-hierarchy-bar-node
         *ngFor="let node of hierarchyBar.nodes$ | async"
         [node]="node"
         [popoverTemplate]="content"
-        [showTriggers]="popoverShowTriggers"
-        [hideTriggers]="popoverHideTriggers"
         (select)="hierarchyBar.selectNode(node)">
     </ux-hierarchy-bar-node>
 
@@ -39,7 +37,6 @@
     <ux-hierarchy-bar-popover
         [loading]="(hierarchyBar.getChildren(node) | async)?.loading"
         [nodes]="(hierarchyBar.getChildren(node) | async)?.children"
-        [loadingIndicator]="loadingIndicator"
         (select)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>

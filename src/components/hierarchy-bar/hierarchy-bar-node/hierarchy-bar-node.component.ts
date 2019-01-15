@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { OverlayTrigger } from '../../tooltip/index';
+import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
 @Component({
@@ -15,13 +15,9 @@ export class HierarchyBarNodeComponent {
     /** Define the template for the popover */
     @Input() popoverTemplate: TemplateRef<any>;
 
-    /** Define the events that show the popover when interacting with the arrows */
-    @Input() showTriggers: OverlayTrigger[] = ['click'];
-
-    /** Define the events that hide the popover when interacting with the arrows */
-    @Input() hideTriggers: OverlayTrigger[] = ['click', 'clickoutside', 'escape'];
-
     /** Emit when the node is selected */
     @Output() select = new EventEmitter<HierarchyBarNode>();
+
+    constructor(public readonly hierarchyBar: HierarchyBarService) { }
 
 }

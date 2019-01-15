@@ -13,7 +13,7 @@
 
     <div class="hierarchy-bar-overflow" *ngIf="_links.length > 0">
         <div class="hierarchy-bar-overflow-container">
-            <ng-container [ngTemplateOutlet]="overflowTemplate || defaultOverflowTemplate"></ng-container>
+            <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"></ng-container>
         </div>
 
         <button aria-label="Show children"
@@ -25,6 +25,8 @@
             tabindex="0"
             #popover="ux-popover"
             [popoverContext]="{ popover: popover }"
+            [showTriggers]="hierarchyBar.popoverShowTriggers"
+            [hideTriggers]="hierarchyBar.popoverHideTriggers"
             placement="bottom"
             type="button">
             <i class="hpe-icon hpe-next"></i>
@@ -51,7 +53,6 @@
     <ux-hierarchy-bar-popover
         [loading]="(hierarchyBar.getChildren(node) | async)?.loading"
         [nodes]="(hierarchyBar.getChildren(node) | async)?.children"
-        [loadingIndicator]="loadingIndicator"
         (select)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>

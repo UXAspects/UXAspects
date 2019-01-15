@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
@@ -9,12 +9,6 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchyBarCollapsedComponent implements OnDestroy {
-
-    /** Provide a custom loading indicator */
-    @Input() loadingIndicator: TemplateRef<any>;
-
-    /** Provide a custom overflow template */
-    @Input() overflowTemplate: TemplateRef<any>;
 
     /** Get the first node to display */
     get _first(): HierarchyBarNode {
@@ -36,6 +30,7 @@ export class HierarchyBarCollapsedComponent implements OnDestroy {
         return this.hierarchyBar.nodes$.value;
     }
 
+    /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
 
     constructor(public readonly hierarchyBar: HierarchyBarService) { }

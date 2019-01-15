@@ -1,11 +1,5 @@
 <!-- Hierarchy Bar - Standard Layout -->
-<ux-hierarchy-bar-standard
-    *ngIf="mode === 'standard'"
-    [loadingIndicator]="loadingIndicator"
-    [overflowTemplate]="overflowTemplate"
-    [popoverShowTriggers]="popoverShowTriggers"
-    [popoverHideTriggers]="popoverHideTriggers"
-    (selectedChange)="selectedChange.emit($event)">
+<ux-hierarchy-bar-standard *ngIf="mode === 'standard'">
 
     <!-- Forward the content to the correct layout -->
     <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>
@@ -14,10 +8,7 @@
 </ux-hierarchy-bar-standard>
 
 <!-- Hierarchy Bar - Collapsed Layout -->
-<ux-hierarchy-bar-collapsed
-    *ngIf="mode==='collapsed'"
-    [loadingIndicator]="loadingIndicator"
-    [overflowTemplate]="overflowTemplate">
+<ux-hierarchy-bar-collapsed *ngIf="mode === 'collapsed'">
 
     <!-- Forward the content to the correct layout -->
     <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>

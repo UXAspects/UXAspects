@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
+import 'chance';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import 'chance';
 
 @Component({
     selector: 'app',
@@ -13,7 +13,7 @@ export class AppComponent {
 
     managerIcon = 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png';
     userIcon = 'https://uxaspects.github.io/UXAspects/assets/IconUser.png';
-
+    mode: string = 'standard';
     node: HierarchyBarNode = {
         title: chance.name(),
         icon: this.managerIcon,
