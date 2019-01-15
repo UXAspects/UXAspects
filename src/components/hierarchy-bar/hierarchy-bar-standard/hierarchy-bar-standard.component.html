@@ -15,7 +15,7 @@
          [popoverContext]="{ popover: popover }"
          placement="bottom"
          popoverClass="hierarchy-bar-popover">
-        . . .
+        <ng-container [ngTemplateOutlet]="overflowTemplate || defaultOverflowTemplate"></ng-container>
     </div>
 
     <ux-hierarchy-bar-node
@@ -57,4 +57,9 @@
             (select)="hierarchyBar.selectNode(child); popover.hide()">
         </ux-hierarchy-bar-popover-item>
     </div>
+</ng-template>
+
+<!-- Default Overflow Template -->
+<ng-template #defaultOverflowTemplate>
+    . . .
 </ng-template>

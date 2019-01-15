@@ -28,6 +28,9 @@ export class HierarchyBarComponent implements IHierachyBarComponent {
     /** Provide a custom loading indicator */
     @Input() loadingIndicator: TemplateRef<any>;
 
+    /** Provide a custom overflow template */
+    @Input() overflowTemplate: TemplateRef<any>;
+
     /** Define the events that show the popover when interacting with the arrows */
     @Input() popoverShowTriggers: OverlayTrigger[] = ['click'];
 

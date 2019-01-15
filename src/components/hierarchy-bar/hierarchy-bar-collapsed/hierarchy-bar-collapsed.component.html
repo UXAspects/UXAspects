@@ -12,7 +12,9 @@
     </ux-hierarchy-bar-node>
 
     <div class="hierarchy-bar-overflow" *ngIf="_links.length > 0">
-        <i class="hpe-icon hpe-more"></i>
+        <div class="hierarchy-bar-overflow-container">
+            <ng-container [ngTemplateOutlet]="overflowTemplate || defaultOverflowTemplate"></ng-container>
+        </div>
 
         <button aria-label="Show children"
             class="hierarchy-bar-node-arrow"
@@ -60,4 +62,9 @@
         [nodes]="_links"
         (select)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
+</ng-template>
+
+<!-- Default Overflow Template -->
+<ng-template #defaultOverflowTemplate>
+    <i class="hpe-icon hpe-more"></i>
 </ng-template>

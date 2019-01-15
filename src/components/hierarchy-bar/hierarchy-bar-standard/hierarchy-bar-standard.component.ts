@@ -17,6 +17,9 @@ export class HierarchyBarStandardComponent implements OnDestroy {
     /** Provide a custom loading indicator */
     @Input() loadingIndicator: TemplateRef<any>;
 
+    /** Provide a custom overflow template */
+    @Input() overflowTemplate: TemplateRef<any>;
+
     /** Emit when the selected node changes */
     @Output() selectedChange = new EventEmitter<HierarchyBarNode>();
 
