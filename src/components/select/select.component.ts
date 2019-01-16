@@ -171,7 +171,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         this.disabled = isDisabled;
     }
 
-    inputClickHandler(event: MouseEvent) {
+    inputClickHandler() {
         this.selectInputText();
         this.dropdownOpen = true;
     }
@@ -240,6 +240,15 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
             return option[<string>this.display];
         }
         return option;
+    }
+
+    /** Toggle the dropdown open state */
+    toggle(): void {
+        if (this.dropdownOpen) {
+            this.dropdownOpen = false;
+        } else {
+            this.inputClickHandler();
+        }
     }
 
     private selectInputText() {
