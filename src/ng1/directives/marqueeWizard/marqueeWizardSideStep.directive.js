@@ -14,10 +14,20 @@ export function marqueeWizardSideStep($templateRequest, $compile, $rootScope, $p
             $templateRequest(step.stepTemplateUrl).then(result => {
 
                 // create a new scope
-                let stepScope = $rootScope.$new(false, scope);
+                const stepScope = Object.assign($rootScope.$new(false, scope), step);
 
-                // add the step properties to the scope
-                stepScope = Object.assign(stepScope, step);
+                // ensure boolean properties get recalculated from the original object every time
+                Object.defineProperties(stepScope, {
+                    completed: {
+                        get: () => step.completed
+                    },
+                    error: {
+                        get: () => step.error
+                    },
+                    visited: {
+                        get: () => step.visited
+                    }
+                });
 
                 // insert the uncompiled template
                 element.append(angular.element(result));
