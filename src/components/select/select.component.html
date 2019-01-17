@@ -51,8 +51,8 @@
         [(ngModel)]="input"
         [placeholder]="placeholder"
         [disabled]="disabled"
-        (click)="inputClickHandler($event)"
-        (blur)="inputBlurHandler($event)"
+        (click)="inputClickHandler()"
+        (blur)="inputBlurHandler()"
         (keydown)="inputKeyHandler($event)">
 
     <ux-typeahead #singleTypeahead
