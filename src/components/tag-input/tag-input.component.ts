@@ -546,6 +546,10 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         return this.isValidSelectIndex(this.selectedIndex);
     }
 
+    toggle(): void {
+        this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
+    }
+
     private connectTypeahead(typeahead: TypeaheadComponent): void {
         if (this._subscription) {
             this._subscription.unsubscribe();
