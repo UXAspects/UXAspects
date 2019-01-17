@@ -123,6 +123,9 @@ describe('Page Header Tests', () => {
 
     it('should not show secondary navigation items when there is no children on the selected item', async () => {
 
+        // enable autoselect
+        await page.autoselectButton.click();
+
         // click the first menu item
         await page.pageHeader2.$$('.horizontal-navigation-button').get(0).click();
 
@@ -130,11 +133,14 @@ describe('Page Header Tests', () => {
         const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
         const tabset = await secondaryNavigation.$('.nav-tabs');
 
-        expect<any>(await secondaryNavigation.isPresent()).toBe(true);
+        expect<any>(await secondaryNavigation.isPresent()).toBe(false);
         expect<any>(await tabset.isPresent()).toBe(false);
     });
 
     it('should show secondary navigation items when there are children on the selected item', async () => {
+
+        // enable autoselect
+        await page.autoselectButton.click();
 
         // click the second menu item
         await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
@@ -152,6 +158,9 @@ describe('Page Header Tests', () => {
     });
 
     it('should align the tabset accordingly', async () => {
+
+        // enable autoselect
+        await page.autoselectButton.click();
 
         // click the second menu item
         await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
@@ -182,6 +191,9 @@ describe('Page Header Tests', () => {
     });
 
     it('should call the select functions when secondary items are clicked', async () => {
+
+        // enable autoselect
+        await page.autoselectButton.click();
 
         // click the second menu item
         await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
