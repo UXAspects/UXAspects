@@ -1,5 +1,7 @@
-import { Directive } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef } from '@angular/core';
+import { AccessibilityOptionsService } from '../options/accessibility-options.service';
 import { FocusIndicatorDirective } from './focus-indicator.directive';
+import { FocusIndicatorService } from './focus-indicator.service';
 
 /**
  * This directive can be used to target specific elements based on their CSS
@@ -11,4 +13,8 @@ import { FocusIndicatorDirective } from './focus-indicator.directive';
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
 
+    constructor(elementRef: ElementRef, focusIndicatorService: FocusIndicatorService,
+        optionsService: AccessibilityOptionsService, changeDetectorRef: ChangeDetectorRef) {
+        super(elementRef, focusIndicatorService, optionsService, changeDetectorRef);
+    }
 }
