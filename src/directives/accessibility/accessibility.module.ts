@@ -1,5 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { DefaultFocusIndicatorDirective } from './focus-indicator/default-focus-indicator.directive';
 import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
 import { FocusIndicatorService } from './focus-indicator/focus-indicator.service';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
@@ -12,6 +13,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 
 @NgModule({
     declarations: [
+        DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
         FocusWithinDirective,
         TabbableListDirective,
@@ -22,6 +24,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         A11yModule
     ],
     exports: [
+        DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
         FocusWithinDirective,
         TabbableListDirective,

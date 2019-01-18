@@ -6,7 +6,8 @@ import { FocusIndicator } from './focus-indicator';
 import { FocusIndicatorService } from './focus-indicator.service';
 
 @Directive({
-    selector: '[uxFocusIndicator]'
+    selector: '[uxFocusIndicator]',
+    exportAs: 'ux-focus-indicator'
 })
 export class FocusIndicatorDirective implements OnInit, OnDestroy {
 
