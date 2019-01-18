@@ -62,6 +62,10 @@ const routes: Routes = [
         loadChildren: './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'
     },
     {
+        path: 'focus-indicator',
+        loadChildren: './focus-indicator/focus-indicator.module#FocusIndicatorTestPageModule'
+    },
+    {
         path: 'hierarchy-bar',
         loadChildren: './hierarchy-bar/hierarchy-bar.module#HierarchyBarTestPageModule'
     },

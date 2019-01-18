@@ -1,0 +1,106 @@
+<div class="focus-indicator-demo">
+    <button uxFocusIndicator
+            [mouseFocusIndicator]="mouseFocusIndicator"
+            [keyboardFocusIndicator]="keyboardFocusIndicator"
+            class="btn button-secondary"
+            (focus)="isFocused = true"
+            (blur)="isFocused = false"
+            (indicator)="hasIndicator = $event">
+            {{ buttonText }}
+    </button>
+</div>
+
+<ux-accordion class="uxd-customize-example">
+    <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+            <div class="col-sm-6">
+                <ux-checkbox [(value)]="mouseFocusIndicator">mouseFocusIndicator</ux-checkbox>
+            </div>
+            <div class="col-sm-6">
+                <ux-checkbox [(value)]="keyboardFocusIndicator">keyboardFocusIndicator</ux-checkbox>
+            </div>
+        </div>
+    </ux-accordion-panel>
+</ux-accordion>
+
+<hr>
+
+<p>
+    The <code>uxFocusIndicator</code> directive allows you to easily determine when an element should receive focus indicator styling.
+    By default browsers will display a focus ring on any focusable element when it is clicked, navigated to via the keyboard or programmatically focused.
+    A common use case is to only show the focus ring when the user has navigated to an element by using the keyboard and preventing the focus ring
+    from appearing when the user has clicked on it.
+</p>
+
+<p>
+    The following options can be used to customize the behavior of the directive:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="checkChildren" type="boolean" defaultValue="false">
+        If <code>true</code>, this element will receive a focus indicator when any child element has focus.
+    </tr>
+    <tr uxd-api-property name="mouseFocusIndicator" type="boolean" defaultValue="false">
+        If <code>true</code>, this element will receive a focus indicator when the element is clicked on.
+    </tr>
+    <tr uxd-api-property name="keyboardFocusIndicator" type="boolean" defaultValue="true">
+        If <code>true</code>, this element will receive a focus indicator when the element is focused using the keyboard.
+    </tr>
+    <tr uxd-api-property name="touchFocusIndicator" type="boolean" defaultValue="false">
+        If <code>true</code>, this element will receive a focus indicator when the element is touched.
+    </tr>
+    <tr uxd-api-property name="programmaticFocusIndicator" type="boolean" defaultValue="false">
+        If <code>true</code>, this element will receive a focus indicator when the element is programmatically focused.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="indicator" type="boolean">
+        This will emit a boolean value indicating whether or not the focus ring is visible on the element.
+    </tr>
+</uxd-api-properties>
+
+<p>The example above can be created using the following:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<h4>Focus Indicator Service</h4>
+
+<p>
+    Alternatively, we provide a <code>FocusIndicatorService</code> service for you to manually apply the focus indicator settings to an element.
+    This can be useful when creating a custom component and you which to target the host element.
+</p>
+
+<p>
+    The following functions are available in the service:
+</p>
+
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="monitor" args="HTMLElement, FocusIndicatorOptions?" returns="FocusIndicator">
+        This will begin controlling the focus indicator on the specified element.
+    </tr>
+</uxd-api-properties>
+
+<p>Below is an example of using the service:</p>
+
+<uxd-snippet [content]="snippets.compiled.serviceTs"></uxd-snippet>
+
+<h4>Global Defaults</h4>
+
+<p>
+    The default options for the directive and service can optionally be configured for your entire application by
+    importing the <code>AccessibilityModule</code> in your <code>AppModule</code> and calling the static <code>forRoot</code>
+    function, passing it the desired <code>AccessibilityOptions</code>.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.configTs"></uxd-snippet>

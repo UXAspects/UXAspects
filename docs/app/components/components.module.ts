@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { EboxModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, EboxModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -28,9 +28,6 @@ import { SideNavigationComponent } from './side-navigation/side-navigation.compo
 import { SnippetComponent } from './snippet/snippet.component';
 import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
-
-
-
 
 const DOCUMENTATION_COMPONENTS = [
     ApiPropertiesComponent,
@@ -69,8 +66,10 @@ const DOCUMENTATION_COMPONENTS = [
         TypeaheadModule,
         PersistentDataModule
     ],
-    exports: DOCUMENTATION_COMPONENTS,
-    declarations: DOCUMENTATION_COMPONENTS,
-    providers: [],
+    exports: [
+        DOCUMENTATION_COMPONENTS,
+        AccessibilityModule
+    ],
+    declarations: DOCUMENTATION_COMPONENTS
 })
 export class DocumentationComponentsModule { }
