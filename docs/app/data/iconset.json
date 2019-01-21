@@ -1225,6 +1225,10 @@
             "classname": "hpe-status-error-filled"
         },
         {
+            "name": "status-information-filled",
+            "classname": "hpe-status-information-filled"
+        },
+        {
             "name": "status-warning-filled",
             "classname": "hpe-status-warning-filled"
         },
