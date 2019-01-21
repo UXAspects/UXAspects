@@ -1,4 +1,7 @@
-<ol [attr.role]="typeahead ? 'combobox' : 'none'" [attr.aria-haspopup]="typeahead ? 'listbox' : null">
+<ol [attr.role]="typeahead ? 'combobox' : 'none'"
+    [attr.aria-haspopup]="typeahead ? 'listbox' : null"
+    (click)="toggle()">
+
     <li *ngFor="let tag of tags; let i = index" class="ux-tag"
         [class.disabled]="disabled"
         [ngClass]="tagClass(tag, i, isSelected(i))"
@@ -24,7 +27,7 @@
             [placeholder]="disabled ? '' : (placeholder || '')"
             [disabled]="disabled"
             [focusIf]="isSelected(tags.length)"
-            (click)="inputClickHandler()"
+            (click)="toggle(); $event.stopPropagation()"
             (focus)="inputFocusHandler()"
             (paste)="inputPasteHandler($event)">
     </li>

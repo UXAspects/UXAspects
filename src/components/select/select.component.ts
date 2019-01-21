@@ -231,6 +231,15 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         return option as any;
     }
 
+    /** Toggle the dropdown open state */
+    toggle(): void {
+        if (this.dropdownOpen) {
+            this.dropdownOpen = false;
+        } else {
+            this.inputClickHandler();
+        }
+    }
+
     private selectInputText(): void {
         this.singleInput.nativeElement.select();
     }

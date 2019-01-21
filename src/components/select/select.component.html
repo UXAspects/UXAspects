@@ -38,9 +38,11 @@
     [attr.aria-expanded]="dropdownOpen"
     aria-haspopup="listbox">
 
-    <i class="hpe-icon"
+    <i class="hpe-icon select-arrow"
         [class.hpe-down]="dropDirection === 'down'"
-        [class.hpe-up]="dropDirection === 'up'"></i>
+        [class.hpe-up]="dropDirection === 'up'"
+        (click)="toggle(); $event.stopPropagation()">
+    </i>
 
     <input #singleInput type="text" [attr.id]="id + '-input'" class="form-control"
         [attr.aria-activedescendant]="highlightedElement?.id"
@@ -51,7 +53,7 @@
         [(ngModel)]="input"
         [placeholder]="placeholder"
         [disabled]="disabled"
-        (click)="inputClickHandler()"
+        (click)="toggle()"
         (blur)="inputBlurHandler()"
         (keydown)="inputKeyHandler($event)">
 
