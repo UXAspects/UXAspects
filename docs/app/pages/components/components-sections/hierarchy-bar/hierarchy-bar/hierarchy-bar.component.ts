@@ -15,9 +15,16 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @DocumentationSectionComponent('ComponentsHierarchyBarComponent')
 export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlunkProvider {
 
+    /** Get the url for the managericon  asset */
     managerIcon = require('../../../../../assets/img/IconManagerColorized.png');
+
+    /** Get the url for the user icon asset */
     userIcon = require('../../../../../assets/img/IconUser.png');
-    
+
+    /** Define the hierarchy bar mode - either standard or collapsed */
+    mode: string = 'standard';
+
+    /** Define the nodes to display */
     node: HierarchyBarNode = {
         title: chance.name(),
         icon: this.managerIcon,
@@ -100,7 +107,7 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['HierarchyBarModule'],
+                imports: ['HierarchyBarModule', 'AccordionModule', 'RadioButtonModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

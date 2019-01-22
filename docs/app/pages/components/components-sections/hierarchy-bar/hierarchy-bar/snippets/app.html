@@ -1,5 +1,22 @@
-<ux-hierarchy-bar [root]="node" [(selected)]="selected">
+<ux-hierarchy-bar [root]="node" [mode]="mode" [(selected)]="selected">
     <button class="hierarchy-bar-search" uxHierarchyBarRightAddon>
         <i class="hpe-icon hpe-search"></i>
     </button>
 </ux-hierarchy-bar>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>

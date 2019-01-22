@@ -4,7 +4,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { takeUntil } from 'rxjs/operators';
-import { TooltipDirective, TooltipService } from '../tooltip/index';
+import { OverlayTrigger, TooltipDirective, TooltipService } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';
 
 @Directive({
@@ -35,10 +35,10 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     @Input('popoverDelay') delay: number = 0;
 
     /** Specify which events should show the popover */
-    @Input() showTriggers: string[] = ['click'];
+    @Input() showTriggers: OverlayTrigger[] = ['click'];
 
     /** Specify which events should hide the popover */
-    @Input() hideTriggers: string[] = ['click', 'clickoutside', 'escape'];
+    @Input() hideTriggers: OverlayTrigger[] = ['click', 'clickoutside', 'escape'];
 
     /** Keep track of the tooltip visibility and update aria-expanded attribute */
     @HostBinding('attr.aria-expanded') isVisible: boolean = false;
