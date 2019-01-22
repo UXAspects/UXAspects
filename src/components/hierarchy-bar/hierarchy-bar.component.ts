@@ -47,6 +47,11 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
         this._hierarchyBar.popoverHideTriggers = popoverHideTriggers;
     }
 
+    /** Define the aria label for the show siblings popover button */
+    @Input() set showSiblingsAriaLabel(label: string) {
+        this._hierarchyBar.showSiblingsAriaLabel = label;
+    }
+
     /** Emit when the selected node changes */
     @Output() selectedChange = new EventEmitter<HierarchyBarNode>();
 

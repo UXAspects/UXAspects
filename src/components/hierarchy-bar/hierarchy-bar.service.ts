@@ -30,6 +30,9 @@ export class HierarchyBarService {
     /** Emit the selected node when it changes */
     selection$ = new Subject<HierarchyBarNode>();
 
+    /** Define the aria label for the show siblings popover button */
+    showSiblingsAriaLabel: string = 'Show Siblings';
+
     /** Store the root node */
     private _root: HierarchyBarNode;
 

@@ -16,7 +16,7 @@
             <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"></ng-container>
         </div>
 
-        <button aria-label="Show siblings"
+        <button [attr.aria-label]="hierarchyBar.showSiblingsAriaLabel"
             class="hierarchy-bar-node-arrow"
             placement="bottom"
             [uxPopover]="siblingsTemplate"
