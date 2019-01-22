@@ -1,0 +1,7 @@
+ux-alert {
+    margin-bottom: 8px;
+}
+
+ux-alert:last-of-type {
+    margin-bottom: 16px;
+}
