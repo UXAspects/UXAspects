@@ -20,15 +20,19 @@
                                     ng-class="{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }"
                                     ng-click="mc.goToStep($index)"
                                     ng-if="!step.hidden">
-      <div class="step-label">
-        <div class="step-title">
-          <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div>
-          <p ng-if="!step.html" class="title m-nil" ng-bind="step.title"></p>
+
+        <div ng-if="!step.stepTemplateUrl" class="step-label">
+            <div class="step-title">
+                <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div>
+                <p ng-if="!step.html" class="title m-nil" ng-bind="step.title"></p>
+            </div>
+            <div class="step-complete">
+                <span class="hpe-icon hpe-checkmark" ng-class="{ 'invisible': !step.completed }"></span>
+            </div>
         </div>
-        <div class="step-complete">
-          <span class="hpe-icon hpe-checkmark" ng-class="{ 'invisible': !step.completed }"></span>
-        </div>
-      </div>
+
+        <!-- If a user specified template  -->
+        <marquee-wizard-side-step ng-if="step.stepTemplateUrl" step="step"></marquee-wizard-side-step>
     </li>
   </ul>
 </div>

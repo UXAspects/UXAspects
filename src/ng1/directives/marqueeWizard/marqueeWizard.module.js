@@ -1,8 +1,10 @@
-import MarqueeWizardDirective from './marqueeWizard.directive.js';
-import MarqueeWizardController from './marqueeWizard.controller.js';
-import MarqueeWizardStepDirective from './marqueeWizardStep.directive.js';
+import { MarqueeWizardCtrl } from './marqueeWizard.controller';
+import { marqueeWizard } from './marqueeWizard.directive';
+import { marqueeWizardSideStep } from './marqueeWizardSideStep.directive';
+import { marqueeWizardStep } from './marqueeWizardStep.directive';
 
 angular.module('ux-aspects.marqueeWizard', [])
-	.directive('marqueeWizard', MarqueeWizardDirective)
-	.controller('MarqueeWizardCtrl', MarqueeWizardController)
-	.directive('marqueeWizardStep', MarqueeWizardStepDirective);
+	.directive('marqueeWizard', marqueeWizard)
+	.controller('MarqueeWizardCtrl', MarqueeWizardCtrl)
+	.directive('marqueeWizardStep', marqueeWizardStep)
+	.directive('marqueeWizardSideStep', marqueeWizardSideStep);

@@ -1,4 +1,4 @@
-export default function marqueeWizard() {
+export function marqueeWizard() {
     return {
         restrict: 'E',
         template: require('./marqueeWizard.html'),

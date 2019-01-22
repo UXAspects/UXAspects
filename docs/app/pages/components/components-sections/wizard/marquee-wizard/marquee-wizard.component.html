@@ -167,6 +167,10 @@
     <tr uxd-api-property name="description" type="string | TemplateRef">
         Allows descriptive text or custom html content to be added to the side panel of the wizard.
     </tr>
+    <tr uxd-api-property name="stepTemplate" type="string | TemplateRef">
+        Allows customization of the wizard step items in the side panel of the wizard. To access the data
+        for each step use the implicit template context, eg: <code>&lt;ng-template #stepTemplate let-step&gt;</code>.
+    </tr>
     <tr uxd-api-property name="nextText" type="string">
         Defines the text displayed in the 'Next' button.
     </tr>
