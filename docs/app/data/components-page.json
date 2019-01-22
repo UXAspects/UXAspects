@@ -946,6 +946,21 @@
             "link": "notifications",
             "sections": [
                 {
+                    "title": "Alert",
+                    "component": "ComponentsAlertComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-alert"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AlertModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Notifications",
                     "component": "ComponentsNotificationsComponent",
                     "version": "Angular",
@@ -983,12 +998,14 @@
                 {
                     "title": "Alert Styles",
                     "component": "ComponentsAlertStylesNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Dismissable Styles",
                     "component": "ComponentsDismissableStylesNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
