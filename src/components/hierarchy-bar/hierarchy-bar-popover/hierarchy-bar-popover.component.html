@@ -7,7 +7,11 @@
 </ul>
 
 <!-- List of children -->
-<div class="hierarchy-bar-node-list" *ngIf="!loading" uxTabbableList [returnFocus]="true">
+<div class="hierarchy-bar-node-list"
+    [class.hierarchy-bar-node-list-separator]="separator"
+    *ngIf="!loading"
+    uxTabbableList
+    [returnFocus]="true">
 
     <ux-hierarchy-bar-popover-item *ngFor="let node of nodes; let first = first"
         [node]="node"

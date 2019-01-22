@@ -11,15 +11,15 @@
         (select)="hierarchyBar.selectNode($event)">
     </ux-hierarchy-bar-node>
 
-    <div class="hierarchy-bar-overflow" *ngIf="_links.length > 0">
+    <div class="hierarchy-bar-overflow" *ngIf="_parents.length > 0">
         <div class="hierarchy-bar-overflow-container">
             <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"></ng-container>
         </div>
 
-        <button aria-label="Show children"
+        <button aria-label="Show siblings"
             class="hierarchy-bar-node-arrow"
             placement="bottom"
-            [uxPopover]="links"
+            [uxPopover]="siblingsTemplate"
             popoverClass="hierarchy-bar-popover"
             role="button"
             tabindex="0"
@@ -27,7 +27,6 @@
             [popoverContext]="{ popover: popover }"
             [showTriggers]="hierarchyBar.popoverShowTriggers"
             [hideTriggers]="hierarchyBar.popoverHideTriggers"
-            placement="bottom"
             type="button">
             <i class="hpe-icon hpe-next"></i>
         </button>
@@ -57,15 +56,38 @@
     </ux-hierarchy-bar-popover>
 </ng-template>
 
-<!-- Template for the links popover list -->
-<ng-template #links let-popover="popover">
+<!-- Template for the siblings popover list -->
+<ng-template #siblingsTemplate let-popover="popover">
     <ux-hierarchy-bar-popover
-        [nodes]="_links"
+        [nodes]="(_siblings | async)?.children"
+        [loading]="(_siblings | async)?.loading"
+        (select)="hierarchyBar.selectNode($event); popover.hide()">
+    </ux-hierarchy-bar-popover>
+</ng-template>
+
+<!-- Template for the parents popover list -->
+<ng-template #parentsTemplate let-popover="popover">
+    <ux-hierarchy-bar-popover
+        [nodes]="_parents"
+        [separator]="true"
         (select)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>
 
 <!-- Default Overflow Template -->
 <ng-template #defaultOverflowTemplate>
-    <i class="hpe-icon hpe-more"></i>
+    <button class="overflow-button"
+            aria-label="Show parents"
+            [uxPopover]="parentsTemplate"
+            popoverClass="hierarchy-bar-popover"
+            role="button"
+            tabindex="0"
+            #popover="ux-popover"
+            [popoverContext]="{ popover: popover }"
+            [showTriggers]="hierarchyBar.popoverShowTriggers"
+            [hideTriggers]="hierarchyBar.popoverHideTriggers"
+            placement="bottom"
+            type="button">
+        <i class="hpe-icon hpe-more"></i>
+    </button>
 </ng-template>

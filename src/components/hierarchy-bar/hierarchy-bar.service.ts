@@ -106,6 +106,14 @@ export class HierarchyBarService {
     }
 
     /**
+     * Utility function to get the sibling nodes, taking into account that
+     * a node may be a root node and may not have a parent.
+     */
+    getSiblings(node: HierarchyBarNode): Observable<HierarchyBarNodeChildren> {
+        return node.parent ? this.getChildren(node.parent) : of({ loading: false, children: [] });
+    }
+
+    /**
      * Traverses all the parents to ensure they are selected
      */
     private select(node: HierarchyBarNode): void {

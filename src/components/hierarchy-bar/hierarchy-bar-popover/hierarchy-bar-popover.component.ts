@@ -15,6 +15,9 @@ export class HierarchyBarPopoverComponent {
     /** Define the loading state */
     @Input() loading: boolean;
 
+    /** Defines if dropdown items should have separators between them to distinguish if nodes are siblings or ancestors */
+    @Input() separator: boolean = false;
+
     /** Emit a select event when an item ahs been clicked or enter key pressed */
     @Output() select = new EventEmitter<HierarchyBarNode>();
 
