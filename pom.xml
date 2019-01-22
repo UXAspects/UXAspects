@@ -97,7 +97,7 @@
                     </execution>
 
                     <!-- Test -->
-                    <execution>
+                    <!-- <execution>
                         <id>exec-npm-run-test</id>
                         <phase>test</phase>
                         <goals>
@@ -110,7 +110,7 @@
                                 <argument>test</argument>
                             </arguments>
                         </configuration>
-                    </execution>
+                    </execution> -->
 
                     <!-- Package -->
                     <execution>
