@@ -1,5 +1,4 @@
 import { A11yModule } from '@angular/cdk/a11y';
-import { PlatformModule } from '@angular/cdk/platform';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DefaultFocusIndicatorDirective } from './focus-indicator/default-focus-indicator.directive';
 import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
@@ -22,8 +21,7 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         SplitterAccessibilityDirective
     ],
     imports: [
-        A11yModule,
-        PlatformModule
+        A11yModule
     ],
     exports: [
         DefaultFocusIndicatorDirective,
