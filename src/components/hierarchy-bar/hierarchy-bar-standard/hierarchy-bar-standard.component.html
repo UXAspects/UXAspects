@@ -15,7 +15,9 @@
          [popoverContext]="{ popover: popover }"
          placement="bottom"
          popoverClass="hierarchy-bar-popover">
-        <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"></ng-container>
+        <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
+                      [ngTemplateOutletContext]="{ $implicit: overflow$ | async }">
+        </ng-container>
     </div>
 
     <ux-hierarchy-bar-node
