@@ -1,4 +1,3 @@
-import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, Directive, ElementRef } from '@angular/core';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
 import { FocusIndicatorDirective } from './focus-indicator.directive';
@@ -18,19 +17,11 @@ export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
         elementRef: ElementRef,
         focusIndicatorService: FocusIndicatorService,
         optionsService: AccessibilityOptionsService,
-        changeDetectorRef: ChangeDetectorRef,
-        platform: Platform
+        changeDetectorRef: ChangeDetectorRef
     ) {
         super(elementRef, focusIndicatorService, optionsService, changeDetectorRef);
-
-        /**
-         * @workaround - Firefox Focus Issue
-         * Firefox can mistakenly detect a focus origin as programmatic focus rather than via keyboard
-         * which can cause the focus indicator not to show. This workaround will show the indicator when
-         * programmtic focus is detected and our browser is firefox.
-         */
-        if (platform.FIREFOX) {
-            this.programmaticFocusIndicator = true;
-        }
+        
+        // Enable programmatic focus by default
+        this.programmaticFocusIndicator = true;
     }
 }
