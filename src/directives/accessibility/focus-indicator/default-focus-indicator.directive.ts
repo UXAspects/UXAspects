@@ -13,8 +13,15 @@ import { FocusIndicatorService } from './focus-indicator.service';
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
 
-    constructor(elementRef: ElementRef, focusIndicatorService: FocusIndicatorService,
-        optionsService: AccessibilityOptionsService, changeDetectorRef: ChangeDetectorRef) {
+    constructor(
+        elementRef: ElementRef,
+        focusIndicatorService: FocusIndicatorService,
+        optionsService: AccessibilityOptionsService,
+        changeDetectorRef: ChangeDetectorRef
+    ) {
         super(elementRef, focusIndicatorService, optionsService, changeDetectorRef);
+        
+        // Enable programmatic focus by default
+        this.programmaticFocusIndicator = true;
     }
 }
