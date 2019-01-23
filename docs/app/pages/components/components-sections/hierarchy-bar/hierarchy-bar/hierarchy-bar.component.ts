@@ -107,7 +107,7 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['HierarchyBarModule', 'AccordionModule', 'RadioButtonModule'],
+                imports: ['HierarchyBarModule', 'RadioButtonModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

@@ -13,7 +13,9 @@
 
     <div class="hierarchy-bar-overflow" *ngIf="_parents.length > 0">
         <div class="hierarchy-bar-overflow-container">
-            <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"></ng-container>
+            <ng-container [ngTemplateOutlet]="hierarchyBar.overflowTemplate || defaultOverflowTemplate"
+                          [ngTemplateOutletContext]="{ $implicit: _parents }">
+            </ng-container>
         </div>
 
         <button [attr.aria-label]="hierarchyBar.showSiblingsAriaLabel"

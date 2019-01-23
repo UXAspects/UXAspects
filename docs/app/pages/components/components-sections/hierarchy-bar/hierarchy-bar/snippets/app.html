@@ -4,19 +4,7 @@
     </button>
 </ux-hierarchy-bar>
 
-<div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <ux-accordion>
-            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <ux-radio-button option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
-                    </div>
-                </div>
-            </ux-accordion-panel>
-        </ux-accordion>
-    </div>
+<div class="p-t">
+    <ux-radio-button class="m-r" option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
+    <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
 </div>
