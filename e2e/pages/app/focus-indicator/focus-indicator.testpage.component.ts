@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['focus-indicator.testpage.component.less']
 })
 export class FocusIndicatorTestPageComponent {
+    hasIndicator: boolean = false;
     mouseFocusIndicator: boolean = false;
     keyboardFocusIndicator: boolean = false;
     programmaticFocusIndicator: boolean = false;

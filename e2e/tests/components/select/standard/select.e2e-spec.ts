@@ -235,9 +235,7 @@ describe('Select Tests', () => {
         // multiple + strings combination
         page.clickOnDropdown(true);
         page.clickOnCountry(true, 10);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 20);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 30);
         expect<any>(page.getSelectedLocationText()).toBe('[ "Antarctica", "Bangladesh", "Bosnia and Herzegovina" ]');
 
@@ -245,7 +243,6 @@ describe('Select Tests', () => {
         page.clickOnObjects();
         page.clickOnDropdown(true);
         page.clickOnCountry(true, 40);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 50);
         expect<any>(page.getSelectedLocationText()).toBe('[ { "id": 40, "name": "Cameroon" }, { "id": 50, "name": "Colombia" } ]');
 
@@ -268,19 +265,16 @@ describe('Select Tests', () => {
 
         // select countries
         page.clickOnCountry(true, 60);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 70);
         expect<any>(page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
         // confirm countries are disabled
-        page.clickOnDropdown(true);
         expect(page.confirmCountryIsDisabled(true, 60)).toBeTruthy();
         expect(page.confirmCountryIsDisabled(true, 70)).toBeTruthy();
 
         // reselect countries and confirm that nothing happened
         page.clickOnCountry(true, 60);
         expect<any>(page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 70);
         expect<any>(page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
@@ -292,9 +286,7 @@ describe('Select Tests', () => {
         page.clickOnCheckbox(page.checkboxMulti);
         page.clickOnDropdown(true);
         page.clickOnCountry(true, 80);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 90);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 110);
         expect<any>(page.getSelectedLocationText()).toBe('[ "French Southern Territories", "Guadeloupe", "Israel" ]');
 
@@ -347,14 +339,11 @@ describe('Select Tests', () => {
 
         // click on country
         page.clickOnCountry(true, 140);
-        page.clickOnDropdown(true);
-        expect(page.confirmCountryIsHighlighted(true, 0)).toBeTruthy();
         expect(page.confirmCountryIsHighlighted(true, 140)).toBeFalsy();
 
         // hover over country while it is disabled
         expect(page.confirmCountryIsDisabled(true, 140)).toBeTruthy();
         page.hoverOverCountry(true, 140);
-        expect(page.confirmCountryIsHighlighted(true, 0)).toBeTruthy();
         expect(page.confirmCountryIsHighlighted(true, 140)).toBeFalsy();
 
     });
@@ -381,7 +370,6 @@ describe('Select Tests', () => {
         page.clickOnCheckbox(page.checkboxMulti);
         page.clickOnDropdown(true);
         page.clickOnCountry(true, 170);
-        page.clickOnDropdown(true);
         page.clickOnCountry(true, 180);
         page.clickOnCheckbox(page.checkboxDisabled);
         expect<any>(page.getSelectedLocationText()).toBe('[ "Palau", "Puerto Rico" ]');
