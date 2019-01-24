@@ -28562,12 +28562,12 @@ angular.module('ux-aspects.listItemFilter', []).directive('listItemFilter', _lis
 /*!**********************************************************************!*\
   !*** ./src/ng1/directives/marqueeWizard/marqueeWizard.controller.js ***!
   \**********************************************************************/
-/*! exports provided: default */
+/*! exports provided: MarqueeWizardCtrl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MarqueeWizardCtrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MarqueeWizardCtrl", function() { return MarqueeWizardCtrl; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -28864,8 +28864,6 @@ function () {
 
   return MarqueeWizardCtrl;
 }();
-
-
 MarqueeWizardCtrl.$inject = ['$scope', '$timeout'];
 
 /***/ }),
@@ -28874,12 +28872,12 @@ MarqueeWizardCtrl.$inject = ['$scope', '$timeout'];
 /*!*********************************************************************!*\
   !*** ./src/ng1/directives/marqueeWizard/marqueeWizard.directive.js ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! exports provided: marqueeWizard */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return marqueeWizard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marqueeWizard", function() { return marqueeWizard; });
 function marqueeWizard() {
   return {
     restrict: 'E',
@@ -28952,7 +28950,7 @@ function marqueeWizard() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"dismiss\">\n<button class=\"btn btn-icon button-dark btn-circular btn-close\" ng-click=\"mc.cancel()\" type=\"button\"><i class=\"hpe-icon hpe-close\"></i></button>\n</div>\n<div class=\"side-panel\">\n<div class=\"marquee-logo\">\n<div ng-if=\"!mc.wizardIcon\" class=\"marquee-wizard-user marquee-wizard-icon\"></div>\n<img ng-if=\"mc.wizardIcon\" ng-src=\"{{mc.wizardIcon}}\" alt=\"Marquee wizard icon\" class=\"marquee-wizard-icon\"/>\n</div>\n<div class=\"marquee-wizard-info-panel\" ng-if=\"mc.sideInfo\">\n<h3 class=\"title\" ng-if=\"mc.sidePanelTitle\" ng-bind=\"mc.sidePanelTitle\" single-line-overflow-tooltip></h3>\n<div class=\"description\" ng-if=\"mc.sidePanelDescription\">\n<p ng-bind=\"mc.sidePanelDescription\" overflow-tooltip></p>\n</div>\n</div>\n<ul class=\"marquee-wizard-steps\">\n<li class=\"marquee-wizard-step\" ng-repeat=\"step in mc.wizardSteps\" ng-class=\"{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }\" ng-click=\"mc.goToStep($index)\" ng-if=\"!step.hidden\">\n<div class=\"step-label\">\n<div class=\"step-title\">\n<div ng-if=\"step.html\" class=\"m-nil\" ng-bind-html=\"step.html\"></div>\n<p ng-if=\"!step.html\" class=\"title m-nil\" ng-bind=\"step.title\"></p>\n</div>\n<div class=\"step-complete\">\n<span class=\"hpe-icon hpe-checkmark\" ng-class=\"{ 'invisible': !step.completed }\"></span>\n</div>\n</div>\n</li>\n</ul>\n</div>\n<div class=\"main-panel\">\n<div class=\"marquee-header\">\n<h1 class=\"marquee-title\" ng-bind=\"mc.currentStep.header\"></h1>\n</div>\n<div class=\"marquee-body marquee-wizard-modal\">\n<div ng-repeat=\"step in mc.wizardSteps\" ng-if=\"$index === mc.stepIndex\">\n<marquee-wizard-step template=\"step.templateUrl\"></marquee-wizard-step>\n</div>\n</div>\n<div class=\"marquee-footer\">\n<button type=\"button\" class=\"btn button-secondary marquee-previous-btn\" ng-disabled=\"!mc.buttonOptions.previousEnabled\" ng-show=\"mc.showPrevious\" ng-click=\"mc.goPrevious()\" ng-bind=\"mc.buttonOptions.previousText\"></button>\n<button type=\"button\" class=\"btn marquee-next-btn m-l-xs\" ng-class=\"{'button-primary': !mc.showFinish, 'button-secondary': mc.showFinish}\" ng-disabled=\"!mc.buttonOptions.nextEnabled\" ng-show=\"mc.showNext\" ng-click=\"mc.goNext()\" ng-bind=\"mc.buttonOptions.nextText\"></button>\n<button type=\"button\" class=\"btn button-primary marquee-finish-btn m-l-xs\" ng-disabled=\"!mc.buttonOptions.finishEnabled\" ng-show=\"mc.showFinish\" ng-click=\"mc.finish()\" ng-bind=\"mc.buttonOptions.finishText\"></button>\n</div>\n</div>\n";
+var v1="<div class=\"dismiss\">\n<button class=\"btn btn-icon button-dark btn-circular btn-close\" ng-click=\"mc.cancel()\" type=\"button\"><i class=\"hpe-icon hpe-close\"></i></button>\n</div>\n<div class=\"side-panel\">\n<div class=\"marquee-logo\">\n<div ng-if=\"!mc.wizardIcon\" class=\"marquee-wizard-user marquee-wizard-icon\"></div>\n<img ng-if=\"mc.wizardIcon\" ng-src=\"{{mc.wizardIcon}}\" alt=\"Marquee wizard icon\" class=\"marquee-wizard-icon\"/>\n</div>\n<div class=\"marquee-wizard-info-panel\" ng-if=\"mc.sideInfo\">\n<h3 class=\"title\" ng-if=\"mc.sidePanelTitle\" ng-bind=\"mc.sidePanelTitle\" single-line-overflow-tooltip></h3>\n<div class=\"description\" ng-if=\"mc.sidePanelDescription\">\n<p ng-bind=\"mc.sidePanelDescription\" overflow-tooltip></p>\n</div>\n</div>\n<ul class=\"marquee-wizard-steps\">\n<li class=\"marquee-wizard-step\" ng-repeat=\"step in mc.wizardSteps\" ng-class=\"{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }\" ng-click=\"mc.goToStep($index)\" ng-if=\"!step.hidden\">\n<div ng-if=\"!step.stepTemplateUrl\" class=\"step-label\">\n<div class=\"step-title\">\n<div ng-if=\"step.html\" class=\"m-nil\" ng-bind-html=\"step.html\"></div>\n<p ng-if=\"!step.html\" class=\"title m-nil\" ng-bind=\"step.title\"></p>\n</div>\n<div class=\"step-complete\">\n<span class=\"hpe-icon hpe-checkmark\" ng-class=\"{ 'invisible': !step.completed }\"></span>\n</div>\n</div>\n<marquee-wizard-side-step ng-if=\"step.stepTemplateUrl\" step=\"step\"></marquee-wizard-side-step>\n</li>\n</ul>\n</div>\n<div class=\"main-panel\">\n<div class=\"marquee-header\">\n<h1 class=\"marquee-title\" ng-bind=\"mc.currentStep.header\"></h1>\n</div>\n<div class=\"marquee-body marquee-wizard-modal\">\n<div ng-repeat=\"step in mc.wizardSteps\" ng-if=\"$index === mc.stepIndex\">\n<marquee-wizard-step template=\"step.templateUrl\"></marquee-wizard-step>\n</div>\n</div>\n<div class=\"marquee-footer\">\n<button type=\"button\" class=\"btn button-secondary marquee-previous-btn\" ng-disabled=\"!mc.buttonOptions.previousEnabled\" ng-show=\"mc.showPrevious\" ng-click=\"mc.goPrevious()\" ng-bind=\"mc.buttonOptions.previousText\"></button>\n<button type=\"button\" class=\"btn marquee-next-btn m-l-xs\" ng-class=\"{'button-primary': !mc.showFinish, 'button-secondary': mc.showFinish}\" ng-disabled=\"!mc.buttonOptions.nextEnabled\" ng-show=\"mc.showNext\" ng-click=\"mc.goNext()\" ng-bind=\"mc.buttonOptions.nextText\"></button>\n<button type=\"button\" class=\"btn button-primary marquee-finish-btn m-l-xs\" ng-disabled=\"!mc.buttonOptions.finishEnabled\" ng-show=\"mc.showFinish\" ng-click=\"mc.finish()\" ng-bind=\"mc.buttonOptions.finishText\"></button>\n</div>\n</div>\n";
 var id1="directives/marqueeWizard/marqueeWizard.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -28970,13 +28968,67 @@ module.exports=v1;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _marqueeWizard_directive_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./marqueeWizard.directive.js */ "./src/ng1/directives/marqueeWizard/marqueeWizard.directive.js");
-/* harmony import */ var _marqueeWizard_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./marqueeWizard.controller.js */ "./src/ng1/directives/marqueeWizard/marqueeWizard.controller.js");
-/* harmony import */ var _marqueeWizardStep_directive_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./marqueeWizardStep.directive.js */ "./src/ng1/directives/marqueeWizard/marqueeWizardStep.directive.js");
+/* harmony import */ var _marqueeWizard_controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./marqueeWizard.controller */ "./src/ng1/directives/marqueeWizard/marqueeWizard.controller.js");
+/* harmony import */ var _marqueeWizard_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./marqueeWizard.directive */ "./src/ng1/directives/marqueeWizard/marqueeWizard.directive.js");
+/* harmony import */ var _marqueeWizardSideStep_directive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./marqueeWizardSideStep.directive */ "./src/ng1/directives/marqueeWizard/marqueeWizardSideStep.directive.js");
+/* harmony import */ var _marqueeWizardStep_directive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./marqueeWizardStep.directive */ "./src/ng1/directives/marqueeWizard/marqueeWizardStep.directive.js");
 
 
 
-angular.module('ux-aspects.marqueeWizard', []).directive('marqueeWizard', _marqueeWizard_directive_js__WEBPACK_IMPORTED_MODULE_0__["default"]).controller('MarqueeWizardCtrl', _marqueeWizard_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"]).directive('marqueeWizardStep', _marqueeWizardStep_directive_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+angular.module('ux-aspects.marqueeWizard', []).directive('marqueeWizard', _marqueeWizard_directive__WEBPACK_IMPORTED_MODULE_1__["marqueeWizard"]).controller('MarqueeWizardCtrl', _marqueeWizard_controller__WEBPACK_IMPORTED_MODULE_0__["MarqueeWizardCtrl"]).directive('marqueeWizardStep', _marqueeWizardStep_directive__WEBPACK_IMPORTED_MODULE_3__["marqueeWizardStep"]).directive('marqueeWizardSideStep', _marqueeWizardSideStep_directive__WEBPACK_IMPORTED_MODULE_2__["marqueeWizardSideStep"]);
+
+/***/ }),
+
+/***/ "./src/ng1/directives/marqueeWizard/marqueeWizardSideStep.directive.js":
+/*!*****************************************************************************!*\
+  !*** ./src/ng1/directives/marqueeWizard/marqueeWizardSideStep.directive.js ***!
+  \*****************************************************************************/
+/*! exports provided: marqueeWizardSideStep */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marqueeWizardSideStep", function() { return marqueeWizardSideStep; });
+marqueeWizardSideStep.$inject = ['$templateRequest', '$compile', '$rootScope', '$parse'];
+function marqueeWizardSideStep($templateRequest, $compile, $rootScope, $parse) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: false,
+    link: function link(scope, element, attr) {
+      // get the step object
+      var step = $parse(attr.step)(scope); // load the template
+
+      $templateRequest(step.stepTemplateUrl).then(function (result) {
+        // create a new scope
+        var stepScope = Object.assign($rootScope.$new(false, scope), step); // ensure boolean properties get recalculated from the original object every time
+
+        Object.defineProperties(stepScope, {
+          completed: {
+            get: function get() {
+              return step.completed;
+            }
+          },
+          error: {
+            get: function get() {
+              return step.error;
+            }
+          },
+          visited: {
+            get: function get() {
+              return step.visited;
+            }
+          }
+        }); // insert the uncompiled template
+
+        element.append(angular.element(result)); // compile the element
+
+        $compile(element.children().first())(stepScope);
+      });
+    }
+  };
+}
 
 /***/ }),
 
@@ -28984,12 +29036,12 @@ angular.module('ux-aspects.marqueeWizard', []).directive('marqueeWizard', _marqu
 /*!*************************************************************************!*\
   !*** ./src/ng1/directives/marqueeWizard/marqueeWizardStep.directive.js ***!
   \*************************************************************************/
-/*! exports provided: default */
+/*! exports provided: marqueeWizardStep */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return marqueeWizardStep; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marqueeWizardStep", function() { return marqueeWizardStep; });
 marqueeWizardStep.$inject = ['$templateRequest', '$compile', '$rootScope', '$parse'];
 function marqueeWizardStep($templateRequest, $compile, $rootScope, $parse) {
   return {
@@ -42900,48 +42952,94 @@ angular.module("ux-aspects.sorters", []).directive("detailRowHeader", _detailRow
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SparkCtrl; });
-function SparkCtrl($colorService) {
-  var sc = this;
-  sc.inline = sc.label !== undefined; // give the chart a default theme
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  sc.type = sc.type || 'spark-chart1'; // ensure 'value' is an array at this point
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  var values = Array.isArray(sc.value) ? sc.value : [sc.value]; // get the total value of all lines
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  var total = Math.max(values.reduce(function (previous, current) {
-    return previous + current;
-  }, 0), 100); // figure out the percentages for each spark line
+var SparkCtrl =
+/*#__PURE__*/
+function () {
+  _createClass(SparkCtrl, [{
+    key: "_type",
+    // give the chart a default theme
+    get: function get() {
+      return this.$colorService.resolveColorName(this.type || 'spark-chart1');
+    } // determine if the label should be displayed inline
 
-  sc.values = values.map(function (val) {
-    return val / total * 100;
-  });
-  sc.type = $colorService.resolveColorName(sc.type);
+  }, {
+    key: "_inline",
+    get: function get() {
+      return this.label !== undefined;
+    } // get the value or values as an array
 
-  if (sc.barColor) {
-    if (Array.isArray(sc.barColor)) {
-      sc.barColor = sc.barColor.map(function (color) {
-        return $colorService.resolve(color);
+  }, {
+    key: "_values",
+    get: function get() {
+      // ensure 'value' is an array at this point
+      var values = Array.isArray(this.value) ? this.value : [this.value]; // get the total value of all lines
+
+      var total = Math.max(values.reduce(function (previous, current) {
+        return previous + current;
+      }, 0), 100); // figure out the percentages for each spark line
+
+      return values.map(function (val) {
+        return val / total * 100;
       });
-    } else {
-      sc.barColor = $colorService.resolve(sc.barColor);
     }
+  }, {
+    key: "_trackColor",
+    get: function get() {
+      if (this.trackColor) {
+        return this.$colorService.resolve(this.trackColor);
+      }
+    }
+  }, {
+    key: "_barColor",
+    get: function get() {
+      var _this = this;
+
+      if (!this.barColor) {
+        return;
+      }
+
+      if (Array.isArray(this.barColor)) {
+        return this.barColor.map(function (color) {
+          return _this.$colorService.resolve(color);
+        });
+      } else {
+        return [this.$colorService.resolve(this.barColor)];
+      }
+    }
+  }, {
+    key: "_styles",
+    get: function get() {
+      return {
+        height: this.fillheight + 'px',
+        marginTop: this.top !== undefined ? this.top : 0 + 'px',
+        backgroundColor: this._trackColor
+      };
+    }
+  }]);
+
+  function SparkCtrl($colorService) {
+    _classCallCheck(this, SparkCtrl);
+
+    this.$colorService = $colorService;
   }
 
-  if (sc.trackColor) {
-    sc.trackColor = $colorService.resolve(sc.trackColor);
-  }
+  _createClass(SparkCtrl, [{
+    key: "segmentTooltip",
+    value: function segmentTooltip(index) {
+      return Array.isArray(this.sparkTooltips) && this.sparkTooltips.length > index ? this.sparkTooltips[index] : undefined;
+    }
+  }]);
 
-  sc.barColor = Array.isArray(sc.barColor) ? sc.barColor : [sc.barColor];
-  sc.styles = {
-    height: sc.fillheight + 'px',
-    marginTop: sc.top !== undefined ? sc.top : 0 + 'px',
-    backgroundColor: sc.trackColor
-  };
+  return SparkCtrl;
+}();
 
-  sc.segmentTooltip = function (index) {
-    return Array.isArray(sc.sparkTooltips) && sc.sparkTooltips.length > index ? sc.sparkTooltips[index] : undefined;
-  };
-}
+
 SparkCtrl.$inject = ['$colorService'];
 
 /***/ }),
@@ -42992,7 +43090,7 @@ function SparkDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div>\n<div ng-if=\"sc.inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.styles\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values track by $index\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.label\" tooltip=\"{{sc.segmentTooltip($index)}}\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px', backgroundColor: sc.trackColor}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values track by $index\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.top-left-label\" tooltip=\"{{sc.segmentTooltip($index)}}\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
+var v1="<div>\n<div ng-if=\"sc._inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc._type ]\" ng-style=\"sc._styles\" tooltip=\"{{ sc.sparkTooltip }}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc._values track by $index\" aria-valuenow=\"{{ bar }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc._barColor[$index]}\" aria-valuetext=\"sc.label\" tooltip=\"{{ sc.segmentTooltip($index) }}\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc._inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc._type\" ng-style=\"{ height: sc.fillheight + 'px', backgroundColor: sc._trackColor }\" tooltip=\"{{ sc.sparkTooltip }}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc._values track by $index\" aria-valuenow=\"{{ bar }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc._barColor[$index] }\" aria-valuetext=\"sc.top-left-label\" tooltip=\"{{ sc.segmentTooltip($index) }}\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
 var id1="directives/spark/spark.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -44996,7 +45094,7 @@ angular.module("ux-aspects.treeview", ['ui.tree']).controller("TreeViewCtrl", _t
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"tree-node tree-node-content {{ node.className }}\" data-nodrag ng-click=\"node.disabled ? null : tv.select(this)\" ng-class=\"{ highlight : tv.isSelected(this), disabled: node.disabled }\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"node.disabled || !node.nodes || node.nodes.length <= 0\" ng-click=\"node.disabled ? null : toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{'hpe-chevron-right': collapsed, 'hpe-chevron-down': !collapsed }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px;\">\n</span>\n<span class=\"icon\">\n<i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\">\n</i>\n<span class=\"sr-only\" ng-bind=\"node.type\">\n</span>\n</span>\n<span class=\"title-readonly\" tooltip=\"{{ tv.getTooltip(node) }}\" ng-click=\"node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"{{ node.disabled ? -1 : 0 }}\" ng-keydown=\"tv.keyboardSelect(this,$event)\">\n{{node.title}}\n</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{ hidden: collapsed }\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\">\n</li>\n</ol>";
+var v1="<div class=\"tree-node tree-node-content {{ node.className }}\" data-nodrag ng-click=\"node.disabled ? null : tv.select(this)\" ng-class=\"{ highlight : tv.isSelected(this), disabled: node.disabled }\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"node.disabled || !node.nodes || node.nodes.length <= 0\" ng-click=\"node.disabled ? null : toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{'hpe-chevron-right': collapsed, 'hpe-chevron-down': !collapsed }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px;\">\n</span>\n<span class=\"icon\">\n<i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\">\n</i>\n<span class=\"sr-only\" ng-bind=\"node.type\">\n</span>\n</span>\n<span class=\"title-readonly\" tooltip-html=\"tv.getTooltip(node)\" ng-click=\"node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"{{ node.disabled ? -1 : 0 }}\" ng-keydown=\"tv.keyboardSelect(this,$event)\">\n{{node.title}}\n</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{ hidden: collapsed }\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\">\n</li>\n</ol>";
 var id1="directives/treeView/treeView.partial.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
