@@ -1,8 +1,8 @@
 UX Aspects 1.7.4 is available! Check out the documentation at [uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
 
 #### New Features
-* [Alert](/#/components/notifications#alert)
-* [Focus Indicator](/#/components/utilities#focus-indicator) - new directive which can be added to focusable elements to control the appearance of the focus ring when clicking. This has also been enabled in the following components, with more to be added in future releases:
+* [Alert](https://uxaspects.github.io/UXAspects/#/components/notifications#alert)
+* [Focus Indicator](https://uxaspects.github.io/UXAspects/#/components/utilities#focus-indicator) - new directive which can be added to focusable elements to control the appearance of the focus ring when clicking. This has also been enabled in the following components, with more to be added in future releases:
     * [Buttons](https://uxaspects.github.io/UXAspects/#/css/buttons) (import `AccessibilityModule` to enable on native HTML buttons)
     * [Accordion](https://uxaspects.github.io/UXAspects/#/components/panels#accordion)
     * [Tabs](https://uxaspects.github.io/UXAspects/#/components/tabs#tabs)
