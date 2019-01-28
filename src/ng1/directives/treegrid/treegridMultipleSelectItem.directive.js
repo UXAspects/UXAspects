@@ -97,11 +97,11 @@ export function treegridMultipleSelectItem() {
                     });
 
                     // Handler for row click, or external change to selection via multipleSelectProvider
-                    selectionModel.onSelect.pipe(takeUntil(unsubscribe), filter(item => item === treeGridRow.dataItem)).subscribe(() =>
+                    selectionModel.onSelect.pipe(takeUntil(unsubscribe), filter(item => compare(item, treeGridRow.dataItem))).subscribe(() =>
                         setSelected(treeGridRow, true)
                     );
 
-                    selectionModel.onDeselect.pipe(takeUntil(unsubscribe), filter(item => item === treeGridRow.dataItem)).subscribe(() =>
+                    selectionModel.onDeselect.pipe(takeUntil(unsubscribe), filter(item => compare(item, treeGridRow.dataItem))).subscribe(() =>
                         setSelected(treeGridRow, false)
                     );
 
@@ -320,6 +320,14 @@ export function treegridMultipleSelectItem() {
                 }, []);
 
                 return [...children, ...nested];
+            }
+
+            function compare(previous, current) {
+                if (typeof selectOptions.comparator === 'function') {
+                    return selectOptions.comparator(previous, current);
+                }
+
+                return previous === current;
             }
         }
     };
