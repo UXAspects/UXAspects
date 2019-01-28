@@ -7,11 +7,17 @@ import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.
 @Component({
     selector: 'ux-marquee-wizard',
     templateUrl: './marquee-wizard.component.html',
-    providers: [ MarqueeWizardService ]
+    providers: [MarqueeWizardService]
 })
 export class MarqueeWizardComponent extends WizardComponent {
 
+    /** Provide a custom template for the description in the left panel */
     @Input() description: string | TemplateRef<any>;
+
+    /** Provide a custom template for the step in the left panel */
+    @Input() stepTemplate: TemplateRef<any>;
+
+    /** Access each step content component */
     @ContentChildren(MarqueeWizardStepComponent) steps = new QueryList<MarqueeWizardStepComponent>();
 
     get isTemplate(): boolean {

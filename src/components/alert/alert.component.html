@@ -1,0 +1,11 @@
+<div class="alert-icon" *ngIf="icon">
+    <ng-content select="[uxAlertIcon]"></ng-content>
+</div>
+
+<div class="alert-content">
+    <ng-content></ng-content>
+</div>
+
+<button class="alert-close" type="button" *ngIf="dismissible" (click)="dismiss.emit()" [attr.aria-label]="dismissAriaLabel">
+    <i class="hpe-icon hpe-close"></i>
+</button>

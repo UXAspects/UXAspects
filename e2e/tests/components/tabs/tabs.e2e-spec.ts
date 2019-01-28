@@ -3,189 +3,189 @@ import { TabsTestPageComponent } from './tabs.po.spec';
 
 describe('Tabs Tests (Angular)', () => {
 
-  let page: TabsTestPageComponent;
-  
+    let page: TabsTestPageComponent;
 
-  beforeEach(() => {
-    page = new TabsTestPageComponent();
-    page.getPage();
-  });
-  
-  it('should have correct initial states', async () => {
-    // should have 4 tabs
-    expect(await page.getTabCount()).toBe(4);
 
-    // expect the first tab to be selected by default
-    expect(await page.getSelectedTab()).toBe('Schedule');
+    beforeEach(() => {
+        page = new TabsTestPageComponent();
+        page.getPage();
+    });
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
+    it('should have correct initial states', async () => {
+        // should have 4 tabs
+        expect(await page.getTabCount()).toBe(4);
 
-    // expect the tabset to have the minimal styling by default
-    expect(await page.getTabsetStyle()).toBe('minimal');
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-    // expect the tabset not to be stacked
-    expect(await page.getTabsetStack()).toBe('none');
-  });
-  
-  it('should select a tab on click', async () => {
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-    // expect the first tab to be selected by default
-    expect(await page.getSelectedTab()).toBe('Schedule');
+        // expect the tabset to have the minimal styling by default
+        expect(await page.getTabsetStyle()).toBe('minimal');
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
+        // expect the tabset not to be stacked
+        expect(await page.getTabsetStack()).toBe('none');
+    });
 
-    // click the second tab
-    await page.clickTabAtIndex(1);
+    it('should select a tab on click', async () => {
 
-    // expect the second tab to be selected
-    expect(await page.getSelectedTab()).toBe('Protection');
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Protection');
-  });
-  
-  it('should navigate between tabs using arrow keys', async () => {
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-    // expect the first tab to be selected by default
-    expect(await page.getSelectedTab()).toBe('Schedule');
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
+        // expect the second tab to be selected
+        expect(await page.getSelectedTab()).toBe('Protection');
 
-    // click the second tab
-    await page.clickTabAtIndex(1);
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
+    });
 
-    // expect the second tab to be selected
-    expect(await page.getSelectedTab()).toBe('Protection');
+    it('should navigate between tabs using arrow keys', async () => {
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Protection');
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-    // press the left arrow
-    await page.pressKey(Key.ARROW_LEFT);
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-    // expect the first tab to be selected
-    expect(await page.getSelectedTab()).toBe('Schedule');
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
+        // expect the second tab to be selected
+        expect(await page.getSelectedTab()).toBe('Protection');
 
-    // press the right arrow
-    await page.pressKey(Key.ARROW_RIGHT);
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
 
-    // expect the second tab to be selected
-    expect(await page.getSelectedTab()).toBe('Protection');
+        // press the left arrow
+        await page.pressKey(Key.ARROW_LEFT);
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Protection');
-  });
-  
-  it('should navigate to first tab when Home key is pressed', async () => {
+        // expect the first tab to be selected
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-    // expect the first tab to be selected by default
-    expect(await page.getSelectedTab()).toBe('Schedule');
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
+        // press the right arrow
+        await page.pressKey(Key.ARROW_RIGHT);
 
-    // click the second tab
-    await page.clickTabAtIndex(1);
+        // expect the second tab to be selected
+        expect(await page.getSelectedTab()).toBe('Protection');
 
-    // expect the second tab to be selected
-    expect(await page.getSelectedTab()).toBe('Protection');
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
+    });
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Protection');
+    it('should navigate to first tab when Home key is pressed', async () => {
 
-    // press home key
-    await page.pressKey(Key.HOME);
-    
-    // expect the first tab to be selected
-    expect(await page.getSelectedTab()).toBe('Schedule');
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
-  });
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-  it('should navigate to last tab when End key is pressed', async () => {
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-    // expect the first tab to be selected by default
-    expect(await page.getSelectedTab()).toBe('Schedule');
+        // expect the second tab to be selected
+        expect(await page.getSelectedTab()).toBe('Protection');
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Schedule');
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
 
-    // click the second tab
-    await page.clickTabAtIndex(1);
+        // press home key
+        await page.pressKey(Key.HOME);
 
-    // expect the second tab to be selected
-    expect(await page.getSelectedTab()).toBe('Protection');
+        // expect the first tab to be selected
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Protection');
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
+    });
 
-    // press home key
-    await page.pressKey(Key.END);
-    
-    // expect the last tab to be selected
-    expect(await page.getSelectedTab()).toBe('Analytics');
+    it('should navigate to last tab when End key is pressed', async () => {
 
-    // expect the correct tab content to be visible
-    expect(await page.getSelectedTabContent()).toBe('Analytics');
-  });
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedTab()).toBe('Schedule');
 
-  it('should trigger select event on click', async () => {
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-    // expect the first tab to be selected by default
-    expect(await page.getSelectedLabelText()).toBe('The selected tab is:');
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-    // click the second tab
-    await page.clickTabAtIndex(1);
-    
-    // the selected label text should have update once the event it emitted
-    expect(await page.getSelectedLabelText()).toBe('The selected tab is: Protection');
+        // expect the second tab to be selected
+        expect(await page.getSelectedTab()).toBe('Protection');
 
-  });
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
 
-  it('should allow alternative styling', async () => {
+        // press home key
+        await page.pressKey(Key.END);
 
-    // expect minimal style
-    expect(await page.getTabsetStyle()).toBe('minimal');
+        // expect the last tab to be selected
+        expect(await page.getSelectedTab()).toBe('Analytics');
 
-    // toggle the checkbox
-    await page.minimalCheckbox.click();
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Analytics');
+    });
 
-    // expect alternative style
-    expect(await page.getTabsetStyle()).toBe('alternative');
+    it('should trigger select event on click', async () => {
 
-  });
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedLabelText()).toBe('The selected tab is: Schedule');
 
-  it('should allow stacking left', async () => {
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-    // expect no stacking
-    expect(await page.getTabsetStack()).toBe('none');
+        // the selected label text should have update once the event it emitted
+        expect(await page.getSelectedLabelText()).toBe('The selected tab is: Protection');
 
-    // select stack left
-    await page.stackLeftRadio.click();
+    });
 
-    // expect stack left
-    expect(await page.getTabsetStack()).toBe('left');
+    it('should allow alternative styling', async () => {
 
-  });
+        // expect minimal style
+        expect(await page.getTabsetStyle()).toBe('minimal');
 
-  it('should allow stacking right', async () => {
+        // toggle the checkbox
+        await page.minimalCheckbox.click();
 
-    // expect no stacking
-    expect(await page.getTabsetStack()).toBe('none');
+        // expect alternative style
+        expect(await page.getTabsetStyle()).toBe('alternative');
 
-    // select stack right
-    await page.stackRightRadio.click();
+    });
 
-    // expect stack right
-    expect(await page.getTabsetStack()).toBe('right');
+    it('should allow stacking left', async () => {
 
-  });
+        // expect no stacking
+        expect(await page.getTabsetStack()).toBe('none');
+
+        // select stack left
+        await page.stackLeftRadio.click();
+
+        // expect stack left
+        expect(await page.getTabsetStack()).toBe('left');
+
+    });
+
+    it('should allow stacking right', async () => {
+
+        // expect no stacking
+        expect(await page.getTabsetStack()).toBe('none');
+
+        // select stack right
+        await page.stackRightRadio.click();
+
+        // expect stack right
+        expect(await page.getTabsetStack()).toBe('right');
+
+    });
 
 });

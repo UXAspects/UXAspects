@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -150,7 +150,7 @@
     "uglify-js": "3.4.5",
     "webpack": "4.25.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "3.1.10"
+    "webpack-dev-server": "^3.1.14"
   },
   "files": [
     "configs/loaders",

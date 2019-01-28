@@ -1,0 +1,32 @@
+<div class="hierarchy-bar-node">
+
+    <button type="button"
+            class="hierarchy-bar-node-content"
+            [attr.aria-label]="node.title"
+            (click)="select.emit(node)">
+
+        <!-- Show an icon if specifed -->
+        <img class="hierarchy-bar-node-icon" *ngIf="node.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+
+        <!-- Show the name of the current node -->
+        <span class="hierarchy-bar-node-title">{{ node.title }}</span>
+
+    </button>
+
+    <!-- Show a dropdown arrow if there are children -->
+    <button type="button"
+            *ngIf="node.children"
+            #popover="ux-popover"
+            aria-label="Show children"
+            role="button"
+            class="hierarchy-bar-node-arrow hpe-icon hpe-next"
+            [uxPopover]="popoverTemplate"
+            [popoverContext]="{ node: node, popover: popover }"
+            placement="bottom"
+            popoverClass="hierarchy-bar-popover"
+            [showTriggers]="hierarchyBar.popoverShowTriggers"
+            [hideTriggers]="hierarchyBar.popoverHideTriggers"
+            tabindex="0">
+    </button>
+
+</div>

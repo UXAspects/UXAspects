@@ -1,5 +1,6 @@
+import { ENTER } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -21,16 +22,13 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     selector: 'ux-select, ux-combobox, ux-dropdown',
     templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR],
-    host: {
-        'tabindex': '0'
-    }
 })
-export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
     @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
 
     @Input()
-    set value(value: any) {
+    set value(value: T) {
         this._value$.next(value);
     }
     get value() {
@@ -54,9 +52,9 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         return this._dropdownOpen;
     }
 
-    @Input() options: any[] | InfiniteScrollLoadFunction;
-    @Input() display: (option: any) => string | string;
-    @Input() key: (option: any) => string | string;
+    @Input() options: T[] | InfiniteScrollLoadFunction;
+    @Input() display: (option: T) => string | string;
+    @Input() key: (option: T) => string | string;
     @Input() allowNull: boolean = false;
     @Input() disabled: boolean = false;
     @Input() dropDirection: 'up' | 'down' = 'down';
@@ -70,7 +68,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @Input() noOptionsTemplate: TemplateRef<any>;
     @Input() optionTemplate: TemplateRef<any>;
 
-    @Output() valueChange = new EventEmitter<any>();
+    @Output() valueChange = new EventEmitter<T>();
     @Output() inputChange = new EventEmitter<string>();
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
@@ -83,7 +81,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    private _value$ = new BehaviorSubject<any>(null);
+    private _value$ = new BehaviorSubject<T>(null);
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _onDestroy = new Subject<void>();
@@ -93,7 +91,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
@@ -135,7 +133,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         });
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
@@ -146,16 +144,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         this._onDestroy.complete();
     }
 
-    @HostListener('focus')
-    onfocus(): void {
-        if (this.singleInput) {
-            this.singleInput.nativeElement.focus();
-        } else if (this.tagInput) {
-            this.tagInput.focus();
-        }
-    }
-
-    writeValue(obj: any): void {
+    writeValue(obj: T): void {
         if (obj !== undefined && obj !== this.value) {
             this.value = obj;
         }
@@ -165,18 +154,18 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         this.propagateChange = fn;
     }
 
-    registerOnTouched(fn: any): void { }
+    registerOnTouched(fn: T): void { }
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
 
-    inputClickHandler(event: MouseEvent) {
+    inputClickHandler(): void {
         this.selectInputText();
         this.dropdownOpen = true;
     }
 
-    inputBlurHandler(event: Event) {
+    inputBlurHandler(): void {
 
         // If a click on the typeahead is in progress, just refocus the input.
         // This works around an issue in IE where clicking a scrollbar drops focus.
@@ -199,13 +188,13 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     /**
      * Key handler for single select only. Multiple select key handling is in TagInputComponent.
      */
-    inputKeyHandler(event: KeyboardEvent) {
+    inputKeyHandler(event: KeyboardEvent): void {
 
         // Standard keys for typeahead (up/down/esc)
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
 
-        switch (event.key) {
-            case 'Enter':
+        switch (event.keyCode) {
+            case ENTER:
                 if (this._dropdownOpen) {
                     // Set the highlighted option as the value and close
                     this.value = this.singleTypeahead.highlighted;
@@ -219,7 +208,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         }
     }
 
-    singleOptionSelected(event: TypeaheadOptionEvent) {
+    singleOptionSelected(event: TypeaheadOptionEvent): void {
         if (event.option) {
             this.value = event.option;
             this.dropdownOpen = false;
@@ -229,7 +218,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string {
+    getDisplay(option: T): string {
         if (option === null || option === undefined) {
             return '';
         }
@@ -239,10 +228,19 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
-        return option;
+        return option as any;
     }
 
-    private selectInputText() {
+    /** Toggle the dropdown open state */
+    toggle(): void {
+        if (this.dropdownOpen) {
+            this.dropdownOpen = false;
+        } else {
+            this.inputClickHandler();
+        }
+    }
+
+    private selectInputText(): void {
         this.singleInput.nativeElement.select();
     }
 }

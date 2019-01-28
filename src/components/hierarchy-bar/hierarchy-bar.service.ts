@@ -1,16 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import { of } from 'rxjs/observable/of';
+import { Observer } from 'rxjs/Observer';
 import { first } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { OverlayTrigger } from '../tooltip/index';
+import { HierarchyBarNodeChildren } from './interfaces/hierarchy-bar-node-children.interface';
+import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
 
 @Injectable()
 export class HierarchyBarService {
 
+    /** Define the list of selected nodes */
     nodes$ = new BehaviorSubject<HierarchyBarNode[]>([]);
 
+    /** Define a custom loading indicator */
+    loadingIndicator: TemplateRef<any>;
+
+    /** Define a custom overflow template */
+    overflowTemplate: TemplateRef<any>;
+
+    /** Define the events that show the popover when interacting with the arrows */
+    popoverShowTriggers: OverlayTrigger[] = ['click'];
+
+    /** Define the events that hide the popover when interacting with the arrows */
+    popoverHideTriggers: OverlayTrigger[] = ['click', 'clickoutside', 'escape'];
+
+    /** Emit the selected node when it changes */
+    selection$ = new Subject<HierarchyBarNode>();
+
+    /** Define the aria label for the show siblings popover button */
+    showSiblingsAriaLabel: string = 'Show Siblings';
+
+    /** Store the root node */
     private _root: HierarchyBarNode;
+
+    /** Store nodes as a flattened list */
     private _nodes: HierarchyBarNode[] = [];
 
     /**
@@ -43,6 +69,9 @@ export class HierarchyBarService {
 
         // emit a new node list to trigger change detection
         this.nodes$.next(this.getSelectedChildren(this._root));
+
+        // emit the new selection
+        this.selection$.next(node);
     }
 
     /**
@@ -77,6 +106,14 @@ export class HierarchyBarService {
                 observer.complete();
             });
         });
+    }
+
+    /**
+     * Utility function to get the sibling nodes, taking into account that
+     * a node may be a root node and may not have a parent.
+     */
+    getSiblings(node: HierarchyBarNode): Observable<HierarchyBarNodeChildren> {
+        return node.parent ? this.getChildren(node.parent) : of({ loading: false, children: [] });
     }
 
     /**
@@ -136,17 +173,4 @@ export class HierarchyBarService {
         // return the remaining chain of selected items
         return child ? [node, ...this.getSelectedChildren(child)] : [node];
     }
-}
-
-export interface HierarchyBarNode {
-    icon?: string;
-    title: string;
-    selected?: boolean;
-    parent?: HierarchyBarNode;
-    children?: HierarchyBarNode[] | Observable<HierarchyBarNode[]>;
-}
-
-export interface HierarchyBarNodeChildren {
-    loading: boolean;
-    children: HierarchyBarNode[];
 }

@@ -4,10 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccessibilityModule } from '@ux-aspects/ux-aspects';
 ${imports}
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         ${modules}
     ],
     declarations: [

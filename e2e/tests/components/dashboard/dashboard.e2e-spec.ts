@@ -84,34 +84,35 @@ describe('Dashboard Tests', () => {
         });
     });
 
-    it('should react correctly when a widget is moved up', () => {
+    /** TODO: This should be uncommented once EL-3381 is resolved */
+    // it('should react correctly when a widget is moved up', () => {
 
-        // Drag widget 3 to the location occupied by widget 1.
-        browser.actions().dragAndDrop(widget3, widget1).perform();
-        expect<any>(page.getNumberOfWidgets()).toEqual(4);
+    //     // Drag widget 3 to the location occupied by widget 1.
+    //     browser.actions().dragAndDrop(widget3, widget1).perform();
+    //     expect<any>(page.getNumberOfWidgets()).toEqual(4);
 
-        // Widgets 3 should now be at the top of the page. Widget 1 should be below it.
-        expect<any>(page.getWidgetLocationValue(widget3, 'top')).toEqual(0);
-        page.getWidgetLocationValue(widget3, 'top').then(function (top: number) {
-            page.getWidgetLocationValue(widget3, 'height').then(function (height: number) {
-                expect(page.getWidgetLocationValue(widget1, 'top')).toBeGreaterThan(top + height - 1);
-            });
-        });
-        // Widgets 2 and 4 should now be below widget 1.
-        page.getWidgetLocationValue(widget1, 'top').then(function (top: number) {
-            page.getWidgetLocationValue(widget1, 'height').then(function (height: number) {
-                expect(page.getWidgetLocationValue(widget2, 'top')).toBeGreaterThan(top + height - 1);
-                expect(page.getWidgetLocationValue(widget4, 'top')).toBeGreaterThan(top + height - 1);
-            });
-        });
+    //     // Widgets 3 should now be at the top of the page. Widget 1 should be below it.
+    //     expect<any>(page.getWidgetLocationValue(widget3, 'top')).toEqual(0);
+    //     page.getWidgetLocationValue(widget3, 'top').then(function (top: number) {
+    //         page.getWidgetLocationValue(widget3, 'height').then(function (height: number) {
+    //             expect(page.getWidgetLocationValue(widget1, 'top')).toBeGreaterThan(top + height - 1);
+    //         });
+    //     });
+    //     // Widgets 2 and 4 should now be below widget 1.
+    //     page.getWidgetLocationValue(widget1, 'top').then(function (top: number) {
+    //         page.getWidgetLocationValue(widget1, 'height').then(function (height: number) {
+    //             expect(page.getWidgetLocationValue(widget2, 'top')).toBeGreaterThan(top + height - 1);
+    //             expect(page.getWidgetLocationValue(widget4, 'top')).toBeGreaterThan(top + height - 1);
+    //         });
+    //     });
 
-        // Widget 4 should still be to the right of widget 2.
-        page.getWidgetLocationValue(widget2, 'left').then(function (left: number) {
-            page.getWidgetLocationValue(widget2, 'width').then(function (width: number) {
-                expect(page.getWidgetLocationValue(widget4, 'left')).toBeGreaterThan(left + width - 1);
-            });
-        });
-    });
+    //     // Widget 4 should still be to the right of widget 2.
+    //     page.getWidgetLocationValue(widget2, 'left').then(function (left: number) {
+    //         page.getWidgetLocationValue(widget2, 'width').then(function (width: number) {
+    //             expect(page.getWidgetLocationValue(widget4, 'left')).toBeGreaterThan(left + width - 1);
+    //         });
+    //     });
+    // });
 
     it('should react correctly when a widget is moved left', () => {
 

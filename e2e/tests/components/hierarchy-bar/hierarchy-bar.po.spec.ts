@@ -1,11 +1,11 @@
-import { $, $$, ElementFinder, browser } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class HierarchyBarPage {
-    
+
     nodes = $$('.hierarchy-bar-node');
     selectedLabel = $('#selected');
     selectButton = $('#set-selected-btn');
-    
+
     getPage(): void {
         browser.get('#/hierarchy-bar');
     }
@@ -52,7 +52,7 @@ export class HierarchyBarPage {
     }
 
     async getNodeChildren(index: number): Promise<ElementFinder[]> {
-        
+
         // check if the node has any children
         if (await this.nodeHasChildren(index) === false) {
             return [];
@@ -62,7 +62,7 @@ export class HierarchyBarPage {
         await this.showNodePopover(index);
 
         // return all the list items
-        return await $$('.hierarchy-bar-node-list-item');
+        return await $$('ux-hierarchy-bar-popover-item');
     }
 
     async getNodeChildrenTitles(index: number): Promise<string[]> {
@@ -89,10 +89,10 @@ export class HierarchyBarPage {
 
     async getOverflowNodes(): Promise<ElementFinder[]> {
         const indicator: ElementFinder = await $('.hierarchy-bar-overflow-indicator');
-    
+
         await indicator.click();
 
-        return await $$('.hierarchy-bar-node-list-item');
+        return await $$('ux-hierarchy-bar-popover-item');
     }
 
     async getOverflowNodeTitles(): Promise<string[]> {

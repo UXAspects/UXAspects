@@ -1,0 +1,36 @@
+ux-hierarchy-bar-popover-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 20px;
+    font-size: 1rem;
+    color: @organization-chart-hierarchy-bar-color;
+    cursor: pointer;
+
+    &:hover {
+        background-color: @organization-chart-hierarchy-bar-popover-hover;
+    }
+
+    &:focus {
+        background-color: @organization-chart-hierarchy-bar-popover-hover;
+        .aspects-outline;
+    }
+
+    .hierarchy-bar-node-icon {
+        flex: none;
+        max-width: 20px;
+        max-height: 18px;
+        margin-right: 5px;
+        min-width: 16px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hierarchy-bar-node-title {
+        color: @organization-chart-hierarchy-bar-color;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        white-space: nowrap;
+    }
+}

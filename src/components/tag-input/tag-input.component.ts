@@ -38,7 +38,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
 
-    @Input('tags')
+    @Input()
     get tags() {
         if (!this._tags) {
             this._tags = [];
@@ -53,7 +53,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     @Output() tagsChange = new EventEmitter<any[]>();
 
-    @Input('input')
+    @Input()
     get input() {
         return this._input;
     }
@@ -302,6 +302,16 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         }, 200);
     }
 
+    @HostListener('click')
+    onClick(): void {
+
+        // focus the input element
+        this.tagInput.nativeElement.focus();
+
+        // show the typeahead if we need to
+        this.inputClickHandler();
+    }
+
     tagClickHandler(event: MouseEvent, tag: any, index: number): void {
 
         if (this.disabled) { return; }
@@ -544,6 +554,10 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
      */
     hasFocus(): boolean {
         return this.isValidSelectIndex(this.selectedIndex);
+    }
+
+    toggle(): void {
+        this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent): void {

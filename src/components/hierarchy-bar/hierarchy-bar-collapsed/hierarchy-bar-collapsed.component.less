@@ -1,0 +1,63 @@
+ux-hierarchy-bar-collapsed {
+    display: flex;
+    flex: 1;
+
+    .hierarchy-bar-addons {
+        display: inline-flex;
+        flex: none;
+    }
+
+    .hierarchy-bar-nodes {
+        position: relative;
+        display: flex;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .hierarchy-bar-overflow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0.25rem 0 0.75rem;
+        color: @primary;
+
+        .hierarchy-bar-overflow-container {
+            margin-right: 7px;
+
+            .overflow-button {
+                border: none;
+                background: transparent;
+                padding: 0 2px;
+
+                &:focus {
+                    .aspects-outline;
+                }
+
+                > .hpe-icon {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        .hierarchy-bar-node-arrow {
+            display: inline-flex;
+            color: @organization-chart-hierarchy-bar-arrow;
+            margin-left: 5px;
+            transition: color 250ms ease-in-out;
+            border: none;
+            background: transparent;
+            padding: 0;
+            height: 16px;
+
+            &:hover {
+                color: @primary;
+            }
+
+            &:focus {
+                color: @primary;
+                .aspects-outline;
+            }
+        }
+    }
+}

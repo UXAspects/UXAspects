@@ -1,0 +1,11 @@
+<ux-alert *ngFor="let alert of alerts"
+          [type]="alert.type"
+          [dismissible]="true"
+          (dismiss)="remove(alert)">
+
+    <i uxAlertIcon class="hpe-icon" [ngClass]="alert.icon"></i>
+
+    {{ alert.description }}
+</ux-alert>
+
+<button class="btn button-primary" (click)="reset()">Reset</button>

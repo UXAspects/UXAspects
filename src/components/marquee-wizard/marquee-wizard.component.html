@@ -32,9 +32,7 @@
             (click)="gotoStep(step)"
             (keydown.enter)="gotoStep(step)">
 
-            <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
-            <span class="marquee-wizard-step-title">{{ step.header }}</span>
-            <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
+            <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
         </li>
 
     </ul>
@@ -96,3 +94,9 @@
         </button>
     </div>
 </div>
+
+<ng-template #defaultStepTemplate let-step>
+    <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
+    <span class="marquee-wizard-step-title">{{ step.header }}</span>
+    <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
+</ng-template>

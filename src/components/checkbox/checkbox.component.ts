@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
@@ -53,7 +53,7 @@ export class CheckboxComponent implements ControlValueAccessor {
         this.onTouchedCallback();
     }
 
-    get inputId(): string { 
+    get inputId(): string {
         return `${this.id || this._checkboxId}-input`;
     }
 

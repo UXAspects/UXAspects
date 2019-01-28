@@ -1,10 +1,10 @@
 ALT_DOCUMENTATION_FOLDER=target/docs
 SEPG_BUILD_ENV_IMAGE=uxaspects/buildenv:1.0.0
 
-GENERIC_1_TARGET_URL=${genericRepoMgr}/npm-dev-local/${path}/${filename}
+GENERIC_1_TARGET_URL=${genericRepoMgr}/saas-npm-dev-local/${path}/${filename}
 GENERIC_1_ARTIFACTS=target/artifactory/**/*.tgz
 GENERIC_1_EXPECTED_ARTIFACT_COUNT=2
 
-GENERIC_2_TARGET_URL=${sepgStagingRepo}/npm-release-local/${path}/${filename}
+GENERIC_2_TARGET_URL=${sepgStagingRepo}/saas-npm-release-local/${path}/${filename}
 GENERIC_2_ARTIFACTS=target/release-staging/**/*.tgz
 GENERIC_2_EXPECTED_ARTIFACT_COUNT=2

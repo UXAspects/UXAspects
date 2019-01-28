@@ -1,4 +1,4 @@
-export default class MarqueeWizardCtrl {
+export class MarqueeWizardCtrl {
 
   /**
    * @param {ng.IScope} $scope
