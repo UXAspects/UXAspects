@@ -32,7 +32,7 @@ export class NotificationService {
     /**
      * Define the default set of notification options
      */
-    private readonly _defaultOptions: NotificationOptions = {
+    private options: NotificationOptions = {
         duration: 4,
         spacing: 10,
         backgroundColor: this._colorService.getColor('accent').toHex(),
@@ -46,10 +46,10 @@ export class NotificationService {
      * @param options - The properties to configure the notification.
      * @param context - The context passed to the notification TemplateRef. This can be accessed by adding a let-data="data" to the ng-template element.
      */
-    show(templateRef: TemplateRef<any>, options: NotificationOptions = this._defaultOptions, context: { [key: string]: any } = {}): NotificationRef {
+    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options, context: { [key: string]: any } = {}): NotificationRef {
 
         // populate the specified options with the default values for any missing properties
-        options = { ...this._defaultOptions, ...options };
+        options = { ...this.options, ...options };
 
         // create the notificationRef based on the options and context specified
         const notificationRef: NotificationRef = {
