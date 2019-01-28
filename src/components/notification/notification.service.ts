@@ -32,7 +32,7 @@ export class NotificationService {
     /**
      * Define the default set of notification options
      */
-    private options: NotificationOptions = {
+    options: NotificationOptions = {
         duration: 4,
         spacing: 10,
         backgroundColor: this._colorService.getColor('accent').toHex(),
