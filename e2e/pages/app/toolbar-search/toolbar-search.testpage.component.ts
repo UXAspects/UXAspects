@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'uxd-toolbar-search',
@@ -10,9 +11,11 @@ export class ToolbarSearchTestPageComponent {
     expanded: boolean;
     searchText: string;
     searchedFor: string = '';
+    alwaysExpanded: boolean = false;
 
-    @ViewChild('searchFieldRight')
-    searchFieldRight: ElementRef;
+    form = new FormGroup({
+        search: new FormControl('')
+    });
 
     onSearch(searchText: string) {
         // Execute search here
@@ -22,9 +25,8 @@ export class ToolbarSearchTestPageComponent {
         this.expanded = false;
     }
 
-    onSearchRight(searchText: string) {
+    onSearchRight() {
         // Execute search here
-        this.searchedFor = searchText;
-        this.searchFieldRight.nativeElement.blur();
+        this.searchedFor = this.form.controls.search.value;
     }
 }
