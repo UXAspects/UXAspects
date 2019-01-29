@@ -7,6 +7,7 @@ import { ResizableTableService } from './resizable-table.service';
 
 @Directive({
     selector: '[uxResizableTable]',
+    exportAs: 'ux-resizable-table',
     providers: [ResizableTableService],
     host: {
         class: 'ux-resizable-table'
@@ -46,6 +47,11 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    /** Force the layout to recalculate */
+    updateLayout(): void {
+        requestAnimationFrame(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
     }
 
     /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
