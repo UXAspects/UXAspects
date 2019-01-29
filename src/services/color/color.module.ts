@@ -13,7 +13,7 @@ import { ColorService } from './color.service';
  * and instead we should use `providedIn: 'root'`
  */
 export function COLOR_SERVICE_PROVIDER_FACTORY(parentColorService: ColorService, colorSet: ColorSet) {
-    return parentColorService || new ColorService(colorSet);
+    return parentColorService || new ColorService(colorSet ? colorSet : colorSets.keppel);
 }
 
 export const COLOR_SERVICE_PROVIDER = {
@@ -35,11 +35,11 @@ export class ColorServiceModule {
      * ```
      * @param colorSet The color set the application should use
      */
-    static forRoot(colorSet: ColorSet = colorSets.keppel): ModuleWithProviders {
+    static forRoot(colorSet: ColorSet): ModuleWithProviders {
         return {
             ngModule: ColorServiceModule,
             providers: [
-                { provide: COLOR_SET_TOKEN, useValue: colorSet },
+                { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel },
                 COLOR_SERVICE_PROVIDER
             ]
         };
