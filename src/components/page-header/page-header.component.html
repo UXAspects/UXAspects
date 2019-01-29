@@ -10,7 +10,7 @@
 
         <!-- Sub-title -->
         <div *ngIf="title || titleTemplate" class="page-header-subtitle-container">
-            <span *ngIf="title" class="page-header-subtitle">{{title}}</span>
+            <span *ngIf="title" class="page-header-subtitle">{{subheader}}</span>
             <ng-container [ngTemplateOutlet]="titleTemplate"></ng-container>
         </div>
 
