@@ -25,7 +25,7 @@ import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
         '[class.expanded]': 'expanded',
         '[class.left]': 'direction === "left"',
         '[class.right]': 'direction === "right"',
-        '[class.inverse]': 'invserse',
+        '[class.inverse]': 'inverse',
         '[style.position]': '_position',
         '[style.background-color]': '_backgroundColor',
         '[@expanded]': '_expandedAnimation'
@@ -39,14 +39,17 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     /** Whether the color scheme is inverted. For use when the component is hosted on a dark background, e.g. the masthead. */
     @Input() inverse = false;
 
+    /** Indicate whether or not the search field should always be expanded */
+    @Input() alwaysExpanded: boolean = false;
+
     /** Whether the input field is visible. Use this to collapse or expand the control in response to other events. */
     @Input()
     set expanded(value: boolean) {
         this._expanded = value;
 
-        this.expandedChange.emit(value);
+        this.expandedChange.emit(this.expanded);
 
-        if (value) {
+        if (this.expanded) {
             // Set focus on the input when expanded
             this.field.focus();
         } else {
@@ -59,7 +62,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     }
 
     get expanded(): boolean {
-        return this._expanded;
+        return this.alwaysExpanded || this._expanded;
     }
 
     /*
@@ -80,6 +83,7 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
      */
     @Output() search = new EventEmitter<string>();
 
+    /** Return the correct animation based on the expanded state */
     get _expandedAnimation(): any {
         return {
             value: this.expanded ? 'expanded' : 'collapsed',

@@ -8,6 +8,7 @@ export class ToolbarSearchButtonDirective {
     /** Emit whenever the button is clicked */
     @Output() clicked = new EventEmitter<void>();
 
+    /** Get the width of the button element */
     get width(): number {
         return this._elementRef.nativeElement.offsetWidth;
     }
