@@ -1,12 +1,12 @@
-import { Directive, HostListener, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({
     selector: '[uxToolbarSearchButton]'
 })
 export class ToolbarSearchButtonDirective {
 
-    @Output()
-    clicked = new EventEmitter<void>();
+    /** Emit whenever the button is clicked */
+    @Output() clicked = new EventEmitter<void>();
 
     get width(): number {
         return this._elementRef.nativeElement.offsetWidth;
@@ -15,7 +15,7 @@ export class ToolbarSearchButtonDirective {
     constructor(private _elementRef: ElementRef) { }
 
     @HostListener('click')
-    clickHandler() {
+    clickHandler(): void {
         this.clicked.emit();
     }
 }
