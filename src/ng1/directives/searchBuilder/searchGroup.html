@@ -17,11 +17,14 @@
         <div class="form-control"></div>
       </div>
     </div>
-    <div class="add-field" ng-class="{ 'limit-reached' : sg.maxFields && (sg.components.length >= maxFields) }">
-      <div class="button-container" ng-click="sg.addNewField()">
-        <div class="add-button"><span class="hpe-icon hpe-add"></span></div>
-        <span class="add-text" single-line-overflow-tooltip ng-bind="buttonText"></span>
-      </div>
+
+    <div class="add-field-list">
+        <div class="add-field" ng-repeat="button in sg.getAddFields()" ng-class="{ 'limit-reached' : sg.maxFields && (sg.components.length >= maxFields) }">
+          <div class="button-container" ng-click="sg.addNewField($index)">
+            <div class="add-button"><span class="hpe-icon hpe-add"></span></div>
+            <span class="add-text" single-line-overflow-tooltip ng-bind="sg.getButtonText($index)"></span>
+          </div>
+        </div>
     </div>
   </div>
   <hr class="group-divider" />
