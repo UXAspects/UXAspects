@@ -1,7 +1,7 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
-import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
+import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 import { buffer, debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,19 +19,25 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
 
+    isPickerOpen: boolean = false;
     duration: number = 4;
     description: string = 'You have 16 messages';
-    backgroundColor: string = this.colorService.getColor('accent').toHex();
 
-    colors = [
-        this.colorService.getColor('primary').toHex(),
-        this.colorService.getColor('accent').toHex(),
-        this.colorService.getColor('chart4').toHex(),
-        this.colorService.getColor('chart5').toHex(),
-        this.colorService.getColor('ok').toHex(),
-        this.colorService.getColor('warning').toHex(),
-        this.colorService.getColor('critical').toHex()
+    colors: ColorPickerColor[][] = [
+        [
+            new ColorPickerColor('primary', this.colorService.getColor('primary').toHex()),
+            new ColorPickerColor('accent', this.colorService.getColor('accent').toHex()),
+            new ColorPickerColor('chart4', this.colorService.getColor('chart4').toHex()),
+            new ColorPickerColor('chart5', this.colorService.getColor('chart5').toHex()),
+        ],
+        [
+            new ColorPickerColor('ok', this.colorService.getColor('ok').toHex()),
+            new ColorPickerColor('warning', this.colorService.getColor('warning').toHex()),
+            new ColorPickerColor('critical', this.colorService.getColor('critical').toHex())
+        ]
     ];
+
+    selected: ColorPickerColor = this.colors[0][1];
 
     plunk: IPlunk = {
         files: {
@@ -41,12 +47,17 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['NotificationModule', 'NumberPickerModule', 'ColorServiceModule', 'AccordionModule'],
+                imports: ['NotificationModule', 'NumberPickerModule', 'ColorPickerModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['A11yModule'],
                 library: '@angular/cdk/a11y'
+            },
+            {
+                imports: ['BsDropdownModule'],
+                forRoot: true,
+                library: 'ngx-bootstrap/dropdown'
             }
         ]
     };
@@ -70,7 +81,7 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
     }
 
     showNotification(template: TemplateRef<any>) {
-        this.notificationService.show(template, { duration: this.duration, backgroundColor: this.backgroundColor }, { description: this.description });
+        this.notificationService.show(template, { duration: this.duration, backgroundColor: this.selected.hex }, { description: this.description });
 
         // announce the notification
         this._notifications.next(this.description);
