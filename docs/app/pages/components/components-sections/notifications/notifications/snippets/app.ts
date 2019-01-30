@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
-import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
+import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 import { buffer, debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,17 +14,23 @@ export class AppComponent implements OnDestroy {
 
     duration: number = 4;
     description: string = 'You have 16 messages';
-    backgroundColor: string = this.colorService.getColor('accent').toHex();
+    isPickerOpen: boolean = false;
 
-    colors = [
-        this.colorService.getColor('primary').toHex(),
-        this.colorService.getColor('accent').toHex(),
-        this.colorService.getColor('chart4').toHex(),
-        this.colorService.getColor('chart5').toHex(),
-        this.colorService.getColor('ok').toHex(),
-        this.colorService.getColor('warning').toHex(),
-        this.colorService.getColor('critical').toHex()
+    colors: ColorPickerColor[][] = [
+        [
+            new ColorPickerColor('primary', this.colorService.getColor('primary').toHex()),
+            new ColorPickerColor('accent', this.colorService.getColor('accent').toHex()),
+            new ColorPickerColor('chart4', this.colorService.getColor('chart4').toHex()),
+            new ColorPickerColor('chart5', this.colorService.getColor('chart5').toHex()),
+        ],
+        [
+            new ColorPickerColor('ok', this.colorService.getColor('ok').toHex()),
+            new ColorPickerColor('warning', this.colorService.getColor('warning').toHex()),
+            new ColorPickerColor('critical', this.colorService.getColor('critical').toHex())
+        ]
     ];
+
+    selected: ColorPickerColor = this.colors[0][1];
 
     private _notifications = new Subject<string>();
     private _subscription: Subscription;
@@ -50,7 +56,10 @@ export class AppComponent implements OnDestroy {
     }
 
     showNotification(template: TemplateRef<any>) {
-        this.notificationService.show(template, { duration: this.duration, backgroundColor: this.backgroundColor }, { description: this.description });
+        this.notificationService.show(template,
+            { duration: this.duration, backgroundColor: this.selected.hex },
+            { description: this.description }
+        );
 
         // announce the notification
         this._notifications.next(this.description);

@@ -44,11 +44,43 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-12">
                         <label for="backgroundColor">backgroundColor</label>
-                        <div class="input-group m-b-sm">
-                            <input type="text" placeholder="Enter color" class="form-control"
-                                [(ngModel)]="backgroundColor">
-                            <span class="input-group-addon color-display"
-                                [style.background-color]="backgroundColor"></span>
+                        <div class="btn-group"
+                            (keydown.esc)="isPickerOpen = false; toggleButton.focus()"
+                            dropdown
+                            [(isOpen)]="isPickerOpen"
+                            [autoClose]="false">
+
+                            <button type="button"
+                                aria-label="Select a color"
+                                class="btn button-secondary dropdown-toggle"
+                                #toggleButton
+                                dropdownToggle>
+
+                                <span class="ux-color-picker-button-preview"
+                                    [style.background-color]="selected.rgba">
+                                    &nbsp;
+                                </span>
+                                <span class="hpe-icon hpe-chevron-down"></span>
+
+                            </button>
+
+                            <div *dropdownMenu
+                                #dropdownMenu
+                                id="color-picker-dropdown"
+                                class="dropdown-menu ux-color-picker-dropdown">
+
+                                <ux-color-picker
+                                    [colors]="colors"
+                                    [(selected)]="selected"
+                                    (selectedChange)="toggleButton.focus()"
+                                    [columns]="4"
+                                    buttonStyle="circle"
+                                    buttonSize="md"
+                                    [showTooltips]="false"
+                                    [showInput]="false"
+                                    (inputSubmit)="isPickerOpen = false"></ux-color-picker>
+
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -57,15 +89,6 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-sm-6">
-                        <p>
-                            <small>Recommended Colors</small>
-                        </p>
-                        <div class="color-palette">
-                            <div class="color-box" *ngFor="let color of colors"
-                            [style.background-color]="color" (click)="backgroundColor = color"></div>
-                        </div>
-                    </div>
                     <div class="col-sm-6">
                         <label for="backgroundColor">description</label>
                         <div class="input-group m-b-sm">

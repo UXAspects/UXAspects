@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AlertModule, CheckboxModule, NotificationModule, NumberPickerModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AlertModule, CheckboxModule, ColorPickerModule, NotificationModule, NumberPickerModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -42,7 +43,9 @@ const ROUTES = [
         A11yModule,
         AccordionModule,
         AlertModule,
+        BsDropdownModule,
         CheckboxModule,
+        ColorPickerModule,
         CommonModule,
         DocumentationComponentsModule,
         FormsModule,
