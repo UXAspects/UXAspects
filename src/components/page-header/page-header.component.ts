@@ -108,25 +108,33 @@ export class PageHeaderComponent {
         return this._logoForeground;
     }
 
+    /** @deprecated - Use logoBackground instead */
     @Input()
     set familyBackground(color: string) {
         this.logoBackground = color;
         console.warn(`The 'familyBackground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoBackground' @Input instead.`);
     }
 
+    /** @deprecated - Use logoForeground instead */
     @Input()
     set familyForeground(color: string) {
         this.logoForeground = color;
         console.warn(`The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.`);
     }
 
+    /** Emit whenever the back button is clicked */
     @Output() backClick = new EventEmitter();
 
+    /** Access a custom template title */
     @ContentChild('title') titleTemplate: TemplateRef<any>;
 
+    /** Access all the custom menu TemplateRefs */
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
 
+    /** The currently selected page header item */
     selected$: BehaviorSubject<PageHeaderNavigationItem> = this._pageHeaderService.selected$;
+
+    /** The currently selected root menu item - this may be different from selected$ if a child menu item is selected */
     selectedRoot$: BehaviorSubject<PageHeaderNavigationItem> = this._pageHeaderService.selectedRoot$;
 
     private _crumbs: Breadcrumb[] = [];
