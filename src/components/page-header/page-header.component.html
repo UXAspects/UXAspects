@@ -9,9 +9,9 @@
         </div>
 
         <!-- Sub-title -->
-        <div *ngIf="title || titleTemplate" class="page-header-subtitle-container">
-            <span *ngIf="title" class="page-header-subtitle">{{subheader}}</span>
-            <ng-container [ngTemplateOutlet]="titleTemplate"></ng-container>
+        <div *ngIf="subheader || subheaderTemplate || titleTemplate" class="page-header-subtitle-container">
+            <span *ngIf="subheader" class="page-header-subtitle">{{subheader}}</span>
+            <ng-container [ngTemplateOutlet]="subheaderTemplate || titleTemplate"></ng-container>
         </div>
 
         <div class="page-header-state-container" role="navigation">

@@ -1,13 +1,13 @@
 <div id="root">
 
-<ux-page-header id="pageHeader1" header="My Page" [crumbs]="crumbs" [items]="items"
+<ux-page-header id="pageHeader1" header="My Page" subheader="My Subheader" [crumbs]="crumbs" [items]="items"
                 [condensed]="condensed" [iconMenus]="iconMenus"></ux-page-header>
 
 <br>
 
 <button id="button1" class="btn button-primary" (click)="condensed = !condensed">Toggle Condensed</button>
 
-<ux-page-header class="m-t-xl m-b-xl" id="pageHeader2" header="My Page" [crumbs]="crumbs" [items]="items2"
+<ux-page-header class="m-t-xl m-b-xl" id="pageHeader2" header="My Page" title="My Subheader" [crumbs]="crumbs" [items]="items2"
                 [condensed]="condensed" [iconMenus]="iconMenus" [secondaryNavigation]="true"
                 [secondaryNavigationAlignment]="alignment" [secondaryNavigationAutoselect]="autoselect"></ux-page-header>
 
