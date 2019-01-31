@@ -295,6 +295,12 @@
                 <code>rowClass</code> (string) - the name of a class which will be applied to the row while it is
                 selected. To remove the default appearance, set this to null or an empty string.
             </li>
+            <li>
+                <code>comparator</code> (function) - a function can be provided to compare two objects.
+                By default objects are compared using the <code>===</code> equality operator. This function can be useful
+                if object references may change or you want object comparison to be based on a property within
+                the object such as an <code>id</code>.
+            </li>
         </ul>
     </tr>
     <tr uxd-api-property name="expander" type="object">

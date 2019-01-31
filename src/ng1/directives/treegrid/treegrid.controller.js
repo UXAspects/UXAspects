@@ -23,7 +23,8 @@ export function TreeGridController($scope, $q, multipleSelectProvider) {
             check: false,
             selectChildren: false,
             rowClass: "shift-select-selected-bg",
-            indeterminate: false
+            indeterminate: false,
+            comparator: (prev, current) => prev === current
         },
         expander: {
             type: "class",
@@ -61,14 +62,21 @@ export function TreeGridController($scope, $q, multipleSelectProvider) {
     requestAnimationFrame(() => vm.onInit());
 
     vm.onInit = function () {
-        vm.allOptions = angular.extend({}, defaultOptions, vm.options);
+
+        // apply the specified options
+        setOptions(vm.options);
+
+        // determine if this is an async tree
         vm.isAsync = angular.isFunction(vm.data);
 
         // Watch for changes to the tree data and update the view when it changes
-        $scope.$watch('vm.data', updateView, true);
+        const dataWatcher = $scope.$watch('vm.data', updateView, true);
 
         // watch for changes to the options
-        $scope.$watch('vm.options', nv => vm.allOptions = angular.extend({}, defaultOptions, nv), true);
+        const optionsWatcher = $scope.$watch('vm.options', options => setOptions(options), true);
+
+        // Event for reloading the grid to its initial state
+        const reloadWatcher = $scope.$on("treegrid.reload", () => updateView());
 
         // Initial load of top-level items
         updateView();
@@ -81,10 +89,14 @@ export function TreeGridController($scope, $q, multipleSelectProvider) {
         }
 
         $scope.$digest();
-    };
 
-    // Event for reloading the grid to its initial state
-    $scope.$on("treegrid.reload", () => updateView());
+        // clean up when tree grid is destroyed
+        $scope.$on('$destroy', () => {
+            dataWatcher();
+            optionsWatcher();
+            reloadWatcher();
+        });
+    };
 
     // Retrieves array for ng-repeat of grid rows
     vm.getGridRows = function () {
@@ -186,6 +198,14 @@ export function TreeGridController($scope, $q, multipleSelectProvider) {
 
         return false;
     };
+
+    function setOptions(options) {
+        // update the options
+        vm.allOptions = angular.extend({}, defaultOptions, options);
+
+        // update the comparator function
+        vm.selectionModel.comparator = vm.allOptions.select.comparator;
+    }
 
     function updateView() {
         vm.loading = true;

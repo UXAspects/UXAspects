@@ -16,6 +16,8 @@ export class SelectionModel {
         /** @type {boolean} */
         this.isSelecting = false;
 
+        // a function that allows comparing objects based on a property rather than an object
+        this.comparator = null;
     }
 
     reset() {
@@ -41,7 +43,7 @@ export class SelectionModel {
 
     deselect(item) {
         if (this.isSelected(item)) {
-            this._selection = this._selection.filter(_item => _item !== item);
+            this._selection = this._selection.filter(_item => !this.compare(item, _item));
             this.onDeselect.next(item);
             this.onSelectionChange.next(this._selection);
         }
@@ -56,7 +58,7 @@ export class SelectionModel {
     }
 
     isSelected(item) {
-        return this._selection.find(_item => _item === item);
+        return this._selection.find(_item => this.compare(_item, item));
     }
 
     setSelection(...items) {
@@ -75,6 +77,14 @@ export class SelectionModel {
 
     getSelection() {
         return this._selection;
+    }
+
+    compare(previous, current) {
+        if (typeof this.comparator === 'function') {
+            return this.comparator(previous, current);
+        }
+
+        return current === previous;
     }
 
 }
