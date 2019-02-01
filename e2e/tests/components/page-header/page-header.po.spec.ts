@@ -123,5 +123,9 @@ export class PageHeaderPage {
     async getClasses(target: ElementFinder): Promise<string[]> {
         return (await target.getAttribute('class') || '').split(' ');
     }
+
+    async getSubheaderText(target: ElementFinder): Promise<string> {
+        return await target.$('.page-header-subtitle').getAttribute('innerText');
+    }
 }
 
