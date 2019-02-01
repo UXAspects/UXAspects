@@ -14,6 +14,10 @@ const routes: Routes = [
         loadChildren: './checkbox/checkbox.module#CheckboxTestPageModule'
     },
     {
+        path: 'column-resizing',
+        loadChildren: './column-resizing/column-resizing.module#ColumnResizingTestPageModule'
+    },
+    {
         path: 'custom-facet',
         loadChildren: './custom-facet/custom-facet.module#CustomFacetTestPageModule'
     },
