@@ -72,13 +72,13 @@
                                 <ux-color-picker
                                     [colors]="colors"
                                     [(selected)]="selected"
-                                    (selectedChange)="toggleButton.focus()"
+                                    (selectedChange)="toggleButton.focus(); isPickerOpen = false"
                                     [columns]="4"
                                     buttonStyle="circle"
                                     buttonSize="md"
                                     [showTooltips]="false"
-                                    [showInput]="false"
-                                    (inputSubmit)="isPickerOpen = false"></ux-color-picker>
+                                    [showInput]="false">
+                                </ux-color-picker>
 
                             </div>
                         </div>
