@@ -15,46 +15,46 @@ describe('Column Resizing Tests', () => {
     });
 
     it('should have correct initial states (standard table)', async () => {
-        expect(page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
-        expect(page.getColumnHeaderWidth(page.standardTable, 1)).toBe(260);
-        expect(page.getColumnHeaderWidth(page.standardTable, 2)).toBe(300);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 1)).toBe(260);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 2)).toBe(300);
     });
 
     it('should have correct initial states (fixed table)', async () => {
         await page.updateLayout();
-        expect(page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(260);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(300);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(260);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(300);
     });
 
     it('can increase the width of a column (standard table)', async () => {
         await page.resizeColumn(page.standardTable, 1, 100);
-        expect(page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
-        expect(page.getColumnHeaderWidth(page.standardTable, 1)).toBe(365);
-        expect(page.getColumnHeaderWidth(page.standardTable, 2)).toBe(195);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 1)).toBe(365);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 2)).toBe(195);
     });
 
     it('can increase the width of a column (fixed table)', async () => {
         await page.updateLayout();
         await page.resizeColumn(page.fixedTable, 1, 100);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(366);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(194);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(366);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(194);
     });
 
     it('can decrease the width of a column (standard table)', async () => {
         await page.resizeColumn(page.standardTable, 1, -100);
-        expect(page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
-        expect(page.getColumnHeaderWidth(page.standardTable, 1)).toBe(165);
-        expect(page.getColumnHeaderWidth(page.standardTable, 2)).toBe(395);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 1)).toBe(165);
+        expect(await page.getColumnHeaderWidth(page.standardTable, 2)).toBe(395);
     });
 
     it('can decrease the width of a column (fixed table)', async () => {
         await page.updateLayout();
         await page.resizeColumn(page.fixedTable, 1, -100);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(166);
-        expect(page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(394);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(166);
+        expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(394);
     });
 
     it('can force update layout after pagination (fixed table)', async () => {
