@@ -1,33 +1,71 @@
 <div class="demo-toolbar">
 
     <div class="demo-toolbar-left">
-        <ux-toolbar-search id="searchLeft" [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
-            <input uxToolbarSearchField #searchField type="text" class="form-control" placeholder="Search" aria-label="Search" [(ngModel)]="searchText">
-            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary" aria-label="Toggle Search">
+        <ux-toolbar-search id="searchLeft"
+            [alwaysExpanded]="alwaysExpanded"
+            [(expanded)]="expanded"
+            direction="right"
+            (search)="onSearch($event)">
+
+            <input uxToolbarSearchField
+                #searchField
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                aria-label="Search"
+                [(ngModel)]="searchText">
+
+            <button uxToolbarSearchButton
+                type="button"
+                class="btn btn-link btn-icon button-secondary"
+                aria-label="Toggle Search">
                 <span class="hpe-icon hpe-search"></span>
             </button>
-            <button *ngIf="searchText" type="button" class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear" (click)="searchText = ''; searchField.focus()">
+
+            <button *ngIf="searchText"
+                type="button"
+                class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
+                (click)="searchText = ''; searchField.focus()">
                 <span class="hpe-icon hpe-close"></span>
             </button>
+
         </ux-toolbar-search>
+
         <button type="button" class="btn btn-link btn-icon button-secondary">
             <span class="hpe-icon hpe-add"></span>
         </button>
+
         <button type="button" class="btn btn-link btn-icon button-secondary">
             <span class="hpe-icon hpe-edit"></span>
         </button>
     </div>
 
-    <div class="demo-toolbar-right">
+    <div class="demo-toolbar-right" [formGroup]="form">
         <button type="button" class="btn btn-link btn-icon button-secondary">
             <span class="hpe-icon hpe-grid"></span>
         </button>
+
         <button type="button" class="btn btn-link btn-icon button-secondary">
             <span class="hpe-icon hpe-list"></span>
         </button>
-        <ux-toolbar-search id="searchRight" direction="left" (search)="onSearchRight($event)">
-            <input uxToolbarSearchField #searchFieldRight type="text" class="form-control" placeholder="Search" aria-label="Search">
-            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary" aria-label="Toggle Search">
+
+        <ux-toolbar-search
+            id="searchRight"
+            [alwaysExpanded]="alwaysExpanded"
+            direction="left"
+            (search)="onSearchRight()">
+
+            <input uxToolbarSearchField
+                formControlName="search"
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                aria-label="Search">
+
+            <button uxToolbarSearchButton
+                    type="button"
+                    class="btn btn-link btn-icon button-secondary"
+                    aria-label="Toggle Search">
                 <span class="hpe-icon hpe-search"></span>
             </button>
         </ux-toolbar-search>
@@ -38,3 +76,5 @@
 <p class="m-t-md">Searched for:
     <strong id="searchedFor">{{searchedFor}}</strong>
 </p>
+
+<button id="always-expanded-btn" class="btn button-primary" (click)="alwaysExpanded = true">Set Always Expanded</button>

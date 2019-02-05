@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 export class ToolbarSearchPage {
 
@@ -20,4 +20,7 @@ export class ToolbarSearchPage {
 
     // Most recently submitted search query
     searchedFor = element(by.id('searchedFor'));
+
+    // button to set always expanded state
+    alwaysExpandedBtn = element(by.id('always-expanded-btn'));
 }

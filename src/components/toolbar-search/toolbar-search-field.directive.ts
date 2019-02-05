@@ -1,65 +1,98 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Optional, Output } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Directive, ElementRef, EventEmitter, forwardRef, HostListener, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-const KEYS = {
-    ENTER: 13,
-    ESCAPE: 27
+export const TOOLBAR_SEARCH_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ToolbarSearchFieldDirective),
+    multi: true
 };
 
 @Directive({
-    selector: '[uxToolbarSearchField]'
+    selector: '[uxToolbarSearchField]',
+    providers: [TOOLBAR_SEARCH_VALUE_ACCESSOR]
 })
-export class ToolbarSearchFieldDirective {
+export class ToolbarSearchFieldDirective implements ControlValueAccessor {
 
-    @Output()
-    cancel = new EventEmitter<void>();
+    /** Emit whenever the escape key is pressed */
+    @Output() cancel = new EventEmitter<void>();
 
-    @Output()
-    submit = new EventEmitter<string>();
+    /** Emit whenever the enter key is pressed */
+    @Output() submit = new EventEmitter<string>();
 
+    /** Get the current value of the input control */
     get text(): string {
-        // Use ngModel if specified on the host; otherwise read the DOM
-        if (this._ngModel) {
-            return this._ngModel.value;
-        }
-
         return this._elementRef.nativeElement.value;
     }
 
-    constructor(
-        private _elementRef: ElementRef,
-        @Optional() private _ngModel: NgModel) { }
+    /** For use with the Forms and ReactiveForms */
+    private onTouchedCallback: () => void = () => { };
 
-    focus() {
-        setTimeout(() => {
-            this._elementRef.nativeElement.focus();
-        });
+    /** Call this function with the latest value to update ngModel or formControl name */
+    private onChangeCallback: (_: any) => void = () => { };
+
+    constructor(private _elementRef: ElementRef) { }
+
+    focus(): void {
+        // mark the control as dirty
+        this.onTouchedCallback();
+
+        // focus the input control after a delay to ensure the element is present
+        requestAnimationFrame(() => this._elementRef.nativeElement.focus());
     }
 
-    blur() {
-        setTimeout(() => {
-            this._elementRef.nativeElement.blur();
-        });
+    blur(): void {
+        // blur the input control after a delay to ensure the element is present
+        requestAnimationFrame(() => this._elementRef.nativeElement.blur());
     }
 
-    clear() {
-        // Use ngModel if specified on the host; otherwise use the DOM
-        if (this._ngModel) {
-            this._ngModel.reset();
-        } else {
-            this._elementRef.nativeElement.value = '';
+    /** Clear the input, if we have an ngModel reset its value otherwise just set the input value to empty */
+    clear(): void {
+        this.setValue('');
+    }
+
+    @HostListener('keydown.enter')
+    onEnter(): void {
+        this.submit.emit(this.text);
+    }
+
+    @HostListener('keydown.escape')
+    onEscape(): void {
+        this._elementRef.nativeElement.blur();
+        this.cancel.emit();
+    }
+
+    @HostListener('input')
+    onInput(): void {
+        this.setValue(this.text);
+    }
+
+    /** Update the input value based on ngModel or formControl */
+    writeValue(value: string): void {
+        this.setValue(value);
+    }
+
+    /** Register a function to update form control */
+    registerOnChange(fn: any): void {
+        this.onChangeCallback = fn;
+    }
+
+    /** Register a function to mark form control as touched */
+    registerOnTouched(fn: any): void {
+        this.onTouchedCallback = fn;
+    }
+
+    /** Update the value in all required places */
+    private setValue(value: string): void {
+
+        // ngModel/form control can set the default value to null or undefined, which can show in the input. Replace with empty string
+        if (!value) {
+            value = '';
         }
-    }
 
-    @HostListener('keydown', ['$event'])
-    keydownHandler(event: KeyboardEvent) {
-        setTimeout(() => {
-            if (event.keyCode === KEYS.ENTER) {
-                this.submit.emit(this.text);
-            } else if (event.keyCode === KEYS.ESCAPE) {
-                this._elementRef.nativeElement.blur();
-                this.cancel.emit();
-            }
-        });
+        // update the form value if there is one in use
+        this.onChangeCallback(value);
+
+        // update the content of the input control
+        this._elementRef.nativeElement.value = value;
     }
 }
