@@ -3,6 +3,7 @@ export class SingleLineOverflowController {
     constructor($element, $scope, $document) {
         this.$element = $element;
         this.$body = $document.find('body');
+        this.title = null;
 
         // apply the initial styles to keep it on one line and show ellipsis
         this.setStyles();
@@ -37,6 +38,9 @@ export class SingleLineOverflowController {
     create() {
         this.$element.tooltip({ title: this.$element.text(), container: 'body ' });
         this.$element.tooltip('disable');
+
+        // store the current text so we can detect when the tooltip needs updated
+        this.title = this.$element.text();
     }
 
     /** Apply the styling required to show an ellipsis */
@@ -52,8 +56,19 @@ export class SingleLineOverflowController {
     }
 
     update() {
+
         // ensure the text is up to date
-        this.$element.tooltip({ title: this.$element.text() });
+        if (this.title !== this.$element.text()) {
+
+            // destroy the old tooltip
+            this.$element.tooltip('destroy');
+
+            // create the new updated tooltip
+            this.$element.tooltip({ title: this.$element.text(), container: 'body ' });
+
+            // store the latest text so we can detect when we need to update the tooltip
+            this.title = this.$element.text();
+        }
 
         // enable or disable the tooltip based on whether or not this is overflow
         this.$element.tooltip(this.isOverflowing() ? 'enable' : 'disable');
