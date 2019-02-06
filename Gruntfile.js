@@ -65,7 +65,7 @@ module.exports = function(grunt) {
     ]);
 
     // e2e: run the protractor tests
-    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'execute:protractor', 'makeReport']);
+    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'execute:protractor']);
 
     // compile: build the library and documentation into `dist`.
     grunt.registerTask('compile', [
