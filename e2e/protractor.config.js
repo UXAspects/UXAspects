@@ -107,10 +107,14 @@ exports.config = {
 
 // Custom reporter
 function Reporter(options) {
+
   var _defaultOutputFile = path.resolve(process.cwd(), './e2e/_test-output', 'protractor-results.txt');
   options.outputFile = options.outputFile || _defaultOutputFile;
 
-  initOutputFile(options.outputFile);
+  try {
+      initOutputFile(options.outputFile);
+  } catch(err) {}
+
   options.appDir = options.appDir || './';
   var _root = { appDir: options.appDir, suites: [] };
   log('AppDir: ' + options.appDir, +1);

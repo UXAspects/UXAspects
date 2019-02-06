@@ -56,9 +56,18 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
     /** Unsubscribe from all observables on component destroy */
     private _onDestroy = new Subject<void>();
 
+    /** Store the previous selection so we don't emit more than we have to */
+    private _lastSelection: ReadonlyArray<T>;
+
     constructor(private _selectionService: SelectionService<T>, private _cdRef: ChangeDetectorRef) {
-        _selectionService.selection$.pipe(takeUntil(this._onDestroy), debounceTime(0))
-            .subscribe(items => this.uxSelectionChange.emit(items));
+        _selectionService.selection$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(items => {
+            if (this.isSelectionChanged(items)) {
+                this.uxSelectionChange.emit(items);
+            }
+
+            // store the most recent selection
+            this._lastSelection = [...items];
+        });
     }
 
     ngAfterContentInit(): void {
@@ -106,5 +115,24 @@ export class SelectionDirective<T> implements AfterContentInit, OnDestroy {
         if (this._selectionService.isEnabled) {
             this._selectionService.strategy.deselectAll();
         }
+    }
+
+    /**
+     * Determine if the previous selection is the same as the current selection
+     */
+    private isSelectionChanged(selection: T[]): boolean {
+
+        // fast, efficient check, if length is different they must have changed
+        if (!this._lastSelection && selection || this._lastSelection.length !== selection.length) {
+            return true;
+        }
+
+        // if both arrays have 0 items then they have not changed
+        if (this._lastSelection.length === 0 && selection.length === 0) {
+            return false;
+        }
+
+        // otherwise do a check on each item
+        return !this._lastSelection.every(item => selection.indexOf(item) !== -1);
     }
 }
