@@ -108,17 +108,13 @@ exports.config = {
 // Custom reporter
 function Reporter(options) {
 
-  const testOutputDir = path.resolve(process.cwd(), './e2e/_test-output');
-
-  //   if the test output folder exists, delete it
-  if (fs.existsSync(testOutputDir)) {
-      fs.rmdirSync(testOutputDir);
-  }
-
-  var _defaultOutputFile = path.resolve(testOutputDir, 'protractor-results.txt');
+  var _defaultOutputFile = path.resolve(process.cwd(), './e2e/_test-output', 'protractor-results.txt');
   options.outputFile = options.outputFile || _defaultOutputFile;
 
-  initOutputFile(options.outputFile);
+  try {
+      initOutputFile(options.outputFile);
+  } catch(err) {}
+
   options.appDir = options.appDir || './';
   var _root = { appDir: options.appDir, suites: [] };
   log('AppDir: ' + options.appDir, +1);
