@@ -37600,12 +37600,13 @@ function SearchGroupCtrl($scope) {
   vm.showPlaceholder = false;
   vm.maxFields = $scope.maxFields ? parseInt($scope.maxFields) : null;
 
-  vm.addNewField = function () {
-    //call the user function specified to add a field
-    if (!$scope.addField) throw new Error('Search Builder - Add Field function required.'); //check to ensure we have not reached the maximum number of fields
+  vm.addNewField = function (index) {
+    var targetFunction = vm.getAddFields()[index]; //call the user function specified to add a field
+
+    if (!targetFunction) throw new Error('Search Builder - Add Field function required.'); //check to ensure we have not reached the maximum number of fields
 
     if (vm.maxFields && vm.components.length >= vm.maxFields) return;
-    var newField = $scope.addField(); //if it returns a promise then dont do anything until resolved
+    var newField = targetFunction(); //if it returns a promise then dont do anything until resolved
 
     if (newField.then) {
       //show placeholder until promise has been resolved
@@ -37712,6 +37713,17 @@ function SearchGroupCtrl($scope) {
 
     $scope.searchBuilder.setGroupValue($scope.groupId, vm.data);
   };
+
+  vm.getAddFields = function () {
+    return Array.isArray($scope.addField) ? $scope.addField : [$scope.addField];
+  };
+
+  vm.getButtonText = function (index) {
+    // normalize the data so we are always dealing with an array
+    var labels = Array.isArray($scope.buttonText) ? $scope.buttonText : [$scope.buttonText]; // get the label at the given index
+
+    return labels[index];
+  };
 }
 
 /***/ }),
@@ -37769,7 +37781,7 @@ function searchGroup() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"search-group\">\n<p class=\"search-group-title\" ng-bind=\"groupTitle\"></p>\n<div class=\"search-group-content\">\n<div class=\"operator-label {{ operator }}\" ng-class=\"{ 'search-builder-show': sg.components.length > 1 }\">\n{{ operator }}\n</div>\n<div class=\"field-list\">\n<ul class=\"field-collection\" ng-class=\"{ 'search-builder-show': sg.components.length > 0 }\">\n<li class=\"field\" ng-repeat=\"component in sg.components\" component-id=\"{{ component.componentId }}\">\n<ng-include src=\"component.templateUrl\"></ng-include>\n</li>\n</ul>\n<div class=\"placeholder-field\" ng-show=\"sg.showPlaceholder\">\n<label class=\"form-label\">New field</label>\n<div class=\"form-control\"></div>\n</div>\n</div>\n<div class=\"add-field\" ng-class=\"{ 'limit-reached' : sg.maxFields && (sg.components.length >= maxFields) }\">\n<div class=\"button-container\" ng-click=\"sg.addNewField()\">\n<div class=\"add-button\"><span class=\"hpe-icon hpe-add\"></span></div>\n<span class=\"add-text\" single-line-overflow-tooltip ng-bind=\"buttonText\"></span>\n</div>\n</div>\n</div>\n<hr class=\"group-divider\"/>\n</div>\n";
+var v1="<div class=\"search-group\">\n<p class=\"search-group-title\" ng-bind=\"groupTitle\"></p>\n<div class=\"search-group-content\">\n<div class=\"operator-label {{ operator }}\" ng-class=\"{ 'search-builder-show': sg.components.length > 1 }\">\n{{ operator }}\n</div>\n<div class=\"field-list\">\n<ul class=\"field-collection\" ng-class=\"{ 'search-builder-show': sg.components.length > 0 }\">\n<li class=\"field\" ng-repeat=\"component in sg.components\" component-id=\"{{ component.componentId }}\">\n<ng-include src=\"component.templateUrl\"></ng-include>\n</li>\n</ul>\n<div class=\"placeholder-field\" ng-show=\"sg.showPlaceholder\">\n<label class=\"form-label\">New field</label>\n<div class=\"form-control\"></div>\n</div>\n</div>\n<div class=\"add-field-list\">\n<div class=\"add-field\" ng-repeat=\"button in sg.getAddFields()\" ng-class=\"{ 'limit-reached' : sg.maxFields && (sg.components.length >= maxFields) }\">\n<div class=\"button-container\" ng-click=\"sg.addNewField($index)\">\n<div class=\"add-button\"><span class=\"hpe-icon hpe-add\"></span></div>\n<span class=\"add-text\" single-line-overflow-tooltip ng-bind=\"sg.getButtonText($index)\"></span>\n</div>\n</div>\n</div>\n</div>\n<hr class=\"group-divider\"/>\n</div>\n";
 var id1="directives/searchBuilder/searchGroup.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -45623,7 +45635,9 @@ function () {
     this.origin = null;
     /** @type {boolean} */
 
-    this.isSelecting = false;
+    this.isSelecting = false; // a function that allows comparing objects based on a property rather than an object
+
+    this.comparator = null;
   }
 
   _createClass(SelectionModel, [{
@@ -45652,9 +45666,11 @@ function () {
   }, {
     key: "deselect",
     value: function deselect(item) {
+      var _this = this;
+
       if (this.isSelected(item)) {
         this._selection = this._selection.filter(function (_item) {
-          return _item !== item;
+          return !_this.compare(item, _item);
         });
         this.onDeselect.next(item);
         this.onSelectionChange.next(this._selection);
@@ -45663,10 +45679,10 @@ function () {
   }, {
     key: "deselectAll",
     value: function deselectAll() {
-      var _this = this;
+      var _this2 = this;
 
       this._selection.forEach(function (item) {
-        return _this.deselect(item);
+        return _this2.deselect(item);
       });
     }
   }, {
@@ -45677,14 +45693,16 @@ function () {
   }, {
     key: "isSelected",
     value: function isSelected(item) {
+      var _this3 = this;
+
       return this._selection.find(function (_item) {
-        return _item === item;
+        return _this3.compare(_item, item);
       });
     }
   }, {
     key: "setSelection",
     value: function setSelection() {
-      var _this2 = this;
+      var _this4 = this;
 
       for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
         items[_key] = arguments[_key];
@@ -45692,7 +45710,7 @@ function () {
 
       // check if the selection has changed
       if (items.length === this._selection.length && items.every(function (item) {
-        return _this2.isSelected(item);
+        return _this4.isSelected(item);
       })) {
         return;
       } // deselect all currently selected items
@@ -45701,13 +45719,22 @@ function () {
       this.deselectAll(); // select the new selection
 
       items.forEach(function (item) {
-        return _this2.select(item);
+        return _this4.select(item);
       });
     }
   }, {
     key: "getSelection",
     value: function getSelection() {
       return this._selection;
+    }
+  }, {
+    key: "compare",
+    value: function compare(previous, current) {
+      if (typeof this.comparator === 'function') {
+        return this.comparator(previous, current);
+      }
+
+      return current === previous;
     }
   }]);
 
@@ -45758,7 +45785,10 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
       check: false,
       selectChildren: false,
       rowClass: "shift-select-selected-bg",
-      indeterminate: false
+      indeterminate: false,
+      comparator: function comparator(prev, current) {
+        return prev === current;
+      }
     },
     expander: {
       type: "class",
@@ -45800,14 +45830,20 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
   });
 
   vm.onInit = function () {
-    vm.allOptions = angular.extend({}, defaultOptions, vm.options);
+    // apply the specified options
+    setOptions(vm.options); // determine if this is an async tree
+
     vm.isAsync = angular.isFunction(vm.data); // Watch for changes to the tree data and update the view when it changes
 
-    $scope.$watch('vm.data', updateView, true); // watch for changes to the options
+    var dataWatcher = $scope.$watch('vm.data', updateView, true); // watch for changes to the options
 
-    $scope.$watch('vm.options', function (nv) {
-      return vm.allOptions = angular.extend({}, defaultOptions, nv);
-    }, true); // Initial load of top-level items
+    var optionsWatcher = $scope.$watch('vm.options', function (options) {
+      return setOptions(options);
+    }, true); // Event for reloading the grid to its initial state
+
+    var reloadWatcher = $scope.$on("treegrid.reload", function () {
+      return updateView();
+    }); // Initial load of top-level items
 
     updateView();
 
@@ -45818,13 +45854,15 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
       });
     }
 
-    $scope.$digest();
-  }; // Event for reloading the grid to its initial state
+    $scope.$digest(); // clean up when tree grid is destroyed
 
+    $scope.$on('$destroy', function () {
+      dataWatcher();
+      optionsWatcher();
+      reloadWatcher();
+    });
+  }; // Retrieves array for ng-repeat of grid rows
 
-  $scope.$on("treegrid.reload", function () {
-    return updateView();
-  }); // Retrieves array for ng-repeat of grid rows
 
   vm.getGridRows = function () {
     // Reusing an array object to prevent unnecessary change detection (endless digest cycle)
@@ -45931,6 +45969,13 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
 
     return false;
   };
+
+  function setOptions(options) {
+    // update the options
+    vm.allOptions = angular.extend({}, defaultOptions, options); // update the comparator function
+
+    vm.selectionModel.comparator = vm.allOptions.select.comparator;
+  }
 
   function updateView() {
     vm.loading = true;
@@ -46405,12 +46450,12 @@ function treegridMultipleSelectItem() {
           }); // Handler for row click, or external change to selection via multipleSelectProvider
 
           selectionModel.onSelect.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(unsubscribe), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (item) {
-            return item === treeGridRow.dataItem;
+            return compare(item, treeGridRow.dataItem);
           })).subscribe(function () {
             return setSelected(treeGridRow, true);
           });
           selectionModel.onDeselect.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(unsubscribe), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (item) {
-            return item === treeGridRow.dataItem;
+            return compare(item, treeGridRow.dataItem);
           })).subscribe(function () {
             return setSelected(treeGridRow, false);
           }); // check if the indeterminate state changes
@@ -46626,6 +46671,14 @@ function treegridMultipleSelectItem() {
           return _toConsumableArray(list).concat(_toConsumableArray(getAllChildren(child)));
         }, []);
         return _toConsumableArray(children).concat(_toConsumableArray(nested));
+      }
+
+      function compare(previous, current) {
+        if (typeof selectOptions.comparator === 'function') {
+          return selectOptions.comparator(previous, current);
+        }
+
+        return previous === current;
       }
     }
   };

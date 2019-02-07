@@ -1933,165 +1933,152 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var ColorService = /** @class */ (function () {
-        function ColorService() {
-            this._colorSet = colorSets.keppel;
-            if (this._colorSet.colorClassSet) {
-                this.setColors();
-            }
-            else {
-                for (var key in this._colorSet.colorValueSet) {
-                    this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
-                }
-            }
+    /** @type {?} */
+    var KEPPEL_COLOR_SET = {
+        'primary': '#00a7a2',
+        'accent': '#7b63a3',
+        'secondary': '#fff',
+        'alternate1': '#3baa43',
+        'alternate2': '#025662',
+        'alternate3': '#b08f5c',
+        'vibrant1': '#00cceb',
+        'vibrant2': '#ff9048',
+        'grey1': '#2a2a2a',
+        'grey2': '#333',
+        'grey3': '#666',
+        'grey4': '#999',
+        'grey5': '#ccc',
+        'grey6': '#eee',
+        'grey7': '#f5f5f5',
+        'grey8': '#fafafa',
+        'chart1': '#00a7a2',
+        'chart2': '#7b63a3',
+        'chart3': '#3baa43',
+        'chart4': '#025662',
+        'chart5': '#b08f5c',
+        'chart6': '#ccc',
+        'ok': '#3baa43',
+        'warning': '#ff9048',
+        'critical': '#ff454f',
+        'partition1': '#635387',
+        'partition9': '#4a4066',
+        'partition10': '#308935',
+        'partition11': '#023e42',
+        'partition12': '#91744d',
+        'partition13': '#999',
+        'partition14': '#294266',
+        'social-chart-node': '#00cceb',
+        'social-chart-edge': '#00cceb'
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var MICRO_FOCUS_COLOR_SET = {
+        'cerulean': '#1668c1',
+        'aqua': '#29ceff',
+        'aquamarine': '#2fd6c3',
+        'fuchsia': '#c6179d',
+        'indigo': '#7425ad',
+        'dark-blue': '#231ca5',
+        'white': '#ffffff',
+        'slightly-gray': '#f5f7f8',
+        'bright-gray': '#f1f2f3',
+        'gray': '#dcdedf',
+        'silver': '#bdbec0',
+        'dim-gray': '#656668',
+        'dark-gray': '#323435',
+        'black': '#000000',
+        'crimson-negative': '#e5004c',
+        'apricot': '#f48b34',
+        'yellow': '#fcdb1f',
+        'green-positive': '#1aac60',
+        'ultramarine': '#3939c6',
+        'skyblue': '#00abf3',
+        'pale-aqua': '#43e4ff',
+        'pale-green': '#1ffbba',
+        'lime': '#75da4d',
+        'orange': '#ffce00',
+        'magenta': '#eb23c2',
+        'pale-purple': '#ba47e2',
+        'dark-ultramarine': '#271782',
+        'steelblue': '#014272',
+        'arctic-blue': '#0b8eac',
+        'emerald': '#00a989',
+        'olive': '#5bba36',
+        'goldenrod': '#ffb000',
+        'purple': '#9b1e83',
+        'pale-eggplant': '#5216ac',
+        'red': '#ff454f',
+        'pale-amber': '#ffb24d',
+        'pale-lemon': '#fde159',
+        'pale-emerald': '#33c180',
+        'plum': '#b21646',
+        'copper': '#e57828',
+        'amber': '#ffc002',
+        'leaf-green': '#118c4f',
+        'forest-green': '#00645a',
+        'primary': '#0073e7',
+        'accent': '#7425ad',
+        'secondary': '#ffffff',
+        'alternate1': '#29ceff',
+        'alternate2': '#2fd6c3',
+        'alternate3': '#c6179d',
+        'vibrant1': '#43e4ff',
+        'vibrant2': '#ffce00',
+        'grey1': '#000000',
+        'grey2': '#323435',
+        'grey3': '#656668',
+        'grey4': '#bdbec0',
+        'grey5': '#dcdedf',
+        'grey6': '#f1f2f3',
+        'grey7': '#f5f7f8',
+        'grey8': '#ffffff',
+        'chart1': '#3939c6',
+        'chart2': '#00abf3',
+        'chart3': '#75da4d',
+        'chart4': '#ffce00',
+        'chart5': '#eb23c2',
+        'chart6': '#ba47e2',
+        'ok': '#1aac60',
+        'warning': '#f48b34',
+        'critical': 'e5004c',
+        'partition1': '#7425ad',
+        'partition9': '#5216ac',
+        'partition10': '#5bba36',
+        'partition11': '#014272',
+        'partition12': '#ffb000',
+        'partition13': '#bdbec0',
+        'partition14': '#271782',
+        'social-chart-node': '#ff00ff',
+        'social-chart-edge': '#ff00ff'
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var colorSets = {
+        keppel: {
+            colorValueSet: KEPPEL_COLOR_SET,
+        },
+        microFocus: {
+            colorValueSet: MICRO_FOCUS_COLOR_SET
         }
-        /**
-         * @return {?}
-         */
-        ColorService.prototype.setColors = /**
-         * @return {?}
-         */
-            function () {
-                this._html = '';
-                for (var key in this._colorSet.colorClassSet) {
-                    this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
-                }
-                this._element = document.createElement('div');
-                this._element.className = 'color-chart';
-                this._element.innerHTML = this._html;
-                document.body.appendChild(this._element);
-                this._colors = {};
-                for (var key in this._colorSet.colorClassSet) {
-                    this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
-                }
-                this._element.parentNode.removeChild(this._element);
-            };
-        /**
-         * @param {?} color
-         * @return {?}
-         */
-        ColorService.prototype.getColorValueByHex = /**
-         * @param {?} color
-         * @return {?}
-         */
-            function (color) {
-                /** @type {?} */
-                var hex = color.replace('#', '');
-                /** @type {?} */
-                var r = parseInt(hex.substring(0, 2), 16).toString();
-                /** @type {?} */
-                var g = parseInt(hex.substring(2, 4), 16).toString();
-                /** @type {?} */
-                var b = parseInt(hex.substring(4, 6), 16).toString();
-                return new ThemeColor(r, g, b, '1');
-            };
-        /**
-         * @param {?} color
-         * @return {?}
-         */
-        ColorService.prototype.getColorValue = /**
-         * @param {?} color
-         * @return {?}
-         */
-            function (color) {
-                /** @type {?} */
-                var target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
-                if (!target) {
-                    throw new Error('Invalid color');
-                }
-                /** @type {?} */
-                var colorValue = window.getComputedStyle(target).backgroundColor;
-                /** @type {?} */
-                var rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
-                return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
-            };
-        /**
-         * @param {?} color
-         * @return {?}
-         */
-        ColorService.prototype.getColor = /**
-         * @param {?} color
-         * @return {?}
-         */
-            function (color) {
-                /** @type {?} */
-                var themeColor = this._colors[this.resolveColorName(color)];
-                if (!themeColor) {
-                    throw new Error('Color not found: ' + color);
-                }
-                return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
-            };
-        /**
-         * @return {?}
-         */
-        ColorService.prototype.getColorSet = /**
-         * @return {?}
-         */
-            function () {
-                return this._colorSet;
-            };
-        /**
-         * @param {?} colorSet
-         * @return {?}
-         */
-        ColorService.prototype.setColorSet = /**
-         * @param {?} colorSet
-         * @return {?}
-         */
-            function (colorSet) {
-                this._colorSet = colorSet;
-                this._colors = {};
-                if (this._colorSet.colorClassSet) {
-                    this.setColors();
-                }
-                else {
-                    for (var key in this._colorSet.colorValueSet) {
-                        this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
-                    }
-                }
-            };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ColorService.prototype.resolve = /**
-         * @param {?} value
-         * @return {?}
-         */
-            function (value) {
-                if (!value) {
-                    return;
-                }
-                /** @type {?} */
-                var colorName = this.resolveColorName(value);
-                for (var color in this._colors) {
-                    if (colorName === color.toLowerCase()) {
-                        return this.getColor(colorName).toRgba();
-                    }
-                }
-                return value;
-            };
-        /**
-         * @param {?=} value
-         * @return {?}
-         */
-        ColorService.prototype.resolveColorName = /**
-         * @param {?=} value
-         * @return {?}
-         */
-            function (value) {
-                if (value === void 0) {
-                    value = '';
-                }
-                return value.replace(/\s+/g, '-').toLowerCase();
-            };
-        ColorService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        ColorService.ctorParameters = function () { return []; };
-        return ColorService;
-    }());
+    };
+    /**
+     * Provide a default color set for an application
+     * @type {?}
+     */
+    var COLOR_SET_TOKEN = new core.InjectionToken('COLOR_SET_TOKEN');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var ThemeColor = /** @class */ (function () {
         function ThemeColor(r, g, b, a) {
             this._r = r;
@@ -2100,11 +2087,17 @@
             this._a = a === undefined ? '1' : a;
         }
         /**
-         * @param {?} value
+         * Create a ThemeColor object from a CSS color string
+         * @param value The CSS color string to derive a ThemeColor object from
+         */
+        /**
+         * Create a ThemeColor object from a CSS color string
+         * @param {?} value The CSS color string to derive a ThemeColor object from
          * @return {?}
          */
         ThemeColor.parse = /**
-         * @param {?} value
+         * Create a ThemeColor object from a CSS color string
+         * @param {?} value The CSS color string to derive a ThemeColor object from
          * @return {?}
          */
             function (value) {
@@ -2150,9 +2143,31 @@
                 return new ThemeColor(r, g, b, a);
             };
         /**
+         * Clone a theme color so it can be modified without affecting other places using the color
+         * @param themeColor The original theme color to clone
+         */
+        /**
+         * Clone a theme color so it can be modified without affecting other places using the color
+         * @param {?} themeColor The original theme color to clone
+         * @return {?}
+         */
+        ThemeColor.from = /**
+         * Clone a theme color so it can be modified without affecting other places using the color
+         * @param {?} themeColor The original theme color to clone
+         * @return {?}
+         */
+            function (themeColor) {
+                return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
+            };
+        /**
+         * Convert the theme color to a CSS hex color code
+         */
+        /**
+         * Convert the theme color to a CSS hex color code
          * @return {?}
          */
         ThemeColor.prototype.toHex = /**
+         * Convert the theme color to a CSS hex color code
          * @return {?}
          */
             function () {
@@ -2174,66 +2189,101 @@
                 return '#' + red + green + blue;
             };
         /**
+         * Convert the theme color to a CSS rgb color code
+         */
+        /**
+         * Convert the theme color to a CSS rgb color code
          * @return {?}
          */
         ThemeColor.prototype.toRgb = /**
+         * Convert the theme color to a CSS rgb color code
          * @return {?}
          */
             function () {
                 return 'rgb(' + this._r + ', ' + this._g + ', ' + this._b + ')';
             };
         /**
+         * Convert the theme color to a CSS rgbs color code
+         */
+        /**
+         * Convert the theme color to a CSS rgbs color code
          * @return {?}
          */
         ThemeColor.prototype.toRgba = /**
+         * Convert the theme color to a CSS rgbs color code
          * @return {?}
          */
             function () {
                 return 'rgba(' + this._r + ', ' + this._g + ', ' + this._b + ', ' + this._a + ')';
             };
         /**
+         * Get the red value from the RGBA color value
+         */
+        /**
+         * Get the red value from the RGBA color value
          * @return {?}
          */
         ThemeColor.prototype.getRed = /**
+         * Get the red value from the RGBA color value
          * @return {?}
          */
             function () {
                 return this._r;
             };
         /**
+         * Get the green value from the RGBA color value
+         */
+        /**
+         * Get the green value from the RGBA color value
          * @return {?}
          */
         ThemeColor.prototype.getGreen = /**
+         * Get the green value from the RGBA color value
          * @return {?}
          */
             function () {
                 return this._g;
             };
         /**
+         * Get the blue value from the RGBA color value
+         */
+        /**
+         * Get the blue value from the RGBA color value
          * @return {?}
          */
         ThemeColor.prototype.getBlue = /**
+         * Get the blue value from the RGBA color value
          * @return {?}
          */
             function () {
                 return this._b;
             };
         /**
+         * Get the alpha value from the RGBA color value
+         */
+        /**
+         * Get the alpha value from the RGBA color value
          * @return {?}
          */
         ThemeColor.prototype.getAlpha = /**
+         * Get the alpha value from the RGBA color value
          * @return {?}
          */
             function () {
                 return this._a;
             };
         /**
+         * Set the red value from the RGBA color value
+         */
+        /**
+         * Set the red value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} red
          * @return {THIS}
          */
         ThemeColor.prototype.setRed = /**
+         * Set the red value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} red
@@ -2244,12 +2294,17 @@
                 return ( /** @type {?} */(this));
             };
         /**
+         * Set the green value from the RGBA color value
+         */
+        /**
+         * Set the green value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} green
          * @return {THIS}
          */
         ThemeColor.prototype.setGreen = /**
+         * Set the green value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} green
@@ -2260,12 +2315,17 @@
                 return ( /** @type {?} */(this));
             };
         /**
+         * Set the blue value from the RGBA color value
+         */
+        /**
+         * Set the blue value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} blue
          * @return {THIS}
          */
         ThemeColor.prototype.setBlue = /**
+         * Set the blue value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} blue
@@ -2276,12 +2336,17 @@
                 return ( /** @type {?} */(this));
             };
         /**
+         * Set the alpha value from the RGBA color value
+         */
+        /**
+         * Set the alpha value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} alpha
          * @return {THIS}
          */
         ThemeColor.prototype.setAlpha = /**
+         * Set the alpha value from the RGBA color value
          * @template THIS
          * @this {THIS}
          * @param {?} alpha
@@ -2293,139 +2358,234 @@
             };
         return ThemeColor;
     }());
-    /** @type {?} */
-    var colorSets = {
-        keppel: {
-            colorClassSet: {
-                'primary': 'primary',
-                'accent': 'accent',
-                'secondary': 'secondary',
-                'alternate1': 'alternate1',
-                'alternate2': 'alternate2',
-                'alternate3': 'alternate3',
-                'vibrant1': 'vibrant1',
-                'vibrant2': 'vibrant2',
-                'grey1': 'grey1',
-                'grey2': 'grey2',
-                'grey3': 'grey3',
-                'grey4': 'grey4',
-                'grey5': 'grey5',
-                'grey6': 'grey6',
-                'grey7': 'grey7',
-                'grey8': 'grey8',
-                'chart1': 'chart1',
-                'chart2': 'chart2',
-                'chart3': 'chart3',
-                'chart4': 'chart4',
-                'chart5': 'chart5',
-                'chart6': 'chart6',
-                'ok': 'ok',
-                'warning': 'warning',
-                'critical': 'critical',
-                'partition1': 'partition1',
-                'partition9': 'partition9',
-                'partition10': 'partition10',
-                'partition11': 'partition11',
-                'partition12': 'partition12',
-                'partition13': 'partition13',
-                'partition14': 'partition14',
-                'social-chart-node': 'social-chart-node',
-                'social-chart-edge': 'social-chart-edge'
-            }
-        },
-        microFocus: {
-            'colorValueSet': {
-                'cerulean': '#1668c1',
-                'aqua': '#29ceff',
-                'aquamarine': '#2fd6c3',
-                'fuchsia': '#c6179d',
-                'indigo': '#7425ad',
-                'dark-blue': '#231ca5',
-                'white': '#ffffff',
-                'slightly-gray': '#f5f7f8',
-                'bright-gray': '#f1f2f3',
-                'gray': '#dcdedf',
-                'silver': '#bdbec0',
-                'dim-gray': '#656668',
-                'dark-gray': '#323435',
-                'black': '#000000',
-                'crimson-negative': '#e5004c',
-                'apricot': '#f48b34',
-                'yellow': '#fcdb1f',
-                'green-positive': '#1aac60',
-                'ultramarine': '#3939c6',
-                'skyblue': '#00abf3',
-                'pale-aqua': '#43e4ff',
-                'pale-green': '#1ffbba',
-                'lime': '#75da4d',
-                'orange': '#ffce00',
-                'magenta': '#eb23c2',
-                'pale-purple': '#ba47e2',
-                'dark-ultramarine': '#271782',
-                'steelblue': '#014272',
-                'arctic-blue': '#0b8eac',
-                'emerald': '#00a989',
-                'olive': '#5bba36',
-                'goldenrod': '#ffb000',
-                'purple': '#9b1e83',
-                'pale-eggplant': '#5216ac',
-                'red': '#ff454f',
-                'pale-amber': '#ffb24d',
-                'pale-lemon': '#fde159',
-                'pale-emerald': '#33c180',
-                'plum': '#b21646',
-                'copper': '#e57828',
-                'amber': '#ffc002',
-                'leaf-green': '#118c4f',
-                'forest-green': '#00645a',
-                'primary': '#0073e7',
-                'accent': '#7425ad',
-                'secondary': '#ffffff',
-                'alternate1': '#29ceff',
-                'alternate2': '#2fd6c3',
-                'alternate3': '#c6179d',
-                'vibrant1': '#43e4ff',
-                'vibrant2': '#ffce00',
-                'grey1': '#000000',
-                'grey2': '#323435',
-                'grey3': '#656668',
-                'grey4': '#bdbec0',
-                'grey5': '#dcdedf',
-                'grey6': '#f1f2f3',
-                'grey7': '#f5f7f8',
-                'grey8': '#ffffff',
-                'chart1': '#3939c6',
-                'chart2': '#00abf3',
-                'chart3': '#75da4d',
-                'chart4': '#ffce00',
-                'chart5': '#eb23c2',
-                'chart6': '#ba47e2',
-                'ok': '#1aac60',
-                'warning': '#f48b34',
-                'critical': 'e5004c',
-                'partition1': '#7425ad',
-                'partition9': '#5216ac',
-                'partition10': '#5bba36',
-                'partition11': '#014272',
-                'partition12': '#ffb000',
-                'partition13': '#bdbec0',
-                'partition14': '#271782',
-                'social-chart-node': '#ff00ff',
-                'social-chart-edge': '#ff00ff'
-            }
-        }
-    };
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var ColorService = /** @class */ (function () {
+        /** Allow the color set to be provided in a forRoot function otherwise set it to the Keppel theme by default */
+        function ColorService(_colorSet) {
+            this._colorSet = _colorSet;
+            /**
+             * Set the default theme to the Keppel colorset
+             */
+            this._theme = this.getTheme(this._colorSet);
+        }
+        /**
+         * Get a ThemeColor object from a color name
+         * @param colorName The name of the color from the color palette
+         */
+        /**
+         * Get a ThemeColor object from a color name
+         * @param {?} colorName The name of the color from the color palette
+         * @return {?}
+         */
+        ColorService.prototype.getColor = /**
+         * Get a ThemeColor object from a color name
+         * @param {?} colorName The name of the color from the color palette
+         * @return {?}
+         */
+            function (colorName) {
+                // get the matching ThemeColor from the active theme
+                /** @type {?} */
+                var themeColor = this._theme[this.resolveColorName(colorName)];
+                // if there is not a match then throw an error
+                if (!themeColor) {
+                    throw new Error('Color not found: ' + colorName);
+                }
+                return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
+            };
+        /**
+         * Get the active color set
+         */
+        /**
+         * Get the active color set
+         * @return {?}
+         */
+        ColorService.prototype.getColorSet = /**
+         * Get the active color set
+         * @return {?}
+         */
+            function () {
+                return this._colorSet;
+            };
+        /**
+         * Define the current color set and produce a Theme from it
+         */
+        /**
+         * Define the current color set and produce a Theme from it
+         * @param {?} colorSet
+         * @return {?}
+         */
+        ColorService.prototype.setColorSet = /**
+         * Define the current color set and produce a Theme from it
+         * @param {?} colorSet
+         * @return {?}
+         */
+            function (colorSet) {
+                this._colorSet = colorSet;
+                this._theme = this.getTheme(colorSet);
+            };
+        /**
+         * Resolve a color value. This may be the name of a color from the color set
+         * or it may simply be a hex or rgb(a) color value. This function will return
+         * a CSS color value regardless of which one of these formats it is
+         * @param value The color name, hex code or rgb(a) value to resolve
+         */
+        /**
+         * Resolve a color value. This may be the name of a color from the color set
+         * or it may simply be a hex or rgb(a) color value. This function will return
+         * a CSS color value regardless of which one of these formats it is
+         * @param {?} value The color name, hex code or rgb(a) value to resolve
+         * @return {?}
+         */
+        ColorService.prototype.resolve = /**
+         * Resolve a color value. This may be the name of a color from the color set
+         * or it may simply be a hex or rgb(a) color value. This function will return
+         * a CSS color value regardless of which one of these formats it is
+         * @param {?} value The color name, hex code or rgb(a) value to resolve
+         * @return {?}
+         */
+            function (value) {
+                if (!value) {
+                    return;
+                }
+                /** @type {?} */
+                var colorName = this.resolveColorName(value);
+                for (var color in this._theme) {
+                    if (colorName === color.toLowerCase()) {
+                        return this.getColor(colorName).toRgba();
+                    }
+                }
+                return value;
+            };
+        /**
+         * Converts a color name to an appropriate ColorSet name. For example
+         * a color may be written in lower-camel-case, however color sets are in
+         * kebab-case. This will convert to the appropriate naming format
+         * @param colorName The color name to resolve
+         */
+        /**
+         * Converts a color name to an appropriate ColorSet name. For example
+         * a color may be written in lower-camel-case, however color sets are in
+         * kebab-case. This will convert to the appropriate naming format
+         * @param {?=} colorName The color name to resolve
+         * @return {?}
+         */
+        ColorService.prototype.resolveColorName = /**
+         * Converts a color name to an appropriate ColorSet name. For example
+         * a color may be written in lower-camel-case, however color sets are in
+         * kebab-case. This will convert to the appropriate naming format
+         * @param {?=} colorName The color name to resolve
+         * @return {?}
+         */
+            function (colorName) {
+                if (colorName === void 0) {
+                    colorName = '';
+                }
+                return colorName.replace(/\s+/g, '-').toLowerCase();
+            };
+        /** Create a theme from a colorset */
+        /**
+         * Create a theme from a colorset
+         * @param {?} colorSet
+         * @return {?}
+         */
+        ColorService.prototype.getTheme = /**
+         * Create a theme from a colorset
+         * @param {?} colorSet
+         * @return {?}
+         */
+            function (colorSet) {
+                // create a new theme object
+                /** @type {?} */
+                var theme = {};
+                // iterate over each hex code and convert it to a theme color
+                for (var color in colorSet.colorValueSet) {
+                    theme[color] = ThemeColor.parse(colorSet.colorValueSet[color]);
+                }
+                return theme;
+            };
+        ColorService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ColorService.ctorParameters = function () {
+            return [
+                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [COLOR_SET_TOKEN,] }] }
+            ];
+        };
+        return ColorService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * This provider allows us to have only a single instance
+     * of the color service throughout out entire application
+     * regardless of how many times this module is imported.
+     * Otherwise the user would have to set the colorSet every
+     * time this is imported into a lazy loaded module
+     *
+     * Note: This can be removed once Angular 5 support can be dropped
+     * and instead we should use `providedIn: 'root'`
+     * @param {?} parentColorService
+     * @param {?} colorSet
+     * @return {?}
+     */
+    function COLOR_SERVICE_PROVIDER_FACTORY(parentColorService, colorSet) {
+        return parentColorService || new ColorService(colorSet ? colorSet : colorSets.keppel);
+    }
+    /** @type {?} */
+    var COLOR_SERVICE_PROVIDER = {
+        provide: ColorService,
+        deps: [[new core.Optional(), new core.SkipSelf(), ColorService], [new core.Optional(), COLOR_SET_TOKEN]],
+        useFactory: COLOR_SERVICE_PROVIDER_FACTORY
+    };
     var ColorServiceModule = /** @class */ (function () {
         function ColorServiceModule() {
         }
+        /**
+         * The function allows the consuming applications to specify the applications
+         * color set once in the app module, eg:
+         * ```
+         * ColorServiceModule.forRoot(colorSets.microFocus);
+         * ```
+         * @param colorSet The color set the application should use
+         */
+        /**
+         * The function allows the consuming applications to specify the applications
+         * color set once in the app module, eg:
+         * ```
+         * ColorServiceModule.forRoot(colorSets.microFocus);
+         * ```
+         * @param {?} colorSet The color set the application should use
+         * @return {?}
+         */
+        ColorServiceModule.forRoot = /**
+         * The function allows the consuming applications to specify the applications
+         * color set once in the app module, eg:
+         * ```
+         * ColorServiceModule.forRoot(colorSets.microFocus);
+         * ```
+         * @param {?} colorSet The color set the application should use
+         * @return {?}
+         */
+            function (colorSet) {
+                return {
+                    ngModule: ColorServiceModule,
+                    providers: [
+                        { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel },
+                        COLOR_SERVICE_PROVIDER
+                    ]
+                };
+            };
         ColorServiceModule.decorators = [
             { type: core.NgModule, args: [{
-                        providers: [ColorService],
+                        providers: [COLOR_SERVICE_PROVIDER],
                     },] }
         ];
         return ColorServiceModule;
@@ -2747,8 +2907,18 @@
             this._elementRef = _elementRef;
             this._resizeService = _resizeService;
             this._ngZone = _ngZone;
+            /**
+             * Debounce the resize event emitter
+             */
             this.throttle = 0;
+            /**
+             * Emits whenever a resize event occurs
+             */
             this.uxResize = new core.EventEmitter();
+            /**
+             * Remove all subscriptions on component destroy
+             */
+            this._onDestroy = new Subject.Subject();
         }
         /**
          * @return {?}
@@ -2758,8 +2928,8 @@
          */
             function () {
                 var _this = this;
-                this._subscription = this._resizeService.addResizeListener(this._elementRef.nativeElement)
-                    .pipe(operators.debounceTime(this.throttle))
+                this._resizeService.addResizeListener(this._elementRef.nativeElement)
+                    .pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(this.throttle))
                     .subscribe(function (event) { return _this._ngZone.run(function () { return _this.uxResize.emit(event); }); });
             };
         /**
@@ -2770,7 +2940,8 @@
          */
             function () {
                 this._resizeService.removeResizeListener(this._elementRef.nativeElement);
-                this._subscription.unsubscribe();
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
         ResizeDirective.decorators = [
             { type: core.Directive, args: [{
@@ -22345,41 +22516,81 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * \@todo Once Angular 5 support is dropped this service should be
+     * changed to `providedIn: 'root` to ensure there is only
+     * a single instance for the entire application
+     */
     var NotificationService = /** @class */ (function () {
         function NotificationService(_colorService) {
             this._colorService = _colorService;
-            // provide default options
+            /**
+             *  Sets the order in which notifications are displayed:
+             * `above` - newer notifications will appear above older ones.
+             * `below` - newer notifications will appear below older ones.
+             */
+            this.direction = 'above';
+            /**
+             * The list of notifications including notifications that have been dismissed
+             */
+            this.notifications$ = new BehaviorSubject.BehaviorSubject([]);
+            /**
+             * Define the default set of notification options
+             */
             this.options = {
                 duration: 4,
-                height: 100,
                 spacing: 10,
                 backgroundColor: this._colorService.getColor('accent').toHex(),
                 iconColor: this._colorService.getColor('accent').toHex()
             };
-            this.direction = 'above';
-            this.notifications$ = new BehaviorSubject.BehaviorSubject([]);
         }
+        Object.defineProperty(NotificationService.prototype, "notifications", {
+            /**
+             * Access the list of notifications as an array
+             */
+            get: /**
+             * Access the list of notifications as an array
+             * @return {?}
+             */ function () {
+                return this.notifications$.value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
-         * @param {?} templateRef
-         * @param {?=} options
-         * @param {?=} data
+         * This function should be called to show a notification.
+         * It should be given a TemplateRef containing the content to be displayed.
+         * @param templateRef - A TemplateRef containing the content to be displayed
+         * @param options - The properties to configure the notification.
+         * @param context - The context passed to the notification TemplateRef. This can be accessed by adding a let-data="data" to the ng-template element.
+         */
+        /**
+         * This function should be called to show a notification.
+         * It should be given a TemplateRef containing the content to be displayed.
+         * @param {?} templateRef - A TemplateRef containing the content to be displayed
+         * @param {?=} options - The properties to configure the notification.
+         * @param {?=} context - The context passed to the notification TemplateRef. This can be accessed by adding a let-data="data" to the ng-template element.
          * @return {?}
          */
         NotificationService.prototype.show = /**
-         * @param {?} templateRef
-         * @param {?=} options
-         * @param {?=} data
+         * This function should be called to show a notification.
+         * It should be given a TemplateRef containing the content to be displayed.
+         * @param {?} templateRef - A TemplateRef containing the content to be displayed
+         * @param {?=} options - The properties to configure the notification.
+         * @param {?=} context - The context passed to the notification TemplateRef. This can be accessed by adding a let-data="data" to the ng-template element.
          * @return {?}
          */
-            function (templateRef, options, data) {
+            function (templateRef, options, context) {
                 var _this = this;
                 if (options === void 0) {
                     options = this.options;
                 }
-                if (data === void 0) {
-                    data = {};
+                if (context === void 0) {
+                    context = {};
                 }
+                // populate the specified options with the default values for any missing properties
                 options = __assign({}, this.options, options);
+                // create the notificationRef based on the options and context specified
                 /** @type {?} */
                 var notificationRef = {
                     templateRef: templateRef,
@@ -22390,17 +22601,12 @@
                     spacing: options.spacing,
                     backgroundColor: options.backgroundColor,
                     iconColor: options.iconColor,
-                    data: data
+                    data: context
                 };
-                /** @type {?} */
-                var notifications = this.notifications$.getValue();
-                if (this.direction === 'above') {
-                    notifications.unshift(notificationRef);
-                }
-                else {
-                    notifications.push(notificationRef);
-                }
-                this.notifications$.next(notifications);
+                // add the new notification to the list (either above or below based on direction)
+                this.direction === 'above' ? this.notifications.unshift(notificationRef) : this.notifications.push(notificationRef);
+                // update the notifications list
+                this.notifications$.next(this.notifications);
                 // remove notification after delay
                 if (options.duration !== 0) {
                     setTimeout(function () { return _this.dismiss(notificationRef); }, options.duration * 1000);
@@ -22408,35 +22614,51 @@
                 return notificationRef;
             };
         /**
+         * This function will return a list of all the notifications that have been shown.
+         */
+        /**
+         * This function will return a list of all the notifications that have been shown.
          * @return {?}
          */
         NotificationService.prototype.getHistory = /**
+         * This function will return a list of all the notifications that have been shown.
          * @return {?}
          */
             function () {
-                return this.notifications$.getValue();
+                return this.notifications;
             };
         /**
-         * @param {?} notificationRef
+         * This function can be called to dismiss a notification. It should be passed the object to dismiss.
+         * @param notificationRef - The notification that should be dismissed
+         */
+        /**
+         * This function can be called to dismiss a notification. It should be passed the object to dismiss.
+         * @param {?} notificationRef - The notification that should be dismissed
          * @return {?}
          */
         NotificationService.prototype.dismiss = /**
-         * @param {?} notificationRef
+         * This function can be called to dismiss a notification. It should be passed the object to dismiss.
+         * @param {?} notificationRef - The notification that should be dismissed
          * @return {?}
          */
             function (notificationRef) {
                 notificationRef.visible = false;
-                this.notifications$.next(this.notifications$.getValue());
+                this.notifications$.next(this.notifications);
             };
         /**
+         * This function will dismiss any currently visible notifications.
+         */
+        /**
+         * This function will dismiss any currently visible notifications.
          * @return {?}
          */
         NotificationService.prototype.dismissAll = /**
+         * This function will dismiss any currently visible notifications.
          * @return {?}
          */
             function () {
-                this.notifications$.getValue().forEach(function (notificationRef) { return notificationRef.visible = false; });
-                this.notifications$.next(this.notifications$.getValue());
+                this.notifications.forEach(function (notificationRef) { return notificationRef.visible = false; });
+                this.notifications$.next(this.notifications);
             };
         NotificationService.decorators = [
             { type: core.Injectable }
@@ -22455,13 +22677,33 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var NotificationListComponent = /** @class */ (function () {
-        function NotificationListComponent(_notificationService) {
+        function NotificationListComponent(_notificationService, _changeDetectorRef) {
+            var _this = this;
             this._notificationService = _notificationService;
-            this.position = 'top-right';
-            this.notifications$ = this._notificationService.notifications$.pipe(operators.map(function (notificationRefs) { return notificationRefs.filter(function (notificationRef) { return notificationRef.visible; }); }));
+            this._changeDetectorRef = _changeDetectorRef;
+            /**
+             * Sets the position of the list of notifications within the browser window.
+             */
+            this.position = 'bottom-right';
+            /**
+             * The list of notifications that have not been dismissed
+             */
+            this.notifications$ = this._notificationService.notifications$.pipe(operators.map(function () { return _this._notifications; }));
+            /**
+             * Unsubscribe from all subscriptions on component destroy
+             */
+            this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(NotificationListComponent.prototype, "direction", {
+            /**
+             *  Sets the order in which notifications are displayed:
+                `above` - newer notifications will appear above older ones.
+                `below` - newer notifications will appear below older ones.
+             */
             set: /**
+             *  Sets the order in which notifications are displayed:
+             * `above` - newer notifications will appear above older ones.
+             * `below` - newer notifications will appear below older ones.
              * @param {?} direction
              * @return {?}
              */ function (direction) {
@@ -22470,10 +22712,88 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(NotificationListComponent.prototype, "_notifications", {
+            /** Filter out any hidden notifications */
+            get: /**
+             * Filter out any hidden notifications
+             * @return {?}
+             */ function () {
+                return this._notificationService.notifications.filter(function (notification) { return notification.visible; });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        NotificationListComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // whenever the notifications change we want to recalculate the height
+                this._elements.changes.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this.position === 'bottom-left' || _this.position === 'bottom-right'; }), tick(), operators.map(function (changes) { return changes.toArray(); }), operators.withLatestFrom(this.notifications$)).subscribe(function (_a) {
+                    var _b = __read(_a, 2), elements = _b[0], notifications = _b[1];
+                    // calculate the total height of all notifications including spacing
+                    _this._height = notifications.reduce(function (total, notification, index) {
+                        return total + _this._getNotificationHeight(elements[index], notification) + notification.spacing;
+                    }, 0);
+                    // we are running in OnPush mode, so we will need to manually trigger CD here
+                    _this._changeDetectorRef.markForCheck();
+                });
+            };
+        /**
+         * @return {?}
+         */
+        NotificationListComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * Get the height of a notification based on its content height or specified height
+         */
+        /**
+         * Get the height of a notification based on its content height or specified height
+         * @param {?} notification
+         * @param {?} notificationRef
+         * @return {?}
+         */
+        NotificationListComponent.prototype._getNotificationHeight = /**
+         * Get the height of a notification based on its content height or specified height
+         * @param {?} notification
+         * @param {?} notificationRef
+         * @return {?}
+         */
+            function (notification, notificationRef) {
+                // if no fixed height is specified calculate the height based on content size
+                notificationRef.height = notificationRef.height || notification.scrollHeight;
+                return notificationRef.height;
+            };
+        /**
+         * Get the notification position based on the notifications before it and the spacing
+         */
+        /**
+         * Get the notification position based on the notifications before it and the spacing
+         * @param {?} index
+         * @return {?}
+         */
+        NotificationListComponent.prototype._getNotificationPosition = /**
+         * Get the notification position based on the notifications before it and the spacing
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                return this._notifications.slice(0, index).reduce(function (accumulator, notificationRef) {
+                    return accumulator + notificationRef.height + notificationRef.spacing;
+                }, 0);
+            };
         NotificationListComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-notification-list',
-                        template: "<div class=\"notification\" *ngFor=\"let notificationRef of notifications$ | async; let idx = index\"\n    [style.top.px]=\"(notificationRef.height + notificationRef.spacing) * idx\"\n    [style.height.px]=\"notificationRef.height\"\n    [style.background-color]=\"notificationRef.backgroundColor\"\n    [@notificationState]>\n    <ng-container *ngTemplateOutlet=\"notificationRef.templateRef; context: { $implicit: notificationRef, data: notificationRef.data }\"></ng-container>\n</div>\n",
+                        template: "<div #notification\n    class=\"notification\"\n    *ngFor=\"let notificationRef of notifications$ | async; let index = index\"\n    [style.height.px]=\"_getNotificationHeight(notification, notificationRef)\"\n    [style.top.px]=\"_getNotificationPosition(index)\"\n    [style.background-color]=\"notificationRef.backgroundColor\"\n    [@notificationState]>\n\n    <!-- Notification Content -->\n    <ng-container\n        [ngTemplateOutlet]=\"notificationRef.templateRef\"\n        [ngTemplateOutletContext]=\"{ $implicit: notificationRef, data: notificationRef.data }\">\n    </ng-container>\n</div>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         animations: [
                             animations.trigger('notificationState', [
@@ -22486,18 +22806,23 @@
                                     animations.animate(500, animations.style({ transform: 'translateY(50px)', opacity: 0 }))
                                 ])
                             ])
-                        ]
+                        ],
+                        host: {
+                            '[style.bottom.px]': '_height'
+                        }
                     }] }
         ];
         /** @nocollapse */
         NotificationListComponent.ctorParameters = function () {
             return [
-                { type: NotificationService }
+                { type: NotificationService },
+                { type: core.ChangeDetectorRef }
             ];
         };
         NotificationListComponent.propDecorators = {
             direction: [{ type: core.Input }],
-            position: [{ type: core.Input }, { type: core.HostBinding, args: ['class',] }]
+            position: [{ type: core.Input }, { type: core.HostBinding, args: ['class',] }],
+            _elements: [{ type: core.ViewChildren, args: ['notification',] }]
         };
         return NotificationListComponent;
     }());
@@ -23287,23 +23612,64 @@
         function PageHeaderComponent(_colorService, _pageHeaderService) {
             this._colorService = _colorService;
             this._pageHeaderService = _pageHeaderService;
+            /**
+             * The alignment of the primary navigation tabs.
+             */
             this.alignment = 'center';
+            /**
+             * Determines whether or not to display the page header in the regular or condensed form.
+             */
             this.condensed = false;
+            /**
+             * Determines whether or not a back button should be visible in the page header.
+             */
             this.backVisible = true;
+            /**
+             * The alignment of the secondary navigation tabs.
+             */
             this.secondaryNavigationAlignment = 'center';
+            /**
+             * The style of the breadcrumbs.
+             *   - standard: The breadcrumbs use the same styling as the navigation tabs.
+             *   - small: The breadcrumbs use a smaller font, and case is not adjusted.
+             */
             this.crumbsStyle = 'standard';
+            /**
+             * Emit whenever the back button is clicked
+             */
             this.backClick = new core.EventEmitter();
+            /**
+             * The currently selected page header item
+             */
             this.selected$ = this._pageHeaderService.selected$;
+            /**
+             * The currently selected root menu item - this may be different from selected$ if a child menu item is selected
+             */
             this.selectedRoot$ = this._pageHeaderService.selectedRoot$;
             this._crumbs = [];
         }
+        Object.defineProperty(PageHeaderComponent.prototype, "title", {
+            /** @deprecated */
+            set: /**
+             * @deprecated
+             * @param {?} subheader
+             * @return {?}
+             */ function (subheader) {
+                this.subheader = subheader;
+                console.warn("The 'title' @Input of the ux-page-header component has been deprecated. Please change to use the 'subheader' @Input instead.");
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(PageHeaderComponent.prototype, "secondaryNavigationAutoselect", {
             get: /**
              * @return {?}
              */ function () {
                 return this._pageHeaderService.secondaryNavigationAutoselect;
             },
+            /** If set, the first child item will get selected when the parent item is selected. */
             set: /**
+             * If set, the first child item will get selected when the parent item is selected.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -23313,7 +23679,9 @@
             configurable: true
         });
         Object.defineProperty(PageHeaderComponent.prototype, "items", {
+            /** The primary navigation tabs. Use the children property in combination with [secondaryNavigation]="true" to include secondary navigation tabs. */
             set: /**
+             * The primary navigation tabs. Use the children property in combination with [secondaryNavigation]="true" to include secondary navigation tabs.
              * @param {?} items
              * @return {?}
              */ function (items) {
@@ -23328,7 +23696,9 @@
              */ function () {
                 return this._pageHeaderService.secondary$.getValue();
             },
+            /** Whether to show a second level of navigation for any items with children. */
             set: /**
+             * Whether to show a second level of navigation for any items with children.
              * @param {?} enabled
              * @return {?}
              */ function (enabled) {
@@ -23343,7 +23713,9 @@
              */ function () {
                 return this.condensed ? __spread(this._crumbs, [{ title: this.header }]) : this._crumbs;
             },
+            /** The optional set of breadcrumbs to display on the left side of the masthead. */
             set: /**
+             * The optional set of breadcrumbs to display on the left side of the masthead.
              * @param {?} crumbs
              * @return {?}
              */ function (crumbs) {
@@ -23358,7 +23730,9 @@
              */ function () {
                 return this._logoBackground;
             },
+            /** The logo background color. This can either be the name of a color from the color palette, or a CSS color value. */
             set: /**
+             * The logo background color. This can either be the name of a color from the color palette, or a CSS color value.
              * @param {?} color
              * @return {?}
              */ function (color) {
@@ -23373,7 +23747,9 @@
              */ function () {
                 return this._logoForeground;
             },
+            /** The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value. */
             set: /**
+             * The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value.
              * @param {?} color
              * @return {?}
              */ function (color) {
@@ -23383,21 +23759,27 @@
             configurable: true
         });
         Object.defineProperty(PageHeaderComponent.prototype, "familyBackground", {
+            /** @deprecated - Use logoBackground instead */
             set: /**
+             * @deprecated - Use logoBackground instead
              * @param {?} color
              * @return {?}
              */ function (color) {
                 this.logoBackground = color;
+                console.warn("The 'familyBackground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoBackground' @Input instead.");
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(PageHeaderComponent.prototype, "familyForeground", {
+            /** @deprecated - Use logoForeground instead */
             set: /**
+             * @deprecated - Use logoForeground instead
              * @param {?} color
              * @return {?}
              */ function (color) {
                 this.logoForeground = color;
+                console.warn("The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.");
             },
             enumerable: true,
             configurable: true
@@ -23426,7 +23808,7 @@
             { type: core.Component, args: [{
                         selector: 'ux-page-header',
                         exportAs: 'ux-page-header',
-                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"title || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"title\" class=\"page-header-subtitle\">{{title}}</span>\n            <ng-container [ngTemplateOutlet]=\"titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" type=\"button\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
+                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" type=\"button\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
                         providers: [PageHeaderService]
                     }] }
         ];
@@ -23440,12 +23822,13 @@
         PageHeaderComponent.propDecorators = {
             logo: [{ type: core.Input }],
             header: [{ type: core.Input }],
-            title: [{ type: core.Input }],
+            subheader: [{ type: core.Input }],
             alignment: [{ type: core.Input }],
             condensed: [{ type: core.Input }],
             iconMenus: [{ type: core.Input }],
             backVisible: [{ type: core.Input }],
             secondaryNavigationAlignment: [{ type: core.Input }],
+            title: [{ type: core.Input }],
             secondaryNavigationAutoselect: [{ type: core.Input }],
             items: [{ type: core.Input }],
             secondaryNavigation: [{ type: core.Input }],
@@ -23457,6 +23840,7 @@
             familyForeground: [{ type: core.Input }],
             backClick: [{ type: core.Output }],
             titleTemplate: [{ type: core.ContentChild, args: ['title',] }],
+            subheaderTemplate: [{ type: core.ContentChild, args: ['subheader',] }],
             customMenus: [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] }]
         };
         return PageHeaderComponent;
@@ -28406,13 +28790,30 @@
             var _this = this;
             this._selectionService = _selectionService;
             this._cdRef = _cdRef;
+            /**
+             * The tabstop of the selection outer element
+             */
             this.tabindex = null;
+            /**
+             * This event will be triggered when there is a change to the selected items. It will contain an array of the currently selected items.
+             */
             this.uxSelectionChange = new core.EventEmitter();
+            /**
+             * Unsubscribe from all observables on component destroy
+             */
             this._onDestroy = new Subject.Subject();
-            _selectionService.selection$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (items) { return _this.uxSelectionChange.emit(items); });
+            _selectionService.selection$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (items) {
+                if (_this.isSelectionChanged(items)) {
+                    _this.uxSelectionChange.emit(items);
+                }
+                // store the most recent selection
+                _this._lastSelection = __spread(items);
+            });
         }
         Object.defineProperty(SelectionDirective.prototype, "uxSelection", {
+            /** Defines the items that should be selected. */
             set: /**
+             * Defines the items that should be selected.
              * @param {?} items
              * @return {?}
              */ function (items) {
@@ -28423,7 +28824,9 @@
             configurable: true
         });
         Object.defineProperty(SelectionDirective.prototype, "disabled", {
+            /** Can be used to enabled/disable selection behavior. */
             set: /**
+             * Can be used to enabled/disable selection behavior.
              * @param {?} disabled
              * @return {?}
              */ function (disabled) {
@@ -28433,7 +28836,15 @@
             configurable: true
         });
         Object.defineProperty(SelectionDirective.prototype, "mode", {
+            /**
+             * Defines the selection behavior. Alternatively, custom selection behavior can be defined by defining a
+             * class which extends SelectionStrategy, and providing an instance of the custom class to this property.
+             * See below for details of the SelectionStrategy class.
+             */
             set: /**
+             * Defines the selection behavior. Alternatively, custom selection behavior can be defined by defining a
+             * class which extends SelectionStrategy, and providing an instance of the custom class to this property.
+             * See below for details of the SelectionStrategy class.
              * @param {?} mode
              * @return {?}
              */ function (mode) {
@@ -28443,7 +28854,13 @@
             configurable: true
         });
         Object.defineProperty(SelectionDirective.prototype, "clickSelection", {
+            /**
+             * Can be used to enable/disable click selection on items. This can be used to manually control the selection of an item,
+             * for example, binding the selection state to a checkbox.
+             */
             set: /**
+             * Can be used to enable/disable click selection on items. This can be used to manually control the selection of an item,
+             * for example, binding the selection state to a checkbox.
              * @param {?} isClickEnabled
              * @return {?}
              */ function (isClickEnabled) {
@@ -28453,7 +28870,9 @@
             configurable: true
         });
         Object.defineProperty(SelectionDirective.prototype, "keyboardSelection", {
+            /** Can be used to enable/disable keyboard navigation on items. Use this if you wish to provide custom keyboard controls for selection. */
             set: /**
+             * Can be used to enable/disable keyboard navigation on items. Use this if you wish to provide custom keyboard controls for selection.
              * @param {?} isKeyboardEnabled
              * @return {?}
              */ function (isKeyboardEnabled) {
@@ -28536,6 +28955,31 @@
                 if (this._selectionService.isEnabled) {
                     this._selectionService.strategy.deselectAll();
                 }
+            };
+        /**
+         * Determine if the previous selection is the same as the current selection
+         */
+        /**
+         * Determine if the previous selection is the same as the current selection
+         * @param {?} selection
+         * @return {?}
+         */
+        SelectionDirective.prototype.isSelectionChanged = /**
+         * Determine if the previous selection is the same as the current selection
+         * @param {?} selection
+         * @return {?}
+         */
+            function (selection) {
+                // fast, efficient check, if length is different they must have changed
+                if (!this._lastSelection && selection || this._lastSelection.length !== selection.length) {
+                    return true;
+                }
+                // if both arrays have 0 items then they have not changed
+                if (this._lastSelection.length === 0 && selection.length === 0) {
+                    return false;
+                }
+                // otherwise do a check on each item
+                return !this._lastSelection.every(function (item) { return selection.indexOf(item) !== -1; });
             };
         SelectionDirective.decorators = [
             { type: core.Directive, args: [{
@@ -29961,6 +30405,19 @@
                 this._onDestroy.next();
                 this._onDestroy.complete();
             };
+        /** Force the layout to recalculate */
+        /**
+         * Force the layout to recalculate
+         * @return {?}
+         */
+        ResizableTableDirective.prototype.updateLayout = /**
+         * Force the layout to recalculate
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                requestAnimationFrame(function () { return _this.columns.forEach(function (_column, index) { return _this._table.resizeColumn(index, 0); }); });
+            };
         /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
         /**
          * Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable)
@@ -29977,6 +30434,7 @@
         ResizableTableDirective.decorators = [
             { type: core.Directive, args: [{
                         selector: '[uxResizableTable]',
+                        exportAs: 'ux-resizable-table',
                         providers: [ResizableTableService],
                         host: {
                             class: 'ux-resizable-table'
@@ -30263,10 +30721,15 @@
     var ToolbarSearchButtonDirective = /** @class */ (function () {
         function ToolbarSearchButtonDirective(_elementRef) {
             this._elementRef = _elementRef;
+            /**
+             * Emit whenever the button is clicked
+             */
             this.clicked = new core.EventEmitter();
         }
         Object.defineProperty(ToolbarSearchButtonDirective.prototype, "width", {
+            /** Get the width of the button element */
             get: /**
+             * Get the width of the button element
              * @return {?}
              */ function () {
                 return this._elementRef.nativeElement.offsetWidth;
@@ -30306,25 +30769,37 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var KEYS = {
-        ENTER: 13,
-        ESCAPE: 27
+    var TOOLBAR_SEARCH_VALUE_ACCESSOR = {
+        provide: forms.NG_VALUE_ACCESSOR,
+        useExisting: core.forwardRef(function () { return ToolbarSearchFieldDirective; }),
+        multi: true
     };
     var ToolbarSearchFieldDirective = /** @class */ (function () {
-        function ToolbarSearchFieldDirective(_elementRef, _ngModel) {
+        function ToolbarSearchFieldDirective(_elementRef) {
             this._elementRef = _elementRef;
-            this._ngModel = _ngModel;
+            /**
+             * Emit whenever the escape key is pressed
+             */
             this.cancel = new core.EventEmitter();
+            /**
+             * Emit whenever the enter key is pressed
+             */
             this.submit = new core.EventEmitter();
+            /**
+             * For use with the Forms and ReactiveForms
+             */
+            this.onTouchedCallback = function () { };
+            /**
+             * Call this function with the latest value to update ngModel or formControl name
+             */
+            this.onChangeCallback = function () { };
         }
         Object.defineProperty(ToolbarSearchFieldDirective.prototype, "text", {
+            /** Get the current value of the input control */
             get: /**
+             * Get the current value of the input control
              * @return {?}
              */ function () {
-                // Use ngModel if specified on the host; otherwise read the DOM
-                if (this._ngModel) {
-                    return this._ngModel.value;
-                }
                 return this._elementRef.nativeElement.value;
             },
             enumerable: true,
@@ -30338,9 +30813,10 @@
          */
             function () {
                 var _this = this;
-                setTimeout(function () {
-                    _this._elementRef.nativeElement.focus();
-                });
+                // mark the control as dirty
+                this.onTouchedCallback();
+                // focus the input control after a delay to ensure the element is present
+                requestAnimationFrame(function () { return _this._elementRef.nativeElement.focus(); });
             };
         /**
          * @return {?}
@@ -30350,61 +30826,130 @@
          */
             function () {
                 var _this = this;
-                setTimeout(function () {
-                    _this._elementRef.nativeElement.blur();
-                });
+                // blur the input control after a delay to ensure the element is present
+                requestAnimationFrame(function () { return _this._elementRef.nativeElement.blur(); });
             };
+        /** Clear the input, if we have an ngModel reset its value otherwise just set the input value to empty */
         /**
+         * Clear the input, if we have an ngModel reset its value otherwise just set the input value to empty
          * @return {?}
          */
         ToolbarSearchFieldDirective.prototype.clear = /**
+         * Clear the input, if we have an ngModel reset its value otherwise just set the input value to empty
          * @return {?}
          */
             function () {
-                // Use ngModel if specified on the host; otherwise use the DOM
-                if (this._ngModel) {
-                    this._ngModel.reset();
-                }
-                else {
-                    this._elementRef.nativeElement.value = '';
-                }
+                this.setValue('');
             };
         /**
-         * @param {?} event
          * @return {?}
          */
-        ToolbarSearchFieldDirective.prototype.keydownHandler = /**
-         * @param {?} event
+        ToolbarSearchFieldDirective.prototype.onEnter = /**
          * @return {?}
          */
-            function (event) {
-                var _this = this;
-                setTimeout(function () {
-                    if (event.keyCode === KEYS.ENTER) {
-                        _this.submit.emit(_this.text);
-                    }
-                    else if (event.keyCode === KEYS.ESCAPE) {
-                        _this._elementRef.nativeElement.blur();
-                        _this.cancel.emit();
-                    }
-                });
+            function () {
+                this.submit.emit(this.text);
+            };
+        /**
+         * @return {?}
+         */
+        ToolbarSearchFieldDirective.prototype.onEscape = /**
+         * @return {?}
+         */
+            function () {
+                this._elementRef.nativeElement.blur();
+                this.cancel.emit();
+            };
+        /**
+         * @return {?}
+         */
+        ToolbarSearchFieldDirective.prototype.onInput = /**
+         * @return {?}
+         */
+            function () {
+                this.setValue(this.text);
+            };
+        /** Update the input value based on ngModel or formControl */
+        /**
+         * Update the input value based on ngModel or formControl
+         * @param {?} value
+         * @return {?}
+         */
+        ToolbarSearchFieldDirective.prototype.writeValue = /**
+         * Update the input value based on ngModel or formControl
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                this.setValue(value);
+            };
+        /** Register a function to update form control */
+        /**
+         * Register a function to update form control
+         * @param {?} fn
+         * @return {?}
+         */
+        ToolbarSearchFieldDirective.prototype.registerOnChange = /**
+         * Register a function to update form control
+         * @param {?} fn
+         * @return {?}
+         */
+            function (fn) {
+                this.onChangeCallback = fn;
+            };
+        /** Register a function to mark form control as touched */
+        /**
+         * Register a function to mark form control as touched
+         * @param {?} fn
+         * @return {?}
+         */
+        ToolbarSearchFieldDirective.prototype.registerOnTouched = /**
+         * Register a function to mark form control as touched
+         * @param {?} fn
+         * @return {?}
+         */
+            function (fn) {
+                this.onTouchedCallback = fn;
+            };
+        /** Update the value in all required places */
+        /**
+         * Update the value in all required places
+         * @param {?} value
+         * @return {?}
+         */
+        ToolbarSearchFieldDirective.prototype.setValue = /**
+         * Update the value in all required places
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                // ngModel/form control can set the default value to null or undefined, which can show in the input. Replace with empty string
+                if (!value) {
+                    value = '';
+                }
+                // update the form value if there is one in use
+                this.onChangeCallback(value);
+                // update the content of the input control
+                this._elementRef.nativeElement.value = value;
             };
         ToolbarSearchFieldDirective.decorators = [
             { type: core.Directive, args: [{
-                        selector: '[uxToolbarSearchField]'
+                        selector: '[uxToolbarSearchField]',
+                        providers: [TOOLBAR_SEARCH_VALUE_ACCESSOR]
                     },] }
         ];
         /** @nocollapse */
         ToolbarSearchFieldDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: forms.NgModel, decorators: [{ type: core.Optional }] }
+                { type: core.ElementRef }
             ];
         };
         ToolbarSearchFieldDirective.propDecorators = {
             cancel: [{ type: core.Output }],
             submit: [{ type: core.Output }],
-            keydownHandler: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+            onEnter: [{ type: core.HostListener, args: ['keydown.enter',] }],
+            onEscape: [{ type: core.HostListener, args: ['keydown.escape',] }],
+            onInput: [{ type: core.HostListener, args: ['input',] }]
         };
         return ToolbarSearchFieldDirective;
     }());
@@ -30414,31 +30959,64 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var ToolbarSearchComponent = /** @class */ (function () {
-        function ToolbarSearchComponent(_elementRef, _colorService, _document) {
+        function ToolbarSearchComponent(_elementRef, _colorService, _renderer, _platformId) {
             this._elementRef = _elementRef;
             this._colorService = _colorService;
-            this._document = _document;
+            this._renderer = _renderer;
+            this._platformId = _platformId;
+            /**
+             * The direction in which the search box will expand. If the search button is aligned to the right edge of the container, specify left.
+             */
             this.direction = 'right';
+            /**
+             * Whether the color scheme is inverted. For use when the component is hosted on a dark background, e.g. the masthead.
+             */
             this.inverse = false;
+            /**
+             * Indicate whether or not the search field should always be expanded
+             */
+            this.alwaysExpanded = false;
+            /**
+             * Emitted when the expanded state changes
+             */
             this.expandedChange = new core.EventEmitter();
+            /**
+             * Emitted when a search query has been submitted, either by pressing enter when the search field has focus, or by clicking the search button
+             * when the search field contains text. The event contains the search text.
+             */
             this.search = new core.EventEmitter();
+            /**
+             * Store the CSS position value as this may change to absolute
+             */
+            this._position = 'relative';
+            /**
+             * Store the active background color
+             */
+            this._backgroundColor = 'transparent';
+            /**
+             * Store the expanded state
+             */
             this._expanded = false;
-            this.position = 'relative';
-            this.backgroundColor = 'transparent';
+            /**
+             * Unsubscribe from all subscriptions on component destroy
+             */
+            this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(ToolbarSearchComponent.prototype, "expanded", {
             get: /**
              * @return {?}
              */ function () {
-                return this._expanded;
+                return this.alwaysExpanded || this._expanded;
             },
+            /** Whether the input field is visible. Use this to collapse or expand the control in response to other events. */
             set: /**
+             * Whether the input field is visible. Use this to collapse or expand the control in response to other events.
              * @param {?} value
              * @return {?}
              */ function (value) {
                 this._expanded = value;
-                this.expandedChange.emit(value);
-                if (value) {
+                this.expandedChange.emit(this.expanded);
+                if (this.expanded) {
                     // Set focus on the input when expanded
                     this.field.focus();
                 }
@@ -30453,17 +31031,28 @@
             configurable: true
         });
         Object.defineProperty(ToolbarSearchComponent.prototype, "background", {
-            set: /**
+            /*
+             * The background color of the component. Color names from the Color Palette can be used here.
+             * Specify this when a transparent background would cause display issues, such as background items showing through the search field.
+             */
+            set: /*
+                 * The background color of the component. Color names from the Color Palette can be used here.
+                 * Specify this when a transparent background would cause display issues, such as background items showing through the search field.
+                 */ 
+            /**
              * @param {?} value
              * @return {?}
-             */ function (value) {
-                this.backgroundColor = this._colorService.resolve(value) || 'transparent';
+             */
+            function (value) {
+                this._backgroundColor = this._colorService.resolve(value) || 'transparent';
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(ToolbarSearchComponent.prototype, "expandedAnimation", {
+        Object.defineProperty(ToolbarSearchComponent.prototype, "_expandedAnimation", {
+            /** Return the correct animation based on the expanded state */
             get: /**
+             * Return the correct animation based on the expanded state
              * @return {?}
              */ function () {
                 return {
@@ -30485,20 +31074,38 @@
             function () {
                 var _this = this;
                 // Subscribe to the submit event on the input field, triggering the search event
-                this.field.submit.subscribe(function (text) { return _this.search.emit(text); });
+                this.field.submit.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (text) { return _this.search.emit(text); });
                 // Subscribe to cancel events coming from the input field
-                this.field.cancel.subscribe(function () { return _this.expanded = false; });
+                this.field.cancel.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.expanded = false; });
                 // Subscribe to the button click event
-                this.button.clicked.subscribe(function () {
-                    if (_this.expanded && _this.field.text) {
-                        _this.search.emit(_this.field.text);
-                    }
-                    else {
-                        _this.expanded = !_this.expanded;
-                    }
+                this.button.clicked.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    _this.expanded && _this.field.text ? _this.search.emit(_this.field.text) : _this.expanded = !_this.expanded;
                 });
                 // Create placeholder element to avoid changing layout when switching to position: absolute
-                this.createPlaceholder();
+                // If the platform is a server we dont want to do this as we can't access getComputedStyle
+                if (!common.isPlatformServer(this._platformId)) {
+                    this.createPlaceholder();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        ToolbarSearchComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                /**
+                 * We programmatically created the placeholder node so Angular is not aware of its existence
+                 * so we must manually destroy it otherwise the reference will be retained.
+                 * Note, the `destroyNode` function may be null or undefined as mentioned in the
+                 * Angular API docs (https://angular.io/api/core/Renderer2#destroyNode) so
+                 * we must check that the function is available before attempting to call it
+                */
+                if (this._placeholder && this._renderer && this._renderer.destroyNode) {
+                    this._renderer.destroyNode(this._placeholder);
+                }
             };
         /**
          * @param {?} event
@@ -30510,8 +31117,8 @@
          */
             function (event) {
                 if (event.toState === 'expanded') {
-                    this.position = 'absolute';
-                    this.enablePlaceholder(true);
+                    this._position = 'absolute';
+                    this.setPlaceholderVisible(true);
                 }
             };
         /**
@@ -30524,14 +31131,17 @@
          */
             function (event) {
                 if (event.toState === 'collapsed') {
-                    this.position = 'relative';
-                    this.enablePlaceholder(false);
+                    this._position = 'relative';
+                    this.setPlaceholderVisible(false);
                 }
             };
+        /** Programmatically create a placeholder element */
         /**
+         * Programmatically create a placeholder element
          * @return {?}
          */
         ToolbarSearchComponent.prototype.createPlaceholder = /**
+         * Programmatically create a placeholder element
          * @return {?}
          */
             function () {
@@ -30539,42 +31149,49 @@
                 /** @type {?} */
                 var styles = getComputedStyle(this._elementRef.nativeElement);
                 // Create invisible div with the same dimensions
-                this._placeholder = this._document.createElement('div');
-                this._placeholder.style.display = 'none';
-                this._placeholder.style.width = this.button.width + 'px';
-                this._placeholder.style.height = styles.height;
-                this._placeholder.style.visibility = 'hidden';
+                this._placeholder = this._renderer.createElement('div');
+                this._renderer.setStyle(this._placeholder, 'display', 'none');
+                this._renderer.setStyle(this._placeholder, 'width', this.button.width + 'px');
+                this._renderer.setStyle(this._placeholder, 'height', styles.height);
+                this._renderer.setStyle(this._placeholder, 'visibility', 'hidden');
                 // Add as a sibling
-                this._elementRef.nativeElement.parentNode.insertBefore(this._placeholder, this._elementRef.nativeElement);
+                this._renderer.insertBefore(this._elementRef.nativeElement.parentNode, this._placeholder, this._elementRef.nativeElement);
             };
+        /** Update the visibility of the placeholder node */
         /**
-         * @param {?} enabled
+         * Update the visibility of the placeholder node
+         * @param {?} isVisible
          * @return {?}
          */
-        ToolbarSearchComponent.prototype.enablePlaceholder = /**
-         * @param {?} enabled
+        ToolbarSearchComponent.prototype.setPlaceholderVisible = /**
+         * Update the visibility of the placeholder node
+         * @param {?} isVisible
          * @return {?}
          */
-            function (enabled) {
-                this._placeholder.style.display = (enabled ? 'inline-block' : 'none');
+            function (isVisible) {
+                this._renderer.setStyle(this._placeholder, 'display', isVisible ? 'inline-block' : 'none');
             };
         ToolbarSearchComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-toolbar-search',
                         template: "<ng-content></ng-content>",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
                         animations: [
                             animations.trigger('expanded', [
-                                animations.state('collapsed', animations.style({
-                                    width: '{{initialWidth}}'
-                                }), {
-                                    params: { initialWidth: '30px' }
-                                }),
-                                animations.state('expanded', animations.style({
-                                    width: '100%'
-                                })),
+                                animations.state('collapsed', animations.style({ width: '{{initialWidth}}' }), { params: { initialWidth: '30px' } }),
+                                animations.state('expanded', animations.style({ width: '100%' })),
                                 animations.transition('collapsed <=> expanded', [animations.animate('0.3s ease-out')])
                             ])
-                        ]
+                        ],
+                        host: {
+                            '[class.expanded]': 'expanded',
+                            '[class.left]': 'direction === "left"',
+                            '[class.right]': 'direction === "right"',
+                            '[class.inverse]': 'inverse',
+                            '[style.position]': '_position',
+                            '[style.background-color]': '_backgroundColor',
+                            '[@expanded]': '_expandedAnimation'
+                        }
                     }] }
         ];
         /** @nocollapse */
@@ -30582,19 +31199,18 @@
             return [
                 { type: core.ElementRef },
                 { type: ColorService },
-                { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+                { type: core.Renderer2 },
+                { type: Object, decorators: [{ type: core.Inject, args: [core.PLATFORM_ID,] }] }
             ];
         };
         ToolbarSearchComponent.propDecorators = {
-            expanded: [{ type: core.HostBinding, args: ['class.expanded',] }, { type: core.Input }],
-            direction: [{ type: core.Input }, { type: core.HostBinding, args: ['class',] }],
-            inverse: [{ type: core.Input }, { type: core.HostBinding, args: ['class.inverse',] }],
+            direction: [{ type: core.Input }],
+            inverse: [{ type: core.Input }],
+            alwaysExpanded: [{ type: core.Input }],
+            expanded: [{ type: core.Input }],
             background: [{ type: core.Input }],
             expandedChange: [{ type: core.Output }],
             search: [{ type: core.Output }],
-            expandedAnimation: [{ type: core.HostBinding, args: ['@expanded',] }],
-            position: [{ type: core.HostBinding, args: ['style.position',] }],
-            backgroundColor: [{ type: core.HostBinding, args: ['style.background-color',] }],
             field: [{ type: core.ContentChild, args: [ToolbarSearchFieldDirective,] }],
             button: [{ type: core.ContentChild, args: [ToolbarSearchButtonDirective,] }],
             animationStart: [{ type: core.HostListener, args: ['@expanded.start', ['$event'],] }],
@@ -34389,6 +35005,7 @@
     exports.ToggleSwitchComponent = ToggleSwitchComponent;
     exports.ToolbarSearchModule = ToolbarSearchModule;
     exports.ToolbarSearchComponent = ToolbarSearchComponent;
+    exports.TOOLBAR_SEARCH_VALUE_ACCESSOR = TOOLBAR_SEARCH_VALUE_ACCESSOR;
     exports.ToolbarSearchFieldDirective = ToolbarSearchFieldDirective;
     exports.ToolbarSearchButtonDirective = ToolbarSearchButtonDirective;
     exports.TooltipModule = TooltipModule;
@@ -34520,10 +35137,13 @@
     exports.StringFilterModule = StringFilterModule;
     exports.AudioServiceModule = AudioServiceModule;
     exports.AudioService = AudioService;
+    exports.colorSets = colorSets;
+    exports.COLOR_SET_TOKEN = COLOR_SET_TOKEN;
+    exports.COLOR_SERVICE_PROVIDER_FACTORY = COLOR_SERVICE_PROVIDER_FACTORY;
+    exports.COLOR_SERVICE_PROVIDER = COLOR_SERVICE_PROVIDER;
     exports.ColorServiceModule = ColorServiceModule;
     exports.ColorService = ColorService;
     exports.ThemeColor = ThemeColor;
-    exports.colorSets = colorSets;
     exports.FrameExtractionModule = FrameExtractionModule;
     exports.FrameExtractionService = FrameExtractionService;
     exports.PersistentDataModule = PersistentDataModule;
@@ -34554,18 +35174,20 @@
     exports.ɵr = HierarchyBarService;
     exports.ɵy = MarqueeWizardService;
     exports.ɵz = MediaPlayerService;
-    exports.ɵbc = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbb = PageHeaderNavigationItemComponent;
-    exports.ɵbd = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵba = PageHeaderService;
+    exports.ɵbe = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbd = PageHeaderNavigationItemComponent;
+    exports.ɵbf = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbc = PageHeaderService;
     exports.ɵx = SidePanelService;
-    exports.ɵbe = ResizableTableService;
+    exports.ɵbg = ResizableTableService;
     exports.ɵo = TypeaheadHighlightDirective;
     exports.ɵn = TypeaheadService;
     exports.ɵa = DefaultFocusIndicatorDirective;
-    exports.ɵbf = HoverActionService;
+    exports.ɵbh = HoverActionService;
     exports.ɵp = MenuNavigationService;
-    exports.ɵbg = TreeGridService;
+    exports.ɵbi = TreeGridService;
+    exports.ɵba = KEPPEL_COLOR_SET;
+    exports.ɵbb = MICRO_FOCUS_COLOR_SET;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
