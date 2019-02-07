@@ -79,7 +79,15 @@
     If you wish to prevent this proportional scaling, omit the <code>width</code> property from one column, giving it a variable width.
 </p>
 
-<p>The following properties can be used to configure the columns:</p>
+<p>The following methods are available in the <code>uxResizableTable</code> directive:</p>
+
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="updateLayout" type="void">
+        This will recalculate the table layout.
+    </tr>
+</uxd-api-properties>
+
+<p>The following properties can be used to configure the <code>uxResizableTableColumn</code> directive:</p>
 
 
 <uxd-api-properties tableTitle="Inputs">
@@ -96,13 +104,6 @@
         Emits with the width of the column when the column is resized.
     </tr>
 </uxd-api-properties>
-
-<uxd-api-properties tableTitle="Methods">
-    <tr uxd-api-property name="updateLayout" type="void">
-        This will recalculate the table layout.
-    </tr>
-</uxd-api-properties>
-
 
 <p>
     The code below can be used to create the example above:
