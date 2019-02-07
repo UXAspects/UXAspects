@@ -13,32 +13,42 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
 
     /** Specify whether or not we should mark this element as having focus if a child is focused */
     @Input() set checkChildren(checkChildren: boolean) {
-        this._checkChildren = checkChildren;
-        this.setOptions();
+        if (checkChildren !== null && checkChildren !== undefined) {
+            this._checkChildren = checkChildren;
+            this.setOptions();
+        }
     }
 
     /** Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting */
     @Input() set mouseFocusIndicator(mouseFocusIndicator: boolean) {
-        this._mouseFocusIndicator = mouseFocusIndicator;
-        this.setOptions();
+        if (mouseFocusIndicator !== null && mouseFocusIndicator !== undefined) {
+            this._mouseFocusIndicator = mouseFocusIndicator;
+            this.setOptions();
+        }
     }
 
     /** Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting */
     @Input() set touchFocusIndicator(touchFocusIndicator: boolean) {
-        this._touchFocusIndicator = touchFocusIndicator;
-        this.setOptions();
+        if (touchFocusIndicator !== null && touchFocusIndicator !== undefined) {
+            this._touchFocusIndicator = touchFocusIndicator;
+            this.setOptions();
+        }
     }
 
     /** Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting */
     @Input() set keyboardFocusIndicator(keyboardFocusIndicator: boolean) {
-        this._keyboardFocusIndicator = keyboardFocusIndicator;
-        this.setOptions();
+        if (keyboardFocusIndicator !== null && keyboardFocusIndicator !== undefined) {
+            this._keyboardFocusIndicator = keyboardFocusIndicator;
+            this.setOptions();
+        }
     }
 
     /** Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting */
     @Input() set programmaticFocusIndicator(programmaticFocusIndicator: boolean) {
-        this._programmaticFocusIndicator = programmaticFocusIndicator;
-        this.setOptions();
+        if (programmaticFocusIndicator !== null && programmaticFocusIndicator !== undefined) {
+            this._programmaticFocusIndicator = programmaticFocusIndicator;
+            this.setOptions();
+        }
     }
 
     /** Emit the latest focus state */

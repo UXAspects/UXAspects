@@ -1,8 +1,9 @@
-import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { pairwise, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { HasFocusIndicatorCtor, HasFocusInidicator, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 import { ColorPickerColor } from './color-picker-color';
 
 // Values corresponding to stylesheet
@@ -15,12 +16,20 @@ const BUTTON_WIDTHS = {
 
 let uniqueId = 0;
 
+// Boilerplate for applying mixins to ColorPickerComponent.
+export class ColorPickerBase { }
+
+// Add all focus indicator properties to a new base class
+export const _ColorPickerMixinBase: HasFocusIndicatorCtor & typeof ColorPickerBase = mixinFocusIndicator(ColorPickerBase);
+
 @Component({
     selector: 'ux-color-picker',
     exportAs: 'ux-color-picker',
-    templateUrl: 'color-picker.component.html'
+    templateUrl: 'color-picker.component.html',
+    inputs: [..._HasFocusIndicatorInputs],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColorPickerComponent implements OnInit, OnDestroy {
+export class ColorPickerComponent extends _ColorPickerMixinBase implements OnInit, OnDestroy, HasFocusInidicator {
 
     @Input()
     @HostBinding('attr.id')

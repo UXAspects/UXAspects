@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
 import { SpinButtonModule } from '../spin-button/index';
 import { TimePickerModule } from '../time-picker/index';
@@ -15,6 +16,7 @@ import { YearViewComponent } from './year-view/year-view.component';
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         CommonModule,
         FormsModule,
         TimePickerModule,
