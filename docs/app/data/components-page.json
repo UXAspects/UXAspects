@@ -1506,6 +1506,10 @@
                             "content": "[uxResizableTableColumn]"
                         },
                         {
+                            "title": "Exported As",
+                            "content": "ux-resizable-table"
+                        },
+                        {
                             "title": "Module",
                             "content": "TableModule"
                         }
