@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -11,37 +12,71 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
     multi: true
 };
 
+// Boilerplate for applying mixins.
+export class TimePickerBase { }
+
+// Add all focus indicator properties to a new base class
+export const _TimePickerMixinBase: HasFocusIndicatorCtor & typeof TimePickerBase = mixinFocusIndicator(TimePickerBase);
+
 @Component({
     selector: 'ux-time-picker',
     templateUrl: './time-picker.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIME_PICKER_VALUE_ACCESSOR],
+    inputs: [..._HasFocusIndicatorInputs],
     host: {
         'aria-label': 'Time Picker'
     }
 })
-export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
+export class TimePickerComponent extends _TimePickerMixinBase implements ControlValueAccessor, OnDestroy, HasFocusIndicator {
 
+    /** Whether the arrow keys can be used to increment or decrement the selected time component. */
     @Input() arrowkeys: boolean = true;
+
+    /** Whether the mouse scroll wheel can be used to increment or decrement the selected time component. */
     @Input() mousewheel: boolean = true;
+
+    /** Whether the control is disabled. */
     @Input() disabled: boolean = false;
+
+    /** Whether the control is readonly. */
     @Input() readOnly: boolean = false;
 
+    /** Whether to show the meridian (AM/PM) selector. If this is false, the 24-hour clock will be used. */
     @Input() showMeridian: boolean = false;
+
+    /** Whether to show the hour selector. */
     @Input() showHours: boolean = true;
+
+    /** Whether to show the minute selector. */
     @Input() showMinutes: boolean = true;
+
+    /** Whether to show the second selector. */
     @Input() showSeconds: boolean = false;
+
+    /** Whether to show increment and decrement buttons in the time picker. */
     @Input() showSpinners: boolean = true;
 
+    /** The number of hours to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel. */
     @Input() hourStep: number = 1;
+
+    /** The number of minutes to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel. */
     @Input() minuteStep: number = 1;
+
+    /** The number of seconds to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel. */
     @Input() secondStep: number = 1;
 
+    /** The minimum value that the component will allow. */
     @Input() min: Date;
+
+    /** The maximum value that the component will allow. */
     @Input() max: Date;
+
+    /** An array containing the labels to show in the meridian selector. */
     @Input() meridians: string[] = ['AM', 'PM'];
 
+    /** The value to display. */
     @Input() set value(value: Date) {
         this.value$.next(new Date(value));
         this.valueChange.emit(this.value$.value);
@@ -54,7 +89,10 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         return new Date(this.value$.value);
     }
 
+    /** Emitted when the `value` changes. */
     @Output() valueChange = new EventEmitter<Date>();
+
+    /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
 
     onTouchedCallback: () => void = () => { };
@@ -73,6 +111,7 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     private _subscription: Subscription;
 
     constructor() {
+        super();
         this._subscription = this.valid$.pipe(distinctUntilChanged()).subscribe(valid => this.isValid.emit(valid));
     }
 

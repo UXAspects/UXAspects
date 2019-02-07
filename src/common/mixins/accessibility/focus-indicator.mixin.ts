@@ -1,7 +1,6 @@
 import { Constructor } from '../common/constructor';
 
-export interface HasFocusInidicator {
-    checkChildren: boolean;
+export interface HasFocusIndicator {
     mouseFocusIndicator: boolean;
     touchFocusIndicator: boolean;
     keyboardFocusIndicator: boolean;
@@ -9,14 +8,13 @@ export interface HasFocusInidicator {
 }
 
 export const _HasFocusIndicatorInputs: string[] = [
-    'checkChildren',
     'mouseFocusIndicator',
     'touchFocusIndicator',
     'keyboardFocusIndicator',
     'programmaticFocusIndicator'
 ];
 
-export type HasFocusIndicatorCtor = Constructor<HasFocusInidicator>;
+export type HasFocusIndicatorCtor = Constructor<HasFocusIndicator>;
 
 /**
  * This mixin provides us with the all options to control the focus indicator without having to duplicate them for every component.
@@ -24,9 +22,6 @@ export type HasFocusIndicatorCtor = Constructor<HasFocusInidicator>;
  */
 export function mixinFocusIndicator<T extends Constructor<{}>>(base: T): HasFocusIndicatorCtor & T {
     return class extends base {
-
-        /** Specify whether or not we should mark this element as having focus if a child is focused */
-        checkChildren: boolean;
 
         /** Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting */
         mouseFocusIndicator: boolean;

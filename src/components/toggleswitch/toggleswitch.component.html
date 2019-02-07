@@ -5,6 +5,11 @@
        [class.ux-toggleswitch-focused]="focused">
 
     <input class="ux-toggleswitch-input"
+           uxFocusIndicator
+           [mouseFocusIndicator]="mouseFocusIndicator"
+           [touchFocusIndicator]="touchFocusIndicator"
+           [keyboardFocusIndicator]="keyboardFocusIndicator"
+           [programmaticFocusIndicator]="programmaticFocusIndicator"
            type="checkbox"
            role="switch"
            [id]="inputId"
@@ -15,8 +20,7 @@
            [attr.aria-label]="ariaLabel"
            [attr.aria-labelledby]="ariaLabelledby"
            [attr.aria-checked]="value"
-           (focus)="focused = true"
-           (blur)="focused = false"
+           (indicator)="focused = $event"
            (change)="toggle()"
            (click)="$event.stopPropagation()">
 

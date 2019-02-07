@@ -1,17 +1,40 @@
 <div class="calendar-container">
 
-  <ux-date-time-picker-header></ux-date-time-picker-header>
+  <ux-date-time-picker-header
+    [programmaticFocusIndicator]="programmaticFocusIndicator"
+    [touchFocusIndicator]="touchFocusIndicator"
+    [mouseFocusIndicator]="mouseFocusIndicator"
+    [keyboardFocusIndicator]="keyboardFocusIndicator">
+  </ux-date-time-picker-header>
 
   <ng-container *ngIf="datepicker.showDate$ | async" [ngSwitch]="datepicker.mode$ | async">
 
-      <!-- Display days in the current month -->
-      <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day"></ux-date-time-picker-day-view>
+        <!-- Display days in the current month -->
+        <ux-date-time-picker-day-view
+            *ngSwitchCase="DatePickerMode.Day"
+            [programmaticFocusIndicator]="programmaticFocusIndicator"
+            [touchFocusIndicator]="touchFocusIndicator"
+            [mouseFocusIndicator]="mouseFocusIndicator"
+            [keyboardFocusIndicator]="keyboardFocusIndicator">
+        </ux-date-time-picker-day-view>
 
-      <!-- Display the months in the current year -->
-      <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month"></ux-date-time-picker-month-view>
+        <!-- Display the months in the current year -->
+        <ux-date-time-picker-month-view
+            *ngSwitchCase="DatePickerMode.Month"
+            [programmaticFocusIndicator]="programmaticFocusIndicator"
+            [touchFocusIndicator]="touchFocusIndicator"
+            [mouseFocusIndicator]="mouseFocusIndicator"
+            [keyboardFocusIndicator]="keyboardFocusIndicator">
+        </ux-date-time-picker-month-view>
 
-      <!-- Display a decade -->
-      <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year"></ux-date-time-picker-year-view>
+        <!-- Display a decade -->
+        <ux-date-time-picker-year-view
+            *ngSwitchCase="DatePickerMode.Year"
+            [programmaticFocusIndicator]="programmaticFocusIndicator"
+            [touchFocusIndicator]="touchFocusIndicator"
+            [mouseFocusIndicator]="mouseFocusIndicator"
+            [keyboardFocusIndicator]="keyboardFocusIndicator">
+        </ux-date-time-picker-year-view>
 
   </ng-container>
 
@@ -20,4 +43,14 @@
 
 </div>
 
-<button type="button" class="now-button" aria-label="Set date to now" (click)="setToNow()">{{ datepicker.nowBtnText$ | async }}</button>
+<button type="button"
+    uxFocusIndicator
+    [programmaticFocusIndicator]="programmaticFocusIndicator"
+    [touchFocusIndicator]="touchFocusIndicator"
+    [mouseFocusIndicator]="mouseFocusIndicator"
+    [keyboardFocusIndicator]="keyboardFocusIndicator"
+    class="now-button"
+    aria-label="Set date to now"
+    (click)="setToNow()">
+    {{ datepicker.nowBtnText$ | async }}
+</button>

@@ -1,15 +1,26 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 import { ColorService } from '../../services/color/index';
+
+// Boilerplate for applying mixins.
+export class SliderBase { }
+export const _SliderMixinBase: HasFocusIndicatorCtor & typeof SliderBase = mixinFocusIndicator(SliderBase);
 
 @Component({
     selector: 'ux-slider',
     templateUrl: './slider.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    inputs: [..._HasFocusIndicatorInputs]
 })
-export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
+export class SliderComponent extends _SliderMixinBase implements OnInit, AfterViewInit, DoCheck, HasFocusIndicator {
 
+    /** This should reference either a single number or a SliderValue object, depending on the slider type specified. */
     @Input() value: SliderValue | number = 0;
+
+    /** A wide range of options can used to customize the appearance and behavior of the component. */
     @Input() options: SliderOptions;
+
+    /** Emits when the `value` changes. */
     @Output() valueChange: EventEmitter<SliderValue | number> = new EventEmitter<SliderValue | number>();
 
     @ViewChild('lowerTooltip') lowerTooltip: ElementRef;
@@ -79,7 +90,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     defaultOptions: SliderOptions;
 
     constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
-
+        super();
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,
@@ -476,7 +487,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
             const tickOneDelta = Math.max(tickOne.value, value) - Math.min(tickOne.value, value);
             const tickTwoDelta = Math.max(tickTwo.value, value) - Math.min(tickTwo.value, value);
-            
+
             return tickOneDelta - tickTwoDelta;
         });
     }

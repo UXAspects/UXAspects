@@ -8,6 +8,11 @@
 
     <div class="ux-checkbox-container">
         <input type="checkbox"
+               uxFocusIndicator
+               [mouseFocusIndicator]="mouseFocusIndicator"
+               [touchFocusIndicator]="touchFocusIndicator"
+               [keyboardFocusIndicator]="keyboardFocusIndicator"
+               [programmaticFocusIndicator]="programmaticFocusIndicator"
                class="ux-checkbox-input"
                [id]="inputId"
                [required]="required"
@@ -20,8 +25,7 @@
                [attr.aria-label]="ariaLabel"
                [attr.aria-labelledby]="ariaLabelledby"
                [attr.aria-checked]="ariaChecked"
-               (focus)="focused = true"
-               (blur)="focused = false"
+               (indicator)="focused = $event"
                (change)="$event.stopPropagation()"
                (click)="toggle()">
     </div>

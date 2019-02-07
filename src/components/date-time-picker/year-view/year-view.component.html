@@ -2,6 +2,11 @@
   <div class="calendar-row" role="row" *ngFor="let row of yearService.grid$ | async; trackBy: trackRowByFn">
 
     <button *ngFor="let item of row; trackBy: trackYearByFn"
+         uxFocusIndicator
+         [mouseFocusIndicator]="mouseFocusIndicator"
+         [touchFocusIndicator]="touchFocusIndicator"
+         [keyboardFocusIndicator]="keyboardFocusIndicator"
+         [programmaticFocusIndicator]="programmaticFocusIndicator"
          type="button"
          role="gridcell"
          class="calendar-item"

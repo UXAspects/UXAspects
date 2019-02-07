@@ -1,17 +1,25 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../../common/index';
 import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
+
+// Boilerplate for applying mixins.
+export class HeaderBase { }
+
+// Add all focus indicator properties to a new base class
+export const _HeaderMixinBase: HasFocusIndicatorCtor & typeof HeaderBase = mixinFocusIndicator(HeaderBase);
 
 @Component({
     selector: 'ux-date-time-picker-header',
     templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    inputs: [..._HasFocusIndicatorInputs]
 })
-export class HeaderComponent {
+export class HeaderComponent extends _HeaderMixinBase implements HasFocusIndicator {
 
     canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
-    
+
     mode$: Observable<string> = this.datepicker.mode$.pipe(map(mode => {
         switch (mode) {
             case DatePickerMode.Day:
@@ -56,7 +64,9 @@ export class HeaderComponent {
         }
     }));
 
-    constructor(public datepicker: DateTimePickerService) { }
+    constructor(public datepicker: DateTimePickerService) {
+        super();
+    }
 
     previous(): void {
         this.datepicker.goToPrevious();

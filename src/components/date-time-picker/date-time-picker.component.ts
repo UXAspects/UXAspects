@@ -2,11 +2,11 @@ import { WeekDay } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
 import { dateComparator, DateTimePickerTimezone, timezoneComparator } from './date-time-picker.utils';
 
-// Boilerplate for applying mixins to DateTimePickerComponent.
+// Boilerplate for applying mixins.
 export class DateTimePickerComponentBase { }
 
 // Add all focus indicator properties to a new base class
@@ -19,7 +19,7 @@ export const _DateTimePickerMixinBase: HasFocusIndicatorCtor & typeof DateTimePi
     changeDetection: ChangeDetectionStrategy.OnPush,
     inputs: [..._HasFocusIndicatorInputs]
 })
-export class DateTimePickerComponent implements OnDestroy {
+export class DateTimePickerComponent extends _DateTimePickerMixinBase implements OnDestroy, HasFocusIndicator {
 
     /** Defines whether or not the date picker should be visible. */
     @Input() set showDate(value: boolean) {
@@ -116,6 +116,7 @@ export class DateTimePickerComponent implements OnDestroy {
     private _onDestroy = new Subject<void>();
 
     constructor(public datepicker: DateTimePickerService) {
+        super();
         datepicker.selected$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(dateComparator))
             .subscribe(date => this.dateChange.emit(date));
 

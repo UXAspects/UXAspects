@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { pairwise, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { HasFocusIndicatorCtor, HasFocusInidicator, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 import { ColorPickerColor } from './color-picker-color';
 
 // Values corresponding to stylesheet
@@ -16,7 +16,7 @@ const BUTTON_WIDTHS = {
 
 let uniqueId = 0;
 
-// Boilerplate for applying mixins to ColorPickerComponent.
+// Boilerplate for applying mixins.
 export class ColorPickerBase { }
 
 // Add all focus indicator properties to a new base class
@@ -29,7 +29,7 @@ export const _ColorPickerMixinBase: HasFocusIndicatorCtor & typeof ColorPickerBa
     inputs: [..._HasFocusIndicatorInputs],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColorPickerComponent extends _ColorPickerMixinBase implements OnInit, OnDestroy, HasFocusInidicator {
+export class ColorPickerComponent extends _ColorPickerMixinBase implements OnInit, OnDestroy, HasFocusIndicator {
 
     @Input()
     @HostBinding('attr.id')

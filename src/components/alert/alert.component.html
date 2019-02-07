@@ -6,6 +6,15 @@
     <ng-content></ng-content>
 </div>
 
-<button class="alert-close" type="button" *ngIf="dismissible" (click)="dismiss.emit()" [attr.aria-label]="dismissAriaLabel">
+<button *ngIf="dismissible"
+        uxFocusIndicator
+        [mouseFocusIndicator]="mouseFocusIndicator"
+        [touchFocusIndicator]="touchFocusIndicator"
+        [keyboardFocusIndicator]="keyboardFocusIndicator"
+        [programmaticFocusIndicator]="programmaticFocusIndicator"
+        class="alert-close"
+        type="button"
+        (click)="dismiss.emit()"
+        [attr.aria-label]="dismissAriaLabel">
     <i class="hpe-icon hpe-close"></i>
 </button>

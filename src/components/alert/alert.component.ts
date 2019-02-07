@@ -1,11 +1,19 @@
 import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Optional, Output } from '@angular/core';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 import { ColorService } from '../../services/color/index';
 import { AlertIconDirective } from './alert-icon.directive';
+
+// Boilerplate for applying mixins.
+export class AlertBase { }
+
+// Add all focus indicator properties to a new base class
+export const _AlertMixinBase: HasFocusIndicatorCtor & typeof AlertBase = mixinFocusIndicator(AlertBase);
 
 @Component({
     selector: 'ux-alert',
     templateUrl: './alert.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    inputs: [..._HasFocusIndicatorInputs],
     host: {
         'role': 'alert',
         '[class.ux-alert-info]': 'type === "info" && !_isCustomColor',
@@ -17,7 +25,7 @@ import { AlertIconDirective } from './alert-icon.directive';
         '[style.color]': '_foregroundColor'
     }
 })
-export class AlertComponent {
+export class AlertComponent extends _AlertMixinBase implements HasFocusIndicator {
 
     /** Determine the style of the alert */
     @Input() type: AlertType = 'info';
@@ -55,7 +63,9 @@ export class AlertComponent {
         return !!this.backgroundColor && !!this.foregroundColor;
     }
 
-    constructor(@Optional() private readonly colorService: ColorService) { }
+    constructor(@Optional() private readonly colorService: ColorService) {
+        super();
+    }
 
     private getColor(color: string): string | null {
 

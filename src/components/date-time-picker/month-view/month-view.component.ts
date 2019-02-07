@@ -1,19 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../../common/index';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
 import { MonthViewItem, MonthViewService } from './month-view.service';
+
+
+// Boilerplate for applying mixins.
+export class MonthViewBase { }
+
+// Add all focus indicator properties to a new base class
+export const _MonthViewMixinBase: HasFocusIndicatorCtor & typeof MonthViewBase = mixinFocusIndicator(MonthViewBase);
 
 @Component({
     selector: 'ux-date-time-picker-month-view',
     templateUrl: './month-view.component.html',
     providers: [MonthViewService],
+    inputs: [..._HasFocusIndicatorInputs],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MonthViewComponent implements OnDestroy {
+export class MonthViewComponent extends _MonthViewMixinBase implements OnDestroy, HasFocusIndicator {
 
     private _subscription: Subscription;
 
     constructor(private _datePicker: DateTimePickerService, public monthService: MonthViewService) {
+        super();
         this._subscription = _datePicker.headerEvent$
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
     }
@@ -81,7 +91,7 @@ export class MonthViewComponent implements OnDestroy {
 
             // check if the focused month is visible
             const isFocusedMonthVisible = !!grid.find(row => !!row.find(_item => _item.month === focused.month && _item.year === focused.year));
-            
+
             if (isFocusedMonthVisible) {
                 return focused.month === item.month && focused.year === item.year;
             }
