@@ -146,9 +146,12 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
 
         /**
          * We programmatically created the placeholder node so Angular is not aware of its existence
-         * so we must manually destroy it otherwise the reference will be retained
+         * so we must manually destroy it otherwise the reference will be retained.
+         * Note, the `destroyNode` function may be null or undefined as mentioned in the
+         * Angular API docs (https://angular.io/api/core/Renderer2#destroyNode) so
+         * we must check that the function is available before attempting to call it
         */
-        if (this._placeholder) {
+        if (this._placeholder && this._renderer && this._renderer.destroyNode) {
             this._renderer.destroyNode(this._placeholder);
         }
     }
