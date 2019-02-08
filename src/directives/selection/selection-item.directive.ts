@@ -1,6 +1,7 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { SelectionService } from './selection.service';
 
 @Directive({
@@ -9,8 +10,10 @@ import { SelectionService } from './selection.service';
 })
 export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
+    /** Defines the data associated with this item. */
     @Input() uxSelectionItem: T;
 
+    /** Defines whether or not this item is currently selected. */
     @Input()
     @HostBinding('class.ux-selection-selected')
     @HostBinding('attr.aria-selected')
@@ -22,8 +25,10 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         return this._selected;
     }
 
+    /** Defines the tab index of the row */
     @Input() tabindex: number = null;
 
+    /** Defines whether or not this item is currently selected. */
     @Output() selectedChange = new EventEmitter<boolean>();
 
     @HostBinding('class.ux-selection-focused') active: boolean = false;
@@ -36,8 +41,11 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     private _selected: boolean = false;
     private _managedTabIndex: number = -1;
     private _onDestroy = new Subject<void>();
+    private _focusIndicator: FocusIndicator;
 
-    constructor(private _selectionService: SelectionService<T>, private _elementRef: ElementRef) { }
+    constructor(private _selectionService: SelectionService<T>, private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+    }
 
     ngOnInit(): void {
 
@@ -83,6 +91,7 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+        this._focusIndicator.destroy();
     }
 
     @HostListener('click', ['$event'])

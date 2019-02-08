@@ -2,6 +2,8 @@
 
     <button
         type="button"
+        uxFocusIndicator
+        [programmaticFocusIndicator]="false"
         tabindex="0"
         dropdownToggle
         uxMenuNavigationToggle
@@ -25,6 +27,8 @@
             role="none">
 
             <a class="dropdown-item"
+                uxFocusIndicator
+                [programmaticFocusIndicator]="true"
                 role="listitem"
                 tabindex="-1"
                 uxMenuNavigationItem

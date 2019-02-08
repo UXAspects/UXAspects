@@ -1,8 +1,10 @@
-import { FocusableOption, FocusMonitor } from '@angular/cdk/a11y';
+import { FocusableOption } from '@angular/cdk/a11y';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
+import { FocusIndicator } from '../focus-indicator/focus-indicator';
+import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 import { TabbableListService } from './tabbable-list.service';
 
 let nextId = 0;
@@ -14,17 +16,20 @@ let uniqueKey = 0;
 })
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
+    /** Indicate the parent tabbable list item if one is present. */
     @Input() parent: TabbableListItemDirective;
 
     @Input() rank: number = 0;
 
     @Input() disabled: boolean = false;
 
+    /** Indicate if the item is expanded if used as a hierarchical item. */
     @Input() expanded: boolean = false;
 
     /** Provide a unique key to help identify items when used in a virtual list */
     @Input() key: any = `tabbable-list-key-${uniqueKey++}`;
 
+    /** Emit when the expanded state changes. */
     @Output() expandedChange = new EventEmitter<boolean>();
 
     @HostBinding() tabindex: number = -1;
@@ -39,7 +44,13 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
-    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef, focusMonitor: FocusMonitor) {
+    /** Store a reference to the focus indicator instance */
+    private _focusIndicator: FocusIndicator;
+
+    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+
+        // create the focus indicator
+        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
 
         this.keyboardExpanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
 
@@ -56,8 +67,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
             }
         });
 
-        // add classes to indicate the origin of the focus event
-        focusMonitor.monitor(_elementRef.nativeElement, false).pipe(takeUntil(this._onDestroy)).subscribe();
     }
 
     onInit(): void {
@@ -77,6 +86,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
         this._onDestroy.next();
         this._onDestroy.complete();
+
+        this._focusIndicator.destroy();
     }
 
     @HostListener('focus')

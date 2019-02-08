@@ -15,11 +15,19 @@ import { Facet } from './models/facet';
 })
 export class FacetContainerComponent implements OnDestroy {
 
+    /** Defines the text displayed at the top of the Facet Container. */
     @Input() header: string = 'Selected';
+
+    /** Defines the text to display in the tooltip when hovering over the clear all button. */
     @Input() clearTooltip: string = 'Clear All';
+
+    /** Defines the text to display when there are no selected facets. */
     @Input() emptyText: string = 'No Items';
+
+    /** Determines if the facets can be reordered. */
     @Input() facetsReorderable: boolean = false;
 
+    /** Allows a predefined set of Facets to be displayed. */
     @Input() set facets(facets: Facet[]) {
         this.facetService.facets$.next(facets);
     }
@@ -28,7 +36,14 @@ export class FacetContainerComponent implements OnDestroy {
         return this.facetService.facets$.value;
     }
 
+    /** If using two-way binding this array will update when the selected facets change. */
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
+
+    /**
+     * This will be triggered when a facet is selected, deselected or all facets are deselected.
+     * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
+     * will contain the facet being selected or deselected in a `facet` property
+     * (deselect all will not contain affected facets). */
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();
 
     /** Allow a custom clear button */

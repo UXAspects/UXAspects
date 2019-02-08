@@ -3,10 +3,6 @@
 
     <button *ngFor="let item of row; trackBy: trackYearByFn"
          uxFocusIndicator
-         [mouseFocusIndicator]="mouseFocusIndicator"
-         [touchFocusIndicator]="touchFocusIndicator"
-         [keyboardFocusIndicator]="keyboardFocusIndicator"
-         [programmaticFocusIndicator]="programmaticFocusIndicator"
          type="button"
          role="gridcell"
          class="calendar-item"

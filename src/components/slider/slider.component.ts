@@ -1,18 +1,12 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 import { ColorService } from '../../services/color/index';
-
-// Boilerplate for applying mixins.
-export class SliderBase { }
-export const _SliderMixinBase: HasFocusIndicatorCtor & typeof SliderBase = mixinFocusIndicator(SliderBase);
 
 @Component({
     selector: 'ux-slider',
     templateUrl: './slider.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    inputs: [..._HasFocusIndicatorInputs]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent extends _SliderMixinBase implements OnInit, AfterViewInit, DoCheck, HasFocusIndicator {
+export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     /** This should reference either a single number or a SliderValue object, depending on the slider type specified. */
     @Input() value: SliderValue | number = 0;
@@ -90,7 +84,6 @@ export class SliderComponent extends _SliderMixinBase implements OnInit, AfterVi
     defaultOptions: SliderOptions;
 
     constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
-        super();
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,

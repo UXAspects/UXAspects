@@ -8,10 +8,6 @@
 
 <button *ngIf="dismissible"
         uxFocusIndicator
-        [mouseFocusIndicator]="mouseFocusIndicator"
-        [touchFocusIndicator]="touchFocusIndicator"
-        [keyboardFocusIndicator]="keyboardFocusIndicator"
-        [programmaticFocusIndicator]="programmaticFocusIndicator"
         class="alert-close"
         type="button"
         (click)="dismiss.emit()"

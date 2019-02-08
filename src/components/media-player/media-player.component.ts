@@ -33,12 +33,14 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     focused: boolean = false;
     audioMetadata: Observable<AudioMetadata>;
 
+    /** The `anonymous` keyword means that there will be no exchange of user credentials when the media source is fetched. */
     @Input() crossorigin: 'use-credentials' | 'anonymous' = 'use-credentials';
 
     get source(): string {
         return this.mediaPlayerService.source;
     }
 
+    /** The url to the media file to be loaded by the media player. */
     @Input()
     set source(value: string) {
         this.mediaPlayerService.source = value;
@@ -48,6 +50,10 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
         return this.mediaPlayerService.type;
     }
 
+    /**
+     * Defines the appearance of the media player. The two possible values are `video` and `audio`.
+     * The media player will adapt it's appearance to best suit the type specified.
+     */
     @Input()
     set type(value: MediaPlayerType) {
         this.mediaPlayerService.type = value;
@@ -57,6 +63,10 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
         return this.mediaPlayerService.quietMode;
     }
 
+    /**
+     * If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker style.
+     * Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
+     */
     @Input()
     set quietMode(value: boolean) {
         this.mediaPlayerService.quietMode = value;

@@ -5,10 +5,6 @@
             <!-- If there is a router link then use a tag -->
             <a *ngIf="crumb.routerLink || crumb.onClick"
                 uxFocusIndicator
-                [mouseFocusIndicator]="mouseFocusIndicator"
-                [touchFocusIndicator]="touchFocusIndicator"
-                [keyboardFocusIndicator]="keyboardFocusIndicator"
-                [programmaticFocusIndicator]="programmaticFocusIndicator"
                 tabindex="0"
                 [routerLink]="crumb.routerLink"
                 [fragment]="crumb.fragment"

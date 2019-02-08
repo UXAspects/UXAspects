@@ -6,7 +6,9 @@ import { Subject } from 'rxjs/Subject';
 })
 export class ColumnSortingDirective implements OnDestroy {
 
+    /** If set to true the column will sort by only this column, removing sorting from all others. */
     @Input() singleSort: boolean;
+
     events = new Subject<ColumnSortingOrder[]>();
     order: ColumnSortingOrder[] = [];
 

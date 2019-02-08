@@ -20,28 +20,55 @@ let uniqueId = 1;
 })
 export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDestroy {
 
+    /** This will allow you to define an initial set of selected facets. */
     @Input() set selected(selection: Facet[]) {
         if (Array.isArray(selection)) {
             selection.forEach(facet => this.facetService.select(facet));
         }
     }
 
+    /** Defines the complete list of facets that can be selected. Alternatively an observable can be used to allow values to be fetched dynamically. */
     @Input() facets: Facet[] | Observable<Facet[]>;
+
+    /** Defines the text displayed at the top of the Facet Typeahead List. */
     @Input() header: string;
+
+    /** Defines whether or not the Facet Typeahead List should be initially expanded or not. */
     @Input() expanded: boolean = true;
+
+    /** Defines a list of facets which will be displayed above the typeahead to allow the user to quickly select some facets. */
     @Input() suggestions: Facet[] = [];
+
+    /** Defines whether or not the checkboxes displayed alongside suggestions will appear in simplified form. */
     @Input() simplified: boolean = true;
 
+    /** Defines the query displayed in the input field. */
     @Input() set query(query: string) {
         if (query !== this.query$.value) {
             this.query$.next(query);
         }
     }
 
+    /** Emits the current query when the value of the input field changes. */
     @Output() queryChange = new EventEmitter<string>();
+
+    /**
+     * This will be triggered when a facet is selected, deselected or all facets are deselected.
+     * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
+     * will contain the facet being selected or deselected in a `facet` property (deselect all will not contain affected facets).
+     */
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
+
+    /** If two-way binding is used this array will get updated any time the selected facets change. */
     @Output() selectedChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
 
+    /**
+     * Allows configuration of the typeahead control. The possible values are:
+     * - `placeholder` - **string** - Sets the placeholder of the typeahead.
+     * - `minCharacters` - **number** - Defines the minimum number of characters that are required before results will be shown. **Default**: `1`.
+     * - `maxResults` - **number** - Sets the maximum number of results to display. **Default**: `50`.
+     * - `delay` - **number** - Defines the number of milliseconds to wait before the results are filtered. **Default**: `0`.
+     */
     @Input()
     set typeaheadConfig(config: FacetTypeaheadListConfig) {
         this._config = { placeholder: '', maxResults: 50, minCharacters: 1, ...config };

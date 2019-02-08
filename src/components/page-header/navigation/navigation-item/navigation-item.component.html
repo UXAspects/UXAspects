@@ -6,6 +6,7 @@
     placement="bottom left">
 
     <button type="button"
+        uxFocusIndicator
         role="menuitem"
         class="horizontal-navigation-button"
         [class.selected]="item.selected"
@@ -44,6 +45,7 @@
 </div>
 
 <button *ngIf="!item.children || item.children.length === 0 || (secondary$ | async)"
+    uxFocusIndicator
     type="button"
     role="menuitem"
     class="horizontal-navigation-button"

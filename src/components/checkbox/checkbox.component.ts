@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -10,20 +9,12 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 
 let uniqueCheckboxId = 0;
 
-// Boilerplate for applying mixins.
-export class CheckboxBase { }
-
-// Add all focus indicator properties to a new base class
-export const _CheckboxMixinBase: HasFocusIndicatorCtor & typeof CheckboxBase = mixinFocusIndicator(CheckboxBase);
-
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
-    providers: [CHECKBOX_VALUE_ACCESSOR],
-    inputs: [..._HasFocusIndicatorInputs],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    providers: [CHECKBOX_VALUE_ACCESSOR]
 })
-export class CheckboxComponent extends _CheckboxMixinBase implements ControlValueAccessor, HasFocusIndicator {
+export class CheckboxComponent implements ControlValueAccessor {
 
     private _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
 

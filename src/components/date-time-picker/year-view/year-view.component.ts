@@ -1,27 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../../common/index';
 import { DateTimePickerService } from '../date-time-picker.service';
 import { YearViewItem, YearViewService } from './year-view.service';
-
-
-// Boilerplate for applying mixins.
-export class YearViewBase { }
-
-// Add all focus indicator properties to a new base class
-export const _YearViewMixinBase: HasFocusIndicatorCtor & typeof YearViewBase = mixinFocusIndicator(YearViewBase);
 
 @Component({
     selector: 'ux-date-time-picker-year-view',
     templateUrl: './year-view.component.html',
     providers: [YearViewService],
-    inputs: [..._HasFocusIndicatorInputs],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YearViewComponent extends _YearViewMixinBase implements HasFocusIndicator {
+export class YearViewComponent {
 
-    constructor(private _datePicker: DateTimePickerService, public yearService: YearViewService) {
-        super();
-    }
+    constructor(private _datePicker: DateTimePickerService, public yearService: YearViewService) { }
 
     select(year: number): void {
         this._datePicker.setViewportYear(year);

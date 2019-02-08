@@ -2,6 +2,7 @@
     <tree-root [nodes]="nodes" (focus)="focused = $event.node" role="tree">
         <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
             <div class="tree-view-node"
+                uxFocusIndicator
                 role="treeitem"
                 [attr.aria-level]="node.level"
                 [attr.aria-expanded]="node.isExpanded"

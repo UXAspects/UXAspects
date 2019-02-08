@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -10,18 +9,12 @@ const TOGGLESWITCH_VALUE_ACCESSOR = {
 
 let uniqueToggleSwitchId = 0;
 
-// Boilerplate for applying mixins.
-export class ToggleSwitchBase { }
-export const _ToggleSwitchMixinBase: HasFocusIndicatorCtor & typeof ToggleSwitchBase = mixinFocusIndicator(ToggleSwitchBase);
-
 @Component({
     selector: 'ux-toggleswitch',
     templateUrl: './toggleswitch.component.html',
-    providers: [TOGGLESWITCH_VALUE_ACCESSOR],
-    inputs: [..._HasFocusIndicatorInputs],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    providers: [TOGGLESWITCH_VALUE_ACCESSOR]
 })
-export class ToggleSwitchComponent extends _ToggleSwitchMixinBase implements ControlValueAccessor, HasFocusIndicator {
+export class ToggleSwitchComponent implements ControlValueAccessor {
 
     private _toggleSwitchId: string = `ux-toggleswitch-${++uniqueToggleSwitchId}`;
 

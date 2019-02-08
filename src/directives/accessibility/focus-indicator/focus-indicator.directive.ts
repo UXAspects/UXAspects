@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { AccessibilityOptions } from '../options/accessibility-options.interface';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
+import { ACCESSIBILITY_OPTIONS_TOKEN } from '../options/accessibility-options.token';
 import { FocusIndicator } from './focus-indicator';
 import { FocusIndicatorService } from './focus-indicator.service';
 
@@ -22,7 +24,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting */
     @Input() set mouseFocusIndicator(mouseFocusIndicator: boolean) {
         if (mouseFocusIndicator !== null && mouseFocusIndicator !== undefined) {
-            this._mouseFocusIndicator = mouseFocusIndicator;
+            this._options.set('mouseFocusIndicator', mouseFocusIndicator);
             this.setOptions();
         }
     }
@@ -30,7 +32,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting */
     @Input() set touchFocusIndicator(touchFocusIndicator: boolean) {
         if (touchFocusIndicator !== null && touchFocusIndicator !== undefined) {
-            this._touchFocusIndicator = touchFocusIndicator;
+            this._options.set('touchFocusIndicator', touchFocusIndicator);
             this.setOptions();
         }
     }
@@ -38,7 +40,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting */
     @Input() set keyboardFocusIndicator(keyboardFocusIndicator: boolean) {
         if (keyboardFocusIndicator !== null && keyboardFocusIndicator !== undefined) {
-            this._keyboardFocusIndicator = keyboardFocusIndicator;
+            this._options.set('keyboardFocusIndicator', keyboardFocusIndicator);
             this.setOptions();
         }
     }
@@ -46,7 +48,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting */
     @Input() set programmaticFocusIndicator(programmaticFocusIndicator: boolean) {
         if (programmaticFocusIndicator !== null && programmaticFocusIndicator !== undefined) {
-            this._programmaticFocusIndicator = programmaticFocusIndicator;
+            this._options.set('programmaticFocusIndicator', programmaticFocusIndicator);
             this.setOptions();
         }
     }
@@ -57,17 +59,8 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     /** Store a private reference for the checkChildren option */
     private _checkChildren: boolean = false;
 
-    /** Store a private reference for the mouseFocusIndicator option */
-    private _mouseFocusIndicator: boolean = this._optionsService.options.mouseFocusIndicator;
-
-    /** Store a private reference for the mouseFocusIndicator option */
-    private _touchFocusIndicator: boolean = this._optionsService.options.touchFocusIndicator;
-
-    /** Store a private reference for the mouseFocusIndicator option */
-    private _keyboardFocusIndicator: boolean = this._optionsService.options.keyboardFocusIndicator;
-
-    /** Store a private reference for the mouseFocusIndicator option */
-    private _programmaticFocusIndicator: boolean = this._optionsService.options.programmaticFocusIndicator;
+    /** Store all configuation options*/
+    private _options = new Map<string, boolean>();
 
     /** Store a reference to the focus handler */
     private _focusIndicator: FocusIndicator;
@@ -78,9 +71,21 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     constructor(
         private readonly _elementRef: ElementRef,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _optionsService: AccessibilityOptionsService,
-        private readonly _changeDetectorRef: ChangeDetectorRef
-    ) { }
+        private readonly _changeDetectorRef: ChangeDetectorRef,
+        readonly optionsService: AccessibilityOptionsService,
+        @Optional() @Inject(ACCESSIBILITY_OPTIONS_TOKEN) readonly localOptions?: AccessibilityOptions
+    ) {
+
+        // set the inital option values based on global options
+        for (const option in (optionsService.options || {})) {
+            this._options.set(option, optionsService.options[option]);
+        }
+
+        // set the inital option values based on local options (if there are any)
+        for (const option in (localOptions || {})) {
+            this._options.set(option, localOptions[option]);
+        }
+    }
 
     /** Setup the focus monitoring */
     ngOnInit(): void {
@@ -88,10 +93,10 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
         // start the focus monitoring
         this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement, {
             checkChildren: this._checkChildren,
-            mouseFocusIndicator: this._mouseFocusIndicator,
-            touchFocusIndicator: this._touchFocusIndicator,
-            keyboardFocusIndicator: this._keyboardFocusIndicator,
-            programmaticFocusIndicator: this._programmaticFocusIndicator
+            mouseFocusIndicator: this._options.get('mouseFocusIndicator'),
+            touchFocusIndicator: this._options.get('touchFocusIndicator'),
+            keyboardFocusIndicator: this._options.get('keyboardFocusIndicator'),
+            programmaticFocusIndicator: this._options.get('programmaticFocusIndicator')
         });
 
         // subscribe to the focus state to emit an event on change
@@ -120,10 +125,10 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
         if (this._focusIndicator) {
             this._focusIndicator.setOptions({
                 checkChildren: this._checkChildren,
-                mouseFocusIndicator: this._mouseFocusIndicator,
-                touchFocusIndicator: this._touchFocusIndicator,
-                keyboardFocusIndicator: this._keyboardFocusIndicator,
-                programmaticFocusIndicator: this._programmaticFocusIndicator
+                mouseFocusIndicator: this._options.get('mouseFocusIndicator'),
+                touchFocusIndicator: this._options.get('touchFocusIndicator'),
+                keyboardFocusIndicator: this._options.get('keyboardFocusIndicator'),
+                programmaticFocusIndicator: this._options.get('programmaticFocusIndicator')
             });
         }
     }

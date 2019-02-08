@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { ColorSet, COLOR_SET_TOKEN } from './color-sets/index';
+import { ColorSet, colorSets, COLOR_SET_TOKEN } from './color-sets/index';
 import { ThemeColor } from './theme-color';
 
 @Injectable()
@@ -79,6 +79,11 @@ export class ColorService {
     private getTheme(colorSet: ColorSet): Readonly<Theme> {
         // create a new theme object
         const theme: Theme = {};
+
+        // ensure we have a colorset
+        if (!colorSet) {
+            colorSet = colorSets.keppel;
+        }
 
         // iterate over each hex code and convert it to a theme color
         for (const color in colorSet.colorValueSet) {

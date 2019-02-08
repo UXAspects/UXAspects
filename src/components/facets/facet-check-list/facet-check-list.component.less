@@ -5,6 +5,10 @@ ux-facet-check-list {
         margin: 0;
         padding: 0;
 
+        &:focus {
+            outline: none;
+        }
+
         .facet-check-list-item {
             display: flex;
             flex: none;
@@ -15,7 +19,7 @@ ux-facet-check-list {
             min-width: 100%;
             max-width: 100%;
 
-            &:focus {
+            &.ux-focus-indicator-active {
                 .aspects-outline();
             }
 
@@ -35,8 +39,7 @@ ux-facet-check-list {
                 color: @grey4;
             }
 
-            &:hover,
-            &:focus {
+            &:hover {
                 background-color: @grey7;
             }
 

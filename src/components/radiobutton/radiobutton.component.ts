@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -10,18 +9,12 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 
 let uniqueRadioId = 0;
 
-// Boilerplate for applying mixins.
-export class RadioButtonBase { }
-export const _RadioButtonMixinBase: HasFocusIndicatorCtor & typeof RadioButtonBase = mixinFocusIndicator(RadioButtonBase);
-
 @Component({
     selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
-    providers: [RADIOBUTTON_VALUE_ACCESSOR],
-    inputs: [..._HasFocusIndicatorInputs],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    providers: [RADIOBUTTON_VALUE_ACCESSOR]
 })
-export class RadioButtonComponent<T> extends _RadioButtonMixinBase implements ControlValueAccessor, HasFocusIndicator {
+export class RadioButtonComponent implements ControlValueAccessor {
 
     private _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;
 

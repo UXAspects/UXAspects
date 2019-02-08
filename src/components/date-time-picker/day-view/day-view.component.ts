@@ -1,29 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../../common/index';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
 import { DayViewItem, DayViewService } from './day-view.service';
-
-
-// Boilerplate for applying mixins.
-export class DayViewBase { }
-
-// Add all focus indicator properties to a new base class
-export const _DayViewMixinBase: HasFocusIndicatorCtor & typeof DayViewBase = mixinFocusIndicator(DayViewBase);
 
 @Component({
     selector: 'ux-date-time-picker-day-view',
     templateUrl: './day-view.component.html',
     providers: [DayViewService],
-    inputs: [..._HasFocusIndicatorInputs],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DayViewComponent extends _DayViewMixinBase implements OnDestroy, HasFocusIndicator {
+export class DayViewComponent implements OnDestroy {
 
     private _subscription: Subscription;
 
     constructor(public datePicker: DateTimePickerService, public dayService: DayViewService) {
-        super();
         this._subscription = datePicker.headerEvent$
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
     }

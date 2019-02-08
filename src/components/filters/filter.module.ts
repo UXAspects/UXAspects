@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AccessibilityModule } from '../../directives/accessibility/index';
 import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 import { TooltipModule } from '../tooltip/index';
 import { TypeaheadModule } from '../typeahead/typeahead.module';
@@ -22,13 +23,14 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
+        A11yModule,
+        AccessibilityModule,
         BsDropdownModule.forRoot(),
-        TooltipModule,
+        CommonModule,
         FormsModule,
         MenuNavigationModule,
-        CommonModule,
+        TooltipModule,
         TypeaheadModule,
-        A11yModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

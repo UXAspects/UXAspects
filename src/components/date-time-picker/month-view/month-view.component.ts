@@ -1,29 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../../common/index';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
 import { MonthViewItem, MonthViewService } from './month-view.service';
-
-
-// Boilerplate for applying mixins.
-export class MonthViewBase { }
-
-// Add all focus indicator properties to a new base class
-export const _MonthViewMixinBase: HasFocusIndicatorCtor & typeof MonthViewBase = mixinFocusIndicator(MonthViewBase);
 
 @Component({
     selector: 'ux-date-time-picker-month-view',
     templateUrl: './month-view.component.html',
     providers: [MonthViewService],
-    inputs: [..._HasFocusIndicatorInputs],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MonthViewComponent extends _MonthViewMixinBase implements OnDestroy, HasFocusIndicator {
+export class MonthViewComponent implements OnDestroy {
 
     private _subscription: Subscription;
 
     constructor(private _datePicker: DateTimePickerService, public monthService: MonthViewService) {
-        super();
         this._subscription = _datePicker.headerEvent$
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
     }

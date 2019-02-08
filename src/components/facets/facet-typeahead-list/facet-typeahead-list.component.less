@@ -40,7 +40,11 @@ ux-facet-typeahead-list {
                 cursor: pointer;
                 max-width: 100%;
 
-                &:focus {
+                &:hover {
+                    background-color: @grey7;
+                }
+
+                &.ux-focus-indicator-active {
                     .aspects-outline();
                 }
 

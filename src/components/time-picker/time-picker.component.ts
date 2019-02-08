@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { HasFocusIndicator, HasFocusIndicatorCtor, mixinFocusIndicator, _HasFocusIndicatorInputs } from '../../common/index';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,24 +11,17 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-// Boilerplate for applying mixins.
-export class TimePickerBase { }
-
-// Add all focus indicator properties to a new base class
-export const _TimePickerMixinBase: HasFocusIndicatorCtor & typeof TimePickerBase = mixinFocusIndicator(TimePickerBase);
-
 @Component({
     selector: 'ux-time-picker',
     templateUrl: './time-picker.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIME_PICKER_VALUE_ACCESSOR],
-    inputs: [..._HasFocusIndicatorInputs],
     host: {
         'aria-label': 'Time Picker'
     }
 })
-export class TimePickerComponent extends _TimePickerMixinBase implements ControlValueAccessor, OnDestroy, HasFocusIndicator {
+export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
     /** Whether the arrow keys can be used to increment or decrement the selected time component. */
     @Input() arrowkeys: boolean = true;
@@ -111,7 +103,6 @@ export class TimePickerComponent extends _TimePickerMixinBase implements Control
     private _subscription: Subscription;
 
     constructor() {
-        super();
         this._subscription = this.valid$.pipe(distinctUntilChanged()).subscribe(valid => this.isValid.emit(valid));
     }
 

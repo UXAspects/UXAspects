@@ -19,8 +19,8 @@ export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
         optionsService: AccessibilityOptionsService,
         changeDetectorRef: ChangeDetectorRef
     ) {
-        super(elementRef, focusIndicatorService, optionsService, changeDetectorRef);
-        
+        super(elementRef, focusIndicatorService, changeDetectorRef, optionsService);
+
         // Enable programmatic focus by default
         this.programmaticFocusIndicator = true;
     }

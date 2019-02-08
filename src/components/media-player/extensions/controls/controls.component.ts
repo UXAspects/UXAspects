@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs/observable/timer';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { ACCESSIBILITY_OPTIONS_TOKEN } from '../../../../directives/accessibility/index';
 import { SliderOptions, SliderSize } from '../../../slider/index';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 
@@ -12,7 +13,10 @@ let uniqueId: number = 1;
     templateUrl: './controls.component.html',
     host: {
         '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
-    }
+    },
+    providers: [
+        { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: { programmaticFocusIndicator: true } }
+    ]
 })
 export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, OnDestroy {
 

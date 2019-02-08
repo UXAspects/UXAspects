@@ -9,6 +9,7 @@
         (uxBlurWithin)="volumeFocus = false">
 
         <button #volumeIcon
+                uxFocusIndicator
                 type="button"
                 class="volume-slider-icon"
                 attr.aria-label="{{ volume === 0 ? 'Unmute' : 'Mute' }}"
@@ -33,6 +34,7 @@
 </div>
 
 <button #startButton
+    uxFocusIndicator
     type="button"
     class="control-button"
     (click)="goToStart()"
@@ -47,6 +49,7 @@
 </button>
 
 <button #playButton
+    uxFocusIndicator
     type="button"
     class="control-button"
     attr.aria-label="{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}"
@@ -64,6 +67,7 @@
 </button>
 
 <button #endButton
+    uxFocusIndicator
     type="button"
     class="control-button"
     (click)="goToEnd()"
@@ -83,6 +87,7 @@
 
     <div class="action-button-container" *ngIf="mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'">
         <button #subtitlesButton
+            uxFocusIndicator
             type="button"
             class="action-button"
             (keydown)="returnFocus = true"
@@ -135,6 +140,7 @@
 
     <div class="action-button-container">
         <button #fullscreenButton
+            uxFocusIndicator
             *ngIf="mediaPlayerService.type !== 'audio'"
             type="button"
             class="action-button"
