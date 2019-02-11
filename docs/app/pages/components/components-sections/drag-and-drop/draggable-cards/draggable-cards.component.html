@@ -25,10 +25,10 @@
           *ngFor="let card of draggableCards"
           attr.aria-label="{{ card.title }} {{ card.count }}. {{ card.subtitle }}. Press Alt up and alt down to reorder."
           [uxReorderableModel]="card"
-          [class.active]="active === card"
+          [class.active]="active?.title === card.title"
           (click)="active = card"
           (keydown.enter)="active = card"
-          (keydown.alt.arrowup)="move(card, -1); applyFocus()"
+          (keydown.alt.arrowup)="move(card, -1)"
           (keydown.alt.arrowdown)="move(card, 1)">
 
           <div class="draggable-card-header">
@@ -36,7 +36,8 @@
             <p class="draggable-card-title">
               {{ card.title }} <span class="text-muted">({{ card.count }})</span>
 
-              <button class="draggable-card-action"
+              <button uxFocusIndicator
+                class="draggable-card-action"
                 aria-label="Edit card"
                 [tabindex]="tabbableItem.tabindex">
                 <i class="hpe-icon hpe-edit"></i>
@@ -44,7 +45,8 @@
             </p>
 
 
-            <button class="draggable-card-action"
+            <button uxFocusIndicator
+              class="draggable-card-action"
               aria-label="Remove Card"
               (click)="remove(card, list)"
               [tabindex]="tabbableItem.tabindex">
@@ -57,19 +59,19 @@
 
             <div class="draggable-card-controls">
 
-              <button class="draggable-card-control draggable-card-control-up"
+              <button uxFocusIndicator
+                class="draggable-card-control draggable-card-control-up"
                 aria-label="Move card up"
                 (click)="move(card, -1)"
-                (keydown.enter)="applyFocus()"
                 [tabindex]="tabbableItem.tabindex">
               </button>
 
               <div class="draggable-card-drag-handle" aria-hidden="true" uxReorderableHandle></div>
 
-              <button class="draggable-card-control draggable-card-control-down"
+              <button uxFocusIndicator
+                class="draggable-card-control draggable-card-control-down"
                 aria-label="Move card down"
                 (click)="move(card, 1)"
-                (keydown.enter)="applyFocus()"
                 [tabindex]="tabbableItem.tabindex">
               </button>
             </div>

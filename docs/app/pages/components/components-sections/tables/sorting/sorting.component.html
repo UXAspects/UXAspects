@@ -10,7 +10,6 @@
 
         <!-- Dropdown Button -->
         <button #toggle="uxMenuNavigationToggle"
-            uxFocusIndicator
             uxMenuNavigationToggle
             [(menuOpen)]="dropdown.isOpen"
             dropdownToggle
@@ -22,8 +21,6 @@
         <ul *dropdownMenu class="dropdown-menu" role="menu">
             <li *ngFor="let option of options">
                 <a (click)="sort(option)"
-                   uxFocusIndicator
-                   [programmaticFocusIndicator]="true"
                    (keydown.enter)="sort(option); toggle.focus()"
                    tabindex="-1"
                    role="menuitem"

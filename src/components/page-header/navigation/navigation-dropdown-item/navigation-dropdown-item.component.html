@@ -41,8 +41,6 @@
         <li *ngFor="let subItem of item.children" role="none">
 
             <a role="menuitem"
-                uxFocusIndicator
-                [programmaticFocusIndicator]="true"
                 class="dropdown-item"
                 [class.selected]="subItem.selected"
                 [attr.aria-selected]="subItem.selected"

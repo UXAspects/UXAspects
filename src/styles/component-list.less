@@ -50,9 +50,8 @@
                 border: none;
                 background: none;
 
-                &:focus {
+                &.ux-focus-indicator-active {
                     opacity: 1;
-                    .aspects-outline();
                 }
 
                 .hpe-icon {
@@ -94,9 +93,7 @@
             }
         }
 
-        &:focus {
-            .aspects-outline();
-
+        &.ux-focus-indicator-active {
             .component-add-btn {
                 background-color: @component-list-add-hover-bg;
                 opacity: @component-list-add-hover-bg-opacity;

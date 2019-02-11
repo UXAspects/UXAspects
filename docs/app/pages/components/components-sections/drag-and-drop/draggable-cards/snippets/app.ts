@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
 import { ChartOptions } from 'chart.js';
 
@@ -9,6 +9,7 @@ import { ChartOptions } from 'chart.js';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
     colors = [
         {
             backgroundColor: [
@@ -20,6 +21,9 @@ export class AppComponent {
     ];
 
     options: ChartOptions = {
+        animation: {
+            duration: 0
+        },
         tooltips: {
             enabled: false
         },
@@ -98,7 +102,9 @@ export class AppComponent {
 
     active: FixedCard | DraggableCard = this.draggableCards[0];
 
-    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {}
+    @ViewChildren('draggableCard') cards: QueryList<ElementRef>;
+
+    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) { }
 
     remove(card: DraggableCard, tabbableList: TabbableListDirective): void {
         // remove the card
@@ -111,13 +117,9 @@ export class AppComponent {
         if (tabbableList.focusKeyManager) {
 
             if (tabbableList.focusKeyManager.activeItemIndex > 0) {
-                tabbableList.focusKeyManager.setActiveItem(
-                    tabbableList.focusKeyManager.activeItemIndex - 1
-                );
+                tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex - 1);
             } else {
-                tabbableList.focusKeyManager.setActiveItem(
-                    tabbableList.focusKeyManager.activeItemIndex + 1
-                );
+                tabbableList.focusKeyManager.setActiveItem(tabbableList.focusKeyManager.activeItemIndex + 1);
             }
         }
     }
@@ -130,21 +132,17 @@ export class AppComponent {
 
         // Announce the move if the order has changed
         if (this.draggableCards.indexOf(card) !== index) {
-            this._liveAnnouncer.announce(`Card moved ${ delta > 0 ? 'down' : 'up' }`);
+            this._liveAnnouncer.announce(`Card moved ${delta > 0 ? 'down' : 'up'}`);
         }
-    }
 
-    /**
-     * This is a utility function required to retain focus when reordering list items.
-     * NgFor will replace any element that is moved up, causing focus to be lost.
-     * This function will restore focus to the correct element
-     */
-    applyFocus(): void {
-        // store the current focused element
-        const element = document.activeElement as HTMLElement;
+        // after the UI has updated focus the element again (ngFor creates new DOM elements)
+        requestAnimationFrame(() => {
+            const target = this.cards.toArray()[index + delta];
 
-        // after the reordering has taken place refocus the element
-        setTimeout(() => element.focus());
+            if (target) {
+                target.nativeElement.focus();
+            }
+        });
     }
 
     private swap(source: number, target: number): void {
@@ -154,8 +152,8 @@ export class AppComponent {
             return;
         }
 
-        const temp = this.draggableCards[target];
-        this.draggableCards[target] = this.draggableCards[source];
+        const temp = { ...this.draggableCards[target] };
+        this.draggableCards[target] = { ...this.draggableCards[source] };
         this.draggableCards[source] = temp;
     }
 }
