@@ -298,14 +298,16 @@ export class MediaPlayerService {
      */
     requestFullscreen(): void {
 
-        if (this._hostElement.requestFullscreen) {
-            this._hostElement.requestFullscreen();
-        } else if ((this._hostElement as any).webkitRequestFullscreen) {
-            (this._hostElement as any).webkitRequestFullscreen();
-        } else if ((this._hostElement as any).msRequestFullscreen) {
-            (this._hostElement as any).msRequestFullscreen();
-        } else if ((this._hostElement as any).mozRequestFullScreen) {
-            (this._hostElement as any).mozRequestFullScreen();
+        // get the host element (we need to do some browser specific checks and typescript complains)
+        const host = this._hostElement as any;
+        const requestFullscreen = host.requestFullscreen || host.webkitRequestFullscreen || host.msRequestFullscreen || host.mozRequestFullScreen;
+
+        // if we can perform the action then perform it and update the state
+        if (requestFullscreen) {
+            requestFullscreen.call(host);
+
+            // update the internal state
+            this.fullscreen = true;
         }
     }
 
@@ -314,20 +316,17 @@ export class MediaPlayerService {
      */
     exitFullscreen(): void {
 
-        if ((this._hostElement as any).exitFullscreen) {
-            document.exitFullscreen();
-        } else if ((document as any).webkitExitFullscreen) {
-            (document as any).webkitExitFullscreen();
-        } else if ((document as any).msExitFullscreen) {
-            (document as any).msExitFullscreen();
-        } else if ((document as any).mozCancelFullScreen) {
-            (document as any).mozCancelFullScreen();
-        }
-    }
+        // get the document element (we need to do some browser specific checks and typescript complains)
+        const host = document as any;
+        const exitFullscreen = host.exitFullscreen || host.webkitExitFullscreen || host.msExitFullscreen || host.mozCancelFullScreen;
 
-    fullscreenChange() {
-        this.fullscreen = (document as any).fullscreen || (document as any).webkitIsFullScreen || (document as any).mozFullScreen || (document as any).msFullscreenElement !== null && (document as any).msFullscreenElement !== undefined;
-        this.fullscreenEvent.next(this.fullscreen);
+        // if we can perform the action then perform it and update the state
+        if (exitFullscreen) {
+            exitFullscreen.call(host);
+
+            // update the internal state
+            this.fullscreen = false;
+        }
     }
 
     /**
@@ -339,6 +338,14 @@ export class MediaPlayerService {
         } else {
             this.requestFullscreen();
         }
+    }
+
+    fullscreenChange(): void {
+        // get the document element (we need to do some browser specific checks and typescript complains)
+        const host = document as any;
+
+        // set the fullscreen state (this also emits the event)
+        this.fullscreen = host.fullscreen || host.webkitIsFullScreen || host.mozFullScreen || host.msFullscreenElement !== null && host.msFullscreenElement !== undefined;
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import 'chance';
 
 @Component({
@@ -9,6 +9,8 @@ import 'chance';
 export class AppComponent {
 
     data: ReorderableTableData[] = [];
+
+    @ViewChildren('row') rows: QueryList<ElementRef>;
 
     constructor() {
 
@@ -25,19 +27,38 @@ export class AppComponent {
 
     movedown(data: ReorderableTableData, index: number, event: KeyboardEvent): void {
         const target = Math.min(index + 1, this.data.length - 1);
-        this.data[index] = this.data[target];
-        this.data[target] = data;
+        this.data[index] = { ...this.data[target] };
+        this.data[target] = { ...data };
         event.preventDefault();
+
+        // ngFor blurs the element when shifting - we want to retain focus
+        requestAnimationFrame(() => {
+            // get the row we want to focus
+            const targetElement = this.rows.toArray()[target];
+
+            // if there is a target element then focus it
+            if (targetElement) {
+                targetElement.nativeElement.focus();
+            }
+        });
     }
 
     moveup(data: ReorderableTableData, index: number, event: KeyboardEvent): void {
         const target = Math.max(index - 1, 0);
-        this.data[index] = this.data[target];
-        this.data[target] = data;
+        this.data[index] = { ...this.data[target] };
+        this.data[target] = { ...data };
         event.preventDefault();
 
-        // ngFor blurs the element when shifting up - we want to retain focus
-        setTimeout(() => (<HTMLTableRowElement>event.target).focus());
+        // ngFor blurs the element when shifting - we want to retain focus
+        requestAnimationFrame(() => {
+            // get the row we want to focus
+            const targetElement = this.rows.toArray()[target];
+
+            // if there is a target element then focus it
+            if (targetElement) {
+                targetElement.nativeElement.focus();
+            }
+        });
     }
 }
 

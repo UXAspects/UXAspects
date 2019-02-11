@@ -17,7 +17,7 @@ export class FocusWithinDirective implements OnDestroy {
      * eg: `uxFocusIndicator` which not get the correct `origin`, they will instead get a programmatic
      * origin even if it was clicked or focused via the keyboard.
      */
-    constructor(private _elementRef: ElementRef<HTMLElement>) {
+    constructor(private _elementRef: ElementRef) {
 
         // We need to listen in capture phase since focus events don't bubble.
         _elementRef.nativeElement.addEventListener('focus', this.onFocus.bind(this), true);
