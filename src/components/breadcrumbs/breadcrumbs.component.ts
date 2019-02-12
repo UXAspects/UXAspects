@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class BreadcrumbsComponent {
 
     /** The list of breadcrumbs to display. */
-    @Input() crumbs: Breadcrumb[];
+    @Input() crumbs: ReadonlyArray<Breadcrumb>;
 
     clickCrumb(event: MouseEvent, crumb: Breadcrumb) {
         if (crumb.onClick) {

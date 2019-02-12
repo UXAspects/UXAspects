@@ -20,7 +20,13 @@
     <li *ngFor="let item of uploader.queue">
         <a #file uxTabbableListItem [attr.aria-label]="item.file.name">
             <span>{{ item.file.name }}</span>
-            <button [tabIndex]="file.tabIndex" class="file-upload-queue-remove hpe-icon hpe-close" type="button" (click)="item.remove()" aria-label="Remove file"></button>
+            <button uxFocusIndicator
+                    [tabIndex]="file.tabIndex"
+                    class="file-upload-queue-remove hpe-icon hpe-close"
+                    type="button"
+                    (click)="item.remove()"
+                    aria-label="Remove file">
+            </button>
         </a>
     </li>
 </ul>
