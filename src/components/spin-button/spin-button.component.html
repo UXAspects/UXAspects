@@ -1,4 +1,5 @@
 <button type="button"
+        uxFocusIndicator
         class="spin-button"
         *ngIf="spinners"
         tabindex="-1"
@@ -32,6 +33,7 @@
        (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
 
 <button type="button"
+        uxFocusIndicator
         class="spin-button"
         *ngIf="spinners"
         tabindex="-1"

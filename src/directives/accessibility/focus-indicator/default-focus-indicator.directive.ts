@@ -7,9 +7,11 @@ import { FocusIndicatorService } from './focus-indicator.service';
  * This directive can be used to target specific elements based on their CSS
  * class so we can control when the focus shows. This will help prevent us
  * polluting the FocusIndicatorDirective with an lot of selectors.
+ *
+ * If the button has a uxFocusIndicator or uxMenuNavigationToggle directive applied we should skip this
  */
 @Directive({
-    selector: '.btn',
+    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
 
@@ -19,8 +21,8 @@ export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
         optionsService: AccessibilityOptionsService,
         changeDetectorRef: ChangeDetectorRef
     ) {
-        super(elementRef, focusIndicatorService, optionsService, changeDetectorRef);
-        
+        super(elementRef, focusIndicatorService, changeDetectorRef, optionsService);
+
         // Enable programmatic focus by default
         this.programmaticFocusIndicator = true;
     }

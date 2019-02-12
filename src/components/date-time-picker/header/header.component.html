@@ -1,6 +1,7 @@
 <header class="header">
 
   <button type="button"
+          uxFocusIndicator
           class="header-navigation"
           (click)="previous(); $event.stopPropagation()"
           [attr.aria-label]="previousAria$ | async"
@@ -10,6 +11,7 @@
   </button>
 
   <button type="button"
+          uxFocusIndicator
           class="header-title"
           [attr.aria-label]="headerAria$ | async"
           [class.active]="canAscend$ | async"
@@ -19,6 +21,7 @@
   </button>
 
   <button type="button"
+          uxFocusIndicator
           class="header-navigation"
           (click)="next(); $event.stopPropagation()"
           [attr.aria-label]="nextAria$ | async"

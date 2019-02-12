@@ -81,7 +81,7 @@ export class MonthViewComponent implements OnDestroy {
 
             // check if the focused month is visible
             const isFocusedMonthVisible = !!grid.find(row => !!row.find(_item => _item.month === focused.month && _item.year === focused.year));
-            
+
             if (isFocusedMonthVisible) {
                 return focused.month === item.month && focused.year === item.year;
             }

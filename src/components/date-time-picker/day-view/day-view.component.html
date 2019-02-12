@@ -11,6 +11,8 @@
             <td *ngFor="let item of row; trackBy: trackDayByFn" class="date-cell" role="gridcell">
 
                 <button type="button"
+                        uxFocusIndicator
+                        [programmaticFocusIndicator]="true"
                         class="date-button"
                         [focusIf]="(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year"
                         [attr.aria-label]="item.date | date"

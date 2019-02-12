@@ -1,13 +1,17 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy } from '@angular/core';
 
 @Directive({
     selector: '[focusIf]'
 })
-export class FocusIfDirective {
+export class FocusIfDirective implements OnDestroy {
 
+    /** The delay that should ellapse before focussing the element */
     @Input() focusIfDelay: number = 0;
+
+    /** Determine if we should scroll the element into view when focused */
     @Input() focusIfScroll: boolean = true;
 
+    /** Focus when the boolean value is true */
     @Input()
     set focusIf(focus: boolean) {
 
@@ -28,4 +32,10 @@ export class FocusIfDirective {
     private _timeout: number = null;
 
     constructor(private _elementRef: ElementRef) { }
+
+    ngOnDestroy(): void {
+        if (this._timeout !== null) {
+            clearTimeout(this._timeout);
+        }
+    }
 }

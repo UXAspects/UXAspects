@@ -13,18 +13,36 @@ import { FacetCheckListItemComponent } from './check-list-item/facet-check-list-
 })
 export class FacetCheckListComponent implements AfterViewInit, OnDestroy {
 
+    /** This will allow you to define an initial set of selected facets. */
     @Input() set selected(selection: Facet[]) {
         if (Array.isArray(selection)) {
             selection.forEach(facet => this.facetService.select(facet));
         }
     }
 
+    /** Defines the complete list of facets that can be selected. */
     @Input() facets: Facet[] = [];
+
+    /** Defines the text displayed at the top of the Facet Check List. */
     @Input() header: string;
+
+    /** If `false` the list will grow to display all possible facets. If `true` a scrollbar will appear to prevent the list from growing too large. */
     @Input() scrollbar: boolean = true;
+
+    /** Defines whether or not the checkboxes will appear in simplified form. */
     @Input() simplified: boolean = false;
+
+    /** Defines whether or not the Facet Check List should be initially expanded or not. */
     @Input() expanded: boolean = true;
+
+    /**
+     * This will be triggered when a facet is selected, deselected or all facets are deselected.
+     * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
+     * will contain the facet being selected or deselected in a `facet` property (deselect all will not contain affected facets).
+     */
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
+
+    /** If two-way binding is used this array will get updated any time the selected facets change. */
     @Output() selectedChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
 
     @ViewChildren(FacetCheckListItemComponent) options: QueryList<FacetCheckListItemComponent>;

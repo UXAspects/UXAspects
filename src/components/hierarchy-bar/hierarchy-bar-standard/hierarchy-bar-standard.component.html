@@ -50,6 +50,7 @@
 
         <ux-hierarchy-bar-popover-item
             *ngFor="let child of overflow$ | async; let first = first"
+            uxFocusIndicator
             [node]="child"
             [focusIf]="first"
             uxTabbableListItem

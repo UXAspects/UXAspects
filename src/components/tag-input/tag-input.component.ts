@@ -36,8 +36,13 @@ const TAGINPUT_VALIDATOR = {
 })
 export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
 
+    /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
 
+    /**
+     * The list of tags appearing in the tag input. This can be an array of strings or custom objects.
+     * See the `displayProperty` property for details of using a custom object.
+     */
     @Input()
     get tags() {
         if (!this._tags) {
@@ -51,8 +56,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         this.tagsChange.emit(this._tags);
     }
 
-    @Output() tagsChange = new EventEmitter<any[]>();
-
+    /** The editable text appearing in the tag input. */
     @Input()
     get input() {
         return this._input;
@@ -62,23 +66,95 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         this.inputChange.emit(value);
     }
 
-    @Output() inputChange = new EventEmitter<string>();
-
+    /**
+     * Determines the display value of the `options`, if they are custom objects.
+     * This may be a function or a string. If a function is provided, it receives
+     * the option object as an argument, and should return the appropriate display value.
+     * If the name of a property is provided as a string, that property is used as the display value.
+     */
     @Input() display: (option: any) => string | string;
+
+    /** Controls whether pasting text into the text input area automatically converts that text into one or more tags. */
     @Input() addOnPaste: boolean = true;
+
+    /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
+
+    /**
+     * If set to `true`, the tag input will prevent addition and removal of tags to enforce the minTags and maxTags settings.
+     * Otherwise, a validation error will be raised.
+     */
     @Input() enforceTagLimits: boolean = false;
+
+    /**
+     * If true, input entered into the text input area can be converted into a tag by pressing enter.
+     * Otherwise, tags can only be added from the typeahead list or other external means.
+     * (Note that the `maxTags` and `tagPattern` will prevent invalid inputs regardless of this setting.)
+     */
     @Input() freeInput: boolean = true;
+
+    /**
+     * The maximum number of tags permitted in the tag input. If the number of tags is equal to `maxTags` and
+     * `enforceTagLimits` is `true`, addition of tags will be prevented until a tag is removed
+     */
     @Input() maxTags: number = Number.MAX_VALUE;
+
+    /**
+     * The minimum number of tags permitted in the tag input. If the number of tags is equal to `minTags` and `enforceTagLimits` is
+     * `true`, removal of tags will be prevented until a new tag is added.
+     */
     @Input() minTags: number = 0;
+
+    /** The placeholder text which appears in the text input area when it is empty. */
     @Input() placeholder: string = '';
+
+    /** Controls whether the typeahead appears when the text input area is clicked. This has no effect if the ux-typeahead component is not configured. */
     @Input() showTypeaheadOnClick: boolean = false;
+
+    /**
+     * A string containing the characters which delimit tags.
+     * Typing one of the characters in `tagDelimiters` will cause the preceding text to be added as a tag,
+     * and the text input area will be cleared. Pasting a string containing one or more of characters in
+     * `tagDelimiters` will cause the string to be split into multiple tags.
+     * Note that the delimiter character will not be part of the tag text.
+     */
     @Input() tagDelimiters: string = '';
+
+    /** The validation expression for tags added via the input text area. Strings which do not match this expression will not be added as tags. */
     @Input() tagPattern: RegExp;
+
+    /**
+     * A template which will be rendered as the content of each tag. The following context properties are available in the template:
+     * - `tag: any` - the string or custom object representing the tag.
+     * - `index: number` - the zero-based index of the tag as it appears in the tag input.
+     * - `api: TagApi` - provides the functions getTagDisplay, removeTagAt and canRemoveTagAt.
+     */
     @Input() tagTemplate: TemplateRef<any>;
+
+    /**
+     * A function which returns either a string, string[], or Set<string>, compatible with the NgClass directive. The function receives the following parameters:
+     * - `tag: any` - the string or custom object representing the tag.
+     * - `index: number` - the zero-based index of the tag as it appears in the tag input.
+     * - `selected: boolean` - true if the tag is currently selected.
+     */
     @Input() tagClass: TagClassFunction = () => undefined;
+
+    /**
+     * An object which contains details of validation errors. The following properties will be present if there is a related validation error:
+     * - `tagRangeError` - present if the number of tags is outside the range specified by minTags and maxTags.
+     * - `inputPattern` - present if an input has been submitted which does not match the tagPattern.
+     */
     @Input() validationErrors: any = {};
+
+    /** Defines the autocomplete property on the input field which can be used to prevent the browser from displaying autocomplete suggestions. */
     @Input() autocomplete: string = 'off';
+
+    /**
+     * A custom function which is called to create a new tag object.
+     * This can be used to populate other properties in the tag object.
+     * If `createTag` is not provided, then an object is created with the `displayProperty` set to the input.
+     * If `displayProperty` is also not set, then the tag is created as a simple string.
+     */
     @Input('createTag') createTagHandler: (value: string) => any;
 
     /**
@@ -87,11 +163,28 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
      */
     @Input() trackAriaDescendant: boolean = true;
 
+    /** Emits when tags is changed. */
+    @Output() tagsChange = new EventEmitter<any[]>();
+
+    /** Emits when input is changed. */
+    @Output() inputChange = new EventEmitter<string>();
+
+    /** Raised when a tag is about to be added. The `tag` property of the event contains the tag to be added. Call `preventDefault()` on the event to prevent addition. */
     @Output() tagAdding = new EventEmitter<TagInputEvent>();
+
+    /** Raised when a tag has been added. The tag property of the event contains the tag. */
     @Output() tagAdded = new EventEmitter<TagInputEvent>();
+
+    /** Raised when a tag has failed validation according to the `tagPattern`. The tag property of the event contains the string which failed validation. */
     @Output() tagInvalidated = new EventEmitter<TagInputEvent>();
+
+    /** Raised when a tag is about to be removed. The `tag` property of the event contains the tag to be removed. Call `preventDefault()` on the event to prevent removal. */
     @Output() tagRemoving = new EventEmitter<TagInputEvent>();
+
+    /** Raised when a tag has been removed. The tag property of the event contains the tag. */
     @Output() tagRemoved = new EventEmitter<TagInputEvent>();
+
+    /** Raised when a tag has been clicked. The `tag` property of the event contains the clicked tag. Call `preventDefault()` on the event to prevent the default behaviour of selecting the tag. */
     @Output() tagClick = new EventEmitter<TagInputEvent>();
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
@@ -557,7 +650,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     }
 
     toggle(): void {
-        this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
+        this.typeahead && this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent): void {

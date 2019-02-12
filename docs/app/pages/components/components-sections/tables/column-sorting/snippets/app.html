@@ -3,6 +3,7 @@
         <tr uxColumnSorting>
             <th></th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
                 [attr.aria-sort]="nameColumn.state"
@@ -16,6 +17,7 @@
                 </div>
             </th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
                 [attr.aria-sort]="authorColumn.state"
@@ -29,6 +31,7 @@
                 </div>
             </th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
                 [attr.aria-sort]="dateColumn.state"
@@ -42,6 +45,7 @@
                 </div>
             </th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
                 [attr.aria-sort]="completedColumn.state"

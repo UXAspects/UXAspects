@@ -1,6 +1,7 @@
 <div class="hierarchy-bar-node">
 
     <button type="button"
+            uxFocusIndicator
             class="hierarchy-bar-node-content"
             [attr.aria-label]="node.title"
             (click)="select.emit(node)">
@@ -15,6 +16,7 @@
 
     <!-- Show a dropdown arrow if there are children -->
     <button type="button"
+            uxFocusIndicator
             *ngIf="node.children"
             #popover="ux-popover"
             aria-label="Show children"

@@ -8,6 +8,8 @@
     (mouseleave)="hoverLeave()">
 
     <a role="menuitem"
+        uxFocusIndicator
+        [programmaticFocusIndicator]="true"
         class="dropdown-item"
         [class.selected]="item.selected"
         aria-haspopup="true"
@@ -62,6 +64,8 @@
 
     <a role="menuitem"
         #button
+        uxFocusIndicator
+        [programmaticFocusIndicator]="true"
         class="dropdown-item"
         [class.selected]="item.selected"
         [attr.aria-selected]="item.selected"

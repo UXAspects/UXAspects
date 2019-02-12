@@ -11,6 +11,8 @@
     </thead>
     <tbody uxReorderable [(reorderableModel)]="data">
         <tr class="reorderable-row"
+            #row
+            uxFocusIndicator
             *ngFor="let item of data; let idx = index"
             [uxReorderableModel]="item"
             tabindex="0"

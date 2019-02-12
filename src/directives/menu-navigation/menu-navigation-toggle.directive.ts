@@ -1,11 +1,12 @@
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 
 @Directive({
     selector: '[uxMenuNavigationToggle]',
     exportAs: 'uxMenuNavigationToggle'
 })
-export class MenuNavigationToggleDirective {
+export class MenuNavigationToggleDirective implements OnDestroy {
 
     @Input()
     get menuOpen(): boolean {
@@ -27,8 +28,15 @@ export class MenuNavigationToggleDirective {
     keyEnter = new EventEmitter<void>();
 
     private _menuOpen: boolean;
+    private _focusIndicator: FocusIndicator;
 
-    constructor(private _elementRef: ElementRef) { }
+    constructor(private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+    }
+
+    ngOnDestroy(): void {
+        this._focusIndicator.destroy();
+    }
 
     focus(): void {
         this._elementRef.nativeElement.focus();

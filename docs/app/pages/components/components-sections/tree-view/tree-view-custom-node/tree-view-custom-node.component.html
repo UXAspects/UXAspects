@@ -25,6 +25,7 @@
                     <tree-node-expander [node]="node"></tree-node-expander>
 
                     <div class="node-content-wrapper"
+                         uxFocusIndicator
                          [class.node-content-wrapper-active]="node.data.checked"
                          [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
                          role="treeitem"

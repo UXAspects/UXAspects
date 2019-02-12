@@ -3,6 +3,8 @@ import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, Ho
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { FocusIndicator } from '../focus-indicator/focus-indicator';
+import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 
 @Directive({
     selector: 'split'
@@ -24,11 +26,15 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
     /** Teardown our observables on destroy */
     private _onDestroy = new Subject<void>();
 
+    /** Store references to all focus indicators */
+    private _focusIndicators: FocusIndicator[] = [];
+
     constructor(
         private _elementRef: ElementRef,
         private _renderer: Renderer2,
         @Inject(PLATFORM_ID) private _platform: string,
-        private _splitter: SplitComponent
+        private _splitter: SplitComponent,
+        private _focusIndicatorService: FocusIndicatorService
     ) {
         // update aria values when the a gutter is dragged
         _splitter.dragProgress
@@ -64,6 +70,9 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
 
         this._onDestroy.next();
         this._onDestroy.complete();
+
+        // destroy all existing focus indicators
+        this._focusIndicators.forEach(indicator => indicator.destroy());
     }
 
     /** We should focus the gutter when it is clicked */
@@ -76,7 +85,20 @@ export class SplitterAccessibilityDirective implements AfterViewInit, OnDestroy 
 
     /** Find all the gutters and set their attributes */
     private onGutterChange(): void {
+
+        // destroy all existing focus indicators
+        this._focusIndicators.forEach(indicator => indicator.destroy());
+
+        // reset the array
+        this._focusIndicators = [];
+
+        // get the new gutter elements
         this._gutters = this.getGutters();
+
+        // monitor the focus of each gutter
+        this._gutters.forEach(gutter => this._focusIndicators.push(this._focusIndicatorService.monitor(gutter)));
+
+        // apply all required accessibility attributes to the gutter elements
         this.setGutterAttributes();
     }
 

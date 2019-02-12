@@ -19,6 +19,7 @@
 
             <button
                 #frontFlipBtn
+                uxFocusIndicator
                 aria-label="Activate to show back of card"
                 [attr.aria-hidden]="card.trigger !== 'manual'"
                 [hidden]="card.trigger !== 'manual'"
@@ -60,6 +61,7 @@
 
                 <button
                     #backFlipBtn
+                    uxFocusIndicator
                     aria-label="Activate to show front of card"
                     [attr.aria-hidden]="card.trigger !== 'manual'"
                     [hidden]="card.trigger !== 'manual'"

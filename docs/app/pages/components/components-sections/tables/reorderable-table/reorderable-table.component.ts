@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-reorderable-table',
@@ -29,6 +29,8 @@ export class ComponentsReorderableTableComponent extends BaseDocumentationSectio
         ]
     };
 
+    @ViewChildren('row') rows: QueryList<ElementRef>;
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
@@ -45,19 +47,38 @@ export class ComponentsReorderableTableComponent extends BaseDocumentationSectio
 
     movedown(data: ReorderableTableData, index: number, event: KeyboardEvent): void {
         const target = Math.min(index + 1, this.data.length - 1);
-        this.data[index] = this.data[target];
-        this.data[target] = data;
+        this.data[index] = { ...this.data[target] };
+        this.data[target] = { ...data };
         event.preventDefault();
+
+        // ngFor blurs the element when shifting - we want to retain focus
+        requestAnimationFrame(() => {
+            // get the row we want to focus
+            const targetElement = this.rows.toArray()[target];
+
+            // if there is a target element then focus it
+            if (targetElement) {
+                targetElement.nativeElement.focus();
+            }
+        });
     }
 
     moveup(data: ReorderableTableData, index: number, event: KeyboardEvent): void {
         const target = Math.max(index - 1, 0);
-        this.data[index] = this.data[target];
-        this.data[target] = data;
+        this.data[index] = { ...this.data[target] };
+        this.data[target] = { ...data };
         event.preventDefault();
-        
-        // ngFor blurs the element when shifting up - we want to retain focus
-        setTimeout(() => (<HTMLTableRowElement>event.target).focus());
+
+        // ngFor blurs the element when shifting - we want to retain focus
+        requestAnimationFrame(() => {
+            // get the row we want to focus
+            const targetElement = this.rows.toArray()[target];
+
+            // if there is a target element then focus it
+            if (targetElement) {
+                targetElement.nativeElement.focus();
+            }
+        });
     }
 }
 

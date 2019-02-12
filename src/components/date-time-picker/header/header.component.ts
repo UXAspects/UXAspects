@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
@@ -6,12 +6,12 @@ import { DatePickerMode, DateTimePickerService } from '../date-time-picker.servi
 @Component({
     selector: 'ux-date-time-picker-header',
     templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
 
     canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
-    
+
     mode$: Observable<string> = this.datepicker.mode$.pipe(map(mode => {
         switch (mode) {
             case DatePickerMode.Day:

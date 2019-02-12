@@ -14,8 +14,11 @@ import { ColorPickerComponent } from './color-picker.component';
         NumberPickerModule,
         TooltipModule,
     ],
-    exports: [ColorPickerComponent],
-    declarations: [ColorPickerComponent],
-    providers: [],
+    exports: [
+        ColorPickerComponent
+    ],
+    declarations: [
+        ColorPickerComponent
+    ],
 })
 export class ColorPickerModule { }

@@ -23,25 +23,52 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
 })
 export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
+    /** Whether the arrow keys can be used to increment or decrement the selected time component. */
     @Input() arrowkeys: boolean = true;
+
+    /** Whether the mouse scroll wheel can be used to increment or decrement the selected time component. */
     @Input() mousewheel: boolean = true;
+
+    /** Whether the control is disabled. */
     @Input() disabled: boolean = false;
+
+    /** Whether the control is readonly. */
     @Input() readOnly: boolean = false;
 
+    /** Whether to show the meridian (AM/PM) selector. If this is false, the 24-hour clock will be used. */
     @Input() showMeridian: boolean = false;
+
+    /** Whether to show the hour selector. */
     @Input() showHours: boolean = true;
+
+    /** Whether to show the minute selector. */
     @Input() showMinutes: boolean = true;
+
+    /** Whether to show the second selector. */
     @Input() showSeconds: boolean = false;
+
+    /** Whether to show increment and decrement buttons in the time picker. */
     @Input() showSpinners: boolean = true;
 
+    /** The number of hours to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel. */
     @Input() hourStep: number = 1;
+
+    /** The number of minutes to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel. */
     @Input() minuteStep: number = 1;
+
+    /** The number of seconds to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel. */
     @Input() secondStep: number = 1;
 
+    /** The minimum value that the component will allow. */
     @Input() min: Date;
+
+    /** The maximum value that the component will allow. */
     @Input() max: Date;
+
+    /** An array containing the labels to show in the meridian selector. */
     @Input() meridians: string[] = ['AM', 'PM'];
 
+    /** The value to display. */
     @Input() set value(value: Date) {
         this.value$.next(new Date(value));
         this.valueChange.emit(this.value$.value);
@@ -54,7 +81,10 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         return new Date(this.value$.value);
     }
 
+    /** Emitted when the `value` changes. */
     @Output() valueChange = new EventEmitter<Date>();
+
+    /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
 
     onTouchedCallback: () => void = () => { };

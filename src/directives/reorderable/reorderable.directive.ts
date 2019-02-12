@@ -9,12 +9,39 @@ import { ReorderableCancelEvent, ReorderableClonedEvent, ReorderableContainer, R
 })
 export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
+    /**
+     * This property can be used to provide the `uxReorderable` directive with a dataset that represents the items that can be reordered.
+     * This can used as a two way binding which will ensure the dataset always reflects the current order of items in the list.
+     * Each list item should have a `uxReorderableModel` directive applied, with a value indicating which item in the dataset it represents.
+     *
+     * If the list is generated using `ngFor` this property should be bound to the same dataset.
+     * If there is no dataset representing the items then this property is not required.
+     */
     @Input() reorderableModel: Array<any>;
+
+    /**
+     * The name of the reorderable group which this container belongs to `uxReorderable` elements which belong to
+     * the same group can have items dragged between them. Only required if multiple drop containers are being created.
+     */
     @Input() reorderableGroup: string;
+
+    /** Determines if reordering is disabled. */
     @Input() reorderingDisabled: boolean = false;
+
+    /**
+     * This event will be triggered when the order changes and will contain an updated dataset containing the items
+     * in their current order. This should be used when the list of items is generated using ngFor to ensure the
+     * data remains in the same order for both the `uxReorderable` and `ngFor` directives.
+     */
     @Output() reorderableModelChange = new EventEmitter<Array<any>>();
+
+    /** This event is triggered when a user begins dragging an item. The event will contain the element being moved. */
     @Output() reorderStart = new EventEmitter<ReorderEvent>();
+
+    /** This event is triggered when the item being dragged is returned to the same location as it began. The event will contain the element that was being moved. */
     @Output() reorderCancel = new EventEmitter<ReorderEvent>();
+
+    /** This event is triggered when a user has relocated an item. The event will contain the element that was moved. */
     @Output() reorderEnd = new EventEmitter<ReorderEvent>();
 
     @ContentChildren(ReorderableHandleDirective, { read: ElementRef, descendants: true }) handles: QueryList<ElementRef>;

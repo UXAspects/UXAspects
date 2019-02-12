@@ -3,6 +3,7 @@
         <tr uxColumnSorting>
             <th></th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
                 [attr.aria-sort]="nameColumn.state"
@@ -15,6 +16,7 @@
                 </div>
             </th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
                 [attr.aria-sort]="authorColumn.state"
@@ -27,6 +29,7 @@
                 </div>
             </th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
                 [attr.aria-sort]="dateColumn.state"
@@ -39,6 +42,7 @@
                 </div>
             </th>
             <th class="clickable"
+                uxFocusIndicator
                 tabindex="0"
                 [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
                 [attr.aria-sort]="completedColumn.state"
@@ -96,7 +100,7 @@
     <tr uxd-api-property name="changeState()" type="Object">
         Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
         This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
-        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
+        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>.
         The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.
     </tr>
 </uxd-api-properties>

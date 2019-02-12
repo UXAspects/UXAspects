@@ -10,8 +10,18 @@ import { ColumnSortingDirective, ColumnSortingOrder, ColumnSortingState } from '
 })
 export class ColumnSortingComponent implements OnDestroy {
 
+    /** Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`. */
     @Input() state: ColumnSortingState;
+
+    /** Defines a unique identifier for the column that can be used when sorting. */
     @Input() key: string;
+
+    /**
+     * Changes the state of the sorting on the column between `NoSort`, `Ascending` and `Descending`.
+     * This returns an array of objects for each column being sorted containing `key: string` and `state: ColumnSortingState`.
+     * State can be used to find the current sorting state of the column eg. `(state === ColumnSortingState.Ascending)`.
+     * The `ColumnSortingOrder` interface has been provided for objects in the array.
+     */
     @Output() stateChange = new EventEmitter<ColumnSortingState>();
 
     order: number;

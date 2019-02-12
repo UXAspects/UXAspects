@@ -14,6 +14,7 @@
     [returnFocus]="true">
 
     <ux-hierarchy-bar-popover-item *ngFor="let node of nodes; let first = first"
+        uxFocusIndicator
         [node]="node"
         [focusIf]="first"
         uxTabbableListItem

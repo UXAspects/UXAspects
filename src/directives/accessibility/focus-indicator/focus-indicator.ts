@@ -54,6 +54,7 @@ export class FocusIndicator {
         this._onDestroy.next();
         this._onDestroy.complete();
         this.isFocused$.complete();
+        this._focusMonitor.stopMonitoring(this._element);
     }
 
     /** Allow the options to be updates */

@@ -30,8 +30,8 @@ ux-color-picker {
             height: 32px;
             box-shadow: 0 0 6px 2px #ddd;
 
-            &:focus {
-                outline: none;
+            &.ux-focus-indicator-active {
+                outline: none !important; // required until we move all focus styling to box-shadows
                 box-shadow: 0 0 0 3px fade(@primary, 50%);
             }
         }

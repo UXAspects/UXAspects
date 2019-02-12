@@ -6,6 +6,7 @@
 
     <div class="ux-radio-button-container">
         <input class="ux-radio-button-input"
+            uxFocusIndicator
             type="radio"
             [id]="inputId"
             [checked]="value === option"
@@ -17,8 +18,7 @@
             [attr.aria-labelledby]="ariaLabelledby"
             [attr.aria-describedby]="ariaDescribedby"
             [attr.aria-checked]="value === option"
-            (focus)="focused = true"
-            (blur)="focused = false"
+            (indicator)="focused = $event"
             (change)="toggle()"
             (click)="$event.stopPropagation()">
     </div>

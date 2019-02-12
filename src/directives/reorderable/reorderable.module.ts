@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReorderableDirective } from './reorderable.directive';
+import { NgModule } from '@angular/core';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
+import { ReorderableDirective } from './reorderable.directive';
 import { ReorderableService } from './reorderable.service';
 
 @NgModule({

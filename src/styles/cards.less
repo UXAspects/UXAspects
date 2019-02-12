@@ -1066,7 +1066,11 @@
     }
 
     &:focus {
-        outline: none;
-        box-shadow: 0 0 1px 1px @aspects-outline;
+        outline: none !important;
+
+        &.ux-focus-indicator-active {
+            outline: none !important;
+            box-shadow: 0 0 1px 1px @aspects-outline;
+        }
     }
 }

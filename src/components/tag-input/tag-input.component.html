@@ -38,6 +38,7 @@
 <ng-template #defaultTagTemplate let-tag="tag" let-index="index" let-disabled="disabled" let-api="api">
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
     <button *ngIf="api.canRemoveTagAt(index)"
+        uxFocusIndicator
         type="button"
         class="ux-tag-remove"
         aria-label="Remove Item"
