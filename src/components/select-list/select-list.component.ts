@@ -23,7 +23,7 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
     }
 
     /** Set the selected items */
-    @Input() set selected(selected: T | T[]) {
+    @Input() set selected(selected: T | ReadonlyArray<T>) {
 
         // if the selection entered is the same as the current selection then do nothing
         if (this._selection.selection$.value === selected) {
@@ -39,12 +39,12 @@ export class SelectListComponent<T> implements AfterContentInit, OnDestroy {
         if (Array.isArray(selected)) {
             this._selection.selectOnly(...selected);
         } else {
-            this._selection.selectOnly(selected);
+            this._selection.selectOnly(<T>selected);
         }
     }
 
     /** Emit when the selection changes */
-    @Output() selectedChange = new EventEmitter<T[]>();
+    @Output() selectedChange = new EventEmitter<ReadonlyArray<T>>();
 
     /** Find all select list items */
     @ContentChildren(SelectListItemComponent) items: QueryList<SelectListItemComponent<T>>;

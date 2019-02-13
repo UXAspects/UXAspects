@@ -34,8 +34,9 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="selected" type="any[]">
+    <tr uxd-api-property name="selected" type="ReadonlyArray&lt;any&gt;">
         If specified, the items provided will be selected.
+        To programmatically modify the selection, assign a new array object to this property.
     </tr>
     <tr uxd-api-property name="multiple" type="boolean" defaultValue="false">
         If <code>true</code>, multiple items can be selected by the user. If <code>false</code>, only one item can be selected at a time.
@@ -43,7 +44,7 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="selectedChange" type="any[]">
+    <tr uxd-api-property name="selectedChange" type="ReadonlyArray&lt;any&gt;">
         This event will emit any time the selection changes. The event will contain an array of the selected items.
     </tr>
 </uxd-api-properties>

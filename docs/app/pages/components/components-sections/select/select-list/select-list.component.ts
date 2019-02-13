@@ -13,7 +13,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 export class ComponentsSelectListComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     multiple: boolean = false;
-    selected: string[] = [];
+    selected: ReadonlyArray<string> = [];
     authors: string[] = [];
     query: string = '';
 
