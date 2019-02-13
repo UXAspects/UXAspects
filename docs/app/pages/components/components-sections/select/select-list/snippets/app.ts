@@ -9,7 +9,7 @@ import 'chance';
 export class AppComponent {
 
     multiple: boolean = false;
-    selected: string[] = [];
+    selected: ReadonlyArray<string> = [];
     authors: string[] = [];
     query: string = '';
 
