@@ -25,16 +25,19 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
+    /** A unique id for the component. */
     @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
 
+    /** The selected option (for single select) or array of options (for multiple select). */
     @Input()
-    set value(value: T) {
+    set value(value: T | ReadonlyArray<T>) {
         this._value$.next(value);
     }
     get value() {
         return this._value$.value;
     }
 
+    /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: string) {
         this._input$.next(value);
@@ -43,6 +46,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         return this._input$.value;
     }
 
+    /** The status of the typeahead dropdown. */
     @Input()
     set dropdownOpen(value: boolean) {
         this._dropdownOpen = value;
@@ -52,24 +56,95 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         return this._dropdownOpen;
     }
 
+    /**
+     * If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or
+     * custom objects. If custom objects are required, the display property must also be set. If a function is provided,
+     * this is used as a callback to dynamically retrieve data in pages. The function parameters are:
+     * @param pageNum The index of the requested page, starting from 0.
+     * @param pageSize The number of items requested.
+     * @param filter The filter details as provided via the filter binding.
+     * @returns Either a promise which resolves to an array, or a plain array in case the data can be loaded
+     * synchronously. An empty array or an array with fewer than `pageSize` items can be returned, which indicates that
+     * the end of the data set has been reached.
+     */
     @Input() options: T[] | InfiniteScrollLoadFunction;
-    @Input() display: (option: T) => string | string;
-    @Input() key: (option: T) => string | string;
+
+    /**
+     * Determines the display value of the `options`, if they are custom objects. This may be a function or a string.
+     * If a function is provided, it receives the option object as an argument, and should return the appropriate
+     * display value. If the name of a property is provided as a string, that property is used as the display value.
+     */
+    @Input() display: ((option: T) => string) | string;
+
+    /**
+     * Determines the unique key value of the `options`, if they are custom objects. This may be a function or a string.
+     * If a function is provided, it receives the option object as an argument, and should return the appropriate
+     * key value. If the name of a property is provided as a string, that property is used as the key value.
+     */
+    @Input() key: ((option: T) => string) | string;
+
+    /**
+     * Controls whether the value of the single select control can be cleared by deleting the selected value in the
+     * input field. This does not affect the initial state of the control, so specify a value for `value` if null should
+     * never be allowed.
+     */
     @Input() allowNull: boolean = false;
+
+    /** The aria-label to apply to the child `input` element. */
+    @Input() ariaLabel: string;
+
+    /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
+
+    /** The positioning of the typeahead dropdown in relation to its parent. */
     @Input() dropDirection: 'up' | 'down' = 'down';
+
+    /** The maximum height of the typeahead dropdown, as a CSS value. */
     @Input() maxHeight: string = '250px';
+
+    /**
+     * Controls whether the user can select more than one option in the select control. If set to true, selected
+     * options will appear as tags in the input area. If set to false, the selected value will appear as editable text
+     * in the input area.
+     */
     @Input() multiple: boolean = false;
+
+    /**
+     * The number of options to request in a page. This should ideally be more than twice the number of items which
+     * fit into the height of the dropdown, but this is not required.
+     */
     @Input() pageSize: number = 20;
+
+    /** The placeholder text which appears in the text input area when it is empty. */
     @Input() placeholder: string;
+
+    /**
+     * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
+     * displaying autocomplete suggestions.
+     */
     @Input() autocomplete: string = 'off';
 
+    /** A template which will be rendered in the dropdown while options are being loaded. */
     @Input() loadingTemplate: TemplateRef<any>;
+
+    /** A template which will be rendered in the dropdown if no options match the current filter value. */
     @Input() noOptionsTemplate: TemplateRef<any>;
+
+    /**
+     * A template which will be rendered in the dropdown for each option.
+     * The following context properties are available in the template:
+     * - option: any - the string or custom object representing the option.
+     * - api: TypeaheadOptionApi - provides the functions `getKey`, `getDisplay` and `getDisplayHtml`.
+     */
     @Input() optionTemplate: TemplateRef<any>;
 
-    @Output() valueChange = new EventEmitter<T>();
+    /** Emits when `value` changes. */
+    @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
+
+    /** Emits when `input` changes. */
     @Output() inputChange = new EventEmitter<string>();
+
+    /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     @ViewChild('singleInput') singleInput: ElementRef;
@@ -81,7 +156,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    private _value$ = new BehaviorSubject<T>(null);
+    private _value$ = new BehaviorSubject<T | ReadonlyArray<T>>(null);
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _onDestroy = new Subject<void>();
@@ -218,7 +293,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: T): string {
+    getDisplay(option: any): string {
         if (option === null || option === undefined) {
             return '';
         }

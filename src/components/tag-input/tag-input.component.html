@@ -23,6 +23,7 @@
             [attr.aria-activedescendant]="highlightedElement?.id"
             [attr.aria-autocomplete]="typeahead ? 'list' : 'none'"
             [attr.aria-controls]="typeahead?.id"
+            [attr.aria-label]="ariaLabel"
             aria-multiline="false"
             [placeholder]="disabled ? '' : (placeholder || '')"
             [disabled]="disabled"

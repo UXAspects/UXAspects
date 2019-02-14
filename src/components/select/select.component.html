@@ -3,6 +3,7 @@
     [id]="id + '-input'"
     [(tags)]="value"
     [(input)]="input"
+    [ariaLabel]="ariaLabel"
     [autocomplete]="autocomplete"
     [addOnPaste]="false"
     [disabled]="disabled"
@@ -44,12 +45,15 @@
         (click)="toggle(); $event.stopPropagation()">
     </i>
 
-    <input #singleInput type="text" [attr.id]="id + '-input'" class="form-control"
+    <input #singleInput type="text"
+        [attr.id]="id + '-input'"
+        class="form-control"
         [attr.aria-activedescendant]="highlightedElement?.id"
-        [autocomplete]="autocomplete"
         aria-autocomplete="list"
         [attr.aria-controls]="singleTypeahead.id"
+        [attr.aria-label]="ariaLabel"
         aria-multiline="false"
+        [autocomplete]="autocomplete"
         [(ngModel)]="input"
         [placeholder]="placeholder"
         [disabled]="disabled"
