@@ -15,11 +15,13 @@
                     i18n-aria-label
                     aria-selected="color === (selected$ | async)"
                     class="btn btn-icon"
+                    [style.color]="_getContrastColor(color)"
                     [style.background-color]="color.rgba"
                     (click)="selected$.next(color)"
                     uxTabbableListItem
                     [uxTooltip]="color.name"
                     [tooltipDisabled]="!showTooltips">
+                    <i class="hpe-icon hpe-checkmark"></i>
                 </button>
 
             </div>
