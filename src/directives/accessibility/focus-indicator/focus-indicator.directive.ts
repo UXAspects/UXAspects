@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { AccessibilityOptions } from '../options/accessibility-options.interface';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
-import { ACCESSIBILITY_OPTIONS_TOKEN } from '../options/accessibility-options.token';
 import { FocusIndicator } from './focus-indicator';
+import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';
 import { FocusIndicatorService } from './focus-indicator.service';
 
 @Directive({
@@ -73,7 +72,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
         private readonly _focusIndicatorService: FocusIndicatorService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         readonly optionsService: AccessibilityOptionsService,
-        @Optional() @Inject(ACCESSIBILITY_OPTIONS_TOKEN) readonly localOptions?: AccessibilityOptions
+        @Optional() readonly localOptions?: LocalFocusIndicatorOptions
     ) {
 
         // set the inital option values based on global options

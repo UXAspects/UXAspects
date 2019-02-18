@@ -1,6 +1,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DefaultFocusIndicatorDirective } from './focus-indicator/default-focus-indicator.directive';
+import { FocusIndicatorOptionsDirective } from './focus-indicator/focus-indicator-options/focus-indicator-options.directive';
 import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
 import { FocusIndicatorService } from './focus-indicator/focus-indicator.service';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
@@ -15,10 +16,11 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     declarations: [
         DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
+        FocusIndicatorOptionsDirective,
         FocusWithinDirective,
+        SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        SplitterAccessibilityDirective
     ],
     imports: [
         A11yModule
@@ -26,10 +28,11 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
     exports: [
         DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
+        FocusIndicatorOptionsDirective,
         FocusWithinDirective,
+        SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        SplitterAccessibilityDirective,
     ],
     providers: [
         AccessibilityOptionsService,
