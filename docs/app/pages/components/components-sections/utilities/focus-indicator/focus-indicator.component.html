@@ -95,6 +95,15 @@
 
 <uxd-snippet [content]="snippets.compiled.serviceTs"></uxd-snippet>
 
+<h4>Focus Origin</h4>
+
+<p>
+    There are occasions where an element is focused when it is first shown, for example when a modal is launched the primary
+    button might receive focus. Ideally the button would only show a focus indicator when the modal was opened using
+    the keyboard and not when trigged using a click. To achieve this behavior you can add the <code>uxFocusIndicatorOrigin</code>
+    directive to the element that indirectly causes the focus, e.g. the button that launches the modal.
+</p>
+
 <h4>Global Defaults</h4>
 
 <p>
