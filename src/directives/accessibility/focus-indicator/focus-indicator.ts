@@ -67,6 +67,12 @@ export class FocusIndicator {
     /** Monitor changes to an elements focus state */
     private onFocusChange(origin: FocusOrigin): void {
 
+        // if the origin is null then we blurred
+        if (origin === null) {
+            this.isFocused = false;
+            return;
+        }
+
         // get the origin if there is one
         const syntheticOrigin = this._focusIndicatorOrigin.getOrigin();
 
