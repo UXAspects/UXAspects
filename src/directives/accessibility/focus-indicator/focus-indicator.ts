@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { FocusIndicatorOptions } from './focus-indicator-options.interface';
+import { FocusIndicatorOriginService } from './focus-indicator-origin/focus-indicator-origin.service';
 
 export class FocusIndicator {
 
@@ -33,7 +34,8 @@ export class FocusIndicator {
         private readonly _element: HTMLElement,
         private readonly _focusMonitor: FocusMonitor,
         private readonly _renderer: Renderer2,
-        private _options: FocusIndicatorOptions) {
+        private _options: FocusIndicatorOptions,
+        private _focusIndicatorOrigin: FocusIndicatorOriginService) {
         this.initialise();
     }
 
@@ -65,7 +67,16 @@ export class FocusIndicator {
     /** Monitor changes to an elements focus state */
     private onFocusChange(origin: FocusOrigin): void {
 
-        switch (origin) {
+        // if the origin is null then we blurred
+        if (origin === null) {
+            this.isFocused = false;
+            return;
+        }
+
+        // get the origin if there is one
+        const syntheticOrigin = this._focusIndicatorOrigin.getOrigin();
+
+        switch (syntheticOrigin || origin) {
 
             case 'mouse':
                 this.isFocused = this._options.mouseFocusIndicator;

@@ -95,6 +95,15 @@
 
 <uxd-snippet [content]="snippets.compiled.serviceTs"></uxd-snippet>
 
+<h4>Focus Origin</h4>
+
+<p>
+    There are occasions where an element is focused when it is first shown, for example when a modal is launched the primary
+    button might receive focus. Ideally the button would only show a focus indicator when the modal was opened using
+    the keyboard and not when trigged using a click. To achieve this behavior you can add the <code>uxFocusIndicatorOrigin</code>
+    directive to the element that indirectly causes the focus, e.g. the button that launches the modal.
+</p>
+
 <h4>Global Defaults</h4>
 
 <p>
@@ -105,11 +114,12 @@
 
 <uxd-snippet [content]="snippets.compiled.configTs"></uxd-snippet>
 
-<h4>Component Defaults</h4>
+<h4>Local Defaults</h4>
 
 <p>
-    The global configuration can be overriden on a component level by supplying options in the <code>providers</code>
-    array of the component decorator. These options will be applied to any child elements of this component using the focus indicator.
+    The global configuration can be overriden on a element level by adding a <code>uxFocusIndicatorOptions</code>
+    to an element. This will provide all the inputs available to the <code>uxFocusIndicator</code>.
+    These options will be applied to any child elements using the focus indicator.
 </p>
 
-<uxd-snippet [content]="snippets.compiled.componentConfigTs"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.localOptionsHtml"></uxd-snippet>

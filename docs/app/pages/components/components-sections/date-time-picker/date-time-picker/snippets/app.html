@@ -6,7 +6,10 @@
                     <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                 </button>
             </span>
-            <input type="text" #input #popover="ux-popover"
+            <input type="text"
+                #input
+                #popover="ux-popover"
+                uxFocusIndicatorOrigin
                 [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
                 [uxPopover]="popoverTemplate"
                 placement="bottom"
@@ -23,7 +26,7 @@
 </div>
 
 <ng-template #popoverTemplate>
-    <ux-date-time-picker 
+    <ux-date-time-picker
         [(date)]="date"
         [(timezone)]="timezone"
         [showTime]="showTime"

@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Directive, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Optional } from '@angular/core';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
+import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';
 import { FocusIndicatorDirective } from './focus-indicator.directive';
 import { FocusIndicatorService } from './focus-indicator.service';
 
@@ -19,9 +20,10 @@ export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
         elementRef: ElementRef,
         focusIndicatorService: FocusIndicatorService,
         optionsService: AccessibilityOptionsService,
-        changeDetectorRef: ChangeDetectorRef
+        changeDetectorRef: ChangeDetectorRef,
+        @Optional() localOptions: LocalFocusIndicatorOptions
     ) {
-        super(elementRef, focusIndicatorService, changeDetectorRef, optionsService);
+        super(elementRef, focusIndicatorService, changeDetectorRef, optionsService, localOptions);
 
         // Enable programmatic focus by default
         this.programmaticFocusIndicator = true;
