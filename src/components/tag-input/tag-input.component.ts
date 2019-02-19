@@ -77,6 +77,9 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     /** Controls whether pasting text into the text input area automatically converts that text into one or more tags. */
     @Input() addOnPaste: boolean = true;
 
+    /** The aria-label to apply to the child `input` element. */
+    @Input() ariaLabel: string;
+
     /** Controls the disabled state of the tag input. */
     @Input() disabled: boolean = false;
 

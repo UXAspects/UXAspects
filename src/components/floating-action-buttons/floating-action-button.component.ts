@@ -14,8 +14,16 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 })
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
 
+    /**
+     * If specified, defines which icon from the icon set to display in the button.
+     * If you wish to display custom content you can simply add children to the
+     * component and they will be displayed within the button. */
     @Input() icon: string;
+
+    /** Define the aria label for the button */
     @Input('aria-label') ariaLabel: string;
+
+    /** Access the element ref of the button element */
     @ViewChild('button') button: ElementRef;
 
     primary: boolean = false;
