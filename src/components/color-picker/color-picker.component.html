@@ -15,7 +15,7 @@
                     i18n-aria-label
                     aria-selected="color === (selected$ | async)"
                     class="btn btn-icon"
-                    [style.color]="_getContrastColor(color)"
+                    [uxColorContrast]="color.hex"
                     [style.background-color]="color.rgba"
                     (click)="selected$.next(color)"
                     uxTabbableListItem
