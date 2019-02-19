@@ -16,7 +16,6 @@ import { SplitterAccessibilityDirective } from './splitter/splitter-accessibilit
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
 
-
 /**
  * We want this service to be a singleton service (even across lazy modules).
  * This allows us to ensure that it is a singleton without having to have
@@ -64,6 +63,7 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
     providers: [
         AccessibilityOptionsService,
         FocusIndicatorService,
+        FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER,
         ManagedFocusContainerService,
     ]
 })
