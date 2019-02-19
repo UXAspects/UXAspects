@@ -1,5 +1,5 @@
 <!-- Show an icon if specified -->
-<img class="hierarchy-bar-node-icon" *ngIf="node.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+<img class="hierarchy-bar-node-icon" *ngIf="node?.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
 
 <!-- Show the name of the current node -->
-<span class="hierarchy-bar-node-title">{{ node.title }}</span>
+<span class="hierarchy-bar-node-title">{{ node?.title }}</span>
