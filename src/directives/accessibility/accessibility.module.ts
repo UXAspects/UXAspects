@@ -4,6 +4,8 @@ import { DefaultFocusIndicatorDirective } from './focus-indicator/default-focus-
 import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
 import { FocusIndicatorService } from './focus-indicator/focus-indicator.service';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
+import { ManagedFocusContainerDirective } from './managed-focus-container/managed-focus-container.directive';
+import { ManagedFocusContainerService } from './managed-focus-container/managed-focus-container.service';
 import { AccessibilityOptions } from './options/accessibility-options.interface';
 import { AccessibilityOptionsService } from './options/accessibility-options.service';
 import { ACCESSIBILITY_OPTIONS_TOKEN } from './options/accessibility-options.token';
@@ -16,9 +18,10 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
         FocusWithinDirective,
+        ManagedFocusContainerDirective,
+        SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        SplitterAccessibilityDirective
     ],
     imports: [
         A11yModule
@@ -27,13 +30,15 @@ import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
         DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
         FocusWithinDirective,
+        ManagedFocusContainerDirective,
+        SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        SplitterAccessibilityDirective,
     ],
     providers: [
         AccessibilityOptionsService,
-        FocusIndicatorService
+        FocusIndicatorService,
+        ManagedFocusContainerService,
     ]
 })
 export class AccessibilityModule {

@@ -9,6 +9,7 @@ import 'chance';
 export class AppComponent {
 
     documents: HoverActionDocument[] = [];
+    selected: HoverActionDocument[] = [];
 
     constructor() {
 
