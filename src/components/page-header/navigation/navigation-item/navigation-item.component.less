@@ -42,6 +42,17 @@ ux-page-header-horizontal-navigation-item {
         &.selected {
             color: @page-header-nav-selected-color;
         }
+
+        &:disabled {
+            cursor: default;
+            color: rgba(@page-header-nav-active-color, 0.35);
+
+            &:hover,
+            &:focus {
+                color: rgba(@page-header-nav-active-color, 0.35);
+                background-color: @page-header-bg;
+            }
+        }
     }
 }
 

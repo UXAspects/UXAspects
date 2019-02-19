@@ -68,6 +68,7 @@ export interface PageHeaderNavigationItem {
     select?: (item: PageHeaderNavigationItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
     parent?: PageHeaderNavigation;
+    disabled?: boolean;
 }
 
 export interface PageHeaderNavigationDropdownItem {

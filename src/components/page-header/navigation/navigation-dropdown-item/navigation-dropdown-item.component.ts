@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { debounceTime } from 'rxjs/operators';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
@@ -41,7 +41,7 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     select(item: PageHeaderNavigationDropdownItem) {
 
-        // clicking on an item with children then return
+        // clicking on an item that is disabled or with children then return
         if (item.children) {
             return;
         }

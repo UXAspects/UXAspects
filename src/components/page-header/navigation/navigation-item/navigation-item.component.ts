@@ -26,12 +26,9 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     private _onDestroy = new Subject();
 
-    constructor(
-        public elementRef: ElementRef,
-        private _pageHeaderService: PageHeaderService
-    ) { }
+    constructor(public elementRef: ElementRef, private _pageHeaderService: PageHeaderService) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(next => {
 
@@ -60,8 +57,8 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     select(): void {
 
-        // if the item has children then do nothing at this stage
-        if (this.item.children && this._pageHeaderService.secondary$.getValue() === false) {
+        // if the item is disabled or has children then do nothing at this stage
+        if (this.item.disabled || (this.item.children && this._pageHeaderService.secondary$.getValue() === false)) {
             return;
         }
 
