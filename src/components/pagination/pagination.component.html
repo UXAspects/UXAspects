@@ -10,11 +10,13 @@
 
     <li class="pagination-prev page-item"
         *ngIf="directionButtons"
+        uxFocusIndicator
+        [programmaticFocusIndicator]="true"
+        [checkChildren]="true"
         [class.disabled]="page === 1 || disabled">
 
-      <a class="page-link ux-keyboard-focus"
-         tabindex="0"
-         cdkMonitorElementFocus
+      <a class="page-link"
+         [tabindex]="page === 1 || disabled ? -1 : 0"
          [attr.aria-label]="previousAriaLabel"
          [ngClass]="pageBtnClass"
          (click)="select(page - 1)"
@@ -25,14 +27,16 @@
 
     <ng-container *ngFor="let pg of pages; trackBy: trackByFn">
       <li *ngIf="pg.visible"
+          uxFocusIndicator
+          [programmaticFocusIndicator]="true"
+          [checkChildren]="true"
           [class.disabled]="disabled"
           [class.active]="page === pg.index"
           class="pagination-page page-item">
 
-        <a class="page-link ux-keyboard-focus"
+        <a class="page-link"
            tabindex="0"
            [ngClass]="pageBtnClass"
-           cdkMonitorElementFocus
            [focusIf]="isKeyboardEvent && page === pg.index"
            [attr.aria-current]="page === pg.index"
            [attr.aria-setsize]="pageCount"
@@ -46,11 +50,13 @@
 
     <li class="pagination-next page-item"
         *ngIf="directionButtons"
+        uxFocusIndicator
+        [programmaticFocusIndicator]="true"
+        [checkChildren]="true"
         [class.disabled]="page === pageCount || disabled">
 
-      <a class="page-link ux-keyboard-focus"
-         tabindex="0"
-         cdkMonitorElementFocus
+      <a class="page-link"
+         [tabindex]="page === pageCount || disabled ? -1 : 0"
          [attr.aria-label]="nextAriaLabel"
          [ngClass]="pageBtnClass"
          (click)="select(page + 1)"

@@ -1,4 +1,6 @@
 export * from './accessibility.module';
+export * from './contrast-ratio/color-contrast.directive';
+export * from './contrast-ratio/contrast.service';
 export * from './focus-indicator/focus-indicator';
 export * from './focus-indicator/focus-indicator-options.interface';
 export * from './focus-indicator/focus-indicator.directive';
