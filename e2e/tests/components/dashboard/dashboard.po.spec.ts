@@ -10,16 +10,16 @@ export class DashboardPage {
         browser.get('#/dashboard');
     }
 
-    getNumberOfWidgets() {
-        return this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
+    async getNumberOfWidgets() {
+        return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').count();
     }
 
-    getWidget(index: number) {
-        return this.container.$('div.dashboard-container').$$('ux-dashboard-widget').get(index);
+    async getWidget(index: number) {
+        return await this.container.$('div.dashboard-container').$$('ux-dashboard-widget').get(index);
     }
 
-    getWidgetAttribute(widget: ElementFinder, attribute: string) {
-        return widget.getAttribute(attribute);
+    async getWidgetAttribute(widget: ElementFinder, attribute: string) {
+        return await widget.getAttribute(attribute);
     }
 
     async enableGrabMode(): Promise<void> {
@@ -76,13 +76,12 @@ export class DashboardPage {
     }
 
     // Extract and return the left, top, width or height values from the element's 'style' attribute
-    async getWidgetLocationValue(widget: ElementFinder, soughtValue: string) {
-        return this.getWidgetAttribute(widget, 'style').then(function(styleValue: string) {
-            const pattern = '.*' + soughtValue + ':\\s*(\\d+)px;';
-            const regexp = new RegExp(pattern, 'i');
-            const match = regexp.exec(styleValue);
-            return Number(match[1]);
-        });
+    async getWidgetLocationValue(widget: ElementFinder, soughtValue: string): Promise<number> {
+        const styleValue = await this.getWidgetAttribute(widget, 'style');
+        const pattern = '.*' + soughtValue + ':\\s*(\\d+)px;';
+        const regexp = new RegExp(pattern, 'i');
+        const match = regexp.exec(styleValue);
+        return Number(match[1]);
     }
 }
 
