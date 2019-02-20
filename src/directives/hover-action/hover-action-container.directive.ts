@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { ManagedFocusContainerService } from '../accessibility';
+import { ManagedFocusContainerService } from '../accessibility/managed-focus-container/managed-focus-container.service';
 import { HoverActionService } from './hover-action.service';
 
 @Directive({
