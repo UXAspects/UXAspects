@@ -47,8 +47,12 @@ export class PageHeaderService implements OnDestroy {
 
         } else if (this.secondaryNavigationAutoselect && item.children && item.children.length > 0) {
 
-            // Select the first child in secondaryNavigationAutoselect mode
-            this.select(item.children[0]);
+            // Select the first child that isn't disabled in secondaryNavigationAutoselect mode
+            const firstChild = item.children.find(_item => !_item.disabled);
+
+            if (firstChild) {
+                this.select(firstChild);
+            }
 
         } else {
 

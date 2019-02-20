@@ -1,7 +1,7 @@
+import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
@@ -14,35 +14,31 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     @Input() item: PageHeaderNavigationDropdownItem;
 
-    @ViewChild('button')
-    button: ElementRef;
+    @ViewChild('button') button: ElementRef;
 
     dropdownOpen: boolean = false;
 
-    private _subscription: Subscription;
-    private _hover$: Subject<boolean> = new Subject<boolean>();
+    private _hover$ = new Subject<boolean>();
+    private _onDestroy = new Subject<void>();
 
     constructor(private _pageHeaderService: PageHeaderService) {
 
         // subscribe to stream with a debounce (a small debounce is all that is required)
-        this._subscription = this._hover$.pipe(debounceTime(1)).subscribe(visible => this.dropdownOpen = visible);
+        this._hover$.pipe(takeUntil(this._onDestroy), debounceTime(1)).subscribe(visible => this.dropdownOpen = visible);
 
         // Close submenus when selected item changes
-        this._subscription.add(
-            _pageHeaderService.selected$.subscribe(() => {
-                this.dropdownOpen = false;
-            })
-        );
+        _pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(() => this.dropdownOpen = false);
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
-    select(item: PageHeaderNavigationDropdownItem) {
+    select(item: PageHeaderNavigationDropdownItem): void {
 
         // clicking on an item that is disabled or with children then return
-        if (item.children) {
+        if (item.disabled || item.children) {
             return;
         }
 
@@ -54,23 +50,23 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
         this.button.nativeElement.focus();
     }
 
-    hoverStart() {
+    hoverStart(): void {
         this._hover$.next(true);
     }
 
-    hoverLeave() {
+    hoverLeave(): void {
         this._hover$.next(false);
     }
 
-    close() {
+    close(): void {
         this.dropdownOpen = false;
     }
 
     keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
 
-        switch (event.key) {
-            case 'Enter':
-            case ' ':
+        switch (event.which) {
+            case ENTER:
+            case SPACE:
                 this.select(item);
                 event.preventDefault();
                 event.stopPropagation();
