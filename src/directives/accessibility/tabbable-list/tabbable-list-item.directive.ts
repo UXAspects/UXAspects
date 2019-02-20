@@ -6,6 +6,7 @@ import { tick } from '../../../common/index';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 import { TabbableListService } from './tabbable-list.service';
+import { ManagedFocusContainer, ManagedFocusContainerService } from '../managed-focus-container/managed-focus-container.service';
 
 let nextId = 0;
 let uniqueKey = 0;
@@ -42,12 +43,18 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     keyboardExpanded$ = new Subject<boolean>();
 
+    private _container: ManagedFocusContainer;
     private _onDestroy = new Subject<void>();
 
     /** Store a reference to the focus indicator instance */
     private _focusIndicator: FocusIndicator;
 
-    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+    constructor(
+        private _tabbableList: TabbableListService,
+        private _elementRef: ElementRef,
+        focusIndicatorService: FocusIndicatorService,
+        managedFocusContainerService: ManagedFocusContainerService
+    ) {
 
         // create the focus indicator
         this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
@@ -67,6 +74,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
             }
         });
 
+        this._container = managedFocusContainerService.createContainer(_elementRef.nativeElement);
     }
 
     onInit(): void {
@@ -75,6 +83,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         this._tabbableList.focusKeyManager.change
             .pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
+
+        this._container.register();
     }
 
     ngOnDestroy(): void {
@@ -88,6 +98,10 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         this._onDestroy.complete();
 
         this._focusIndicator.destroy();
+
+        if (this._container) {
+            this._container.unregister();
+        }
     }
 
     @HostListener('focus')
