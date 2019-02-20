@@ -88,7 +88,6 @@ class ManagedFocusContainer {
 
     /** Start managing the focus of child elements. */
     register(): void {
-        console.log('register');
 
         this._unlisten.push(this._renderer.listen(this.element, 'focusin', this.onFocusIn.bind(this)));
         this._unlisten.push(this._renderer.listen(this.element, 'focusout', this.onFocusOut.bind(this)));
@@ -103,7 +102,6 @@ class ManagedFocusContainer {
 
     /** Stop managing the focus of child elements. */
     unregister(): void {
-        console.log('unregister');
 
         // Dispose the event handlers
         this._unlisten.forEach(unlisten => unlisten());
@@ -122,7 +120,6 @@ class ManagedFocusContainer {
     }
 
     private removeTabFocus(): void {
-        console.log('removeTabFocus');
 
         this.hasFocus$.next(false);
 
@@ -146,7 +143,6 @@ class ManagedFocusContainer {
     }
 
     private restoreTabFocus(): void {
-        console.log('restoreTabFocus');
 
         this.hasFocus$.next(true);
 
