@@ -5,8 +5,8 @@ import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
+import { ManagedFocusContainerService } from '../managed-focus-container/managed-focus-container.service';
 import { TabbableListService } from './tabbable-list.service';
-import { ManagedFocusContainer, ManagedFocusContainerService } from '../managed-focus-container/managed-focus-container.service';
 
 let nextId = 0;
 let uniqueKey = 0;
@@ -43,7 +43,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     keyboardExpanded$ = new Subject<boolean>();
 
-    private _container: ManagedFocusContainer;
     private _onDestroy = new Subject<void>();
 
     /** Store a reference to the focus indicator instance */
@@ -53,7 +52,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         private _tabbableList: TabbableListService,
         private _elementRef: ElementRef,
         focusIndicatorService: FocusIndicatorService,
-        managedFocusContainerService: ManagedFocusContainerService
+        private _managedFocusContainerService: ManagedFocusContainerService
     ) {
 
         // create the focus indicator
@@ -73,8 +72,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
                 this._tabbableList.activate(this);
             }
         });
-
-        this._container = managedFocusContainerService.createContainer(_elementRef.nativeElement);
     }
 
     onInit(): void {
@@ -84,7 +81,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
             .pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
 
-        this._container.register();
+        // Watch for focus within the container element and manage tabindex of descendants
+        this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
     }
 
     ngOnDestroy(): void {
@@ -99,9 +97,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
         this._focusIndicator.destroy();
 
-        if (this._container) {
-            this._container.unregister();
-        }
+        this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
     }
 
     @HostListener('focus')
