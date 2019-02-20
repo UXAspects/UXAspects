@@ -76,7 +76,8 @@
             [heading]="child.title"
             [active]="child === (selected$ | async)"
             (select)="select(child)"
-            [uxPageHeaderNavigationSecondaryItem]="child">
+            [uxPageHeaderNavigationSecondaryItem]="child"
+            [disabled]="child.disabled">
         </ux-tab>
     </ux-tabset>
 

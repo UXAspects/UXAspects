@@ -2,6 +2,7 @@
     dropdown
     #subMenu="bs-dropdown"
     [isOpen]="dropdownOpen"
+    [isDisabled]="item.disabled"
     container="body"
     placement="right"
     (mouseenter)="hoverStart()"
@@ -11,6 +12,7 @@
         uxFocusIndicator
         [programmaticFocusIndicator]="true"
         class="dropdown-item"
+        [class.disabled]="item.disabled"
         [class.selected]="item.selected"
         aria-haspopup="true"
         [attr.aria-expanded]="dropdownOpen"
@@ -42,6 +44,7 @@
 
             <a role="menuitem"
                 class="dropdown-item"
+                [class.disabled]="subItem.disabled"
                 [class.selected]="subItem.selected"
                 [attr.aria-selected]="subItem.selected"
                 tabindex="-1"
@@ -67,6 +70,7 @@
         uxFocusIndicator
         [programmaticFocusIndicator]="true"
         class="dropdown-item"
+        [class.disabled]="item.disabled"
         [class.selected]="item.selected"
         [attr.aria-selected]="item.selected"
         tabindex="-1"

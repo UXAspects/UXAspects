@@ -2,6 +2,7 @@
     dropdown
     #menu="bs-dropdown"
     [(isOpen)]="isOpen"
+    [isDisabled]="item.disabled"
     container="body"
     placement="bottom left">
 
@@ -51,7 +52,8 @@
     class="horizontal-navigation-button"
     [class.selected]="item.selected"
     [attr.aria-selected]="item.selected"
-    (click)="select()">
+    (click)="select()"
+    [disabled]="item.disabled">
 
     <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
     <span class="navigation-item-label">{{ item?.title }}</span>
