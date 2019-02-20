@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
+import { FocusIndicator, FocusIndicatorService, ManagedFocusContainerService } from '../accessibility/index';
 import { SelectionService } from './selection.service';
 
 @Directive({
@@ -43,7 +43,12 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     private _onDestroy = new Subject<void>();
     private _focusIndicator: FocusIndicator;
 
-    constructor(private _selectionService: SelectionService<T>, private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+    constructor(
+        private _selectionService: SelectionService<T>,
+        private _elementRef: ElementRef,
+        focusIndicatorService: FocusIndicatorService,
+        private _managedFocusContainerService: ManagedFocusContainerService
+    ) {
         this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
     }
 
@@ -86,12 +91,16 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         this._selectionService.focus$.pipe(takeUntil(this._onDestroy)).subscribe(focusTarget => {
             this._managedTabIndex = (focusTarget === this.uxSelectionItem) ? 0 : -1;
         });
+
+        // Watch for focus within the container element and manage tabindex of descendants
+        this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
     }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
         this._focusIndicator.destroy();
+        this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
     }
 
     @HostListener('click', ['$event'])

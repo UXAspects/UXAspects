@@ -14,3 +14,8 @@
     color: #888;
     font-size: 14px;
 }
+
+.list-group-item-checkbox {
+    margin-top: 4px;
+    text-align: right;
+}

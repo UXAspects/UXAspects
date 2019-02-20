@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
+import { ManagedFocusContainerService } from '../managed-focus-container/managed-focus-container.service';
 import { TabbableListService } from './tabbable-list.service';
 
 let nextId = 0;
@@ -47,7 +48,12 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     /** Store a reference to the focus indicator instance */
     private _focusIndicator: FocusIndicator;
 
-    constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+    constructor(
+        private _tabbableList: TabbableListService,
+        private _elementRef: ElementRef,
+        focusIndicatorService: FocusIndicatorService,
+        private _managedFocusContainerService: ManagedFocusContainerService
+    ) {
 
         // create the focus indicator
         this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
@@ -66,7 +72,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
                 this._tabbableList.activate(this);
             }
         });
-
     }
 
     onInit(): void {
@@ -75,6 +80,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         this._tabbableList.focusKeyManager.change
             .pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
+
+        // Watch for focus within the container element and manage tabindex of descendants
+        this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
     }
 
     ngOnDestroy(): void {
@@ -88,6 +96,8 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         this._onDestroy.complete();
 
         this._focusIndicator.destroy();
+
+        this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
     }
 
     @HostListener('focus')

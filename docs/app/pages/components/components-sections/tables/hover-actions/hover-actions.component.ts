@@ -14,6 +14,7 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 export class ComponentsHoverActionsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     documents: HoverActionDocument[] = [];
+    selected: HoverActionDocument[] = [];
 
     plunk: IPlunk = {
         files: {
@@ -26,7 +27,7 @@ export class ComponentsHoverActionsComponent extends BaseDocumentationSection im
                 library: 'chance'
             },
             {
-                imports: ['HoverActionModule', 'SparkModule', 'TooltipModule'],
+                imports: ['HoverActionModule', 'SelectionModule', 'SparkModule', 'TooltipModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

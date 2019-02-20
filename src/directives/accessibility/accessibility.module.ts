@@ -10,13 +10,14 @@ import { FocusIndicatorOriginService } from './focus-indicator/focus-indicator-o
 import { FocusIndicatorDirective } from './focus-indicator/focus-indicator.directive';
 import { FocusIndicatorService } from './focus-indicator/focus-indicator.service';
 import { FocusWithinDirective } from './focus-within/focus-within.directive';
+import { ManagedFocusContainerDirective } from './managed-focus-container/managed-focus-container.directive';
+import { ManagedFocusContainerService } from './managed-focus-container/managed-focus-container.service';
 import { AccessibilityOptions } from './options/accessibility-options.interface';
 import { AccessibilityOptionsService } from './options/accessibility-options.service';
 import { ACCESSIBILITY_OPTIONS_TOKEN } from './options/accessibility-options.token';
 import { SplitterAccessibilityDirective } from './splitter/splitter-accessibility.directive';
 import { TabbableListItemDirective } from './tabbable-list/tabbable-list-item.directive';
 import { TabbableListDirective } from './tabbable-list/tabbable-list.directive';
-
 
 /**
  * We want this service to be a singleton service (even across lazy modules).
@@ -41,7 +42,9 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
         DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
         FocusIndicatorOptionsDirective,
+        FocusIndicatorOriginDirective,
         FocusWithinDirective,
+        ManagedFocusContainerDirective,
         SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
@@ -56,7 +59,9 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
         DefaultFocusIndicatorDirective,
         FocusIndicatorDirective,
         FocusIndicatorOptionsDirective,
+        FocusIndicatorOriginDirective,
         FocusWithinDirective,
+        ManagedFocusContainerDirective,
         SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
@@ -67,7 +72,8 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
         AccessibilityOptionsService,
         ContrastService,
         FocusIndicatorService,
-        FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER
+        FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER,
+        ManagedFocusContainerService,
     ]
 })
 export class AccessibilityModule {
