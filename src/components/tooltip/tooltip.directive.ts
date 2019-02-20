@@ -410,7 +410,14 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Handle the mouse leave event - show or hide accordingly */
     protected onMouseLeave(_: MouseEvent): void {
 
-        // this is an hide only trigger - if not open or it isn't a trigger do nothing
+        // If the tooltip is pending then cancel showing it
+        if (!this.isVisible && this.includes(this.hideTriggers, 'mouseleave') && this._showTimeoutId !== null) {
+            clearTimeout(this._showTimeoutId);
+            this._showTimeoutId = null;
+            return;
+        }
+
+        // if the tooltip is not visible or mouseleave isn't a hide trigger then do nothing
         if (!this.isVisible || !this.includes(this.hideTriggers, 'mouseleave')) {
             return;
         }
