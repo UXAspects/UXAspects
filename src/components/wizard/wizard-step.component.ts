@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Host, HostBinding, Inject, forwardRef } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
@@ -10,13 +10,23 @@ import { Component, Input, EventEmitter, Host, HostBinding, Inject, forwardRef }
 })
 export class WizardStepComponent {
 
+    /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
+
+    /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
     @Input() valid: boolean = true;
+
+    /** Emits when visited changes. */
     @Input() visitedChange = new EventEmitter<boolean>();
 
     private _active: boolean = false;
     private _visited: boolean = false;
 
+    /**
+     * Defines whether or not this step has previously been visited.
+     * A visited step can be clicked on and jumped to at any time.
+     * By default, steps will become 'visited' when the user navigates to a step for the first time.
+     */
     @Input()
     get visited(): boolean {
         return this._visited;

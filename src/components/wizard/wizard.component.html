@@ -8,8 +8,10 @@
 
         <div *ngFor="let stp of steps; let index = index"
             role="tab"
+            uxFocusIndicator
             uxTabbableListItem
-            [disabled]="!stp.visited"
+            [programmaticFocusIndicator]="true"
+            [disabled]="index !== 0 && !stp.visited"
             class="wizard-step"
             [class.active]="stp.active"
             [class.visited]="stp.visited"

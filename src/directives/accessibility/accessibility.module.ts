@@ -1,5 +1,8 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { ColorServiceModule } from '../../services/color/index';
+import { ColorContrastDirective } from './contrast-ratio/color-contrast.directive';
+import { ContrastService } from './contrast-ratio/contrast.service';
 import { DefaultFocusIndicatorDirective } from './focus-indicator/default-focus-indicator.directive';
 import { FocusIndicatorOptionsDirective } from './focus-indicator/focus-indicator-options/focus-indicator-options.directive';
 import { FocusIndicatorOriginDirective } from './focus-indicator/focus-indicator-origin/focus-indicator-origin.directive';
@@ -42,10 +45,12 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
         SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        FocusIndicatorOriginDirective
+        FocusIndicatorOriginDirective,
+        ColorContrastDirective
     ],
     imports: [
-        A11yModule
+        A11yModule,
+        ColorServiceModule
     ],
     exports: [
         DefaultFocusIndicatorDirective,
@@ -55,10 +60,12 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
         SplitterAccessibilityDirective,
         TabbableListDirective,
         TabbableListItemDirective,
-        FocusIndicatorOriginDirective
+        FocusIndicatorOriginDirective,
+        ColorContrastDirective
     ],
     providers: [
         AccessibilityOptionsService,
+        ContrastService,
         FocusIndicatorService,
         FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER
     ]
