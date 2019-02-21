@@ -32674,7 +32674,8 @@ function () {
     _classCallCheck(this, SingleLineOverflowController);
 
     this.$element = $element;
-    this.$body = $document.find('body'); // apply the initial styles to keep it on one line and show ellipsis
+    this.$body = $document.find('body');
+    this.title = null; // apply the initial styles to keep it on one line and show ellipsis
 
     this.setStyles(); // once the directive have finished initialising then create the tooltip
 
@@ -32710,7 +32711,9 @@ function () {
         title: this.$element.text(),
         container: 'body '
       });
-      this.$element.tooltip('disable');
+      this.$element.tooltip('disable'); // store the current text so we can detect when the tooltip needs updated
+
+      this.title = this.$element.text();
     }
     /** Apply the styling required to show an ellipsis */
 
@@ -32732,10 +32735,25 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      var _this = this;
+
       // ensure the text is up to date
-      this.$element.tooltip({
-        title: this.$element.text()
-      }); // enable or disable the tooltip based on whether or not this is overflow
+      if (this.title !== this.$element.text()) {
+        // store the latest text so we can detect when we need to update the tooltip
+        this.title = this.$element.text(); // Workaround for https://github.com/twbs/bootstrap/issues/21830
+
+        this.onTooltipHidden(function () {
+          // destroy the old tooltip
+          _this.$element.tooltip('destroy'); // create the new updated tooltip
+
+
+          _this.$element.tooltip({
+            title: _this.$element.text(),
+            container: 'body '
+          });
+        });
+      } // enable or disable the tooltip based on whether or not this is overflow
+
 
       this.$element.tooltip(this.isOverflowing() ? 'enable' : 'disable');
     }
@@ -32754,6 +32772,30 @@ function () {
       clone.remove(); // determine if there is any overflow
 
       return width > actualWidth;
+    }
+    /**
+     * This is a workaround for the issue in the Bootstrap 3
+     * tooltip destroy code: https://github.com/twbs/bootstrap/issues/21830
+     * They are no longer developing Bootstrap v3 and will not fix this issue.
+     *
+     * The issue occurs when the tooltip destroy function is called before the
+     * tooltip hide animation completes.
+     *
+     * This allows us to ensure the tooltip animation completes immediatetly
+     * (and more importantly synchronously) so we can then avoid the error
+     */
+
+  }, {
+    key: "onTooltipHidden",
+    value: function onTooltipHidden(callback) {
+      // store the current transition settings
+      var settings = $.support.transition; // ensure that there is not tooltip transition
+
+      $.support.transition = null; // call the callback to perform what we need to in this transitionless state
+
+      callback.call(); // restore the tooltip transitions
+
+      $.support.transition = settings;
     }
   }]);
 

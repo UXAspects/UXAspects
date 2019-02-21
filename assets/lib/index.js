@@ -174,1761 +174,6 @@
         return AccordionComponent;
     }());
 
-    /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
-
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
-
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
-    ***************************************************************************** */
-    /* global Reflect, Promise */
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
-                    d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    function __extends(d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    }
-    var __assign = function () {
-        __assign = Object.assign || function __assign(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s)
-                    if (Object.prototype.hasOwnProperty.call(s, p))
-                        t[p] = s[p];
-            }
-            return t;
-        };
-        return __assign.apply(this, arguments);
-    };
-    function __awaiter(thisArg, _arguments, P, generator) {
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try {
-                step(generator.next(value));
-            }
-            catch (e) {
-                reject(e);
-            } }
-            function rejected(value) { try {
-                step(generator["throw"](value));
-            }
-            catch (e) {
-                reject(e);
-            } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    }
-    function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function () { if (t[0] & 1)
-                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
-        function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op) {
-            if (f)
-                throw new TypeError("Generator is already executing.");
-            while (_)
-                try {
-                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
-                        return t;
-                    if (y = 0, t)
-                        op = [op[0] & 2, t.value];
-                    switch (op[0]) {
-                        case 0:
-                        case 1:
-                            t = op;
-                            break;
-                        case 4:
-                            _.label++;
-                            return { value: op[1], done: false };
-                        case 5:
-                            _.label++;
-                            y = op[1];
-                            op = [0];
-                            continue;
-                        case 7:
-                            op = _.ops.pop();
-                            _.trys.pop();
-                            continue;
-                        default:
-                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                                _ = 0;
-                                continue;
-                            }
-                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
-                                _.label = op[1];
-                                break;
-                            }
-                            if (op[0] === 6 && _.label < t[1]) {
-                                _.label = t[1];
-                                t = op;
-                                break;
-                            }
-                            if (t && _.label < t[2]) {
-                                _.label = t[2];
-                                _.ops.push(op);
-                                break;
-                            }
-                            if (t[2])
-                                _.ops.pop();
-                            _.trys.pop();
-                            continue;
-                    }
-                    op = body.call(thisArg, _);
-                }
-                catch (e) {
-                    op = [6, e];
-                    y = 0;
-                }
-                finally {
-                    f = t = 0;
-                }
-            if (op[0] & 5)
-                throw op[1];
-            return { value: op[0] ? op[1] : void 0, done: true };
-        }
-    }
-    function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-        if (m)
-            return m.call(o);
-        return {
-            next: function () {
-                if (o && i >= o.length)
-                    o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
-    }
-    function __read(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m)
-            return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
-                ar.push(r.value);
-        }
-        catch (error) {
-            e = { error: error };
-        }
-        finally {
-            try {
-                if (r && !r.done && (m = i["return"]))
-                    m.call(i);
-            }
-            finally {
-                if (e)
-                    throw e.error;
-            }
-        }
-        return ar;
-    }
-    function __spread() {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-            ar = ar.concat(__read(arguments[i]));
-        return ar;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var ACCESSIBILITY_OPTIONS_TOKEN = new core.InjectionToken('ACCESSIBILITY_OPTIONS');
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var AccessibilityOptionsService = /** @class */ (function () {
-        /** Get the user specified options - but handle cases where they may not be specified */
-        function AccessibilityOptionsService(_options) {
-            if (_options === void 0) {
-                _options = {};
-            }
-            this._options = _options;
-            /**
-             * Determine the default options
-             */
-            this._defaultOptions = {
-                mouseFocusIndicator: false,
-                touchFocusIndicator: false,
-                keyboardFocusIndicator: true,
-                programmaticFocusIndicator: false
-            };
-        }
-        Object.defineProperty(AccessibilityOptionsService.prototype, "options", {
-            /** Get the complete options populating unspecified options with the default values */
-            get: /**
-             * Get the complete options populating unspecified options with the default values
-             * @return {?}
-             */ function () {
-                return __assign({}, this._defaultOptions, this._options);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        AccessibilityOptionsService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        AccessibilityOptionsService.ctorParameters = function () {
-            return [
-                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] }
-            ];
-        };
-        return AccessibilityOptionsService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var FocusIndicator = /** @class */ (function () {
-        function FocusIndicator(_element, _focusMonitor, _renderer, _options) {
-            this._element = _element;
-            this._focusMonitor = _focusMonitor;
-            this._renderer = _renderer;
-            this._options = _options;
-            /**
-             * An observable to monitor the focus state
-             */
-            this.isFocused$ = new BehaviorSubject.BehaviorSubject(false);
-            /**
-             * Remove all subscriptions on destroy
-             */
-            this._onDestroy = new Subject.Subject();
-            this.initialise();
-        }
-        Object.defineProperty(FocusIndicator.prototype, "isFocused", {
-            /** Provide a convenience getter to allow access to focus state without a subscription */
-            get: /**
-             * Provide a convenience getter to allow access to focus state without a subscription
-             * @return {?}
-             */ function () {
-                return this.isFocused$.value;
-            },
-            /** Apply a class when the item is focused */
-            set: /**
-             * Apply a class when the item is focused
-             * @param {?} isFocused
-             * @return {?}
-             */ function (isFocused) {
-                // update the class on the element
-                isFocused ? this._renderer.addClass(this._element, 'ux-focus-indicator-active') :
-                    this._renderer.removeClass(this._element, 'ux-focus-indicator-active');
-                // emit the focus state
-                this.isFocused$.next(isFocused);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /** Setup the focus monitoring */
-        /**
-         * Setup the focus monitoring
-         * @return {?}
-         */
-        FocusIndicator.prototype.initialise = /**
-         * Setup the focus monitoring
-         * @return {?}
-         */
-            function () {
-                // add a class to the element to specify we are controlling the focus
-                this._renderer.addClass(this._element, 'ux-focus-indicator');
-                // watch for any changes to the focus state
-                this._focusMonitor.monitor(this._element, this._options.checkChildren)
-                    .pipe(operators.takeUntil(this._onDestroy))
-                    .subscribe(this.onFocusChange.bind(this));
-            };
-        /** Tear down the subscriptions */
-        /**
-         * Tear down the subscriptions
-         * @return {?}
-         */
-        FocusIndicator.prototype.destroy = /**
-         * Tear down the subscriptions
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-                this.isFocused$.complete();
-            };
-        /** Allow the options to be updates */
-        /**
-         * Allow the options to be updates
-         * @param {?} options
-         * @return {?}
-         */
-        FocusIndicator.prototype.setOptions = /**
-         * Allow the options to be updates
-         * @param {?} options
-         * @return {?}
-         */
-            function (options) {
-                this._options = __assign({}, this._options, options);
-            };
-        /** Monitor changes to an elements focus state */
-        /**
-         * Monitor changes to an elements focus state
-         * @param {?} origin
-         * @return {?}
-         */
-        FocusIndicator.prototype.onFocusChange = /**
-         * Monitor changes to an elements focus state
-         * @param {?} origin
-         * @return {?}
-         */
-            function (origin) {
-                switch (origin) {
-                    case 'mouse':
-                        this.isFocused = this._options.mouseFocusIndicator;
-                        break;
-                    case 'touch':
-                        this.isFocused = this._options.touchFocusIndicator;
-                        break;
-                    case 'keyboard':
-                        this.isFocused = this._options.keyboardFocusIndicator;
-                        break;
-                    case 'program':
-                        this.isFocused = this._options.programmaticFocusIndicator;
-                        break;
-                    default:
-                        this.isFocused = false;
-                }
-            };
-        return FocusIndicator;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var FocusIndicatorService = /** @class */ (function () {
-        function FocusIndicatorService(_focusMonitor, _options, rendererFactory) {
-            this._focusMonitor = _focusMonitor;
-            this._options = _options;
-            // programmatically create a renderer as it can't be injected into a service
-            this._renderer = rendererFactory.createRenderer(null, null);
-        }
-        /** This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global options each time */
-        /**
-         * This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global options each time
-         * @param {?} element
-         * @param {?=} options
-         * @return {?}
-         */
-        FocusIndicatorService.prototype.monitor = /**
-         * This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global options each time
-         * @param {?} element
-         * @param {?=} options
-         * @return {?}
-         */
-            function (element, options) {
-                if (options === void 0) {
-                    options = __assign({}, this._options, { checkChildren: false });
-                }
-                return new FocusIndicator(element, this._focusMonitor, this._renderer, __assign({}, this._options, options));
-            };
-        FocusIndicatorService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        FocusIndicatorService.ctorParameters = function () {
-            return [
-                { type: a11y.FocusMonitor },
-                { type: AccessibilityOptionsService },
-                { type: core.RendererFactory2 }
-            ];
-        };
-        return FocusIndicatorService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var FocusIndicatorDirective = /** @class */ (function () {
-        function FocusIndicatorDirective(_elementRef, _focusIndicatorService, _optionsService, _changeDetectorRef) {
-            this._elementRef = _elementRef;
-            this._focusIndicatorService = _focusIndicatorService;
-            this._optionsService = _optionsService;
-            this._changeDetectorRef = _changeDetectorRef;
-            /**
-             * Emit the latest focus state
-             */
-            this.indicator = new core.EventEmitter();
-            /**
-             * Store a private reference for the checkChildren option
-             */
-            this._checkChildren = false;
-            /**
-             * Store a private reference for the mouseFocusIndicator option
-             */
-            this._mouseFocusIndicator = this._optionsService.options.mouseFocusIndicator;
-            /**
-             * Store a private reference for the mouseFocusIndicator option
-             */
-            this._touchFocusIndicator = this._optionsService.options.touchFocusIndicator;
-            /**
-             * Store a private reference for the mouseFocusIndicator option
-             */
-            this._keyboardFocusIndicator = this._optionsService.options.keyboardFocusIndicator;
-            /**
-             * Store a private reference for the mouseFocusIndicator option
-             */
-            this._programmaticFocusIndicator = this._optionsService.options.programmaticFocusIndicator;
-            /**
-             * Unsubscribe on component destroy
-             */
-            this._onDestroy = new Subject.Subject();
-        }
-        Object.defineProperty(FocusIndicatorDirective.prototype, "checkChildren", {
-            /** Specify whether or not we should mark this element as having focus if a child is focused */
-            set: /**
-             * Specify whether or not we should mark this element as having focus if a child is focused
-             * @param {?} checkChildren
-             * @return {?}
-             */ function (checkChildren) {
-                this._checkChildren = checkChildren;
-                this.setOptions();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(FocusIndicatorDirective.prototype, "mouseFocusIndicator", {
-            /** Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting */
-            set: /**
-             * Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting
-             * @param {?} mouseFocusIndicator
-             * @return {?}
-             */ function (mouseFocusIndicator) {
-                this._mouseFocusIndicator = mouseFocusIndicator;
-                this.setOptions();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(FocusIndicatorDirective.prototype, "touchFocusIndicator", {
-            /** Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting */
-            set: /**
-             * Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting
-             * @param {?} touchFocusIndicator
-             * @return {?}
-             */ function (touchFocusIndicator) {
-                this._touchFocusIndicator = touchFocusIndicator;
-                this.setOptions();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(FocusIndicatorDirective.prototype, "keyboardFocusIndicator", {
-            /** Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting */
-            set: /**
-             * Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting
-             * @param {?} keyboardFocusIndicator
-             * @return {?}
-             */ function (keyboardFocusIndicator) {
-                this._keyboardFocusIndicator = keyboardFocusIndicator;
-                this.setOptions();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(FocusIndicatorDirective.prototype, "programmaticFocusIndicator", {
-            /** Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting */
-            set: /**
-             * Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting
-             * @param {?} programmaticFocusIndicator
-             * @return {?}
-             */ function (programmaticFocusIndicator) {
-                this._programmaticFocusIndicator = programmaticFocusIndicator;
-                this.setOptions();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /** Setup the focus monitoring */
-        /**
-         * Setup the focus monitoring
-         * @return {?}
-         */
-        FocusIndicatorDirective.prototype.ngOnInit = /**
-         * Setup the focus monitoring
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // start the focus monitoring
-                this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement, {
-                    checkChildren: this._checkChildren,
-                    mouseFocusIndicator: this._mouseFocusIndicator,
-                    touchFocusIndicator: this._touchFocusIndicator,
-                    keyboardFocusIndicator: this._keyboardFocusIndicator,
-                    programmaticFocusIndicator: this._programmaticFocusIndicator
-                });
-                // subscribe to the focus state to emit an event on change
-                this._focusIndicator.isFocused$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isFocused) {
-                    // emit the latest value
-                    _this.indicator.emit(isFocused);
-                    // inform the change detector that we need to run as focus monitor runs outside of NgZone
-                    _this._changeDetectorRef.detectChanges();
-                });
-            };
-        /** Tear down the directive */
-        /**
-         * Tear down the directive
-         * @return {?}
-         */
-        FocusIndicatorDirective.prototype.ngOnDestroy = /**
-         * Tear down the directive
-         * @return {?}
-         */
-            function () {
-                if (this._focusIndicator) {
-                    this._focusIndicator.destroy();
-                }
-                // unsubscribe from all observables
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /** Update the focus indicator with the latest options */
-        /**
-         * Update the focus indicator with the latest options
-         * @return {?}
-         */
-        FocusIndicatorDirective.prototype.setOptions = /**
-         * Update the focus indicator with the latest options
-         * @return {?}
-         */
-            function () {
-                if (this._focusIndicator) {
-                    this._focusIndicator.setOptions({
-                        checkChildren: this._checkChildren,
-                        mouseFocusIndicator: this._mouseFocusIndicator,
-                        touchFocusIndicator: this._touchFocusIndicator,
-                        keyboardFocusIndicator: this._keyboardFocusIndicator,
-                        programmaticFocusIndicator: this._programmaticFocusIndicator
-                    });
-                }
-            };
-        FocusIndicatorDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxFocusIndicator]',
-                        exportAs: 'ux-focus-indicator'
-                    },] }
-        ];
-        /** @nocollapse */
-        FocusIndicatorDirective.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: FocusIndicatorService },
-                { type: AccessibilityOptionsService },
-                { type: core.ChangeDetectorRef }
-            ];
-        };
-        FocusIndicatorDirective.propDecorators = {
-            checkChildren: [{ type: core.Input }],
-            mouseFocusIndicator: [{ type: core.Input }],
-            touchFocusIndicator: [{ type: core.Input }],
-            keyboardFocusIndicator: [{ type: core.Input }],
-            programmaticFocusIndicator: [{ type: core.Input }],
-            indicator: [{ type: core.Output }]
-        };
-        return FocusIndicatorDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * This directive can be used to target specific elements based on their CSS
-     * class so we can control when the focus shows. This will help prevent us
-     * polluting the FocusIndicatorDirective with an lot of selectors.
-     */
-    var DefaultFocusIndicatorDirective = /** @class */ (function (_super) {
-        __extends(DefaultFocusIndicatorDirective, _super);
-        function DefaultFocusIndicatorDirective(elementRef, focusIndicatorService, optionsService, changeDetectorRef) {
-            var _this = _super.call(this, elementRef, focusIndicatorService, optionsService, changeDetectorRef) || this;
-            // Enable programmatic focus by default
-            _this.programmaticFocusIndicator = true;
-            return _this;
-        }
-        DefaultFocusIndicatorDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '.btn',
-                    },] }
-        ];
-        /** @nocollapse */
-        DefaultFocusIndicatorDirective.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: FocusIndicatorService },
-                { type: AccessibilityOptionsService },
-                { type: core.ChangeDetectorRef }
-            ];
-        };
-        return DefaultFocusIndicatorDirective;
-    }(FocusIndicatorDirective));
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var FocusWithinDirective = /** @class */ (function () {
-        function FocusWithinDirective(_elementRef, _focusMonitor, ngZone) {
-            var _this = this;
-            this._elementRef = _elementRef;
-            this._focusMonitor = _focusMonitor;
-            this.uxFocusWithin = new core.EventEmitter();
-            this.uxBlurWithin = new core.EventEmitter();
-            _focusMonitor.monitor(this._elementRef.nativeElement, true)
-                .subscribe(function (origin) { return ngZone.run(function () { return origin ? _this.uxFocusWithin.emit() : _this.uxBlurWithin.emit(); }); });
-        }
-        /**
-         * @return {?}
-         */
-        FocusWithinDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
-            };
-        FocusWithinDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxFocusWithin],[uxBlurWithin]',
-                    },] }
-        ];
-        /** @nocollapse */
-        FocusWithinDirective.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: a11y.FocusMonitor },
-                { type: core.NgZone }
-            ];
-        };
-        FocusWithinDirective.propDecorators = {
-            uxFocusWithin: [{ type: core.Output }],
-            uxBlurWithin: [{ type: core.Output }]
-        };
-        return FocusWithinDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var SplitterAccessibilityDirective = /** @class */ (function () {
-        function SplitterAccessibilityDirective(_elementRef, _renderer, _platform, _splitter) {
-            var _this = this;
-            this._elementRef = _elementRef;
-            this._renderer = _renderer;
-            this._platform = _platform;
-            this._splitter = _splitter;
-            /**
-             * Emit an event whenever the gutter is moved using the keyboard
-             */
-            this.gutterKeydown = new core.EventEmitter();
-            /**
-             * Store all the gutter elements
-             */
-            this._gutters = [];
-            /**
-             * Teardown our observables on destroy
-             */
-            this._onDestroy = new Subject.Subject();
-            // update aria values when the a gutter is dragged
-            _splitter.dragProgress
-                .pipe(operators.takeUntil(this._onDestroy))
-                .subscribe(function () { return _this.updateGutterAttributes(); });
-        }
-        /** Once initialised make the gutters accessible */
-        /**
-         * Once initialised make the gutters accessible
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.ngAfterViewInit = /**
-         * Once initialised make the gutters accessible
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // find the gutters
-                this.onGutterChange();
-                // if the number of split areas change then update the gutters and apply aria properties
-                this.areas.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.onGutterChange(); });
-                // we can't know when additional split-gutters appear using ContentChildren as the directive class is not exported and selector doesn't work - use mutation observer instead
-                if (common.isPlatformBrowser(this._platform)) {
-                    // create the mutation observer
-                    this._observer = new MutationObserver(function () { return _this.onGutterChange(); });
-                    // begin observing the child nodes
-                    this._observer.observe(this._elementRef.nativeElement, { childList: true });
-                }
-            };
-        /** Destroy all observables and observers */
-        /**
-         * Destroy all observables and observers
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.ngOnDestroy = /**
-         * Destroy all observables and observers
-         * @return {?}
-         */
-            function () {
-                if (this._observer) {
-                    this._observer.disconnect();
-                }
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /** We should focus the gutter when it is clicked */
-        /**
-         * We should focus the gutter when it is clicked
-         * @param {?} event
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onClick = /**
-         * We should focus the gutter when it is clicked
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
-                    (( /** @type {?} */(event.target))).focus();
-                }
-            };
-        /** Find all the gutters and set their attributes */
-        /**
-         * Find all the gutters and set their attributes
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onGutterChange = /**
-         * Find all the gutters and set their attributes
-         * @return {?}
-         */
-            function () {
-                this._gutters = this.getGutters();
-                this.setGutterAttributes();
-            };
-        /** Get all the gutter elements */
-        /**
-         * Get all the gutter elements
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.getGutters = /**
-         * Get all the gutter elements
-         * @return {?}
-         */
-            function () {
-                // This function uses DOM accessing properties - which won't work if server side rendered
-                if (common.isPlatformBrowser(this._platform)) {
-                    /** @type {?} */
-                    var gutters = [];
-                    for (var idx = 0; idx < this._elementRef.nativeElement.children.length; idx++) {
-                        /** @type {?} */
-                        var node = this._elementRef.nativeElement.children.item(idx);
-                        if (this.isSplitterGutter(( /** @type {?} */(node)))) {
-                            gutters.push(( /** @type {?} */(node)));
-                        }
-                    }
-                    return gutters;
-                }
-                return [];
-            };
-        /** Set the appropriate attributes on the gutter elements */
-        /**
-         * Set the appropriate attributes on the gutter elements
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.setGutterAttributes = /**
-         * Set the appropriate attributes on the gutter elements
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // apply attribute to every gutter
-                this._gutters.forEach(function (gutter) {
-                    // apply the separator role
-                    _this._renderer.setAttribute(gutter, 'role', 'separator');
-                    // make the gutters tabbable
-                    _this._renderer.setAttribute(gutter, 'tabindex', '0');
-                    // set the value now aria property
-                    _this.updateGutterAttributes();
-                });
-            };
-        /** Apply the aria attribute values */
-        /**
-         * Apply the aria attribute values
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.updateGutterAttributes = /**
-         * Apply the aria attribute values
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // update the value now properties of each gutter
-                this._gutters.forEach(function (gutter, idx) {
-                    _this.setGutterValueNow(gutter, idx);
-                    _this.setGutterValueMin(gutter, idx);
-                    _this.setGutterValueMax(gutter, idx);
-                });
-            };
-        /** Apply the value now aria attribute */
-        /**
-         * Apply the value now aria attribute
-         * @param {?} gutter
-         * @param {?} index
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.setGutterValueNow = /**
-         * Apply the value now aria attribute
-         * @param {?} gutter
-         * @param {?} index
-         * @return {?}
-         */
-            function (gutter, index) {
-                // get the matching split area
-                /** @type {?} */
-                var area = this._splitter.displayedAreas[index];
-                // indicate the size
-                this._renderer.setAttribute(gutter, 'aria-valuenow', "" + Math.round(area.size * 100));
-            };
-        /** Apply the value min aria attribute */
-        /**
-         * Apply the value min aria attribute
-         * @param {?} gutter
-         * @param {?} index
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.setGutterValueMin = /**
-         * Apply the value min aria attribute
-         * @param {?} gutter
-         * @param {?} index
-         * @return {?}
-         */
-            function (gutter, index) {
-                // get the matching split area
-                /** @type {?} */
-                var area = this.areas.toArray()[index];
-                // indicate the minimum size
-                this._renderer.setAttribute(gutter, 'aria-valuemin', "" + Math.round(area.minSize * 100));
-            };
-        /** Apply the value max aria attribute */
-        /**
-         * Apply the value max aria attribute
-         * @param {?} gutter
-         * @param {?} index
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.setGutterValueMax = /**
-         * Apply the value max aria attribute
-         * @param {?} gutter
-         * @param {?} index
-         * @return {?}
-         */
-            function (gutter, index) {
-                // get every other splitter area
-                /** @type {?} */
-                var availableSize = this.areas
-                    .filter(function (_area, idx) { return index !== idx; })
-                    .reduce(function (total, area) { return total + area.minSize; }, 0);
-                // indicate the minimum size
-                this._renderer.setAttribute(gutter, 'aria-valuemax', "" + (100 - Math.round(availableSize * 100)));
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onKeydown = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
-                    this.gutterKeydown.emit(event);
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onIncreaseKey = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // only perform a move if a gutter is focused
-                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
-                    this.setGutterPosition(( /** @type {?} */(event.target)), -0.01);
-                    // stop the browser from scrolling
-                    event.preventDefault();
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onDecreaseKey = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // only perform a move if a gutter is focused
-                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
-                    this.setGutterPosition(( /** @type {?} */(event.target)), 0.01);
-                    // stop the browser from scrolling
-                    event.preventDefault();
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onHomeKey = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
-                    // get the affected panels
-                    /** @type {?} */
-                    var areas = this.getAreasFromGutter(( /** @type {?} */(event.target)));
-                    // set the previous area to it's minimum size
-                    /** @type {?} */
-                    var delta = areas.previous.size - areas.previous.comp.minSize;
-                    // update the sizes accordingly
-                    this.setGutterPosition(( /** @type {?} */(event.target)), delta);
-                    // stop the browser from scrolling
-                    event.preventDefault();
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.onEndKey = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
-                    // get the affected panels
-                    /** @type {?} */
-                    var areas = this.getAreasFromGutter(( /** @type {?} */(event.target)));
-                    // set the next area to it's minimum size
-                    /** @type {?} */
-                    var delta = areas.next.size - areas.next.comp.minSize;
-                    // update the sizes accordingly
-                    this.setGutterPosition(( /** @type {?} */(event.target)), -delta);
-                    // stop the browser from scrolling
-                    event.preventDefault();
-                }
-            };
-        /** Determine if an element is a gutter */
-        /**
-         * Determine if an element is a gutter
-         * @param {?} element
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.isSplitterGutter = /**
-         * Determine if an element is a gutter
-         * @param {?} element
-         * @return {?}
-         */
-            function (element) {
-                return element.tagName === 'SPLIT-GUTTER';
-            };
-        /** Update the gutter position */
-        /**
-         * Update the gutter position
-         * @param {?} gutter
-         * @param {?} delta
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.setGutterPosition = /**
-         * Update the gutter position
-         * @param {?} gutter
-         * @param {?} delta
-         * @return {?}
-         */
-            function (gutter, delta) {
-                // get the affected panels
-                /** @type {?} */
-                var areas = this.getAreasFromGutter(gutter);
-                // ensure we can perform the resize
-                if (areas.previous.size - delta < areas.previous.comp.minSize || areas.next.size + delta < areas.next.comp.minSize) {
-                    return;
-                }
-                // perform the resize
-                areas.previous.size -= delta;
-                areas.next.size += delta;
-                // update the splitter - this is a private method but we need to call it
-                (( /** @type {?} */(this._splitter))).refreshStyleSizes();
-                // update the gutter aria values
-                this.updateGutterAttributes();
-            };
-        /** Get the split areas associated with a given gutter */
-        /**
-         * Get the split areas associated with a given gutter
-         * @param {?} gutter
-         * @return {?}
-         */
-        SplitterAccessibilityDirective.prototype.getAreasFromGutter = /**
-         * Get the split areas associated with a given gutter
-         * @param {?} gutter
-         * @return {?}
-         */
-            function (gutter) {
-                /** @type {?} */
-                var index = this._gutters.indexOf(gutter);
-                return {
-                    previous: this._splitter.displayedAreas[index],
-                    next: this._splitter.displayedAreas[index + 1]
-                };
-            };
-        SplitterAccessibilityDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'split'
-                    },] }
-        ];
-        /** @nocollapse */
-        SplitterAccessibilityDirective.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
-                { type: String, decorators: [{ type: core.Inject, args: [core.PLATFORM_ID,] }] },
-                { type: angularSplit.SplitComponent }
-            ];
-        };
-        SplitterAccessibilityDirective.propDecorators = {
-            gutterKeydown: [{ type: core.Output }],
-            areas: [{ type: core.ContentChildren, args: [angularSplit.SplitAreaDirective,] }],
-            onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }],
-            onIncreaseKey: [{ type: core.HostListener, args: ['keydown.ArrowDown', ['$event'],] }, { type: core.HostListener, args: ['keydown.ArrowRight', ['$event'],] }],
-            onDecreaseKey: [{ type: core.HostListener, args: ['keydown.ArrowUp', ['$event'],] }, { type: core.HostListener, args: ['keydown.ArrowLeft', ['$event'],] }],
-            onHomeKey: [{ type: core.HostListener, args: ['keydown.Home', ['$event'],] }],
-            onEndKey: [{ type: core.HostListener, args: ['keydown.End', ['$event'],] }]
-        };
-        return SplitterAccessibilityDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * This is a simple RxJS operator to allow us to avoid the
-     * "expression has changed after it was checked issue"
-     * by making the subscription asynchronous. We could just use a
-     * delay operator but this uses a timeout which is significantly
-     * slower than using requestAnimationFrame.
-     * @type {?}
-     */
-    var tick = function () {
-        return function (source) {
-            return new Observable.Observable(function (subscriber) {
-                source.subscribe({
-                    next: /**
-                     * @param {?} value
-                     * @return {?}
-                     */ function (value) { requestAnimationFrame(function () { return subscriber.next(value); }); },
-                    error: /**
-                     * @param {?} err
-                     * @return {?}
-                     */ function (err) { subscriber.error(err); },
-                    complete: /**
-                     * @return {?}
-                     */ function () { subscriber.complete(); },
-                });
-            });
-        };
-    };
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var TabbableListService = /** @class */ (function () {
-        function TabbableListService() {
-            this.hierarchy = false;
-            this.allowAltModifier = true;
-            this.allowCtrlModifier = true;
-            this.allowBoundaryKeys = false;
-            this.shouldScrollInView = true;
-            this._onDestroy = new Subject.Subject();
-        }
-        /**
-         * @return {?}
-         */
-        TabbableListService.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * @param {?} items
-         * @param {?} direction
-         * @param {?} wrap
-         * @return {?}
-         */
-        TabbableListService.prototype.initialize = /**
-         * @param {?} items
-         * @param {?} direction
-         * @param {?} wrap
-         * @return {?}
-         */
-            function (items, direction, wrap) {
-                var _this = this;
-                // store the items
-                this._items = items;
-                // create the new focus key manager
-                this.focusKeyManager = new a11y.FocusKeyManager(items);
-                // set the direction of the list
-                direction === 'vertical' ? this.focusKeyManager.withVerticalOrientation() : this.focusKeyManager.withHorizontalOrientation('ltr');
-                this._direction = direction;
-                // enable wrapping if required
-                if (wrap) {
-                    this.focusKeyManager.withWrap();
-                }
-                // make sure the first item in the list is tabbable
-                this.setFirstItemTabbable();
-                // call the init function on each item
-                this._items.forEach(function (item) { return item.onInit(); });
-                // if the list changes we need to ensure there is always at least one tabbable item
-                this._items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
-                    // call the on init function on any new items
-                    _this._items.filter(function (item) { return !item.initialized; }).forEach(function (item) { return item.onInit(); });
-                    // ensure there is at least one item tabbable at all times
-                    _this.ensureTabbableItem();
-                });
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        TabbableListService.prototype.activate = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                if (!item) {
-                    return;
-                }
-                // get the item index
-                /** @type {?} */
-                var index = this._items.toArray().indexOf(item);
-                // active the item if it is not already active
-                if (this.focusKeyManager.activeItemIndex !== index) {
-                    this.focusKeyManager.setActiveItem(index);
-                }
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        TabbableListService.prototype.isItemActive = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                return this.focusKeyManager.activeItem.id === item.id;
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListService.prototype.setFirstItemTabbable = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // delay to prevent expression changed after check error
-                requestAnimationFrame(function () {
-                    // find the first item that is not disabled
-                    /** @type {?} */
-                    var first = _this._items.find(function (item) { return !item.disabled; });
-                    if (first) {
-                        first.tabindex = 0;
-                    }
-                });
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListService.prototype.ensureTabbableItem = /**
-         * @return {?}
-         */
-            function () {
-                // check to see if any item is tabbable
-                /** @type {?} */
-                var active = this._items.find(function (item) { return item.tabindex === 0; });
-                if (!active) {
-                    this.setFirstItemTabbable();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListService.prototype.focusTabbableItem = /**
-         * @return {?}
-         */
-            function () {
-                if (!this._items) {
-                    return;
-                }
-                // find the item in the list with a tab index
-                /** @type {?} */
-                var index = this._items.toArray().findIndex(function (item) { return item.tabindex === 0; });
-                // if an item was found then focus it
-                if (index !== -1) {
-                    this.focusKeyManager.setActiveItem(index);
-                }
-            };
-        /**
-         * @param {?} source
-         * @param {?} event
-         * @return {?}
-         */
-        TabbableListService.prototype.onKeydown = /**
-         * @param {?} source
-         * @param {?} event
-         * @return {?}
-         */
-            function (source, event) {
-                // prevent anything happening when modifier keys are pressed if they have been disabled
-                if (!this.allowAltModifier && event.altKey || !this.allowCtrlModifier && event.ctrlKey) {
-                    return;
-                }
-                this.focusKeyManager.onKeydown(event);
-                // if the key is a boundary key and boundary keys are enabled
-                if (this.allowBoundaryKeys) {
-                    switch (event.which) {
-                        case keycodes.HOME:
-                            this.focusKeyManager.setFirstItemActive();
-                            event.preventDefault();
-                            break;
-                        case keycodes.END:
-                            this.focusKeyManager.setLastItemActive();
-                            event.preventDefault();
-                            break;
-                    }
-                }
-                if (this.hierarchy) {
-                    if ((this._direction === 'horizontal' && event.keyCode === keycodes.DOWN_ARROW) ||
-                        (this._direction === 'vertical' && event.keyCode === keycodes.RIGHT_ARROW)) {
-                        source.keyboardExpanded$.next(true);
-                    }
-                    else if ((this._direction === 'horizontal' && event.keyCode === keycodes.UP_ARROW) ||
-                        (this._direction === 'vertical' && event.keyCode === keycodes.LEFT_ARROW)) {
-                        if (source.children.length > 0 && source.expanded) {
-                            source.keyboardExpanded$.next(false);
-                        }
-                        else if (source.parent) {
-                            source.parent.keyboardExpanded$.next(false);
-                        }
-                    }
-                }
-            };
-        /**
-         * @param {?} list
-         * @return {?}
-         */
-        TabbableListService.prototype.sortItemsByHierarchy = /**
-         * @param {?} list
-         * @return {?}
-         */
-            function (list) {
-                /** @type {?} */
-                var topLevel = [];
-                // Populating children - clear previously generated collection
-                list.forEach(function (item) { return item.children = []; });
-                // Populating children - map from child -> parent relationship
-                list.forEach(function (item) {
-                    if (item.parent) {
-                        item.parent.children.push(item);
-                    }
-                    else {
-                        topLevel.push(item);
-                    }
-                });
-                // Flatten the tree to produce the cursor key order
-                return this.flattenHierarchy(topLevel);
-            };
-        /**
-         * @param {?} items
-         * @return {?}
-         */
-        TabbableListService.prototype.flattenHierarchy = /**
-         * @param {?} items
-         * @return {?}
-         */
-            function (items) {
-                var _this = this;
-                /** @type {?} */
-                var flatList = [];
-                items.forEach(function (item) {
-                    item.children.sort(function (a, b) { return a.rank - b.rank; });
-                    flatList.push.apply(flatList, __spread([item], _this.flattenHierarchy(item.children)));
-                });
-                return flatList;
-            };
-        TabbableListService.decorators = [
-            { type: core.Injectable }
-        ];
-        return TabbableListService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var nextId = 0;
-    /** @type {?} */
-    var uniqueKey = 0;
-    var TabbableListItemDirective = /** @class */ (function () {
-        function TabbableListItemDirective(_tabbableList, _elementRef, focusMonitor) {
-            var _this = this;
-            this._tabbableList = _tabbableList;
-            this._elementRef = _elementRef;
-            this.rank = 0;
-            this.disabled = false;
-            this.expanded = false;
-            /**
-             * Provide a unique key to help identify items when used in a virtual list
-             */
-            this.key = "tabbable-list-key-" + uniqueKey++;
-            this.expandedChange = new core.EventEmitter();
-            this.tabindex = -1;
-            this.id = nextId++;
-            this.initialized = false;
-            this.children = [];
-            this.keyboardExpanded$ = new Subject.Subject();
-            this._onDestroy = new Subject.Subject();
-            this.keyboardExpanded$.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
-                // Emit event which may alter the DOM
-                _this.expandedChange.emit(expanded);
-                // Activate the appropriate item
-                if (expanded) {
-                    if (_this.children.length > 0) {
-                        _this._tabbableList.activate(_this.children[0]);
-                    }
-                }
-                else {
-                    _this._tabbableList.activate(_this);
-                }
-            });
-            // add classes to indicate the origin of the focus event
-            focusMonitor.monitor(_elementRef.nativeElement, false).pipe(operators.takeUntil(this._onDestroy)).subscribe();
-        }
-        /**
-         * @return {?}
-         */
-        TabbableListItemDirective.prototype.onInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                this.initialized = true;
-                this._tabbableList.focusKeyManager.change
-                    .pipe(operators.takeUntil(this._onDestroy), operators.map(function () { return _this._tabbableList.isItemActive(_this); }))
-                    .subscribe(function (active) { return _this.tabindex = active ? 0 : -1; });
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListItemDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                // check if this is the currently focused item - if so we need to make another item tabbable
-                if (this.tabindex === 0) {
-                    this._tabbableList.setFirstItemTabbable();
-                }
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListItemDirective.prototype.focus = /**
-         * @return {?}
-         */
-            function () {
-                // apply focus to the element
-                (( /** @type {?} */(this._elementRef.nativeElement))).focus({ preventScroll: !this._tabbableList.shouldScrollInView });
-                // ensure the focus key manager updates the active item correctly
-                this._tabbableList.activate(this);
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        TabbableListItemDirective.prototype.onKeydown = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                this._tabbableList.onKeydown(this, event);
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListItemDirective.prototype.getFocused = /**
-         * @return {?}
-         */
-            function () {
-                return this._elementRef.nativeElement === document.activeElement;
-            };
-        TabbableListItemDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxTabbableListItem]',
-                        exportAs: 'ux-tabbable-list-item'
-                    },] }
-        ];
-        /** @nocollapse */
-        TabbableListItemDirective.ctorParameters = function () {
-            return [
-                { type: TabbableListService },
-                { type: core.ElementRef },
-                { type: a11y.FocusMonitor }
-            ];
-        };
-        TabbableListItemDirective.propDecorators = {
-            parent: [{ type: core.Input }],
-            rank: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            key: [{ type: core.Input }],
-            expandedChange: [{ type: core.Output }],
-            tabindex: [{ type: core.HostBinding }],
-            focus: [{ type: core.HostListener, args: ['focus',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
-        };
-        return TabbableListItemDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var TabbableListDirective = /** @class */ (function () {
-        function TabbableListDirective(_tabbableList) {
-            this._tabbableList = _tabbableList;
-            /**
-             * Determine whether the up/down arrows should be used or the left/right arrows
-             */
-            this.direction = 'vertical';
-            /**
-             * Indicate whether or not focus should loop back to the first element after the last
-             */
-            this.wrap = true;
-            /**
-             * Indicate whether or not the first item should receive focus on show - useful for modals and popovers
-             */
-            this.focusOnShow = false;
-            /**
-             * Indicate whether or not focus should be returned to the previous element (only applicable when using focusOnShow)
-             */
-            this.returnFocus = false;
-            this._onDestroy = new Subject.Subject();
-        }
-        Object.defineProperty(TabbableListDirective.prototype, "hierarchy", {
-            /** Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property. */
-            set: /**
-             * Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property.
-             * @param {?} value
-             * @return {?}
-             */ function (value) { this._tabbableList.hierarchy = value; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TabbableListDirective.prototype, "allowAltModifier", {
-            /** Prevent keyboard interaction when alt modifier key is pressed */
-            set: /**
-             * Prevent keyboard interaction when alt modifier key is pressed
-             * @param {?} value
-             * @return {?}
-             */ function (value) { this._tabbableList.allowAltModifier = value; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TabbableListDirective.prototype, "allowCtrlModifier", {
-            /** Prevent keyboard interaction when ctrl modifier key is pressed */
-            set: /**
-             * Prevent keyboard interaction when ctrl modifier key is pressed
-             * @param {?} value
-             * @return {?}
-             */ function (value) { this._tabbableList.allowCtrlModifier = value; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TabbableListDirective.prototype, "allowBoundaryKeys", {
-            /** Focus the first or last item when Home or End keys are pressed */
-            set: /**
-             * Focus the first or last item when Home or End keys are pressed
-             * @param {?} value
-             * @return {?}
-             */ function (value) { this._tabbableList.allowBoundaryKeys = value; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TabbableListDirective.prototype, "focusKeyManager", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._tabbableList.focusKeyManager;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        TabbableListDirective.prototype.ngAfterContentInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // store the currently focused element
-                this._focusedElement = ( /** @type {?} */(document.activeElement));
-                this._orderedItems = new core.QueryList();
-                if (this._tabbableList.hierarchy) {
-                    // Sort items in a hierarchy
-                    this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
-                    // Ensure that the child items remain sorted
-                    this.items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
-                        _this._orderedItems.reset(_this._tabbableList.sortItemsByHierarchy(_this.items));
-                        _this._orderedItems.notifyOnChanges();
-                    });
-                }
-                else {
-                    // Items are already in order
-                    this._orderedItems = this.items;
-                    // Ensure we reselect a selected item after the querylist has changed
-                    this.items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (items) {
-                        // check if an item is currently focused
-                        /** @type {?} */
-                        var activeItem = _this._tabbableList.focusKeyManager.activeItem;
-                        // restore the selected item if there was one and it is still visible
-                        if (activeItem) {
-                            // find the matching index
-                            /** @type {?} */
-                            var index = items.toArray().findIndex(function (item) { return item.key === activeItem.key; });
-                            // if the item is still in the list we want to focus it
-                            if (index > -1) {
-                                // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
-                                _this._tabbableList.shouldScrollInView = false;
-                                // refocus the item again
-                                _this._tabbableList.focusKeyManager.setActiveItem(index);
-                                // re-enable scrolling into view
-                                _this._tabbableList.shouldScrollInView = true;
-                            }
-                        }
-                    });
-                }
-                // Set up the focus monitoring
-                this._tabbableList.initialize(this._orderedItems, this.direction, this.wrap);
-                // focus the first element if specified
-                if (this.focusOnShow) {
-                    this._tabbableList.focusKeyManager.setFirstItemActive();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
-                    setTimeout(function () { return _this._focusedElement.focus(); });
-                }
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListDirective.prototype.focus = /**
-         * @return {?}
-         */
-            function () {
-                if (this._tabbableList.focusKeyManager && this._tabbableList.focusKeyManager.activeItem) {
-                    this._tabbableList.focusKeyManager.activeItem.focus();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        TabbableListDirective.prototype.focusTabbableItem = /**
-         * @return {?}
-         */
-            function () {
-                this._tabbableList.focusTabbableItem();
-            };
-        TabbableListDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxTabbableList]',
-                        exportAs: 'ux-tabbable-list',
-                        providers: [TabbableListService]
-                    },] }
-        ];
-        /** @nocollapse */
-        TabbableListDirective.ctorParameters = function () {
-            return [
-                { type: TabbableListService }
-            ];
-        };
-        TabbableListDirective.propDecorators = {
-            direction: [{ type: core.Input }],
-            wrap: [{ type: core.Input }],
-            focusOnShow: [{ type: core.Input }],
-            returnFocus: [{ type: core.Input }],
-            hierarchy: [{ type: core.Input }],
-            allowAltModifier: [{ type: core.Input }],
-            allowCtrlModifier: [{ type: core.Input }],
-            allowBoundaryKeys: [{ type: core.Input }],
-            items: [{ type: core.ContentChildren, args: [TabbableListItemDirective, { descendants: true },] }]
-        };
-        return TabbableListDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var AccessibilityModule = /** @class */ (function () {
-        function AccessibilityModule() {
-        }
-        /**
-         * @param {?} options
-         * @return {?}
-         */
-        AccessibilityModule.forRoot = /**
-         * @param {?} options
-         * @return {?}
-         */
-            function (options) {
-                return {
-                    ngModule: AccessibilityModule,
-                    providers: [
-                        { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options }
-                    ]
-                };
-            };
-        AccessibilityModule.decorators = [
-            { type: core.NgModule, args: [{
-                        declarations: [
-                            DefaultFocusIndicatorDirective,
-                            FocusIndicatorDirective,
-                            FocusWithinDirective,
-                            TabbableListDirective,
-                            TabbableListItemDirective,
-                            SplitterAccessibilityDirective
-                        ],
-                        imports: [
-                            a11y.A11yModule
-                        ],
-                        exports: [
-                            DefaultFocusIndicatorDirective,
-                            FocusIndicatorDirective,
-                            FocusWithinDirective,
-                            TabbableListDirective,
-                            TabbableListItemDirective,
-                            SplitterAccessibilityDirective,
-                        ],
-                        providers: [
-                            AccessibilityOptionsService,
-                            FocusIndicatorService
-                        ]
-                    },] }
-        ];
-        return AccessibilityModule;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var AccordionModule = /** @class */ (function () {
-        function AccordionModule() {
-        }
-        AccordionModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            AccessibilityModule,
-                            common.CommonModule
-                        ],
-                        declarations: [
-                            AccordionComponent,
-                            AccordionPanelComponent,
-                            AccordionPanelHeadingDirective
-                        ],
-                        exports: [
-                            AccordionComponent,
-                            AccordionPanelComponent,
-                            AccordionPanelHeadingDirective
-                        ]
-                    },] }
-        ];
-        return AccordionModule;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var AlertIconDirective = /** @class */ (function () {
-        function AlertIconDirective() {
-        }
-        AlertIconDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxAlertIcon]',
-                    },] }
-        ];
-        return AlertIconDirective;
-    }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2501,6 +746,10 @@
                 // create a new theme object
                 /** @type {?} */
                 var theme = {};
+                // ensure we have a colorset
+                if (!colorSet) {
+                    colorSet = colorSets.keppel;
+                }
                 // iterate over each hex code and convert it to a theme color
                 for (var color in colorSet.colorValueSet) {
                     theme[color] = ThemeColor.parse(colorSet.colorValueSet[color]);
@@ -2600,6 +849,2557 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var ContrastService = /** @class */ (function () {
+        function ContrastService() {
+        }
+        /**
+         * Calculate the contract ratio between two colors.
+         * This uses the official WCAG Color Contrast Ratio
+         * Algorithm: https://www.w3.org/TR/WCAG20-TECHS/G17.html
+         */
+        /**
+         * Calculate the contract ratio between two colors.
+         * This uses the official WCAG Color Contrast Ratio
+         * Algorithm: https://www.w3.org/TR/WCAG20-TECHS/G17.html
+         * @param {?} backgroundColor
+         * @param {?} lightColor
+         * @param {?} darkColor
+         * @return {?}
+         */
+        ContrastService.prototype.getContrastColor = /**
+         * Calculate the contract ratio between two colors.
+         * This uses the official WCAG Color Contrast Ratio
+         * Algorithm: https://www.w3.org/TR/WCAG20-TECHS/G17.html
+         * @param {?} backgroundColor
+         * @param {?} lightColor
+         * @param {?} darkColor
+         * @return {?}
+         */
+            function (backgroundColor, lightColor, darkColor) {
+                // get a ThemeColor from the ColorPickerColor
+                /** @type {?} */
+                var themeColor = ThemeColor.parse(backgroundColor.toHex());
+                /** @type {?} */
+                var background = this.getLuminance(themeColor);
+                /** @type {?} */
+                var light = this.getLuminance(lightColor);
+                /** @type {?} */
+                var dark = this.getLuminance(darkColor);
+                // determine the contrast for both black and white
+                /** @type {?} */
+                var whiteContrast = (light + 0.05) / (background + 0.05);
+                /** @type {?} */
+                var blackContrast = (background + 0.05) / (dark + 0.05);
+                // return the color with the most contrast ratio
+                return blackContrast > whiteContrast ? '#000' : '#fff';
+            };
+        /**
+         * @param {?} color
+         * @return {?}
+         */
+        ContrastService.prototype.getLuminance = /**
+         * @param {?} color
+         * @return {?}
+         */
+            function (color) {
+                // normalize the colors
+                /** @type {?} */
+                var r = +color.getRed() / 255;
+                /** @type {?} */
+                var g = +color.getGreen() / 255;
+                /** @type {?} */
+                var b = +color.getBlue() / 255;
+                // calculate the value required for each color component
+                r = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
+                g = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
+                b = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
+                // return the luminance
+                return (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+            };
+        ContrastService.decorators = [
+            { type: core.Injectable }
+        ];
+        return ContrastService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ColorContrastDirective = /** @class */ (function () {
+        function ColorContrastDirective(_colorService, _contrastService) {
+            this._colorService = _colorService;
+            this._contrastService = _contrastService;
+            /**
+             * Store the light color as a ThemeColor object
+             */
+            this._lightColor = ThemeColor.parse('#fff');
+            /**
+             * Store the light color as a ThemeColor object
+             */
+            this._darkColor = ThemeColor.parse('#000');
+        }
+        Object.defineProperty(ColorContrastDirective.prototype, "uxColorContrast", {
+            /**
+             * Define the background color for contrast comparison.
+             * This can be a CSS color value or the name of a
+             * color from the color palette.
+             */
+            set: /**
+             * Define the background color for contrast comparison.
+             * This can be a CSS color value or the name of a
+             * color from the color palette.
+             * @param {?} backgroundColor
+             * @return {?}
+             */ function (backgroundColor) {
+                this._backgroundColor = ThemeColor.parse(this._colorService.resolve(backgroundColor));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ColorContrastDirective.prototype, "lightColor", {
+            /**
+             * Define the light color for contrast comparison.
+             * This can be a CSS color value or the name of a
+             * color from the color palette.
+             */
+            set: /**
+             * Define the light color for contrast comparison.
+             * This can be a CSS color value or the name of a
+             * color from the color palette.
+             * @param {?} lightColor
+             * @return {?}
+             */ function (lightColor) {
+                this._lightColor = ThemeColor.parse(this._colorService.resolve(lightColor));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ColorContrastDirective.prototype, "darkColor", {
+            /**
+             * Define the dark color for contrast comparison.
+             * This can be a CSS color value or the name of a
+             * color from the color palette.
+             */
+            set: /**
+             * Define the dark color for contrast comparison.
+             * This can be a CSS color value or the name of a
+             * color from the color palette.
+             * @param {?} darkColor
+             * @return {?}
+             */ function (darkColor) {
+                this._darkColor = ThemeColor.parse(this._colorService.resolve(darkColor));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ColorContrastDirective.prototype, "_color", {
+            /** Determine the color to set based on the supplied parameters */
+            get: /**
+             * Determine the color to set based on the supplied parameters
+             * @return {?}
+             */ function () {
+                return this._backgroundColor ? this._contrastService.getContrastColor(this._backgroundColor, this._lightColor, this._darkColor) : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ColorContrastDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxColorContrast]'
+                    },] }
+        ];
+        /** @nocollapse */
+        ColorContrastDirective.ctorParameters = function () {
+            return [
+                { type: ColorService },
+                { type: ContrastService }
+            ];
+        };
+        ColorContrastDirective.propDecorators = {
+            uxColorContrast: [{ type: core.Input }],
+            lightColor: [{ type: core.Input }],
+            darkColor: [{ type: core.Input }],
+            _color: [{ type: core.HostBinding, args: ['style.color',] }]
+        };
+        return ColorContrastDirective;
+    }());
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+    var __assign = function () {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
+                }
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        if (m)
+            return m.call(o);
+        return {
+            next: function () {
+                if (o && i >= o.length)
+                    o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
+    }
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m)
+            return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
+        }
+        catch (error) {
+            e = { error: error };
+        }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
+            }
+            finally {
+                if (e)
+                    throw e.error;
+            }
+        }
+        return ar;
+    }
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var ACCESSIBILITY_OPTIONS_TOKEN = new core.InjectionToken('ACCESSIBILITY_OPTIONS');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var AccessibilityOptionsService = /** @class */ (function () {
+        /** Get the user specified options - but handle cases where they may not be specified */
+        function AccessibilityOptionsService(_options) {
+            if (_options === void 0) {
+                _options = {};
+            }
+            this._options = _options;
+            /**
+             * Determine the default options
+             */
+            this._defaultOptions = {
+                mouseFocusIndicator: false,
+                touchFocusIndicator: false,
+                keyboardFocusIndicator: true,
+                programmaticFocusIndicator: false
+            };
+        }
+        Object.defineProperty(AccessibilityOptionsService.prototype, "options", {
+            /** Get the complete options populating unspecified options with the default values */
+            get: /**
+             * Get the complete options populating unspecified options with the default values
+             * @return {?}
+             */ function () {
+                return __assign({}, this._defaultOptions, this._options);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        AccessibilityOptionsService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        AccessibilityOptionsService.ctorParameters = function () {
+            return [
+                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] }
+            ];
+        };
+        return AccessibilityOptionsService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var LocalFocusIndicatorOptions = /** @class */ (function () {
+        function LocalFocusIndicatorOptions() {
+        }
+        return LocalFocusIndicatorOptions;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicator = /** @class */ (function () {
+        function FocusIndicator(_element, _focusMonitor, _renderer, _options, _focusIndicatorOrigin) {
+            this._element = _element;
+            this._focusMonitor = _focusMonitor;
+            this._renderer = _renderer;
+            this._options = _options;
+            this._focusIndicatorOrigin = _focusIndicatorOrigin;
+            /**
+             * An observable to monitor the focus state
+             */
+            this.isFocused$ = new BehaviorSubject.BehaviorSubject(false);
+            /**
+             * Remove all subscriptions on destroy
+             */
+            this._onDestroy = new Subject.Subject();
+            this.initialise();
+        }
+        Object.defineProperty(FocusIndicator.prototype, "isFocused", {
+            /** Provide a convenience getter to allow access to focus state without a subscription */
+            get: /**
+             * Provide a convenience getter to allow access to focus state without a subscription
+             * @return {?}
+             */ function () {
+                return this.isFocused$.value;
+            },
+            /** Apply a class when the item is focused */
+            set: /**
+             * Apply a class when the item is focused
+             * @param {?} isFocused
+             * @return {?}
+             */ function (isFocused) {
+                // update the class on the element
+                isFocused ? this._renderer.addClass(this._element, 'ux-focus-indicator-active') :
+                    this._renderer.removeClass(this._element, 'ux-focus-indicator-active');
+                // emit the focus state
+                this.isFocused$.next(isFocused);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /** Setup the focus monitoring */
+        /**
+         * Setup the focus monitoring
+         * @return {?}
+         */
+        FocusIndicator.prototype.initialise = /**
+         * Setup the focus monitoring
+         * @return {?}
+         */
+            function () {
+                // add a class to the element to specify we are controlling the focus
+                this._renderer.addClass(this._element, 'ux-focus-indicator');
+                // watch for any changes to the focus state
+                this._focusMonitor.monitor(this._element, this._options.checkChildren)
+                    .pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(this.onFocusChange.bind(this));
+            };
+        /** Tear down the subscriptions */
+        /**
+         * Tear down the subscriptions
+         * @return {?}
+         */
+        FocusIndicator.prototype.destroy = /**
+         * Tear down the subscriptions
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                this.isFocused$.complete();
+                this._focusMonitor.stopMonitoring(this._element);
+            };
+        /** Allow the options to be updates */
+        /**
+         * Allow the options to be updates
+         * @param {?} options
+         * @return {?}
+         */
+        FocusIndicator.prototype.setOptions = /**
+         * Allow the options to be updates
+         * @param {?} options
+         * @return {?}
+         */
+            function (options) {
+                this._options = __assign({}, this._options, options);
+            };
+        /** Monitor changes to an elements focus state */
+        /**
+         * Monitor changes to an elements focus state
+         * @param {?} origin
+         * @return {?}
+         */
+        FocusIndicator.prototype.onFocusChange = /**
+         * Monitor changes to an elements focus state
+         * @param {?} origin
+         * @return {?}
+         */
+            function (origin) {
+                // if the origin is null then we blurred
+                if (origin === null) {
+                    this.isFocused = false;
+                    return;
+                }
+                // get the origin if there is one
+                /** @type {?} */
+                var syntheticOrigin = this._focusIndicatorOrigin.getOrigin();
+                switch (syntheticOrigin || origin) {
+                    case 'mouse':
+                        this.isFocused = this._options.mouseFocusIndicator;
+                        break;
+                    case 'touch':
+                        this.isFocused = this._options.touchFocusIndicator;
+                        break;
+                    case 'keyboard':
+                        this.isFocused = this._options.keyboardFocusIndicator;
+                        break;
+                    case 'program':
+                        this.isFocused = this._options.programmaticFocusIndicator;
+                        break;
+                    default:
+                        this.isFocused = false;
+                }
+            };
+        return FocusIndicator;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicatorOriginService = /** @class */ (function () {
+        function FocusIndicatorOriginService() {
+        }
+        /** Store the event source origin */
+        /**
+         * Store the event source origin
+         * @param {?} origin
+         * @return {?}
+         */
+        FocusIndicatorOriginService.prototype.setOrigin = /**
+         * Store the event source origin
+         * @param {?} origin
+         * @return {?}
+         */
+            function (origin) {
+                this._origin = origin;
+            };
+        /** Get the most recent event origin */
+        /**
+         * Get the most recent event origin
+         * @return {?}
+         */
+        FocusIndicatorOriginService.prototype.getOrigin = /**
+         * Get the most recent event origin
+         * @return {?}
+         */
+            function () {
+                // get the most recent origin if there is one
+                /** @type {?} */
+                var origin = this._origin;
+                // we should clear the origin so this value doesn't cause issues with future focus events
+                this._origin = null;
+                return origin;
+            };
+        FocusIndicatorOriginService.decorators = [
+            { type: core.Injectable }
+        ];
+        return FocusIndicatorOriginService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicatorService = /** @class */ (function () {
+        function FocusIndicatorService(_focusMonitor, _globalOptions, _focusIndicatorOrigin, _localOptions, rendererFactory) {
+            this._focusMonitor = _focusMonitor;
+            this._globalOptions = _globalOptions;
+            this._focusIndicatorOrigin = _focusIndicatorOrigin;
+            this._localOptions = _localOptions;
+            // programmatically create a renderer as it can't be injected into a service
+            this._renderer = rendererFactory.createRenderer(null, null);
+        }
+        /** This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global options each time */
+        /**
+         * This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global options each time
+         * @param {?} element
+         * @param {?=} options
+         * @return {?}
+         */
+        FocusIndicatorService.prototype.monitor = /**
+         * This is essentially just a factory method to prevent the user having to pass in focus monitor, renderer and global options each time
+         * @param {?} element
+         * @param {?=} options
+         * @return {?}
+         */
+            function (element, options) {
+                if (options === void 0) {
+                    options = __assign({}, this._globalOptions.options, this._localOptions, { checkChildren: false });
+                }
+                return new FocusIndicator(element, this._focusMonitor, this._renderer, __assign({}, this._globalOptions.options, this._localOptions, options), this._focusIndicatorOrigin);
+            };
+        FocusIndicatorService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        FocusIndicatorService.ctorParameters = function () {
+            return [
+                { type: a11y.FocusMonitor },
+                { type: AccessibilityOptionsService },
+                { type: FocusIndicatorOriginService },
+                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] },
+                { type: core.RendererFactory2 }
+            ];
+        };
+        return FocusIndicatorService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicatorDirective = /** @class */ (function () {
+        function FocusIndicatorDirective(_elementRef, _focusIndicatorService, _changeDetectorRef, optionsService, localOptions) {
+            this._elementRef = _elementRef;
+            this._focusIndicatorService = _focusIndicatorService;
+            this._changeDetectorRef = _changeDetectorRef;
+            this.optionsService = optionsService;
+            this.localOptions = localOptions;
+            /**
+             * Emit the latest focus state
+             */
+            this.indicator = new core.EventEmitter();
+            /**
+             * Store a private reference for the checkChildren option
+             */
+            this._checkChildren = false;
+            /**
+             * Store all configuation options
+             */
+            this._options = new Map();
+            /**
+             * Unsubscribe on component destroy
+             */
+            this._onDestroy = new Subject.Subject();
+            // set the inital option values based on global options
+            for (var option in (optionsService.options || {})) {
+                this._options.set(option, optionsService.options[option]);
+            }
+            // set the inital option values based on local options (if there are any)
+            for (var option in (localOptions || {})) {
+                this._options.set(option, localOptions[option]);
+            }
+        }
+        Object.defineProperty(FocusIndicatorDirective.prototype, "checkChildren", {
+            /** Specify whether or not we should mark this element as having focus if a child is focused */
+            set: /**
+             * Specify whether or not we should mark this element as having focus if a child is focused
+             * @param {?} checkChildren
+             * @return {?}
+             */ function (checkChildren) {
+                if (checkChildren !== null && checkChildren !== undefined) {
+                    this._checkChildren = checkChildren;
+                    this.setOptions();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorDirective.prototype, "mouseFocusIndicator", {
+            /** Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting */
+            set: /**
+             * Indicate whether or not mouse events should cause the focus indicator to appear - will override any global setting
+             * @param {?} mouseFocusIndicator
+             * @return {?}
+             */ function (mouseFocusIndicator) {
+                if (mouseFocusIndicator !== null && mouseFocusIndicator !== undefined) {
+                    this._options.set('mouseFocusIndicator', mouseFocusIndicator);
+                    this.setOptions();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorDirective.prototype, "touchFocusIndicator", {
+            /** Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting */
+            set: /**
+             * Indicate whether or not touch events should cause the focus indicator to appear - will override any global setting
+             * @param {?} touchFocusIndicator
+             * @return {?}
+             */ function (touchFocusIndicator) {
+                if (touchFocusIndicator !== null && touchFocusIndicator !== undefined) {
+                    this._options.set('touchFocusIndicator', touchFocusIndicator);
+                    this.setOptions();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorDirective.prototype, "keyboardFocusIndicator", {
+            /** Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting */
+            set: /**
+             * Indicate whether or not keyboard events should cause the focus indicator to appear - will override any global setting
+             * @param {?} keyboardFocusIndicator
+             * @return {?}
+             */ function (keyboardFocusIndicator) {
+                if (keyboardFocusIndicator !== null && keyboardFocusIndicator !== undefined) {
+                    this._options.set('keyboardFocusIndicator', keyboardFocusIndicator);
+                    this.setOptions();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorDirective.prototype, "programmaticFocusIndicator", {
+            /** Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting */
+            set: /**
+             * Indicate whether or not programmatic events should cause the focus indicator to appear - will override any global setting
+             * @param {?} programmaticFocusIndicator
+             * @return {?}
+             */ function (programmaticFocusIndicator) {
+                if (programmaticFocusIndicator !== null && programmaticFocusIndicator !== undefined) {
+                    this._options.set('programmaticFocusIndicator', programmaticFocusIndicator);
+                    this.setOptions();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /** Setup the focus monitoring */
+        /**
+         * Setup the focus monitoring
+         * @return {?}
+         */
+        FocusIndicatorDirective.prototype.ngOnInit = /**
+         * Setup the focus monitoring
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // start the focus monitoring
+                this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement, {
+                    checkChildren: this._checkChildren,
+                    mouseFocusIndicator: this._options.get('mouseFocusIndicator'),
+                    touchFocusIndicator: this._options.get('touchFocusIndicator'),
+                    keyboardFocusIndicator: this._options.get('keyboardFocusIndicator'),
+                    programmaticFocusIndicator: this._options.get('programmaticFocusIndicator')
+                });
+                // subscribe to the focus state to emit an event on change
+                this._focusIndicator.isFocused$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isFocused) {
+                    // emit the latest value
+                    _this.indicator.emit(isFocused);
+                    // inform the change detector that we need to run as focus monitor runs outside of NgZone
+                    _this._changeDetectorRef.detectChanges();
+                });
+            };
+        /** Tear down the directive */
+        /**
+         * Tear down the directive
+         * @return {?}
+         */
+        FocusIndicatorDirective.prototype.ngOnDestroy = /**
+         * Tear down the directive
+         * @return {?}
+         */
+            function () {
+                if (this._focusIndicator) {
+                    this._focusIndicator.destroy();
+                }
+                // unsubscribe from all observables
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** Update the focus indicator with the latest options */
+        /**
+         * Update the focus indicator with the latest options
+         * @return {?}
+         */
+        FocusIndicatorDirective.prototype.setOptions = /**
+         * Update the focus indicator with the latest options
+         * @return {?}
+         */
+            function () {
+                if (this._focusIndicator) {
+                    this._focusIndicator.setOptions({
+                        checkChildren: this._checkChildren,
+                        mouseFocusIndicator: this._options.get('mouseFocusIndicator'),
+                        touchFocusIndicator: this._options.get('touchFocusIndicator'),
+                        keyboardFocusIndicator: this._options.get('keyboardFocusIndicator'),
+                        programmaticFocusIndicator: this._options.get('programmaticFocusIndicator')
+                    });
+                }
+            };
+        FocusIndicatorDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxFocusIndicator]',
+                        exportAs: 'ux-focus-indicator'
+                    },] }
+        ];
+        /** @nocollapse */
+        FocusIndicatorDirective.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: FocusIndicatorService },
+                { type: core.ChangeDetectorRef },
+                { type: AccessibilityOptionsService },
+                { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Optional }] }
+            ];
+        };
+        FocusIndicatorDirective.propDecorators = {
+            checkChildren: [{ type: core.Input }],
+            mouseFocusIndicator: [{ type: core.Input }],
+            touchFocusIndicator: [{ type: core.Input }],
+            keyboardFocusIndicator: [{ type: core.Input }],
+            programmaticFocusIndicator: [{ type: core.Input }],
+            indicator: [{ type: core.Output }]
+        };
+        return FocusIndicatorDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * This directive can be used to target specific elements based on their CSS
+     * class so we can control when the focus shows. This will help prevent us
+     * polluting the FocusIndicatorDirective with an lot of selectors.
+     *
+     * If the button has a uxFocusIndicator or uxMenuNavigationToggle directive applied we should skip this
+     */
+    var DefaultFocusIndicatorDirective = /** @class */ (function (_super) {
+        __extends(DefaultFocusIndicatorDirective, _super);
+        function DefaultFocusIndicatorDirective(elementRef, focusIndicatorService, optionsService, changeDetectorRef, localOptions) {
+            var _this = _super.call(this, elementRef, focusIndicatorService, changeDetectorRef, optionsService, localOptions) || this;
+            // Enable programmatic focus by default
+            _this.programmaticFocusIndicator = true;
+            return _this;
+        }
+        DefaultFocusIndicatorDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
+                    },] }
+        ];
+        /** @nocollapse */
+        DefaultFocusIndicatorDirective.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: FocusIndicatorService },
+                { type: AccessibilityOptionsService },
+                { type: core.ChangeDetectorRef },
+                { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Optional }] }
+            ];
+        };
+        return DefaultFocusIndicatorDirective;
+    }(FocusIndicatorDirective));
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicatorOptionsDirective = /** @class */ (function () {
+        function FocusIndicatorOptionsDirective(_options) {
+            this._options = _options;
+        }
+        Object.defineProperty(FocusIndicatorOptionsDirective.prototype, "mouseFocusIndicator", {
+            /** If `true`, this element will receive a focus indicator when the element is clicked on. */
+            set: /**
+             * If `true`, this element will receive a focus indicator when the element is clicked on.
+             * @param {?} mouseFocusIndicator
+             * @return {?}
+             */ function (mouseFocusIndicator) {
+                this._options.mouseFocusIndicator = mouseFocusIndicator;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorOptionsDirective.prototype, "touchFocusIndicator", {
+            /** If `true`, this element will receive a focus indicator when the element is touched. */
+            set: /**
+             * If `true`, this element will receive a focus indicator when the element is touched.
+             * @param {?} touchFocusIndicator
+             * @return {?}
+             */ function (touchFocusIndicator) {
+                this._options.touchFocusIndicator = touchFocusIndicator;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorOptionsDirective.prototype, "keyboardFocusIndicator", {
+            /** If `true`, this element will receive a focus indicator when the element is focused using the keyboard. */
+            set: /**
+             * If `true`, this element will receive a focus indicator when the element is focused using the keyboard.
+             * @param {?} keyboardFocusIndicator
+             * @return {?}
+             */ function (keyboardFocusIndicator) {
+                this._options.keyboardFocusIndicator = keyboardFocusIndicator;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(FocusIndicatorOptionsDirective.prototype, "programmaticFocusIndicator", {
+            /** If `true`, this element will receive a focus indicator when the element is programmatically focused. */
+            set: /**
+             * If `true`, this element will receive a focus indicator when the element is programmatically focused.
+             * @param {?} programmaticFocusIndicator
+             * @return {?}
+             */ function (programmaticFocusIndicator) {
+                this._options.programmaticFocusIndicator = programmaticFocusIndicator;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        FocusIndicatorOptionsDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxFocusIndicatorOptions]',
+                        providers: [LocalFocusIndicatorOptions]
+                    },] }
+        ];
+        /** @nocollapse */
+        FocusIndicatorOptionsDirective.ctorParameters = function () {
+            return [
+                { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Self }] }
+            ];
+        };
+        FocusIndicatorOptionsDirective.propDecorators = {
+            mouseFocusIndicator: [{ type: core.Input }],
+            touchFocusIndicator: [{ type: core.Input }],
+            keyboardFocusIndicator: [{ type: core.Input }],
+            programmaticFocusIndicator: [{ type: core.Input }]
+        };
+        return FocusIndicatorOptionsDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicatorOriginDirective = /** @class */ (function () {
+        function FocusIndicatorOriginDirective(_focusIndicatorEvent) {
+            this._focusIndicatorEvent = _focusIndicatorEvent;
+        }
+        /**
+         * @return {?}
+         */
+        FocusIndicatorOriginDirective.prototype.onMouseDown = /**
+         * @return {?}
+         */
+            function () {
+                this._isMouseEvent = true;
+            };
+        /**
+         * @return {?}
+         */
+        FocusIndicatorOriginDirective.prototype.onClick = /**
+         * @return {?}
+         */
+            function () {
+                // if the click was triggered after a mousedown event then it is a keyboard event
+                this._focusIndicatorEvent.setOrigin(this._isMouseEvent ? 'mouse' : 'keyboard');
+                // reset the mouse event flag
+                this._isMouseEvent = false;
+            };
+        /**
+         * @return {?}
+         */
+        FocusIndicatorOriginDirective.prototype.onKeydown = /**
+         * @return {?}
+         */
+            function () {
+                this._isMouseEvent = false;
+                this._focusIndicatorEvent.setOrigin('keyboard');
+            };
+        FocusIndicatorOriginDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxFocusIndicatorOrigin]',
+                    },] }
+        ];
+        /** @nocollapse */
+        FocusIndicatorOriginDirective.ctorParameters = function () {
+            return [
+                { type: FocusIndicatorOriginService }
+            ];
+        };
+        FocusIndicatorOriginDirective.propDecorators = {
+            onMouseDown: [{ type: core.HostListener, args: ['mousedown',] }],
+            onClick: [{ type: core.HostListener, args: ['click',] }],
+            onKeydown: [{ type: core.HostListener, args: ['keydown',] }]
+        };
+        return FocusIndicatorOriginDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusWithinDirective = /** @class */ (function () {
+        /**
+         * Note: We used to use @angular/cdk FocusMonitor here instead of manually listening
+         * to focus blur events, however this was problematic as any child elements using the FocusMonitor,
+         * eg: `uxFocusIndicator` which not get the correct `origin`, they will instead get a programmatic
+         * origin even if it was clicked or focused via the keyboard.
+         */
+        function FocusWithinDirective(_elementRef) {
+            this._elementRef = _elementRef;
+            /**
+             * Emits when a child element gains focus
+             */
+            this.uxFocusWithin = new core.EventEmitter();
+            /**
+             * Emits when a child element loses focus
+             */
+            this.uxBlurWithin = new core.EventEmitter();
+            // We need to listen in capture phase since focus events don't bubble.
+            _elementRef.nativeElement.addEventListener('focus', this.onFocus.bind(this), true);
+            _elementRef.nativeElement.addEventListener('blur', this.onBlur.bind(this), true);
+        }
+        /**
+         * @return {?}
+         */
+        FocusWithinDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._elementRef.nativeElement.removeEventListener('focus', this.onFocus.bind(this), true);
+                this._elementRef.nativeElement.removeEventListener('blur', this.onBlur.bind(this), true);
+            };
+        /**
+         * @return {?}
+         */
+        FocusWithinDirective.prototype.onFocus = /**
+         * @return {?}
+         */
+            function () {
+                this.uxFocusWithin.emit();
+            };
+        /**
+         * @return {?}
+         */
+        FocusWithinDirective.prototype.onBlur = /**
+         * @return {?}
+         */
+            function () {
+                this.uxBlurWithin.emit();
+            };
+        FocusWithinDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxFocusWithin],[uxBlurWithin]',
+                    },] }
+        ];
+        /** @nocollapse */
+        FocusWithinDirective.ctorParameters = function () {
+            return [
+                { type: core.ElementRef }
+            ];
+        };
+        FocusWithinDirective.propDecorators = {
+            uxFocusWithin: [{ type: core.Output }],
+            uxBlurWithin: [{ type: core.Output }]
+        };
+        return FocusWithinDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ManagedFocusContainerService = /** @class */ (function () {
+        function ManagedFocusContainerService(rendererFactory) {
+            this._containers = [];
+            // programmatically create a renderer as it can't be injected into a service
+            this._renderer = rendererFactory.createRenderer(null, null);
+        }
+        /**
+         * Create or get an existing object which manages the tabindex of descendants.
+         * @param element The element containing focusable descendants.
+         * @param component The component requesting the managed focus container.
+         */
+        /**
+         * Create or get an existing object which manages the tabindex of descendants.
+         * @param {?} element The element containing focusable descendants.
+         * @param {?} component The component requesting the managed focus container.
+         * @return {?}
+         */
+        ManagedFocusContainerService.prototype.register = /**
+         * Create or get an existing object which manages the tabindex of descendants.
+         * @param {?} element The element containing focusable descendants.
+         * @param {?} component The component requesting the managed focus container.
+         * @return {?}
+         */
+            function (element, component) {
+                // Only create a new instance if no other component has created a container on the same element
+                /** @type {?} */
+                var containerRef = this._containers.find(function (ref) { return ref.container.element.isEqualNode(element); });
+                if (!containerRef) {
+                    containerRef = new ManagedFocusContainerWithReferences(new ManagedFocusContainer(element, this._renderer));
+                    this._containers.push(containerRef);
+                    // Start listening for focus
+                    containerRef.container.register();
+                }
+                // Track references to dispose correctly
+                if (component) {
+                    containerRef.addReference(component);
+                }
+            };
+        /**
+         * Remove the container object. This will call `unregister` on the container if `component` is the last reference
+         * to it.
+         * @param element The element containing focusable descendants.
+         * @param component The component requesting the managed focus container.
+         */
+        /**
+         * Remove the container object. This will call `unregister` on the container if `component` is the last reference
+         * to it.
+         * @param {?} element The element containing focusable descendants.
+         * @param {?} component The component requesting the managed focus container.
+         * @return {?}
+         */
+        ManagedFocusContainerService.prototype.unregister = /**
+         * Remove the container object. This will call `unregister` on the container if `component` is the last reference
+         * to it.
+         * @param {?} element The element containing focusable descendants.
+         * @param {?} component The component requesting the managed focus container.
+         * @return {?}
+         */
+            function (element, component) {
+                // Remove the container's reference to the source component
+                /** @type {?} */
+                var containerRef = this._containers.find(function (ref) { return ref.container.element.isEqualNode(element); });
+                containerRef.removeReference(component);
+                if (!containerRef.isAlive()) {
+                    // Last reference was removed, so unregister the listeners
+                    containerRef.container.unregister();
+                    // Clean up the reference tracking array
+                    this._containers = this._containers.filter(function (c) { return c !== containerRef; });
+                }
+            };
+        /**
+         * Get an observable which can be used to determine when the element or one of its descendants has focus.
+         * @param element The element containing focusable descendants.
+         */
+        /**
+         * Get an observable which can be used to determine when the element or one of its descendants has focus.
+         * @param {?} element The element containing focusable descendants.
+         * @return {?}
+         */
+        ManagedFocusContainerService.prototype.hasFocus = /**
+         * Get an observable which can be used to determine when the element or one of its descendants has focus.
+         * @param {?} element The element containing focusable descendants.
+         * @return {?}
+         */
+            function (element) {
+                /** @type {?} */
+                var container = this.getContainer(element);
+                return container ? container.hasFocus$.asObservable() : null;
+            };
+        /**
+         * @param {?} element
+         * @return {?}
+         */
+        ManagedFocusContainerService.prototype.getContainer = /**
+         * @param {?} element
+         * @return {?}
+         */
+            function (element) {
+                /** @type {?} */
+                var containerRef = this._containers.find(function (ref) { return ref.container.element.isEqualNode(element); });
+                return containerRef ? containerRef.container : null;
+            };
+        ManagedFocusContainerService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ManagedFocusContainerService.ctorParameters = function () {
+            return [
+                { type: core.RendererFactory2 }
+            ];
+        };
+        return ManagedFocusContainerService;
+    }());
+    var ManagedFocusContainer = /** @class */ (function () {
+        function ManagedFocusContainer(element, _renderer) {
+            this.element = element;
+            this._renderer = _renderer;
+            /**
+             * Whether the container or one of its descendants has focus.
+             */
+            this.hasFocus$ = new BehaviorSubject.BehaviorSubject(false);
+            this._modifiedElements = [];
+            this._unlisten = [];
+        }
+        /** Start managing the focus of child elements. */
+        /**
+         * Start managing the focus of child elements.
+         * @return {?}
+         */
+        ManagedFocusContainer.prototype.register = /**
+         * Start managing the focus of child elements.
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this._unlisten.push(this._renderer.listen(this.element, 'focusin', this.onFocusIn.bind(this)));
+                this._unlisten.push(this._renderer.listen(this.element, 'focusout', this.onFocusOut.bind(this)));
+                // Check if the container already has focus
+                setTimeout(function () {
+                    if (!_this.element.contains(document.activeElement)) {
+                        _this.removeTabFocus();
+                    }
+                });
+            };
+        /** Stop managing the focus of child elements. */
+        /**
+         * Stop managing the focus of child elements.
+         * @return {?}
+         */
+        ManagedFocusContainer.prototype.unregister = /**
+         * Stop managing the focus of child elements.
+         * @return {?}
+         */
+            function () {
+                // Dispose the event handlers
+                this._unlisten.forEach(function (unlisten) { return unlisten(); });
+                this._unlisten = [];
+                // Undo any tabindex modifications
+                this.restoreTabFocus();
+            };
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainer.prototype.onFocusIn = /**
+         * @return {?}
+         */
+            function () {
+                this.restoreTabFocus();
+            };
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainer.prototype.onFocusOut = /**
+         * @return {?}
+         */
+            function () {
+                this.removeTabFocus();
+            };
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainer.prototype.removeTabFocus = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this.hasFocus$.next(false);
+                // Clear the list of affected elements
+                this._modifiedElements = [];
+                // Get all focusable children
+                /** @type {?} */
+                var focusable = this.element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                // Remove focusable children from the tab ring
+                focusable.forEach(function (element) {
+                    /** @type {?} */
+                    var originalTabIndex = element.getAttribute('tabindex');
+                    _this._renderer.setAttribute(element, 'tabindex', '-1');
+                    _this._modifiedElements.push({
+                        element: element,
+                        tabindex: originalTabIndex
+                    });
+                });
+            };
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainer.prototype.restoreTabFocus = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this.hasFocus$.next(true);
+                // Restore tab focus ability by removing the custom `tabindex` attribute
+                this._modifiedElements.forEach(function (elementInfo) {
+                    if (elementInfo.tabindex === null) {
+                        _this._renderer.removeAttribute(elementInfo.element, 'tabindex');
+                    }
+                    else {
+                        _this._renderer.setAttribute(elementInfo.element, 'tabindex', elementInfo.tabindex);
+                    }
+                });
+                // Clear the list of affected elements
+                this._modifiedElements = [];
+            };
+        return ManagedFocusContainer;
+    }());
+    var ManagedFocusContainerWithReferences = /** @class */ (function () {
+        function ManagedFocusContainerWithReferences(container) {
+            this.container = container;
+            this._components = [];
+        }
+        /**
+         * @param {?} component
+         * @return {?}
+         */
+        ManagedFocusContainerWithReferences.prototype.addReference = /**
+         * @param {?} component
+         * @return {?}
+         */
+            function (component) {
+                this._components.push(component);
+            };
+        /**
+         * @param {?} component
+         * @return {?}
+         */
+        ManagedFocusContainerWithReferences.prototype.removeReference = /**
+         * @param {?} component
+         * @return {?}
+         */
+            function (component) {
+                this._components = this._components.filter(function (c) { return c !== component; });
+            };
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainerWithReferences.prototype.isAlive = /**
+         * @return {?}
+         */
+            function () {
+                return this._components.length > 0;
+            };
+        return ManagedFocusContainerWithReferences;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ManagedFocusContainerDirective = /** @class */ (function () {
+        function ManagedFocusContainerDirective(_elementRef, _managedFocusContainerService) {
+            this._elementRef = _elementRef;
+            this._managedFocusContainerService = _managedFocusContainerService;
+        }
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainerDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+            };
+        /**
+         * @return {?}
+         */
+        ManagedFocusContainerDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
+            };
+        ManagedFocusContainerDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxManagedFocusContainer]'
+                    },] }
+        ];
+        /** @nocollapse */
+        ManagedFocusContainerDirective.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: ManagedFocusContainerService }
+            ];
+        };
+        return ManagedFocusContainerDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var SplitterAccessibilityDirective = /** @class */ (function () {
+        function SplitterAccessibilityDirective(_elementRef, _renderer, _platform, _splitter, _focusIndicatorService) {
+            var _this = this;
+            this._elementRef = _elementRef;
+            this._renderer = _renderer;
+            this._platform = _platform;
+            this._splitter = _splitter;
+            this._focusIndicatorService = _focusIndicatorService;
+            /**
+             * Emit an event whenever the gutter is moved using the keyboard
+             */
+            this.gutterKeydown = new core.EventEmitter();
+            /**
+             * Store all the gutter elements
+             */
+            this._gutters = [];
+            /**
+             * Teardown our observables on destroy
+             */
+            this._onDestroy = new Subject.Subject();
+            /**
+             * Store references to all focus indicators
+             */
+            this._focusIndicators = [];
+            // update aria values when the a gutter is dragged
+            _splitter.dragProgress
+                .pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function () { return _this.updateGutterAttributes(); });
+        }
+        /** Once initialised make the gutters accessible */
+        /**
+         * Once initialised make the gutters accessible
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.ngAfterViewInit = /**
+         * Once initialised make the gutters accessible
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // find the gutters
+                this.onGutterChange();
+                // if the number of split areas change then update the gutters and apply aria properties
+                this.areas.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.onGutterChange(); });
+                // we can't know when additional split-gutters appear using ContentChildren as the directive class is not exported and selector doesn't work - use mutation observer instead
+                if (common.isPlatformBrowser(this._platform)) {
+                    // create the mutation observer
+                    this._observer = new MutationObserver(function () { return _this.onGutterChange(); });
+                    // begin observing the child nodes
+                    this._observer.observe(this._elementRef.nativeElement, { childList: true });
+                }
+            };
+        /** Destroy all observables and observers */
+        /**
+         * Destroy all observables and observers
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.ngOnDestroy = /**
+         * Destroy all observables and observers
+         * @return {?}
+         */
+            function () {
+                if (this._observer) {
+                    this._observer.disconnect();
+                }
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                // destroy all existing focus indicators
+                this._focusIndicators.forEach(function (indicator) { return indicator.destroy(); });
+            };
+        /** We should focus the gutter when it is clicked */
+        /**
+         * We should focus the gutter when it is clicked
+         * @param {?} event
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onClick = /**
+         * We should focus the gutter when it is clicked
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
+                    (( /** @type {?} */(event.target))).focus();
+                }
+            };
+        /** Find all the gutters and set their attributes */
+        /**
+         * Find all the gutters and set their attributes
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onGutterChange = /**
+         * Find all the gutters and set their attributes
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // destroy all existing focus indicators
+                this._focusIndicators.forEach(function (indicator) { return indicator.destroy(); });
+                // reset the array
+                this._focusIndicators = [];
+                // get the new gutter elements
+                this._gutters = this.getGutters();
+                // monitor the focus of each gutter
+                this._gutters.forEach(function (gutter) { return _this._focusIndicators.push(_this._focusIndicatorService.monitor(gutter)); });
+                // apply all required accessibility attributes to the gutter elements
+                this.setGutterAttributes();
+            };
+        /** Get all the gutter elements */
+        /**
+         * Get all the gutter elements
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.getGutters = /**
+         * Get all the gutter elements
+         * @return {?}
+         */
+            function () {
+                // This function uses DOM accessing properties - which won't work if server side rendered
+                if (common.isPlatformBrowser(this._platform)) {
+                    /** @type {?} */
+                    var gutters = [];
+                    for (var idx = 0; idx < this._elementRef.nativeElement.children.length; idx++) {
+                        /** @type {?} */
+                        var node = this._elementRef.nativeElement.children.item(idx);
+                        if (this.isSplitterGutter(( /** @type {?} */(node)))) {
+                            gutters.push(( /** @type {?} */(node)));
+                        }
+                    }
+                    return gutters;
+                }
+                return [];
+            };
+        /** Set the appropriate attributes on the gutter elements */
+        /**
+         * Set the appropriate attributes on the gutter elements
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.setGutterAttributes = /**
+         * Set the appropriate attributes on the gutter elements
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // apply attribute to every gutter
+                this._gutters.forEach(function (gutter) {
+                    // apply the separator role
+                    _this._renderer.setAttribute(gutter, 'role', 'separator');
+                    // make the gutters tabbable
+                    _this._renderer.setAttribute(gutter, 'tabindex', '0');
+                    // set the value now aria property
+                    _this.updateGutterAttributes();
+                });
+            };
+        /** Apply the aria attribute values */
+        /**
+         * Apply the aria attribute values
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.updateGutterAttributes = /**
+         * Apply the aria attribute values
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // update the value now properties of each gutter
+                this._gutters.forEach(function (gutter, idx) {
+                    _this.setGutterValueNow(gutter, idx);
+                    _this.setGutterValueMin(gutter, idx);
+                    _this.setGutterValueMax(gutter, idx);
+                });
+            };
+        /** Apply the value now aria attribute */
+        /**
+         * Apply the value now aria attribute
+         * @param {?} gutter
+         * @param {?} index
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.setGutterValueNow = /**
+         * Apply the value now aria attribute
+         * @param {?} gutter
+         * @param {?} index
+         * @return {?}
+         */
+            function (gutter, index) {
+                // get the matching split area
+                /** @type {?} */
+                var area = this._splitter.displayedAreas[index];
+                // indicate the size
+                this._renderer.setAttribute(gutter, 'aria-valuenow', "" + Math.round(area.size * 100));
+            };
+        /** Apply the value min aria attribute */
+        /**
+         * Apply the value min aria attribute
+         * @param {?} gutter
+         * @param {?} index
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.setGutterValueMin = /**
+         * Apply the value min aria attribute
+         * @param {?} gutter
+         * @param {?} index
+         * @return {?}
+         */
+            function (gutter, index) {
+                // get the matching split area
+                /** @type {?} */
+                var area = this.areas.toArray()[index];
+                // indicate the minimum size
+                this._renderer.setAttribute(gutter, 'aria-valuemin', "" + Math.round(area.minSize * 100));
+            };
+        /** Apply the value max aria attribute */
+        /**
+         * Apply the value max aria attribute
+         * @param {?} gutter
+         * @param {?} index
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.setGutterValueMax = /**
+         * Apply the value max aria attribute
+         * @param {?} gutter
+         * @param {?} index
+         * @return {?}
+         */
+            function (gutter, index) {
+                // get every other splitter area
+                /** @type {?} */
+                var availableSize = this.areas
+                    .filter(function (_area, idx) { return index !== idx; })
+                    .reduce(function (total, area) { return total + area.minSize; }, 0);
+                // indicate the minimum size
+                this._renderer.setAttribute(gutter, 'aria-valuemax', "" + (100 - Math.round(availableSize * 100)));
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onKeydown = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
+                    this.gutterKeydown.emit(event);
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onIncreaseKey = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // only perform a move if a gutter is focused
+                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
+                    this.setGutterPosition(( /** @type {?} */(event.target)), -0.01);
+                    // stop the browser from scrolling
+                    event.preventDefault();
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onDecreaseKey = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // only perform a move if a gutter is focused
+                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
+                    this.setGutterPosition(( /** @type {?} */(event.target)), 0.01);
+                    // stop the browser from scrolling
+                    event.preventDefault();
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onHomeKey = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
+                    // get the affected panels
+                    /** @type {?} */
+                    var areas = this.getAreasFromGutter(( /** @type {?} */(event.target)));
+                    // set the previous area to it's minimum size
+                    /** @type {?} */
+                    var delta = areas.previous.size - areas.previous.comp.minSize;
+                    // update the sizes accordingly
+                    this.setGutterPosition(( /** @type {?} */(event.target)), delta);
+                    // stop the browser from scrolling
+                    event.preventDefault();
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.onEndKey = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (this.isSplitterGutter(( /** @type {?} */(event.target)))) {
+                    // get the affected panels
+                    /** @type {?} */
+                    var areas = this.getAreasFromGutter(( /** @type {?} */(event.target)));
+                    // set the next area to it's minimum size
+                    /** @type {?} */
+                    var delta = areas.next.size - areas.next.comp.minSize;
+                    // update the sizes accordingly
+                    this.setGutterPosition(( /** @type {?} */(event.target)), -delta);
+                    // stop the browser from scrolling
+                    event.preventDefault();
+                }
+            };
+        /** Determine if an element is a gutter */
+        /**
+         * Determine if an element is a gutter
+         * @param {?} element
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.isSplitterGutter = /**
+         * Determine if an element is a gutter
+         * @param {?} element
+         * @return {?}
+         */
+            function (element) {
+                return element.tagName === 'SPLIT-GUTTER';
+            };
+        /** Update the gutter position */
+        /**
+         * Update the gutter position
+         * @param {?} gutter
+         * @param {?} delta
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.setGutterPosition = /**
+         * Update the gutter position
+         * @param {?} gutter
+         * @param {?} delta
+         * @return {?}
+         */
+            function (gutter, delta) {
+                // get the affected panels
+                /** @type {?} */
+                var areas = this.getAreasFromGutter(gutter);
+                // ensure we can perform the resize
+                if (areas.previous.size - delta < areas.previous.comp.minSize || areas.next.size + delta < areas.next.comp.minSize) {
+                    return;
+                }
+                // perform the resize
+                areas.previous.size -= delta;
+                areas.next.size += delta;
+                // update the splitter - this is a private method but we need to call it
+                (( /** @type {?} */(this._splitter))).refreshStyleSizes();
+                // update the gutter aria values
+                this.updateGutterAttributes();
+            };
+        /** Get the split areas associated with a given gutter */
+        /**
+         * Get the split areas associated with a given gutter
+         * @param {?} gutter
+         * @return {?}
+         */
+        SplitterAccessibilityDirective.prototype.getAreasFromGutter = /**
+         * Get the split areas associated with a given gutter
+         * @param {?} gutter
+         * @return {?}
+         */
+            function (gutter) {
+                /** @type {?} */
+                var index = this._gutters.indexOf(gutter);
+                return {
+                    previous: this._splitter.displayedAreas[index],
+                    next: this._splitter.displayedAreas[index + 1]
+                };
+            };
+        SplitterAccessibilityDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'split'
+                    },] }
+        ];
+        /** @nocollapse */
+        SplitterAccessibilityDirective.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: core.Renderer2 },
+                { type: String, decorators: [{ type: core.Inject, args: [core.PLATFORM_ID,] }] },
+                { type: angularSplit.SplitComponent },
+                { type: FocusIndicatorService }
+            ];
+        };
+        SplitterAccessibilityDirective.propDecorators = {
+            gutterKeydown: [{ type: core.Output }],
+            areas: [{ type: core.ContentChildren, args: [angularSplit.SplitAreaDirective,] }],
+            onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }],
+            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }],
+            onIncreaseKey: [{ type: core.HostListener, args: ['keydown.ArrowDown', ['$event'],] }, { type: core.HostListener, args: ['keydown.ArrowRight', ['$event'],] }],
+            onDecreaseKey: [{ type: core.HostListener, args: ['keydown.ArrowUp', ['$event'],] }, { type: core.HostListener, args: ['keydown.ArrowLeft', ['$event'],] }],
+            onHomeKey: [{ type: core.HostListener, args: ['keydown.Home', ['$event'],] }],
+            onEndKey: [{ type: core.HostListener, args: ['keydown.End', ['$event'],] }]
+        };
+        return SplitterAccessibilityDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * This is a simple RxJS operator to allow us to avoid the
+     * "expression has changed after it was checked issue"
+     * by making the subscription asynchronous. We could just use a
+     * delay operator but this uses a timeout which is significantly
+     * slower than using requestAnimationFrame.
+     * @type {?}
+     */
+    var tick = function () {
+        return function (source) {
+            return new Observable.Observable(function (subscriber) {
+                source.subscribe({
+                    next: /**
+                     * @param {?} value
+                     * @return {?}
+                     */ function (value) { requestAnimationFrame(function () { return subscriber.next(value); }); },
+                    error: /**
+                     * @param {?} err
+                     * @return {?}
+                     */ function (err) { subscriber.error(err); },
+                    complete: /**
+                     * @return {?}
+                     */ function () { subscriber.complete(); },
+                });
+            });
+        };
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var TabbableListService = /** @class */ (function () {
+        function TabbableListService() {
+            this.hierarchy = false;
+            this.allowAltModifier = true;
+            this.allowCtrlModifier = true;
+            this.allowBoundaryKeys = false;
+            this.shouldScrollInView = true;
+            this._onDestroy = new Subject.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        TabbableListService.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @param {?} items
+         * @param {?} direction
+         * @param {?} wrap
+         * @return {?}
+         */
+        TabbableListService.prototype.initialize = /**
+         * @param {?} items
+         * @param {?} direction
+         * @param {?} wrap
+         * @return {?}
+         */
+            function (items, direction, wrap) {
+                var _this = this;
+                // store the items
+                this._items = items;
+                // create the new focus key manager
+                this.focusKeyManager = new a11y.FocusKeyManager(items);
+                // set the direction of the list
+                direction === 'vertical' ? this.focusKeyManager.withVerticalOrientation() : this.focusKeyManager.withHorizontalOrientation('ltr');
+                this._direction = direction;
+                // enable wrapping if required
+                if (wrap) {
+                    this.focusKeyManager.withWrap();
+                }
+                // make sure the first item in the list is tabbable
+                this.setFirstItemTabbable();
+                // call the init function on each item
+                this._items.forEach(function (item) { return item.onInit(); });
+                // if the list changes we need to ensure there is always at least one tabbable item
+                this._items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    // call the on init function on any new items
+                    _this._items.filter(function (item) { return !item.initialized; }).forEach(function (item) { return item.onInit(); });
+                    // ensure there is at least one item tabbable at all times
+                    _this.ensureTabbableItem();
+                });
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        TabbableListService.prototype.activate = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                if (!item) {
+                    return;
+                }
+                // get the item index
+                /** @type {?} */
+                var index = this._items.toArray().indexOf(item);
+                // active the item if it is not already active
+                if (this.focusKeyManager.activeItemIndex !== index) {
+                    this.focusKeyManager.setActiveItem(index);
+                }
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        TabbableListService.prototype.isItemActive = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                return this.focusKeyManager.activeItem.id === item.id;
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListService.prototype.setFirstItemTabbable = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // delay to prevent expression changed after check error
+                requestAnimationFrame(function () {
+                    // find the first item that is not disabled
+                    /** @type {?} */
+                    var first = _this._items.find(function (item) { return !item.disabled; });
+                    if (first) {
+                        first.tabindex = 0;
+                    }
+                });
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListService.prototype.ensureTabbableItem = /**
+         * @return {?}
+         */
+            function () {
+                // check to see if any item is tabbable
+                /** @type {?} */
+                var active = this._items.find(function (item) { return item.tabindex === 0; });
+                if (!active) {
+                    this.setFirstItemTabbable();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListService.prototype.focusTabbableItem = /**
+         * @return {?}
+         */
+            function () {
+                if (!this._items) {
+                    return;
+                }
+                // find the item in the list with a tab index
+                /** @type {?} */
+                var index = this._items.toArray().findIndex(function (item) { return item.tabindex === 0; });
+                // if an item was found then focus it
+                if (index !== -1) {
+                    this.focusKeyManager.setActiveItem(index);
+                }
+            };
+        /**
+         * @param {?} source
+         * @param {?} event
+         * @return {?}
+         */
+        TabbableListService.prototype.onKeydown = /**
+         * @param {?} source
+         * @param {?} event
+         * @return {?}
+         */
+            function (source, event) {
+                // prevent anything happening when modifier keys are pressed if they have been disabled
+                if (!this.allowAltModifier && event.altKey || !this.allowCtrlModifier && event.ctrlKey) {
+                    return;
+                }
+                this.focusKeyManager.onKeydown(event);
+                // if the key is a boundary key and boundary keys are enabled
+                if (this.allowBoundaryKeys) {
+                    switch (event.which) {
+                        case keycodes.HOME:
+                            this.focusKeyManager.setFirstItemActive();
+                            event.preventDefault();
+                            break;
+                        case keycodes.END:
+                            this.focusKeyManager.setLastItemActive();
+                            event.preventDefault();
+                            break;
+                    }
+                }
+                if (this.hierarchy) {
+                    if ((this._direction === 'horizontal' && event.keyCode === keycodes.DOWN_ARROW) ||
+                        (this._direction === 'vertical' && event.keyCode === keycodes.RIGHT_ARROW)) {
+                        source.keyboardExpanded$.next(true);
+                    }
+                    else if ((this._direction === 'horizontal' && event.keyCode === keycodes.UP_ARROW) ||
+                        (this._direction === 'vertical' && event.keyCode === keycodes.LEFT_ARROW)) {
+                        if (source.children.length > 0 && source.expanded) {
+                            source.keyboardExpanded$.next(false);
+                        }
+                        else if (source.parent) {
+                            source.parent.keyboardExpanded$.next(false);
+                        }
+                    }
+                }
+            };
+        /**
+         * @param {?} list
+         * @return {?}
+         */
+        TabbableListService.prototype.sortItemsByHierarchy = /**
+         * @param {?} list
+         * @return {?}
+         */
+            function (list) {
+                /** @type {?} */
+                var topLevel = [];
+                // Populating children - clear previously generated collection
+                list.forEach(function (item) { return item.children = []; });
+                // Populating children - map from child -> parent relationship
+                list.forEach(function (item) {
+                    if (item.parent) {
+                        item.parent.children.push(item);
+                    }
+                    else {
+                        topLevel.push(item);
+                    }
+                });
+                // Flatten the tree to produce the cursor key order
+                return this.flattenHierarchy(topLevel);
+            };
+        /**
+         * @param {?} items
+         * @return {?}
+         */
+        TabbableListService.prototype.flattenHierarchy = /**
+         * @param {?} items
+         * @return {?}
+         */
+            function (items) {
+                var _this = this;
+                /** @type {?} */
+                var flatList = [];
+                items.forEach(function (item) {
+                    item.children.sort(function (a, b) { return a.rank - b.rank; });
+                    flatList.push.apply(flatList, __spread([item], _this.flattenHierarchy(item.children)));
+                });
+                return flatList;
+            };
+        TabbableListService.decorators = [
+            { type: core.Injectable }
+        ];
+        return TabbableListService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var nextId = 0;
+    /** @type {?} */
+    var uniqueKey = 0;
+    var TabbableListItemDirective = /** @class */ (function () {
+        function TabbableListItemDirective(_tabbableList, _elementRef, focusIndicatorService, _managedFocusContainerService) {
+            var _this = this;
+            this._tabbableList = _tabbableList;
+            this._elementRef = _elementRef;
+            this._managedFocusContainerService = _managedFocusContainerService;
+            this.rank = 0;
+            this.disabled = false;
+            /**
+             * Indicate if the item is expanded if used as a hierarchical item.
+             */
+            this.expanded = false;
+            /**
+             * Provide a unique key to help identify items when used in a virtual list
+             */
+            this.key = "tabbable-list-key-" + uniqueKey++;
+            /**
+             * Emit when the expanded state changes.
+             */
+            this.expandedChange = new core.EventEmitter();
+            this.tabindex = -1;
+            this.id = nextId++;
+            this.initialized = false;
+            this.children = [];
+            this.keyboardExpanded$ = new Subject.Subject();
+            this._onDestroy = new Subject.Subject();
+            // create the focus indicator
+            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+            this.keyboardExpanded$.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
+                // Emit event which may alter the DOM
+                _this.expandedChange.emit(expanded);
+                // Activate the appropriate item
+                if (expanded) {
+                    if (_this.children.length > 0) {
+                        _this._tabbableList.activate(_this.children[0]);
+                    }
+                }
+                else {
+                    _this._tabbableList.activate(_this);
+                }
+            });
+        }
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.onInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this.initialized = true;
+                this._tabbableList.focusKeyManager.change
+                    .pipe(operators.takeUntil(this._onDestroy), operators.map(function () { return _this._tabbableList.isItemActive(_this); }))
+                    .subscribe(function (active) { return _this.tabindex = active ? 0 : -1; });
+                // Watch for focus within the container element and manage tabindex of descendants
+                this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                // check if this is the currently focused item - if so we need to make another item tabbable
+                if (this.tabindex === 0) {
+                    this._tabbableList.setFirstItemTabbable();
+                }
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                this._focusIndicator.destroy();
+                this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.focus = /**
+         * @return {?}
+         */
+            function () {
+                // apply focus to the element
+                (( /** @type {?} */(this._elementRef.nativeElement))).focus({ preventScroll: !this._tabbableList.shouldScrollInView });
+                // ensure the focus key manager updates the active item correctly
+                this._tabbableList.activate(this);
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.onKeydown = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                this._tabbableList.onKeydown(this, event);
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.getFocused = /**
+         * @return {?}
+         */
+            function () {
+                return this._elementRef.nativeElement === document.activeElement;
+            };
+        TabbableListItemDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxTabbableListItem]',
+                        exportAs: 'ux-tabbable-list-item'
+                    },] }
+        ];
+        /** @nocollapse */
+        TabbableListItemDirective.ctorParameters = function () {
+            return [
+                { type: TabbableListService },
+                { type: core.ElementRef },
+                { type: FocusIndicatorService },
+                { type: ManagedFocusContainerService }
+            ];
+        };
+        TabbableListItemDirective.propDecorators = {
+            parent: [{ type: core.Input }],
+            rank: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            expanded: [{ type: core.Input }],
+            key: [{ type: core.Input }],
+            expandedChange: [{ type: core.Output }],
+            tabindex: [{ type: core.HostBinding }],
+            focus: [{ type: core.HostListener, args: ['focus',] }],
+            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return TabbableListItemDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var TabbableListDirective = /** @class */ (function () {
+        function TabbableListDirective(_tabbableList) {
+            this._tabbableList = _tabbableList;
+            /**
+             * Determine whether the up/down arrows should be used or the left/right arrows
+             */
+            this.direction = 'vertical';
+            /**
+             * Indicate whether or not focus should loop back to the first element after the last
+             */
+            this.wrap = true;
+            /**
+             * Indicate whether or not the first item should receive focus on show - useful for modals and popovers
+             */
+            this.focusOnShow = false;
+            /**
+             * Indicate whether or not focus should be returned to the previous element (only applicable when using focusOnShow)
+             */
+            this.returnFocus = false;
+            this._onDestroy = new Subject.Subject();
+        }
+        Object.defineProperty(TabbableListDirective.prototype, "hierarchy", {
+            /** Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property. */
+            set: /**
+             * Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property.
+             * @param {?} value
+             * @return {?}
+             */ function (value) { this._tabbableList.hierarchy = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabbableListDirective.prototype, "allowAltModifier", {
+            /** Prevent keyboard interaction when alt modifier key is pressed */
+            set: /**
+             * Prevent keyboard interaction when alt modifier key is pressed
+             * @param {?} value
+             * @return {?}
+             */ function (value) { this._tabbableList.allowAltModifier = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabbableListDirective.prototype, "allowCtrlModifier", {
+            /** Prevent keyboard interaction when ctrl modifier key is pressed */
+            set: /**
+             * Prevent keyboard interaction when ctrl modifier key is pressed
+             * @param {?} value
+             * @return {?}
+             */ function (value) { this._tabbableList.allowCtrlModifier = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabbableListDirective.prototype, "allowBoundaryKeys", {
+            /** Focus the first or last item when Home or End keys are pressed */
+            set: /**
+             * Focus the first or last item when Home or End keys are pressed
+             * @param {?} value
+             * @return {?}
+             */ function (value) { this._tabbableList.allowBoundaryKeys = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabbableListDirective.prototype, "focusKeyManager", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._tabbableList.focusKeyManager;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        TabbableListDirective.prototype.ngAfterContentInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // store the currently focused element
+                this._focusedElement = ( /** @type {?} */(document.activeElement));
+                this._orderedItems = new core.QueryList();
+                if (this._tabbableList.hierarchy) {
+                    // Sort items in a hierarchy
+                    this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
+                    // Ensure that the child items remain sorted
+                    this.items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                        _this._orderedItems.reset(_this._tabbableList.sortItemsByHierarchy(_this.items));
+                        _this._orderedItems.notifyOnChanges();
+                    });
+                }
+                else {
+                    // Items are already in order
+                    this._orderedItems = this.items;
+                    // Ensure we reselect a selected item after the querylist has changed
+                    this.items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (items) {
+                        // check if an item is currently focused
+                        /** @type {?} */
+                        var activeItem = _this._tabbableList.focusKeyManager.activeItem;
+                        // restore the selected item if there was one and it is still visible
+                        if (activeItem) {
+                            // find the matching index
+                            /** @type {?} */
+                            var index = items.toArray().findIndex(function (item) { return item.key === activeItem.key; });
+                            // if the item is still in the list we want to focus it
+                            if (index > -1) {
+                                // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
+                                _this._tabbableList.shouldScrollInView = false;
+                                // refocus the item again
+                                _this._tabbableList.focusKeyManager.setActiveItem(index);
+                                // re-enable scrolling into view
+                                _this._tabbableList.shouldScrollInView = true;
+                            }
+                        }
+                    });
+                }
+                // Set up the focus monitoring
+                this._tabbableList.initialize(this._orderedItems, this.direction, this.wrap);
+                // focus the first element if specified
+                if (this.focusOnShow) {
+                    this._tabbableList.focusKeyManager.setFirstItemActive();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
+                    setTimeout(function () { return _this._focusedElement.focus(); });
+                }
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListDirective.prototype.focus = /**
+         * @return {?}
+         */
+            function () {
+                if (this._tabbableList.focusKeyManager && this._tabbableList.focusKeyManager.activeItem) {
+                    this._tabbableList.focusKeyManager.activeItem.focus();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListDirective.prototype.focusTabbableItem = /**
+         * @return {?}
+         */
+            function () {
+                this._tabbableList.focusTabbableItem();
+            };
+        TabbableListDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxTabbableList]',
+                        exportAs: 'ux-tabbable-list',
+                        providers: [TabbableListService]
+                    },] }
+        ];
+        /** @nocollapse */
+        TabbableListDirective.ctorParameters = function () {
+            return [
+                { type: TabbableListService }
+            ];
+        };
+        TabbableListDirective.propDecorators = {
+            direction: [{ type: core.Input }],
+            wrap: [{ type: core.Input }],
+            focusOnShow: [{ type: core.Input }],
+            returnFocus: [{ type: core.Input }],
+            hierarchy: [{ type: core.Input }],
+            allowAltModifier: [{ type: core.Input }],
+            allowCtrlModifier: [{ type: core.Input }],
+            allowBoundaryKeys: [{ type: core.Input }],
+            items: [{ type: core.ContentChildren, args: [TabbableListItemDirective, { descendants: true },] }]
+        };
+        return TabbableListDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * We want this service to be a singleton service (even across lazy modules).
+     * This allows us to ensure that it is a singleton without having to have
+     * the consumer call the `forRoot()` method on the module.
+     *
+     * This can be removed once Angular 5 support is dropped as it can be changed
+     * to be `providedIn: 'root'` instead.
+     * @param {?} parentFocusIndicatorOriginService
+     * @return {?}
+     */
+    function FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY(parentFocusIndicatorOriginService) {
+        return parentFocusIndicatorOriginService || new FocusIndicatorOriginService();
+    }
+    /** @type {?} */
+    var FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
+        provide: FocusIndicatorOriginService,
+        deps: [[new core.Optional(), new core.SkipSelf(), FocusIndicatorOriginService]],
+        useFactory: FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY
+    };
+    var AccessibilityModule = /** @class */ (function () {
+        function AccessibilityModule() {
+        }
+        /**
+         * @param {?} options
+         * @return {?}
+         */
+        AccessibilityModule.forRoot = /**
+         * @param {?} options
+         * @return {?}
+         */
+            function (options) {
+                return {
+                    ngModule: AccessibilityModule,
+                    providers: [
+                        { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options },
+                        FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER
+                    ]
+                };
+            };
+        AccessibilityModule.decorators = [
+            { type: core.NgModule, args: [{
+                        declarations: [
+                            DefaultFocusIndicatorDirective,
+                            FocusIndicatorDirective,
+                            FocusIndicatorOptionsDirective,
+                            FocusIndicatorOriginDirective,
+                            FocusWithinDirective,
+                            ManagedFocusContainerDirective,
+                            SplitterAccessibilityDirective,
+                            TabbableListDirective,
+                            TabbableListItemDirective,
+                            FocusIndicatorOriginDirective,
+                            ColorContrastDirective
+                        ],
+                        imports: [
+                            a11y.A11yModule,
+                            ColorServiceModule
+                        ],
+                        exports: [
+                            DefaultFocusIndicatorDirective,
+                            FocusIndicatorDirective,
+                            FocusIndicatorOptionsDirective,
+                            FocusIndicatorOriginDirective,
+                            FocusWithinDirective,
+                            ManagedFocusContainerDirective,
+                            SplitterAccessibilityDirective,
+                            TabbableListDirective,
+                            TabbableListItemDirective,
+                            FocusIndicatorOriginDirective,
+                            ColorContrastDirective
+                        ],
+                        providers: [
+                            AccessibilityOptionsService,
+                            ContrastService,
+                            FocusIndicatorService,
+                            FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER,
+                            ManagedFocusContainerService,
+                        ]
+                    },] }
+        ];
+        return AccessibilityModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var AccordionModule = /** @class */ (function () {
+        function AccordionModule() {
+        }
+        AccordionModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [
+                            AccessibilityModule,
+                            common.CommonModule
+                        ],
+                        declarations: [
+                            AccordionComponent,
+                            AccordionPanelComponent,
+                            AccordionPanelHeadingDirective
+                        ],
+                        exports: [
+                            AccordionComponent,
+                            AccordionPanelComponent,
+                            AccordionPanelHeadingDirective
+                        ]
+                    },] }
+        ];
+        return AccordionModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var AlertIconDirective = /** @class */ (function () {
+        function AlertIconDirective() {
+        }
+        AlertIconDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxAlertIcon]',
+                    },] }
+        ];
+        return AlertIconDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var AlertComponent = /** @class */ (function () {
         function AlertComponent(colorService) {
             this.colorService = colorService;
@@ -2677,7 +3477,7 @@
         AlertComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-alert',
-                        template: "<div class=\"alert-icon\" *ngIf=\"icon\">\n    <ng-content select=\"[uxAlertIcon]\"></ng-content>\n</div>\n\n<div class=\"alert-content\">\n    <ng-content></ng-content>\n</div>\n\n<button class=\"alert-close\" type=\"button\" *ngIf=\"dismissible\" (click)=\"dismiss.emit()\" [attr.aria-label]=\"dismissAriaLabel\">\n    <i class=\"hpe-icon hpe-close\"></i>\n</button>\n",
+                        template: "<div class=\"alert-icon\" *ngIf=\"icon\">\n    <ng-content select=\"[uxAlertIcon]\"></ng-content>\n</div>\n\n<div class=\"alert-content\">\n    <ng-content></ng-content>\n</div>\n\n<button *ngIf=\"dismissible\"\n        uxFocusIndicator\n        class=\"alert-close\"\n        type=\"button\"\n        (click)=\"dismiss.emit()\"\n        [attr.aria-label]=\"dismissAriaLabel\">\n    <i class=\"hpe-icon hpe-close\"></i>\n</button>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         host: {
                             'role': 'alert',
@@ -2719,6 +3519,7 @@
         AlertModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule
                         ],
                         declarations: [
@@ -2764,7 +3565,8 @@
         BreadcrumbsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-breadcrumbs',
-                        template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n\n            <!-- If there is a router link then use a tag -->\n            <a *ngIf=\"crumb.routerLink || crumb.onClick\"\n                tabindex=\"0\"\n                [routerLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is not router link then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>"
+                        template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n\n            <!-- If there is a router link then use a tag -->\n            <a *ngIf=\"crumb.routerLink || crumb.onClick\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                [routerLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is not router link then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         BreadcrumbsComponent.propDecorators = {
@@ -2783,6 +3585,7 @@
         BreadcrumbsModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             router.RouterModule
                         ],
@@ -3303,14 +4106,42 @@
     var CheckboxComponent = /** @class */ (function () {
         function CheckboxComponent() {
             this._checkboxId = "ux-checkbox-" + ++uniqueCheckboxId;
+            /**
+             * Determines if the checkbox should be checked, unchecked or indeterminate.
+             */
             this.id = this._checkboxId;
+            /**
+             * Specifies the tabindex of the input.
+             */
             this.tabindex = 0;
+            /**
+             * If set to `true` the checkbox will not toggle state when clicked.
+             */
             this.clickable = true;
+            /**
+             * If set to `true` the checkbox will be displayed without a border and background.
+             */
             this.simplified = false;
+            /**
+             * If `value` is set to the indeterminate value specified using this attribute, it will neither
+             * display the checkbox as checked or unchecked, and will instead show the indeterminate variation.
+             */
             this.indeterminateValue = -1;
+            /**
+             * Specify if the checkbox should be disabled.
+             */
             this.disabled = false;
+            /**
+             * Provide an aria label for the checkbox.
+             */
             this.ariaLabel = '';
+            /**
+             * Provide an aria-labelled by property for the checkbox.
+             */
             this.ariaLabelledby = null;
+            /**
+             * Emits when `value` has been changed.
+             */
             this.valueChange = new core.EventEmitter();
             this._value = false;
             this.indeterminate = false;
@@ -3319,7 +4150,9 @@
             this.onChangeCallback = function () { };
         }
         Object.defineProperty(CheckboxComponent.prototype, "value", {
+            /** Determines if the checkbox should be checked, unchecked or indeterminate. */
             get: /**
+             * Determines if the checkbox should be checked, unchecked or indeterminate.
              * @return {?}
              */ function () {
                 return this._value;
@@ -3421,7 +4254,7 @@
         CheckboxComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-checkbox',
-                        template: "<label [attr.for]=\"inputId\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"indeterminate\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"focused\">\n\n    <div class=\"ux-checkbox-container\">\n        <input type=\"checkbox\"\n               class=\"ux-checkbox-input\"\n               [id]=\"inputId\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"indeterminate\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"ariaChecked\"\n               (focus)=\"focused = true\"\n               (blur)=\"focused = false\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n",
+                        template: "<label [attr.for]=\"inputId\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"indeterminate\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"focused\">\n\n    <div class=\"ux-checkbox-container\">\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"inputId\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"indeterminate\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"ariaChecked\"\n               (indicator)=\"focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n",
                         providers: [CHECKBOX_VALUE_ACCESSOR]
                     }] }
         ];
@@ -3451,9 +4284,16 @@
         }
         CheckboxModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [forms.FormsModule],
-                        exports: [CheckboxComponent],
-                        declarations: [CheckboxComponent]
+                        imports: [
+                            AccessibilityModule,
+                            forms.FormsModule
+                        ],
+                        exports: [
+                            CheckboxComponent
+                        ],
+                        declarations: [
+                            CheckboxComponent
+                        ]
                     },] }
         ];
         return CheckboxModule;
@@ -3577,11 +4417,29 @@
     var ColorPickerComponent = /** @class */ (function () {
         function ColorPickerComponent() {
             this.id = "ux-color-picker-" + uniqueId$1++;
+            /**
+             * The style of the color swatch buttons.
+             */
             this.buttonStyle = 'circle';
+            /**
+             * Whether to show tooltips above the color swatch buttons. These contain the color name if provided; otherwise the color hex/RGBA value.
+             */
             this.showTooltips = false;
+            /**
+             * Whether to show the hex/RGBA input panel.
+             */
             this.showInput = false;
+            /**
+             * The default input mode to display in the input panel. The user can switch modes using the toggle button.
+             */
             this.inputMode = 'hex';
+            /**
+             * Emitted when the user changes the selected color, either by clicking a color swatch button, or entering a valid color value into the input panel text field.
+             */
             this.selectedChange = new core.EventEmitter();
+            /**
+             * Emitted when the user presses enter in the input panel text field. This can be used to commit a color change and/or close a popup.
+             */
             this.inputSubmit = new core.EventEmitter();
             this.cssWidth = 'auto';
             this.colors = [];
@@ -3595,7 +4453,21 @@
             this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(ColorPickerComponent.prototype, "inputColors", {
+            /**
+             * The collection of colors to display in the color swatch.
+             *
+             * Colors can be specified either as a string, which is the hex or RGBA value of the color; or as a `ColorPickerColor` object,
+             * which allows a name to be associated with the color. See below for details of the `ColorPickerColor` class.
+             * This property is either a one-dimensional or two-dimensional array. If a two-dimensional array is provided,
+             * the colors will be split into rows, providing more control over the appearance of the swatch.
+             */
             set: /**
+             * The collection of colors to display in the color swatch.
+             *
+             * Colors can be specified either as a string, which is the hex or RGBA value of the color; or as a `ColorPickerColor` object,
+             * which allows a name to be associated with the color. See below for details of the `ColorPickerColor` class.
+             * This property is either a one-dimensional or two-dimensional array. If a two-dimensional array is provided,
+             * the colors will be split into rows, providing more control over the appearance of the swatch.
              * @param {?} colors
              * @return {?}
              */ function (colors) {
@@ -3617,7 +4489,17 @@
             configurable: true
         });
         Object.defineProperty(ColorPickerComponent.prototype, "selected", {
+            /**
+             * The currently selected color. If this is one of the `colors` in the colors collection, it will be visually
+             * highlighted in the swatch. It will also be shown in the input panel, if enabled (see showInput).
+             * Note that this will always be a `ColorPickerColor` object, even if plain strings are provided to the colors property.
+             * See below for details of the `ColorPickerColor` class.
+             */
             set: /**
+             * The currently selected color. If this is one of the `colors` in the colors collection, it will be visually
+             * highlighted in the swatch. It will also be shown in the input panel, if enabled (see showInput).
+             * Note that this will always be a `ColorPickerColor` object, even if plain strings are provided to the colors property.
+             * See below for details of the `ColorPickerColor` class.
              * @param {?} selected
              * @return {?}
              */ function (selected) {
@@ -3627,7 +4509,13 @@
             configurable: true
         });
         Object.defineProperty(ColorPickerComponent.prototype, "columns", {
+            /**
+             * The number of columns to display in the color swatch. Set this to -1 if the width should be specified by a stylesheet
+             * instead, e.g. to provide a responsive layout.
+             */
             set: /**
+             * The number of columns to display in the color swatch. Set this to -1 if the width should be specified by a stylesheet
+             * instead, e.g. to provide a responsive layout.
              * @param {?} columns
              * @return {?}
              */ function (columns) {
@@ -3637,7 +4525,9 @@
             configurable: true
         });
         Object.defineProperty(ColorPickerComponent.prototype, "buttonSize", {
+            /** The size of the color swatch buttons. Three size variants are currently supported. */
             set: /**
+             * The size of the color swatch buttons. Three size variants are currently supported.
              * @param {?} buttonSize
              * @return {?}
              */ function (buttonSize) {
@@ -3714,7 +4604,7 @@
             { type: core.Component, args: [{
                         selector: 'ux-color-picker',
                         exportAs: 'ux-color-picker',
-                        template: "<div class=\"ux-color-picker\" uxTabbableList direction=\"horizontal\">\n    <div class=\"ux-color-picker-swatch\">\n        <div *ngFor=\"let row of colors\" class=\"ux-color-picker-swatch-row\">\n            <div *ngFor=\"let color of row\"\n                class=\"ux-color-picker-color\"\n                [class.ux-small]=\"(buttonSize$ | async) === 'sm'\"\n                [class.ux-large]=\"(buttonSize$ | async) === 'lg'\"\n                [class.ux-circle]=\"buttonStyle === 'circle'\"\n                [class.ux-selected]=\"color === (selected$ | async)\">\n                <button type=\"button\"\n                    attr.aria-label=\"Select color {{color.name}}\" i18n-aria-label\n                    aria-selected=\"color === (selected$ | async)\"\n                    class=\"btn btn-icon\"\n                    [style.background-color]=\"color.rgba\"\n                    (click)=\"selected$.next(color)\"\n                    uxTabbableListItem\n                    [uxTooltip]=\"color.name\"\n                    [tooltipDisabled]=\"!showTooltips\"></button>\n            </div>\n        </div>\n    </div>\n    <div *ngIf=\"showInput\" class=\"ux-color-picker-input-panel\">\n        <div class=\"ux-color-picker-input-header\">\n            <div class=\"ux-color-picker-preview\"\n                [style.background-color]=\"(selected$ | async).rgba\"\n                [class.ux-circle]=\"buttonStyle === 'circle'\"></div>\n            <label *ngIf=\"inputMode === 'hex'\" attr.for=\"{{id}}-input-field\">HEX</label>\n            <label *ngIf=\"inputMode === 'rgba'\" attr.for=\"{{id}}-input-field\">RGBA</label>\n            <button type=\"button\"\n                attr.aria-label=\"Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}\" i18n-aria-label\n                class=\"btn btn-link btn-icon button-secondary ux-color-picker-input-toggle\"\n                (click)=\"toggleColorEntryType(); $event.stopPropagation()\">\n                <span class=\"hpe-icon hpe-chevron-right\"></span>\n            </button>\n        </div>\n        <div class=\"ux-color-picker-input\"\n            [class.has-error]=\"inputField.errors\"\n            [class.has-feedback]=\"inputField.errors\">\n            <input type=\"text\"\n                attr.id=\"{{id}}-input-field\"\n                attr.aria-description=\"Edit {{inputMode}} color value\" i18n-aria-description\n                class=\"form-control\"\n                #inputField=\"ngModel\"\n                [ngModel]=\"(selected$ | async)[inputMode]\"\n                (ngModelChange)=\"updateColorValue($event, inputMode)\"\n                [pattern]=\"inputPatterns[inputMode].source\"\n                (keyup.enter)=\"inputSubmit.emit()\">\n            <span class=\"hpe-icon hpe-alert form-control-feedback\"></span>\n        </div>\n    </div>\n</div>\n"
+                        template: "<div class=\"ux-color-picker\" uxTabbableList direction=\"horizontal\">\n    <div class=\"ux-color-picker-swatch\">\n        <div *ngFor=\"let row of colors\" class=\"ux-color-picker-swatch-row\">\n\n            <div *ngFor=\"let color of row\"\n                class=\"ux-color-picker-color\"\n                [class.ux-small]=\"(buttonSize$ | async) === 'sm'\"\n                [class.ux-large]=\"(buttonSize$ | async) === 'lg'\"\n                [class.ux-circle]=\"buttonStyle === 'circle'\"\n                [class.ux-selected]=\"color === (selected$ | async)\">\n\n                <button type=\"button\"\n                    uxFocusIndicator\n                    attr.aria-label=\"Select color {{color.name}}\"\n                    i18n-aria-label\n                    aria-selected=\"color === (selected$ | async)\"\n                    class=\"btn btn-icon\"\n                    [uxColorContrast]=\"color.hex\"\n                    [style.background-color]=\"color.rgba\"\n                    (click)=\"selected$.next(color)\"\n                    uxTabbableListItem\n                    [uxTooltip]=\"color.name\"\n                    [tooltipDisabled]=\"!showTooltips\">\n                    <i class=\"hpe-icon hpe-checkmark\"></i>\n                </button>\n\n            </div>\n        </div>\n    </div>\n\n    <div *ngIf=\"showInput\" class=\"ux-color-picker-input-panel\">\n        <div class=\"ux-color-picker-input-header\">\n\n            <div class=\"ux-color-picker-preview\"\n                [style.background-color]=\"(selected$ | async).rgba\"\n                [class.ux-circle]=\"buttonStyle === 'circle'\">\n            </div>\n\n            <label *ngIf=\"inputMode === 'hex'\" attr.for=\"{{id}}-input-field\">HEX</label>\n            <label *ngIf=\"inputMode === 'rgba'\" attr.for=\"{{id}}-input-field\">RGBA</label>\n\n            <button type=\"button\"\n                attr.aria-label=\"Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}\" i18n-aria-label\n                class=\"btn btn-link btn-icon button-secondary ux-color-picker-input-toggle\"\n                (click)=\"toggleColorEntryType(); $event.stopPropagation()\">\n                <span class=\"hpe-icon hpe-chevron-right\"></span>\n            </button>\n        </div>\n\n        <div class=\"ux-color-picker-input\"\n            [class.has-error]=\"inputField.errors\"\n            [class.has-feedback]=\"inputField.errors\">\n\n            <input type=\"text\"\n                attr.id=\"{{id}}-input-field\"\n                attr.aria-description=\"Edit {{inputMode}} color value\" i18n-aria-description\n                class=\"form-control\"\n                #inputField=\"ngModel\"\n                [ngModel]=\"(selected$ | async)[inputMode]\"\n                (ngModelChange)=\"updateColorValue($event, inputMode)\"\n                [pattern]=\"inputPatterns[inputMode].source\"\n                (keyup.enter)=\"inputSubmit.emit()\">\n\n            <span class=\"hpe-icon hpe-alert form-control-feedback\"></span>\n        </div>\n    </div>\n</div>\n"
                     }] }
         ];
         ColorPickerComponent.propDecorators = {
@@ -4819,9 +5709,12 @@
                             NumberPickerModule,
                             TooltipModule,
                         ],
-                        exports: [ColorPickerComponent],
-                        declarations: [ColorPickerComponent],
-                        providers: [],
+                        exports: [
+                            ColorPickerComponent
+                        ],
+                        declarations: [
+                            ColorPickerComponent
+                        ],
                     },] }
         ];
         return ColorPickerModule;
@@ -4924,6 +5817,12 @@
         function ColumnSortingComponent(_columnSorter) {
             var _this = this;
             this._columnSorter = _columnSorter;
+            /**
+             * Changes the state of the sorting on the column between `NoSort`, `Ascending` and `Descending`.
+             * This returns an array of objects for each column being sorted containing `key: string` and `state: ColumnSortingState`.
+             * State can be used to find the current sorting state of the column eg. `(state === ColumnSortingState.Ascending)`.
+             * The `ColumnSortingOrder` interface has been provided for objects in the array.
+             */
             this.stateChange = new core.EventEmitter();
             this.columnSortingState = ColumnSortingState;
             this._onDestroy = new Subject.Subject();
@@ -5001,8 +5900,14 @@
         }
         ColumnSortingModule.decorators = [
             { type: core.NgModule, args: [{
-                        exports: [ColumnSortingComponent, ColumnSortingDirective],
-                        declarations: [ColumnSortingComponent, ColumnSortingDirective]
+                        exports: [
+                            ColumnSortingComponent,
+                            ColumnSortingDirective
+                        ],
+                        declarations: [
+                            ColumnSortingComponent,
+                            ColumnSortingDirective
+                        ]
                     },] }
         ];
         return ColumnSortingModule;
@@ -9668,7 +10573,13 @@
         function DateTimePickerComponent(datepicker) {
             var _this = this;
             this.datepicker = datepicker;
+            /**
+             * Emits an event when the date is changed using the component.
+             */
             this.dateChange = new core.EventEmitter();
+            /**
+             * If not defined the picker will try to use the user's timezone. If that is not available, it will revert to GMT.
+             */
             this.timezoneChange = new core.EventEmitter();
             // expose enum to view
             this.DatePickerMode = DatePickerMode;
@@ -9679,7 +10590,9 @@
                 .subscribe(function (timezone) { return _this.timezoneChange.emit(timezone); });
         }
         Object.defineProperty(DateTimePickerComponent.prototype, "showDate", {
+            /** Defines whether or not the date picker should be visible. */
             set: /**
+             * Defines whether or not the date picker should be visible.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9689,7 +10602,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "showTime", {
+            /** Defines whether or not the time picker should be visible. */
             set: /**
+             * Defines whether or not the time picker should be visible.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9699,7 +10614,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "showTimezone", {
+            /** Defines whether or not the time picker should allow the user to choose a timezone. */
             set: /**
+             * Defines whether or not the time picker should allow the user to choose a timezone.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9709,7 +10626,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "showSeconds", {
+            /** Defines whether or not the time picker should allow the user to specify seconds. */
             set: /**
+             * Defines whether or not the time picker should allow the user to specify seconds.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9719,7 +10638,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "showMeridian", {
+            /** Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead. */
             set: /**
+             * Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9729,7 +10650,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "showSpinners", {
+            /** Defines whether or not the time picker should allow the user to select the time using spinners. */
             set: /**
+             * Defines whether or not the time picker should allow the user to select the time using spinners.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9739,7 +10662,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "weekdays", {
+            /** If defined will override the weekday names displayed. */
             set: /**
+             * If defined will override the weekday names displayed.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9749,7 +10674,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "months", {
+            /** Defines the names of the months. */
             set: /**
+             * Defines the names of the months.
              * @param {?} months
              * @return {?}
              */ function (months$$1) {
@@ -9759,7 +10686,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "monthsShort", {
+            /** Defines the short names of each month. */
             set: /**
+             * Defines the short names of each month.
              * @param {?} months
              * @return {?}
              */ function (months$$1) {
@@ -9769,7 +10698,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "meridians", {
+            /** Defines the labels to show in the meridian (AM/PM) selector. */
             set: /**
+             * Defines the labels to show in the meridian (AM/PM) selector.
              * @param {?} meridians
              * @return {?}
              */ function (meridians$$1) {
@@ -9779,7 +10710,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "nowBtnText", {
+            /** Defines the text to be displayed in the button used to set the selected time to the current time. */
             set: /**
+             * Defines the text to be displayed in the button used to set the selected time to the current time.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9789,7 +10722,15 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "timezones", {
+            /**
+             * Defines the list of available timezones. The **DateTimePickerTimezone** interface specifies that each timezone should
+             * be an object with a **name** property that represents the timezone, eg. `GMT+2`, and an **offset** property that represents
+             * the number of minutes relative to GMT the timezone is.
+             */
             set: /**
+             * Defines the list of available timezones. The **DateTimePickerTimezone** interface specifies that each timezone should
+             * be an object with a **name** property that represents the timezone, eg. `GMT+2`, and an **offset** property that represents
+             * the number of minutes relative to GMT the timezone is.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9799,7 +10740,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "startOfWeek", {
+            /** Defines the day of the week that should appear in the first column. `WeekDay` is an enumeration available in `@angular/common`. */
             set: /**
+             * Defines the day of the week that should appear in the first column. `WeekDay` is an enumeration available in `\@angular/common`.
              * @param {?} startOfWeek
              * @return {?}
              */ function (startOfWeek) {
@@ -9809,7 +10752,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "date", {
+            /** The selected date to be displayed in the component. */
             set: /**
+             * The selected date to be displayed in the component.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9821,7 +10766,9 @@
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "timezone", {
+            /** Will set the selected timezone. */
             set: /**
+             * Will set the selected timezone.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -9858,7 +10805,7 @@
         DateTimePickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker',
-                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n      <!-- Display days in the current month -->\n      <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n      <!-- Display the months in the current year -->\n      <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n      <!-- Display a decade -->\n      <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\" class=\"now-button\" aria-label=\"Set date to now\" (click)=\"setToNow()\">{{ datepicker.nowBtnText$ | async }}</button>",
+                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    uxFocusIndicator\n    class=\"now-button\"\n    aria-label=\"Set date to now\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
                         providers: [DateTimePickerService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -9898,12 +10845,20 @@
     var FocusIfDirective = /** @class */ (function () {
         function FocusIfDirective(_elementRef) {
             this._elementRef = _elementRef;
+            /**
+             * The delay that should ellapse before focussing the element
+             */
             this.focusIfDelay = 0;
+            /**
+             * Determine if we should scroll the element into view when focused
+             */
             this.focusIfScroll = true;
             this._timeout = null;
         }
         Object.defineProperty(FocusIfDirective.prototype, "focusIf", {
+            /** Focus when the boolean value is true */
             set: /**
+             * Focus when the boolean value is true
              * @param {?} focus
              * @return {?}
              */ function (focus) {
@@ -9923,6 +10878,17 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @return {?}
+         */
+        FocusIfDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                if (this._timeout !== null) {
+                    clearTimeout(this._timeout);
+                }
+            };
         FocusIfDirective.decorators = [
             { type: core.Directive, args: [{
                         selector: '[focusIf]'
@@ -10094,7 +11060,7 @@
         SpinButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-spin-button',
-                        template: "<button type=\"button\"\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n  <span class=\"hpe-icon hpe-up\"></span>\n</button>\n\n<input [type]=\"type\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"valueChange.emit($event)\"\n       (wheel)=\"scroll($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n  <span class=\"hpe-icon hpe-down\"></span>\n</button>",
+                        template: "<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n  <span class=\"hpe-icon hpe-up\"></span>\n</button>\n\n<input [type]=\"type\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"valueChange.emit($event)\"\n       (wheel)=\"scroll($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n  <span class=\"hpe-icon hpe-down\"></span>\n</button>",
                         encapsulation: core.ViewEncapsulation.None,
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         providers: [SPIN_BUTTON_VALUE_ACCESSOR]
@@ -10131,6 +11097,7 @@
         SpinButtonModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule
                         ],
@@ -10187,20 +11154,65 @@
     var TimePickerComponent = /** @class */ (function () {
         function TimePickerComponent() {
             var _this = this;
+            /**
+             * Whether the arrow keys can be used to increment or decrement the selected time component.
+             */
             this.arrowkeys = true;
+            /**
+             * Whether the mouse scroll wheel can be used to increment or decrement the selected time component.
+             */
             this.mousewheel = true;
+            /**
+             * Whether the control is disabled.
+             */
             this.disabled = false;
+            /**
+             * Whether the control is readonly.
+             */
             this.readOnly = false;
+            /**
+             * Whether to show the meridian (AM/PM) selector. If this is false, the 24-hour clock will be used.
+             */
             this.showMeridian = false;
+            /**
+             * Whether to show the hour selector.
+             */
             this.showHours = true;
+            /**
+             * Whether to show the minute selector.
+             */
             this.showMinutes = true;
+            /**
+             * Whether to show the second selector.
+             */
             this.showSeconds = false;
+            /**
+             * Whether to show increment and decrement buttons in the time picker.
+             */
             this.showSpinners = true;
+            /**
+             * The number of hours to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel.
+             */
             this.hourStep = 1;
+            /**
+             * The number of minutes to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel.
+             */
             this.minuteStep = 1;
+            /**
+             * The number of seconds to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel.
+             */
             this.secondStep = 1;
+            /**
+             * An array containing the labels to show in the meridian selector.
+             */
             this.meridians = ['AM', 'PM'];
+            /**
+             * Emitted when the `value` changes.
+             */
             this.valueChange = new core.EventEmitter();
+            /**
+             * Emitted when the validity of the control changes.
+             */
             this.isValid = new core.EventEmitter();
             this.onTouchedCallback = function () { };
             this.onChangeCallback = function () { };
@@ -10220,7 +11232,9 @@
              */ function () {
                 return new Date(this.value$.value);
             },
+            /** The value to display. */
             set: /**
+             * The value to display.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -10634,6 +11648,7 @@
         TimePickerModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule,
                             SpinButtonModule
@@ -10945,7 +11960,7 @@
         DayViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-day-view',
-                        template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        class=\"date-button\"\n                        [focusIf]=\"(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"item.isActive\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"item.isActive\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
+                        template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        uxFocusIndicator\n                        [programmaticFocusIndicator]=\"true\"\n                        class=\"date-button\"\n                        [focusIf]=\"(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"item.isActive\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"item.isActive\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
                         providers: [DayViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -11039,7 +12054,7 @@
         HeaderComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-header',
-                        template: "<header class=\"header\">\n\n  <button type=\"button\"\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-previous\"></i>\n  </button>\n\n  <button type=\"button\"\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-next\"></i>\n  </button>\n</header>",
+                        template: "<header class=\"header\">\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-previous\"></i>\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-next\"></i>\n  </button>\n</header>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -11297,7 +12312,7 @@
         MonthViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-month-view',
-                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
+                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
                         providers: [MonthViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -11641,7 +12656,7 @@
         YearViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-year-view',
-                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
+                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
                         providers: [YearViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -11680,6 +12695,7 @@
         DateTimePickerModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule,
                             TimePickerModule,
@@ -11901,11 +12917,32 @@
             var _this = this;
             this._announcer = _announcer;
             this.facetService = facetService;
+            /**
+             * Defines the text displayed at the top of the Facet Container.
+             */
             this.header = 'Selected';
+            /**
+             * Defines the text to display in the tooltip when hovering over the clear all button.
+             */
             this.clearTooltip = 'Clear All';
+            /**
+             * Defines the text to display when there are no selected facets.
+             */
             this.emptyText = 'No Items';
+            /**
+             * Determines if the facets can be reordered.
+             */
             this.facetsReorderable = false;
+            /**
+             * If using two-way binding this array will update when the selected facets change.
+             */
             this.facetsChange = new core.EventEmitter();
+            /**
+             * This will be triggered when a facet is selected, deselected or all facets are deselected.
+             * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
+             * will contain the facet being selected or deselected in a `facet` property
+             * (deselect all will not contain affected facets).
+             */
             this.events = new core.EventEmitter();
             this._onDestroy = new Subject.Subject();
             facetService.facets$.subscribe(function (facets) { return _this.facetsChange.next(facets); });
@@ -11920,7 +12957,9 @@
              */ function () {
                 return this.facetService.facets$.value;
             },
+            /** Allows a predefined set of Facets to be displayed. */
             set: /**
+             * Allows a predefined set of Facets to be displayed.
              * @param {?} facets
              * @return {?}
              */ function (facets) {
@@ -12088,7 +13127,7 @@
         FacetContainerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-facet-container',
-                        template: "<!-- Display Any Selected Facets -->\n<div class=\"facets-selected-container\">\n\n    <!-- Display Title an Clear Button -->\n    <div class=\"facets-selected-header-container\">\n\n        <!-- Show The Selected Text -->\n        <span class=\"facets-selected-header-label\">{{ header }}</span>\n\n        <!-- Add a Clear Button -->\n        <ng-container *ngIf=\"(facetService.facets$ | async).length > 0\" [ngTemplateOutlet]=\"clearButton || clearButtonDefault\"></ng-container>\n\n    </div>\n\n    <!-- Display Tags For Selected Items -->\n    <div class=\"facets-selected-list\"\n        uxReorderable\n        role=\"list\"\n        [reorderingDisabled]=\"!facetsReorderable\"\n        [(reorderableModel)]=\"facets\"\n        (reorderableModelChange)=\"facetsChange.emit(facets)\">\n\n        <!-- Show Selected Tags -->\n        <div #tag\n            class=\"facet-selected-tag\"\n            role=\"listitem\"\n            tabindex=\"0\"\n            uxReorderableHandle\n            *ngFor=\"let facet of (facetService.facets$ | async); trackBy: trackBy\"\n            [attr.aria-label]=\"facet.title\"\n            [uxReorderableModel]=\"facet\"\n            (mousedown)=\"tag.focus()\"\n            (keydown.ArrowRight)=\"shiftRight(facet, tag)\"\n            (keydown.ArrowLeft)=\"shiftLeft(facet, tag)\">\n\n            <!-- Display Label -->\n            <span class=\"facet-selected-tag-label\">{{ facet.title }}</span>\n\n            <!-- Display Remove Icon -->\n            <button type=\"button\"\n                class=\"facet-selected-remove-btn\"\n                i18n-aria-label\n                aria-label=\"Deselect Facet\"\n                (click)=\"deselectFacet(facet, tag)\">\n\n                <i class=\"hpe-icon hpe-close\"></i>\n            </button>\n        </div>\n\n    </div>\n\n    <!-- Show Message Here if No Facets Selected -->\n    <p class=\"facets-selected-none-label\" *ngIf=\"emptyText && (facetService.facets$ | async).length === 0\">{{ emptyText }}</p>\n\n</div>\n\n<!-- Any Facet Elements Should be Added Here By User -->\n<div class=\"facets-region\">\n    <ng-content></ng-content>\n</div>\n\n<ng-template #clearButtonDefault>\n    <button type=\"button\"\n            class=\"btn btn-link btn-icon button-secondary\"\n            tabindex=\"0\"\n            [attr.aria-label]=\"clearTooltip\"\n            [uxTooltip]=\"clearTooltip\"\n            placement=\"left\"\n            (click)=\"deselectAllFacets()\">\n\n            <svg class=\"facets-selected-clear-graphic\" focusable=\"false\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n                <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n                <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n                <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n                <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n                <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n            </svg>\n        </button>\n</ng-template>",
+                        template: "<!-- Display Any Selected Facets -->\n<div class=\"facets-selected-container\">\n\n    <!-- Display Title an Clear Button -->\n    <div class=\"facets-selected-header-container\">\n\n        <!-- Show The Selected Text -->\n        <span class=\"facets-selected-header-label\">{{ header }}</span>\n\n        <!-- Add a Clear Button -->\n        <ng-container *ngIf=\"(facetService.facets$ | async).length > 0\" [ngTemplateOutlet]=\"clearButton || clearButtonDefault\"></ng-container>\n\n    </div>\n\n    <!-- Display Tags For Selected Items -->\n    <div class=\"facets-selected-list\"\n        uxReorderable\n        role=\"list\"\n        [reorderingDisabled]=\"!facetsReorderable\"\n        [(reorderableModel)]=\"facets\"\n        (reorderableModelChange)=\"facetsChange.emit(facets)\">\n\n        <!-- Show Selected Tags -->\n        <div #tag\n            class=\"facet-selected-tag\"\n            role=\"listitem\"\n            tabindex=\"0\"\n            uxReorderableHandle\n            *ngFor=\"let facet of (facetService.facets$ | async); trackBy: trackBy\"\n            [attr.aria-label]=\"facet.title\"\n            [uxReorderableModel]=\"facet\"\n            (mousedown)=\"tag.focus()\"\n            (keydown.ArrowRight)=\"shiftRight(facet, tag)\"\n            (keydown.ArrowLeft)=\"shiftLeft(facet, tag)\">\n\n            <!-- Display Label -->\n            <span class=\"facet-selected-tag-label\">{{ facet.title }}</span>\n\n            <!-- Display Remove Icon -->\n            <button type=\"button\"\n                uxFocusIndicator\n                class=\"facet-selected-remove-btn\"\n                i18n-aria-label\n                aria-label=\"Deselect Facet\"\n                (click)=\"deselectFacet(facet, tag)\">\n\n                <i class=\"hpe-icon hpe-close\"></i>\n            </button>\n        </div>\n\n    </div>\n\n    <!-- Show Message Here if No Facets Selected -->\n    <p class=\"facets-selected-none-label\" *ngIf=\"emptyText && (facetService.facets$ | async).length === 0\">{{ emptyText }}</p>\n\n</div>\n\n<!-- Any Facet Elements Should be Added Here By User -->\n<div class=\"facets-region\">\n    <ng-content></ng-content>\n</div>\n\n<ng-template #clearButtonDefault>\n    <button type=\"button\"\n            class=\"btn btn-link btn-icon button-secondary\"\n            tabindex=\"0\"\n            [attr.aria-label]=\"clearTooltip\"\n            [uxTooltip]=\"clearTooltip\"\n            placement=\"left\"\n            (click)=\"deselectAllFacets()\">\n\n            <svg class=\"facets-selected-clear-graphic\" focusable=\"false\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n                <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n                <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n                <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n                <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n                <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n            </svg>\n        </button>\n</ng-template>",
                         providers: [FacetService]
                     }] }
         ];
@@ -12288,11 +13327,30 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var FacetHeaderComponent = /** @class */ (function () {
-        function FacetHeaderComponent() {
+        function FacetHeaderComponent(focusIndicatorService, elementRef) {
+            /**
+             * Defines whether or not clicking on the header will toggle the expanded state.
+             */
             this.canExpand = true;
+            /**
+             * Can be used to set the initial expanded.
+             */
             this.expanded = true;
+            /**
+             * If two-way binding is used it will be updated when the expanded state changes.
+             */
             this.expandedChange = new core.EventEmitter();
+            this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
         }
+        /**
+         * @return {?}
+         */
+        FacetHeaderComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._focusIndicator.destroy();
+            };
         /**
          * @return {?}
          */
@@ -12320,6 +13378,13 @@
                         }
                     }] }
         ];
+        /** @nocollapse */
+        FacetHeaderComponent.ctorParameters = function () {
+            return [
+                { type: FocusIndicatorService },
+                { type: core.ElementRef }
+            ];
+        };
         FacetHeaderComponent.propDecorators = {
             header: [{ type: core.Input }],
             canExpand: [{ type: core.Input }],
@@ -12373,7 +13438,7 @@
         FacetCheckListItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-facet-check-list-item',
-                        template: "<div #option\n    class=\"facet-check-list-item\"\n    [class.facet-active]=\"selected\"\n    [attr.aria-checked]=\"selected\"\n    role=\"option\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (blur)=\"itemBlur.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    [class.disabled]=\"facet?.disabled\">\n\n    <!-- Show check icon to indicate the state -->\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-check-list-item-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet.count !== undefined\" class=\"facet-check-list-item-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n</div>",
+                        template: "<div #option\n    uxFocusIndicator\n    class=\"facet-check-list-item\"\n    [class.facet-active]=\"selected\"\n    [attr.aria-checked]=\"selected\"\n    role=\"option\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (blur)=\"itemBlur.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    [class.disabled]=\"facet?.disabled\">\n\n    <!-- Show check icon to indicate the state -->\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-check-list-item-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-check-list-item-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -12398,11 +13463,31 @@
         function FacetCheckListComponent(facetService) {
             var _this = this;
             this.facetService = facetService;
+            /**
+             * Defines the complete list of facets that can be selected.
+             */
             this.facets = [];
+            /**
+             * If `false` the list will grow to display all possible facets. If `true` a scrollbar will appear to prevent the list from growing too large.
+             */
             this.scrollbar = true;
+            /**
+             * Defines whether or not the checkboxes will appear in simplified form.
+             */
             this.simplified = false;
+            /**
+             * Defines whether or not the Facet Check List should be initially expanded or not.
+             */
             this.expanded = true;
+            /**
+             * This will be triggered when a facet is selected, deselected or all facets are deselected.
+             * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
+             * will contain the facet being selected or deselected in a `facet` property (deselect all will not contain affected facets).
+             */
             this.events = new Subject.Subject();
+            /**
+             * If two-way binding is used this array will get updated any time the selected facets change.
+             */
             this.selectedChange = new core.EventEmitter();
             this.isFocused = false;
             this.activeIndex = 0;
@@ -12421,7 +13506,9 @@
             });
         }
         Object.defineProperty(FacetCheckListComponent.prototype, "selected", {
+            /** This will allow you to define an initial set of selected facets. */
             set: /**
+             * This will allow you to define an initial set of selected facets.
              * @param {?} selection
              * @return {?}
              */ function (selection) {
@@ -14132,7 +15219,7 @@
         FacetTypeaheadListItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-facet-typeahead-list-item',
-                        template: "<div #option\n    role=\"option\"\n    class=\"facet-typeahead-list-selected-option\"\n    [attr.aria-checked]=\"selected\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\">\n\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-typeahead-list-selected-option-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet.count !== undefined\" class=\"facet-typeahead-list-selected-option-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n\n</div>",
+                        template: "<div #option\n    uxFocusIndicator\n    role=\"option\"\n    class=\"facet-typeahead-list-selected-option\"\n    [attr.aria-checked]=\"selected\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\">\n\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-typeahead-list-selected-option-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-typeahead-list-selected-option-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -14159,11 +15246,31 @@
             this.typeaheadKeyService = typeaheadKeyService;
             this.facetService = facetService;
             this._announcer = _announcer;
+            /**
+             * Defines whether or not the Facet Typeahead List should be initially expanded or not.
+             */
             this.expanded = true;
+            /**
+             * Defines a list of facets which will be displayed above the typeahead to allow the user to quickly select some facets.
+             */
             this.suggestions = [];
+            /**
+             * Defines whether or not the checkboxes displayed alongside suggestions will appear in simplified form.
+             */
             this.simplified = true;
+            /**
+             * Emits the current query when the value of the input field changes.
+             */
             this.queryChange = new core.EventEmitter();
+            /**
+             * This will be triggered when a facet is selected, deselected or all facets are deselected.
+             * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
+             * will contain the facet being selected or deselected in a `facet` property (deselect all will not contain affected facets).
+             */
             this.events = new Subject.Subject();
+            /**
+             * If two-way binding is used this array will get updated any time the selected facets change.
+             */
             this.selectedChange = new core.EventEmitter();
             this.query$ = new BehaviorSubject.BehaviorSubject('');
             this.loading = false;
@@ -14177,7 +15284,9 @@
             this._config = { placeholder: '', maxResults: 50, minCharacters: 1 };
         }
         Object.defineProperty(FacetTypeaheadListComponent.prototype, "selected", {
+            /** This will allow you to define an initial set of selected facets. */
             set: /**
+             * This will allow you to define an initial set of selected facets.
              * @param {?} selection
              * @return {?}
              */ function (selection) {
@@ -14190,7 +15299,9 @@
             configurable: true
         });
         Object.defineProperty(FacetTypeaheadListComponent.prototype, "query", {
+            /** Defines the query displayed in the input field. */
             set: /**
+             * Defines the query displayed in the input field.
              * @param {?} query
              * @return {?}
              */ function (query) {
@@ -14207,7 +15318,19 @@
              */ function () {
                 return this._config;
             },
+            /**
+             * Allows configuration of the typeahead control. The possible values are:
+             * - `placeholder` - **string** - Sets the placeholder of the typeahead.
+             * - `minCharacters` - **number** - Defines the minimum number of characters that are required before results will be shown. **Default**: `1`.
+             * - `maxResults` - **number** - Sets the maximum number of results to display. **Default**: `50`.
+             * - `delay` - **number** - Defines the number of milliseconds to wait before the results are filtered. **Default**: `0`.
+             */
             set: /**
+             * Allows configuration of the typeahead control. The possible values are:
+             * - `placeholder` - **string** - Sets the placeholder of the typeahead.
+             * - `minCharacters` - **number** - Defines the minimum number of characters that are required before results will be shown. **Default**: `1`.
+             * - `maxResults` - **number** - Sets the maximum number of results to display. **Default**: `50`.
+             * - `delay` - **number** - Defines the number of milliseconds to wait before the results are filtered. **Default**: `0`.
              * @param {?} config
              * @return {?}
              */ function (config) {
@@ -14841,10 +15964,27 @@
             this._elementRef = _elementRef;
             this._renderer = _renderer;
             this._service = _service;
+            /**
+             * Determines if reordering is disabled.
+             */
             this.reorderingDisabled = false;
+            /**
+             * This event will be triggered when the order changes and will contain an updated dataset containing the items
+             * in their current order. This should be used when the list of items is generated using ngFor to ensure the
+             * data remains in the same order for both the `uxReorderable` and `ngFor` directives.
+             */
             this.reorderableModelChange = new core.EventEmitter();
+            /**
+             * This event is triggered when a user begins dragging an item. The event will contain the element being moved.
+             */
             this.reorderStart = new core.EventEmitter();
+            /**
+             * This event is triggered when the item being dragged is returned to the same location as it began. The event will contain the element that was being moved.
+             */
             this.reorderCancel = new core.EventEmitter();
+            /**
+             * This event is triggered when a user has relocated an item. The event will contain the element that was moved.
+             */
             this.reorderEnd = new core.EventEmitter();
             this.dragging = false;
             this._subscriptions = new Subscription.Subscription();
@@ -15180,6 +16320,7 @@
             { type: core.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
+                            AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule,
                             CheckboxModule,
@@ -15555,7 +16696,7 @@
         FilterDropdownComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-filter-dropdown',
-                        template: "<div class=\"btn-group\" dropdown [autoClose]=\"true\" #dropdown=\"bs-dropdown\">\n\n    <button\n        type=\"button\"\n        tabindex=\"0\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dropdown.isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"dropdown.isOpen\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [class.active]=\"selected !== initial\">\n        {{ selected?.title }}\n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n\n    <ul *dropdownMenu\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\"\n        class=\"dropdown-menu\" role=\"menu\">\n\n        <li class=\"dropdown-list-item\"\n            *ngFor=\"let filter of filters\"\n            role=\"none\">\n\n            <a class=\"dropdown-item\"\n                role=\"listitem\"\n                tabindex=\"-1\"\n                uxMenuNavigationItem\n                [attr.aria-selected]=\"filter === selected\"\n                (click)=\"selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.enter)=\"selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.escape)=\"menuNavigationToggle.focus()\">\n\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </a>\n        </li>\n    </ul>\n</div>"
+                        template: "<div class=\"btn-group\" dropdown [autoClose]=\"true\" #dropdown=\"bs-dropdown\">\n\n    <button\n        type=\"button\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"false\"\n        tabindex=\"0\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dropdown.isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"dropdown.isOpen\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [class.active]=\"selected !== initial\">\n        {{ selected?.title }}\n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n\n    <ul *dropdownMenu\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\"\n        class=\"dropdown-menu\" role=\"menu\">\n\n        <li class=\"dropdown-list-item\"\n            *ngFor=\"let filter of filters\"\n            role=\"none\">\n\n            <a class=\"dropdown-item\"\n                uxFocusIndicator\n                [programmaticFocusIndicator]=\"true\"\n                role=\"listitem\"\n                tabindex=\"-1\"\n                uxMenuNavigationItem\n                [attr.aria-selected]=\"filter === selected\"\n                (click)=\"selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.enter)=\"selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.escape)=\"menuNavigationToggle.focus()\">\n\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </a>\n        </li>\n    </ul>\n</div>"
                     }] }
         ];
         /** @nocollapse */
@@ -15889,10 +17030,12 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MenuNavigationItemDirective = /** @class */ (function () {
-        function MenuNavigationItemDirective(service, _elementRef) {
+        function MenuNavigationItemDirective(service, _elementRef, focusIndicatorService) {
             var _this = this;
             this._elementRef = _elementRef;
             this.activated = new core.EventEmitter();
+            // create the focus indicator
+            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement, { programmaticFocusIndicator: true, checkChildren: false });
             this._subscription = service.active$.pipe(operators.filter(function (item) { return item === _this; }))
                 .subscribe(function () { return _this.setActive(); });
         }
@@ -15904,6 +17047,7 @@
          */
             function () {
                 this._subscription.unsubscribe();
+                this._focusIndicator.destroy();
             };
         /**
          * @return {?}
@@ -15924,7 +17068,8 @@
         MenuNavigationItemDirective.ctorParameters = function () {
             return [
                 { type: MenuNavigationService },
-                { type: core.ElementRef }
+                { type: core.ElementRef },
+                { type: FocusIndicatorService }
             ];
         };
         MenuNavigationItemDirective.propDecorators = {
@@ -15938,11 +17083,12 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MenuNavigationToggleDirective = /** @class */ (function () {
-        function MenuNavigationToggleDirective(_elementRef) {
+        function MenuNavigationToggleDirective(_elementRef, focusIndicatorService) {
             this._elementRef = _elementRef;
             this.menuPosition = 'bottom';
             this.menuOpenChange = new core.EventEmitter();
             this.keyEnter = new core.EventEmitter();
+            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
         }
         Object.defineProperty(MenuNavigationToggleDirective.prototype, "menuOpen", {
             get: /**
@@ -15960,6 +17106,15 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @return {?}
+         */
+        MenuNavigationToggleDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._focusIndicator.destroy();
+            };
         /**
          * @return {?}
          */
@@ -16021,7 +17176,8 @@
         /** @nocollapse */
         MenuNavigationToggleDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: core.ElementRef },
+                { type: FocusIndicatorService }
             ];
         };
         MenuNavigationToggleDirective.propDecorators = {
@@ -16285,7 +17441,9 @@
         }
         MenuNavigationModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [],
+                        imports: [
+                            AccessibilityModule
+                        ],
                         exports: EXPORTS,
                         declarations: EXPORTS,
                     },] }
@@ -16316,13 +17474,14 @@
         FilterModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            a11y.A11yModule,
+                            AccessibilityModule,
                             dropdown.BsDropdownModule.forRoot(),
-                            TooltipModule,
+                            common.CommonModule,
                             forms.FormsModule,
                             MenuNavigationModule,
-                            common.CommonModule,
+                            TooltipModule,
                             TypeaheadModule,
-                            a11y.A11yModule
                         ],
                         exports: DECLARATIONS$2,
                         declarations: DECLARATIONS$2
@@ -16341,14 +17500,43 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var FlippableCardComponent = /** @class */ (function () {
-        function FlippableCardComponent() {
+        function FlippableCardComponent(focusIndicatorService, elementRef) {
+            /**
+             * Determines whether the card should flip horizontally or vertically.
+             */
             this.direction = 'horizontal';
+            /**
+             * Determines when the card should flip. Possible options are `click`, `hover` and `manual`.
+             * The manual option should be used if you want complete control over when the card should flip.
+             */
             this.trigger = 'hover';
+            /**
+             * Sets the width (in pixels) of the card.
+             */
             this.width = 280;
+            /**
+             * Sets the height (in pixels) of the card.
+             */
             this.height = 200;
+            /**
+             * Determines whether or not the card is flipped.
+             */
             this.flipped = false;
+            /**
+             * If two way binding is used this value will be updated when the state of the card changes.
+             */
             this.flippedChange = new core.EventEmitter();
+            this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
         }
+        /**
+         * @return {?}
+         */
+        FlippableCardComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._focusIndicator.destroy();
+            };
         /**
          * @param {?} state
          * @return {?}
@@ -16428,9 +17616,17 @@
                             '[class.horizontal]': 'direction === "horizontal"',
                             '[class.vertical]': 'direction === "vertical"'
                         },
-                        exportAs: 'ux-flippable-card'
+                        exportAs: 'ux-flippable-card',
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
+        /** @nocollapse */
+        FlippableCardComponent.ctorParameters = function () {
+            return [
+                { type: FocusIndicatorService },
+                { type: core.ElementRef }
+            ];
+        };
         FlippableCardComponent.propDecorators = {
             direction: [{ type: core.Input }],
             trigger: [{ type: core.Input }],
@@ -16475,8 +17671,19 @@
         }
         FlippableCardModule.decorators = [
             { type: core.NgModule, args: [{
-                        exports: [FlippableCardComponent, FlippableCardBackDirective, FlippableCardFrontDirective],
-                        declarations: [FlippableCardComponent, FlippableCardBackDirective, FlippableCardFrontDirective]
+                        imports: [
+                            AccessibilityModule
+                        ],
+                        exports: [
+                            FlippableCardComponent,
+                            FlippableCardBackDirective,
+                            FlippableCardFrontDirective
+                        ],
+                        declarations: [
+                            FlippableCardComponent,
+                            FlippableCardBackDirective,
+                            FlippableCardFrontDirective
+                        ]
                     },] }
         ];
         return FlippableCardModule;
@@ -16775,7 +17982,7 @@
         FloatingActionButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-floating-action-button',
-                        template: "<button #button\n        type=\"button\"\n        class=\"btn floating-action-button\"\n        [class.button-primary]=\"primary\"\n        [class.button-secondary]=\"!primary\"\n        [attr.aria-label]=\"ariaLabel\"\n        [tabIndex]=\"tabindex$ | async\"\n        (focus)=\"onFocus()\"\n        (blur)=\"onBlur()\"\n        (click)=\"primary ? fab.toggle() : close()\">\n\n    <span class=\"hpe-icon floating-action-button-icon\" *ngIf=\"icon\" [ngClass]=\"icon\"></span>\n    <ng-content *ngIf=\"!icon\"></ng-content>\n\n</button>",
+                        template: "<button #button\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        type=\"button\"\n        class=\"btn floating-action-button\"\n        [class.button-primary]=\"primary\"\n        [class.button-secondary]=\"!primary\"\n        [attr.aria-label]=\"ariaLabel\"\n        [tabIndex]=\"tabindex$ | async\"\n        (focus)=\"onFocus()\"\n        (blur)=\"onBlur()\"\n        (click)=\"primary ? fab.toggle() : close()\">\n\n    <span class=\"hpe-icon floating-action-button-icon\" *ngIf=\"icon\" [ngClass]=\"icon\"></span>\n    <ng-content *ngIf=\"!icon\"></ng-content>\n\n</button>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         preserveWhitespaces: false
                     }] }
@@ -17731,7 +18938,7 @@
         HierarchyBarCollapsedComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -17759,7 +18966,7 @@
         HierarchyBarNodeComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
-                        template: "<div class=\"hierarchy-bar-node\">\n\n    <button type=\"button\"\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
+                        template: "<div class=\"hierarchy-bar-node\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -17800,7 +19007,7 @@
         HierarchyBarPopoverItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-popover-item',
-                        template: "<!-- Show an icon if specified -->\n<img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n<!-- Show the name of the current node -->\n<span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>",
+                        template: "<!-- Show an icon if specified -->\n<img class=\"hierarchy-bar-node-icon\" *ngIf=\"node?.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n<!-- Show the name of the current node -->\n<span class=\"hierarchy-bar-node-title\">{{ node?.title }}</span>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -17835,7 +19042,7 @@
         HierarchyBarPopoverComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-popover',
-                        template: "<!-- Loading Indicator -->\n<ul class=\"hierarchy-bar-node-list\" *ngIf=\"loading\">\n\n    <li class=\"hierarchy-bar-loading-indicator\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.loadingIndicator || defaultLoadingIndicator\"></ng-container>\n    </li>\n</ul>\n\n<!-- List of children -->\n<div class=\"hierarchy-bar-node-list\"\n    [class.hierarchy-bar-node-list-separator]=\"separator\"\n    *ngIf=\"!loading\"\n    uxTabbableList\n    [returnFocus]=\"true\">\n\n    <ux-hierarchy-bar-popover-item *ngFor=\"let node of nodes; let first = first\"\n        [node]=\"node\"\n        [focusIf]=\"first\"\n        uxTabbableListItem\n        (select)=\"select.emit($event)\">\n    </ux-hierarchy-bar-popover-item>\n\n</div>\n\n<!-- Loading Indicator Template -->\n<ng-template #defaultLoadingIndicator>\n    <div class=\"hierarchy-bar-loading-icon\" alt=\"Hierarchy Bar Loading Indicator\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n    </div>\n\n    <!-- Show the name of the current node -->\n    <span class=\"hierarchy-bar-loading-title\">Loading...</span>\n</ng-template>",
+                        template: "<!-- Loading Indicator -->\n<ul class=\"hierarchy-bar-node-list\" *ngIf=\"loading\">\n\n    <li class=\"hierarchy-bar-loading-indicator\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.loadingIndicator || defaultLoadingIndicator\"></ng-container>\n    </li>\n</ul>\n\n<!-- List of children -->\n<div class=\"hierarchy-bar-node-list\"\n    [class.hierarchy-bar-node-list-separator]=\"separator\"\n    *ngIf=\"!loading\"\n    uxTabbableList\n    [returnFocus]=\"true\">\n\n    <ux-hierarchy-bar-popover-item *ngFor=\"let node of nodes; let first = first\"\n        uxFocusIndicator\n        [node]=\"node\"\n        [focusIf]=\"first\"\n        uxTabbableListItem\n        (select)=\"select.emit($event)\">\n    </ux-hierarchy-bar-popover-item>\n\n</div>\n\n<!-- Loading Indicator Template -->\n<ng-template #defaultLoadingIndicator>\n    <div class=\"hierarchy-bar-loading-icon\" alt=\"Hierarchy Bar Loading Indicator\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n    </div>\n\n    <!-- Show the name of the current node -->\n    <span class=\"hierarchy-bar-loading-title\">Loading...</span>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -17934,7 +19141,7 @@
         HierarchyBarStandardComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-standard',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (select)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (select)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (select)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            uxFocusIndicator\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (select)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -18390,13 +19597,27 @@
      */
     var WizardStepComponent = /** @class */ (function () {
         function WizardStepComponent() {
+            /**
+             * Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
+             */
             this.valid = true;
+            /**
+             * Emits when visited changes.
+             */
             this.visitedChange = new core.EventEmitter();
             this._active = false;
             this._visited = false;
         }
         Object.defineProperty(WizardStepComponent.prototype, "visited", {
+            /**
+             * Defines whether or not this step has previously been visited.
+             * A visited step can be clicked on and jumped to at any time.
+             * By default, steps will become 'visited' when the user navigates to a step for the first time.
+             */
             get: /**
+             * Defines whether or not this step has previously been visited.
+             * A visited step can be clicked on and jumped to at any time.
+             * By default, steps will become 'visited' when the user navigates to a step for the first time.
              * @return {?}
              */ function () {
                 return this._visited;
@@ -18460,36 +19681,129 @@
     var uniqueId$6 = 0;
     var WizardComponent = /** @class */ (function () {
         function WizardComponent() {
+            /**
+             * Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout.
+             */
             this.orientation = 'horizontal';
+            /**
+             * Defines the text displayed in the 'Next' button.
+             */
             this.nextText = 'Next';
+            /**
+             * Defines the text displayed in the 'Previous' button.
+             */
             this.previousText = 'Previous';
+            /**
+             * Defines the text displayed in the 'Cancel' button.
+             */
             this.cancelText = 'Cancel';
+            /**
+             * Defines the text displayed in the 'Finish' button.
+             */
             this.finishText = 'Finish';
+            /**
+             * Defines the text displayed in the tooltip when the 'Next' button is hovered.
+             */
             this.nextTooltip = 'Go to the next step';
+            /**
+             * Defines the text displayed in the tooltip when the 'Previous' button is hovered.
+             */
             this.previousTooltip = 'Go to the previous step';
+            /**
+             * Defines the text displayed in the tooltip when the 'Cancel' button is hovered.
+             */
             this.cancelTooltip = 'Cancel the wizard';
+            /**
+             * Defines the text displayed in the tooltip when the 'Finish' button is hovered.
+             */
             this.finishTooltip = 'Finish the wizard';
+            /**
+             * Defines the text for the aria label on the 'Next' button.
+             */
             this.nextAriaLabel = 'Go to the next step';
+            /**
+             * Defines the text for the aria label on the 'Previous' button.
+             */
             this.previousAriaLabel = 'Go to the previous step';
+            /**
+             * Defines the text for the aria label on the 'Cancel' button.
+             */
             this.cancelAriaLabel = 'Cancel the wizard';
+            /**
+             * Defines the text for the aria label on the 'Finish' button.
+             */
             this.finishAriaLabel = 'Finish the wizard';
+            /**
+             * If set to `true` the 'Next' button will appear disabled and will not respond to clicks.
+             */
             this.nextDisabled = false;
+            /**
+             * If set to `true` the 'Previous' button will appear disabled and will not respond to clicks.
+             */
             this.previousDisabled = false;
+            /**
+             * If set to `true` the 'Cancel' button will appear disabled and will not respond to clicks.
+             */
             this.cancelDisabled = false;
+            /**
+             * If set to `true` the 'Finish' button will appear disabled and will not respond to clicks.
+             */
             this.finishDisabled = false;
+            /**
+             * If set to `false` the 'Next' button will be hidden.
+             */
             this.nextVisible = true;
+            /**
+             * If set to `false` the 'Previous' button will be hidden.
+             */
             this.previousVisible = true;
+            /**
+             * If set to `false` the 'Cancel' button will be hidden.
+             */
             this.cancelVisible = true;
+            /**
+             * If set to false the 'Finish' button will be hidden.
+             */
             this.finishVisible = true;
+            /**
+             * If set to `true` the 'Cancel' button will be visible even on the last step. By default it will be hidden on the final step.
+             */
             this.cancelAlwaysVisible = false;
+            /**
+             * If set to `true` the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible on the final step of the wizard.
+             */
             this.finishAlwaysVisible = false;
+            /**
+             * Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.
+             */
             this.onNext = new core.EventEmitter();
+            /**
+             * Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter.
+             */
             this.onPrevious = new core.EventEmitter();
+            /**
+             * Emits when the 'Cancel' button has been pressed.
+             */
             this.onCancel = new core.EventEmitter();
+            /**
+             * Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the validity of the final step.
+             */
             this.onFinishing = new core.EventEmitter();
+            /**
+             * Emits when the 'Finish' button has been pressed and the final step is valid.
+             */
             this.onFinish = new core.EventEmitter();
+            /**
+             * Emits before the current step changes. The event contains the current step index in the `from` property, and the requested step index in the `to` property.
+             */
             this.stepChanging = new core.EventEmitter();
+            /**
+             * Emits when the current step has changed.
+             */
             this.stepChange = new core.EventEmitter();
+            /**
+             * Emits when the user tries to continue but the current step is invalid.
+             */
             this.stepError = new core.EventEmitter();
             this.steps = new core.QueryList();
             this.id = "ux-wizard-" + uniqueId$6++;
@@ -18498,7 +19812,13 @@
             this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(WizardComponent.prototype, "step", {
+            /**
+             * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
+             * If this is not specifed the wizard will start on the first step.
+             */
             get: /**
+             * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
+             * If this is not specifed the wizard will start on the first step.
              * @return {?}
              */ function () {
                 return this._step;
@@ -18755,7 +20075,7 @@
         WizardComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-wizard',
-                        template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            uxTabbableListItem\n            [disabled]=\"!stp.visited\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"stp.id\"\n            [id]=\"stp.id + '-label'\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            {{ stp.header }}\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n</div>\n",
+                        template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"stp.id\"\n            [id]=\"stp.id + '-label'\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            {{ stp.header }}\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n</div>\n",
                         host: {
                             '[class]': 'orientation'
                         }
@@ -19818,17 +21138,16 @@
          * @return {?}
          */
             function () {
-                if (this._hostElement.requestFullscreen) {
-                    this._hostElement.requestFullscreen();
-                }
-                else if ((( /** @type {?} */(this._hostElement))).webkitRequestFullscreen) {
-                    (( /** @type {?} */(this._hostElement))).webkitRequestFullscreen();
-                }
-                else if ((( /** @type {?} */(this._hostElement))).msRequestFullscreen) {
-                    (( /** @type {?} */(this._hostElement))).msRequestFullscreen();
-                }
-                else if ((( /** @type {?} */(this._hostElement))).mozRequestFullScreen) {
-                    (( /** @type {?} */(this._hostElement))).mozRequestFullScreen();
+                // get the host element (we need to do some browser specific checks and typescript complains)
+                /** @type {?} */
+                var host = ( /** @type {?} */(this._hostElement));
+                /** @type {?} */
+                var requestFullscreen = host.requestFullscreen || host.webkitRequestFullscreen || host.msRequestFullscreen || host.mozRequestFullScreen;
+                // if we can perform the action then perform it and update the state
+                if (requestFullscreen) {
+                    requestFullscreen.call(host);
+                    // update the internal state
+                    this.fullscreen = true;
                 }
             };
         /**
@@ -19843,28 +21162,17 @@
          * @return {?}
          */
             function () {
-                if ((( /** @type {?} */(this._hostElement))).exitFullscreen) {
-                    document.exitFullscreen();
+                // get the document element (we need to do some browser specific checks and typescript complains)
+                /** @type {?} */
+                var host = ( /** @type {?} */(document));
+                /** @type {?} */
+                var exitFullscreen = host.exitFullscreen || host.webkitExitFullscreen || host.msExitFullscreen || host.mozCancelFullScreen;
+                // if we can perform the action then perform it and update the state
+                if (exitFullscreen) {
+                    exitFullscreen.call(host);
+                    // update the internal state
+                    this.fullscreen = false;
                 }
-                else if ((( /** @type {?} */(document))).webkitExitFullscreen) {
-                    (( /** @type {?} */(document))).webkitExitFullscreen();
-                }
-                else if ((( /** @type {?} */(document))).msExitFullscreen) {
-                    (( /** @type {?} */(document))).msExitFullscreen();
-                }
-                else if ((( /** @type {?} */(document))).mozCancelFullScreen) {
-                    (( /** @type {?} */(document))).mozCancelFullScreen();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        MediaPlayerService.prototype.fullscreenChange = /**
-         * @return {?}
-         */
-            function () {
-                this.fullscreen = (( /** @type {?} */(document))).fullscreen || (( /** @type {?} */(document))).webkitIsFullScreen || (( /** @type {?} */(document))).mozFullScreen || (( /** @type {?} */(document))).msFullscreenElement !== null && (( /** @type {?} */(document))).msFullscreenElement !== undefined;
-                this.fullscreenEvent.next(this.fullscreen);
             };
         /**
          * Toggle Fullscreen State
@@ -19884,6 +21192,19 @@
                 else {
                     this.requestFullscreen();
                 }
+            };
+        /**
+         * @return {?}
+         */
+        MediaPlayerService.prototype.fullscreenChange = /**
+         * @return {?}
+         */
+            function () {
+                // get the document element (we need to do some browser specific checks and typescript complains)
+                /** @type {?} */
+                var host = ( /** @type {?} */(document));
+                // set the fullscreen state (this also emits the event)
+                this.fullscreen = host.fullscreen || host.webkitIsFullScreen || host.mozFullScreen || host.msFullscreenElement !== null && host.msFullscreenElement !== undefined;
             };
         /**
          * Extract the frames from the video
@@ -19960,7 +21281,13 @@
     var SliderComponent = /** @class */ (function () {
         function SliderComponent(colorService, _changeDetectorRef) {
             this._changeDetectorRef = _changeDetectorRef;
+            /**
+             * This should reference either a single number or a SliderValue object, depending on the slider type specified.
+             */
             this.value = 0;
+            /**
+             * Emits when the `value` changes.
+             */
             this.valueChange = new core.EventEmitter();
             // expose enums to Angular view
             this.sliderType = SliderType;
@@ -20893,7 +22220,7 @@
         SliderComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-slider',
-                        template: "<div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\"\n        uxDrag\n        role=\"slider\"\n        tabindex=\"0\"\n        #lowerthumb\n        [attr.aria-label]=\"options.type === sliderType.Range ? options.handles.aria.lowerThumb : options.handles.aria.thumb\"\n        [attr.aria-valuemin]=\"options?.track?.min\"\n        [attr.aria-valuemax]=\"options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) : options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Lower)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Lower)\"\n        [style.left.%]=\"thumbs.lower.position\"\n        [class.active]=\"thumbs.lower.drag\"\n        [style.z-index]=\"thumbs.lower.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Lower, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Lower, true); $event.preventDefault()\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false\"\n            [style.opacity]=\"tooltips.lower.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.lower.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\"\n        uxDrag\n        role=\"slider\"\n        tabindex=\"0\"\n        #upperthumb\n        [attr.aria-label]=\"options.handles.aria.upperThumb\"\n        [attr.aria-valuemin]=\"getThumbValue(sliderThumb.Lower) || options?.track?.min\"\n        [attr.aria-valuemax]=\"options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Upper)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Upper)\"\n        [hidden]=\"options.type !== sliderType.Range\"\n        [class.active]=\"thumbs.upper.drag\"\n        [style.left.%]=\"thumbs.upper.position\"\n        [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Upper, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Upper, true); $event.preventDefault()\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false\"\n            [style.opacity]=\"tooltips.upper.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.upper.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                *ngIf=\"options.type === sliderType.Range\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\"\n    role=\"presentation\"\n    *ngIf=\"(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\"\n    [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n    <div class=\"tick\"\n        *ngFor=\"let tick of ticks\"\n        [class.major]=\"tick.type === sliderTickType.Major\"\n        [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\"\n        [hidden]=\"!tick.showTicks\">\n\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" aria-hidden=\"true\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>",
+                        template: "<div class=\"track\"\n     #track\n     [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n     [class.wide]=\"options.track.height === sliderSize.Wide\"\n     [class.range]=\"options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #lowerthumb\n        [attr.aria-label]=\"options.type === sliderType.Range ? options.handles.aria.lowerThumb : options.handles.aria.thumb\"\n        [attr.aria-valuemin]=\"options?.track?.min\"\n        [attr.aria-valuemax]=\"options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) : options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Lower)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Lower)\"\n        [style.left.%]=\"thumbs.lower.position\"\n        [class.active]=\"thumbs.lower.drag\"\n        [style.z-index]=\"thumbs.lower.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Lower, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Lower, true); $event.preventDefault()\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false\"\n            [style.opacity]=\"tooltips.lower.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.lower.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #upperthumb\n        [attr.aria-label]=\"options.handles.aria.upperThumb\"\n        [attr.aria-valuemin]=\"getThumbValue(sliderThumb.Lower) || options?.track?.min\"\n        [attr.aria-valuemax]=\"options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Upper)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Upper)\"\n        [hidden]=\"options.type !== sliderType.Range\"\n        [class.active]=\"thumbs.upper.drag\"\n        [style.left.%]=\"thumbs.upper.position\"\n        [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Upper, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Upper, true); $event.preventDefault()\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false\"\n            [style.opacity]=\"tooltips.upper.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.upper.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                *ngIf=\"options.type === sliderType.Range\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\"\n    role=\"presentation\"\n    *ngIf=\"(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\"\n    [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n    <div class=\"tick\"\n        *ngFor=\"let tick of ticks\"\n        [class.major]=\"tick.type === sliderTickType.Major\"\n        [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\"\n        [hidden]=\"!tick.showTicks\">\n\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" aria-hidden=\"true\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -20997,12 +22324,17 @@
         SliderModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             ColorServiceModule,
                             DragModule
                         ],
-                        exports: [SliderComponent],
-                        declarations: [SliderComponent]
+                        exports: [
+                            SliderComponent
+                        ],
+                        declarations: [
+                            SliderComponent
+                        ]
                     },] }
         ];
         return SliderModule;
@@ -21176,7 +22508,7 @@
         MediaPlayerControlsExtensionComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-media-player-controls',
-                        template: "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\"\n        #volumeContainer\n        [class.active]=\"volumeActive || volumeFocus\"\n        (mouseenter)=\"mouseEnterVolume.next()\"\n        (mouseleave)=\"mouseLeaveVolume.next()\"\n        (uxFocusWithin)=\"volumeFocus = true\"\n        (uxBlurWithin)=\"volumeFocus = false\">\n\n        <button #volumeIcon\n                type=\"button\"\n                class=\"volume-slider-icon\"\n                attr.aria-label=\"{{ volume === 0 ? 'Unmute' : 'Mute' }}\"\n                i18n-aria-label\n                [uxTooltip]=\"muteTooltip\"\n                [showTriggers]=\"['mouseenter']\"\n                [hideTriggers]=\"['mouseleave']\"\n                (click)=\"toggleMute()\"\n                (mouseup)=\"volumeIcon.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-volume-mute]=\"volume === 0\"\n                  [class.hpe-volume-low]=\"volume > 0 && volume <= 70\"\n                  [class.hpe-volume]=\"volume > 70\">\n            </span>\n        </button>\n\n        <div class=\"volume-slider-node\">\n            <ux-slider [(value)]=\"volume\" [options]=\"options\"></ux-slider>\n        </div>\n    </div>\n</div>\n\n<button #startButton\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToStart()\"\n    (mouseup)=\"startButton.blur()\"\n    aria-label=\"Go to start\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n    </svg>\n</button>\n\n<button #playButton\n    type=\"button\"\n    class=\"control-button\"\n    attr.aria-label=\"{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}\"\n    i18n-aria-label\n    (click)=\"mediaPlayerService.togglePlay()\"\n    (mouseup)=\"playButton.blur()\">\n\n    <svg *ngIf=\"!(mediaPlayerService.playing | async)\" viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" focusable=\"false\">\n        <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n    </svg>\n    <svg *ngIf=\"mediaPlayerService.playing | async\" viewBox=\"0 0 43 56.9\" width=\"20\" height=\"29\" focusable=\"false\">\n        <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n        <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    </svg>\n</button>\n\n<button #endButton\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToEnd()\"\n    (mouseup)=\"endButton.blur()\"\n    aria-label=\"Go to end\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"0,64 0,0 44.1,32\" />\n    </svg>\n</button>\n\n<div class=\"actions-list\">\n\n    <ng-content></ng-content>\n\n    <div class=\"action-button-container\" *ngIf=\"mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'\">\n        <button #subtitlesButton\n            type=\"button\"\n            class=\"action-button\"\n            (keydown)=\"returnFocus = true\"\n            (click)=\"subtitlesOpen = !subtitlesOpen\"\n            (mouseup)=\"subtitlesButton.blur(); returnFocus = false\"\n            i18n-aria-label\n            attr.aria-label=\"Select subtitles, {{ getSubtitleTrack() }} currently selected.\"\n            [attr.aria-expanded]=\"subtitlesOpen\"\n            [attr.aria-describedby]=\"subtitlesId\"\n            aria-haspopup=\"true\">\n            <span class=\"hpe-icon hpe-subtitles\"></span>\n        </button>\n\n        <div #subtitles\n            [style.top.px]=\"-subtitles.offsetHeight\"\n            class=\"popover top media-player-subtitles-popover show\"\n            [id]=\"subtitlesId\"\n            (keydown.escape)=\"subtitlesOpen = false\"\n            (uxClickOutside)=\"subtitlesOpen = false\"\n            *ngIf=\"subtitlesOpen\">\n            <div class=\"arrow\"></div>\n            <h3 class=\"popover-title\" i18n>Subtitles</h3>\n            <div class=\"popover-content\">\n                <ul class=\"subtitles-list\" uxTabbableList [focusOnShow]=\"returnFocus\" [returnFocus]=\"returnFocus\">\n                    <li uxTabbableListItem\n                        tabindex=\"0\"\n                        class=\"subtitles-list-item\"\n                        [class.active]=\"!isSubtitleActive()\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false\"\n                        (keydown.enter)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true\">\n\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span i18n>Subtitles Off</span>\n                    </li>\n                    <li uxTabbableListItem\n                        class=\"subtitles-list-item\"\n                        *ngFor=\"let track of mediaPlayerService.textTracks\"\n                        [class.active]=\"track.mode === 'showing'\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"setSubtitleTrack(track); subtitlesOpen = false\"\n                        (keydown.enter)=\"setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true\">\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span>{{ track.label }}</span>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"action-button-container\">\n        <button #fullscreenButton\n            *ngIf=\"mediaPlayerService.type !== 'audio'\"\n            type=\"button\"\n            class=\"action-button\"\n            attr.aria-label=\"{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}\"\n            i18n-aria-label\n            (click)=\"mediaPlayerService.toggleFullscreen()\"\n            (mouseup)=\"fullscreenButton.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-expand]=\"!mediaPlayerService.fullscreen\"\n                  [class.hpe-contract]=\"mediaPlayerService.fullscreen\">\n            </span>\n        </button>\n    </div>\n</div>\n\n\n\n<ng-template #muteTooltip>\n    <span aria-hidden=\"true\">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>\n</ng-template>",
+                        template: "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\"\n        #volumeContainer\n        [class.active]=\"volumeActive || volumeFocus\"\n        (mouseenter)=\"mouseEnterVolume.next()\"\n        (mouseleave)=\"mouseLeaveVolume.next()\"\n        (uxFocusWithin)=\"volumeFocus = true\"\n        (uxBlurWithin)=\"volumeFocus = false\">\n\n        <button #volumeIcon\n                uxFocusIndicator\n                type=\"button\"\n                class=\"volume-slider-icon\"\n                attr.aria-label=\"{{ volume === 0 ? 'Unmute' : 'Mute' }}\"\n                i18n-aria-label\n                [uxTooltip]=\"muteTooltip\"\n                [showTriggers]=\"['mouseenter']\"\n                [hideTriggers]=\"['mouseleave']\"\n                (click)=\"toggleMute()\"\n                (mouseup)=\"volumeIcon.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-volume-mute]=\"volume === 0\"\n                  [class.hpe-volume-low]=\"volume > 0 && volume <= 70\"\n                  [class.hpe-volume]=\"volume > 70\">\n            </span>\n        </button>\n\n        <div class=\"volume-slider-node\">\n            <ux-slider [(value)]=\"volume\" [options]=\"options\"></ux-slider>\n        </div>\n    </div>\n</div>\n\n<button #startButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToStart()\"\n    (mouseup)=\"startButton.blur()\"\n    aria-label=\"Go to start\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n    </svg>\n</button>\n\n<button #playButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    attr.aria-label=\"{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}\"\n    i18n-aria-label\n    (click)=\"mediaPlayerService.togglePlay()\"\n    (mouseup)=\"playButton.blur()\">\n\n    <svg *ngIf=\"!(mediaPlayerService.playing | async)\" viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" focusable=\"false\">\n        <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n    </svg>\n    <svg *ngIf=\"mediaPlayerService.playing | async\" viewBox=\"0 0 43 56.9\" width=\"20\" height=\"29\" focusable=\"false\">\n        <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n        <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    </svg>\n</button>\n\n<button #endButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToEnd()\"\n    (mouseup)=\"endButton.blur()\"\n    aria-label=\"Go to end\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"0,64 0,0 44.1,32\" />\n    </svg>\n</button>\n\n<div class=\"actions-list\">\n\n    <ng-content></ng-content>\n\n    <div class=\"action-button-container\" *ngIf=\"mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'\">\n        <button #subtitlesButton\n            uxFocusIndicator\n            type=\"button\"\n            class=\"action-button\"\n            (keydown)=\"returnFocus = true\"\n            (click)=\"subtitlesOpen = !subtitlesOpen\"\n            (mouseup)=\"subtitlesButton.blur(); returnFocus = false\"\n            i18n-aria-label\n            attr.aria-label=\"Select subtitles, {{ getSubtitleTrack() }} currently selected.\"\n            [attr.aria-expanded]=\"subtitlesOpen\"\n            [attr.aria-describedby]=\"subtitlesId\"\n            aria-haspopup=\"true\">\n            <span class=\"hpe-icon hpe-subtitles\"></span>\n        </button>\n\n        <div #subtitles\n            [style.top.px]=\"-subtitles.offsetHeight\"\n            class=\"popover top media-player-subtitles-popover show\"\n            [id]=\"subtitlesId\"\n            (keydown.escape)=\"subtitlesOpen = false\"\n            (uxClickOutside)=\"subtitlesOpen = false\"\n            *ngIf=\"subtitlesOpen\">\n            <div class=\"arrow\"></div>\n            <h3 class=\"popover-title\" i18n>Subtitles</h3>\n            <div class=\"popover-content\">\n                <ul class=\"subtitles-list\" uxTabbableList [focusOnShow]=\"returnFocus\" [returnFocus]=\"returnFocus\">\n                    <li uxTabbableListItem\n                        tabindex=\"0\"\n                        class=\"subtitles-list-item\"\n                        [class.active]=\"!isSubtitleActive()\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false\"\n                        (keydown.enter)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true\">\n\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span i18n>Subtitles Off</span>\n                    </li>\n                    <li uxTabbableListItem\n                        class=\"subtitles-list-item\"\n                        *ngFor=\"let track of mediaPlayerService.textTracks\"\n                        [class.active]=\"track.mode === 'showing'\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"setSubtitleTrack(track); subtitlesOpen = false\"\n                        (keydown.enter)=\"setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true\">\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span>{{ track.label }}</span>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"action-button-container\">\n        <button #fullscreenButton\n            uxFocusIndicator\n            *ngIf=\"mediaPlayerService.type !== 'audio'\"\n            type=\"button\"\n            class=\"action-button\"\n            attr.aria-label=\"{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}\"\n            i18n-aria-label\n            (click)=\"mediaPlayerService.toggleFullscreen()\"\n            (mouseup)=\"fullscreenButton.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-expand]=\"!mediaPlayerService.fullscreen\"\n                  [class.hpe-contract]=\"mediaPlayerService.fullscreen\">\n            </span>\n        </button>\n    </div>\n</div>\n\n\n\n<ng-template #muteTooltip>\n    <span aria-hidden=\"true\">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>\n</ng-template>",
                         host: {
                             '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
                         }
@@ -21584,6 +22916,9 @@
             this._elementRef = _elementRef;
             this.hovering = false;
             this.focused = false;
+            /**
+             * The `anonymous` keyword means that there will be no exchange of user credentials when the media source is fetched.
+             */
             this.crossorigin = 'use-credentials';
             this._onDestroy = new Subject.Subject();
             // show controls when hovering and in quiet mode
@@ -21595,7 +22930,9 @@
              */ function () {
                 return this.mediaPlayerService.source;
             },
+            /** The url to the media file to be loaded by the media player. */
             set: /**
+             * The url to the media file to be loaded by the media player.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -21610,7 +22947,13 @@
              */ function () {
                 return this.mediaPlayerService.type;
             },
+            /**
+             * Defines the appearance of the media player. The two possible values are `video` and `audio`.
+             * The media player will adapt it's appearance to best suit the type specified.
+             */
             set: /**
+             * Defines the appearance of the media player. The two possible values are `video` and `audio`.
+             * The media player will adapt it's appearance to best suit the type specified.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -21625,7 +22968,13 @@
              */ function () {
                 return this.mediaPlayerService.quietMode;
             },
+            /**
+             * If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker style.
+             * Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
+             */
             set: /**
+             * If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker style.
+             * Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -21664,7 +23013,7 @@
         MediaPlayerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-media-player',
-                        template: "<div class=\"player-container\"\n     tabindex=\"0\"\n     aria-label=\"Media Player\"\n     i18n-aria-label\n     [cdkTrapFocus]=\"mediaPlayerService.fullscreen\">\n\n    <div class=\"video-player-container\" *ngIf=\"type === 'video'\">\n\n        <video class=\"video-player\"\n            #player\n            tabindex=\"-1\"\n            [src]=\"source\"\n            [crossOrigin]=\"crossorigin\"\n            (abort)=\"mediaPlayerService.abortEvent.next()\"\n            (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n            (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\"\n            (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\"\n            (ended)=\"mediaPlayerService.endedEvent.next()\"\n            (error)=\"mediaPlayerService.errorEvent.next($event)\"\n            (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\"\n            (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n            (loadstart)=\"mediaPlayerService.loadStartEvent.next()\"\n            (pause)=\"mediaPlayerService.pauseEvent.next()\"\n            (play)=\"mediaPlayerService.playEvent.next()\"\n            (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n            (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\"\n            (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\"\n            (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n            (stalled)=\"mediaPlayerService.stalledEvent.next()\"\n            (suspend)=\"mediaPlayerService.suspendEvent.next()\"\n            (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n            (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\"\n            (waiting)=\"mediaPlayerService.waitingEvent.next()\"\n            (click)=\"mediaPlayerService.mediaClickEvent.next($event)\">\n\n            <ng-content select=\"track\"></ng-content>\n        </video>\n\n        <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\n            <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\n                <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\n                <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\n            </svg>\n        </div>\n\n    </div>\n\n    <div class=\"audio-player\" *ngIf=\"type === 'audio'\">\n\n        <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\n            <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                <g transform=\"translate(-98.000000, -458.000000)\">\n                    <g transform=\"translate(98.000000, 458.000000)\">\n                        <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\n                        <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\n                        <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                        <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\n                            stroke=\"#60798D\"></path>\n                        <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\n                        <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                    </g>\n                </g>\n            </g>\n        </svg>\n\n        <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\n        <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\n        <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\n\n        <audio #player\n            [src]=\"source\"\n            (abort)=\"mediaPlayerService.abortEvent.next()\"\n            (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n            (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\"\n            (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\"\n            (ended)=\"mediaPlayerService.endedEvent.next()\"\n            (error)=\"mediaPlayerService.errorEvent.next($event)\"\n            (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\"\n            (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n            (loadstart)=\"mediaPlayerService.loadStartEvent.next()\"\n            (pause)=\"mediaPlayerService.pauseEvent.next()\"\n            (play)=\"mediaPlayerService.playEvent.next()\"\n            (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n            (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\"\n            (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\"\n            (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n            (stalled)=\"mediaPlayerService.stalledEvent.next()\"\n            (suspend)=\"mediaPlayerService.suspendEvent.next()\"\n            (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n            (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\"\n            (waiting)=\"mediaPlayerService.waitingEvent.next()\"\n            (click)=\"mediaPlayerService.mediaClickEvent.next($event)\">\n        </audio>\n    </div>\n\n    <div class=\"control-bar\"\n        (uxFocusWithin)=\"focused = true\"\n        (uxBlurWithin)=\"focused = false\">\n\n        <ux-media-player-timeline></ux-media-player-timeline>\n        <ux-media-player-controls>\n            <ng-content select=\"[uxMediaPlayerCustomControl]\"></ng-content>\n        </ux-media-player-controls>\n    </div>\n</div>",
+                        template: "<div class=\"player-container\"\n     uxFocusIndicator\n     tabindex=\"0\"\n     aria-label=\"Media Player\"\n     i18n-aria-label\n     [cdkTrapFocus]=\"mediaPlayerService.fullscreen\">\n\n    <div class=\"video-player-container\" *ngIf=\"type === 'video'\">\n\n        <video class=\"video-player\"\n            #player\n            tabindex=\"-1\"\n            [src]=\"source\"\n            [crossOrigin]=\"crossorigin\"\n            (abort)=\"mediaPlayerService.abortEvent.next()\"\n            (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n            (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\"\n            (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\"\n            (ended)=\"mediaPlayerService.endedEvent.next()\"\n            (error)=\"mediaPlayerService.errorEvent.next($event)\"\n            (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\"\n            (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n            (loadstart)=\"mediaPlayerService.loadStartEvent.next()\"\n            (pause)=\"mediaPlayerService.pauseEvent.next()\"\n            (play)=\"mediaPlayerService.playEvent.next()\"\n            (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n            (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\"\n            (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\"\n            (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n            (stalled)=\"mediaPlayerService.stalledEvent.next()\"\n            (suspend)=\"mediaPlayerService.suspendEvent.next()\"\n            (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n            (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\"\n            (waiting)=\"mediaPlayerService.waitingEvent.next()\"\n            (click)=\"mediaPlayerService.mediaClickEvent.next($event)\">\n\n            <ng-content select=\"track\"></ng-content>\n        </video>\n\n        <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\n            <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\n                <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\n                <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\n            </svg>\n        </div>\n\n    </div>\n\n    <div class=\"audio-player\" *ngIf=\"type === 'audio'\">\n\n        <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\n            <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                <g transform=\"translate(-98.000000, -458.000000)\">\n                    <g transform=\"translate(98.000000, 458.000000)\">\n                        <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\n                        <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\n                        <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                        <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\n                            stroke=\"#60798D\"></path>\n                        <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\n                        <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                    </g>\n                </g>\n            </g>\n        </svg>\n\n        <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\n        <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\n        <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\n\n        <audio #player\n            [src]=\"source\"\n            (abort)=\"mediaPlayerService.abortEvent.next()\"\n            (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n            (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\"\n            (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\"\n            (ended)=\"mediaPlayerService.endedEvent.next()\"\n            (error)=\"mediaPlayerService.errorEvent.next($event)\"\n            (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\"\n            (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n            (loadstart)=\"mediaPlayerService.loadStartEvent.next()\"\n            (pause)=\"mediaPlayerService.pauseEvent.next()\"\n            (play)=\"mediaPlayerService.playEvent.next()\"\n            (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n            (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\"\n            (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\"\n            (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n            (stalled)=\"mediaPlayerService.stalledEvent.next()\"\n            (suspend)=\"mediaPlayerService.suspendEvent.next()\"\n            (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n            (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\"\n            (waiting)=\"mediaPlayerService.waitingEvent.next()\"\n            (click)=\"mediaPlayerService.mediaClickEvent.next($event)\">\n        </audio>\n    </div>\n\n    <div class=\"control-bar\"\n        (uxFocusWithin)=\"focused = true\"\n        (uxBlurWithin)=\"focused = false\">\n\n        <ux-media-player-timeline></ux-media-player-timeline>\n        <ux-media-player-controls>\n            <ng-content select=\"[uxMediaPlayerCustomControl]\"></ng-content>\n        </ux-media-player-controls>\n    </div>\n</div>",
                         providers: [MediaPlayerService],
                         host: {
                             '(keydown.Space)': 'mediaPlayerService.togglePlay(); $event.preventDefault()',
@@ -21676,6 +23025,7 @@
                             '[class.audio]': 'type === "audio"',
                             '(mouseenter)': 'hovering = true',
                             '(mouseleave)': 'hovering = false',
+                            '(document:fullscreenchange)': 'mediaPlayerService.fullscreenChange()',
                             '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
                             '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
                             '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()'
@@ -22863,993 +24213,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var PageHeaderCustomMenuDirective = /** @class */ (function () {
-        function PageHeaderCustomMenuDirective() {
-        }
-        PageHeaderCustomMenuDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxPageHeaderCustomMenu]'
-                    },] }
-        ];
-        return PageHeaderCustomMenuDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderService = /** @class */ (function () {
-        function PageHeaderService(_router) {
-            var _this = this;
-            this._router = _router;
-            this.items$ = new BehaviorSubject.BehaviorSubject([]);
-            this.selected$ = new BehaviorSubject.BehaviorSubject(null);
-            this.selectedRoot$ = new BehaviorSubject.BehaviorSubject(null);
-            this.secondary$ = new BehaviorSubject.BehaviorSubject(false);
-            this.activeIconMenu$ = new BehaviorSubject.BehaviorSubject(null);
-            this.secondaryNavigationAutoselect = false;
-            this._onDestroy = new Subject.Subject();
-            this.selected$
-                .pipe(operators.takeUntil(this._onDestroy), operators.map(function (selected) { return _this.getRoot(selected); }))
-                .subscribe(function (root) { return _this.selectedRoot$.next(root); });
-            this._router.events
-                .pipe(operators.takeUntil(this._onDestroy), operators.filter(function (e) { return e instanceof router.NavigationEnd; }))
-                .subscribe(this.updateItemsWithActiveRoute.bind(this));
-        }
-        /**
-         * @return {?}
-         */
-        PageHeaderService.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderService.prototype.select = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                if (!item) {
-                    return;
-                }
-                if (item.routerLink) {
-                    // Trigger router navigation
-                    /** @type {?} */
-                    var routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
-                    this._router.navigate(routerLink, item.routerExtras);
-                }
-                else if (this.secondaryNavigationAutoselect && item.children && item.children.length > 0) {
-                    // Select the first child in secondaryNavigationAutoselect mode
-                    this.select(item.children[0]);
-                }
-                else {
-                    // if we are in secondary navigation mode and we click a parent - dont deselect the child
-                    if (this.secondary$.getValue() === true && this.isParentOf(this.selected$.getValue(), item)) {
-                        return;
-                    }
-                    // Otherwise select the given item
-                    this.selected$.next(item);
-                }
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderService.prototype.deselect = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                var _this = this;
-                // deselect the current item
-                item.selected = false;
-                // iterate any children and deselect them
-                if (item.children) {
-                    item.children.forEach(function (_item) { return _this.deselect(_item); });
-                }
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderService.prototype.deselectAll = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                this.items$.getValue().forEach(function (item) { return _this.deselect(item); });
-            };
-        /**
-         * @param {?} item
-         * @param {?} selected
-         * @return {?}
-         */
-        PageHeaderService.prototype.updateItem = /**
-         * @param {?} item
-         * @param {?} selected
-         * @return {?}
-         */
-            function (item, selected) {
-                // Item is selected if it is the selected item, or one of the selected item's ancestors.
-                item.selected = item === selected || this.isParentOf(selected, item);
-                if (item === selected) {
-                    // call the select function if present
-                    if (item.select) {
-                        item.select.call(item, item);
-                    }
-                }
-            };
-        /**
-         * @param {?=} items
-         * @return {?}
-         */
-        PageHeaderService.prototype.setItems = /**
-         * @param {?=} items
-         * @return {?}
-         */
-            function (items) {
-                var _this = this;
-                if (items === void 0) {
-                    items = [];
-                }
-                // identify all parent elements
-                items.forEach(function (item) { return _this.setParent(item); });
-                this.items$.next(items);
-                // Set up the initally selected item
-                // If nothing is set as selected, using the initial route
-                /** @type {?} */
-                var initialSelectedItem = items.find(function (item) { return item.selected === true; });
-                if (initialSelectedItem) {
-                    this.select(initialSelectedItem);
-                }
-                else {
-                    this.updateItemsWithActiveRoute();
-                }
-            };
-        /**
-         * @param {?} enabled
-         * @return {?}
-         */
-        PageHeaderService.prototype.setSecondaryNavigation = /**
-         * @param {?} enabled
-         * @return {?}
-         */
-            function (enabled) {
-                this.secondary$.next(enabled);
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderService.prototype.getRoot = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                return item && item.parent ? this.getRoot(item.parent) : item;
-            };
-        /**
-         * @param {?} item
-         * @param {?=} parent
-         * @return {?}
-         */
-        PageHeaderService.prototype.setParent = /**
-         * @param {?} item
-         * @param {?=} parent
-         * @return {?}
-         */
-            function (item, parent) {
-                var _this = this;
-                // set the parent field
-                item.parent = parent;
-                // call this function recursively on all children
-                if (item.children) {
-                    item.children.forEach(function (child) { return _this.setParent(child, item); });
-                }
-            };
-        /**
-         * @param {?} node
-         * @param {?} parent
-         * @return {?}
-         */
-        PageHeaderService.prototype.isParentOf = /**
-         * @param {?} node
-         * @param {?} parent
-         * @return {?}
-         */
-            function (node, parent) {
-                // if there are no parents return false
-                if (!node || !node.parent) {
-                    return false;
-                }
-                // if the parent is the match we are looking for return true
-                if (node.parent === parent) {
-                    return true;
-                }
-                // if there are potentially grandparents then check them too
-                return this.isParentOf(node.parent, parent);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderService.prototype.updateItemsWithActiveRoute = /**
-         * @return {?}
-         */
-            function () {
-                var e_1, _a;
-                /** @type {?} */
-                var activeItem = new PageHeaderActiveNavigationItem();
-                try {
-                    for (var _b = __values(this.items$.getValue()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var item = _c.value;
-                        this.findActiveItem(item, activeItem);
-                        if (activeItem.exact) {
-                            break;
-                        }
-                    }
-                }
-                catch (e_1_1) {
-                    e_1 = { error: e_1_1 };
-                }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return))
-                            _a.call(_b);
-                    }
-                    finally {
-                        if (e_1)
-                            throw e_1.error;
-                    }
-                }
-                if (activeItem.item) {
-                    this.selected$.next(activeItem.item);
-                }
-            };
-        /**
-         * @param {?} item
-         * @param {?} activeItem
-         * @return {?}
-         */
-        PageHeaderService.prototype.findActiveItem = /**
-         * @param {?} item
-         * @param {?} activeItem
-         * @return {?}
-         */
-            function (item, activeItem) {
-                var e_2, _a;
-                if (item.routerLink) {
-                    /** @type {?} */
-                    var routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
-                    /** @type {?} */
-                    var urlTree = this._router.createUrlTree(routerLink, item.routerExtras);
-                    if (this._router.isActive(urlTree, true) && !activeItem.exact) {
-                        // When the item route is an exact match, no need to look any further
-                        activeItem.item = item;
-                        activeItem.exact = true;
-                        return;
-                    }
-                    if (this._router.isActive(urlTree, false)) {
-                        // Store an inexact match and continue looking
-                        activeItem.item = item;
-                        activeItem.exact = false;
-                    }
-                }
-                if (item.children) {
-                    try {
-                        for (var _b = __values(item.children), _c = _b.next(); !_c.done; _c = _b.next()) {
-                            var childItem = _c.value;
-                            this.findActiveItem(childItem, activeItem);
-                            if (activeItem.exact) {
-                                return;
-                            }
-                        }
-                    }
-                    catch (e_2_1) {
-                        e_2 = { error: e_2_1 };
-                    }
-                    finally {
-                        try {
-                            if (_c && !_c.done && (_a = _b.return))
-                                _a.call(_b);
-                        }
-                        finally {
-                            if (e_2)
-                                throw e_2.error;
-                        }
-                    }
-                }
-            };
-        PageHeaderService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        PageHeaderService.ctorParameters = function () {
-            return [
-                { type: router.Router }
-            ];
-        };
-        return PageHeaderService;
-    }());
-    var PageHeaderActiveNavigationItem = /** @class */ (function () {
-        function PageHeaderActiveNavigationItem() {
-        }
-        return PageHeaderActiveNavigationItem;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderIconMenuComponent = /** @class */ (function () {
-        function PageHeaderIconMenuComponent(_service) {
-            var _this = this;
-            this._service = _service;
-            this._subscription = _service.activeIconMenu$.subscribe(function (next) {
-                // Close all but the most recently opened menu
-                if (next !== _this.menu) {
-                    _this._isOpen = false;
-                }
-            });
-        }
-        Object.defineProperty(PageHeaderIconMenuComponent.prototype, "isOpen", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._isOpen;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._isOpen = value;
-                if (value) {
-                    this._service.activeIconMenu$.next(this.menu);
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        PageHeaderIconMenuComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._subscription.unsubscribe();
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderIconMenuComponent.prototype.select = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                if (item.select) {
-                    item.select.call(item, item);
-                }
-            };
-        /**
-         * @param {?} item
-         * @param {?} event
-         * @return {?}
-         */
-        PageHeaderIconMenuComponent.prototype.keydownHandler = /**
-         * @param {?} item
-         * @param {?} event
-         * @return {?}
-         */
-            function (item, event) {
-                switch (event.key) {
-                    case 'Enter':
-                    case ' ':
-                        this.select(item);
-                        this.isOpen = false;
-                        this.menuNavigationToggle.focus();
-                        event.preventDefault();
-                        event.stopPropagation();
-                        break;
-                }
-            };
-        PageHeaderIconMenuComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ux-page-header-icon-menu',
-                        template: "<div class=\"page-header-icon-menu\"\n    dropdown\n    placement=\"bottom right\"\n    [(isOpen)]=\"isOpen\">\n\n    <a role=\"button\"\n        class=\"page-header-icon-menu-button\"\n        [attr.aria-label]=\"menu.label\"\n        aria-haspopup=\"true\"\n        tabindex=\"0\"\n        (click)=\"select(menu)\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n        <span class=\"label label-primary\" *ngIf=\"menu?.badge\" aria-hidden=\"true\">{{ menu.badge }}</span>\n\n    </a>\n\n    <ul *dropdownMenu\n        class=\"dropdown-menu\"\n        role=\"menu\"\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\">\n\n        <li *ngFor=\"let dropdown of menu?.dropdown\"\n            role=\"none\"\n            [class.dropdown-header]=\"dropdown.header\"\n            [class.dropdown-divider]=\"dropdown.divider\">\n\n            <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n            <a *ngIf=\"!dropdown.header\"\n                role=\"menuitem\"\n                class=\"dropdown-item\"\n                tabindex=\"-1\"\n                (click)=\"select(dropdown)\"\n                (keydown)=\"keydownHandler(dropdown, $event)\"\n                uxMenuNavigationItem>\n\n\n                <span class=\"dropdown-item-title\">\n                    <i class=\"hpe-icon hpe-fw\" [ngClass]=\"dropdown.icon\"></i>\n                    {{ dropdown.title }}\n                </span>\n                <span *ngIf=\"dropdown.subtitle\" class=\"dropdown-item-subtitle\">{{ dropdown.subtitle }}</span>\n\n            </a>\n        </li>\n\n    </ul>\n</div>"
-                    }] }
-        ];
-        /** @nocollapse */
-        PageHeaderIconMenuComponent.ctorParameters = function () {
-            return [
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderIconMenuComponent.propDecorators = {
-            menu: [{ type: core.Input }],
-            menuNavigationToggle: [{ type: core.ViewChild, args: ['menuNavigationToggle',] }]
-        };
-        return PageHeaderIconMenuComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderNavigationDropdownItemComponent = /** @class */ (function () {
-        function PageHeaderNavigationDropdownItemComponent(_pageHeaderService) {
-            var _this = this;
-            this._pageHeaderService = _pageHeaderService;
-            this.dropdownOpen = false;
-            this._hover$ = new Subject.Subject();
-            // subscribe to stream with a debounce (a small debounce is all that is required)
-            this._subscription = this._hover$.pipe(operators.debounceTime(1)).subscribe(function (visible) { return _this.dropdownOpen = visible; });
-            // Close submenus when selected item changes
-            this._subscription.add(_pageHeaderService.selected$.subscribe(function () {
-                _this.dropdownOpen = false;
-            }));
-        }
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._subscription.unsubscribe();
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.select = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                // clicking on an item with children then return
-                if (item.children) {
-                    return;
-                }
-                // emit the selected item in an event
-                this._pageHeaderService.select(item);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.focus = /**
-         * @return {?}
-         */
-            function () {
-                this.button.nativeElement.focus();
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.hoverStart = /**
-         * @return {?}
-         */
-            function () {
-                this._hover$.next(true);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.hoverLeave = /**
-         * @return {?}
-         */
-            function () {
-                this._hover$.next(false);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.close = /**
-         * @return {?}
-         */
-            function () {
-                this.dropdownOpen = false;
-            };
-        /**
-         * @param {?} event
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.keydownHandler = /**
-         * @param {?} event
-         * @param {?} item
-         * @return {?}
-         */
-            function (event, item) {
-                switch (event.key) {
-                    case 'Enter':
-                    case ' ':
-                        this.select(item);
-                        event.preventDefault();
-                        event.stopPropagation();
-                        break;
-                }
-            };
-        PageHeaderNavigationDropdownItemComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ux-page-header-horizontal-navigation-dropdown-item',
-                        exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
-                        template: "<div *ngIf=\"item.children && item.children.length > 0\"\n    dropdown\n    #subMenu=\"bs-dropdown\"\n    [isOpen]=\"dropdownOpen\"\n    container=\"body\"\n    placement=\"right\"\n    (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\">\n\n    <a role=\"menuitem\"\n        class=\"dropdown-item\"\n        [class.selected]=\"item.selected\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"dropdownOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        tabindex=\"-1\"\n        #button\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dropdownOpen\"\n        menuPosition=\"right\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n        <span class=\"dropdown-item-icon hpe-icon hpe-next\"></span>\n\n    </a>\n\n    <ul *dropdownMenu\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-submenu\"\n        (mouseenter)=\"hoverStart()\"\n        (mouseleave)=\"hoverLeave()\"\n        uxMenuNavigation\n        #menuNavigation=\"uxMenuNavigation\"\n        [toggleButton]=\"menuNavigationToggle\"\n        toggleButtonPosition=\"left\">\n\n        <li *ngFor=\"let subItem of item.children\" role=\"none\">\n\n            <a role=\"menuitem\"\n                class=\"dropdown-item\"\n                [class.selected]=\"subItem.selected\"\n                [attr.aria-selected]=\"subItem.selected\"\n                tabindex=\"-1\"\n                (click)=\"select(subItem)\"\n                (keydown)=\"keydownHandler($event, subItem)\"\n                uxMenuNavigationItem>\n\n                <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n\n            </a>\n\n        </li>\n    </ul>\n\n</div>\n\n<div *ngIf=\"!item.children || item.children.length === 0\"\n    (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\">\n\n    <a role=\"menuitem\"\n        #button\n        class=\"dropdown-item\"\n        [class.selected]=\"item.selected\"\n        [attr.aria-selected]=\"item.selected\"\n        tabindex=\"-1\"\n        (click)=\"select(item)\"\n        (keydown)=\"keydownHandler($event, item)\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n\n    </a>\n\n</div>"
-                    }] }
-        ];
-        /** @nocollapse */
-        PageHeaderNavigationDropdownItemComponent.ctorParameters = function () {
-            return [
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderNavigationDropdownItemComponent.propDecorators = {
-            item: [{ type: core.Input }],
-            button: [{ type: core.ViewChild, args: ['button',] }]
-        };
-        return PageHeaderNavigationDropdownItemComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderNavigationItemComponent = /** @class */ (function () {
-        function PageHeaderNavigationItemComponent(elementRef, _pageHeaderService) {
-            this.elementRef = elementRef;
-            this._pageHeaderService = _pageHeaderService;
-            this.secondary$ = this._pageHeaderService.secondary$;
-            this._onDestroy = new Subject.Subject();
-        }
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationItemComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                this._pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (next) {
-                    // Update selected state for this item
-                    _this._pageHeaderService.updateItem(_this.item, next);
-                    if (next && _this.isOpen) {
-                        _this.isOpen = false;
-                        // If menu was closed, keep focus on the toggle button
-                        _this.button.focus();
-                    }
-                });
-                if (this.menu) {
-                    this.menu.onHidden
-                        .pipe(operators.takeUntil(this._onDestroy))
-                        .subscribe(function () { return _this.dropdowns.forEach(function (dropdown$$1) { return dropdown$$1.close(); }); });
-                }
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationItemComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationItemComponent.prototype.select = /**
-         * @return {?}
-         */
-            function () {
-                // if the item has children then do nothing at this stage
-                if (this.item.children && this._pageHeaderService.secondary$.getValue() === false) {
-                    return;
-                }
-                // otherwise select the current item
-                this._pageHeaderService.select(this.item);
-            };
-        PageHeaderNavigationItemComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ux-page-header-horizontal-navigation-item',
-                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button type=\"button\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    type=\"button\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
-                    }] }
-        ];
-        /** @nocollapse */
-        PageHeaderNavigationItemComponent.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderNavigationItemComponent.propDecorators = {
-            button: [{ type: core.ViewChild, args: ['button',] }],
-            menu: [{ type: core.ViewChild, args: ['menu',] }],
-            dropdowns: [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] }],
-            item: [{ type: core.Input }]
-        };
-        return PageHeaderNavigationItemComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderNavigationSecondaryItemDirective = /** @class */ (function () {
-        function PageHeaderNavigationSecondaryItemDirective(_pageHeaderService) {
-            this._pageHeaderService = _pageHeaderService;
-            this._onDestroy = new Subject.Subject();
-        }
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationSecondaryItemDirective.prototype.ngOnInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                this._pageHeaderService.selected$.pipe(operators.delay(0), operators.takeUntil(this._onDestroy)).subscribe(function (next) {
-                    // Update selected state for this item
-                    _this._pageHeaderService.updateItem(_this.item, next);
-                });
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationSecondaryItemDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        PageHeaderNavigationSecondaryItemDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxPageHeaderNavigationSecondaryItem]'
-                    },] }
-        ];
-        /** @nocollapse */
-        PageHeaderNavigationSecondaryItemDirective.ctorParameters = function () {
-            return [
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderNavigationSecondaryItemDirective.propDecorators = {
-            item: [{ type: core.Input, args: ['uxPageHeaderNavigationSecondaryItem',] }]
-        };
-        return PageHeaderNavigationSecondaryItemDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderNavigationComponent = /** @class */ (function () {
-        function PageHeaderNavigationComponent(elementRef, resizeService, _pageHeaderService) {
-            this._pageHeaderService = _pageHeaderService;
-            this.items$ = this._pageHeaderService.items$;
-            this.indicatorVisible = false;
-            this.indicatorX = 0;
-            this.indicatorWidth = 0;
-            this._subscription = new Subscription.Subscription();
-            this._subscription.add(resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this)));
-            this._subscription.add(_pageHeaderService.selected$.pipe(operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
-            this._subscription.add(_pageHeaderService.secondary$.pipe(operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
-        }
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationComponent.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-            function () {
-                this.updateSelectedIndicator();
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._subscription.unsubscribe();
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationComponent.prototype.updateSelectedIndicator = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                setTimeout(function () {
-                    // find the selected item
-                    /** @type {?} */
-                    var selected = _this.menuItems.find(function (item) { return item.item.selected; });
-                    // determine whether or not to show the indicator
-                    _this.indicatorVisible = !!selected;
-                    // set the width of the indicator to match the width of the navigation item
-                    if (selected) {
-                        /** @type {?} */
-                        var styles = getComputedStyle(selected.elementRef.nativeElement);
-                        _this.indicatorX = selected.elementRef.nativeElement.offsetLeft;
-                        _this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
-                    }
-                });
-            };
-        PageHeaderNavigationComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ux-page-header-horizontal-navigation',
-                        template: "<ux-page-header-horizontal-navigation-item\n    *ngFor=\"let item of items$ | async\"\n    [item]=\"item\">\n</ux-page-header-horizontal-navigation-item>\n\n<div class=\"selected-indicator\"\n    [style.opacity]=\"indicatorVisible ? 1 : 0\"\n    [style.margin-left.px]=\"indicatorX\"\n    [style.width.px]=\"indicatorWidth\">\n</div>",
-                        host: {
-                            'role': 'menubar'
-                        }
-                    }] }
-        ];
-        /** @nocollapse */
-        PageHeaderNavigationComponent.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: ResizeService },
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderNavigationComponent.propDecorators = {
-            menuItems: [{ type: core.ViewChildren, args: [PageHeaderNavigationItemComponent,] }]
-        };
-        return PageHeaderNavigationComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var PageHeaderComponent = /** @class */ (function () {
-        function PageHeaderComponent(_colorService, _pageHeaderService) {
-            this._colorService = _colorService;
-            this._pageHeaderService = _pageHeaderService;
-            /**
-             * The alignment of the primary navigation tabs.
-             */
-            this.alignment = 'center';
-            /**
-             * Determines whether or not to display the page header in the regular or condensed form.
-             */
-            this.condensed = false;
-            /**
-             * Determines whether or not a back button should be visible in the page header.
-             */
-            this.backVisible = true;
-            /**
-             * The alignment of the secondary navigation tabs.
-             */
-            this.secondaryNavigationAlignment = 'center';
-            /**
-             * The style of the breadcrumbs.
-             *   - standard: The breadcrumbs use the same styling as the navigation tabs.
-             *   - small: The breadcrumbs use a smaller font, and case is not adjusted.
-             */
-            this.crumbsStyle = 'standard';
-            /**
-             * Emit whenever the back button is clicked
-             */
-            this.backClick = new core.EventEmitter();
-            /**
-             * The currently selected page header item
-             */
-            this.selected$ = this._pageHeaderService.selected$;
-            /**
-             * The currently selected root menu item - this may be different from selected$ if a child menu item is selected
-             */
-            this.selectedRoot$ = this._pageHeaderService.selectedRoot$;
-            this._crumbs = [];
-        }
-        Object.defineProperty(PageHeaderComponent.prototype, "title", {
-            /** @deprecated */
-            set: /**
-             * @deprecated
-             * @param {?} subheader
-             * @return {?}
-             */ function (subheader) {
-                this.subheader = subheader;
-                console.warn("The 'title' @Input of the ux-page-header component has been deprecated. Please change to use the 'subheader' @Input instead.");
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "secondaryNavigationAutoselect", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._pageHeaderService.secondaryNavigationAutoselect;
-            },
-            /** If set, the first child item will get selected when the parent item is selected. */
-            set: /**
-             * If set, the first child item will get selected when the parent item is selected.
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._pageHeaderService.secondaryNavigationAutoselect = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "items", {
-            /** The primary navigation tabs. Use the children property in combination with [secondaryNavigation]="true" to include secondary navigation tabs. */
-            set: /**
-             * The primary navigation tabs. Use the children property in combination with [secondaryNavigation]="true" to include secondary navigation tabs.
-             * @param {?} items
-             * @return {?}
-             */ function (items) {
-                this._pageHeaderService.setItems(items);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "secondaryNavigation", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._pageHeaderService.secondary$.getValue();
-            },
-            /** Whether to show a second level of navigation for any items with children. */
-            set: /**
-             * Whether to show a second level of navigation for any items with children.
-             * @param {?} enabled
-             * @return {?}
-             */ function (enabled) {
-                this._pageHeaderService.setSecondaryNavigation(enabled);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "crumbs", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this.condensed ? __spread(this._crumbs, [{ title: this.header }]) : this._crumbs;
-            },
-            /** The optional set of breadcrumbs to display on the left side of the masthead. */
-            set: /**
-             * The optional set of breadcrumbs to display on the left side of the masthead.
-             * @param {?} crumbs
-             * @return {?}
-             */ function (crumbs) {
-                this._crumbs = crumbs;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "logoBackground", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._logoBackground;
-            },
-            /** The logo background color. This can either be the name of a color from the color palette, or a CSS color value. */
-            set: /**
-             * The logo background color. This can either be the name of a color from the color palette, or a CSS color value.
-             * @param {?} color
-             * @return {?}
-             */ function (color) {
-                this._logoBackground = this._colorService.resolve(color);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "logoForeground", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._logoForeground;
-            },
-            /** The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value. */
-            set: /**
-             * The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value.
-             * @param {?} color
-             * @return {?}
-             */ function (color) {
-                this._logoForeground = this._colorService.resolve(color);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "familyBackground", {
-            /** @deprecated - Use logoBackground instead */
-            set: /**
-             * @deprecated - Use logoBackground instead
-             * @param {?} color
-             * @return {?}
-             */ function (color) {
-                this.logoBackground = color;
-                console.warn("The 'familyBackground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoBackground' @Input instead.");
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(PageHeaderComponent.prototype, "familyForeground", {
-            /** @deprecated - Use logoForeground instead */
-            set: /**
-             * @deprecated - Use logoForeground instead
-             * @param {?} color
-             * @return {?}
-             */ function (color) {
-                this.logoForeground = color;
-                console.warn("The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.");
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        PageHeaderComponent.prototype.goBack = /**
-         * @return {?}
-         */
-            function () {
-                this.backClick.emit();
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderComponent.prototype.select = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                this._pageHeaderService.select(item);
-            };
-        PageHeaderComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ux-page-header',
-                        exportAs: 'ux-page-header',
-                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" type=\"button\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
-                        providers: [PageHeaderService]
-                    }] }
-        ];
-        /** @nocollapse */
-        PageHeaderComponent.ctorParameters = function () {
-            return [
-                { type: ColorService },
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderComponent.propDecorators = {
-            logo: [{ type: core.Input }],
-            header: [{ type: core.Input }],
-            subheader: [{ type: core.Input }],
-            alignment: [{ type: core.Input }],
-            condensed: [{ type: core.Input }],
-            iconMenus: [{ type: core.Input }],
-            backVisible: [{ type: core.Input }],
-            secondaryNavigationAlignment: [{ type: core.Input }],
-            title: [{ type: core.Input }],
-            secondaryNavigationAutoselect: [{ type: core.Input }],
-            items: [{ type: core.Input }],
-            secondaryNavigation: [{ type: core.Input }],
-            crumbs: [{ type: core.Input }],
-            crumbsStyle: [{ type: core.Input }],
-            logoBackground: [{ type: core.Input }],
-            logoForeground: [{ type: core.Input }],
-            familyBackground: [{ type: core.Input }],
-            familyForeground: [{ type: core.Input }],
-            backClick: [{ type: core.Output }],
-            titleTemplate: [{ type: core.ContentChild, args: ['title',] }],
-            subheaderTemplate: [{ type: core.ContentChild, args: ['subheader',] }],
-            customMenus: [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] }]
-        };
-        return PageHeaderComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
     var TabsetService = /** @class */ (function () {
         function TabsetService() {
             this.tabs$ = new BehaviorSubject.BehaviorSubject([]);
@@ -24297,12 +24660,1004 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var PageHeaderCustomMenuDirective = /** @class */ (function () {
+        function PageHeaderCustomMenuDirective() {
+        }
+        PageHeaderCustomMenuDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxPageHeaderCustomMenu]'
+                    },] }
+        ];
+        return PageHeaderCustomMenuDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderService = /** @class */ (function () {
+        function PageHeaderService(_router) {
+            var _this = this;
+            this._router = _router;
+            this.items$ = new BehaviorSubject.BehaviorSubject([]);
+            this.selected$ = new BehaviorSubject.BehaviorSubject(null);
+            this.selectedRoot$ = new BehaviorSubject.BehaviorSubject(null);
+            this.secondary$ = new BehaviorSubject.BehaviorSubject(false);
+            this.activeIconMenu$ = new BehaviorSubject.BehaviorSubject(null);
+            this.secondaryNavigationAutoselect = false;
+            this._onDestroy = new Subject.Subject();
+            this.selected$
+                .pipe(operators.takeUntil(this._onDestroy), operators.map(function (selected) { return _this.getRoot(selected); }))
+                .subscribe(function (root) { return _this.selectedRoot$.next(root); });
+            this._router.events
+                .pipe(operators.takeUntil(this._onDestroy), operators.filter(function (e) { return e instanceof router.NavigationEnd; }))
+                .subscribe(this.updateItemsWithActiveRoute.bind(this));
+        }
+        /**
+         * @return {?}
+         */
+        PageHeaderService.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderService.prototype.select = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                if (!item) {
+                    return;
+                }
+                if (item.routerLink) {
+                    // Trigger router navigation
+                    /** @type {?} */
+                    var routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+                    this._router.navigate(routerLink, item.routerExtras);
+                }
+                else if (this.secondaryNavigationAutoselect && item.children && item.children.length > 0) {
+                    // Select the first child that isn't disabled in secondaryNavigationAutoselect mode
+                    /** @type {?} */
+                    var firstChild = item.children.find(function (_item) { return !_item.disabled; });
+                    if (firstChild) {
+                        this.select(firstChild);
+                    }
+                }
+                else {
+                    // if we are in secondary navigation mode and we click a parent - dont deselect the child
+                    if (this.secondary$.getValue() === true && this.isParentOf(this.selected$.getValue(), item)) {
+                        return;
+                    }
+                    // Otherwise select the given item
+                    this.selected$.next(item);
+                }
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderService.prototype.deselect = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                var _this = this;
+                // deselect the current item
+                item.selected = false;
+                // iterate any children and deselect them
+                if (item.children) {
+                    item.children.forEach(function (_item) { return _this.deselect(_item); });
+                }
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderService.prototype.deselectAll = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this.items$.getValue().forEach(function (item) { return _this.deselect(item); });
+            };
+        /**
+         * @param {?} item
+         * @param {?} selected
+         * @return {?}
+         */
+        PageHeaderService.prototype.updateItem = /**
+         * @param {?} item
+         * @param {?} selected
+         * @return {?}
+         */
+            function (item, selected) {
+                // Item is selected if it is the selected item, or one of the selected item's ancestors.
+                item.selected = item === selected || this.isParentOf(selected, item);
+                if (item === selected) {
+                    // call the select function if present
+                    if (item.select) {
+                        item.select.call(item, item);
+                    }
+                }
+            };
+        /**
+         * @param {?=} items
+         * @return {?}
+         */
+        PageHeaderService.prototype.setItems = /**
+         * @param {?=} items
+         * @return {?}
+         */
+            function (items) {
+                var _this = this;
+                if (items === void 0) {
+                    items = [];
+                }
+                // identify all parent elements
+                items.forEach(function (item) { return _this.setParent(item); });
+                this.items$.next(items);
+                // Set up the initally selected item
+                // If nothing is set as selected, using the initial route
+                /** @type {?} */
+                var initialSelectedItem = items.find(function (item) { return item.selected === true; });
+                if (initialSelectedItem) {
+                    this.select(initialSelectedItem);
+                }
+                else {
+                    this.updateItemsWithActiveRoute();
+                }
+            };
+        /**
+         * @param {?} enabled
+         * @return {?}
+         */
+        PageHeaderService.prototype.setSecondaryNavigation = /**
+         * @param {?} enabled
+         * @return {?}
+         */
+            function (enabled) {
+                this.secondary$.next(enabled);
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderService.prototype.getRoot = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                return item && item.parent ? this.getRoot(item.parent) : item;
+            };
+        /**
+         * @param {?} item
+         * @param {?=} parent
+         * @return {?}
+         */
+        PageHeaderService.prototype.setParent = /**
+         * @param {?} item
+         * @param {?=} parent
+         * @return {?}
+         */
+            function (item, parent) {
+                var _this = this;
+                // set the parent field
+                item.parent = parent;
+                // call this function recursively on all children
+                if (item.children) {
+                    item.children.forEach(function (child) { return _this.setParent(child, item); });
+                }
+            };
+        /**
+         * @param {?} node
+         * @param {?} parent
+         * @return {?}
+         */
+        PageHeaderService.prototype.isParentOf = /**
+         * @param {?} node
+         * @param {?} parent
+         * @return {?}
+         */
+            function (node, parent) {
+                // if there are no parents return false
+                if (!node || !node.parent) {
+                    return false;
+                }
+                // if the parent is the match we are looking for return true
+                if (node.parent === parent) {
+                    return true;
+                }
+                // if there are potentially grandparents then check them too
+                return this.isParentOf(node.parent, parent);
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderService.prototype.updateItemsWithActiveRoute = /**
+         * @return {?}
+         */
+            function () {
+                var e_1, _a;
+                /** @type {?} */
+                var activeItem = new PageHeaderActiveNavigationItem();
+                try {
+                    for (var _b = __values(this.items$.getValue()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var item = _c.value;
+                        this.findActiveItem(item, activeItem);
+                        if (activeItem.exact) {
+                            break;
+                        }
+                    }
+                }
+                catch (e_1_1) {
+                    e_1 = { error: e_1_1 };
+                }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return))
+                            _a.call(_b);
+                    }
+                    finally {
+                        if (e_1)
+                            throw e_1.error;
+                    }
+                }
+                if (activeItem.item) {
+                    this.selected$.next(activeItem.item);
+                }
+            };
+        /**
+         * @param {?} item
+         * @param {?} activeItem
+         * @return {?}
+         */
+        PageHeaderService.prototype.findActiveItem = /**
+         * @param {?} item
+         * @param {?} activeItem
+         * @return {?}
+         */
+            function (item, activeItem) {
+                var e_2, _a;
+                if (item.routerLink) {
+                    /** @type {?} */
+                    var routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
+                    /** @type {?} */
+                    var urlTree = this._router.createUrlTree(routerLink, item.routerExtras);
+                    if (this._router.isActive(urlTree, true) && !activeItem.exact) {
+                        // When the item route is an exact match, no need to look any further
+                        activeItem.item = item;
+                        activeItem.exact = true;
+                        return;
+                    }
+                    if (this._router.isActive(urlTree, false)) {
+                        // Store an inexact match and continue looking
+                        activeItem.item = item;
+                        activeItem.exact = false;
+                    }
+                }
+                if (item.children) {
+                    try {
+                        for (var _b = __values(item.children), _c = _b.next(); !_c.done; _c = _b.next()) {
+                            var childItem = _c.value;
+                            this.findActiveItem(childItem, activeItem);
+                            if (activeItem.exact) {
+                                return;
+                            }
+                        }
+                    }
+                    catch (e_2_1) {
+                        e_2 = { error: e_2_1 };
+                    }
+                    finally {
+                        try {
+                            if (_c && !_c.done && (_a = _b.return))
+                                _a.call(_b);
+                        }
+                        finally {
+                            if (e_2)
+                                throw e_2.error;
+                        }
+                    }
+                }
+            };
+        PageHeaderService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        PageHeaderService.ctorParameters = function () {
+            return [
+                { type: router.Router }
+            ];
+        };
+        return PageHeaderService;
+    }());
+    var PageHeaderActiveNavigationItem = /** @class */ (function () {
+        function PageHeaderActiveNavigationItem() {
+        }
+        return PageHeaderActiveNavigationItem;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderIconMenuComponent = /** @class */ (function () {
+        function PageHeaderIconMenuComponent(_service) {
+            var _this = this;
+            this._service = _service;
+            this._subscription = _service.activeIconMenu$.subscribe(function (next) {
+                // Close all but the most recently opened menu
+                if (next !== _this.menu) {
+                    _this._isOpen = false;
+                }
+            });
+        }
+        Object.defineProperty(PageHeaderIconMenuComponent.prototype, "isOpen", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isOpen;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */ function (value) {
+                this._isOpen = value;
+                if (value) {
+                    this._service.activeIconMenu$.next(this.menu);
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        PageHeaderIconMenuComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._subscription.unsubscribe();
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderIconMenuComponent.prototype.select = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                if (item.select) {
+                    item.select.call(item, item);
+                }
+            };
+        /**
+         * @param {?} item
+         * @param {?} event
+         * @return {?}
+         */
+        PageHeaderIconMenuComponent.prototype.keydownHandler = /**
+         * @param {?} item
+         * @param {?} event
+         * @return {?}
+         */
+            function (item, event) {
+                switch (event.key) {
+                    case 'Enter':
+                    case ' ':
+                        this.select(item);
+                        this.isOpen = false;
+                        this.menuNavigationToggle.focus();
+                        event.preventDefault();
+                        event.stopPropagation();
+                        break;
+                }
+            };
+        PageHeaderIconMenuComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-page-header-icon-menu',
+                        template: "<div class=\"page-header-icon-menu\"\n    dropdown\n    placement=\"bottom right\"\n    [(isOpen)]=\"isOpen\">\n\n    <a role=\"button\"\n        uxFocusIndicator\n        class=\"page-header-icon-menu-button\"\n        [attr.aria-label]=\"menu.label\"\n        aria-haspopup=\"true\"\n        tabindex=\"0\"\n        (click)=\"select(menu)\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n        <span class=\"label label-primary\" *ngIf=\"menu?.badge\" aria-hidden=\"true\">{{ menu.badge }}</span>\n\n    </a>\n\n    <ul *dropdownMenu\n        class=\"dropdown-menu\"\n        role=\"menu\"\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\">\n\n        <li *ngFor=\"let dropdown of menu?.dropdown\"\n            role=\"none\"\n            [class.dropdown-header]=\"dropdown.header\"\n            [class.dropdown-divider]=\"dropdown.divider\">\n\n            <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n            <a *ngIf=\"!dropdown.header\"\n                role=\"menuitem\"\n                class=\"dropdown-item\"\n                tabindex=\"-1\"\n                (click)=\"select(dropdown)\"\n                (keydown)=\"keydownHandler(dropdown, $event)\"\n                uxMenuNavigationItem>\n\n\n                <span class=\"dropdown-item-title\">\n                    <i class=\"hpe-icon hpe-fw\" [ngClass]=\"dropdown.icon\"></i>\n                    {{ dropdown.title }}\n                </span>\n                <span *ngIf=\"dropdown.subtitle\" class=\"dropdown-item-subtitle\">{{ dropdown.subtitle }}</span>\n\n            </a>\n        </li>\n\n    </ul>\n</div>"
+                    }] }
+        ];
+        /** @nocollapse */
+        PageHeaderIconMenuComponent.ctorParameters = function () {
+            return [
+                { type: PageHeaderService }
+            ];
+        };
+        PageHeaderIconMenuComponent.propDecorators = {
+            menu: [{ type: core.Input }],
+            menuNavigationToggle: [{ type: core.ViewChild, args: ['menuNavigationToggle',] }]
+        };
+        return PageHeaderIconMenuComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderNavigationDropdownItemComponent = /** @class */ (function () {
+        function PageHeaderNavigationDropdownItemComponent(_pageHeaderService) {
+            var _this = this;
+            this._pageHeaderService = _pageHeaderService;
+            this.dropdownOpen = false;
+            this._hover$ = new Subject.Subject();
+            this._onDestroy = new Subject.Subject();
+            // subscribe to stream with a debounce (a small debounce is all that is required)
+            this._hover$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(1)).subscribe(function (visible) { return _this.dropdownOpen = visible; });
+            // Close submenus when selected item changes
+            _pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.dropdownOpen = false; });
+        }
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.select = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                // clicking on an item that is disabled or with children then return
+                if (item.disabled || item.children) {
+                    return;
+                }
+                // emit the selected item in an event
+                this._pageHeaderService.select(item);
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.focus = /**
+         * @return {?}
+         */
+            function () {
+                this.button.nativeElement.focus();
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.hoverStart = /**
+         * @return {?}
+         */
+            function () {
+                this._hover$.next(true);
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.hoverLeave = /**
+         * @return {?}
+         */
+            function () {
+                this._hover$.next(false);
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.close = /**
+         * @return {?}
+         */
+            function () {
+                this.dropdownOpen = false;
+            };
+        /**
+         * @param {?} event
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderNavigationDropdownItemComponent.prototype.keydownHandler = /**
+         * @param {?} event
+         * @param {?} item
+         * @return {?}
+         */
+            function (event, item) {
+                switch (event.which) {
+                    case keycodes.ENTER:
+                    case keycodes.SPACE:
+                        this.select(item);
+                        event.preventDefault();
+                        event.stopPropagation();
+                        break;
+                }
+            };
+        PageHeaderNavigationDropdownItemComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-page-header-horizontal-navigation-dropdown-item',
+                        exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
+                        template: "<div *ngIf=\"item.children && item.children.length > 0\"\n    dropdown\n    #subMenu=\"bs-dropdown\"\n    [isOpen]=\"dropdownOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"right\"\n    (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\">\n\n    <a role=\"menuitem\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        class=\"dropdown-item\"\n        [class.disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"dropdownOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        tabindex=\"-1\"\n        #button\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dropdownOpen\"\n        menuPosition=\"right\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n        <span class=\"dropdown-item-icon hpe-icon hpe-next\"></span>\n\n    </a>\n\n    <ul *dropdownMenu\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-submenu\"\n        (mouseenter)=\"hoverStart()\"\n        (mouseleave)=\"hoverLeave()\"\n        uxMenuNavigation\n        #menuNavigation=\"uxMenuNavigation\"\n        [toggleButton]=\"menuNavigationToggle\"\n        toggleButtonPosition=\"left\">\n\n        <li *ngFor=\"let subItem of item.children\" role=\"none\">\n\n            <a role=\"menuitem\"\n                class=\"dropdown-item\"\n                [class.disabled]=\"subItem.disabled\"\n                [class.selected]=\"subItem.selected\"\n                [attr.aria-selected]=\"subItem.selected\"\n                tabindex=\"-1\"\n                (click)=\"select(subItem)\"\n                (keydown)=\"keydownHandler($event, subItem)\"\n                uxMenuNavigationItem>\n\n                <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n\n            </a>\n\n        </li>\n    </ul>\n\n</div>\n\n<div *ngIf=\"!item.children || item.children.length === 0\"\n    (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\">\n\n    <a role=\"menuitem\"\n        #button\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        class=\"dropdown-item\"\n        [class.disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        [attr.aria-selected]=\"item.selected\"\n        tabindex=\"-1\"\n        (click)=\"select(item)\"\n        (keydown)=\"keydownHandler($event, item)\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n\n    </a>\n\n</div>"
+                    }] }
+        ];
+        /** @nocollapse */
+        PageHeaderNavigationDropdownItemComponent.ctorParameters = function () {
+            return [
+                { type: PageHeaderService }
+            ];
+        };
+        PageHeaderNavigationDropdownItemComponent.propDecorators = {
+            item: [{ type: core.Input }],
+            button: [{ type: core.ViewChild, args: ['button',] }]
+        };
+        return PageHeaderNavigationDropdownItemComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderNavigationItemComponent = /** @class */ (function () {
+        function PageHeaderNavigationItemComponent(elementRef, _pageHeaderService) {
+            this.elementRef = elementRef;
+            this._pageHeaderService = _pageHeaderService;
+            this.secondary$ = this._pageHeaderService.secondary$;
+            this._onDestroy = new Subject.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationItemComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this._pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (next) {
+                    // Update selected state for this item
+                    _this._pageHeaderService.updateItem(_this.item, next);
+                    if (next && _this.isOpen) {
+                        _this.isOpen = false;
+                        // If menu was closed, keep focus on the toggle button
+                        _this.button.focus();
+                    }
+                });
+                if (this.menu) {
+                    this.menu.onHidden
+                        .pipe(operators.takeUntil(this._onDestroy))
+                        .subscribe(function () { return _this.dropdowns.forEach(function (dropdown$$1) { return dropdown$$1.close(); }); });
+                }
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationItemComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationItemComponent.prototype.select = /**
+         * @return {?}
+         */
+            function () {
+                // if the item is disabled or has children then do nothing at this stage
+                if (this.item.disabled || (this.item.children && this._pageHeaderService.secondary$.getValue() === false)) {
+                    return;
+                }
+                // otherwise select the current item
+                this._pageHeaderService.select(this.item);
+            };
+        PageHeaderNavigationItemComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-page-header-horizontal-navigation-item',
+                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button type=\"button\"\n        uxFocusIndicator\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    type=\"button\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
+                    }] }
+        ];
+        /** @nocollapse */
+        PageHeaderNavigationItemComponent.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: PageHeaderService }
+            ];
+        };
+        PageHeaderNavigationItemComponent.propDecorators = {
+            button: [{ type: core.ViewChild, args: ['button',] }],
+            menu: [{ type: core.ViewChild, args: ['menu',] }],
+            dropdowns: [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] }],
+            item: [{ type: core.Input }]
+        };
+        return PageHeaderNavigationItemComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderNavigationSecondaryItemDirective = /** @class */ (function () {
+        function PageHeaderNavigationSecondaryItemDirective(_pageHeaderService) {
+            this._pageHeaderService = _pageHeaderService;
+            this._onDestroy = new Subject.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationSecondaryItemDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this._pageHeaderService.selected$.pipe(operators.delay(0), operators.takeUntil(this._onDestroy)).subscribe(function (next) {
+                    // Update selected state for this item
+                    _this._pageHeaderService.updateItem(_this.item, next);
+                });
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationSecondaryItemDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        PageHeaderNavigationSecondaryItemDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxPageHeaderNavigationSecondaryItem]'
+                    },] }
+        ];
+        /** @nocollapse */
+        PageHeaderNavigationSecondaryItemDirective.ctorParameters = function () {
+            return [
+                { type: PageHeaderService }
+            ];
+        };
+        PageHeaderNavigationSecondaryItemDirective.propDecorators = {
+            item: [{ type: core.Input, args: ['uxPageHeaderNavigationSecondaryItem',] }]
+        };
+        return PageHeaderNavigationSecondaryItemDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderNavigationComponent = /** @class */ (function () {
+        function PageHeaderNavigationComponent(elementRef, resizeService, _pageHeaderService) {
+            this._pageHeaderService = _pageHeaderService;
+            this.items$ = this._pageHeaderService.items$;
+            this.indicatorVisible = false;
+            this.indicatorX = 0;
+            this.indicatorWidth = 0;
+            this._subscription = new Subscription.Subscription();
+            this._subscription.add(resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this)));
+            this._subscription.add(_pageHeaderService.selected$.pipe(operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
+            this._subscription.add(_pageHeaderService.secondary$.pipe(operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
+        }
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                this.updateSelectedIndicator();
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._subscription.unsubscribe();
+            };
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationComponent.prototype.updateSelectedIndicator = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                setTimeout(function () {
+                    // find the selected item
+                    /** @type {?} */
+                    var selected = _this.menuItems.find(function (item) { return item.item.selected; });
+                    // determine whether or not to show the indicator
+                    _this.indicatorVisible = !!selected;
+                    // set the width of the indicator to match the width of the navigation item
+                    if (selected) {
+                        /** @type {?} */
+                        var styles = getComputedStyle(selected.elementRef.nativeElement);
+                        _this.indicatorX = selected.elementRef.nativeElement.offsetLeft;
+                        _this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
+                    }
+                });
+            };
+        PageHeaderNavigationComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-page-header-horizontal-navigation',
+                        template: "<ux-page-header-horizontal-navigation-item\n    *ngFor=\"let item of items$ | async\"\n    [item]=\"item\">\n</ux-page-header-horizontal-navigation-item>\n\n<div class=\"selected-indicator\"\n    [style.opacity]=\"indicatorVisible ? 1 : 0\"\n    [style.margin-left.px]=\"indicatorX\"\n    [style.width.px]=\"indicatorWidth\">\n</div>",
+                        host: {
+                            'role': 'menubar'
+                        }
+                    }] }
+        ];
+        /** @nocollapse */
+        PageHeaderNavigationComponent.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: ResizeService },
+                { type: PageHeaderService }
+            ];
+        };
+        PageHeaderNavigationComponent.propDecorators = {
+            menuItems: [{ type: core.ViewChildren, args: [PageHeaderNavigationItemComponent,] }]
+        };
+        return PageHeaderNavigationComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PageHeaderComponent = /** @class */ (function () {
+        function PageHeaderComponent(_colorService, _pageHeaderService) {
+            this._colorService = _colorService;
+            this._pageHeaderService = _pageHeaderService;
+            /**
+             * The alignment of the primary navigation tabs.
+             */
+            this.alignment = 'center';
+            /**
+             * Determines whether or not to display the page header in the regular or condensed form.
+             */
+            this.condensed = false;
+            /**
+             * Determines whether or not a back button should be visible in the page header.
+             */
+            this.backVisible = true;
+            /**
+             * The alignment of the secondary navigation tabs.
+             */
+            this.secondaryNavigationAlignment = 'center';
+            /**
+             * The style of the breadcrumbs.
+             *   - standard: The breadcrumbs use the same styling as the navigation tabs.
+             *   - small: The breadcrumbs use a smaller font, and case is not adjusted.
+             */
+            this.crumbsStyle = 'standard';
+            /**
+             * Emit whenever the back button is clicked
+             */
+            this.backClick = new core.EventEmitter();
+            /**
+             * The currently selected page header item
+             */
+            this.selected$ = this._pageHeaderService.selected$;
+            /**
+             * The currently selected root menu item - this may be different from selected$ if a child menu item is selected
+             */
+            this.selectedRoot$ = this._pageHeaderService.selectedRoot$;
+            this._crumbs = [];
+        }
+        Object.defineProperty(PageHeaderComponent.prototype, "title", {
+            /** @deprecated */
+            set: /**
+             * @deprecated
+             * @param {?} subheader
+             * @return {?}
+             */ function (subheader) {
+                this.subheader = subheader;
+                console.warn("The 'title' @Input of the ux-page-header component has been deprecated. Please change to use the 'subheader' @Input instead.");
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "secondaryNavigationAutoselect", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._pageHeaderService.secondaryNavigationAutoselect;
+            },
+            /** If set, the first child item will get selected when the parent item is selected. */
+            set: /**
+             * If set, the first child item will get selected when the parent item is selected.
+             * @param {?} value
+             * @return {?}
+             */ function (value) {
+                this._pageHeaderService.secondaryNavigationAutoselect = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "items", {
+            /** The primary navigation tabs. Use the children property in combination with [secondaryNavigation]="true" to include secondary navigation tabs. */
+            set: /**
+             * The primary navigation tabs. Use the children property in combination with [secondaryNavigation]="true" to include secondary navigation tabs.
+             * @param {?} items
+             * @return {?}
+             */ function (items) {
+                this._pageHeaderService.setItems(items);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "secondaryNavigation", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._pageHeaderService.secondary$.getValue();
+            },
+            /** Whether to show a second level of navigation for any items with children. */
+            set: /**
+             * Whether to show a second level of navigation for any items with children.
+             * @param {?} enabled
+             * @return {?}
+             */ function (enabled) {
+                this._pageHeaderService.setSecondaryNavigation(enabled);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "crumbs", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this.condensed ? __spread(this._crumbs, [{ title: this.header }]) : this._crumbs;
+            },
+            /** The optional set of breadcrumbs to display on the left side of the masthead. */
+            set: /**
+             * The optional set of breadcrumbs to display on the left side of the masthead.
+             * @param {?} crumbs
+             * @return {?}
+             */ function (crumbs) {
+                this._crumbs = crumbs;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "logoBackground", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._logoBackground;
+            },
+            /** The logo background color. This can either be the name of a color from the color palette, or a CSS color value. */
+            set: /**
+             * The logo background color. This can either be the name of a color from the color palette, or a CSS color value.
+             * @param {?} color
+             * @return {?}
+             */ function (color) {
+                this._logoBackground = this._colorService.resolve(color);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "logoForeground", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._logoForeground;
+            },
+            /** The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value. */
+            set: /**
+             * The logo text color, when a product acronym is specified via header. This can either be the name of a color from the color palette, or a CSS color value.
+             * @param {?} color
+             * @return {?}
+             */ function (color) {
+                this._logoForeground = this._colorService.resolve(color);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "familyBackground", {
+            /** @deprecated - Use logoBackground instead */
+            set: /**
+             * @deprecated - Use logoBackground instead
+             * @param {?} color
+             * @return {?}
+             */ function (color) {
+                this.logoBackground = color;
+                console.warn("The 'familyBackground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoBackground' @Input instead.");
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PageHeaderComponent.prototype, "familyForeground", {
+            /** @deprecated - Use logoForeground instead */
+            set: /**
+             * @deprecated - Use logoForeground instead
+             * @param {?} color
+             * @return {?}
+             */ function (color) {
+                this.logoForeground = color;
+                console.warn("The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.");
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        PageHeaderComponent.prototype.goBack = /**
+         * @return {?}
+         */
+            function () {
+                this.backClick.emit();
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderComponent.prototype.select = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                this._pageHeaderService.select(item);
+            };
+        PageHeaderComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-page-header',
+                        exportAs: 'ux-page-header',
+                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
+                        providers: [PageHeaderService]
+                    }] }
+        ];
+        /** @nocollapse */
+        PageHeaderComponent.ctorParameters = function () {
+            return [
+                { type: ColorService },
+                { type: PageHeaderService }
+            ];
+        };
+        PageHeaderComponent.propDecorators = {
+            logo: [{ type: core.Input }],
+            header: [{ type: core.Input }],
+            subheader: [{ type: core.Input }],
+            alignment: [{ type: core.Input }],
+            condensed: [{ type: core.Input }],
+            iconMenus: [{ type: core.Input }],
+            backVisible: [{ type: core.Input }],
+            secondaryNavigationAlignment: [{ type: core.Input }],
+            title: [{ type: core.Input }],
+            secondaryNavigationAutoselect: [{ type: core.Input }],
+            items: [{ type: core.Input }],
+            secondaryNavigation: [{ type: core.Input }],
+            crumbs: [{ type: core.Input }],
+            crumbsStyle: [{ type: core.Input }],
+            logoBackground: [{ type: core.Input }],
+            logoForeground: [{ type: core.Input }],
+            familyBackground: [{ type: core.Input }],
+            familyForeground: [{ type: core.Input }],
+            backClick: [{ type: core.Output }],
+            titleTemplate: [{ type: core.ContentChild, args: ['title',] }],
+            subheaderTemplate: [{ type: core.ContentChild, args: ['subheader',] }],
+            customMenus: [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] }]
+        };
+        return PageHeaderComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var PageHeaderModule = /** @class */ (function () {
         function PageHeaderModule() {
         }
         PageHeaderModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             BreadcrumbsModule,
                             dropdown.BsDropdownModule.forRoot(),
                             ColorServiceModule,
@@ -24591,7 +25946,7 @@
         PaginationComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-pagination',
-                        template: "<nav role=\"navigation\" [attr.aria-label]=\"ariaLabel\">\n  <ul #container class=\"pagination\"\n    [ngClass]=\"classes\"\n    direction=\"horizontal\"\n    (blur)=\"isKeyboardEvent = false\"\n    (keydown.ArrowLeft)=\"select(page - 1); isKeyboardEvent = true\"\n    (keydown.ArrowRight)=\"select(page + 1); isKeyboardEvent = true\"\n    (keydown.Home)=\"select(1); isKeyboardEvent = true; $event.preventDefault()\"\n    (keydown.End)=\"select(pageCount); isKeyboardEvent = true; $event.preventDefault()\">\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionButtons\"\n        [class.disabled]=\"page === 1 || disabled\">\n\n      <a class=\"page-link ux-keyboard-focus\"\n         tabindex=\"0\"\n         cdkMonitorElementFocus\n         [attr.aria-label]=\"previousAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page - 1)\"\n         (keydown.enter)=\"select(page - 1)\">\n        <ng-container [ngTemplateOutlet]=\"previousBtnTemplate || defaultPreviousBtnTemplate\"></ng-container>\n      </a>\n    </li>\n\n    <ng-container *ngFor=\"let pg of pages; trackBy: trackByFn\">\n      <li *ngIf=\"pg.visible\"\n          [class.disabled]=\"disabled\"\n          [class.active]=\"page === pg.index\"\n          class=\"pagination-page page-item\">\n\n        <a class=\"page-link ux-keyboard-focus\"\n           tabindex=\"0\"\n           [ngClass]=\"pageBtnClass\"\n           cdkMonitorElementFocus\n           [focusIf]=\"isKeyboardEvent && page === pg.index\"\n           [attr.aria-current]=\"page === pg.index\"\n           [attr.aria-setsize]=\"pageCount\"\n           [attr.aria-posinset]=\"pg.index\"\n           (click)=\"select(pg.index)\"\n           (keydown.enter)=\"select(pg.index)\">\n            {{ pg.index }}\n        </a>\n      </li>\n    </ng-container>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionButtons\"\n        [class.disabled]=\"page === pageCount || disabled\">\n\n      <a class=\"page-link ux-keyboard-focus\"\n         tabindex=\"0\"\n         cdkMonitorElementFocus\n         [attr.aria-label]=\"nextAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page + 1)\"\n         (keydown.enter)=\"select(page + 1)\">\n\n        <ng-container [ngTemplateOutlet]=\"nextBtnTemplate || defaultNextBtnTemplate\"></ng-container>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n<ng-template #defaultPreviousBtnTemplate>\n  <span class=\"hpe-icon hpe-previous\"></span>\n</ng-template>\n\n<ng-template #defaultNextBtnTemplate>\n  <span class=\"hpe-icon hpe-next\"></span>\n</ng-template>\n",
+                        template: "<nav role=\"navigation\" [attr.aria-label]=\"ariaLabel\">\n  <ul #container class=\"pagination\"\n    [ngClass]=\"classes\"\n    direction=\"horizontal\"\n    (blur)=\"isKeyboardEvent = false\"\n    (keydown.ArrowLeft)=\"select(page - 1); isKeyboardEvent = true\"\n    (keydown.ArrowRight)=\"select(page + 1); isKeyboardEvent = true\"\n    (keydown.Home)=\"select(1); isKeyboardEvent = true; $event.preventDefault()\"\n    (keydown.End)=\"select(pageCount); isKeyboardEvent = true; $event.preventDefault()\">\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === 1 || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === 1 || disabled ? -1 : 0\"\n         [attr.aria-label]=\"previousAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page - 1)\"\n         (keydown.enter)=\"select(page - 1)\">\n        <ng-container [ngTemplateOutlet]=\"previousBtnTemplate || defaultPreviousBtnTemplate\"></ng-container>\n      </a>\n    </li>\n\n    <ng-container *ngFor=\"let pg of pages; trackBy: trackByFn\">\n      <li *ngIf=\"pg.visible\"\n          uxFocusIndicator\n          [programmaticFocusIndicator]=\"true\"\n          [checkChildren]=\"true\"\n          [class.disabled]=\"disabled\"\n          [class.active]=\"page === pg.index\"\n          class=\"pagination-page page-item\">\n\n        <a class=\"page-link\"\n           tabindex=\"0\"\n           [ngClass]=\"pageBtnClass\"\n           [focusIf]=\"isKeyboardEvent && page === pg.index\"\n           [attr.aria-current]=\"page === pg.index\"\n           [attr.aria-setsize]=\"pageCount\"\n           [attr.aria-posinset]=\"pg.index\"\n           (click)=\"select(pg.index)\"\n           (keydown.enter)=\"select(pg.index)\">\n            {{ pg.index }}\n        </a>\n      </li>\n    </ng-container>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === pageCount || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === pageCount || disabled ? -1 : 0\"\n         [attr.aria-label]=\"nextAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page + 1)\"\n         (keydown.enter)=\"select(page + 1)\">\n\n        <ng-container [ngTemplateOutlet]=\"nextBtnTemplate || defaultNextBtnTemplate\"></ng-container>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n<ng-template #defaultPreviousBtnTemplate>\n  <span class=\"hpe-icon hpe-previous\"></span>\n</ng-template>\n\n<ng-template #defaultNextBtnTemplate>\n  <span class=\"hpe-icon hpe-next\"></span>\n</ng-template>\n",
                         providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
                     }] }
         ];
@@ -24729,14 +26084,41 @@
     var RadioButtonComponent = /** @class */ (function () {
         function RadioButtonComponent() {
             this._radioButtonId = "ux-radio-button-" + ++uniqueRadioId;
+            /**
+             * Specify a unique Id for this component
+             */
             this.id = this._radioButtonId;
+            /**
+             * Specify the tabindex
+             */
             this.tabindex = 0;
+            /**
+             * If set to `true` the radio button will not change state when clicked.
+             */
             this.clickable = true;
+            /**
+             * If this value is set to `true` then the radio button will be disabled
+             */
             this.disabled = false;
+            /**
+             * If set to `true` the checkbox will be displayed without a border and background.
+             */
             this.simplified = false;
+            /**
+             * Specify an aria label for the input element
+             */
             this.ariaLabel = '';
+            /**
+             * Specify an aria labelledby property for the input element
+             */
             this.ariaLabelledby = null;
+            /**
+             * Specify an aria describedby property for the input element
+             */
             this.ariaDescribedby = null;
+            /**
+             * Emits when the value has been changed.
+             */
             this.valueChange = new core.EventEmitter();
             this._value = false;
             this.focused = false;
@@ -24744,7 +26126,9 @@
             this.onChangeCallback = function () { };
         }
         Object.defineProperty(RadioButtonComponent.prototype, "value", {
+            /** This should be a two way binding and will store the currently selected option. Each radio button in the same group should have the same value variable. */
             get: /**
+             * This should be a two way binding and will store the currently selected option. Each radio button in the same group should have the same value variable.
              * @return {?}
              */ function () {
                 return this._value;
@@ -24840,7 +26224,7 @@
         RadioButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-radio-button',
-                        template: "<label [attr.for]=\"inputId\" class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"focused\">\n\n    <div class=\"ux-radio-button-container\">\n        <input class=\"ux-radio-button-input\"\n            type=\"radio\"\n            [id]=\"inputId\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (focus)=\"focused = true\"\n            (blur)=\"focused = false\"\n            (change)=\"toggle()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>",
+                        template: "<label [attr.for]=\"inputId\" class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"focused\">\n\n    <div class=\"ux-radio-button-container\">\n        <input class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"inputId\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"focused = $event\"\n            (change)=\"toggle()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>",
                         providers: [RADIOBUTTON_VALUE_ACCESSOR]
                     }] }
         ];
@@ -24871,9 +26255,16 @@
         }
         RadioButtonModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [forms.FormsModule],
-                        exports: [RadioButtonComponent],
-                        declarations: [RadioButtonComponent]
+                        imports: [
+                            AccessibilityModule,
+                            forms.FormsModule
+                        ],
+                        exports: [
+                            RadioButtonComponent
+                        ],
+                        declarations: [
+                            RadioButtonComponent
+                        ]
                     },] }
         ];
         return RadioButtonModule;
@@ -25278,7 +26669,7 @@
         SearchBuilderGroupComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-search-builder-group',
-                        template: "<h4 class=\"search-group-title\">{{ header }}</h4>\n\n<div class=\"search-group-content\">\n\n  <div class=\"search-group-operator search-group-operator-{{ operator }}\"\n    [class.hidden-operator]=\"searchBuilderGroupService.getQuery().length < 2\">{{ operator }}</div>\n\n  <div class=\"search-group-items\">\n\n    <div *ngFor=\"let field of searchBuilderGroupService.getQuery(); let i = index\"\n      class=\"search-group-item-container\"\n      [class.search-group-item-focus]=\"focusIndex === i\"\n      (uxFocusWithin)=\"setFocus(i)\"\n      (uxBlurWithin)=\"clearFocus()\">\n\n      <div class=\"search-group-item\">\n        <ng-container *uxSearchBuilderOutlet=\"field.type; context: field; groupId: id; index: i\"></ng-container>\n      </div>\n\n      <button type=\"button\"\n        aria-label=\"Remove field\"\n        class=\"search-group-item-remove\"\n        (click)=\"removeFieldAtIndex(i, field)\">\n\n        <span class=\"hpe-icon hpe-close\"></span>\n\n      </button>\n\n    </div>\n\n    <!-- Placeholder Item -->\n    <ng-container *ngIf=\"showPlaceholder\">\n\n      <!-- The Default Placeholder -->\n      <div class=\"search-group-item-container placeholder-item\" *ngIf=\"!placeholder\">\n\n        <div class=\"search-group-item\">\n          <label class=\"form-label\">New field</label>\n          <div class=\"form-control\"></div>\n        </div>\n\n      </div>\n\n      <!-- Allow a custom placeholder -->\n      <ng-container *ngTemplateOutlet=\"placeholder\"></ng-container>\n\n    </ng-container>\n\n  </div>\n\n  <button type=\"button\" class=\"search-builder-group-add-field\" (click)=\"addField($event)\">\n    <span class=\"search-builder-group-add-field-icon hpe-icon hpe-add\" aria-hidden=\"true\"></span>\n    <span class=\"search-builder-group-add-field-label\">{{ addText }}</span>\n  </button>\n\n</div>\n\n<hr class=\"search-builder-group-divider\">\n",
+                        template: "<h4 class=\"search-group-title\">{{ header }}</h4>\n\n<div class=\"search-group-content\">\n\n  <div class=\"search-group-operator search-group-operator-{{ operator }}\"\n    [class.hidden-operator]=\"searchBuilderGroupService.getQuery().length < 2\">{{ operator }}</div>\n\n  <div class=\"search-group-items\">\n\n    <div *ngFor=\"let field of searchBuilderGroupService.getQuery(); let i = index\"\n      class=\"search-group-item-container\"\n      [class.search-group-item-focus]=\"focusIndex === i\"\n      (uxFocusWithin)=\"setFocus(i)\"\n      (uxBlurWithin)=\"clearFocus()\">\n\n      <div class=\"search-group-item\">\n        <ng-container *uxSearchBuilderOutlet=\"field.type; context: field; groupId: id; index: i\"></ng-container>\n      </div>\n\n      <button type=\"button\"\n        uxFocusIndicator\n        aria-label=\"Remove field\"\n        class=\"search-group-item-remove\"\n        (click)=\"removeFieldAtIndex(i, field)\">\n\n        <span class=\"hpe-icon hpe-close\"></span>\n\n      </button>\n\n    </div>\n\n    <!-- Placeholder Item -->\n    <ng-container *ngIf=\"showPlaceholder\">\n\n      <!-- The Default Placeholder -->\n      <div class=\"search-group-item-container placeholder-item\" *ngIf=\"!placeholder\">\n\n        <div class=\"search-group-item\">\n          <label class=\"form-label\">New field</label>\n          <div class=\"form-control\"></div>\n        </div>\n\n      </div>\n\n      <!-- Allow a custom placeholder -->\n      <ng-container *ngTemplateOutlet=\"placeholder\"></ng-container>\n\n    </ng-container>\n\n  </div>\n\n  <button type=\"button\" uxFocusIndicator class=\"search-builder-group-add-field\" (click)=\"addField($event)\">\n    <span class=\"search-builder-group-add-field-icon hpe-icon hpe-add\" aria-hidden=\"true\"></span>\n    <span class=\"search-builder-group-add-field-label\">{{ addText }}</span>\n  </button>\n\n</div>\n\n<hr class=\"search-builder-group-divider\">\n",
                         providers: [SearchBuilderGroupService]
                     }] }
         ];
@@ -25475,16 +26866,55 @@
             this._element = _element;
             this._document = _document;
             this._typeaheadKeyService = _typeaheadKeyService;
+            /**
+             * A unique id for the component.
+             */
             this.id = "ux-select-" + ++uniqueId$8;
+            /**
+             * Controls whether the value of the single select control can be cleared by deleting the selected value in the
+             * input field. This does not affect the initial state of the control, so specify a value for `value` if null should
+             * never be allowed.
+             */
             this.allowNull = false;
+            /**
+             * Controls the disabled state of the tag input.
+             */
             this.disabled = false;
+            /**
+             * The positioning of the typeahead dropdown in relation to its parent.
+             */
             this.dropDirection = 'down';
+            /**
+             * The maximum height of the typeahead dropdown, as a CSS value.
+             */
             this.maxHeight = '250px';
+            /**
+             * Controls whether the user can select more than one option in the select control. If set to true, selected
+             * options will appear as tags in the input area. If set to false, the selected value will appear as editable text
+             * in the input area.
+             */
             this.multiple = false;
+            /**
+             * The number of options to request in a page. This should ideally be more than twice the number of items which
+             * fit into the height of the dropdown, but this is not required.
+             */
             this.pageSize = 20;
+            /**
+             * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
+             * displaying autocomplete suggestions.
+             */
             this.autocomplete = 'off';
+            /**
+             * Emits when `value` changes.
+             */
             this.valueChange = new core.EventEmitter();
+            /**
+             * Emits when `input` changes.
+             */
             this.inputChange = new core.EventEmitter();
+            /**
+             * Emits when `dropdownOpen` changes.
+             */
             this.dropdownOpenChange = new core.EventEmitter();
             this.propagateChange = function (_) { };
             this._value$ = new BehaviorSubject.BehaviorSubject(null);
@@ -25498,7 +26928,9 @@
              */ function () {
                 return this._value$.value;
             },
+            /** The selected option (for single select) or array of options (for multiple select). */
             set: /**
+             * The selected option (for single select) or array of options (for multiple select).
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -25513,7 +26945,9 @@
              */ function () {
                 return this._input$.value;
             },
+            /** The text in the input area. This is used to filter the options dropdown. */
             set: /**
+             * The text in the input area. This is used to filter the options dropdown.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -25528,7 +26962,9 @@
              */ function () {
                 return this._dropdownOpen;
             },
+            /** The status of the typeahead dropdown. */
             set: /**
+             * The status of the typeahead dropdown.
              * @param {?} value
              * @return {?}
              */ function (value) {
@@ -25763,7 +27199,7 @@
         SelectComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i class=\"hpe-icon select-arrow\"\r\n        [class.hpe-down]=\"dropDirection === 'down'\"\r\n        [class.hpe-up]=\"dropDirection === 'up'\"\r\n        (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <input #singleInput type=\"text\" [attr.id]=\"id + '-input'\" class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        [autocomplete]=\"autocomplete\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        aria-multiline=\"false\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i class=\"hpe-icon select-arrow\"\r\n        [class.hpe-down]=\"dropDirection === 'down'\"\r\n        [class.hpe-up]=\"dropDirection === 'up'\"\r\n        (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR]
                     }] }
         ];
@@ -25784,6 +27220,7 @@
             display: [{ type: core.Input }],
             key: [{ type: core.Input }],
             allowNull: [{ type: core.Input }],
+            ariaLabel: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             dropDirection: [{ type: core.Input }],
             maxHeight: [{ type: core.Input }],
@@ -25858,31 +27295,108 @@
             this._element = _element;
             this._document = _document;
             this._typeaheadKeyService = _typeaheadKeyService;
+            /**
+             * Specify a unique Id for the component
+             */
             this.id = "ux-tag-input-" + ++uniqueId$9;
-            this.tagsChange = new core.EventEmitter();
-            this.inputChange = new core.EventEmitter();
+            /**
+             * Controls whether pasting text into the text input area automatically converts that text into one or more tags.
+             */
             this.addOnPaste = true;
+            /**
+             * Controls the disabled state of the tag input.
+             */
             this.disabled = false;
+            /**
+             * If set to `true`, the tag input will prevent addition and removal of tags to enforce the minTags and maxTags settings.
+             * Otherwise, a validation error will be raised.
+             */
             this.enforceTagLimits = false;
+            /**
+             * If true, input entered into the text input area can be converted into a tag by pressing enter.
+             * Otherwise, tags can only be added from the typeahead list or other external means.
+             * (Note that the `maxTags` and `tagPattern` will prevent invalid inputs regardless of this setting.)
+             */
             this.freeInput = true;
+            /**
+             * The maximum number of tags permitted in the tag input. If the number of tags is equal to `maxTags` and
+             * `enforceTagLimits` is `true`, addition of tags will be prevented until a tag is removed
+             */
             this.maxTags = Number.MAX_VALUE;
+            /**
+             * The minimum number of tags permitted in the tag input. If the number of tags is equal to `minTags` and `enforceTagLimits` is
+             * `true`, removal of tags will be prevented until a new tag is added.
+             */
             this.minTags = 0;
+            /**
+             * The placeholder text which appears in the text input area when it is empty.
+             */
             this.placeholder = '';
+            /**
+             * Controls whether the typeahead appears when the text input area is clicked. This has no effect if the ux-typeahead component is not configured.
+             */
             this.showTypeaheadOnClick = false;
+            /**
+             * A string containing the characters which delimit tags.
+             * Typing one of the characters in `tagDelimiters` will cause the preceding text to be added as a tag,
+             * and the text input area will be cleared. Pasting a string containing one or more of characters in
+             * `tagDelimiters` will cause the string to be split into multiple tags.
+             * Note that the delimiter character will not be part of the tag text.
+             */
             this.tagDelimiters = '';
+            /**
+             * A function which returns either a string, string[], or Set<string>, compatible with the NgClass directive. The function receives the following parameters:
+             * - `tag: any` - the string or custom object representing the tag.
+             * - `index: number` - the zero-based index of the tag as it appears in the tag input.
+             * - `selected: boolean` - true if the tag is currently selected.
+             */
             this.tagClass = function () { return undefined; };
+            /**
+             * An object which contains details of validation errors. The following properties will be present if there is a related validation error:
+             * - `tagRangeError` - present if the number of tags is outside the range specified by minTags and maxTags.
+             * - `inputPattern` - present if an input has been submitted which does not match the tagPattern.
+             */
             this.validationErrors = {};
+            /**
+             * Defines the autocomplete property on the input field which can be used to prevent the browser from displaying autocomplete suggestions.
+             */
             this.autocomplete = 'off';
             /**
              * @deprecated
              * Workaround for EL-3224 - No longer needed
              */
             this.trackAriaDescendant = true;
+            /**
+             * Emits when tags is changed.
+             */
+            this.tagsChange = new core.EventEmitter();
+            /**
+             * Emits when input is changed.
+             */
+            this.inputChange = new core.EventEmitter();
+            /**
+             * Raised when a tag is about to be added. The `tag` property of the event contains the tag to be added. Call `preventDefault()` on the event to prevent addition.
+             */
             this.tagAdding = new core.EventEmitter();
+            /**
+             * Raised when a tag has been added. The tag property of the event contains the tag.
+             */
             this.tagAdded = new core.EventEmitter();
+            /**
+             * Raised when a tag has failed validation according to the `tagPattern`. The tag property of the event contains the string which failed validation.
+             */
             this.tagInvalidated = new core.EventEmitter();
+            /**
+             * Raised when a tag is about to be removed. The `tag` property of the event contains the tag to be removed. Call `preventDefault()` on the event to prevent removal.
+             */
             this.tagRemoving = new core.EventEmitter();
+            /**
+             * Raised when a tag has been removed. The tag property of the event contains the tag.
+             */
             this.tagRemoved = new core.EventEmitter();
+            /**
+             * Raised when a tag has been clicked. The `tag` property of the event contains the clicked tag. Call `preventDefault()` on the event to prevent the default behaviour of selecting the tag.
+             */
             this.tagClick = new core.EventEmitter();
             this.selectedIndex = -1;
             this.tagApi = {
@@ -25899,7 +27413,13 @@
             this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(TagInputComponent.prototype, "tags", {
+            /**
+             * The list of tags appearing in the tag input. This can be an array of strings or custom objects.
+             * See the `displayProperty` property for details of using a custom object.
+             */
             get: /**
+             * The list of tags appearing in the tag input. This can be an array of strings or custom objects.
+             * See the `displayProperty` property for details of using a custom object.
              * @return {?}
              */ function () {
                 if (!this._tags) {
@@ -25919,7 +27439,9 @@
             configurable: true
         });
         Object.defineProperty(TagInputComponent.prototype, "input", {
+            /** The editable text appearing in the tag input. */
             get: /**
+             * The editable text appearing in the tag input.
              * @return {?}
              */ function () {
                 return this._input;
@@ -26612,7 +28134,7 @@
          * @return {?}
          */
             function () {
-                this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
+                this.typeahead && this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
             };
         /**
          * @param {?} typeahead
@@ -26807,7 +28329,7 @@
             { type: core.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -26827,11 +28349,10 @@
         TagInputComponent.propDecorators = {
             id: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.id',] }],
             tags: [{ type: core.Input }],
-            tagsChange: [{ type: core.Output }],
             input: [{ type: core.Input }],
-            inputChange: [{ type: core.Output }],
             display: [{ type: core.Input }],
             addOnPaste: [{ type: core.Input }],
+            ariaLabel: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             enforceTagLimits: [{ type: core.Input }],
             freeInput: [{ type: core.Input }],
@@ -26847,6 +28368,8 @@
             autocomplete: [{ type: core.Input }],
             createTagHandler: [{ type: core.Input, args: ['createTag',] }],
             trackAriaDescendant: [{ type: core.Input }],
+            tagsChange: [{ type: core.Output }],
+            inputChange: [{ type: core.Output }],
             tagAdding: [{ type: core.Output }],
             tagAdded: [{ type: core.Output }],
             tagInvalidated: [{ type: core.Output }],
@@ -26873,6 +28396,7 @@
         TagInputModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule,
                             FocusIfModule,
@@ -28480,11 +30004,16 @@
      * @template T
      */
     var SelectListItemComponent = /** @class */ (function () {
-        function SelectListItemComponent(_selection, elementRef) {
+        function SelectListItemComponent(_selection, elementRef, focusIndicatorService) {
             var _this = this;
             this._selection = _selection;
             this.tabindex = -1;
+            /**
+             * Unsubscribe from all subscriptions on destroy
+             */
             this._onDestroy = new Subject.Subject();
+            // create the focus indicator
+            this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
             _selection.active$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (data) { return data === _this.data; })).subscribe(function (active) {
                 _selection.focus$.next(active);
                 elementRef.nativeElement.focus();
@@ -28517,6 +30046,7 @@
             function () {
                 this._onDestroy.next();
                 this._onDestroy.complete();
+                this._focusIndicator.destroy();
             };
         /**
          * @param {?} event
@@ -28564,7 +30094,8 @@
         SelectListItemComponent.ctorParameters = function () {
             return [
                 { type: SelectionService },
-                { type: core.ElementRef }
+                { type: core.ElementRef },
+                { type: FocusIndicatorService }
             ];
         };
         SelectListItemComponent.propDecorators = {
@@ -28586,15 +30117,23 @@
      * @template T
      */
     var SelectionItemDirective = /** @class */ (function () {
-        function SelectionItemDirective(_selectionService, _elementRef) {
+        function SelectionItemDirective(_selectionService, _elementRef, focusIndicatorService, _managedFocusContainerService) {
             this._selectionService = _selectionService;
             this._elementRef = _elementRef;
+            this._managedFocusContainerService = _managedFocusContainerService;
+            /**
+             * Defines the tab index of the row
+             */
             this.tabindex = null;
+            /**
+             * Defines whether or not this item is currently selected.
+             */
             this.selectedChange = new core.EventEmitter();
             this.active = false;
             this._selected = false;
             this._managedTabIndex = -1;
             this._onDestroy = new Subject.Subject();
+            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
         }
         Object.defineProperty(SelectionItemDirective.prototype, "selected", {
             get: /**
@@ -28602,7 +30141,9 @@
              */ function () {
                 return this._selected;
             },
+            /** Defines whether or not this item is currently selected. */
             set: /**
+             * Defines whether or not this item is currently selected.
              * @param {?} selected
              * @return {?}
              */ function (selected) {
@@ -28656,6 +30197,8 @@
                 this._selectionService.focus$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (focusTarget) {
                     _this._managedTabIndex = (focusTarget === _this.uxSelectionItem) ? 0 : -1;
                 });
+                // Watch for focus within the container element and manage tabindex of descendants
+                this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
             };
         /**
          * @return {?}
@@ -28666,6 +30209,8 @@
             function () {
                 this._onDestroy.next();
                 this._onDestroy.complete();
+                this._focusIndicator.destroy();
+                this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
             };
         /**
          * @param {?} event
@@ -28760,7 +30305,9 @@
         SelectionItemDirective.ctorParameters = function () {
             return [
                 { type: SelectionService },
-                { type: core.ElementRef }
+                { type: core.ElementRef },
+                { type: FocusIndicatorService },
+                { type: ManagedFocusContainerService }
             ];
         };
         SelectionItemDirective.propDecorators = {
@@ -29297,7 +30844,7 @@
                     (_a = this._selection).selectOnly.apply(_a, __spread(selected));
                 }
                 else {
-                    this._selection.selectOnly(selected);
+                    this._selection.selectOnly(( /** @type {?} */(selected)));
                 }
             },
             enumerable: true,
@@ -29360,6 +30907,9 @@
         }
         SelectListModule.decorators = [
             { type: core.NgModule, args: [{
+                        imports: [
+                            AccessibilityModule
+                        ],
                         declarations: [
                             SelectListComponent,
                             SelectListItemComponent
@@ -30332,7 +31882,7 @@
         ResizableTableColumnComponent.decorators = [
             { type: core.Component, args: [{
                         selector: '[uxResizableTableColumn]',
-                        template: "<ng-content></ng-content>\n\n<div #handle\n     uxDrag\n     cdkMonitorElementFocus\n     tabindex=\"0\"\n     aria-label=\"Column resize handle. Use arrow keys to change the column width.\"\n     class=\"ux-resizable-table-column-handle\"\n     *ngIf=\"!disabled\"\n     (onDragStart)=\"onDragStart($event)\"\n     (onDrag)=\"onDragMove($event, handle)\"\n     (onDragEnd)=\"onDragEnd()\"\n     (keydown.ArrowLeft)=\"onMoveLeft()\"\n     (keydown.ArrowRight)=\"onMoveRight()\">\n\n     <div class=\"ux-resizable-table-column-handle-icon\"></div>\n</div>\n",
+                        template: "<ng-content></ng-content>\n\n<div #handle\n     uxDrag\n     uxFocusIndicator\n     tabindex=\"0\"\n     aria-label=\"Column resize handle. Use arrow keys to change the column width.\"\n     class=\"ux-resizable-table-column-handle\"\n     *ngIf=\"!disabled\"\n     (onDragStart)=\"onDragStart($event)\"\n     (onDrag)=\"onDragMove($event, handle)\"\n     (onDragEnd)=\"onDragEnd()\"\n     (keydown.ArrowLeft)=\"onMoveLeft()\"\n     (keydown.ArrowRight)=\"onMoveRight()\">\n\n     <div class=\"ux-resizable-table-column-handle-icon\"></div>\n</div>\n",
                         host: {
                             class: 'ux-resizable-table-column'
                         }
@@ -30465,10 +32015,11 @@
         TableModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            a11y.A11yModule,
+                            AccessibilityModule,
                             common.CommonModule,
                             DragModule,
                             ResizeModule,
-                            a11y.A11yModule
                         ],
                         declarations: [
                             ResizableTableDirective,
@@ -30575,12 +32126,33 @@
     var ToggleSwitchComponent = /** @class */ (function () {
         function ToggleSwitchComponent() {
             this._toggleSwitchId = "ux-toggleswitch-" + ++uniqueToggleSwitchId;
+            /**
+             * Specify a unique id for the element.
+             */
             this.id = this._toggleSwitchId;
+            /**
+             * Specify a tabindex.
+             */
             this.tabindex = 0;
+            /**
+             * If set to `false` the switch will not be updated when clicking on it, can be used if something else is updating the state of the switch.
+             */
             this.clickable = true;
+            /**
+             * If this value is set to `true` then the toggle switch will be disabled.
+             */
             this.disabled = false;
+            /**
+             * Specify an aria label for the input element
+             */
             this.ariaLabel = '';
+            /**
+             * Specify an aria labelledby property for the input element
+             */
             this.ariaLabelledby = null;
+            /**
+             * Emits when `value` has been changed.
+             */
             this.valueChange = new core.EventEmitter();
             this._value = false;
             this.focused = false;
@@ -30588,7 +32160,9 @@
             this.onChangeCallback = function () { };
         }
         Object.defineProperty(ToggleSwitchComponent.prototype, "value", {
+            /** Binding for the state of the switch; `true` for "on" and `false` for "off." */
             get: /**
+             * Binding for the state of the switch; `true` for "on" and `false` for "off."
              * @return {?}
              */ function () {
                 return this._value;
@@ -30674,7 +32248,7 @@
         ToggleSwitchComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-toggleswitch',
-                        template: "<label [attr.for]=\"inputId\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (focus)=\"focused = true\"\n           (blur)=\"focused = false\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>",
+                        template: "<label [attr.for]=\"inputId\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>",
                         providers: [TOGGLESWITCH_VALUE_ACCESSOR]
                     }] }
         ];
@@ -30701,9 +32275,16 @@
         }
         ToggleSwitchModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [forms.FormsModule],
-                        exports: [ToggleSwitchComponent],
-                        declarations: [ToggleSwitchComponent]
+                        imports: [
+                            AccessibilityModule,
+                            forms.FormsModule
+                        ],
+                        exports: [
+                            ToggleSwitchComponent
+                        ],
+                        declarations: [
+                            ToggleSwitchComponent
+                        ]
                     },] }
         ];
         return ToggleSwitchModule;
@@ -32080,17 +33661,6 @@
                 this._actions = this._actions.filter(function (actn) { return actn !== action; });
             };
         /**
-         * @param {?} container
-         * @return {?}
-         */
-        HoverActionService.prototype.setContainer = /**
-         * @param {?} container
-         * @return {?}
-         */
-            function (container) {
-                this._container = container;
-            };
-        /**
          * @param {?} focus
          * @return {?}
          */
@@ -32117,83 +33687,11 @@
         /**
          * @return {?}
          */
-        HoverActionService.prototype.next = /**
-         * @return {?}
-         */
-            function () {
-                // if container has focus then focus the first hover action
-                if (this.containerHasFocus()) {
-                    this.focusActionAtIndex(0);
-                    return this.updateVisibility();
-                }
-                // if a hover action has focus then focus the next action
-                if (this.actionHasFocus()) {
-                    /** @type {?} */
-                    var index = this.getFocusedActionIndex() + 1;
-                    this.focusActionAtIndex(index);
-                    this.updateVisibility();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        HoverActionService.prototype.previous = /**
-         * @return {?}
-         */
-            function () {
-                // if a hover action has focus then focus the previous action
-                if (this.actionHasFocus()) {
-                    /** @type {?} */
-                    var index = this.getFocusedActionIndex() - 1;
-                    if (index >= 0) {
-                        this.focusActionAtIndex(index);
-                    }
-                    else {
-                        this._container.focus();
-                    }
-                }
-                this.updateVisibility();
-            };
-        /**
-         * @return {?}
-         */
         HoverActionService.prototype.updateVisibility = /**
          * @return {?}
          */
             function () {
                 this.active.next(this._focused || this._hovered || this.actionHasFocus());
-            };
-        /**
-         * @param {?} index
-         * @return {?}
-         */
-        HoverActionService.prototype.focusActionAtIndex = /**
-         * @param {?} index
-         * @return {?}
-         */
-            function (index) {
-                if (index >= 0 && index < this._actions.length) {
-                    this._actions[index].focus();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        HoverActionService.prototype.getFocusedActionIndex = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                return this._actions.findIndex(function (action) { return action === _this.getFocusedAction(); });
-            };
-        /**
-         * @return {?}
-         */
-        HoverActionService.prototype.containerHasFocus = /**
-         * @return {?}
-         */
-            function () {
-                return this._focused;
             };
         /**
          * @return {?}
@@ -32224,17 +33722,31 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var HoverActionContainerDirective = /** @class */ (function () {
-        function HoverActionContainerDirective(_elementRef, _hoverActionService) {
-            var _this = this;
+        function HoverActionContainerDirective(_elementRef, _managedFocusContainerService, _hoverActionService) {
             this._elementRef = _elementRef;
+            this._managedFocusContainerService = _managedFocusContainerService;
             this._hoverActionService = _hoverActionService;
             this.tabindex = 0;
             this.active = false;
-            // register the container element with the service
-            this._hoverActionService.setContainer(this);
-            // apply a class based on the active state of the container and it's actions
-            this.active$ = this._hoverActionService.active.subscribe(function (active) { return _this.active = active; });
+            this._onDestroy = new Subject.Subject();
         }
+        /**
+         * @return {?}
+         */
+        HoverActionContainerDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // Watch for focus within the container element and manage tabindex of descendants
+                this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+                // Track focus and update state for the child directives
+                this._managedFocusContainerService.hasFocus(this._elementRef.nativeElement)
+                    .pipe(operators.takeUntil(this._onDestroy)).subscribe(function (active) {
+                    _this.active = active;
+                    _this._hoverActionService.setFocusState(active);
+                });
+            };
         /**
          * @return {?}
          */
@@ -32242,34 +33754,9 @@
          * @return {?}
          */
             function () {
-                this.active$.unsubscribe();
-            };
-        /**
-         * @return {?}
-         */
-        HoverActionContainerDirective.prototype.focus = /**
-         * @return {?}
-         */
-            function () {
-                this._elementRef.nativeElement.focus();
-            };
-        /**
-         * @return {?}
-         */
-        HoverActionContainerDirective.prototype.onFocus = /**
-         * @return {?}
-         */
-            function () {
-                this._hoverActionService.setFocusState(true);
-            };
-        /**
-         * @return {?}
-         */
-        HoverActionContainerDirective.prototype.onBlur = /**
-         * @return {?}
-         */
-            function () {
-                this._hoverActionService.setFocusState(false);
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
             };
         /**
          * @return {?}
@@ -32289,40 +33776,25 @@
             function () {
                 this._hoverActionService.setHoverState(false);
             };
-        /**
-         * @return {?}
-         */
-        HoverActionContainerDirective.prototype.next = /**
-         * @return {?}
-         */
-            function () {
-                this._hoverActionService.next();
-            };
         HoverActionContainerDirective.decorators = [
             { type: core.Directive, args: [{
                         selector: '[uxHoverActionContainer]',
-                        providers: [HoverActionService],
-                        host: {
-                            '[class.hover-action-container-active]': 'active',
-                            '[tabindex]': 'tabindex'
-                        }
+                        providers: [HoverActionService]
                     },] }
         ];
         /** @nocollapse */
         HoverActionContainerDirective.ctorParameters = function () {
             return [
                 { type: core.ElementRef },
+                { type: ManagedFocusContainerService },
                 { type: HoverActionService }
             ];
         };
         HoverActionContainerDirective.propDecorators = {
-            tabindex: [{ type: core.Input }],
-            focus: [{ type: core.HostListener, args: ['click',] }],
-            onFocus: [{ type: core.HostListener, args: ['focus',] }],
-            onBlur: [{ type: core.HostListener, args: ['blur',] }],
+            tabindex: [{ type: core.Input }, { type: core.HostBinding, args: ['tabindex',] }],
+            active: [{ type: core.HostBinding, args: ['class.hover-action-container-active',] }],
             onHover: [{ type: core.HostListener, args: ['mouseenter',] }],
-            onLeave: [{ type: core.HostListener, args: ['mouseleave',] }],
-            next: [{ type: core.HostListener, args: ['keydown.arrowright',] }]
+            onLeave: [{ type: core.HostListener, args: ['mouseleave',] }]
         };
         return HoverActionContainerDirective;
     }());
@@ -32332,17 +33804,20 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var HoverActionDirective = /** @class */ (function () {
-        function HoverActionDirective(_elementRef, _hoverActionService) {
+        function HoverActionDirective(_elementRef, _hoverActionService, focusIndicatorService) {
             var _this = this;
             this._elementRef = _elementRef;
             this._hoverActionService = _hoverActionService;
-            this.tabindex = 1;
+            this.tabindex = 0;
             this.active = false;
             this.focused = false;
+            this._onDestroy = new Subject.Subject();
+            // create the focus indicator
+            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
             // register the action
             this._hoverActionService.register(this);
             // watch for changes to the activeness of the container
-            this.active$ = this._hoverActionService.active.subscribe(function (active) { return _this.active = active; });
+            this._hoverActionService.active.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (active) { return _this.active = active; });
         }
         /**
          * @return {?}
@@ -32351,8 +33826,10 @@
          * @return {?}
          */
             function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
                 this._hoverActionService.unregister(this);
-                this.active$.unsubscribe();
+                this._focusIndicator.destroy();
             };
         /**
          * @return {?}
@@ -32383,53 +33860,25 @@
                 this.focused = false;
                 this._hoverActionService.updateVisibility();
             };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        HoverActionDirective.prototype.previous = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.stopPropagation();
-                this._hoverActionService.previous();
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        HoverActionDirective.prototype.next = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.stopPropagation();
-                this._hoverActionService.next();
-            };
         HoverActionDirective.decorators = [
             { type: core.Directive, args: [{
-                        selector: '[uxHoverAction]',
-                        host: {
-                            '[class.hover-action-active]': 'active',
-                            '[class.hover-action-focused]': 'focused',
-                            '[tabindex]': 'tabindex'
-                        }
+                        selector: '[uxHoverAction]'
                     },] }
         ];
         /** @nocollapse */
         HoverActionDirective.ctorParameters = function () {
             return [
                 { type: core.ElementRef },
-                { type: HoverActionService }
+                { type: HoverActionService },
+                { type: FocusIndicatorService }
             ];
         };
         HoverActionDirective.propDecorators = {
-            tabindex: [{ type: core.Input }],
+            tabindex: [{ type: core.Input }, { type: core.HostBinding, args: ['tabindex',] }],
+            active: [{ type: core.HostBinding, args: ['class.hover-action-active',] }],
+            focused: [{ type: core.HostBinding, args: ['class.hover-action-focused',] }],
             onFocus: [{ type: core.HostListener, args: ['focus',] }],
-            onBlur: [{ type: core.HostListener, args: ['blur',] }],
-            previous: [{ type: core.HostListener, args: ['keydown.arrowleft', ['$event'],] }],
-            next: [{ type: core.HostListener, args: ['keydown.arrowright', ['$event'],] }]
+            onBlur: [{ type: core.HostListener, args: ['blur',] }]
         };
         return HoverActionDirective;
     }());
@@ -32448,6 +33897,9 @@
         }
         HoverActionModule.decorators = [
             { type: core.NgModule, args: [{
+                        imports: [
+                            AccessibilityModule
+                        ],
                         exports: DECLARATIONS$8,
                         declarations: DECLARATIONS$8
                     },] }
@@ -35025,11 +36477,17 @@
     exports.WizardComponent = WizardComponent;
     exports.StepChangingEvent = StepChangingEvent;
     exports.WizardStepComponent = WizardStepComponent;
+    exports.FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY = FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY;
+    exports.FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER;
     exports.AccessibilityModule = AccessibilityModule;
+    exports.ColorContrastDirective = ColorContrastDirective;
+    exports.ContrastService = ContrastService;
     exports.FocusIndicator = FocusIndicator;
     exports.FocusIndicatorDirective = FocusIndicatorDirective;
     exports.FocusIndicatorService = FocusIndicatorService;
     exports.FocusWithinDirective = FocusWithinDirective;
+    exports.ManagedFocusContainerService = ManagedFocusContainerService;
+    exports.ManagedFocusContainerDirective = ManagedFocusContainerDirective;
     exports.AccessibilityOptionsService = AccessibilityOptionsService;
     exports.ACCESSIBILITY_OPTIONS_TOKEN = ACCESSIBILITY_OPTIONS_TOKEN;
     exports.SplitterAccessibilityDirective = SplitterAccessibilityDirective;
@@ -35153,41 +36611,45 @@
     exports.CookieAdapter = CookieAdapter;
     exports.LocalStorageAdapter = LocalStorageAdapter;
     exports.SessionStorageAdapter = SessionStorageAdapter;
-    exports.ɵb = DashboardGrabHandleService;
-    exports.ɵd = DayViewComponent;
-    exports.ɵe = DayViewService;
-    exports.ɵc = HeaderComponent;
-    exports.ɵf = MonthViewComponent;
-    exports.ɵg = MonthViewService;
-    exports.ɵk = WeekDaySortPipe;
-    exports.ɵj = TimeViewComponent;
-    exports.ɵh = YearViewComponent;
-    exports.ɵi = YearViewService;
-    exports.ɵl = FacetCheckListItemComponent;
-    exports.ɵm = FacetTypeaheadListItemComponent;
-    exports.ɵq = FloatingActionButtonsService;
-    exports.ɵu = HierarchyBarCollapsedComponent;
-    exports.ɵt = HierarchyBarNodeComponent;
-    exports.ɵw = HierarchyBarPopoverItemComponent;
-    exports.ɵv = HierarchyBarPopoverComponent;
-    exports.ɵs = HierarchyBarStandardComponent;
-    exports.ɵr = HierarchyBarService;
-    exports.ɵy = MarqueeWizardService;
-    exports.ɵz = MediaPlayerService;
-    exports.ɵbe = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbd = PageHeaderNavigationItemComponent;
-    exports.ɵbf = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbc = PageHeaderService;
-    exports.ɵx = SidePanelService;
-    exports.ɵbg = ResizableTableService;
-    exports.ɵo = TypeaheadHighlightDirective;
-    exports.ɵn = TypeaheadService;
+    exports.ɵh = DashboardGrabHandleService;
+    exports.ɵj = DayViewComponent;
+    exports.ɵk = DayViewService;
+    exports.ɵi = HeaderComponent;
+    exports.ɵl = MonthViewComponent;
+    exports.ɵm = MonthViewService;
+    exports.ɵq = WeekDaySortPipe;
+    exports.ɵp = TimeViewComponent;
+    exports.ɵn = YearViewComponent;
+    exports.ɵo = YearViewService;
+    exports.ɵr = FacetCheckListItemComponent;
+    exports.ɵs = FacetTypeaheadListItemComponent;
+    exports.ɵw = FloatingActionButtonsService;
+    exports.ɵba = HierarchyBarCollapsedComponent;
+    exports.ɵz = HierarchyBarNodeComponent;
+    exports.ɵbc = HierarchyBarPopoverItemComponent;
+    exports.ɵbb = HierarchyBarPopoverComponent;
+    exports.ɵy = HierarchyBarStandardComponent;
+    exports.ɵx = HierarchyBarService;
+    exports.ɵbe = MarqueeWizardService;
+    exports.ɵbf = MediaPlayerService;
+    exports.ɵbi = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbh = PageHeaderNavigationItemComponent;
+    exports.ɵbj = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbg = PageHeaderService;
+    exports.ɵbd = SidePanelService;
+    exports.ɵbk = ResizableTableService;
+    exports.ɵu = TypeaheadHighlightDirective;
+    exports.ɵt = TypeaheadService;
     exports.ɵa = DefaultFocusIndicatorDirective;
-    exports.ɵbh = HoverActionService;
-    exports.ɵp = MenuNavigationService;
-    exports.ɵbi = TreeGridService;
-    exports.ɵba = KEPPEL_COLOR_SET;
-    exports.ɵbb = MICRO_FOCUS_COLOR_SET;
+    exports.ɵc = LocalFocusIndicatorOptions;
+    exports.ɵd = FocusIndicatorOptionsDirective;
+    exports.ɵe = FocusIndicatorOriginDirective;
+    exports.ɵb = FocusIndicatorOriginService;
+    exports.ɵbl = HoverActionService;
+    exports.ɵv = MenuNavigationService;
+    exports.ɵbm = TreeGridService;
+    exports.ɵf = KEPPEL_COLOR_SET;
+    exports.ɵg = MICRO_FOCUS_COLOR_SET;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
