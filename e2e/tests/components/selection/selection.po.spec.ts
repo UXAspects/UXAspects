@@ -76,4 +76,10 @@ export class SelectionPage {
         await browser.actions().sendKeys(Key.SPACE).perform();
     }
 
+    async getRowButtonTabIndex(row: ElementFinder): Promise<string> {
+        const btn = row.$('.row-button');
+
+        return btn.getAttribute('tabindex');
+    }
+
 }

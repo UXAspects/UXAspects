@@ -17,6 +17,12 @@ describe('Selection Tests', () => {
         expect<any>(page.row2.isPresent()).toBe(true);
         expect<any>(page.row3.isPresent()).toBe(true);
 
+        // tabindex should be disabled on the child buttons
+        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('-1');
+        expect<any>(page.getRowButtonTabIndex(page.row1)).toBe('-1');
+        expect<any>(page.getRowButtonTabIndex(page.row2)).toBe('-1');
+        expect<any>(page.getRowButtonTabIndex(page.row3)).toBe('-1');
+
         // no table rows are selected
         expect(await page.getSelection()).toBe('[]');
     });
@@ -341,6 +347,25 @@ describe('Selection Tests', () => {
         // the selection should be updated
         expect(await page.getSelection()).toBe('[ { "name": "Document 1", "author": "John Smith", "selected": true }, { "name": "Document 2", "author": "John Smith", "selected": true }, { "name": "Document 3", "author": "John Smith", "selected": true }, { "name": "Document 4", "author": "John Smith", "selected": true } ]');
 
+    });
+
+    it('should restore tabindex on focused rows', async () => {
+
+        // tabindex should initially be disabled
+        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('-1');
+
+        // click the first row
+        await page.clickSelectRow(page.row0);
+
+        // Focus should restore the tabindex to its original value
+        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('5');
+
+        // click the second row
+        await page.clickSelectRow(page.row1);
+
+        // tabindex should be disabled again on blur
+        expect<any>(page.getRowButtonTabIndex(page.row0)).toBe('-1');
+        expect<any>(page.getRowButtonTabIndex(page.row1)).toBe('5');
     });
 
 });
