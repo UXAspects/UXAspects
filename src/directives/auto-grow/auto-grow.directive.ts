@@ -1,9 +1,12 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[uxAutoGrow]'
 })
 export class AutoGrowDirective implements AfterViewInit {
+
+  /** Specify whether the AutoGrow functionality is enabled */
+  @Input() uxAutoGrow: boolean = true;
 
   constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {
     // ensure this is a textarea or else throw error
@@ -18,6 +21,11 @@ export class AutoGrowDirective implements AfterViewInit {
 
   @HostListener('input')
   update(): void {
+
+    // check if the AutoGrow functionality is enabled
+    if (this.uxAutoGrow === false) {
+      return;
+    }
 
     // perform sizing
     this._renderer.setStyle(this._elementRef.nativeElement, 'overflowY', 'hidden');
