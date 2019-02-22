@@ -393,6 +393,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             return this.hide();
         }
 
+        // if its not visible and click is a hide trigger close it and there is a pending tooltip
+        if (!this.isVisible && this.includes(this.hideTriggers, 'click') && this._showTimeoutId !== null) {
+            return this.cancelTooltip();
+        }
+
     }
 
     /** Handle the mouse enter event - show or hide accordingly */
@@ -410,7 +415,12 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Handle the mouse leave event - show or hide accordingly */
     protected onMouseLeave(_: MouseEvent): void {
 
-        // this is an hide only trigger - if not open or it isn't a trigger do nothing
+        // If the tooltip is pending then cancel showing it
+        if (!this.isVisible && this.includes(this.hideTriggers, 'mouseleave') && this._showTimeoutId !== null) {
+            return this.cancelTooltip();
+        }
+
+        // if the tooltip is not visible or mouseleave isn't a hide trigger then do nothing
         if (!this.isVisible || !this.includes(this.hideTriggers, 'mouseleave')) {
             return;
         }
@@ -434,6 +444,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Handle the blur event - show or hide accordingly */
     protected onBlur(_: Event): void {
 
+        // If the tooltip is pending then cancel showing it
+        if (!this.isVisible && this.includes(this.hideTriggers, 'blur') && this._showTimeoutId !== null) {
+            return this.cancelTooltip();
+        }
+
         // this is an hide only trigger - if not open or it isn't a trigger do nothing
         if (!this.isVisible || !this.includes(this.hideTriggers, 'blur')) {
             return;
@@ -449,6 +464,14 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
         } else {
             this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', id);
+        }
+    }
+
+    /** Cancel any pending tooltip (waiting on delay ellapsing) */
+    private cancelTooltip(): void {
+        if (this._showTimeoutId !== null) {
+            clearTimeout(this._showTimeoutId);
+            this._showTimeoutId = null;
         }
     }
 
