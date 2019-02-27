@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions, TimelineChartPlugin } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { TimelineChartService } from './timeline-chart.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { TimelineChartService } from './timeline-chart.service';
     providers: [TimelineChartService]
 })
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
-export class ChartsTimelineChartComponent extends BaseDocumentationSection {
+export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     lineChartData: Chart.ChartPoint[] = this._dataService.getDataset();
 
@@ -113,6 +115,25 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection {
                 maximum: 110_595_600_000, // 3.5 years
             }
         }
+    };
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss,
+            'timeline-chart.service.ts': this.snippets.raw.dataTs
+        },
+        modules: [{
+            library: 'chart.js'
+        },
+        {
+            imports: ['ChartsModule'],
+            library: 'ng2-charts'
+        }, {
+            imports: ['ColorServiceModule'],
+            library: '@ux-aspects/ux-aspects'
+        }]
     };
 
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
