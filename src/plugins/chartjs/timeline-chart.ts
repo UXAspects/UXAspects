@@ -25,7 +25,7 @@ const timelineDefaultOptions: TimelineChartOptions & TimelineChartState = {
             upperHandleFocus: false
         }
     }
-}
+};
 
 export class TimelineChartPlugin {
 
