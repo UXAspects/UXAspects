@@ -1,0 +1,21 @@
+<div class="main-chart">
+    <canvas baseChart
+            height="250"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="false"
+            chartType="line">
+    </canvas>
+</div>
+
+<div class="timeline-chart">
+    <canvas baseChart
+            height="75"
+            [data]="timelineChartData"
+            [options]="timelineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="false"
+            chartType="line">
+    </canvas>
+</div>

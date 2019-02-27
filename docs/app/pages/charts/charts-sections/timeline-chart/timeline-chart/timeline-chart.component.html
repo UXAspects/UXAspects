@@ -1,0 +1,108 @@
+<div class="main-chart">
+    <canvas baseChart
+            height="250"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="false"
+            chartType="line">
+    </canvas>
+</div>
+
+<div class="timeline-chart">
+    <canvas baseChart
+            height="75"
+            [data]="timelineChartData"
+            [options]="timelineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="false"
+            chartType="line">
+    </canvas>
+</div>
+
+<hr>
+
+<p>
+    Timeline Charts can be added using the <code>ng2-charts</code> library. The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code>
+    needs to be added to the appropriate <code>NgModule</code>.
+</p>
+<p>
+    To add Timeline functionality the <code>TimelineChartPlugin</code> should be imported from
+    the <code>@ux-aspects/ux-aspects</code> library and the <code>TimelineChartPlugin.register()</code> function should be called.
+</p>
+
+<p>The a <code>timeline</code> object should be added to the chart options to configure the chart:</p>
+
+<uxd-api-properties tableTitle="Timeline Options">
+    <tr uxd-api-property name="backgroundColor" type="string">
+      Specify a background color for the chart area.
+    </tr>
+    <tr uxd-api-property name="selectionColor" type="string">
+        Specify a color for the selected region.
+    </tr>
+    <tr uxd-api-property name="range" type="object">
+        Specify the selected range and range limits.
+    </tr>
+    <tr uxd-api-property name="onChange" type="(min: Date, max: Date) => void">
+        Specify a callback that will be triggered when the selected range changes.
+    </tr>
+    <tr uxd-api-property name="keyboard" type="object">
+        Specify options related to keyboard accessibility.
+    </tr>
+    <tr uxd-api-property name="handles" type="object">
+        Specify the appearance of the drag handles.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Range Options">
+    <tr uxd-api-property name="lower" type="Date" [required]="true">
+        Specify the lower boundary of the selection.
+    </tr>
+    <tr uxd-api-property name="upper" type="Date" [required]="true">
+        Specify the upper boundary of the selection.
+    </tr>
+    <tr uxd-api-property name="minimum" type="number" defaultValue="0">
+        Specify the minimum allowed range in milliseconds.
+    </tr>
+    <tr uxd-api-property name="maximum" type="number" defaultValue="Infinity">
+        Specify the maximum allowed range in milliseconds.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Handles Options">
+    <tr uxd-api-property name="backgroundColor" type="string">
+        Specify the handle background color.
+    </tr>
+    <tr uxd-api-property name="foregroundColor" type="string">
+        Specify the handle foreground color.
+    </tr>
+    <tr uxd-api-property name="focusIndicatorColor" type="string">
+        Specify the handle focus indicator color.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Keyboard Options">
+    <tr uxd-api-property name="step" type="number" defaultValue="30 days">
+        Specify how much a handle should move (in milliseconds) when an arrow key is pressed.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="Service">
+        <uxd-snippet [content]="snippets.compiled.dataTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
