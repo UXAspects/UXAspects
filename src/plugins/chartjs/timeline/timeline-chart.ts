@@ -1,5 +1,6 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import * as Chart from 'chart.js';
+import { TimelineChart, TimelineChartOptions, TimelineChartState, TimelineHandle } from './timeline-chart.interface';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartState = {
     timeline: {
@@ -645,62 +646,3 @@ export class TimelineChartPlugin {
     }
 
 }
-
-enum TimelineHandle {
-    Lower = 'lower',
-    Upper = 'upper',
-    Range = 'range'
-}
-
-export interface TimelineChartOptions {
-    timeline?: {
-        backgroundColor?: Chart.ChartColor;
-        selectionColor?: Chart.ChartColor;
-        onChange?: (lower: Date, upper: Date) => void;
-        keyboard?: {
-            step?: number;
-        },
-        handles?: {
-            backgroundColor?: Chart.ChartColor;
-            foregroundColor?: Chart.ChartColor;
-            focusIndicatorColor?: Chart.ChartColor;
-        }
-        range: {
-            lower: Date,
-            upper: Date,
-            minimum?: number,
-            maximum?: number
-        }
-    };
-}
-
-/**
- * Store internal state of the chart but don't expose it
- * in the public options interface
- */
-interface TimelineChartStateOptions {
-    timeline?: {
-        state: TimelineChartState
-    };
-}
-
-interface TimelineChartState {
-    handle?: TimelineHandle | null;
-    mouseX?: number;
-    onMouseDown?: (event: MouseEvent) => void;
-    onMouseUp?: (event: MouseEvent) => void;
-    onKeydown?: (event: KeyboardEvent) => void;
-    lowerHandleFocus?: boolean;
-    upperHandleFocus?: boolean;
-    lowerHandleElement?: HTMLDivElement;
-    upperHandleElement?: HTMLDivElement;
-}
-
-interface TimelineChartConfig {
-    config: {
-        options: TimelineChartOptions & TimelineChartStateOptions;
-    };
-    chart: Chart;
-}
-
-type TimelineChart = Chart & TimelineChartConfig;

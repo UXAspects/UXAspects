@@ -376,8 +376,12 @@
                         "content": "ng2-charts"
                     },
                     {
-                        "title": "Dependencies",
-                        "content": "TimelineChartPlugin"
+                        "title": "Module name",
+                        "content": "TimelineChartModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "@ux-aspects/ux-aspects"
                     }]
                 },
                 {

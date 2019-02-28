@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, TimelineChartOptions, TimelineChartPlugin } from '@ux-aspects/ux-aspects';
+import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { TimelineChartService } from './timeline-chart.service';
 
 @Component({
@@ -113,7 +113,5 @@ export class AppComponent {
         }
     };
 
-    constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
-        TimelineChartPlugin.register();
-    }
+    constructor(private _dataService: TimelineChartService, private _colorService: ColorService) { }
 }
