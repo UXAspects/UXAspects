@@ -13,6 +13,7 @@
          [attr.aria-selected]="item.isActiveYear"
          [class.current]="item.isCurrentYear"
          [class.active]="item.isActiveYear"
+         [disabled]="getDisabled(item)"
          (click)="select(item.year); $event.stopPropagation()"
          (keydown.ArrowLeft)="focusYear(item, -1); $event.preventDefault()"
          (keydown.ArrowRight)="focusYear(item, 1); $event.preventDefault()"

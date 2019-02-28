@@ -1,6 +1,6 @@
 <ux-time-picker *ngIf="datepicker.showTime$ | async"
-    [value]="datepicker.selected$ | async"
-    (valueChange)="datepicker.selected$.next($event)"
+    [value]="value"
+    (valueChange)="onTimeChange($event)"
     [showSeconds]="datepicker.showSeconds$ | async"
     [showMeridian]="datepicker.showMeridian$ | async"
     [showSpinners]="datepicker.showSpinners$ | async"

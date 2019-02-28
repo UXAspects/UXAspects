@@ -77,13 +77,13 @@ ux-date-range-picker {
                 &.active {
                     &:not(.preview) {
                         background-color: rgba(@primary, 0.1);
-                        color: #000;
+                        color: @grey1;
                     }
 
                     &:hover {
                         &:not(.preview) {
                             background-color: rgba(@primary, 0.1);
-                            color: #000;
+                            color: @grey1;
                         }
                     }
                 }
@@ -106,14 +106,19 @@ ux-date-range-picker {
                     box-shadow: inset -2px 0 @primary, inset 2px 0 @primary;
                 }
 
-                &:disabled:not(.preview) {
+                &:disabled {
                     color: #bdbec0;
                 }
             }
 
-            ux-date-time-picker-month-view .calendar .calendar-item:disabled {
+            ux-date-time-picker-month-view .calendar .calendar-item:disabled,
+            ux-date-time-picker-year-view .calendar .calendar-item:disabled {
                 color: #bdbec0;
                 cursor: default;
+
+                &:hover:not(.active):not(.current) {
+                    background-color: transparent;
+                }
             }
         }
     }

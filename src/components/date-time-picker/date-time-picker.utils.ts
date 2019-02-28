@@ -118,6 +118,14 @@ export function getStartOfDay(date: Date): Date {
     return startOfDay;
 }
 
+export function isDateAfter(date: Date, after: Date, isEqual: boolean = false): boolean {
+    return isEqual ? getStartOfDay(date).getTime() >= getStartOfDay(after).getTime() : getStartOfDay(date).getTime() > getStartOfDay(after).getTime();
+}
+
+export function isDateBefore(date: Date, before: Date, isEqual: boolean = false): boolean {
+    return isEqual ? getStartOfDay(date).getTime() <= getStartOfDay(before).getTime() : getStartOfDay(date).getTime() < getStartOfDay(before).getTime();
+}
+
 /**
  * Export an array of all the available months
  */

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
-import { getStartOfDay } from '../date-time-picker.utils';
+import { isDateAfter, isDateBefore } from '../date-time-picker.utils';
 import { MonthViewItem, MonthViewService } from './month-view.service';
 
 @Component({
@@ -53,7 +53,7 @@ export class MonthViewComponent implements OnDestroy {
     }
 
     /** Get the disabled state of a month */
-    getDisabled(item: any): boolean {
+    getDisabled(item: MonthViewItem): boolean {
 
         const date = new Date(item.year, item.month);
 
@@ -63,12 +63,12 @@ export class MonthViewComponent implements OnDestroy {
         }
 
         // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && this.isDateAfter(date, this._rangeEnd)) {
+        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
             return true;
         }
 
         // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && this.isDateBefore(date, this._rangeStart)) {
+        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
             return true;
         }
 
@@ -149,13 +149,5 @@ export class MonthViewComponent implements OnDestroy {
 
         // otherwise make the first month tabbable
         return item.month === 0;
-    }
-
-    private isDateAfter(date: Date, after: Date, isEqual: boolean = false): boolean {
-        return isEqual ? getStartOfDay(date).getTime() >= getStartOfDay(after).getTime() : getStartOfDay(date).getTime() > getStartOfDay(after).getTime();
-    }
-
-    private isDateBefore(date: Date, before: Date, isEqual: boolean = false): boolean {
-        return isEqual ? getStartOfDay(date).getTime() <= getStartOfDay(before).getTime() : getStartOfDay(date).getTime() < getStartOfDay(before).getTime();
     }
 }

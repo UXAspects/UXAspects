@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, Optional } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -10,7 +10,7 @@ import { DateTimePickerService } from '../date-time-picker.service';
     templateUrl: './time-view.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TimeViewComponent {
+export class TimeViewComponent implements OnDestroy {
 
     /** Dont bind directly to the selected date as if it's null we can end up in 1970! */
     value: Date;

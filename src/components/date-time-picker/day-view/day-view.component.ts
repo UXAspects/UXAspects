@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
-import { compareDays, getStartOfDay } from '../date-time-picker.utils';
+import { compareDays, isDateAfter, isDateBefore } from '../date-time-picker.utils';
 import { DayViewItem, DayViewService } from './day-view.service';
 
 @Component({
@@ -88,8 +88,8 @@ export class DayViewComponent implements OnDestroy {
         if (this._isRangeMode && this._rangeStart && this._rangeEnd) {
 
             // if we are the start range picker and the select date is after the range end
-            if (this._isRangeStart && this.isDateAfter(date, this._rangeEnd) ||
-                this._isRangeEnd && this.isDateBefore(date, this._rangeStart)) {
+            if (this._isRangeStart && isDateAfter(date, this._rangeEnd) ||
+                this._isRangeEnd && isDateBefore(date, this._rangeStart)) {
                 this._rangeService.clear();
             }
         }
@@ -152,12 +152,12 @@ export class DayViewComponent implements OnDestroy {
         }
 
         // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && this.isDateAfter(date, this._rangeEnd)) {
+        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, this._rangeEnd)) {
             return true;
         }
 
         // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && this.isDateBefore(date, this._rangeStart)) {
+        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, this._rangeStart)) {
             return true;
         }
 
@@ -173,7 +173,7 @@ export class DayViewComponent implements OnDestroy {
     }
 
     isWithinRange(date: Date): boolean {
-        return this._isRangeMode && this._rangeStart && this.isDateAfter(date, this._rangeStart) && this.isDateBefore(date, this._rangeEnd);
+        return this._isRangeMode && this._rangeStart && isDateAfter(date, this._rangeStart) && isDateBefore(date, this._rangeEnd);
     }
 
     isDateHovered(date: Date): boolean {
@@ -183,8 +183,8 @@ export class DayViewComponent implements OnDestroy {
             return;
         }
 
-        return this._rangeStart && this.isDateAfter(date, this._rangeStart) && this.isDateBefore(date, this._rangeService.hover, true) ||
-            this._rangeEnd && this.isDateBefore(date, this._rangeEnd) && this.isDateAfter(date, this._rangeService.hover, true);
+        return this._rangeStart && isDateAfter(date, this._rangeStart) && isDateBefore(date, this._rangeService.hover, true) ||
+            this._rangeEnd && isDateBefore(date, this._rangeEnd) && isDateAfter(date, this._rangeService.hover, true);
     }
 
     isItemActive(date: Date, isActive: boolean): boolean {
@@ -206,14 +206,6 @@ export class DayViewComponent implements OnDestroy {
         if (this._isRangeMode) {
             this._rangeService.setDateMouseLeave(date);
         }
-    }
-
-    private isDateAfter(date: Date, after: Date, isEqual: boolean = false): boolean {
-        return isEqual ? getStartOfDay(date).getTime() >= getStartOfDay(after).getTime() : getStartOfDay(date).getTime() > getStartOfDay(after).getTime();
-    }
-
-    private isDateBefore(date: Date, before: Date, isEqual: boolean = false): boolean {
-        return isEqual ? getStartOfDay(date).getTime() <= getStartOfDay(before).getTime() : getStartOfDay(date).getTime() < getStartOfDay(before).getTime();
     }
 
 }
