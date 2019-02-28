@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, TimelineChartOptions, TimelineChartPlugin } from '@ux-aspects/ux-aspects';
+import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -131,13 +131,12 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
             imports: ['ChartsModule'],
             library: 'ng2-charts'
         }, {
-            imports: ['ColorServiceModule'],
+            imports: ['ColorServiceModule', 'TimelineChartModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };
 
     constructor(private _dataService: TimelineChartService, private _colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
-        TimelineChartPlugin.register();
     }
 }

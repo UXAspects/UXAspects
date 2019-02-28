@@ -1,2 +1,3 @@
-export * from './chartjs/timeline-chart';
+export * from './chartjs/timeline/timeline-chart.interface';
+export * from './chartjs/timeline/timeline-chart.module';
 
