@@ -1,0 +1,173 @@
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+
+    <div class="input-group date m-nil">
+        <span class="input-group-btn">
+            <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
+                <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+            </button>
+        </span>
+
+        <input type="text"
+                #input
+                #popover="ux-popover"
+                [ngModel]="date"
+                [ngModelOptions]="{ updateOn: 'blur' }"
+                (ngModelChange)="onDateChange($event)"
+                [uxPopover]="popoverTemplate"
+                placement="bottom"
+                popoverClass="date-range-picker-popover"
+                class="form-control"
+                aria-label="Selected date"
+                (keydown.enter)="popover.show()">
+
+        <span class="input-group-btn">
+            <button class="btn button-secondary"
+                    [style.visibility]="date !== '' && date !== undefined && date !== null ? 'visible' : 'hidden'"
+                    aria-label="Clear"
+                    (click)="start = null; end = null; date = null; onRangeChange()">
+                <i class="hpe-icon hpe-close" aria-hidden="true"></i>
+            </button>
+        </span>
+    </div>
+    </div>
+</div>
+
+<ng-template #popoverTemplate>
+    <ux-date-range-picker
+        [(start)]="start"
+        [(end)]="end"
+        (startChange)="onRangeChange()"
+        (endChange)="onRangeChange()"
+        (keydown.escape)="popover.hide(); input.focus()">
+    </ux-date-range-picker>
+</ng-template>
+
+<hr>
+
+<p>
+    The <code>ux-date-time-picker</code> component can be used to select a date/time or timezone. It can be displayed as a standalone component or within
+    a popover.
+</p>
+
+<p>
+    The following options can be used to configure the appearance and behavior of the component.
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="date" type="Date">
+        The selected date to be displayed in the component.
+    </tr>
+    <tr uxd-api-property name="timezone" type="DateTimePickerTimezone">
+        Will set the selected timezone.
+    </tr>
+    <tr uxd-api-property name="timezones" type="DateTimePickerTimezone[]">
+        Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that
+        each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>,
+        and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
+    </tr>
+    <tr uxd-api-property name="showDate" type="boolean">
+        Defines whether or not the date picker should be visible.
+    </tr>
+    <tr uxd-api-property name="showTime" type="boolean">
+        Defines whether or not the time picker should be visible.
+    </tr>
+    <tr uxd-api-property name="showTimezone" type="boolean">
+        Defines whether or not the time picker should allow the user to choose a timezone.
+    </tr>
+    <tr uxd-api-property name="showSeconds" type="boolean">
+        Defines whether or not the time picker should allow the user to specify seconds.
+    </tr>
+    <tr uxd-api-property name="showMeridian" type="boolean">
+        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+    </tr>
+    <tr uxd-api-property name="showSpinners" type="boolean">
+        Defines whether or not the time picker should allow the user to select the time using spinners.
+    </tr>
+    <tr uxd-api-property name="weekdays" type="string[]">
+        If defined will override the weekday names displayed.
+    </tr>
+    <tr uxd-api-property name="meridians" type="string[]">
+        Defines the labels to show in the meridian (AM/PM) selector.
+    </tr>
+    <tr uxd-api-property name="months" type="string[]">
+        Defines the names of the months.
+    </tr>
+    <tr uxd-api-property name="monthsShort" type="string[]">
+        Defines the short names of each month.
+    </tr>
+    <tr uxd-api-property name="nowBtnText" type="string">
+        Defines the text to be displayed in the button used to set the selected time to the current time.
+    </tr>
+    <tr uxd-api-property name="startOfWeek" type="WeekDay" defaultValue="WeekDay.Sunday">
+        Defines the day of the week that should appear in the first column. <code>WeekDay</code> is an enumeration available in <code>@angular/common</code>.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="dateChange" type="Date">
+        Emits an event when the date is changed using the component.
+    </tr>
+    <tr uxd-api-property name="timezoneChange" type="DateTimePickerTimezone">
+        If not defined the picker will try to use the user's timezone. If that is not available, it will revert to GMT.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    To provide default settings for all date pickers within you application, import <code>DateTimePickerModule.forRoot()</code> in your <code>app.module.ts</code>.
+    You can then inject the <code>DateTimePickerConfig</code> and configure the default presentation and localization settings for every date picker
+    within your application.
+</p>
+
+<uxd-api-properties tableTitle="DateTimePickerConfig">
+    <tr uxd-api-property name="showDate" type="boolean">
+        Defines whether or not the date picker should be visible.
+    </tr>
+    <tr uxd-api-property name="showTime" type="boolean">
+        Defines whether or not the time picker should be visible.
+    </tr>
+    <tr uxd-api-property name="showTimezone" type="boolean">
+        Defines whether or not the time picker should allow the user to choose a timezone.
+    </tr>
+    <tr uxd-api-property name="showSeconds" type="boolean">
+        Defines whether or not the time picker should allow the user to specify seconds.
+    </tr>
+    <tr uxd-api-property name="showMeridian" type="boolean">
+        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+    </tr>
+    <tr uxd-api-property name="showSpinners" type="boolean">
+        Defines whether or not the time picker should allow the user to select the time using spinners.
+    </tr>
+    <tr uxd-api-property name="weekdays" type="string[]">
+        If defined will override the weekday names displayed.
+    </tr>
+    <tr uxd-api-property name="nowBtnText" type="string">
+        Defines the text to be displayed in the button used to set the selected time to the current time.
+    </tr>
+    <tr uxd-api-property name="timezones" type="DateTimePickerTimezone[]">
+        Defines the timezones that can be selected.
+    </tr>
+    <tr uxd-api-property name="meridians" type="string[]">
+        Defines the labels to show in the meridian (AM/PM) selector.
+    </tr>
+    <tr uxd-api-property name="months" type="string[]">
+        Defines the names of the months.
+    </tr>
+    <tr uxd-api-property name="monthsShort" type="string[]">
+        Defines the short names of each month.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

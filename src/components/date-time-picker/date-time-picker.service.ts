@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
@@ -8,7 +8,7 @@ import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
 
 @Injectable()
-export class DateTimePickerService {
+export class DateTimePickerService implements OnDestroy {
 
     mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
     date$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
@@ -25,6 +25,7 @@ export class DateTimePickerService {
     showSeconds$ = new BehaviorSubject<boolean>(this._config ? this._config.showSeconds : false);
     showMeridian$ = new BehaviorSubject<boolean>(this._config ? this._config.showMeridian : true);
     showSpinners$ = new BehaviorSubject<boolean>(this._config ? this._config.showSpinners : true);
+    showNowBtn$ = new BehaviorSubject<boolean>(this._config ? this._config.showNowBtn : true);
     weekdays$ = new BehaviorSubject<string[]>(this._config ? this._config.weekdays : weekdaysShort);
     nowBtnText$ = new BehaviorSubject<string>(this._config ? this._config.nowBtnText : 'Today');
     timezones$ = new BehaviorSubject<DateTimePickerTimezone[]>(this._config ? this._config.timezones : timezones);
@@ -38,6 +39,10 @@ export class DateTimePickerService {
     monthsShort: string[] = this._config ? this._config.monthsShort : monthsShort;
     meridians: string[] = this._config ? this._config.meridians : meridians;
 
+    hours: number;
+    minutes: number;
+    seconds: number;
+
     private _subscription: Subscription;
 
     constructor(@Optional() private _config: DateTimePickerConfig) {
@@ -46,8 +51,10 @@ export class DateTimePickerService {
         this._subscription = this.selected$.pipe(distinctUntilChanged(dateComparator)).subscribe(date => {
 
             // the month and year displayed in the viewport should reflect the newly selected items
-            this.setViewportMonth(date.getMonth());
-            this.setViewportYear(date.getFullYear());
+            if (date instanceof Date) {
+                this.setViewportMonth(date.getMonth());
+                this.setViewportYear(date.getFullYear());
+            }
 
             // emit the new date to the component host
             this.date$.next(date);
@@ -74,12 +81,24 @@ export class DateTimePickerService {
         this.year$.next(year);
     }
 
-    setDate(day: number, month: number, year: number): void {
+    setDate(day: number, month: number, year: number, hours?: number, minutes?: number, seconds?: number): void {
         const date = new Date(this.selected$.value);
 
         date.setDate(day);
         date.setMonth(month);
         date.setFullYear(year);
+
+        if (hours !== undefined) {
+            date.setHours(hours);
+        }
+
+        if (minutes !== undefined) {
+            date.setMinutes(minutes);
+        }
+
+        if (seconds !== undefined) {
+            date.setSeconds(seconds);
+        }
 
         this.selected$.next(date);
     }

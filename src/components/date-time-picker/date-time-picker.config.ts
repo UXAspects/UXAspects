@@ -5,7 +5,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { weekdaysShort, timezones, months, DateTimePickerTimezone, monthsShort, meridians } from './date-time-picker.utils';
+import { DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
 
 @Injectable()
 export class DateTimePickerConfig {
@@ -16,6 +16,7 @@ export class DateTimePickerConfig {
     showSeconds: boolean = false;
     showMeridian: boolean = true;
     showSpinners: boolean = true;
+    showNowBtn: boolean = true;
     weekdays: string[] = weekdaysShort;
     nowBtnText: string = 'Today';
     timezones: DateTimePickerTimezone[] = timezones;

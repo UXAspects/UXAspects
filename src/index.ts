@@ -10,6 +10,7 @@ export * from './components/color-picker/index';
 export * from './components/column-sorting/index';
 export * from './components/conduit/index';
 export * from './components/dashboard/index';
+export * from './components/date-range-picker/index';
 export * from './components/date-time-picker/index';
 export * from './components/ebox/index';
 export * from './components/facets/index';

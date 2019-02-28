@@ -9,6 +9,7 @@
          class="calendar-item"
          *ngFor="let item of row; trackBy: trackMonthByFn"
          [focusIf]="(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year"
+         [disabled]="getDisabled(item)"
          [tabindex]="getTabbable(item) ? 0 : -1"
          [attr.aria-label]="item.name + ' ' + item.year"
          [attr.aria-selected]="item.isActiveMonth"

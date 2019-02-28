@@ -1,0 +1,120 @@
+ux-date-range-picker {
+    display: flex;
+    flex-direction: column;
+
+    .range-header {
+        display: flex;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        height: 72px;
+        margin: 0 4px;
+    }
+
+    .header-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-separator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        flex: none;
+        color: @primary;
+
+        > .hpe-icon {
+            font-size: 1.5rem;
+        }
+
+        .duration {
+            text-align: center;
+        }
+    }
+
+    .date-header,
+    .select-header {
+        margin: 0 0 8px;
+    }
+
+    .time-header {
+        margin: 0;
+    }
+
+    .time-header {
+        height: 15px;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    // style the child date pickers
+    ux-date-time-picker {
+        ux-date-time-picker-day-view,
+        ux-date-time-picker-month-view,
+        ux-date-time-picker-year-view {
+            height: 210px;
+        }
+
+        ux-date-time-picker-time-view {
+            border-bottom: none;
+        }
+
+        &:first-of-type {
+            margin-right: 8px;
+        }
+
+        &:last-of-type {
+            margin-left: 8px;
+        }
+
+        .calendar-container {
+            ux-date-time-picker-day-view .calendar .date-cell .date-button {
+                &.active {
+                    &:not(.preview) {
+                        background-color: rgba(@primary, 0.1);
+                        color: #000;
+                    }
+
+                    &:hover {
+                        &:not(.preview) {
+                            background-color: rgba(@primary, 0.1);
+                            color: #000;
+                        }
+                    }
+                }
+
+                &.range-start:not(.preview) {
+                    background-color: rgba(@primary, 0.1);
+                    box-shadow: inset 2px 0 @primary;
+                }
+
+                &.range-between:not(.preview) {
+                    background-color: rgba(@primary, 0.05);
+                }
+
+                &.range-end:not(.preview) {
+                    background-color: rgba(@primary, 0.1);
+                    box-shadow: inset -2px 0 @primary;
+                }
+
+                &.range-start.range-end:not(.preview) {
+                    box-shadow: inset -2px 0 @primary, inset 2px 0 @primary;
+                }
+
+                &:disabled:not(.preview) {
+                    color: #bdbec0;
+                }
+            }
+
+            ux-date-time-picker-month-view .calendar .calendar-item:disabled {
+                color: #bdbec0;
+                cursor: default;
+            }
+        }
+    }
+}

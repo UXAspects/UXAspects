@@ -37,8 +37,8 @@ export class MonthViewService implements OnDestroy {
         const currentYear = new Date().getFullYear();
 
         // get the currently selected month
-        const activeMonth = this._datepicker.selected$.value.getMonth();
-        const activeYear = this._datepicker.selected$.value.getFullYear();
+        const activeMonth = this._datepicker.selected$.value ? this._datepicker.selected$.value.getMonth() : null;
+        const activeYear = this._datepicker.selected$.value ? this._datepicker.selected$.value.getFullYear() : null;
 
         // create a 4x3 grid of month numbers
         const months: MonthViewItem[] = range(0, 11).map(month => {

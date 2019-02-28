@@ -39,7 +39,10 @@ export function range(start: number, end: number): number[] {
  */
 export function dateRange(start: Date, end: Date): Date[] {
 
-    let dates: Date[] = [];
+    // don't alter the start date object
+    start = new Date(start);
+
+    const dates: Date[] = [];
 
     // loop through all the days between the date range
     while (start <= end) {
@@ -69,7 +72,33 @@ export function compareDays(day1: Date, day2: Date): boolean {
  * Date comparison for use primarily with distinctUntilChanged
  */
 export function dateComparator(dateOne: Date, dateTwo: Date): boolean {
+
+    if (!dateOne && dateTwo || dateOne && !dateTwo) {
+        return false;
+    }
+
+    if (!dateOne && !dateTwo) {
+        return true;
+    }
+
     return dateOne.getTime() === dateTwo.getTime();
+}
+
+/** Calculate the number of days between two dates */
+export function differenceBetweenDates(start: Date, end: Date): number | null {
+    if (!start || !end) {
+        return null;
+    }
+
+    const millisecondsInDay = 86400000;
+    const startDay = new Date(start.getTime() < end.getTime() ? start : end);
+    const endDay = new Date(start.getTime() > end.getTime() ? start : end);
+
+    // get the start of day
+    startDay.setHours(0, 0, 0, 0);
+    endDay.setHours(23, 59, 59, 0);
+
+    return Math.round((endDay.getTime() - startDay.getTime()) / millisecondsInDay);
 }
 
 /**
@@ -77,6 +106,16 @@ export function dateComparator(dateOne: Date, dateTwo: Date): boolean {
  */
 export function timezoneComparator(zoneOne: DateTimePickerTimezone, zoneTwo: DateTimePickerTimezone): boolean {
     return zoneOne.name === zoneTwo.name && zoneOne.offset === zoneTwo.offset;
+}
+
+/**
+ * Get a date object with the time of the start of the given day
+ * @param date The date to get the start of day
+ */
+export function getStartOfDay(date: Date): Date {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    return startOfDay;
 }
 
 /**

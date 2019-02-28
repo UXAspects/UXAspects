@@ -68,6 +68,10 @@ export class DateTimePickerComponent implements OnDestroy {
         this.datepicker.nowBtnText$.next(value);
     }
 
+    @Input() set showNowBtn(value: boolean) {
+        this.datepicker.showNowBtn$.next(value);
+    }
+
     /**
      * Defines the list of available timezones. The **DateTimePickerTimezone** interface specifies that each timezone should
      * be an object with a **name** property that represents the timezone, eg. `GMT+2`, and an **offset** property that represents
@@ -91,7 +95,7 @@ export class DateTimePickerComponent implements OnDestroy {
     /** The selected date to be displayed in the component. */
     @Input()
     set date(value: Date) {
-        if (!dateComparator(value, this.datepicker.selected$.value)) {
+        if (value && !dateComparator(value, this.datepicker.selected$.value)) {
             this.datepicker.selected$.next(new Date(value));
         }
     }
