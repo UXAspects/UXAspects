@@ -97,7 +97,8 @@ export class AppComponent {
             selectionColor: this._colorService.getColor('chart1').setAlpha(0.1).toRgba(),
             onChange: (min: Date, max: Date) => {
                 this.lineChartData = this._dataService.getDataset().filter(point => {
-                    return (point.x as Date).getTime() >= min.getTime() && (point.x as Date).getTime() <= max.getTime();
+                    return (point.x as Date).getTime() >= min.getTime() &&
+                        (point.x as Date).getTime() <= max.getTime();
                 });
             },
             handles: {
