@@ -21,6 +21,7 @@
     "ng1/",
     "package.json",
     "pipes/",
+    "plugins/",
     "README.md",
     "services/",
     "styles/",
