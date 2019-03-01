@@ -30,7 +30,20 @@
     (dateChange)="rangeService.setStartDate($event)"
     (dateChange)="startChange.emit($event)"
     [weekdays]="weekdays"
-    [showNowBtn]="false">
+    [showDate]="showDate"
+    [showTime]="showTime"
+    [showTimezone]="showTimezone"
+    [showSeconds]="showSeconds"
+    [showMeridian]="showMeridian"
+    [showSpinners]="showSpinners"
+    [months]="months"
+    [monthsShort]="monthsShort"
+    [meridians]="meridians"
+    [nowBtnText]="nowBtnText"
+    [showNowBtn]="showNowBtn"
+    [timezones]="timezones"
+    [(timezone)]="timezone"
+    (timezoneChange)="timezoneChange.emit($event)">
   </ux-date-time-picker>
 
   <ux-date-time-picker
@@ -41,6 +54,19 @@
     (dateChange)="rangeService.setEndDate($event)"
     (dateChange)="endChange.emit($event)"
     [weekdays]="weekdays"
-    [showNowBtn]="false">
+    [showDate]="showDate"
+    [showTime]="showTime"
+    [showTimezone]="showTimezone"
+    [showSeconds]="showSeconds"
+    [showMeridian]="showMeridian"
+    [showSpinners]="showSpinners"
+    [months]="months"
+    [monthsShort]="monthsShort"
+    [meridians]="meridians"
+    [nowBtnText]="nowBtnText"
+    [showNowBtn]="showNowBtn"
+    [timezones]="timezones"
+    [(timezone)]="timezone"
+    (timezoneChange)="timezoneChange.emit($event)">
   </ux-date-time-picker>
 </div>

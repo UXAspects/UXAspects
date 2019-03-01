@@ -70,11 +70,6 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
     /** The value to display. */
     @Input() set value(value: Date) {
-
-        if (value === null) {
-            return;
-        }
-
         this.value$.next(new Date(value));
         this.valueChange.emit(this.value$.value);
 

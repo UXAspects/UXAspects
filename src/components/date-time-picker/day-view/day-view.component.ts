@@ -84,21 +84,51 @@ export class DayViewComponent implements OnDestroy {
      */
     select(date: Date): void {
 
-        // if we are range mode we need to do some additional checks
-        if (this._isRangeMode && this._rangeStart && this._rangeEnd) {
-
-            // if we are the start range picker and the select date is after the range end
-            if (this._isRangeStart && isDateAfter(date, this._rangeEnd) ||
-                this._isRangeEnd && isDateBefore(date, this._rangeStart)) {
-                this._rangeService.clear();
-            }
+        // if we are range picking, and have no dates selected clear the range (if we select the current day initially it won't get selected)
+        if (this._isRangeMode && !this._rangeStart && !this._rangeEnd) {
+            this._rangeService.clear();
         }
 
-        // update the current date object
-        this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
+        // if we are the start range picker and we click the already selected day deselect it
+        if (this._isRangeMode && this._isRangeStart && this._rangeStart && compareDays(this._rangeStart, date)) {
+            this._rangeService.setStartDate(null);
+            this.datePicker.selected$.next(null);
+            return;
+        }
+
+        // if we are the end range picker and we click the already selected day deselect it
+        if (this._isRangeMode && this._isRangeEnd && this._rangeEnd && compareDays(this._rangeEnd, date)) {
+            this._rangeService.setEndDate(null);
+            this.datePicker.selected$.next(null);
+            return;
+        }
+
+        // if we are in range mode ensure we include the time from the time picker
+        if (this._isRangeMode) {
+            // update the current date object
+            this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), this.datePicker.hours, this.datePicker.minutes, this.datePicker.seconds);
+        } else {
+            // update the current date object
+            this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
+        }
+
 
         // focus the newly selected date
         this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+
+        // if we select a start date that is after the end date then clear the end date
+        if (this._isRangeMode && this._isRangeStart && this._rangeStart && this._rangeEnd) {
+            if (this._rangeStart.getTime() > this._rangeEnd.getTime()) {
+                this._rangeService.setEndDate(null);
+            }
+        }
+
+        // if we select a end date that is before the start date then clear the start date
+        if (this._isRangeMode && this._isRangeEnd && this._rangeStart && this._rangeEnd) {
+            if (this._rangeEnd.getTime() < this._rangeStart.getTime()) {
+                this._rangeService.setStartDate(null);
+            }
+        }
     }
 
     trackWeekByFn(index: number): number {

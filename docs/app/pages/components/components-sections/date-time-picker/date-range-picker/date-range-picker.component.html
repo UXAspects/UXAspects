@@ -3,7 +3,7 @@
 
     <div class="input-group date m-nil">
         <span class="input-group-btn">
-            <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
+            <button class="btn button-secondary" aria-label="Show Date Picker" uxFocusIndicatorOrigin (click)="popover.show()">
                 <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
             </button>
         </span>
@@ -12,6 +12,7 @@
                 #input
                 #popover="ux-popover"
                 [ngModel]="date"
+                uxFocusIndicatorOrigin
                 [ngModelOptions]="{ updateOn: 'blur' }"
                 (ngModelChange)="onDateChange($event)"
                 [uxPopover]="popoverTemplate"
@@ -39,7 +40,8 @@
         [(end)]="end"
         (startChange)="onRangeChange()"
         (endChange)="onRangeChange()"
-        (keydown.escape)="popover.hide(); input.focus()">
+        (keydown.escape)="popover.hide(); input.focus()"
+        (timezoneChange)="onTimezoneChange($event)">
     </ux-date-range-picker>
 </ng-template>
 

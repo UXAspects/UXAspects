@@ -75,35 +75,49 @@ ux-date-range-picker {
         .calendar-container {
             ux-date-time-picker-day-view .calendar .date-cell .date-button {
                 &.active {
-                    &:not(.preview) {
+                    background-color: rgba(@primary, 0.1);
+                    color: @grey1;
+
+                    &:hover {
                         background-color: rgba(@primary, 0.1);
                         color: @grey1;
                     }
+                }
 
-                    &:hover {
-                        &:not(.preview) {
-                            background-color: rgba(@primary, 0.1);
-                            color: @grey1;
-                        }
+                &.range-start {
+                    background-color: rgba(@primary, 0.1);
+                    box-shadow: inset 2px 0 @primary;
+
+                    &.preview,
+                    &.preview.active {
+                        color: #999;
+                        box-shadow: inset 2px 0 rgba(@primary, 0.5);
                     }
                 }
 
-                &.range-start:not(.preview) {
-                    background-color: rgba(@primary, 0.1);
-                    box-shadow: inset 2px 0 @primary;
-                }
-
-                &.range-between:not(.preview) {
+                &.range-between {
                     background-color: rgba(@primary, 0.05);
                 }
 
-                &.range-end:not(.preview) {
+                &.range-end {
                     background-color: rgba(@primary, 0.1);
                     box-shadow: inset -2px 0 @primary;
+
+                    &.preview,
+                    &.preview.active {
+                        color: #999;
+                        box-shadow: inset -2px 0 rgba(@primary, 0.5);
+                    }
                 }
 
-                &.range-start.range-end:not(.preview) {
+                &.range-start.range-end {
                     box-shadow: inset -2px 0 @primary, inset 2px 0 @primary;
+
+                    &.preview,
+                    &.preview.active {
+                        color: #999;
+                        box-shadow: inset -2px 0 rgba(@primary, 0.5), inset 2px 0 rgba(@primary, 0.5);
+                    }
                 }
 
                 &:disabled {

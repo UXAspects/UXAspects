@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
+import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
@@ -20,6 +21,9 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
 
     /** The formatted date string to display in the input */
     date: string;
+
+    /** Store the currently selected timezone */
+    private _timezone: DateTimePickerTimezone;
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
@@ -42,8 +46,9 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
 
     /** Update the date string when the date range changes */
     onRangeChange(): void {
-        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a z', 'en-US') : '';
-        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a z', 'en-US') : '';
+        const timezone = this._timezone ? this._timezone.name : 'GMT';
+        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
+        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
 
         if (!start && !end) {
             return;
@@ -51,6 +56,11 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
 
         // concatenate the two dates
         this.date = start && end ? `${start} — ${end}` : start || end;
+    }
+
+    onTimezoneChange(timezone: DateTimePickerTimezone): void {
+        this._timezone = timezone;
+        this.onRangeChange();
     }
 
 }

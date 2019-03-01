@@ -15,75 +15,104 @@ export class DateTimePickerComponent implements OnDestroy {
 
     /** Defines whether or not the date picker should be visible. */
     @Input() set showDate(value: boolean) {
-        this.datepicker.showDate$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showDate$.next(value);
+        }
     }
 
     /** Defines whether or not the time picker should be visible. */
     @Input() set showTime(value: boolean) {
-        this.datepicker.showTime$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showTime$.next(value);
+        }
     }
 
     /** Defines whether or not the time picker should allow the user to choose a timezone. */
     @Input() set showTimezone(value: boolean) {
-        this.datepicker.showTimezone$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showTimezone$.next(value);
+        }
     }
 
     /** Defines whether or not the time picker should allow the user to specify seconds. */
     @Input() set showSeconds(value: boolean) {
-        this.datepicker.showSeconds$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showSeconds$.next(value);
+        }
     }
 
     /** Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead. */
     @Input() set showMeridian(value: boolean) {
-        this.datepicker.showMeridian$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showMeridian$.next(value);
+        }
     }
 
     /** Defines whether or not the time picker should allow the user to select the time using spinners. */
     @Input() set showSpinners(value: boolean) {
-        this.datepicker.showSpinners$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showSpinners$.next(value);
+        }
     }
 
     /** If defined will override the weekday names displayed. */
     @Input() set weekdays(value: string[]) {
-        this.datepicker.weekdays$.next(value);
+        if (value !== undefined) {
+            this.datepicker.weekdays$.next(value);
+        }
     }
 
     /** Defines the names of the months. */
     @Input() set months(months: string[]) {
-        this.datepicker.months = months;
+        if (months !== undefined) {
+            this.datepicker.months = months;
+        }
     }
 
     /** Defines the short names of each month. */
     @Input() set monthsShort(months: string[]) {
-        this.datepicker.monthsShort = months;
+        if (months !== undefined) {
+            this.datepicker.monthsShort = months;
+        }
     }
 
     /** Defines the labels to show in the meridian (AM/PM) selector. */
     @Input() set meridians(meridians: string[]) {
-        this.datepicker.meridians = meridians;
+        if (meridians !== undefined) {
+            this.datepicker.meridians = meridians;
+        }
     }
 
     /** Defines the text to be displayed in the button used to set the selected time to the current time. */
     @Input() set nowBtnText(value: string) {
-        this.datepicker.nowBtnText$.next(value);
+        if (value !== undefined) {
+            this.datepicker.nowBtnText$.next(value);
+        }
     }
 
+    /** Specify whether or not to show the show now button */
     @Input() set showNowBtn(value: boolean) {
-        this.datepicker.showNowBtn$.next(value);
+        if (value !== undefined) {
+            this.datepicker.showNowBtn$.next(value);
+        }
     }
 
     /**
-     * Defines the list of available timezones. The **DateTimePickerTimezone** interface specifies that each timezone should
-     * be an object with a **name** property that represents the timezone, eg. `GMT+2`, and an **offset** property that represents
+     * Defines the list of available timezones. The `DateTimePickerTimezone` interface specifies that each timezone should
+     * be an object with a `name` property that represents the timezone, eg. `GMT+2`, and an `offset` property that represents
      * the number of minutes relative to GMT the timezone is.
      */
     @Input() set timezones(value: DateTimePickerTimezone[]) {
-        this.datepicker.timezones$.next(value);
+        if (value !== undefined) {
+            this.datepicker.timezones$.next(value);
+        }
     }
 
     /** Defines the day of the week that should appear in the first column. `WeekDay` is an enumeration available in `@angular/common`. */
     @Input() set startOfWeek(startOfWeek: WeekDay) {
-        this.datepicker.startOfWeek$.next(startOfWeek);
+        if (startOfWeek !== undefined) {
+            this.datepicker.startOfWeek$.next(startOfWeek);
+        }
     }
 
     /** Emits an event when the date is changed using the component. */
@@ -103,7 +132,9 @@ export class DateTimePickerComponent implements OnDestroy {
     /** Will set the selected timezone. */
     @Input()
     set timezone(value: DateTimePickerTimezone) {
-        this.datepicker.timezone$.next(value);
+        if (value !== undefined) {
+            this.datepicker.timezone$.next(value);
+        }
     }
 
     // expose enum to view
