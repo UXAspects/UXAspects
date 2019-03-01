@@ -53,8 +53,8 @@ export class AppComponent {
 
     lineChartColors: Array<Chart.ChartDataSets> = [
         {
-            backgroundColor: this._colorService.getColor('chart1').setAlpha(0.1).toRgba(),
-            borderColor: this._colorService.getColor('chart1').setAlpha(0.5).toRgba(),
+            backgroundColor: this._colorService.getColor('alternate3').setAlpha(0.8).toRgba(),
+            borderColor: 'transparent',
             pointRadius: 0,
             pointHitRadius: 0,
             borderWidth: 1
@@ -94,15 +94,12 @@ export class AppComponent {
             ]
         },
         timeline: {
-            selectionColor: this._colorService.getColor('chart1').setAlpha(0.1).toRgba(),
+            selectionColor: this._colorService.getColor('alternate3').setAlpha(0.15).toRgba(),
             onChange: (min: Date, max: Date) => {
                 this.lineChartData = this._dataService.getDataset().filter(point => {
                     return (point.x as Date).getTime() >= min.getTime() &&
                         (point.x as Date).getTime() <= max.getTime();
                 });
-            },
-            handles: {
-                focusIndicatorColor: this._colorService.getColor('primary').setAlpha(0.8).toRgba()
             },
             range: {
                 lower: new Date(2017, 6, 15),
