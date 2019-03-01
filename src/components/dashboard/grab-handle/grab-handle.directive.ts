@@ -69,6 +69,8 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
             throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
         }
 
+        _handle.addHandle(this);
+
         // subscribe to changes to the current grab state
         _dashboard.isGrabbing$.pipe(takeUntil(this._onDestroy), map(_widget => _widget === widget))
             .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
@@ -91,6 +93,7 @@ export class DashboardGrabHandleDirective implements OnInit, OnDestroy {
 
     /** Unsubscribe from all observables */
     ngOnDestroy(): void {
+        this._handle.removeHandle(this);
         this._onDestroy.next();
         this._onDestroy.complete();
     }
