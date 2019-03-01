@@ -1,8 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
-import { Subscription } from 'rxjs/Subscription';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app',
@@ -10,37 +8,68 @@ import { debounceTime } from 'rxjs/operators';
     styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent {
 
-    @ViewChild('input') dateInput: ElementRef;
+    /** The date in the left side of the date range picker */
+    start: Date;
 
-    date: Date = new Date();
-    timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+    /** The date in the right side of the date range picker */
+    end: Date;
 
-    showTime: boolean = true;
-    showTimezones: boolean = true;
-    showMeridians: boolean = true;
-    showSpinners: boolean = true;
-    subscription: Subscription;
+    /** The formatted date string to display in the input */
+    date: string;
 
-    ngAfterViewInit(): void {
-        this.subscription = fromEvent(this.dateInput.nativeElement, 'input')
-            .pipe(debounceTime(500))
-            .subscribe(event => this.parse(this.dateInput.nativeElement.value));
-    }
+    /** Indicate whether or not the selected date is valid */
+    invalid: boolean = false;
 
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
+    /** Store the currently selected timezone */
+    private _timezone: DateTimePickerTimezone;
 
-    parse(value: string): void {
+    /** Parse a date string when the input changes */
+    onDateChange(date: string): void {
 
-        // try and parse the date
-        const date = new Date(value);
+        // reset any invalid state
+        this.invalid = false;
 
-        // check if the date is valid
-        if (!isNaN(date.getDate())) {
-            this.date = date;
+        // check if the date contains a hyphen
+        const parts = (date.indexOf('—') ? date.split('—') :
+            date.split('-')).map(part => Date.parse(part.trim()));
+
+        if (parts.length >= 1 && !isNaN(parts[0])) {
+            this.start = new Date(parts[0]);
+        } else if (parts.length >= 1 && isNaN(parts[0])) {
+            this.invalid = true;
         }
+
+        if (parts.length === 2 && !isNaN(parts[1])) {
+            this.end = new Date(parts[1]);
+        } else if (parts.length === 2 && isNaN(parts[1])) {
+            this.invalid = true;
+        }
+
+        if (this.start.getTime() > this.end.getTime()) {
+            this.invalid = true;
+            this.start = null;
+            this.end = null;
+        }
+    }
+
+    /** Update the date string when the date range changes */
+    onRangeChange(): void {
+        const timezone = this._timezone ? this._timezone.name : 'GMT';
+        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
+        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
+
+        if (!this.start || !this.end) {
+            return;
+        }
+
+        // concatenate the two dates
+        this.date = start && end ? `${start} — ${end}` : start || end;
+    }
+
+    onTimezoneChange(timezone: DateTimePickerTimezone): void {
+        this._timezone = timezone;
+        this.onRangeChange();
     }
 }

@@ -1,7 +1,7 @@
-.date-time-picker-popover {
+.date-range-picker-popover {
     max-width: none;
 }
 
-.date-time-picker-popover .popover-content {
+.date-range-picker-popover .popover-content {
     padding: 0;
 }

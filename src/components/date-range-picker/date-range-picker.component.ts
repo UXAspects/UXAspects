@@ -11,12 +11,12 @@ import { DateRangeService } from './date-range.service';
 })
 export class DateRangePickerComponent {
 
-    /** Define the start date */
+    /** The selected start date to be displayed in the component. */
     @Input() set start(start: Date) {
         this.rangeService.start = start;
     }
 
-    /** Define the end date */
+    /** The selected end date to be displayed in the component. */
     @Input() set end(end: Date) {
         this.rangeService.end = end;
     }
@@ -102,7 +102,8 @@ export class DateRangePickerComponent {
         this.rangeService.clear();
     }
 
-    getCurrentTimezone(): DateTimePickerTimezone {
+    /** Get the timezome based on the machine timezone */
+    private getCurrentTimezone(): DateTimePickerTimezone {
         return this.timezones.find(timezone => timezone.offset === new Date().getTimezoneOffset());
     }
 
