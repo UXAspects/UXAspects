@@ -1,0 +1,20 @@
+<input type="text"
+    id="date-range-input"
+    #input
+    placeholder="Select a date range"
+    [ngModel]="date"
+    uxFocusIndicatorOrigin
+    [ngModelOptions]="{ updateOn: 'blur' }"
+    (ngModelChange)="onDateChange($event)"
+    class="form-control"
+    aria-label="Selected date">
+
+<ux-date-range-picker
+    [(start)]="start"
+    [(end)]="end"
+    (startChange)="onRangeChange()"
+    (endChange)="onRangeChange()"
+    (keydown.escape)="popover.hide(); input.focus()"
+    (timezoneChange)="onTimezoneChange($event)">
+</ux-date-range-picker>
+
