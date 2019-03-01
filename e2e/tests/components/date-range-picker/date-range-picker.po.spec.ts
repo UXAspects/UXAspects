@@ -40,13 +40,31 @@ export class DateRangePickerPage {
         return dates;
     }
 
+    async getDisabled(picker: Picker): Promise<string[]> {
+        const pickerElement = await this.getPicker(picker);
+        const elements: ElementFinder[] = await pickerElement.$$('.date-button');
+        const dates: string[] = [];
+
+        for (let idx = 0; idx < elements.length; idx++) {
+            const element = elements[idx];
+            const date = await element.getAttribute('innerText');
+            const disabled = await element.getAttribute('disabled');
+
+            if (disabled) {
+                dates.push(date);
+            }
+        }
+
+        return dates;
+    }
+
     async getRangeEnd(picker: Picker): Promise<string> {
         const pickerElement = await this.getPicker(picker);
         return await pickerElement.$('.range-end').getAttribute('innerText');
     }
 
     async getPickerDateHeader(picker: Picker): Promise<string> {
-        const headers = await this.dateRangePicker.$$('.date-header')
+        const headers = await this.dateRangePicker.$$('.date-header');
 
         // it will only be 1 if only 1 date is selected
         if (headers.length === 2) {
@@ -57,7 +75,7 @@ export class DateRangePickerPage {
     }
 
     async getPickerTimeHeader(picker: Picker): Promise<string> {
-        const headers = await this.dateRangePicker.$$('.time-header')
+        const headers = await this.dateRangePicker.$$('.time-header');
         return await headers[picker === Picker.Start ? 0 : 1].getAttribute('innerText');
     }
 
@@ -72,23 +90,10 @@ export class DateRangePickerPage {
         for (let idx = 0; idx < elements.length; idx++) {
             const button = elements[idx];
             const label = await button.getAttribute('innerText');
+            const classes = await button.getAttribute('class');
 
-            if (label === date.toString()) {
+            if (label === date.toString() && classes.indexOf('preview') === -1) {
                 return button.click();
-            }
-        }
-    }
-
-    async isDateDisabled(picker: Picker, date: number): Promise<string> {
-        const pickerElement = await this.getPicker(picker);
-        const elements: ElementFinder[] = await pickerElement.$$('.date-button');
-
-        for (let idx = 0; idx < elements.length; idx++) {
-            const button = elements[idx];
-            const label = await button.getAttribute('innerText');
-
-            if (label === date.toString()) {
-                return button.getAttribute('disabled');
             }
         }
     }
@@ -125,14 +130,6 @@ export class DateRangePickerPage {
         return buttons[1].click();
     }
 
-    async setMeridian(picker: Picker, meridian: Meridian): Promise<void> {
-        const pickerElement = await this.getPicker(picker);
-        const meridianPicker = await pickerElement.$('.time-picker-meridian');
-        const buttons = await meridianPicker.$$('button');
-
-        return buttons[meridian === Meridian.Am ? 0 : 1].click();
-    }
-
     async incrementTimezone(picker: Picker): Promise<void> {
         const pickerElement = await this.getPicker(picker);
         const spinner = await pickerElement.$('.time-zone-spinner');
@@ -146,11 +143,6 @@ export class DateRangePickerPage {
         const buttons = await spinner.$$('.spin-button');
         return buttons[1].click();
     }
-}
-
-export enum Meridian {
-    Am,
-    Pm
 }
 
 export enum Picker {

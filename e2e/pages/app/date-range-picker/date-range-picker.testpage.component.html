@@ -1,6 +1,5 @@
 <input type="text"
     id="date-range-input"
-    #input
     placeholder="Select a date range"
     [ngModel]="date"
     uxFocusIndicatorOrigin
@@ -14,7 +13,6 @@
     [(end)]="end"
     (startChange)="onRangeChange()"
     (endChange)="onRangeChange()"
-    (keydown.escape)="popover.hide(); input.focus()"
     (timezoneChange)="onTimezoneChange($event)">
 </ux-date-range-picker>
 
