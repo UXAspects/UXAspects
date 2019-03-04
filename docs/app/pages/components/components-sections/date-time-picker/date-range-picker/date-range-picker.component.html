@@ -14,7 +14,6 @@
                     placeholder="Select a date range"
                     [ngModel]="date"
                     uxFocusIndicatorOrigin
-                    [ngModelOptions]="{ updateOn: 'blur' }"
                     (ngModelChange)="onDateChange($event)"
                     [uxPopover]="popoverTemplate"
                     placement="bottom"

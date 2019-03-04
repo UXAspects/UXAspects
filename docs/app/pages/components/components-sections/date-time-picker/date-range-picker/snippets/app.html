@@ -4,8 +4,8 @@
         <div class="input-group" [class.has-error]="invalid">
             <span class="input-group-btn">
                 <button class="btn button-secondary"
-                        uxFocusIndicatorOrigin
                         aria-label="Show Date Picker"
+                        uxFocusIndicatorOrigin
                         (click)="popover.show()">
                     <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                 </button>
@@ -17,7 +17,6 @@
                     placeholder="Select a date range"
                     [ngModel]="date"
                     uxFocusIndicatorOrigin
-                    [ngModelOptions]="{ updateOn: 'blur' }"
                     (ngModelChange)="onDateChange($event)"
                     [uxPopover]="popoverTemplate"
                     placement="bottom"
@@ -28,8 +27,8 @@
 
             <span class="input-group-btn">
                 <button class="btn button-secondary"
-                        [style.visibility]="date !== '' && date !== undefined &&
-                            date !== null ? 'visible' : 'hidden'"
+                        [style.visibility]="date !== '' &&
+                        date !== undefined && date !== null ? 'visible' : 'hidden'"
                         aria-label="Clear"
                         (click)="start = null; end = null; date = null; onRangeChange()">
                     <i class="hpe-icon hpe-close" aria-hidden="true"></i>

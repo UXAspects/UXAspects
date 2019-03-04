@@ -39,15 +39,17 @@ export class AppComponent {
             this.start = new Date(parts[0]);
         } else if (parts.length >= 1 && isNaN(parts[0])) {
             this.invalid = true;
+            this.start = null;
         }
 
         if (parts.length === 2 && !isNaN(parts[1])) {
             this.end = new Date(parts[1]);
         } else if (parts.length === 2 && isNaN(parts[1])) {
             this.invalid = true;
+            this.end = null;
         }
 
-        if (this.start.getTime() > this.end.getTime()) {
+        if (this.start && this.end && this.start.getTime() > this.end.getTime()) {
             this.invalid = true;
             this.start = null;
             this.end = null;
@@ -56,12 +58,23 @@ export class AppComponent {
 
     /** Update the date string when the date range changes */
     onRangeChange(): void {
+
         const timezone = this._timezone ? this._timezone.name : 'GMT';
-        const start = this.start ? formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
-        const end = this.end ? formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
+        const start = this.start ?
+            formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
+        const end = this.end ?
+            formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + timezone : '';
 
         if (!this.start || !this.end) {
             return;
+        }
+
+        // reset the invalid state
+        this.invalid = false;
+
+        // check if the dates are valid
+        if (this.start.getTime() > this.end.getTime()) {
+            this.invalid = true;
         }
 
         // concatenate the two dates
