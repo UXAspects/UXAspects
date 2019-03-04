@@ -17,4 +17,6 @@ export class DashboardTestPageComponent {
         minWidth: 187
     };
 
+    widget1Enabled = true;
+
 }

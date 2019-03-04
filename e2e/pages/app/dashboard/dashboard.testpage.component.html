@@ -1,3 +1,5 @@
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
+
 <div class="container p-lg">
 
     <ux-dashboard #dashboard
@@ -6,7 +8,8 @@
         [class.dashboard-grabbing]="dashboard.isGrabbing"
         [options]="options">
 
-        <ux-dashboard-widget id="analytics-1-widget"
+        <ux-dashboard-widget *ngIf="widget1Enabled"
+            id="analytics-1-widget"
             name="Usage Analytics"
             colSpan="4"
             rowSpan="2"
@@ -14,7 +17,7 @@
 
             <div class="widget-content"
                  [class.widget-grabbing]="usageHandle.isGrabbing"
-                 ux-dashboard-widget-drag-handle>
+                 uxDashboardWidgetDragHandle>
 
                 <h3 class="widget-title">Widget 1</h3>
 
@@ -25,26 +28,70 @@
                 </button>
 
             </div>
+
         </ux-dashboard-widget>
 
         <ux-dashboard-widget id="subscription-widget" name="Service" colSpan="2">
-            <div class="widget-content" ux-dashboard-widget-drag-handle>
+
+            <div class="widget-content"
+                    [class.widget-grabbing]="handle2.isGrabbing"
+                    uxDashboardWidgetDragHandle>
+
                 <h3 class="widget-title">Widget 2</h3>
+
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #handle2="ux-dashboard-grab-handle">
+                    <span class="hpe-icon hpe-pan"></span>
+                </button>
+
             </div>
+
         </ux-dashboard-widget>
 
         <ux-dashboard-widget id="users-widget" name="Users">
-            <div class="widget-content" ux-dashboard-widget-drag-handle>
+
+            <div class="widget-content"
+                    [class.widget-grabbing]="handle3.isGrabbing"
+                    uxDashboardWidgetDragHandle>
+
                 <h3 class="widget-title">Widget 3</h3>
+
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #handle3="ux-dashboard-grab-handle">
+                    <span class="hpe-icon hpe-pan"></span>
+                </button>
+
             </div>
+
         </ux-dashboard-widget>
 
         <ux-dashboard-widget id="alert-widget" name="Alert">
-            <div class="widget-content" ux-dashboard-widget-drag-handle>
+
+            <div class="widget-content"
+                    [class.widget-grabbing]="handle4.isGrabbing"
+                    uxDashboardWidgetDragHandle>
+
                 <h3 class="widget-title">Widget 4</h3>
+
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #handle4="ux-dashboard-grab-handle">
+                    <span class="hpe-icon hpe-pan"></span>
+                </button>
+
             </div>
+
         </ux-dashboard-widget>
 
     </ux-dashboard>
 </div>
 
+<div>
+    <a id="bottom-focus" href="javascript:void(0)">Bottom focus target</a>
+</div>
+
+<div>
+    <ux-checkbox id="widget-1-checkbox" [(value)]="widget1Enabled">Widget 1</ux-checkbox>
+</div>

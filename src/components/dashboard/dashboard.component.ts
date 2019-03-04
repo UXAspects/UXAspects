@@ -60,9 +60,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         // set the initial dimensions
         this.dashboardService.setDimensions(this.dashboardElement.nativeElement.offsetWidth, this.dashboardElement.nativeElement.offsetHeight);
-
-        // supply the grab handle query list
-        this._grabHandleService.setHandles(this.handles);
     }
 
     ngOnDestroy(): void {

@@ -5,6 +5,8 @@ export class DashboardPage {
     container = element(by.id('dashboardWidgetContainer'));
     dashboard = element(by.className('customizable-dashboard'));
     announcer = element(by.className('cdk-visually-hidden'));
+    topFocusTarget = element(by.id('top-focus'));
+    bottomFocusTarget = element(by.id('bottom-focus'));
 
     getPage(): void {
         browser.get('#/dashboard');
@@ -67,8 +69,8 @@ export class DashboardPage {
         }
     }
 
-    async getGrabHandle(): Promise<ElementFinder> {
-        return await this.container.$('button.widget-grab-handle');
+    async getGrabHandle(widgetId = 'analytics-1-widget'): Promise<ElementFinder> {
+        return await this.container.$(`#${widgetId} button.widget-grab-handle`);
     }
 
     async getAnnouncerText(): Promise<string> {
@@ -82,6 +84,14 @@ export class DashboardPage {
         const regexp = new RegExp(pattern, 'i');
         const match = regexp.exec(styleValue);
         return Number(match[1]);
+    }
+
+    async hasFocus(elem: ElementFinder): Promise<boolean> {
+        return await elem.getId() === await browser.driver.switchTo().activeElement().getId();
+    }
+
+    async toggleWidget(): Promise<void> {
+        await element(by.id('widget-1-checkbox')).click();
     }
 }
 

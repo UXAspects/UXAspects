@@ -16,6 +16,10 @@
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -36,6 +40,10 @@
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -56,6 +64,10 @@
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -94,6 +106,10 @@
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -138,6 +154,10 @@
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -155,9 +175,14 @@
                     "usage": [{
                         "title": "Selector",
                         "content": "[baseChart]"
-                    },{
+                    },
+                    {
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -175,9 +200,14 @@
                     "usage": [{
                         "title": "Selector",
                         "content": "[baseChart]"
-                    },{
+                    },
+                    {
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -201,9 +231,14 @@
                     "usage": [{
                         "title": "Selector",
                         "content": "[baseChart]"
-                    },{
+                    },
+                    {
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
                     }]
                 },
                 {
@@ -262,10 +297,16 @@
                     "usage": [{
                         "title": "Selector",
                         "content": "[baseChart]"
-                    },{
+                    },
+                    {
                         "title": "Module name",
                         "content": "ChartsModule"
-                    },{
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
+                    },
+                    {
                         "title": "Dependencies",
                         "content": "TooltipModule"
                     }]
@@ -319,15 +360,38 @@
             "link": "timeline-chart",
             "sections": [
                 {
-                    "title": "Timeline Charts",
+                    "title": "Timeline Chart",
+                    "component": "ChartsTimelineChartComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[baseChart]"
+                    },
+                    {
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ng2-charts"
+                    },
+                    {
+                        "title": "Module name",
+                        "content": "TimelineChartModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "@ux-aspects/ux-aspects"
+                    }]
+                },
+                {
+                    "title": "Timeline Chart",
                     "component": "ChartsTimelineChartNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 }
             ]
         }
-
-            
-
     ]
 }

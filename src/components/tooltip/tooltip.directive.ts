@@ -71,7 +71,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     protected _onDestroy = new Subject<void>();
 
     /** Store the timeout interval for cancelation */
-    private _showTimeoutId: number;
+    private _showTimeoutId: number = null;
 
     /** Internally store the type of this component - usual for distinctions when extending this class */
     protected _type: string = 'tooltip';
@@ -208,7 +208,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     /** If a tooltip exists and is visible, hide it */
-    hide() {
+    hide(): void {
 
         // if we are waiting to show a tooltip then cancel the pending timeout
         if (this._showTimeoutId) {
@@ -384,12 +384,12 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     protected onClick(_: MouseEvent): void {
 
         // if its not visible and click is a show trigger open it
-        if (!this.isVisible && this.includes(this.showTriggers, 'click')) {
+        if (!this.isVisible && this.includes(this.showTriggers, 'click') && this._showTimeoutId === null) {
             return this.show();
         }
 
         // if its visible and click is a hide trigger close it
-        if (this.isVisible && this.includes(this.hideTriggers, 'click')) {
+        if (this.isVisible && this.includes(this.hideTriggers, 'click') && this._showTimeoutId === null) {
             return this.hide();
         }
 

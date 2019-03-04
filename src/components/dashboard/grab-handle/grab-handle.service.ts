@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, QueryList } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ActionDirection, DashboardService } from '../dashboard.service';
@@ -8,13 +8,18 @@ import { DashboardGrabHandleDirective } from './grab-handle.directive';
 @Injectable()
 export class DashboardGrabHandleService implements OnDestroy {
 
-    /** Store the querylist of all the grab handles */
-    private _handles: QueryList<DashboardGrabHandleDirective>;
+    /** Self-registered drag handles in the dashboard. */
+    private _handles: DashboardGrabHandleDirective[] = [];
 
     /** Automatically unsubscribe from all observables when destroyed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _dashboard: DashboardService) { }
+    constructor(private _dashboard: DashboardService) {
+
+        // if a drag is performed by the mouse we should update the focusable item to be the first again
+        _dashboard.layout$.pipe(takeUntil(this._onDestroy), filter(() => !this._dashboard.isGrabbing$.value))
+            .subscribe(() => this.setFirstItemFocusable());
+    }
 
     /** Perform unsubscriptions */
     ngOnDestroy(): void {
@@ -22,21 +27,20 @@ export class DashboardGrabHandleService implements OnDestroy {
         this._onDestroy.complete();
     }
 
-    /** Provide the service with the list of grab handles */
-    setHandles(handles: QueryList<DashboardGrabHandleDirective>): void {
-
-        // store the grab handles
-        this._handles = handles;
+    /** Register a new grab handle. */
+    addHandle(handle: DashboardGrabHandleDirective): void {
+        this._handles = this.getHandlesInOrder([...this._handles, handle]);
 
         // we want to make the first item focusable (raf to avoid expression changed error)
-        requestAnimationFrame(() => this.setFirstItemFocusable());
+        requestAnimationFrame(() => this.ensureFocusable());
+    }
 
-        // watch for any future changes to the list of handles
-        this._handles.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.ensureFocusable());
+    /** Unregister a removed grab handle. */
+    removeHandle(handle: DashboardGrabHandleDirective): void {
+        this._handles = this._handles.filter(h => h !== handle);
 
-        // if a drag is performed by the mouse we should update the focusable item to be the first again
-        this._dashboard.layout$.pipe(takeUntil(this._onDestroy), filter(() => !this._dashboard.isGrabbing$.value))
-            .subscribe(() => this.setFirstItemFocusable());
+        // Make sure there is still a focusable handle
+        this.ensureFocusable();
     }
 
     /** Make the first visual item in the list focusable */
@@ -100,9 +104,8 @@ export class DashboardGrabHandleService implements OnDestroy {
     }
 
     /** Get handles in the order they appear rather than the order they are in the DOM */
-    getHandlesInOrder(): DashboardGrabHandleDirective[] {
+    getHandlesInOrder(handles = this._handles): DashboardGrabHandleDirective[] {
         const widgets = this._dashboard.getWidgetsByOrder();
-        const handles = this._handles.toArray();
 
         // sort the handles according to the position of the widget it belongs to
         return handles.sort((handleOne, handleTwo) => widgets.indexOf(handleOne.widget) - widgets.indexOf(handleTwo.widget));
