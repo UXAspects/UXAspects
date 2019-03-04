@@ -1,4 +1,4 @@
-import { browser, ElementFinder } from 'protractor';
+import { browser, ElementFinder, Key } from 'protractor';
 import { DashboardPage, Direction } from './dashboard.po.spec';
 
 describe('Dashboard Tests', () => {
@@ -118,6 +118,68 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(554);
 
+    });
+
+    it('should manage focus of the grab handles', async () => {
+
+        // Set focus to the element before the dashboard
+        await page.topFocusTarget.click();
+
+        // Tab into the dashboard
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // First grab handle should have focus
+        const grabHandle1 = await page.getGrabHandle('analytics-1-widget');
+        expect(await page.hasFocus(grabHandle1)).toBe(true);
+
+        // Tab again
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // Focus should have left the dashboard
+        expect(await page.hasFocus(page.bottomFocusTarget)).toBe(true);
+
+        // Set focus to the element before the dashboard again
+        await page.topFocusTarget.click();
+
+        // Tab into the dashboard and move to the next grab handle
+        await browser.actions().sendKeys(Key.TAB).sendKeys(Key.ARROW_RIGHT).perform();
+
+        // Second grab handle should have focus
+        const grabHandle2 = await page.getGrabHandle('subscription-widget');
+        expect(await page.hasFocus(grabHandle2)).toBe(true);
+
+        // Tab again
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // Focus should have left the dashboard
+        expect(await page.hasFocus(page.bottomFocusTarget)).toBe(true);
+
+        // Set focus to the element before the dashboard again
+        await page.topFocusTarget.click();
+
+        // Tab into the dashboard
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // Second grab handle should still have focus
+        expect(await page.hasFocus(grabHandle2)).toBe(true);
+    });
+
+    it('should maintain a focusable grab handle when widgets are removed', async () => {
+
+        // Remove first widget from the DOM
+        await page.toggleWidget();
+
+        expect(await page.getNumberOfWidgets()).toBe(3);
+
+        // Set focus to the element before the dashboard
+        await page.topFocusTarget.click();
+
+        // Tab into the dashboard
+        await browser.actions().sendKeys(Key.TAB).perform();
+
+        // Second grab handle should have focus
+        const grabHandle2 = await page.getGrabHandle('subscription-widget');
+        expect(await page.hasFocus(grabHandle2)).toBe(true);
     });
 
     it('should allow grab mode to be activated', async () => {
