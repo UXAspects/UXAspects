@@ -139,13 +139,13 @@ describe('Date Range Picker Tests', () => {
 
     it('should emit on timezone change', async () => {
         await page.incrementTimezone(Picker.Start);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT+1');
+        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT');
 
         await page.incrementTimezone(Picker.End);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+2 — 21 March 2019  11:59 PM GMT+2');
+        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT+1');
 
         await page.decrementTimezone(Picker.Start);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT+1');
+        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT+1');
 
         await page.decrementTimezone(Picker.End);
         expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT');
