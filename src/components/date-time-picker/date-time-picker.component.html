@@ -21,6 +21,7 @@
 </div>
 
 <button type="button"
+    *ngIf="datepicker.showNowBtn$ | async"
     uxFocusIndicator
     class="now-button"
     aria-label="Set date to now"

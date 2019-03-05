@@ -100,7 +100,7 @@ export class DayViewService implements OnDestroy {
      * @param date the date to check
      */
     private isActive(date: Date): boolean {
-        return compareDays(this._datepicker.selected$.value, date);
+        return this._datepicker.selected$.value ? compareDays(this._datepicker.selected$.value, date) : false;
     }
 }
 

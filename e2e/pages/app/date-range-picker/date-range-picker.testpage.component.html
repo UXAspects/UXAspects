@@ -1,0 +1,24 @@
+<input type="text"
+    id="date-range-input"
+    placeholder="Select a date range"
+    [ngModel]="date"
+    uxFocusIndicatorOrigin
+    [ngModelOptions]="{ updateOn: 'blur' }"
+    (ngModelChange)="onDateChange($event)"
+    class="form-control"
+    aria-label="Selected date">
+
+<ux-date-range-picker
+    [(start)]="start"
+    [(end)]="end"
+    [showTime]="showTime"
+    [showTimezone]="showTimezone"
+    [showSeconds]="showSeconds"
+    [showSpinners]="showSpinners"
+    [showNowBtn]="showNowBtn"
+    (startChange)="onRangeChange()"
+    (endChange)="onRangeChange()"
+    (startTimezoneChange)="onTimezoneChange(true, $event)"
+    (endTimezoneChange)="onTimezoneChange(false, $event)">
+</ux-date-range-picker>
+
