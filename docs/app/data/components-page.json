@@ -1493,8 +1493,8 @@
             "link": "tables",
             "sections": [
                 {
-                    "title": "Column Resizing",
-                    "component": "ComponentsColumnResizingComponent",
+                    "title": "Column Picker",
+                    "component": "ComponentsColumnPickerComponent",
                     "version": "Angular",
                     "usage": [
                         {
@@ -1512,6 +1512,25 @@
                         {
                             "title": "Module",
                             "content": "TableModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Column Sorting",
+                    "component": "ComponentsColumnSortingComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-column-sorting"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ColumnSortingModule"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-column-sorting"
                         }
                     ]
                 },

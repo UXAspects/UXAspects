@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-5 col-sm-12">
+        <p class="column-picker-stats">{{ deselectedSelection.length }} of {{ deselected.length }} selected</p>
+    </div>
+
+    <div class="col-md-5 col-sm-12 col-md-offset-2">
+        <p class="column-picker-stats">{{ selected.length }} columns added</p>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-5 col-sm-12">
+        <ul class="column-picker-list" [(uxSelection)]="deselectedSelection">
+            <li *ngFor="let column of deselected"
+                class="column-picker-list-item"
+                [uxSelectionItem]="column">
+                {{ column }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-2 col-sm-12">
+
+        <button class="btn button-primary btn-block"
+                [disabled]="deselectedSelection.length === 0"
+                (click)="selectColumns()">
+            <i class="hpe-icon hpe-chevron-right"></i>
+        </button>
+
+        <button class="btn button-primary btn-block m-b-md"
+                [disabled]="selectedSelection.length === 0"
+                (click)="deselectColumns()">
+            <i class="hpe-icon hpe-chevron-left"></i>
+        </button>
+
+        <button class="btn button-secondary btn-block"
+                [disabled]="deselected.length === 0"
+                (click)="selectAllColumns()">
+            <i class="hpe-icon hpe-chevron-right-double"></i>
+        </button>
+
+        <button class="btn button-secondary btn-block"
+                [disabled]="selected.length === 0"
+                (click)="deselectAllColumns()">
+            <i class="hpe-icon hpe-chevron-left-double"></i>
+        </button>
+    </div>
+
+    <div class="col-md-5 col-sm-12">
+        <ul class="column-picker-list" [(uxSelection)]="selectedSelection">
+            <li *ngFor="let column of selected"
+                class="column-picker-list-item"
+                [uxSelectionItem]="column">
+                {{ column }}
+            </li>
+        </ul>
+    </div>
+</div>
