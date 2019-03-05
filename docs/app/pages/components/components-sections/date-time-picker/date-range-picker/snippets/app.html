@@ -30,7 +30,7 @@
                         [style.visibility]="date !== '' && date !== undefined &&
                         date !== null ? 'visible' : 'hidden'"
                         aria-label="Clear"
-                        (click)="start = null; end = null; date = null; onRangeChange()">
+                        (click)="clear()">
                     <i class="hpe-icon hpe-close" aria-hidden="true"></i>
                 </button>
             </span>
@@ -48,6 +48,8 @@
         [showMeridian]="showMeridian"
         [showSpinners]="showSpinners"
         [showNowBtn]="showNowBtn"
+        [startTimezone]="startTimezone"
+        [endTimezone]="endTimezone"
         (startChange)="onRangeChange()"
         (endChange)="onRangeChange()"
         (keydown.escape)="popover.hide(); input.focus()"

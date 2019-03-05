@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
+import { DateTimePickerTimezone, timezones } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -40,9 +40,11 @@ export class AppComponent {
     /** Indicate if the show now should be visible */
     showNowBtn: boolean = false;
 
-    /** Store the currently selected timezones */
-    private _startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
-    private _endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+    /** Store the currently selected start timezone */
+    startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+
+    /** Store the currently selected end timezone */
+    endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 
     /** Parse a date string when the input changes */
     onDateChange(date: string): void {
@@ -51,19 +53,22 @@ export class AppComponent {
         this.invalid = false;
 
         // check if the date contains a hyphen
-        const parts = (date.indexOf('—') ? date.split('—') :
-            date.split('-')).map(part => Date.parse(part.trim()));
+        const parts = (date.indexOf('—') ? date.split('—') : date.split('-'));
+        const startDate = Date.parse(parts[0].trim());
+        const endDate = Date.parse(parts[0].trim());
 
-        if (parts.length >= 1 && !isNaN(parts[0])) {
-            this.start = new Date(parts[0]);
-        } else if (parts.length >= 1 && isNaN(parts[0])) {
+        if (parts.length >= 1 && !isNaN(startDate)) {
+            this.start = new Date(startDate);
+            this.startTimezone = this.getTimezone(parts[0]);
+        } else if (parts.length >= 1 && isNaN(startDate)) {
             this.invalid = true;
             this.start = null;
         }
 
-        if (parts.length === 2 && !isNaN(parts[1])) {
-            this.end = new Date(parts[1]);
-        } else if (parts.length === 2 && isNaN(parts[1])) {
+        if (parts.length === 2 && !isNaN(endDate)) {
+            this.end = new Date(endDate);
+            this.endTimezone = this.getTimezone(parts[1]);
+        } else if (parts.length === 2 && isNaN(endDate)) {
             this.invalid = true;
             this.end = null;
         }
@@ -78,9 +83,9 @@ export class AppComponent {
     /** Update the date string when the date range changes */
     onRangeChange(): void {
         const start = this.start ?
-            formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + this._startTimezone.name : '';
+            formatDate(this.start, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.startTimezone.name : '';
         const end = this.end ?
-            formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + this._endTimezone.name : '';
+            formatDate(this.end, 'd MMMM y  h:mm a', 'en-US') + ' ' + this.endTimezone.name : '';
 
         if (!this.start || !this.end) {
             return;
@@ -90,8 +95,8 @@ export class AppComponent {
         this.invalid = false;
 
         // check if the dates are valid
-        if (this.getNormalizedDate(this.start, this._startTimezone).getTime() >
-            this.getNormalizedDate(this.end, this._endTimezone).getTime()) {
+        if (this.getNormalizedDate(this.start, this.startTimezone).getTime() >
+            this.getNormalizedDate(this.end, this.endTimezone).getTime()) {
             this.invalid = true;
         }
 
@@ -101,12 +106,36 @@ export class AppComponent {
 
     onTimezoneChange(isStart: boolean, timezone: DateTimePickerTimezone): void {
         if (isStart) {
-            this._startTimezone = timezone;
+            this.startTimezone = timezone;
         } else {
-            this._endTimezone = timezone;
+            this.endTimezone = timezone;
         }
 
         this.onRangeChange();
+    }
+
+    clear(): void {
+        this.start = null;
+        this.end = null;
+        this.date = null;
+        this.startTimezone = { name: 'GMT', offset: 0 };
+        this.endTimezone = { name: 'GMT', offset: 0 };
+        this.onRangeChange();
+    }
+
+    private getTimezone(date: string): DateTimePickerTimezone {
+
+        // get the timezone from the datestring
+        const timezone = date.match(/GMT(\+|-)([0-9]+)/gi);
+
+        // check if there is a matching timezone
+        if (timezone.length === 0) {
+            return { name: 'GMT', offset: 0 };
+        } else {
+            const match = timezones.find(_timezone =>
+                _timezone.name.toLowerCase() === timezone[0].trim().toLowerCase());
+            return match ? match : { name: 'GMT', offset: 0 };
+        }
     }
 
     /** Account for the timezone offset */

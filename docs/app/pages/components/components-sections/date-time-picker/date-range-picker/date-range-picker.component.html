@@ -26,7 +26,7 @@
                 <button class="btn button-secondary"
                         [style.visibility]="date !== '' && date !== undefined && date !== null ? 'visible' : 'hidden'"
                         aria-label="Clear"
-                        (click)="start = null; end = null; date = null; onRangeChange()">
+                        (click)="clear()">
                     <i class="hpe-icon hpe-close" aria-hidden="true"></i>
                 </button>
             </span>
@@ -44,6 +44,8 @@
         [showMeridian]="showMeridian"
         [showSpinners]="showSpinners"
         [showNowBtn]="showNowBtn"
+        [startTimezone]="startTimezone"
+        [endTimezone]="endTimezone"
         (startChange)="onRangeChange()"
         (endChange)="onRangeChange()"
         (keydown.escape)="popover.hide(); input.focus()"
@@ -126,7 +128,7 @@
     <tr uxd-api-property name="showNowBtn" type="boolean" defaultValue="false">
         Defines whether or not the show now button is visible.
     </tr>
-    <tr uxd-api-property name="weekdays" type="string[]" defaultValue="Sunday...Saturday">
+    <tr uxd-api-property name="weekdays" type="string[]" defaultValue="['S', 'M', 'T', 'W', 'T', 'F', 'S']">
         If defined will override the weekday names displayed.
     </tr>
     <tr uxd-api-property name="meridians" type="string[]"  defaultValue="['AM', 'PM']">
