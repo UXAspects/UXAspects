@@ -106,7 +106,13 @@ export class DayViewComponent implements OnDestroy {
         // if we are in range mode ensure we include the time from the time picker
         if (this._isRangeMode) {
             // update the current date object
-            this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), this.datePicker.hours, this.datePicker.minutes, this.datePicker.seconds);
+            if (this._isRangeStart && !this._rangeService.showTime) {
+                this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 0, 0, 0);
+            } else if (this._isRangeEnd && !this._rangeService.showTime) {
+                this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 23, 59, 59);
+            } else {
+                this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), this.datePicker.hours, this.datePicker.minutes, this.datePicker.seconds);
+            }
         } else {
             // update the current date object
             this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());

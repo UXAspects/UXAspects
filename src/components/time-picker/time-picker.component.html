@@ -1,6 +1,6 @@
 <div class="time-picker" aria-label="Time picker">
 
-    <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showHours">
+    <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showHours">
 
         <ux-spin-button
             type="text"
@@ -8,7 +8,7 @@
             placeholder="HH"
             [min]="0"
             [max]="showMeridian ? 12 : 23"
-            [value]="hour$ | async | timeFormat: !showMeridian : showMeridian : (meridian$ | async)"
+            [value]="value | date: showMeridian ? 'h' : 'HH'"
             (valueChange)="hourChange($event)"
             [spinners]="showSpinners"
             [disabled]="disabled"
@@ -24,7 +24,7 @@
 
     <div class="time-picker-separator" *ngIf="showMinutes">:</div>
 
-    <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showMinutes">
+    <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showMinutes">
 
         <ux-spin-button
             type="text"
@@ -32,7 +32,7 @@
             placeholder="MM"
             [min]="0"
             [max]="59"
-            [value]="minute$ | async | timeFormat: true: showMeridian : (meridian$ | async)"
+            [value]="value | date: 'mm'"
             (valueChange)="minuteChange($event)"
             [spinners]="showSpinners"
             [disabled]="disabled"
@@ -48,7 +48,7 @@
 
     <div class="time-picker-separator" *ngIf="showSeconds">:</div>
 
-    <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showSeconds">
+    <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showSeconds">
 
         <ux-spin-button
             type="text"
@@ -56,7 +56,7 @@
             placeholder="SS"
             [min]="0"
             [max]="59"
-            [value]="second$ | async | timeFormat: true : showMeridian : (meridian$ | async)"
+            [value]="value | date: 'ss'"
             (valueChange)="secondChange($event)"
             [spinners]="showSpinners"
             [disabled]="disabled"
@@ -82,9 +82,9 @@
                 tabindex="0"
                 [disabled]="disabled"
                 (click)="selectMeridian(meridian)"
-                [class.active]="meridian === (meridian$ | async)"
+                [class.active]="meridian === _meridian"
                 [attr.aria-label]="meridian"
-                [attr.aria-checked]="meridian === (meridian$ | async)"
+                [attr.aria-checked]="meridian === _meridian"
                 [attr.aria-disabled]="disabled">
                 {{ meridian }}
         </button>

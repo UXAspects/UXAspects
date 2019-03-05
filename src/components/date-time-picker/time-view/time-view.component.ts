@@ -76,12 +76,6 @@ export class TimeViewComponent implements OnDestroy {
     onTimeChange(time: Date): void {
 
         if (this._isRangeMode) {
-
-            // TODO: We need to ensure that if the start and end date are the same day that the end time is not before the start time and vice versa
-            if (this._isRangeStart && this._rangeEnd) {
-
-            }
-
             this.datepicker.hours = time.getHours();
             this.datepicker.minutes = time.getMinutes();
             this.datepicker.seconds = time.getSeconds();

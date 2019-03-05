@@ -1,7 +1,9 @@
 import { WeekDay } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Optional, Output } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
+import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
 import { dateComparator, DateTimePickerTimezone, timezoneComparator } from './date-time-picker.utils';
 
@@ -137,12 +139,31 @@ export class DateTimePickerComponent implements OnDestroy {
         }
     }
 
+    /** Determine if we are in range selection mode */
+    get _isRangeMode(): boolean {
+        return !!this._rangeOptions;
+    }
+
+    /** Determine if this picker is the start picker */
+    get _isRangeStart(): boolean {
+        return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+    }
+
+    /** Determine if this picker is the end picker */
+    get _isRangeEnd(): boolean {
+        return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+    }
+
     // expose enum to view
     DatePickerMode = DatePickerMode;
 
     private _onDestroy = new Subject<void>();
 
-    constructor(public datepicker: DateTimePickerService) {
+    constructor(
+        public datepicker: DateTimePickerService,
+        @Optional() private _rangeService: DateRangeService,
+        @Optional() private _rangeOptions: DateRangeOptions) {
+
         datepicker.selected$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(dateComparator))
             .subscribe(date => this.dateChange.emit(date));
 
@@ -160,7 +181,19 @@ export class DateTimePickerComponent implements OnDestroy {
      */
     setToNow(): void {
 
-        // set the date to the current moment
-        this.datepicker.setDateToNow();
+        if (this._isRangeMode) {
+            const date = new Date();
+
+            if (this._isRangeStart && !this._rangeService.showTime) {
+                this.datepicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 0, 0, 0);
+            } else if (this._isRangeEnd && !this._rangeService.showTime) {
+                this.datepicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 23, 59, 59);
+            } else {
+                this.datepicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), this.datepicker.hours, this.datepicker.minutes, this.datepicker.seconds);
+            }
+        } else {
+            // set the date to the current moment
+            this.datepicker.setDateToNow();
+        }
     }
 }

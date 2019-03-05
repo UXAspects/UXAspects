@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { compareDays } from '../date-time-picker/date-time-picker.utils';
+import { compareDays, isDateAfter, isDateBefore } from '../date-time-picker/date-time-picker.utils';
 
 export class DateRangeService {
 
@@ -27,12 +27,27 @@ export class DateRangeService {
     /** Emit whenever the range is cleared */
     onClear = new Subject<void>();
 
+    /** Indicate if we should show time */
+    showTime: boolean = false;
+
     setStartDate(date: Date | null): void {
+
+        // if the start date is after the end date the clear the end date
+        if (date && this.end && isDateAfter(date, this.end)) {
+            this.clear();
+        }
+
         this.start = date;
         this.onRangeChange.next();
     }
 
     setEndDate(date: Date | null): void {
+
+        // if the end date is before the start date the clear the start date
+        if (date && this.start && isDateBefore(date, this.start)) {
+            this.clear();
+        }
+
         this.end = date;
         this.onRangeChange.next();
     }

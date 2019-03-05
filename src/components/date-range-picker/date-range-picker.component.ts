@@ -21,23 +21,17 @@ export class DateRangePickerComponent {
         this.rangeService.end = end;
     }
 
-    /** Defines whether or not the date picker should be visible. */
-    @Input() showDate: boolean;
-
-    /** Defines whether or not the time picker should be visible. */
-    @Input() showTime: boolean;
-
     /** Defines whether or not the time picker should allow the user to choose a timezone. */
     @Input() showTimezone: boolean;
 
     /** Defines whether or not the time picker should allow the user to specify seconds. */
-    @Input() showSeconds: boolean;
+    @Input() showSeconds: boolean = false;
 
     /** Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead. */
-    @Input() showMeridian: boolean;
+    @Input() showMeridian: boolean = true;
 
     /** Defines whether or not the time picker should allow the user to select the time using spinners. */
-    @Input() showSpinners: boolean;
+    @Input() showSpinners: boolean = true;
 
     /** If defined will override the weekday names displayed. */
     @Input() weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -57,6 +51,15 @@ export class DateRangePickerComponent {
     /** Specify whether or not the show now button should be visible */
     @Input() showNowBtn: boolean = false;
 
+    /** Defines whether or not the time picker should be visible. */
+    @Input() set showTime(showTime: boolean) {
+        this.rangeService.showTime = showTime;
+    }
+
+    get showTime(): boolean {
+        return this.rangeService.showTime;
+    }
+
     /**
      * Defines the list of available timezones. The `DateTimePickerTimezone` interface specifies that each timezone should
      * be an object with a `name` property that represents the timezone, eg. `GMT+2`, and an `offset` property that represents
@@ -64,11 +67,14 @@ export class DateRangePickerComponent {
      */
     @Input() timezones: DateTimePickerTimezone[] = defaultTimezones;
 
-    /** Will set the selected timezone. */
-    @Input() timezone: DateTimePickerTimezone = this.getCurrentTimezone();
+    /** Will set the selected start timezone. */
+    @Input() startTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
+
+    /** Will set the selected end timezone. */
+    @Input() endTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
 
     /** Defines the day of the week that should appear in the first column. `WeekDay` is an enumeration available in `@angular/common`. */
-    @Input() startOfWeek: WeekDay;
+    @Input() startOfWeek: WeekDay = WeekDay.Sunday;
 
     /** Emit when the start date changes */
     @Output() startChange = new EventEmitter<Date>(true);
@@ -76,8 +82,11 @@ export class DateRangePickerComponent {
     /** Emit when the end date changes */
     @Output() endChange = new EventEmitter<Date>(true);
 
-    /** Emit when the timezone changes. */
-    @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
+    /** Emit when the start timezone changes. */
+    @Output() startTimezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
+
+    /** Emit when the end timezone changes. */
+    @Output() endTimezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
 
     /** Calculate the number of days between the start and end date */
     get _duration(): number | null {

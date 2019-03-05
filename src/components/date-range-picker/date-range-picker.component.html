@@ -1,9 +1,11 @@
 <div class="range-header">
 
   <div class="header-section">
-    <h4 *ngIf="!rangeService.start" class="select-header">Select Start Date</h4>
-    <h4 *ngIf="rangeService.start" class="date-header">{{ rangeService.start | date: 'd MMMM y' }}</h4>
-    <h5 [style.visibility]="rangeService.start ? 'visible' : 'hidden'" class="time-header">{{ rangeService.start | date: 'shortTime' }}</h5>
+    <div *ngIf="!rangeService.start" class="select-header">Select Start Date</div>
+    <div *ngIf="rangeService.start" class="date-header">{{ rangeService.start | date: 'd MMMM y' }}</div>
+    <div [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'" class="time-header">
+        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}
+    </div>
   </div>
 
   <div class="header-separator">
@@ -14,9 +16,11 @@
   </div>
 
   <div class="header-section">
-    <h4 *ngIf="!rangeService.end" class="select-header">Select End Date</h4>
-    <h4 *ngIf="rangeService.end" class="date-header">{{ rangeService.end | date: 'd MMMM y' }}</h4>
-    <h5 [style.visibility]="rangeService.end ? 'visible' : 'hidden'" class="time-header">{{ rangeService.end | date: 'shortTime' }}</h5>
+    <div *ngIf="!rangeService.end" class="select-header">Select End Date</div>
+    <div *ngIf="rangeService.end" class="date-header">{{ rangeService.end | date: 'd MMMM y' }}</div>
+    <div [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'" class="time-header">
+        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}
+    </div>
   </div>
 
 </div>
@@ -30,7 +34,7 @@
     (dateChange)="rangeService.setStartDate($event)"
     (dateChange)="startChange.emit($event)"
     [weekdays]="weekdays"
-    [showDate]="showDate"
+    [startOfWeek]="startOfWeek"
     [showTime]="showTime"
     [showTimezone]="showTimezone"
     [showSeconds]="showSeconds"
@@ -42,8 +46,8 @@
     [nowBtnText]="nowBtnText"
     [showNowBtn]="showNowBtn"
     [timezones]="timezones"
-    [(timezone)]="timezone"
-    (timezoneChange)="timezoneChange.emit($event)">
+    [(timezone)]="startTimezone"
+    (timezoneChange)="startTimezoneChange.emit($event)">
   </ux-date-time-picker>
 
   <ux-date-time-picker
@@ -54,7 +58,7 @@
     (dateChange)="rangeService.setEndDate($event)"
     (dateChange)="endChange.emit($event)"
     [weekdays]="weekdays"
-    [showDate]="showDate"
+    [startOfWeek]="startOfWeek"
     [showTime]="showTime"
     [showTimezone]="showTimezone"
     [showSeconds]="showSeconds"
@@ -66,7 +70,7 @@
     [nowBtnText]="nowBtnText"
     [showNowBtn]="showNowBtn"
     [timezones]="timezones"
-    [(timezone)]="timezone"
-    (timezoneChange)="timezoneChange.emit($event)">
+    [(timezone)]="endTimezone"
+    (timezoneChange)="endTimezoneChange.emit($event)">
   </ux-date-time-picker>
 </div>
