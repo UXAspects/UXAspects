@@ -117,6 +117,9 @@ export class DateTimePickerComponent implements OnDestroy {
         }
     }
 
+    /** Define the aria label for the now button */
+    @Input() nowBtnAriaLabel: string = 'Set date to now';
+
     /** Emits an event when the date is changed using the component. */
     @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
 

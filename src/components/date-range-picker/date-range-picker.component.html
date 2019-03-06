@@ -1,7 +1,7 @@
 <div class="range-header">
 
   <div class="header-section">
-    <div *ngIf="!rangeService.start" class="select-header">Select Start Date</div>
+    <div *ngIf="!rangeService.start" class="select-header">{{ selectStartTitle }}</div>
     <div *ngIf="rangeService.start" class="date-header">{{ rangeService.start | date: 'd MMMM y' }}</div>
     <div [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'" class="time-header">
         {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}
@@ -16,7 +16,7 @@
   </div>
 
   <div class="header-section">
-    <div *ngIf="!rangeService.end" class="select-header">Select End Date</div>
+    <div *ngIf="!rangeService.end" class="select-header">{{ selectEndTitle }}</div>
     <div *ngIf="rangeService.end" class="date-header">{{ rangeService.end | date: 'd MMMM y' }}</div>
     <div [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'" class="time-header">
         {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}
@@ -45,6 +45,8 @@
     [meridians]="meridians"
     [nowBtnText]="nowBtnText"
     [showNowBtn]="showNowBtn"
+    [nowBtnAriaLabel]="nowBtnAriaLabel"
+    [attr.aria-label]="startPickerAriaLabel"
     [timezones]="timezones"
     [(timezone)]="startTimezone"
     (timezoneChange)="startTimezoneChange.emit($event)">
@@ -69,6 +71,8 @@
     [meridians]="meridians"
     [nowBtnText]="nowBtnText"
     [showNowBtn]="showNowBtn"
+    [nowBtnAriaLabel]="nowBtnAriaLabel"
+    [attr.aria-label]="endPickerAriaLabel"
     [timezones]="timezones"
     [(timezone)]="endTimezone"
     (timezoneChange)="endTimezoneChange.emit($event)">

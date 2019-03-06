@@ -51,6 +51,21 @@ export class DateRangePickerComponent {
     /** Specify whether or not the show now button should be visible */
     @Input() showNowBtn: boolean = false;
 
+    /** Defines the title to display above the start picker. */
+    @Input() selectStartTitle: string = 'Select Start Date';
+
+    /** Defines the title to display above the end picker. */
+    @Input() selectEndTitle: string = 'Select End Date';
+
+    /** Define the aria label for the now button */
+    @Input() nowBtnAriaLabel: string = 'Set date to now';
+
+    /** Defines the aria label for the range start picker */
+    @Input() startPickerAriaLabel: string = 'Range Start Date Picker';
+
+    /** Defines the aria label for the range end picker */
+    @Input() endPickerAriaLabel: string = 'Range End Date Picker';
+
     /** Defines whether or not the time picker should be visible. */
     @Input() set showTime(showTime: boolean) {
         this.rangeService.showTime = showTime;

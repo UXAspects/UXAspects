@@ -17,7 +17,7 @@
                         [class.range-start]="isRangeStartDate(item.date)"
                         [class.range-between]="isWithinRange(item.date) || isDateHovered(item.date)"
                         [class.range-end]="isRangeEndDate(item.date)"
-                        [focusIf]="(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year"
+                        [focusIf]="!_isRangeEnd && (dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year"
                         [attr.aria-label]="item.date | date"
                         [attr.aria-selected]="isItemActive(item.date, item.isActive)"
                         [attr.aria-hidden]="!item.isCurrentMonth"
