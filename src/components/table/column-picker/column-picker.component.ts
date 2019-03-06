@@ -142,6 +142,9 @@ export class ColumnPickerComponent {
             this._liveAnnouncer.announce(`Column moved ${delta > 0 ? 'down' : 'up'}`);
         }
 
+        // emit the changes
+        this.selectedChange.emit(this.selected);
+
         // perform change detection
         this._changeDetectorRef.detectChanges();
 

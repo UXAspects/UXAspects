@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren: './column-resizing/column-resizing.module#ColumnResizingTestPageModule'
     },
     {
+        path: 'column-picker',
+        loadChildren: './column-picker/column-picker.module#ColumnPickerTestPageModule'
+    },
+    {
         path: 'custom-facet',
         loadChildren: './custom-facet/custom-facet.module#CustomFacetTestPageModule'
     },
