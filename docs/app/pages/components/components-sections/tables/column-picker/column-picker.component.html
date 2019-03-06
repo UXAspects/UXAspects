@@ -4,56 +4,81 @@
     </div>
 
     <div class="col-md-5 col-sm-12 col-md-offset-2">
-        <p class="column-picker-stats">{{ selected.length }} columns added</p>
+        <p class="column-picker-stats">{{ selected.length + locked.length }} columns added</p>
     </div>
 </div>
 
 <div class="row">
 
     <div class="col-md-5 col-sm-12">
-        <ul class="column-picker-list" [(uxSelection)]="deselectedSelection">
-            <li *ngFor="let column of deselected"
-                class="column-picker-list-item"
-                [uxSelectionItem]="column">
+        <div class="column-picker-list" [(uxSelection)]="deselectedSelection">
+            <div *ngFor="let column of deselected" class="column-picker-list-item" [uxSelectionItem]="column">
                 {{ column }}
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-2 col-sm-12">
 
-        <button class="btn button-primary btn-block"
-                [disabled]="deselectedSelection.length === 0"
-                (click)="selectColumns()">
+        <button class="btn button-primary btn-block" [disabled]="deselectedSelection.length === 0" (click)="selectColumns()">
             <i class="hpe-icon hpe-chevron-right"></i>
         </button>
 
-        <button class="btn button-primary btn-block m-b-md"
-                [disabled]="selectedSelection.length === 0"
-                (click)="deselectColumns()">
+        <button class="btn button-primary btn-block m-b-md" [disabled]="selectedSelection.length === 0" (click)="deselectColumns()">
             <i class="hpe-icon hpe-chevron-left"></i>
         </button>
 
-        <button class="btn button-secondary btn-block"
-                [disabled]="deselected.length === 0"
-                (click)="selectAllColumns()">
+        <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="selectAllColumns()">
             <i class="hpe-icon hpe-chevron-right-double"></i>
         </button>
 
-        <button class="btn button-secondary btn-block"
-                [disabled]="selected.length === 0"
-                (click)="deselectAllColumns()">
+        <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="deselectAllColumns()">
             <i class="hpe-icon hpe-chevron-left-double"></i>
         </button>
     </div>
 
     <div class="col-md-5 col-sm-12">
-        <ul class="column-picker-list" [(uxSelection)]="selectedSelection">
-            <li *ngFor="let column of selected"
-                class="column-picker-list-item"
-                [uxSelectionItem]="column">
-                {{ column }}
-            </li>
-        </ul>
+        <div class="column-picker-list">
+
+            <div *ngFor="let column of locked" class="column-picker-list-item column-picker-list-item-locked">
+                {{ column }} <i class="hpe-icon hpe-lock"></i>
+            </div>
+
+            <div [(uxSelection)]="selectedSelection" uxReorderable [(reorderableModel)]="selectedSelection"
+                (reorderStart)="storeSelection()" (reorderEnd)="restoreSelection()">
+                <div *ngFor="let column of selected"
+                     class="column-picker-list-item column-picker-list-item-selected"
+                    [uxSelectionItem]="column"
+                    [uxReorderableModel]="column"
+                    <i uxReorderableHandle class="hpe-icon hpe-drag"></i>
+                    {{ column }}
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<hr>
+
+<p>
+    A column picker is a pattern that can be used to allow a user to select, deselect and reorder the columns in a
+    table. Selection is handled using the <a routerLink="/components/tables" fragment="selection">uxSelection</a> directive
+    and reordering can be added using the <a routerLink="/components/tables" fragment="reorderable-table">uxReorderable</a> directive.
+</p>
+
+<p>
+    The example above can be created using the following code:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

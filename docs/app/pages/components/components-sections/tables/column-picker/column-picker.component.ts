@@ -12,13 +12,24 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 @DocumentationSectionComponent('ComponentsColumnPickerComponent')
 export class ComponentsColumnPickerComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    /** Store a list of all possible columns */
-    columns: ReadonlyArray<string> = [
-        'ID',
+    /** Store a list of all selected columns */
+    selected: ReadonlyArray<string> = [
+        'Type',
+        'Date',
+        'Requested by',
+        'Status',
+        'Completion'
+    ];
+
+    /** Store a list of columns that must be selected */
+    locked: ReadonlyArray<string> = [
+        'ID'
+    ];
+
+    /** Store a list of columns that are not selected or locked */
+    deselected: ReadonlyArray<string> = [
         'Author',
         'Category',
-        'Completion',
-        'Date',
         'Date Created',
         'Date Modified',
         'Department',
@@ -31,27 +42,11 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         'Location ID',
         'Message',
         'Organization',
-        'Requested by',
-        'Status',
         'Time',
         'Time Created',
         'Time Modified',
-        'Type',
         'Work Completed'
     ];
-
-    /** Store a list of all selected columns */
-    selected: ReadonlyArray<string> = [
-        'ID',
-        'Type',
-        'Date',
-        'Requested by',
-        'Status',
-        'Completion'
-    ];
-
-    /** Store a list of columns that are not selected */
-    deselected: ReadonlyArray<string> = this.columns.filter(column => this.selected.indexOf(column) === -1);
 
     /** Store the list of deselected columns that can be moved */
     deselectedSelection: ReadonlyArray<string> = [];
@@ -59,10 +54,8 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
     /** Store the list of selected columns that can be moved */
     selectedSelection: ReadonlyArray<string> = [];
 
-    /** Store a list of columns that must be selected */
-    locked: ReadonlyArray<string> = [
-        'ID'
-    ];
+    /** Cache selection during reordering */
+    private _selection: ReadonlyArray<string> = [];
 
     plunk: IPlunk = {
         files: {
@@ -72,12 +65,8 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule'],
+                imports: ['ReorderableModule', 'SelectionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['ButtonsModule'],
-                library: 'ngx-bootstrap/buttons'
             }
         ]
     };
@@ -121,8 +110,13 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         this.deselectColumns(this.selected);
     }
 
-    /** Determine if the column can be moved */
-    isColumnLocked(column: string): boolean {
-        return this.locked.indexOf(column) === -1;
+    /** Ensure we don't select while dragging */
+    storeSelection(): void {
+        this._selection = [...this.selectedSelection];
+    }
+
+    /** Restore the selection once dragging ends */
+    restoreSelection(): void {
+        this.selectedSelection = this._selection;
     }
 }

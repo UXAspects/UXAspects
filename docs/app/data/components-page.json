@@ -1499,19 +1499,27 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "[uxResizableTable]"
+                            "content": "[uxReorderable]"
                         },
                         {
                             "title": "Selector",
-                            "content": "[uxResizableTableColumn]"
-                        },
-                        {
-                            "title": "Exported As",
-                            "content": "ux-resizable-table"
+                            "content": "[uxReorderableHandle]"
                         },
                         {
                             "title": "Module",
-                            "content": "TableModule"
+                            "content": "ReorderableModule"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxSelection]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxSelectionItem]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SelectionModule"
                         }
                     ]
                 },

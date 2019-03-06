@@ -1,79 +1,79 @@
-<table *ngIf="type === 'table'" class="table" aria-multiselectable="true" uxResizableTable>
-    <thead>
-        <tr>
-            <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-            <th uxResizableTableColumn [(width)]="titleWidth">
-                Title <small>{{ titleWidth | number }}px</small>
-            </th>
-            <th uxResizableTableColumn [(width)]="authorWidth">
-                Author <small>{{ authorWidth | number }}px</small>
-            </th>
-            <th uxResizableTableColumn (widthChange)="dateWidth = $event">
-                Date <small>{{ dateWidth | number }}px</small>
-            </th>
-        </tr>
-    </thead>
-    <tbody [(uxSelection)]="selection">
-        <tr *ngFor="let document of documents | slice:0:5"
-            [attr.aria-selected]="document.selected"
-            [uxSelectionItem]="document"
-            [(selected)]="document.selected">
+<div class="row">
+    <div class="col-md-5 col-sm-12">
+        <p class="column-picker-stats">
+            {{ deselectedSelection.length }} of {{ deselected.length }} selected
+        </p>
+    </div>
 
-            <td class="checkbox-column">
-                <ux-checkbox aria-hidden="true"
-                    tabindex="-1"
-                    [(ngModel)]="document.selected">
-                </ux-checkbox>
-            </td>
-            <td>{{ document.title }}</td>
-            <td>{{ document.author }}</td>
-            <td>{{ document.date | date }}</td>
-        </tr>
-    </tbody>
-</table>
+    <div class="col-md-5 col-sm-12 col-md-offset-2">
+        <p class="column-picker-stats">
+            {{ selected.length + locked.length }} columns added
+        </p>
+    </div>
+</div>
 
-<table *ngIf="type === 'fixed'"
-    class="table"
-    aria-multiselectable="true"
-    uxResizableTable
-    uxFixedHeaderTable
-    [tableHeight]="230">
-    <thead>
-        <tr>
-            <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-            <th uxResizableTableColumn [(width)]="titleWidth">
-                Title <small class="m-l-xs">{{ titleWidth | number }}px</small>
-            </th>
-            <th uxResizableTableColumn [(width)]="authorWidth">
-                Author <small class="m-l-xs">{{ authorWidth | number }}px</small>
-            </th>
-            <th uxResizableTableColumn (widthChange)="dateWidth = $event">
-                Date <small class="m-l-xs">{{ dateWidth | number }}px</small>
-            </th>
-        </tr>
-    </thead>
-    <tbody [(uxSelection)]="selection">
-        <tr *ngFor="let document of documents"
-            [attr.aria-selected]="document.selected"
-            [uxSelectionItem]="document"
-            [(selected)]="document.selected">
+<div class="row">
 
-            <td class="checkbox-column" uxResizableTableCell>
-                <ux-checkbox aria-hidden="true"
-                    tabindex="-1"
-                    [(ngModel)]="document.selected">
-                </ux-checkbox>
-            </td>
-            <td uxResizableTableCell>{{ document.title }}</td>
-            <td uxResizableTableCell>{{ document.author }}</td>
-            <td uxResizableTableCell>{{ document.date | date }}</td>
-        </tr>
-    </tbody>
-</table>
+    <div class="col-md-5 col-sm-12">
+        <div class="column-picker-list" [(uxSelection)]="deselectedSelection">
+            <div *ngFor="let column of deselected"
+                 class="column-picker-list-item"
+                 [uxSelectionItem]="column">
+                {{ column }}
+            </div>
+        </div>
+    </div>
 
-<div class="btn-group">
-    <button type="button" class="btn button-toggle-primary"
-        [(ngModel)]="type" btnRadio="table">Standard Table</button>
-    <button type="button" class="btn button-toggle-primary"
-        [(ngModel)]="type" btnRadio="fixed">Fixed Header Table</button>
+    <div class="col-md-2 col-sm-12">
+
+        <button class="btn button-primary btn-block"
+                [disabled]="deselectedSelection.length === 0"
+                (click)="selectColumns()">
+            <i class="hpe-icon hpe-chevron-right"></i>
+        </button>
+
+        <button class="btn button-primary btn-block m-b-md"
+                [disabled]="selectedSelection.length === 0"
+                (click)="deselectColumns()">
+            <i class="hpe-icon hpe-chevron-left"></i>
+        </button>
+
+        <button class="btn button-secondary btn-block"
+                [disabled]="deselected.length === 0"
+                (click)="selectAllColumns()">
+            <i class="hpe-icon hpe-chevron-right-double"></i>
+        </button>
+
+        <button class="btn button-secondary btn-block"
+                [disabled]="selected.length === 0"
+                (click)="deselectAllColumns()">
+            <i class="hpe-icon hpe-chevron-left-double"></i>
+        </button>
+    </div>
+
+    <div class="col-md-5 col-sm-12">
+        <div class="column-picker-list">
+
+            <div *ngFor="let column of locked"
+                 class="column-picker-list-item column-picker-list-item-locked">
+                {{ column }} <i class="hpe-icon hpe-lock"></i>
+            </div>
+
+            <div [(uxSelection)]="selectedSelection"
+                 uxReorderable
+                 [(reorderableModel)]="selectedSelection"
+                 (reorderStart)="storeSelection()"
+                 (reorderEnd)="restoreSelection()">
+
+                <div *ngFor="let column of selected"
+                     class="column-picker-list-item column-picker-list-item-selected"
+                    [uxSelectionItem]="column"
+                    [uxReorderableModel]="column">
+                    <i uxReorderableHandle class="hpe-icon hpe-drag"></i>
+                    {{ column }}
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
