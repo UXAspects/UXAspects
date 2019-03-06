@@ -86,7 +86,7 @@
                  class="column-picker-list-item column-picker-list-item-selected"
                  [uxSelectionItem]="column"
                  [uxReorderableModel]="column"
-                 [attr.aria-label]="getSelectedAriaLabel(column, index)"
+                 [attr.aria-label]="getSelectedAriaLabel(column)"
                  (keydown.alt.arrowup)="move(column, -1)"
                  (keydown.alt.arrowdown)="move(column, 1)">
 
