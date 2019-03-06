@@ -112,7 +112,7 @@ export function treegridMultipleSelectItem() {
 
                     // check if the item should initially be selected
                     if (selectionModel.isSelected(treeGridRow.dataItem)) {
-                        setSelected(treeGridRow, true);
+                        setState(treeGridRow, true);
                     }
 
                     scope.$on('destroy', () => {
@@ -134,7 +134,7 @@ export function treegridMultipleSelectItem() {
 
                 if (selectionModel.isSelected(treeGridRow.dataItem)) {
                     selectionModel.origin = scope.$index;
-                    setSelected(treeGridRow, true);
+                    setState(treeGridRow, true);
                 }
             }
 
@@ -148,9 +148,9 @@ export function treegridMultipleSelectItem() {
 
                     if (selectionModel.isSelected(treeGridRow.dataItem)) {
                         selectionModel.origin = scope.$index;
-                        setSelected(treeGridRow, true);
+                        setState(treeGridRow, true);
                     } else {
-                        setSelected(treeGridRow, false);
+                        setState(treeGridRow, false);
                     }
                 }
             }
@@ -197,7 +197,7 @@ export function treegridMultipleSelectItem() {
                 selectionModel.setSelection(...dataItems);
 
                 // iterate each enabled row and update the selected state
-                rows.filter(row => !row.dataItem || isRowDisabled(row) !== true).forEach(row => setSelected(row, true));
+                rows.filter(row => !row.dataItem || isRowDisabled(row) !== true).forEach(row => setState(row, true));
             }
 
             function getRowDataItemsToSelect(lastIndex, currentIndex) {
@@ -226,7 +226,16 @@ export function treegridMultipleSelectItem() {
                 return rowElement.scope().$eval(rowElement.attr('treegrid-multiple-select-item'));
             }
 
-            function setSelected(row, isSelected, shouldUpdateChildren = true) {
+            function setSelected(row, isSelected) {
+
+                row.selected = isSelected;
+
+                if (selectOptions.selectChildren) {
+                    setSelectedChildren(row.dataItem, isSelected);
+                }
+            }
+
+            function setState(row, isSelected, shouldUpdateChildren = true) {
 
                 // if the item is not selected but indeterinate
                 const isIndeterminate = getIndeterminateState(treeGridRow.dataItem) === -1;
@@ -254,7 +263,7 @@ export function treegridMultipleSelectItem() {
                 }
 
                 // set the selected state of this row accordingly
-                setSelected(treeGridRow, isSelected, false);
+                setState(treeGridRow, isSelected, false);
 
                 // if the row was selected but is now indeterminate or deselected then deselect it
                 if (selectionModel.isSelected(treeGridRow.dataItem) && isSelected !== true) {
