@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, OnDestroy, Optional } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -42,6 +43,7 @@ export class MonthViewComponent implements OnDestroy {
     constructor(
         private _datePicker: DateTimePickerService,
         public monthService: MonthViewService,
+        private _liveAnnouncer: LiveAnnouncer,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
         this._subscription = _datePicker.headerEvent$
@@ -149,5 +151,12 @@ export class MonthViewComponent implements OnDestroy {
 
         // otherwise make the first month tabbable
         return item.month === 0;
+    }
+
+    /** Announce the date when we focus on a date */
+    announceRangeMode(): void {
+        if (this._isRangeMode) {
+            this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+        }
     }
 }

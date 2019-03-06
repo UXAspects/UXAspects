@@ -24,6 +24,7 @@ export class DayViewService implements OnDestroy {
     }
 
     setFocus(day: number, month: number, year: number): void {
+
         this.focused$.next({ day: day, month: month, year: year });
 
         // update the date picker to show the required month and year

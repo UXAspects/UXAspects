@@ -15,6 +15,7 @@
          [class.active]="item.isActiveYear"
          [disabled]="getDisabled(item)"
          (click)="select(item.year); $event.stopPropagation()"
+         (focus)="announceRangeMode()"
          (keydown.ArrowLeft)="focusYear(item, -1); $event.preventDefault()"
          (keydown.ArrowRight)="focusYear(item, 1); $event.preventDefault()"
          (keydown.ArrowUp)="focusYear(item, -4); $event.preventDefault()"

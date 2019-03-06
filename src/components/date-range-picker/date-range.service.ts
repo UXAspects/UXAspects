@@ -30,6 +30,12 @@ export class DateRangeService {
     /** Indicate if we should show time */
     showTime: boolean = false;
 
+    /** Defines the aria label for the range start picker */
+    startPickerAriaLabel: string = 'Selecting the start date';
+
+    /** Defines the aria label for the range end picker */
+    endPickerAriaLabel: string = 'Selecting the end date';
+
     setStartDate(date: Date | null): void {
 
         // if the start date is after the end date the clear the end date

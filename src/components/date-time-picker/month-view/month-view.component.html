@@ -16,6 +16,7 @@
          [class.active]="item.isActiveMonth"
          [class.current]="item.isCurrentMonth"
          (click)="select(item.month); $event.stopPropagation()"
+         (focus)="announceRangeMode()"
          (keydown.ArrowLeft)="focusMonth(item, -1); $event.preventDefault()"
          (keydown.ArrowRight)="focusMonth(item, 1); $event.preventDefault()"
          (keydown.ArrowUp)="focusMonth(item, -4); $event.preventDefault()"

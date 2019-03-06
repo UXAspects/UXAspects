@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
@@ -39,6 +40,7 @@ export class YearViewComponent {
     constructor(
         private _datePicker: DateTimePickerService,
         public yearService: YearViewService,
+        private _liveAnnouncer: LiveAnnouncer,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) { }
 
@@ -108,6 +110,13 @@ export class YearViewComponent {
 
         // otherwise make the first month tabbable
         return grid[0][0].year === item.year;
+    }
+
+    /** Announce the date when we focus on a date */
+    announceRangeMode(): void {
+        if (this._isRangeMode) {
+            this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+        }
     }
 
 }

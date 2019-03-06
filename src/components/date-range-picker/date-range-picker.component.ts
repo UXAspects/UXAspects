@@ -61,10 +61,14 @@ export class DateRangePickerComponent {
     @Input() nowBtnAriaLabel: string = 'Set date to now';
 
     /** Defines the aria label for the range start picker */
-    @Input() startPickerAriaLabel: string = 'Range Start Date Picker';
+    @Input() set startPickerAriaLabel(label: string) {
+        this.rangeService.startPickerAriaLabel = label;
+    }
 
     /** Defines the aria label for the range end picker */
-    @Input() endPickerAriaLabel: string = 'Range End Date Picker';
+    @Input() set endPickerAriaLabel(label: string) {
+        this.rangeService.endPickerAriaLabel = label;
+    }
 
     /** Defines whether or not the time picker should be visible. */
     @Input() set showTime(showTime: boolean) {
