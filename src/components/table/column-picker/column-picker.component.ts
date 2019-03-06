@@ -8,13 +8,13 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
 })
 export class ColumnPickerComponent {
 
-    /** Store a list of all selected columns */
+    /** Define a list of all selected columns */
     @Input() selected: ReadonlyArray<string> = [];
 
-    /** Store a list of columns that must be selected */
+    /** Define a list of columns that must be selected */
     @Input() locked: ReadonlyArray<string> = [];
 
-    /** Store a list of columns that are not selected or locked */
+    /** Define a list of columns that are not selected or locked */
     @Input() deselected: ReadonlyArray<string> = [];
 
     /** Define a custom selected title template */
@@ -38,10 +38,10 @@ export class ColumnPickerComponent {
     /** Define a function that return a column move announcement */
     @Input() columnMovedAnnouncement: (column: string, delta: number) => string = this.getColumnMovedAnnouncement;
 
-    /** Emit when the selected items change */
+    /** Emits when the selected items change */
     @Output() selectedChange = new EventEmitter<ReadonlyArray<string>>();
 
-    /** Emit when the deselected items change */
+    /** Emits when the deselected items change */
     @Output() deselectedChange = new EventEmitter<ReadonlyArray<string>>();
 
     /** Store the list of deselected columns that can be moved */
@@ -127,8 +127,8 @@ export class ColumnPickerComponent {
     }
 
     /** Get the announcement to read when a selected column is moved */
-    getColumnMovedAnnouncement(_column: string, delta: number): string {
-        return `Column moved ${delta > 0 ? 'down' : 'up'}`;
+    getColumnMovedAnnouncement(column: string, delta: number): string {
+        return `${column} column moved ${delta > 0 ? 'down' : 'up'}`;
     }
 
     /** Perform a reorder with the keyboard */
@@ -151,14 +151,16 @@ export class ColumnPickerComponent {
             const target = this.selectedElements.toArray()[columnIndex];
 
             if (target) {
+
+                // focus the element
                 target.nativeElement.focus();
             }
         });
     }
 
     /** Provide a trackBy function for the reorderable options */
-    selectedTrackBy(_index: number, column: string): string {
-        return column;
+    selectedTrackBy(index: number, column: string): string {
+        return index + column;
     }
 
     /** Swap two elements in the selected columns array */

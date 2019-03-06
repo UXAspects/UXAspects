@@ -3,9 +3,55 @@
 <hr>
 
 <p>
-    A column picker is a pattern that can be used to allow a user to select, deselect and reorder the columns in a
+    A <code>ux-column-picker</code> can be used to allow a user to select, deselect and reorder the columns in a
     table.
 </p>
+
+<p>
+    The following properties can be used to configure the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="selected" type="ReadonlyArray<string>">
+        Define a list of all selected columns.
+    </tr>
+    <tr uxd-api-property name="locked" type="ReadonlyArray<string>">
+        Define a list of columns that are always selected. The columns cannot be moved or reordered.
+    </tr>
+    <tr uxd-api-property name="deselected" type="ReadonlyArray<string>">
+        Define a list of columns that are not selected or locked.
+    </tr>
+    <tr uxd-api-property name="selectedTitleTemplate" type="TemplateRef">
+        Define a custom selected title template.
+    </tr>
+    <tr uxd-api-property name="deselectedTitleTemplate" type="TemplateRef">
+        Define a custom deselected title template.
+    </tr>
+    <tr uxd-api-property name="deselectedTemplate" type="TemplateRef">
+        Define a custom template for deselected items.
+    </tr>
+    <tr uxd-api-property name="selectedTemplate" type="TemplateRef">
+        Define a custom template for selected items.
+    </tr>
+    <tr uxd-api-property name="lockedTemplate" type="TemplateRef">
+        Define a custom template for locked items.
+    </tr>
+    <tr uxd-api-property name="selectedAriaLabel" type="(column: string, index: number) => string">
+        Define a function to get the aria label of reorderable items in the selected column.
+    </tr>
+    <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
+        Define a function that returns a column move announcement.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string>">
+        Emits when the selected items change or the order of the selected items change.
+    </tr>
+    <tr uxd-api-property name="deselectedChange" type="ReadonlyArray<string>">
+        Emits when the deselected items change.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The example above can be created using the following code:

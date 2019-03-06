@@ -1499,27 +1499,11 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "[uxReorderable]"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[uxReorderableHandle]"
+                            "content": "ux-column-picker"
                         },
                         {
                             "title": "Module",
-                            "content": "ReorderableModule"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[uxSelection]"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "[uxSelectionItem]"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "SelectionModule"
+                            "content": "TableModule"
                         }
                     ]
                 },

@@ -56,7 +56,7 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['ReorderableModule', 'SelectionModule'],
+                imports: ['TableModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

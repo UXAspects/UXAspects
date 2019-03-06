@@ -1,7 +1,15 @@
 <div class="column-picker-column">
 
     <div class="column-picker-stats">
-        <ng-container [ngTemplateOutlet]="deselectedTitleTemplate || defaultDeselectedTitleTemplate"></ng-container>
+
+        <ng-container *ngIf="!deselectedTitleTemplate">
+            {{ _deselectedSelection.length }} of {{ deselected.length }} selected
+        </ng-container>
+
+        <ng-container
+            *ngIf="deselectedTitleTemplate"
+            [ngTemplateOutlet]="deselectedTitleTemplate">
+        </ng-container>
     </div>
 
     <div class="column-picker-list" [(uxSelection)]="_deselectedSelection">
@@ -9,8 +17,12 @@
         <div *ngFor="let column of deselected"
              class="column-picker-list-item"
              [uxSelectionItem]="column">
+
+            <ng-container *ngIf="!deselectedTemplate">{{ column }}</ng-container>
+
             <ng-container
-                [ngTemplateOutlet]="deselectedTemplate || defaultDeselectedTemplate"
+                *ngIf="deselectedTemplate"
+                [ngTemplateOutlet]="deselectedTemplate"
                 [ngTemplateOutletContext]="{ $implicit: column }">
             </ng-container>
         </div>
@@ -37,15 +49,29 @@
 
 <div class="column-picker-column">
     <div class="column-picker-stats">
-        <ng-container [ngTemplateOutlet]="selectedTitleTemplate || defaultSelectedTitleTemplate"></ng-container>
+
+        <ng-container *ngIf="!selectedTitleTemplate">
+            {{ selected.length + locked.length }} columns added
+        </ng-container>
+
+        <ng-container
+            *ngIf="!selectedTitleTemplate"
+            [ngTemplateOutlet]="selectedTitleTemplate">
+        </ng-container>
     </div>
 
     <div class="column-picker-list">
 
         <div *ngFor="let column of locked"
              class="column-picker-list-item column-picker-list-item-locked">
+
+             <ng-container *ngIf="!lockedTemplate">
+                {{ column }} <i class="hpe-icon hpe-lock"></i>
+            </ng-container>
+
              <ng-container
-                [ngTemplateOutlet]="lockedTemplate || defaultLockedTemplate"
+                *ngIf="lockedTemplate"
+                [ngTemplateOutlet]="lockedTemplate"
                 [ngTemplateOutletContext]="{ $implicit: column }">
             </ng-container>
         </div>
@@ -56,7 +82,7 @@
             <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
                  #selectedColumn
                  uxFocusIndicator
-                 uxFocusIndicatorOrigin
+                 [programmaticFocusIndicator]="true"
                  class="column-picker-list-item column-picker-list-item-selected"
                  [uxSelectionItem]="column"
                  [uxReorderableModel]="column"
@@ -64,8 +90,14 @@
                  (keydown.alt.arrowup)="move(column, -1)"
                  (keydown.alt.arrowdown)="move(column, 1)">
 
+                 <ng-container *ngIf="!selectedTemplate">
+                    <i uxReorderableHandle class="hpe-icon hpe-drag"></i>
+                    {{ column }}
+                 </ng-container>
+
                  <ng-container
-                    [ngTemplateOutlet]="selectedTemplate || defaultSelectedTemplate"
+                    *ngIf="selectedTemplate"
+                    [ngTemplateOutlet]="selectedTemplate"
                     [ngTemplateOutletContext]="{ $implicit: column }">
                 </ng-container>
             </div>
@@ -73,24 +105,3 @@
 
     </div>
 </div>
-
-<ng-template #defaultDeselectedTitleTemplate>
-    {{ _deselectedSelection.length }} of {{ deselected.length }} selected
-</ng-template>
-
-<ng-template #defaultSelectedTitleTemplate>
-    {{ selected.length + locked.length }} columns added
-</ng-template>
-
-<ng-template #defaultDeselectedTemplate let-column>
-    {{ column }}
-</ng-template>
-
-<ng-template #defaultSelectedTemplate let-column>
-    <i uxReorderableHandle class="hpe-icon hpe-drag"></i>
-    {{ column }}
-</ng-template>
-
-<ng-template #defaultLockedTemplate let-column>
-    {{ column }} <i class="hpe-icon hpe-lock"></i>
-</ng-template>
