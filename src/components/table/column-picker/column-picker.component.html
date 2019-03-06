@@ -1,0 +1,96 @@
+<div class="column-picker-column">
+
+    <div class="column-picker-stats">
+        <ng-container [ngTemplateOutlet]="deselectedTitleTemplate || defaultDeselectedTitleTemplate"></ng-container>
+    </div>
+
+    <div class="column-picker-list" [(uxSelection)]="_deselectedSelection">
+
+        <div *ngFor="let column of deselected"
+             class="column-picker-list-item"
+             [uxSelectionItem]="column">
+            <ng-container
+                [ngTemplateOutlet]="deselectedTemplate || defaultDeselectedTemplate"
+                [ngTemplateOutletContext]="{ $implicit: column }">
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="column-picker-actions-column">
+    <button class="btn button-primary btn-block" [disabled]="_deselectedSelection.length === 0" (click)="addColumns()">
+        <i class="hpe-icon hpe-chevron-right"></i>
+    </button>
+
+    <button class="btn button-primary btn-block m-b-md" [disabled]="_selectedSelection.length === 0" (click)="removeColumns()">
+        <i class="hpe-icon hpe-chevron-left"></i>
+    </button>
+
+    <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="addAllColumns()">
+        <i class="hpe-icon hpe-chevron-right-double"></i>
+    </button>
+
+    <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="removeAllColumns()">
+        <i class="hpe-icon hpe-chevron-left-double"></i>
+    </button>
+</div>
+
+<div class="column-picker-column">
+    <div class="column-picker-stats">
+        <ng-container [ngTemplateOutlet]="selectedTitleTemplate || defaultSelectedTitleTemplate"></ng-container>
+    </div>
+
+    <div class="column-picker-list">
+
+        <div *ngFor="let column of locked"
+             class="column-picker-list-item column-picker-list-item-locked">
+             <ng-container
+                [ngTemplateOutlet]="lockedTemplate || defaultLockedTemplate"
+                [ngTemplateOutletContext]="{ $implicit: column }">
+            </ng-container>
+        </div>
+
+        <div [(uxSelection)]="_selectedSelection" uxReorderable [reorderableModel]="selected" (reorderableModelChange)="onReorderChange($event)" (reorderStart)="storeSelection()"
+            (reorderEnd)="restoreSelection()" (reorderEnd)="onReorder()">
+
+            <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
+                 #selectedColumn
+                 uxFocusIndicator
+                 uxFocusIndicatorOrigin
+                 class="column-picker-list-item column-picker-list-item-selected"
+                 [uxSelectionItem]="column"
+                 [uxReorderableModel]="column"
+                 [attr.aria-label]="getSelectedAriaLabel(column, index)"
+                 (keydown.alt.arrowup)="move(column, -1)"
+                 (keydown.alt.arrowdown)="move(column, 1)">
+
+                 <ng-container
+                    [ngTemplateOutlet]="selectedTemplate || defaultSelectedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: column }">
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #defaultDeselectedTitleTemplate>
+    {{ _deselectedSelection.length }} of {{ deselected.length }} selected
+</ng-template>
+
+<ng-template #defaultSelectedTitleTemplate>
+    {{ selected.length + locked.length }} columns added
+</ng-template>
+
+<ng-template #defaultDeselectedTemplate let-column>
+    {{ column }}
+</ng-template>
+
+<ng-template #defaultSelectedTemplate let-column>
+    <i uxReorderableHandle class="hpe-icon hpe-drag"></i>
+    {{ column }}
+</ng-template>
+
+<ng-template #defaultLockedTemplate let-column>
+    {{ column }} <i class="hpe-icon hpe-lock"></i>
+</ng-template>
