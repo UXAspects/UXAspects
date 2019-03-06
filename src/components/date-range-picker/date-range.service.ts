@@ -18,6 +18,12 @@ export class DateRangeService {
     /** Specify the date we are hovering over */
     hover: Date;
 
+    /** Emit whenever the start date changes */
+    onStartChange = new Subject<Date>();
+
+    /** Emit whenever the end date changes */
+    onEndChange = new Subject<Date>();
+
     /** Emit whenever the range has changed */
     onRangeChange = new Subject<void>();
 
@@ -44,6 +50,7 @@ export class DateRangeService {
         }
 
         this.start = date;
+        this.onStartChange.next(this.start);
         this.onRangeChange.next();
     }
 
@@ -55,6 +62,7 @@ export class DateRangeService {
         }
 
         this.end = date;
+        this.onEndChange.next(this.end);
         this.onRangeChange.next();
     }
 
