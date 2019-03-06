@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, Optional } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
+import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
+import { isDateAfter, isDateBefore } from '../date-time-picker.utils';
 import { MonthViewItem, MonthViewService } from './month-view.service';
 
 @Component({
@@ -13,13 +16,63 @@ export class MonthViewComponent implements OnDestroy {
 
     private _subscription: Subscription;
 
-    constructor(private _datePicker: DateTimePickerService, public monthService: MonthViewService) {
+    /** Determine if we are in range selection mode */
+    get _isRangeMode(): boolean {
+        return !!this._rangeOptions;
+    }
+
+    /** Determine if this picker is the start picker */
+    get _isRangeStart(): boolean {
+        return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+    }
+
+    /** Determine if this picker is the end picker */
+    get _isRangeEnd(): boolean {
+        return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+    }
+
+    get _rangeStart(): Date | null {
+        return this._isRangeMode && this._rangeService ? this._rangeService.start : null;
+    }
+
+    get _rangeEnd(): Date | null {
+        return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
+    }
+
+    constructor(
+        private _datePicker: DateTimePickerService,
+        public monthService: MonthViewService,
+        @Optional() private _rangeService: DateRangeService,
+        @Optional() private _rangeOptions: DateRangeOptions) {
         this._subscription = _datePicker.headerEvent$
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
     }
 
     ngOnDestroy(): void {
         this._subscription.unsubscribe();
+    }
+
+    /** Get the disabled state of a month */
+    getDisabled(item: MonthViewItem): boolean {
+
+        const date = new Date(item.year, item.month);
+
+        // if we are not in range mode then it will always be enabled
+        if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
+            return false;
+        }
+
+        // if we are range start and dates are after the range end then they should also be disabled
+        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+            return true;
+        }
+
+        // if we are range end and dates are before the range start then they should also be disabled
+        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

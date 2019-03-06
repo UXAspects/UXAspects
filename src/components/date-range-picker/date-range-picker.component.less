@@ -1,0 +1,139 @@
+ux-date-range-picker {
+    display: inline-flex;
+    flex-direction: column;
+
+    .range-header {
+        display: flex;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        height: 72px;
+        margin: 0 4px;
+    }
+
+    .header-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-separator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        flex: none;
+        color: @primary;
+
+        > .hpe-icon {
+            font-size: 1.5rem;
+        }
+
+        .duration {
+            text-align: center;
+        }
+    }
+
+    .date-header,
+    .select-header {
+        margin: 0 0 8px;
+        font-weight: 600;
+    }
+
+    .time-header {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 600;
+        height: 15px;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    // style the child date pickers
+    ux-date-time-picker {
+        ux-date-time-picker-day-view,
+        ux-date-time-picker-month-view,
+        ux-date-time-picker-year-view {
+            height: 210px;
+        }
+
+        ux-date-time-picker-time-view {
+            border-bottom: none;
+        }
+
+        &:first-of-type {
+            margin-right: 8px;
+        }
+
+        &:last-of-type {
+            margin-left: 8px;
+        }
+
+        .calendar-container {
+            ux-date-time-picker-day-view .calendar .date-cell .date-button {
+                &.active {
+                    background-color: rgba(@primary, 0.1);
+                    color: @grey1;
+
+                    &:hover {
+                        background-color: rgba(@primary, 0.1);
+                        color: @grey1;
+                    }
+                }
+
+                &.range-start {
+                    background-color: rgba(@primary, 0.1);
+                    box-shadow: inset 2px 0 @primary;
+
+                    &.preview,
+                    &.preview.active {
+                        color: #999;
+                        box-shadow: inset 2px 0 rgba(@primary, 0.5);
+                    }
+                }
+
+                &.range-between {
+                    background-color: rgba(@primary, 0.05);
+                }
+
+                &.range-end {
+                    background-color: rgba(@primary, 0.1);
+                    box-shadow: inset -2px 0 @primary;
+
+                    &.preview,
+                    &.preview.active {
+                        color: #999;
+                        box-shadow: inset -2px 0 rgba(@primary, 0.5);
+                    }
+                }
+
+                &.range-start.range-end {
+                    box-shadow: inset -2px 0 @primary, inset 2px 0 @primary;
+
+                    &.preview,
+                    &.preview.active {
+                        color: #999;
+                        box-shadow: inset -2px 0 rgba(@primary, 0.5), inset 2px 0 rgba(@primary, 0.5);
+                    }
+                }
+
+                &:disabled {
+                    color: #bdbec0;
+                }
+            }
+
+            ux-date-time-picker-month-view .calendar .calendar-item:disabled,
+            ux-date-time-picker-year-view .calendar .calendar-item:disabled {
+                color: #bdbec0;
+                cursor: default;
+
+                &:hover:not(.active):not(.current) {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}

@@ -34,6 +34,10 @@ const routes: Routes = [
         loadChildren: './date-time-picker/date-time-picker.module#DateTimePickerTestPageModule'
     },
     {
+        path: 'date-range-picker',
+        loadChildren: './date-range-picker/date-range-picker.module#DateRangePickerTestPageModule'
+    },
+    {
         path: 'expanding-text-area',
         loadChildren: './expanding-text-area/expanding-text-area.module#ExpandingTextAreaModule'
     },

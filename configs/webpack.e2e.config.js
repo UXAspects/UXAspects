@@ -74,22 +74,23 @@ module.exports = {
             include: join(cwd(), 'e2e', 'pages', 'app'),
             use: 'raw-loader'
         },
-        {
-            test: /\.js$|\.ts$/,
-            use: {
-                loader: 'istanbul-instrumenter-loader',
-                options: { esModules: true }
-            },
-            enforce: 'post',
-            exclude: [
-                /node_modules/,
-                /ng1/,
-                /e2e\\pages/,
-                /\.e2e-spec\.ts$/,
-                /\.po\.spec\.ts$/,
-                /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/
-            ]
-        },
+        // Disabled until reporting is re-enabled
+        // {
+        //     test: /\.js$|\.ts$/,
+        //     use: {
+        //         loader: 'istanbul-instrumenter-loader',
+        //         options: { esModules: true }
+        //     },
+        //     enforce: 'post',
+        //     exclude: [
+        //         /node_modules/,
+        //         /ng1/,
+        //         /e2e\\pages/,
+        //         /\.e2e-spec\.ts$/,
+        //         /\.po\.spec\.ts$/,
+        //         /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/
+        //     ]
+        // },
         // Ignore warnings about System.import in Angular
         {
             test: /[\/\\]@angular[\/\\].+\.js$/,

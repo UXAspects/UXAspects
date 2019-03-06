@@ -315,6 +315,21 @@
                     ]
                 },
                 {
+                    "title": "Date Range Picker",
+                    "component": "ComponentsDateRangePickerComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-date-range-picker"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DateRangePickerModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Date Picker",
                     "component": "ComponentsDatePickerNg1Component",
                     "version": "AngularJS",

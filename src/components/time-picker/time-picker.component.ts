@@ -1,9 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,7 +17,7 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
         'aria-label': 'Time Picker'
     }
 })
-export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
+export class TimePickerComponent implements ControlValueAccessor {
 
     /** Whether the arrow keys can be used to increment or decrement the selected time component. */
     @Input() arrowkeys: boolean = true;
@@ -70,15 +66,23 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
     /** The value to display. */
     @Input() set value(value: Date) {
-        this.value$.next(new Date(value));
-        this.valueChange.emit(this.value$.value);
+        this._value = new Date(value);
+        this.valueChange.emit(this._value);
 
-        this.onChangeCallback(this.value$.value);
+        this.onChangeCallback(this._value);
         this.onTouchedCallback();
     }
 
     get value(): Date {
-        return new Date(this.value$.value);
+        return new Date(this._value);
+    }
+
+    get _meridian(): string {
+        return this._value.getHours() < 12 ? this.meridians[0] : this.meridians[1];
+    }
+
+    get _valid(): boolean {
+        return this.checkValidity(this._value);
     }
 
     /** Emitted when the `value` changes. */
@@ -90,25 +94,8 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     onTouchedCallback: () => void = () => { };
     onChangeCallback: (_: Date) => void = () => { };
 
-    value$ = new BehaviorSubject<Date>(new Date());
-
-    // create observables that are derived from the latest value
-    hour$: Observable<number> = this.value$.pipe(map(date => date.getHours()), map(hour => this.showMeridian ? this.getMeridianTime(hour) : hour));
-    minute$: Observable<number> = this.value$.pipe(map(date => date.getMinutes()));
-    second$: Observable<number> = this.value$.pipe(map(date => date.getSeconds()));
-    meridian$: Observable<string> = this.value$.pipe(map(date => date.getHours() < 12 ? this.meridians[0] : this.meridians[1]));
-    valid$: Observable<boolean> = this.value$.pipe(map(date => this.checkValidity(date)));
-
-    private _meridian: string = this.meridians[0];
-    private _subscription: Subscription;
-
-    constructor() {
-        this._subscription = this.valid$.pipe(distinctUntilChanged()).subscribe(valid => this.isValid.emit(valid));
-    }
-
-    ngOnDestroy(): void {
-        this._subscription.unsubscribe();
-    }
+    private _value = new Date();
+    private _isValid: boolean = true;
 
     writeValue(value: Date): void {
         this.value = value;
@@ -200,7 +187,6 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     }
 
     selectMeridian(meridian: string): void {
-        this._meridian = meridian;
 
         // get the current time
         const hour = this.value.getHours();
@@ -223,12 +209,14 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     checkValidity(date: Date): boolean {
         let valid = true;
 
-        if (this.min && date.getTime() <= this.min.getTime()) {
+        if (this.min && date.getTime() <= this.min.getTime() || this.max && date.getTime() >= this.max.getTime()) {
             valid = false;
         }
 
-        if (this.max && date.getTime() >= this.max.getTime()) {
-            valid = false;
+        // if the valid state has changed then emit the isValid output
+        if (valid !== this._isValid) {
+            this._isValid = valid;
+            this.isValid.emit(valid);
         }
 
         return valid;
@@ -238,7 +226,7 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
         // convert the string to a number
         let hour = parseInt(value);
-        let currentHour = this.value.getHours();
+        const currentHour = this.value.getHours();
 
         // if the value hasn't changed, do nothing
         if (hour === currentHour) {
@@ -279,7 +267,7 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
         // convert the string to a number
         let minute = parseInt(value);
-        let currentMinute = this.value.getMinutes();
+        const currentMinute = this.value.getMinutes();
 
         // if the value hasn't changed, do nothing
         if (minute === currentMinute) {
@@ -304,7 +292,7 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     secondChange(value: string): void {
         // convert the string to a number
         let second = parseInt(value);
-        let currentSecond = this.value.getSeconds();
+        const currentSecond = this.value.getSeconds();
 
         // if the value hasn't changed, do nothing
         if (second === currentSecond) {
