@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DateTimePickerService } from '../date-time-picker.service';
@@ -11,7 +14,7 @@ import { YearViewItem, YearViewService } from './year-view.service';
     providers: [YearViewService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YearViewComponent {
+export class YearViewComponent implements OnDestroy {
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -36,11 +39,24 @@ export class YearViewComponent {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
+    private _onDestroy = new Subject<void>();
+
     constructor(
         private _datePicker: DateTimePickerService,
         public yearService: YearViewService,
+        private _liveAnnouncer: LiveAnnouncer,
+        changeDetector: ChangeDetectorRef,
         @Optional() private _rangeService: DateRangeService,
-        @Optional() private _rangeOptions: DateRangeOptions) { }
+        @Optional() private _rangeOptions: DateRangeOptions) {
+        if (this._rangeService) {
+            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => changeDetector.detectChanges());
+        }
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
 
     select(year: number): void {
         this._datePicker.setViewportYear(year);
@@ -80,7 +96,7 @@ export class YearViewComponent {
         return index;
     }
 
-    trackYearByFn(index: number, item: YearViewItem): number {
+    trackYearByFn(_index: number, item: YearViewItem): number {
         return item.year;
     }
 
@@ -106,8 +122,24 @@ export class YearViewComponent {
             return item.isActiveYear;
         }
 
+        // otherwise find the first non-disabled month
+        for (const row of this.yearService.grid$.value) {
+            for (const column of row) {
+                if (!this.getDisabled(column)) {
+                    return item === column;
+                }
+            }
+        }
+
         // otherwise make the first month tabbable
-        return grid[0][0].year === item.year;
+        return false;
+    }
+
+    /** Announce the date when we focus on a date */
+    announceRangeMode(): void {
+        if (this._isRangeMode) {
+            this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+        }
     }
 
 }

@@ -2,6 +2,7 @@
 
   <button type="button"
           uxFocusIndicator
+          [disabled]="isPreviousDisabled()"
           class="header-navigation"
           (click)="previous(); $event.stopPropagation()"
           [attr.aria-label]="previousAria$ | async"
@@ -22,6 +23,7 @@
 
   <button type="button"
           uxFocusIndicator
+          [disabled]="isNextDisabled()"
           class="header-navigation"
           (click)="next(); $event.stopPropagation()"
           [attr.aria-label]="nextAria$ | async"

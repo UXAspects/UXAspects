@@ -43,6 +43,14 @@ export class DateTimePickerService implements OnDestroy {
     minutes: number;
     seconds: number;
 
+    yearRange: YearRange;
+
+    /**
+     * Store whether or not the component has fully initialised or not. We use this to prevent initial
+     * focus on the end date range picker when the popover is first opened
+     */
+    initialised: boolean = false;
+
     private _subscription: Subscription;
 
     constructor(@Optional() private _config: DateTimePickerConfig) {
@@ -175,4 +183,10 @@ export enum ModeDirection {
 export enum DatePickerHeaderEvent {
     Previous,
     Next
+}
+
+export interface YearRange {
+    start: number;
+    end: number;
+    range: number[];
 }

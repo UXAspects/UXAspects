@@ -18,6 +18,12 @@ export class DateRangeService {
     /** Specify the date we are hovering over */
     hover: Date;
 
+    /** Emit whenever the start date changes */
+    onStartChange = new Subject<Date>();
+
+    /** Emit whenever the end date changes */
+    onEndChange = new Subject<Date>();
+
     /** Emit whenever the range has changed */
     onRangeChange = new Subject<void>();
 
@@ -30,6 +36,12 @@ export class DateRangeService {
     /** Indicate if we should show time */
     showTime: boolean = false;
 
+    /** Defines the aria label for the range start picker */
+    startPickerAriaLabel: string = 'Selecting the start date';
+
+    /** Defines the aria label for the range end picker */
+    endPickerAriaLabel: string = 'Selecting the end date';
+
     setStartDate(date: Date | null): void {
 
         // if the start date is after the end date the clear the end date
@@ -38,6 +50,7 @@ export class DateRangeService {
         }
 
         this.start = date;
+        this.onStartChange.next(this.start);
         this.onRangeChange.next();
     }
 
@@ -49,6 +62,7 @@ export class DateRangeService {
         }
 
         this.end = date;
+        this.onEndChange.next(this.end);
         this.onRangeChange.next();
     }
 

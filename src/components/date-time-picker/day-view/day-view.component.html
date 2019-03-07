@@ -17,7 +17,7 @@
                         [class.range-start]="isRangeStartDate(item.date)"
                         [class.range-between]="isWithinRange(item.date) || isDateHovered(item.date)"
                         [class.range-end]="isRangeEndDate(item.date)"
-                        [focusIf]="(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year"
+                        [focusIf]="shouldFocus(item)"
                         [attr.aria-label]="item.date | date"
                         [attr.aria-selected]="isItemActive(item.date, item.isActive)"
                         [attr.aria-hidden]="!item.isCurrentMonth"
@@ -32,7 +32,8 @@
                         (keydown.ArrowLeft)="focusDate(item, -1); $event.preventDefault()"
                         (keydown.ArrowRight)="focusDate(item, 1); $event.preventDefault()"
                         (keydown.ArrowUp)="focusDate(item, -7); $event.preventDefault()"
-                        (keydown.ArrowDown)="focusDate(item, 7); $event.preventDefault()">
+                        (keydown.ArrowDown)="focusDate(item, 7); $event.preventDefault()"
+                        (focus)="announceRangeMode()">
 
                     {{ item.date.getDate() }}
                 </button>

@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
 import { merge } from 'rxjs/observable/merge';
-import { takeUntil } from 'rxjs/operators';
+import { delay, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { FocusIndicatorOriginService } from '../../../directives/accessibility/index';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
@@ -14,7 +16,7 @@ import { DayViewItem, DayViewService } from './day-view.service';
     providers: [DayViewService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DayViewComponent implements OnDestroy {
+export class DayViewComponent implements AfterViewInit, OnDestroy {
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -43,7 +45,9 @@ export class DayViewComponent implements OnDestroy {
 
     constructor(public datePicker: DateTimePickerService,
         public dayService: DayViewService,
-        changeDetector: ChangeDetectorRef,
+        private _changeDetector: ChangeDetectorRef,
+        private _focusOrigin: FocusIndicatorOriginService,
+        private _liveAnnouncer: LiveAnnouncer,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
 
@@ -53,10 +57,33 @@ export class DayViewComponent implements OnDestroy {
         // if we are a range picker then we also want to subscribe to range changes
         if (_rangeService) {
             merge(_rangeService.onRangeChange, _rangeService.onHoverChange).pipe(takeUntil(this._onDestroy))
-                .subscribe(() => changeDetector.detectChanges());
+                .subscribe(() => _changeDetector.detectChanges());
+
+            // subscribe to changes to the start date
+            _rangeService.onStartChange
+                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeEnd), delay(0))
+                .subscribe(date => this.onRangeChange(date));
+
+            // subscribe to changes to the end date
+            _rangeService.onEndChange
+                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeStart), delay(0))
+                .subscribe(date => this.onRangeChange(date));
 
             // when the range is cleared reset the selected date so we can click on the same date again if we want to
             _rangeService.onClear.pipe(takeUntil(this._onDestroy)).subscribe(() => this.datePicker.selected$.next(null));
+        }
+    }
+
+    ngAfterViewInit(): void {
+
+        // if we open and the range start is already selected, ensure that we move the end picker to a month with options
+        if (!this.datePicker.initialised && this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
+            this.onRangeChange(this._rangeStart);
+        }
+
+        // if we open and the range end is already selected, ensure that we move the start picker to a month with options
+        if (!this.datePicker.initialised && this._rangeEnd && !this._rangeStart && this._isRangeStart) {
+            this.onRangeChange(this._rangeEnd);
         }
     }
 
@@ -118,7 +145,6 @@ export class DayViewComponent implements OnDestroy {
             this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
         }
 
-
         // focus the newly selected date
         this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
 
@@ -149,6 +175,9 @@ export class DayViewComponent implements OnDestroy {
 
         // determine the date of the day
         const target = new Date(item.date.setDate(item.date.getDate() + dayOffset));
+
+        // we should force the origin to be keyboard
+        this._focusOrigin.setOrigin('keyboard');
 
         // identify which date should be focused
         this.dayService.setFocus(target.getDate(), target.getMonth(), target.getFullYear());
@@ -242,6 +271,39 @@ export class DayViewComponent implements OnDestroy {
         if (this._isRangeMode) {
             this._rangeService.setDateMouseLeave(date);
         }
+    }
+
+    /** Announce the date when we focus on a date */
+    announceRangeMode(): void {
+        if (this._isRangeMode) {
+            this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+        }
+    }
+
+    /** Determine if we should focus a date */
+    shouldFocus(item: DayViewItem): boolean {
+
+        // if we are opening the popover initially we never want to focus a date in the range end picker
+        if (!this.datePicker.initialised && this._isRangeEnd) {
+            return false;
+        }
+
+        // extract the current focused dates
+        const { day, month, year } = this.dayService.focused$.value;
+
+        // check if the current date is the focused date and it is in the viewport date
+        return day === item.day && month === item.month && year === item.year && item.isCurrentMonth;
+    }
+
+    /** Update the viewport when the range changes to ensure focus is present on a valid item */
+    private onRangeChange(date: Date): void {
+        if (this._isRangeStart && !this._rangeStart || this._isRangeEnd && !this._rangeEnd) {
+            this.datePicker.setViewportMonth(date.getMonth());
+            this.datePicker.setViewportYear(date.getFullYear());
+            this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+        }
+
+        this._changeDetector.detectChanges();
     }
 
 }

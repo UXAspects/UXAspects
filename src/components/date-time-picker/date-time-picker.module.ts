@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ import { YearViewComponent } from './year-view/year-view.component';
 
 @NgModule({
     imports: [
+        A11yModule,
         AccessibilityModule,
         CommonModule,
         FormsModule,
