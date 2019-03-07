@@ -186,12 +186,13 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     getTabbable(item: DayViewItem): boolean {
         const focused = this.dayService.focused$.value;
         const grid = this.dayService.grid$.value;
+        const month = this.datePicker.month$.value;
 
         // if there is a focused month check if this is it
         if (focused) {
 
             // check if the focused day is visible
-            const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year));
+            const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year && _item.month === month));
 
             if (isFocusedDayVisible) {
                 return focused.day === item.day && focused.month === item.month && focused.year === item.year;
@@ -205,8 +206,16 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
             return item.isActive;
         }
 
-        // otherwise make the first day tabbable
-        return item.day === 1;
+        // find the first non disabled day that is part of the current month
+        for (const row of grid) {
+            for (const column of row) {
+                if (column === item && column.month === month && !this.getDisabled(column.date)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     getDisabled(date: Date): boolean {
