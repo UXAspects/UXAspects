@@ -201,8 +201,16 @@
             "classname": "hpe-chevron-down"
         },
         {
+            "name": "chevron-left-double",
+            "classname": "hpe-chevron-left-double"
+        },
+        {
             "name": "chevron-left",
             "classname": "hpe-chevron-left"
+        },
+        {
+            "name": "chevron-right-double",
+            "classname": "hpe-chevron-right-double"
         },
         {
             "name": "chevron-right",

@@ -7,7 +7,7 @@ import { ReorderableCancelEvent, ReorderableClonedEvent, ReorderableContainer, R
 @Directive({
     selector: '[uxReorderable]'
 })
-export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
+export class ReorderableDirective<T> implements OnInit, AfterViewInit, OnDestroy {
 
     /**
      * This property can be used to provide the `uxReorderable` directive with a dataset that represents the items that can be reordered.
@@ -45,7 +45,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
     @Output() reorderEnd = new EventEmitter<ReorderEvent>();
 
     @ContentChildren(ReorderableHandleDirective, { read: ElementRef, descendants: true }) handles: QueryList<ElementRef>;
-    @ContentChildren(ReorderableModelDirective) models: QueryList<ReorderableModelDirective>;
+    @ContentChildren(ReorderableModelDirective) models: QueryList<ReorderableModelDirective<T>>;
 
     private _container: ReorderableContainer;
 

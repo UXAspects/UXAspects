@@ -10,6 +10,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsColumnPickerComponent } from './column-picker/column-picker.component';
 import { ComponentsColumnResizingComponent } from './column-resizing/column-resizing.component';
 import { ComponentsColumnSortingComponent } from './column-sorting/column-sorting.component';
 import { ComponentsColumnVisibilityNg1Component } from './column-visibility-ng1/column-visibility-ng1.component';
@@ -81,7 +82,8 @@ const SECTIONS = [
     ComponentsFixedHeaderTableNg1Component,
     ComponentsSelectionComponent,
     ComponentsSortingComponent,
-    ComponentsColumnResizingComponent
+    ComponentsColumnResizingComponent,
+    ComponentsColumnPickerComponent
 ];
 
 const ROUTES = [

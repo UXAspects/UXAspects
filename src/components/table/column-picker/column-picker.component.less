@@ -1,0 +1,66 @@
+ux-column-picker {
+    display: flex;
+    width: 100%;
+
+    .column-picker-column {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .column-picker-actions-column {
+        flex: none;
+        width: 130px;
+        padding: 30px 16px 0;
+    }
+
+    .column-picker-stats {
+        flex: none;
+        height: 30px;
+    }
+
+    .column-picker-list {
+        flex: 1;
+        border: 1px solid @table-border;
+        overflow-y: auto;
+        background-color: @table-hover-bg;
+    }
+
+    .column-picker-list-item {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        border-bottom: 1px solid @table-border;
+        padding: 0 16px;
+        background-color: @white;
+        cursor: pointer;
+    }
+
+    .column-picker-list-item.ux-reorderable-moving {
+        opacity: 0.5;
+    }
+
+    .column-picker-list-item.column-picker-list-item-selected {
+        padding: 0 8px;
+    }
+
+    .column-picker-list-item.column-picker-list-item-selected .hpe-drag {
+        margin-right: 6px;
+        color: @grey5;
+        cursor: move;
+    }
+
+    .column-picker-list-item.column-picker-list-item-locked {
+        padding: 0 8px 0 28px;
+        cursor: default;
+    }
+
+    .column-picker-list-item.column-picker-list-item-locked .hpe-lock {
+        margin-left: auto;
+    }
+
+    .column-picker-list-item.ux-selection-selected {
+        background-color: @shift-select-selected-light;
+        color: @grey1;
+    }
+}

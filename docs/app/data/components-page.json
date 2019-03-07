@@ -1508,6 +1508,21 @@
             "link": "tables",
             "sections": [
                 {
+                    "title": "Column Picker",
+                    "component": "ComponentsColumnPickerComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-column-picker"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TableModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Column Resizing",
                     "component": "ComponentsColumnResizingComponent",
                     "version": "Angular",
