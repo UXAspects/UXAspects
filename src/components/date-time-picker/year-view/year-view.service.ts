@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
-import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
+import { DatePickerHeaderEvent, DateTimePickerService, YearRange } from '../date-time-picker.service';
 import { gridify, range } from '../date-time-picker.utils';
 
 @Injectable()
@@ -75,16 +75,11 @@ export class YearViewService implements OnDestroy {
         const start = (year - (year % 10));
         const end = start + 9;
 
+        this._datepicker.yearRange = { start: start, end: end, range: range(start, end) };
+
         // create an array containing all the numbers between the start and end points
-        return { start: start, end: end, range: range(start, end) };
+        return this._datepicker.yearRange;
     }
-}
-
-
-export interface YearRange {
-    start: number;
-    end: number;
-    range: number[];
 }
 
 export interface YearViewItem {

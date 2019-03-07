@@ -41,12 +41,6 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
-    /**
-     * Store whether or not the component has fully initialised or not. We use this to prevent initial
-     * focus on the end date range picker when the popover is first opened
-     */
-    _initialised: boolean = false;
-
     private _onDestroy = new Subject<void>();
 
     constructor(public datePicker: DateTimePickerService,
@@ -81,7 +75,16 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => this._initialised = true);
+
+        // if we open and the range start is already selected, ensure that we move the end picker to a month with options
+        if (this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
+            this.onRangeChange(this._rangeStart);
+        }
+
+        // if we open and the range end is already selected, ensure that we move the start picker to a month with options
+        if (this._rangeEnd && !this._rangeStart && this._isRangeStart) {
+            this.onRangeChange(this._rangeEnd);
+        }
     }
 
     ngOnDestroy(): void {
@@ -281,7 +284,7 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     shouldFocus(item: DayViewItem): boolean {
 
         // if we are opening the popover initially we never want to focus a date in the range end picker
-        if (!this._initialised && this._isRangeEnd) {
+        if (!this.datePicker.initialised && this._isRangeEnd) {
             return false;
         }
 

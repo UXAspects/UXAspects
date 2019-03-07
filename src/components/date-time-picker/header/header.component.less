@@ -23,8 +23,13 @@ ux-date-time-picker-header {
                 .aspects-outline();
             }
 
-            &:hover {
+            &:hover:not(:disabled) {
                 background-color: @date-picker-today-btn-hover-bg;
+            }
+
+            &:disabled {
+                cursor: default;
+                color: #bdbec0;
             }
         }
 

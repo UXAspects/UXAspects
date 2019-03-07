@@ -8,7 +8,7 @@
          role="gridcell"
          class="calendar-item"
          *ngFor="let item of row; trackBy: trackMonthByFn"
-         [focusIf]="(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year"
+         [focusIf]="shouldFocus(item)"
          [disabled]="getDisabled(item)"
          [tabindex]="getTabbable(item) ? 0 : -1"
          [attr.aria-label]="item.name + ' ' + item.year"

@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Optional, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Optional, Output } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
@@ -13,7 +13,7 @@ import { dateComparator, DateTimePickerTimezone, timezoneComparator } from './da
     providers: [DateTimePickerService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateTimePickerComponent implements OnDestroy {
+export class DateTimePickerComponent implements AfterViewInit, OnDestroy {
 
     /** Defines whether or not the date picker should be visible. */
     @Input() set showDate(value: boolean) {
@@ -172,6 +172,10 @@ export class DateTimePickerComponent implements OnDestroy {
 
         datepicker.timezone$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(timezoneComparator))
             .subscribe((timezone: DateTimePickerTimezone) => this.timezoneChange.emit(timezone));
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => this.datepicker.initialised = true);
     }
 
     ngOnDestroy(): void {
