@@ -77,12 +77,12 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
 
         // if we open and the range start is already selected, ensure that we move the end picker to a month with options
-        if (this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
+        if (!this.datePicker.initialised && this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
             this.onRangeChange(this._rangeStart);
         }
 
         // if we open and the range end is already selected, ensure that we move the start picker to a month with options
-        if (this._rangeEnd && !this._rangeStart && this._isRangeStart) {
+        if (!this.datePicker.initialised && this._rangeEnd && !this._rangeStart && this._isRangeStart) {
             this.onRangeChange(this._rangeEnd);
         }
     }
