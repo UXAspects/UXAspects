@@ -224,6 +224,11 @@ export class TimePickerComponent implements ControlValueAccessor {
 
     hourChange(value: string): void {
 
+        // if the value is empty then emit nothing
+        if (value && value.trim() === '') {
+            return;
+        }
+
         // convert the string to a number
         let hour = parseInt(value);
         const currentHour = this.value.getHours();
@@ -246,17 +251,20 @@ export class TimePickerComponent implements ControlValueAccessor {
 
         hour = isNaN(hour) ? currentHour : hour;
 
-        // if the number is invalid then restore it to the previous value
-        if (this._meridian === this.meridians[0]) {
-            if (hour >= 12) {
-                hour -= 12;
-            }
-        }
+        if (this.showMeridian) {
 
-        // if we have selected PM
-        if (this._meridian === this.meridians[1]) {
-            if (hour < 12) {
-                hour += 12;
+            // if the number is invalid then restore it to the previous value
+            if (this._meridian === this.meridians[0]) {
+                if (hour >= 12) {
+                    hour -= 12;
+                }
+            }
+
+            // if we have selected PM
+            if (this._meridian === this.meridians[1]) {
+                if (hour < 12) {
+                    hour += 12;
+                }
             }
         }
 

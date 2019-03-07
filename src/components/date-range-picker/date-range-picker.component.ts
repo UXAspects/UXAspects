@@ -1,5 +1,7 @@
 import { WeekDay } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DateTimePickerTimezone, differenceBetweenDates, timezones as defaultTimezones } from '../date-time-picker/date-time-picker.utils';
 import { DateRangeService } from './date-range.service';
 
@@ -9,7 +11,7 @@ import { DateRangeService } from './date-range.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [DateRangeService]
 })
-export class DateRangePickerComponent {
+export class DateRangePickerComponent implements OnDestroy {
 
     /** The selected start date to be displayed in the component. */
     @Input() set start(start: Date) {
@@ -96,10 +98,10 @@ export class DateRangePickerComponent {
     @Input() startOfWeek: WeekDay = WeekDay.Sunday;
 
     /** Emit when the start date changes */
-    @Output() startChange = new EventEmitter<Date>(true);
+    @Output() startChange = new EventEmitter<Date>();
 
     /** Emit when the end date changes */
-    @Output() endChange = new EventEmitter<Date>(true);
+    @Output() endChange = new EventEmitter<Date>();
 
     /** Emit when the start timezone changes. */
     @Output() startTimezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
@@ -123,7 +125,24 @@ export class DateRangePickerComponent {
         }
     }
 
-    constructor(public rangeService: DateRangeService) { }
+    /** Use an observable to debounce rapid start changes */
+    startChange$ = new Subject<Date>();
+
+    /** Use an observable to debounce rapid end changes */
+    endChange$ = new Subject<Date>();
+
+    /** Unsubscribe from all observablesprivate  */
+    private _onDestroy = new Subject<void>();
+
+    constructor(public rangeService: DateRangeService) {
+        this.startChange$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(date => this.onStartChange(date));
+        this.endChange$.pipe(takeUntil(this._onDestroy), debounceTime(0)).subscribe(date => this.onEndChange(date));
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
 
     /** Clear the selected date range */
     clear(): void {
@@ -133,6 +152,16 @@ export class DateRangePickerComponent {
     /** Get the timezome based on the machine timezone */
     private getCurrentTimezone(): DateTimePickerTimezone {
         return this.timezones.find(timezone => timezone.offset === new Date().getTimezoneOffset());
+    }
+
+    private onStartChange(date: Date): void {
+        this.rangeService.setStartDate(date);
+        this.startChange.emit(date);
+    }
+
+    private onEndChange(date: Date): void {
+        this.rangeService.setEndDate(date);
+        this.endChange.emit(date);
     }
 
 }
