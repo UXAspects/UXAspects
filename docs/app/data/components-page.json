@@ -1523,21 +1523,25 @@
                     ]
                 },
                 {
-                    "title": "Column Sorting",
-                    "component": "ComponentsColumnSortingComponent",
+                    "title": "Column Resizing",
+                    "component": "ComponentsColumnResizingComponent",
                     "version": "Angular",
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-column-sorting"
+                            "content": "[uxResizableTable]"
                         },
                         {
-                            "title": "Module",
-                            "content": "ColumnSortingModule"
+                            "title": "Selector",
+                            "content": "[uxResizableTableColumn]"
                         },
                         {
                             "title": "Exported As",
-                            "content": "ux-column-sorting"
+                            "content": "ux-resizable-table"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TableModule"
                         }
                     ]
                 },
