@@ -61,12 +61,12 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
 
             // subscribe to changes to the start date
             _rangeService.onStartChange
-                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeEnd), delay(0))
+                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeEnd && this.datePicker.initialised), delay(0))
                 .subscribe(date => this.onRangeChange(date));
 
             // subscribe to changes to the end date
             _rangeService.onEndChange
-                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeStart), delay(0))
+                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeStart && this.datePicker.initialised), delay(0))
                 .subscribe(date => this.onRangeChange(date));
 
             // when the range is cleared reset the selected date so we can click on the same date again if we want to
@@ -310,9 +310,8 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
             this.datePicker.setViewportMonth(date.getMonth());
             this.datePicker.setViewportYear(date.getFullYear());
             this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+            this._changeDetector.detectChanges();
         }
-
-        this._changeDetector.detectChanges();
     }
 
 }
