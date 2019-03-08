@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, Optional } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -140,5 +140,19 @@ export class TimeViewComponent implements OnDestroy {
 
         // try to get the previous zone
         this.datepicker.setTimezone(timezones[currentZone - 1] ? timezones[currentZone - 1] : timezones[currentZone]);
+    }
+
+    @HostListener('focusin')
+    onFocusWithin(): void {
+        if (this._isRangeMode) {
+            this._rangeService.isChangingTime = true;
+        }
+    }
+
+    @HostListener('focusout')
+    onFocusOut(): void {
+        if (this._isRangeMode) {
+            this._rangeService.isChangingTime = false;
+        }
     }
 }

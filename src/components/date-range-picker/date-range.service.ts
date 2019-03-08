@@ -42,6 +42,9 @@ export class DateRangeService {
     /** Defines the aria label for the range end picker */
     endPickerAriaLabel: string = 'Selecting the end date';
 
+    /** Indicate if we are currently changing the time */
+    isChangingTime: boolean = false;
+
     setStartDate(date: Date | null): void {
 
         // if the start date is after the end date the clear the end date

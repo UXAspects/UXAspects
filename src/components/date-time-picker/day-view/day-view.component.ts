@@ -293,7 +293,7 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     shouldFocus(item: DayViewItem): boolean {
 
         // if we are opening the popover initially we never want to focus a date in the range end picker
-        if (!this.datePicker.initialised && this._isRangeEnd) {
+        if (!this.datePicker.initialised && this._isRangeEnd || this._rangeService && this._rangeService.isChangingTime) {
             return false;
         }
 
