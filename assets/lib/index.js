@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/ReplaySubject'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/Subscription'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/ReplaySubject', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/Subscription', '@angular/cdk/keycodes', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs.ReplaySubject,global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.rxjs.Subscription,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,combineLatest,dragulaNamespace,observers,overlay,portal,from,ReplaySubject,concat,timer,fromEvent,http,of,filter,dropdown,router,Subscription,keycodes,coercion,a11y,animations,common,Observable,BehaviorSubject,Subject,operators,forms,_static,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/ReplaySubject'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/Subscription'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/ReplaySubject', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/Subscription', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs.ReplaySubject,global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.rxjs.Subscription,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,observers,overlay,portal,from,ReplaySubject,concat,timer,fromEvent,http,of,filter,dropdown,router,Subscription,coercion,a11y,animations,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -5142,6 +5142,10 @@
              */
             this._onDestroy = new Subject.Subject();
             /**
+             * Store the timeout interval for cancelation
+             */
+            this._showTimeoutId = null;
+            /**
              * Internally store the type of this component - usual for distinctions when extending this class
              */
             this._type = 'tooltip';
@@ -5525,12 +5529,16 @@
          */
             function (_) {
                 // if its not visible and click is a show trigger open it
-                if (!this.isVisible && this.includes(this.showTriggers, 'click')) {
+                if (!this.isVisible && this.includes(this.showTriggers, 'click') && this._showTimeoutId === null) {
                     return this.show();
                 }
                 // if its visible and click is a hide trigger close it
-                if (this.isVisible && this.includes(this.hideTriggers, 'click')) {
+                if (this.isVisible && this.includes(this.hideTriggers, 'click') && this._showTimeoutId === null) {
                     return this.hide();
+                }
+                // if its not visible and click is a hide trigger close it and there is a pending tooltip
+                if (!this.isVisible && this.includes(this.hideTriggers, 'click') && this._showTimeoutId !== null) {
+                    return this.cancelTooltip();
                 }
             };
         /** Handle the mouse enter event - show or hide accordingly */
@@ -5564,7 +5572,11 @@
          * @return {?}
          */
             function (_) {
-                // this is an hide only trigger - if not open or it isn't a trigger do nothing
+                // If the tooltip is pending then cancel showing it
+                if (!this.isVisible && this.includes(this.hideTriggers, 'mouseleave') && this._showTimeoutId !== null) {
+                    return this.cancelTooltip();
+                }
+                // if the tooltip is not visible or mouseleave isn't a hide trigger then do nothing
                 if (!this.isVisible || !this.includes(this.hideTriggers, 'mouseleave')) {
                     return;
                 }
@@ -5602,6 +5614,10 @@
          * @return {?}
          */
             function (_) {
+                // If the tooltip is pending then cancel showing it
+                if (!this.isVisible && this.includes(this.hideTriggers, 'blur') && this._showTimeoutId !== null) {
+                    return this.cancelTooltip();
+                }
                 // this is an hide only trigger - if not open or it isn't a trigger do nothing
                 if (!this.isVisible || !this.includes(this.hideTriggers, 'blur')) {
                     return;
@@ -5626,6 +5642,21 @@
                 }
                 else {
                     this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', id);
+                }
+            };
+        /** Cancel any pending tooltip (waiting on delay ellapsing) */
+        /**
+         * Cancel any pending tooltip (waiting on delay ellapsing)
+         * @return {?}
+         */
+        TooltipDirective.prototype.cancelTooltip = /**
+         * Cancel any pending tooltip (waiting on delay ellapsing)
+         * @return {?}
+         */
+            function () {
+                if (this._showTimeoutId !== null) {
+                    clearTimeout(this._showTimeoutId);
+                    this._showTimeoutId = null;
                 }
             };
         TooltipDirective.decorators = [
@@ -9046,11 +9077,19 @@
      */
     var DashboardGrabHandleService = /** @class */ (function () {
         function DashboardGrabHandleService(_dashboard) {
+            var _this = this;
             this._dashboard = _dashboard;
+            /**
+             * Self-registered drag handles in the dashboard.
+             */
+            this._handles = [];
             /**
              * Automatically unsubscribe from all observables when destroyed
              */
             this._onDestroy = new Subject.Subject();
+            // if a drag is performed by the mouse we should update the focusable item to be the first again
+            _dashboard.layout$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return !_this._dashboard.isGrabbing$.value; }))
+                .subscribe(function () { return _this.setFirstItemFocusable(); });
         }
         /** Perform unsubscriptions */
         /**
@@ -9065,28 +9104,38 @@
                 this._onDestroy.next();
                 this._onDestroy.complete();
             };
-        /** Provide the service with the list of grab handles */
+        /** Register a new grab handle. */
         /**
-         * Provide the service with the list of grab handles
-         * @param {?} handles
+         * Register a new grab handle.
+         * @param {?} handle
          * @return {?}
          */
-        DashboardGrabHandleService.prototype.setHandles = /**
-         * Provide the service with the list of grab handles
-         * @param {?} handles
+        DashboardGrabHandleService.prototype.addHandle = /**
+         * Register a new grab handle.
+         * @param {?} handle
          * @return {?}
          */
-            function (handles) {
+            function (handle) {
                 var _this = this;
-                // store the grab handles
-                this._handles = handles;
+                this._handles = this.getHandlesInOrder(__spread(this._handles, [handle]));
                 // we want to make the first item focusable (raf to avoid expression changed error)
-                requestAnimationFrame(function () { return _this.setFirstItemFocusable(); });
-                // watch for any future changes to the list of handles
-                this._handles.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.ensureFocusable(); });
-                // if a drag is performed by the mouse we should update the focusable item to be the first again
-                this._dashboard.layout$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return !_this._dashboard.isGrabbing$.value; }))
-                    .subscribe(function () { return _this.setFirstItemFocusable(); });
+                requestAnimationFrame(function () { return _this.ensureFocusable(); });
+            };
+        /** Unregister a removed grab handle. */
+        /**
+         * Unregister a removed grab handle.
+         * @param {?} handle
+         * @return {?}
+         */
+        DashboardGrabHandleService.prototype.removeHandle = /**
+         * Unregister a removed grab handle.
+         * @param {?} handle
+         * @return {?}
+         */
+            function (handle) {
+                this._handles = this._handles.filter(function (h) { return h !== handle; });
+                // Make sure there is still a focusable handle
+                this.ensureFocusable();
             };
         /** Make the first visual item in the list focusable */
         /**
@@ -9195,17 +9244,20 @@
         /** Get handles in the order they appear rather than the order they are in the DOM */
         /**
          * Get handles in the order they appear rather than the order they are in the DOM
+         * @param {?=} handles
          * @return {?}
          */
         DashboardGrabHandleService.prototype.getHandlesInOrder = /**
          * Get handles in the order they appear rather than the order they are in the DOM
+         * @param {?=} handles
          * @return {?}
          */
-            function () {
+            function (handles) {
+                if (handles === void 0) {
+                    handles = this._handles;
+                }
                 /** @type {?} */
                 var widgets = this._dashboard.getWidgetsByOrder();
-                /** @type {?} */
-                var handles = this._handles.toArray();
                 // sort the handles according to the position of the widget it belongs to
                 return handles.sort(function (handleOne, handleTwo) { return widgets.indexOf(handleOne.widget) - widgets.indexOf(handleTwo.widget); });
             };
@@ -9309,6 +9361,7 @@
             if (!widget) {
                 throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
             }
+            _handle.addHandle(this);
             // subscribe to changes to the current grab state
             _dashboard.isGrabbing$.pipe(operators.takeUntil(this._onDestroy), operators.map(function (_widget) { return _widget === widget; }))
                 .subscribe(function (isGrabbing) { return _this.isGrabbing = isGrabbing; });
@@ -9343,6 +9396,7 @@
          * @return {?}
          */
             function () {
+                this._handle.removeHandle(this);
                 this._onDestroy.next();
                 this._onDestroy.complete();
             };
@@ -10009,8 +10063,6 @@
             function () {
                 // set the initial dimensions
                 this.dashboardService.setDimensions(this.dashboardElement.nativeElement.offsetWidth, this.dashboardElement.nativeElement.offsetHeight);
-                // supply the grab handle query list
-                this._grabHandleService.setHandles(this.handles);
             };
         /**
          * @return {?}
@@ -10216,6 +10268,8 @@
      * @return {?}
      */
     function dateRange(start, end) {
+        // don't alter the start date object
+        start = new Date(start);
         /** @type {?} */
         var dates = [];
         // loop through all the days between the date range
@@ -10245,7 +10299,34 @@
      * @return {?}
      */
     function dateComparator(dateOne, dateTwo) {
+        if (!dateOne && dateTwo || dateOne && !dateTwo) {
+            return false;
+        }
+        if (!dateOne && !dateTwo) {
+            return true;
+        }
         return dateOne.getTime() === dateTwo.getTime();
+    }
+    /**
+     * Calculate the number of days between two dates
+     * @param {?} start
+     * @param {?} end
+     * @return {?}
+     */
+    function differenceBetweenDates(start, end) {
+        if (!start || !end) {
+            return null;
+        }
+        /** @type {?} */
+        var millisecondsInDay = 86400000;
+        /** @type {?} */
+        var startDay = new Date(start.getTime() < end.getTime() ? start : end);
+        /** @type {?} */
+        var endDay = new Date(start.getTime() > end.getTime() ? start : end);
+        // get the start of day
+        startDay.setHours(0, 0, 0, 0);
+        endDay.setHours(23, 59, 59, 0);
+        return Math.round((endDay.getTime() - startDay.getTime()) / millisecondsInDay);
     }
     /**
      * Timezone comparison for use primarily with distinctUntilChanged
@@ -10255,6 +10336,41 @@
      */
     function timezoneComparator(zoneOne, zoneTwo) {
         return zoneOne.name === zoneTwo.name && zoneOne.offset === zoneTwo.offset;
+    }
+    /**
+     * Get a date object with the time of the start of the given day
+     * @param {?} date The date to get the start of day
+     * @return {?}
+     */
+    function getStartOfDay(date) {
+        /** @type {?} */
+        var startOfDay = new Date(date);
+        startOfDay.setHours(0, 0, 0, 0);
+        return startOfDay;
+    }
+    /**
+     * @param {?} date
+     * @param {?} after
+     * @param {?=} isEqual
+     * @return {?}
+     */
+    function isDateAfter(date, after, isEqual) {
+        if (isEqual === void 0) {
+            isEqual = false;
+        }
+        return isEqual ? getStartOfDay(date).getTime() >= getStartOfDay(after).getTime() : getStartOfDay(date).getTime() > getStartOfDay(after).getTime();
+    }
+    /**
+     * @param {?} date
+     * @param {?} before
+     * @param {?=} isEqual
+     * @return {?}
+     */
+    function isDateBefore(date, before, isEqual) {
+        if (isEqual === void 0) {
+            isEqual = false;
+        }
+        return isEqual ? getStartOfDay(date).getTime() <= getStartOfDay(before).getTime() : getStartOfDay(date).getTime() < getStartOfDay(before).getTime();
     }
     /**
      * Export an array of all the available months
@@ -10307,6 +10423,456 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var DateRangeService = /** @class */ (function () {
+        function DateRangeService() {
+            /**
+             * Indicate whether we want to show a date range
+             */
+            this.isRange = false;
+            /**
+             * Specify the direction of the selection
+             */
+            this.direction = DateRangePicker.Start;
+            /**
+             * Emit whenever the start date changes
+             */
+            this.onStartChange = new Subject.Subject();
+            /**
+             * Emit whenever the end date changes
+             */
+            this.onEndChange = new Subject.Subject();
+            /**
+             * Emit whenever the range has changed
+             */
+            this.onRangeChange = new Subject.Subject();
+            /**
+             * Emit whenever the hover date changes
+             */
+            this.onHoverChange = new Subject.Subject();
+            /**
+             * Emit whenever the range is cleared
+             */
+            this.onClear = new Subject.Subject();
+            /**
+             * Indicate if we should show time
+             */
+            this.showTime = false;
+            /**
+             * Defines the aria label for the range start picker
+             */
+            this.startPickerAriaLabel = 'Selecting the start date';
+            /**
+             * Defines the aria label for the range end picker
+             */
+            this.endPickerAriaLabel = 'Selecting the end date';
+            /**
+             * Indicate if we are currently changing the time
+             */
+            this.isChangingTime = false;
+        }
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateRangeService.prototype.setStartDate = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                // if the start date is after the end date the clear the end date
+                if (date && this.end && isDateAfter(date, this.end)) {
+                    this.clear();
+                }
+                this.start = date;
+                this.onStartChange.next(this.start);
+                this.onRangeChange.next();
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateRangeService.prototype.setEndDate = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                // if the end date is before the start date the clear the start date
+                if (date && this.start && isDateBefore(date, this.start)) {
+                    this.clear();
+                }
+                this.end = date;
+                this.onEndChange.next(this.end);
+                this.onRangeChange.next();
+            };
+        /**
+         * @return {?}
+         */
+        DateRangeService.prototype.clear = /**
+         * @return {?}
+         */
+            function () {
+                this.setStartDate(null);
+                this.setEndDate(null);
+                this.onClear.next();
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateRangeService.prototype.setDateMouseEnter = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                this.hover = date;
+                this.onHoverChange.next();
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateRangeService.prototype.setDateMouseLeave = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                if (date && this.hover && compareDays(date, this.hover)) {
+                    this.setDateMouseEnter(null);
+                }
+            };
+        return DateRangeService;
+    }());
+    /** @enum {string} */
+    var DateRangePicker = {
+        Start: 'start',
+        End: 'end',
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var DateRangePickerComponent = /** @class */ (function () {
+        function DateRangePickerComponent(rangeService) {
+            var _this = this;
+            this.rangeService = rangeService;
+            /**
+             * Defines whether or not the time picker should allow the user to specify seconds.
+             */
+            this.showSeconds = false;
+            /**
+             * Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+             */
+            this.showMeridian = true;
+            /**
+             * Defines whether or not the time picker should allow the user to select the time using spinners.
+             */
+            this.showSpinners = true;
+            /**
+             * If defined will override the weekday names displayed.
+             */
+            this.weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            /**
+             * Specify whether or not the show now button should be visible
+             */
+            this.showNowBtn = false;
+            /**
+             * Defines the title to display above the start picker.
+             */
+            this.selectStartTitle = 'Select Start Date';
+            /**
+             * Defines the title to display above the end picker.
+             */
+            this.selectEndTitle = 'Select End Date';
+            /**
+             * Define the aria label for the now button
+             */
+            this.nowBtnAriaLabel = 'Set date to now';
+            /**
+             * Defines the list of available timezones. The `DateTimePickerTimezone` interface specifies that each timezone should
+             * be an object with a `name` property that represents the timezone, eg. `GMT+2`, and an `offset` property that represents
+             * the number of minutes relative to GMT the timezone is.
+             */
+            this.timezones = timezones;
+            /**
+             * Will set the selected start timezone.
+             */
+            this.startTimezone = this.getCurrentTimezone();
+            /**
+             * Will set the selected end timezone.
+             */
+            this.endTimezone = this.getCurrentTimezone();
+            /**
+             * Defines the day of the week that should appear in the first column. `WeekDay` is an enumeration available in `\@angular/common`.
+             */
+            this.startOfWeek = common.WeekDay.Sunday;
+            /**
+             * Emit when the start date changes
+             */
+            this.startChange = new core.EventEmitter();
+            /**
+             * Emit when the end date changes
+             */
+            this.endChange = new core.EventEmitter();
+            /**
+             * Emit when the start timezone changes.
+             */
+            this.startTimezoneChange = new core.EventEmitter();
+            /**
+             * Emit when the end timezone changes.
+             */
+            this.endTimezoneChange = new core.EventEmitter();
+            /**
+             * Use an observable to debounce rapid start changes
+             */
+            this.startChange$ = new Subject.Subject();
+            /**
+             * Use an observable to debounce rapid end changes
+             */
+            this.endChange$ = new Subject.Subject();
+            /**
+             * Unsubscribe from all observablesprivate
+             */
+            this._onDestroy = new Subject.Subject();
+            this.startChange$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (date) { return _this.onStartChange(date); });
+            this.endChange$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (date) { return _this.onEndChange(date); });
+        }
+        Object.defineProperty(DateRangePickerComponent.prototype, "start", {
+            /** The selected start date to be displayed in the component. */
+            set: /**
+             * The selected start date to be displayed in the component.
+             * @param {?} start
+             * @return {?}
+             */ function (start) {
+                this.rangeService.start = start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateRangePickerComponent.prototype, "end", {
+            /** The selected end date to be displayed in the component. */
+            set: /**
+             * The selected end date to be displayed in the component.
+             * @param {?} end
+             * @return {?}
+             */ function (end) {
+                this.rangeService.end = end;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateRangePickerComponent.prototype, "startPickerAriaLabel", {
+            /** Defines the aria label for the range start picker */
+            set: /**
+             * Defines the aria label for the range start picker
+             * @param {?} label
+             * @return {?}
+             */ function (label) {
+                this.rangeService.startPickerAriaLabel = label;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateRangePickerComponent.prototype, "endPickerAriaLabel", {
+            /** Defines the aria label for the range end picker */
+            set: /**
+             * Defines the aria label for the range end picker
+             * @param {?} label
+             * @return {?}
+             */ function (label) {
+                this.rangeService.endPickerAriaLabel = label;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateRangePickerComponent.prototype, "showTime", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this.rangeService.showTime;
+            },
+            /** Defines whether or not the time picker should be visible. */
+            set: /**
+             * Defines whether or not the time picker should be visible.
+             * @param {?} showTime
+             * @return {?}
+             */ function (showTime) {
+                this.rangeService.showTime = showTime;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateRangePickerComponent.prototype, "_duration", {
+            /** Calculate the number of days between the start and end date */
+            get: /**
+             * Calculate the number of days between the start and end date
+             * @return {?}
+             */ function () {
+                if (this.rangeService.start && this.rangeService.end) {
+                    return differenceBetweenDates(this.rangeService.start, this.rangeService.end);
+                }
+                if (this.rangeService.start && !this.rangeService.end && this.rangeService.hover) {
+                    return this.rangeService.start.getTime() <= this.rangeService.hover.getTime() ? differenceBetweenDates(this.rangeService.start, this.rangeService.hover) : null;
+                }
+                // if we only have one selected date and have a hover date
+                if (this.rangeService.end && !this.rangeService.start && this.rangeService.hover) {
+                    return this.rangeService.end.getTime() >= this.rangeService.hover.getTime() ? differenceBetweenDates(this.rangeService.end, this.rangeService.hover) : null;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        DateRangePickerComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** Clear the selected date range */
+        /**
+         * Clear the selected date range
+         * @return {?}
+         */
+        DateRangePickerComponent.prototype.clear = /**
+         * Clear the selected date range
+         * @return {?}
+         */
+            function () {
+                this.rangeService.clear();
+            };
+        /** Get the timezome based on the machine timezone */
+        /**
+         * Get the timezome based on the machine timezone
+         * @return {?}
+         */
+        DateRangePickerComponent.prototype.getCurrentTimezone = /**
+         * Get the timezome based on the machine timezone
+         * @return {?}
+         */
+            function () {
+                return this.timezones.find(function (timezone) { return timezone.offset === new Date().getTimezoneOffset(); });
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateRangePickerComponent.prototype.onStartChange = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                this.rangeService.setStartDate(date);
+                this.startChange.emit(date);
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateRangePickerComponent.prototype.onEndChange = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                this.rangeService.setEndDate(date);
+                this.endChange.emit(date);
+            };
+        DateRangePickerComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-date-range-picker',
+                        template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <i class=\"hpe-icon hpe-link-next\"></i>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n      {{ _duration }} {{ _duration > 1 ? 'days' : 'day' }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        providers: [DateRangeService]
+                    }] }
+        ];
+        /** @nocollapse */
+        DateRangePickerComponent.ctorParameters = function () {
+            return [
+                { type: DateRangeService }
+            ];
+        };
+        DateRangePickerComponent.propDecorators = {
+            start: [{ type: core.Input }],
+            end: [{ type: core.Input }],
+            showTimezone: [{ type: core.Input }],
+            showSeconds: [{ type: core.Input }],
+            showMeridian: [{ type: core.Input }],
+            showSpinners: [{ type: core.Input }],
+            weekdays: [{ type: core.Input }],
+            months: [{ type: core.Input }],
+            monthsShort: [{ type: core.Input }],
+            meridians: [{ type: core.Input }],
+            nowBtnText: [{ type: core.Input }],
+            showNowBtn: [{ type: core.Input }],
+            selectStartTitle: [{ type: core.Input }],
+            selectEndTitle: [{ type: core.Input }],
+            nowBtnAriaLabel: [{ type: core.Input }],
+            startPickerAriaLabel: [{ type: core.Input }],
+            endPickerAriaLabel: [{ type: core.Input }],
+            showTime: [{ type: core.Input }],
+            timezones: [{ type: core.Input }],
+            startTimezone: [{ type: core.Input }],
+            endTimezone: [{ type: core.Input }],
+            startOfWeek: [{ type: core.Input }],
+            startChange: [{ type: core.Output }],
+            endChange: [{ type: core.Output }],
+            startTimezoneChange: [{ type: core.Output }],
+            endTimezoneChange: [{ type: core.Output }]
+        };
+        return DateRangePickerComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var DateRangeOptions = /** @class */ (function () {
+        function DateRangeOptions() {
+            this.picker = DateRangePicker.Start;
+        }
+        return DateRangeOptions;
+    }());
+    var DateRangePickerDirective = /** @class */ (function () {
+        function DateRangePickerDirective(_options) {
+            this._options = _options;
+        }
+        Object.defineProperty(DateRangePickerDirective.prototype, "picker", {
+            /** Specify whether this is the start or end picker */
+            set: /**
+             * Specify whether this is the start or end picker
+             * @param {?} picker
+             * @return {?}
+             */ function (picker) {
+                this._options.picker = picker;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DateRangePickerDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxDateRangePicker]',
+                        providers: [DateRangeOptions]
+                    },] }
+        ];
+        /** @nocollapse */
+        DateRangePickerDirective.ctorParameters = function () {
+            return [
+                { type: DateRangeOptions, decorators: [{ type: core.Self }] }
+            ];
+        };
+        DateRangePickerDirective.propDecorators = {
+            picker: [{ type: core.Input }]
+        };
+        return DateRangePickerDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var DateTimePickerConfig = /** @class */ (function () {
         function DateTimePickerConfig() {
             this.showDate = true;
@@ -10315,6 +10881,7 @@
             this.showSeconds = false;
             this.showMeridian = true;
             this.showSpinners = true;
+            this.showNowBtn = true;
             this.weekdays = weekdaysShort;
             this.nowBtnText = 'Today';
             this.timezones = timezones;
@@ -10349,6 +10916,7 @@
             this.showSeconds$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showSeconds : false);
             this.showMeridian$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showMeridian : true);
             this.showSpinners$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showSpinners : true);
+            this.showNowBtn$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showNowBtn : true);
             this.weekdays$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.weekdays : weekdaysShort);
             this.nowBtnText$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.nowBtnText : 'Today');
             this.timezones$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.timezones : timezones);
@@ -10359,11 +10927,18 @@
             this.months = this._config ? this._config.months : months;
             this.monthsShort = this._config ? this._config.monthsShort : monthsShort;
             this.meridians = this._config ? this._config.meridians : meridians;
+            /**
+             * Store whether or not the component has fully initialised or not. We use this to prevent initial
+             * focus on the end date range picker when the popover is first opened
+             */
+            this.initialised = false;
             // when the active date changes set the currently selected date
             this._subscription = this.selected$.pipe(operators.distinctUntilChanged(dateComparator)).subscribe(function (date) {
                 // the month and year displayed in the viewport should reflect the newly selected items
-                _this.setViewportMonth(date.getMonth());
-                _this.setViewportYear(date.getFullYear());
+                if (date instanceof Date) {
+                    _this.setViewportMonth(date.getMonth());
+                    _this.setViewportYear(date.getFullYear());
+                }
                 // emit the new date to the component host
                 _this.date$.next(date);
             });
@@ -10413,20 +10988,35 @@
          * @param {?} day
          * @param {?} month
          * @param {?} year
+         * @param {?=} hours
+         * @param {?=} minutes
+         * @param {?=} seconds
          * @return {?}
          */
         DateTimePickerService.prototype.setDate = /**
          * @param {?} day
          * @param {?} month
          * @param {?} year
+         * @param {?=} hours
+         * @param {?=} minutes
+         * @param {?=} seconds
          * @return {?}
          */
-            function (day, month, year) {
+            function (day, month, year, hours, minutes, seconds) {
                 /** @type {?} */
                 var date = new Date(this.selected$.value);
                 date.setDate(day);
                 date.setMonth(month);
                 date.setFullYear(year);
+                if (hours !== undefined) {
+                    date.setHours(hours);
+                }
+                if (minutes !== undefined) {
+                    date.setMinutes(minutes);
+                }
+                if (seconds !== undefined) {
+                    date.setSeconds(seconds);
+                }
                 this.selected$.next(date);
             };
         /**
@@ -10570,9 +11160,15 @@
     DatePickerHeaderEvent[DatePickerHeaderEvent.Next] = 'Next';
 
     var DateTimePickerComponent = /** @class */ (function () {
-        function DateTimePickerComponent(datepicker) {
+        function DateTimePickerComponent(datepicker, _rangeService, _rangeOptions) {
             var _this = this;
             this.datepicker = datepicker;
+            this._rangeService = _rangeService;
+            this._rangeOptions = _rangeOptions;
+            /**
+             * Define the aria label for the now button
+             */
+            this.nowBtnAriaLabel = 'Set date to now';
             /**
              * Emits an event when the date is changed using the component.
              */
@@ -10596,7 +11192,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.showDate$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.showDate$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10608,7 +11206,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.showTime$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.showTime$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10620,7 +11220,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.showTimezone$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.showTimezone$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10632,7 +11234,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.showSeconds$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.showSeconds$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10644,7 +11248,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.showMeridian$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.showMeridian$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10656,7 +11262,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.showSpinners$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.showSpinners$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10668,7 +11276,9 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.weekdays$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.weekdays$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10680,7 +11290,9 @@
              * @param {?} months
              * @return {?}
              */ function (months$$1) {
-                this.datepicker.months = months$$1;
+                if (months$$1 !== undefined) {
+                    this.datepicker.months = months$$1;
+                }
             },
             enumerable: true,
             configurable: true
@@ -10692,7 +11304,9 @@
              * @param {?} months
              * @return {?}
              */ function (months$$1) {
-                this.datepicker.monthsShort = months$$1;
+                if (months$$1 !== undefined) {
+                    this.datepicker.monthsShort = months$$1;
+                }
             },
             enumerable: true,
             configurable: true
@@ -10704,7 +11318,9 @@
              * @param {?} meridians
              * @return {?}
              */ function (meridians$$1) {
-                this.datepicker.meridians = meridians$$1;
+                if (meridians$$1 !== undefined) {
+                    this.datepicker.meridians = meridians$$1;
+                }
             },
             enumerable: true,
             configurable: true
@@ -10716,25 +11332,43 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.nowBtnText$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.nowBtnText$.next(value);
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateTimePickerComponent.prototype, "showNowBtn", {
+            /** Specify whether or not to show the show now button */
+            set: /**
+             * Specify whether or not to show the show now button
+             * @param {?} value
+             * @return {?}
+             */ function (value) {
+                if (value !== undefined) {
+                    this.datepicker.showNowBtn$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(DateTimePickerComponent.prototype, "timezones", {
             /**
-             * Defines the list of available timezones. The **DateTimePickerTimezone** interface specifies that each timezone should
-             * be an object with a **name** property that represents the timezone, eg. `GMT+2`, and an **offset** property that represents
+             * Defines the list of available timezones. The `DateTimePickerTimezone` interface specifies that each timezone should
+             * be an object with a `name` property that represents the timezone, eg. `GMT+2`, and an `offset` property that represents
              * the number of minutes relative to GMT the timezone is.
              */
             set: /**
-             * Defines the list of available timezones. The **DateTimePickerTimezone** interface specifies that each timezone should
-             * be an object with a **name** property that represents the timezone, eg. `GMT+2`, and an **offset** property that represents
+             * Defines the list of available timezones. The `DateTimePickerTimezone` interface specifies that each timezone should
+             * be an object with a `name` property that represents the timezone, eg. `GMT+2`, and an `offset` property that represents
              * the number of minutes relative to GMT the timezone is.
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.timezones$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.timezones$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10746,7 +11380,9 @@
              * @param {?} startOfWeek
              * @return {?}
              */ function (startOfWeek) {
-                this.datepicker.startOfWeek$.next(startOfWeek);
+                if (startOfWeek !== undefined) {
+                    this.datepicker.startOfWeek$.next(startOfWeek);
+                }
             },
             enumerable: true,
             configurable: true
@@ -10758,7 +11394,7 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                if (!dateComparator(value, this.datepicker.selected$.value)) {
+                if (value && !dateComparator(value, this.datepicker.selected$.value)) {
                     this.datepicker.selected$.next(new Date(value));
                 }
             },
@@ -10772,11 +11408,56 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.datepicker.timezone$.next(value);
+                if (value !== undefined) {
+                    this.datepicker.timezone$.next(value);
+                }
             },
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(DateTimePickerComponent.prototype, "_isRangeMode", {
+            /** Determine if we are in range selection mode */
+            get: /**
+             * Determine if we are in range selection mode
+             * @return {?}
+             */ function () {
+                return !!this._rangeOptions;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateTimePickerComponent.prototype, "_isRangeStart", {
+            /** Determine if this picker is the start picker */
+            get: /**
+             * Determine if this picker is the start picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateTimePickerComponent.prototype, "_isRangeEnd", {
+            /** Determine if this picker is the end picker */
+            get: /**
+             * Determine if this picker is the end picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        DateTimePickerComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                setTimeout(function () { return _this.datepicker.initialised = true; });
+            };
         /**
          * @return {?}
          */
@@ -10799,13 +11480,28 @@
          * @return {?}
          */
             function () {
-                // set the date to the current moment
-                this.datepicker.setDateToNow();
+                if (this._isRangeMode) {
+                    /** @type {?} */
+                    var date = new Date();
+                    if (this._isRangeStart && !this._rangeService.showTime) {
+                        this.datepicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 0, 0, 0);
+                    }
+                    else if (this._isRangeEnd && !this._rangeService.showTime) {
+                        this.datepicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 23, 59, 59);
+                    }
+                    else {
+                        this.datepicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), this.datepicker.hours, this.datepicker.minutes, this.datepicker.seconds);
+                    }
+                }
+                else {
+                    // set the date to the current moment
+                    this.datepicker.setDateToNow();
+                }
             };
         DateTimePickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker',
-                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    uxFocusIndicator\n    class=\"now-button\"\n    aria-label=\"Set date to now\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
+                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    *ngIf=\"datepicker.showNowBtn$ | async\"\n    uxFocusIndicator\n    class=\"now-button\"\n    [attr.aria-label]=\"nowBtnAriaLabel\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
                         providers: [DateTimePickerService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -10813,7 +11509,9 @@
         /** @nocollapse */
         DateTimePickerComponent.ctorParameters = function () {
             return [
-                { type: DateTimePickerService }
+                { type: DateTimePickerService },
+                { type: DateRangeService, decorators: [{ type: core.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
         };
         DateTimePickerComponent.propDecorators = {
@@ -10828,8 +11526,10 @@
             monthsShort: [{ type: core.Input }],
             meridians: [{ type: core.Input }],
             nowBtnText: [{ type: core.Input }],
+            showNowBtn: [{ type: core.Input }],
             timezones: [{ type: core.Input }],
             startOfWeek: [{ type: core.Input }],
+            nowBtnAriaLabel: [{ type: core.Input }],
             dateChange: [{ type: core.Output }],
             timezoneChange: [{ type: core.Output }],
             date: [{ type: core.Input }],
@@ -11117,34 +11817,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var TimeFormatPipe = /** @class */ (function () {
-        function TimeFormatPipe() {
-        }
-        /**
-         * @param {?} value
-         * @param {?} pad
-         * @return {?}
-         */
-        TimeFormatPipe.prototype.transform = /**
-         * @param {?} value
-         * @param {?} pad
-         * @return {?}
-         */
-            function (value, pad) {
-                return value < 10 && pad ? '0' + value : value;
-            };
-        TimeFormatPipe.decorators = [
-            { type: core.Pipe, args: [{
-                        name: 'timeFormat'
-                    },] }
-        ];
-        return TimeFormatPipe;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
     /** @type {?} */
     var TIME_PICKER_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
@@ -11153,7 +11825,6 @@
     };
     var TimePickerComponent = /** @class */ (function () {
         function TimePickerComponent() {
-            var _this = this;
             /**
              * Whether the arrow keys can be used to increment or decrement the selected time component.
              */
@@ -11216,21 +11887,14 @@
             this.isValid = new core.EventEmitter();
             this.onTouchedCallback = function () { };
             this.onChangeCallback = function () { };
-            this.value$ = new BehaviorSubject.BehaviorSubject(new Date());
-            // create observables that are derived from the latest value
-            this.hour$ = this.value$.pipe(operators.map(function (date) { return date.getHours(); }), operators.map(function (hour) { return _this.showMeridian ? _this.getMeridianTime(hour) : hour; }));
-            this.minute$ = this.value$.pipe(operators.map(function (date) { return date.getMinutes(); }));
-            this.second$ = this.value$.pipe(operators.map(function (date) { return date.getSeconds(); }));
-            this.meridian$ = this.value$.pipe(operators.map(function (date) { return date.getHours() < 12 ? _this.meridians[0] : _this.meridians[1]; }));
-            this.valid$ = this.value$.pipe(operators.map(function (date) { return _this.checkValidity(date); }));
-            this._meridian = this.meridians[0];
-            this._subscription = this.valid$.pipe(operators.distinctUntilChanged()).subscribe(function (valid) { return _this.isValid.emit(valid); });
+            this._value = new Date();
+            this._isValid = true;
         }
         Object.defineProperty(TimePickerComponent.prototype, "value", {
             get: /**
              * @return {?}
              */ function () {
-                return new Date(this.value$.value);
+                return new Date(this._value);
             },
             /** The value to display. */
             set: /**
@@ -11238,23 +11902,32 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.value$.next(new Date(value));
-                this.valueChange.emit(this.value$.value);
-                this.onChangeCallback(this.value$.value);
+                this._value = new Date(value);
+                this.valueChange.emit(this._value);
+                this.onChangeCallback(this._value);
                 this.onTouchedCallback();
             },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        TimePickerComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._subscription.unsubscribe();
-            };
+        Object.defineProperty(TimePickerComponent.prototype, "_meridian", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._value.getHours() < 12 ? this.meridians[0] : this.meridians[1];
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TimePickerComponent.prototype, "_valid", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this.checkValidity(this._value);
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @param {?} value
          * @return {?}
@@ -11463,7 +12136,6 @@
          * @return {?}
          */
             function (meridian) {
-                this._meridian = meridian;
                 // get the current time
                 /** @type {?} */
                 var hour = this.value.getHours();
@@ -11491,11 +12163,13 @@
             function (date) {
                 /** @type {?} */
                 var valid = true;
-                if (this.min && date.getTime() <= this.min.getTime()) {
+                if (this.min && date.getTime() <= this.min.getTime() || this.max && date.getTime() >= this.max.getTime()) {
                     valid = false;
                 }
-                if (this.max && date.getTime() >= this.max.getTime()) {
-                    valid = false;
+                // if the valid state has changed then emit the isValid output
+                if (valid !== this._isValid) {
+                    this._isValid = valid;
+                    this.isValid.emit(valid);
                 }
                 return valid;
             };
@@ -11508,6 +12182,10 @@
          * @return {?}
          */
             function (value) {
+                // if the value is empty then emit nothing
+                if (value && value.trim() === '') {
+                    return;
+                }
                 // convert the string to a number
                 /** @type {?} */
                 var hour = parseInt(value);
@@ -11527,16 +12205,18 @@
                     }
                 }
                 hour = isNaN(hour) ? currentHour : hour;
-                // if the number is invalid then restore it to the previous value
-                if (this._meridian === this.meridians[0]) {
-                    if (hour >= 12) {
-                        hour -= 12;
+                if (this.showMeridian) {
+                    // if the number is invalid then restore it to the previous value
+                    if (this._meridian === this.meridians[0]) {
+                        if (hour >= 12) {
+                            hour -= 12;
+                        }
                     }
-                }
-                // if we have selected PM
-                if (this._meridian === this.meridians[1]) {
-                    if (hour < 12) {
-                        hour += 12;
+                    // if we have selected PM
+                    if (this._meridian === this.meridians[1]) {
+                        if (hour < 12) {
+                            hour += 12;
+                        }
                     }
                 }
                 this.setHour(hour);
@@ -11604,7 +12284,7 @@
         TimePickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-time-picker',
-                        template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!(valid$ | async)\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"hour$ | async | timeFormat:!showMeridian\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!(valid$ | async)\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"minute$ | async | timeFormat:true\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!(valid$ | async)\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"second$ | async | timeFormat:true\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === (meridian$ | async)\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === (meridian$ | async)\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>",
+                        template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"value | date: showMeridian ? 'h' : 'HH'\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'mm'\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'ss'\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === _meridian\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === _meridian\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>",
                         encapsulation: core.ViewEncapsulation.None,
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         providers: [TIME_PICKER_VALUE_ACCESSOR],
@@ -11613,8 +12293,6 @@
                         }
                     }] }
         ];
-        /** @nocollapse */
-        TimePickerComponent.ctorParameters = function () { return []; };
         TimePickerComponent.propDecorators = {
             arrowkeys: [{ type: core.Input }],
             mousewheel: [{ type: core.Input }],
@@ -11654,7 +12332,7 @@
                             SpinButtonModule
                         ],
                         exports: [TimePickerComponent],
-                        declarations: [TimePickerComponent, TimeFormatPipe],
+                        declarations: [TimePickerComponent],
                     },] }
         ];
         return TimePickerModule;
@@ -11802,7 +12480,7 @@
          * @return {?}
          */
             function (date) {
-                return compareDays(this._datepicker.selected$.value, date);
+                return this._datepicker.selected$.value ? compareDays(this._datepicker.selected$.value, date) : false;
             };
         DayViewService.decorators = [
             { type: core.Injectable }
@@ -11821,13 +12499,101 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var DayViewComponent = /** @class */ (function () {
-        function DayViewComponent(datePicker, dayService) {
+        function DayViewComponent(datePicker, dayService, _changeDetector, _focusOrigin, _liveAnnouncer, _rangeService, _rangeOptions) {
             var _this = this;
             this.datePicker = datePicker;
             this.dayService = dayService;
-            this._subscription = datePicker.headerEvent$
+            this._changeDetector = _changeDetector;
+            this._focusOrigin = _focusOrigin;
+            this._liveAnnouncer = _liveAnnouncer;
+            this._rangeService = _rangeService;
+            this._rangeOptions = _rangeOptions;
+            this._onDestroy = new Subject.Subject();
+            datePicker.headerEvent$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
+            // if we are a range picker then we also want to subscribe to range changes
+            if (_rangeService) {
+                merge.merge(_rangeService.onRangeChange, _rangeService.onHoverChange).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _changeDetector.detectChanges(); });
+                // subscribe to changes to the start date
+                _rangeService.onStartChange
+                    .pipe(operators.takeUntil(this._onDestroy), operators.filter(function (date) { return !!date && _this._isRangeEnd && _this.datePicker.initialised; }), operators.delay(0))
+                    .subscribe(function (date) { return _this.onRangeChange(date); });
+                // subscribe to changes to the end date
+                _rangeService.onEndChange
+                    .pipe(operators.takeUntil(this._onDestroy), operators.filter(function (date) { return !!date && _this._isRangeStart && _this.datePicker.initialised; }), operators.delay(0))
+                    .subscribe(function (date) { return _this.onRangeChange(date); });
+                // when the range is cleared reset the selected date so we can click on the same date again if we want to
+                _rangeService.onClear.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.datePicker.selected$.next(null); });
+            }
         }
+        Object.defineProperty(DayViewComponent.prototype, "_isRangeMode", {
+            /** Determine if we are in range selection mode */
+            get: /**
+             * Determine if we are in range selection mode
+             * @return {?}
+             */ function () {
+                return !!this._rangeOptions;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DayViewComponent.prototype, "_isRangeStart", {
+            /** Determine if this picker is the start picker */
+            get: /**
+             * Determine if this picker is the start picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DayViewComponent.prototype, "_isRangeEnd", {
+            /** Determine if this picker is the end picker */
+            get: /**
+             * Determine if this picker is the end picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DayViewComponent.prototype, "_rangeStart", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.start : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DayViewComponent.prototype, "_rangeEnd", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        DayViewComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                // if we open and the range start is already selected, ensure that we move the end picker to a month with options
+                if (!this.datePicker.initialised && this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
+                    this.onRangeChange(this._rangeStart);
+                }
+                // if we open and the range end is already selected, ensure that we move the start picker to a month with options
+                if (!this.datePicker.initialised && this._rangeEnd && !this._rangeStart && this._isRangeStart) {
+                    this.onRangeChange(this._rangeEnd);
+                }
+            };
         /**
          * @return {?}
          */
@@ -11835,7 +12601,8 @@
          * @return {?}
          */
             function () {
-                this._subscription.unsubscribe();
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
         /**
          * Navigate to the previous page of dates
@@ -11880,10 +12647,53 @@
          * @return {?}
          */
             function (date) {
-                // update the current date object
-                this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
+                // if we are range picking, and have no dates selected clear the range (if we select the current day initially it won't get selected)
+                if (this._isRangeMode && !this._rangeStart && !this._rangeEnd) {
+                    this._rangeService.clear();
+                }
+                // if we are the start range picker and we click the already selected day deselect it
+                if (this._isRangeMode && this._isRangeStart && this._rangeStart && compareDays(this._rangeStart, date)) {
+                    this._rangeService.setStartDate(null);
+                    this.datePicker.selected$.next(null);
+                    return;
+                }
+                // if we are the end range picker and we click the already selected day deselect it
+                if (this._isRangeMode && this._isRangeEnd && this._rangeEnd && compareDays(this._rangeEnd, date)) {
+                    this._rangeService.setEndDate(null);
+                    this.datePicker.selected$.next(null);
+                    return;
+                }
+                // if we are in range mode ensure we include the time from the time picker
+                if (this._isRangeMode) {
+                    // update the current date object
+                    if (this._isRangeStart && !this._rangeService.showTime) {
+                        this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 0, 0, 0);
+                    }
+                    else if (this._isRangeEnd && !this._rangeService.showTime) {
+                        this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), 23, 59, 59);
+                    }
+                    else {
+                        this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear(), this.datePicker.hours, this.datePicker.minutes, this.datePicker.seconds);
+                    }
+                }
+                else {
+                    // update the current date object
+                    this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
+                }
                 // focus the newly selected date
                 this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+                // if we select a start date that is after the end date then clear the end date
+                if (this._isRangeMode && this._isRangeStart && this._rangeStart && this._rangeEnd) {
+                    if (this._rangeStart.getTime() > this._rangeEnd.getTime()) {
+                        this._rangeService.setEndDate(null);
+                    }
+                }
+                // if we select a end date that is before the start date then clear the start date
+                if (this._isRangeMode && this._isRangeEnd && this._rangeStart && this._rangeEnd) {
+                    if (this._rangeEnd.getTime() < this._rangeStart.getTime()) {
+                        this._rangeService.setStartDate(null);
+                    }
+                }
             };
         /**
          * @param {?} index
@@ -11923,6 +12733,8 @@
                 // determine the date of the day
                 /** @type {?} */
                 var target = new Date(item.date.setDate(item.date.getDate() + dayOffset));
+                // we should force the origin to be keyboard
+                this._focusOrigin.setOrigin('keyboard');
                 // identify which date should be focused
                 this.dayService.setFocus(target.getDate(), target.getMonth(), target.getFullYear());
             };
@@ -11935,15 +12747,18 @@
          * @return {?}
          */
             function (item) {
+                var e_1, _a, e_2, _b;
                 /** @type {?} */
                 var focused = this.dayService.focused$.value;
                 /** @type {?} */
                 var grid = this.dayService.grid$.value;
+                /** @type {?} */
+                var month = this.datePicker.month$.value;
                 // if there is a focused month check if this is it
                 if (focused) {
                     // check if the focused day is visible
                     /** @type {?} */
-                    var isFocusedDayVisible = !!grid.find(function (row) { return !!row.find(function (_item) { return _item.day === focused.day && _item.month === focused.month && _item.year === focused.year; }); });
+                    var isFocusedDayVisible = !!grid.find(function (row) { return !!row.find(function (_item) { return _item.day === focused.day && _item.month === focused.month && _item.year === focused.year && _item.month === month; }); });
                     if (isFocusedDayVisible) {
                         return focused.day === item.day && focused.month === item.month && focused.year === item.year;
                     }
@@ -11954,13 +12769,221 @@
                 if (isSelectedDayVisible) {
                     return item.isActive;
                 }
-                // otherwise make the first day tabbable
-                return item.day === 1;
+                try {
+                    // find the first non disabled day that is part of the current month
+                    for (var grid_1 = __values(grid), grid_1_1 = grid_1.next(); !grid_1_1.done; grid_1_1 = grid_1.next()) {
+                        var row = grid_1_1.value;
+                        try {
+                            for (var row_1 = __values(row), row_1_1 = row_1.next(); !row_1_1.done; row_1_1 = row_1.next()) {
+                                var column = row_1_1.value;
+                                if (column === item && column.month === month && !this.getDisabled(column.date)) {
+                                    return true;
+                                }
+                            }
+                        }
+                        catch (e_2_1) {
+                            e_2 = { error: e_2_1 };
+                        }
+                        finally {
+                            try {
+                                if (row_1_1 && !row_1_1.done && (_b = row_1.return))
+                                    _b.call(row_1);
+                            }
+                            finally {
+                                if (e_2)
+                                    throw e_2.error;
+                            }
+                        }
+                    }
+                }
+                catch (e_1_1) {
+                    e_1 = { error: e_1_1 };
+                }
+                finally {
+                    try {
+                        if (grid_1_1 && !grid_1_1.done && (_a = grid_1.return))
+                            _a.call(grid_1);
+                    }
+                    finally {
+                        if (e_1)
+                            throw e_1.error;
+                    }
+                }
+                return false;
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.getDisabled = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                // if we are not in range mode then it will always be enabled
+                if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
+                    return false;
+                }
+                // if we are range start and dates are after the range end then they should also be disabled
+                if (this._isRangeStart && this._rangeEnd && isDateAfter(date, this._rangeEnd)) {
+                    return true;
+                }
+                // if we are range end and dates are before the range start then they should also be disabled
+                if (this._isRangeEnd && this._rangeStart && isDateBefore(date, this._rangeStart)) {
+                    return true;
+                }
+                return false;
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.isRangeStartDate = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                return this._isRangeMode && this._rangeStart && compareDays(date, this._rangeStart);
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.isRangeEndDate = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                return this._isRangeMode && this._rangeEnd && compareDays(date, this._rangeEnd);
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.isWithinRange = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                return this._isRangeMode && this._rangeStart && isDateAfter(date, this._rangeStart) && isDateBefore(date, this._rangeEnd);
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.isDateHovered = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                // if we are not in range mode or both start and end dates are selected then dont show range hover
+                if (!this._isRangeMode || !this._rangeService.hover || this._rangeStart && this._rangeEnd) {
+                    return;
+                }
+                return this._rangeStart && isDateAfter(date, this._rangeStart) && isDateBefore(date, this._rangeService.hover, true) ||
+                    this._rangeEnd && isDateBefore(date, this._rangeEnd) && isDateAfter(date, this._rangeService.hover, true);
+            };
+        /**
+         * @param {?} date
+         * @param {?} isActive
+         * @return {?}
+         */
+        DayViewComponent.prototype.isItemActive = /**
+         * @param {?} date
+         * @param {?} isActive
+         * @return {?}
+         */
+            function (date, isActive) {
+                if (!this._isRangeMode) {
+                    return isActive;
+                }
+                return this._isRangeStart && this._rangeStart && compareDays(this._rangeStart, date) ||
+                    this._isRangeEnd && this._rangeEnd && compareDays(this._rangeEnd, date);
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.onRangeMouseEnter = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                if (this._isRangeMode) {
+                    this._rangeService.setDateMouseEnter(date);
+                }
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.onRangeMouseLeave = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                if (this._isRangeMode) {
+                    this._rangeService.setDateMouseLeave(date);
+                }
+            };
+        /** Announce the date when we focus on a date */
+        /**
+         * Announce the date when we focus on a date
+         * @return {?}
+         */
+        DayViewComponent.prototype.announceRangeMode = /**
+         * Announce the date when we focus on a date
+         * @return {?}
+         */
+            function () {
+                if (this._isRangeMode) {
+                    this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+                }
+            };
+        /** Determine if we should focus a date */
+        /**
+         * Determine if we should focus a date
+         * @param {?} item
+         * @return {?}
+         */
+        DayViewComponent.prototype.shouldFocus = /**
+         * Determine if we should focus a date
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                // if we are opening the popover initially we never want to focus a date in the range end picker
+                if (!this.datePicker.initialised && this._isRangeEnd || this._rangeService && this._rangeService.isChangingTime) {
+                    return false;
+                }
+                // extract the current focused dates
+                var _a = this.dayService.focused$.value, day = _a.day, month = _a.month, year = _a.year;
+                // check if the current date is the focused date and it is in the viewport date
+                return day === item.day && month === item.month && year === item.year && item.isCurrentMonth;
+            };
+        /** Update the viewport when the range changes to ensure focus is present on a valid item */
+        /**
+         * Update the viewport when the range changes to ensure focus is present on a valid item
+         * @param {?} date
+         * @return {?}
+         */
+        DayViewComponent.prototype.onRangeChange = /**
+         * Update the viewport when the range changes to ensure focus is present on a valid item
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                if (this._isRangeStart && !this._rangeStart || this._isRangeEnd && !this._rangeEnd) {
+                    this.datePicker.setViewportMonth(date.getMonth());
+                    this.datePicker.setViewportYear(date.getFullYear());
+                    this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+                    this._changeDetector.detectChanges();
+                }
             };
         DayViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-day-view',
-                        template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        uxFocusIndicator\n                        [programmaticFocusIndicator]=\"true\"\n                        class=\"date-button\"\n                        [focusIf]=\"(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"item.isActive\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"item.isActive\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
+                        template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        uxFocusIndicator\n                        uxFocusIndicatorOrigin\n                        class=\"date-button\"\n                        [class.range-start]=\"isRangeStartDate(item.date)\"\n                        [class.range-between]=\"isWithinRange(item.date) || isDateHovered(item.date)\"\n                        [class.range-end]=\"isRangeEndDate(item.date)\"\n                        [focusIf]=\"shouldFocus(item)\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"isItemActive(item.date, item.isActive)\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"isItemActive(item.date, item.isActive)\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        [disabled]=\"getDisabled(item.date)\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (mouseenter)=\"onRangeMouseEnter(item.date)\"\n                        (mouseleave)=\"onRangeMouseLeave(item.date)\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\"\n                        (focus)=\"announceRangeMode()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
                         providers: [DayViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -11969,7 +12992,12 @@
         DayViewComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
-                { type: DayViewService }
+                { type: DayViewService },
+                { type: core.ChangeDetectorRef },
+                { type: FocusIndicatorOriginService },
+                { type: a11y.LiveAnnouncer },
+                { type: DateRangeService, decorators: [{ type: core.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
         };
         return DayViewComponent;
@@ -11980,8 +13008,10 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var HeaderComponent = /** @class */ (function () {
-        function HeaderComponent(datepicker) {
+        function HeaderComponent(datepicker, changeDetector, _rangeService, _rangeOptions) {
             this.datepicker = datepicker;
+            this._rangeService = _rangeService;
+            this._rangeOptions = _rangeOptions;
             this.canAscend$ = this.datepicker.mode$.pipe(operators.map(function (mode) { return mode !== DatePickerMode.Year; }));
             this.mode$ = this.datepicker.mode$.pipe(operators.map(function (mode) {
                 switch (mode) {
@@ -12023,45 +13053,197 @@
                         return 'Next decade';
                 }
             }));
+            /**
+             * Unsubscribe from all observables
+             */
+            this._onDestroy = new Subject.Subject();
+            if (this._rangeService) {
+                // delay required to allow all ui to update elsewhere
+                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy), operators.delay(100))
+                    .subscribe(function () { return changeDetector.detectChanges(); });
+            }
         }
+        Object.defineProperty(HeaderComponent.prototype, "_isRangeMode", {
+            /** Determine if we are in range selection mode */
+            get: /**
+             * Determine if we are in range selection mode
+             * @return {?}
+             */ function () {
+                return !!this._rangeOptions;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(HeaderComponent.prototype, "_isRangeStart", {
+            /** Determine if this picker is the start picker */
+            get: /**
+             * Determine if this picker is the start picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(HeaderComponent.prototype, "_isRangeEnd", {
+            /** Determine if this picker is the end picker */
+            get: /**
+             * Determine if this picker is the end picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(HeaderComponent.prototype, "_rangeStart", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.start : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(HeaderComponent.prototype, "_rangeEnd", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
+        HeaderComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** Navigate to the previous day, month or year */
+        /**
+         * Navigate to the previous day, month or year
+         * @return {?}
+         */
         HeaderComponent.prototype.previous = /**
+         * Navigate to the previous day, month or year
          * @return {?}
          */
             function () {
                 this.datepicker.goToPrevious();
             };
+        /** Navigate to the larger scale, eg. Days -> Months, Months -> Years */
         /**
+         * Navigate to the larger scale, eg. Days -> Months, Months -> Years
          * @return {?}
          */
         HeaderComponent.prototype.ascend = /**
+         * Navigate to the larger scale, eg. Days -> Months, Months -> Years
          * @return {?}
          */
             function () {
                 this.datepicker.goToParentMode();
             };
+        /** Navigate to the previous day, month or year */
         /**
+         * Navigate to the previous day, month or year
          * @return {?}
          */
         HeaderComponent.prototype.next = /**
+         * Navigate to the previous day, month or year
          * @return {?}
          */
             function () {
                 this.datepicker.goToNext();
             };
+        /** Determine if the previous button is enabled */
+        /**
+         * Determine if the previous button is enabled
+         * @return {?}
+         */
+        HeaderComponent.prototype.isPreviousDisabled = /**
+         * Determine if the previous button is enabled
+         * @return {?}
+         */
+            function () {
+                // if we are not in range mode or there are no disabled items then we can navigate back
+                if (!this._isRangeMode || this._rangeStart && this._rangeEnd ||
+                    !this._rangeStart && !this._rangeEnd || this._isRangeStart
+                    || this._isRangeEnd && this._rangeEnd) {
+                    return false;
+                }
+                /** @type {?} */
+                var month = this.datepicker.month$.value;
+                /** @type {?} */
+                var year = this.datepicker.year$.value;
+                /** @type {?} */
+                var mode = this.datepicker.mode$.value;
+                /** @type {?} */
+                var yearRange = this.datepicker.yearRange;
+                if (mode === DatePickerMode.Day) {
+                    return year <= this._rangeStart.getFullYear() && month <= this._rangeStart.getMonth();
+                }
+                if (mode === DatePickerMode.Month) {
+                    return year <= this._rangeStart.getFullYear();
+                }
+                if (mode === DatePickerMode.Year) {
+                    return yearRange.start <= this._rangeStart.getFullYear();
+                }
+                return false;
+            };
+        /** Determine if the previous button is enabled */
+        /**
+         * Determine if the previous button is enabled
+         * @return {?}
+         */
+        HeaderComponent.prototype.isNextDisabled = /**
+         * Determine if the previous button is enabled
+         * @return {?}
+         */
+            function () {
+                // if we are not in range mode or there are no disabled items then we can navigate back
+                if (!this._isRangeMode || this._rangeStart && this._rangeEnd ||
+                    !this._rangeStart && !this._rangeEnd || this._isRangeStart && this._rangeStart
+                    || this._isRangeEnd) {
+                    return false;
+                }
+                /** @type {?} */
+                var month = this.datepicker.month$.value;
+                /** @type {?} */
+                var year = this.datepicker.year$.value;
+                /** @type {?} */
+                var mode = this.datepicker.mode$.value;
+                /** @type {?} */
+                var yearRange = this.datepicker.yearRange;
+                if (mode === DatePickerMode.Day) {
+                    return year >= this._rangeEnd.getFullYear() && month >= this._rangeEnd.getMonth();
+                }
+                if (mode === DatePickerMode.Month) {
+                    return year >= this._rangeEnd.getFullYear();
+                }
+                if (mode === DatePickerMode.Year) {
+                    return yearRange.end >= this._rangeEnd.getFullYear();
+                }
+                return false;
+            };
         HeaderComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-header',
-                        template: "<header class=\"header\">\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-previous\"></i>\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-next\"></i>\n  </button>\n</header>",
+                        template: "<header class=\"header\">\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isPreviousDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-previous\"></i>\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isNextDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-next\"></i>\n  </button>\n</header>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         HeaderComponent.ctorParameters = function () {
             return [
-                { type: DateTimePickerService }
+                { type: DateTimePickerService },
+                { type: core.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: core.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
         };
         return HeaderComponent;
@@ -12122,9 +13304,9 @@
                 var currentYear = new Date().getFullYear();
                 // get the currently selected month
                 /** @type {?} */
-                var activeMonth = this._datepicker.selected$.value.getMonth();
+                var activeMonth = this._datepicker.selected$.value ? this._datepicker.selected$.value.getMonth() : null;
                 /** @type {?} */
-                var activeYear = this._datepicker.selected$.value.getFullYear();
+                var activeYear = this._datepicker.selected$.value ? this._datepicker.selected$.value.getFullYear() : null;
                 // create a 4x3 grid of month numbers
                 /** @type {?} */
                 var months$$1 = range(0, 11).map(function (month) {
@@ -12166,13 +13348,117 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MonthViewComponent = /** @class */ (function () {
-        function MonthViewComponent(_datePicker, monthService) {
+        function MonthViewComponent(_datePicker, monthService, _liveAnnouncer, changeDetector, _rangeService, _rangeOptions) {
+            var e_1, _a, e_2, _b;
             var _this = this;
             this._datePicker = _datePicker;
             this.monthService = monthService;
-            this._subscription = _datePicker.headerEvent$
+            this._liveAnnouncer = _liveAnnouncer;
+            this._rangeService = _rangeService;
+            this._rangeOptions = _rangeOptions;
+            this._onDestroy = new Subject.Subject();
+            _datePicker.headerEvent$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
+            if (this._rangeService) {
+                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return changeDetector.detectChanges(); });
+            }
+            // if the currently focused item is disabled then choose a month that isn't disabled
+            if (this.monthService.focused$.value) {
+                if (this.getDisabled(this.monthService.focused$.value)) {
+                    try {
+                        for (var _c = __values(this.monthService.grid$.value), _d = _c.next(); !_d.done; _d = _c.next()) {
+                            var row = _d.value;
+                            try {
+                                for (var row_1 = __values(row), row_1_1 = row_1.next(); !row_1_1.done; row_1_1 = row_1.next()) {
+                                    var column = row_1_1.value;
+                                    if (!this.getDisabled(column)) {
+                                        this.monthService.setFocus(column.month, column.year);
+                                        return;
+                                    }
+                                }
+                            }
+                            catch (e_2_1) {
+                                e_2 = { error: e_2_1 };
+                            }
+                            finally {
+                                try {
+                                    if (row_1_1 && !row_1_1.done && (_b = row_1.return))
+                                        _b.call(row_1);
+                                }
+                                finally {
+                                    if (e_2)
+                                        throw e_2.error;
+                                }
+                            }
+                        }
+                    }
+                    catch (e_1_1) {
+                        e_1 = { error: e_1_1 };
+                    }
+                    finally {
+                        try {
+                            if (_d && !_d.done && (_a = _c.return))
+                                _a.call(_c);
+                        }
+                        finally {
+                            if (e_1)
+                                throw e_1.error;
+                        }
+                    }
+                }
+            }
         }
+        Object.defineProperty(MonthViewComponent.prototype, "_isRangeMode", {
+            /** Determine if we are in range selection mode */
+            get: /**
+             * Determine if we are in range selection mode
+             * @return {?}
+             */ function () {
+                return !!this._rangeOptions;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MonthViewComponent.prototype, "_isRangeStart", {
+            /** Determine if this picker is the start picker */
+            get: /**
+             * Determine if this picker is the start picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MonthViewComponent.prototype, "_isRangeEnd", {
+            /** Determine if this picker is the end picker */
+            get: /**
+             * Determine if this picker is the end picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MonthViewComponent.prototype, "_rangeStart", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.start : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MonthViewComponent.prototype, "_rangeEnd", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -12180,7 +13466,36 @@
          * @return {?}
          */
             function () {
-                this._subscription.unsubscribe();
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** Get the disabled state of a month */
+        /**
+         * Get the disabled state of a month
+         * @param {?} item
+         * @return {?}
+         */
+        MonthViewComponent.prototype.getDisabled = /**
+         * Get the disabled state of a month
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                /** @type {?} */
+                var date = new Date(item.year, item.month);
+                // if we are not in range mode then it will always be enabled
+                if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
+                    return false;
+                }
+                // if we are range start and dates are after the range end then they should also be disabled
+                if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+                    return true;
+                }
+                // if we are range end and dates are before the range start then they should also be disabled
+                if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+                    return true;
+                }
+                return false;
             };
         /**
          * Go to the previous year
@@ -12266,16 +13581,16 @@
                 return index;
             };
         /**
-         * @param {?} index
+         * @param {?} _index
          * @param {?} item
          * @return {?}
          */
         MonthViewComponent.prototype.trackMonthByFn = /**
-         * @param {?} index
+         * @param {?} _index
          * @param {?} item
          * @return {?}
          */
-            function (index, item) {
+            function (_index, item) {
                 return item.month + " " + item.year;
             };
         /**
@@ -12287,6 +13602,7 @@
          * @return {?}
          */
             function (item) {
+                var e_3, _a, e_4, _b;
                 /** @type {?} */
                 var focused = this.monthService.focused$.value;
                 /** @type {?} */
@@ -12306,13 +13622,81 @@
                 if (isSelectedMonthVisible) {
                     return item.isActiveMonth;
                 }
-                // otherwise make the first month tabbable
-                return item.month === 0;
+                try {
+                    // otherwise find the first non-disabled month
+                    for (var grid_1 = __values(grid), grid_1_1 = grid_1.next(); !grid_1_1.done; grid_1_1 = grid_1.next()) {
+                        var row = grid_1_1.value;
+                        try {
+                            for (var row_2 = __values(row), row_2_1 = row_2.next(); !row_2_1.done; row_2_1 = row_2.next()) {
+                                var column = row_2_1.value;
+                                if (!this.getDisabled(column)) {
+                                    return item === column;
+                                }
+                            }
+                        }
+                        catch (e_4_1) {
+                            e_4 = { error: e_4_1 };
+                        }
+                        finally {
+                            try {
+                                if (row_2_1 && !row_2_1.done && (_b = row_2.return))
+                                    _b.call(row_2);
+                            }
+                            finally {
+                                if (e_4)
+                                    throw e_4.error;
+                            }
+                        }
+                    }
+                }
+                catch (e_3_1) {
+                    e_3 = { error: e_3_1 };
+                }
+                finally {
+                    try {
+                        if (grid_1_1 && !grid_1_1.done && (_a = grid_1.return))
+                            _a.call(grid_1);
+                    }
+                    finally {
+                        if (e_3)
+                            throw e_3.error;
+                    }
+                }
+                return false;
+            };
+        /** Announce the date when we focus on a date */
+        /**
+         * Announce the date when we focus on a date
+         * @return {?}
+         */
+        MonthViewComponent.prototype.announceRangeMode = /**
+         * Announce the date when we focus on a date
+         * @return {?}
+         */
+            function () {
+                if (this._isRangeMode) {
+                    this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+                }
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        MonthViewComponent.prototype.shouldFocus = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                /** @type {?} */
+                var focused = this.monthService.focused$.value;
+                if (focused) {
+                    return focused.month === item.month && focused.year === item.year;
+                }
             };
         MonthViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-month-view',
-                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
+                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"shouldFocus(item)\"\n         [disabled]=\"getDisabled(item)\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
                         providers: [MonthViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -12321,7 +13705,11 @@
         MonthViewComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
-                { type: MonthViewService }
+                { type: MonthViewService },
+                { type: a11y.LiveAnnouncer },
+                { type: core.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: core.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
         };
         return MonthViewComponent;
@@ -12368,9 +13756,135 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var TimeViewComponent = /** @class */ (function () {
-        function TimeViewComponent(datepicker) {
+        function TimeViewComponent(datepicker, _rangeService, _rangeOptions) {
+            var _this = this;
             this.datepicker = datepicker;
+            this._rangeService = _rangeService;
+            this._rangeOptions = _rangeOptions;
+            this._onDestroy = new Subject.Subject();
+            if (!this._isRangeMode) {
+                datepicker.selected$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (date) { return !!date; })).subscribe(function (date) { return _this.value = new Date(date); });
+            }
+            if (this._isRangeMode && this._isRangeStart) {
+                this.value = new Date();
+                if (!this._rangeStart) {
+                    this.value.setHours(0, 0, 0, 0);
+                }
+                else {
+                    this.value.setHours(this._rangeStart.getHours(), this._rangeStart.getMinutes(), this._rangeStart.getSeconds());
+                }
+            }
+            if (this._isRangeMode && this._isRangeEnd) {
+                this.value = new Date();
+                if (!this._rangeEnd) {
+                    this.value.setHours(23, 59, 59, 0);
+                }
+                else {
+                    this.value.setHours(this._rangeEnd.getHours(), this._rangeEnd.getMinutes(), this._rangeEnd.getSeconds());
+                }
+            }
         }
+        Object.defineProperty(TimeViewComponent.prototype, "_isRangeMode", {
+            /** Determine if we are in range selection mode */
+            get: /**
+             * Determine if we are in range selection mode
+             * @return {?}
+             */ function () {
+                return !!this._rangeOptions;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TimeViewComponent.prototype, "_isRangeStart", {
+            /** Determine if this picker is the start picker */
+            get: /**
+             * Determine if this picker is the start picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TimeViewComponent.prototype, "_isRangeEnd", {
+            /** Determine if this picker is the end picker */
+            get: /**
+             * Determine if this picker is the end picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TimeViewComponent.prototype, "_rangeStart", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.start : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TimeViewComponent.prototype, "_rangeEnd", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        TimeViewComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @param {?} time
+         * @return {?}
+         */
+        TimeViewComponent.prototype.onTimeChange = /**
+         * @param {?} time
+         * @return {?}
+         */
+            function (time) {
+                if (this._isRangeMode) {
+                    this.datepicker.hours = time.getHours();
+                    this.datepicker.minutes = time.getMinutes();
+                    this.datepicker.seconds = time.getSeconds();
+                    // if a date is currently selected we should update it
+                    if (this._isRangeStart && this._rangeStart) {
+                        /** @type {?} */
+                        var start = new Date(this._rangeStart);
+                        start.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
+                        this._rangeService.setStartDate(start);
+                    }
+                    if (this._isRangeEnd && this._rangeEnd) {
+                        /** @type {?} */
+                        var end = new Date(this._rangeEnd);
+                        end.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
+                        this._rangeService.setEndDate(end);
+                    }
+                    return;
+                }
+                // if the selected time is null then do nothing
+                if (!this.datepicker.selected$.value) {
+                    return;
+                }
+                // otherwise set the time
+                /** @type {?} */
+                var date = new Date(this.datepicker.selected$.value);
+                // update the time
+                date.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
+                // emit the time
+                this.datepicker.selected$.next(date);
+            };
         /**
          * @param {?} name
          * @return {?}
@@ -12421,18 +13935,46 @@
                 // try to get the previous zone
                 this.datepicker.setTimezone(timezones[currentZone - 1] ? timezones[currentZone - 1] : timezones[currentZone]);
             };
+        /**
+         * @return {?}
+         */
+        TimeViewComponent.prototype.onFocusWithin = /**
+         * @return {?}
+         */
+            function () {
+                if (this._isRangeMode) {
+                    this._rangeService.isChangingTime = true;
+                }
+            };
+        /**
+         * @return {?}
+         */
+        TimeViewComponent.prototype.onFocusOut = /**
+         * @return {?}
+         */
+            function () {
+                if (this._isRangeMode) {
+                    this._rangeService.isChangingTime = false;
+                }
+            };
         TimeViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-time-view',
-                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"datepicker.selected$ | async\"\n    (valueChange)=\"datepicker.selected$.next($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
+                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         TimeViewComponent.ctorParameters = function () {
             return [
-                { type: DateTimePickerService }
+                { type: DateTimePickerService },
+                { type: DateRangeService, decorators: [{ type: core.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
+        };
+        TimeViewComponent.propDecorators = {
+            onFocusWithin: [{ type: core.HostListener, args: ['focusin',] }],
+            onFocusOut: [{ type: core.HostListener, args: ['focusout',] }]
         };
         return TimeViewComponent;
     }());
@@ -12548,8 +14090,9 @@
                 var start = (year - (year % 10));
                 /** @type {?} */
                 var end = start + 9;
+                this._datepicker.yearRange = { start: start, end: end, range: range(start, end) };
                 // create an array containing all the numbers between the start and end points
-                return { start: start, end: end, range: range(start, end) };
+                return this._datepicker.yearRange;
             };
         YearViewService.decorators = [
             { type: core.Injectable }
@@ -12568,10 +14111,78 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var YearViewComponent = /** @class */ (function () {
-        function YearViewComponent(_datePicker, yearService) {
+        function YearViewComponent(_datePicker, yearService, _liveAnnouncer, changeDetector, _rangeService, _rangeOptions) {
             this._datePicker = _datePicker;
             this.yearService = yearService;
+            this._liveAnnouncer = _liveAnnouncer;
+            this._rangeService = _rangeService;
+            this._rangeOptions = _rangeOptions;
+            this._onDestroy = new Subject.Subject();
+            if (this._rangeService) {
+                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return changeDetector.detectChanges(); });
+            }
         }
+        Object.defineProperty(YearViewComponent.prototype, "_isRangeMode", {
+            /** Determine if we are in range selection mode */
+            get: /**
+             * Determine if we are in range selection mode
+             * @return {?}
+             */ function () {
+                return !!this._rangeOptions;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(YearViewComponent.prototype, "_isRangeStart", {
+            /** Determine if this picker is the start picker */
+            get: /**
+             * Determine if this picker is the start picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.Start;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(YearViewComponent.prototype, "_isRangeEnd", {
+            /** Determine if this picker is the end picker */
+            get: /**
+             * Determine if this picker is the end picker
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(YearViewComponent.prototype, "_rangeStart", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.start : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(YearViewComponent.prototype, "_rangeEnd", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        YearViewComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
         /**
          * @param {?} year
          * @return {?}
@@ -12584,6 +14195,34 @@
                 this._datePicker.setViewportYear(year);
                 // show the month picker
                 this._datePicker.goToChildMode();
+            };
+        /** Get the disabled state of a month */
+        /**
+         * Get the disabled state of a month
+         * @param {?} item
+         * @return {?}
+         */
+        YearViewComponent.prototype.getDisabled = /**
+         * Get the disabled state of a month
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                /** @type {?} */
+                var date = new Date(item.year, 0);
+                // if we are not in range mode then it will always be enabled
+                if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
+                    return false;
+                }
+                // if we are range start and dates are after the range end then they should also be disabled
+                if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+                    return true;
+                }
+                // if we are range end and dates are before the range start then they should also be disabled
+                if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+                    return true;
+                }
+                return false;
             };
         /**
          * @param {?} item
@@ -12610,16 +14249,16 @@
                 return index;
             };
         /**
-         * @param {?} index
+         * @param {?} _index
          * @param {?} item
          * @return {?}
          */
         YearViewComponent.prototype.trackYearByFn = /**
-         * @param {?} index
+         * @param {?} _index
          * @param {?} item
          * @return {?}
          */
-            function (index, item) {
+            function (_index, item) {
                 return item.year;
             };
         /**
@@ -12631,6 +14270,7 @@
          * @return {?}
          */
             function (item) {
+                var e_1, _a, e_2, _b;
                 /** @type {?} */
                 var focused = this.yearService.focused$.value;
                 /** @type {?} */
@@ -12650,13 +14290,67 @@
                 if (isSelectedYearVisible) {
                     return item.isActiveYear;
                 }
+                try {
+                    // otherwise find the first non-disabled month
+                    for (var _c = __values(this.yearService.grid$.value), _d = _c.next(); !_d.done; _d = _c.next()) {
+                        var row = _d.value;
+                        try {
+                            for (var row_1 = __values(row), row_1_1 = row_1.next(); !row_1_1.done; row_1_1 = row_1.next()) {
+                                var column = row_1_1.value;
+                                if (!this.getDisabled(column)) {
+                                    return item === column;
+                                }
+                            }
+                        }
+                        catch (e_2_1) {
+                            e_2 = { error: e_2_1 };
+                        }
+                        finally {
+                            try {
+                                if (row_1_1 && !row_1_1.done && (_b = row_1.return))
+                                    _b.call(row_1);
+                            }
+                            finally {
+                                if (e_2)
+                                    throw e_2.error;
+                            }
+                        }
+                    }
+                }
+                catch (e_1_1) {
+                    e_1 = { error: e_1_1 };
+                }
+                finally {
+                    try {
+                        if (_d && !_d.done && (_a = _c.return))
+                            _a.call(_c);
+                    }
+                    finally {
+                        if (e_1)
+                            throw e_1.error;
+                    }
+                }
                 // otherwise make the first month tabbable
-                return grid[0][0].year === item.year;
+                return false;
+            };
+        /** Announce the date when we focus on a date */
+        /**
+         * Announce the date when we focus on a date
+         * @return {?}
+         */
+        YearViewComponent.prototype.announceRangeMode = /**
+         * Announce the date when we focus on a date
+         * @return {?}
+         */
+            function () {
+                if (this._isRangeMode) {
+                    this._liveAnnouncer.announce(this._isRangeStart ? this._rangeService.startPickerAriaLabel : this._rangeService.endPickerAriaLabel);
+                }
             };
         YearViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-year-view',
-                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
+                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear\"\n         [disabled]=\"getDisabled(item)\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
                         providers: [YearViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -12665,7 +14359,11 @@
         YearViewComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
-                { type: YearViewService }
+                { type: YearViewService },
+                { type: a11y.LiveAnnouncer },
+                { type: core.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: core.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
         };
         return YearViewComponent;
@@ -12695,6 +14393,7 @@
         DateTimePickerModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            a11y.A11yModule,
                             AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule,
@@ -12715,6 +14414,36 @@
                     },] }
         ];
         return DateTimePickerModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var DateRangePickerModule = /** @class */ (function () {
+        function DateRangePickerModule() {
+        }
+        DateRangePickerModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [
+                            common.CommonModule,
+                            DateTimePickerModule
+                        ],
+                        declarations: [
+                            DateRangePickerComponent,
+                            DateRangePickerDirective
+                        ],
+                        exports: [
+                            DateRangePickerComponent
+                        ]
+                    },] }
+        ];
+        return DateRangePickerModule;
     }());
 
     /**
@@ -15583,6 +17312,9 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
     var ReorderableModelDirective = /** @class */ (function () {
         // this can be used to identify which instance of the directive relates to which element
         function ReorderableModelDirective(elementRef) {
@@ -15958,6 +17690,9 @@
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
      */
     var ReorderableDirective = /** @class */ (function () {
         function ReorderableDirective(_elementRef, _renderer, _service) {
@@ -30365,7 +32100,7 @@
              * @return {?}
              */ function (items) {
                 var _a;
-                (_a = this._selectionService).select.apply(_a, __spread(items));
+                (_a = this._selectionService).selectOnly.apply(_a, __spread(items));
             },
             enumerable: true,
             configurable: true
@@ -31171,6 +32906,325 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ColumnPickerComponent = /** @class */ (function () {
+        function ColumnPickerComponent(_liveAnnouncer, _changeDetectorRef) {
+            this._liveAnnouncer = _liveAnnouncer;
+            this._changeDetectorRef = _changeDetectorRef;
+            /**
+             * Define a list of all selected columns
+             */
+            this.selected = [];
+            /**
+             * Define a list of columns that must be selected
+             */
+            this.locked = [];
+            /**
+             * Define a list of columns that are not selected or locked
+             */
+            this.deselected = [];
+            /**
+             * Define a function to get the aria label of reorderable items
+             */
+            this.selectedAriaLabel = this.getSelectedAriaLabel;
+            /**
+             * Define a function that return a column move announcement
+             */
+            this.columnMovedAnnouncement = this.getColumnMovedAnnouncement;
+            /**
+             * Emits when the selected items change
+             */
+            this.selectedChange = new core.EventEmitter();
+            /**
+             * Emits when the deselected items change
+             */
+            this.deselectedChange = new core.EventEmitter();
+            /**
+             * Store the list of deselected columns that can be moved
+             */
+            this._deselectedSelection = [];
+            /**
+             * Store the list of selected columns that can be moved
+             */
+            this._selectedSelection = [];
+            /**
+             * Cache selection during reordering
+             */
+            this._selection = [];
+        }
+        /** Select the currently selected columns */
+        /**
+         * Select the currently selected columns
+         * @param {?=} columns
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.addColumns = /**
+         * Select the currently selected columns
+         * @param {?=} columns
+         * @return {?}
+         */
+            function (columns) {
+                var _this = this;
+                if (columns === void 0) {
+                    columns = this._deselectedSelection;
+                }
+                // add each item to the selected columns list
+                columns.forEach(function (column) { return _this.selected = __spread(_this.selected, [column]); });
+                // remove each item from the deselected columns list
+                this.deselected = this.deselected.filter(function (column) { return columns.indexOf(column) === -1; });
+                // emit the selection changes
+                this.selectedChange.emit(this.selected);
+                this.deselectedChange.emit(this.deselected);
+                // clear the current selection
+                this._deselectedSelection = [];
+            };
+        /** Deselect the currently selected columns */
+        /**
+         * Deselect the currently selected columns
+         * @param {?=} columns
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.removeColumns = /**
+         * Deselect the currently selected columns
+         * @param {?=} columns
+         * @return {?}
+         */
+            function (columns) {
+                var _this = this;
+                if (columns === void 0) {
+                    columns = this._selectedSelection;
+                }
+                // add each item to the deselected columns list
+                columns.forEach(function (column) { return _this.deselected = __spread(_this.deselected, [column]); });
+                // remove each item from the selected columns list
+                this.selected = this.selected.filter(function (column) { return columns.indexOf(column) === -1; });
+                // emit the selection changes
+                this.selectedChange.emit(this.selected);
+                this.deselectedChange.emit(this.deselected);
+                // clear the current selection
+                this._selectedSelection = [];
+            };
+        /** Select all deselected columns */
+        /**
+         * Select all deselected columns
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.addAllColumns = /**
+         * Select all deselected columns
+         * @return {?}
+         */
+            function () {
+                this.addColumns(this.deselected);
+            };
+        /** Deselect all selected columns */
+        /**
+         * Deselect all selected columns
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.removeAllColumns = /**
+         * Deselect all selected columns
+         * @return {?}
+         */
+            function () {
+                this.removeColumns(this.selected);
+            };
+        /** Ensure we don't select while dragging */
+        /**
+         * Ensure we don't select while dragging
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.storeSelection = /**
+         * Ensure we don't select while dragging
+         * @return {?}
+         */
+            function () {
+                this._selection = __spread(this._selectedSelection);
+            };
+        /** Restore the selection once dragging ends */
+        /**
+         * Restore the selection once dragging ends
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.restoreSelection = /**
+         * Restore the selection once dragging ends
+         * @return {?}
+         */
+            function () {
+                this._selectedSelection = this._selection;
+            };
+        /** Update when reordering has occured */
+        /**
+         * Update when reordering has occured
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.onReorder = /**
+         * Update when reordering has occured
+         * @return {?}
+         */
+            function () {
+                this.selectedChange.emit(this.selected);
+            };
+        /** Get an aria label for reorderable items */
+        /**
+         * Get an aria label for reorderable items
+         * @param {?} column
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.getSelectedAriaLabel = /**
+         * Get an aria label for reorderable items
+         * @param {?} column
+         * @return {?}
+         */
+            function (column) {
+                return column + ". Press Alt up and alt down to reorder.";
+            };
+        /** Get the announcement to read when a selected column is moved */
+        /**
+         * Get the announcement to read when a selected column is moved
+         * @param {?} column
+         * @param {?} delta
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.getColumnMovedAnnouncement = /**
+         * Get the announcement to read when a selected column is moved
+         * @param {?} column
+         * @param {?} delta
+         * @return {?}
+         */
+            function (column, delta) {
+                return column + " column moved " + (delta > 0 ? 'down' : 'up');
+            };
+        /** Perform a reorder with the keyboard */
+        /**
+         * Perform a reorder with the keyboard
+         * @param {?} column
+         * @param {?} delta
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.move = /**
+         * Perform a reorder with the keyboard
+         * @param {?} column
+         * @param {?} delta
+         * @return {?}
+         */
+            function (column, delta) {
+                var _this = this;
+                // perform the move
+                /** @type {?} */
+                var index = this.selected.indexOf(column);
+                this.swap(index, index + delta);
+                // Announce the move if the order has changed
+                if (this.selected.indexOf(column) !== index) {
+                    this._liveAnnouncer.announce("Column moved " + (delta > 0 ? 'down' : 'up'));
+                }
+                // emit the changes
+                this.selectedChange.emit(this.selected);
+                // perform change detection
+                this._changeDetectorRef.detectChanges();
+                // after the UI has updated focus the element again (ngFor creates new DOM elements)
+                setTimeout(function () {
+                    /** @type {?} */
+                    var columnIndex = _this.selected.indexOf(column);
+                    /** @type {?} */
+                    var target = _this.selectedElements.toArray()[columnIndex];
+                    if (target) {
+                        // focus the element
+                        target.nativeElement.focus();
+                    }
+                });
+            };
+        /** Provide a trackBy function for the reorderable options */
+        /**
+         * Provide a trackBy function for the reorderable options
+         * @param {?} index
+         * @param {?} column
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.selectedTrackBy = /**
+         * Provide a trackBy function for the reorderable options
+         * @param {?} index
+         * @param {?} column
+         * @return {?}
+         */
+            function (index, column) {
+                return index + column;
+            };
+        /** Swap two elements in the selected columns array */
+        /**
+         * Swap two elements in the selected columns array
+         * @param {?} source
+         * @param {?} target
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.swap = /**
+         * Swap two elements in the selected columns array
+         * @param {?} source
+         * @param {?} target
+         * @return {?}
+         */
+            function (source, target) {
+                var _a;
+                // perform boundary checks
+                if (target < 0 || target > this.selected.length - 1) {
+                    return;
+                }
+                // create a copy of the array to manipulate
+                /** @type {?} */
+                var selected = __spread(this.selected);
+                // swap the array elements
+                _a = __read([selected[source], selected[target]], 2), selected[target] = _a[0], selected[source] = _a[1];
+                // update the original array
+                this.selected = __spread(selected);
+            };
+        /** Update the order of the items when reordering has changed */
+        /**
+         * Update the order of the items when reordering has changed
+         * @param {?} model
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype.onReorderChange = /**
+         * Update the order of the items when reordering has changed
+         * @param {?} model
+         * @return {?}
+         */
+            function (model) {
+                this.selected = __spread(model);
+            };
+        ColumnPickerComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-column-picker',
+                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right\"></i>\n    </button>\n\n    <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n    </button>\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"!selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                    }] }
+        ];
+        /** @nocollapse */
+        ColumnPickerComponent.ctorParameters = function () {
+            return [
+                { type: a11y.LiveAnnouncer },
+                { type: core.ChangeDetectorRef }
+            ];
+        };
+        ColumnPickerComponent.propDecorators = {
+            selected: [{ type: core.Input }],
+            locked: [{ type: core.Input }],
+            deselected: [{ type: core.Input }],
+            selectedTitleTemplate: [{ type: core.Input }],
+            deselectedTitleTemplate: [{ type: core.Input }],
+            deselectedTemplate: [{ type: core.Input }],
+            selectedTemplate: [{ type: core.Input }],
+            lockedTemplate: [{ type: core.Input }],
+            selectedAriaLabel: [{ type: core.Input }],
+            columnMovedAnnouncement: [{ type: core.Input }],
+            selectedChange: [{ type: core.Output }],
+            deselectedChange: [{ type: core.Output }],
+            selectedElements: [{ type: core.ViewChildren, args: ['selectedColumn',] }]
+        };
+        return ColumnPickerComponent;
+    }());
 
     /**
      * @fileoverview added by tsickle
@@ -32009,6 +34063,11 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var TableModule = /** @class */ (function () {
         function TableModule() {
         }
@@ -32020,16 +34079,20 @@
                             common.CommonModule,
                             DragModule,
                             ResizeModule,
+                            ReorderableModule,
+                            SelectionModule
                         ],
                         declarations: [
                             ResizableTableDirective,
                             ResizableTableColumnComponent,
-                            ResizableTableCellDirective
+                            ResizableTableCellDirective,
+                            ColumnPickerComponent
                         ],
                         exports: [
                             ResizableTableDirective,
                             ResizableTableColumnComponent,
-                            ResizableTableCellDirective
+                            ResizableTableCellDirective,
+                            ColumnPickerComponent
                         ]
                     },] }
         ];
@@ -34263,11 +36326,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
     var TreeGridState = /** @class */ (function () {
         function TreeGridState(level, setSize, positionInSet) {
             this.level = level;
@@ -35851,6 +37909,1003 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var ɵ0 = function () { };
+    /** @type {?} */
+    var timelineDefaultOptions = {
+        timeline: {
+            backgroundColor: '#f1f2f3',
+            selectionColor: 'rgba(198, 23, 157, 0.15)',
+            onChange: ɵ0,
+            keyboard: {
+                step: 2592000000 // 30 days
+            },
+            handles: {
+                backgroundColor: '#000',
+                foregroundColor: '#dcdedf',
+                focusIndicatorColor: 'rgba(0, 115, 231, 0.5)'
+            },
+            range: {
+                lower: null,
+                upper: null,
+                minimum: 0,
+                maximum: Infinity
+            },
+            state: {
+                lowerHandleFocus: false,
+                upperHandleFocus: false
+            }
+        }
+    };
+    var TimelineChartPlugin = /** @class */ (function () {
+        function TimelineChartPlugin() {
+        }
+        /** Register this plugin */
+        /**
+         * Register this plugin
+         * @return {?}
+         */
+        TimelineChartPlugin.register = /**
+         * Register this plugin
+         * @return {?}
+         */
+            function () {
+                /**
+                 * We have to register this plugin globally because
+                 * ng2-charts doesn't support plugins on an invidual
+                 * basis. We must check in all lifecycle hooks that
+                 * it is an timeline chart before performing any actions.
+                 *
+                 * We also need to have it inside the class otherwise it
+                 * will be included in every application by default.
+                 * Having it here allows it to be tree-shaken.
+                 */
+                if (!this._isRegistered) {
+                    ((( /** @type {?} */(window))).Chart || Chart).pluginService.register(new TimelineChartPlugin());
+                    this._isRegistered = true;
+                }
+            };
+        /**
+         * When chart is initialised store the chart instance and context
+         * for use outside lifecycle hooks.
+         *
+         * We should also supply default options for any options that have
+         * not been specified by the consuming application.
+         *
+         * We also need to add some event listeners for events that Chart.js
+         * does not inform us of.
+         */
+        /**
+         * When chart is initialised store the chart instance and context
+         * for use outside lifecycle hooks.
+         *
+         * We should also supply default options for any options that have
+         * not been specified by the consuming application.
+         *
+         * We also need to add some event listeners for events that Chart.js
+         * does not inform us of.
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.beforeInit = /**
+         * When chart is initialised store the chart instance and context
+         * for use outside lifecycle hooks.
+         *
+         * We should also supply default options for any options that have
+         * not been specified by the consuming application.
+         *
+         * We also need to add some event listeners for events that Chart.js
+         * does not inform us of.
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                var _this = this;
+                // provide the default options for any missing properties
+                if (this.getEnabled(chart)) {
+                    // chart.config.options.timeline = { ...timelineDefaultOptions.timeline, ...this.getOptions(chart) };
+                    chart.config.options.timeline = this.getOptionsWithDefaults(this.getOptions(chart));
+                    // get the range
+                    var _a = this.getRange(chart), lower = _a.lower, upper = _a.upper;
+                    // ensure we have an initial range set
+                    if (lower === null || upper === null) {
+                        throw new Error('Timeline Chart - Ensure that both an upper and lower range are initially provided.');
+                    }
+                    // setup the function
+                    chart.config.options.timeline.state.onMouseDown = function () { return _this.onMouseDown(chart); };
+                    chart.config.options.timeline.state.onMouseUp = function () { return _this.onMouseUp(chart); };
+                    // add mouse down and mouseup event listeners
+                    chart.canvas.addEventListener('mousedown', chart.config.options.timeline.state.onMouseDown);
+                    document.addEventListener('mouseup', chart.config.options.timeline.state.onMouseUp);
+                }
+            };
+        /**
+         * We want to setup some additional functionality
+         * after the chart has initialized.
+         */
+        /**
+         * We want to setup some additional functionality
+         * after the chart has initialized.
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.afterInit = /**
+         * We want to setup some additional functionality
+         * after the chart has initialized.
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                if (this.getEnabled(chart)) {
+                    // add accessibility attributes and elements to the chart
+                    this.setupAccessibility(chart);
+                    // intially call the onChange function
+                    this.triggerOnChange(chart);
+                }
+            };
+        /**
+         * The timeline chart should have a subtle background
+         * color behind the main chart area (excluding the axis area).
+         * Suprisingly Chart.js does not support this out of the box
+         * so we need to add this functionality but it should be behind
+         * all chart elements.
+         */
+        /**
+         * The timeline chart should have a subtle background
+         * color behind the main chart area (excluding the axis area).
+         * Suprisingly Chart.js does not support this out of the box
+         * so we need to add this functionality but it should be behind
+         * all chart elements.
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.beforeDraw = /**
+         * The timeline chart should have a subtle background
+         * color behind the main chart area (excluding the axis area).
+         * Suprisingly Chart.js does not support this out of the box
+         * so we need to add this functionality but it should be behind
+         * all chart elements.
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                if (this.getEnabled(chart)) {
+                    this.drawBackgroundColor(chart);
+                }
+            };
+        /**
+         * Once the Chart elements have been drawn we want to draw the drag
+         * handles and the overlay showing the selected region
+         */
+        /**
+         * Once the Chart elements have been drawn we want to draw the drag
+         * handles and the overlay showing the selected region
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.afterDraw = /**
+         * Once the Chart elements have been drawn we want to draw the drag
+         * handles and the overlay showing the selected region
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                if (this.getEnabled(chart)) {
+                    this.drawSelection(chart);
+                    this.drawHandles(chart);
+                }
+            };
+        /**
+         * We want to update the cursor whenever the mouse is over
+         * one of the drag handles. We have do calculate this manually
+         * as there are no DOM element to add CSS to.
+         */
+        /**
+         * We want to update the cursor whenever the mouse is over
+         * one of the drag handles. We have do calculate this manually
+         * as there are no DOM element to add CSS to.
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.afterEvent = /**
+         * We want to update the cursor whenever the mouse is over
+         * one of the drag handles. We have do calculate this manually
+         * as there are no DOM element to add CSS to.
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+            function (chart, event) {
+                // skip this if timeline is not enabled
+                if (!this.getEnabled(chart)) {
+                    return;
+                }
+                switch (event.type) {
+                    case 'mousemove':
+                        this.setCursor(chart, ( /** @type {?} */(event)));
+                        this.setRangeOnDrag(chart, ( /** @type {?} */(event)));
+                        // store the latest mouse position
+                        this.setState(chart, { mouseX: event.x });
+                        break;
+                    case 'mouseout':
+                        this.resetCursor(chart);
+                        break;
+                }
+            };
+        /**
+         * Unbind from the event listeners we manually set up
+         */
+        /**
+         * Unbind from the event listeners we manually set up
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.destroy = /**
+         * Unbind from the event listeners we manually set up
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                if (this.getEnabled(chart)) {
+                    document.removeEventListener('mouseup', chart.config.options.timeline.state.onMouseUp, true);
+                }
+            };
+        /** Get the timeline options from the chart instance */
+        /**
+         * Get the timeline options from the chart instance
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getOptions = /**
+         * Get the timeline options from the chart instance
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                return chart.config.options.timeline;
+            };
+        /** Determine if this chart is using the timeline */
+        /**
+         * Determine if this chart is using the timeline
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getEnabled = /**
+         * Determine if this chart is using the timeline
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                return !!this.getOptions(chart);
+            };
+        /** Get the timeline range from the chart instance */
+        /**
+         * Get the timeline range from the chart instance
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getRange = /**
+         * Get the timeline range from the chart instance
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                return this.getOptions(chart).range;
+            };
+        /** Get the chart area but include any padding */
+        /**
+         * Get the chart area but include any padding
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getChartArea = /**
+         * Get the chart area but include any padding
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                var _a = chart.chartArea, top = _a.top, right = _a.right, bottom = _a.bottom, left = _a.left;
+                /** @type {?} */
+                var padding = chart.config.options.layout && chart.config.options.layout.padding ? chart.config.options.layout.padding : 0;
+                if (typeof padding === 'number') {
+                    return { top: top - padding, right: right - padding, left: left - padding, bottom: bottom - padding };
+                }
+                else if (typeof padding === 'object') {
+                    return { top: top - padding.top, right: right - padding.right, left: left - padding.left, bottom: bottom - padding.bottom };
+                }
+                return chart.chartArea;
+            };
+        /** Get stored state inside the chart options */
+        /**
+         * Get stored state inside the chart options
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getState = /**
+         * Get stored state inside the chart options
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                return this.getOptions(chart).state;
+            };
+        /** Store state inside the chart options */
+        /**
+         * Store state inside the chart options
+         * @param {?} chart
+         * @param {?} state
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.setState = /**
+         * Store state inside the chart options
+         * @param {?} chart
+         * @param {?} state
+         * @return {?}
+         */
+            function (chart, state) {
+                // store the latest state
+                chart.config.options.timeline.state = __assign({}, chart.config.options.timeline.state, state);
+                // trigger a chart re-render
+                chart.update();
+            };
+        /** Call the callback with the latest range */
+        /**
+         * Call the callback with the latest range
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.triggerOnChange = /**
+         * Call the callback with the latest range
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                // get the current date range
+                var _a = this.getRange(chart), lower = _a.lower, upper = _a.upper;
+                // get the callback function
+                var onChange = this.getOptions(chart).onChange;
+                // call the callback with the lower and upper values
+                requestAnimationFrame(function () { return onChange(lower, upper); });
+                // get the handle elements
+                var _b = this.getState(chart), lowerHandleElement = _b.lowerHandleElement, upperHandleElement = _b.upperHandleElement;
+                // update the aria properties
+                lowerHandleElement.setAttribute('aria-valuemin', new Date(this.getHandleMinimum(chart, TimelineHandle.Lower)).toDateString());
+                lowerHandleElement.setAttribute('aria-valuenow', lower.toDateString());
+                lowerHandleElement.setAttribute('aria-valuemax', new Date(this.getHandleMaximum(chart, TimelineHandle.Lower)).toDateString());
+                upperHandleElement.setAttribute('aria-valuemin', new Date(this.getHandleMinimum(chart, TimelineHandle.Upper)).toDateString());
+                upperHandleElement.setAttribute('aria-valuenow', upper.toDateString());
+                upperHandleElement.setAttribute('aria-valuemax', new Date(this.getHandleMaximum(chart, TimelineHandle.Upper)).toDateString());
+            };
+        /** To make the chart accessible add some internal elements that can be focused */
+        /**
+         * To make the chart accessible add some internal elements that can be focused
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.setupAccessibility = /**
+         * To make the chart accessible add some internal elements that can be focused
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                var _this = this;
+                // create the invisible elements
+                /** @type {?} */
+                var lowerHandle = document.createElement('div');
+                /** @type {?} */
+                var upperHandle = document.createElement('div');
+                // make the items focusable
+                lowerHandle.setAttribute('tabindex', '0');
+                upperHandle.setAttribute('tabindex', '0');
+                // insert the elements
+                chart.canvas.appendChild(lowerHandle);
+                chart.canvas.appendChild(upperHandle);
+                // add the event handlers
+                lowerHandle.addEventListener('focus', function () { return _this.setState(chart, { lowerHandleFocus: true }); });
+                lowerHandle.addEventListener('blur', function () { return _this.setState(chart, { lowerHandleFocus: false }); });
+                lowerHandle.addEventListener('keydown', function (event) { return _this.onKeydown(chart, event, TimelineHandle.Lower); });
+                upperHandle.addEventListener('focus', function () { return _this.setState(chart, { upperHandleFocus: true }); });
+                upperHandle.addEventListener('blur', function () { return _this.setState(chart, { upperHandleFocus: false }); });
+                upperHandle.addEventListener('keydown', function (event) { return _this.onKeydown(chart, event, TimelineHandle.Upper); });
+                // store the items in the state object
+                this.setState(chart, { lowerHandleElement: lowerHandle, upperHandleElement: upperHandle });
+            };
+        /** Handle keyboard accessibility events */
+        /**
+         * Handle keyboard accessibility events
+         * @param {?} chart
+         * @param {?} event
+         * @param {?} handle
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.onKeydown = /**
+         * Handle keyboard accessibility events
+         * @param {?} chart
+         * @param {?} event
+         * @param {?} handle
+         * @return {?}
+         */
+            function (chart, event, handle) {
+                // get the current value for the given handle
+                /** @type {?} */
+                var value = this.getHandleValue(chart, handle).getTime();
+                /** @type {?} */
+                var step = this.getOptions(chart).keyboard.step;
+                var _a = __read(this.getChartRange(chart), 2), minimum = _a[0], maximum = _a[1];
+                switch (event.keyCode) {
+                    case keycodes.LEFT_ARROW:
+                        this.setHandleValue(chart, handle, new Date(value - step));
+                        event.preventDefault();
+                        break;
+                    case keycodes.HOME:
+                        this.setHandleValue(chart, handle, new Date(minimum));
+                        event.preventDefault();
+                        break;
+                    case keycodes.RIGHT_ARROW:
+                        this.setHandleValue(chart, handle, new Date(value + step));
+                        event.preventDefault();
+                        break;
+                    case keycodes.END:
+                        this.setHandleValue(chart, handle, new Date(maximum));
+                        event.preventDefault();
+                        break;
+                }
+            };
+        /**
+         * When the mouse is first pressed within a chart we should see if we are
+         * currently over a drag handle to start the dragging
+         */
+        /**
+         * When the mouse is first pressed within a chart we should see if we are
+         * currently over a drag handle to start the dragging
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.onMouseDown = /**
+         * When the mouse is first pressed within a chart we should see if we are
+         * currently over a drag handle to start the dragging
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                // get the position from the chart area
+                var top = this.getChartArea(chart).top;
+                // get the properties from the state
+                var mouseX = this.getState(chart).mouseX;
+                // check if the event started within a drag handle
+                /** @type {?} */
+                var handle = this.isWithinHandle(chart, { x: mouseX, y: top });
+                // if it did then we are now dragging the handle and should store it
+                this.setState(chart, { handle: handle !== null ? handle : null });
+            };
+        /** When the mouse is released we are no longer dragging */
+        /**
+         * When the mouse is released we are no longer dragging
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.onMouseUp = /**
+         * When the mouse is released we are no longer dragging
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                if (chart.canvas) {
+                    this.setState(chart, { handle: null });
+                }
+            };
+        /** Update the range when dragged */
+        /**
+         * Update the range when dragged
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.setRangeOnDrag = /**
+         * Update the range when dragged
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+            function (chart, event) {
+                var _a = this.getState(chart), handle = _a.handle, mouseX = _a.mouseX;
+                // if we are not dragging then do nothing
+                if (handle === null) {
+                    return;
+                }
+                // get the chart area
+                var _b = this.getChartArea(chart), left = _b.left, right = _b.right;
+                // get the current range
+                var _c = this.getRange(chart), lower = _c.lower, upper = _c.upper;
+                // get the difference in x position since the last mouse position
+                /** @type {?} */
+                var delta = event.x - mouseX;
+                // get the width of the chart area
+                /** @type {?} */
+                var width = right - left;
+                // get the time range on the x-axis
+                var _d = __read(this.getChartRange(chart), 2), minimum = _d[0], maximum = _d[1];
+                // determine how much of the time range was spanned in the move
+                /** @type {?} */
+                var percentageDiff = (delta / width) * 100;
+                // calculate the time difference in the movement
+                /** @type {?} */
+                var valueDiff = (((maximum - minimum) / 100) * percentageDiff);
+                if (handle === TimelineHandle.Lower) {
+                    this.setHandleValue(chart, TimelineHandle.Lower, new Date(lower.getTime() + valueDiff));
+                }
+                if (handle === TimelineHandle.Upper) {
+                    this.setHandleValue(chart, TimelineHandle.Upper, new Date(upper.getTime() + valueDiff));
+                }
+                if (handle === TimelineHandle.Range) {
+                    // get the current range
+                    /** @type {?} */
+                    var range = upper.getTime() - lower.getTime();
+                    // update the values
+                    if (valueDiff < 0) {
+                        this.setHandleValue(chart, TimelineHandle.Upper, new Date(upper.getTime() + valueDiff));
+                        this.setHandleValue(chart, TimelineHandle.Lower, new Date(lower.getTime() + valueDiff));
+                    }
+                    else {
+                        this.setHandleValue(chart, TimelineHandle.Lower, new Date(lower.getTime() + valueDiff));
+                        this.setHandleValue(chart, TimelineHandle.Upper, new Date(upper.getTime() + valueDiff));
+                    }
+                    // calculate the new range
+                    /** @type {?} */
+                    var currentRange = chart.config.options.timeline.range.upper.getTime() - chart.config.options.timeline.range.lower.getTime();
+                    // ensure the range is still the same
+                    if (currentRange !== range) {
+                        if (valueDiff < 0) {
+                            this.setHandleValue(chart, TimelineHandle.Upper, new Date(chart.config.options.timeline.range.upper.getTime() + (range - currentRange)));
+                        }
+                        else {
+                            this.setHandleValue(chart, TimelineHandle.Lower, new Date(chart.config.options.timeline.range.lower.getTime() + (currentRange - range)));
+                        }
+                    }
+                }
+            };
+        /**
+         * Draw the background color in the region that sits behind all the chart content
+         */
+        /**
+         * Draw the background color in the region that sits behind all the chart content
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.drawBackgroundColor = /**
+         * Draw the background color in the region that sits behind all the chart content
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                // get the region that the chart is drawn on (excluding axis)
+                var _a = this.getChartArea(chart), top = _a.top, right = _a.right, bottom = _a.bottom, left = _a.left;
+                // fill the background color
+                chart.ctx.save();
+                chart.ctx.fillStyle = ( /** @type {?} */(this.getOptions(chart).backgroundColor));
+                chart.ctx.fillRect(left, top, right - left, bottom - top);
+                chart.ctx.restore();
+            };
+        /** Draw the overlay that indicates the selected region */
+        /**
+         * Draw the overlay that indicates the selected region
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.drawSelection = /**
+         * Draw the overlay that indicates the selected region
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                // get the region that the chart is drawn on (excluding axis)
+                var _a = this.getChartArea(chart), top = _a.top, bottom = _a.bottom;
+                // get the fill color
+                /** @type {?} */
+                var selectionColor = this.getOptions(chart).selectionColor;
+                // get the lower and upper handle render regions
+                /** @type {?} */
+                var lower = this.getHandleArea(chart, TimelineHandle.Lower);
+                /** @type {?} */
+                var upper = this.getHandleArea(chart, TimelineHandle.Upper);
+                // draw selection region
+                chart.ctx.save();
+                chart.ctx.fillStyle = ( /** @type {?} */(selectionColor));
+                chart.ctx.fillRect(lower.left, 0, upper.right - lower.left, bottom - top);
+                chart.ctx.restore();
+            };
+        /** Darw the drag handles */
+        /**
+         * Darw the drag handles
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.drawHandles = /**
+         * Darw the drag handles
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                var _this = this;
+                // get the region that the chart is drawn on (excluding axis)
+                var _a = this.getChartArea(chart), top = _a.top, bottom = _a.bottom;
+                // get the handle colors
+                var _b = this.getOptions(chart).handles, backgroundColor = _b.backgroundColor, foregroundColor = _b.foregroundColor, focusIndicatorColor = _b.focusIndicatorColor;
+                // draw each handle
+                [TimelineHandle.Lower, TimelineHandle.Upper].forEach(function (handle) {
+                    // get the area of the handle
+                    /** @type {?} */
+                    var area = _this.getHandleArea(chart, handle);
+                    /** @type {?} */
+                    var handleWidth = 5;
+                    /** @type {?} */
+                    var chartHeight = bottom - top;
+                    chart.ctx.save();
+                    // if the handle is focused draw an outline
+                    if (_this.isHandleFocused(chart, handle)) {
+                        chart.ctx.fillStyle = ( /** @type {?} */(focusIndicatorColor));
+                        chart.ctx.fillRect(area.left - 2, 0, handleWidth + 4, chartHeight);
+                    }
+                    // draw the handle
+                    chart.ctx.fillStyle = ( /** @type {?} */(backgroundColor));
+                    chart.ctx.fillRect(area.left, 0, handleWidth, chartHeight);
+                    // draw the 3 drag handles within the drag handle
+                    chart.ctx.fillStyle = ( /** @type {?} */(foregroundColor));
+                    // calculate size and position
+                    /** @type {?} */
+                    var width = 3;
+                    /** @type {?} */
+                    var height = 3;
+                    /** @type {?} */
+                    var x = area.left + (handleWidth - width) / 2;
+                    /** @type {?} */
+                    var midpoint = area.top + (chartHeight / 2);
+                    /** @type {?} */
+                    var topY = midpoint - (height * 2.5);
+                    /** @type {?} */
+                    var middleY = midpoint - (height / 2);
+                    /** @type {?} */
+                    var bottomY = midpoint + (height * 1.5);
+                    chart.ctx.fillRect(x, topY, width, height);
+                    chart.ctx.fillRect(x, middleY, width, height);
+                    chart.ctx.fillRect(x, bottomY, width, height);
+                    chart.ctx.restore();
+                });
+            };
+        /**
+         * Update the CSS cursor on the canvas element if we are hovering over a drag handle
+         */
+        /**
+         * Update the CSS cursor on the canvas element if we are hovering over a drag handle
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.setCursor = /**
+         * Update the CSS cursor on the canvas element if we are hovering over a drag handle
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+            function (chart, event) {
+                // get the handle if we are hovering over one
+                /** @type {?} */
+                var handle = this.getState(chart).handle || this.isWithinHandle(chart, event);
+                if (handle === TimelineHandle.Lower || handle === TimelineHandle.Upper) {
+                    chart.canvas.style.cursor = 'ew-resize';
+                }
+                else if (handle === TimelineHandle.Range) {
+                    chart.canvas.style.cursor = 'move';
+                }
+                else {
+                    this.resetCursor(chart);
+                }
+            };
+        // restore the cursor to the default
+        // restore the cursor to the default
+        /**
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.resetCursor =
+            // restore the cursor to the default
+            /**
+             * @param {?} chart
+             * @return {?}
+             */
+            function (chart) {
+                if (chart.canvas.style.cursor !== '') {
+                    chart.canvas.style.cursor = '';
+                }
+            };
+        /**
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.isHandleFocused = /**
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+            function (chart, handle) {
+                if (handle === TimelineHandle.Lower) {
+                    return this.getState(chart).lowerHandleFocus;
+                }
+                if (handle === TimelineHandle.Upper) {
+                    return this.getState(chart).upperHandleFocus;
+                }
+                return false;
+            };
+        /** Determine if a position is within one of the drag handles */
+        /**
+         * Determine if a position is within one of the drag handles
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.isWithinHandle = /**
+         * Determine if a position is within one of the drag handles
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+            function (chart, event) {
+                // get the lower and upper handle render regions
+                /** @type {?} */
+                var lower = this.getHandleArea(chart, TimelineHandle.Lower);
+                /** @type {?} */
+                var upper = this.getHandleArea(chart, TimelineHandle.Upper);
+                // get the position co-ordinates
+                var x = event.x, y = event.y;
+                if (x >= lower.left && x <= lower.right && y >= lower.top && y <= lower.bottom) {
+                    return TimelineHandle.Lower;
+                }
+                if (x >= upper.left && x <= upper.right && y >= upper.top && y <= upper.bottom) {
+                    return TimelineHandle.Upper;
+                }
+                if (x > lower.right && x < upper.left && y >= lower.top && y <= lower.bottom) {
+                    return TimelineHandle.Range;
+                }
+                return null;
+            };
+        /** Get the area a specific handle covers within the chart */
+        /**
+         * Get the area a specific handle covers within the chart
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getHandleArea = /**
+         * Get the area a specific handle covers within the chart
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+            function (chart, handle) {
+                // get the region that the chart is drawn on (excluding axis)
+                var _a = this.getChartArea(chart), left = _a.left, top = _a.top, right = _a.right, bottom = _a.bottom;
+                // perform some calculations on the chart area
+                /** @type {?} */
+                var width = right - left;
+                // get the minimum and maximum ticks on the chart
+                var _b = __read(this.getChartRange(chart), 2), minimum = _b[0], maximum = _b[1];
+                // get the lower and upper range values
+                var _c = this.getOptions(chart).range, lower = _c.lower, upper = _c.upper;
+                if (handle === TimelineHandle.Lower) {
+                    /** @type {?} */
+                    var percentage = ((lower.getTime() - minimum) / (maximum - minimum) * 100);
+                    /** @type {?} */
+                    var position = left + ((width / 100) * percentage);
+                    return { top: top, left: position - 5, right: position, bottom: bottom };
+                }
+                if (handle === TimelineHandle.Upper) {
+                    /** @type {?} */
+                    var percentage = ((upper.getTime() - minimum) / (maximum - minimum) * 100);
+                    /** @type {?} */
+                    var position = left + ((width / 100) * percentage);
+                    return { top: top, left: position, right: position + 5, bottom: bottom };
+                }
+            };
+        /**
+         * Get the minimum and maximum values on the x-axis
+         */
+        /**
+         * Get the minimum and maximum values on the x-axis
+         * @param {?} chart
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getChartRange = /**
+         * Get the minimum and maximum values on the x-axis
+         * @param {?} chart
+         * @return {?}
+         */
+            function (chart) {
+                // get the current data
+                var data = chart.getDatasetMeta(0).data;
+                // get the range on the x-axis
+                /** @type {?} */
+                var minimum = (( /** @type {?} */(data[0])))._xScale.min;
+                /** @type {?} */
+                var maximum = (( /** @type {?} */(data[0])))._xScale.max;
+                return [minimum, maximum];
+            };
+        /** Get the value for a given handle */
+        /**
+         * Get the value for a given handle
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getHandleValue = /**
+         * Get the value for a given handle
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+            function (chart, handle) {
+                var _a = this.getOptions(chart).range, lower = _a.lower, upper = _a.upper;
+                return handle === TimelineHandle.Lower ? lower : upper;
+            };
+        /**
+         * @param {?} chart
+         * @param {?} handle
+         * @param {?} value
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.setHandleValue = /**
+         * @param {?} chart
+         * @param {?} handle
+         * @param {?} value
+         * @return {?}
+         */
+            function (chart, handle, value) {
+                // perform lower handle validation
+                if (handle === TimelineHandle.Lower) {
+                    value = new Date(Math.min(Math.max(this.getHandleMinimum(chart, handle), value.getTime()), this.getHandleMaximum(chart, handle)));
+                }
+                // perform upper handle validation
+                if (handle === TimelineHandle.Upper) {
+                    value = new Date(Math.max(Math.min(this.getHandleMaximum(chart, handle), value.getTime()), this.getHandleMinimum(chart, handle)));
+                }
+                // store the new value
+                chart.config.options.timeline.range[handle] = value;
+                // update the chart
+                chart.update();
+                // emit the latest range
+                this.triggerOnChange(chart);
+            };
+        /**
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getHandleMinimum = /**
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+            function (chart, handle) {
+                // get the minimum distance
+                /** @type {?} */
+                var minDistance = this.getOptions(chart).range.minimum || 0;
+                /** @type {?} */
+                var maxDistance = this.getOptions(chart).range.maximum || Infinity;
+                // get the chart boundaries
+                var _a = __read(this.getChartRange(chart), 1), minimum = _a[0];
+                // get the current date range
+                var _b = this.getRange(chart), lower = _b.lower, upper = _b.upper;
+                if (handle === TimelineHandle.Lower) {
+                    return Math.max((upper.getTime() - maxDistance), minimum);
+                }
+                if (handle === TimelineHandle.Upper) {
+                    return lower.getTime() + minDistance;
+                }
+            };
+        /**
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getHandleMaximum = /**
+         * @param {?} chart
+         * @param {?} handle
+         * @return {?}
+         */
+            function (chart, handle) {
+                // get the minimum distance
+                /** @type {?} */
+                var minDistance = this.getOptions(chart).range.minimum || 0;
+                /** @type {?} */
+                var maxDistance = this.getOptions(chart).range.maximum || Infinity;
+                // get the chart boundaries
+                var _a = __read(this.getChartRange(chart), 2), maximum = _a[1];
+                // get the current date range
+                var _b = this.getRange(chart), lower = _b.lower, upper = _b.upper;
+                if (handle === TimelineHandle.Lower) {
+                    return upper.getTime() - minDistance;
+                }
+                if (handle === TimelineHandle.Upper) {
+                    return Math.min((lower.getTime() + maxDistance), maximum);
+                }
+            };
+        /**
+         * @template T
+         * @param {?} options
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.getOptionsWithDefaults = /**
+         * @template T
+         * @param {?} options
+         * @return {?}
+         */
+            function (options) {
+                /** @type {?} */
+                var merge$$1 = function (target, source) {
+                    var e_1, _a;
+                    try {
+                        for (var _b = __values(Object.keys(source)), _c = _b.next(); !_c.done; _c = _b.next()) {
+                            var key = _c.value;
+                            if (source[key] instanceof Object && !(source[key] instanceof Date) && typeof source[key] !== 'function') {
+                                Object.assign(source[key], merge$$1(target[key], source[key]));
+                            }
+                        }
+                    }
+                    catch (e_1_1) {
+                        e_1 = { error: e_1_1 };
+                    }
+                    finally {
+                        try {
+                            if (_c && !_c.done && (_a = _b.return))
+                                _a.call(_b);
+                        }
+                        finally {
+                            if (e_1)
+                                throw e_1.error;
+                        }
+                    }
+                    return Object.assign(target || {}, source);
+                };
+                return merge$$1(( /** @type {?} */(__assign({}, timelineDefaultOptions.timeline))), options);
+            };
+        /**
+         * We only want to register the plugin once per application
+         */
+        TimelineChartPlugin._isRegistered = false;
+        return TimelineChartPlugin;
+    }());
+    /**
+     * Directly exporting a file that is not an Angular component, module, etc..
+     * can cause build issues. We can use a module that instantiates the plugin
+     * instead of directly exporting the Chart.js plugin.
+     */
+    var TimelineChartModule = /** @class */ (function () {
+        function TimelineChartModule() {
+            TimelineChartPlugin.register();
+        }
+        TimelineChartModule.decorators = [
+            { type: core.NgModule, args: [{},] }
+        ];
+        /** @nocollapse */
+        TimelineChartModule.ctorParameters = function () { return []; };
+        return TimelineChartModule;
+    }());
+    /** @enum {string} */
+    var TimelineHandle = {
+        Lower: 'lower',
+        Upper: 'upper',
+        Range: 'range',
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var CookieAdapter = /** @class */ (function () {
         function CookieAdapter() {
         }
@@ -36302,6 +39357,12 @@
     exports.DashboardDragHandleDirective = DashboardDragHandleDirective;
     exports.DashboardWidgetComponent = DashboardWidgetComponent;
     exports.DashboardGrabHandleDirective = DashboardGrabHandleDirective;
+    exports.DateRangePickerComponent = DateRangePickerComponent;
+    exports.DateRangeOptions = DateRangeOptions;
+    exports.DateRangePickerDirective = DateRangePickerDirective;
+    exports.DateRangePickerModule = DateRangePickerModule;
+    exports.DateRangeService = DateRangeService;
+    exports.DateRangePicker = DateRangePicker;
     exports.DateTimePickerComponent = DateTimePickerComponent;
     exports.DateTimePickerConfig = DateTimePickerConfig;
     exports.DateTimePickerModule = DateTimePickerModule;
@@ -36314,7 +39375,11 @@
     exports.dateRange = dateRange;
     exports.compareDays = compareDays;
     exports.dateComparator = dateComparator;
+    exports.differenceBetweenDates = differenceBetweenDates;
     exports.timezoneComparator = timezoneComparator;
+    exports.getStartOfDay = getStartOfDay;
+    exports.isDateAfter = isDateAfter;
+    exports.isDateBefore = isDateBefore;
     exports.months = months;
     exports.monthsShort = monthsShort;
     exports.weekdays = weekdays;
@@ -36433,6 +39498,7 @@
     exports.SpinButtonModule = SpinButtonModule;
     exports.SPIN_BUTTON_VALUE_ACCESSOR = SPIN_BUTTON_VALUE_ACCESSOR;
     exports.SpinButtonComponent = SpinButtonComponent;
+    exports.ColumnPickerComponent = ColumnPickerComponent;
     exports.ResizableTableCellDirective = ResizableTableCellDirective;
     exports.ResizableTableColumnComponent = ResizableTableColumnComponent;
     exports.ResizableTableDirective = ResizableTableDirective;
@@ -36446,10 +39512,9 @@
     exports.TagInputEvent = TagInputEvent;
     exports.TagInputComponent = TagInputComponent;
     exports.TagInputModule = TagInputModule;
-    exports.TimePickerModule = TimePickerModule;
     exports.TIME_PICKER_VALUE_ACCESSOR = TIME_PICKER_VALUE_ACCESSOR;
     exports.TimePickerComponent = TimePickerComponent;
-    exports.TimeFormatPipe = TimeFormatPipe;
+    exports.TimePickerModule = TimePickerModule;
     exports.TimelineModule = TimelineModule;
     exports.TimelineComponent = TimelineComponent;
     exports.TimelineEventComponent = TimelineEventComponent;
@@ -36483,11 +39548,13 @@
     exports.ColorContrastDirective = ColorContrastDirective;
     exports.ContrastService = ContrastService;
     exports.FocusIndicator = FocusIndicator;
+    exports.FocusIndicatorOriginDirective = FocusIndicatorOriginDirective;
+    exports.FocusIndicatorOriginService = FocusIndicatorOriginService;
     exports.FocusIndicatorDirective = FocusIndicatorDirective;
     exports.FocusIndicatorService = FocusIndicatorService;
     exports.FocusWithinDirective = FocusWithinDirective;
-    exports.ManagedFocusContainerService = ManagedFocusContainerService;
     exports.ManagedFocusContainerDirective = ManagedFocusContainerDirective;
+    exports.ManagedFocusContainerService = ManagedFocusContainerService;
     exports.AccessibilityOptionsService = AccessibilityOptionsService;
     exports.ACCESSIBILITY_OPTIONS_TOKEN = ACCESSIBILITY_OPTIONS_TOKEN;
     exports.SplitterAccessibilityDirective = SplitterAccessibilityDirective;
@@ -36593,6 +39660,9 @@
     exports.FileSizePipe = FileSizePipe;
     exports.StringFilterPipe = StringFilterPipe;
     exports.StringFilterModule = StringFilterModule;
+    exports.TimelineChartPlugin = TimelineChartPlugin;
+    exports.TimelineChartModule = TimelineChartModule;
+    exports.TimelineHandle = TimelineHandle;
     exports.AudioServiceModule = AudioServiceModule;
     exports.AudioService = AudioService;
     exports.colorSets = colorSets;
@@ -36611,45 +39681,43 @@
     exports.CookieAdapter = CookieAdapter;
     exports.LocalStorageAdapter = LocalStorageAdapter;
     exports.SessionStorageAdapter = SessionStorageAdapter;
-    exports.ɵh = DashboardGrabHandleService;
-    exports.ɵj = DayViewComponent;
-    exports.ɵk = DayViewService;
-    exports.ɵi = HeaderComponent;
-    exports.ɵl = MonthViewComponent;
-    exports.ɵm = MonthViewService;
-    exports.ɵq = WeekDaySortPipe;
-    exports.ɵp = TimeViewComponent;
-    exports.ɵn = YearViewComponent;
-    exports.ɵo = YearViewService;
-    exports.ɵr = FacetCheckListItemComponent;
-    exports.ɵs = FacetTypeaheadListItemComponent;
-    exports.ɵw = FloatingActionButtonsService;
-    exports.ɵba = HierarchyBarCollapsedComponent;
-    exports.ɵz = HierarchyBarNodeComponent;
-    exports.ɵbc = HierarchyBarPopoverItemComponent;
-    exports.ɵbb = HierarchyBarPopoverComponent;
-    exports.ɵy = HierarchyBarStandardComponent;
-    exports.ɵx = HierarchyBarService;
-    exports.ɵbe = MarqueeWizardService;
-    exports.ɵbf = MediaPlayerService;
-    exports.ɵbi = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbh = PageHeaderNavigationItemComponent;
-    exports.ɵbj = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbg = PageHeaderService;
-    exports.ɵbd = SidePanelService;
-    exports.ɵbk = ResizableTableService;
-    exports.ɵu = TypeaheadHighlightDirective;
-    exports.ɵt = TypeaheadService;
+    exports.ɵf = DashboardGrabHandleService;
+    exports.ɵh = DayViewComponent;
+    exports.ɵi = DayViewService;
+    exports.ɵg = HeaderComponent;
+    exports.ɵj = MonthViewComponent;
+    exports.ɵk = MonthViewService;
+    exports.ɵo = WeekDaySortPipe;
+    exports.ɵn = TimeViewComponent;
+    exports.ɵl = YearViewComponent;
+    exports.ɵm = YearViewService;
+    exports.ɵp = FacetCheckListItemComponent;
+    exports.ɵq = FacetTypeaheadListItemComponent;
+    exports.ɵu = FloatingActionButtonsService;
+    exports.ɵy = HierarchyBarCollapsedComponent;
+    exports.ɵx = HierarchyBarNodeComponent;
+    exports.ɵba = HierarchyBarPopoverItemComponent;
+    exports.ɵz = HierarchyBarPopoverComponent;
+    exports.ɵw = HierarchyBarStandardComponent;
+    exports.ɵv = HierarchyBarService;
+    exports.ɵbc = MarqueeWizardService;
+    exports.ɵbd = MediaPlayerService;
+    exports.ɵbg = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbf = PageHeaderNavigationItemComponent;
+    exports.ɵbh = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbe = PageHeaderService;
+    exports.ɵbb = SidePanelService;
+    exports.ɵbi = ResizableTableService;
+    exports.ɵs = TypeaheadHighlightDirective;
+    exports.ɵr = TypeaheadService;
     exports.ɵa = DefaultFocusIndicatorDirective;
-    exports.ɵc = LocalFocusIndicatorOptions;
-    exports.ɵd = FocusIndicatorOptionsDirective;
-    exports.ɵe = FocusIndicatorOriginDirective;
-    exports.ɵb = FocusIndicatorOriginService;
-    exports.ɵbl = HoverActionService;
-    exports.ɵv = MenuNavigationService;
-    exports.ɵbm = TreeGridService;
-    exports.ɵf = KEPPEL_COLOR_SET;
-    exports.ɵg = MICRO_FOCUS_COLOR_SET;
+    exports.ɵb = LocalFocusIndicatorOptions;
+    exports.ɵc = FocusIndicatorOptionsDirective;
+    exports.ɵbj = HoverActionService;
+    exports.ɵt = MenuNavigationService;
+    exports.ɵbk = TreeGridService;
+    exports.ɵd = KEPPEL_COLOR_SET;
+    exports.ɵe = MICRO_FOCUS_COLOR_SET;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

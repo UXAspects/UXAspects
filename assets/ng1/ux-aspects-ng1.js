@@ -46630,9 +46630,16 @@ function treegridMultipleSelectItem() {
         // if the item is not selected but indeterinate
         var isIndeterminate = getIndeterminateState(treeGridRow.dataItem) === -1; // Set status for checkbox and the API
 
-        row.selected = isIndeterminate ? -1 : isSelected; // If selectChildren is set, set the selection state for the children
+        if (isIndeterminate && isSelected === true) {
+          // Allow transition from indeterminate -> true
+          row.selected = true;
+        } else {
+          // Determine state based on child selection
+          row.selected = isIndeterminate ? -1 : isSelected;
+        } // If selectChildren is set, set the selection state for the children
 
-        if (selectOptions.selectChildren && shouldUpdateChildren && !isIndeterminate) {
+
+        if (selectOptions.selectChildren && shouldUpdateChildren && row.selected !== -1) {
           setSelectedChildren(row.dataItem, isSelected);
         }
       }
