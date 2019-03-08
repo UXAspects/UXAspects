@@ -61,12 +61,12 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
 
             // subscribe to changes to the start date
             _rangeService.onStartChange
-                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeEnd), delay(0))
+                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeEnd && this.datePicker.initialised), delay(0))
                 .subscribe(date => this.onRangeChange(date));
 
             // subscribe to changes to the end date
             _rangeService.onEndChange
-                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeStart), delay(0))
+                .pipe(takeUntil(this._onDestroy), filter(date => !!date && this._isRangeStart && this.datePicker.initialised), delay(0))
                 .subscribe(date => this.onRangeChange(date));
 
             // when the range is cleared reset the selected date so we can click on the same date again if we want to
@@ -186,12 +186,13 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     getTabbable(item: DayViewItem): boolean {
         const focused = this.dayService.focused$.value;
         const grid = this.dayService.grid$.value;
+        const month = this.datePicker.month$.value;
 
         // if there is a focused month check if this is it
         if (focused) {
 
             // check if the focused day is visible
-            const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year));
+            const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year && _item.month === month));
 
             if (isFocusedDayVisible) {
                 return focused.day === item.day && focused.month === item.month && focused.year === item.year;
@@ -205,8 +206,16 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
             return item.isActive;
         }
 
-        // otherwise make the first day tabbable
-        return item.day === 1;
+        // find the first non disabled day that is part of the current month
+        for (const row of grid) {
+            for (const column of row) {
+                if (column === item && column.month === month && !this.getDisabled(column.date)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     getDisabled(date: Date): boolean {
@@ -284,7 +293,7 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     shouldFocus(item: DayViewItem): boolean {
 
         // if we are opening the popover initially we never want to focus a date in the range end picker
-        if (!this.datePicker.initialised && this._isRangeEnd) {
+        if (!this.datePicker.initialised && this._isRangeEnd || this._rangeService && this._rangeService.isChangingTime) {
             return false;
         }
 
@@ -301,9 +310,8 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
             this.datePicker.setViewportMonth(date.getMonth());
             this.datePicker.setViewportYear(date.getFullYear());
             this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+            this._changeDetector.detectChanges();
         }
-
-        this._changeDetector.detectChanges();
     }
 
 }
