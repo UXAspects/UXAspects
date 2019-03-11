@@ -9,13 +9,28 @@ import { ActionDirection, DashboardService } from '../dashboard.service';
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
+
+    /** Defines a name for the widget used for accessibility */
     @Input() name: string;
+
+    /** Defines the column the widget is placed in */
     @Input() col: number;
+
+    /** Defines the row the widget is placed in */
     @Input() row: number;
+
+    /** Defines the number of columns this widget should occupy. */
     @Input() colSpan: number = 1;
+
+    /** Defines the number of rows this widget should occupy. */
     @Input() rowSpan: number = 1;
+
+    /** Defines whether or not this widget can be resized. */
     @Input() resizable: boolean = false;
+
+    /** Defines a function that returns an aria label for the widget */
     @Input() widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
     @HostBinding('style.left.px') x: number = 0;
@@ -27,6 +42,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('attr.aria-label') ariaLabel: string;
     @HostBinding('class.dragging') isDragging: boolean = false;
     @HostBinding('class.grabbing') isGrabbing: boolean = false;
+    @HostBinding('class.resizing') isResizing: boolean = false;
 
     isDraggable: boolean = false;
 
@@ -170,6 +186,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
+        this.isResizing = true;
         this.dashboardService.isGrabbing$.next(null);
         this.dashboardService.onResizeStart({ widget: this, direction, event, handle });
     }
@@ -179,6 +196,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     dragend(): void {
+        this.isResizing = false;
         this.dashboardService.onResizeEnd();
     }
 
