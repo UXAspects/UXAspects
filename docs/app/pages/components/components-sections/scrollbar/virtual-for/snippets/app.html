@@ -1,0 +1,24 @@
+<table class="table" uxFixedHeaderTable>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+
+    <tbody uxVirtualForContainer [itemSize]="39">
+
+      <tr *uxVirtualFor="let employee of employees; let index = index"
+          [attr.aria-posinset]="index"
+          [attr.aria-setsize]="employees.length">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.department }}</td>
+      </tr>
+
+    </tbody>
+
+</table>

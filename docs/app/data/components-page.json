@@ -1293,6 +1293,25 @@
                             "content": "VirtualScrollModule"
                         }
                     ]
+                },
+                {
+                    "title": "Virtual For",
+                    "component": "ComponentsVirtualForComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxVirtualFor]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxVirtualForContainer]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "VirtualScrollModule"
+                        }
+                    ]
                 }
             ]
         },

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { ResizeService } from '../../directives/resize/index';
+import { ResizeService } from '../../../directives/resize/index';
 import { VirtualScrollCellDirective } from './directives/virtual-scroll-cell.directive';
 import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';
 import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loading.directive';

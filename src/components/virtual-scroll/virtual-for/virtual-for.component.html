@@ -1,0 +1,6 @@
+<!-- Display the appropriate top spacer -->
+<tr class="ux-virtual-scroll-spacer" [style.height.px]="_totalHeight" *ngIf="_isTable"></tr>
+<li class="ux-virtual-scroll-spacer" [style.height.px]="_totalHeight" *ngIf="_isList"></li>
+<div class="ux-virtual-scroll-spacer" [style.height.px]="_totalHeight" *ngIf="!_isTable && !_isList"></div>
+
+<ng-content></ng-content>

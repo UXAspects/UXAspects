@@ -178,6 +178,10 @@ const routes: Routes = [
         loadChildren: './tooltips/tooltips.module#TooltipsTestPageModule'
     },
     {
+        path: 'virtual-for',
+        loadChildren: './virtual-for/virtual-for.module#VirtualForTestPageModule'
+    },
+    {
         path: 'virtual-scroll',
         loadChildren: './virtual-scroll/virtual-scroll.module#VirtualScrollTestPageModule'
     },
