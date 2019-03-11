@@ -16,7 +16,9 @@ export class AppComponent {
                 id: idx,
                 name: chance.name(),
                 email: chance.email(),
-                department: chance.pickone(['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'])
+                department: chance.pickone([
+                    'Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'
+                ])
             });
         }
     }

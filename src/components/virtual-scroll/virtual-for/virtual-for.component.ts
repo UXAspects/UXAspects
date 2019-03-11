@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { VirtualForDirective } from './virtual-for.directive';
 import { VirtualForRange, VirtualForService } from './virtual-for.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { VirtualForRange, VirtualForService } from './virtual-for.service';
         '[style.position]': '"relative"'
     }
 })
-export class VirtualForContainerComponent<T> implements OnInit, AfterViewInit, OnDestroy {
+export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy {
 
     /** Define the height of each virtual item */
     @Input() set itemSize(itemSize: number) {
@@ -44,20 +45,15 @@ export class VirtualForContainerComponent<T> implements OnInit, AfterViewInit, O
         return this._elementRef.nativeElement.tagName === 'OL' || this._elementRef.nativeElement.tagName === 'UL';
     }
 
+    /** Access the uxVirtualFor child directive */
+    @ContentChild(VirtualForDirective) virtualFor: VirtualForDirective<T>;
+
     constructor(
         /** Get the ElementRef of the container element */
         private _elementRef: ElementRef,
         /** A service to share values between the container and child elements */
         private _virtualScroll: VirtualForService<T>
     ) { }
-
-    ngOnInit(): void {
-
-        // if an item size was not specified throw
-        if (!this.itemSize) {
-            throw new Error('"uxVirtualForContainer" directive requires an `itemSize` property to be defined.');
-        }
-    }
 
     ngAfterViewInit(): void {
         // subscribe to changes to the dataset
@@ -77,6 +73,10 @@ export class VirtualForContainerComponent<T> implements OnInit, AfterViewInit, O
 
     @HostListener('scroll')
     updateContainer(): void {
+
+        if (this.itemSize === 0 && this._dataset.length > 0) {
+            this.itemSize = this.virtualFor.getHeight(this._dataset[0], this._dataset.length);
+        }
 
         // calculate the total height of all the items
         this._totalHeight = this._dataset.length * this.itemSize;

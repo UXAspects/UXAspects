@@ -100,6 +100,33 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
         this._onDestroy.complete();
     }
 
+    /** If an itemSize is not specified we need to calculate it */
+    getHeight(context: T, length: number): number {
+
+        // create a temporary view
+        const view = this.createView(0);
+
+        // set the implicit value to the item value
+        view.context.$implicit = context;
+        view.context.count = length;
+        view.context.even = true;
+        view.context.odd = false;
+        view.context.first = true;
+        view.context.last = length === 1;
+
+        // run change detection
+        view.detectChanges();
+
+        // get the size of the view
+        const height = view.rootNodes[0].offsetHeight;
+
+        // destroy the view
+        this._viewContainerRef.remove(0);
+        view.destroy();
+
+        return height;
+    }
+
     /** Determine if the range has changed (performance optimization) */
     private isRangeSame(previous: VirtualForRange, current: VirtualForRange): boolean {
         return previous.start === current.start && previous.end === current.end;
