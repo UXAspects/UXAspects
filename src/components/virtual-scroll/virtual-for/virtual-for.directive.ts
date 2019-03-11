@@ -220,7 +220,8 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
             view.rootNodes.forEach((node: HTMLElement) => {
                 this._renderer.setStyle(node, 'position', 'absolute');
                 this._renderer.setStyle(node, 'width', '100%');
-                this._renderer.setStyle(node, 'top', view.context.index * this._virtualScroll.itemSize + 'px');
+                this._renderer.setStyle(node, 'top', '0');
+                this._renderer.setStyle(node, 'transform', `translateY(${view.context.index * this._virtualScroll.itemSize}px`);
             });
 
             view.detectChanges();
