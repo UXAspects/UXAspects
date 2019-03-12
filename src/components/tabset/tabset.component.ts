@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, AfterViewInit } from '@angular/core';
 import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
 
@@ -12,13 +12,21 @@ import { TabsetService } from './tabset.service';
         '[class.tabs-right]': 'stacked === "right"',
     }
 })
-export class TabsetComponent {
+export class TabsetComponent implements AfterViewInit {
 
     @Input() minimal: boolean = true;
     @Input() stacked: 'left' | 'right' | 'none' = 'none';
     @Input('aria-label') ariaLabel: string;
 
     constructor(public tabset: TabsetService) { }
+
+    ngAfterViewInit(): void {
+
+        // Make sure a tab is selected
+        if (!this.tabset.active$.value) {
+            this.tabset.selectFirstTab();
+        }
+    }
 
     /**
      * Allow manual tab selected
