@@ -28,18 +28,20 @@ export class AngularPlaygroundStrategy extends PlaygroundStrategy {
     getGlobalExternalStyles(assetsUrl: string): string[] {
         const stylesheets = [
             SystemJSHelper.getPackageUrl({ name: 'bootstrap', path: 'bootstrap@3.3.7/dist/css/bootstrap.min.css' }),
-            `${assetsUrl}/css/ux-aspects.css`
         ];
 
-        if (this.documentationType === DocumentationType.MicroFocus) {
-            stylesheets.push(`${assetsUrl}/css/quantum-ux-aspects.css`);
+        if (this.documentationType === DocumentationType.Keppel) {
+            stylesheets.push(`${assetsUrl}/css/ux-aspects.css`);
+        } else {
+            stylesheets.push(`${assetsUrl}/styles/ux-aspects.css`);
+            stylesheets.push(`${assetsUrl}/styles/quantum-ux-aspects.css`);
         }
 
         return stylesheets;
     }
 
     getGlobalStyles(): string[] {
-        return [`body { padding: 15px; }`];
+        return [`body { padding: 15px; background-color: #fff; }`];
     }
 
     getBody(): string {
