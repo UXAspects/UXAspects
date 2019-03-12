@@ -42,7 +42,12 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
             {
                 imports: ['HelpCenterModule', 'PageHeaderModule'],
                 library: '@ux-aspects/ux-aspects'
-            }
+            },
+            {
+                imports: ['RouterModule'],
+                library: '@angular/router',
+                providers: ['RouterModule.forRoot([])']
+            },
         ]
     };
 
