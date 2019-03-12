@@ -3,17 +3,17 @@ import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-live-chart',
     templateUrl: './live-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsLiveChartComponent')
-export class ChartsLiveChartComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsLiveChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.liveChartTs,
             'app.component.html': this.snippets.raw.liveChartHtml,

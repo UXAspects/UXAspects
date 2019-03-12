@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-detailed-tab-example-ng1',
@@ -10,13 +11,13 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsDetailedTabExampleNg1Component')
-export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     barHtml = require('./wrapper/tab-bar.html');
     sankeyHtml = require('./wrapper/tab-sankey.html');
     tableHtml = require('./wrapper/tab-table.html');
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TabsCtrl as vm'
@@ -36,10 +37,10 @@ export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationS
             }
         ],
         js: [this.snippets.raw.sampleJs, this.snippets.raw.tabBarJs, this.snippets.raw.tabSankeyJs, this.snippets.raw.tabTableJs]
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
-    
+
 }

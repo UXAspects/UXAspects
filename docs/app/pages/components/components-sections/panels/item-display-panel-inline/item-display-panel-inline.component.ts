@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-item-display-panel-inline-component',
@@ -11,13 +11,13 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./item-display-panel-inline.component.less']
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelInlineComponent')
-export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     visible: boolean = false;
     items: DisplayPanelItem[] = [];
     selected: DisplayPanelItem;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

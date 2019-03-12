@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-charts-peity-charts-ng1',
@@ -11,19 +12,19 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsPeityChartNg1Component')
-export class ChartsPeityChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsPeityChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     lineChart: any;
     updatingLineChart: any;
     barChart: any;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PeityChartCtrl as pc'
         },
         js: [this.snippets.raw.chartJs],
-    };
+    });
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

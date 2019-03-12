@@ -4,8 +4,8 @@ import { ColorService, TabbableListDirective } from '@ux-aspects/ux-aspects';
 import { ChartOptions } from 'chart.js';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-draggable-cards',
@@ -13,7 +13,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./draggable-cards.component.less']
 })
 @DocumentationSectionComponent('ComponentsDraggableCardsComponent')
-export class ComponentsDraggableCardsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsDraggableCardsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     colors = [
         {
@@ -107,7 +107,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
 
     active: FixedCard | DraggableCard = this.draggableCards[0];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

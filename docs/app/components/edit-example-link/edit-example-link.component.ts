@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ICodePen } from '../../interfaces/ICodePen';
-import { IPlunk } from '../../interfaces/IPlunk';
+import { IPlayground } from '../../interfaces/IPlayground';
 import { EditExampleService } from '../../services/edit-example/edit-example.service';
 
 @Component({
@@ -15,16 +14,15 @@ import { EditExampleService } from '../../services/edit-example/edit-example.ser
 export class EditExampleLinkComponent {
 
     @Input() title: string;
-    @Input() content: ICodePen | IPlunk;
-    @Input() type: 'codepen' | 'plunker';
+    @Input() content: IPlayground;
     @Input() version: 'Angular' | 'AngularJS' = 'Angular';
 
-    constructor(private editExampleService: EditExampleService) {}
+    constructor(private editExampleService: EditExampleService) { }
 
     linkClick(event: MouseEvent) {
         const target = event.target as HTMLElement;
         target.blur();
-        this.editExampleService.launchEditor(this.title, this.content, this.type);
+        this.editExampleService.launchEditor(this.title, this.content);
     }
 
 }

@@ -4,8 +4,8 @@ import 'chance';
 import { Subscription } from 'rxjs/Subscription';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-help-center',
@@ -13,7 +13,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./help-center.component.less']
 })
 @DocumentationSectionComponent('ComponentsHelpCenterComponent')
-export class ComponentsHelpCenterComponent extends BaseDocumentationSection implements OnDestroy, IPlunkProvider {
+export class ComponentsHelpCenterComponent extends BaseDocumentationSection implements OnDestroy, IPlaygroundProvider {
 
     repositories: HelpCenterTableData[] = [];
     loading: boolean = false;
@@ -32,7 +32,7 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
         select: this.loadData.bind(this)
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

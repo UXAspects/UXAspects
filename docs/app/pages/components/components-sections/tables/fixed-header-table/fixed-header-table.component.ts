@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-fixed-header-table',
@@ -10,7 +10,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./fixed-header-table.component.less']
 })
 @DocumentationSectionComponent('ComponentsFixedHeaderTableComponent')
-export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     people: ReadonlyArray<Person> = [];
     loading: boolean = false;
@@ -18,7 +18,7 @@ export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSectio
 
     private _page: number = 0;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

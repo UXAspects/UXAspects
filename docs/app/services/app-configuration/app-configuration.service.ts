@@ -4,7 +4,9 @@ import { environment } from '../../../environments/environment';
 const jsonTemplate = require('json-templater/object');
 const { major, minor, patch, prerelease } = require('semver');
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AppConfiguration {
 
     public documentationPages = ['components-page', 'css-page', 'charts-page'];
@@ -28,18 +30,14 @@ export class AppConfiguration {
         return this._config['assetsUrl'];
     }
 
-    get codePen(): string {
-        return this._config['codePen'];
-    }
-
     get plunker(): string {
         return this._config['plunker'];
     }
 
     private _data = {};
-    private _config: {[key: string]: any};
+    private _config: { [key: string]: any };
 
-    private _templateVars: {[key: string]: any};
+    private _templateVars: { [key: string]: any };
 
     constructor(private _location: Location) {
 

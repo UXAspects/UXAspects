@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from './../../../../../interfaces/ICodePen';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-css-button-dropdowns',
     templateUrl: './button-dropdowns.component.html'
 })
 @DocumentationSectionComponent('CssButtonDropdownsComponent')
-export class CssButtonDropdownsComponent  extends BaseDocumentationSection implements ICodePenProvider {
+export class CssButtonDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.sampleHtml
-    };
-
-    clicked(event: MouseEvent) {
-        event.preventDefault();
-    }
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
+
+    clicked(event: MouseEvent) {
+        event.preventDefault();
     }
 
 }

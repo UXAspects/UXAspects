@@ -3,15 +3,15 @@ import { TabbableListItemDirective } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-item-display-panel-component',
     templateUrl: './item-display-panel.component.html'
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
-export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     visible: boolean = false;
     selected: DisplayPanelItem;
@@ -25,7 +25,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         return this.items.indexOf(this.selected) < this.items.length - 1;
     }
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

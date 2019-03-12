@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-multiple-zones',
     templateUrl: './multiple-zones.component.html'
 })
 @DocumentationSectionComponent('ComponentsMultipleZonesComponent')
-export class ComponentsMultipleZonesComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsMultipleZonesComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appComponentHtml,
             'app.component.ts': this.snippets.raw.appComponentTs,
