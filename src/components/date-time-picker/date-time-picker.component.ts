@@ -142,6 +142,18 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    /** The earliest selectable date. */
+    @Input()
+    set min(value: Date) {
+        this.datepicker.min$.next(value);
+    }
+
+    /** The latest selectable date. */
+    @Input()
+    set max(value: Date) {
+        this.datepicker.max$.next(value);
+    }
+
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
         return !!this._rangeOptions;

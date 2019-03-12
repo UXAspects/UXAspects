@@ -39,6 +39,10 @@ ux-date-time-picker-day-view {
                 background-color: @date-picker-hover-bg;
             }
 
+            &:disabled {
+                color: #bdbec0;
+            }
+
             &.current,
             &.current.preview {
                 color: @date-picker-today-color;
@@ -63,6 +67,10 @@ ux-date-time-picker-day-view {
 
             &.preview {
                 color: @date-picker-disabled-hover-bg;
+
+                &:disabled {
+                    color: #bdbec0;
+                }
             }
         }
     }

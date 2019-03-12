@@ -39,6 +39,14 @@ export class YearViewComponent implements OnDestroy {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
+    get _minYear(): Date | null {
+        return this._datePicker.min$.value ? new Date(this._datePicker.min$.value.getFullYear(), 0) : null;
+    }
+
+    get _maxYear(): Date | null {
+        return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), 0) : null;
+    }
+
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -71,17 +79,24 @@ export class YearViewComponent implements OnDestroy {
         const date = new Date(item.year, 0);
 
         // if we are not in range mode then it will always be enabled
-        if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-            return false;
+        if (this._isRangeMode) {
+
+            // if we are range start and dates are after the range end then they should also be disabled
+            if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+                return true;
+            }
+
+            // if we are range end and dates are before the range start then they should also be disabled
+            if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+                return true;
+            }
         }
 
-        // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+        if (this._minYear && isDateBefore(date, this._minYear)) {
             return true;
         }
 
-        // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+        if (this._maxYear && isDateAfter(date, this._maxYear)) {
             return true;
         }
 

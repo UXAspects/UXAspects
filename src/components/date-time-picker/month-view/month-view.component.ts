@@ -39,6 +39,14 @@ export class MonthViewComponent implements OnDestroy {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
+    get _minMonth(): Date | null {
+        return this._datePicker.min$.value ? new Date(this._datePicker.min$.value.getFullYear(), this._datePicker.min$.value.getMonth()) : null;
+    }
+
+    get _maxMonth(): Date | null {
+        return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), this._datePicker.max$.value.getMonth()) : null;
+    }
+
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -82,17 +90,24 @@ export class MonthViewComponent implements OnDestroy {
         const date = new Date(item.year, item.month);
 
         // if we are not in range mode then it will always be enabled
-        if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-            return false;
+        if (this._isRangeMode) {
+
+            // if we are range start and dates are after the range end then they should also be disabled
+            if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+                return true;
+            }
+
+            // if we are range end and dates are before the range start then they should also be disabled
+            if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+                return true;
+            }
         }
 
-        // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+        if (this._minMonth && isDateBefore(date, this._minMonth)) {
             return true;
         }
 
-        // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+        if (this._maxMonth && isDateAfter(date, this._maxMonth)) {
             return true;
         }
 

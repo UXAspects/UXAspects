@@ -23,4 +23,6 @@ export class DateTimePickerConfig {
     months: string[] = months;
     monthsShort: string[] = monthsShort;
     meridians: string[] = meridians;
+    min: Date = null;
+    max: Date = null;
 }
