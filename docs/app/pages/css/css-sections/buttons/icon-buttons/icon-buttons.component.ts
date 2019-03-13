@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxmd-icon-buttons',
     templateUrl: 'icon-buttons.component.html'
 })
 @DocumentationSectionComponent('IconButtonsDocumentationComponent')
-export class IconButtonsDocumentationComponent extends BaseDocumentationSection implements ICodePenProvider {
+export class IconButtonsDocumentationComponent extends BaseDocumentationSection implements IPlaygroundProvider {
     
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.appHtml
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

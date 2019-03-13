@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
     selector: 'ux-sample',
     templateUrl: './sample.component.html'
 })
-export class SampleComponent { 
+export class SampleComponent {
     constructor() {}
 }
 ```
@@ -38,7 +38,7 @@ components
 ---- index.ts
 ```
 
-### Component Decorator 
+### Component Decorator
 
 - The selector should always be prefixed with `ux-` (any documentation specific components should be prefixed with `uxd-`), this will help avoid any potential conflicts with selectors in other libraries of a user's application.
 - Exclude `moduleId` property. The Angular component interface has a field for `moduleId` which is used to support relative paths, primarily for SystemJS module loader to load templates and stylesheets. As part of our build process we inline templates to allow us to support the most common bundlers and module loaders so this property is not required.
@@ -101,7 +101,7 @@ This allows consumers to import from `@ux-aspects/ux-aspects` rather than having
 - Mark any other instance variables or functions as private that you do not wish to expose outside of the component.
 - All private instance variables should be prefixed with an underscore.
 - Any component that may be used in a form e.g. checkboxes or radiobuttons, should support **both** `ngModel` and an alternative two way binding property to get/set the value.
-- Use attributes on the template to manipulate the DOM where possible rather than using TypeScript to manipulate the DOM. In the rare occasion where it is not possible, inject `Renderer2` and use it rather than directly touching the DOM. 
+- Use attributes on the template to manipulate the DOM where possible rather than using TypeScript to manipulate the DOM. In the rare occasion where it is not possible, inject `Renderer2` and use it rather than directly touching the DOM.
 - When using key events in the View specify the key in the attribute rather than performing a condition check on the event `keyCode` e.g. (keydown.uparrow)="upKeyPress()".
 - When binding directly to a style property in the view, place the unit in the attribute rather than using string interpolation eg. `<div [style.top.px]="topValue"></div>` rather than `<div [style.top]="topValue + 'px'"></div>`.
 - TSLint is included in our project and your code should conform to the rules it tests for.
@@ -304,27 +304,9 @@ export class ComponentsSortingNg1Component {
 Any code snippets should be placed in a snippets folder in the appropriate section directory. These can be imported by the section and displayed in a `uxd-snippet` component using the content attribute. All snippets are available in a `snippets` object on the class.
 
 
-### CodePen & Plunker Support
+### Plunker Support
 
-Where possible, a CodePen example (for Angular 1 components) or a Plunker example (for Angular components) should be provided. The code snippets displayed in the section should also be used to produce the example where possible.
-
-#### CodePen
-
-To add CodePen support to a section the class should implement the `ICodePenProvider` interface. This requires having a public `codepen` property on the class. The following options can be provided:
-
-```typescript
-export interface ICodePen {
-    html: string;
-    htmlAttributes?: any;
-    htmlTemplates?: ICodePenTemplate[];
-    css?: string[];
-    js?: string[];
-}
-```
-
-This will automatically add an 'Edit in CodePen' link to the section header.
-
-#### Plunker
+Where possible, a Plunker example should be provided. The code snippets displayed in the section should also be used to produce the example where possible.
 
 To add a Plunker example to a section the class should implement the `IPlunkProvider` interface. This requires having a public `plunker` property on the class. The following options can be provided:
 

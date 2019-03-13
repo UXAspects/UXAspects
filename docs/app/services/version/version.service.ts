@@ -4,7 +4,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ISection } from '../../interfaces/ISection';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class VersionService {
 
     version: BehaviorSubject<Version> = new BehaviorSubject<Version>(Version.Angular);

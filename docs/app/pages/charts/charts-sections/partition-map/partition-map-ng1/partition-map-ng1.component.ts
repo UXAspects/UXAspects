@@ -1,11 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 const chance = require('chance').Chance();
 
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-partition-map-ng1',
@@ -13,13 +14,13 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsPartitionMapNg1Component')
-export class ChartsPartitionMapNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsPartitionMapNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     data: any;
     options: any;
     isLoading: boolean;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PartitionMapCtrl as vm'
@@ -32,8 +33,7 @@ export class ChartsPartitionMapNg1Component extends BaseDocumentationSection imp
         ],
         js: [this.snippets.raw.chartJs, this.snippets.raw.popoverJs],
         css: [this.snippets.raw.chartCss]
-    };
-
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

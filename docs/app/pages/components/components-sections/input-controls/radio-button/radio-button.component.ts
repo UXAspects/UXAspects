@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-radio-button',
     templateUrl: './radio-button.component.html'
 })
 @DocumentationSectionComponent('ComponentsRadioButtonComponent')
-export class ComponentsRadioButtonComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsRadioButtonComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     selected = 100;
 
@@ -25,15 +25,15 @@ export class ComponentsRadioButtonComponent extends BaseDocumentationSection imp
     disabled = false;
     simplified = false;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
         },
         modules: [
             {
-               imports: ['RadioButtonModule'],
-               library: '@ux-aspects/ux-aspects' 
+                imports: ['RadioButtonModule'],
+                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

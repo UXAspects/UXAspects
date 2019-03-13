@@ -1,9 +1,9 @@
-import { Injectable, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
-import { Routes } from '@angular/router';
+import { ComponentFactory, ComponentFactoryResolver, Injectable } from '@angular/core';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
-import { DocumentationCategoryComponent } from '../../components/documentation-category/documentation-category.component';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ResolverService {
 
     private static resolvers: ComponentFactoryResolver[] = [];
@@ -36,11 +36,11 @@ export class ResolverService {
                 break;
 
             case DocumentationPage.Components:
-                data = require('../../data/components-page.json');            
+                data = require('../../data/components-page.json');
                 break;
 
             case DocumentationPage.Css:
-                data = require('../../data/css-page.json');            
+                data = require('../../data/css-page.json');
                 break;
         }
 
@@ -48,7 +48,7 @@ export class ResolverService {
         let match = data.categories.find(category => category.title === categoryTitle);
 
         if (!match) {
-            throw new Error(`The section "${ categoryTitle }" does not exist!`);
+            throw new Error(`The section "${categoryTitle}" does not exist!`);
         }
 
         return match;

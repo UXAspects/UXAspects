@@ -1,15 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-tree-grid-asynchronous-loading',
     templateUrl: './tree-grid-asynchronous-loading-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsTreeGridAsynchronousLoadingNg1Component')
-export class ComponentsTreeGridAsynchronousLoadingNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsTreeGridAsynchronousLoadingNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     template = require('!file-loader?name=[path][name].[ext]!./snippets/template.html');
 
@@ -247,7 +248,7 @@ export class ComponentsTreeGridAsynchronousLoadingNg1Component extends BaseDocum
 
     treeData: any[] = [];
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridAsyncDemoCtrl as vm'
@@ -257,7 +258,7 @@ export class ComponentsTreeGridAsynchronousLoadingNg1Component extends BaseDocum
             content: this.snippets.raw.templateHtml
         }],
         js: [this.snippets.raw.sampleJs]
-    };
+    });
 
     constructor(@Inject('$scope') $scope: ng.IScope, @Inject('$timeout') private $timeout: ng.ITimeoutService, @Inject('$q') private $q: ng.IQService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

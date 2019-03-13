@@ -7,8 +7,8 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-notifications',
@@ -17,7 +17,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
-export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
+export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnDestroy {
 
     isPickerOpen: boolean = false;
     duration: number = 4;
@@ -39,7 +39,7 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
 
     selected: ColorPickerColor = this.colors[0][1];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

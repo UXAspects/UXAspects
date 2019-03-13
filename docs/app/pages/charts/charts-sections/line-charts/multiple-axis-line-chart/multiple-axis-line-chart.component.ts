@@ -4,8 +4,8 @@ import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-multi-axis-line-chart',
@@ -14,9 +14,9 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
-export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlunkProvider {
+export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.lineChartTs,
             'app.component.html': this.snippets.raw.lineChartHtml,

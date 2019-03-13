@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 const chance = require('chance').Chance();
 
@@ -11,12 +12,12 @@ const chance = require('chance').Chance();
     templateUrl: './organization-chart-ng1.component.html'
 })
 @DocumentationSectionComponent('ChartsOrganizationChartNg1Component')
-export class ChartsOrganizationChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsOrganizationChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     data: IOrganizationChartNode;
     options: any;
-    
-    codepen: ICodePen = {
+
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         htmlTemplates: [
             {
@@ -33,7 +34,7 @@ export class ChartsOrganizationChartNg1Component extends BaseDocumentationSectio
         },
         js: [this.snippets.raw.chartJs],
         css: [this.snippets.raw.chartCss]
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
@@ -79,7 +80,7 @@ export class ChartsOrganizationChartNg1Component extends BaseDocumentationSectio
 
                 } else {
 
-                    // add a new root node                    
+                    // add a new root node
                     internationManager.children = [this.data];
                     this.data = internationManager;
                 }

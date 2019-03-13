@@ -3,20 +3,20 @@ import { Component } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-file-upload',
     templateUrl: './file-upload.component.html'
 })
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
-export class ComponentsFileUploadComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsFileUploadComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     fileOver: boolean = false;
     uploader: FileUploader = new FileUploader({});
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs

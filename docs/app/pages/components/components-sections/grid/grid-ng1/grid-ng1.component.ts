@@ -2,23 +2,24 @@ import { Component } from '@angular/core';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-grid-ng1',
     templateUrl: './grid-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsGridNg1Component')
-export class ComponentsGridNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsGridNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.appHtml,
         htmlAttributes: {
             'ng-controller': 'GridDemoCtrl as vm'
         },
         js: [this.snippets.raw.appJs]
-    };
+    });
 
     source = [{
         checked: false,

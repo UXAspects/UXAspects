@@ -1,24 +1,25 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-component-list-ng1',
     templateUrl: './component-list-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsComponentListNg1Component')
-export class ComponentsComponentListNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsComponentListNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.componentListHtml,
         htmlAttributes: {
             'ng-controller': 'ComponentListDemoCtrl as vm'
         },
         js: [this.snippets.raw.componentListJs]
-    };
-    
+    });
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

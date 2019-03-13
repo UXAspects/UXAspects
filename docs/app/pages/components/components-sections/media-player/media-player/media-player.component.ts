@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-media-player',
@@ -10,7 +10,7 @@ import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./media-player.component.less']
 })
 @DocumentationSectionComponent('ComponentsMediaPlayerComponent')
-export class ComponentsMediaPlayerComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsMediaPlayerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     type: string = 'video';
     mode: string = 'standard';
@@ -19,7 +19,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
     audioSource: string = require('../../../../../assets/media/Ocean-Waves.mp3');
     subtitles: string = require('!!file-loader!../../../../../assets/media/subtitles.vtt');
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
