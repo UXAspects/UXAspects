@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, CheckboxModule, InfiniteScrollModule, NumberPickerModule, TabsetModule, VirtualScrollModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, CheckboxModule, FixedHeaderTableModule, InfiniteScrollModule, NumberPickerModule, TabsetModule, VirtualScrollModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -12,6 +12,7 @@ import { ComponentsCustomScrollbarNg1Component } from './custom-scrollbar-ng1/cu
 import { ComponentsInfiniteScrollLoadMoreNg1Component } from './infinite-scroll-load-more-ng1/infinite-scroll-load-more-ng1.component';
 import { ComponentsInfiniteScrollNg1Component } from './infinite-scroll-ng1/infinite-scroll-ng1.component';
 import { ComponentsInfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
+import { ComponentsVirtualForComponent } from './virtual-for/virtual-for.component';
 import { ComponentsVirtualScrollComponent } from './virtual-scroll/virtual-scroll.component';
 
 const SECTIONS = [
@@ -19,7 +20,8 @@ const SECTIONS = [
     ComponentsInfiniteScrollComponent,
     ComponentsInfiniteScrollNg1Component,
     ComponentsInfiniteScrollLoadMoreNg1Component,
-    ComponentsVirtualScrollComponent
+    ComponentsVirtualScrollComponent,
+    ComponentsVirtualForComponent
 ];
 
 const ROUTES = [
@@ -46,6 +48,7 @@ const ROUTES = [
         TabsetModule,
         VirtualScrollModule,
         WrappersModule,
+        FixedHeaderTableModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

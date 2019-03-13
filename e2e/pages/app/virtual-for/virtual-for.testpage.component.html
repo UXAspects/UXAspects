@@ -1,0 +1,28 @@
+<table class="table" uxFixedHeaderTable>
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Index</th>
+        <th>Count</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Even</th>
+        <th>Odd</th>
+      </tr>
+    </thead>
+
+    <tbody uxVirtualForContainer [itemSize]="39">
+
+      <tr class="table-row" *uxVirtualFor="let number of list; let index = index; let count = count; let first = first; let last = last; let even = even; let odd = odd">
+        <td>{{ number }}</td>
+        <td>{{ index }}</td>
+        <td>{{ count }}</td>
+        <td>{{ first }}</td>
+        <td>{{ last }}</td>
+        <td>{{ even }}</td>
+        <td>{{ odd }}</td>
+      </tr>
+
+    </tbody>
+
+</table>

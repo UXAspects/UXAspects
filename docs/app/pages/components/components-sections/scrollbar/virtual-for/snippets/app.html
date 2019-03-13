@@ -1,0 +1,40 @@
+<table class="table" uxFixedHeaderTable>
+    <thead>
+        <tr>
+            <th class="identity-column">Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+
+    <tbody uxVirtualForContainer>
+
+        <tr *uxVirtualFor="let employee of employees; let index = index"
+            [attr.aria-posinset]="index"
+            [attr.aria-setsize]="employees.length">
+            <td class="identity-column">{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.department }}</td>
+        </tr>
+
+        <tr class="virtual-table-action" *ngIf="isLoading">
+            <td class="virtual-loading-indicator" colspan="4">
+                <div class="spinner spinner-accent spinner-bounce-middle"></div>
+                Loading...
+            </td>
+        </tr>
+
+        <tr class="virtual-table-action" *ngIf="!isLoading">
+            <td class="virtual-load-button" colspan="4">
+                <button class="btn btn-link button-primary btn-block"
+                        (click)="loadNextPage()">
+                    Load More
+                </button>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>

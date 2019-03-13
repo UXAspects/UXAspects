@@ -1,0 +1,27 @@
+<!-- Display the appropriate top spacer -->
+<tr class="ux-virtual-scroll-spacer"
+    [style.height.px]="_totalHeight"
+    [style.padding.px]="0"
+    [style.margin.px]="0"
+    [style.border]="'none'"
+    *ngIf="_isTable">
+</tr>
+
+<li class="ux-virtual-scroll-spacer"
+    [style.height.px]="_totalHeight"
+    [style.padding.px]="0"
+    [style.margin.px]="0"
+    [style.border]="'none'"
+    *ngIf="_isList">
+</li>
+
+<div class="ux-virtual-scroll-spacer"
+    [style.height.px]="_totalHeight"
+    [style.padding.px]="0"
+    [style.margin.px]="0"
+    [style.border]="'none'"
+    *ngIf="!_isTable && !_isList">
+</div>
+
+
+<ng-content></ng-content>
