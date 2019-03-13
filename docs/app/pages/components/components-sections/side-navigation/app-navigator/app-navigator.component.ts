@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from './../../../../../interfaces/ICodePen';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 
 @Component({
@@ -10,16 +11,16 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     templateUrl: './app-navigator.component.html'
 })
 @DocumentationSectionComponent('ComponentsAppNavigatorComponent')
-export class ComponentsAppNavigatorComponent extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsAppNavigatorComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.appExampleHtml,
         htmlTemplates: [{
             id: 'app_navigator_popover.tmpl.html',
             content: this.snippets.raw.popoverHtml,
         }],
         css: [this.snippets.raw.sampleCss]
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

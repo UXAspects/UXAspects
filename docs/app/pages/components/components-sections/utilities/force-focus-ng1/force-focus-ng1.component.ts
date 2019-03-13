@@ -1,8 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
     selector: 'uxd-components-force-focus-ng1',
@@ -11,7 +9,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 })
 @DocumentationSectionComponent('ComponentsForceFocusNg1Component')
 export class ComponentsForceFocusNg1Component extends BaseDocumentationSection {
-    
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

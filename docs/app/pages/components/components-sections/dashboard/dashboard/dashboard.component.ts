@@ -3,8 +3,8 @@ import { ColorService, DashboardOptions } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-dashboard',
@@ -12,7 +12,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./dashboard.component.less']
 })
 @DocumentationSectionComponent('ComponentsDashboardComponent')
-export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[] = [{
@@ -78,7 +78,7 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
         minWidth: 187
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

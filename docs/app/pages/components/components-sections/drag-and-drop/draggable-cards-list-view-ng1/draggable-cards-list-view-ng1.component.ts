@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-draggable-cards-list-view-ng1',
@@ -11,16 +12,16 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDraggableCardsListViewNg1Component')
-export class ComponentsDraggableCardsListViewNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    
-    codepen: ICodePen = {
+export class ComponentsDraggableCardsListViewNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.draggableCardsListViewHtml,
         htmlAttributes: {
             'ng-controller': 'DraggableCardsListViewDemoCtrl as vm'
         },
         css: [this.snippets.raw.draggableCardsListViewCss],
         js: [this.snippets.raw.draggableCardsListViewJs]
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-single-select-table-ng1',
     templateUrl: './single-select-table-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsSingleSelectTableNg1Component')
-export class ComponentsSingleSelectTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsSingleSelectTableNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'SingleSelectTableCtrl as vm'
         },
         js: [this.snippets.raw.sampleFullJs]
-    };
+    });
 
     selected: Author;
     tableId = 'example-table';

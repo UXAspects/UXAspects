@@ -4,8 +4,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { MarqueeWizardComponent } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-marquee-wizard',
@@ -13,7 +13,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./marquee-wizard.component.less']
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardComponent')
-export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     error: boolean = false;
     skip: boolean = false;
@@ -21,7 +21,7 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
     modalOpen: boolean = false;
     requiredText = new FormControl('', Validators.required);
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

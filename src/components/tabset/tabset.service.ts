@@ -12,11 +12,6 @@ export class TabsetService {
 
     add(tab: TabComponent): void {
         this.tabs$.next([...this.tabs$.value, tab]);
-
-        // check if this is the only tab. If so select this by default
-        if (!this.active$.value) {
-            this.select(tab);
-        }
     }
 
     remove(tab: TabComponent): void {
@@ -106,4 +101,4 @@ export class TabsetService {
             this.selectAtIndex((this.tabs$.value.length - 1) - tabIndex);
         }
     }
-} 
+}

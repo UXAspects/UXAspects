@@ -4,8 +4,8 @@ import 'chance';
 import { Subject } from 'rxjs/Subject';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
@@ -15,7 +15,7 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
     styleUrls: ['./virtual-scroll.component.less']
 })
 @DocumentationSectionComponent('ComponentsVirtualScrollComponent')
-export class ComponentsVirtualScrollComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsVirtualScrollComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
@@ -25,7 +25,7 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
     totalPages = 10;
     totalItems: number;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

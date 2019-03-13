@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-charts-timeline-chart-ng1',
@@ -11,20 +12,20 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsTimelineChartNg1Component')
-export class ChartsTimelineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsTimelineChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     timelineData: any;
     timelineOptions: any;
     detailedData: any;
     detailedOptions: any;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'TimelineChartCtrl as tc'
         },
         js: [this.snippets.raw.chartJs]
-    };
+    });
 
     constructor(@Inject('lineDataService') private lineDataService: any, colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

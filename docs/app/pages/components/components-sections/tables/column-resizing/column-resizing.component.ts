@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-column-resizing',
@@ -10,7 +10,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./column-resizing.component.less']
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
-export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     type: string = 'table';
     documents: TableDocument[] = [];
@@ -20,7 +20,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
     authorWidth: number = 300;
     dateWidth: number;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

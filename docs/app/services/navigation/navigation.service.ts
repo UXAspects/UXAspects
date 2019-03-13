@@ -1,20 +1,22 @@
-import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { ICategory } from '../../interfaces/ICategory';
+import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ILink } from '../../interfaces/ILink';
 import { ISection } from '../../interfaces/ISection';
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
-import { VersionService, versionFromString } from '../version/version.service';
-import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
+import { versionFromString, VersionService } from '../version/version.service';
+
 
 const NAVIGATION_TOP_OFFSET = 50;
 
 // Slight offset for Firefox when checking which section is active
 const NAVIGATION_ACTIVE_OFFSET = 51;
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NavigationService {
 
     // This is used to record the ID of the fragment currently in view if the URL was not updated
@@ -23,7 +25,7 @@ export class NavigationService {
     // Reference counter for components that are rendering asynchronously
     private renderingCount: number = 0;
 
-    constructor( @Inject(DOCUMENT) private _document: Document,
+    constructor(@Inject(DOCUMENT) private _document: Document,
         private _activeRoute: ActivatedRoute,
         private _router: Router,
         private _appConfig: AppConfiguration,

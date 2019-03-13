@@ -1,15 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-tree-grid-ng1',
     templateUrl: './tree-grid-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsTreeGridNg1Component')
-export class ComponentsTreeGridNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsTreeGridNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     actionsHtml = require('./wrapper/actions.html');
     displayPanel = require('./wrapper/displayPanel.html');
@@ -162,7 +163,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
 
     displayPanelScope = this.$scope.$new(true);
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridCtrl as vm'
@@ -178,7 +179,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
             content: this.displayPanelFooter
         }],
         js: [this.snippets.raw.sampleJs, this.snippets.raw.actionsJs]
-    };
+    });
 
     constructor(@Inject('$scope') private $scope: ng.IScope, @Inject('$displayPanel') private $displayPanel: any, @Inject('$templateCache') $templateCache: ng.ITemplateCacheService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

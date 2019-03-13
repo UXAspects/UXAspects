@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-hierarchy-bar',
@@ -13,7 +13,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./hierarchy-bar.component.less']
 })
 @DocumentationSectionComponent('ComponentsHierarchyBarComponent')
-export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     /** Get the url for the managericon  asset */
     managerIcon = require('../../../../../assets/img/IconManagerColorized.png');
@@ -99,7 +99,7 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
 
     selected: HierarchyBarNode = this.node.children[0];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

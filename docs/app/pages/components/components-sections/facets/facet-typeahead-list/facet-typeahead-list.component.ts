@@ -5,22 +5,22 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
-export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
     query: string = '';
     users: Facet[] = [];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml

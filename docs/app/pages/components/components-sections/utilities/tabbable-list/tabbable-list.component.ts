@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-tabbable-list',
@@ -11,7 +11,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTabbableListComponent')
-export class ComponentsTabbableListComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsTabbableListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     posts: Post[] = [
         {
@@ -36,7 +36,7 @@ export class ComponentsTabbableListComponent extends BaseDocumentationSection im
         }
     ];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
@@ -44,7 +44,7 @@ export class ComponentsTabbableListComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['AccessibilityModule'],
+                imports: ['AccessibilityModule', 'CheckboxModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

@@ -1,4 +1,5 @@
-export interface IPlunk {
+export interface IPlayground {
+    framework?: 'angular' | 'angularjs';
     files: {
         [key: string]: string;
     };

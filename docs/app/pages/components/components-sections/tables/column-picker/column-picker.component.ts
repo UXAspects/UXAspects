@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-column-picker',
@@ -10,7 +10,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./column-picker.component.less']
 })
 @DocumentationSectionComponent('ComponentsColumnPickerComponent')
-export class ComponentsColumnPickerComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsColumnPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     /** Store a list of all selected columns */
     selected: ReadonlyArray<string> = [
@@ -48,7 +48,7 @@ export class ComponentsColumnPickerComponent extends BaseDocumentationSection im
         'Work Completed'
     ];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

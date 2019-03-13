@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-scrollable-chart',
@@ -11,9 +11,9 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./scrollable-chart.component.less']
 })
 @DocumentationSectionComponent('ChartsScrollableChartComponent')
-export class ChartsScrollableChartComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsScrollableChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.scrollableChartTs,
             'app.component.html': this.snippets.raw.scrollableChartHtml,

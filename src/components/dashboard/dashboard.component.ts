@@ -22,16 +22,19 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
 
     @Input('aria-label') customAriaLabel: (widgets: DashboardWidgetComponent[], options: DashboardOptions) => string | string = this.getDefaultAriaLabel;
 
+    /** If defined or changed this will set the positions of the widgets within the dashboard. This is a two way binding that will be updated with the current layout when it changes. */
     @Input() set layout(layout: DashboardLayoutData[]) {
         if (layout) {
             this.dashboardService.layout$.next(layout);
         }
     }
 
+    /** Configures the options for the dashboard, if an option is not specified the default value will be used. */
     @Input() set options(options: DashboardOptions) {
         this.dashboardService.options$.next({ ...defaultOptions, ...options });
     }
 
+    /** Emits when layout has been changed. */
     @Output() layoutChange = new EventEmitter<DashboardLayoutData[]>();
 
     @HostBinding('attr.aria-label') ariaLabel: string;
@@ -44,7 +47,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     /** Ensure we unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(public dashboardService: DashboardService, private _grabHandleService: DashboardGrabHandleService) {
+    constructor(public dashboardService: DashboardService) {
 
         dashboardService.layout$.pipe(takeUntil(this._onDestroy), tap(() => this.ariaLabel = this.getAriaLabel()))
             .subscribe(layout => this.layoutChange.emit(layout));

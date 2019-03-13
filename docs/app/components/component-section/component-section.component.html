@@ -4,9 +4,8 @@
 
         <div class="uxd-component-section-attributes">
 
-             <!-- Show the CodePen or Plunker link if required -->
-            <uxd-edit-example-link *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
-            <uxd-edit-example-link *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
+             <!-- Show the Plunker link if required -->
+            <uxd-edit-example-link *ngIf="playground" [title]="title" [content]="playground" [version]="version">Edit in Plunker</uxd-edit-example-link>
 
             <!-- Show usage link if required -->
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
