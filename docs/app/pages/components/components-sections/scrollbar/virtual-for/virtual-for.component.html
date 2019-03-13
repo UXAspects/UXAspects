@@ -1,23 +1,38 @@
 <table class="table" uxFixedHeaderTable>
     <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Department</th>
-      </tr>
+        <tr>
+            <th class="identity-column">Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+        </tr>
     </thead>
 
     <tbody uxVirtualForContainer>
 
-      <tr *uxVirtualFor="let employee of employees; let index = index"
-        [attr.aria-posinset]="index"
-        [attr.aria-setsize]="employees.length">
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.name }}</td>
-        <td>{{ employee.email }}</td>
-        <td>{{ employee.department }}</td>
-      </tr>
+        <tr *uxVirtualFor="let employee of employees; let index = index"
+            [attr.aria-posinset]="index"
+            [attr.aria-setsize]="employees.length">
+            <td class="identity-column">{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.department }}</td>
+        </tr>
+
+        <tr *ngIf="isLoading">
+            <td class="virtual-loading-indicator" colspan="4">
+                <div class="spinner spinner-accent spinner-bounce-middle"></div>
+                Loading...
+            </td>
+        </tr>
+
+        <tr *ngIf="!isLoading">
+            <td class="virtual-load-button" colspan="4">
+                <button class="btn btn-link button-primary btn-block" (click)="loadNextPage()">
+                    Load More
+                </button>
+            </td>
+        </tr>
 
     </tbody>
 
@@ -36,6 +51,15 @@
 <p>
     The parent element should also be given the <code>uxVirtualForContainer</code> directive.
 </p>
+
+<p>The following attributes can be used on the <code>uxVirtualForContainer</code> directive:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="itemSize" type="number">
+        Define the height of the virtual items (in pixels).
+        If this is not specified, the height of the first item will be used.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The <code>uxVirtualFor</code> directive provides the same context properties available to <code>ngFor</code>:
@@ -73,15 +97,6 @@
 </p>
 
 <uxd-snippet [content]="snippets.compiled.asyncHtml"></uxd-snippet>
-
-<p>The following attributes can be used on the <code>uxVirtualForContainer</code> directive:</p>
-
-<uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="itemSize" type="number">
-        Define the height of the virtual items (in pixels).
-        If this is not specified, the height of the first item will be used.
-    </tr>
-</uxd-api-properties>
 
 <p>The following code can be used to create the example above:</p>
 
