@@ -19,14 +19,14 @@
             <td>{{ employee.department }}</td>
         </tr>
 
-        <tr *ngIf="isLoading">
+        <tr class="virtual-table-action" *ngIf="isLoading">
             <td class="virtual-loading-indicator" colspan="4">
                 <div class="spinner spinner-accent spinner-bounce-middle"></div>
                 Loading...
             </td>
         </tr>
 
-        <tr *ngIf="!isLoading">
+        <tr class="virtual-table-action" *ngIf="!isLoading">
             <td class="virtual-load-button" colspan="4">
                 <button class="btn btn-link button-primary btn-block"
                         (click)="loadNextPage()">

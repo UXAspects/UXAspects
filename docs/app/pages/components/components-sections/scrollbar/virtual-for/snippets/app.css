@@ -25,3 +25,7 @@ tbody {
     height: 100%;
     padding: 8px;
 }
+
+.virtual-table-action:hover {
+    background-color: transparent;
+}
