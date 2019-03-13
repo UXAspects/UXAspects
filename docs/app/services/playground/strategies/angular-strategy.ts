@@ -106,33 +106,33 @@ export class AngularPlaygroundStrategy extends PlaygroundStrategy {
                     }
                 }
             });
-
-            return [
-                `import { NgModule } from '@angular/core';`,
-                `import { BrowserModule } from '@angular/platform-browser';`,
-                `import { FormsModule, ReactiveFormsModule } from '@angular/forms';`,
-                `import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';`,
-                `import { AppComponent } from './app.component';`,
-                `import { BrowserAnimationsModule } from '@angular/platform-browser/animations';`,
-                `import { AccessibilityModule, ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';`,
-                `${imports.join(';\n')}`,
-                ``,
-                `@NgModule({`,
-                `    imports: [`,
-                `      AccessibilityModule,`,
-                `      ColorServiceModule.forRoot(${this.documentationType === DocumentationType.Keppel ? 'colorSets.keppel' : 'colorSets.microFocus'}),`,
-                `${modules.filter(module => module !== undefined).map(module => `\t\t\t${module},`).join('\n')}`,
-                `    ],`,
-                `    declarations: [`,
-                `${declarations.map(declaration => `\t\t\t${declaration},`).join('\n')}`,
-                `    ],`,
-                `    bootstrap: [AppComponent]`,
-                `})`,
-                `export class AppModule {`,
-                `}`,
-                ``,
-                `platformBrowserDynamic().bootstrapModule(AppModule);`,
-            ].join('\n');
         }
+
+        return [
+            `import { NgModule } from '@angular/core';`,
+            `import { BrowserModule } from '@angular/platform-browser';`,
+            `import { FormsModule, ReactiveFormsModule } from '@angular/forms';`,
+            `import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';`,
+            `import { AppComponent } from './app.component';`,
+            `import { BrowserAnimationsModule } from '@angular/platform-browser/animations';`,
+            `import { AccessibilityModule, ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';`,
+            `${imports.join(';\n')}`,
+            ``,
+            `@NgModule({`,
+            `    imports: [`,
+            `      AccessibilityModule,`,
+            `      ColorServiceModule.forRoot(${this.documentationType === DocumentationType.Keppel ? 'colorSets.keppel' : 'colorSets.microFocus'}),`,
+            `${modules.filter(module => module !== undefined).map(module => `\t\t\t${module},`).join('\n')}`,
+            `    ],`,
+            `    declarations: [`,
+            `${declarations.map(declaration => `\t\t\t${declaration},`).join('\n')}`,
+            `    ],`,
+            `    bootstrap: [AppComponent]`,
+            `})`,
+            `export class AppModule {`,
+            `}`,
+            ``,
+            `platformBrowserDynamic().bootstrapModule(AppModule);`,
+        ].join('\n');
     }
 }

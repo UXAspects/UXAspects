@@ -39,11 +39,11 @@ export function playgroundAdapter(codepen: ICodePen): IPlayground {
     files['app.html'] = html;
 
     if (codepen.js) {
-        files['app.js'] = codepen.js.join('\n\n');
+        files['app.js'] = Array.isArray(codepen.js) ? codepen.js.join('\n\n') : codepen.js;
     }
 
     if (codepen.css) {
-        files['app.css'] = codepen.css.join('\n\n');
+        files['app.css'] = Array.isArray(codepen.css) ? codepen.css.join('\n\n') : codepen.css;
     }
 
     return { framework: 'angularjs', files };
