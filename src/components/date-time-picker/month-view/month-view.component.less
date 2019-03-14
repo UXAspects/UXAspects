@@ -41,6 +41,15 @@ ux-date-time-picker-month-view {
                     background-color: @date-picker-today-btn-hover-bg;
                 }
 
+                &:disabled {
+                    color: #bdbec0;
+                    cursor: default;
+
+                    &:hover:not(.active):not(.current) {
+                        background-color: transparent;
+                    }
+                }
+
                 &.active {
                     background-color: @date-picker-active-bg;
                     color: @date-picker-active-color;

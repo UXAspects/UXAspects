@@ -29,6 +29,8 @@ export class DateTimePickerService implements OnDestroy {
     weekdays$ = new BehaviorSubject<string[]>(this._config ? this._config.weekdays : weekdaysShort);
     nowBtnText$ = new BehaviorSubject<string>(this._config ? this._config.nowBtnText : 'Today');
     timezones$ = new BehaviorSubject<DateTimePickerTimezone[]>(this._config ? this._config.timezones : timezones);
+    min$ = new BehaviorSubject<Date>(this._config ? this._config.min : null);
+    max$ = new BehaviorSubject<Date>(this._config ? this._config.max : null);
 
     header$ = new BehaviorSubject<string>(null);
     headerEvent$ = new Subject<DatePickerHeaderEvent>();
@@ -108,11 +110,16 @@ export class DateTimePickerService implements OnDestroy {
             date.setSeconds(seconds);
         }
 
-        this.selected$.next(date);
+        if (this.isInRange(date)) {
+            this.selected$.next(date);
+        }
     }
 
     setDateToNow(): void {
-        this.selected$.next(new Date());
+        const now = new Date();
+        if (this.isInRange(now)) {
+            this.selected$.next(now);
+        }
     }
 
     setViewportMode(mode: DatePickerMode): void {
@@ -165,6 +172,10 @@ export class DateTimePickerService implements OnDestroy {
 
     setTimezone(timezone: DateTimePickerTimezone): void {
         this.timezone$.next(timezone);
+    }
+
+    isInRange(date: Date): boolean {
+        return (!this.min$.value || date >= this.min$.value) && (!this.max$.value || date <= this.max$.value);
     }
 }
 

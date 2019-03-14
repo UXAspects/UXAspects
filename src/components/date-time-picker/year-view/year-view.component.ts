@@ -1,5 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { merge } from 'rxjs/observable/merge';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -14,7 +15,7 @@ import { YearViewItem, YearViewService } from './year-view.service';
     providers: [YearViewService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YearViewComponent implements OnDestroy {
+export class YearViewComponent implements AfterViewInit, OnDestroy {
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -39,18 +40,33 @@ export class YearViewComponent implements OnDestroy {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
+    get _minYear(): Date | null {
+        return this._datePicker.min$.value ? new Date(this._datePicker.min$.value.getFullYear(), 0) : null;
+    }
+
+    get _maxYear(): Date | null {
+        return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), 0) : null;
+    }
+
     private _onDestroy = new Subject<void>();
 
     constructor(
         private _datePicker: DateTimePickerService,
         public yearService: YearViewService,
         private _liveAnnouncer: LiveAnnouncer,
-        changeDetector: ChangeDetectorRef,
+        private _changeDetector: ChangeDetectorRef,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
+
         if (this._rangeService) {
-            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => changeDetector.detectChanges());
+            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => _changeDetector.detectChanges());
         }
+    }
+
+    ngAfterViewInit(): void {
+        // update on min/max changes
+        merge(this._datePicker.min$, this._datePicker.max$).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._changeDetector.detectChanges());
     }
 
     ngOnDestroy(): void {
@@ -71,17 +87,24 @@ export class YearViewComponent implements OnDestroy {
         const date = new Date(item.year, 0);
 
         // if we are not in range mode then it will always be enabled
-        if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-            return false;
+        if (this._isRangeMode) {
+
+            // if we are range start and dates are after the range end then they should also be disabled
+            if (this._isRangeStart && !this._rangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+                return true;
+            }
+
+            // if we are range end and dates are before the range start then they should also be disabled
+            if (this._isRangeEnd && !this._rangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+                return true;
+            }
         }
 
-        // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+        if (this._minYear && isDateBefore(date, this._minYear)) {
             return true;
         }
 
-        // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+        if (this._maxYear && isDateAfter(date, this._maxYear)) {
             return true;
         }
 

@@ -49,7 +49,7 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     ngAfterViewInit(): void {
         this.subscription = fromEvent(this.dateInput.nativeElement, 'input')
             .pipe(debounceTime(500))
-            .subscribe(event => this.parse(this.dateInput.nativeElement.value));
+            .subscribe(() => this.parse(this.dateInput.nativeElement.value));
     }
 
     ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { merge } from 'rxjs/observable/merge';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -14,7 +15,7 @@ import { FocusedMonthItem, MonthViewItem, MonthViewService } from './month-view.
     providers: [MonthViewService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MonthViewComponent implements OnDestroy {
+export class MonthViewComponent implements AfterViewInit, OnDestroy {
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -39,13 +40,21 @@ export class MonthViewComponent implements OnDestroy {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
 
+    get _minMonth(): Date | null {
+        return this._datePicker.min$.value ? new Date(this._datePicker.min$.value.getFullYear(), this._datePicker.min$.value.getMonth()) : null;
+    }
+
+    get _maxMonth(): Date | null {
+        return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), this._datePicker.max$.value.getMonth()) : null;
+    }
+
     private _onDestroy = new Subject<void>();
 
     constructor(
         private _datePicker: DateTimePickerService,
         public monthService: MonthViewService,
         private _liveAnnouncer: LiveAnnouncer,
-        changeDetector: ChangeDetectorRef,
+        private _changeDetector: ChangeDetectorRef,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
 
@@ -53,7 +62,7 @@ export class MonthViewComponent implements OnDestroy {
             .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
 
         if (this._rangeService) {
-            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => changeDetector.detectChanges());
+            this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy)).subscribe(() => _changeDetector.detectChanges());
         }
 
         // if the currently focused item is disabled then choose a month that isn't disabled
@@ -71,6 +80,12 @@ export class MonthViewComponent implements OnDestroy {
         }
     }
 
+    ngAfterViewInit(): void {
+        // update on min/max changes
+        merge(this._datePicker.min$, this._datePicker.max$).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._changeDetector.detectChanges());
+    }
+
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
@@ -82,17 +97,24 @@ export class MonthViewComponent implements OnDestroy {
         const date = new Date(item.year, item.month);
 
         // if we are not in range mode then it will always be enabled
-        if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-            return false;
+        if (this._isRangeMode) {
+
+            // if we are range start and dates are after the range end then they should also be disabled
+            if (this._isRangeStart && !this._rangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+                return true;
+            }
+
+            // if we are range end and dates are before the range start then they should also be disabled
+            if (this._isRangeEnd && !this._rangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+                return true;
+            }
         }
 
-        // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+        if (this._minMonth && isDateBefore(date, this._minMonth)) {
             return true;
         }
 
-        // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+        if (this._maxMonth && isDateAfter(date, this._maxMonth)) {
             return true;
         }
 

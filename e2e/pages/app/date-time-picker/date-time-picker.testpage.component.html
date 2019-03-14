@@ -6,9 +6,14 @@
     [showMeridian]="showMeridians"
     [showSpinners]="showSpinners"
     [showTimezone]="showTimezones"
-    [startOfWeek]="startOfWeek">
+    [startOfWeek]="startOfWeek"
+    [min]="min"
+    [max]="max">
 </ux-date-time-picker>
+
+<p id="current-date">{{ date | date: 'MMMM d, y, h:mm:ss a' }}</p>
 
 <br>
 
-<button id="change-start-of-week" class="btn button-primary" (click)="startOfWeek = startOfWeek + 1">Change StartOfWeek</button>
+<button id="change-start-of-week" class="btn button-primary m-r" (click)="startOfWeek = startOfWeek + 1">Change StartOfWeek</button>
+<button id="set-limits" class="btn button-secondary" (click)="setDateLimits()">Set Min and Max</button>

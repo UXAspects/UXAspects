@@ -76,6 +76,10 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
 
+        // update when there are changes to the min/max values
+        merge(this.datePicker.min$, this.datePicker.max$).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._changeDetector.detectChanges());
+
         // if we open and the range start is already selected, ensure that we move the end picker to a month with options
         if (!this.datePicker.initialised && this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
             this.onRangeChange(this._rangeStart);
@@ -221,17 +225,24 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
     getDisabled(date: Date): boolean {
 
         // if we are not in range mode then it will always be enabled
-        if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-            return false;
+        if (this._isRangeMode) {
+
+            // if we are range start and dates are after the range end then they should also be disabled
+            if (this._isRangeStart && !this._rangeStart && this._rangeEnd && isDateAfter(date, this._rangeEnd)) {
+                return true;
+            }
+
+            // if we are range end and dates are before the range start then they should also be disabled
+            if (this._isRangeEnd && !this._rangeEnd && this._rangeStart && isDateBefore(date, this._rangeStart)) {
+                return true;
+            }
         }
 
-        // if we are range start and dates are after the range end then they should also be disabled
-        if (this._isRangeStart && this._rangeEnd && isDateAfter(date, this._rangeEnd)) {
+        if (this.datePicker.min$.value && isDateBefore(date, this.datePicker.min$.value)) {
             return true;
         }
 
-        // if we are range end and dates are before the range start then they should also be disabled
-        if (this._isRangeEnd && this._rangeStart && isDateBefore(date, this._rangeStart)) {
+        if (this.datePicker.max$.value && isDateAfter(date, this.datePicker.max$.value)) {
             return true;
         }
 
