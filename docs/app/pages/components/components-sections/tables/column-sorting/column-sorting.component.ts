@@ -4,15 +4,15 @@ import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSorting
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-column-sorting',
     templateUrl: './column-sorting.component.html'
 })
 @DocumentationSectionComponent('ComponentsColumnSortingComponent')
-export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     order: ColumnSortingOrder[] = [];
 
@@ -74,7 +74,7 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         active: chance.bool()
     }];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml

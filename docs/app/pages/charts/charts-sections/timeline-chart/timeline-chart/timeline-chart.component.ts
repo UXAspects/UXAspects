@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ColorService, TimelineChartOptions } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 import { TimelineChartService } from './timeline-chart.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { TimelineChartService } from './timeline-chart.service';
     providers: [TimelineChartService]
 })
 @DocumentationSectionComponent('ChartsTimelineChartComponent')
-export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsTimelineChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     lineChartData: Chart.ChartPoint[] = this._dataService.getDataset();
 
@@ -115,7 +115,7 @@ export class ChartsTimelineChartComponent extends BaseDocumentationSection imple
         }
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

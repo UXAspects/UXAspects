@@ -1,5 +1,5 @@
-<ux-accordion close-others="true">
-    <ux-accordion-panel is-open="group.isOpen" heading="{{group.title}}" ng-repeat="group in vm.groups">
+<accordion close-others="true">
+    <accordion-group is-open="group.isOpen" heading="{{group.title}}" ng-repeat="group in vm.groups">
         <span ng-bind="group.content"></span>
-    </ux-accordion-panel>
-</ux-accordion>
+    </accordion-group>
+</accordion>

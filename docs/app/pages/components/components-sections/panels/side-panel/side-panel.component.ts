@@ -2,8 +2,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-side-panel',
@@ -11,9 +11,9 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./side-panel.component.less']
 })
 @DocumentationSectionComponent('ComponentsSidePanelComponent')
-export class ComponentsSidePanelComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsSidePanelComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
@@ -59,6 +59,6 @@ export class ComponentsSidePanelComponent extends BaseDocumentationSection imple
     }
 
     announce(isOpen: boolean): void {
-        this._liveAnnouncer.announce(`Side panel ${ isOpen ? 'opened' : 'closed' }.`);
+        this._liveAnnouncer.announce(`Side panel ${isOpen ? 'opened' : 'closed'}.`);
     }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-select-list',
@@ -10,7 +10,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./select-list.component.less']
 })
 @DocumentationSectionComponent('ComponentsSelectListComponent')
-export class ComponentsSelectListComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsSelectListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     multiple: boolean = false;
     selected: ReadonlyArray<string> = [];
@@ -19,7 +19,7 @@ export class ComponentsSelectListComponent extends BaseDocumentationSection impl
 
     private _authors: string[] = [];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

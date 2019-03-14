@@ -4,15 +4,15 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-select',
     templateUrl: 'select.component.html'
 })
 @DocumentationSectionComponent('ComponentsSelectComponent')
-export class ComponentsSelectComponent extends BaseDocumentationSection implements IPlunkProvider, OnInit, OnDestroy {
+export class ComponentsSelectComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnInit, OnDestroy {
 
     // ux-select configuration properties
     options: string[] | Function;
@@ -45,7 +45,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
 
     dataSets: { strings?: any[], objects?: any[] } = {};
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
@@ -82,7 +82,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
         // Reset and reassign options when the dataset changes. Also set display and key properties.
         this.dataSet.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
 
-            // WORKAROUND to reset Enable Option Paging when user switches between string and object options. 
+            // WORKAROUND to reset Enable Option Paging when user switches between string and object options.
             if (this.multiple.getValue() === true) {
                 this.pagingEnabled.next(false);
             }

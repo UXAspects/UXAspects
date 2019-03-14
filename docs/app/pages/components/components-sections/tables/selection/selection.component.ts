@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import 'chance';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-selection',
@@ -11,13 +11,13 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./selection.component.less']
 })
 @DocumentationSectionComponent('ComponentsSelectionComponent')
-export class ComponentsSelectionComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsSelectionComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     data: TableData[] = [];
     selection: TableData[] = [];
     mode: string = 'simple';
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

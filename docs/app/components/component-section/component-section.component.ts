@@ -1,10 +1,8 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
-import { ICodePen } from '../../interfaces/ICodePen';
-import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
 import { ILink } from '../../interfaces/ILink';
-import { IPlunk } from '../../interfaces/IPlunk';
-import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../interfaces/IPlayground';
+import { IPlaygroundProvider, isIPlaygroundProvider } from '../../interfaces/IPlaygroundProvider';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ResolverService } from '../../services/resolver/resolver.service';
 import { Usage } from './../../interfaces/Usage';
@@ -28,25 +26,24 @@ export class ComponentSectionComponent implements OnInit {
 
     @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
-    codepen: ICodePen;
-    plunk: IPlunk;
+    playground: IPlayground;
     deprecatedLink: ILink;
     hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
 
-    constructor(private _resolverService: ResolverService,
-        private _navigationService: NavigationService) { }
+    constructor(
+        private _resolverService: ResolverService,
+        private _navigationService: NavigationService
+    ) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         const component = documentationSectionNames[this.componentName];
 
         if (component) {
             const factory = this._resolverService.resolveComponentFactory(component);
             const componentRef = this.viewContainer.createComponent(factory);
 
-            if (isICodePenProvider(componentRef.instance)) {
-                this.codepen = (<ICodePenProvider>componentRef.instance).codepen;
-            } else if (isIPlunkProvider(componentRef.instance)) {
-                this.plunk = (<IPlunkProvider>componentRef.instance).plunk;
+            if (isIPlaygroundProvider(componentRef.instance)) {
+                this.playground = (<IPlaygroundProvider>componentRef.instance).playground;
             }
         } else {
             console.warn(`ComponentSectionComponent: ${this.componentName} cannot be resolved - decorate component with @DocumentationSectionComponent.`);

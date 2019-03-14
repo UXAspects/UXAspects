@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-hover-actions',
@@ -11,12 +11,12 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
     styleUrls: ['./hover-actions.component.less']
 })
 @DocumentationSectionComponent('ComponentsHoverActionsComponent')
-export class ComponentsHoverActionsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsHoverActionsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     documents: HoverActionDocument[] = [];
     selected: HoverActionDocument[] = [];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

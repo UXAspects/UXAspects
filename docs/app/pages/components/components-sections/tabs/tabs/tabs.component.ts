@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-tabs',
@@ -11,7 +11,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTabsComponent')
-export class ComponentsTabsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsTabsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     tabs: Tab[] = [
         {
@@ -37,7 +37,7 @@ export class ComponentsTabsComponent extends BaseDocumentationSection implements
     ];
 
     minimal: boolean = true;
-    
+
     set stacked(stacked: TabStackType) {
         this._stacked = stacked;
 
@@ -53,7 +53,7 @@ export class ComponentsTabsComponent extends BaseDocumentationSection implements
 
     private _stacked: TabStackType = 'none';
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

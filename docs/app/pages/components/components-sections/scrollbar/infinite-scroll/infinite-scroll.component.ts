@@ -4,8 +4,8 @@ import 'chance';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 const chance = new Chance();
 
@@ -17,7 +17,7 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
     styleUrls: ['./infinite-scroll.component.less']
 })
 @DocumentationSectionComponent('ComponentsInfiniteScrollComponent')
-export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     filterText = new BehaviorSubject<string>('');
     debouncedFilterText = this.filterText.debounceTime(500);
@@ -50,7 +50,7 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
         return e.name.toLowerCase().indexOf(normalisedFilter) >= 0;
     }
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

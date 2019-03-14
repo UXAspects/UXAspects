@@ -5,8 +5,8 @@ import { debounceTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-date-time-picker',
@@ -15,7 +15,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
-export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlunkProvider, AfterViewInit, OnDestroy {
+export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit, OnDestroy {
 
     @ViewChild('input') dateInput: ElementRef;
 
@@ -28,7 +28,7 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     showSpinners: boolean = true;
     subscription: Subscription;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 const chance = require('chance').Chance();
 
@@ -11,7 +12,7 @@ const chance = require('chance').Chance();
     templateUrl: './social-chart-ng1.component.html'
 })
 @DocumentationSectionComponent('ChartsSocialChartNg1Component')
-export class ChartsSocialChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsSocialChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     minLabels: number;
     forceAtlasDuration: number;
@@ -28,7 +29,7 @@ export class ChartsSocialChartNg1Component extends BaseDocumentationSection impl
     nodeIdInput: string;
     edgeIdInput: string;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartExampleHtml,
         htmlAttributes: {
             'ng-controller': 'SocialCtrl as vm'
@@ -51,9 +52,9 @@ export class ChartsSocialChartNg1Component extends BaseDocumentationSection impl
                 content: this.snippets.raw.edgePopoverHtml
             }
         ],
-        js: [ this.snippets.raw.chartExampleJs ],
-        css: [ this.snippets.raw.chartExampleCss ]
-    };
+        js: [this.snippets.raw.chartExampleJs],
+        css: [this.snippets.raw.chartExampleCss]
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

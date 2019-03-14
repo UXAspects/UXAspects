@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-buttons-dropdowns',
@@ -10,7 +10,7 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
     styleUrls: ['./dropdowns.component.less']
 })
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
-export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     cases = [
         'Alpha',
@@ -28,7 +28,7 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
     ];
     caseFilter = '';
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss,

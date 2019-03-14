@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-progress-bar',
     templateUrl: './progress-bar.component.html'
 })
 @DocumentationSectionComponent('ComponentsProgressBarComponent')
-export class ComponentsProgressBarComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsProgressBarComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     value: number = 15;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

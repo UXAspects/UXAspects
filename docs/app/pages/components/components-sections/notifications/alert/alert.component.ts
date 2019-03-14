@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxmd-pages-alert',
@@ -10,7 +10,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     styleUrls: ['./alert.component.less']
 })
 @DocumentationSectionComponent('ComponentsAlertComponent')
-export class ComponentsAlertComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsAlertComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     private _alerts: ReadonlyArray<AlertExample> = [
         {
@@ -42,7 +42,7 @@ export class ComponentsAlertComponent extends BaseDocumentationSection implement
 
     alerts: AlertExample[] = [...this._alerts];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
