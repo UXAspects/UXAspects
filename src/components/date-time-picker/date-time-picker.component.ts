@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
-import { dateComparator, DateTimePickerTimezone, timezoneComparator } from './date-time-picker.utils';
+import { dateComparator, DateTimePickerTimezone, isDateAfter, isDateBefore, timezoneComparator } from './date-time-picker.utils';
 
 @Component({
     selector: 'ux-date-time-picker',
@@ -167,6 +167,26 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy {
     /** Determine if this picker is the end picker */
     get _isRangeEnd(): boolean {
         return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+    }
+
+    /** Determine if the today button is disabled */
+    get _isTodayDisabled(): boolean {
+        const min = this.datepicker.min$.value;
+        const max = this.datepicker.max$.value;
+
+        if (!min && !max) {
+            return false;
+        }
+
+        if (min && !max) {
+            return isDateBefore(new Date(), min);
+        }
+
+        if (!min && max) {
+            return isDateAfter(new Date(), max);
+        }
+
+        return isDateBefore(new Date(), min) || isDateAfter(new Date(), max);
     }
 
     // expose enum to view

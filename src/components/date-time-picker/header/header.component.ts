@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/observable/merge';
 import { delay, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -11,7 +12,7 @@ import { DatePickerMode, DateTimePickerService } from '../date-time-picker.servi
     templateUrl: './header.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent implements AfterViewInit, OnDestroy {
 
     canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
 
@@ -87,15 +88,21 @@ export class HeaderComponent implements OnDestroy {
 
     constructor(
         public datepicker: DateTimePickerService,
-        changeDetector: ChangeDetectorRef,
+        private _changeDetector: ChangeDetectorRef,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions
     ) {
         if (this._rangeService) {
             // delay required to allow all ui to update elsewhere
             this._rangeService.onRangeChange.pipe(takeUntil(this._onDestroy), delay(100))
-                .subscribe(() => changeDetector.detectChanges());
+                .subscribe(() => _changeDetector.detectChanges());
         }
+    }
+
+    ngAfterViewInit(): void {
+        // update on min/max changes
+        merge(this.datepicker.min$, this.datepicker.max$).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._changeDetector.detectChanges());
     }
 
     ngOnDestroy(): void {
@@ -120,6 +127,13 @@ export class HeaderComponent implements OnDestroy {
 
     /** Determine if the previous button is enabled */
     isPreviousDisabled(): boolean {
+
+        const min = this.datepicker.min$.value;
+
+        if (min && this._isBeforeView(min)) {
+            return true;
+        }
+
         // if we are not in range mode or there are no disabled items then we can navigate back
         if (!this._isRangeMode || this._rangeStart && this._rangeEnd ||
             !this._rangeStart && !this._rangeEnd || this._isRangeStart
@@ -127,21 +141,8 @@ export class HeaderComponent implements OnDestroy {
             return false;
         }
 
-        const month = this.datepicker.month$.value;
-        const year = this.datepicker.year$.value;
-        const mode = this.datepicker.mode$.value;
-        const yearRange = this.datepicker.yearRange;
-
-        if (mode === DatePickerMode.Day) {
-            return year <= this._rangeStart.getFullYear() && month <= this._rangeStart.getMonth();
-        }
-
-        if (mode === DatePickerMode.Month) {
-            return year <= this._rangeStart.getFullYear();
-        }
-
-        if (mode === DatePickerMode.Year) {
-            return yearRange.start <= this._rangeStart.getFullYear();
+        if (this._isBeforeView(this._rangeStart)) {
+            return true;
         }
 
         return false;
@@ -149,6 +150,13 @@ export class HeaderComponent implements OnDestroy {
 
     /** Determine if the previous button is enabled */
     isNextDisabled(): boolean {
+
+        const max = this.datepicker.max$.value;
+
+        if (max && this._isAfterView(max)) {
+            return true;
+        }
+
         // if we are not in range mode or there are no disabled items then we can navigate back
         if (!this._isRangeMode || this._rangeStart && this._rangeEnd ||
             !this._rangeStart && !this._rangeEnd || this._isRangeStart && this._rangeStart
@@ -156,23 +164,50 @@ export class HeaderComponent implements OnDestroy {
             return false;
         }
 
+        if (this._isAfterView(this._rangeEnd)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private _isBeforeView(date: Date): boolean {
+
         const month = this.datepicker.month$.value;
         const year = this.datepicker.year$.value;
         const mode = this.datepicker.mode$.value;
         const yearRange = this.datepicker.yearRange;
 
         if (mode === DatePickerMode.Day) {
-            return year >= this._rangeEnd.getFullYear() && month >= this._rangeEnd.getMonth();
+            return year <= date.getFullYear() && month <= date.getMonth();
         }
 
         if (mode === DatePickerMode.Month) {
-            return year >= this._rangeEnd.getFullYear();
+            return year <= date.getFullYear();
         }
 
         if (mode === DatePickerMode.Year) {
-            return yearRange.end >= this._rangeEnd.getFullYear();
+            return yearRange.start <= date.getFullYear();
+        }
+    }
+
+    private _isAfterView(date: Date): boolean {
+
+        const month = this.datepicker.month$.value;
+        const year = this.datepicker.year$.value;
+        const mode = this.datepicker.mode$.value;
+        const yearRange = this.datepicker.yearRange;
+
+        if (mode === DatePickerMode.Day) {
+            return year >= date.getFullYear() && month >= date.getMonth();
         }
 
-        return false;
+        if (mode === DatePickerMode.Month) {
+            return year >= date.getFullYear();
+        }
+
+        if (mode === DatePickerMode.Year) {
+            return yearRange.end >= date.getFullYear();
+        }
     }
 }

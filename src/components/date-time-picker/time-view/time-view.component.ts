@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, Optional } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
@@ -42,8 +42,17 @@ export class TimeViewComponent implements OnDestroy {
 
     constructor(
         public datepicker: DateTimePickerService,
+        changeDetector: ChangeDetectorRef,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
+
+        // when the date changes we should update the value
+        datepicker.date$.pipe(takeUntil(this._onDestroy), filter(() => this.value instanceof Date)).subscribe(date => {
+            this.value.setFullYear(date.getFullYear());
+            this.value.setMonth(date.getMonth());
+            this.value.setDate(date.getDate());
+            changeDetector.detectChanges();
+        });
 
         if (!this._isRangeMode) {
             datepicker.selected$.pipe(takeUntil(this._onDestroy), filter(date => !!date)).subscribe(date => this.value = new Date(date));

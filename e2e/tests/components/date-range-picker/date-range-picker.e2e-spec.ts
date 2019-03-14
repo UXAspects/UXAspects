@@ -4,9 +4,9 @@ describe('Date Range Picker Tests', () => {
 
     let page: DateRangePickerPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new DateRangePickerPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

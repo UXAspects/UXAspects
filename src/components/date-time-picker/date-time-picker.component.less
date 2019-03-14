@@ -16,12 +16,17 @@ ux-date-time-picker {
         outline: none;
         color: @date-picker-today-btn-color;
 
-        &:hover {
+        &:hover:not(:disabled) {
             background-color: @date-picker-today-btn-hover-bg;
         }
 
         &:focus {
             .aspects-outline();
+        }
+
+        &:disabled {
+            color: #bdbec0;
+            cursor: default;
         }
     }
 }

@@ -25,6 +25,7 @@
     uxFocusIndicator
     class="now-button"
     [attr.aria-label]="nowBtnAriaLabel"
+    [disabled]="_isTodayDisabled"
     (click)="setToNow()">
     {{ datepicker.nowBtnText$ | async }}
 </button>

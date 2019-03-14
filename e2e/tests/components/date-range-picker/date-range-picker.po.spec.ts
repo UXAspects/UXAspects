@@ -5,8 +5,8 @@ export class DateRangePickerPage {
     input = $('#date-range-input');
     dateRangePicker = $('ux-date-range-picker');
 
-    getPage(): void {
-        browser.get('#/date-range-picker');
+    async getPage(): Promise<void> {
+        return await browser.get('#/date-range-picker');
     }
 
     async getPicker(picker: Picker): Promise<ElementFinder> {
