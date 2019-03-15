@@ -22,7 +22,7 @@
                         [attr.aria-selected]="isItemActive(item.date, item.isActive)"
                         [attr.aria-hidden]="!item.isCurrentMonth"
                         [class.current]="item.isToday"
-                        [class.active]="isItemActive(item.date, item.isActive)"
+                        [class.active]="isItemActive(item.date, item.isActive) && !getDisabled(item.date)"
                         [class.preview]="!item.isCurrentMonth"
                         [tabindex]="getTabbable(item) ? 0 : -1"
                         [disabled]="getDisabled(item.date)"
