@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/operators/index';
+import { ResizeService } from '../../../directives/resize/index';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNodeChildren } from '../interfaces/hierarchy-bar-node-children.interface';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
@@ -48,16 +49,28 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
     constructor(
         public readonly hierarchyBar: HierarchyBarService,
         /** Access the renderer to mutate the DOM */
-        private _renderer: Renderer2
+        private _renderer: Renderer2,
+        /** Access the resize service to watch for changes to the host element */
+        private _resizeService: ResizeService,
+        /** Access the host elementRef */
+        private _elementRef: ElementRef
     ) { }
 
     ngAfterViewInit(): void {
+        // check for overflow when the selected nodes change
         this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.updateOverflow());
+
+        // watch for the host element size changing
+        this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.updateOverflow());
     }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+
+        // remove the resize event listener
+        this._resizeService.removeResizeListener(this._elementRef.nativeElement);
     }
 
     updateOverflow(): void {
