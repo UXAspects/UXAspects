@@ -12,7 +12,7 @@
          [attr.aria-label]="item.year"
          [attr.aria-selected]="item.isActiveYear"
          [class.current]="item.isCurrentYear"
-         [class.active]="item.isActiveYear"
+         [class.active]="item.isActiveYear && !getDisabled(item)"
          [disabled]="getDisabled(item)"
          (click)="select(item.year); $event.stopPropagation()"
          (focus)="announceRangeMode()"

@@ -13,7 +13,7 @@
          [tabindex]="getTabbable(item) ? 0 : -1"
          [attr.aria-label]="item.name + ' ' + item.year"
          [attr.aria-selected]="item.isActiveMonth"
-         [class.active]="item.isActiveMonth"
+         [class.active]="item.isActiveMonth && !getDisabled(item)"
          [class.current]="item.isCurrentMonth"
          (click)="select(item.month); $event.stopPropagation()"
          (focus)="announceRangeMode()"
