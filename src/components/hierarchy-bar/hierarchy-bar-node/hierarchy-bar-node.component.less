@@ -9,6 +9,8 @@ ux-hierarchy-bar-node {
         margin-top: 5px;
         margin-bottom: 5px;
         cursor: pointer;
+        max-width: calc(100% - 5px); // account for the margin left
+        overflow: hidden;
     }
 
     .hierarchy-bar-node-content {
@@ -17,6 +19,8 @@ ux-hierarchy-bar-node {
         border: none;
         background: transparent;
         padding: 0;
+        flex: 1;
+        overflow: hidden;
 
         &:focus {
             .aspects-outline;
@@ -32,6 +36,11 @@ ux-hierarchy-bar-node {
 
     .hierarchy-bar-node-title {
         color: @organization-chart-hierarchy-bar-color;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
     }
 
     &:last-of-type {
