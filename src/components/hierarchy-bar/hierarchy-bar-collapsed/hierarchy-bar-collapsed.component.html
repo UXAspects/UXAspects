@@ -3,7 +3,7 @@
     <ng-content select="left-addons"></ng-content>
 </div>
 
-<div class="hierarchy-bar-nodes">
+<div #nodes class="hierarchy-bar-nodes" (resize)="updateOverflow(nodes)">
 
     <ux-hierarchy-bar-node
         [popoverTemplate]="content"

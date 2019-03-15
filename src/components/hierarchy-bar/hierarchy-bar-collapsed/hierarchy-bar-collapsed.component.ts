@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../../common/operators/index';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNodeChildren } from '../interfaces/hierarchy-bar-node-children.interface';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
@@ -10,7 +12,7 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     templateUrl: './hierarchy-bar-collapsed.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HierarchyBarCollapsedComponent implements OnDestroy {
+export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
 
     /** Get the first node to display */
     get _first(): HierarchyBarNode {
@@ -40,10 +42,32 @@ export class HierarchyBarCollapsedComponent implements OnDestroy {
     /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
 
-    constructor(public readonly hierarchyBar: HierarchyBarService) { }
+    /** Access the node container */
+    @ViewChild('nodes') nodeContainer: ElementRef;
+
+    constructor(
+        public readonly hierarchyBar: HierarchyBarService,
+        /** Access the renderer to mutate the DOM */
+        private _renderer: Renderer2
+    ) { }
+
+    ngAfterViewInit(): void {
+        this.hierarchyBar.nodes$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.updateOverflow());
+    }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    updateOverflow(): void {
+
+        // remove the class if it is present
+        this._renderer.removeClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
+
+        // check if there is overflow
+        if (this.nodeContainer.nativeElement.scrollWidth > this.nodeContainer.nativeElement.offsetWidth) {
+            this._renderer.addClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
+        }
     }
 }
