@@ -84,7 +84,7 @@ class ManagedFocusContainer {
     constructor(
         public readonly element: HTMLElement,
         private _renderer: Renderer2
-    ) {}
+    ) { }
 
     /** Start managing the focus of child elements. */
     register(): void {
@@ -132,7 +132,7 @@ class ManagedFocusContainer {
         );
 
         // Remove focusable children from the tab ring
-        focusable.forEach(element => {
+        Array.from(focusable).forEach(element => {
             const originalTabIndex = element.getAttribute('tabindex');
             this._renderer.setAttribute(element, 'tabindex', '-1');
             this._modifiedElements.push({

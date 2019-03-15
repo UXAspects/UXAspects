@@ -14,16 +14,33 @@ ux-hierarchy-bar-collapsed {
         flex: 1;
         height: 100%;
         overflow: hidden;
+    }
 
-        ux-hierarchy-bar-node {
-            flex: 1;
-            overflow: hidden;
+    ux-hierarchy-bar-node {
+        flex: 1;
+        overflow: hidden;
+
+        .hierarchy-bar-node {
+            .hierarchy-bar-node-title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: break-all;
+            }
+
+            .hierarchy-bar-node-content {
+                max-width: ~'calc(100% - 5px)';
+            }
+
+            &.hierarchy-bar-node-child-indicator {
+                .hierarchy-bar-node-content {
+                    max-width: ~'calc(100% - 22px)';
+                }
+            }
         }
     }
 
     .hierarchy-bar-overflow {
         display: flex;
-        flex: none;
         justify-content: center;
         align-items: center;
         padding: 0 0.25rem 0 0.75rem;
