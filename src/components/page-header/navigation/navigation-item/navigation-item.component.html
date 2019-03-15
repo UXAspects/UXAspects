@@ -6,7 +6,9 @@
     container="body"
     placement="bottom left">
 
-    <button type="button"
+    <button #navigationBtn
+        type="button"
+        [tabindex]="_tabindex"
         uxFocusIndicator
         role="menuitem"
         class="horizontal-navigation-button"
@@ -47,7 +49,9 @@
 
 <button *ngIf="!item.children || item.children.length === 0 || (secondary$ | async)"
     uxFocusIndicator
+    #navigationBtn
     type="button"
+    [tabindex]="_tabindex"
     role="menuitem"
     class="horizontal-navigation-button"
     [class.selected]="item.selected"

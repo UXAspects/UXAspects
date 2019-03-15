@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FocusableOption } from '@angular/cdk/a11y';
+import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { takeUntil } from 'rxjs/operators';
@@ -7,15 +8,17 @@ import { MenuNavigationToggleDirective } from '../../../../directives/menu-navig
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
 import { PageHeaderNavigationItem } from '../navigation.component';
+import { PageHeaderNavigationService } from '../navigation.service';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-item',
     templateUrl: './navigation-item.component.html'
 })
-export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
+export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     @ViewChild('button') button: MenuNavigationToggleDirective;
     @ViewChild('menu') menu: BsDropdownDirective;
+    @ViewChild('navigationBtn') navigationBtn: ElementRef;
     @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
 
     @Input() item: PageHeaderNavigationItem;
@@ -24,9 +27,16 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     isOpen: boolean;
 
+    get _tabindex(): number {
+        return this._navigationService.getTabIndex(this);
+    }
+
     private _onDestroy = new Subject();
 
-    constructor(public elementRef: ElementRef, private _pageHeaderService: PageHeaderService) { }
+    constructor(
+        public elementRef: ElementRef,
+        private _pageHeaderService: PageHeaderService,
+        private _navigationService: PageHeaderNavigationService) { }
 
     ngOnInit(): void {
 
@@ -55,6 +65,10 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
         this._onDestroy.complete();
     }
 
+    focus(): void {
+        this.navigationBtn.nativeElement.focus();
+    }
+
     select(): void {
 
         // if the item is disabled or has children then do nothing at this stage
@@ -64,5 +78,10 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
         // otherwise select the current item
         this._pageHeaderService.select(this.item);
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeydown(event: KeyboardEvent): void {
+        this._navigationService.onKeydown(event);
     }
 }
