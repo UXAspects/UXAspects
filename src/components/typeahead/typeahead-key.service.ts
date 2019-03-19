@@ -5,7 +5,7 @@ import { TypeaheadComponent } from './typeahead.component';
 @Injectable()
 export class TypeaheadKeyService {
 
-    handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent) {
+    handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent): void {
 
         if (!typeahead) {
             return;

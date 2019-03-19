@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -18,6 +19,7 @@ import { PageHeaderComponent } from './page-header.component';
 
 @NgModule({
     imports: [
+        A11yModule,
         AccessibilityModule,
         BreadcrumbsModule,
         BsDropdownModule.forRoot(),
