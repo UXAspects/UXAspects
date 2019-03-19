@@ -328,11 +328,14 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
         switch (event.which) {
             case ENTER:
+
                 // Check if a typeahead option is highlighted
                 if (this.typeahead && this.typeahead.open && this.typeahead.highlighted) {
                     // Add the typeahead option as a tag, clear the input, and close the dropdown
                     this.commitTypeahead(this.typeahead.highlighted);
                     this.typeahead.open = false;
+                } else if (this.typeahead && !this.typeahead.open && !this.freeInput) {
+                    this.typeahead.open = true;
                 } else {
                     // Validate and add the input text as a tag, if possible
                     this.commitInput();

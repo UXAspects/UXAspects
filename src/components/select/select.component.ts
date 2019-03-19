@@ -274,6 +274,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
                     // Set the highlighted option as the value and close
                     this.value = this.singleTypeahead.highlighted;
                     this.dropdownOpen = false;
+                } else {
+                    this.dropdownOpen = true;
                 }
 
                 // Update the input field. If dropdown isn't open then reset it to the previous value.

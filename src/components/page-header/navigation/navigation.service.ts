@@ -9,7 +9,7 @@ export class PageHeaderNavigationService {
     private _focusManager: FocusKeyManager<PageHeaderNavigationItemComponent>;
 
     /** Store the query list */
-    private _items: QueryList<PageHeaderNavigationItemComponent>
+    private _items: QueryList<PageHeaderNavigationItemComponent>;
 
     /** Make menu items navigable using arrow keys */
     initialize(items: QueryList<PageHeaderNavigationItemComponent>): void {

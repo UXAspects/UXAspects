@@ -1,4 +1,5 @@
 import { FocusableOption } from '@angular/cdk/a11y';
+import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -82,6 +83,8 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy, Foc
 
     @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
-        this._navigationService.onKeydown(event);
+        if (event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW) {
+            this._navigationService.onKeydown(event);
+        }
     }
 }
