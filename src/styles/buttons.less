@@ -882,17 +882,16 @@ fieldset[disabled] .btn-toggle.active {
             z-index: @button-group-middle-z-index;
         }
 
-        &:active,
-        &:focus {
-            outline: none;
+        &:focus.ux-focus-indicator-active {
+            outline: none !important;
             z-index: @button-group-front-z-index;
             box-shadow: 0 0 1px 1px @accent;
         }
     }
 
     .dropdown-toggle {
-        &:focus {
-            outline: 0;
+        &:focus.ux-focus-indicator-active {
+            outline: none !important;
             box-shadow: 0 0 1px 1px @accent;
             z-index: @button-group-front-z-index;
         }
