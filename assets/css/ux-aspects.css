@@ -253,8 +253,8 @@ ol.unstyled {
   outline-color: #00a7a2;
   outline-offset: 0;
 }
-/* CODEPEN */
-body > div#ux-codepen-container {
+/* Plunker */
+body > div#ux-plunker-container {
   padding: 15px;
   margin-right: auto;
   margin-left: auto;
@@ -3404,6 +3404,13 @@ label {
 }
 .input-group .input-group-btn button {
   height: 34px;
+}
+.input-group .input-group-btn button.button-secondary {
+  border-color: #e5e6e7;
+}
+.input-group .input-group-btn:first-child > .btn,
+.input-group .input-group-btn:first-child > .btn-group {
+  margin-right: -2px;
 }
 .login-form-control {
   background-color: transparent;
@@ -9533,13 +9540,13 @@ fieldset[disabled] .btn-toggle.active {
 .input-group-btn > .btn:hover {
   z-index: 2;
 }
-.input-group-btn > .btn:active,
-.input-group-btn > .btn:focus {
+.input-group-btn > .btn:focus.ux-focus-indicator-active {
+  outline: none !important;
   z-index: 3;
   box-shadow: 0 0 1px 1px #7b63a3;
 }
-.input-group-btn .dropdown-toggle:focus {
-  outline: 0;
+.input-group-btn .dropdown-toggle:focus.ux-focus-indicator-active {
+  outline: none !important;
   box-shadow: 0 0 1px 1px #7b63a3;
   z-index: 3;
 }
@@ -15846,6 +15853,9 @@ ux-dashboard-widget.grabbing {
   transform: translateX(10px) translateY(10px);
   transition: transform 250ms ease-in-out, top 250ms ease-in-out, left 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out;
 }
+ux-dashboard-widget.resizing {
+  transition: none;
+}
 ux-dashboard-widget .widget-content {
   width: 100%;
   height: 100%;
@@ -16018,18 +16028,6 @@ ux-date-range-picker ux-date-time-picker .calendar-container ux-date-time-picker
   color: #999;
   box-shadow: inset -2px 0 rgba(0, 167, 162, 0.5), inset 2px 0 rgba(0, 167, 162, 0.5);
 }
-ux-date-range-picker ux-date-time-picker .calendar-container ux-date-time-picker-day-view .calendar .date-cell .date-button:disabled {
-  color: #bdbec0;
-}
-ux-date-range-picker ux-date-time-picker .calendar-container ux-date-time-picker-month-view .calendar .calendar-item:disabled,
-ux-date-range-picker ux-date-time-picker .calendar-container ux-date-time-picker-year-view .calendar .calendar-item:disabled {
-  color: #bdbec0;
-  cursor: default;
-}
-ux-date-range-picker ux-date-time-picker .calendar-container ux-date-time-picker-month-view .calendar .calendar-item:disabled:hover:not(.active):not(.current),
-ux-date-range-picker ux-date-time-picker .calendar-container ux-date-time-picker-year-view .calendar .calendar-item:disabled:hover:not(.active):not(.current) {
-  background-color: transparent;
-}
 ux-date-time-picker {
   display: block;
 }
@@ -16047,7 +16045,7 @@ ux-date-time-picker .now-button {
   outline: none;
   color: #333;
 }
-ux-date-time-picker .now-button:hover {
+ux-date-time-picker .now-button:hover:not(:disabled) {
   background-color: #eee;
 }
 ux-date-time-picker .now-button:focus {
@@ -16055,6 +16053,10 @@ ux-date-time-picker .now-button:focus {
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
+}
+ux-date-time-picker .now-button:disabled {
+  color: #bdbec0;
+  cursor: default;
 }
 ux-date-time-picker-day-view {
   display: flex;
@@ -16094,6 +16096,10 @@ ux-date-time-picker-day-view .calendar .date-button {
 ux-date-time-picker-day-view .calendar .date-button:hover:not(:disabled) {
   background-color: #eee;
 }
+ux-date-time-picker-day-view .calendar .date-button:disabled {
+  color: #bdbec0;
+  cursor: default;
+}
 ux-date-time-picker-day-view .calendar .date-button.current,
 ux-date-time-picker-day-view .calendar .date-button.current.preview {
   color: #000;
@@ -16117,6 +16123,9 @@ ux-date-time-picker-day-view .calendar .date-button.active.preview:hover {
 }
 ux-date-time-picker-day-view .calendar .date-button.preview {
   color: #999;
+}
+ux-date-time-picker-day-view .calendar .date-button.preview:disabled {
+  color: #bdbec0;
 }
 ux-date-time-picker-header .header {
   display: flex;
@@ -16216,6 +16225,13 @@ ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:last-of-ty
 ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:hover {
   background-color: #eee;
 }
+ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:disabled {
+  color: #bdbec0;
+  cursor: default;
+}
+ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:disabled:hover:not(.active):not(.current) {
+  background-color: transparent;
+}
 ux-date-time-picker-month-view .calendar .calendar-row .calendar-item.active {
   background-color: #7b63a3;
   color: #fff;
@@ -16295,6 +16311,13 @@ ux-date-time-picker-year-view .calendar .calendar-row .calendar-item:last-of-typ
 }
 ux-date-time-picker-year-view .calendar .calendar-row .calendar-item:hover {
   background-color: #eee;
+}
+ux-date-time-picker-year-view .calendar .calendar-row .calendar-item:disabled {
+  color: #bdbec0;
+  cursor: default;
+}
+ux-date-time-picker-year-view .calendar .calendar-row .calendar-item:disabled:hover:not(.active):not(.current) {
+  background-color: transparent;
 }
 ux-date-time-picker-year-view .calendar .calendar-row .calendar-item.active {
   background-color: #7b63a3;
@@ -16827,6 +16850,7 @@ ux-hierarchy-bar-node .hierarchy-bar-node {
   margin-top: 5px;
   margin-bottom: 5px;
   cursor: pointer;
+  max-width: 100%;
 }
 ux-hierarchy-bar-node .hierarchy-bar-node-content {
   display: inline-flex;
@@ -16849,6 +16873,7 @@ ux-hierarchy-bar-node .hierarchy-bar-node-icon {
 }
 ux-hierarchy-bar-node .hierarchy-bar-node-title {
   color: #666;
+  white-space: nowrap;
 }
 ux-hierarchy-bar-node:last-of-type .hierarchy-bar-node-title {
   color: #333;
@@ -16912,7 +16937,7 @@ ux-hierarchy-bar-popover-item {
 ux-hierarchy-bar-popover-item:hover {
   background-color: #f2f2f2;
 }
-ux-hierarchy-bar-popover-item:focus {
+ux-hierarchy-bar-popover-item:focus.ux-focus-indicator-active {
   background-color: #f2f2f2;
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
@@ -16939,6 +16964,7 @@ ux-hierarchy-bar-popover-item .hierarchy-bar-node-title {
 ux-hierarchy-bar-standard {
   display: flex;
   flex: 1;
+  max-width: 100%;
 }
 ux-hierarchy-bar-standard .hierarchy-bar-addons {
   display: inline-flex;
@@ -16967,6 +16993,7 @@ ux-hierarchy-bar-standard .hierarchy-bar-overflow-indicator {
 ux-hierarchy-bar-collapsed {
   display: flex;
   flex: 1;
+  max-width: 100%;
 }
 ux-hierarchy-bar-collapsed .hierarchy-bar-addons {
   display: inline-flex;
@@ -16979,12 +17006,28 @@ ux-hierarchy-bar-collapsed .hierarchy-bar-nodes {
   height: 100%;
   overflow: hidden;
 }
+ux-hierarchy-bar-collapsed .hierarchy-bar-nodes.hierarchy-bar-nodes-overflow ux-hierarchy-bar-node {
+  flex: 1;
+  overflow: hidden;
+}
+ux-hierarchy-bar-collapsed .hierarchy-bar-nodes.hierarchy-bar-nodes-overflow ux-hierarchy-bar-node .hierarchy-bar-node .hierarchy-bar-node-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+ux-hierarchy-bar-collapsed .hierarchy-bar-nodes.hierarchy-bar-nodes-overflow ux-hierarchy-bar-node .hierarchy-bar-node .hierarchy-bar-node-content {
+  max-width: calc(100% - 5px);
+}
+ux-hierarchy-bar-collapsed .hierarchy-bar-nodes.hierarchy-bar-nodes-overflow ux-hierarchy-bar-node .hierarchy-bar-node.hierarchy-bar-node-child-indicator .hierarchy-bar-node-content {
+  max-width: calc(100% - 22px);
+}
 ux-hierarchy-bar-collapsed .hierarchy-bar-overflow {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 0.25rem 0 0.75rem;
   color: #00a7a2;
+  min-width: 70px;
 }
 ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-overflow-container {
   margin-right: 7px;
@@ -19456,6 +19499,9 @@ ux-virtual-scroll .virtual-scroll-content {
   width: 100%;
   height: 100%;
   will-change: transform;
+}
+[uxVirtualForContainer] .ux-virtual-scroll-spacer {
+  visibility: hidden;
 }
 ux-wizard {
   /*

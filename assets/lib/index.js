@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/ReplaySubject'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/Subscription'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/ReplaySubject', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/Subscription', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs.ReplaySubject,global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.rxjs.Subscription,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,observers,overlay,portal,from,ReplaySubject,concat,timer,fromEvent,http,of,filter,dropdown,router,Subscription,coercion,a11y,animations,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,dropdown,router,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -2119,7 +2119,7 @@
                 /** @type {?} */
                 var focusable = this.element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
                 // Remove focusable children from the tab ring
-                focusable.forEach(function (element) {
+                Array.from(focusable).forEach(function (element) {
                     /** @type {?} */
                     var originalTabIndex = element.getAttribute('tabindex');
                     _this._renderer.setAttribute(element, 'tabindex', '-1');
@@ -8660,9 +8660,21 @@
         function DashboardWidgetComponent(dashboardService) {
             var _this = this;
             this.dashboardService = dashboardService;
+            /**
+             * Defines the number of columns this widget should occupy.
+             */
             this.colSpan = 1;
+            /**
+             * Defines the number of rows this widget should occupy.
+             */
             this.rowSpan = 1;
+            /**
+             * Defines whether or not this widget can be resized.
+             */
             this.resizable = false;
+            /**
+             * Defines a function that returns an aria label for the widget
+             */
             this.widgetAriaLabel = this.getDefaultAriaLabel;
             this.x = 0;
             this.y = 0;
@@ -8672,6 +8684,7 @@
             this.zIndex = 0;
             this.isDragging = false;
             this.isGrabbing = false;
+            this.isResizing = false;
             this.isDraggable = false;
             this._column = { regular: undefined, stacked: undefined };
             this._row = { regular: undefined, stacked: undefined };
@@ -8931,6 +8944,7 @@
          * @return {?}
          */
             function (handle, event, direction) {
+                this.isResizing = true;
                 this.dashboardService.isGrabbing$.next(null);
                 this.dashboardService.onResizeStart({ widget: this, direction: direction, event: event, handle: handle });
             };
@@ -8956,6 +8970,7 @@
          * @return {?}
          */
             function () {
+                this.isResizing = false;
                 this.dashboardService.onResizeEnd();
             };
         /**
@@ -9066,7 +9081,8 @@
             zIndex: [{ type: core.HostBinding, args: ['style.z-index',] }],
             ariaLabel: [{ type: core.HostBinding, args: ['attr.aria-label',] }],
             isDragging: [{ type: core.HostBinding, args: ['class.dragging',] }],
-            isGrabbing: [{ type: core.HostBinding, args: ['class.grabbing',] }]
+            isGrabbing: [{ type: core.HostBinding, args: ['class.grabbing',] }],
+            isResizing: [{ type: core.HostBinding, args: ['class.resizing',] }]
         };
         return DashboardWidgetComponent;
     }());
@@ -10010,12 +10026,14 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var DashboardComponent = /** @class */ (function () {
-        function DashboardComponent(dashboardService, _grabHandleService) {
+        function DashboardComponent(dashboardService) {
             var _this = this;
             this.dashboardService = dashboardService;
-            this._grabHandleService = _grabHandleService;
             this.isGrabbing = false;
             this.customAriaLabel = this.getDefaultAriaLabel;
+            /**
+             * Emits when layout has been changed.
+             */
             this.layoutChange = new core.EventEmitter();
             /**
              * Ensure we unsubscribe from all observables
@@ -10028,7 +10046,9 @@
                 .subscribe(function (isGrabbing) { return _this.isGrabbing = isGrabbing; });
         }
         Object.defineProperty(DashboardComponent.prototype, "layout", {
+            /** If defined or changed this will set the positions of the widgets within the dashboard. This is a two way binding that will be updated with the current layout when it changes. */
             set: /**
+             * If defined or changed this will set the positions of the widgets within the dashboard. This is a two way binding that will be updated with the current layout when it changes.
              * @param {?} layout
              * @return {?}
              */ function (layout) {
@@ -10040,7 +10060,9 @@
             configurable: true
         });
         Object.defineProperty(DashboardComponent.prototype, "options", {
+            /** Configures the options for the dashboard, if an option is not specified the default value will be used. */
             set: /**
+             * Configures the options for the dashboard, if an option is not specified the default value will be used.
              * @param {?} options
              * @return {?}
              */ function (options) {
@@ -10138,8 +10160,7 @@
         /** @nocollapse */
         DashboardComponent.ctorParameters = function () {
             return [
-                { type: DashboardService },
-                { type: DashboardGrabHandleService }
+                { type: DashboardService }
             ];
         };
         DashboardComponent.propDecorators = {
@@ -10888,6 +10909,8 @@
             this.months = months;
             this.monthsShort = monthsShort;
             this.meridians = meridians;
+            this.min = null;
+            this.max = null;
         }
         DateTimePickerConfig.decorators = [
             { type: core.Injectable }
@@ -10920,6 +10943,8 @@
             this.weekdays$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.weekdays : weekdaysShort);
             this.nowBtnText$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.nowBtnText : 'Today');
             this.timezones$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.timezones : timezones);
+            this.min$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.min : null);
+            this.max$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.max : null);
             this.header$ = new BehaviorSubject.BehaviorSubject(null);
             this.headerEvent$ = new Subject.Subject();
             this.modeDirection = ModeDirection.None;
@@ -11017,7 +11042,9 @@
                 if (seconds !== undefined) {
                     date.setSeconds(seconds);
                 }
-                this.selected$.next(date);
+                if (this.isInRange(date)) {
+                    this.selected$.next(date);
+                }
             };
         /**
          * @return {?}
@@ -11026,7 +11053,11 @@
          * @return {?}
          */
             function () {
-                this.selected$.next(new Date());
+                /** @type {?} */
+                var now = new Date();
+                if (this.isInRange(now)) {
+                    this.selected$.next(now);
+                }
             };
         /**
          * @param {?} mode
@@ -11121,6 +11152,17 @@
          */
             function (timezone) {
                 this.timezone$.next(timezone);
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateTimePickerService.prototype.isInRange = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                return (!this.min$.value || date >= this.min$.value) && (!this.max$.value || date <= this.max$.value);
             };
         DateTimePickerService.decorators = [
             { type: core.Injectable }
@@ -11415,6 +11457,30 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(DateTimePickerComponent.prototype, "min", {
+            /** The earliest selectable date. */
+            set: /**
+             * The earliest selectable date.
+             * @param {?} value
+             * @return {?}
+             */ function (value) {
+                this.datepicker.min$.next(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateTimePickerComponent.prototype, "max", {
+            /** The latest selectable date. */
+            set: /**
+             * The latest selectable date.
+             * @param {?} value
+             * @return {?}
+             */ function (value) {
+                this.datepicker.max$.next(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(DateTimePickerComponent.prototype, "_isRangeMode", {
             /** Determine if we are in range selection mode */
             get: /**
@@ -11444,6 +11510,30 @@
              * @return {?}
              */ function () {
                 return this._isRangeMode && this._rangeOptions.picker === DateRangePicker.End;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateTimePickerComponent.prototype, "_isTodayDisabled", {
+            /** Determine if the today button is disabled */
+            get: /**
+             * Determine if the today button is disabled
+             * @return {?}
+             */ function () {
+                /** @type {?} */
+                var min = this.datepicker.min$.value;
+                /** @type {?} */
+                var max = this.datepicker.max$.value;
+                if (!min && !max) {
+                    return false;
+                }
+                if (min && !max) {
+                    return isDateBefore(new Date(), min);
+                }
+                if (!min && max) {
+                    return isDateAfter(new Date(), max);
+                }
+                return isDateBefore(new Date(), min) || isDateAfter(new Date(), max);
             },
             enumerable: true,
             configurable: true
@@ -11501,7 +11591,7 @@
         DateTimePickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker',
-                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    *ngIf=\"datepicker.showNowBtn$ | async\"\n    uxFocusIndicator\n    class=\"now-button\"\n    [attr.aria-label]=\"nowBtnAriaLabel\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
+                        template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    *ngIf=\"datepicker.showNowBtn$ | async\"\n    uxFocusIndicator\n    class=\"now-button\"\n    [attr.aria-label]=\"nowBtnAriaLabel\"\n    [disabled]=\"_isTodayDisabled\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
                         providers: [DateTimePickerService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -11533,7 +11623,9 @@
             dateChange: [{ type: core.Output }],
             timezoneChange: [{ type: core.Output }],
             date: [{ type: core.Input }],
-            timezone: [{ type: core.Input }]
+            timezone: [{ type: core.Input }],
+            min: [{ type: core.Input }],
+            max: [{ type: core.Input }]
         };
         return DateTimePickerComponent;
     }());
@@ -12585,6 +12677,10 @@
          * @return {?}
          */
             function () {
+                var _this = this;
+                // update when there are changes to the min/max values
+                merge.merge(this.datePicker.min$, this.datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this._changeDetector.detectChanges(); });
                 // if we open and the range start is already selected, ensure that we move the end picker to a month with options
                 if (!this.datePicker.initialised && this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
                     this.onRangeChange(this._rangeStart);
@@ -12821,15 +12917,20 @@
          */
             function (date) {
                 // if we are not in range mode then it will always be enabled
-                if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-                    return false;
+                if (this._isRangeMode) {
+                    // if we are range start and dates are after the range end then they should also be disabled
+                    if (this._isRangeStart && !this._rangeStart && this._rangeEnd && isDateAfter(date, this._rangeEnd)) {
+                        return true;
+                    }
+                    // if we are range end and dates are before the range start then they should also be disabled
+                    if (this._isRangeEnd && !this._rangeEnd && this._rangeStart && isDateBefore(date, this._rangeStart)) {
+                        return true;
+                    }
                 }
-                // if we are range start and dates are after the range end then they should also be disabled
-                if (this._isRangeStart && this._rangeEnd && isDateAfter(date, this._rangeEnd)) {
+                if (this.datePicker.min$.value && isDateBefore(date, this.datePicker.min$.value)) {
                     return true;
                 }
-                // if we are range end and dates are before the range start then they should also be disabled
-                if (this._isRangeEnd && this._rangeStart && isDateBefore(date, this._rangeStart)) {
+                if (this.datePicker.max$.value && isDateAfter(date, this.datePicker.max$.value)) {
                     return true;
                 }
                 return false;
@@ -12983,7 +13084,7 @@
         DayViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-day-view',
-                        template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        uxFocusIndicator\n                        uxFocusIndicatorOrigin\n                        class=\"date-button\"\n                        [class.range-start]=\"isRangeStartDate(item.date)\"\n                        [class.range-between]=\"isWithinRange(item.date) || isDateHovered(item.date)\"\n                        [class.range-end]=\"isRangeEndDate(item.date)\"\n                        [focusIf]=\"shouldFocus(item)\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"isItemActive(item.date, item.isActive)\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"isItemActive(item.date, item.isActive)\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        [disabled]=\"getDisabled(item.date)\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (mouseenter)=\"onRangeMouseEnter(item.date)\"\n                        (mouseleave)=\"onRangeMouseLeave(item.date)\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\"\n                        (focus)=\"announceRangeMode()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
+                        template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        uxFocusIndicator\n                        uxFocusIndicatorOrigin\n                        class=\"date-button\"\n                        [class.range-start]=\"isRangeStartDate(item.date)\"\n                        [class.range-between]=\"isWithinRange(item.date) || isDateHovered(item.date)\"\n                        [class.range-end]=\"isRangeEndDate(item.date)\"\n                        [focusIf]=\"shouldFocus(item)\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"isItemActive(item.date, item.isActive)\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"isItemActive(item.date, item.isActive) && !getDisabled(item.date)\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        [disabled]=\"getDisabled(item.date)\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (mouseenter)=\"onRangeMouseEnter(item.date)\"\n                        (mouseleave)=\"onRangeMouseLeave(item.date)\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\"\n                        (focus)=\"announceRangeMode()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
                         providers: [DayViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -13008,8 +13109,9 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var HeaderComponent = /** @class */ (function () {
-        function HeaderComponent(datepicker, changeDetector, _rangeService, _rangeOptions) {
+        function HeaderComponent(datepicker, _changeDetector, _rangeService, _rangeOptions) {
             this.datepicker = datepicker;
+            this._changeDetector = _changeDetector;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
             this.canAscend$ = this.datepicker.mode$.pipe(operators.map(function (mode) { return mode !== DatePickerMode.Year; }));
@@ -13060,7 +13162,7 @@
             if (this._rangeService) {
                 // delay required to allow all ui to update elsewhere
                 this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy), operators.delay(100))
-                    .subscribe(function () { return changeDetector.detectChanges(); });
+                    .subscribe(function () { return _changeDetector.detectChanges(); });
             }
         }
         Object.defineProperty(HeaderComponent.prototype, "_isRangeMode", {
@@ -13117,6 +13219,18 @@
         /**
          * @return {?}
          */
+        HeaderComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // update on min/max changes
+                merge.merge(this.datepicker.min$, this.datepicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this._changeDetector.detectChanges(); });
+            };
+        /**
+         * @return {?}
+         */
         HeaderComponent.prototype.ngOnDestroy = /**
          * @return {?}
          */
@@ -13170,28 +13284,19 @@
          * @return {?}
          */
             function () {
+                /** @type {?} */
+                var min = this.datepicker.min$.value;
+                if (min && this._isBeforeView(min)) {
+                    return true;
+                }
                 // if we are not in range mode or there are no disabled items then we can navigate back
                 if (!this._isRangeMode || this._rangeStart && this._rangeEnd ||
                     !this._rangeStart && !this._rangeEnd || this._isRangeStart
                     || this._isRangeEnd && this._rangeEnd) {
                     return false;
                 }
-                /** @type {?} */
-                var month = this.datepicker.month$.value;
-                /** @type {?} */
-                var year = this.datepicker.year$.value;
-                /** @type {?} */
-                var mode = this.datepicker.mode$.value;
-                /** @type {?} */
-                var yearRange = this.datepicker.yearRange;
-                if (mode === DatePickerMode.Day) {
-                    return year <= this._rangeStart.getFullYear() && month <= this._rangeStart.getMonth();
-                }
-                if (mode === DatePickerMode.Month) {
-                    return year <= this._rangeStart.getFullYear();
-                }
-                if (mode === DatePickerMode.Year) {
-                    return yearRange.start <= this._rangeStart.getFullYear();
+                if (this._isBeforeView(this._rangeStart)) {
+                    return true;
                 }
                 return false;
             };
@@ -13205,12 +13310,31 @@
          * @return {?}
          */
             function () {
+                /** @type {?} */
+                var max = this.datepicker.max$.value;
+                if (max && this._isAfterView(max)) {
+                    return true;
+                }
                 // if we are not in range mode or there are no disabled items then we can navigate back
                 if (!this._isRangeMode || this._rangeStart && this._rangeEnd ||
                     !this._rangeStart && !this._rangeEnd || this._isRangeStart && this._rangeStart
                     || this._isRangeEnd) {
                     return false;
                 }
+                if (this._isAfterView(this._rangeEnd)) {
+                    return true;
+                }
+                return false;
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        HeaderComponent.prototype._isBeforeView = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
                 /** @type {?} */
                 var month = this.datepicker.month$.value;
                 /** @type {?} */
@@ -13220,15 +13344,41 @@
                 /** @type {?} */
                 var yearRange = this.datepicker.yearRange;
                 if (mode === DatePickerMode.Day) {
-                    return year >= this._rangeEnd.getFullYear() && month >= this._rangeEnd.getMonth();
+                    return year <= date.getFullYear() && month <= date.getMonth();
                 }
                 if (mode === DatePickerMode.Month) {
-                    return year >= this._rangeEnd.getFullYear();
+                    return year <= date.getFullYear();
                 }
                 if (mode === DatePickerMode.Year) {
-                    return yearRange.end >= this._rangeEnd.getFullYear();
+                    return yearRange.start <= date.getFullYear();
                 }
-                return false;
+            };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        HeaderComponent.prototype._isAfterView = /**
+         * @param {?} date
+         * @return {?}
+         */
+            function (date) {
+                /** @type {?} */
+                var month = this.datepicker.month$.value;
+                /** @type {?} */
+                var year = this.datepicker.year$.value;
+                /** @type {?} */
+                var mode = this.datepicker.mode$.value;
+                /** @type {?} */
+                var yearRange = this.datepicker.yearRange;
+                if (mode === DatePickerMode.Day) {
+                    return year >= date.getFullYear() && month >= date.getMonth();
+                }
+                if (mode === DatePickerMode.Month) {
+                    return year >= date.getFullYear();
+                }
+                if (mode === DatePickerMode.Year) {
+                    return yearRange.end >= date.getFullYear();
+                }
             };
         HeaderComponent.decorators = [
             { type: core.Component, args: [{
@@ -13348,19 +13498,20 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MonthViewComponent = /** @class */ (function () {
-        function MonthViewComponent(_datePicker, monthService, _liveAnnouncer, changeDetector, _rangeService, _rangeOptions) {
+        function MonthViewComponent(_datePicker, monthService, _liveAnnouncer, _changeDetector, _rangeService, _rangeOptions) {
             var e_1, _a, e_2, _b;
             var _this = this;
             this._datePicker = _datePicker;
             this.monthService = monthService;
             this._liveAnnouncer = _liveAnnouncer;
+            this._changeDetector = _changeDetector;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
             this._onDestroy = new Subject.Subject();
             _datePicker.headerEvent$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
             if (this._rangeService) {
-                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return changeDetector.detectChanges(); });
+                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _changeDetector.detectChanges(); });
             }
             // if the currently focused item is disabled then choose a month that isn't disabled
             if (this.monthService.focused$.value) {
@@ -13459,6 +13610,36 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(MonthViewComponent.prototype, "_minMonth", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._datePicker.min$.value ? new Date(this._datePicker.min$.value.getFullYear(), this._datePicker.min$.value.getMonth()) : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MonthViewComponent.prototype, "_maxMonth", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), this._datePicker.max$.value.getMonth()) : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        MonthViewComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // update on min/max changes
+                merge.merge(this._datePicker.min$, this._datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this._changeDetector.detectChanges(); });
+            };
         /**
          * @return {?}
          */
@@ -13484,15 +13665,20 @@
                 /** @type {?} */
                 var date = new Date(item.year, item.month);
                 // if we are not in range mode then it will always be enabled
-                if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-                    return false;
+                if (this._isRangeMode) {
+                    // if we are range start and dates are after the range end then they should also be disabled
+                    if (this._isRangeStart && !this._rangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+                        return true;
+                    }
+                    // if we are range end and dates are before the range start then they should also be disabled
+                    if (this._isRangeEnd && !this._rangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+                        return true;
+                    }
                 }
-                // if we are range start and dates are after the range end then they should also be disabled
-                if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), this._rangeEnd.getMonth()))) {
+                if (this._minMonth && isDateBefore(date, this._minMonth)) {
                     return true;
                 }
-                // if we are range end and dates are before the range start then they should also be disabled
-                if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), this._rangeStart.getMonth()))) {
+                if (this._maxMonth && isDateAfter(date, this._maxMonth)) {
                     return true;
                 }
                 return false;
@@ -13696,7 +13882,7 @@
         MonthViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-month-view',
-                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"shouldFocus(item)\"\n         [disabled]=\"getDisabled(item)\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
+                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"shouldFocus(item)\"\n         [disabled]=\"getDisabled(item)\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth && !getDisabled(item)\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
                         providers: [MonthViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -13756,12 +13942,19 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var TimeViewComponent = /** @class */ (function () {
-        function TimeViewComponent(datepicker, _rangeService, _rangeOptions) {
+        function TimeViewComponent(datepicker, changeDetector, _rangeService, _rangeOptions) {
             var _this = this;
             this.datepicker = datepicker;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
             this._onDestroy = new Subject.Subject();
+            // when the date changes we should update the value
+            datepicker.date$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this.value instanceof Date; })).subscribe(function (date) {
+                _this.value.setFullYear(date.getFullYear());
+                _this.value.setMonth(date.getMonth());
+                _this.value.setDate(date.getDate());
+                changeDetector.detectChanges();
+            });
             if (!this._isRangeMode) {
                 datepicker.selected$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (date) { return !!date; })).subscribe(function (date) { return _this.value = new Date(date); });
             }
@@ -13960,7 +14153,7 @@
         TimeViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-time-view',
-                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
+                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\"\n    [min]=\"datepicker.min$ | async\"\n    [max]=\"datepicker.max$ | async\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -13968,6 +14161,7 @@
         TimeViewComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
+                { type: core.ChangeDetectorRef },
                 { type: DateRangeService, decorators: [{ type: core.Optional }] },
                 { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
             ];
@@ -14111,15 +14305,16 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var YearViewComponent = /** @class */ (function () {
-        function YearViewComponent(_datePicker, yearService, _liveAnnouncer, changeDetector, _rangeService, _rangeOptions) {
+        function YearViewComponent(_datePicker, yearService, _liveAnnouncer, _changeDetector, _rangeService, _rangeOptions) {
             this._datePicker = _datePicker;
             this.yearService = yearService;
             this._liveAnnouncer = _liveAnnouncer;
+            this._changeDetector = _changeDetector;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
             this._onDestroy = new Subject.Subject();
             if (this._rangeService) {
-                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return changeDetector.detectChanges(); });
+                this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _changeDetector.detectChanges(); });
             }
         }
         Object.defineProperty(YearViewComponent.prototype, "_isRangeMode", {
@@ -14173,6 +14368,36 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(YearViewComponent.prototype, "_minYear", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._datePicker.min$.value ? new Date(this._datePicker.min$.value.getFullYear(), 0) : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(YearViewComponent.prototype, "_maxYear", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._datePicker.max$.value ? new Date(this._datePicker.max$.value.getFullYear(), 0) : null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        YearViewComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // update on min/max changes
+                merge.merge(this._datePicker.min$, this._datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this._changeDetector.detectChanges(); });
+            };
         /**
          * @return {?}
          */
@@ -14211,15 +14436,20 @@
                 /** @type {?} */
                 var date = new Date(item.year, 0);
                 // if we are not in range mode then it will always be enabled
-                if (!this._isRangeMode || this._rangeStart && !!this._rangeEnd) {
-                    return false;
+                if (this._isRangeMode) {
+                    // if we are range start and dates are after the range end then they should also be disabled
+                    if (this._isRangeStart && !this._rangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+                        return true;
+                    }
+                    // if we are range end and dates are before the range start then they should also be disabled
+                    if (this._isRangeEnd && !this._rangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+                        return true;
+                    }
                 }
-                // if we are range start and dates are after the range end then they should also be disabled
-                if (this._isRangeStart && this._rangeEnd && isDateAfter(date, new Date(this._rangeEnd.getFullYear(), 0))) {
+                if (this._minYear && isDateBefore(date, this._minYear)) {
                     return true;
                 }
-                // if we are range end and dates are before the range start then they should also be disabled
-                if (this._isRangeEnd && this._rangeStart && isDateBefore(date, new Date(this._rangeStart.getFullYear(), 0))) {
+                if (this._maxYear && isDateAfter(date, this._maxYear)) {
                     return true;
                 }
                 return false;
@@ -14350,7 +14580,7 @@
         YearViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-year-view',
-                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear\"\n         [disabled]=\"getDisabled(item)\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
+                        template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear && !getDisabled(item)\"\n         [disabled]=\"getDisabled(item)\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
                         providers: [YearViewService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -15443,24 +15673,66 @@
      */
     /** @type {?} */
     var uniqueId$3 = 0;
+    /**
+     * @template T
+     */
     var TypeaheadComponent = /** @class */ (function () {
         function TypeaheadComponent(typeaheadElement, _changeDetector, _service) {
             var _this = this;
             this.typeaheadElement = typeaheadElement;
             this._changeDetector = _changeDetector;
             this._service = _service;
+            /**
+             * Define a unique id for the typeahead
+             */
             this.id = "ux-typeahead-" + ++uniqueId$3;
-            this.openChange = new core.EventEmitter();
+            /**
+             * Specify the drop direction
+             */
             this.dropDirection = 'down';
+            /**
+             * Specify the max height of the dropdown
+             */
             this.maxHeight = '250px';
+            /**
+             * Specify the aria multi selectable attribute value
+             */
             this.multiselectable = false;
+            /**
+             * Specify if the dropdown should appear when the filter appears
+             */
             this.openOnFilterChange = true;
+            /**
+             * Specify the page size
+             */
             this.pageSize = 20;
+            /**
+             * Specify if we should select the first item by default
+             */
             this.selectFirst = true;
+            /**
+             * Specify if we should select an item on enter key press
+             */
             this.selectOnEnter = false;
+            /**
+             * Specify the loading state
+             */
             this.loading = false;
+            /**
+             * Emit when the open state changes
+             */
+            this.openChange = new core.EventEmitter();
+            /**
+             * Emit when an option is selected
+             */
             this.optionSelected = new core.EventEmitter();
+            /**
+             * Emit whenever a highlighted item changes
+             */
             this.highlightedChange = new core.EventEmitter();
+            /**
+             * Emit the highlighted element when it changes
+             */
             this.highlightedElementChange = new core.EventEmitter();
             this.visibleOptions$ = new BehaviorSubject.BehaviorSubject([]);
             this.clicking = false;
@@ -15510,7 +15782,9 @@
             });
         }
         Object.defineProperty(TypeaheadComponent.prototype, "open", {
+            /** Specify if the typeahead is open */
             get: /**
+             * Specify if the typeahead is open
              * @return {?}
              */ function () {
                 return this._service.open$.getValue();
@@ -15594,16 +15868,16 @@
                 event.preventDefault();
             };
         /**
-         * @param {?} event
+         * @param {?} _event
          * @param {?} option
          * @return {?}
          */
         TypeaheadComponent.prototype.optionClickHandler = /**
-         * @param {?} event
+         * @param {?} _event
          * @param {?} option
          * @return {?}
          */
-            function (event, option) {
+            function (_event, option) {
                 this.select(option);
             };
         /**
@@ -15648,7 +15922,9 @@
                 if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
                     return option[( /** @type {?} */(this.display))];
                 }
-                return option;
+                if (typeof option === 'string') {
+                    return option;
+                }
             };
         /**
          * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
@@ -15905,7 +16181,6 @@
             options: [{ type: core.Input }],
             filter: [{ type: core.Input }],
             open: [{ type: core.Input }],
-            openChange: [{ type: core.Output }],
             display: [{ type: core.Input }],
             key: [{ type: core.Input }],
             disabledOptions: [{ type: core.Input }],
@@ -15920,6 +16195,7 @@
             loadingTemplate: [{ type: core.Input }],
             optionTemplate: [{ type: core.Input }],
             noOptionsTemplate: [{ type: core.Input }],
+            openChange: [{ type: core.Output }],
             optionSelected: [{ type: core.Output }],
             highlightedChange: [{ type: core.Output }],
             highlightedElementChange: [{ type: core.Output }],
@@ -16074,6 +16350,9 @@
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
      */
     var InfiniteScrollDirective = /** @class */ (function () {
         function InfiniteScrollDirective(_element) {
@@ -16599,9 +16878,11 @@
     }());
     /**
      * Event raised before the `loading` function is called.
+     * @template S
      */
     var /**
      * Event raised before the `loading` function is called.
+     * @template S
      */ InfiniteScrollLoadingEvent = /** @class */ (function () {
         function InfiniteScrollLoadingEvent(pageNumber, pageSize, filter$$1) {
             this.pageNumber = pageNumber;
@@ -16636,9 +16917,11 @@
     }());
     /**
      * Event raised when the loading function result has been resolved and added to the collection.
+     * @template T, S
      */
     var /**
      * Event raised when the loading function result has been resolved and added to the collection.
+     * @template T, S
      */ InfiniteScrollLoadedEvent = /** @class */ (function () {
         function InfiniteScrollLoadedEvent(pageNumber, pageSize, filter$$1, data, exhausted) {
             this.pageNumber = pageNumber;
@@ -16651,9 +16934,11 @@
     }());
     /**
      * Event raised if the loading function returns a rejected promise.
+     * @template S
      */
     var /**
      * Event raised if the loading function returns a rejected promise.
+     * @template S
      */ InfiniteScrollLoadErrorEvent = /** @class */ (function () {
         function InfiniteScrollLoadErrorEvent(pageNumber, pageSize, filter$$1, error) {
             this.pageNumber = pageNumber;
@@ -20597,8 +20882,11 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var HierarchyBarCollapsedComponent = /** @class */ (function () {
-        function HierarchyBarCollapsedComponent(hierarchyBar) {
+        function HierarchyBarCollapsedComponent(hierarchyBar, _renderer, _resizeService, _elementRef) {
             this.hierarchyBar = hierarchyBar;
+            this._renderer = _renderer;
+            this._resizeService = _resizeService;
+            this._elementRef = _elementRef;
             /**
              * Unsubscribe from all observables on destroy
              */
@@ -20663,25 +20951,61 @@
         /**
          * @return {?}
          */
+        HierarchyBarCollapsedComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // check for overflow when the selected nodes change
+                this.hierarchyBar.nodes$.pipe(operators.takeUntil(this._onDestroy), tick()).subscribe(function () { return _this.updateOverflow(); });
+                // watch for the host element size changing
+                this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this.updateOverflow(); });
+            };
+        /**
+         * @return {?}
+         */
         HierarchyBarCollapsedComponent.prototype.ngOnDestroy = /**
          * @return {?}
          */
             function () {
                 this._onDestroy.next();
                 this._onDestroy.complete();
+                // remove the resize event listener
+                this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+            };
+        /**
+         * @return {?}
+         */
+        HierarchyBarCollapsedComponent.prototype.updateOverflow = /**
+         * @return {?}
+         */
+            function () {
+                // remove the class if it is present
+                this._renderer.removeClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
+                // check if there is overflow
+                if (this.nodeContainer.nativeElement.scrollWidth > this.nodeContainer.nativeElement.offsetWidth) {
+                    this._renderer.addClass(this.nodeContainer.nativeElement, 'hierarchy-bar-nodes-overflow');
+                }
             };
         HierarchyBarCollapsedComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         HierarchyBarCollapsedComponent.ctorParameters = function () {
             return [
-                { type: HierarchyBarService }
+                { type: HierarchyBarService },
+                { type: core.Renderer2 },
+                { type: ResizeService },
+                { type: core.ElementRef }
             ];
+        };
+        HierarchyBarCollapsedComponent.propDecorators = {
+            nodeContainer: [{ type: core.ViewChild, args: ['nodes',] }]
         };
         return HierarchyBarCollapsedComponent;
     }());
@@ -20701,7 +21025,7 @@
         HierarchyBarNodeComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
-                        template: "<div class=\"hierarchy-bar-node\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
+                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -25965,10 +26289,6 @@
          */
             function (tab) {
                 this.tabs$.next(__spread(this.tabs$.value, [tab]));
-                // check if this is the only tab. If so select this by default
-                if (!this.active$.value) {
-                    this.select(tab);
-                }
             };
         /**
          * @param {?} tab
@@ -26278,6 +26598,18 @@
             this.minimal = true;
             this.stacked = 'none';
         }
+        /**
+         * @return {?}
+         */
+        TabsetComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                // Make sure a tab is selected
+                if (!this.tabset.active$.value) {
+                    this.tabset.selectFirstTab();
+                }
+            };
         /**
          * Allow manual tab selected
          */
@@ -26935,13 +27267,99 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var PageHeaderNavigationService = /** @class */ (function () {
+        function PageHeaderNavigationService() {
+        }
+        /** Make menu items navigable using arrow keys */
+        /**
+         * Make menu items navigable using arrow keys
+         * @param {?} items
+         * @return {?}
+         */
+        PageHeaderNavigationService.prototype.initialize = /**
+         * Make menu items navigable using arrow keys
+         * @param {?} items
+         * @return {?}
+         */
+            function (items) {
+                var _this = this;
+                // store the query list for future lookups
+                this._items = items;
+                // create new focus key manager with horizontal orientation
+                this._focusManager = new a11y.FocusKeyManager(items)
+                    .withHorizontalOrientation('ltr');
+                // make the first item tabbable initially
+                this._focusManager.updateActiveItemIndex(0);
+                // on changes ensure there is always an active item
+                this._items.changes.subscribe(function () {
+                    if (_this._items.length > 0 && _this._items.toArray().indexOf(_this._focusManager.activeItem) === -1) {
+                        _this._focusManager.updateActiveItemIndex(0);
+                    }
+                });
+            };
+        /** Listen for keyboard events */
+        /**
+         * Listen for keyboard events
+         * @param {?} event
+         * @return {?}
+         */
+        PageHeaderNavigationService.prototype.onKeydown = /**
+         * Listen for keyboard events
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                this._focusManager.onKeydown(event);
+            };
+        /** Determine the tab index of a given item */
+        /**
+         * Determine the tab index of a given item
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderNavigationService.prototype.getTabIndex = /**
+         * Determine the tab index of a given item
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                // until the focus key manager is set up make everything tabbable
+                if (!this._items) {
+                    return 0;
+                }
+                // get the index within the query list
+                /** @type {?} */
+                var index = this._items.toArray().indexOf(item);
+                // if it is the current active element then it is tabbable
+                return index === this._focusManager.activeItemIndex ? 0 : -1;
+            };
+        PageHeaderNavigationService.decorators = [
+            { type: core.Injectable }
+        ];
+        return PageHeaderNavigationService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var PageHeaderNavigationItemComponent = /** @class */ (function () {
-        function PageHeaderNavigationItemComponent(elementRef, _pageHeaderService) {
+        function PageHeaderNavigationItemComponent(elementRef, _pageHeaderService, _navigationService) {
             this.elementRef = elementRef;
             this._pageHeaderService = _pageHeaderService;
+            this._navigationService = _navigationService;
             this.secondary$ = this._pageHeaderService.secondary$;
             this._onDestroy = new Subject.Subject();
         }
+        Object.defineProperty(PageHeaderNavigationItemComponent.prototype, "_tabindex", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._navigationService.getTabIndex(this);
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -26978,6 +27396,15 @@
         /**
          * @return {?}
          */
+        PageHeaderNavigationItemComponent.prototype.focus = /**
+         * @return {?}
+         */
+            function () {
+                this.navigationBtn.nativeElement.focus();
+            };
+        /**
+         * @return {?}
+         */
         PageHeaderNavigationItemComponent.prototype.select = /**
          * @return {?}
          */
@@ -26989,24 +27416,40 @@
                 // otherwise select the current item
                 this._pageHeaderService.select(this.item);
             };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        PageHeaderNavigationItemComponent.prototype.onKeydown = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (event.keyCode === keycodes.LEFT_ARROW || event.keyCode === keycodes.RIGHT_ARROW) {
+                    this._navigationService.onKeydown(event);
+                }
+            };
         PageHeaderNavigationItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-page-header-horizontal-navigation-item',
-                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button type=\"button\"\n        uxFocusIndicator\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    type=\"button\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
+                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex\"\n        uxFocusIndicator\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    #navigationBtn\n    type=\"button\"\n    [tabindex]=\"_tabindex\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
                     }] }
         ];
         /** @nocollapse */
         PageHeaderNavigationItemComponent.ctorParameters = function () {
             return [
                 { type: core.ElementRef },
-                { type: PageHeaderService }
+                { type: PageHeaderService },
+                { type: PageHeaderNavigationService }
             ];
         };
         PageHeaderNavigationItemComponent.propDecorators = {
             button: [{ type: core.ViewChild, args: ['button',] }],
             menu: [{ type: core.ViewChild, args: ['menu',] }],
+            navigationBtn: [{ type: core.ViewChild, args: ['navigationBtn',] }],
             dropdowns: [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] }],
-            item: [{ type: core.Input }]
+            item: [{ type: core.Input }],
+            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
         };
         return PageHeaderNavigationItemComponent;
     }());
@@ -27065,16 +27508,17 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var PageHeaderNavigationComponent = /** @class */ (function () {
-        function PageHeaderNavigationComponent(elementRef, resizeService, _pageHeaderService) {
+        function PageHeaderNavigationComponent(elementRef, resizeService, _navigationService, _pageHeaderService) {
+            this._navigationService = _navigationService;
             this._pageHeaderService = _pageHeaderService;
             this.items$ = this._pageHeaderService.items$;
             this.indicatorVisible = false;
             this.indicatorX = 0;
             this.indicatorWidth = 0;
-            this._subscription = new Subscription.Subscription();
-            this._subscription.add(resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this)));
-            this._subscription.add(_pageHeaderService.selected$.pipe(operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
-            this._subscription.add(_pageHeaderService.secondary$.pipe(operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
+            this._onDestroy = new Subject.Subject();
+            resizeService.addResizeListener(elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy)).subscribe(this.updateSelectedIndicator.bind(this));
+            _pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
+            _pageHeaderService.secondary$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
         }
         /**
          * @return {?}
@@ -27084,6 +27528,8 @@
          */
             function () {
                 this.updateSelectedIndicator();
+                // setup the page focus key manager
+                this._navigationService.initialize(this.menuItems);
             };
         /**
          * @return {?}
@@ -27092,7 +27538,8 @@
          * @return {?}
          */
             function () {
-                this._subscription.unsubscribe();
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
         /**
          * @return {?}
@@ -27121,6 +27568,7 @@
             { type: core.Component, args: [{
                         selector: 'ux-page-header-horizontal-navigation',
                         template: "<ux-page-header-horizontal-navigation-item\n    *ngFor=\"let item of items$ | async\"\n    [item]=\"item\">\n</ux-page-header-horizontal-navigation-item>\n\n<div class=\"selected-indicator\"\n    [style.opacity]=\"indicatorVisible ? 1 : 0\"\n    [style.margin-left.px]=\"indicatorX\"\n    [style.width.px]=\"indicatorWidth\">\n</div>",
+                        providers: [PageHeaderNavigationService],
                         host: {
                             'role': 'menubar'
                         }
@@ -27131,6 +27579,7 @@
             return [
                 { type: core.ElementRef },
                 { type: ResizeService },
+                { type: PageHeaderNavigationService },
                 { type: PageHeaderService }
             ];
         };
@@ -27392,6 +27841,7 @@
         PageHeaderModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            a11y.A11yModule,
                             AccessibilityModule,
                             BreadcrumbsModule,
                             dropdown.BsDropdownModule.forRoot(),
@@ -28860,6 +29310,9 @@
                             this.value = this.singleTypeahead.highlighted;
                             this.dropdownOpen = false;
                         }
+                        else {
+                            this.dropdownOpen = true;
+                        }
                         // Update the input field. If dropdown isn't open then reset it to the previous value.
                         this.input = this.getDisplay(this.value);
                         event.preventDefault();
@@ -29373,6 +29826,9 @@
                             // Add the typeahead option as a tag, clear the input, and close the dropdown
                             this.commitTypeahead(this.typeahead.highlighted);
                             this.typeahead.open = false;
+                        }
+                        else if (this.typeahead && !this.typeahead.open && !this.freeInput) {
+                            this.typeahead.open = true;
                         }
                         else {
                             // Validate and add the input text as a tag, if possible
@@ -34898,6 +35354,543 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
+    var VirtualForService = /** @class */ (function () {
+        function VirtualForService() {
+            /**
+             * Store the size of each item
+             */
+            this.itemSize = 0;
+            /**
+             * Emit the current dataset
+             */
+            this.dataset = new ReplaySubject.ReplaySubject(1);
+            /**
+             * Emit the visible range
+             */
+            this.range = new ReplaySubject.ReplaySubject(1);
+        }
+        VirtualForService.decorators = [
+            { type: core.Injectable }
+        ];
+        return VirtualForService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * This implementation is inspired by the CDK virtual for:
+     * https://github.com/angular/material2/blob/master/src/cdk/scrolling/virtual-for-of.ts
+     * However the CDK requires a container component which limits use in places such
+     * as fixed header tables, so this is a more generic implementation that does not
+     * require a parent element but instead uses an attribute on the parent container instead
+     * @template T
+     */
+    var VirtualForDirective = /** @class */ (function () {
+        function VirtualForDirective(_viewContainerRef, _templateRef, _differs, _renderer, _virtualScroll) {
+            this._viewContainerRef = _viewContainerRef;
+            this._templateRef = _templateRef;
+            this._differs = _differs;
+            this._renderer = _renderer;
+            this._virtualScroll = _virtualScroll;
+            /**
+             * Provide a trackBy function to optimize rendering
+             */
+            this.uxVirtualForTrackBy = this.defaultTrackBy;
+            /**
+             * Indicate whether we need to perform a view update
+             */
+            this._isDirty = false;
+            /**
+             * Store a cache of recently disposed views for reuse
+             */
+            this._templateCache = [];
+            /**
+             * Limit the size of the cache as it can use a lot of memory
+             */
+            this._cacheSize = 20;
+            /**
+             * Unsubscribe from all observables
+             */
+            this._onDestroy = new Subject.Subject();
+            // While marked as optional, it isn't. We do this so we can provide a more helpful error message
+            if (!this._virtualScroll) {
+                throw new Error('The "uxVirtualFor" directive requires the "uxVirtualForContainer" directive to be added to the parent element.');
+            }
+        }
+        Object.defineProperty(VirtualForDirective.prototype, "uxVirtualForOf", {
+            /** Store the list of items to display */
+            set: /**
+             * Store the list of items to display
+             * @param {?} dataset
+             * @return {?}
+             */ function (dataset) {
+                // emit the latest dataset
+                this._virtualScroll.dataset.next(dataset);
+                // store a local version of the dataset
+                this._dataset = dataset;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        VirtualForDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // update the UI whenever the range changes
+                this._virtualScroll.range.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(this.isRangeSame)).subscribe(function (range) {
+                    _this._renderedRange = range;
+                    _this.onRangeChange();
+                });
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForDirective.prototype.ngDoCheck = /**
+         * @return {?}
+         */
+            function () {
+                if (this._isDirty && this._differ) {
+                    // check if there area any changes
+                    /** @type {?} */
+                    var changes = this.getChanges();
+                    if (changes) {
+                        this.applyChanges(changes);
+                    }
+                    else {
+                        this.updateContexts();
+                    }
+                    // now that we have rendered any change we should store this so we don't perform unneeded updates
+                    this._isDirty = false;
+                }
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** If an itemSize is not specified we need to calculate it */
+        /**
+         * If an itemSize is not specified we need to calculate it
+         * @param {?} context
+         * @param {?} length
+         * @return {?}
+         */
+        VirtualForDirective.prototype.getHeight = /**
+         * If an itemSize is not specified we need to calculate it
+         * @param {?} context
+         * @param {?} length
+         * @return {?}
+         */
+            function (context, length) {
+                // create a temporary view
+                /** @type {?} */
+                var view = this.createView(0);
+                // set the implicit value to the item value
+                view.context.$implicit = context;
+                view.context.count = length;
+                view.context.even = true;
+                view.context.odd = false;
+                view.context.first = true;
+                view.context.last = length === 1;
+                // run change detection
+                view.detectChanges();
+                // get the size of the view
+                /** @type {?} */
+                var height = view.rootNodes[0].offsetHeight;
+                // destroy the view
+                this._viewContainerRef.remove(0);
+                view.destroy();
+                return height;
+            };
+        /** Determine if the range has changed (performance optimization) */
+        /**
+         * Determine if the range has changed (performance optimization)
+         * @param {?} previous
+         * @param {?} current
+         * @return {?}
+         */
+        VirtualForDirective.prototype.isRangeSame = /**
+         * Determine if the range has changed (performance optimization)
+         * @param {?} previous
+         * @param {?} current
+         * @return {?}
+         */
+            function (previous, current) {
+                return previous.start === current.start && previous.end === current.end;
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForDirective.prototype.onRangeChange = /**
+         * @return {?}
+         */
+            function () {
+                // store the visible range
+                this._renderedItems = this._dataset.slice(this._renderedRange.start, this._renderedRange.end);
+                // create the Angular differ if we haven't previously done so
+                if (!this._differ) {
+                    this._differ = this._differs.find(this._renderedItems).create(this.uxVirtualForTrackBy);
+                }
+                // mark the view for re-render
+                this._isDirty = true;
+            };
+        /** Determine which items have changed */
+        /**
+         * Determine which items have changed
+         * @return {?}
+         */
+        VirtualForDirective.prototype.getChanges = /**
+         * Determine which items have changed
+         * @return {?}
+         */
+            function () {
+                return this._differ.diff(this._renderedItems);
+            };
+        /** Insert, move and remove any items within the view */
+        /**
+         * Insert, move and remove any items within the view
+         * @param {?} changes
+         * @return {?}
+         */
+        VirtualForDirective.prototype.applyChanges = /**
+         * Insert, move and remove any items within the view
+         * @param {?} changes
+         * @return {?}
+         */
+            function (changes) {
+                var _this = this;
+                // Go through each changes and either add or rearrange accordingly
+                changes.forEachOperation(function (record, previousIndex, currentIndex) {
+                    // check if a new item was added
+                    if (previousIndex === null) {
+                        // create the new embedded view
+                        /** @type {?} */
+                        var view = _this.createView(currentIndex);
+                        // set the implicit value to the item value
+                        view.context.$implicit = record.item;
+                    }
+                    else if (currentIndex === null) { // check if the item should be removed
+                        // check if the item should be removed
+                        /** @type {?} */
+                        var view = ( /** @type {?} */(_this._viewContainerRef.detach(currentIndex)));
+                        /** @type {?} */
+                        var index = _this._viewContainerRef.indexOf(view);
+                        // if there is space in the cache then store the detached view
+                        if (_this._templateCache.length < _this._cacheSize) {
+                            _this._templateCache.push(view);
+                        }
+                        else {
+                            index === -1 ? view.destroy() : _this._viewContainerRef.remove(index);
+                        }
+                    }
+                    else { // the position of the item has changed
+                        // the position of the item has changed
+                        // get the view from its current position
+                        /** @type {?} */
+                        var view = ( /** @type {?} */(_this._viewContainerRef.get(previousIndex)));
+                        // move it to the new position
+                        _this._viewContainerRef.move(view, currentIndex);
+                        // update the implicit value (the rest will stay the same)
+                        view.context.$implicit = record.item;
+                    }
+                });
+                // Ensure the implicit value is correct for any items whose identity changed
+                changes.forEachIdentityChange(function (record) {
+                    /** @type {?} */
+                    var view = ( /** @type {?} */(_this._viewContainerRef.get(record.currentIndex)));
+                    if (view) {
+                        view.context.$implicit = record.item;
+                    }
+                });
+                this.updateContexts();
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForDirective.prototype.updateContexts = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                var _loop_1 = function (idx) {
+                    // get the view at a given position
+                    /** @type {?} */
+                    var view = ( /** @type {?} */(this_1._viewContainerRef.get(idx)));
+                    // update the properties
+                    view.context.index = this_1._renderedRange.start + idx;
+                    view.context.count = this_1._dataset.length;
+                    view.context.first = view.context.index === 0;
+                    view.context.last = view.context.index === view.context.count - 1;
+                    view.context.even = view.context.index % 2 === 0;
+                    view.context.odd = !view.context.even;
+                    // update the position in the DOM
+                    view.rootNodes.forEach(function (node) {
+                        _this._renderer.setStyle(node, 'position', 'absolute');
+                        _this._renderer.setStyle(node, 'width', '100%');
+                        _this._renderer.setStyle(node, 'top', '0');
+                        _this._renderer.setStyle(node, 'transform', "translateY(" + view.context.index * _this._virtualScroll.itemSize + "px");
+                    });
+                    view.detectChanges();
+                };
+                var this_1 = this;
+                // update all the other context properties
+                for (var idx = 0; idx < this._viewContainerRef.length; idx++) {
+                    _loop_1(idx);
+                }
+            };
+        /**
+         * @param {?} index
+         * @return {?}
+         */
+        VirtualForDirective.prototype.createView = /**
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                // get a checked EmbeddedViewRef is there is one
+                /** @type {?} */
+                var cachedTemplate = this._templateCache.pop();
+                if (cachedTemplate) {
+                    // replace existing context with the defaults
+                    cachedTemplate.context.$implicit = null;
+                    cachedTemplate.context.index = -1;
+                    cachedTemplate.context.count = -1;
+                    cachedTemplate.context.first = false;
+                    cachedTemplate.context.last = false;
+                    cachedTemplate.context.even = false;
+                    cachedTemplate.context.odd = false;
+                    // insert the view
+                    this._viewContainerRef.insert(cachedTemplate, index);
+                    // return the cached EmbeddedViewRef
+                    return cachedTemplate;
+                }
+                // otherwise create a new view and insert it
+                return this._viewContainerRef.createEmbeddedView(this._templateRef, {
+                    $implicit: null,
+                    index: -1,
+                    count: -1,
+                    first: false,
+                    last: false,
+                    even: false,
+                    odd: false,
+                }, index);
+            };
+        /**
+         * @param {?} index
+         * @return {?}
+         */
+        VirtualForDirective.prototype.defaultTrackBy = /**
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                return index;
+            };
+        VirtualForDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxVirtualFor][uxVirtualForOf]',
+                    },] }
+        ];
+        /** @nocollapse */
+        VirtualForDirective.ctorParameters = function () {
+            return [
+                { type: core.ViewContainerRef },
+                { type: core.TemplateRef },
+                { type: core.IterableDiffers },
+                { type: core.Renderer2 },
+                { type: VirtualForService, decorators: [{ type: core.Optional }] }
+            ];
+        };
+        VirtualForDirective.propDecorators = {
+            uxVirtualForOf: [{ type: core.Input }],
+            uxVirtualForTrackBy: [{ type: core.Input }]
+        };
+        return VirtualForDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
+     */
+    var VirtualForContainerComponent = /** @class */ (function () {
+        function VirtualForContainerComponent(_elementRef, _virtualScroll) {
+            this._elementRef = _elementRef;
+            this._virtualScroll = _virtualScroll;
+            /**
+             * Keep a local reference of the dataset
+             */
+            this._dataset = [];
+            /**
+             * Unsubscribe from all observables
+             */
+            this._onDestroy = new Subject.Subject();
+        }
+        Object.defineProperty(VirtualForContainerComponent.prototype, "itemSize", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._virtualScroll.itemSize;
+            },
+            /** Define the height of each virtual item */
+            set: /**
+             * Define the height of each virtual item
+             * @param {?} itemSize
+             * @return {?}
+             */ function (itemSize) {
+                this._virtualScroll.itemSize = itemSize;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VirtualForContainerComponent.prototype, "_isTable", {
+            /** Determine if this is a table */
+            get: /**
+             * Determine if this is a table
+             * @return {?}
+             */ function () {
+                return this._elementRef.nativeElement.tagName === 'TABLE' || this._elementRef.nativeElement.tagName === 'TBODY';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VirtualForContainerComponent.prototype, "_isList", {
+            /** Determine if this is a list */
+            get: /**
+             * Determine if this is a list
+             * @return {?}
+             */ function () {
+                return this._elementRef.nativeElement.tagName === 'OL' || this._elementRef.nativeElement.tagName === 'UL';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // subscribe to changes to the dataset
+                this._virtualScroll.dataset.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (dataset) {
+                    // store the latest dataset
+                    _this._dataset = dataset;
+                    // update the container properties
+                    requestAnimationFrame(function () { return _this.updateContainer(); });
+                });
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.updateContainer = /**
+         * @return {?}
+         */
+            function () {
+                if (this.itemSize === 0 && this._dataset.length > 0) {
+                    this.itemSize = this.virtualFor.getHeight(this._dataset[0], this._dataset.length);
+                }
+                // calculate the total height of all the items
+                this._totalHeight = this._dataset.length * this.itemSize;
+                // get the actual height of the container element
+                /** @type {?} */
+                var height = this.getContainerHeight();
+                // determine the number of items it takes to fill the container height (multiply by 2 to give us some buffer items)
+                /** @type {?} */
+                var itemCount = Math.ceil((height / this.itemSize) * 2);
+                /**
+                 * Determine the number of items we have as a top buffer
+                 * @type {?}
+                 */
+                var topBufferCount = Math.ceil((height / this.itemSize) * 0.5);
+                // get the scroll offset
+                /** @type {?} */
+                var scrollOffset = this.getScrollOffset();
+                // determine the start index based on the scroll offset
+                /** @type {?} */
+                var startIdx = Math.max(Math.floor(scrollOffset / this.itemSize) - Math.floor(topBufferCount), 0);
+                // determine the end index based on the start and the number of items to display
+                /** @type {?} */
+                var endIdx = Math.min(startIdx + itemCount, this._dataset.length);
+                // update the range
+                this._range = { start: startIdx, end: endIdx };
+                // emit the new visible range
+                this._virtualScroll.range.next(this._range);
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.getScrollOffset = /**
+         * @return {?}
+         */
+            function () {
+                return (( /** @type {?} */(this._elementRef.nativeElement))).scrollTop;
+            };
+        /**
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.getContainerHeight = /**
+         * @return {?}
+         */
+            function () {
+                return (( /** @type {?} */(this._elementRef.nativeElement))).clientHeight;
+            };
+        VirtualForContainerComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: '[uxVirtualForContainer]',
+                        template: "<!-- Display the appropriate top spacer -->\n<tr class=\"ux-virtual-scroll-spacer\"\n    [style.height.px]=\"_totalHeight\"\n    [style.padding.px]=\"0\"\n    [style.margin.px]=\"0\"\n    [style.border]=\"'none'\"\n    *ngIf=\"_isTable\">\n</tr>\n\n<li class=\"ux-virtual-scroll-spacer\"\n    [style.height.px]=\"_totalHeight\"\n    [style.padding.px]=\"0\"\n    [style.margin.px]=\"0\"\n    [style.border]=\"'none'\"\n    *ngIf=\"_isList\">\n</li>\n\n<div class=\"ux-virtual-scroll-spacer\"\n    [style.height.px]=\"_totalHeight\"\n    [style.padding.px]=\"0\"\n    [style.margin.px]=\"0\"\n    [style.border]=\"'none'\"\n    *ngIf=\"!_isTable && !_isList\">\n</div>\n\n\n<ng-content></ng-content>\n",
+                        providers: [VirtualForService],
+                        host: {
+                            '[style.position]': '"relative"'
+                        }
+                    }] }
+        ];
+        /** @nocollapse */
+        VirtualForContainerComponent.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: VirtualForService }
+            ];
+        };
+        VirtualForContainerComponent.propDecorators = {
+            itemSize: [{ type: core.Input }],
+            virtualFor: [{ type: core.ContentChild, args: [VirtualForDirective,] }],
+            updateContainer: [{ type: core.HostListener, args: ['scroll',] }]
+        };
+        return VirtualForContainerComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var VirtualScrollCellDirective = /** @class */ (function () {
         function VirtualScrollCellDirective() {
         }
@@ -35167,7 +36160,9 @@
         VirtualScrollComponent,
         VirtualScrollLoadingDirective,
         VirtualScrollLoadButtonDirective,
-        VirtualScrollCellDirective
+        VirtualScrollCellDirective,
+        VirtualForContainerComponent,
+        VirtualForDirective,
     ];
     var VirtualScrollModule = /** @class */ (function () {
         function VirtualScrollModule() {
@@ -39533,11 +40528,14 @@
     exports.TypeaheadKeyService = TypeaheadKeyService;
     exports.TypeaheadComponent = TypeaheadComponent;
     exports.TypeaheadModule = TypeaheadModule;
+    exports.VirtualForContainerComponent = VirtualForContainerComponent;
+    exports.VirtualForDirective = VirtualForDirective;
+    exports.VirtualForService = VirtualForService;
     exports.VirtualScrollModule = VirtualScrollModule;
-    exports.VirtualScrollComponent = VirtualScrollComponent;
-    exports.VirtualScrollLoadingDirective = VirtualScrollLoadingDirective;
-    exports.VirtualScrollLoadButtonDirective = VirtualScrollLoadButtonDirective;
     exports.VirtualScrollCellDirective = VirtualScrollCellDirective;
+    exports.VirtualScrollLoadButtonDirective = VirtualScrollLoadButtonDirective;
+    exports.VirtualScrollLoadingDirective = VirtualScrollLoadingDirective;
+    exports.VirtualScrollComponent = VirtualScrollComponent;
     exports.WizardModule = WizardModule;
     exports.WizardComponent = WizardComponent;
     exports.StepChangingEvent = StepChangingEvent;
@@ -39702,20 +40700,21 @@
     exports.ɵv = HierarchyBarService;
     exports.ɵbc = MarqueeWizardService;
     exports.ɵbd = MediaPlayerService;
-    exports.ɵbg = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbf = PageHeaderNavigationItemComponent;
-    exports.ɵbh = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbh = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbg = PageHeaderNavigationItemComponent;
+    exports.ɵbi = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbf = PageHeaderNavigationService;
     exports.ɵbe = PageHeaderService;
     exports.ɵbb = SidePanelService;
-    exports.ɵbi = ResizableTableService;
+    exports.ɵbj = ResizableTableService;
     exports.ɵs = TypeaheadHighlightDirective;
     exports.ɵr = TypeaheadService;
     exports.ɵa = DefaultFocusIndicatorDirective;
     exports.ɵb = LocalFocusIndicatorOptions;
     exports.ɵc = FocusIndicatorOptionsDirective;
-    exports.ɵbj = HoverActionService;
+    exports.ɵbk = HoverActionService;
     exports.ɵt = MenuNavigationService;
-    exports.ɵbk = TreeGridService;
+    exports.ɵbl = TreeGridService;
     exports.ɵd = KEPPEL_COLOR_SET;
     exports.ɵe = MICRO_FOCUS_COLOR_SET;
 
