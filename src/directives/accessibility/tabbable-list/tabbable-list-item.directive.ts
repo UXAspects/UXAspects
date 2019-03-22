@@ -1,4 +1,4 @@
-import { FocusableOption } from '@angular/cdk/a11y';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
@@ -22,13 +22,47 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @Input() rank: number = 0;
 
+    /** Indicate if this item is disabled */
     @Input() disabled: boolean = false;
 
     /** Indicate if the item is expanded if used as a hierarchical item. */
     @Input() expanded: boolean = false;
 
     /** Provide a unique key to help identify items when used in a virtual list */
-    @Input() key: any = `tabbable-list-key-${uniqueKey++}`;
+    @Input() set key(key: any) {
+
+        // store the previous key
+        const previousKey = this._key;
+
+        // check if the key has changed eg. via cell reuse
+        const didChangeRef = previousKey && key !== previousKey;
+
+        // update the current key
+        this._key = key;
+
+        // if this element was the previously tabbable item then update the reference
+        if (didChangeRef && this.isTabbable()) {
+
+            // allow the virtual scroll to update
+            requestAnimationFrame(() => {
+                // this item should no longer be tabbable
+                this.tabindex = -1;
+
+                // store the focus origin before we blur
+                const origin = this._focusOrigin;
+
+                // blur this item
+                this._elementRef.nativeElement.blur();
+
+                // update the reference
+                this._tabbableList.itemReferenceChange(previousKey, origin);
+            });
+        }
+    }
+
+    get key(): any {
+        return this._key || this._defaultKey;
+    }
 
     /** Emit when the expanded state changes. */
     @Output() expandedChange = new EventEmitter<boolean>();
@@ -48,6 +82,15 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     /** Store a reference to the focus indicator instance */
     private _focusIndicator: FocusIndicator;
 
+    /** Store the current key - it may change in a ngFor/uxVirtualFor if the cell is reused. */
+    private _key: any;
+
+    /** Store a default key to use if one is not provided */
+    private _defaultKey: string = `tabbable-list-key-${uniqueKey++}`;
+
+    /** Determine if this element has a focus indicator visible */
+    private _focusOrigin: FocusOrigin = null;
+
     constructor(
         private _tabbableList: TabbableListService,
         private _elementRef: ElementRef,
@@ -57,6 +100,10 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
         // create the focus indicator
         this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+
+        // store the most current focus origin
+        this._focusIndicator.origin$.pipe(takeUntil(this._onDestroy))
+            .subscribe(origin => this._focusOrigin = origin);
 
         this.keyboardExpanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
 
@@ -117,5 +164,16 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     getFocused(): boolean {
         return this._elementRef.nativeElement === document.activeElement;
+    }
+
+    /** We can programmatically focus an element but may want a different origin than 'programmatic' */
+    focusWithOrigin(origin: FocusOrigin): void {
+        if (origin) {
+            this._focusIndicator.focus(origin, { preventScroll: true });
+        }
+    }
+
+    private isTabbable(): boolean {
+        return this.tabindex === 0;
     }
 }

@@ -17,6 +17,10 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
     /** Define the height of each virtual item */
     @Input() set itemSize(itemSize: number) {
         this._virtualScroll.itemSize = itemSize;
+
+        if (this._initialized) {
+            requestAnimationFrame(() => this.updateContainer());
+        }
     }
 
     get itemSize(): number {
@@ -31,6 +35,9 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
 
     /** Store the current visible range */
     private _range: VirtualForRange;
+
+    /** Indicate if the component has finished initialising */
+    private _initialized: boolean = false;
 
     /** Unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
@@ -62,7 +69,12 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
             this._dataset = dataset;
 
             // update the container properties
-            requestAnimationFrame(() => this.updateContainer());
+            requestAnimationFrame(() => {
+                this.updateContainer();
+
+                // mark the component as ready
+                this._initialized = true;
+            });
         });
     }
 
@@ -104,6 +116,11 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
 
         // emit the new visible range
         this._virtualScroll.range.next(this._range);
+    }
+
+    /** If cells are automatically getting their height detected you may want to update the size */
+    recalculateCellSize(): void {
+        this.itemSize = 0;
     }
 
     private getScrollOffset(): number {

@@ -1,4 +1,4 @@
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
@@ -172,6 +172,41 @@ export class TabbableListService implements OnDestroy {
 
         // Flatten the tree to produce the cursor key order
         return this.flattenHierarchy(topLevel);
+    }
+
+    /**
+     * In a uxVirtualFor list cells can be resused. This means that when we scroll
+     * the data associated with a given element may change and not the actual elements. If only the data changes
+     * then the QueryList will not emit a change so we may show focus indicatator on the element that previously displayed
+     * the correct data but no longer does.
+     *
+     * We need to handle this correctly here. We already have keys implements to handle virtual elements so we can check
+     * if a key changes and use it to update the focused item even if the QueryList doesn't inform us that we have changed.
+     */
+    itemReferenceChange(previousKey: any, origin: FocusOrigin): void {
+        // find the item that now has the previously focused key
+        const item = this.getItemByKey(previousKey);
+
+        // if no key was found then we should ensure there is a tabbable item
+        if (!item) {
+            return this.ensureTabbableItem();
+        }
+
+        // get the item index
+        const index = this._items.toArray().indexOf(item);
+
+        // activate the item without side effects
+        this.focusKeyManager.updateActiveItemIndex(index);
+
+        // update the tabindex
+        item.tabindex = 0;
+
+        // focus the item with the same origin that it previously had
+        item.focusWithOrigin(origin);
+    }
+
+    private getItemByKey(key: any): TabbableListItemDirective | null {
+        return this._items.find(item => item.key === key);
     }
 
     private flattenHierarchy(items: TabbableListItemDirective[]): TabbableListItemDirective[] {

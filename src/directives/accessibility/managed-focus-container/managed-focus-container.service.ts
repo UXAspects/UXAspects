@@ -46,6 +46,13 @@ export class ManagedFocusContainerService {
 
         // Remove the container's reference to the source component
         const containerRef = this._containers.find(ref => ref.container.element.isEqualNode(element));
+
+        // technically this function can be called before the register function if ngOnDestroy runs before it
+        // is fully initialized so we should stop here if there is no containRef.
+        if (!containerRef) {
+            return;
+        }
+
         containerRef.removeReference(component);
 
         if (!containerRef.isAlive()) {

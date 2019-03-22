@@ -8,9 +8,11 @@
         </tr>
     </thead>
 
-    <tbody uxVirtualForContainer>
+    <tbody uxVirtualForContainer uxTabbableList [wrap]="false">
 
         <tr *uxVirtualFor="let employee of employees; let index = index"
+            uxTabbableListItem
+            [key]="employee.id"
             [attr.aria-posinset]="index"
             [attr.aria-setsize]="employees.length">
             <td class="identity-column">{{ employee.id }}</td>
