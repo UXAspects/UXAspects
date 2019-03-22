@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 export class FloatingActionButtonsPage {
 
@@ -14,7 +14,7 @@ export class FloatingActionButtonsPage {
 
     // Floating Action Buttons - Right
 
-    fabRight = element(by.id('actionButtonHorizontalRight'));    
+    fabRight = element(by.id('actionButtonHorizontalRight'));
     fabRightTrigger = this.fabRight.$('.button-primary');
     fabRightTriggerIcon = this.fabRightTrigger.$('span.hpe-icon');
 
