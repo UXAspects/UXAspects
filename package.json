@@ -17,6 +17,7 @@
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "start:https": "npm run start -- --https --pfx configs/webpack.docs.dev.pfx",
     "start:e2e": "webpack-dev-server --config configs/webpack.e2e.config.js --progress --colors",
+    "start:karma": "karma start",
     "setversion": "ux-setversion",
     "compile": "grunt compile",
     "build": "grunt build",
@@ -25,7 +26,8 @@
     "package": "grunt package",
     "package:release": "grunt package:release",
     "test": "grunt jasmine:ng1 && grunt e2e",
-    "test:e2e": "grunt e2e"
+    "test:e2e": "grunt e2e",
+    "test:karma": "karma start --single-run"
   },
   "dependencies": {
     "@angular/animations": "^7.0.3",
@@ -120,9 +122,15 @@
     "html-loader": "0.5.5",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine": "2.8.0",
+    "jasmine-core": "^3.3.0",
     "jasmine-reporters": "2.2.1",
     "jit-grunt": "0.10.0",
     "jshint": "^2.9.6",
+    "karma": "^4.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "karma-webpack": "^3.0.5",
     "less-loader": "4.1.0",
     "load-grunt-config": "0.19.2",
     "lodash": "^4.17.11",
