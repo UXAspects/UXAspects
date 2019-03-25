@@ -1,4 +1,4 @@
-import { $, browser, ElementFinder } from 'protractor';
+import { $, browser, ElementFinder, Key } from 'protractor';
 
 export class VirtualForPage {
 
@@ -27,6 +27,34 @@ export class VirtualForPage {
         const column = await row.$$('td').get(columnIdx);
 
         return await column.getAttribute('textContent');
+    }
+
+    async focusRow(visibleRow: number): Promise<void> {
+        const row = await this.getRow(visibleRow);
+        await row.click();
+    }
+
+    async moveFocusDown(): Promise<void> {
+        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+    }
+
+    async moveFocusUp(): Promise<void> {
+        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+    }
+
+    async getRowFocused(visibleRow: number): Promise<boolean> {
+        const row: ElementFinder = await this.getRow(visibleRow);
+        const classes: string = await row.getAttribute('class');
+
+        return classes.split(' ').indexOf('ux-focus-indicator-active') !== -1;
+    }
+
+    async getFocusedRow(): Promise<number> {
+        for (let idx = 0; idx < await this.rows.count(); idx++) {
+            if (await this.getRowFocused(idx)) {
+                return idx;
+            }
+        }
     }
 
     async getValue(visibleRow: number): Promise<string> {

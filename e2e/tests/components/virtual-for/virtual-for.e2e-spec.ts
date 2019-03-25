@@ -66,4 +66,46 @@ describe('Virtual For Tests', () => {
 
     });
 
+    it('should work with tabbable list directive (move down)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(0);
+
+        // move down items for several pages
+        for (let idx = 1; idx < 5; idx++) {
+
+            // press the down arrow key
+            await page.moveFocusDown();
+
+            // get the currently focused row
+            const row = await page.getFocusedRow();
+
+            // get the value
+            const value = await page.getValue(row);
+
+            expect(value).toBe(`${idx}`);
+        }
+    });
+
+    it('should work with tabbable list directive (move up)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(15);
+
+        // move down items for several pages
+        for (let idx = 14; idx > 10; idx--) {
+
+            // press the up arrow key
+            await page.moveFocusUp();
+
+            // get the currently focused row
+            const row = await page.getFocusedRow();
+
+            // get the value
+            const value = await page.getValue(row);
+
+            expect(value).toBe(`${idx}`);
+        }
+    });
+
 });

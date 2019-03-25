@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FixedHeaderTableModule, VirtualScrollModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, FixedHeaderTableModule, VirtualScrollModule } from '@ux-aspects/ux-aspects';
 import { VirtualForTestPageComponent } from './virtual-for.testpage.component';
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         VirtualScrollModule,
         FixedHeaderTableModule,
         RouterModule.forChild([
