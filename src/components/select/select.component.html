@@ -10,7 +10,8 @@
     [display]="display"
     [freeInput]="false"
     [placeholder]="placeholder"
-    [showTypeaheadOnClick]="true">
+    [showTypeaheadOnClick]="true"
+    [readonlyInput]="readonlyInput">
 
     <ux-typeahead #multipleTypeahead
         [id]="id + '-typeahead'"
@@ -59,7 +60,8 @@
         [disabled]="disabled"
         (click)="toggle()"
         (blur)="inputBlurHandler()"
-        (keydown)="inputKeyHandler($event)">
+        (keydown)="inputKeyHandler($event)"
+        [readonly]="readonlyInput">
 
     <ux-typeahead #singleTypeahead
         [id]="id + '-typeahead'"

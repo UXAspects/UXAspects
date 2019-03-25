@@ -30,7 +30,8 @@
             [focusIf]="isSelected(tags.length)"
             (click)="toggle(); $event.stopPropagation()"
             (focus)="inputFocusHandler()"
-            (paste)="inputPasteHandler($event)">
+            (paste)="inputPasteHandler($event)"
+            [readonly]="readonlyInput">
     </li>
 </ol>
 
