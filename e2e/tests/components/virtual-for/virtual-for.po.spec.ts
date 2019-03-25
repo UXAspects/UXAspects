@@ -42,6 +42,22 @@ export class VirtualForPage {
         await browser.actions().sendKeys(Key.ARROW_UP).perform();
     }
 
+    async moveFocusHome(): Promise<void> {
+        await browser.actions().sendKeys(Key.HOME).perform();
+    }
+
+    async moveFocusEnd(): Promise<void> {
+        await browser.actions().sendKeys(Key.END).perform();
+    }
+
+    async pageFocusDown(): Promise<void> {
+        await browser.actions().sendKeys(Key.PAGE_DOWN).perform();
+    }
+
+    async pageFocusUp(): Promise<void> {
+        await browser.actions().sendKeys(Key.PAGE_UP).perform();
+    }
+
     async getRowFocused(visibleRow: number): Promise<boolean> {
         const row: ElementFinder = await this.getRow(visibleRow);
         const classes: string = await row.getAttribute('class');

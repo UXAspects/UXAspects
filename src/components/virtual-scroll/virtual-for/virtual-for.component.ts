@@ -171,7 +171,7 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
                 // scroll to the bottom of the container
                 this._elementRef.nativeElement.scrollTop = this._elementRef.nativeElement.scrollHeight;
 
-                // after the update the activate the first item
+                // after the update the activate the last item
                 requestAnimationFrame(() => {
                     this._tabbableList.focusKeyManager.setLastItemActive();
                     this._tabbableList.shouldFocusOnChange = true;
