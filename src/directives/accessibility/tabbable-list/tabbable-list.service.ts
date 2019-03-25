@@ -15,6 +15,9 @@ export class TabbableListService implements OnDestroy {
     shouldScrollInView: boolean = true;
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
 
+    /** Indicate if we should refocus an item on QueryList change - for use within virtual lists */
+    shouldFocusOnChange: boolean = true;
+
     private _items: QueryList<TabbableListItemDirective>;
     private _direction: 'horizontal' | 'vertical';
     private _onDestroy = new Subject<void>();
@@ -58,7 +61,7 @@ export class TabbableListService implements OnDestroy {
         });
     }
 
-    activate(item: TabbableListItemDirective): void {
+    activate(item: TabbableListItemDirective, updateIndexOnly: boolean = false): void {
 
         if (!item) {
             return;
@@ -69,7 +72,7 @@ export class TabbableListService implements OnDestroy {
 
         // active the item if it is not already active
         if (this.focusKeyManager.activeItemIndex !== index) {
-            this.focusKeyManager.setActiveItem(index);
+            updateIndexOnly ? this.focusKeyManager.updateActiveItemIndex(index) : this.focusKeyManager.setActiveItem(index);
         }
     }
 

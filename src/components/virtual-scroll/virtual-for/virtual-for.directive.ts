@@ -200,7 +200,7 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
         this.updateContexts();
     }
 
-    private updateContexts(): void {
+    updateContexts(): void {
 
         // update all the other context properties
         for (let idx = 0; idx < this._viewContainerRef.length; idx++) {

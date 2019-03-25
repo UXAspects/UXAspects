@@ -147,14 +147,19 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
     }
 
-    @HostListener('focus')
     focus(): void {
 
         // apply focus to the element
-        (this._elementRef.nativeElement as HTMLElement).focus({ preventScroll: !this._tabbableList.shouldScrollInView });
+        this.focusWithOrigin('keyboard', !this._tabbableList.shouldScrollInView);
 
         // ensure the focus key manager updates the active item correctly
-        this._tabbableList.activate(this);
+        this._tabbableList.activate(this, true);
+    }
+
+    @HostListener('focus')
+    @HostListener('click')
+    onFocus(): void {
+        this._tabbableList.activate(this, true);
     }
 
     @HostListener('keydown', ['$event'])
@@ -167,9 +172,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     }
 
     /** We can programmatically focus an element but may want a different origin than 'programmatic' */
-    focusWithOrigin(origin: FocusOrigin): void {
+    focusWithOrigin(origin: FocusOrigin, preventScroll: boolean = true): void {
         if (origin) {
-            this._focusIndicator.focus(origin, { preventScroll: true });
+            this._focusIndicator.focus(origin, { preventScroll });
         }
     }
 
