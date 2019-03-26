@@ -38,8 +38,8 @@
 
   <input class="title-edit"
          ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
-         ng-keypress="tv.finishEdit(this,$event)"
-         ng-blur="tv.finishEdit(this,$event)"
+         ng-keypress="tv.finishEdit($event)"
+         ng-blur="tv.finishEdit($event)"
          ng-show="tv.isBeingEdited(this)"
          ng-model="node.title"
          focus-on-show
@@ -63,7 +63,7 @@
 
 </div>
 
-<ol ui-tree-nodes=""
+<ol ui-tree-nodes
     ng-model="node.nodes"
     ng-class="{ hidden: collapsed }">
   <li ng-repeat="node in node.nodes"
