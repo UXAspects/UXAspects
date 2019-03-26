@@ -1,4 +1,5 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
@@ -92,10 +93,16 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     private _focusOrigin: FocusOrigin = null;
 
     constructor(
+        /** Access the tabbable list service */
         private _tabbableList: TabbableListService,
+        /** Access the tabbable item element */
         private _elementRef: ElementRef,
+        /** Access the service to programmatically control focus indicators */
         focusIndicatorService: FocusIndicatorService,
-        private _managedFocusContainerService: ManagedFocusContainerService
+        /** Access the service responsible for handling focus in child elements */
+        private _managedFocusContainerService: ManagedFocusContainerService,
+        /** Access the service which can provide us with browser identification */
+        private _platform: Platform
     ) {
 
         // create the focus indicator
@@ -173,8 +180,18 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     /** We can programmatically focus an element but may want a different origin than 'programmatic' */
     focusWithOrigin(origin: FocusOrigin, preventScroll: boolean = true): void {
+
         if (origin) {
+
+            const scrollTop = this._tabbableList.containerRef.scrollTop;
+
+            // focus the item with a given origin
             this._focusIndicator.focus(origin, { preventScroll });
+
+            // IE and Firefox don't support prevent scroll
+            if (preventScroll && !this._platform.WEBKIT) {
+                this._tabbableList.containerRef.scrollTop = scrollTop;
+            }
         }
     }
 

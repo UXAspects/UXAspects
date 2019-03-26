@@ -1,4 +1,5 @@
 import { A11yModule } from '@angular/cdk/a11y';
+import { PlatformModule } from '@angular/cdk/platform';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { ColorServiceModule } from '../../services/color/index';
 import { ColorContrastDirective } from './contrast-ratio/color-contrast.directive';
@@ -53,7 +54,8 @@ export const FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
     ],
     imports: [
         A11yModule,
-        ColorServiceModule
+        ColorServiceModule,
+        PlatformModule
     ],
     exports: [
         DefaultFocusIndicatorDirective,

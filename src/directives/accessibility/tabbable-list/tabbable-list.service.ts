@@ -8,15 +8,29 @@ import { TabbableListItemDirective } from './tabbable-list-item.directive';
 @Injectable()
 export class TabbableListService implements OnDestroy {
 
+    /** Indicate is this is being using on a hierarchichal set of items */
     hierarchy: boolean = false;
+
+    /** Determine if we all the alt key */
     allowAltModifier: boolean = true;
+
+    /** Determine if we all the ctrl key */
     allowCtrlModifier: boolean = true;
+
+    /** Determine if we allow the Home/End keys */
     allowBoundaryKeys: boolean = false;
+
+    /** Determine if we should scroll the item into view on focus */
     shouldScrollInView: boolean = true;
+
+    /** Store the instance of the focus key manager */
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
 
     /** Indicate if we should refocus an item on QueryList change - for use within virtual lists */
     shouldFocusOnChange: boolean = true;
+
+    /** Store the container element */
+    containerRef: HTMLElement;
 
     private _items: QueryList<TabbableListItemDirective>;
     private _direction: 'horizontal' | 'vertical';

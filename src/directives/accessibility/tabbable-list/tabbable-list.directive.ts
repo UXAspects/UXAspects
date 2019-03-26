@@ -1,5 +1,5 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterContentInit, ContentChildren, Directive, Input, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, Input, OnDestroy, QueryList } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
@@ -47,7 +47,15 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         return this._tabbableList.focusKeyManager;
     }
 
-    constructor(private _tabbableList: TabbableListService) { }
+    constructor(
+        /** Access the tabbable list service */
+        private _tabbableList: TabbableListService,
+        /** Access the native dom element */
+        elementRef: ElementRef
+    ) {
+        // store a reference to the container element
+        this._tabbableList.containerRef = elementRef.nativeElement;
+    }
 
     ngAfterContentInit(): void {
 
