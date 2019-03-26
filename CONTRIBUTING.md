@@ -27,6 +27,10 @@ Once a Pull Request has been made it will be reviewed by one of our team members
 
 ## Developing with UX Aspects
 
+Prerequisites:
+* [Git](https://git-scm.com/)
+* NPM (v5 or higher) - part of [Node.js](https://nodejs.org/).
+
 To build the project, which includes UX Aspects and the documentation site:
 
 1. Clone the respository:
