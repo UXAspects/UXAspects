@@ -66,4 +66,117 @@ describe('Virtual For Tests', () => {
 
     });
 
+    it('should work with tabbable list directive (move down)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(0);
+
+        // move down items for several pages
+        for (let idx = 1; idx < 5; idx++) {
+
+            // press the down arrow key
+            await page.moveFocusDown();
+
+            // get the currently focused row
+            const row = await page.getFocusedRow();
+
+            // get the value
+            const value = await page.getValue(row);
+
+            expect(value).toBe(`${idx}`);
+        }
+    });
+
+    it('should work with tabbable list directive (move up)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(15);
+
+        // move down items for several pages
+        for (let idx = 14; idx > 10; idx--) {
+
+            // press the up arrow key
+            await page.moveFocusUp();
+
+            // get the currently focused row
+            const row = await page.getFocusedRow();
+
+            // get the value
+            const value = await page.getValue(row);
+
+            expect(value).toBe(`${idx}`);
+        }
+    });
+
+    it('should work with tabbable list directive (move page down)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(0);
+
+        // press the page down key
+        await page.pageFocusDown();
+
+        // get the currently focused row
+        const row = await page.getFocusedRow();
+
+        // get the value
+        const value = await page.getValue(row);
+
+        expect(value).toBe(`38`);
+    });
+
+    it('should work with tabbable list directive (move page up)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(15);
+
+        // press the page up key
+        await page.pageFocusUp();
+
+        // get the currently focused row
+        const row = await page.getFocusedRow();
+
+        // get the value
+        const value = await page.getValue(row);
+
+        expect(value).toBe(`0`);
+    });
+
+    it('should work with tabbable list directive (move home)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(0);
+
+        // focus a lower down row
+        await page.pageFocusDown();
+
+        // press the home key
+        await page.moveFocusHome();
+
+        // get the currently focused row
+        const row = await page.getFocusedRow();
+
+        // get the value
+        const value = await page.getValue(row);
+
+        expect(value).toBe(`0`);
+    });
+
+    it('should work with tabbable list directive (move end)', async () => {
+
+        // focus the bottom row
+        await page.focusRow(0);
+
+        // press the end key
+        await page.moveFocusEnd();
+
+        // get the currently focused row
+        const row = await page.getFocusedRow();
+
+        // get the value
+        const value = await page.getValue(row);
+
+        expect(value).toBe(`9999`);
+    });
+
 });

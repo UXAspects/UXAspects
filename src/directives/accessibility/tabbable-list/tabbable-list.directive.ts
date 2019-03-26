@@ -1,6 +1,6 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterContentInit, ContentChildren, Directive, Input, OnDestroy, QueryList } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, Input, OnDestroy, QueryList } from '@angular/core';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 import { TabbableListService } from './tabbable-list.service';
@@ -47,7 +47,15 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
         return this._tabbableList.focusKeyManager;
     }
 
-    constructor(private _tabbableList: TabbableListService) { }
+    constructor(
+        /** Access the tabbable list service */
+        private _tabbableList: TabbableListService,
+        /** Access the native dom element */
+        elementRef: ElementRef
+    ) {
+        // store a reference to the container element
+        this._tabbableList.containerRef = elementRef.nativeElement;
+    }
 
     ngAfterContentInit(): void {
 
@@ -72,7 +80,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
             this._orderedItems = this.items;
 
             // Ensure we reselect a selected item after the querylist has changed
-            this.items.changes.pipe(takeUntil(this._onDestroy)).subscribe((items: QueryList<TabbableListItemDirective>) => {
+            this.items.changes.pipe(filter(() => this._tabbableList.shouldFocusOnChange), takeUntil(this._onDestroy)).subscribe((items: QueryList<TabbableListItemDirective>) => {
 
                 // check if an item is currently focused
                 const activeItem = this._tabbableList.focusKeyManager.activeItem;

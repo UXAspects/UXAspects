@@ -11,9 +11,12 @@
       </tr>
     </thead>
 
-    <tbody uxVirtualForContainer [itemSize]="39">
+    <tbody uxVirtualForContainer [itemSize]="39" uxTabbableList [wrap]="false">
 
-      <tr class="table-row" *uxVirtualFor="let number of list; let index = index; let count = count; let first = first; let last = last; let even = even; let odd = odd">
+      <tr class="table-row"
+          *uxVirtualFor="let number of list; let index = index; let count = count; let first = first; let last = last; let even = even; let odd = odd"
+          uxTabbableListItem
+          [key]="number">
         <td>{{ number }}</td>
         <td>{{ index }}</td>
         <td>{{ count }}</td>

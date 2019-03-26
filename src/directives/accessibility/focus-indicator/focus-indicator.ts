@@ -27,6 +27,9 @@ export class FocusIndicator {
     /** An observable to monitor the focus state */
     readonly isFocused$ = new BehaviorSubject<boolean>(false);
 
+    /** An observable to monitor the focus origin */
+    readonly origin$ = new Subject<FocusOrigin>();
+
     /** Remove all subscriptions on destroy */
     private readonly _onDestroy = new Subject<void>();
 
@@ -51,6 +54,12 @@ export class FocusIndicator {
             .subscribe(this.onFocusChange.bind(this));
     }
 
+    /** Focus the element with a specific origin */
+    focus(origin?: FocusOrigin, options?: FocusOptions): void {
+        this._focusIndicatorOrigin.setOrigin(origin);
+        this._element.focus(options);
+    }
+
     /** Tear down the subscriptions */
     destroy(): void {
         this._onDestroy.next();
@@ -70,11 +79,15 @@ export class FocusIndicator {
         // if the origin is null then we blurred
         if (origin === null) {
             this.isFocused = false;
+            this.origin$.next(null);
             return;
         }
 
         // get the origin if there is one
         const syntheticOrigin = this._focusIndicatorOrigin.getOrigin();
+
+        // emit the origin
+        this.origin$.next(syntheticOrigin || origin);
 
         switch (syntheticOrigin || origin) {
 

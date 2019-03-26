@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
+import { END, HOME, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
+import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, Input, OnDestroy, Optional, Self } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { TabbableListService } from '../../../directives/accessibility/index';
 import { VirtualForDirective } from './virtual-for.directive';
 import { VirtualForRange, VirtualForService } from './virtual-for.service';
 
@@ -17,6 +19,13 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
     /** Define the height of each virtual item */
     @Input() set itemSize(itemSize: number) {
         this._virtualScroll.itemSize = itemSize;
+
+        if (this._initialized) {
+            requestAnimationFrame(() => {
+                this.updateContainer();
+                this.virtualFor.updateContexts();
+            });
+        }
     }
 
     get itemSize(): number {
@@ -31,6 +40,9 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
 
     /** Store the current visible range */
     private _range: VirtualForRange;
+
+    /** Indicate if the component has finished initialising */
+    private _initialized: boolean = false;
 
     /** Unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
@@ -52,7 +64,9 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
         /** Get the ElementRef of the container element */
         private _elementRef: ElementRef,
         /** A service to share values between the container and child elements */
-        private _virtualScroll: VirtualForService<T>
+        private _virtualScroll: VirtualForService<T>,
+        /** Handle key presses if there is a tabbable list */
+        @Self() @Optional() private _tabbableList: TabbableListService
     ) { }
 
     ngAfterViewInit(): void {
@@ -62,7 +76,12 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
             this._dataset = dataset;
 
             // update the container properties
-            requestAnimationFrame(() => this.updateContainer());
+            requestAnimationFrame(() => {
+                this.updateContainer();
+
+                // mark the component as ready
+                this._initialized = true;
+            });
         });
     }
 
@@ -104,6 +123,64 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
 
         // emit the new visible range
         this._virtualScroll.range.next(this._range);
+    }
+
+    /** If cells are automatically getting their height detected you may want to update the size */
+    recalculateCellSize(): void {
+        this.itemSize = 0;
+    }
+
+    @HostListener('keydown', ['$event', '$event.keyCode'])
+    onKeydown(event: KeyboardEvent, keyCode: number): void {
+        if (!this._tabbableList) {
+            return;
+        }
+
+        switch (keyCode) {
+
+            case PAGE_UP:
+                this._tabbableList.focusKeyManager.setFirstItemActive();
+                event.preventDefault();
+                break;
+
+            case PAGE_DOWN:
+                this._tabbableList.focusKeyManager.setLastItemActive();
+                event.preventDefault();
+                break;
+
+            case HOME:
+                // ensure the QueryList doesn't do any updates until we have finished
+                this._tabbableList.shouldFocusOnChange = false;
+
+                // scroll to the top of the container
+                this._elementRef.nativeElement.scrollTop = 0;
+
+                // after the update the activate the first item
+                requestAnimationFrame(() => {
+                    this._tabbableList.focusKeyManager.setFirstItemActive();
+                    this._tabbableList.shouldFocusOnChange = true;
+                });
+
+                event.preventDefault();
+                break;
+
+            case END:
+                // ensure the QueryList doesn't do any updates until we have finished
+                this._tabbableList.shouldFocusOnChange = false;
+
+                // scroll to the bottom of the container
+                this._elementRef.nativeElement.scrollTop = this._elementRef.nativeElement.scrollHeight;
+
+                // after the update the activate the last item
+                requestAnimationFrame(() => {
+                    this._tabbableList.focusKeyManager.setLastItemActive();
+                    this._tabbableList.shouldFocusOnChange = true;
+                });
+
+                event.preventDefault();
+                break;
+
+        }
     }
 
     private getScrollOffset(): number {
