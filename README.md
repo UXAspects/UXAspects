@@ -4,32 +4,10 @@ UX Aspects is an open source user interface framework for building modern, respo
 
 # Installation
 
-## NPM
-
-1. Install [Node.js](https://nodejs.org/), which provides the npm package manager.
+1. Install [Node.js](https://nodejs.org/) (choose the LTS version), which provides the npm package manager.
 2. Install the UX Aspects package:
 ```bash
 npm install @ux-aspects/ux-aspects --save
-```
-
-## Bower
-
-1. Install [Node.js](https://nodejs.org/), which provides the npm package manager.
-2. Install [TypeScript](https://www.typescriptlang.org/):
-```bash
-npm install typescript --save-dev
-```
-3. Install [Angular](https://angular.io/) and other dependencies:
-```bash
-npm install @angular/common @angular/compiler @angular/compiler-cli @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/platform-server @angular/router ngx-bootstrap chart.js ng2-charts @types/chart.js core-js zone.js rxjs --save
-```
-4. Install [Bower](https://bower.io/):
-```bash
-npm install -g bower
-```
-5. Install the UX Aspects bower package:
-```bash
-bower install ux-aspects
 ```
 
 # Documentation and Examples
@@ -40,27 +18,7 @@ See the documentation site for full details and interactive examples of UX Aspec
 
 # Contributing
 
-Pull requests are welcome; see the [developer guide](guides/developer-standard.md) for more information.
-
-To build the project, which includes UX Aspects and the documentation site:
-
-1. Clone the respository:
-```bash
-git clone https://github.com/UXAspects/UXAspects.git
-```
-2. Install the dependencies using `npm` in the repository directory:
-```bash
-npm install
-```
-3. Build the Iconset using `grunt` in the repository directory:
-```bash
-grunt iconset
-```
-4. Build the project and start the development server. This will automatically rebuild when source changes are made.
-```bash
-npm start
-```
-5. The documentation site is hosted at [http://localhost:8080/](http://localhost:8080/). This will automatically reload when changes are made.
+Pull requests are welcome; see the [contributing guide](CONTRIBUTING.md) and [developer standard](guides/developer-standard.md) for more information.
 
 # License
 
