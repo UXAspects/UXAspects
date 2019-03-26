@@ -321,6 +321,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     }
 
     private selectInputText(): void {
-        this.singleInput.nativeElement.select();
+        if (!this.readonlyInput) {
+            this.singleInput.nativeElement.select();
+        }
     }
 }

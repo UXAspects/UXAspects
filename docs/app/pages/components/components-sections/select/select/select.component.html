@@ -11,7 +11,8 @@
                 [dropDirection]="dropDirection"
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
-                [placeholder]="placeholder">
+                [placeholder]="placeholder"
+                [readonlyInput]="readonlyInput">
             </ux-select>
         </div>
     </div>
@@ -58,9 +59,12 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <ux-checkbox [value]="pagingEnabled | async"
                             (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
