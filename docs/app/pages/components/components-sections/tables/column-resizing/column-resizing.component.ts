@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { ResizableTableDirective } from 'src/components/table';
 
 @Component({
     selector: 'uxd-components-column-resizing',
@@ -11,6 +12,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    @ViewChild(ResizableTableDirective) resizableTable: ResizableTableDirective;
 
     type: string = 'table';
     documents: TableDocument[] = [];
@@ -50,6 +53,10 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
                 date: chance.date({ year: new Date().getFullYear() }) as Date
             });
         }
+    }
+
+    resetToDefault() {
+        this.resizableTable.setDefaultWidths();
     }
 }
 
