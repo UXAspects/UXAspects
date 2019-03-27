@@ -44,6 +44,32 @@ export default class TreeViewCtrl {
             'default': 'hpe-3d'
         };
 
+        $scope.addItem = () => {
+            if (this.selectedNode) {
+                //call decoratee
+                this.newSubItem(this.wrapNode(this.selectedNode), false, this.addItem() || null);
+            }
+        };
+
+        $scope.deleteFn = scope => {
+            if (this.selectedNode) {
+                if (this.canDeleteItem(scope)) {
+                    //call decoratee
+                    const response = this.deleteFn() || null;
+                    if (response) {
+                        this.$timeout(() => {
+                            if (this.selectedNodeScope.$parentNodeScope !== null) {
+                                this.selectedNodeScope.$parentNodeScope.$element.find('span.title-readonly')[0].focus();
+                            }
+                            this.remove(this.selectedNodeScope);
+                            this.selectedNode = null;
+                            this.selectedNodeScope = null;
+                        });
+                    }
+                }
+            }
+        };
+
         $scope.$watch(() => this.selectedNode, selected => {
             if (selected !== undefined) {
                 $scope.selected = selected;
@@ -222,32 +248,6 @@ export default class TreeViewCtrl {
             this.editingNode = null;
             if ($event.type === 'keypress') {
                 this.$timeout(() => this.selectedNodeScope.$element.find('span.title-readonly')[0].focus());
-            }
-        }
-    }
-
-    addItem() {
-        if (this.selectedNode) {
-            //call decoratee
-            this.newSubItem(this.wrapNode(this.selectedNode), false, this.addItem() || null);
-        }
-    }
-
-    deleteFn(scope) {
-        if (this.selectedNode) {
-            if (this.canDeleteItem(scope)) {
-                //call decoratee
-                const response = this.deleteFn() || null;
-                if (response) {
-                    this.$timeout(() => {
-                        if (this.selectedNodeScope.$parentNodeScope !== null) {
-                            this.selectedNodeScope.$parentNodeScope.$element.find('span.title-readonly')[0].focus();
-                        }
-                        this.remove(this.selectedNodeScope);
-                        this.selectedNode = null;
-                        this.selectedNodeScope = null;
-                    });
-                }
             }
         }
     }
