@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { ResizableTableDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { ResizableTableDirective } from 'src/components/table';
 
 @Component({
     selector: 'uxd-components-column-resizing',
@@ -55,8 +55,8 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         }
     }
 
-    resetToDefault() {
-        this.resizableTable.setDefaultWidths();
+    setToUniform(): void {
+        this.resizableTable.setUniformWidths();
     }
 }
 

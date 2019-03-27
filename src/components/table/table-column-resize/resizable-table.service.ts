@@ -55,26 +55,26 @@ export class ResizableTableService implements OnDestroy {
     }
 
     /** Set all resizable columns to the same width */
-    setDefaultWidths(): void {
+    setUniformWidths(): void {
 
         // set any disabled columns to their specified width
         this.columns = this._columns.map(column => column.disabled ? (column.getNaturalWidth() / this.tableWidth) * 100 : 0);
 
         // check to see if we've reached 100% of the table width
-        const totalWidth = this.columns.reduce((partial, a) => partial + a);
+        const totalWidth = this.columns.reduce((partial, columnWidth) => partial + columnWidth);
 
         if (totalWidth > 100) {
             // remove overflow
             this.columns = this.ensureNoOverflow(this.columns);
         } else {
             // get the list of resizable columns
-            const resizableColumns = this._columns.toArray().filter(res => !res.disabled);
+            const resizableColumns = this._columns.toArray().filter(column => !column.disabled);
 
             // work out what we need to add to each column to make up the full width
             const newWidth = (100 - totalWidth) / resizableColumns.length;
 
             // set the non-disabled columns to the new width
-            this.columns = this._columns.map((col, idx) => col.disabled ? this.columns[idx] : newWidth);
+            this.columns = this._columns.map((column, idx) => column.disabled ? this.columns[idx] : newWidth);
         }
 
         // do the resizing

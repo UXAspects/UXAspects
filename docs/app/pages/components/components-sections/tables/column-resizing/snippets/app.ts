@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ResizableTableDirective } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -16,6 +17,8 @@ export class AppComponent {
     authorWidth: number = 300;
     dateWidth: number;
 
+    @ViewChild(ResizableTableDirective) resizableTable: ResizableTableDirective;
+
     constructor() {
         // generate some dummy data
         for (let idx = 0; idx < 15; idx++) {
@@ -26,6 +29,10 @@ export class AppComponent {
                 date: chance.date({ year: new Date().getFullYear() }) as Date
             });
         }
+    }
+
+    setToUniform(): void {
+        this.resizableTable.setUniformWidths();
     }
 }
 

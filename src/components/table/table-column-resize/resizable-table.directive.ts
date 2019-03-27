@@ -55,8 +55,8 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
     }
 
     /** Set all resizable columns to the same width */
-    setDefaultWidths(): void {
-        this._table.setDefaultWidths();
+    setUniformWidths(): void {
+        this._table.setUniformWidths();
     }
 
     /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
