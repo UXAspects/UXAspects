@@ -107,7 +107,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
             this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
 
             // account for javascripts terrible handling of floating point numbers
-            this.value = parseFloat(this.value.toPrecision(6));
+            this.value = parseFloat(this.value.toPrecision(this.precision));
         }
     }
 
@@ -120,7 +120,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
             this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
 
             // account for javascripts terrible handling of floating point numbers
-            this.value = parseFloat(this.value.toPrecision(6));
+            this.value = parseFloat(this.value.toPrecision(this.precision));
         }
     }
 
