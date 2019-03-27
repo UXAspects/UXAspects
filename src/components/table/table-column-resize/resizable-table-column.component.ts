@@ -146,15 +146,16 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** The percentage width of the column */
     private setColumnWidth(): void {
 
-        if (!this._table.isInitialised$.value) {
-            return;
-        }
-
-        if (this.disabled) {
+        if (this.disabled && this._width !== undefined) {
             this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${this._width}px`);
             this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', `${this._width}px`);
             return;
         }
+
+        if (!this._table.isInitialised$.value) {
+            return;
+        }
+
 
         const width = this._table.isResizing ?
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
