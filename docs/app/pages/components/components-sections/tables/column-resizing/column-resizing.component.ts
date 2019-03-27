@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ResizableTableDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -11,6 +12,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    @ViewChild(ResizableTableDirective) resizableTable: ResizableTableDirective;
 
     type: string = 'table';
     documents: TableDocument[] = [];
@@ -50,6 +53,10 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
                 date: chance.date({ year: new Date().getFullYear() }) as Date
             });
         }
+    }
+
+    setToUniform(): void {
+        this.resizableTable.setUniformWidths();
     }
 }
 

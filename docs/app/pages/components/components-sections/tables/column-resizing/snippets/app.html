@@ -71,9 +71,11 @@
     </tbody>
 </table>
 
-<div class="btn-group">
+<div class="btn-group m-r">
     <button type="button" class="btn button-toggle-primary"
         [(ngModel)]="type" btnRadio="table">Standard Table</button>
     <button type="button" class="btn button-toggle-primary"
         [(ngModel)]="type" btnRadio="fixed">Fixed Header Table</button>
 </div>
+
+<button class="btn button-secondary" (click)="setToUniform()">Reset</button>

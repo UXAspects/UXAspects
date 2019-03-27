@@ -48,12 +48,14 @@
     </tbody>
 </table>
 
-<div class="btn-group">
+<div class="btn-group m-r">
     <button type="button" class="btn button-toggle-primary"
         [(ngModel)]="type" btnRadio="table">Standard Table</button>
     <button type="button" class="btn button-toggle-primary"
         [(ngModel)]="type" btnRadio="fixed">Fixed Header Table</button>
 </div>
+
+<button class="btn button-secondary" (click)="setToUniform()">Reset</button>
 
 <hr>
 
@@ -84,6 +86,9 @@
 <uxd-api-properties tableTitle="Methods">
     <tr uxd-api-property name="updateLayout" type="void">
         This will recalculate the table layout.
+    </tr>
+    <tr uxd-api-property name="setUniformWidths" type="void">
+        This will set all non-disabled table columns to the same width.
     </tr>
 </uxd-api-properties>
 

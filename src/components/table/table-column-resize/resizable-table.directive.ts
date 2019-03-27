@@ -54,6 +54,11 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
         requestAnimationFrame(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
     }
 
+    /** Set all resizable columns to the same width */
+    setUniformWidths(): void {
+        this._table.setUniformWidths();
+    }
+
     /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
     private getScrollWidth(): number {
         return Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies)
