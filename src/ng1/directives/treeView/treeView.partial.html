@@ -19,9 +19,20 @@
   </span>
 
   <span class="icon">
+    <!-- Show Default Icon -->
     <i class="hpe-icon"
+       ng-if="!tv.isIconTemplate"
        ng-class="tv.getIcon(node.type, collapsed)">
     </i>
+
+    <!-- Show Custom Template -->
+    <ng-container
+        ng-if="tv.isIconTemplate"
+        ng-template-outlet
+        ng-template-outlet-url="tv.icons.template"
+        ng-template-outlet-context="{ expanded: !collapsed }">
+    </ng-container>
+
     <span class="sr-only"
           ng-bind="node.type">
     </span>

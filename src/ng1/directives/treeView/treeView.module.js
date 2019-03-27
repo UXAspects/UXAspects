@@ -6,6 +6,6 @@ import TreeViewDirective from './treeView.directive';
 // load template into ng-template cache
 require('./treeView.partial.html');
 
-angular.module("ux-aspects.treeview", ['ui.tree'])
+angular.module("ux-aspects.treeview", ['ui.tree', 'ux-aspects.templateOutlet'])
     .controller("TreeViewCtrl", TreeViewController)
     .directive("treeView", TreeViewDirective);

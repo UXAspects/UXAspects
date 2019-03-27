@@ -6,53 +6,31 @@ export default class TreeViewCtrl {
         return ['$scope', '$element', '$timeout'];
     }
 
-    /**
-     * @param {ng.IScope} $scope
-     * @param {JQuery} $element
-     * @param {ng.ITimeoutService} $timeout
-     */
+    get isIconTemplate() {
+        return this.icons && this.icons.hasOwnProperty('template');
+    }
+
     constructor($scope, $element, $timeout) {
-
-        /** @type {ng.IScope} */
         this.$scope = $scope;
-
-        /** @type {ng.ITimeoutService} */
         this.$timeout = $timeout;
-
-        /** @type {ng.IScope} - the scope of the parent controller */
+        /** the scope of the parent controller */
         this.treeScope = null;
-
-        /** @type {(item: TreeViewNode) => boolean} */
         this.filterFunction = $scope.filterFunction || null;
-
-        /** @type {TreeViewNode} */
         this.selectedNode = $scope.selected;
-
-        /** @type {ng.IScope} */
         this.selectedNodeScope = null;
 
-        /** @type {TreeViewNode} reference to the node being edited */
+        /** reference to the node being edited */
         this.editingNode = null;
 
         //The developer can pass in functions for adding new items and adding new folders.
         //These will be decorated with the internal functionality, not overridden.
         //if no functions are supplied here, the tree will provide inline edit buttons
-        /** @type {Function} */
         this.addItem = $scope.addItem || angular.noop();
-
-        /** @type {Function} */
         this.deleteFn = $scope.deleteFn || angular.noop();
-
-        /** @type {boolean} */
         this.readOnly = $scope.readOnly || false;
-
-        /** @type {TreeViewOptions} */
         this.treeOptions = $scope.treeOptions || { showTreeLines: true, openOnSelect: false };
-
-        /** @type {boolean} */
         this.inlineEdit = !!(!this.addItem);
 
-        /** @type {TreeViewIconConfig} */
         this.icons = $scope.icons || {
             folder: {
                 collapsed: 'hpe-folder',
@@ -86,19 +64,12 @@ export default class TreeViewCtrl {
         });
     }
 
-    /**
-     * @param {ng.IScope} parentScope
-     */
     init(parentScope) {
         if (!this.treeScope) {
             this.treeScope = parentScope;
         }
     }
 
-    /**
-     * @param {string} type
-     * @param {boolean} collapsed
-     */
     getIcon(type, collapsed) {
 
         if (this.icons && type) {
@@ -123,9 +94,6 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * @param {TreeViewNode} node
-     */
     getTooltip(node) {
         if (!node.tooltip) {
             return;
@@ -134,33 +102,18 @@ export default class TreeViewCtrl {
         return typeof node.tooltip === 'function' ? node.tooltip.call(null, node) : node.tooltip;
     }
 
-    /**
-     * @param {ng.IScope} scope
-     * @returns {boolean}
-     */
     canAddItem(scope) {
         return scope.$modelValue.allowChildren && !this.readOnly && (!this.selectedNode.permissions || (this.selectedNode.permissions && this.selectedNode.permissions.add));
     }
 
-    /**
-     * @returns {boolean}
-     */
     canDeleteItem() {
         return !this.readOnly && (!this.selectedNode.permissions || (this.selectedNode.permissions && this.selectedNode.permissions.delete));
     }
 
-    /**
-     * @returns {boolean}
-     */
     canEditItem() {
         return !this.readOnly && (!this.selectedNode.permissions || (this.selectedNode.permissions && this.selectedNode.permissions.edit));
     }
 
-    /**
-     * @param {ng.IScope} scope
-     * @param {boolean} allowChildren
-     * @param {TreeViewNode} newItem
-     */
     newSubItem(scope, allowChildren, newItem) {
         if (this.canAddItem(scope)) {
             //create the new item
@@ -183,10 +136,7 @@ export default class TreeViewCtrl {
         }
     }
 
-    /** only show nodes based on their title, or according to the supplied function
-     * @param {TreeViewNode} item
-     * @returns {boolean}
-     */
+    /** only show nodes based on their title, or according to the supplied function */
     filter(item) {
         if (this.filterFunction) {
             return !!this.filterFunction(item);
@@ -194,18 +144,12 @@ export default class TreeViewCtrl {
         return !(this.$scope.query && this.$scope.query.length > 0 && item.title.indexOf(this.$scope.query) === -1);
     }
 
-    /**
-     * remove an item from the tree
-     * @param {ng.IScope} scope
-     */
+    /** remove an item from the tree */
     remove(scope) {
         scope.remove();
     }
 
-    /**
-     * handle the selected item in the tree
-     * @param {ng.IScope} scope
-     */
+    /** handle the selected item in the tree */
     select(scope) {
         //check if it's already clicked
         const firstClick = !this.isSelected(scope);
@@ -225,11 +169,7 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * call on a node to check if it's currently selected
-     * @param {ng.IScope} scope
-     * @returns {boolean}
-     */
+    /** call on a node to check if it's currently selected */
     isSelected(scope) {
         if ((this.selectedNode === null) || (!scope.$modelValue)) {
             return false;
@@ -238,10 +178,7 @@ export default class TreeViewCtrl {
         return (this.selectedNode.$$hashKey === scope.$modelValue.$$hashKey);
     }
 
-    /** call on a node to check if it's currently being edited
-     * @param {ng.IScope} scope
-     * @returns {boolean}
-     */
+    /** call on a node to check if it's currently being edited */
     isBeingEdited(scope) {
         if ((this.editingNode === null) || (!scope.$modelValue)) {
             return false;
@@ -250,11 +187,7 @@ export default class TreeViewCtrl {
         return (this.editingNode.$$hashKey === scope.$modelValue.$$hashKey);
     }
 
-    /**
-     * activate inline edit of the selected node's title
-     * @param {ng.IScope} scope
-     * @param {boolean} itemAlreadyCreated
-     */
+    /** activate inline edit of the selected node's title */
     edit(scope, itemAlreadyCreated) {
         //if an item was added via the API then it does not need edited here again
         if (itemAlreadyCreated) {
@@ -274,10 +207,7 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * Save off changes to a node
-     * @param {KeyboardEvent} $event
-     */
+    /** Save off changes to a node */
     finishEdit($event) {
         if (($event.which === ENTER) || ($event.type === 'blur')) {
             //if the node is now blank, undo the change
@@ -299,9 +229,6 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * @param {ng.IScope} scope
-     */
     deleteFn(scope) {
         if (this.selectedNode) {
             if (this.canDeleteItem(scope)) {
@@ -321,17 +248,10 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * @param {TreeViewNode} node
-     */
     wrapNode(node) {
         return { $modelValue: node };
     }
 
-    /**
-     * @param {ng.IScope} scope
-     * @param {KeyboardEvent} $event
-     */
     keyboardSelect(scope, $event) {
         if ($event.which === ENTER) {
             this.edit(scope);
@@ -349,10 +269,7 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * Find the node in the table and expand to it
-     * @param {TreeViewNode} node
-     */
+    /** Find the node in the table and expand to it */
     ensureVisible(node) {
         const nodeScope = this.findNodeScope(node, this.treeScope.$nodesScope.childNodes());
         if (nodeScope !== null) {
@@ -360,11 +277,7 @@ export default class TreeViewCtrl {
         }
     }
 
-    /**
-     * Return the scope for the node in the given scope hierarchy
-     * @param {TreeViewNode} node
-     * @param {ng.IScope[]} scopes
-     */
+    /** Return the scope for the node in the given scope hierarchy*/
     findNodeScope(node, scopes) {
         let result = null;
         for (let i = 0; i < scopes.length; i += 1) {
@@ -379,10 +292,7 @@ export default class TreeViewCtrl {
         return result;
     }
 
-    /**
-     * Expand all parents of the node
-     * @param {ng.IScope} nodeScope
-     */
+    /** Expand all parents of the node */
     expandToNode(nodeScope) {
         let currentScope = nodeScope;
         while (currentScope.$parentNodeScope) {
@@ -391,33 +301,3 @@ export default class TreeViewCtrl {
         }
     }
 }
-
-/**
- * @typedef {Object} TreeViewNode
- * @property {number} id
- * @property {string} title
- * @property {string} type
- * @property {string|Function} [tooltip]
- * @property {TreeViewNode[]} [nodes]
- * @property {boolean} [allowChildren]
- */
-
- /**
- * @typedef {Object} TreeViewOptions
- * @property {boolean} [showTreeLines]
- * @property {boolean} [openOnSelect]
- * @property {number} [loadHeight]
- */
-
- /**
- * @typedef {Object} TreeViewIconFolderConfig
- * @property {string} collapsed
- * @property {string} expanded
- */
-
-/**
- * @typedef {Object} TreeViewIconConfig
- * @property {TreeViewIconFolderConfig} folder
- * @property {string} item
- * @property {string} [default]
- */
