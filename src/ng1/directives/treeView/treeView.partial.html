@@ -30,7 +30,7 @@
         ng-if="tv.isIconTemplate"
         ng-template-outlet
         ng-template-outlet-url="tv.icons.template"
-        ng-template-outlet-context="{ expanded: !collapsed }">
+        ng-template-outlet-context="{ node: node }">
     </ng-container>
 
     <span class="sr-only"
@@ -38,23 +38,34 @@
     </span>
   </span>
 
+  <!-- Show Default Node Template -->
   <span class="title-readonly"
-        tooltip-html="tv.getTooltip(node)"
-        ng-click="node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
-        ng-show="!tv.isBeingEdited(this)"
-        tabindex="{{ node.disabled ? -1 : 0 }}"
-        ng-keydown="tv.keyboardSelect(this,$event)">
-    {{node.title}}
+      ng-if="!tv.isCustomTemplate"
+      tooltip-html="tv.getTooltip(node)"
+      ng-click="node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
+      ng-show="!tv.isBeingEdited(this)"
+      tabindex="{{ node.disabled ? -1 : 0 }}"
+      ng-keydown="tv.keyboardSelect(this,$event)">
+  {{node.title}}
   </span>
 
   <input class="title-edit"
-         ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
-         ng-keypress="tv.finishEdit($event)"
-         ng-blur="tv.finishEdit($event)"
-         ng-show="tv.isBeingEdited(this)"
-         ng-model="node.title"
-         focus-on-show
-         tabindex="{{ node.disabled ? -1 : 0 }}">
+          ng-if="!tv.isCustomTemplate"
+          ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
+          ng-keypress="tv.finishEdit($event)"
+          ng-blur="tv.finishEdit($event)"
+          ng-show="tv.isBeingEdited(this)"
+          ng-model="node.title"
+          focus-on-show
+          tabindex="{{ node.disabled ? -1 : 0 }}">
+
+  <!-- Show Custom Node Template -->
+  <ng-container
+    ng-if="tv.isCustomTemplate"
+    ng-template-outlet
+    ng-template-outlet-url="tv.treeOptions.template"
+    ng-template-outlet-context="{ node: node }">
+  </ng-container>
 
   <a class="pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button"
      ng-show="tv.inlineEdit && tv.canDeleteItem(this)"

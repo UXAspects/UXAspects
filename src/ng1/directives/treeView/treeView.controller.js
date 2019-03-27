@@ -10,6 +10,10 @@ export default class TreeViewCtrl {
         return this.icons && this.icons.hasOwnProperty('template');
     }
 
+    get isCustomTemplate() {
+        return this.treeOptions && this.treeOptions.hasOwnProperty('template');
+    }
+
     constructor($scope, $element, $timeout) {
         this.$scope = $scope;
         this.$timeout = $timeout;
