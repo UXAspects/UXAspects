@@ -43,6 +43,11 @@
         (select)="hierarchyBar.selectNode($event)">
     </ux-hierarchy-bar-node>
 
+    <!-- Allow content to be placed after the last node -->
+    <div class="hierarchy-bar-addons">
+        <ng-content select="trailing-addons"></ng-content>
+    </div>
+
 </div>
 
 <!-- Allow content to be placed on the right of the items -->

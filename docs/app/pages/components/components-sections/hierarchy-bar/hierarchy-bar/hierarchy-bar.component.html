@@ -108,9 +108,15 @@
 </uxd-api-properties>
 
 <p>
-    Custom items can be added to the left and right of the hierarchy bar nodes by adding the elements as content of the <code>ux-hierarchy-bar</code> component and
-    adding a <code>uxHierarchyBarLeftAddon</code> or <code>uxHierarchyBarRightAddon</code> attribute to the element.
+    Custom items can be added to the hierarchy bar by adding an element as content of the <code>ux-hierarchy-bar</code> component and
+    adding one of the following attributes to the element:
 </p>
+
+<ul>
+    <li><code>uxHierarchyBarLeftAddon</code> - This will add the element to the left side of the hierarchy bar.</li>
+    <li><code>uxHierarchyBarTrailingAddon</code> - This will add the element immediately after the last visible node.</li>
+    <li><code>uxHierarchyBarRightAddon</code> - This will add the element to the right side of the hierarchy bar.</li>
+</ul>
 
 <p>
     The following code can be used to create the example above:
