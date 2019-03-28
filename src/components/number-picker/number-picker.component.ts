@@ -27,11 +27,22 @@ export class NumberPickerComponent implements ControlValueAccessor {
     private _value: number = 0;
     private _propagateChange = (_: any) => { };
 
+    /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
+
+    /** Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
     @Input() valid: boolean = true;
+
+    /** Provice an aria labelledby attribute */
     @Input('aria-labelledby') labelledBy: string;
+
+    /** Define the precision of floating point values */
+    @Input() precision: number = 6;
+
+    /** If two way binding is used this value will be updated any time the number picker value changes. */
     @Output() valueChange = new EventEmitter<number>();
 
+    /** Sets the value displayed in the number picker component. */
     @Input()
     get value(): number {
         return this._value;
@@ -43,6 +54,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
         this._propagateChange(value);
     }
 
+    /** Defines the minimum value the number picker can set. */
     @Input()
     get min(): number {
         return this._min;
@@ -52,6 +64,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
         this._min = coerceNumberProperty(value);
     }
 
+    /** Defines the maximum value the number picker can set. */
     @Input()
     get max(): number {
         return this._max;
@@ -61,6 +74,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
         this._max = coerceNumberProperty(value);
     }
 
+    /** Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. */
     @Input()
     get step(): number {
         return this._step;
@@ -70,6 +84,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
         this._step = coerceNumberProperty(value);
     }
 
+    /** Indicate if the number picker is disabled or not. */
     @Input()
     get disabled(): boolean {
         return this._disabled;
@@ -83,19 +98,29 @@ export class NumberPickerComponent implements ControlValueAccessor {
         return this.id + '-input';
     }
 
-    increment(event: MouseEvent | KeyboardEvent): void {
-        event.preventDefault();
+    increment(event?: MouseEvent | KeyboardEvent): void {
+        if (event) {
+            event.preventDefault();
+        }
 
         if (!this.disabled) {
             this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
+
+            // account for javascripts terrible handling of floating point numbers
+            this.value = parseFloat(this.value.toPrecision(this.precision));
         }
     }
 
-    decrement(event: MouseEvent | KeyboardEvent): void {
-        event.preventDefault();
+    decrement(event?: MouseEvent | KeyboardEvent): void {
+        if (event) {
+            event.preventDefault();
+        }
 
         if (!this.disabled) {
             this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
+
+            // account for javascripts terrible handling of floating point numbers
+            this.value = parseFloat(this.value.toPrecision(this.precision));
         }
     }
 
