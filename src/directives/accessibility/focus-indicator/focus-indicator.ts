@@ -55,7 +55,7 @@ export class FocusIndicator {
     }
 
     /** Focus the element with a specific origin */
-    focus(origin?: FocusOrigin, options?: FocusOptions): void {
+    focus(origin?: FocusOrigin, options?: { preventScroll?: boolean }): void {
         this._focusIndicatorOrigin.setOrigin(origin);
         this._element.focus(options);
     }
