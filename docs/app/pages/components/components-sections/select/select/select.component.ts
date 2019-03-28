@@ -26,6 +26,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     dropdownOpen: boolean;
     maxHeight: string = '250px';
     placeholder = 'Select a country';
+    readonlyInput: boolean = false;
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();

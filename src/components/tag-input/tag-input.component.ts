@@ -90,11 +90,14 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() enforceTagLimits: boolean = false;
 
     /**
-     * If true, input entered into the text input area can be converted into a tag by pressing enter.
+     * If `true`, input entered into the text input area can be converted into a tag by pressing enter.
      * Otherwise, tags can only be added from the typeahead list or other external means.
      * (Note that the `maxTags` and `tagPattern` will prevent invalid inputs regardless of this setting.)
      */
     @Input() freeInput: boolean = true;
+
+    /** If `true` the input field will be readonly and selection can only occur by using the dropdown. */
+    @Input() readonlyInput: boolean = false;
 
     /**
      * The maximum number of tags permitted in the tag input. If the number of tags is equal to `maxTags` and

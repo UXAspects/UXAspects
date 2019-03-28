@@ -11,7 +11,8 @@
                 [dropDirection]="dropDirection"
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
-                [placeholder]="placeholder">
+                [placeholder]="placeholder"
+                [readonlyInput]="readonlyInput">
             </ux-select>
         </div>
     </div>
@@ -35,15 +36,18 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [value]="multiple | async"
                             (valueChange)="multiple.next($event)">multiple</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">allowNull</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -58,7 +62,7 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <ux-checkbox [value]="pagingEnabled | async"
                             (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
                     </div>
@@ -148,6 +152,9 @@
     </tr>
     <tr uxd-api-property name="maxHeight" type="string" defaultValue="250px">
         The maximum height of the typeahead dropdown, as a CSS value.
+    </tr>
+    <tr uxd-api-property name="readonlyInput" type="boolean" defaultValue="false">
+        If <code>true</code> the input field will be readonly and selection can only occur by using the dropdown.
     </tr>
     <tr uxd-api-property name="loadingTemplate" type="TemplateRef">
         A template which will be rendered in the dropdown while options are being loaded.
