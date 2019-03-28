@@ -59,6 +59,7 @@
         [placeholder]="placeholder"
         [disabled]="disabled"
         (click)="toggle()"
+        (focus)="onFocus()"
         (blur)="inputBlurHandler()"
         (keydown)="inputKeyHandler($event)"
         [readonly]="readonlyInput">

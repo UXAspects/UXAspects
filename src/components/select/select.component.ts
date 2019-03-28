@@ -320,6 +320,14 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
     }
 
+    /** Handle input focus events */
+    onFocus(): void {
+        // if the input is readonly we do not want to select the text on focus
+        if (this.readonlyInput) {
+            (this.singleInput.nativeElement as HTMLInputElement).setSelectionRange(0, 0);
+        }
+    }
+
     private selectInputText(): void {
         if (!this.readonlyInput) {
             this.singleInput.nativeElement.select();

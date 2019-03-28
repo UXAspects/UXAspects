@@ -36,15 +36,18 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [value]="multiple | async"
                             (valueChange)="multiple.next($event)">multiple</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">allowNull</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -62,9 +65,6 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [value]="pagingEnabled | async"
                             (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
