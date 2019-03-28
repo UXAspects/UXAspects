@@ -75,11 +75,14 @@
         Define the icon to be displayed for a node with no children.
     </tr>
     <tr uxd-api-property name="folder" type="object" defaultValue="hpe-folder">
-        Defines the icons to be displayed for an icon with children. This should be an object with two uxd-api-properties:
+        Defines the icons to be displayed for a node with children. This should be an object with two properties:
         <ul>
             <li><code>collapsed</code>: The icon to be displayed when the node is collapsed.</li>
             <li><code>expanded</code>: The icon to be displayed when the node is expanded.</li>
         </ul>
+    </tr>
+    <tr uxd-api-property name="default" type="string" defaultValue="hpe-3d">
+        Define the fallback icon to be displayed if the <code>item</code> or <code>folder</code> icons have not been specified.
     </tr>
     <tr uxd-api-property name="template" type="string">
         If specified, this allows a custom template to be used as the node icon. This should be a url to a template file.
