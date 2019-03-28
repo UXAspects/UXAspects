@@ -1,3 +1,7 @@
+/**
+ * @param {ng.ICompileService} $compile
+ * @param {ng.ITemplateRequestService} $templateRequest
+ */
 export function ngTemplateOutlet($compile, $templateRequest) {
     return {
         restrict: 'A',
@@ -6,6 +10,10 @@ export function ngTemplateOutlet($compile, $templateRequest) {
             ngTemplateOutletUrl: '=?',
             ngTemplateOutletContext: '=?',
         },
+        /**
+         * @param {ng.IScope} scope
+         * @param {JQuery} element
+         */
         link: function(scope, element) {
 
             // extract the properties we want access to
@@ -13,6 +21,9 @@ export function ngTemplateOutlet($compile, $templateRequest) {
 
             // create a new scope for the item
             const context = scope.$new(true);
+
+            // store the inserted element
+            let template;
 
             // insert the data provided in the context
             if (ngTemplateOutletContext) {
@@ -23,15 +34,35 @@ export function ngTemplateOutlet($compile, $templateRequest) {
 
             // support an inline template
             if (ngTemplateOutlet) {
-                return element.append($compile(scope.ngTemplateOutlet)(context));
+                template = $compile(scope.ngTemplateOutlet)(context);
+                return element.append(template);
             }
 
             // support a template url
             if (ngTemplateOutletUrl) {
 
                 // request the template and then compile and insert it
-                $templateRequest(ngTemplateOutletUrl).then(template => element.append($compile(template)(context)));
+                $templateRequest(ngTemplateOutletUrl).then(result => {
+                    template = $compile(result)(context);
+                    element.append(template);
+                });
             }
+
+            // watch for any future changes
+            const watcher = scope.$watch('ngTemplateOutletContext', (newValue, oldValue) => {
+                if (newValue !== oldValue) {
+
+                    // update the scope
+                    for (const prop in newValue) {
+                        context[prop] = newValue[prop];
+                    }
+
+                    // update the template
+                    $compile(template)(context);
+                }
+            }, true);
+
+            scope.$on('$destroy', () => watcher());
         }
     };
 }

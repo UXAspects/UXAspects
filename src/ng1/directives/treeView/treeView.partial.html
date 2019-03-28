@@ -19,31 +19,53 @@
   </span>
 
   <span class="icon">
+    <!-- Show Default Icon -->
     <i class="hpe-icon"
+       ng-if="!tv.isIconTemplate"
        ng-class="tv.getIcon(node.type, collapsed)">
     </i>
+
+    <!-- Show Custom Template -->
+    <ng-container
+        ng-if="tv.isIconTemplate"
+        ng-template-outlet
+        ng-template-outlet-url="tv.icons.template"
+        ng-template-outlet-context="{ node: node }">
+    </ng-container>
+
     <span class="sr-only"
           ng-bind="node.type">
     </span>
   </span>
 
+  <!-- Show Default Node Template -->
   <span class="title-readonly"
-        tooltip-html="tv.getTooltip(node)"
-        ng-click="node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
-        ng-show="!tv.isBeingEdited(this)"
-        tabindex="{{ node.disabled ? -1 : 0 }}"
-        ng-keydown="tv.keyboardSelect(this,$event)">
-    {{node.title}}
+      ng-if="!tv.isCustomTemplate"
+      tooltip-html="tv.getTooltip(node)"
+      ng-click="node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
+      ng-show="!tv.isBeingEdited(this)"
+      tabindex="{{ node.disabled ? -1 : 0 }}"
+      ng-keydown="tv.keyboardSelect(this,$event)">
+  {{node.title}}
   </span>
 
   <input class="title-edit"
-         ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
-         ng-keypress="tv.finishEdit(this,$event)"
-         ng-blur="tv.finishEdit(this,$event)"
-         ng-show="tv.isBeingEdited(this)"
-         ng-model="node.title"
-         focus-on-show
-         tabindex="{{ node.disabled ? -1 : 0 }}">
+          ng-if="!tv.isCustomTemplate"
+          ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation()"
+          ng-keypress="tv.finishEdit($event)"
+          ng-blur="tv.finishEdit($event)"
+          ng-show="tv.isBeingEdited(this)"
+          ng-model="node.title"
+          focus-on-show
+          tabindex="{{ node.disabled ? -1 : 0 }}">
+
+  <!-- Show Custom Node Template -->
+  <ng-container
+    ng-if="tv.isCustomTemplate"
+    ng-template-outlet
+    ng-template-outlet-url="tv.treeOptions.template"
+    ng-template-outlet-context="{ node: node }">
+  </ng-container>
 
   <a class="pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button"
      ng-show="tv.inlineEdit && tv.canDeleteItem(this)"
@@ -63,7 +85,7 @@
 
 </div>
 
-<ol ui-tree-nodes=""
+<ol ui-tree-nodes
     ng-model="node.nodes"
     ng-class="{ hidden: collapsed }">
   <li ng-repeat="node in node.nodes"
