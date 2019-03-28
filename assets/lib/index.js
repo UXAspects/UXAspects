@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,dropdown,router,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('@angular/cdk/platform'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', '@angular/cdk/platform', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ng.cdk.platform,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
+}(this, (function (exports,angularSplit,platform,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,dropdown,router,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -1271,6 +1271,10 @@
              */
             this.isFocused$ = new BehaviorSubject.BehaviorSubject(false);
             /**
+             * An observable to monitor the focus origin
+             */
+            this.origin$ = new Subject.Subject();
+            /**
              * Remove all subscriptions on destroy
              */
             this._onDestroy = new Subject.Subject();
@@ -1316,6 +1320,23 @@
                     .pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(this.onFocusChange.bind(this));
             };
+        /** Focus the element with a specific origin */
+        /**
+         * Focus the element with a specific origin
+         * @param {?=} origin
+         * @param {?=} options
+         * @return {?}
+         */
+        FocusIndicator.prototype.focus = /**
+         * Focus the element with a specific origin
+         * @param {?=} origin
+         * @param {?=} options
+         * @return {?}
+         */
+            function (origin, options) {
+                this._focusIndicatorOrigin.setOrigin(origin);
+                this._element.focus(options);
+            };
         /** Tear down the subscriptions */
         /**
          * Tear down the subscriptions
@@ -1360,11 +1381,14 @@
                 // if the origin is null then we blurred
                 if (origin === null) {
                     this.isFocused = false;
+                    this.origin$.next(null);
                     return;
                 }
                 // get the origin if there is one
                 /** @type {?} */
                 var syntheticOrigin = this._focusIndicatorOrigin.getOrigin();
+                // emit the origin
+                this.origin$.next(syntheticOrigin || origin);
                 switch (syntheticOrigin || origin) {
                     case 'mouse':
                         this.isFocused = this._options.mouseFocusIndicator;
@@ -1988,6 +2012,11 @@
                 // Remove the container's reference to the source component
                 /** @type {?} */
                 var containerRef = this._containers.find(function (ref) { return ref.container.element.isEqualNode(element); });
+                // technically this function can be called before the register function if ngOnDestroy runs before it
+                // is fully initialized so we should stop here if there is no containRef.
+                if (!containerRef) {
+                    return;
+                }
                 containerRef.removeReference(component);
                 if (!containerRef.isAlive()) {
                     // Last reference was removed, so unregister the listeners
@@ -2698,11 +2727,30 @@
      */
     var TabbableListService = /** @class */ (function () {
         function TabbableListService() {
+            /**
+             * Indicate is this is being using on a hierarchichal set of items
+             */
             this.hierarchy = false;
+            /**
+             * Determine if we all the alt key
+             */
             this.allowAltModifier = true;
+            /**
+             * Determine if we all the ctrl key
+             */
             this.allowCtrlModifier = true;
+            /**
+             * Determine if we allow the Home/End keys
+             */
             this.allowBoundaryKeys = false;
+            /**
+             * Determine if we should scroll the item into view on focus
+             */
             this.shouldScrollInView = true;
+            /**
+             * Indicate if we should refocus an item on QueryList change - for use within virtual lists
+             */
+            this.shouldFocusOnChange = true;
             this._onDestroy = new Subject.Subject();
         }
         /**
@@ -2754,13 +2802,18 @@
             };
         /**
          * @param {?} item
+         * @param {?=} updateIndexOnly
          * @return {?}
          */
         TabbableListService.prototype.activate = /**
          * @param {?} item
+         * @param {?=} updateIndexOnly
          * @return {?}
          */
-            function (item) {
+            function (item, updateIndexOnly) {
+                if (updateIndexOnly === void 0) {
+                    updateIndexOnly = false;
+                }
                 if (!item) {
                     return;
                 }
@@ -2769,7 +2822,7 @@
                 var index = this._items.toArray().indexOf(item);
                 // active the item if it is not already active
                 if (this.focusKeyManager.activeItemIndex !== index) {
-                    this.focusKeyManager.setActiveItem(index);
+                    updateIndexOnly ? this.focusKeyManager.updateActiveItemIndex(index) : this.focusKeyManager.setActiveItem(index);
                 }
             };
         /**
@@ -2904,6 +2957,68 @@
                 return this.flattenHierarchy(topLevel);
             };
         /**
+         * In a uxVirtualFor list cells can be resused. This means that when we scroll
+         * the data associated with a given element may change and not the actual elements. If only the data changes
+         * then the QueryList will not emit a change so we may show focus indicatator on the element that previously displayed
+         * the correct data but no longer does.
+         *
+         * We need to handle this correctly here. We already have keys implements to handle virtual elements so we can check
+         * if a key changes and use it to update the focused item even if the QueryList doesn't inform us that we have changed.
+         */
+        /**
+         * In a uxVirtualFor list cells can be resused. This means that when we scroll
+         * the data associated with a given element may change and not the actual elements. If only the data changes
+         * then the QueryList will not emit a change so we may show focus indicatator on the element that previously displayed
+         * the correct data but no longer does.
+         *
+         * We need to handle this correctly here. We already have keys implements to handle virtual elements so we can check
+         * if a key changes and use it to update the focused item even if the QueryList doesn't inform us that we have changed.
+         * @param {?} previousKey
+         * @param {?} origin
+         * @return {?}
+         */
+        TabbableListService.prototype.itemReferenceChange = /**
+         * In a uxVirtualFor list cells can be resused. This means that when we scroll
+         * the data associated with a given element may change and not the actual elements. If only the data changes
+         * then the QueryList will not emit a change so we may show focus indicatator on the element that previously displayed
+         * the correct data but no longer does.
+         *
+         * We need to handle this correctly here. We already have keys implements to handle virtual elements so we can check
+         * if a key changes and use it to update the focused item even if the QueryList doesn't inform us that we have changed.
+         * @param {?} previousKey
+         * @param {?} origin
+         * @return {?}
+         */
+            function (previousKey, origin) {
+                // find the item that now has the previously focused key
+                /** @type {?} */
+                var item = this.getItemByKey(previousKey);
+                // if no key was found then we should ensure there is a tabbable item
+                if (!item) {
+                    return this.ensureTabbableItem();
+                }
+                // get the item index
+                /** @type {?} */
+                var index = this._items.toArray().indexOf(item);
+                // activate the item without side effects
+                this.focusKeyManager.updateActiveItemIndex(index);
+                // update the tabindex
+                item.tabindex = 0;
+                // focus the item with the same origin that it previously had
+                item.focusWithOrigin(origin);
+            };
+        /**
+         * @param {?} key
+         * @return {?}
+         */
+        TabbableListService.prototype.getItemByKey = /**
+         * @param {?} key
+         * @return {?}
+         */
+            function (key) {
+                return this._items.find(function (item) { return item.key === key; });
+            };
+        /**
          * @param {?} items
          * @return {?}
          */
@@ -2936,21 +3051,23 @@
     /** @type {?} */
     var uniqueKey = 0;
     var TabbableListItemDirective = /** @class */ (function () {
-        function TabbableListItemDirective(_tabbableList, _elementRef, focusIndicatorService, _managedFocusContainerService) {
+        function TabbableListItemDirective(_tabbableList, _elementRef, 
+        /** Access the service to programmatically control focus indicators */
+        focusIndicatorService, _managedFocusContainerService, _platform) {
             var _this = this;
             this._tabbableList = _tabbableList;
             this._elementRef = _elementRef;
             this._managedFocusContainerService = _managedFocusContainerService;
+            this._platform = _platform;
             this.rank = 0;
+            /**
+             * Indicate if this item is disabled
+             */
             this.disabled = false;
             /**
              * Indicate if the item is expanded if used as a hierarchical item.
              */
             this.expanded = false;
-            /**
-             * Provide a unique key to help identify items when used in a virtual list
-             */
-            this.key = "tabbable-list-key-" + uniqueKey++;
             /**
              * Emit when the expanded state changes.
              */
@@ -2961,8 +3078,19 @@
             this.children = [];
             this.keyboardExpanded$ = new Subject.Subject();
             this._onDestroy = new Subject.Subject();
+            /**
+             * Store a default key to use if one is not provided
+             */
+            this._defaultKey = "tabbable-list-key-" + uniqueKey++;
+            /**
+             * Determine if this element has a focus indicator visible
+             */
+            this._focusOrigin = null;
             // create the focus indicator
             this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+            // store the most current focus origin
+            this._focusIndicator.origin$.pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function (origin) { return _this._focusOrigin = origin; });
             this.keyboardExpanded$.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
                 // Emit event which may alter the DOM
                 _this.expandedChange.emit(expanded);
@@ -2977,6 +3105,46 @@
                 }
             });
         }
+        Object.defineProperty(TabbableListItemDirective.prototype, "key", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._key || this._defaultKey;
+            },
+            /** Provide a unique key to help identify items when used in a virtual list */
+            set: /**
+             * Provide a unique key to help identify items when used in a virtual list
+             * @param {?} key
+             * @return {?}
+             */ function (key) {
+                var _this = this;
+                // store the previous key
+                /** @type {?} */
+                var previousKey = this._key;
+                // check if the key has changed eg. via cell reuse
+                /** @type {?} */
+                var didChangeRef = previousKey && key !== previousKey;
+                // update the current key
+                this._key = key;
+                // if this element was the previously tabbable item then update the reference
+                if (didChangeRef && this.isTabbable()) {
+                    // allow the virtual scroll to update
+                    requestAnimationFrame(function () {
+                        // this item should no longer be tabbable
+                        _this.tabindex = -1;
+                        // store the focus origin before we blur
+                        /** @type {?} */
+                        var origin = _this._focusOrigin;
+                        // blur this item
+                        _this._elementRef.nativeElement.blur();
+                        // update the reference
+                        _this._tabbableList.itemReferenceChange(previousKey, origin);
+                    });
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -3016,9 +3184,18 @@
          */
             function () {
                 // apply focus to the element
-                (( /** @type {?} */(this._elementRef.nativeElement))).focus({ preventScroll: !this._tabbableList.shouldScrollInView });
+                this.focusWithOrigin('keyboard', !this._tabbableList.shouldScrollInView);
                 // ensure the focus key manager updates the active item correctly
-                this._tabbableList.activate(this);
+                this._tabbableList.activate(this, true);
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.onFocus = /**
+         * @return {?}
+         */
+            function () {
+                this._tabbableList.activate(this, true);
             };
         /**
          * @param {?} event
@@ -3040,6 +3217,43 @@
             function () {
                 return this._elementRef.nativeElement === document.activeElement;
             };
+        /** We can programmatically focus an element but may want a different origin than 'programmatic' */
+        /**
+         * We can programmatically focus an element but may want a different origin than 'programmatic'
+         * @param {?} origin
+         * @param {?=} preventScroll
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.focusWithOrigin = /**
+         * We can programmatically focus an element but may want a different origin than 'programmatic'
+         * @param {?} origin
+         * @param {?=} preventScroll
+         * @return {?}
+         */
+            function (origin, preventScroll) {
+                if (preventScroll === void 0) {
+                    preventScroll = true;
+                }
+                if (origin) {
+                    /** @type {?} */
+                    var scrollTop = this._tabbableList.containerRef.scrollTop;
+                    // focus the item with a given origin
+                    this._focusIndicator.focus(origin, { preventScroll: preventScroll });
+                    // IE and Firefox don't support prevent scroll
+                    if (preventScroll && !this._platform.WEBKIT) {
+                        this._tabbableList.containerRef.scrollTop = scrollTop;
+                    }
+                }
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.isTabbable = /**
+         * @return {?}
+         */
+            function () {
+                return this.tabindex === 0;
+            };
         TabbableListItemDirective.decorators = [
             { type: core.Directive, args: [{
                         selector: '[uxTabbableListItem]',
@@ -3052,7 +3266,8 @@
                 { type: TabbableListService },
                 { type: core.ElementRef },
                 { type: FocusIndicatorService },
-                { type: ManagedFocusContainerService }
+                { type: ManagedFocusContainerService },
+                { type: platform.Platform }
             ];
         };
         TabbableListItemDirective.propDecorators = {
@@ -3063,7 +3278,7 @@
             key: [{ type: core.Input }],
             expandedChange: [{ type: core.Output }],
             tabindex: [{ type: core.HostBinding }],
-            focus: [{ type: core.HostListener, args: ['focus',] }],
+            onFocus: [{ type: core.HostListener, args: ['focus',] }, { type: core.HostListener, args: ['click',] }],
             onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
         };
         return TabbableListItemDirective;
@@ -3074,7 +3289,9 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var TabbableListDirective = /** @class */ (function () {
-        function TabbableListDirective(_tabbableList) {
+        function TabbableListDirective(_tabbableList, 
+        /** Access the native dom element */
+        elementRef) {
             this._tabbableList = _tabbableList;
             /**
              * Determine whether the up/down arrows should be used or the left/right arrows
@@ -3093,6 +3310,8 @@
              */
             this.returnFocus = false;
             this._onDestroy = new Subject.Subject();
+            // store a reference to the container element
+            this._tabbableList.containerRef = elementRef.nativeElement;
         }
         Object.defineProperty(TabbableListDirective.prototype, "hierarchy", {
             /** Enabling handling of hierarchical lists via use of the `TabbableListItemDirective.parent` property. */
@@ -3167,7 +3386,7 @@
                     // Items are already in order
                     this._orderedItems = this.items;
                     // Ensure we reselect a selected item after the querylist has changed
-                    this.items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (items) {
+                    this.items.changes.pipe(operators.filter(function () { return _this._tabbableList.shouldFocusOnChange; }), operators.takeUntil(this._onDestroy)).subscribe(function (items) {
                         // check if an item is currently focused
                         /** @type {?} */
                         var activeItem = _this._tabbableList.focusKeyManager.activeItem;
@@ -3239,7 +3458,8 @@
         /** @nocollapse */
         TabbableListDirective.ctorParameters = function () {
             return [
-                { type: TabbableListService }
+                { type: TabbableListService },
+                { type: core.ElementRef }
             ];
         };
         TabbableListDirective.propDecorators = {
@@ -3316,7 +3536,8 @@
                         ],
                         imports: [
                             a11y.A11yModule,
-                            ColorServiceModule
+                            ColorServiceModule,
+                            platform.PlatformModule
                         ],
                         exports: [
                             DefaultFocusIndicatorDirective,
@@ -33751,6 +33972,43 @@
                     this.isInitialised$.next(true);
                 }
             };
+        /** Set all resizable columns to the same width */
+        /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+        ResizableTableService.prototype.setUniformWidths = /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // set any disabled columns to their specified width
+                this.columns = this._columns.map(function (column) { return column.disabled ? (column.getNaturalWidth() / _this.tableWidth) * 100 : 0; });
+                // check to see if we've reached 100% of the table width
+                /** @type {?} */
+                var totalWidth = this.columns.reduce(function (partial, columnWidth) { return partial + columnWidth; });
+                if (totalWidth > 100) {
+                    // remove overflow
+                    this.columns = this.ensureNoOverflow(this.columns);
+                }
+                else {
+                    // get the list of resizable columns
+                    /** @type {?} */
+                    var resizableColumns = this._columns.toArray().filter(function (column) { return !column.disabled; });
+                    // work out what we need to add to each column to make up the full width
+                    /** @type {?} */
+                    var newWidth_1 = (100 - totalWidth) / resizableColumns.length;
+                    // set the non-disabled columns to the new width
+                    this.columns = this._columns.map(function (column, idx) { return column.disabled ? _this.columns[idx] : newWidth_1; });
+                }
+                // do the resizing
+                this._columns.forEach(function (column, idx) {
+                    if (!column.disabled) {
+                        _this.resizeColumn(idx, 0, false);
+                    }
+                });
+            };
         /**
          * @param {?} columns
          * @return {?}
@@ -34356,12 +34614,12 @@
          * @return {?}
          */
             function () {
-                if (!this._table.isInitialised$.value) {
-                    return;
-                }
-                if (this.disabled) {
+                if (this.disabled && this._width !== undefined) {
                     this._renderer.setStyle(this._elementRef.nativeElement, 'width', this._width + "px");
                     this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', this._width + "px");
+                    return;
+                }
+                if (!this._table.isInitialised$.value) {
                     return;
                 }
                 /** @type {?} */
@@ -34477,6 +34735,18 @@
             function () {
                 var _this = this;
                 requestAnimationFrame(function () { return _this.columns.forEach(function (_column, index) { return _this._table.resizeColumn(index, 0); }); });
+            };
+        /** Set all resizable columns to the same width */
+        /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+        ResizableTableDirective.prototype.setUniformWidths = /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+            function () {
+                this._table.setUniformWidths();
             };
         /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
         /**
@@ -35730,13 +36000,18 @@
      * @template T
      */
     var VirtualForContainerComponent = /** @class */ (function () {
-        function VirtualForContainerComponent(_elementRef, _virtualScroll) {
+        function VirtualForContainerComponent(_elementRef, _virtualScroll, _tabbableList) {
             this._elementRef = _elementRef;
             this._virtualScroll = _virtualScroll;
+            this._tabbableList = _tabbableList;
             /**
              * Keep a local reference of the dataset
              */
             this._dataset = [];
+            /**
+             * Indicate if the component has finished initialising
+             */
+            this._initialized = false;
             /**
              * Unsubscribe from all observables
              */
@@ -35754,7 +36029,14 @@
              * @param {?} itemSize
              * @return {?}
              */ function (itemSize) {
+                var _this = this;
                 this._virtualScroll.itemSize = itemSize;
+                if (this._initialized) {
+                    requestAnimationFrame(function () {
+                        _this.updateContainer();
+                        _this.virtualFor.updateContexts();
+                    });
+                }
             },
             enumerable: true,
             configurable: true
@@ -35794,7 +36076,11 @@
                     // store the latest dataset
                     _this._dataset = dataset;
                     // update the container properties
-                    requestAnimationFrame(function () { return _this.updateContainer(); });
+                    requestAnimationFrame(function () {
+                        _this.updateContainer();
+                        // mark the component as ready
+                        _this._initialized = true;
+                    });
                 });
             };
         /**
@@ -35844,6 +36130,68 @@
                 // emit the new visible range
                 this._virtualScroll.range.next(this._range);
             };
+        /** If cells are automatically getting their height detected you may want to update the size */
+        /**
+         * If cells are automatically getting their height detected you may want to update the size
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.recalculateCellSize = /**
+         * If cells are automatically getting their height detected you may want to update the size
+         * @return {?}
+         */
+            function () {
+                this.itemSize = 0;
+            };
+        /**
+         * @param {?} event
+         * @param {?} keyCode
+         * @return {?}
+         */
+        VirtualForContainerComponent.prototype.onKeydown = /**
+         * @param {?} event
+         * @param {?} keyCode
+         * @return {?}
+         */
+            function (event, keyCode) {
+                var _this = this;
+                if (!this._tabbableList) {
+                    return;
+                }
+                switch (keyCode) {
+                    case keycodes.PAGE_UP:
+                        this._tabbableList.focusKeyManager.setFirstItemActive();
+                        event.preventDefault();
+                        break;
+                    case keycodes.PAGE_DOWN:
+                        this._tabbableList.focusKeyManager.setLastItemActive();
+                        event.preventDefault();
+                        break;
+                    case keycodes.HOME:
+                        // ensure the QueryList doesn't do any updates until we have finished
+                        this._tabbableList.shouldFocusOnChange = false;
+                        // scroll to the top of the container
+                        this._elementRef.nativeElement.scrollTop = 0;
+                        // after the update the activate the first item
+                        requestAnimationFrame(function () {
+                            _this._tabbableList.focusKeyManager.setFirstItemActive();
+                            _this._tabbableList.shouldFocusOnChange = true;
+                        });
+                        event.preventDefault();
+                        break;
+                    case keycodes.END:
+                        // ensure the QueryList doesn't do any updates until we have finished
+                        this._tabbableList.shouldFocusOnChange = false;
+                        // scroll to the bottom of the container
+                        this._elementRef.nativeElement.scrollTop = this._elementRef.nativeElement.scrollHeight;
+                        // after the update the activate the last item
+                        requestAnimationFrame(function () {
+                            _this._tabbableList.focusKeyManager.setLastItemActive();
+                            _this._tabbableList.shouldFocusOnChange = true;
+                        });
+                        event.preventDefault();
+                        break;
+                }
+            };
         /**
          * @return {?}
          */
@@ -35876,13 +36224,15 @@
         VirtualForContainerComponent.ctorParameters = function () {
             return [
                 { type: core.ElementRef },
-                { type: VirtualForService }
+                { type: VirtualForService },
+                { type: TabbableListService, decorators: [{ type: core.Self }, { type: core.Optional }] }
             ];
         };
         VirtualForContainerComponent.propDecorators = {
             itemSize: [{ type: core.Input }],
             virtualFor: [{ type: core.ContentChild, args: [VirtualForDirective,] }],
-            updateContainer: [{ type: core.HostListener, args: ['scroll',] }]
+            updateContainer: [{ type: core.HostListener, args: ['scroll',] }],
+            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event', '$event.keyCode'],] }]
         };
         return VirtualForContainerComponent;
     }());
@@ -36170,6 +36520,7 @@
         VirtualScrollModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             ResizeModule
                         ],
