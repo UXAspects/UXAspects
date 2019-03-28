@@ -130,6 +130,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** A template which will be rendered in the dropdown if no options match the current filter value. */
     @Input() noOptionsTemplate: TemplateRef<any>;
 
+    /** If `true` the input field will be readonly and selection can only occur by using the dropdown. */
+    @Input() readonlyInput: boolean = false;
+
     /**
      * A template which will be rendered in the dropdown for each option.
      * The following context properties are available in the template:
@@ -317,7 +320,17 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
     }
 
+    /** Handle input focus events */
+    onFocus(): void {
+        // if the input is readonly we do not want to select the text on focus
+        if (this.readonlyInput) {
+            (this.singleInput.nativeElement as HTMLInputElement).setSelectionRange(0, 0);
+        }
+    }
+
     private selectInputText(): void {
-        this.singleInput.nativeElement.select();
+        if (!this.readonlyInput) {
+            this.singleInput.nativeElement.select();
+        }
     }
 }

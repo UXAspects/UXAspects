@@ -1,3 +1,7 @@
+/**
+ * Export Common Functionality
+ */
+export * from './common/colors/index';
 /*
   Export Components
 */
@@ -89,3 +93,4 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
+

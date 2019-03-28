@@ -14,6 +14,18 @@ ux-select {
         word-break: break-all;
     }
 
+    .inner-addon {
+        > input:read-only {
+            background-color: @form-control-bg;
+            color: @form-control-color;
+            border-color: @form-control-border;
+
+            &:focus {
+                border-color: @form-control-focus-border;
+            }
+        }
+    }
+
     .right-addon {
         .select-arrow {
             cursor: pointer;

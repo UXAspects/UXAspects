@@ -1,167 +1,194 @@
-TreeViewCtrl.$inject = ['$scope', '$element', '$timeout'];
+import { ENTER, DELETE } from '@angular/cdk/keycodes';
 
-export default function TreeViewCtrl($scope, $element, $timeout) {
-    var tv = this;
-    //the scope of the parent controller
-    tv.treeScope = null;
+export default class TreeViewCtrl {
 
-    tv.filterFunction = $scope.filterFunction || null;
-    tv.selectedNode = $scope.selected;
-    tv.selectedNodeScope = null;
-    //reference to the node being edited
-    tv.editingNode = null;
-    //The developer can pass in functions for adding new items and adding new folders.
-    //These will be decorated with the internal functionality, not overridden.
-    //if no functions are supplied here, the tree will provide inline edit buttons
-    tv.addItem = $scope.addItem || function() {
-        return null;
-    };
+    static get $inject() {
+        return ['$scope', '$element', '$timeout'];
+    }
 
-    tv.deleteFn = $scope.deleteFn || function() {
-        return null;
-    };
+    get isIconTemplate() {
+        return this.icons && this.icons.hasOwnProperty('template');
+    }
 
-    tv.readOnly = $scope.readOnly || false;
+    get isCustomTemplate() {
+        return this.treeOptions && this.treeOptions.hasOwnProperty('template');
+    }
 
-    tv.treeOptions = $scope.treeOptions || {
-        showTreeLines: true,
-        openOnSelect: false
-    };
+    constructor($scope, $element, $timeout) {
+        this.$scope = $scope;
+        this.$timeout = $timeout;
+        /** the scope of the parent controller */
+        this.treeScope = null;
+        this.filterFunction = $scope.filterFunction || null;
+        this.selectedNode = $scope.selected;
+        this.selectedNodeScope = null;
 
-    tv.inlineEdit = !!(!tv.addItem);
+        /** reference to the node being edited */
+        this.editingNode = null;
 
-    tv.icons = $scope.icons || {
-        folder: {
-            collapsed: "hpe-folder",
-            expanded: "hpe-folder-open"
-        },
-        item: "hpe-document",
-        'default': "hpe-3d"
-    };
+        //The developer can pass in functions for adding new items and adding new folders.
+        //These will be decorated with the internal functionality, not overridden.
+        //if no functions are supplied here, the tree will provide inline edit buttons
+        this.addItem = $scope.addItem || angular.noop();
+        this.deleteFn = $scope.deleteFn || angular.noop();
+        this.readOnly = $scope.readOnly || false;
+        this.treeOptions = $scope.treeOptions || { showTreeLines: true, openOnSelect: false };
+        this.inlineEdit = !!(!this.addItem);
 
+        this.icons = $scope.icons || {
+            folder: {
+                collapsed: 'hpe-folder',
+                expanded: 'hpe-folder-open'
+            },
+            item: 'hpe-document',
+            'default': 'hpe-3d'
+        };
 
-    $scope.$watch('tv.selectedNode', function(nV) {
-        if (nV !== undefined) {
-            $scope.selected = nV;
-        }
-    }, true);
+        $scope.addItem = () => {
+            if (this.selectedNode) {
+                //call decoratee
+                this.newSubItem(this.wrapNode(this.selectedNode), false, this.addItem() || null);
+            }
+        };
 
-    $scope.$watch("selected", function(nv) {
-        tv.selectedNode = nv;
-        tv.ensureVisible(nv);
-    });
+        $scope.deleteFn = scope => {
+            if (this.selectedNode) {
+                if (this.canDeleteItem(scope)) {
+                    //call decoratee
+                    const response = this.deleteFn() || null;
+                    if (response) {
+                        this.$timeout(() => {
+                            if (this.selectedNodeScope.$parentNodeScope !== null) {
+                                this.selectedNodeScope.$parentNodeScope.$element.find('span.title-readonly')[0].focus();
+                            }
+                            this.remove(this.selectedNodeScope);
+                            this.selectedNode = null;
+                            this.selectedNodeScope = null;
+                        });
+                    }
+                }
+            }
+        };
 
-    //Initialisation
-    $timeout(function() {
-        tv.treeScope.collapseAll();
+        $scope.$watch(() => this.selectedNode, selected => {
+            if (selected !== undefined) {
+                $scope.selected = selected;
+            }
+        }, true);
 
-        $timeout(function() {
-            var treeElement = $element.find('.angular-ui-tree');
-            //Make tree visible after it is loaded
-            treeElement.css('max-height', '');
-            treeElement.css('visibility', '');
+        $scope.$watch('selected', selected => {
+            this.selectedNode = selected;
+            this.ensureVisible(selected);
         });
-    });
 
-    tv.init = function(parentScope) {
-        if (!tv.treeScope) {
-            tv.treeScope = parentScope;
+        //Initialisation
+        $timeout(() => {
+            this.treeScope.collapseAll();
+
+            $timeout(() => {
+                const treeElement = $element.find('.angular-ui-tree');
+                //Make tree visible after it is loaded
+                treeElement.css('max-height', '');
+                treeElement.css('visibility', '');
+            });
+        });
+    }
+
+    init(parentScope) {
+        if (!this.treeScope) {
+            this.treeScope = parentScope;
         }
-    };
+    }
 
-    tv.getIcon = function(type, collapsed) {
-        if (tv.icons && type) {
-            var icon = tv.icons[type];
+    getIcon(type, collapsed) {
+
+        if (this.icons && type) {
+            const icon = this.icons[type];
             if (!icon) {
-                return tv.icons["default"];
-            } else if (typeof icon === 'string' || icon instanceof String) {
+                return this.icons['default'];
+            }
+
+            if (typeof icon === 'string' || icon instanceof String) {
                 return icon;
-            } else if (icon.collapsed && collapsed) {
+            }
+
+            if (icon.collapsed && collapsed) {
                 return icon.collapsed;
-            } else if (icon.expanded && !collapsed) {
+            }
+
+            if (icon.expanded && !collapsed) {
                 return icon.expanded;
             }
-            return tv.icons["default"];
-        }
-    };
 
-    tv.getTooltip = function(node) {
+            return this.icons['default'];
+        }
+    }
+
+    getTooltip(node) {
         if (!node.tooltip) {
             return;
         }
 
         return typeof node.tooltip === 'function' ? node.tooltip.call(null, node) : node.tooltip;
-    };
+    }
 
-    tv.canAddItem = function(scope) {
-        return scope.$modelValue.allowChildren && !tv.readOnly && (!tv.selectedNode.permissions || (tv.selectedNode.permissions && tv.selectedNode.permissions.add));
-    };
+    canAddItem(scope) {
+        return scope.$modelValue.allowChildren && !this.readOnly && (!this.selectedNode.permissions || (this.selectedNode.permissions && this.selectedNode.permissions.add));
+    }
 
-    tv.canDeleteItem = function() {
-        return !tv.readOnly && (!tv.selectedNode.permissions || (tv.selectedNode.permissions && tv.selectedNode.permissions.delete));
-    };
+    canDeleteItem() {
+        return !this.readOnly && (!this.selectedNode.permissions || (this.selectedNode.permissions && this.selectedNode.permissions.delete));
+    }
 
-    tv.canEditItem = function() {
-        return !tv.readOnly && (!tv.selectedNode.permissions || (tv.selectedNode.permissions && tv.selectedNode.permissions.edit));
-    };
+    canEditItem() {
+        return !this.readOnly && (!this.selectedNode.permissions || (this.selectedNode.permissions && this.selectedNode.permissions.edit));
+    }
 
-
-
-    tv.newSubItem = function(scope, allowChildren, newItem) {
-        if (tv.canAddItem(scope)) {
+    newSubItem(scope, allowChildren, newItem) {
+        if (this.canAddItem(scope)) {
             //create the new item
-            var nodeData = scope.$modelValue;
-
-            var itemToAdd = newItem || {
-                id: -1,
-                allowChildren: !!allowChildren,
-                title: 'New',
-                nodes: []
-            };
-
-            var length = nodeData.nodes.push(itemToAdd);
+            const nodeData = scope.$modelValue;
+            const itemToAdd = newItem || { id: -1, allowChildren: !!allowChildren, title: 'New', nodes: [] };
+            const length = nodeData.nodes.push(itemToAdd);
 
             //select the new node for editing
             //defer execution until the $$hashKey is available. i.e. after the browser has rendered
             //If you want to manipulate objects before Angular manipulates the DOM you can use evalAsync - from a controller context
             //From a directive context, evalAsync runs after the DOM has been manipulated
-            $timeout(function() {
-                tv.selectedNodeScope.expand();
+            this.$timeout(() => {
+                this.selectedNodeScope.expand();
 
-                tv.selectedNode = nodeData.nodes[length - 1];
-                tv.edit({
-                    $modelValue: nodeData.nodes[length - 1]
-                }, !!newItem);
+                this.selectedNode = nodeData.nodes[length - 1];
+                this.edit({ $modelValue: nodeData.nodes[length - 1] }, !!newItem);
 
-                tv.selectedNodeScope = tv.selectedNodeScope.childNodes()[tv.selectedNodeScope.childNodesCount() - 1];
+                this.selectedNodeScope = this.selectedNodeScope.childNodes()[this.selectedNodeScope.childNodesCount() - 1];
             });
         }
-    };
+    }
 
-    //ng-show="tv.filter(node)"
-    //only show nodes based on their title, or according to the supplied function
-    tv.filter = function(item) {
-        if (tv.filterFunction) {
-            return !!tv.filterFunction(item);
+    /** only show nodes based on their title, or according to the supplied function */
+    filter(item) {
+        if (this.filterFunction) {
+            return !!this.filterFunction(item);
         }
-        return !($scope.query && $scope.query.length > 0 && item.title.indexOf($scope.query) === -1);
-    };
+        return !(this.$scope.query && this.$scope.query.length > 0 && item.title.indexOf(this.$scope.query) === -1);
+    }
 
-    //remove an item from the tree
-    tv.remove = function(scope) {
+    /** remove an item from the tree */
+    remove(scope) {
         scope.remove();
-    };
+    }
 
-    //handle the selected item in the tree
-    tv.select = function(scope) {
+    /** handle the selected item in the tree */
+    select(scope) {
         //check if it's already clicked
-        var firstClick = !tv.isSelected(scope);
+        const firstClick = !this.isSelected(scope);
         //update reference to the selected node
-        tv.selectedNode = scope.$modelValue;
-        tv.selectedNodeScope = scope;
+        this.selectedNode = scope.$modelValue;
+        this.selectedNodeScope = scope;
         //change any text inputs back to spans
-        tv.editingNode = null;
-        if (tv.treeOptions.openOnSelect) {
+        this.editingNode = null;
+        if (this.treeOptions.openOnSelect) {
             //toggle the node
             scope.select(scope);
             //force the node to be expanded if this the initial selection
@@ -170,148 +197,111 @@ export default function TreeViewCtrl($scope, $element, $timeout) {
                 scope.expand();
             }
         }
-    };
+    }
 
-    //call on a node to check if it's currently selected
-    tv.isSelected = function(scope) {
-        if ((tv.selectedNode === null) || (!scope.$modelValue)) {
+    /** call on a node to check if it's currently selected */
+    isSelected(scope) {
+        if ((this.selectedNode === null) || (!scope.$modelValue)) {
             return false;
         }
         //we compare on the internal hashkey in case the titles or IDs aren't unique
-        return (tv.selectedNode.$$hashKey === scope.$modelValue.$$hashKey);
-    };
+        return (this.selectedNode.$$hashKey === scope.$modelValue.$$hashKey);
+    }
 
-    //call on a node to check if it's currently being edited
-    tv.isBeingEdited = function(scope) {
-        if ((tv.editingNode === null) || (!scope.$modelValue)) {
+    /** call on a node to check if it's currently being edited */
+    isBeingEdited(scope) {
+        if ((this.editingNode === null) || (!scope.$modelValue)) {
             return false;
         }
         //we compare on the internal hashkey in case the titles or IDs aren't unique
-        return (tv.editingNode.$$hashKey === scope.$modelValue.$$hashKey);
-    };
+        return (this.editingNode.$$hashKey === scope.$modelValue.$$hashKey);
+    }
 
-    //activate inline edit of the selected node's title
-    tv.edit = function(scope, itemAlreadyCreated) {
+    /** activate inline edit of the selected node's title */
+    edit(scope, itemAlreadyCreated) {
         //if an item was added via the API then it does not need edited here again
         if (itemAlreadyCreated) {
             return;
         }
         //editing is only performed on the currently selected item
-        if (tv.isSelected(scope) && tv.canEditItem(scope)) {
-            tv.editingNode = scope.$modelValue;
-            tv.editingNode.$oV = tv.editingNode.title;
+        if (this.isSelected(scope) && this.canEditItem(scope)) {
+            this.editingNode = scope.$modelValue;
+            this.editingNode.$oV = this.editingNode.title;
             //if possible, select all the text in the input
-            if (tv.selectedNodeScope && tv.selectedNodeScope.$element) {
-                $timeout(function() {
-                    tv.selectedNodeScope.$element.find("input.title-edit").select();
-                });
-
+            if (this.selectedNodeScope && this.selectedNodeScope.$element) {
+                this.$timeout(() => this.selectedNodeScope.$element.find('input.title-edit').select());
             }
         } else {
             //this function is bound to the node title. If it wasn't already selected, click through to the default node action.
-            tv.select(scope);
+            this.select(scope);
         }
-    };
+    }
 
-    //Save off changes to a node
-    tv.finishEdit = function(scope, $event) {
-        if (($event.which === 13) || ($event.type === "blur")) {
+    /** Save off changes to a node */
+    finishEdit($event) {
+        if (($event.which === ENTER) || ($event.type === 'blur')) {
             //if the node is now blank, undo the change
-            if (tv.editingNode && tv.editingNode.title === "") {
-                tv.editingNode.title = tv.editingNode.$oV;
+            if (this.editingNode && this.editingNode.title === '') {
+                this.editingNode.title = this.editingNode.$oV;
             }
             //exit edit mode
-            tv.editingNode = null;
-            if ($event.type === "keypress") {
-                $timeout(function() {
-                    tv.selectedNodeScope.$element.find("span.title-readonly")[0].focus();
-                });
+            this.editingNode = null;
+            if ($event.type === 'keypress') {
+                this.$timeout(() => this.selectedNodeScope.$element.find('span.title-readonly')[0].focus());
             }
         }
-    };
+    }
 
-    $scope.addItem = function() {
-        if (tv.selectedNode) {
-            //call decoratee
-            var newItem = tv.addItem() || null;
-            tv.newSubItem(tv.wrapNode(tv.selectedNode), false, newItem);
-        }
-    };
+    wrapNode(node) {
+        return { $modelValue: node };
+    }
 
-    $scope.deleteFn = function(scope) {
-        if (tv.selectedNode) {
-            if (tv.canDeleteItem(scope)) {
-                //call decoratee
-                var response = tv.deleteFn() || null;
-                if (response) {
-                    $timeout(function() {
-                        if (tv.selectedNodeScope.$parentNodeScope !== null) {
-                            tv.selectedNodeScope.$parentNodeScope.$element.find("span.title-readonly")[0].focus();
-                        }
-                        tv.remove(tv.selectedNodeScope);
-                        tv.selectedNode = null;
-                        tv.selectedNodeScope = null;
-                    });
-                }
-            }
-        }
-    };
-
-    tv.wrapNode = function(node) {
-        return {
-            $modelValue: node
-        };
-    };
-
-    tv.keyboardSelect = function(scope, $event) {
-        if ($event.which === 13) {
-            //enter
-            tv.edit(scope);
-        } else if ($event.which === 45) {
-            //insert
-            tv.select(scope);
-            if ($scope.addItem) {
-                $scope.addItem(scope);
+    keyboardSelect(scope, $event) {
+        if ($event.which === ENTER) {
+            this.edit(scope);
+        } else if ($event.which === 45) { // insert
+            this.select(scope);
+            if (this.$scope.addItem) {
+                this.$scope.addItem(scope);
             }
 
-        } else if ($event.which === 46) {
-            //delete
-            tv.select(scope);
-            if ($scope.deleteFn) {
-                $scope.deleteFn(scope);
+        } else if ($event.which === DELETE) {
+            this.select(scope);
+            if (this.$scope.deleteFn) {
+                this.$scope.deleteFn(scope);
             }
         }
-    };
+    }
 
-    // Find the node in the table and expand to it
-    tv.ensureVisible = function(node) {
-        var nodeScope = tv.findNodeScope(node, tv.treeScope.$nodesScope.childNodes());
+    /** Find the node in the table and expand to it */
+    ensureVisible(node) {
+        const nodeScope = this.findNodeScope(node, this.treeScope.$nodesScope.childNodes());
         if (nodeScope !== null) {
-            tv.expandToNode(nodeScope);
+            this.expandToNode(nodeScope);
         }
-    };
+    }
 
-    // Return the scope for the node in the given scope hierarchy
-    tv.findNodeScope = function(node, scopes) {
-        var result = null;
-        for (var i = 0; i < scopes.length; i += 1) {
+    /** Return the scope for the node in the given scope hierarchy*/
+    findNodeScope(node, scopes) {
+        let result = null;
+        for (let i = 0; i < scopes.length; i += 1) {
             if (scopes[i].$modelValue === node) {
                 result = scopes[i];
             }
             else if (scopes[i].$childNodesScope) {
-                result = tv.findNodeScope(node, scopes[i].$childNodesScope.childNodes());
+                result = this.findNodeScope(node, scopes[i].$childNodesScope.childNodes());
             }
             if (result !== null) break;
         }
         return result;
-    };
+    }
 
-    // Expand all parents of the node
-    tv.expandToNode = function(nodeScope) {
-        var currentScope = nodeScope;
+    /** Expand all parents of the node */
+    expandToNode(nodeScope) {
+        let currentScope = nodeScope;
         while (currentScope.$parentNodeScope) {
             currentScope = currentScope.$parentNodeScope;
             currentScope.expand();
         }
-    };
+    }
 }

@@ -29,6 +29,7 @@
     "dist",
     "**/snippets/*.ts",
     "e2e",
-    "test"
+    "test",
+    "**/*.spec.ts"
   ]
 }
