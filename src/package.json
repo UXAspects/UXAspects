@@ -5,6 +5,7 @@
   "main": "dist/bundles/ux-aspects.umd.js",
   "files": [
     "bundles/",
+    "common/",
     "components/",
     "directives/",
     "dist/",
