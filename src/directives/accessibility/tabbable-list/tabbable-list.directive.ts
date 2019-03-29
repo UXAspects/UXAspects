@@ -39,8 +39,13 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     /** Find all tabbable list items */
     @ContentChildren(TabbableListItemDirective, { descendants: true }) items: QueryList<TabbableListItemDirective>;
 
+    /** Store the currently focused HTML element */
     private _focusedElement: HTMLElement;
+
+    /** Store the items in a specific order */
     private _orderedItems: QueryList<TabbableListItemDirective>;
+
+    /** Unsubscribe from all observables automatically on destroy */
     private _onDestroy = new Subject<void>();
 
     get focusKeyManager(): FocusKeyManager<TabbableListItemDirective> {

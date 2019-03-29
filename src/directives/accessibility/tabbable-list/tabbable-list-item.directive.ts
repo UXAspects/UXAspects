@@ -1,10 +1,11 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
+import { FocusIndicatorOriginService } from '../focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 import { ManagedFocusContainerService } from '../managed-focus-container/managed-focus-container.service';
 import { TabbableListService } from './tabbable-list.service';
@@ -47,7 +48,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
             // allow the virtual scroll to update
             requestAnimationFrame(() => {
                 // this item should no longer be tabbable
-                this.tabindex = -1;
+                this._tabbableList.focusKeyManager.updateActiveItemIndex(-1);
 
                 // store the focus origin before we blur
                 const origin = this._focusOrigin;
@@ -68,16 +69,23 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     /** Emit when the expanded state changes. */
     @Output() expandedChange = new EventEmitter<boolean>();
 
-    @HostBinding() tabindex: number = -1;
+    @HostBinding() get tabindex(): number {
+        return this._tabbableList.isItemActive(this) ? 0 : -1;
+    }
 
+    /** Give each tabbable item a unique id */
     id: number = nextId++;
 
+    /** Each item in the list needs to be initialised by the service. When the item QueryList changes this is used to identify which items previously existed and which are new */
     initialized: boolean = false;
 
+    /** Store a list of all child tabbable items */
     children: TabbableListItemDirective[] = [];
 
+    /** Emit whenever the expanded state changes */
     keyboardExpanded$ = new Subject<boolean>();
 
+    /** Automatically unsubscribe from all observables */
     private _onDestroy = new Subject<void>();
 
     /** Store a reference to the focus indicator instance */
@@ -102,7 +110,11 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         /** Access the service responsible for handling focus in child elements */
         private _managedFocusContainerService: ManagedFocusContainerService,
         /** Access the service which can provide us with browser identification */
-        private _platform: Platform
+        private _platform: Platform,
+        /** Access the change detector to ensure tabindex gets updated as expects */
+        private _changeDetector: ChangeDetectorRef,
+        /** Access the focus origin if one is provided */
+        private _focusOriginService: FocusIndicatorOriginService
     ) {
 
         // create the focus indicator
@@ -111,6 +123,10 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         // store the most current focus origin
         this._focusIndicator.origin$.pipe(takeUntil(this._onDestroy))
             .subscribe(origin => this._focusOrigin = origin);
+
+        // watch for changes to tabindexes
+        this._tabbableList.onTabIndexChange.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._changeDetector.detectChanges());
 
         this.keyboardExpanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
 
@@ -130,10 +146,6 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     onInit(): void {
         this.initialized = true;
-
-        this._tabbableList.focusKeyManager.change
-            .pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
-            .subscribe(active => this.tabindex = active ? 0 : -1);
 
         // Watch for focus within the container element and manage tabindex of descendants
         this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
@@ -156,11 +168,14 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     focus(): void {
 
+        // check if there are currently any items that are tabbable
+        const hasTabbableItem = this._tabbableList.hasTabbableItem();
+
         // apply focus to the element
-        this.focusWithOrigin('keyboard', !this._tabbableList.shouldScrollInView);
+        this.focusWithOrigin(hasTabbableItem ? this._focusOriginService.getOrigin() || 'keyboard' : 'keyboard', !this._tabbableList.shouldScrollInView);
 
         // ensure the focus key manager updates the active item correctly
-        this._tabbableList.activate(this, true);
+        this._tabbableList.activate(this, hasTabbableItem);
     }
 
     @HostListener('focus')
