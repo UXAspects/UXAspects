@@ -3,7 +3,7 @@ ux-select {
         font-size: 1.125rem;
 
         ux-typeahead {
-            font-size: initial;
+            font-size: 1rem;
         }
     }
 
@@ -15,13 +15,15 @@ ux-select {
     }
 
     .inner-addon {
-        > input:read-only {
+        > input[readonly] {
             background-color: @form-control-bg;
             color: @form-control-color;
             border-color: @form-control-border;
+            .placeholder(@form-control-placeholder-color);
 
             &:focus {
                 border-color: @form-control-focus-border;
+                .placeholder(@form-control-placeholder-color);
             }
         }
     }
