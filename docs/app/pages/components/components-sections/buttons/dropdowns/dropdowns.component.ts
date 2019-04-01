@@ -27,8 +27,6 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
         'Alpha 3',
     ];
 
-    isOpen: boolean = false;
-
     caseFilter = '';
 
     playground: IPlayground = {
