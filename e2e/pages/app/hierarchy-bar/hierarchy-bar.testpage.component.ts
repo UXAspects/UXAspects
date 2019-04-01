@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-hierarchy-bar',
@@ -9,6 +9,10 @@ import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
     styleUrls: ['./hierarchy-bar.testpage.component.css']
 })
 export class HierarchyBarTestPageComponent {
+
+    showLeftAddon: boolean = false;
+    showTrailingAddon: boolean = false;
+    showRightAddon: boolean = false;
 
     managerIcon = 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png';
     userIcon = 'https://uxaspects.github.io/UXAspects/assets/IconUser.png';
@@ -82,7 +86,7 @@ export class HierarchyBarTestPageComponent {
                                 children: [
                                     {
                                         title: 'Bob Collins',
-                                        icon: this.userIcon,                                        
+                                        icon: this.userIcon,
                                     }
                                 ]
                             }
