@@ -8,6 +8,7 @@ import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 })
 export class MenuNavigationToggleDirective implements OnDestroy {
 
+    /** Define if the menu is open */
     @Input()
     get menuOpen(): boolean {
         return this._menuOpen;
@@ -18,16 +19,19 @@ export class MenuNavigationToggleDirective implements OnDestroy {
         this.menuOpenChange.emit(value);
     }
 
-    @Input()
-    menuPosition: 'top' | 'right' | 'bottom' | 'left' = 'bottom';
+    /** Define the position of the menu relative to the button */
+    @Input() menuPosition: 'top' | 'right' | 'bottom' | 'left' = 'bottom';
 
-    @Output()
-    menuOpenChange = new EventEmitter<boolean>();
+    /** Emit when the menu open state changes */
+    @Output() menuOpenChange = new EventEmitter<boolean>();
 
-    @Output()
-    keyEnter = new EventEmitter<void>();
+    /** Emit whenever a key that opens the menu is pressed */
+    @Output() keyEnter = new EventEmitter<void>();
 
+    /** Store the current menu open state */
     private _menuOpen: boolean;
+
+    /** Store a reference to the focus indicator */
     private _focusIndicator: FocusIndicator;
 
     constructor(private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {

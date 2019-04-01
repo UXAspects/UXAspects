@@ -92,6 +92,18 @@
                         {
                             "title": "Library",
                             "content": "ngx-bootstrap"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "uxMenuNavigation, uxMenuNavigationToggle, uxMenuNavigationItem"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "MenuNavigationModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "@ux-aspects/ux-aspects"
                         }
                     ]
                 },

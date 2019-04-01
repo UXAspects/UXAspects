@@ -1,92 +1,133 @@
-<div class="btn-group" dropdown>
-    <button dropdownToggle type="button" class="btn button-secondary dropdown-toggle">
+<div class="btn-group"
+     dropdown
+     #dropdown="bs-dropdown"
+     (onHidden)="isMarkAsMenuOpen = false">
+
+    <button dropdownToggle
+            id="button-dropdown-toggle"
+            type="button"
+            class="btn button-secondary dropdown-toggle"
+            aria-haspopup="true"
+            [attr.aria-expanded]="dropdown.isOpen"
+            uxMenuNavigationToggle
+            [(menuOpen)]="dropdown.isOpen"
+            #menuNavigationToggle="uxMenuNavigationToggle">
         Actions <span class="hpe-icon hpe-down dropdown-icon-inline"></span>
     </button>
-    <ul *dropdownMenu class="dropdown-menu dropdown-menu-demo" role="menu">
-        <li role="menuitem" class="dropdown-submenu">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
+
+    <ul *dropdownMenu
+        class="dropdown-menu dropdown-menu-demo"
+        role="menu"
+        aria-labelledby="button-dropdown-toggle"
+        uxMenuNavigation
+        [toggleButton]="menuNavigationToggle"
+        toggleButtonPosition="top">
+
+        <li role="menuitem" class="dropdown-submenu" >
+            <a href="javascript:void(0);"
+               class="dropdown-menu-item"
+               uxMenuNavigationItem
+               tabindex="-1"
+               uxMenuNavigationToggle
+               [(menuOpen)]="isMarkAsMenuOpen"
+               menuPosition="right"
+               #markAsMenuNavigationToggle="uxMenuNavigationToggle">
+
                 <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Mark as
-                </span>
+                <span class="dropdown-menu-text">Mark as</span>
                 <span class="dropdown-menu-right dropdown-menu-hint">
                     <i class="hpe-icon hpe-next"></i>
                 </span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-demo" role="menu">
+            <ul class="dropdown-menu dropdown-menu-demo"
+                role="menu"
+                uxMenuNavigation
+                [toggleButton]="markAsMenuNavigationToggle"
+                toggleButtonPosition="left"
+                [class.dropdown-open]="isMarkAsMenuOpen">
+
                 <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
+                    <a href="javascript:void(0);"
+                       class="dropdown-menu-item"
+                       uxMenuNavigationItem tabindex="-1">
                         <span class="dropdown-menu-icon">
                             <i class="hpe-icon hpe-more"></i>
                         </span>
-                        <span class="dropdown-menu-text">
-                            Pending
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+P
-                        </span>
+                        <span class="dropdown-menu-text">Pending</span>
+                        <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
                     </a>
                 </li>
                 <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
+                    <a href="javascript:void(0);"
+                       class="dropdown-menu-item"
+                       uxMenuNavigationItem tabindex="-1">
                         <span class="dropdown-menu-icon">
                             <i class="hpe-icon hpe-link-up"></i>
                         </span>
-                        <span class="dropdown-menu-text">
-                            Escalated
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+E
-                        </span>
+                        <span class="dropdown-menu-text">Escalated</span>
+                        <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
                     </a>
                 </li>
                 <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
+                    <a href="javascript:void(0);"
+                       class="dropdown-menu-item"
+                       uxMenuNavigationItem tabindex="-1">
                         <span class="dropdown-menu-icon">
                             <i class="hpe-icon hpe-checkmark"></i>
                         </span>
-                        <span class="dropdown-menu-text">
-                            Closed
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+C
-                        </span>
+                        <span class="dropdown-menu-text">Closed</span>
+                        <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
                     </a>
                 </li>
             </ul>
         </li>
         <li class="divider"></li>
         <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
+            <a href="javascript:void(0);"
+               class="dropdown-menu-item"
+               uxMenuNavigationItem tabindex="-1">
                 <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Export
-                </span>
+                <span class="dropdown-menu-text">Export</span>
             </a>
         </li>
         <li role="menuitem" class="dropdown-submenu">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
+            <a href="javascript:void(0);"
+               class="dropdown-menu-item"
+               uxMenuNavigationItem
+               tabindex="-1"
+               uxMenuNavigationToggle
+               [(menuOpen)]="isAddCaseMenuOpen"
+               menuPosition="right"
+               #addCaseMenuNavigationToggle="uxMenuNavigationToggle">
                 <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Add to case
-                </span>
+                <span class="dropdown-menu-text">Add to case</span>
                 <span class="dropdown-menu-right dropdown-menu-hint">
                     <i class="hpe-icon hpe-next"></i>
                 </span>
             </a>
-            <div class="dropdown-menu case-dropdown">
+            <div class="dropdown-menu case-dropdown"
+                 uxMenuNavigation
+                 [toggleButton]="addCaseMenuNavigationToggle"
+                 toggleButtonPosition="left"
+                 [class.dropdown-open]="isAddCaseMenuOpen">
                 <div class="case-filter">
                     <div class="inner-addon right-addon">
                         <i class="hpe-icon hpe-search"></i>
-                        <input type="text" class="form-control" [(ngModel)]="caseFilter"
-                            (click)="$event.stopPropagation();" />
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="caseFilter"
+                               (click)="$event.stopPropagation();" />
                     </div>
                 </div>
                 <div>
                     <div class="case-items">
                         <ul>
                             <li role="menuitem" *ngFor="let case of cases | stringFilter: caseFilter">
-                                <a href="javascript:void(0);">{{case}}</a>
+                                <a href="javascript:void(0);"
+                                   uxMenuNavigationItem
+                                   tabindex="-1">
+                                   {{ case }}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -94,38 +135,35 @@
             </div>
         </li>
         <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
+            <a href="javascript:void(0);"
+               class="dropdown-menu-item"
+               uxMenuNavigationItem
+               tabindex="-1">
                 <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Save list
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+L
-                </span>
+                <span class="dropdown-menu-text">Save list</span>
+                <span class="dropdown-menu-right dropdown-menu-hint">ALT+L</span>
             </a>
         </li>
         <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
+            <a href="javascript:void(0);"
+               class="dropdown-menu-item"
+               uxMenuNavigationItem
+               tabindex="-1">
                 <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Save search query
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+S
-                </span>
+                <span class="dropdown-menu-text">Save search query</span>
+                <span class="dropdown-menu-right dropdown-menu-hint">ALT+S</span>
             </a>
         </li>
         <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
+            <a href="javascript:void(0);"
+               class="dropdown-menu-item"
+               uxMenuNavigationItem
+               tabindex="-1">
                 <span class="dropdown-menu-icon">
                     <i class="hpe-icon hpe-edit"></i>
                 </span>
-                <span class="dropdown-menu-text">
-                    Annotate
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+A
-                </span>
+                <span class="dropdown-menu-text">Annotate</span>
+                <span class="dropdown-menu-right dropdown-menu-hint">ALT+A</span>
             </a>
         </li>
     </ul>

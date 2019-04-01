@@ -1,6 +1,5 @@
 import { DOWN_ARROW, END, ESCAPE, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
@@ -12,46 +11,40 @@ import { MenuNavigationService } from './menu-navigation.service';
     exportAs: 'uxMenuNavigation',
     providers: [MenuNavigationService]
 })
-export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDestroy {
+export class MenuNavigationDirective implements OnInit, OnDestroy {
 
-    @Input()
-    toggleButton: MenuNavigationToggleDirective;
+    /** Define the menu toggle button */
+    @Input() toggleButton: MenuNavigationToggleDirective;
 
-    @Input()
-    toggleButtonPosition: 'top' | 'right' | 'bottom' | 'left' = 'top';
+    /** Define the position of the toggle button relative to the menu */
+    @Input() toggleButtonPosition: 'top' | 'right' | 'bottom' | 'left' = 'top';
 
-    @Output()
-    navigatedOut = new EventEmitter<KeyboardEvent>();
+    /** Emit when the menu is no longer focused */
+    @Output() navigatedOut = new EventEmitter<KeyboardEvent>();
 
-    @ContentChildren(MenuNavigationItemDirective, { descendants: true })
-    items: QueryList<MenuNavigationItemDirective>;
-
+    /** Get the index of the currently active item */
     get activeIndex(): number {
-        return this._itemsOrdered.indexOf(this._service.active$.value);
+        return this.menuItems.indexOf(this._menuNavigationService.active$.value);
     }
 
-    private _itemsOrdered: MenuNavigationItemDirective[];
+    // get the list of menu items
+    get menuItems(): ReadonlyArray<MenuNavigationItemDirective> {
+        return this._menuNavigationService.menuItems;
+    }
+
+    /** Determine if the menu currently has focus */
+    private _isFocused: boolean = false;
+
+    /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
 
-    constructor(
-        private _service: MenuNavigationService,
-        private _elementRef: ElementRef,
-        @Inject(DOCUMENT) private _document: any
-    ) { }
+    constructor(private _menuNavigationService: MenuNavigationService) { }
 
     ngOnInit(): void {
         if (this.toggleButton) {
             this.toggleButton.keyEnter.pipe(takeUntil(this._onDestroy))
                 .subscribe(() => this.focusFirst());
         }
-    }
-
-    ngAfterContentInit(): void {
-
-        this.items.changes.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this._itemsOrdered = this.items.toArray());
-
-        this._itemsOrdered = this.items.toArray();
     }
 
     ngOnDestroy(): void {
@@ -63,11 +56,21 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
         this.moveFirst();
     }
 
-    @HostListener('document:keydown', ['$event'])
+    @HostListener('focusin')
+    onFocusIn(): void {
+        this._isFocused = true;
+    }
+
+    @HostListener('focusout')
+    onFocusOut(): void {
+        this._isFocused = false;
+    }
+
+    @HostListener('keydown', ['$event'])
     keydownHandler(event: KeyboardEvent): void {
 
         // Only handle events when focus in within the list of menu items
-        if (!this._elementRef.nativeElement.contains(this._document.activeElement)) {
+        if (this._isFocused === false) {
             return;
         }
 
@@ -129,11 +132,11 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
         }
 
         const nextIndex = this.activeIndex + 1;
-        if (nextIndex < this._itemsOrdered.length) {
+        if (nextIndex < this.menuItems.length) {
 
             // Activate the next menu item
             // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
-            this._service.active$.next(this._itemsOrdered[nextIndex]);
+            this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
 
         } else {
 
@@ -156,7 +159,7 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
 
             // Activate the previous menu item
             // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
-            this._service.active$.next(this._itemsOrdered[nextIndex]);
+            this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
 
         } else {
 
@@ -168,14 +171,14 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
     }
 
     private moveFirst(): void {
-        if (this._itemsOrdered.length > 0) {
-            this._service.active$.next(this._itemsOrdered[0]);
+        if (this.menuItems.length > 0) {
+            this._menuNavigationService.active$.next(this.menuItems[0]);
         }
     }
 
     private moveLast(): void {
-        if (this._itemsOrdered.length > 0) {
-            this._service.active$.next(this._itemsOrdered[this._itemsOrdered.length - 1]);
+        if (this.menuItems.length > 0) {
+            this._menuNavigationService.active$.next(this.menuItems[this.menuItems.length - 1]);
         }
     }
 

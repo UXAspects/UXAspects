@@ -39,7 +39,11 @@ export class FocusIndicator {
         private readonly _renderer: Renderer2,
         private _options: FocusIndicatorOptions,
         private _focusIndicatorOrigin: FocusIndicatorOriginService) {
-        this.initialise();
+
+        // check if the element is already being monitored
+        if (!_element.classList.contains('ux-focus-indicator')) {
+            this.initialise();
+        }
     }
 
     /** Setup the focus monitoring */
