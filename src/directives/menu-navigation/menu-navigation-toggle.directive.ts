@@ -1,3 +1,4 @@
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
@@ -19,13 +20,13 @@ export class MenuNavigationToggleDirective implements OnDestroy {
         this.menuOpenChange.emit(value);
     }
 
-    /** Define the position of the menu relative to the button */
+    /** Define the position the menu appears relative to the button */
     @Input() menuPosition: 'top' | 'right' | 'bottom' | 'left' = 'bottom';
 
     /** Emit when the menu open state changes */
     @Output() menuOpenChange = new EventEmitter<boolean>();
 
-    /** Emit whenever a key that opens the menu is pressed */
+    /** Emits whenever a key that opens the menu is pressed */
     @Output() keyEnter = new EventEmitter<void>();
 
     /** Store the current menu open state */
@@ -34,16 +35,16 @@ export class MenuNavigationToggleDirective implements OnDestroy {
     /** Store a reference to the focus indicator */
     private _focusIndicator: FocusIndicator;
 
-    constructor(private _elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
-        this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+    constructor(elementRef: ElementRef, focusIndicatorService: FocusIndicatorService) {
+        this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
     }
 
     ngOnDestroy(): void {
         this._focusIndicator.destroy();
     }
 
-    focus(): void {
-        this._elementRef.nativeElement.focus();
+    focus(origin?: FocusOrigin): void {
+        this._focusIndicator.focus(origin);
     }
 
     @HostListener('keydown', ['$event'])

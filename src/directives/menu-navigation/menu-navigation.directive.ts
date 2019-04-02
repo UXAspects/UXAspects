@@ -113,7 +113,7 @@ export class MenuNavigationDirective implements OnInit, OnDestroy {
                 break;
 
             case ESCAPE:
-                this.navigatedOut.emit(event);
+                this.moveToToggleButton(event);
                 handled = true;
                 break;
         }
@@ -184,7 +184,7 @@ export class MenuNavigationDirective implements OnInit, OnDestroy {
 
     private moveToToggleButton(event: KeyboardEvent): void {
         if (this.toggleButton) {
-            this.toggleButton.focus();
+            this.toggleButton.focus('keyboard');
             this.toggleButton.menuOpen = false;
         }
 
