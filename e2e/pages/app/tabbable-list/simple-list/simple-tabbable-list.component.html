@@ -1,0 +1,30 @@
+<div class="container m-t-xl" *ngIf="!isResetting">
+
+    <input class="form-control m-b-xl" #input type="text" placeholder="Search..." (input)="search(input.value)">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="text-black">NAME</th>
+                <th class="text-black">AUTHOR</th>
+                <th class="text-black">DATE MODIFIED</th>
+            </tr>
+        </thead>
+        <tbody uxTabbableList [wrap]="shouldWrap" [allowBoundaryKeys]="allowBoundaryKeys" [focusOnShow]="focusOnShow">
+            <tr uxTabbableListItem class="clickable" *ngFor="let document of documents">
+                <td>{{ document.name }}</td>
+                <td>{{ document.author }}</td>
+                <td>{{ document.date | date }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <div class="btn-container">
+        <button id="wrap-button" class="btn button-secondary" (click)="shouldWrap = !shouldWrap; resetView()">Toggle Wrap</button>
+        <button id="boundary-button" class="btn button-secondary" (click)="allowBoundaryKeys = !allowBoundaryKeys; resetView()">Toggle Boundary Keys</button>
+        <button id="focus-on-show-button" class="btn button-secondary" (click)="focusOnShow = !focusOnShow; resetView()">Toggle Focus On Show</button>
+    </div>
+
+</div>

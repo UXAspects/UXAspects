@@ -46,19 +46,19 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         if (didChangeRef && this.isTabbable()) {
 
             // allow the virtual scroll to update
-            requestAnimationFrame(() => {
-                // this item should no longer be tabbable
-                this._tabbableList.focusKeyManager.updateActiveItemIndex(-1);
+            this._changeDetector.detectChanges();
 
-                // store the focus origin before we blur
-                const origin = this._focusOrigin;
+            // this item should no longer be tabbable
+            this._tabbableList.focusKeyManager.updateActiveItemIndex(-1);
 
-                // blur this item
-                this._elementRef.nativeElement.blur();
+            // store the focus origin before we blur
+            const origin = this._focusOrigin;
 
-                // update the reference
-                this._tabbableList.itemReferenceChange(previousKey, origin);
-            });
+            // blur this item
+            this._elementRef.nativeElement.blur();
+
+            // update the reference
+            this._tabbableList.itemReferenceChange(previousKey, origin);
         }
     }
 
@@ -181,7 +181,21 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     @HostListener('focus')
     @HostListener('click')
     onFocus(): void {
-        this._tabbableList.activate(this, true);
+        // if this item is not currently focused in the focusKeyManager set it as the active item
+        if (!this._tabbableList.isItemActive(this)) {
+            this._tabbableList.activate(this, true);
+        }
+
+        // also inform the service that an item within the list is now focused
+        this._tabbableList.isFocused = true;
+    }
+
+    @HostListener('blur')
+    onBlur(): void {
+        // if this is the current active item and it is blurred then update the isFocused state
+        if (this._tabbableList.isItemActive(this)) {
+            this._tabbableList.isFocused = false;
+        }
     }
 
     @HostListener('keydown', ['$event'])

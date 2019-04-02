@@ -85,31 +85,32 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
             this._orderedItems = this.items;
 
             // Ensure we reselect a selected item after the querylist has changed
-            this.items.changes.pipe(filter(() => this._tabbableList.shouldFocusOnChange), takeUntil(this._onDestroy)).subscribe((items: QueryList<TabbableListItemDirective>) => {
+            this.items.changes.pipe(filter(() => this._tabbableList.shouldFocusOnChange && this._tabbableList.isFocused), takeUntil(this._onDestroy))
+                .subscribe((items: QueryList<TabbableListItemDirective>) => {
 
-                // check if an item is currently focused
-                const activeItem = this._tabbableList.focusKeyManager.activeItem;
+                    // check if an item is currently focused
+                    const activeItem = this._tabbableList.focusKeyManager.activeItem;
 
-                // restore the selected item if there was one and it is still visible
-                if (activeItem) {
+                    // restore the selected item if there was one and it is still visible
+                    if (activeItem) {
 
-                    // find the matching index
-                    const index = items.toArray().findIndex(item => item.key === activeItem.key);
+                        // find the matching index
+                        const index = items.toArray().findIndex(item => item.key === activeItem.key);
 
-                    // if the item is still in the list we want to focus it
-                    if (index > -1) {
+                        // if the item is still in the list we want to focus it
+                        if (index > -1) {
 
-                        // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
-                        this._tabbableList.shouldScrollInView = false;
+                            // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
+                            this._tabbableList.shouldScrollInView = false;
 
-                        // refocus the item again
-                        this._tabbableList.focusKeyManager.setActiveItem(index);
+                            // refocus the item again
+                            this._tabbableList.activateItemAtIndex(index, !this._tabbableList.isFocused);
 
-                        // re-enable scrolling into view
-                        this._tabbableList.shouldScrollInView = true;
+                            // re-enable scrolling into view
+                            this._tabbableList.shouldScrollInView = true;
+                        }
                     }
-                }
-            });
+                });
         }
 
         // Set up the focus monitoring

@@ -35,8 +35,16 @@ export class TabbableListService implements OnDestroy {
     /** Emit whenever focus does not change but tabindexes have */
     onTabIndexChange = new Subject<void>();
 
+    /** Determine if focus is currently within the tabbable list */
+    isFocused: boolean = false;
+
+    /** Store the list of tabbable items */
     private _items: QueryList<TabbableListItemDirective>;
+
+    /** Store the direction of the list */
     private _direction: 'horizontal' | 'vertical';
+
+    /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
 
     ngOnDestroy(): void {
@@ -79,6 +87,7 @@ export class TabbableListService implements OnDestroy {
         });
     }
 
+    /** Give and item focus or just make it the current tabbable item */
     activate(item: TabbableListItemDirective, updateIndexOnly: boolean = false): void {
 
         if (!item) {
@@ -87,6 +96,12 @@ export class TabbableListService implements OnDestroy {
 
         // get the item index
         const index = this._items.toArray().indexOf(item);
+
+        this.activateItemAtIndex(index, updateIndexOnly);
+    }
+
+    /** Give and item focus or just make it the current tabbable item */
+    activateItemAtIndex(index: number, updateIndexOnly: boolean = false): void {
 
         // if we only want to update the index
         if (updateIndexOnly) {
