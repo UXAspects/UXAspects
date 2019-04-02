@@ -15,7 +15,7 @@ ux-select {
     }
 
     .inner-addon {
-        > input[readonly] {
+        > input[readonly]:not(:disabled) {
             background-color: @form-control-bg;
             color: @form-control-color;
             border-color: @form-control-border;
@@ -32,6 +32,12 @@ ux-select {
         .select-arrow {
             cursor: pointer;
             pointer-events: all;
+        }
+
+        &.disabled {
+            .select-arrow {
+                cursor: default;
+            }
         }
     }
 }

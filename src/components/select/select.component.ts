@@ -315,6 +315,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Toggle the dropdown open state */
     toggle(): void {
+
+        // if the select is disabled then do not show the dropdown
+        if (this.disabled) {
+            return;
+        }
+
         if (this.dropdownOpen) {
             this.dropdownOpen = false;
         } else {
