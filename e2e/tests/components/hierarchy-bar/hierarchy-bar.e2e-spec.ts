@@ -80,6 +80,49 @@ describe('Hierarchy Bar Tests', () => {
         expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
     });
 
+    it('should not have any addons initially', async () => {
+        expect((await page.getAddons()).length).toBe(0);
+    });
+
+    it('should show left addon', async () => {
+        // show the left addon
+        await page.showLeftAddonBtn.click();
+
+        // there should now be one addon
+        expect((await page.getAddons()).length).toBe(1);
+
+        // check the text of the addon
+        const addon = (await page.getAddons())[0];
+
+        expect(await addon.getAttribute('innerText')).toBe('LEFT ADDON');
+    });
+
+    it('should show trailing addon', async () => {
+        // show the trailing addon
+        await page.showTrailingAddonBtn.click();
+
+        // there should now be one addon
+        expect((await page.getAddons()).length).toBe(1);
+
+        // check the text of the addon
+        const addon = (await page.getAddons())[0];
+
+        expect(await addon.getAttribute('innerText')).toBe('TRAILING ADDON');
+    });
+
+    it('should show right addon', async () => {
+        // show the right addon
+        await page.showRightAddonBtn.click();
+
+        // there should now be one addon
+        expect((await page.getAddons()).length).toBe(1);
+
+        // check the text of the addon
+        const addon = (await page.getAddons())[0];
+
+        expect(await addon.getAttribute('innerText')).toBe('RIGHT ADDON');
+    });
+
     /**
      * This test is being a bit flaky across machines so commenting this out for now
      */

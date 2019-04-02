@@ -1,4 +1,5 @@
 import { ENTER } from '@angular/cdk/keycodes';
+import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -166,6 +167,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     constructor(
         private _element: ElementRef,
+        private _platform: Platform,
         @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
@@ -313,6 +315,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Toggle the dropdown open state */
     toggle(): void {
+
+        // if the select is disabled then do not show the dropdown
+        if (this.disabled) {
+            return;
+        }
+
         if (this.dropdownOpen) {
             this.dropdownOpen = false;
         } else {
@@ -324,7 +332,11 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     onFocus(): void {
         // if the input is readonly we do not want to select the text on focus
         if (this.readonlyInput) {
-            (this.singleInput.nativeElement as HTMLInputElement).setSelectionRange(0, 0);
+            // cast the select input element
+            const element = this.singleInput.nativeElement as HTMLInputElement;
+
+            // firefox requires a delay before clearing the selection (other browsers don't)
+            this._platform.FIREFOX ? requestAnimationFrame(() => element.setSelectionRange(0, 0)) : element.setSelectionRange(0, 0);
         }
     }
 

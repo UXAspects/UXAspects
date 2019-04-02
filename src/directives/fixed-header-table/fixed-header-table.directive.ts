@@ -1,10 +1,13 @@
-import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { ResizeService } from '../resize/index';
 
 @Directive({
     selector: '[uxFixedHeaderTable]',
     exportAs: 'ux-fixed-header-table'
 })
-export class FixedHeaderTableDirective<T> implements OnInit {
+export class FixedHeaderTableDirective<T> implements OnInit, OnDestroy {
 
     /** Allow dataset changes to trigger re-layout */
     @Input() set dataset(_dataset: ReadonlyArray<T>) {
@@ -17,10 +20,20 @@ export class FixedHeaderTableDirective<T> implements OnInit {
     /** Emit when the table tries to load more data */
     @Output() tablePaging: EventEmitter<number> = new EventEmitter<number>();
 
-    private _tableHead: HTMLElement;
-    private _tableBody: HTMLElement;
+    /** Store the table head element */
+    private _tableHead: HTMLTableSectionElement;
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { }
+    /** Store the table body element */
+    private _tableBody: HTMLTableSectionElement;
+
+    /** Unsubscribe from all observables on destroy */
+    private _onDestroy = new Subject<void>();
+
+    constructor(
+        private _elementRef: ElementRef,
+        private _renderer: Renderer2,
+        private _resizeService: ResizeService
+    ) { }
 
     ngOnInit(): void {
 
@@ -28,8 +41,8 @@ export class FixedHeaderTableDirective<T> implements OnInit {
         this._renderer.addClass(this._elementRef.nativeElement, 'ux-fixed-header-table');
 
         // locate the important elements
-        this._tableHead = this._elementRef.nativeElement.querySelector('thead');
-        this._tableBody = this._elementRef.nativeElement.querySelector('tbody');
+        this._tableHead = this._elementRef.nativeElement.querySelector('thead') as HTMLTableSectionElement;
+        this._tableBody = this._elementRef.nativeElement.querySelector('tbody') as HTMLTableSectionElement;
 
         // bind to scroll events on the table body
         this._renderer.listen(this._tableBody, 'scroll', this.onScroll.bind(this));
@@ -37,8 +50,17 @@ export class FixedHeaderTableDirective<T> implements OnInit {
         // resize the table header to account for scrollbar
         this.setLayout();
 
+        // if a resize occurs perform a relayout (this can be useful when displaying tables in modals)
+        this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.setLayout());
+
         // trigger the loading of the first page
         this.tablePaging.emit();
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     /**

@@ -2,9 +2,14 @@ import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class HierarchyBarPage {
 
+    hierarchyBar = $('ux-hierarchy-bar');
     nodes = $$('.hierarchy-bar-node');
     selectedLabel = $('#selected');
     selectButton = $('#set-selected-btn');
+
+    showLeftAddonBtn = $('#show-left-addon-btn');
+    showRightAddonBtn = $('#show-right-addon-btn');
+    showTrailingAddonBtn = $('#show-trailing-addon-btn');
 
     getPage(): void {
         browser.get('#/hierarchy-bar');
@@ -109,6 +114,10 @@ export class HierarchyBarPage {
         }
 
         return titles;
+    }
+
+    async getAddons(): Promise<ElementFinder[]> {
+        return await this.hierarchyBar.$$('.button-secondary');
     }
 
 }

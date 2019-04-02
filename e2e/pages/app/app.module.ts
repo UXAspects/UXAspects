@@ -154,6 +154,10 @@ const routes: Routes = [
         loadChildren: './splitter/splitter.module#SplitterTestPageModule'
     },
     {
+        path: 'tabbable-list',
+        loadChildren: './tabbable-list/tabbable-list.module#TabbableListTestPageModule'
+    },
+    {
         path: 'tabs',
         loadChildren: './tabs/tabs.module#TabsTestPageModule'
     },

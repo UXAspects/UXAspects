@@ -1,5 +1,9 @@
 Error.stackTraceLimit = Infinity;
 
+// import the stylesheet
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import './styles/ux-aspects.less';
+
 // WARNING: The order of these imports is important!
 import 'core-js';
 import 'core-js/es7/reflect';

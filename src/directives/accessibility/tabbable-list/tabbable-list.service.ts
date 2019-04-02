@@ -32,13 +32,25 @@ export class TabbableListService implements OnDestroy {
     /** Store the container element */
     containerRef: HTMLElement;
 
+    /** Emit whenever focus does not change but tabindexes have */
+    onTabIndexChange = new Subject<void>();
+
+    /** Determine if focus is currently within the tabbable list */
+    isFocused: boolean = false;
+
+    /** Store the list of tabbable items */
     private _items: QueryList<TabbableListItemDirective>;
+
+    /** Store the direction of the list */
     private _direction: 'horizontal' | 'vertical';
+
+    /** Unsubscribe from all observables on destroy */
     private _onDestroy = new Subject<void>();
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+        this.onTabIndexChange.complete();
     }
 
     initialize(items: QueryList<TabbableListItemDirective>, direction: 'horizontal' | 'vertical', wrap: boolean): void {
@@ -75,6 +87,7 @@ export class TabbableListService implements OnDestroy {
         });
     }
 
+    /** Give and item focus or just make it the current tabbable item */
     activate(item: TabbableListItemDirective, updateIndexOnly: boolean = false): void {
 
         if (!item) {
@@ -84,31 +97,49 @@ export class TabbableListService implements OnDestroy {
         // get the item index
         const index = this._items.toArray().indexOf(item);
 
-        // active the item if it is not already active
+        this.activateItemAtIndex(index, updateIndexOnly);
+    }
+
+    /** Give and item focus or just make it the current tabbable item */
+    activateItemAtIndex(index: number, updateIndexOnly: boolean = false): void {
+
+        // if we only want to update the index
+        if (updateIndexOnly) {
+            return this.updateActiveItemIndex(index);
+        }
+
+        // update active the item only if it is not already active
         if (this.focusKeyManager.activeItemIndex !== index) {
-            updateIndexOnly ? this.focusKeyManager.updateActiveItemIndex(index) : this.focusKeyManager.setActiveItem(index);
+            this.focusKeyManager.setActiveItem(index);
         }
     }
 
     isItemActive(item: TabbableListItemDirective): boolean {
-        return this.focusKeyManager.activeItem.id === item.id;
+
+        // if this is called before the items have been set then do nothing
+        if (!this._items) {
+            return false;
+        }
+
+        // find the index of the item
+        const index = this._items.toArray().findIndex(_item => _item.id === item.id);
+
+        // check if the item is active (we check against index as it can be updated without setting the activeItem)
+        return this.focusKeyManager && this.focusKeyManager.activeItemIndex === index;
     }
 
     setFirstItemTabbable(): void {
-        // delay to prevent expression changed after check error
-        requestAnimationFrame(() => {
-            // find the first item that is not disabled
-            const first = this._items.find(item => !item.disabled);
+        // find the first item that is not disabled
+        const first = this._items.toArray().findIndex(item => !item.disabled);
 
-            if (first) {
-                first.tabindex = 0;
-            }
-        });
+        if (first !== -1) {
+            this.updateActiveItemIndex(first);
+        }
     }
 
     ensureTabbableItem(): void {
         // check to see if any item is tabbable
-        const active = this._items.find(item => item.tabindex === 0);
+        const active = this._items.find(item => this.isItemActive(item));
 
         if (!active) {
             this.setFirstItemTabbable();
@@ -122,7 +153,7 @@ export class TabbableListService implements OnDestroy {
         }
 
         // find the item in the list with a tab index
-        const index = this._items.toArray().findIndex(item => item.tabindex === 0);
+        const index = this._items.toArray().findIndex(item => this.isItemActive(item));
 
         // if an item was found then focus it
         if (index !== -1) {
@@ -213,13 +244,21 @@ export class TabbableListService implements OnDestroy {
         const index = this._items.toArray().indexOf(item);
 
         // activate the item without side effects
-        this.focusKeyManager.updateActiveItemIndex(index);
-
-        // update the tabindex
-        item.tabindex = 0;
+        this.updateActiveItemIndex(index);
 
         // focus the item with the same origin that it previously had
         item.focusWithOrigin(origin);
+    }
+
+    /** Update the active item without causing focus */
+    updateActiveItemIndex(index: number): void {
+        this.focusKeyManager.updateActiveItemIndex(index);
+        this.onTabIndexChange.next();
+    }
+
+    /** Determine if there is an item with a tabindex of 0 */
+    hasTabbableItem(): boolean {
+        return this.focusKeyManager && this.focusKeyManager.activeItemIndex >= 0;
     }
 
     private getItemByKey(key: any): TabbableListItemDirective | null {
