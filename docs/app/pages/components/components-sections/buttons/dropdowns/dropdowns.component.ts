@@ -12,7 +12,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
 export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    cases = [
+    cases: string[] = [
         'Alpha',
         'Beta',
         'Gamma',
@@ -27,7 +27,9 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
         'Alpha 3',
     ];
 
-    caseFilter = '';
+    caseFilter: string = '';
+    isMarkAsMenuOpen: boolean = false;
+    isAddCaseMenuOpen: boolean = false;
 
     playground: IPlayground = {
         files: {
@@ -35,14 +37,17 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
             'app.component.css': this.snippets.raw.appCss,
             'app.component.ts': this.snippets.raw.appTs
         },
-        modules: [{
-            library: 'ngx-bootstrap/dropdown',
-            imports: ['BsDropdownModule'],
-            providers: ['BsDropdownModule.forRoot()']
-        }, {
-            imports: ['StringFilterModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                library: 'ngx-bootstrap/dropdown',
+                imports: ['BsDropdownModule'],
+                providers: ['BsDropdownModule.forRoot()']
+            },
+            {
+                imports: ['StringFilterModule', 'MenuNavigationModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
     };
 
     constructor() {
