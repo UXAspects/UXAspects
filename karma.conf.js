@@ -44,6 +44,24 @@ module.exports = function (config) {
                         use: 'raw-loader'
                     },
                     {
+                        test: /\.css$/,
+                        use: ['style-loader', 'css-loader']
+                    },
+                    {
+                        test: /\.less$/,
+                        include: /styles/,
+                        use: ['style-loader', 'css-loader', 'less-loader']
+                    },
+                    {
+                        test: /\.less$/,
+                        exclude: /styles/,
+                        use: ['raw-loader', 'less-loader']
+                    },
+                    {
+                        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
+                        use: 'file-loader?name=assets/[name].[ext]'
+                    },
+                    {
                         test: /\.ts$/,
                         use: [
                             {
@@ -56,10 +74,6 @@ module.exports = function (config) {
                                 loader: 'angular2-template-loader'
                             }
                         ]
-                    },
-                    {
-                        test: /\.less$/,
-                        use: ['raw-loader', 'less-loader']
                     },
                     // Ignore warnings about System.import in Angular
                     {
