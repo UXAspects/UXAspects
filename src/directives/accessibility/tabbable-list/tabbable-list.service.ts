@@ -82,6 +82,9 @@ export class TabbableListService implements OnDestroy {
             // call the on init function on any new items
             this._items.filter(item => !item.initialized).forEach(item => item.onInit());
 
+            // ensure we update the tab indexes
+            this.onTabIndexChange.next();
+
             // ensure there is at least one item tabbable at all times
             this.ensureTabbableItem();
         });
