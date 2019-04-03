@@ -1,6 +1,6 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
@@ -69,7 +69,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     /** Emit when the expanded state changes. */
     @Output() expandedChange = new EventEmitter<boolean>();
 
-    @HostBinding() get tabindex(): number {
+    get tabindex(): number {
         return this._tabbableList.isItemActive(this) ? 0 : -1;
     }
 
@@ -114,7 +114,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         /** Access the change detector to ensure tabindex gets updated as expects */
         private _changeDetector: ChangeDetectorRef,
         /** Access the focus origin if one is provided */
-        private _focusOriginService: FocusIndicatorOriginService
+        private _focusOriginService: FocusIndicatorOriginService,
+        /** Access the renderer to make manual dom manipulations */
+        private _renderer: Renderer2
     ) {
 
         // create the focus indicator
@@ -126,7 +128,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
         // watch for changes to tabindexes
         this._tabbableList.onTabIndexChange.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this._changeDetector.detectChanges());
+            .subscribe(() => this.setTabIndex());
 
         this.keyboardExpanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
 
@@ -149,6 +151,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
         // Watch for focus within the container element and manage tabindex of descendants
         this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+
+        // ensure the tab index is initially set
+        this.setTabIndex();
     }
 
     ngOnDestroy(): void {
@@ -226,5 +231,10 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     private isTabbable(): boolean {
         return this.tabindex === 0;
+    }
+
+    private setTabIndex(): void {
+        // update the tabindex attribute
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
     }
 }

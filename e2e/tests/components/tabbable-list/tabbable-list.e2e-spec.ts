@@ -301,6 +301,21 @@ describe('Tabbable List Tests', () => {
         expect(await page.getFocused(4)).toBe(false);
     });
 
+    it('should ensure there is always one tabbable item when the list changes', async () => {
+
+        // expect the third document to not be tabbable
+        expect(await page.getTabIndex(2)).toBe('-1');
+
+        // perform a search that will leave only the third item in the list visible
+        await page.search('Document 3');
+
+        // expect this remaining item to now be tabbable
+        expect(await page.getTabIndex(0)).toBe('0');
+
+        // however it should not receive focus
+        expect(await page.getFocused(0)).toBe(false);
+    });
+
     it('should initially focus the first item when [focusOnShow]="true"', async () => {
         // toggle focus on show
         await page.toggleFocusOnShow();
