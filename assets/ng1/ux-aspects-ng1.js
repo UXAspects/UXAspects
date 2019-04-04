@@ -44347,6 +44347,10 @@ angular.module("ux-aspects.tagInput", ['ux-aspects.safeTimeout', 'ngTagsInput'])
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ngTemplateOutlet", function() { return ngTemplateOutlet; });
+/**
+ * @param {ng.ICompileService} $compile
+ * @param {ng.ITemplateRequestService} $templateRequest
+ */
 function ngTemplateOutlet($compile, $templateRequest) {
   return {
     restrict: 'A',
@@ -44355,13 +44359,20 @@ function ngTemplateOutlet($compile, $templateRequest) {
       ngTemplateOutletUrl: '=?',
       ngTemplateOutletContext: '=?'
     },
+
+    /**
+     * @param {ng.IScope} scope
+     * @param {JQuery} element
+     */
     link: function link(scope, element) {
       // extract the properties we want access to
       var ngTemplateOutlet = scope.ngTemplateOutlet,
           ngTemplateOutletUrl = scope.ngTemplateOutletUrl,
           ngTemplateOutletContext = scope.ngTemplateOutletContext; // create a new scope for the item
 
-      var context = scope.$new(true); // insert the data provided in the context
+      var context = scope.$new(true); // store the inserted element
+
+      var template; // insert the data provided in the context
 
       if (ngTemplateOutletContext) {
         for (var prop in ngTemplateOutletContext) {
@@ -44371,16 +44382,34 @@ function ngTemplateOutlet($compile, $templateRequest) {
 
 
       if (ngTemplateOutlet) {
-        return element.append($compile(scope.ngTemplateOutlet)(context));
+        template = $compile(scope.ngTemplateOutlet)(context);
+        return element.append(template);
       } // support a template url
 
 
       if (ngTemplateOutletUrl) {
         // request the template and then compile and insert it
-        $templateRequest(ngTemplateOutletUrl).then(function (template) {
-          return element.append($compile(template)(context));
+        $templateRequest(ngTemplateOutletUrl).then(function (result) {
+          template = $compile(result)(context);
+          element.append(template);
         });
-      }
+      } // watch for any future changes
+
+
+      var watcher = scope.$watch('ngTemplateOutletContext', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          // update the scope
+          for (var _prop in newValue) {
+            context[_prop] = newValue[_prop];
+          } // update the template
+
+
+          $compile(template)(context);
+        }
+      }, true);
+      scope.$on('$destroy', function () {
+        return watcher();
+      });
     }
   };
 }
@@ -44736,321 +44765,403 @@ angular.module('ux-aspects.tooltipOnOverflow', []).directive('tooltipOnOverflow'
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TreeViewCtrl; });
-TreeViewCtrl.$inject = ['$scope', '$element', '$timeout'];
-function TreeViewCtrl($scope, $element, $timeout) {
-  var tv = this; //the scope of the parent controller
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  tv.treeScope = null;
-  tv.filterFunction = $scope.filterFunction || null;
-  tv.selectedNode = $scope.selected;
-  tv.selectedNodeScope = null; //reference to the node being edited
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  tv.editingNode = null; //The developer can pass in functions for adding new items and adding new folders.
-  //These will be decorated with the internal functionality, not overridden.
-  //if no functions are supplied here, the tree will provide inline edit buttons
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  tv.addItem = $scope.addItem || function () {
-    return null;
-  };
 
-  tv.deleteFn = $scope.deleteFn || function () {
-    return null;
-  };
 
-  tv.readOnly = $scope.readOnly || false;
-  tv.treeOptions = $scope.treeOptions || {
-    showTreeLines: true,
-    openOnSelect: false
-  };
-  tv.inlineEdit = !!!tv.addItem;
-  tv.icons = $scope.icons || {
-    folder: {
-      collapsed: "hpe-folder",
-      expanded: "hpe-folder-open"
-    },
-    item: "hpe-document",
-    'default': "hpe-3d"
-  };
-  $scope.$watch('tv.selectedNode', function (nV) {
-    if (nV !== undefined) {
-      $scope.selected = nV;
+var TreeViewCtrl =
+/*#__PURE__*/
+function () {
+  _createClass(TreeViewCtrl, [{
+    key: "isIconTemplate",
+    get: function get() {
+      return this.icons && this.icons.hasOwnProperty('template');
     }
-  }, true);
-  $scope.$watch("selected", function (nv) {
-    tv.selectedNode = nv;
-    tv.ensureVisible(nv);
-  }); //Initialisation
-
-  $timeout(function () {
-    tv.treeScope.collapseAll();
-    $timeout(function () {
-      var treeElement = $element.find('.angular-ui-tree'); //Make tree visible after it is loaded
-
-      treeElement.css('max-height', '');
-      treeElement.css('visibility', '');
-    });
-  });
-
-  tv.init = function (parentScope) {
-    if (!tv.treeScope) {
-      tv.treeScope = parentScope;
+  }, {
+    key: "isCustomTemplate",
+    get: function get() {
+      return this.treeOptions && this.treeOptions.hasOwnProperty('template');
     }
-  };
+  }], [{
+    key: "$inject",
+    get: function get() {
+      return ['$scope', '$element', '$timeout'];
+    }
+  }]);
 
-  tv.getIcon = function (type, collapsed) {
-    if (tv.icons && type) {
-      var icon = tv.icons[type];
+  function TreeViewCtrl($scope, $element, $timeout) {
+    var _this = this;
 
-      if (!icon) {
-        return tv.icons["default"];
-      } else if (typeof icon === 'string' || icon instanceof String) {
-        return icon;
-      } else if (icon.collapsed && collapsed) {
-        return icon.collapsed;
-      } else if (icon.expanded && !collapsed) {
-        return icon.expanded;
+    _classCallCheck(this, TreeViewCtrl);
+
+    this.$scope = $scope;
+    this.$timeout = $timeout;
+    /** the scope of the parent controller */
+
+    this.treeScope = null;
+    this.filterFunction = $scope.filterFunction || null;
+    this.selectedNode = $scope.selected;
+    this.selectedNodeScope = null;
+    /** reference to the node being edited */
+
+    this.editingNode = null; //The developer can pass in functions for adding new items and adding new folders.
+    //These will be decorated with the internal functionality, not overridden.
+    //if no functions are supplied here, the tree will provide inline edit buttons
+
+    this.addItem = $scope.addItem || angular.noop();
+    this.deleteFn = $scope.deleteFn || angular.noop();
+    this.readOnly = $scope.readOnly || false;
+    this.treeOptions = $scope.treeOptions || {
+      showTreeLines: true,
+      openOnSelect: false
+    };
+    this.inlineEdit = !!!this.addItem;
+    this.icons = $scope.icons || {
+      folder: {
+        collapsed: 'hpe-folder',
+        expanded: 'hpe-folder-open'
+      },
+      item: 'hpe-document',
+      'default': 'hpe-3d'
+    };
+
+    $scope.addItem = function () {
+      if (_this.selectedNode) {
+        //call decoratee
+        _this.newSubItem(_this.wrapNode(_this.selectedNode), false, _this.addItem() || null);
       }
+    };
 
-      return tv.icons["default"];
-    }
-  };
+    $scope.deleteFn = function (scope) {
+      if (_this.selectedNode) {
+        if (_this.canDeleteItem(scope)) {
+          //call decoratee
+          var response = _this.deleteFn() || null;
 
-  tv.getTooltip = function (node) {
-    if (!node.tooltip) {
-      return;
-    }
+          if (response) {
+            _this.$timeout(function () {
+              if (_this.selectedNodeScope.$parentNodeScope !== null) {
+                _this.selectedNodeScope.$parentNodeScope.$element.find('span.title-readonly')[0].focus();
+              }
 
-    return typeof node.tooltip === 'function' ? node.tooltip.call(null, node) : node.tooltip;
-  };
+              _this.remove(_this.selectedNodeScope);
 
-  tv.canAddItem = function (scope) {
-    return scope.$modelValue.allowChildren && !tv.readOnly && (!tv.selectedNode.permissions || tv.selectedNode.permissions && tv.selectedNode.permissions.add);
-  };
+              _this.selectedNode = null;
+              _this.selectedNodeScope = null;
+            });
+          }
+        }
+      }
+    };
 
-  tv.canDeleteItem = function () {
-    return !tv.readOnly && (!tv.selectedNode.permissions || tv.selectedNode.permissions && tv.selectedNode.permissions.delete);
-  };
+    $scope.$watch(function () {
+      return _this.selectedNode;
+    }, function (selected) {
+      if (selected !== undefined) {
+        $scope.selected = selected;
+      }
+    }, true);
+    $scope.$watch('selected', function (selected) {
+      _this.selectedNode = selected;
 
-  tv.canEditItem = function () {
-    return !tv.readOnly && (!tv.selectedNode.permissions || tv.selectedNode.permissions && tv.selectedNode.permissions.edit);
-  };
+      _this.ensureVisible(selected);
+    }); //Initialisation
 
-  tv.newSubItem = function (scope, allowChildren, newItem) {
-    if (tv.canAddItem(scope)) {
-      //create the new item
-      var nodeData = scope.$modelValue;
-      var itemToAdd = newItem || {
-        id: -1,
-        allowChildren: !!allowChildren,
-        title: 'New',
-        nodes: []
-      };
-      var length = nodeData.nodes.push(itemToAdd); //select the new node for editing
-      //defer execution until the $$hashKey is available. i.e. after the browser has rendered
-      //If you want to manipulate objects before Angular manipulates the DOM you can use evalAsync - from a controller context
-      //From a directive context, evalAsync runs after the DOM has been manipulated
+    $timeout(function () {
+      _this.treeScope.collapseAll();
 
       $timeout(function () {
-        tv.selectedNodeScope.expand();
-        tv.selectedNode = nodeData.nodes[length - 1];
-        tv.edit({
-          $modelValue: nodeData.nodes[length - 1]
-        }, !!newItem);
-        tv.selectedNodeScope = tv.selectedNodeScope.childNodes()[tv.selectedNodeScope.childNodesCount() - 1];
+        var treeElement = $element.find('.angular-ui-tree'); //Make tree visible after it is loaded
+
+        treeElement.css('max-height', '');
+        treeElement.css('visibility', '');
       });
-    }
-  }; //ng-show="tv.filter(node)"
-  //only show nodes based on their title, or according to the supplied function
+    });
+  }
 
-
-  tv.filter = function (item) {
-    if (tv.filterFunction) {
-      return !!tv.filterFunction(item);
-    }
-
-    return !($scope.query && $scope.query.length > 0 && item.title.indexOf($scope.query) === -1);
-  }; //remove an item from the tree
-
-
-  tv.remove = function (scope) {
-    scope.remove();
-  }; //handle the selected item in the tree
-
-
-  tv.select = function (scope) {
-    //check if it's already clicked
-    var firstClick = !tv.isSelected(scope); //update reference to the selected node
-
-    tv.selectedNode = scope.$modelValue;
-    tv.selectedNodeScope = scope; //change any text inputs back to spans
-
-    tv.editingNode = null;
-
-    if (tv.treeOptions.openOnSelect) {
-      //toggle the node
-      scope.select(scope); //force the node to be expanded if this the initial selection
-      //otherwise clicking again on the selected node will toggle it as any other node
-
-      if (firstClick) {
-        scope.expand();
+  _createClass(TreeViewCtrl, [{
+    key: "init",
+    value: function init(parentScope) {
+      if (!this.treeScope) {
+        this.treeScope = parentScope;
       }
     }
-  }; //call on a node to check if it's currently selected
+  }, {
+    key: "getIcon",
+    value: function getIcon(type, collapsed) {
+      if (this.icons && type) {
+        var icon = this.icons[type];
 
+        if (!icon) {
+          return this.icons['default'];
+        }
 
-  tv.isSelected = function (scope) {
-    if (tv.selectedNode === null || !scope.$modelValue) {
-      return false;
-    } //we compare on the internal hashkey in case the titles or IDs aren't unique
+        if (typeof icon === 'string' || icon instanceof String) {
+          return icon;
+        }
 
+        if (icon.collapsed && collapsed) {
+          return icon.collapsed;
+        }
 
-    return tv.selectedNode.$$hashKey === scope.$modelValue.$$hashKey;
-  }; //call on a node to check if it's currently being edited
+        if (icon.expanded && !collapsed) {
+          return icon.expanded;
+        }
 
-
-  tv.isBeingEdited = function (scope) {
-    if (tv.editingNode === null || !scope.$modelValue) {
-      return false;
-    } //we compare on the internal hashkey in case the titles or IDs aren't unique
-
-
-    return tv.editingNode.$$hashKey === scope.$modelValue.$$hashKey;
-  }; //activate inline edit of the selected node's title
-
-
-  tv.edit = function (scope, itemAlreadyCreated) {
-    //if an item was added via the API then it does not need edited here again
-    if (itemAlreadyCreated) {
-      return;
-    } //editing is only performed on the currently selected item
-
-
-    if (tv.isSelected(scope) && tv.canEditItem(scope)) {
-      tv.editingNode = scope.$modelValue;
-      tv.editingNode.$oV = tv.editingNode.title; //if possible, select all the text in the input
-
-      if (tv.selectedNodeScope && tv.selectedNodeScope.$element) {
-        $timeout(function () {
-          tv.selectedNodeScope.$element.find("input.title-edit").select();
-        });
+        return this.icons['default'];
       }
-    } else {
-      //this function is bound to the node title. If it wasn't already selected, click through to the default node action.
-      tv.select(scope);
     }
-  }; //Save off changes to a node
+  }, {
+    key: "getTooltip",
+    value: function getTooltip(node) {
+      if (!node.tooltip) {
+        return;
+      }
 
+      return typeof node.tooltip === 'function' ? node.tooltip.call(null, node) : node.tooltip;
+    }
+  }, {
+    key: "canAddItem",
+    value: function canAddItem(scope) {
+      return scope.$modelValue.allowChildren && !this.readOnly && (!this.selectedNode.permissions || this.selectedNode.permissions && this.selectedNode.permissions.add);
+    }
+  }, {
+    key: "canDeleteItem",
+    value: function canDeleteItem() {
+      return !this.readOnly && (!this.selectedNode.permissions || this.selectedNode.permissions && this.selectedNode.permissions.delete);
+    }
+  }, {
+    key: "canEditItem",
+    value: function canEditItem() {
+      return !this.readOnly && (!this.selectedNode.permissions || this.selectedNode.permissions && this.selectedNode.permissions.edit);
+    }
+  }, {
+    key: "newSubItem",
+    value: function newSubItem(scope, allowChildren, newItem) {
+      var _this2 = this;
 
-  tv.finishEdit = function (scope, $event) {
-    if ($event.which === 13 || $event.type === "blur") {
-      //if the node is now blank, undo the change
-      if (tv.editingNode && tv.editingNode.title === "") {
-        tv.editingNode.title = tv.editingNode.$oV;
-      } //exit edit mode
+      if (this.canAddItem(scope)) {
+        //create the new item
+        var nodeData = scope.$modelValue;
+        var itemToAdd = newItem || {
+          id: -1,
+          allowChildren: !!allowChildren,
+          title: 'New',
+          nodes: []
+        };
+        var length = nodeData.nodes.push(itemToAdd); //select the new node for editing
+        //defer execution until the $$hashKey is available. i.e. after the browser has rendered
+        //If you want to manipulate objects before Angular manipulates the DOM you can use evalAsync - from a controller context
+        //From a directive context, evalAsync runs after the DOM has been manipulated
 
+        this.$timeout(function () {
+          _this2.selectedNodeScope.expand();
 
-      tv.editingNode = null;
+          _this2.selectedNode = nodeData.nodes[length - 1];
 
-      if ($event.type === "keypress") {
-        $timeout(function () {
-          tv.selectedNodeScope.$element.find("span.title-readonly")[0].focus();
+          _this2.edit({
+            $modelValue: nodeData.nodes[length - 1]
+          }, !!newItem);
+
+          _this2.selectedNodeScope = _this2.selectedNodeScope.childNodes()[_this2.selectedNodeScope.childNodesCount() - 1];
         });
       }
     }
-  };
+    /** only show nodes based on their title, or according to the supplied function */
 
-  $scope.addItem = function () {
-    if (tv.selectedNode) {
-      //call decoratee
-      var newItem = tv.addItem() || null;
-      tv.newSubItem(tv.wrapNode(tv.selectedNode), false, newItem);
+  }, {
+    key: "filter",
+    value: function filter(item) {
+      if (this.filterFunction) {
+        return !!this.filterFunction(item);
+      }
+
+      return !(this.$scope.query && this.$scope.query.length > 0 && item.title.indexOf(this.$scope.query) === -1);
     }
-  };
+    /** remove an item from the tree */
 
-  $scope.deleteFn = function (scope) {
-    if (tv.selectedNode) {
-      if (tv.canDeleteItem(scope)) {
-        //call decoratee
-        var response = tv.deleteFn() || null;
+  }, {
+    key: "remove",
+    value: function remove(scope) {
+      scope.remove();
+    }
+    /** handle the selected item in the tree */
 
-        if (response) {
-          $timeout(function () {
-            if (tv.selectedNodeScope.$parentNodeScope !== null) {
-              tv.selectedNodeScope.$parentNodeScope.$element.find("span.title-readonly")[0].focus();
-            }
+  }, {
+    key: "select",
+    value: function select(scope) {
+      //check if it's already clicked
+      var firstClick = !this.isSelected(scope); //update reference to the selected node
 
-            tv.remove(tv.selectedNodeScope);
-            tv.selectedNode = null;
-            tv.selectedNodeScope = null;
+      this.selectedNode = scope.$modelValue;
+      this.selectedNodeScope = scope; //change any text inputs back to spans
+
+      this.editingNode = null;
+
+      if (this.treeOptions.openOnSelect) {
+        //toggle the node
+        scope.select(scope); //force the node to be expanded if this the initial selection
+        //otherwise clicking again on the selected node will toggle it as any other node
+
+        if (firstClick) {
+          scope.expand();
+        }
+      }
+    }
+    /** call on a node to check if it's currently selected */
+
+  }, {
+    key: "isSelected",
+    value: function isSelected(scope) {
+      if (this.selectedNode === null || !scope.$modelValue) {
+        return false;
+      } //we compare on the internal hashkey in case the titles or IDs aren't unique
+
+
+      return this.selectedNode.$$hashKey === scope.$modelValue.$$hashKey;
+    }
+    /** call on a node to check if it's currently being edited */
+
+  }, {
+    key: "isBeingEdited",
+    value: function isBeingEdited(scope) {
+      if (this.editingNode === null || !scope.$modelValue) {
+        return false;
+      } //we compare on the internal hashkey in case the titles or IDs aren't unique
+
+
+      return this.editingNode.$$hashKey === scope.$modelValue.$$hashKey;
+    }
+    /** activate inline edit of the selected node's title */
+
+  }, {
+    key: "edit",
+    value: function edit(scope, itemAlreadyCreated) {
+      var _this3 = this;
+
+      //if an item was added via the API then it does not need edited here again
+      if (itemAlreadyCreated) {
+        return;
+      } //editing is only performed on the currently selected item
+
+
+      if (this.isSelected(scope) && this.canEditItem(scope)) {
+        this.editingNode = scope.$modelValue;
+        this.editingNode.$oV = this.editingNode.title; //if possible, select all the text in the input
+
+        if (this.selectedNodeScope && this.selectedNodeScope.$element) {
+          this.$timeout(function () {
+            return _this3.selectedNodeScope.$element.find('input.title-edit').select();
+          });
+        }
+      } else {
+        //this function is bound to the node title. If it wasn't already selected, click through to the default node action.
+        this.select(scope);
+      }
+    }
+    /** Save off changes to a node */
+
+  }, {
+    key: "finishEdit",
+    value: function finishEdit($event) {
+      var _this4 = this;
+
+      if ($event.which === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["ENTER"] || $event.type === 'blur') {
+        //if the node is now blank, undo the change
+        if (this.editingNode && this.editingNode.title === '') {
+          this.editingNode.title = this.editingNode.$oV;
+        } //exit edit mode
+
+
+        this.editingNode = null;
+
+        if ($event.type === 'keypress') {
+          this.$timeout(function () {
+            return _this4.selectedNodeScope.$element.find('span.title-readonly')[0].focus();
           });
         }
       }
     }
-  };
+  }, {
+    key: "wrapNode",
+    value: function wrapNode(node) {
+      return {
+        $modelValue: node
+      };
+    }
+  }, {
+    key: "keyboardSelect",
+    value: function keyboardSelect(scope, $event) {
+      if ($event.which === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["ENTER"]) {
+        this.edit(scope);
+      } else if ($event.which === 45) {
+        // insert
+        this.select(scope);
 
-  tv.wrapNode = function (node) {
-    return {
-      $modelValue: node
-    };
-  };
+        if (this.$scope.addItem) {
+          this.$scope.addItem(scope);
+        }
+      } else if ($event.which === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["DELETE"]) {
+        this.select(scope);
 
-  tv.keyboardSelect = function (scope, $event) {
-    if ($event.which === 13) {
-      //enter
-      tv.edit(scope);
-    } else if ($event.which === 45) {
-      //insert
-      tv.select(scope);
-
-      if ($scope.addItem) {
-        $scope.addItem(scope);
+        if (this.$scope.deleteFn) {
+          this.$scope.deleteFn(scope);
+        }
       }
-    } else if ($event.which === 46) {
-      //delete
-      tv.select(scope);
+    }
+    /** Find the node in the table and expand to it */
 
-      if ($scope.deleteFn) {
-        $scope.deleteFn(scope);
+  }, {
+    key: "ensureVisible",
+    value: function ensureVisible(node) {
+      var nodeScope = this.findNodeScope(node, this.treeScope.$nodesScope.childNodes());
+
+      if (nodeScope !== null) {
+        this.expandToNode(nodeScope);
       }
     }
-  }; // Find the node in the table and expand to it
+    /** Return the scope for the node in the given scope hierarchy*/
 
+  }, {
+    key: "findNodeScope",
+    value: function findNodeScope(node, scopes) {
+      var result = null;
 
-  tv.ensureVisible = function (node) {
-    var nodeScope = tv.findNodeScope(node, tv.treeScope.$nodesScope.childNodes());
+      for (var i = 0; i < scopes.length; i += 1) {
+        if (scopes[i].$modelValue === node) {
+          result = scopes[i];
+        } else if (scopes[i].$childNodesScope) {
+          result = this.findNodeScope(node, scopes[i].$childNodesScope.childNodes());
+        }
 
-    if (nodeScope !== null) {
-      tv.expandToNode(nodeScope);
-    }
-  }; // Return the scope for the node in the given scope hierarchy
-
-
-  tv.findNodeScope = function (node, scopes) {
-    var result = null;
-
-    for (var i = 0; i < scopes.length; i += 1) {
-      if (scopes[i].$modelValue === node) {
-        result = scopes[i];
-      } else if (scopes[i].$childNodesScope) {
-        result = tv.findNodeScope(node, scopes[i].$childNodesScope.childNodes());
+        if (result !== null) break;
       }
 
-      if (result !== null) break;
+      return result;
     }
+    /** Expand all parents of the node */
 
-    return result;
-  }; // Expand all parents of the node
+  }, {
+    key: "expandToNode",
+    value: function expandToNode(nodeScope) {
+      var currentScope = nodeScope;
 
-
-  tv.expandToNode = function (nodeScope) {
-    var currentScope = nodeScope;
-
-    while (currentScope.$parentNodeScope) {
-      currentScope = currentScope.$parentNodeScope;
-      currentScope.expand();
+      while (currentScope.$parentNodeScope) {
+        currentScope = currentScope.$parentNodeScope;
+        currentScope.expand();
+      }
     }
-  };
-}
+  }]);
+
+  return TreeViewCtrl;
+}();
+
+
 
 /***/ }),
 
@@ -45134,7 +45245,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__(/*! ./treeView.partial.html */ "./src/ng1/directives/treeView/treeView.partial.html");
 
-angular.module("ux-aspects.treeview", ['ui.tree']).controller("TreeViewCtrl", _treeView_controller__WEBPACK_IMPORTED_MODULE_1__["default"]).directive("treeView", _treeView_directive__WEBPACK_IMPORTED_MODULE_2__["default"]);
+angular.module("ux-aspects.treeview", ['ui.tree', 'ux-aspects.templateOutlet']).controller("TreeViewCtrl", _treeView_controller__WEBPACK_IMPORTED_MODULE_1__["default"]).directive("treeView", _treeView_directive__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 /***/ }),
 
@@ -45148,7 +45259,7 @@ angular.module("ux-aspects.treeview", ['ui.tree']).controller("TreeViewCtrl", _t
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"tree-node tree-node-content {{ node.className }}\" data-nodrag ng-click=\"node.disabled ? null : tv.select(this)\" ng-class=\"{ highlight : tv.isSelected(this), disabled: node.disabled }\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"node.disabled || !node.nodes || node.nodes.length <= 0\" ng-click=\"node.disabled ? null : toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{'hpe-chevron-right': collapsed, 'hpe-chevron-down': !collapsed }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px;\">\n</span>\n<span class=\"icon\">\n<i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\">\n</i>\n<span class=\"sr-only\" ng-bind=\"node.type\">\n</span>\n</span>\n<span class=\"title-readonly\" tooltip-html=\"tv.getTooltip(node)\" ng-click=\"node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"{{ node.disabled ? -1 : 0 }}\" ng-keydown=\"tv.keyboardSelect(this,$event)\">\n{{node.title}}\n</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{ hidden: collapsed }\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\">\n</li>\n</ol>";
+var v1="<div class=\"tree-node tree-node-content {{ node.className }}\" data-nodrag ng-click=\"node.disabled ? null : tv.select(this)\" ng-class=\"{ highlight : tv.isSelected(this), disabled: node.disabled }\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"node.disabled || !node.nodes || node.nodes.length <= 0\" ng-click=\"node.disabled ? null : toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{'hpe-chevron-right': collapsed, 'hpe-chevron-down': !collapsed }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px;\">\n</span>\n<span class=\"icon\">\n<i class=\"hpe-icon\" ng-if=\"!tv.isIconTemplate\" ng-class=\"tv.getIcon(node.type, collapsed)\">\n</i>\n<ng-container ng-if=\"tv.isIconTemplate\" ng-template-outlet ng-template-outlet-url=\"tv.icons.template\" ng-template-outlet-context=\"{ node: node }\">\n</ng-container>\n<span class=\"sr-only\" ng-bind=\"node.type\">\n</span>\n</span>\n<span class=\"title-readonly\" ng-if=\"!tv.isCustomTemplate\" tooltip-html=\"tv.getTooltip(node)\" ng-click=\"node.disabled ? null : tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"{{ node.disabled ? -1 : 0 }}\" ng-keydown=\"tv.keyboardSelect(this,$event)\">\n{{node.title}}\n</span>\n<input class=\"title-edit\" ng-if=\"!tv.isCustomTemplate\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation()\" ng-keypress=\"tv.finishEdit($event)\" ng-blur=\"tv.finishEdit($event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<ng-container ng-if=\"tv.isCustomTemplate\" ng-template-outlet ng-template-outlet-url=\"tv.treeOptions.template\" ng-template-outlet-context=\"{ node: node }\">\n</ng-container>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation()\" tabindex=\"{{ node.disabled ? -1 : 0 }}\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes ng-model=\"node.nodes\" ng-class=\"{ hidden: collapsed }\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\">\n</li>\n</ol>";
 var id1="directives/treeView/treeView.partial.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}

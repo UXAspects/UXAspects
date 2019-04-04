@@ -1,11 +1,58 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('@angular/cdk/platform'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', '@angular/cdk/platform', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ng.cdk.platform,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
-}(this, (function (exports,angularSplit,platform,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,dropdown,router,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,dropdown,router,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @enum {string} */
+    var Color = {
+        Primary: 'primary',
+        Accent: 'accent',
+        Secondary: 'secondary',
+        Alternate1: 'alternate1',
+        Alternate2: 'alternate2',
+        Alternate3: 'alternate3',
+        Vibrant1: 'vibrant1',
+        Vibrant2: 'vibrant2',
+        Grey1: 'grey1',
+        Grey2: 'grey2',
+        Grey3: 'grey3',
+        Grey4: 'grey4',
+        Grey5: 'grey5',
+        Grey6: 'grey6',
+        Grey7: 'grey7',
+        Grey8: 'grey8',
+        Chart1: 'chart1',
+        Chart2: 'chart2',
+        Chart3: 'chart3',
+        Chart4: 'chart4',
+        Chart5: 'chart5',
+        Chart6: 'chart6',
+        Ok: 'ok',
+        Warning: 'warning',
+        Critical: 'critical',
+        Partition1: 'partition1',
+        Partition9: 'partition9',
+        Partition10: 'partition10',
+        Partition11: 'partition11',
+        Partition12: 'partition12',
+        Partition13: 'partition13',
+        Partition14: 'partition14',
+        SocialChartNode: 'social-chart-node',
+        SocialChartEdge: 'social-chart-edge',
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
 
     /**
      * @fileoverview added by tsickle
@@ -1278,7 +1325,10 @@
              * Remove all subscriptions on destroy
              */
             this._onDestroy = new Subject.Subject();
-            this.initialise();
+            // check if the element is already being monitored
+            if (!_element.classList.contains('ux-focus-indicator')) {
+                this.initialise();
+            }
         }
         Object.defineProperty(FocusIndicator.prototype, "isFocused", {
             /** Provide a convenience getter to allow access to focus state without a subscription */
@@ -2751,6 +2801,17 @@
              * Indicate if we should refocus an item on QueryList change - for use within virtual lists
              */
             this.shouldFocusOnChange = true;
+            /**
+             * Emit whenever focus does not change but tabindexes have
+             */
+            this.onTabIndexChange = new Subject.Subject();
+            /**
+             * Determine if focus is currently within the tabbable list
+             */
+            this.isFocused = false;
+            /**
+             * Unsubscribe from all observables on destroy
+             */
             this._onDestroy = new Subject.Subject();
         }
         /**
@@ -2762,6 +2823,7 @@
             function () {
                 this._onDestroy.next();
                 this._onDestroy.complete();
+                this.onTabIndexChange.complete();
             };
         /**
          * @param {?} items
@@ -2796,16 +2858,21 @@
                 this._items.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                     // call the on init function on any new items
                     _this._items.filter(function (item) { return !item.initialized; }).forEach(function (item) { return item.onInit(); });
+                    // ensure we update the tab indexes
+                    _this.onTabIndexChange.next();
                     // ensure there is at least one item tabbable at all times
                     _this.ensureTabbableItem();
                 });
             };
+        /** Give and item focus or just make it the current tabbable item */
         /**
+         * Give and item focus or just make it the current tabbable item
          * @param {?} item
          * @param {?=} updateIndexOnly
          * @return {?}
          */
         TabbableListService.prototype.activate = /**
+         * Give and item focus or just make it the current tabbable item
          * @param {?} item
          * @param {?=} updateIndexOnly
          * @return {?}
@@ -2820,9 +2887,32 @@
                 // get the item index
                 /** @type {?} */
                 var index = this._items.toArray().indexOf(item);
-                // active the item if it is not already active
+                this.activateItemAtIndex(index, updateIndexOnly);
+            };
+        /** Give and item focus or just make it the current tabbable item */
+        /**
+         * Give and item focus or just make it the current tabbable item
+         * @param {?} index
+         * @param {?=} updateIndexOnly
+         * @return {?}
+         */
+        TabbableListService.prototype.activateItemAtIndex = /**
+         * Give and item focus or just make it the current tabbable item
+         * @param {?} index
+         * @param {?=} updateIndexOnly
+         * @return {?}
+         */
+            function (index, updateIndexOnly) {
+                if (updateIndexOnly === void 0) {
+                    updateIndexOnly = false;
+                }
+                // if we only want to update the index
+                if (updateIndexOnly) {
+                    return this.updateActiveItemIndex(index);
+                }
+                // update active the item only if it is not already active
                 if (this.focusKeyManager.activeItemIndex !== index) {
-                    updateIndexOnly ? this.focusKeyManager.updateActiveItemIndex(index) : this.focusKeyManager.setActiveItem(index);
+                    this.focusKeyManager.setActiveItem(index);
                 }
             };
         /**
@@ -2834,7 +2924,15 @@
          * @return {?}
          */
             function (item) {
-                return this.focusKeyManager.activeItem.id === item.id;
+                // if this is called before the items have been set then do nothing
+                if (!this._items) {
+                    return false;
+                }
+                // find the index of the item
+                /** @type {?} */
+                var index = this._items.toArray().findIndex(function (_item) { return _item.id === item.id; });
+                // check if the item is active (we check against index as it can be updated without setting the activeItem)
+                return this.focusKeyManager && this.focusKeyManager.activeItemIndex === index;
             };
         /**
          * @return {?}
@@ -2843,16 +2941,12 @@
          * @return {?}
          */
             function () {
-                var _this = this;
-                // delay to prevent expression changed after check error
-                requestAnimationFrame(function () {
-                    // find the first item that is not disabled
-                    /** @type {?} */
-                    var first = _this._items.find(function (item) { return !item.disabled; });
-                    if (first) {
-                        first.tabindex = 0;
-                    }
-                });
+                // find the first item that is not disabled
+                /** @type {?} */
+                var first = this._items.toArray().findIndex(function (item) { return !item.disabled; });
+                if (first !== -1) {
+                    this.updateActiveItemIndex(first);
+                }
             };
         /**
          * @return {?}
@@ -2861,9 +2955,10 @@
          * @return {?}
          */
             function () {
+                var _this = this;
                 // check to see if any item is tabbable
                 /** @type {?} */
-                var active = this._items.find(function (item) { return item.tabindex === 0; });
+                var active = this._items.find(function (item) { return _this.isItemActive(item); });
                 if (!active) {
                     this.setFirstItemTabbable();
                 }
@@ -2875,12 +2970,13 @@
          * @return {?}
          */
             function () {
+                var _this = this;
                 if (!this._items) {
                     return;
                 }
                 // find the item in the list with a tab index
                 /** @type {?} */
-                var index = this._items.toArray().findIndex(function (item) { return item.tabindex === 0; });
+                var index = this._items.toArray().findIndex(function (item) { return _this.isItemActive(item); });
                 // if an item was found then focus it
                 if (index !== -1) {
                     this.focusKeyManager.setActiveItem(index);
@@ -3001,11 +3097,36 @@
                 /** @type {?} */
                 var index = this._items.toArray().indexOf(item);
                 // activate the item without side effects
-                this.focusKeyManager.updateActiveItemIndex(index);
-                // update the tabindex
-                item.tabindex = 0;
+                this.updateActiveItemIndex(index);
                 // focus the item with the same origin that it previously had
                 item.focusWithOrigin(origin);
+            };
+        /** Update the active item without causing focus */
+        /**
+         * Update the active item without causing focus
+         * @param {?} index
+         * @return {?}
+         */
+        TabbableListService.prototype.updateActiveItemIndex = /**
+         * Update the active item without causing focus
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                this.focusKeyManager.updateActiveItemIndex(index);
+                this.onTabIndexChange.next();
+            };
+        /** Determine if there is an item with a tabindex of 0 */
+        /**
+         * Determine if there is an item with a tabindex of 0
+         * @return {?}
+         */
+        TabbableListService.prototype.hasTabbableItem = /**
+         * Determine if there is an item with a tabindex of 0
+         * @return {?}
+         */
+            function () {
+                return this.focusKeyManager && this.focusKeyManager.activeItemIndex >= 0;
             };
         /**
          * @param {?} key
@@ -3053,12 +3174,15 @@
     var TabbableListItemDirective = /** @class */ (function () {
         function TabbableListItemDirective(_tabbableList, _elementRef, 
         /** Access the service to programmatically control focus indicators */
-        focusIndicatorService, _managedFocusContainerService, _platform) {
+        focusIndicatorService, _managedFocusContainerService, _platform, _changeDetector, _focusOriginService, _renderer) {
             var _this = this;
             this._tabbableList = _tabbableList;
             this._elementRef = _elementRef;
             this._managedFocusContainerService = _managedFocusContainerService;
             this._platform = _platform;
+            this._changeDetector = _changeDetector;
+            this._focusOriginService = _focusOriginService;
+            this._renderer = _renderer;
             this.rank = 0;
             /**
              * Indicate if this item is disabled
@@ -3072,11 +3196,25 @@
              * Emit when the expanded state changes.
              */
             this.expandedChange = new core.EventEmitter();
-            this.tabindex = -1;
+            /**
+             * Give each tabbable item a unique id
+             */
             this.id = nextId++;
+            /**
+             * Each item in the list needs to be initialised by the service. When the item QueryList changes this is used to identify which items previously existed and which are new
+             */
             this.initialized = false;
+            /**
+             * Store a list of all child tabbable items
+             */
             this.children = [];
+            /**
+             * Emit whenever the expanded state changes
+             */
             this.keyboardExpanded$ = new Subject.Subject();
+            /**
+             * Automatically unsubscribe from all observables
+             */
             this._onDestroy = new Subject.Subject();
             /**
              * Store a default key to use if one is not provided
@@ -3091,6 +3229,9 @@
             // store the most current focus origin
             this._focusIndicator.origin$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (origin) { return _this._focusOrigin = origin; });
+            // watch for changes to tabindexes
+            this._tabbableList.onTabIndexChange.pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function () { return _this.setTabIndex(); });
             this.keyboardExpanded$.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
                 // Emit event which may alter the DOM
                 _this.expandedChange.emit(expanded);
@@ -3117,7 +3258,6 @@
              * @param {?} key
              * @return {?}
              */ function (key) {
-                var _this = this;
                 // store the previous key
                 /** @type {?} */
                 var previousKey = this._key;
@@ -3129,18 +3269,26 @@
                 // if this element was the previously tabbable item then update the reference
                 if (didChangeRef && this.isTabbable()) {
                     // allow the virtual scroll to update
-                    requestAnimationFrame(function () {
-                        // this item should no longer be tabbable
-                        _this.tabindex = -1;
-                        // store the focus origin before we blur
-                        /** @type {?} */
-                        var origin = _this._focusOrigin;
-                        // blur this item
-                        _this._elementRef.nativeElement.blur();
-                        // update the reference
-                        _this._tabbableList.itemReferenceChange(previousKey, origin);
-                    });
+                    this._changeDetector.detectChanges();
+                    // this item should no longer be tabbable
+                    this._tabbableList.focusKeyManager.updateActiveItemIndex(-1);
+                    // store the focus origin before we blur
+                    /** @type {?} */
+                    var origin_1 = this._focusOrigin;
+                    // blur this item
+                    this._elementRef.nativeElement.blur();
+                    // update the reference
+                    this._tabbableList.itemReferenceChange(previousKey, origin_1);
                 }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TabbableListItemDirective.prototype, "tabindex", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._tabbableList.isItemActive(this) ? 0 : -1;
             },
             enumerable: true,
             configurable: true
@@ -3152,13 +3300,11 @@
          * @return {?}
          */
             function () {
-                var _this = this;
                 this.initialized = true;
-                this._tabbableList.focusKeyManager.change
-                    .pipe(operators.takeUntil(this._onDestroy), operators.map(function () { return _this._tabbableList.isItemActive(_this); }))
-                    .subscribe(function (active) { return _this.tabindex = active ? 0 : -1; });
                 // Watch for focus within the container element and manage tabindex of descendants
                 this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+                // ensure the tab index is initially set
+                this.setTabIndex();
             };
         /**
          * @return {?}
@@ -3183,10 +3329,13 @@
          * @return {?}
          */
             function () {
+                // check if there are currently any items that are tabbable
+                /** @type {?} */
+                var hasTabbableItem = this._tabbableList.hasTabbableItem();
                 // apply focus to the element
-                this.focusWithOrigin('keyboard', !this._tabbableList.shouldScrollInView);
+                this.focusWithOrigin(hasTabbableItem ? this._focusOriginService.getOrigin() || 'keyboard' : 'keyboard', !this._tabbableList.shouldScrollInView);
                 // ensure the focus key manager updates the active item correctly
-                this._tabbableList.activate(this, true);
+                this._tabbableList.activate(this, hasTabbableItem);
             };
         /**
          * @return {?}
@@ -3195,7 +3344,24 @@
          * @return {?}
          */
             function () {
-                this._tabbableList.activate(this, true);
+                // if this item is not currently focused in the focusKeyManager set it as the active item
+                if (!this._tabbableList.isItemActive(this)) {
+                    this._tabbableList.activate(this, true);
+                }
+                // also inform the service that an item within the list is now focused
+                this._tabbableList.isFocused = true;
+            };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.onBlur = /**
+         * @return {?}
+         */
+            function () {
+                // if this is the current active item and it is blurred then update the isFocused state
+                if (this._tabbableList.isItemActive(this)) {
+                    this._tabbableList.isFocused = false;
+                }
             };
         /**
          * @param {?} event
@@ -3254,6 +3420,16 @@
             function () {
                 return this.tabindex === 0;
             };
+        /**
+         * @return {?}
+         */
+        TabbableListItemDirective.prototype.setTabIndex = /**
+         * @return {?}
+         */
+            function () {
+                // update the tabindex attribute
+                this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
+            };
         TabbableListItemDirective.decorators = [
             { type: core.Directive, args: [{
                         selector: '[uxTabbableListItem]',
@@ -3267,7 +3443,10 @@
                 { type: core.ElementRef },
                 { type: FocusIndicatorService },
                 { type: ManagedFocusContainerService },
-                { type: platform.Platform }
+                { type: platform.Platform },
+                { type: core.ChangeDetectorRef },
+                { type: FocusIndicatorOriginService },
+                { type: core.Renderer2 }
             ];
         };
         TabbableListItemDirective.propDecorators = {
@@ -3277,8 +3456,8 @@
             expanded: [{ type: core.Input }],
             key: [{ type: core.Input }],
             expandedChange: [{ type: core.Output }],
-            tabindex: [{ type: core.HostBinding }],
             onFocus: [{ type: core.HostListener, args: ['focus',] }, { type: core.HostListener, args: ['click',] }],
+            onBlur: [{ type: core.HostListener, args: ['blur',] }],
             onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
         };
         return TabbableListItemDirective;
@@ -3309,6 +3488,9 @@
              * Indicate whether or not focus should be returned to the previous element (only applicable when using focusOnShow)
              */
             this.returnFocus = false;
+            /**
+             * Unsubscribe from all observables automatically on destroy
+             */
             this._onDestroy = new Subject.Subject();
             // store a reference to the container element
             this._tabbableList.containerRef = elementRef.nativeElement;
@@ -3386,7 +3568,8 @@
                     // Items are already in order
                     this._orderedItems = this.items;
                     // Ensure we reselect a selected item after the querylist has changed
-                    this.items.changes.pipe(operators.filter(function () { return _this._tabbableList.shouldFocusOnChange; }), operators.takeUntil(this._onDestroy)).subscribe(function (items) {
+                    this.items.changes.pipe(operators.filter(function () { return _this._tabbableList.shouldFocusOnChange && _this._tabbableList.isFocused; }), operators.takeUntil(this._onDestroy))
+                        .subscribe(function (items) {
                         // check if an item is currently focused
                         /** @type {?} */
                         var activeItem = _this._tabbableList.focusKeyManager.activeItem;
@@ -3400,7 +3583,7 @@
                                 // however we are refocusing an item that was focused so we dont want to scroll into view again as this can prevent wheel scrolling
                                 _this._tabbableList.shouldScrollInView = false;
                                 // refocus the item again
-                                _this._tabbableList.focusKeyManager.setActiveItem(index);
+                                _this._tabbableList.activateItemAtIndex(index, !_this._tabbableList.isFocused);
                                 // re-enable scrolling into view
                                 _this._tabbableList.shouldScrollInView = true;
                             }
@@ -4865,12 +5048,27 @@
             this._disabled = false;
             this._value = 0;
             this._propagateChange = function (_) { };
+            /**
+             * Sets the id of the number picker. The child input will have this value with a -input suffix as its id.
+             */
             this.id = "ux-number-picker-" + uniqueId$2++;
+            /**
+             * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value.
+             */
             this.valid = true;
+            /**
+             * Define the precision of floating point values
+             */
+            this.precision = 6;
+            /**
+             * If two way binding is used this value will be updated any time the number picker value changes.
+             */
             this.valueChange = new core.EventEmitter();
         }
         Object.defineProperty(NumberPickerComponent.prototype, "value", {
+            /** Sets the value displayed in the number picker component. */
             get: /**
+             * Sets the value displayed in the number picker component.
              * @return {?}
              */ function () {
                 return this._value;
@@ -4887,7 +5085,9 @@
             configurable: true
         });
         Object.defineProperty(NumberPickerComponent.prototype, "min", {
+            /** Defines the minimum value the number picker can set. */
             get: /**
+             * Defines the minimum value the number picker can set.
              * @return {?}
              */ function () {
                 return this._min;
@@ -4902,7 +5102,9 @@
             configurable: true
         });
         Object.defineProperty(NumberPickerComponent.prototype, "max", {
+            /** Defines the maximum value the number picker can set. */
             get: /**
+             * Defines the maximum value the number picker can set.
              * @return {?}
              */ function () {
                 return this._max;
@@ -4917,7 +5119,9 @@
             configurable: true
         });
         Object.defineProperty(NumberPickerComponent.prototype, "step", {
+            /** Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. */
             get: /**
+             * Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used.
              * @return {?}
              */ function () {
                 return this._step;
@@ -4932,7 +5136,9 @@
             configurable: true
         });
         Object.defineProperty(NumberPickerComponent.prototype, "disabled", {
+            /** Indicate if the number picker is disabled or not. */
             get: /**
+             * Indicate if the number picker is disabled or not.
              * @return {?}
              */ function () {
                 return this._disabled;
@@ -4956,31 +5162,39 @@
             configurable: true
         });
         /**
-         * @param {?} event
+         * @param {?=} event
          * @return {?}
          */
         NumberPickerComponent.prototype.increment = /**
-         * @param {?} event
+         * @param {?=} event
          * @return {?}
          */
             function (event) {
-                event.preventDefault();
+                if (event) {
+                    event.preventDefault();
+                }
                 if (!this.disabled) {
                     this.value = Math.max(Math.min(this.value + this.step, this.max), this.min);
+                    // account for javascripts terrible handling of floating point numbers
+                    this.value = parseFloat(this.value.toPrecision(this.precision));
                 }
             };
         /**
-         * @param {?} event
+         * @param {?=} event
          * @return {?}
          */
         NumberPickerComponent.prototype.decrement = /**
-         * @param {?} event
+         * @param {?=} event
          * @return {?}
          */
             function (event) {
-                event.preventDefault();
+                if (event) {
+                    event.preventDefault();
+                }
                 if (!this.disabled) {
                     this.value = Math.min(Math.max(this.value - this.step, this.min), this.max);
+                    // account for javascripts terrible handling of floating point numbers
+                    this.value = parseFloat(this.value.toPrecision(this.precision));
                 }
             };
         /**
@@ -5068,6 +5282,7 @@
             id: [{ type: core.Input }],
             valid: [{ type: core.Input }],
             labelledBy: [{ type: core.Input, args: ['aria-labelledby',] }],
+            precision: [{ type: core.Input }],
             valueChange: [{ type: core.Output }],
             value: [{ type: core.Input }],
             min: [{ type: core.Input }],
@@ -19258,8 +19473,43 @@
      */
     var MenuNavigationService = /** @class */ (function () {
         function MenuNavigationService() {
+            /**
+             * Store a list of items that belong to this menu
+             */
+            this.menuItems = [];
+            /**
+             * Store the current active menu item
+             */
             this.active$ = new BehaviorSubject.BehaviorSubject(null);
         }
+        /** Add an item to this menu */
+        /**
+         * Add an item to this menu
+         * @param {?} menuItem
+         * @return {?}
+         */
+        MenuNavigationService.prototype.register = /**
+         * Add an item to this menu
+         * @param {?} menuItem
+         * @return {?}
+         */
+            function (menuItem) {
+                this.menuItems = __spread(this.menuItems, [menuItem]);
+            };
+        /** Remove an item from the list of menu items */
+        /**
+         * Remove an item from the list of menu items
+         * @param {?} menuItem
+         * @return {?}
+         */
+        MenuNavigationService.prototype.unregister = /**
+         * Remove an item from the list of menu items
+         * @param {?} menuItem
+         * @return {?}
+         */
+            function (menuItem) {
+                this.menuItems = this.menuItems.filter(function (_menuItem) { return _menuItem !== menuItem; });
+            };
         MenuNavigationService.decorators = [
             { type: core.Injectable }
         ];
@@ -19271,14 +19521,24 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MenuNavigationItemDirective = /** @class */ (function () {
-        function MenuNavigationItemDirective(service, _elementRef, focusIndicatorService) {
+        function MenuNavigationItemDirective(_menuNavigationService, _elementRef, focusIndicatorService) {
             var _this = this;
+            this._menuNavigationService = _menuNavigationService;
             this._elementRef = _elementRef;
+            /**
+             * Emit when this menu is activated
+             */
             this.activated = new core.EventEmitter();
+            /**
+             * Unsubscribe from all observables on destroy
+             */
+            this._onDestroy = new Subject.Subject();
+            // register this item with the menu - this allows for nested menus as we each uxMenuNavigation will create its own service
+            _menuNavigationService.register(this);
             // create the focus indicator
             this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement, { programmaticFocusIndicator: true, checkChildren: false });
-            this._subscription = service.active$.pipe(operators.filter(function (item) { return item === _this; }))
-                .subscribe(function () { return _this.setActive(); });
+            /** Subscribe to the current active index */
+            _menuNavigationService.active$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (item) { return item === _this; })).subscribe(function () { return _this.setActive(); });
         }
         /**
          * @return {?}
@@ -19287,7 +19547,8 @@
          * @return {?}
          */
             function () {
-                this._subscription.unsubscribe();
+                this._menuNavigationService.unregister(this);
+                this._onDestroy.unsubscribe();
                 this._focusIndicator.destroy();
             };
         /**
@@ -19324,15 +19585,25 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MenuNavigationToggleDirective = /** @class */ (function () {
-        function MenuNavigationToggleDirective(_elementRef, focusIndicatorService) {
-            this._elementRef = _elementRef;
+        function MenuNavigationToggleDirective(elementRef, focusIndicatorService) {
+            /**
+             * Define the position the menu appears relative to the button
+             */
             this.menuPosition = 'bottom';
+            /**
+             * Emit when the menu open state changes
+             */
             this.menuOpenChange = new core.EventEmitter();
+            /**
+             * Emits whenever a key that opens the menu is pressed
+             */
             this.keyEnter = new core.EventEmitter();
-            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
+            this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
         }
         Object.defineProperty(MenuNavigationToggleDirective.prototype, "menuOpen", {
+            /** Define if the menu is open */
             get: /**
+             * Define if the menu is open
              * @return {?}
              */ function () {
                 return this._menuOpen;
@@ -19357,13 +19628,15 @@
                 this._focusIndicator.destroy();
             };
         /**
+         * @param {?=} origin
          * @return {?}
          */
         MenuNavigationToggleDirective.prototype.focus = /**
+         * @param {?=} origin
          * @return {?}
          */
-            function () {
-                this._elementRef.nativeElement.focus();
+            function (origin) {
+                this._focusIndicator.focus(origin);
             };
         /**
          * @param {?} event
@@ -19436,19 +19709,45 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MenuNavigationDirective = /** @class */ (function () {
-        function MenuNavigationDirective(_service, _elementRef, _document) {
-            this._service = _service;
-            this._elementRef = _elementRef;
-            this._document = _document;
+        function MenuNavigationDirective(_menuNavigationService) {
+            this._menuNavigationService = _menuNavigationService;
+            /**
+             * Define the position of the toggle button relative to the menu
+             */
             this.toggleButtonPosition = 'top';
+            /**
+             * Emit when the menu is no longer focused
+             */
             this.navigatedOut = new core.EventEmitter();
+            /**
+             * Determine if the menu currently has focus
+             */
+            this._isFocused = false;
+            /**
+             * Unsubscribe from all observables on destroy
+             */
             this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(MenuNavigationDirective.prototype, "activeIndex", {
+            /** Get the index of the currently active item */
             get: /**
+             * Get the index of the currently active item
              * @return {?}
              */ function () {
-                return this._itemsOrdered.indexOf(this._service.active$.value);
+                return this.menuItems.indexOf(this._menuNavigationService.active$.value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuNavigationDirective.prototype, "menuItems", {
+            // get the list of menu items
+            get: 
+            // get the list of menu items
+            /**
+             * @return {?}
+             */
+            function () {
+                return this._menuNavigationService.menuItems;
             },
             enumerable: true,
             configurable: true
@@ -19465,18 +19764,6 @@
                     this.toggleButton.keyEnter.pipe(operators.takeUntil(this._onDestroy))
                         .subscribe(function () { return _this.focusFirst(); });
                 }
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.ngAfterContentInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                this.items.changes.pipe(operators.takeUntil(this._onDestroy))
-                    .subscribe(function () { return _this._itemsOrdered = _this.items.toArray(); });
-                this._itemsOrdered = this.items.toArray();
             };
         /**
          * @return {?}
@@ -19498,6 +19785,24 @@
                 this.moveFirst();
             };
         /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.onFocusIn = /**
+         * @return {?}
+         */
+            function () {
+                this._isFocused = true;
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.onFocusOut = /**
+         * @return {?}
+         */
+            function () {
+                this._isFocused = false;
+            };
+        /**
          * @param {?} event
          * @return {?}
          */
@@ -19507,7 +19812,7 @@
          */
             function (event) {
                 // Only handle events when focus in within the list of menu items
-                if (!this._elementRef.nativeElement.contains(this._document.activeElement)) {
+                if (this._isFocused === false) {
                     return;
                 }
                 /** @type {?} */
@@ -19542,7 +19847,7 @@
                         handled = true;
                         break;
                     case keycodes.ESCAPE:
-                        this.navigatedOut.emit(event);
+                        this.moveToToggleButton(event);
                         handled = true;
                         break;
                 }
@@ -19566,10 +19871,10 @@
                 }
                 /** @type {?} */
                 var nextIndex = this.activeIndex + 1;
-                if (nextIndex < this._itemsOrdered.length) {
+                if (nextIndex < this.menuItems.length) {
                     // Activate the next menu item
                     // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
-                    this._service.active$.next(this._itemsOrdered[nextIndex]);
+                    this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
                 }
                 else {
                     // Check if focus went out of bounds in the direction of the origin toggle button
@@ -19596,7 +19901,7 @@
                 if (nextIndex >= 0) {
                     // Activate the previous menu item
                     // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
-                    this._service.active$.next(this._itemsOrdered[nextIndex]);
+                    this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
                 }
                 else {
                     // Check if focus went out of bounds in the direction of the origin toggle button
@@ -19612,8 +19917,8 @@
          * @return {?}
          */
             function () {
-                if (this._itemsOrdered.length > 0) {
-                    this._service.active$.next(this._itemsOrdered[0]);
+                if (this.menuItems.length > 0) {
+                    this._menuNavigationService.active$.next(this.menuItems[0]);
                 }
             };
         /**
@@ -19623,8 +19928,8 @@
          * @return {?}
          */
             function () {
-                if (this._itemsOrdered.length > 0) {
-                    this._service.active$.next(this._itemsOrdered[this._itemsOrdered.length - 1]);
+                if (this.menuItems.length > 0) {
+                    this._menuNavigationService.active$.next(this.menuItems[this.menuItems.length - 1]);
                 }
             };
         /**
@@ -19637,7 +19942,7 @@
          */
             function (event) {
                 if (this.toggleButton) {
-                    this.toggleButton.focus();
+                    this.toggleButton.focus('keyboard');
                     this.toggleButton.menuOpen = false;
                 }
                 this.navigatedOut.emit(event);
@@ -19652,17 +19957,16 @@
         /** @nocollapse */
         MenuNavigationDirective.ctorParameters = function () {
             return [
-                { type: MenuNavigationService },
-                { type: core.ElementRef },
-                { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+                { type: MenuNavigationService }
             ];
         };
         MenuNavigationDirective.propDecorators = {
             toggleButton: [{ type: core.Input }],
             toggleButtonPosition: [{ type: core.Input }],
             navigatedOut: [{ type: core.Output }],
-            items: [{ type: core.ContentChildren, args: [MenuNavigationItemDirective, { descendants: true },] }],
-            keydownHandler: [{ type: core.HostListener, args: ['document:keydown', ['$event'],] }]
+            onFocusIn: [{ type: core.HostListener, args: ['focusin',] }],
+            onFocusOut: [{ type: core.HostListener, args: ['focusout',] }],
+            keydownHandler: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
         };
         return MenuNavigationDirective;
     }());
@@ -20733,7 +21037,7 @@
         HierarchyBarComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar',
-                        template: "<!-- Hierarchy Bar - Standard Layout -->\n<ux-hierarchy-bar-standard *ngIf=\"mode === 'standard'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-standard>\n\n<!-- Hierarchy Bar - Collapsed Layout -->\n<ux-hierarchy-bar-collapsed *ngIf=\"mode === 'collapsed'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-collapsed>\n\n<!-- We can only have one ng-content so this allows us to use it more than once -->\n<ng-template #leftAddons>\n    <ng-content select=\"[uxHierarchyBarLeftAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #rightAddons>\n    <ng-content select=\"[uxHierarchyBarRightAddon]\"></ng-content>\n</ng-template>",
+                        template: "<!-- Hierarchy Bar - Standard Layout -->\n<ux-hierarchy-bar-standard *ngIf=\"mode === 'standard'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-standard>\n\n<!-- Hierarchy Bar - Collapsed Layout -->\n<ux-hierarchy-bar-collapsed *ngIf=\"mode === 'collapsed'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-collapsed>\n\n<!-- We can only have one ng-content so this allows us to use it more than once -->\n<ng-template #leftAddons>\n    <ng-content select=\"[uxHierarchyBarLeftAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #trailingAddons>\n    <ng-content select=\"[uxHierarchyBarTrailingAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #rightAddons>\n    <ng-content select=\"[uxHierarchyBarRightAddon]\"></ng-content>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         viewProviders: [HierarchyBarService]
                     }] }
@@ -21212,7 +21516,7 @@
         HierarchyBarCollapsedComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -21421,7 +21725,7 @@
         HierarchyBarStandardComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-standard',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (select)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            uxFocusIndicator\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (select)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (select)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            uxFocusIndicator\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (select)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -29268,8 +29572,9 @@
      * @template T
      */
     var SelectComponent = /** @class */ (function () {
-        function SelectComponent(_element, _document, _typeaheadKeyService) {
+        function SelectComponent(_element, _platform, _document, _typeaheadKeyService) {
             this._element = _element;
+            this._platform = _platform;
             this._document = _document;
             this._typeaheadKeyService = _typeaheadKeyService;
             /**
@@ -29310,6 +29615,10 @@
              * displaying autocomplete suggestions.
              */
             this.autocomplete = 'off';
+            /**
+             * If `true` the input field will be readonly and selection can only occur by using the dropdown.
+             */
+            this.readonlyInput = false;
             /**
              * Emits when `value` changes.
              */
@@ -29589,11 +29898,34 @@
          * @return {?}
          */
             function () {
+                // if the select is disabled then do not show the dropdown
+                if (this.disabled) {
+                    return;
+                }
                 if (this.dropdownOpen) {
                     this.dropdownOpen = false;
                 }
                 else {
                     this.inputClickHandler();
+                }
+            };
+        /** Handle input focus events */
+        /**
+         * Handle input focus events
+         * @return {?}
+         */
+        SelectComponent.prototype.onFocus = /**
+         * Handle input focus events
+         * @return {?}
+         */
+            function () {
+                // if the input is readonly we do not want to select the text on focus
+                if (this.readonlyInput) {
+                    // cast the select input element
+                    /** @type {?} */
+                    var element_1 = ( /** @type {?} */(this.singleInput.nativeElement));
+                    // firefox requires a delay before clearing the selection (other browsers don't)
+                    this._platform.FIREFOX ? requestAnimationFrame(function () { return element_1.setSelectionRange(0, 0); }) : element_1.setSelectionRange(0, 0);
                 }
             };
         /**
@@ -29603,12 +29935,14 @@
          * @return {?}
          */
             function () {
-                this.singleInput.nativeElement.select();
+                if (!this.readonlyInput) {
+                    this.singleInput.nativeElement.select();
+                }
             };
         SelectComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i class=\"hpe-icon select-arrow\"\r\n        [class.hpe-down]=\"dropDirection === 'down'\"\r\n        [class.hpe-up]=\"dropDirection === 'up'\"\r\n        (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i class=\"hpe-icon select-arrow\"\r\n        [class.hpe-down]=\"dropDirection === 'down'\"\r\n        [class.hpe-up]=\"dropDirection === 'up'\"\r\n        (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR]
                     }] }
         ];
@@ -29616,6 +29950,7 @@
         SelectComponent.ctorParameters = function () {
             return [
                 { type: core.ElementRef },
+                { type: platform.Platform },
                 { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
                 { type: TypeaheadKeyService }
             ];
@@ -29639,6 +29974,7 @@
             autocomplete: [{ type: core.Input }],
             loadingTemplate: [{ type: core.Input }],
             noOptionsTemplate: [{ type: core.Input }],
+            readonlyInput: [{ type: core.Input }],
             optionTemplate: [{ type: core.Input }],
             valueChange: [{ type: core.Output }],
             inputChange: [{ type: core.Output }],
@@ -29722,11 +30058,15 @@
              */
             this.enforceTagLimits = false;
             /**
-             * If true, input entered into the text input area can be converted into a tag by pressing enter.
+             * If `true`, input entered into the text input area can be converted into a tag by pressing enter.
              * Otherwise, tags can only be added from the typeahead list or other external means.
              * (Note that the `maxTags` and `tagPattern` will prevent invalid inputs regardless of this setting.)
              */
             this.freeInput = true;
+            /**
+             * If `true` the input field will be readonly and selection can only occur by using the dropdown.
+             */
+            this.readonlyInput = false;
             /**
              * The maximum number of tags permitted in the tag input. If the number of tags is equal to `maxTags` and
              * `enforceTagLimits` is `true`, addition of tags will be prevented until a tag is removed
@@ -30741,7 +31081,7 @@
             { type: core.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -30768,6 +31108,7 @@
             disabled: [{ type: core.Input }],
             enforceTagLimits: [{ type: core.Input }],
             freeInput: [{ type: core.Input }],
+            readonlyInput: [{ type: core.Input }],
             maxTags: [{ type: core.Input }],
             minTags: [{ type: core.Input }],
             placeholder: [{ type: core.Input }],
@@ -30841,7 +31182,8 @@
                             forms.FormsModule,
                             InfiniteScrollModule,
                             TagInputModule,
-                            TypeaheadModule
+                            TypeaheadModule,
+                            platform.PlatformModule
                         ],
                         exports: [SelectComponent],
                         declarations: [SelectComponent]
@@ -34682,13 +35024,20 @@
             this._elementRef = _elementRef;
             this._table = _table;
             /**
+             * Store the initialised state of the table
+             */
+            this._initialised = false;
+            /**
              * Unsubscribe from the observables
              */
             this._onDestroy = new Subject.Subject();
             // watch for the table being resized
-            resize.addResizeListener(this._elementRef.nativeElement)
-                .pipe(operators.takeUntil(this._onDestroy))
-                .subscribe(function () { return _table.tableWidth = _this.getScrollWidth(); });
+            resize.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                // store the latest table size
+                _table.tableWidth = _this.getScrollWidth();
+                // run the initial logic if the table is fully visible
+                _this.onTableReady();
+            });
         }
         /** Once we have the columns make them resizable and watch for changes to columns */
         /**
@@ -34700,15 +35049,7 @@
          * @return {?}
          */
             function () {
-                var _this = this;
-                // ensure we initially set the table width
-                this._table.tableWidth = this.getScrollWidth();
-                // set the columns - prevent expression changed error
-                requestAnimationFrame(function () { return _this._table.setColumns(_this.columns); });
-                // watch for any future changes to the columns
-                this.columns.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
-                    return requestAnimationFrame(function () { return _this._table.setColumns(_this.columns); });
-                });
+                this.onTableReady();
             };
         /** Cleanup after the component is destroyed */
         /**
@@ -34722,6 +35063,41 @@
             function () {
                 this._onDestroy.next();
                 this._onDestroy.complete();
+            };
+        /**
+         * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+         * visibily on screen. We should only setup the table once we actually have a width/
+         */
+        /**
+         * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+         * visibily on screen. We should only setup the table once we actually have a width/
+         * @return {?}
+         */
+        ResizableTableDirective.prototype.onTableReady = /**
+         * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+         * visibily on screen. We should only setup the table once we actually have a width/
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // if we have already initialised or the table width is currently 0 then do nothing
+                if (this._initialised || this.getScrollWidth() === 0) {
+                    return;
+                }
+                // ensure we initially set the table width
+                this._table.tableWidth = this.getScrollWidth();
+                // set the columns - prevent expression changed error
+                requestAnimationFrame(function () {
+                    // initially set the columns
+                    _this._table.setColumns(_this.columns);
+                    // force relayout to occur to ensure the UI is consistent with the internal state
+                    _this.updateLayout();
+                });
+                // watch for any future changes to the columns
+                this.columns.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    return requestAnimationFrame(function () { return _this._table.setColumns(_this.columns); });
+                });
+                this._initialised = true;
             };
         /** Force the layout to recalculate */
         /**
@@ -36630,13 +37006,18 @@
      * @template T
      */
     var FixedHeaderTableDirective = /** @class */ (function () {
-        function FixedHeaderTableDirective(_elementRef, _renderer) {
+        function FixedHeaderTableDirective(_elementRef, _renderer, _resizeService) {
             this._elementRef = _elementRef;
             this._renderer = _renderer;
+            this._resizeService = _resizeService;
             /**
              * Emit when the table tries to load more data
              */
             this.tablePaging = new core.EventEmitter();
+            /**
+             * Unsubscribe from all observables on destroy
+             */
+            this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(FixedHeaderTableDirective.prototype, "dataset", {
             /** Allow dataset changes to trigger re-layout */
@@ -36658,17 +37039,31 @@
          * @return {?}
          */
             function () {
+                var _this = this;
                 // add class to the table
                 this._renderer.addClass(this._elementRef.nativeElement, 'ux-fixed-header-table');
                 // locate the important elements
-                this._tableHead = this._elementRef.nativeElement.querySelector('thead');
-                this._tableBody = this._elementRef.nativeElement.querySelector('tbody');
+                this._tableHead = ( /** @type {?} */(this._elementRef.nativeElement.querySelector('thead')));
+                this._tableBody = ( /** @type {?} */(this._elementRef.nativeElement.querySelector('tbody')));
                 // bind to scroll events on the table body
                 this._renderer.listen(this._tableBody, 'scroll', this.onScroll.bind(this));
                 // resize the table header to account for scrollbar
                 this.setLayout();
+                // if a resize occurs perform a relayout (this can be useful when displaying tables in modals)
+                this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this.setLayout(); });
                 // trigger the loading of the first page
                 this.tablePaging.emit();
+            };
+        /**
+         * @return {?}
+         */
+        FixedHeaderTableDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
         /**
          * Get the table element
@@ -36747,7 +37142,8 @@
         FixedHeaderTableDirective.ctorParameters = function () {
             return [
                 { type: core.ElementRef },
-                { type: core.Renderer2 }
+                { type: core.Renderer2 },
+                { type: ResizeService }
             ];
         };
         FixedHeaderTableDirective.propDecorators = {
@@ -36767,8 +37163,15 @@
         }
         FixedHeaderTableModule.decorators = [
             { type: core.NgModule, args: [{
-                        exports: [FixedHeaderTableDirective],
-                        declarations: [FixedHeaderTableDirective]
+                        imports: [
+                            ResizeModule
+                        ],
+                        exports: [
+                            FixedHeaderTableDirective
+                        ],
+                        declarations: [
+                            FixedHeaderTableDirective
+                        ]
                     },] }
         ];
         return FixedHeaderTableModule;
@@ -40662,6 +41065,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
 
+    exports.Color = Color;
     exports.AccordionPanelHeadingDirective = AccordionPanelHeadingDirective;
     exports.AccordionPanelComponent = AccordionPanelComponent;
     exports.AccordionComponent = AccordionComponent;

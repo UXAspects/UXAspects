@@ -9490,6 +9490,9 @@ button.dim:active:before {
 .dropdown-menu {
   margin-top: 5px;
 }
+.dropdown-menu.dropdown-open {
+  display: block;
+}
 .dropdown-icon-inline {
   padding-left: 12px;
 }
@@ -18380,7 +18383,7 @@ ux-select ux-tag-input {
   font-size: 1.125rem;
 }
 ux-select ux-tag-input ux-typeahead {
-  font-size: initial;
+  font-size: 1rem;
 }
 ux-select ux-typeahead .ux-typeahead-options > ol > li {
   white-space: nowrap;
@@ -18388,9 +18391,40 @@ ux-select ux-typeahead .ux-typeahead-options > ol > li {
   text-overflow: ellipsis;
   word-break: break-all;
 }
+ux-select .inner-addon > input[readonly]:not(:disabled) {
+  background-color: #fff;
+  color: #555;
+  border-color: #e5e6e7;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled)::-moz-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled):-ms-input-placeholder {
+  color: #ccc;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled)::-webkit-input-placeholder {
+  color: #ccc;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled):focus {
+  border-color: #7b63a3;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled):focus::-moz-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled):focus:-ms-input-placeholder {
+  color: #ccc;
+}
+ux-select .inner-addon > input[readonly]:not(:disabled):focus::-webkit-input-placeholder {
+  color: #ccc;
+}
 ux-select .right-addon .select-arrow {
   cursor: pointer;
   pointer-events: all;
+}
+ux-select .right-addon.disabled .select-arrow {
+  cursor: default;
 }
 .ux-side-panel.open > .ux-side-panel-host {
   box-shadow: 1px 0 20px 0 rgba(51, 51, 51, 0.4);
@@ -19041,6 +19075,9 @@ ux-tag-input > ol > li.ux-tag-input > input::-moz-placeholder {
 ux-tag-input > ol > li.ux-tag-input > input:-ms-input-placeholder {
   color: #ccc;
   opacity: 1;
+}
+ux-tag-input > ol > li.ux-tag-input > input[readonly] {
+  cursor: default;
 }
 ux-tag-input.disabled {
   background-color: #eee;
