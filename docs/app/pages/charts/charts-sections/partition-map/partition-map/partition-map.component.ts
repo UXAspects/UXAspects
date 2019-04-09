@@ -67,5 +67,4 @@ export class ChartsPartitionMapComponent extends BaseDocumentationSection {
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
     }
-
 }

@@ -327,6 +327,17 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         return width < 50;
     }
 
+    /** Get the value of a segment based on the accumulation of all child values */
+    _getSegmentValue(segment: PartitionMapSegment): number {
+
+        // it it has a value then return the value
+        if (segment.hasOwnProperty('value')) {
+            return (segment as PartitionMapSegmentWithValue).value;
+        }
+
+        return (segment as PartitionMapSegmentWithChildren).children.reduce((value, child) => value + this._getSegmentValue(child), 0);
+    }
+
     /** Convert the public facing data structure into the layout format we require */
     private setDataset(dataset: Readonly<PartitionMapSegment>): void {
 
@@ -489,7 +500,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
      */
     private getSegmentValue(segment: PartitionMapSegment): number {
         if (segment.hasOwnProperty('value')) {
-            const value = (segment as PartitionMapSegmentWithoutChildren).value;
+            const value = (segment as PartitionMapSegmentWithValue).value;
 
             // we must ensure that a leaf node never has no width otherwise things can get weird
             return Math.max(value, 1);
@@ -723,12 +734,12 @@ export interface PartitionMapSegmentWithChildren extends PartitionMapSegmentBase
     children: ReadonlyArray<PartitionMapSegment>;
 }
 
-export interface PartitionMapSegmentWithoutChildren extends PartitionMapSegmentBase {
+export interface PartitionMapSegmentWithValue extends PartitionMapSegmentBase {
     value: number;
 }
 
 /** This union type allows us to ensure that a partition map segment has either children or a value */
-export type PartitionMapSegment = PartitionMapSegmentWithChildren | PartitionMapSegmentWithoutChildren;
+export type PartitionMapSegment = PartitionMapSegmentWithChildren | PartitionMapSegmentWithValue;
 
 /** Partition map custom segment template context */
 export interface PartitionMapCustomSegmentContext {

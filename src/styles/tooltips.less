@@ -176,6 +176,13 @@
     width: 100%;
 }
 
-.ux-overlay-pane {
+.ux-overlay-pane,
+.ux-tooltip-pane {
     position: absolute;
+}
+
+.ux-tooltip-pane {
+    // We don't want mouse events interacting with a tooltip as it can cause flickering.
+    // We need to mark it as important to override inline styles added by the CDK
+    pointer-events: none !important;
 }

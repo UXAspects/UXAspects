@@ -290,7 +290,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
         this._overlayRef = this._overlay.create({
             positionStrategy: strategy,
-            panelClass: 'ux-overlay-pane',
+            panelClass: 'ux-tooltip-pane',
             scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
             hasBackdrop: false
         });
