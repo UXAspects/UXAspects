@@ -708,6 +708,23 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         // identify the current widget from all the siblings
         const matchingSegment = siblings.find(sibling => sibling.segment === segment);
 
+        // check if we are the last sibling
+        const isLast = siblings.findIndex(sibling => sibling.segment === segment) === siblings.length - 1;
+
+        // if we are the last and somehow we are smaller than the parent node, we want to bump up the size of the last node
+        if (isLast) {
+            // get the total parent width
+            const parentWidth = this._x(segment.parent.x1 - segment.parent.x0);
+
+            // get the total width of all the children
+            const width = siblings.reduce((total, sibling) => total + sibling.width, 0);
+
+            // check if need to expand the last node
+            if (parentWidth !== width) {
+                return (matchingSegment.width + (parentWidth - width)) / this._x(matchingSegment.segment.x1 - matchingSegment.segment.x0);
+            }
+        }
+
         // determine the amount the size has changed
         return matchingSegment.width / this._x(matchingSegment.segment.x1 - matchingSegment.segment.x0);
     }
