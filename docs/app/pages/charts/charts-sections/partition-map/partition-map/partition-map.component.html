@@ -1,0 +1,75 @@
+<ux-partition-map [dataset]="dataset" [colors]="colors">
+    <ng-template #partitionMapSegment let-data="data">
+        <div class="partition-map-custom-segment">
+            <span class="partion-map-segment-label">{{ data.name }}</span>
+        </div>
+    </ng-template>
+</ux-partition-map>
+
+<hr>
+
+<p>
+    The partition map can be used to provide a visual representation of a hierarchy structure.
+</p>
+
+<p>The partition map appearance and behavior can be customized using the following:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="dataset" type="Readonly<PartitionMapSegment>" required="true">
+        Define the dataset to display in the chart.
+    </tr>
+    <tr uxd-api-property name="colors" type="string[][] | ThemeColor[][]" [required]="true">
+        Define the colors to be used for each row and the order they should appear.
+    </tr>
+    <tr uxd-api-property name="collapsedHeight" type="number" defaultValue="5">
+        Determine the percentage height of collapsed segments.
+    </tr>
+    <tr uxd-api-property name="minSegmentWidth" type="number" defaultValue="1">
+        Define the minimum desired percentage width for a segment. Where possible, segements
+        will appear at least this width regardless of their value.
+    </tr>
+    <tr uxd-api-property name="selected" type="Readonly<PartitionMapSegment>">
+        Define the currently selected item.
+    </tr>
+    <tr uxd-api-property name="segementAnnouncement" type="(info: PartitionMapSegmentAnnouncementInfo) => string">
+        Define the function that will return the aria announcement for a segment. This will be
+        announced when a segment receives focus. By default the focused node name will be announced along with the
+        names of its ancestors.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="PartitionMapSegment">
+        Emits whenever a segment is selected.
+    </tr>
+</uxd-api-properties>
+
+<h4>PartitionMapSegment Interface</h4>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string">
+        Define the name of the segment.
+    </tr>
+    <tr uxd-api-property name="children" type="ReadonlyArray<PartitionMapSegment>">
+        Define the child segments if there are any. If there are no children a <code>value</code> property must be provided.
+    </tr>
+    <tr uxd-api-property name="value" type="number">
+        Define the value this segment represents. This should only be present on segments with no children.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    Additionally the content of a segment can be customized by adding a child <code>ng-template</code> identified as <code>#partitionMapSegment</code>.
+    The template context has a <code>data</code> property containing the segment data and a <code>color</code> property containing the segment color.
+    This custom template can be used to add functionality such as a tooltip or popover.
+</p>
+
+
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="Javascript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+  </ux-tab>
+</ux-tabset>

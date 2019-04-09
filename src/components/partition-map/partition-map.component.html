@@ -1,0 +1,34 @@
+<div class="partition-map-segment"
+     *ngFor="let segment of _segments"
+     uxFocusIndicator
+     [ngClass]="_getContrastColor(segment)"
+     [style.background-color]="_getBackgroundColor(segment)"
+     [tabIndex]="_getTabIndex(segment)"
+     [attr.aria-expanded]="!_isCollapsed(segment)"
+     [attr.aria-selected]="_isSelected(segment)"
+     [attr.aria-level]="segment.depth"
+     (click)="_onSegmentSelect(segment)"
+     (focus)="_onFocus(segment)"
+     (keydown.Enter)="_onSegmentSelect(segment)"
+     (keydown.ArrowUp)="_focusParent(segment); $event.preventDefault()"
+     (keydown.ArrowDown)="_focusChild(segment); $event.preventDefault()"
+     (keydown.ArrowLeft)="_focusSibling(segment, -1); $event.preventDefault()"
+     (keydown.ArrowRight)="_focusSibling(segment, 1); $event.preventDefault()"
+     (keydown.Home)="_focusFirstSibling(segment); $event.preventDefault()"
+     (keydown.End)="_focusLastSibling(segment); $event.preventDefault()">
+
+     <div class="partition-map-segment-content" [class.partition-map-segment-content-hidden]="_getSegmentContentHidden(segment)">
+
+      <!-- Show default template if provided -->
+      <span class="partion-map-segment-label" *ngIf="!segmentTemplate">
+        {{ segment.data.name }}
+      </span>
+
+       <!-- Show custom template if provided -->
+      <ng-container *ngIf="segmentTemplate"
+        [ngTemplateOutlet]="segmentTemplate"
+        [ngTemplateOutletContext]="{ data: segment.data, color: _getBackgroundColor(segment) }">
+      </ng-container>
+    </div>
+
+</div>
