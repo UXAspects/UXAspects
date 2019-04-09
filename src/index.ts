@@ -1,7 +1,7 @@
 /**
  * Export Common Functionality
  */
-export * from './common/colors/index';
+export * from './common/index';
 /*
   Export Components
 */

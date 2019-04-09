@@ -312,7 +312,13 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         const hierarchichalItem = this.getHierarchyNodeFromSegment(item);
 
         // get the function that creates the announcement
-        const announcement = this.segementAnnouncement({ item, parents, collapsed: this._isCollapsed(hierarchichalItem), selected: this._isSelected(hierarchichalItem) });
+        const announcement = this.segementAnnouncement({
+            item,
+            parents,
+            value: this._getSegmentValue(segment.data),
+            collapsed: this._isCollapsed(hierarchichalItem),
+            selected: this._isSelected(hierarchichalItem)
+        });
 
         // make aria announcement
         this._liveAnnouncer.announce(announcement);
@@ -734,11 +740,11 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
         // create the announcement
         if (info.parents.length === 0) {
-            return `This is the root segment.`;
+            return `This is the root segment. It has a value of ${info.value}.`;
         }
 
         // otherwise inform the user of the parent hierarchy
-        return `${info.item.name} is a ${info.parents.map(parent => `descendant of ${parent.name}`).join(' and a ')}`;
+        return `${info.item.name} has a value of ${info.value} and is a ${info.parents.map(parent => `descendant of ${parent.name}`).join(' and a ')}`;
     }
 
 }
@@ -766,6 +772,7 @@ export interface PartitionMapCustomSegmentContext {
 /** An object of this interface is passed to the announcer function */
 export interface PartitionMapSegmentAnnouncementInfo {
     item: PartitionMapSegment;
+    value: number;
     parents: PartitionMapSegment[];
     collapsed: boolean;
     selected: boolean;

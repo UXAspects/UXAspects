@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AccessibilityModule, Color, ColorService, ColorServiceModule, colorSets } from '@ux-aspects/ux-aspects';
 import { first } from 'rxjs/operators';
+import { AccessibilityModule } from '../../directives/accessibility/index';
+import { ResizeModule } from '../../directives/resize/index';
+import { ColorService, ColorServiceModule, colorSets } from '../../services/color/index';
 import { PartitionMapComponent, PartitionMapSegmentWithChildren } from './partition-map.component';
 
 describe('Partition Map Component', () => {
@@ -13,6 +15,7 @@ describe('Partition Map Component', () => {
         TestBed.configureTestingModule({
             imports: [
                 AccessibilityModule,
+                ResizeModule,
                 ColorServiceModule.forRoot(colorSets.microFocus),
             ],
             declarations: [PartitionMapComponent]
@@ -25,9 +28,9 @@ describe('Partition Map Component', () => {
 
         // supply the colorset
         component.colors = [
-            [Color.Gray3],
-            [Color.Gray4, Color.Gray5],
-            [Color.Chart1, Color.Chart2, Color.Chart3]
+            ['#7b63a3'],
+            ['#635387', '#3baa43', '#025662', '#b08f5c'],
+            ['#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d']
         ];
 
         // supply an initial dataset
@@ -104,25 +107,25 @@ describe('Partition Map Component', () => {
     });
 
     it('should have the correct segment colors', () => {
-        expect(segments.item(0).style.backgroundColor).toBe('rgb(101, 102, 104)');
-        expect(segments.item(1).style.backgroundColor).toBe('rgb(220, 222, 223)');
-        expect(segments.item(2).style.backgroundColor).toBe('rgb(241, 242, 243)');
-        expect(segments.item(3).style.backgroundColor).toBe('rgb(220, 222, 223)');
-        expect(segments.item(4).style.backgroundColor).toBe('rgb(57, 57, 198)');
-        expect(segments.item(5).style.backgroundColor).toBe('rgb(67, 228, 255)');
-        expect(segments.item(6).style.backgroundColor).toBe('rgb(255, 69, 79)');
-        expect(segments.item(7).style.backgroundColor).toBe('rgb(255, 206, 0)');
-        expect(segments.item(8).style.backgroundColor).toBe('rgb(186, 71, 226)');
-        expect(segments.item(9).style.backgroundColor).toBe('rgb(57, 57, 198)');
-        expect(segments.item(10).style.backgroundColor).toBe('rgb(67, 228, 255)');
-        expect(segments.item(11).style.backgroundColor).toBe('rgb(255, 69, 79)');
-        expect(segments.item(12).style.backgroundColor).toBe('rgb(255, 206, 0)');
-        expect(segments.item(13).style.backgroundColor).toBe('rgb(186, 71, 226)');
-        expect(segments.item(14).style.backgroundColor).toBe('rgb(57, 57, 198)');
-        expect(segments.item(15).style.backgroundColor).toBe('rgb(67, 228, 255)');
-        expect(segments.item(16).style.backgroundColor).toBe('rgb(255, 69, 79)');
-        expect(segments.item(17).style.backgroundColor).toBe('rgb(255, 206, 0)');
-        expect(segments.item(18).style.backgroundColor).toBe('rgb(186, 71, 226)');
+        expect(segments.item(0).style.backgroundColor).toBe('rgb(123, 99, 163)');
+        expect(segments.item(1).style.backgroundColor).toBe('rgb(99, 83, 135)');
+        expect(segments.item(2).style.backgroundColor).toBe('rgb(59, 170, 67)');
+        expect(segments.item(3).style.backgroundColor).toBe('rgb(2, 86, 98)');
+        expect(segments.item(4).style.backgroundColor).toBe('rgb(28, 137, 154)');
+        expect(segments.item(5).style.backgroundColor).toBe('rgb(24, 166, 223)');
+        expect(segments.item(6).style.backgroundColor).toBe('rgb(152, 201, 114)');
+        expect(segments.item(7).style.backgroundColor).toBe('rgb(131, 157, 232)');
+        expect(segments.item(8).style.backgroundColor).toBe('rgb(131, 155, 157)');
+        expect(segments.item(9).style.backgroundColor).toBe('rgb(28, 137, 154)');
+        expect(segments.item(10).style.backgroundColor).toBe('rgb(24, 166, 223)');
+        expect(segments.item(11).style.backgroundColor).toBe('rgb(152, 201, 114)');
+        expect(segments.item(12).style.backgroundColor).toBe('rgb(131, 157, 232)');
+        expect(segments.item(13).style.backgroundColor).toBe('rgb(131, 155, 157)');
+        expect(segments.item(14).style.backgroundColor).toBe('rgb(28, 137, 154)');
+        expect(segments.item(15).style.backgroundColor).toBe('rgb(24, 166, 223)');
+        expect(segments.item(16).style.backgroundColor).toBe('rgb(152, 201, 114)');
+        expect(segments.item(17).style.backgroundColor).toBe('rgb(131, 157, 232)');
+        expect(segments.item(18).style.backgroundColor).toBe('rgb(131, 155, 157)');
     });
 
     it('should collapse root segment when immediate child is selected', () => {
@@ -152,8 +155,8 @@ describe('Partition Map Component', () => {
     it('should apply appropriate classes for color contrast ratio', () => {
         expect(segments.item(0).classList.contains('partition-map-segment-light')).toBe(true);
         expect(segments.item(0).classList.contains('partition-map-segment-dark')).toBe(false);
-        expect(segments.item(1).classList.contains('partition-map-segment-light')).toBe(false);
-        expect(segments.item(1).classList.contains('partition-map-segment-dark')).toBe(true);
+        expect(segments.item(2).classList.contains('partition-map-segment-light')).toBe(false);
+        expect(segments.item(2).classList.contains('partition-map-segment-dark')).toBe(true);
     });
 
     it('should only allow tabbing to the root node initially', () => {
@@ -242,9 +245,9 @@ describe('Partition Map Component', () => {
     it('should allow the colors to change using the colors @Input', () => {
         // supply the new colorset
         component.colors = [
-            [Color.Primary],
-            [Color.Gray, Color.BrightGray],
-            colorSequence.getSequence(ColorSequence.SecondaryLightExtendedAlt)
+            ['#ff0000'],
+            ['#635387', '#3baa43', '#025662', '#b08f5c'],
+            ['#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d']
         ];
 
         /**
@@ -256,7 +259,7 @@ describe('Partition Map Component', () => {
         // run change detection
         fixture.detectChanges();
 
-        expect(segments.item(0).style.backgroundColor).toBe(colorService.getColor(Color.Primary).toRgb());
+        expect(segments.item(0).style.backgroundColor).toBe('rgb(255, 0, 0)');
     });
 
     it('should allow arrow keys to move focus down', () => {
