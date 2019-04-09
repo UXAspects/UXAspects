@@ -1,6 +1,5 @@
 import { END, HOME, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgModule } from '@angular/core';
-import * as Chart from 'chart.js';
 
 const timelineDefaultOptions: TimelineChartOptions & TimelineChartState = {
     timeline: {
@@ -46,7 +45,14 @@ export class TimelineChartPlugin {
          * Having it here allows it to be tree-shaken.
          */
         if (!this._isRegistered) {
-            ((window as any).Chart || Chart).pluginService.register(new TimelineChartPlugin());
+
+            if (!(window as any).Chart) {
+                throw new Error('Please import Chart.js to use the timeline chart.');
+            }
+
+            // register the plugin
+            (window as any).Chart.pluginService.register(new TimelineChartPlugin());
+
             this._isRegistered = true;
         }
     }

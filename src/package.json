@@ -63,9 +63,7 @@
     "ngx-bootstrap": "^2.0.0",
     "ngx-mask": "^2.5.3",
     "bootstrap": "^3.3.7",
-    "resize-observer-polyfill": "^1.5.0"
-  },
-  "devDependencies": {
+    "resize-observer-polyfill": "^1.5.0",
     "@types/chart.js": "^2.7.45",
     "@types/dragula": "^2.1.33"
   },
