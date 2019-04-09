@@ -54,6 +54,7 @@ const DOCUMENTATION_COMPONENTS = [
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         BsDropdownModule,
         ButtonsModule,
         CommonModule,
