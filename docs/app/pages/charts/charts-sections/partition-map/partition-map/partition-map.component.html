@@ -10,6 +10,7 @@
                   #tooltip="ux-tooltip"
                   [uxTooltip]="data.name + ': ' + value"
                   tooltipClass="partition-map-tooltip"
+                  [tooltipDelay]="500"
                   [showTriggers]="[]"
                   [hideTriggers]="[]">
                   {{ data.name }}
@@ -78,10 +79,17 @@
 
 
 <ux-tabset [minimal]="false">
+
   <ux-tab heading="HTML">
-    <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
   </ux-tab>
-  <ux-tab heading="Javascript">
-    <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
   </ux-tab>
+
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </ux-tab>
+
 </ux-tabset>

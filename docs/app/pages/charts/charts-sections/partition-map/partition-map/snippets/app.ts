@@ -1,18 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { PartitionMapSegment } from '@ux-aspects/ux-aspects';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
-import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-charts-partition-map',
-    templateUrl: './partition-map.component.html',
-    styleUrls: ['./partition-map.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-@DocumentationSectionComponent('ChartsPartitionMapComponent')
-export class ChartsPartitionMapComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+export class AppComponent {
 
     dataset: Readonly<PartitionMapSegment> = {
         name: 'My Workspace',
@@ -65,22 +59,4 @@ export class ChartsPartitionMapComponent extends BaseDocumentationSection implem
         ['#635387', '#3baa43', '#025662', '#b08f5c'],
         ['#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d']
     ];
-
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['PartitionMapModule', 'TooltipModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
-    };
-
-    constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
-    }
 }

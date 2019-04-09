@@ -1,0 +1,20 @@
+<ux-partition-map [dataset]="dataset" [colors]="colors">
+    <ng-template #partitionMapSegment let-data="data" let-value="value">
+
+        <div class="partition-map-custom-segment"
+                (mouseenter)="tooltip.show()"
+                (mouseleave)="tooltip.hide()"
+                (click)="tooltip.hide()">
+
+            <span class="partion-map-segment-label"
+                #tooltip="ux-tooltip"
+                [uxTooltip]="data.name + ': ' + value"
+                [tooltipDelay]="500"
+                tooltipClass="partition-map-tooltip"
+                [showTriggers]="[]"
+                [hideTriggers]="[]">
+                {{ data.name }}
+            </span>
+        </div>
+    </ng-template>
+</ux-partition-map>
