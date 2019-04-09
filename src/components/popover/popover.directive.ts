@@ -43,6 +43,9 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     /** Keep track of the tooltip visibility and update aria-expanded attribute */
     @HostBinding('attr.aria-expanded') isVisible: boolean = false;
 
+    /** Define the overlay class */
+    protected _overlayClass: string = 'ux-overlay-pane';
+
     /** A reference to the CDK portal containing the overlay */
     protected _portal: ComponentPortal<PopoverComponent>;
 
