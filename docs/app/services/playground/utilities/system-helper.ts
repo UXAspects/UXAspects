@@ -33,6 +33,7 @@ export class SystemJSHelper {
         { name: '@angular/cdk/table', path: '@angular/cdk@5.2.5/bundles/cdk-table.umd.js' },
         // Dependencies
         { name: 'tslib', path: 'tslib@1.7.1' },
+        { name: 'd3', path: 'd3@5.9.2' },
         { name: 'rxjs', path: 'rxjs@6.2.2' },
         { name: 'rxjs-compat', path: 'rxjs-compat@6.2.2' },
         { name: 'ngx-bootstrap', path: 'ngx-bootstrap@2.0.5/bundles/ngx-bootstrap.umd.min.js' },
