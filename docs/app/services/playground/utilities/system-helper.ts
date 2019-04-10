@@ -45,6 +45,39 @@ export class SystemJSHelper {
         { name: 'dragula/dist/dragula', path: 'dragula/dist/dragula.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },
         { name: 'resize-observer-polyfill', path: 'resize-observer-polyfill@1.5.0/dist/ResizeObserver.js' },
+        // d3
+        { name: 'd3', path: 'd3@5.9.2' },
+        { name: 'd3-array', path: 'd3@5.9.2' },
+        { name: 'd3-axis', path: 'd3@5.9.2' },
+        { name: 'd3-brush', path: 'd3@5.9.2' },
+        { name: 'd3-chord', path: 'd3@5.9.2' },
+        { name: 'd3-collection', path: 'd3@5.9.2' },
+        { name: 'd3-color', path: 'd3@5.9.2' },
+        { name: 'd3-contour', path: 'd3@5.9.2' },
+        { name: 'd3-dispatch', path: 'd3@5.9.2' },
+        { name: 'd3-drag', path: 'd3@5.9.2' },
+        { name: 'd3-dsv', path: 'd3@5.9.2' },
+        { name: 'd3-ease', path: 'd3@5.9.2' },
+        { name: 'd3-fetch', path: 'd3@5.9.2' },
+        { name: 'd3-force', path: 'd3@5.9.2' },
+        { name: 'd3-format', path: 'd3@5.9.2' },
+        { name: 'd3-geo', path: 'd3@5.9.2' },
+        { name: 'd3-hierarchy', path: 'd3@5.9.2' },
+        { name: 'd3-interpolate', path: 'd3@5.9.2' },
+        { name: 'd3-path', path: 'd3@5.9.2' },
+        { name: 'd3-polygon', path: 'd3@5.9.2' },
+        { name: 'd3-quadtree', path: 'd3@5.9.2' },
+        { name: 'd3-random', path: 'd3@5.9.2' },
+        { name: 'd3-scale', path: 'd3@5.9.2' },
+        { name: 'd3-scale-chromatic', path: 'd3@5.9.2' },
+        { name: 'd3-selection', path: 'd3@5.9.2' },
+        { name: 'd3-shape', path: 'd3@5.9.2' },
+        { name: 'd3-time', path: 'd3@5.9.2' },
+        { name: 'd3-time-format', path: 'd3@5.9.2' },
+        { name: 'd3-timer', path: 'd3@5.9.2' },
+        { name: 'd3-transition', path: 'd3@5.9.2' },
+        { name: 'd3-voronoi', path: 'd3@5.9.2' },
+        { name: 'd3-zoom', path: 'd3@5.9.2' },
         // ngx-bootstrap
         { name: 'ngx-bootstrap/accordion', path: 'ngx-bootstrap@2.0.5/bundles/ngx-bootstrap.umd.min.js' },
         { name: 'ngx-bootstrap/alert', path: 'ngx-bootstrap@2.0.5/bundles/ngx-bootstrap.umd.min.js' },
@@ -91,15 +124,15 @@ export class SystemJSHelper {
         // create a new list of mappings
         const mappings: { [library: string]: string } = {};
 
-        // add all external libraries
-        this._mappings.forEach(mapping => mappings[mapping.name] = this.getPackageUrl(mapping));
-
         // add in the UX Aspects packages
         mappings['@ux-aspects/ux-aspects'] = `${assetsUrl}/lib/index.js`;
 
         if (documentationType === DocumentationType.MicroFocus) {
             mappings['@micro-focus/ux-aspects'] = `${assetsUrl}/lib/ux-aspects-micro-focus.js`;
         }
+
+        // add all external libraries
+        this._mappings.forEach(mapping => mappings[mapping.name] = this.getPackageUrl(mapping));
 
         return mappings;
     }

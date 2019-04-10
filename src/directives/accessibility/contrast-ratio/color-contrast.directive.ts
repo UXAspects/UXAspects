@@ -37,7 +37,7 @@ export class ColorContrastDirective {
     /** Determine the color to set based on the supplied parameters */
     @HostBinding('style.color')
     get _color(): string | null {
-        return this._backgroundColor ? this._contrastService.getContrastColor(this._backgroundColor, this._lightColor, this._darkColor) : null;
+        return this._backgroundColor ? this._contrastService.getContrastColor(this._backgroundColor, this._lightColor, this._darkColor).toRgba() : null;
     }
 
     /** Store the background color as a ThemeColor object */

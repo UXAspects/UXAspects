@@ -8,7 +8,7 @@ export class ContrastService {
      * This uses the official WCAG Color Contrast Ratio
      * Algorithm: https://www.w3.org/TR/WCAG20-TECHS/G17.html
      */
-    getContrastColor(backgroundColor: ThemeColor, lightColor: ThemeColor, darkColor: ThemeColor): string {
+    getContrastColor(backgroundColor: ThemeColor, lightColor: ThemeColor, darkColor: ThemeColor): ThemeColor {
         // get a ThemeColor from the ColorPickerColor
         const themeColor = ThemeColor.parse(backgroundColor.toHex());
 
@@ -21,7 +21,7 @@ export class ContrastService {
         const blackContrast = (background + 0.05) / (dark + 0.05);
 
         // return the color with the most contrast ratio
-        return blackContrast > whiteContrast ? '#000' : '#fff';
+        return blackContrast > whiteContrast ? darkColor : lightColor;
     }
 
     private getLuminance(color: ThemeColor): number {

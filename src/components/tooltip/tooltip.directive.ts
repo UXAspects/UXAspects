@@ -58,6 +58,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Keep track of the tooltip visibility */
     isVisible: boolean = false;
 
+    /** Define the overlay class */
+    protected _overlayClass: string = 'ux-tooltip-pane';
+
     /** A reference to the CDK portal containing the overlay */
     protected _portal: ComponentPortal<TooltipComponent>;
 
@@ -290,7 +293,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
         this._overlayRef = this._overlay.create({
             positionStrategy: strategy,
-            panelClass: 'ux-overlay-pane',
+            panelClass: this._overlayClass,
             scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
             hasBackdrop: false
         });

@@ -1,7 +1,7 @@
 /**
  * Export Common Functionality
  */
-export * from './common/colors/index';
+export * from './common/index';
 /*
   Export Components
 */
@@ -30,6 +30,7 @@ export * from './components/notification/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
 export * from './components/pagination/index';
+export * from './components/partition-map/index';
 export * from './components/popover/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';

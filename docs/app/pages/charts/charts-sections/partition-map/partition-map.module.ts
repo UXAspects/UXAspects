@@ -1,15 +1,17 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HybridModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { HybridModule, PartitionMapModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ChartsPartitionMapNg1Component } from './partition-map-ng1/partition-map-ng1.component';
+import { ChartsPartitionMapComponent } from './partition-map/partition-map.component';
 
 
 const SECTIONS = [
-    ChartsPartitionMapNg1Component
+    ChartsPartitionMapNg1Component,
+    ChartsPartitionMapComponent
 ];
 
 const ROUTES = [
@@ -28,7 +30,9 @@ const ROUTES = [
         WrappersModule,
         HybridModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        PartitionMapModule,
+        TooltipModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

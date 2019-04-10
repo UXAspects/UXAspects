@@ -6,6 +6,7 @@
       "@angular/cdk",
       "angular-split",
       "chart.js",
+      "d3",
       "dragula",
       "ng2-charts",
       "ng2-file-upload",
