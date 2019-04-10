@@ -55,6 +55,19 @@ export class ThemeColor {
     }
 
     /**
+     * Determine if an object is an instance of a theme color.
+     * Using a simple instanceof check will not always work in plunker
+     * where the ThemeColor is from @ux-aspects/ux-aspects and the color
+     * comes from @micro-focus/ux-aspects
+     */
+    static isInstanceOf(themeColor: any): boolean {
+        return typeof themeColor.getRed === 'function' &&
+            typeof themeColor.getGreen === 'function' &&
+            typeof themeColor.getBlue === 'function' &&
+            typeof themeColor.getAlpha === 'function';
+    }
+
+    /**
      * Convert the theme color to a CSS hex color code
      */
     toHex(): string {

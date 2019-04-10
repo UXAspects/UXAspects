@@ -614,7 +614,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         }
 
         // convert this row to an array of strings
-        return colorSet.map(color => color instanceof ThemeColor ? color.toRgba() : this._colorService.resolve(color));
+        return colorSet.map(color => ThemeColor.isInstanceOf(color) ? (color as ThemeColor).toRgba() : this._colorService.resolve(color as string));
     }
 
     /** Determine if a segment is a descendant of the currently selected item */
