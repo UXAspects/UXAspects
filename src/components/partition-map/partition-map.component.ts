@@ -128,6 +128,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this._resizeService.removeResizeListener(this._elementRef.nativeElement);
         this._onDestroy.next();
         this._onDestroy.complete();
     }

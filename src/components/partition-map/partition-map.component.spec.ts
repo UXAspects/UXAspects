@@ -1,22 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { first } from 'rxjs/operators';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { ResizeModule } from '../../directives/resize/index';
-import { ColorService, ColorServiceModule, colorSets } from '../../services/color/index';
+import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
+import { ColorServiceModule, colorSets } from '../../services/color/index';
 import { PartitionMapComponent, PartitionMapSegmentWithChildren } from './partition-map.component';
+
+export class MockResizeService {
+    addResizeListener(target: HTMLElement): BehaviorSubject<ResizeDimensions> {
+        return new BehaviorSubject<ResizeDimensions>({ width: target.offsetWidth, height: target.offsetHeight });
+    }
+
+    removeResizeListener(_target: HTMLElement): void { }
+}
+
 
 describe('Partition Map Component', () => {
     let component: PartitionMapComponent;
     let fixture: ComponentFixture<PartitionMapComponent>;
     let segments: NodeListOf<HTMLDivElement>;
-    const colorService = new ColorService(colorSets.microFocus);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 AccessibilityModule,
-                ResizeModule,
                 ColorServiceModule.forRoot(colorSets.microFocus),
+            ],
+            providers: [
+                { provide: ResizeService, useClass: MockResizeService }
             ],
             declarations: [PartitionMapComponent]
         }).compileComponents();
