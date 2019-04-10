@@ -28,8 +28,8 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     /** Determine the percentage height of collapsed segments. */
     @Input() collapsedHeight: number = 5;
 
-    /** Define a minimum desired percentage width for a segment. */
-    @Input() minSegmentWidth: number = 1;
+    /** Define a minimum desired pixel width for a segment. */
+    @Input() minSegmentWidth: number = 5;
 
     /** Define the dataset to display in the chart. */
     @Input() set dataset(dataset: Readonly<PartitionMapSegment>) {
@@ -121,6 +121,9 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(dimensions => {
             this._width = dimensions.width;
             this._changeDetector.detectChanges();
+
+            // render the chart to ensure positions and sizes are correct
+            this.updateSegments();
         });
     }
 
@@ -366,13 +369,10 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         // select all the segments within the chart
         this._segmentsSelection = select(this._elementRef.nativeElement)
             .selectAll('.partition-map-segment')
-            .data(this._segments)
-            .style('left', data => this.getNormalizedSegmentX(data) + '%')
-            .style('top', data => this.getNormalizedSegmentY(data) + '%')
-            .style('width', data => (this.getNormalizedSegmentWidth(data) + 0.01) + '%')
-            .style('height', data => this.getNormalizedSegmentHeight(data) + '%')
-            .style('padding-right', data => this.getSegmentPaddingRight(data) + '%')
-            .style('padding-left', data => this.getSegmentPaddingLeft(data) + '%') as Selection<HTMLDivElement, HierarchyRectangularNode<PartitionMapSegment>, HTMLElement, {}>;
+            .data(this._segments) as Selection<HTMLDivElement, HierarchyRectangularNode<PartitionMapSegment>, HTMLElement, {}>;
+
+        // set the correct sizing and position of the segments
+        this.updateSegments();
 
         // if there is an item waiting to be selected then select it
         if (this._awaitingSelection) {
@@ -383,6 +383,24 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
             // clear the pending selection in case the dataset changes we don't want to attempt another selection
             this._awaitingSelection = null;
         }
+    }
+
+    /** Update the size and position of the segments */
+    private updateSegments(): void {
+
+        // if the chart has not yet been initialised do nothing
+        if (!this._segmentsSelection) {
+            return;
+        }
+
+        // perform the chart positioning and sizing
+        this._segmentsSelection
+            .style('left', data => this.getNormalizedSegmentX(data) + '%')
+            .style('top', data => this.getNormalizedSegmentY(data) + '%')
+            .style('width', data => (this.getNormalizedSegmentWidth(data) + 0.01) + '%')
+            .style('height', data => this.getNormalizedSegmentHeight(data) + '%')
+            .style('padding-right', data => this.getSegmentPaddingRight(data) + '%')
+            .style('padding-left', data => this.getSegmentPaddingLeft(data) + '%');
     }
 
     /**
@@ -640,6 +658,9 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
      */
     private getDistributionModifier(segment: HierarchyRectangularNode<PartitionMapSegment>): number {
 
+        // calculate the desired number of pixels as a percentage
+        const minSegmentWidth = (this.minSegmentWidth / this._width) * 100;
+
         // map to a segment width pair
         const siblings = segment.parent.children.map(_segment => {
             return { segment: _segment, width: this._x(_segment.x1 - _segment.x0) };
@@ -647,8 +668,8 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
         // a simple closure to check if we now have acceptable sizes
         const isAcceptable = (segments: { segment: HierarchyRectangularNode<PartitionMapSegment>, width: number }[]) =>
-            !segments.find(_segment => _segment.width < this.minSegmentWidth) ||
-            segments.filter(_segment => _segment.width < this.minSegmentWidth).length === siblings.length;
+            !segments.find(_segment => _segment.width < minSegmentWidth) ||
+            segments.filter(_segment => _segment.width < minSegmentWidth).length === siblings.length;
 
         // if all segments are above or below the desired width then we can stop here
         if (isAcceptable(siblings)) {
@@ -656,16 +677,16 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         }
 
         // find the total amount we need to reclaim for other segments
-        let amountToReclaim = siblings.reduce((accumulation, _segment) => accumulation + (_segment.width < this.minSegmentWidth ? this.minSegmentWidth - _segment.width : 0), 0);
+        let amountToReclaim = siblings.reduce((accumulation, _segment) => accumulation + (_segment.width < minSegmentWidth ? minSegmentWidth - _segment.width : 0), 0);
 
         // loop through adjusting the segments until we either make all acceptable sizes or cannot resize any further
         while (!isAcceptable(siblings) && amountToReclaim !== 0) {
 
             // determine which segments can shrink
-            const shrinkableSiblings = siblings.filter(sibling => sibling.width > this.minSegmentWidth);
+            const shrinkableSiblings = siblings.filter(sibling => sibling.width > minSegmentWidth);
 
             // determine which segments need to grow
-            const growableSiblings = siblings.filter(sibling => sibling.width < this.minSegmentWidth);
+            const growableSiblings = siblings.filter(sibling => sibling.width < minSegmentWidth);
 
             // if there are no items that can be shrunk/grown then do nothing
             if (shrinkableSiblings.length === 0 || growableSiblings.length === 0) {
@@ -684,7 +705,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
                 // determine how much we can actually subtract - as subtracting the target may bring the width down below the
                 // minimum which we don't want, so instead determine if we can subtract the target amount, otherwise figure out
                 // how much we can subtract without bringing the width below the desired minimum
-                const subtractAmount = sibling.width - shrinkTarget > this.minSegmentWidth ? shrinkTarget : sibling.width - this.minSegmentWidth;
+                const subtractAmount = sibling.width - shrinkTarget > minSegmentWidth ? shrinkTarget : sibling.width - minSegmentWidth;
 
                 // update the amount to reclaim with the new value
                 reclaimed += subtractAmount;
@@ -704,7 +725,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
                 // determine the amount we need to add. The target amount may be larger than the amount we need
                 // to add so ensure we only add the amount we need and no more.
-                const addAmount = sibling.width + growTarget < this.minSegmentWidth ? growTarget : this.minSegmentWidth - sibling.width;
+                const addAmount = sibling.width + growTarget < minSegmentWidth ? growTarget : minSegmentWidth - sibling.width;
 
                 // update the sibling width
                 sibling.width += addAmount;
