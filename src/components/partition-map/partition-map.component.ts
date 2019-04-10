@@ -62,7 +62,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     }
 
     /** Define the function that will return the aria announcement for a given segment. */
-    @Input() segementAnnouncement: (info: PartitionMapSegmentAnnouncementInfo) => string = this.defaultSegmentAnnouncement;
+    @Input() segmentAnnouncement: (info: PartitionMapSegmentAnnouncementInfo) => string = this.defaultSegmentAnnouncement;
 
     /** Emits whenever a segment is selected. */
     @Output() selectedChange = new EventEmitter<PartitionMapSegment>();
@@ -312,7 +312,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         const hierarchichalItem = this.getHierarchyNodeFromSegment(item);
 
         // get the function that creates the announcement
-        const announcement = this.segementAnnouncement({
+        const announcement = this.segmentAnnouncement({
             item,
             parents,
             value: this._getSegmentValue(segment.data),
@@ -751,6 +751,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
 export interface PartitionMapSegmentBase {
     name: string;
+    data?: { [key: string]: any };
 }
 
 export interface PartitionMapSegmentWithChildren extends PartitionMapSegmentBase {
@@ -766,7 +767,9 @@ export type PartitionMapSegment = PartitionMapSegmentWithChildren | PartitionMap
 
 /** Partition map custom segment template context */
 export interface PartitionMapCustomSegmentContext {
-    data: PartitionMapSegment;
+    segment: PartitionMapSegment;
+    color: string;
+    value: number;
 }
 
 /** An object of this interface is passed to the announcer function */

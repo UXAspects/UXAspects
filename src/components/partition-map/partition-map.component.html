@@ -27,7 +27,7 @@
        <!-- Show custom template if provided -->
       <ng-container *ngIf="segmentTemplate"
         [ngTemplateOutlet]="segmentTemplate"
-        [ngTemplateOutletContext]="{ data: segment.data, value: _getSegmentValue(segment.data), color: _getBackgroundColor(segment) }">
+        [ngTemplateOutletContext]="{ segment: segment.data, value: _getSegmentValue(segment.data), color: _getBackgroundColor(segment) }">
       </ng-container>
     </div>
 

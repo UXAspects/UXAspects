@@ -124,15 +124,15 @@ export class SystemJSHelper {
         // create a new list of mappings
         const mappings: { [library: string]: string } = {};
 
-        // add all external libraries
-        this._mappings.forEach(mapping => mappings[mapping.name] = this.getPackageUrl(mapping));
-
         // add in the UX Aspects packages
         mappings['@ux-aspects/ux-aspects'] = `${assetsUrl}/lib/index.js`;
 
         if (documentationType === DocumentationType.MicroFocus) {
             mappings['@micro-focus/ux-aspects'] = `${assetsUrl}/lib/ux-aspects-micro-focus.js`;
         }
+
+        // add all external libraries
+        this._mappings.forEach(mapping => mappings[mapping.name] = this.getPackageUrl(mapping));
 
         return mappings;
     }

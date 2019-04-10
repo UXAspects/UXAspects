@@ -1,5 +1,5 @@
 <ux-partition-map [dataset]="dataset" [colors]="colors">
-    <ng-template #partitionMapSegment let-data="data" let-value="value">
+    <ng-template #partitionMapSegment let-segment="segment" let-value="value">
 
         <div class="partition-map-custom-segment"
              (mouseenter)="tooltip.show()"
@@ -8,12 +8,12 @@
 
             <span class="partion-map-segment-label"
                   #tooltip="ux-tooltip"
-                  [uxTooltip]="data.name + ': ' + value"
+                  [uxTooltip]="segment.name + ': ' + value"
                   tooltipClass="partition-map-tooltip"
                   [tooltipDelay]="500"
                   [showTriggers]="[]"
                   [hideTriggers]="[]">
-                  {{ data.name }}
+                  {{ segment.name }}
             </span>
         </div>
     </ng-template>
@@ -29,7 +29,8 @@
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="dataset" type="Readonly<PartitionMapSegment>" required="true">
-        Define the dataset to display in the chart.
+        The root segment of a tree structure defining the partition map.
+        See below for details of the <code>PartitionMapSegment</code> interface.
     </tr>
     <tr uxd-api-property name="colors" type="string[][] | ThemeColor[][]" [required]="true">
         Define the colors to be used for each row and the order they should appear.
@@ -41,10 +42,10 @@
         Determine the percentage height of collapsed segments.
     </tr>
     <tr uxd-api-property name="minSegmentWidth" type="number" defaultValue="1">
-        Define the minimum desired percentage width for a segment. Where possible, segements
+        Define the minimum desired percentage width for a segment. Where possible, segments
         will appear at least this width regardless of their value.
     </tr>
-    <tr uxd-api-property name="segementAnnouncement" type="(info: PartitionMapSegmentAnnouncementInfo) => string">
+    <tr uxd-api-property name="segmentAnnouncement" type="(info: PartitionMapSegmentAnnouncementInfo) => string">
         Define the function that will return the aria announcement for a segment. This will be
         announced when a segment receives focus. By default the focused node name will be announced along with the
         names of its ancestors.
@@ -69,14 +70,29 @@
     <tr uxd-api-property name="value" type="number">
         Define the value this segment represents. This should only be present on segments with no children.
     </tr>
+    <tr uxd-api-property name="data" type="any">
+        Optionally provide some additional information about this segment. This can be accessed in a custom segment template and used
+        to display additional information.
+    </tr>
 </uxd-api-properties>
 
 <p>
     Additionally the content of a segment can be customized by adding a child <code>ng-template</code> identified as <code>#partitionMapSegment</code>.
-    The template context has a <code>data</code> property containing the segment data, a <code>value</code> property containing the amount the segment represents,
-    and a <code>color</code> property containing the segment color. This custom template can be used to add functionality such as a tooltip or popover.
+    This custom template can be used to add functionality such as a tooltip or popover. The template context provides access to several variables
+    that can be used to display information within the segment:
 </p>
 
+<uxd-api-properties tableTitle="Partition Map Segment Template Context">
+    <tr uxd-api-property name="segment" type="PartitionMapSegment">
+        This variable contains the segment data. It will also contain any additional custom data that was provided in the <code>data</code> property.
+    </tr>
+    <tr uxd-api-property name="value" type="number">
+        The amount this segment represents. If this segment has children, the value will represent the sum of all child values.
+    </tr>
+    <tr uxd-api-property name="color" type="string">
+        The background color of this segment.
+    </tr>
+</uxd-api-properties>
 
 <ux-tabset [minimal]="false">
 
