@@ -3,13 +3,27 @@ const fs = require('fs');
 const gracefulFs = require('graceful-fs');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const { join } = require('path');
-const { cwd } = require('process');
+const { cwd, env } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+
+const CssLoaderWithSourceMap = {
+    loader: 'css-loader',
+    options: {
+        sourceMap: !!env.SOURCEMAP,
+    }
+};
+
+const LessLoaderWithSourceMap = {
+    loader: 'less-loader',
+    options: {
+        sourceMap: !!env.SOURCEMAP,
+    }
+};
 
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
@@ -70,7 +84,7 @@ module.exports = {
                 include: [
                     join(cwd(), 'docs', 'app')
                 ],
-                use: ['to-string-loader', 'css-loader', 'less-loader']
+                use: ['to-string-loader', CssLoaderWithSourceMap, LessLoaderWithSourceMap]
             },
             {
                 test: /\.less$/,
@@ -79,7 +93,7 @@ module.exports = {
                     join(cwd(), 'src', 'components'),
                     join(cwd(), 'src', 'services')
                 ],
-                use: ['style-loader', 'css-loader', 'less-loader']
+                use: ['style-loader', CssLoaderWithSourceMap, LessLoaderWithSourceMap]
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
