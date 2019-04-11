@@ -3,7 +3,7 @@ const fs = require('fs');
 const gracefulFs = require('graceful-fs');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const { join } = require('path');
-const { cwd, env } = require('process');
+const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
@@ -14,14 +14,14 @@ const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/an
 const CssLoaderWithSourceMap = {
     loader: 'css-loader',
     options: {
-        sourceMap: !!env.SOURCEMAP,
+        sourceMap: true,
     }
 };
 
 const LessLoaderWithSourceMap = {
     loader: 'less-loader',
     options: {
-        sourceMap: !!env.SOURCEMAP,
+        sourceMap: true,
     }
 };
 
