@@ -1,0 +1,97 @@
+<div class="nested-donut-chart">
+
+    <ux-nested-donut-chart class="nested-donut-chart" [dataset]="dataset">
+        <h2 class="nested-donut-label">81%</h2>
+
+        <ng-template #tooltip let-name="name" let-value="value" let-color="color">
+            <div class="nested-donut-tooltip-content">
+                <div class="nested-donut-color-box" [style.background-color]="color"></div>
+                <b>{{ value }}</b> {{ name }}
+            </div>
+        </ng-template>
+
+    </ux-nested-donut-chart>
+
+    <ul class="nested-donut-chart-legend">
+        <li *ngFor="let data of dataset">
+            <div class="nested-donut-color-box" [style.background-color]="data.color"></div>
+            {{ data.name }}
+        </li>
+    </ul>
+</div>
+
+<hr>
+
+<p>The following can be used to configure the appearance and behavior:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="dataset" type="ReadonlyArray<NestedDonutChartData>">
+        Define the dataset to display in the chart.
+    </tr>
+    <tr uxd-api-property name="max" type="number" defaultValue="100">
+        Define the value a full ring represents.
+    </tr>
+    <tr uxd-api-property name="spacing" type="number" defaultValue="8">
+        Define the number of pixels between each ring.
+    </tr>
+    <tr uxd-api-property name="thickness" type="number" defaultValue="8">
+        Define the width of each ring in pixels.
+    </tr>
+    <tr uxd-api-property name="trackColor" type="string | ThemeColor">
+        Define the color of the track. This can be a CSS color value, the name of a color from the color set
+        or a <code>ThemeColor</code> object.
+    </tr>
+    <tr uxd-api-property name="disableHover" type="boolean" defaultValue="false">
+        Determine if the segment should highlight on hover.
+    </tr>
+    <tr uxd-api-property name="disableTooltip" type="boolean" defaultValue="false">
+        Determine if the tooltip should appear on hover.
+    </tr>
+    <tr uxd-api-property name="tooltipPlacement" type="AnchorPlacement" defaultValue="top">
+        Determine the position of the tooltip.
+    </tr>
+    <tr uxd-api-property name="animationDuration" type="number" defaultValue="750">
+        Define the duration of the ring entrance animation.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="itemClick" type="NestedDonutChartData">
+        Emits when an item is clicked. The event will contain the data of the clicked item.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="NestedDonutChartData Interface">
+    <tr uxd-api-property name="name" type="string" [required]="true">
+        Define the name of this item in the dataset.
+    </tr>
+    <tr uxd-api-property name="value" type="number" [required]="true">
+        Define the value of this item in the dataset.
+    </tr>
+    <tr uxd-api-property name="color" type="string | ThemeColor" [required]="true">
+        Define the color of this item in the dataset. This can be a CSS color value, the name of a color from the color set
+        or a <code>ThemeColor</code> object.
+    </tr>
+    <tr uxd-api-property name="data" type="any">
+        Define some custom data for this item. This could be used to display additional information in the tooltip.
+    </tr>
+</uxd-api-properties>
+
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>
+</blockquote>

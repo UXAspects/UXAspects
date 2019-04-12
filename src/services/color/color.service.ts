@@ -75,6 +75,18 @@ export class ColorService {
         return colorName.replace(/\s+/g, '-').toLowerCase();
     }
 
+    /** Determine if the current colorset has a specific color */
+    colorExists(name: string): boolean {
+        name = this.resolveColorName(name);
+
+        for (const colorName in this._theme) {
+            if (colorName === name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Create a theme from a colorset */
     private getTheme(colorSet: ColorSet): Readonly<Theme> {
         // create a new theme object

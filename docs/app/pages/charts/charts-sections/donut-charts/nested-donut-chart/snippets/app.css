@@ -1,0 +1,34 @@
+.nested-donut-color-box {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
+
+.nested-donut-tooltip-content {
+    white-space: nowrap;
+}
+
+.nested-donut-chart {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.nested-donut-label {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0;
+    cursor: default;
+}
+
+.nested-donut-chart-legend {
+    position: absolute;
+    top: 0;
+    right: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+}
