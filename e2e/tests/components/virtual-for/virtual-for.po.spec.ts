@@ -5,6 +5,7 @@ export class VirtualForPage {
     table = $('tbody');
     spacer = this.table.$('.ux-virtual-scroll-spacer');
     rows = this.table.$$('.table-row');
+    reorderBtn = $('#reorder-button');
 
     async getPage(): Promise<void> {
         return browser.get('#/virtual-for');
