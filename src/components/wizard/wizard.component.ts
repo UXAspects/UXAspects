@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
 
 let uniqueId: number = 0;
@@ -151,7 +152,10 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
         this.setWizardStepIds();
 
         // if the steps change then update the ids
-        this.steps.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setWizardStepIds());
+        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => {
+            this.setWizardStepIds();
+            this.update();
+        });
     }
 
     ngOnDestroy(): void {
