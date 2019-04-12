@@ -7,6 +7,7 @@ export default function SorterHeaderCtrl($scope, $attrs) {
     vm.defaultSorter = $scope.$parent.$eval($attrs.defaultSorter);
     vm.defaultOrder = $scope.$parent.$eval($attrs.defaultOrder);
     vm.fontSize = $scope.$parent.$eval($attrs.fontSize);
+    vm.inlineIcon = $scope.$parent.$eval($attrs.inlineIcon) || false;
 
     // watch for changes to the headers value and update it when it is changed
     $scope.$watch(function() {
@@ -18,6 +19,21 @@ export default function SorterHeaderCtrl($scope, $attrs) {
     var selectedColumn = {
         header: findHeader(vm.defaultSorter),
         descending: vm.defaultOrder
+    };
+
+    vm.getHeaderWidth = function(header) {
+        // if there is no icon then fill the whole header
+        if (vm.getIcon(header) === 'ng-hide') {
+            return '100%';
+        }
+
+        // if the icon should appear just after the text
+        if (vm.inlineIcon === true) {
+            return;
+        }
+
+        // otherwise show icon right aligned
+        return 'calc(100% - 18px)';
     };
 
     vm.select = function(header) {
