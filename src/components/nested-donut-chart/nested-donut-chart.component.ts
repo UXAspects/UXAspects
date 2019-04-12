@@ -183,7 +183,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
             .data(this.getChartData())
             .enter()
             .append('path')
-            .attr('class', 'nested-donut-chart-track');
+            .attr('class', 'ux-nested-donut-chart-track');
 
         // set the track color on each render in case the input has changed
         this._trackLayer.selectAll('path')
@@ -198,7 +198,7 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
         // animation until it reaches its final angle
         this._arcs.enter()
             .append('path')
-            .attr('class', 'nested-donut-chart-arc')
+            .attr('class', 'ux-nested-donut-chart-arc')
             .style('fill', data => this.getColor(data.color))
             .attr('opacity', 1)
             .on('click', data => this.itemClick.emit(data))

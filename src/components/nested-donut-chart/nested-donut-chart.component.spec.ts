@@ -39,6 +39,11 @@ describe('NestedDonutChartComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(NestedDonutChartComponent);
         component = fixture.componentInstance;
+        element = fixture.nativeElement;
+
+        // set the default size
+        element.style.width = '165px';
+        element.style.height = '165px';
 
         component.dataset = [
             { name: 'To be retained', value: 42, color: Color.Ok },
@@ -50,7 +55,6 @@ describe('NestedDonutChartComponent', () => {
 
         fixture.detectChanges();
 
-        element = fixture.nativeElement;
         chart = element.querySelector('.ux-nested-donut-chart');
         tracks = chart.querySelectorAll('.ux-nested-donut-chart-track');
         arcs = chart.querySelectorAll('.ux-nested-donut-chart-arc');
