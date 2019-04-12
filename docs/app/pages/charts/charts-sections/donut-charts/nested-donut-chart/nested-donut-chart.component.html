@@ -77,6 +77,27 @@
     </tr>
 </uxd-api-properties>
 
+<h4>Custom Tooltips</h4>
+
+<p>
+    To customize the content in the nested donut chart tooltip, add an <code>ng-template</code> as a child of the chart and identify it as <code>#tooltip</code>.
+    The following values are available in the template context:
+</p>
+
+<uxd-api-properties tableTitle="Custom Tooltip Context">
+    <tr uxd-api-property name="name" type="string">
+        The name of the item.
+    </tr>
+    <tr uxd-api-property name="value" type="number">
+        The value of the item.
+    </tr>
+    <tr uxd-api-property name="color" type="string">
+        The color of the item. This will be returned as a CSS color value.
+    </tr>
+    <tr uxd-api-property name="data" type="any">
+        The custom data specified for the item.
+    </tr>
+</uxd-api-properties>
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">

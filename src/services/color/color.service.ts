@@ -48,6 +48,7 @@ export class ColorService {
      * or it may simply be a hex or rgb(a) color value. This function will return
      * a CSS color value regardless of which one of these formats it is
      * @param value The color name, hex code or rgb(a) value to resolve
+     * @returns If the color is the name of a color in the set, the `rgba` color will be returned, otherwise the original CSS value will be returned.
      */
     resolve(value: string): string {
         if (!value) {
@@ -77,14 +78,7 @@ export class ColorService {
 
     /** Determine if the current colorset has a specific color */
     colorExists(name: string): boolean {
-        name = this.resolveColorName(name);
-
-        for (const colorName in this._theme) {
-            if (colorName === name) {
-                return true;
-            }
-        }
-        return false;
+        return !!Object.keys(this._theme).find(colorName => colorName === this.resolveColorName(name));
     }
 
     /** Create a theme from a colorset */
