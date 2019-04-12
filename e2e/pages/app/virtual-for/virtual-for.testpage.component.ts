@@ -8,11 +8,15 @@ import 'chance';
 })
 export class VirtualForTestPageComponent {
 
-    list: number[] = [];
+    list: ReadonlyArray<number> = [];
 
     constructor() {
         for (let idx = 0; idx < 10000; idx++) {
-            this.list.push(idx);
+            this.list = [...this.list, idx];
         }
+    }
+
+    reorder(): void {
+        this.list = [...this.list].reverse();
     }
 }

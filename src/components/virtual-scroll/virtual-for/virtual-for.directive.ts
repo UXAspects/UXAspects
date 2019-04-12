@@ -23,6 +23,15 @@ export class VirtualForDirective<T> implements OnInit, DoCheck, OnDestroy {
 
         // store a local version of the dataset
         this._dataset = dataset;
+
+        // if this is an update and not the initial dataset then we should
+        // forcibly redraw the list of items. In cases where the length of
+        // the dataset change would trigger a re-renderer as the scroll position
+        // would change, however if we are performing sorting then it would not
+        // so we must ensure we update everytime the dataset changes.
+        if (this._renderedRange) {
+            this.onRangeChange();
+        }
     }
 
     /** Provide a trackBy function to optimize rendering */

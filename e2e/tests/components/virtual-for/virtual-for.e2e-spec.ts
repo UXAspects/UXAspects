@@ -25,7 +25,6 @@ describe('Virtual For Tests', () => {
         expect(await page.getOdd(0)).toBe(false);
     });
 
-
     it('should have the correct context on non-first rows', async () => {
 
         for (let idx = 1; idx < 5; idx++) {
@@ -177,6 +176,20 @@ describe('Virtual For Tests', () => {
         const value = await page.getValue(row);
 
         expect(value).toBe(`9999`);
+    });
+
+    it('should update when table data is sorted', async () => {
+
+        // reverse the order of the table data
+        await page.reorderBtn.click();
+
+        expect(await page.getValue(0)).toBe('9999');
+        expect(await page.getIndex(0)).toBe('0');
+        expect(await page.getCount(0)).toBe('10000');
+        expect(await page.getFirst(0)).toBe(true);
+        expect(await page.getLast(0)).toBe(false);
+        expect(await page.getEven(0)).toBe(true);
+        expect(await page.getOdd(0)).toBe(false);
     });
 
 });
