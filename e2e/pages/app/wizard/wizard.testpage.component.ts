@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
     templateUrl: './wizard.testpage.component.html'
 })
 export class WizardTestPageComponent {
+    step5 = false;
 }

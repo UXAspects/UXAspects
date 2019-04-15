@@ -10,82 +10,55 @@ describe('Wizard Tests', () => {
         page.getPage();
     });
 
-    it('should have correct number of steps', async () => {
+    it('should have correct initial state', async () => {
 
         // there should initially be four steps
         expect(await page.stepHeaders.count()).toBe(4);
-    });
-
-    it('should have correct orientation by default', async () => {
 
         // there should initially be four steps
         expect(await page.wizard.getAttribute('class')).toContain('horizontal');
-    });
 
-    it('should have steps with the correct titles', async () => {
         // check that each header contains the correct text
         page.stepHeaders.each(async (step, idx) =>
-            expect(await step.getText()).toBe(`Step ${idx + 1}`));
-    });
+            expect(await step.getText()).toBe(`Step ${idx + 1}`)
+        );
 
-    it('should activate the first step by default', () => {
-
-        // check the only the first step is active
+        // check the only the first step is active and visited
         page.stepHeaders.each(async (step, idx) => {
 
             if (idx === 0) {
                 expect(await step.getAttribute('class')).toContain('active');
-            } else {
-                expect(await step.getAttribute('class')).not.toContain('active');
-            }
-        });
-    });
-
-    it('should only mark the first step as visited', () => {
-
-        // check the only the first step is active
-        page.stepHeaders.each(async (step, idx) => {
-
-            if (idx === 0) {
                 expect(await step.getAttribute('class')).toContain('visited');
             } else {
+                expect(await step.getAttribute('class')).not.toContain('active');
                 expect(await step.getAttribute('class')).not.toContain('visited');
             }
         });
-    });
-
-    it('should only show the content of the first step', async () => {
-
-        // there should be four step contents
-        expect(await page.stepContents.count()).toBe(4);
 
         // only the first one should actually have any content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0));
-    });
+            expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0)
+        );
 
-    it('should show the correct buttons by default', async () => {
+        // Initial set of buttons
         let previous = await page.getPreviousButton();
         let next = await page.getNextButton();
         let cancel = await page.getCancelButton();
         let finish = await page.getFinishButton();
 
+        // Previous button exists and is disabled
         expect(previous).not.toBeNull();
+        expect(await previous.getAttribute('disabled')).not.toBeNull();
+
+        // Next button exists and not disabled
         expect(next).not.toBeNull();
+        expect(await next.getAttribute('disabled')).toBeNull();
+
+        // Cancel button exists
         expect(cancel).not.toBeNull();
+
+        // Finish button not present
         expect(finish).toBeNull();
-    });
-
-    it('should prevent the user from going back on the first step', async () => {
-        let previous: ElementFinder = await page.getPreviousButton();
-        let attr = await previous.getAttribute('disabled');
-        expect(attr).not.toBeNull();
-    });
-
-    it('should allow the user to go next on the first step', async () => {
-        let next: ElementFinder = await page.getNextButton();
-        let attr = await next.getAttribute('disabled');
-        expect(attr).toBeNull();
     });
 
     it('should navigate to the next page when the next button is clicked', async () => {
@@ -152,6 +125,58 @@ describe('Wizard Tests', () => {
         // the next and cancel button should now be hidden
         expect(next).toBe(null);
         expect(cancel).toBe(null);
+    });
+
+    it('should update when a step is added and removed', async () => {
+
+        // there should initially be four steps
+        expect(await page.stepHeaders.count()).toBe(4);
+
+        // Enable step 5
+        await page.addStep5();
+        expect(await page.stepHeaders.count()).toBe(5);
+
+        // Go to step 5
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+
+        // check that only the last step is showing its content
+        page.stepContents.each(async (step, idx) =>
+            expect(await step.$$('*').count()).toBe(idx === 4 ? 1 : 0)
+        );
+
+        // the finish button should now be visible
+        expect(await page.getFinishButton()).not.toBe(null);
+
+        // the next and cancel button should now be hidden
+        expect(await page.getNextButton()).toBe(null);
+        expect(await page.getCancelButton()).toBe(null);
+
+        // Go back to step 4
+        await page.goToPrevious();
+
+        // the finish button should now be hidden
+        expect(await page.getFinishButton()).toBe(null);
+
+        // the next and cancel button should now be visible
+        expect(await page.getNextButton()).not.toBe(null);
+        expect(await page.getCancelButton()).not.toBe(null);
+
+        // Remove step 5 from the wizard
+        await page.removeStep5();
+
+        // Back to four total steps
+        expect(await page.stepHeaders.count()).toBe(4);
+
+        // (Still on step 4)
+        // the finish button should now be visible
+        expect(await page.getFinishButton()).not.toBe(null);
+
+        // the next and cancel button should now be hidden
+        expect(await page.getNextButton()).toBe(null);
+        expect(await page.getCancelButton()).toBe(null);
     });
 
 });
