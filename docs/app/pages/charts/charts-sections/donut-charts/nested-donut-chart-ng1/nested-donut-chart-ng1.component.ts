@@ -7,7 +7,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-charts-nested-donut-chart',
+    selector: 'uxd-charts-nested-donut-chart-ng1',
     templateUrl: './nested-donut-chart-ng1.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })

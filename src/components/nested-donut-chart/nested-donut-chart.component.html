@@ -1,0 +1,37 @@
+<svg #chart
+    class="ux-nested-donut-chart"
+    [attr.focusable]="false"
+    [attr.width]="_size"
+    [attr.height]="_size"
+    [attr.aria-label]="_getAriaLabel()">
+</svg>
+
+<!-- Custom content in center of the chart -->
+<div class="ux-nested-donut-chart-content"
+    [style.top.px]="_getContentInset()"
+    [style.right.px]="_getContentInset()"
+    [style.bottom.px]="_getContentInset()"
+    [style.left.px]="_getContentInset()"
+    [style.width.px]="_getContentSize()"
+    [style.height.px]="_getContentSize()">
+  <ng-content></ng-content>
+</div>
+
+<!-- Tooltip to appear on arc hover -->
+<div class="ux-nested-donut-chart-tooltip" *ngIf="_tooltipVisible && !disableTooltip">
+  <ux-tooltip
+    [placement]="tooltipPlacement"
+    [content]="_customTooltip || tooltip"
+    [context]="_tooltipContext"
+    [style.top.px]="_tooltipY"
+    [style.left.px]="_tooltipX">
+  </ux-tooltip>
+</div>
+
+<!-- Default tooltip template -->
+<ng-template #tooltip let-name="name" let-value="value">
+  <span class="ux-nested-donut-chart-tooltip-content">
+    {{ name }}: {{ value }}
+  </span>
+</ng-template>
+
