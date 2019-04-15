@@ -24,16 +24,16 @@ export default function SorterHeaderCtrl($scope, $attrs) {
     vm.getHeaderWidth = function(header) {
         // if there is no icon then fill the whole header
         if (vm.getIcon(header) === 'ng-hide') {
-            return '100%';
+            return { width: '100%' };
         }
 
         // if the icon should appear just after the text
         if (vm.inlineIcon === true) {
-            return;
+            return { maxWidth: 'calc(100% - 23px)' };
         }
 
         // otherwise show icon right aligned
-        return 'calc(100% - 18px)';
+        return { width: 'calc(100% - 18px)' };
     };
 
     vm.select = function(header) {

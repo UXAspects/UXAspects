@@ -5,7 +5,7 @@
 
     <p class="sortableHeader"
        ng-bind="header.sorterHeader"
-       ng-style="{ width: vm.getHeaderWidth(header) }">
+       ng-style="vm.getHeaderWidth(header)">
     </p>
 
     <i class="hpe-icon text-muted sortableHeaderIcon {{ vm.getIcon(header) }}" ng-class="{ 'sortable-header-icon-inline': vm.inlineIcon }"></i>
