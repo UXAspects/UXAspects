@@ -11,7 +11,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'ux-number-picker',
+    selector: 'ux-number-picker, ux-number-picker-inline',
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
