@@ -25,8 +25,8 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         this._segmentColors.clear();
     }
 
-    /** Determine the percentage height of collapsed segments. */
-    @Input() collapsedHeight: number = 5;
+    /** Determine the pixel height of collapsed segments. */
+    @Input() collapsedHeight: number = 40;
 
     /** Define a minimum desired pixel width for a segment. */
     @Input() minSegmentWidth: number = 5;
@@ -103,6 +103,9 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     /** Store the width of the chart on resize to avoid any reflow */
     private _width: number = this._elementRef.nativeElement.offsetWidth;
 
+    /** Store the height of the chart on resize to avoid any reflow */
+    private _height: number = this._elementRef.nativeElement.offsetHeight;
+
     /** Unsubscribe from any observables on destroy */
     private _onDestroy = new Subject<void>();
 
@@ -120,6 +123,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(dimensions => {
             this._width = dimensions.width;
+            this._height = dimensions.height;
             this._changeDetector.detectChanges();
 
             // render the chart to ensure positions and sizes are correct
@@ -470,7 +474,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
         // if there is a selected node we should take into account any collapsed nodes
         if (this._isCollapsed(segment)) {
-            return segment.depth * this.collapsedHeight;
+            return segment.depth * this.getCollapsedHeight();
         }
 
         // otherwise simply return the normalized value
@@ -487,7 +491,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
         // if there is a selected node we should take into account any collapsed nodes
         if (this._isCollapsed(segment)) {
-            return this.collapsedHeight;
+            return this.getCollapsedHeight();
         }
 
         // otherwise simply return the normalized value
@@ -536,8 +540,13 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     }
 
     /** Get the total height of all the collapse rows */
+    private getTotalCollapsedHeight(): number {
+        return this._selected ? this._selected.depth * this.getCollapsedHeight() : 0;
+    }
+
+    /** Get the collapsed height in percentage format */
     private getCollapsedHeight(): number {
-        return this._selected ? this._selected.depth * this.collapsedHeight : 0;
+        return parseFloat(((this.collapsedHeight / this._height) * 100).toPrecision(3));
     }
 
     /** Determine if a given segment is currently visible based on the selected segment */
@@ -605,7 +614,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
 
         // set our new ranges
         this._x.domain([this.getSegmentX(segment), this.getSegmentX(segment) + this.getSegmentWidth(segment)]);
-        this._y.domain([segment.y0, 1]).range([this.getCollapsedHeight(), 100]);
+        this._y.domain([segment.y0, 1]).range([this.getTotalCollapsedHeight(), 100]);
 
         // create the transition
         const segmentTransition = transition().duration(500);
