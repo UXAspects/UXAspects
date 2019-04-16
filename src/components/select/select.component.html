@@ -48,11 +48,7 @@
        (click)="toggle(); $event.stopPropagation()">
     </i>
 
-    <ng-container
-        *ngIf="icon"
-        [ngTemplateOutlet]="icon"
-        [ngTemplateOutletContext]="{ open: dropdownOpen, disabled: disabled, multiple: false }">
-    </ng-container>
+    <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
 
     <input #singleInput type="text"
         [attr.id]="id + '-input'"

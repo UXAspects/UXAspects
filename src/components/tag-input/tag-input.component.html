@@ -36,11 +36,7 @@
 </ol>
 
 <!-- Insert the custom icon if provided -->
-<ng-container
-    *ngIf="icon"
-    [ngTemplateOutlet]="icon"
-    [ngTemplateOutletContext]="{ open: typeahead.open, multiple: true, disabled: disabled }">
-</ng-container>
+<ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
 
 <ng-content #typeahead></ng-content>
 

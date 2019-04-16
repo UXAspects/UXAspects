@@ -2,6 +2,7 @@ module.exports = {
     library: [
         'dist/@ux-aspects',
         'dist/bundles',
+        'dist/common',
         'dist/components',
         'dist/directives',
         'dist/esm2015',
@@ -13,6 +14,7 @@ module.exports = {
         'dist/lib',
         'dist/package.json',
         'dist/pipes',
+        'dist/plugins',
         'dist/services',
         'dist/ux-aspects-ux-aspects.d.ts',
         'dist/ux-aspects-ux-aspects.metadata.json',

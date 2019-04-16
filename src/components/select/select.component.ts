@@ -23,6 +23,9 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     selector: 'ux-select, ux-combobox, ux-dropdown',
     templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR],
+    host: {
+        '[class.ux-select-custom-icon]': '!!icon'
+    }
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
@@ -152,7 +155,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild('icon') icon: TemplateRef<SelectIconTemplateContext>;
+    @ContentChild('icon') icon: TemplateRef<any>;
 
     @ViewChild('singleInput') singleInput: ElementRef;
     @ViewChild('tagInput') tagInput: TagInputComponent;
@@ -348,10 +351,4 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this.singleInput.nativeElement.select();
         }
     }
-}
-
-export interface SelectIconTemplateContext {
-    open: boolean;
-    multiple: boolean;
-    disabled: boolean;
 }

@@ -170,7 +170,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() trackAriaDescendant: boolean = true;
 
     /** Define a custom icon to be used instead of the chevron */
-    @Input() icon: TemplateRef<TagInputIconTemplateContext>;
+    @Input() icon: TemplateRef<any>;
 
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<any[]>();
@@ -804,10 +804,3 @@ export interface TagApi {
  * The function used to return custom class information, for use in `ngClass`.
  */
 export type TagClassFunction = (tag: any, index: number, selected: boolean) => (string | string[] | Set<string>);
-
-
-export interface TagInputIconTemplateContext {
-    open: boolean;
-    multiple: boolean;
-    disabled: boolean;
-}
