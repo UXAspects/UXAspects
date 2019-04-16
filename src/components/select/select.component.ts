@@ -1,7 +1,7 @@
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -150,6 +150,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
+
+    /** Allow a custom icon to be used instead of the chevron */
+    @ContentChild('icon') icon: TemplateRef<SelectIconTemplateContext>;
 
     @ViewChild('singleInput') singleInput: ElementRef;
     @ViewChild('tagInput') tagInput: TagInputComponent;
@@ -345,4 +348,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this.singleInput.nativeElement.select();
         }
     }
+}
+
+export interface SelectIconTemplateContext {
+    open: boolean;
+    multiple: boolean;
+    disabled: boolean;
 }
