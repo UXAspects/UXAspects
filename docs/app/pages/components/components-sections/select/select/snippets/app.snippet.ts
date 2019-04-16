@@ -5,7 +5,8 @@ import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: 'app',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
     dropdownOpen: boolean;
     maxHeight: string = '250px';
     placeholder = 'Select a country';
+    readonlyInput: boolean = false;
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();
@@ -39,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     loadOptionsCallback = this.loadOptions.bind(this);
 
     dataSets: { strings?: any[], objects?: any[] } = {};
- 
+
     constructor() {
 
         // Reset select when "multiple" checkbox changes.

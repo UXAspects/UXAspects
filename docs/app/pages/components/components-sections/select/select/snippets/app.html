@@ -13,6 +13,12 @@
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
                 [readonlyInput]="readonlyInput">
+
+                <ng-template #icon *ngIf="multiple | async">
+                    <div class="custom-icon" [class.disabled]="disabled">
+                        <i class="hpe-icon hpe-add"></i>
+                    </div>
+                </ng-template>
             </ux-select>
         </div>
     </div>
