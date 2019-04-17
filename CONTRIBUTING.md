@@ -5,7 +5,7 @@ Contributing is easy, and all fixes are welcome, no matter how small.
 
 ## Before you get started
 
-Before you get started it is good to be aware of some of the practices we adhere to. We have a [Developer Standard](https://github.com/UXAspects/UXAspects/blob/develop/guides/developer-standard.md) document that outlines some of the coding best practices we follow. We have several linting tasks that help enforce these standards and they should be run before creating a Pull Request.
+Before you get started it is good to be aware of some of the practices we adhere to. We have a [Developer Standard](https://github.com/UXAspects/UXAspects/blob/develop/guides/developer-standard.md) document that outlines some of the coding best practices we follow. We have several linting tasks that help enforce these standards and they should be run before creating a Pull Request. All new features and fixes should work correctly in the [supported browsers](https://uxaspects.github.io/UXAspects/#/features).
 
 ## How to contribute
 
