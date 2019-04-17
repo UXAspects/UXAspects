@@ -126,6 +126,12 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
             this._height = dimensions.height;
             this._changeDetector.detectChanges();
 
+            // set our new ranges
+            if (this._selected) {
+                this._x.domain([this.getSegmentX(this._selected), this.getSegmentX(this._selected) + this.getSegmentWidth(this._selected)]);
+                this._y.domain([this._selected.y0, 1]).range([this.getTotalCollapsedHeight(), 100]);
+            }
+
             // render the chart to ensure positions and sizes are correct
             this.updateSegments();
         });
