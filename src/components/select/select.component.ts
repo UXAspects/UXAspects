@@ -24,7 +24,8 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR],
     host: {
-        '[class.ux-select-custom-icon]': '!!icon'
+        '[class.ux-select-custom-icon]': '!!icon',
+        '[class.ux-select-disabled]': 'disabled'
     }
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {

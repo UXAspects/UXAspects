@@ -15,7 +15,7 @@
                 [readonlyInput]="readonlyInput">
 
                 <ng-template #icon *ngIf="multiple | async">
-                    <div class="custom-icon" [class.disabled]="disabled">
+                    <div class="ux-select-icon">
                         <i class="hpe-icon hpe-add"></i>
                     </div>
                 </ng-template>
@@ -109,6 +109,7 @@
 
 <p>
     A custom icon can be used instead of the chevron by adding an <code>ng-template</code> as a child element and identifying it as <code>#icon</code>.
+    The <code>ux-select-icon</code> class can be used to provide the default icon styles.
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
