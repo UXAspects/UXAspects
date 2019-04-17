@@ -1,7 +1,7 @@
 import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -23,6 +23,10 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     selector: 'ux-select, ux-combobox, ux-dropdown',
     templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR],
+    host: {
+        '[class.ux-select-custom-icon]': '!!icon',
+        '[class.ux-select-disabled]': 'disabled'
+    }
 })
 export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
@@ -150,6 +154,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
+
+    /** Allow a custom icon to be used instead of the chevron */
+    @ContentChild('icon') icon: TemplateRef<any>;
 
     @ViewChild('singleInput') singleInput: ElementRef;
     @ViewChild('tagInput') tagInput: TagInputComponent;

@@ -13,6 +13,12 @@
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
                 [readonlyInput]="readonlyInput">
+
+                <ng-template #icon *ngIf="multiple | async">
+                    <div class="ux-select-icon">
+                        <i class="hpe-icon hpe-add"></i>
+                    </div>
+                </ng-template>
             </ux-select>
         </div>
     </div>
@@ -83,16 +89,28 @@
 </div>
 
 <hr>
-<p>The <code>ux-select</code> component allows users to choose one or more items from a set via a dropdown interface. It
+
+<p>
+    The <code>ux-select</code> component allows users to choose one or more items from a set via a dropdown interface. It
     supports filtering and keyboard control. For very large data sets, a paging feature is available, ensuring that data
-    is only loaded as required.</p>
+    is only loaded as required.
+</p>
 
-<p>The data set may be a collection of strings or objects. Using the "Customize Example..." section above, the
+<p>
+    The data set may be a collection of strings or objects. Using the "Customize Example..." section above, the
     <code>options</code> data set can be switched between strings and objects; the JSON display below the select control
-    shows the resulting <code>value</code>.</p>
+    shows the resulting <code>value</code>.
+</p>
 
-<p>Paged loading of options can also be enabled using the "Enable Option Paging" checkbox. This can be observed in
-    action by scrolling or using the down key to reach the end of the current result set in the select dropdown.</p>
+<p>
+    Paged loading of options can also be enabled using the "Enable Option Paging" checkbox. This can be observed in
+    action by scrolling or using the down key to reach the end of the current result set in the select dropdown.
+</p>
+
+<p>
+    A custom icon can be used instead of the chevron by adding an <code>ng-template</code> as a child element and identifying it as <code>#icon</code>.
+    The <code>ux-select-icon</code> class can be used to provide the default icon styles.
+</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="value" type="any | ReadonlyArray&lt;any&gt;">
@@ -202,9 +220,12 @@
 
 <ux-tabset [minimal]="false">
     <ux-tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
     </ux-tab>
     <ux-tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appSnippetTs" language="javascript"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.appSnippetTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
     </ux-tab>
 </ux-tabset>

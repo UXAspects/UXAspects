@@ -169,6 +169,9 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
      */
     @Input() trackAriaDescendant: boolean = true;
 
+    /** Define a custom icon to be used instead of the chevron */
+    @Input() icon: TemplateRef<any>;
+
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<any[]>();
 

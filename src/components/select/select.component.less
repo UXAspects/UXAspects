@@ -41,3 +41,28 @@ ux-select {
         }
     }
 }
+
+ux-select,
+ux-combobox,
+ux-dropdown {
+    .ux-select-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+
+    .ux-select-icon > .hpe-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+    }
+
+    &.ux-select-disabled {
+        .ux-select-icon > .hpe-icon {
+            cursor: default;
+        }
+    }
+}
