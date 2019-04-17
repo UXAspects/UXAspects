@@ -1,4 +1,4 @@
-<ux-partition-map [dataset]="dataset" [colors]="colors">
+<ux-partition-map class="partition-map" [dataset]="dataset" [colors]="colors">
     <ng-template #partitionMapSegment let-segment="segment" let-value="value">
 
         <div class="partition-map-custom-segment"
@@ -38,8 +38,8 @@
     <tr uxd-api-property name="selected" type="Readonly<PartitionMapSegment>">
         Define the currently selected item.
     </tr>
-    <tr uxd-api-property name="collapsedHeight" type="number" defaultValue="5">
-        Determine the percentage height of collapsed segments.
+    <tr uxd-api-property name="collapsedHeight" type="number" defaultValue="40">
+        Determine the pixel height of collapsed segments.
     </tr>
     <tr uxd-api-property name="minSegmentWidth" type="number" defaultValue="5">
         Define the minimum desired pixel width for a segment. Segments will appear at least this
