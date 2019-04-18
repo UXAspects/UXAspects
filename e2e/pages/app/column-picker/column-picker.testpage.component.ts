@@ -42,4 +42,7 @@ export class ColumnPickerTestPageComponent {
         'Time Modified',
         'Work Completed'
     ];
+
+    /** Determine if we should show the custom title templates */
+    showCustomTitles: boolean = false;
 }

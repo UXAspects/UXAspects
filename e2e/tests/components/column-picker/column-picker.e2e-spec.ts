@@ -104,4 +104,10 @@ describe('Column Picker Tests', () => {
         await browser.actions().click(column).sendKeys(Key.ALT, Key.ARROW_UP).perform();
         expect(await page.getSelection()).toBe('[ "Date", "Type", "Requested by", "Status", "Completion" ]');
     });
+
+    it('should allow custom title templates', async () => {
+        await page.toggleCustomTitles.click();
+        expect(await page.getDeselectedTitle()).toBe('Custom Title');
+        expect(await page.getSelectedTitle()).toBe('Custom Title');
+    });
 });

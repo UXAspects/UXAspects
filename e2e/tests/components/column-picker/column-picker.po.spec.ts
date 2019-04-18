@@ -18,6 +18,8 @@ export class ColumnPickerPage {
     selectedList = $$('.column-picker-list').get(1);
     selectedListItems = this.selectedList.$$('.column-picker-list-item');
 
+    toggleCustomTitles = $('#toggle-custom-titles');
+
     async getPage(): Promise<void> {
         return browser.get('#/column-picker');
     }
