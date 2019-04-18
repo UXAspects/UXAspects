@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('chart.js'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'ngx-bootstrap/dropdown', '@angular/router', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', 'chart.js', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.dropdown,global.ng.router,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.Chart,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,dropdown,router,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,Chart,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('d3-ease'), require('d3-interpolate'), require('d3-shape'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'd3-ease', 'd3-interpolate', 'd3-shape', 'ngx-bootstrap/dropdown', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.d3Ease,global.d3Interpolate,global.d3Shape,global.dropdown,global.ng.router,global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,d3Ease,d3Interpolate,d3Shape,dropdown,router,d3Hierarchy,d3Scale,d3Selection,d3Transition,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -48,6 +48,48 @@
         SocialChartNode: 'social-chart-node',
         SocialChartEdge: 'social-chart-edge',
     };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * This is a simple RxJS operator to allow us to avoid the
+     * "expression has changed after it was checked issue"
+     * by making the subscription asynchronous. We could just use a
+     * delay operator but this uses a timeout which is significantly
+     * slower than using requestAnimationFrame.
+     * @type {?}
+     */
+    var tick = function () {
+        return function (source) {
+            return new Observable.Observable(function (subscriber) {
+                source.subscribe({
+                    next: /**
+                     * @param {?} value
+                     * @return {?}
+                     */ function (value) { requestAnimationFrame(function () { return subscriber.next(value); }); },
+                    error: /**
+                     * @param {?} err
+                     * @return {?}
+                     */ function (err) { subscriber.error(err); },
+                    complete: /**
+                     * @return {?}
+                     */ function () { subscriber.complete(); },
+                });
+            });
+        };
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
 
     /**
      * @fileoverview added by tsickle
@@ -452,6 +494,34 @@
                 return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
             };
         /**
+         * Determine if an object is an instance of a theme color.
+         * Using a simple instanceof check will not always work in plunker
+         * where the ThemeColor is from @ux-aspects/ux-aspects and the color
+         * comes from @micro-focus/ux-aspects
+         */
+        /**
+         * Determine if an object is an instance of a theme color.
+         * Using a simple instanceof check will not always work in plunker
+         * where the ThemeColor is from \@ux-aspects/ux-aspects and the color
+         * comes from \@micro-focus/ux-aspects
+         * @param {?} themeColor
+         * @return {?}
+         */
+        ThemeColor.isInstanceOf = /**
+         * Determine if an object is an instance of a theme color.
+         * Using a simple instanceof check will not always work in plunker
+         * where the ThemeColor is from \@ux-aspects/ux-aspects and the color
+         * comes from \@micro-focus/ux-aspects
+         * @param {?} themeColor
+         * @return {?}
+         */
+            function (themeColor) {
+                return typeof themeColor.getRed === 'function' &&
+                    typeof themeColor.getGreen === 'function' &&
+                    typeof themeColor.getBlue === 'function' &&
+                    typeof themeColor.getAlpha === 'function';
+            };
+        /**
          * Convert the theme color to a CSS hex color code
          */
         /**
@@ -724,20 +794,21 @@
          * or it may simply be a hex or rgb(a) color value. This function will return
          * a CSS color value regardless of which one of these formats it is
          * @param value The color name, hex code or rgb(a) value to resolve
+         * @returns If the color is the name of a color in the set, the `rgba` color will be returned, otherwise the original CSS value will be returned.
          */
         /**
          * Resolve a color value. This may be the name of a color from the color set
          * or it may simply be a hex or rgb(a) color value. This function will return
          * a CSS color value regardless of which one of these formats it is
          * @param {?} value The color name, hex code or rgb(a) value to resolve
-         * @return {?}
+         * @return {?} If the color is the name of a color in the set, the `rgba` color will be returned, otherwise the original CSS value will be returned.
          */
         ColorService.prototype.resolve = /**
          * Resolve a color value. This may be the name of a color from the color set
          * or it may simply be a hex or rgb(a) color value. This function will return
          * a CSS color value regardless of which one of these formats it is
          * @param {?} value The color name, hex code or rgb(a) value to resolve
-         * @return {?}
+         * @return {?} If the color is the name of a color in the set, the `rgba` color will be returned, otherwise the original CSS value will be returned.
          */
             function (value) {
                 if (!value) {
@@ -777,6 +848,21 @@
                     colorName = '';
                 }
                 return colorName.replace(/\s+/g, '-').toLowerCase();
+            };
+        /** Determine if the current colorset has a specific color */
+        /**
+         * Determine if the current colorset has a specific color
+         * @param {?} name
+         * @return {?}
+         */
+        ColorService.prototype.colorExists = /**
+         * Determine if the current colorset has a specific color
+         * @param {?} name
+         * @return {?}
+         */
+            function (name) {
+                var _this = this;
+                return !!Object.keys(this._theme).find(function (colorName) { return colorName === _this.resolveColorName(name); });
             };
         /** Create a theme from a colorset */
         /**
@@ -938,7 +1024,7 @@
                 /** @type {?} */
                 var blackContrast = (background + 0.05) / (dark + 0.05);
                 // return the color with the most contrast ratio
-                return blackContrast > whiteContrast ? '#000' : '#fff';
+                return blackContrast > whiteContrast ? darkColor : lightColor;
             };
         /**
          * @param {?} color
@@ -1046,7 +1132,7 @@
              * Determine the color to set based on the supplied parameters
              * @return {?}
              */ function () {
-                return this._backgroundColor ? this._contrastService.getContrastColor(this._backgroundColor, this._lightColor, this._darkColor) : null;
+                return this._backgroundColor ? this._contrastService.getContrastColor(this._backgroundColor, this._lightColor, this._darkColor).toRgba() : null;
             },
             enumerable: true,
             configurable: true
@@ -1774,7 +1860,7 @@
         }
         DefaultFocusIndicatorDirective.decorators = [
             { type: core.Directive, args: [{
-                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
+                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[tabindex]:not([tabindex="-1"]):not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
                     },] }
         ];
         /** @nocollapse */
@@ -2728,48 +2814,6 @@
         };
         return SplitterAccessibilityDirective;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * This is a simple RxJS operator to allow us to avoid the
-     * "expression has changed after it was checked issue"
-     * by making the subscription asynchronous. We could just use a
-     * delay operator but this uses a timeout which is significantly
-     * slower than using requestAnimationFrame.
-     * @type {?}
-     */
-    var tick = function () {
-        return function (source) {
-            return new Observable.Observable(function (subscriber) {
-                source.subscribe({
-                    next: /**
-                     * @param {?} value
-                     * @return {?}
-                     */ function (value) { requestAnimationFrame(function () { return subscriber.next(value); }); },
-                    error: /**
-                     * @param {?} err
-                     * @return {?}
-                     */ function (err) { subscriber.error(err); },
-                    complete: /**
-                     * @return {?}
-                     */ function () { subscriber.complete(); },
-                });
-            });
-        };
-    };
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
 
     /**
      * @fileoverview added by tsickle
@@ -5270,7 +5314,7 @@
             };
         NumberPickerComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'ux-number-picker',
+                        selector: 'ux-number-picker, ux-number-picker-inline',
                         template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control-up\"\n         (click)=\"increment($event)\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <span class=\"hpe-icon hpe-up\"></span>\n    </div>\n\n    <div class=\"number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         [class.disabled]=\"disabled || value <= min\">\n\n        <span class=\"hpe-icon hpe-down\"></span>\n    </div>\n\n</div>",
                         providers: [NUMBER_PICKER_VALUE_ACCESSOR],
                         host: {
@@ -5324,6 +5368,9 @@
      */
     /** @type {?} */
     var uniqueTooltipId = 0;
+    /**
+     * @template T
+     */
     var TooltipComponent = /** @class */ (function () {
         function TooltipComponent(_changeDetectorRef) {
             this._changeDetectorRef = _changeDetectorRef;
@@ -5340,14 +5387,21 @@
              */
             this.customClass = '';
             /**
-             * Indicates whether or not the content is a string or a TemplateRef
-             */
-            this.isTemplateRef = false;
-            /**
              * Emit when the tooltip need to update it's position
              */
             this.reposition$ = new Subject.Subject();
         }
+        Object.defineProperty(TooltipComponent.prototype, "isTemplateRef", {
+            /** Indicates whether or not the content is a string or a TemplateRef */
+            get: /**
+             * Indicates whether or not the content is a string or a TemplateRef
+             * @return {?}
+             */ function () {
+                return this.content instanceof core.TemplateRef;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /** Cleanup after the component is destroyed */
         /**
          * Cleanup after the component is destroyed
@@ -5385,7 +5439,6 @@
          */
             function (content) {
                 this.content = content;
-                this.isTemplateRef = content instanceof core.TemplateRef;
                 this._changeDetectorRef.markForCheck();
             };
         /** This will update the tooltip placement and trigger change detection */
@@ -5491,6 +5544,12 @@
                 { type: core.ChangeDetectorRef }
             ];
         };
+        TooltipComponent.propDecorators = {
+            content: [{ type: core.Input }],
+            context: [{ type: core.Input }],
+            placement: [{ type: core.Input }],
+            alignment: [{ type: core.Input }]
+        };
         return TooltipComponent;
     }());
 
@@ -5573,6 +5632,10 @@
              * Keep track of the tooltip visibility
              */
             this.isVisible = false;
+            /**
+             * Define the overlay class
+             */
+            this._overlayClass = 'ux-tooltip-pane';
             /**
              * This will emit when the directive is destroyed allowing us to unsubscribe all subscriptions automatically
              */
@@ -5832,7 +5895,7 @@
                 strategy.withScrollableContainers(scrollableAncestors);
                 this._overlayRef = this._overlay.create({
                     positionStrategy: strategy,
-                    panelClass: 'ux-overlay-pane',
+                    panelClass: this._overlayClass,
                     scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
                     hasBackdrop: false
                 });
@@ -6146,7 +6209,7 @@
                             overlay.OverlayModule,
                             observers.ObserversModule
                         ],
-                        exports: [TooltipDirective],
+                        exports: [TooltipDirective, TooltipComponent],
                         declarations: [TooltipComponent, TooltipDirective],
                         providers: [TooltipService],
                         entryComponents: [TooltipComponent]
@@ -21217,6 +21280,10 @@
              */
             _this.isVisible = false;
             /**
+             * Define the overlay class
+             */
+            _this._overlayClass = 'ux-overlay-pane';
+            /**
              * Internally store the type of this component - usual for distinctions when extending the tooltip class
              */
             _this._type = 'popover';
@@ -22439,7 +22506,10 @@
                 // initially set the ids for each step
                 this.setWizardStepIds();
                 // if the steps change then update the ids
-                this.steps.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.setWizardStepIds(); });
+                this.steps.changes.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    _this.setWizardStepIds();
+                    _this.update();
+                });
             };
         /**
          * @return {?}
@@ -26450,6 +26520,545 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var NestedDonutChartComponent = /** @class */ (function () {
+        function NestedDonutChartComponent(_colorService, _changeDetector, _elementRef, _resizeService) {
+            this._colorService = _colorService;
+            this._changeDetector = _changeDetector;
+            this._elementRef = _elementRef;
+            this._resizeService = _resizeService;
+            /**
+             * Define the maximum range of the arcs
+             */
+            this.max = 100;
+            /**
+             * Define the thickness of each arc
+             */
+            this.thickness = 8;
+            /**
+             * Define the spacing of each arc
+             */
+            this.spacing = 8;
+            /**
+             * Determine if we should show the hover effect
+             */
+            this.disableHover = false;
+            /**
+             * Determine if we should show a tooltip on arc hover
+             */
+            this.disableTooltip = false;
+            /**
+             * Determine the position of the tooltip
+             */
+            this.tooltipPlacement = 'top';
+            /**
+             * Set the duration of the animation
+             */
+            this.animationDuration = 750;
+            /**
+             * Emit whenever an arc is clicked
+             */
+            this.itemClick = new core.EventEmitter();
+            /**
+             * Indicate if the tooltip should be visible
+             */
+            this._tooltipVisible = false;
+            /**
+             * Store the previously processed data
+             */
+            this._arcData = [];
+            /**
+             * Determine if the intial render has taken place
+             */
+            this._isInitialized = false;
+            /**
+             * Unsubscribe from all observables automatically
+             */
+            this._onDestroy = new Subject.Subject();
+        }
+        Object.defineProperty(NestedDonutChartComponent.prototype, "_radius", {
+            /** Determine the radius of the chart based on the specified size */
+            get: /**
+             * Determine the radius of the chart based on the specified size
+             * @return {?}
+             */ function () {
+                return this._size / 2;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NestedDonutChartComponent.prototype, "_size", {
+            /**
+             * Get the size of the chart. The chart will always be square to
+             * the size will be the smaller of the width/height properties
+             */
+            get: /**
+             * Get the size of the chart. The chart will always be square to
+             * the size will be the smaller of the width/height properties
+             * @return {?}
+             */ function () {
+                return Math.min(this._elementRef.nativeElement.offsetWidth, this._elementRef.nativeElement.offsetHeight);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /** Perform the initial render */
+        /**
+         * Perform the initial render
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.ngOnInit = /**
+         * Perform the initial render
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // create the selection where we will draw the tracks
+                this._trackLayer = d3Selection.select(this._chartElement.nativeElement)
+                    .append('g');
+                // create the selection where we will draw the arcs
+                this._arcLayer = d3Selection.select(this._chartElement.nativeElement)
+                    .append('g');
+                // create the arcs representing the data
+                this.render();
+                // mark the component as initialized
+                this._isInitialized = true;
+                // listen for any resizing - skip the first emission as it always emits on first subscribe
+                this._resizeService.addResizeListener(this._elementRef.nativeElement)
+                    .pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    _this.render();
+                    _this._changeDetector.markForCheck();
+                });
+            };
+        /** Any time an input changes we must re-render the chart */
+        /**
+         * Any time an input changes we must re-render the chart
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.ngOnChanges = /**
+         * Any time an input changes we must re-render the chart
+         * @return {?}
+         */
+            function () {
+                if (this._isInitialized) {
+                    this.render();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** Inset the content so it never overlaps the arcs */
+        /**
+         * Inset the content so it never overlaps the arcs
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype._getContentInset = /**
+         * Inset the content so it never overlaps the arcs
+         * @return {?}
+         */
+            function () {
+                return this.dataset.length * (this.spacing + this.thickness);
+            };
+        /** Get the dimensions of the content area */
+        /**
+         * Get the dimensions of the content area
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype._getContentSize = /**
+         * Get the dimensions of the content area
+         * @return {?}
+         */
+            function () {
+                return this._size - (this._getContentInset() * 2);
+            };
+        /** Get the dataset formated in an accessible manner */
+        /**
+         * Get the dataset formated in an accessible manner
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype._getAriaLabel = /**
+         * Get the dataset formated in an accessible manner
+         * @return {?}
+         */
+            function () {
+                return this.dataset.map(function (data) { return data.value + " " + data.name; }).join('. ');
+            };
+        /**
+         * Display the tracks and arcs defined by the dataset.
+         * We also provide the transition configuration so anytime the dataset
+         * changes we will animate the update.
+         */
+        /**
+         * Display the tracks and arcs defined by the dataset.
+         * We also provide the transition configuration so anytime the dataset
+         * changes we will animate the update.
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.render = /**
+         * Display the tracks and arcs defined by the dataset.
+         * We also provide the transition configuration so anytime the dataset
+         * changes we will animate the update.
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // update the transform of the layers
+                this._trackLayer.attr('transform', "translate(" + this._radius + ", " + this._radius + ")");
+                this._arcLayer.attr('transform', "translate(" + this._radius + ", " + this._radius + ")");
+                // create the arcs based on the dataset
+                this._arcs = this._arcLayer.selectAll('path')
+                    .data(this.getChartData());
+                // create the default transition based on the specified duration
+                /** @type {?} */
+                var arcTransition = d3Transition.transition().ease(d3Ease.easeCubic).duration(this.animationDuration);
+                // create the tracks based on the dataset
+                this._tracks = this._trackLayer.selectAll('path')
+                    .data(this.getChartData())
+                    .enter()
+                    .append('path')
+                    .attr('class', 'ux-nested-donut-chart-track');
+                // set the track color on each render in case the input has changed
+                this._trackLayer.selectAll('path')
+                    .attr('d', this.getTrackArc())
+                    .style('fill', function () { return _this.getTrackColor(); });
+                // if an arc is removed then also remove the track
+                this._tracks.exit().remove();
+                // When a new arc is added we should create the element
+                // size it and provide the background color and begin the
+                // animation until it reaches its final angle
+                this._arcs.enter()
+                    .append('path')
+                    .attr('class', 'ux-nested-donut-chart-arc')
+                    .style('fill', function (data) { return _this.getColor(data.color); })
+                    .attr('opacity', 1)
+                    .on('click', function (data) { return _this.itemClick.emit(data); })
+                    .on('mouseenter', function (data, index, nodes) { return _this.onArcMouseEnter(nodes[index], data); })
+                    .on('mousemove', function () { return _this.onArcMouseMove(d3Selection.mouse(_this._chartElement.nativeElement)); })
+                    .on('mouseleave', function (_data, index, nodes) { return _this.onArcMouseLeave(nodes[index]); })
+                    .transition(arcTransition)
+                    .attrTween('d', this.getArcTween.bind(this));
+                // any time an existing dataset value changes
+                // we should update the angle with an animation
+                // we also animate any color changes also.
+                this._arcs.transition(arcTransition)
+                    .style('fill', function (data) { return _this.getColor(data.color); })
+                    .attrTween('d', this.getArcTween.bind(this));
+                // when a dataset it removed animate the arc out
+                // and then remove the associated DOM element
+                this._arcs.exit().transition(arcTransition)
+                    .attrTween('d', this.getArcTween.bind(this))
+                    .remove();
+            };
+        /** Get the interpolation function based on the new and previous angle */
+        /**
+         * Get the interpolation function based on the new and previous angle
+         * @param {?} data
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getArcTween = /**
+         * Get the interpolation function based on the new and previous angle
+         * @param {?} data
+         * @return {?}
+         */
+            function (data) {
+                var _this = this;
+                // create a new interpolation function with a new endAngle
+                /** @type {?} */
+                var interpolation = d3Interpolate.interpolate(__assign({}, data, { endAngle: data.previousEndAngle }), data);
+                // return the function that will produce the interpolation
+                return function (delta) { return _this.getArc()(interpolation(delta)); };
+            };
+        /** Get the arc layout for a specific item in the dataset */
+        /**
+         * Get the arc layout for a specific item in the dataset
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getArc = /**
+         * Get the arc layout for a specific item in the dataset
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                return d3Shape.arc()
+                    .innerRadius(function (data) { return _this.getArcRadius(data.index); })
+                    .outerRadius(function (data) { return _this.getArcRadius(data.index) + _this.thickness; })
+                    .startAngle(function (data) { return data.startAngle; })
+                    .endAngle(function (data) { return data.endAngle; });
+            };
+        /**
+         * Get the track arc layout for a specific item in the dataset.
+         * This will match the arc of that represents the actual data
+         * however the endAngle will always be a complete circle
+         */
+        /**
+         * Get the track arc layout for a specific item in the dataset.
+         * This will match the arc of that represents the actual data
+         * however the endAngle will always be a complete circle
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getTrackArc = /**
+         * Get the track arc layout for a specific item in the dataset.
+         * This will match the arc of that represents the actual data
+         * however the endAngle will always be a complete circle
+         * @return {?}
+         */
+            function () {
+                return this.getArc().endAngle(function () { return Math.PI * 2; });
+            };
+        /**
+         * Get the radius of an arc. This is calculated
+         * based on the chart radius that has been defined,
+         * minus the thickness defined, then taking into account
+         * the depth of the arc and the spacing between each arc.
+         */
+        /**
+         * Get the radius of an arc. This is calculated
+         * based on the chart radius that has been defined,
+         * minus the thickness defined, then taking into account
+         * the depth of the arc and the spacing between each arc.
+         * @param {?} index
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getArcRadius = /**
+         * Get the radius of an arc. This is calculated
+         * based on the chart radius that has been defined,
+         * minus the thickness defined, then taking into account
+         * the depth of the arc and the spacing between each arc.
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                return (this._radius - this.thickness) - (index * (this.thickness + this.spacing));
+            };
+        /**
+         * Map the dataset to the NestedDonutChartArc interface
+         */
+        /**
+         * Map the dataset to the NestedDonutChartArc interface
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getChartData = /**
+         * Map the dataset to the NestedDonutChartArc interface
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                /** @type {?} */
+                var dataset = this.dataset.map(function (data, index) {
+                    /** @type {?} */
+                    var previousEndAngle = 0;
+                    // check if there was a previous dataset at this index
+                    if (_this._arcData && _this._arcData[index]) {
+                        previousEndAngle = _this._arcData[index].endAngle;
+                    }
+                    return __assign({}, data, { index: index, startAngle: 0, endAngle: _this.getAngle(data), previousEndAngle: previousEndAngle });
+                });
+                // store the latest processed arc data
+                this._arcData = dataset;
+                return dataset;
+            };
+        /** Convert the data value to radians */
+        /**
+         * Convert the data value to radians
+         * @param {?} data
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getAngle = /**
+         * Convert the data value to radians
+         * @param {?} data
+         * @return {?}
+         */
+            function (data) {
+                /** @type {?} */
+                var fraction = data.value / this.max;
+                /** @type {?} */
+                var degrees = fraction * 360.0;
+                return degrees * (Math.PI / 180);
+            };
+        /**
+         * Get the color of the arc, this may be a CSS color value, the name of a color
+         * from the color set or a ThemeColor object. We return this as a rgba color to
+         * support the alpha channel
+         */
+        /**
+         * Get the color of the arc, this may be a CSS color value, the name of a color
+         * from the color set or a ThemeColor object. We return this as a rgba color to
+         * support the alpha channel
+         * @param {?} color
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getColor = /**
+         * Get the color of the arc, this may be a CSS color value, the name of a color
+         * from the color set or a ThemeColor object. We return this as a rgba color to
+         * support the alpha channel
+         * @param {?} color
+         * @return {?}
+         */
+            function (color) {
+                return ThemeColor.isInstanceOf(color) ? (( /** @type {?} */(color))).toRgba() : this._colorService.resolve(( /** @type {?} */(color)));
+            };
+        /** If no track color is specified then default to a specific color based on the active colorset */
+        /**
+         * If no track color is specified then default to a specific color based on the active colorset
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.getTrackColor = /**
+         * If no track color is specified then default to a specific color based on the active colorset
+         * @return {?}
+         */
+            function () {
+                if (this.trackColor) {
+                    return this.getColor(this.trackColor);
+                }
+                // otherwise default to a color based on the colorset (note we can't use the Color enum from MF package)
+                if (this._colorService.colorExists(Color.Grey6)) {
+                    return this.getColor(Color.Grey6);
+                }
+                if (this._colorService.colorExists('bright-gray')) {
+                    return this.getColor('bright-gray');
+                }
+            };
+        /** Define the on hover event */
+        /**
+         * Define the on hover event
+         * @param {?} target
+         * @param {?} data
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.onArcMouseEnter = /**
+         * Define the on hover event
+         * @param {?} target
+         * @param {?} data
+         * @return {?}
+         */
+            function (target, data) {
+                // update the hover effect if it is enabled
+                if (this.disableHover === false) {
+                    d3Selection.select(target).transition().duration(250).attr('opacity', 0.5);
+                }
+                // update the tooltip context
+                this._tooltipContext = __assign({}, data, { color: this.getColor(data.color) });
+                // update the tooltip visibility
+                this._tooltipVisible = true;
+                // run change detection to ensure the visibility is updated
+                this._changeDetector.detectChanges();
+            };
+        /** Update the tooltip position on mouse move */
+        /**
+         * Update the tooltip position on mouse move
+         * @param {?} __0
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.onArcMouseMove = /**
+         * Update the tooltip position on mouse move
+         * @param {?} __0
+         * @return {?}
+         */
+            function (_a) {
+                var _b = __read(_a, 2), x = _b[0], y = _b[1];
+                this._tooltipX = x;
+                this._tooltipY = y - 2; // subtract 2 so that it appears slightly above the cursor
+                // run change detection to update the element position
+                this._changeDetector.detectChanges();
+            };
+        /** Define the on hover out event */
+        /**
+         * Define the on hover out event
+         * @param {?} target
+         * @return {?}
+         */
+        NestedDonutChartComponent.prototype.onArcMouseLeave = /**
+         * Define the on hover out event
+         * @param {?} target
+         * @return {?}
+         */
+            function (target) {
+                // update the hover effect if it is enabled
+                if (this.disableHover === false) {
+                    d3Selection.select(target).transition().duration(250).attr('opacity', 1);
+                }
+                // clear the tooltip context
+                this._tooltipContext = null;
+                // update the tooltip visibility
+                this._tooltipVisible = false;
+                // run change detection to ensure the visibility is updated
+                this._changeDetector.detectChanges();
+            };
+        NestedDonutChartComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-nested-donut-chart',
+                        template: "<svg #chart\n    class=\"ux-nested-donut-chart\"\n    [attr.focusable]=\"false\"\n    [attr.width]=\"_size\"\n    [attr.height]=\"_size\"\n    [attr.aria-label]=\"_getAriaLabel()\">\n</svg>\n\n<!-- Custom content in center of the chart -->\n<div class=\"ux-nested-donut-chart-content\"\n    [style.top.px]=\"_getContentInset()\"\n    [style.right.px]=\"_getContentInset()\"\n    [style.bottom.px]=\"_getContentInset()\"\n    [style.left.px]=\"_getContentInset()\"\n    [style.width.px]=\"_getContentSize()\"\n    [style.height.px]=\"_getContentSize()\">\n  <ng-content></ng-content>\n</div>\n\n<!-- Tooltip to appear on arc hover -->\n<div class=\"ux-nested-donut-chart-tooltip\" *ngIf=\"_tooltipVisible && !disableTooltip\">\n  <ux-tooltip\n    [placement]=\"tooltipPlacement\"\n    [content]=\"_customTooltip || tooltip\"\n    [context]=\"_tooltipContext\"\n    [style.top.px]=\"_tooltipY\"\n    [style.left.px]=\"_tooltipX\">\n  </ux-tooltip>\n</div>\n\n<!-- Default tooltip template -->\n<ng-template #tooltip let-name=\"name\" let-value=\"value\">\n  <span class=\"ux-nested-donut-chart-tooltip-content\">\n    {{ name }}: {{ value }}\n  </span>\n</ng-template>\n\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                    }] }
+        ];
+        /** @nocollapse */
+        NestedDonutChartComponent.ctorParameters = function () {
+            return [
+                { type: ColorService },
+                { type: core.ChangeDetectorRef },
+                { type: core.ElementRef },
+                { type: ResizeService }
+            ];
+        };
+        NestedDonutChartComponent.propDecorators = {
+            dataset: [{ type: core.Input }],
+            max: [{ type: core.Input }],
+            thickness: [{ type: core.Input }],
+            spacing: [{ type: core.Input }],
+            trackColor: [{ type: core.Input }],
+            disableHover: [{ type: core.Input }],
+            disableTooltip: [{ type: core.Input }],
+            tooltipPlacement: [{ type: core.Input }],
+            animationDuration: [{ type: core.Input }],
+            itemClick: [{ type: core.Output }],
+            _chartElement: [{ type: core.ViewChild, args: ['chart',] }],
+            _customTooltip: [{ type: core.ContentChild, args: ['tooltip',] }]
+        };
+        return NestedDonutChartComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var NestedDonutChartModule = /** @class */ (function () {
+        function NestedDonutChartModule() {
+        }
+        NestedDonutChartModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [
+                            common.CommonModule,
+                            ColorServiceModule,
+                            TooltipModule,
+                            ResizeModule
+                        ],
+                        declarations: [
+                            NestedDonutChartComponent
+                        ],
+                        exports: [
+                            NestedDonutChartComponent
+                        ]
+                    },] }
+        ];
+        return NestedDonutChartModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     /**
      * \@todo Once Angular 5 support is dropped this service should be
      * changed to `providedIn: 'root` to ensure there is only
@@ -28715,6 +29324,1172 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var PartitionMapComponent = /** @class */ (function () {
+        function PartitionMapComponent(_colorService, _elementRef, _changeDetector, _ngZone, _focusOrigin, _contrastRatio, _liveAnnouncer, _resizeService) {
+            this._colorService = _colorService;
+            this._elementRef = _elementRef;
+            this._changeDetector = _changeDetector;
+            this._ngZone = _ngZone;
+            this._focusOrigin = _focusOrigin;
+            this._contrastRatio = _contrastRatio;
+            this._liveAnnouncer = _liveAnnouncer;
+            this._resizeService = _resizeService;
+            /**
+             * Determine the pixel height of collapsed segments.
+             */
+            this.collapsedHeight = 40;
+            /**
+             * Define a minimum desired pixel width for a segment.
+             */
+            this.minSegmentWidth = 5;
+            /**
+             * Define the function that will return the aria announcement for a given segment.
+             */
+            this.segmentAnnouncement = this.defaultSegmentAnnouncement;
+            /**
+             * Emits whenever a segment is selected.
+             */
+            this.selectedChange = new core.EventEmitter();
+            /**
+             * Store the processed segments
+             */
+            this._segments = [];
+            /**
+             * Store the specified color sequences
+             */
+            this._colors = [[]];
+            /**
+             * Store the assigned colors for each segment
+             */
+            this._segmentColors = new Map();
+            /**
+             * Store the visible x scale
+             */
+            this._x = d3Scale.scaleLinear().range([0, 100]);
+            /**
+             * Store the visible y scale
+             */
+            this._y = d3Scale.scaleLinear().range([0, 100]);
+            /**
+             * Store the width of the chart on resize to avoid any reflow
+             */
+            this._width = this._elementRef.nativeElement.offsetWidth;
+            /**
+             * Store the height of the chart on resize to avoid any reflow
+             */
+            this._height = this._elementRef.nativeElement.offsetHeight;
+            /**
+             * Unsubscribe from any observables on destroy
+             */
+            this._onDestroy = new Subject.Subject();
+        }
+        Object.defineProperty(PartitionMapComponent.prototype, "colors", {
+            /** Define the colors to be used for each row and the order they should appear. */
+            set: /**
+             * Define the colors to be used for each row and the order they should appear.
+             * @param {?} colors
+             * @return {?}
+             */ function (colors) {
+                this._colors = colors;
+                // clear the save color mappings
+                this._segmentColors.clear();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PartitionMapComponent.prototype, "dataset", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._dataset;
+            },
+            /** Define the dataset to display in the chart. */
+            set: /**
+             * Define the dataset to display in the chart.
+             * @param {?} dataset
+             * @return {?}
+             */ function (dataset) {
+                // store the current dataset
+                this._dataset = dataset;
+                // clear any existing color assignments
+                this._segmentColors.clear();
+                // update the segment layout
+                this.setDataset(dataset);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PartitionMapComponent.prototype, "selected", {
+            /** Define the currently selected item. */
+            set: /**
+             * Define the currently selected item.
+             * @param {?} selected
+             * @return {?}
+             */ function (selected) {
+                // if this is set before the dataset is process then store it to be selected later
+                if (this._segments.length === 0) {
+                    this._awaitingSelection = selected;
+                    return;
+                }
+                // perform the selection
+                this.select(this.getHierarchyNodeFromSegment(selected));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this._resizeService.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (dimensions) {
+                    _this._width = dimensions.width;
+                    _this._height = dimensions.height;
+                    _this._changeDetector.detectChanges();
+                    // set our new ranges
+                    if (_this._selected) {
+                        _this._x.domain([_this.getSegmentX(_this._selected), _this.getSegmentX(_this._selected) + _this.getSegmentWidth(_this._selected)]);
+                        _this._y.domain([_this._selected.y0, 1]).range([_this.getTotalCollapsedHeight(), 100]);
+                    }
+                    // render the chart to ensure positions and sizes are correct
+                    _this.updateSegments();
+                });
+            };
+        /**
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** Handle segment clicks */
+        /**
+         * Handle segment clicks
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._onSegmentSelect = /**
+         * Handle segment clicks
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if the clicked node is already selected, navigate to the parent node
+                this.select(this._isSelected(segment) && segment.parent ? segment.parent : segment);
+            };
+        /** Get the background color for a given segment */
+        /**
+         * Get the background color for a given segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._getBackgroundColor = /**
+         * Get the background color for a given segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // each segment has a determinable color key based on the name and depth
+                /** @type {?} */
+                var key = segment.data.name + " - " + segment.depth;
+                // check if a segment with the same name (and depth) has previously
+                if (this._segmentColors.has(key)) {
+                    return this._segmentColors.get(key);
+                }
+                // get the corresponding row of colors
+                /** @type {?} */
+                var sequence = this.getColorSequence(segment.depth);
+                // if the sequence has not been specified return a default of white
+                if (!sequence || sequence.length === 0) {
+                    return '#fff';
+                }
+                // get siblings
+                /** @type {?} */
+                var siblings = this.getAllSiblings(segment);
+                // get the previous sibling if there is one
+                /** @type {?} */
+                var sibling = siblings[siblings.indexOf(segment) - 1];
+                // if there is a previous sibling then get its color and use the next one in the sequence
+                if (sibling) {
+                    /** @type {?} */
+                    var index = sequence.indexOf(this._getBackgroundColor(sibling));
+                    /** @type {?} */
+                    var color = sequence[(index + 1) % sequence.length];
+                    // store the color by key
+                    this._segmentColors.set(key, color);
+                    return color;
+                }
+                // store the color by key
+                this._segmentColors.set(key, sequence[0]);
+                // if there is no previous sibling then simply return the first color in the sequence
+                return sequence[0];
+            };
+        /** Get the tab index of a segment */
+        /**
+         * Get the tab index of a segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._getTabIndex = /**
+         * Get the tab index of a segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return segment === this._focusableSegment ? 0 : -1;
+            };
+        /** Shift focus to the parent segment */
+        /**
+         * Shift focus to the parent segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._focusParent = /**
+         * Shift focus to the parent segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if there is no parent (ie, we are the root segment) then retain focus
+                if (!segment.parent) {
+                    return;
+                }
+                // otherwise focus the parent
+                this.focusSegment(segment.parent);
+            };
+        /** Shift focus to the child segment */
+        /**
+         * Shift focus to the child segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._focusChild = /**
+         * Shift focus to the child segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var _this = this;
+                // if there are no children (ie, we are a leaf segment) then retain focus
+                if (!segment.children) {
+                    return;
+                }
+                // find the first visible child
+                /** @type {?} */
+                var child = segment.children.find(function (_segment) { return _this.isVisible(_segment); });
+                // otherwise focus the first visible child
+                if (child) {
+                    this.focusSegment(child);
+                }
+            };
+        /** Shift focus to the sibling segment */
+        /**
+         * Shift focus to the sibling segment
+         * @param {?} segment
+         * @param {?} delta
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._focusSibling = /**
+         * Shift focus to the sibling segment
+         * @param {?} segment
+         * @param {?} delta
+         * @return {?}
+         */
+            function (segment, delta) {
+                // if we are the root node then do nothing
+                if (!segment.parent) {
+                    return;
+                }
+                // get a list of all the siblings (at the same row regardless of the same parent)
+                /** @type {?} */
+                var siblings = this.getAllSiblings(segment);
+                // get the index of the segment in the list of siblings
+                /** @type {?} */
+                var index = siblings.indexOf(segment);
+                // get the target sibling
+                /** @type {?} */
+                var sibling = siblings[index + delta];
+                // ensure the sibling is visible otherwise we can't select it
+                if (!sibling || !this.isVisible(sibling)) {
+                    return;
+                }
+                // otherwise focus the sibling
+                this.focusSegment(sibling);
+            };
+        /**
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._focusFirstSibling = /**
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var _this = this;
+                // if we are the root node then do nothing
+                if (!segment.parent) {
+                    return;
+                }
+                // get a list of all the siblings (at the same row regardless of the same parent)
+                /** @type {?} */
+                var siblings = this.getAllSiblings(segment);
+                // find the first visible sibling
+                /** @type {?} */
+                var sibling = siblings.find(function (_sibling) { return _this.isVisible(_sibling); });
+                // ensure there is a sibling
+                if (!sibling) {
+                    return;
+                }
+                // otherwise focus the sibling
+                this.focusSegment(sibling);
+            };
+        /**
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._focusLastSibling = /**
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var _this = this;
+                // if we are the root node then do nothing
+                if (!segment.parent) {
+                    return;
+                }
+                // get a list of all the siblings (at the same row regardless of the same parent)
+                /** @type {?} */
+                var siblings = this.getAllSiblings(segment);
+                // find the last visible sibling
+                /** @type {?} */
+                var sibling = siblings.reverse().find(function (_sibling) { return _this.isVisible(_sibling); });
+                // ensure there is a sibling
+                if (!sibling) {
+                    return;
+                }
+                // otherwise focus the sibling
+                this.focusSegment(sibling);
+            };
+        /** Determine if a given segment is currently collapsed */
+        /**
+         * Determine if a given segment is currently collapsed
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._isCollapsed = /**
+         * Determine if a given segment is currently collapsed
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return this._selected && segment.depth < this._selected.depth;
+            };
+        /** Determine if a given segment is currently selected */
+        /**
+         * Determine if a given segment is currently selected
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._isSelected = /**
+         * Determine if a given segment is currently selected
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return this._selected === segment;
+            };
+        /** Get the contast color class for the segment */
+        /**
+         * Get the contast color class for the segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._getContrastColor = /**
+         * Get the contast color class for the segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                /** @type {?} */
+                var backgroundColor = this._getBackgroundColor(segment);
+                /** @type {?} */
+                var lightColor = ThemeColor.parse('#fff');
+                /** @type {?} */
+                var darkColor = ThemeColor.parse('#000');
+                /** @type {?} */
+                var color = this._contrastRatio.getContrastColor(ThemeColor.parse(backgroundColor), lightColor, darkColor);
+                return color === lightColor ? 'partition-map-segment-light' : 'partition-map-segment-dark';
+            };
+        /** Provide an aria announcement when the node is focused */
+        /**
+         * Provide an aria announcement when the node is focused
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._onFocus = /**
+         * Provide an aria announcement when the node is focused
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // get all ancestors
+                /** @type {?} */
+                var ancestors = segment.ancestors().map(function (ancestor) { return ancestor.data; });
+                // get the current node and the parent nodes
+                var _a = __read(ancestors), item = _a[0], parents = _a.slice(1);
+                // get the hierarchy node data from the item
+                /** @type {?} */
+                var hierarchichalItem = this.getHierarchyNodeFromSegment(item);
+                // get the function that creates the announcement
+                /** @type {?} */
+                var announcement = this.segmentAnnouncement({
+                    item: item,
+                    parents: parents,
+                    value: this._getSegmentValue(segment.data),
+                    collapsed: this._isCollapsed(hierarchichalItem),
+                    selected: this._isSelected(hierarchichalItem)
+                });
+                // make aria announcement
+                this._liveAnnouncer.announce(announcement);
+            };
+        /** Determine if the content is smaller than the width of an ellipsis */
+        /**
+         * Determine if the content is smaller than the width of an ellipsis
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._getSegmentContentHidden = /**
+         * Determine if the content is smaller than the width of an ellipsis
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // get the width of the segment as a pixel value
+                /** @type {?} */
+                var width = (this._width / 100) * this.getNormalizedSegmentWidth(segment);
+                // if the width is less than 50 px hide the content
+                return width < 50;
+            };
+        /** Get the value of a segment based on the accumulation of all child values */
+        /**
+         * Get the value of a segment based on the accumulation of all child values
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._getSegmentValue = /**
+         * Get the value of a segment based on the accumulation of all child values
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var _this = this;
+                // it it has a value then return the value
+                if (segment.hasOwnProperty('value')) {
+                    return (( /** @type {?} */(segment))).value;
+                }
+                return (( /** @type {?} */(segment))).children.reduce(function (value, child) { return value + _this._getSegmentValue(child); }, 0);
+            };
+        /** Convert the public facing data structure into the layout format we require */
+        /**
+         * Convert the public facing data structure into the layout format we require
+         * @param {?} dataset
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.setDataset = /**
+         * Convert the public facing data structure into the layout format we require
+         * @param {?} dataset
+         * @return {?}
+         */
+            function (dataset) {
+                // convert the segments to a hierarchichal structure
+                /** @type {?} */
+                var segmentHierarchy = d3Hierarchy.hierarchy(dataset)
+                    .sum(this.getSegmentValue);
+                // calculate segment values based on their children
+                // store the processed segments
+                /** @type {?} */
+                var root = ( /** @type {?} */(d3Hierarchy.partition()(segmentHierarchy)));
+                // store the flattened form of the segments
+                this._segments = root.descendants();
+                // mark the root node as focusable
+                this._focusableSegment = root;
+                // we need to run change detection here so the `*ngFor` will update and add all the segments to the DOM
+                this._changeDetector.detectChanges();
+                // select all the segments within the chart
+                this._segmentsSelection = ( /** @type {?} */(d3Selection.select(this._elementRef.nativeElement)
+                    .selectAll('.partition-map-segment')
+                    .data(this._segments)));
+                // set the correct sizing and position of the segments
+                this.updateSegments();
+                // if there is an item waiting to be selected then select it
+                if (this._awaitingSelection) {
+                    // select the desired segment
+                    this.select(this.getHierarchyNodeFromSegment(this._awaitingSelection));
+                    // clear the pending selection in case the dataset changes we don't want to attempt another selection
+                    this._awaitingSelection = null;
+                }
+            };
+        /** Update the size and position of the segments */
+        /**
+         * Update the size and position of the segments
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.updateSegments = /**
+         * Update the size and position of the segments
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // if the chart has not yet been initialised do nothing
+                if (!this._segmentsSelection) {
+                    return;
+                }
+                // perform the chart positioning and sizing
+                this._segmentsSelection
+                    .style('left', function (data) { return _this.getNormalizedSegmentX(data) + '%'; })
+                    .style('top', function (data) { return _this.getNormalizedSegmentY(data) + '%'; })
+                    .style('width', function (data) { return (_this.getNormalizedSegmentWidth(data) + 0.01) + '%'; })
+                    .style('height', function (data) { return _this.getNormalizedSegmentHeight(data) + '%'; })
+                    .style('padding-right', function (data) { return _this.getSegmentPaddingRight(data) + '%'; })
+                    .style('padding-left', function (data) { return _this.getSegmentPaddingLeft(data) + '%'; });
+            };
+        /**
+         * Get the X position of a given segment. The X position can be determined
+         * by calculating the width of every sibling segment to the left of it
+         */
+        /**
+         * Get the X position of a given segment. The X position can be determined
+         * by calculating the width of every sibling segment to the left of it
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getSegmentX = /**
+         * Get the X position of a given segment. The X position can be determined
+         * by calculating the width of every sibling segment to the left of it
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var e_1, _a;
+                // if root node then return the position
+                if (!segment.parent) {
+                    return segment.x0;
+                }
+                // set initial start position equal to that of the parent
+                /** @type {?} */
+                var accumulation = this.getSegmentX(segment.parent);
+                try {
+                    // iterate each previous sibling to accumulate the widths
+                    for (var _b = __values(segment.parent.children), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var sibling = _c.value;
+                        // if we have reached the current node then return all previous widths
+                        if (sibling === segment) {
+                            return accumulation;
+                        }
+                        // keep a tally of all the widths of previous siblings
+                        accumulation += this.getSegmentWidth(sibling);
+                    }
+                }
+                catch (e_1_1) {
+                    e_1 = { error: e_1_1 };
+                }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return))
+                            _a.call(_b);
+                    }
+                    finally {
+                        if (e_1)
+                            throw e_1.error;
+                    }
+                }
+            };
+        /** Calculate width based of each segment */
+        /**
+         * Calculate width based of each segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getSegmentWidth = /**
+         * Calculate width based of each segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if root node then return 1 always
+                if (!segment.parent) {
+                    return 1;
+                }
+                // get width of parent
+                /** @type {?} */
+                var parentOffset = this.getSegmentWidth(segment.parent) / (segment.parent.x1 - segment.parent.x0);
+                // get the original width of the segment
+                /** @type {?} */
+                var width = (segment.x1 - segment.x0);
+                // if the item is a descendant of the selected item then apply the modifier
+                if (this.isDescendantOfSelected(segment)) {
+                    // we want to try an ensure that children are at least the specified minimum width
+                    // however it may not always be possible, but we should be able to at least distribute the widths better
+                    // even if we cannot meet the minimum desired width.
+                    /** @type {?} */
+                    var modifier = this.getDistributionModifier(segment);
+                    // return the width of the current node relative to the parent
+                    return (width * modifier) * parentOffset;
+                }
+                return width * parentOffset;
+            };
+        /** Return the X position of the segment in a normalized form based on the specifiec domain */
+        /**
+         * Return the X position of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getNormalizedSegmentX = /**
+         * Return the X position of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return this._x(this.getSegmentX(segment));
+            };
+        /** Return the Y position of the segment in a normalized form based on the specifiec domain */
+        /**
+         * Return the Y position of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getNormalizedSegmentY = /**
+         * Return the Y position of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if there is a selected node we should take into account any collapsed nodes
+                if (this._isCollapsed(segment)) {
+                    return segment.depth * this.getCollapsedHeight();
+                }
+                // otherwise simply return the normalized value
+                return this._y(segment.y0);
+            };
+        /** Return the width of the segment in a normalized form based on the specifiec domain */
+        /**
+         * Return the width of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getNormalizedSegmentWidth = /**
+         * Return the width of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return this._x(this.getSegmentX(segment) + this.getSegmentWidth(segment)) - this._x(this.getSegmentX(segment));
+            };
+        /** Return the height of the segment in a normalized form based on the specifiec domain */
+        /**
+         * Return the height of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getNormalizedSegmentHeight = /**
+         * Return the height of the segment in a normalized form based on the specifiec domain
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if there is a selected node we should take into account any collapsed nodes
+                if (this._isCollapsed(segment)) {
+                    return this.getCollapsedHeight();
+                }
+                // otherwise simply return the normalized value
+                return this._y(segment.y0 + (segment.y1 - segment.y0)) - this._y(segment.y0);
+            };
+        /**
+         * As parent segments collapse they increase in size, as the content is centered this can
+         * cause the content to appear either mis-aligned or off screen. We can calculate the padding
+         * required to always ensure the content appears visibly centered within the node.
+         */
+        /**
+         * As parent segments collapse they increase in size, as the content is centered this can
+         * cause the content to appear either mis-aligned or off screen. We can calculate the padding
+         * required to always ensure the content appears visibly centered within the node.
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getSegmentPaddingRight = /**
+         * As parent segments collapse they increase in size, as the content is centered this can
+         * cause the content to appear either mis-aligned or off screen. We can calculate the padding
+         * required to always ensure the content appears visibly centered within the node.
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // non-collapsed node do not require any padding
+                if (!this._isCollapsed(segment)) {
+                    return 0;
+                }
+                return (this.getNormalizedSegmentWidth(segment) - this.getSegmentPaddingLeft(segment)) - this.getNormalizedSegmentWidth(this._selected);
+            };
+        /**
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getSegmentPaddingLeft = /**
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // non-collapsed node do not require any padding
+                if (!this._isCollapsed(segment)) {
+                    return 0;
+                }
+                return Math.abs(this.getNormalizedSegmentX(segment));
+            };
+        /**
+         * This function returns the value for each segment. Leaf segments will have a value property which we can simply return, however
+         * non-leaf segments should get their values based on the leaf segments that are children, in which case we can return 0
+         */
+        /**
+         * This function returns the value for each segment. Leaf segments will have a value property which we can simply return, however
+         * non-leaf segments should get their values based on the leaf segments that are children, in which case we can return 0
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getSegmentValue = /**
+         * This function returns the value for each segment. Leaf segments will have a value property which we can simply return, however
+         * non-leaf segments should get their values based on the leaf segments that are children, in which case we can return 0
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                if (segment.hasOwnProperty('value')) {
+                    /** @type {?} */
+                    var value = (( /** @type {?} */(segment))).value;
+                    // we must ensure that a leaf node never has no width otherwise things can get weird
+                    return Math.max(value, 1);
+                }
+                // if it has children then return 0 to base the value of the width of the children
+                return 0;
+            };
+        /** Get the total height of all the collapse rows */
+        /**
+         * Get the total height of all the collapse rows
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getTotalCollapsedHeight = /**
+         * Get the total height of all the collapse rows
+         * @return {?}
+         */
+            function () {
+                return this._selected ? this._selected.depth * this.getCollapsedHeight() : 0;
+            };
+        /** Get the collapsed height in percentage format */
+        /**
+         * Get the collapsed height in percentage format
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getCollapsedHeight = /**
+         * Get the collapsed height in percentage format
+         * @return {?}
+         */
+            function () {
+                return parseFloat(((this.collapsedHeight / this._height) * 100).toPrecision(3));
+            };
+        /** Determine if a given segment is currently visible based on the selected segment */
+        /**
+         * Determine if a given segment is currently visible based on the selected segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.isVisible = /**
+         * Determine if a given segment is currently visible based on the selected segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if no segment is selected then all segments are visible
+                if (!this._selected) {
+                    return true;
+                }
+                // if there is a selected node then it should be a direct ancestor or descendant to be visible
+                return !!__spread(this._selected.ancestors(), this._selected.descendants()).find(function (_segment) { return _segment === segment; });
+            };
+        /** Update the focusable item and perform a focus */
+        /**
+         * Update the focusable item and perform a focus
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.focusSegment = /**
+         * Update the focusable item and perform a focus
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // get the segment element from the data
+                /** @type {?} */
+                var element = this._segmentsSelection.nodes().find(function (node) { return d3Selection.select(node).data()[0] === segment; });
+                // if for some reason an element isn't found then stop here
+                if (!element) {
+                    return;
+                }
+                // update the focusable segment
+                this._focusableSegment = segment;
+                // set the focus origin as a keyboard event
+                this._focusOrigin.setOrigin('keyboard');
+                // focus the element
+                element.focus();
+                // ensure we do not change scroll position when focusing
+                (( /** @type {?} */(this._elementRef.nativeElement))).scrollLeft = 0;
+                (( /** @type {?} */(this._elementRef.nativeElement))).scrollTop = 0;
+            };
+        /** Get all the segments at a given depth */
+        /**
+         * Get all the segments at a given depth
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getAllSiblings = /**
+         * Get all the segments at a given depth
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return this._segments.filter(function (_segment) { return _segment.depth === segment.depth; });
+            };
+        /**
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getHierarchyNodeFromSegment = /**
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                return this._segments.find(function (_segment) { return _segment.data === segment; });
+            };
+        /** Select a specified segment */
+        /**
+         * Select a specified segment
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.select = /**
+         * Select a specified segment
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var _this = this;
+                // if no segment is specified or it is already selected then do nothing
+                if (!segment || this._isSelected(segment)) {
+                    return;
+                }
+                // emit the selection
+                this.selectedChange.emit(segment.data);
+                // store the selected segment
+                this._selected = segment;
+                // update the focusable segment
+                this._focusableSegment = segment;
+                // set our new ranges
+                this._x.domain([this.getSegmentX(segment), this.getSegmentX(segment) + this.getSegmentWidth(segment)]);
+                this._y.domain([segment.y0, 1]).range([this.getTotalCollapsedHeight(), 100]);
+                // create the transition
+                /** @type {?} */
+                var segmentTransition = d3Transition.transition().duration(500);
+                // update the segment sizes - outside angular zone as there is lots of `requestAnimationFrames` triggering lots of change detection
+                this._ngZone.runOutsideAngular(function () {
+                    _this._segmentsSelection.transition(segmentTransition)
+                        .style('left', function (data) { return _this.getNormalizedSegmentX(data) + '%'; })
+                        .style('top', function (data) { return _this.getNormalizedSegmentY(data) + '%'; })
+                        .style('width', function (data) { return (_this.getNormalizedSegmentWidth(data) + 0.01) + '%'; })
+                        .style('height', function (data) { return _this.getNormalizedSegmentHeight(data) + '%'; })
+                        .style('padding-right', function (data) { return _this.getSegmentPaddingRight(data) + '%'; })
+                        .style('padding-left', function (data) { return _this.getSegmentPaddingLeft(data) + '%'; });
+                });
+            };
+        /** Normalize the available colors to a string[][] from portentially a ThemeColor[][] */
+        /**
+         * Normalize the available colors to a string[][] from portentially a ThemeColor[][]
+         * @param {?} depth
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getColorSequence = /**
+         * Normalize the available colors to a string[][] from portentially a ThemeColor[][]
+         * @param {?} depth
+         * @return {?}
+         */
+            function (depth) {
+                var _this = this;
+                // get the target row
+                /** @type {?} */
+                var colorSet = this._colors[depth];
+                // if no color set available throw an error
+                if (!colorSet) {
+                    throw new Error('Partition Map: Please provide a color sequence for items with a depth of ' + depth);
+                }
+                // convert this row to an array of strings
+                return colorSet.map(function (color) { return ThemeColor.isInstanceOf(color) ? (( /** @type {?} */(color))).toRgba() : _this._colorService.resolve(( /** @type {?} */(color))); });
+            };
+        /** Determine if a segment is a descendant of the currently selected item */
+        /**
+         * Determine if a segment is a descendant of the currently selected item
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.isDescendantOfSelected = /**
+         * Determine if a segment is a descendant of the currently selected item
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                // if there are no segments selected then return true
+                if (!this._selected) {
+                    return true;
+                }
+                // if the segment is the selected segment then it is not a descendant
+                if (this._selected === segment) {
+                    return false;
+                }
+                return !!this._selected.descendants().find(function (_segment) { return _segment === segment; });
+            };
+        /**
+         * We have an option to allow a minimum desired width for items. This will
+         * allow us to attempt to determine the size a segment would be accounting for very
+         * small segments that have their widths artifically increased to make them more visible
+         */
+        /**
+         * We have an option to allow a minimum desired width for items. This will
+         * allow us to attempt to determine the size a segment would be accounting for very
+         * small segments that have their widths artifically increased to make them more visible
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.getDistributionModifier = /**
+         * We have an option to allow a minimum desired width for items. This will
+         * allow us to attempt to determine the size a segment would be accounting for very
+         * small segments that have their widths artifically increased to make them more visible
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                var _this = this;
+                var e_2, _a, e_3, _b;
+                // calculate the desired number of pixels as a percentage
+                /** @type {?} */
+                var minSegmentWidth = (this.minSegmentWidth / this._width) * 100;
+                // map to a segment width pair
+                /** @type {?} */
+                var siblings = segment.parent.children.map(function (_segment) {
+                    return { segment: _segment, width: _this._x(_segment.x1 - _segment.x0) };
+                });
+                // a simple closure to check if we now have acceptable sizes
+                /** @type {?} */
+                var isAcceptable = function (segments) {
+                    return !segments.find(function (_segment) { return _segment.width < minSegmentWidth; }) ||
+                        segments.filter(function (_segment) { return _segment.width < minSegmentWidth; }).length === siblings.length;
+                };
+                // if all segments are above or below the desired width then we can stop here
+                if (isAcceptable(siblings)) {
+                    return 1;
+                }
+                // find the total amount we need to reclaim for other segments
+                /** @type {?} */
+                var amountToReclaim = siblings.reduce(function (accumulation, _segment) { return accumulation + (_segment.width < minSegmentWidth ? minSegmentWidth - _segment.width : 0); }, 0);
+                // loop through adjusting the segments until we either make all acceptable sizes or cannot resize any further
+                while (!isAcceptable(siblings) && amountToReclaim !== 0) {
+                    // determine which segments can shrink
+                    /** @type {?} */
+                    var shrinkableSiblings = siblings.filter(function (sibling) { return sibling.width > minSegmentWidth; });
+                    // determine which segments need to grow
+                    /** @type {?} */
+                    var growableSiblings = siblings.filter(function (sibling) { return sibling.width < minSegmentWidth; });
+                    // if there are no items that can be shrunk/grown then do nothing
+                    if (shrinkableSiblings.length === 0 || growableSiblings.length === 0) {
+                        break;
+                    }
+                    // determine the target amount to remove from each segment
+                    /** @type {?} */
+                    var shrinkTarget = amountToReclaim / shrinkableSiblings.length;
+                    // store the amount we have reclaimed in this pass
+                    /** @type {?} */
+                    var reclaimed = 0;
+                    try {
+                        // iterate each segment and subtract accordingly
+                        for (var shrinkableSiblings_1 = __values(shrinkableSiblings), shrinkableSiblings_1_1 = shrinkableSiblings_1.next(); !shrinkableSiblings_1_1.done; shrinkableSiblings_1_1 = shrinkableSiblings_1.next()) {
+                            var sibling = shrinkableSiblings_1_1.value;
+                            // determine how much we can actually subtract - as subtracting the target may bring the width down below the
+                            // minimum which we don't want, so instead determine if we can subtract the target amount, otherwise figure out
+                            // how much we can subtract without bringing the width below the desired minimum
+                            /** @type {?} */
+                            var subtractAmount = sibling.width - shrinkTarget > minSegmentWidth ? shrinkTarget : sibling.width - minSegmentWidth;
+                            // update the amount to reclaim with the new value
+                            reclaimed += subtractAmount;
+                            // update the sibling width
+                            sibling.width -= subtractAmount;
+                        }
+                    }
+                    catch (e_2_1) {
+                        e_2 = { error: e_2_1 };
+                    }
+                    finally {
+                        try {
+                            if (shrinkableSiblings_1_1 && !shrinkableSiblings_1_1.done && (_a = shrinkableSiblings_1.return))
+                                _a.call(shrinkableSiblings_1);
+                        }
+                        finally {
+                            if (e_2)
+                                throw e_2.error;
+                        }
+                    }
+                    // update the amount left to reclaim
+                    amountToReclaim -= reclaimed;
+                    // determine the target amount to add to each segment
+                    /** @type {?} */
+                    var growTarget = reclaimed / growableSiblings.length;
+                    try {
+                        // add the available reclaimed amount to the segment that need to grow
+                        for (var growableSiblings_1 = __values(growableSiblings), growableSiblings_1_1 = growableSiblings_1.next(); !growableSiblings_1_1.done; growableSiblings_1_1 = growableSiblings_1.next()) {
+                            var sibling = growableSiblings_1_1.value;
+                            // determine the amount we need to add. The target amount may be larger than the amount we need
+                            // to add so ensure we only add the amount we need and no more.
+                            /** @type {?} */
+                            var addAmount = sibling.width + growTarget < minSegmentWidth ? growTarget : minSegmentWidth - sibling.width;
+                            // update the sibling width
+                            sibling.width += addAmount;
+                        }
+                    }
+                    catch (e_3_1) {
+                        e_3 = { error: e_3_1 };
+                    }
+                    finally {
+                        try {
+                            if (growableSiblings_1_1 && !growableSiblings_1_1.done && (_b = growableSiblings_1.return))
+                                _b.call(growableSiblings_1);
+                        }
+                        finally {
+                            if (e_3)
+                                throw e_3.error;
+                        }
+                    }
+                }
+                // identify the current widget from all the siblings
+                /** @type {?} */
+                var matchingSegment = siblings.find(function (sibling) { return sibling.segment === segment; });
+                // check if we are the last sibling
+                /** @type {?} */
+                var isLast = siblings.findIndex(function (sibling) { return sibling.segment === segment; }) === siblings.length - 1;
+                // if we are the last and somehow we are smaller than the parent node, we want to bump up the size of the last node
+                if (isLast) {
+                    // get the total parent width
+                    /** @type {?} */
+                    var parentWidth = this._x(segment.parent.x1 - segment.parent.x0);
+                    // get the total width of all the children
+                    /** @type {?} */
+                    var width = siblings.reduce(function (total, sibling) { return total + sibling.width; }, 0);
+                    // check if need to expand the last node
+                    if (parentWidth !== width) {
+                        return (matchingSegment.width + (parentWidth - width)) / this._x(matchingSegment.segment.x1 - matchingSegment.segment.x0);
+                    }
+                }
+                // determine the amount the size has changed
+                return matchingSegment.width / this._x(matchingSegment.segment.x1 - matchingSegment.segment.x0);
+            };
+        /** Get the default announcement when a segment is focused */
+        /**
+         * Get the default announcement when a segment is focused
+         * @param {?} info
+         * @return {?}
+         */
+        PartitionMapComponent.prototype.defaultSegmentAnnouncement = /**
+         * Get the default announcement when a segment is focused
+         * @param {?} info
+         * @return {?}
+         */
+            function (info) {
+                // create the announcement
+                if (info.parents.length === 0) {
+                    return "This is the root segment. It has a value of " + info.value + ".";
+                }
+                // otherwise inform the user of the parent hierarchy
+                return info.item.name + " has a value of " + info.value + " and is a " + info.parents.map(function (parent) { return "descendant of " + parent.name; }).join(' and a ');
+            };
+        PartitionMapComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-partition-map',
+                        template: "<div class=\"partition-map-segment\"\n     *ngFor=\"let segment of _segments\"\n     uxFocusIndicator\n     [ngClass]=\"_getContrastColor(segment)\"\n     [style.background-color]=\"_getBackgroundColor(segment)\"\n     [tabIndex]=\"_getTabIndex(segment)\"\n     [attr.aria-expanded]=\"!_isCollapsed(segment)\"\n     [attr.aria-selected]=\"_isSelected(segment)\"\n     [attr.aria-level]=\"segment.depth\"\n     (click)=\"_onSegmentSelect(segment)\"\n     (focus)=\"_onFocus(segment)\"\n     (keydown.Enter)=\"_onSegmentSelect(segment)\"\n     (keydown.ArrowUp)=\"_focusParent(segment); $event.preventDefault()\"\n     (keydown.ArrowDown)=\"_focusChild(segment); $event.preventDefault()\"\n     (keydown.ArrowLeft)=\"_focusSibling(segment, -1); $event.preventDefault()\"\n     (keydown.ArrowRight)=\"_focusSibling(segment, 1); $event.preventDefault()\"\n     (keydown.Home)=\"_focusFirstSibling(segment); $event.preventDefault()\"\n     (keydown.End)=\"_focusLastSibling(segment); $event.preventDefault()\">\n\n     <div class=\"partition-map-segment-content\" [class.partition-map-segment-content-hidden]=\"_getSegmentContentHidden(segment)\">\n\n      <!-- Show default template if provided -->\n      <span class=\"partion-map-segment-label\" *ngIf=\"!segmentTemplate\">\n        {{ segment.data.name }}\n      </span>\n\n       <!-- Show custom template if provided -->\n      <ng-container *ngIf=\"segmentTemplate\"\n        [ngTemplateOutlet]=\"segmentTemplate\"\n        [ngTemplateOutletContext]=\"{ segment: segment.data, value: _getSegmentValue(segment.data), color: _getBackgroundColor(segment) }\">\n      </ng-container>\n    </div>\n\n</div>\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                    }] }
+        ];
+        /** @nocollapse */
+        PartitionMapComponent.ctorParameters = function () {
+            return [
+                { type: ColorService },
+                { type: core.ElementRef },
+                { type: core.ChangeDetectorRef },
+                { type: core.NgZone },
+                { type: FocusIndicatorOriginService },
+                { type: ContrastService },
+                { type: a11y.LiveAnnouncer },
+                { type: ResizeService }
+            ];
+        };
+        PartitionMapComponent.propDecorators = {
+            colors: [{ type: core.Input }],
+            collapsedHeight: [{ type: core.Input }],
+            minSegmentWidth: [{ type: core.Input }],
+            dataset: [{ type: core.Input }],
+            selected: [{ type: core.Input }],
+            segmentAnnouncement: [{ type: core.Input }],
+            selectedChange: [{ type: core.Output }],
+            segmentTemplate: [{ type: core.ContentChild, args: ['partitionMapSegment',] }]
+        };
+        return PartitionMapComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var PartitionMapModule = /** @class */ (function () {
+        function PartitionMapModule() {
+        }
+        PartitionMapModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [
+                            a11y.A11yModule,
+                            AccessibilityModule,
+                            common.CommonModule,
+                            ColorServiceModule,
+                            ResizeModule
+                        ],
+                        declarations: [
+                            PartitionMapComponent
+                        ],
+                        exports: [
+                            PartitionMapComponent
+                        ]
+                    },] }
+        ];
+        return PartitionMapModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var ProgressBarComponent = /** @class */ (function () {
         function ProgressBarComponent() {
             this.value = 0;
@@ -29942,8 +31717,12 @@
         SelectComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i class=\"hpe-icon select-arrow\"\r\n        [class.hpe-down]=\"dropDirection === 'down'\"\r\n        [class.hpe-up]=\"dropDirection === 'up'\"\r\n        (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
-                        providers: [SELECT_VALUE_ACCESSOR]
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i *ngIf=\"!icon\"\r\n       class=\"hpe-icon select-arrow\"\r\n       [class.hpe-down]=\"dropDirection === 'down'\"\r\n       [class.hpe-up]=\"dropDirection === 'up'\"\r\n       (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        providers: [SELECT_VALUE_ACCESSOR],
+                        host: {
+                            '[class.ux-select-custom-icon]': '!!icon',
+                            '[class.ux-select-disabled]': 'disabled'
+                        }
                     }] }
         ];
         /** @nocollapse */
@@ -29979,6 +31758,7 @@
             valueChange: [{ type: core.Output }],
             inputChange: [{ type: core.Output }],
             dropdownOpenChange: [{ type: core.Output }],
+            icon: [{ type: core.ContentChild, args: ['icon',] }],
             singleInput: [{ type: core.ViewChild, args: ['singleInput',] }],
             tagInput: [{ type: core.ViewChild, args: ['tagInput',] }],
             multipleTypeahead: [{ type: core.ViewChild, args: ['multipleTypeahead',] }],
@@ -31081,7 +32861,7 @@
             { type: core.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -31121,6 +32901,7 @@
             autocomplete: [{ type: core.Input }],
             createTagHandler: [{ type: core.Input, args: ['createTag',] }],
             trackAriaDescendant: [{ type: core.Input }],
+            icon: [{ type: core.Input }],
             tagsChange: [{ type: core.Output }],
             inputChange: [{ type: core.Output }],
             tagAdding: [{ type: core.Output }],
@@ -36079,6 +37860,14 @@
                 this._virtualScroll.dataset.next(dataset);
                 // store a local version of the dataset
                 this._dataset = dataset;
+                // if this is an update and not the initial dataset then we should
+                // forcibly redraw the list of items. In cases where the length of
+                // the dataset change would trigger a re-renderer as the scroll position
+                // would change, however if we are performing sorting then it would not
+                // so we must ensure we update everytime the dataset changes.
+                if (this._renderedRange) {
+                    this.onRangeChange();
+                }
             },
             enumerable: true,
             configurable: true
@@ -39709,7 +41498,11 @@
                  * Having it here allows it to be tree-shaken.
                  */
                 if (!this._isRegistered) {
-                    ((( /** @type {?} */(window))).Chart || Chart).pluginService.register(new TimelineChartPlugin());
+                    if (!(( /** @type {?} */(window))).Chart) {
+                        throw new Error('Please import Chart.js to use the timeline chart.');
+                    }
+                    // register the plugin
+                    (( /** @type {?} */(window))).Chart.pluginService.register(new TimelineChartPlugin());
                     this._isRegistered = true;
                 }
             };
@@ -41066,6 +42859,7 @@
      */
 
     exports.Color = Color;
+    exports.tick = tick;
     exports.AccordionPanelHeadingDirective = AccordionPanelHeadingDirective;
     exports.AccordionPanelComponent = AccordionPanelComponent;
     exports.AccordionComponent = AccordionComponent;
@@ -41190,6 +42984,8 @@
     exports.NavigationComponent = NavigationComponent;
     exports.NavigationModule = NavigationModule;
     exports.NavigationService = NavigationService;
+    exports.NestedDonutChartComponent = NestedDonutChartComponent;
+    exports.NestedDonutChartModule = NestedDonutChartModule;
     exports.NotificationModule = NotificationModule;
     exports.NotificationService = NotificationService;
     exports.NotificationListComponent = NotificationListComponent;
@@ -41204,6 +43000,8 @@
     exports.PAGINATION_CONTROL_VALUE_ACCESSOR = PAGINATION_CONTROL_VALUE_ACCESSOR;
     exports.PaginationComponent = PaginationComponent;
     exports.PaginationModule = PaginationModule;
+    exports.PartitionMapComponent = PartitionMapComponent;
+    exports.PartitionMapModule = PartitionMapModule;
     exports.PopoverModule = PopoverModule;
     exports.PopoverComponent = PopoverComponent;
     exports.PopoverDirective = PopoverDirective;

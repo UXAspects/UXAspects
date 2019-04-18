@@ -28950,7 +28950,7 @@ function marqueeWizard() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"dismiss\">\n<button class=\"btn btn-icon button-dark btn-circular btn-close\" ng-click=\"mc.cancel()\" type=\"button\"><i class=\"hpe-icon hpe-close\"></i></button>\n</div>\n<div class=\"side-panel\">\n<div class=\"marquee-logo\">\n<div ng-if=\"!mc.wizardIcon\" class=\"marquee-wizard-user marquee-wizard-icon\"></div>\n<img ng-if=\"mc.wizardIcon\" ng-src=\"{{mc.wizardIcon}}\" alt=\"Marquee wizard icon\" class=\"marquee-wizard-icon\"/>\n</div>\n<div class=\"marquee-wizard-info-panel\" ng-if=\"mc.sideInfo\">\n<h3 class=\"title\" ng-if=\"mc.sidePanelTitle\" ng-bind=\"mc.sidePanelTitle\" single-line-overflow-tooltip></h3>\n<div class=\"description\" ng-if=\"mc.sidePanelDescription\">\n<p ng-bind=\"mc.sidePanelDescription\" overflow-tooltip></p>\n</div>\n</div>\n<ul class=\"marquee-wizard-steps\">\n<li class=\"marquee-wizard-step\" ng-repeat=\"step in mc.wizardSteps\" ng-class=\"{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }\" ng-click=\"mc.goToStep($index)\" ng-if=\"!step.hidden\">\n<div ng-if=\"!step.stepTemplateUrl\" class=\"step-label\">\n<div class=\"step-title\">\n<div ng-if=\"step.html\" class=\"m-nil\" ng-bind-html=\"step.html\"></div>\n<p ng-if=\"!step.html\" class=\"title m-nil\" ng-bind=\"step.title\"></p>\n</div>\n<div class=\"step-complete\">\n<span class=\"hpe-icon hpe-checkmark\" ng-class=\"{ 'invisible': !step.completed }\"></span>\n</div>\n</div>\n<marquee-wizard-side-step ng-if=\"step.stepTemplateUrl\" step=\"step\"></marquee-wizard-side-step>\n</li>\n</ul>\n</div>\n<div class=\"main-panel\">\n<div class=\"marquee-header\">\n<h1 class=\"marquee-title\" ng-bind=\"mc.currentStep.header\"></h1>\n</div>\n<div class=\"marquee-body marquee-wizard-modal\">\n<div ng-repeat=\"step in mc.wizardSteps\" ng-if=\"$index === mc.stepIndex\">\n<marquee-wizard-step template=\"step.templateUrl\"></marquee-wizard-step>\n</div>\n</div>\n<div class=\"marquee-footer\">\n<button type=\"button\" class=\"btn button-secondary marquee-previous-btn\" ng-disabled=\"!mc.buttonOptions.previousEnabled\" ng-show=\"mc.showPrevious\" ng-click=\"mc.goPrevious()\" ng-bind=\"mc.buttonOptions.previousText\"></button>\n<button type=\"button\" class=\"btn marquee-next-btn m-l-xs\" ng-class=\"{'button-primary': !mc.showFinish, 'button-secondary': mc.showFinish}\" ng-disabled=\"!mc.buttonOptions.nextEnabled\" ng-show=\"mc.showNext\" ng-click=\"mc.goNext()\" ng-bind=\"mc.buttonOptions.nextText\"></button>\n<button type=\"button\" class=\"btn button-primary marquee-finish-btn m-l-xs\" ng-disabled=\"!mc.buttonOptions.finishEnabled\" ng-show=\"mc.showFinish\" ng-click=\"mc.finish()\" ng-bind=\"mc.buttonOptions.finishText\"></button>\n</div>\n</div>\n";
+var v1="<div class=\"dismiss\">\n<button class=\"btn btn-icon button-dark btn-circular btn-close\" ng-click=\"mc.cancel()\" type=\"button\"><i class=\"hpe-icon hpe-close\"></i></button>\n</div>\n<div class=\"side-panel marquee-wizard-side-panel\">\n<div class=\"marquee-logo\">\n<div ng-if=\"!mc.wizardIcon\" class=\"marquee-wizard-user marquee-wizard-icon\"></div>\n<img ng-if=\"mc.wizardIcon\" ng-src=\"{{mc.wizardIcon}}\" alt=\"Marquee wizard icon\" class=\"marquee-wizard-icon\"/>\n</div>\n<div class=\"marquee-wizard-info-panel\" ng-if=\"mc.sideInfo\">\n<h3 class=\"title\" ng-if=\"mc.sidePanelTitle\" ng-bind=\"mc.sidePanelTitle\" single-line-overflow-tooltip></h3>\n<div class=\"description\" ng-if=\"mc.sidePanelDescription\">\n<p ng-bind=\"mc.sidePanelDescription\" overflow-tooltip></p>\n</div>\n</div>\n<ul class=\"marquee-wizard-steps\">\n<li class=\"marquee-wizard-step\" ng-repeat=\"step in mc.wizardSteps\" ng-class=\"{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }\" ng-click=\"mc.goToStep($index)\" ng-if=\"!step.hidden\">\n<div ng-if=\"!step.stepTemplateUrl\" class=\"step-label\">\n<div class=\"step-title\">\n<div ng-if=\"step.html\" class=\"m-nil\" ng-bind-html=\"step.html\"></div>\n<p ng-if=\"!step.html\" class=\"title m-nil\" ng-bind=\"step.title\"></p>\n</div>\n<div class=\"step-complete\">\n<span class=\"hpe-icon hpe-checkmark\" ng-class=\"{ 'invisible': !step.completed }\"></span>\n</div>\n</div>\n<marquee-wizard-side-step ng-if=\"step.stepTemplateUrl\" step=\"step\"></marquee-wizard-side-step>\n</li>\n</ul>\n</div>\n<div class=\"main-panel\">\n<div class=\"marquee-header\">\n<h1 class=\"marquee-title\" ng-bind=\"mc.currentStep.header\"></h1>\n</div>\n<div class=\"marquee-body marquee-wizard-modal\">\n<div ng-repeat=\"step in mc.wizardSteps\" ng-if=\"$index === mc.stepIndex\">\n<marquee-wizard-step template=\"step.templateUrl\"></marquee-wizard-step>\n</div>\n</div>\n<div class=\"marquee-footer\">\n<button type=\"button\" class=\"btn button-secondary marquee-previous-btn\" ng-disabled=\"!mc.buttonOptions.previousEnabled\" ng-show=\"mc.showPrevious\" ng-click=\"mc.goPrevious()\" ng-bind=\"mc.buttonOptions.previousText\"></button>\n<button type=\"button\" class=\"btn marquee-next-btn m-l-xs\" ng-class=\"{'button-primary': !mc.showFinish, 'button-secondary': mc.showFinish}\" ng-disabled=\"!mc.buttonOptions.nextEnabled\" ng-show=\"mc.showNext\" ng-click=\"mc.goNext()\" ng-bind=\"mc.buttonOptions.nextText\"></button>\n<button type=\"button\" class=\"btn button-primary marquee-finish-btn m-l-xs\" ng-disabled=\"!mc.buttonOptions.finishEnabled\" ng-show=\"mc.showFinish\" ng-click=\"mc.finish()\" ng-bind=\"mc.buttonOptions.finishText\"></button>\n</div>\n</div>\n";
 var id1="directives/marqueeWizard/marqueeWizard.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -42213,6 +42213,7 @@ function MultiSortableHeaderCtrl($scope, $attrs) {
   vm.headers = $scope.$parent.$eval($attrs.headers);
   vm.activeSorters = $scope.$parent.$eval($attrs.defaultSorter);
   vm.activeOrders = $scope.$parent.$eval($attrs.defaultOrder);
+  vm.inlineIcon = $scope.$parent.$eval($attrs.inlineIcon) || false;
   vm.classes = $attrs.class;
   vm.activeHeaders = [];
   vm.columnData = {}; // iterate each sorter and generate array for us to work with
@@ -42239,6 +42240,27 @@ function MultiSortableHeaderCtrl($scope, $attrs) {
 
 
   updateData();
+
+  vm.getHeaderWidth = function (header) {
+    // if there is no icon then fill the whole header
+    if (!vm.columnData[header.sort]) {
+      return {
+        width: '100%'
+      };
+    } // if the icon should appear just after the text
+
+
+    if (vm.inlineIcon === true) {
+      return {
+        maxWidth: 'calc(100% - 41px)'
+      };
+    } // otherwise show icon right aligned
+
+
+    return {
+      width: 'calc(100% - 36px)'
+    };
+  };
 
   vm.select = function (header) {
     // ensure row can be sorted
@@ -42398,7 +42420,7 @@ function multiSortableHeader($resize, $timeout) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<tr class=\"multiSortHeader\" ng-class=\"vm.classes\">\n<th ng-repeat=\"header in vm.headers\" class=\"header {{ ::header.fixedClass }}\" ng-class=\"{ 'text-center': header.center, 'clickable': header.sortable }\" ng-click=\"vm.select(header)\">\n<p class=\"multiSortTitle\" ng-bind=\"header.sorterHeader\" ng-style=\"{ width: !vm.columnData[header.sort] ? '100%' : 'calc(100% - 36px)' }\"></p>\n<div class=\"multiSortContainer\" ng-class=\"{ 'ng-hide': !vm.columnData[header.sort] }\">\n<i class=\"hpe-icon text-muted sortableHeaderIcon\" ng-class=\"vm.columnData[header.sort] ? vm.columnData[header.sort].icon : ''\"></i>\n<p class=\"multiSortNumber text-muted\" ng-bind=\"vm.columnData[header.sort] ? vm.columnData[header.sort].order : ''\"></p>\n</div>\n</th>\n</tr>\n";
+var v1="<tr class=\"multiSortHeader\" ng-class=\"vm.classes\">\n<th ng-repeat=\"header in vm.headers\" class=\"header {{ ::header.fixedClass }}\" ng-class=\"{ 'text-center': header.center, 'clickable': header.sortable }\" ng-click=\"vm.select(header)\">\n<p class=\"multiSortTitle\" ng-bind=\"header.sorterHeader\" ng-style=\"vm.getHeaderWidth(header)\">\n</p>\n<div class=\"multiSortContainer\" ng-class=\"{ 'ng-hide': !vm.columnData[header.sort], 'inline-sort-icon': vm.inlineIcon }\">\n<i class=\"hpe-icon text-muted sortableHeaderIcon {{ vm.columnData[header.sort] ? vm.columnData[header.sort].icon : '' }}\" ng-class=\"{ 'sortable-header-icon-inline': vm.inlineIcon }\">\n</i>\n<p class=\"multiSortNumber text-muted\" ng-bind=\"vm.columnData[header.sort] ? vm.columnData[header.sort].order : ''\"></p>\n</div>\n</th>\n</tr>\n";
 var id1="sorters/multiSortableHeader/multiSortableHeader.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -42651,7 +42673,8 @@ function SorterHeaderCtrl($scope, $attrs) {
   vm.headers = $scope.$parent.$eval($attrs.headers);
   vm.defaultSorter = $scope.$parent.$eval($attrs.defaultSorter);
   vm.defaultOrder = $scope.$parent.$eval($attrs.defaultOrder);
-  vm.fontSize = $scope.$parent.$eval($attrs.fontSize); // watch for changes to the headers value and update it when it is changed
+  vm.fontSize = $scope.$parent.$eval($attrs.fontSize);
+  vm.inlineIcon = $scope.$parent.$eval($attrs.inlineIcon) || false; // watch for changes to the headers value and update it when it is changed
 
   $scope.$watch(function () {
     return $scope.$parent.$eval($attrs.headers);
@@ -42661,6 +42684,27 @@ function SorterHeaderCtrl($scope, $attrs) {
   var selectedColumn = {
     header: findHeader(vm.defaultSorter),
     descending: vm.defaultOrder
+  };
+
+  vm.getHeaderWidth = function (header) {
+    // if there is no icon then fill the whole header
+    if (vm.getIcon(header) === 'ng-hide') {
+      return {
+        width: '100%'
+      };
+    } // if the icon should appear just after the text
+
+
+    if (vm.inlineIcon === true) {
+      return {
+        maxWidth: 'calc(100% - 23px)'
+      };
+    } // otherwise show icon right aligned
+
+
+    return {
+      width: 'calc(100% - 18px)'
+    };
   };
 
   vm.select = function (header) {
@@ -42819,7 +42863,7 @@ function sortableHeader($resize, $timeout) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<th ng-repeat=\"header in vm.headers\" class=\"{{ ::header.fixedClass }}\" ng-class=\"{ 'text-center': header.center, 'clickable': header.sortable }\" ng-click=\"vm.select(header)\">\n<p class=\"sortableHeader\" ng-bind=\"header.sorterHeader\" ng-style=\"{ width: vm.getIcon(header) == 'ng-hide' ? '100%' : 'calc(100% - 18px)' }\"></p>\n<i class=\"hpe-icon text-muted sortableHeaderIcon\" ng-class=\"vm.getIcon(header)\"></i>\n</th>";
+var v1="<th ng-repeat=\"header in vm.headers\" class=\"{{ ::header.fixedClass }}\" ng-class=\"{ 'text-center': header.center, 'clickable': header.sortable }\" ng-click=\"vm.select(header)\">\n<p class=\"sortableHeader\" ng-bind=\"header.sorterHeader\" ng-style=\"vm.getHeaderWidth(header)\">\n</p>\n<i class=\"hpe-icon text-muted sortableHeaderIcon {{ vm.getIcon(header) }}\" ng-class=\"{ 'sortable-header-icon-inline': vm.inlineIcon }\"></i>\n</th>";
 var id1="sorters/sorterHeader/sortableHeader.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
