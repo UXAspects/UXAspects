@@ -3,7 +3,6 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const { cwd } = require('process');
-const { ProgressPlugin } = require('webpack');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -121,9 +120,7 @@ module.exports = {
 
         new MiniCssExtractPlugin({
             filename: 'styles.css'
-        }),
-
-        new ProgressPlugin()
+        })
     ],
 
     optimization: {
