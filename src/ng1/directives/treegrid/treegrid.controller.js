@@ -1,7 +1,7 @@
 import { MultipleSelectBridge } from "./selection/multiple-select-bridge";
 import { SelectionModel } from "./selection/tree-grid-selection-model";
 
-TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider"];
+TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
 /**
  * @param {ng.IScope} $scope
@@ -9,7 +9,7 @@ TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider"];
  * @param {*} multipleSelectProvider
  * @param {ng.ITimeoutService} $timeout
  */
-export function TreeGridController($scope, $q, multipleSelectProvider) {
+export function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
     var vm = this;
 
     var treegridId = multipleSelectProvider.getNextComponentId();
@@ -349,7 +349,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider) {
         } else {
             row.expanding = true;
             // run async to allow loading indicator to appear
-            setTimeout(() => expand(row));
+            return $q(resolve => $timeout(() => expand(row).then(result => resolve(result))));
         }
     }
 
