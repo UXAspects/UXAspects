@@ -630,8 +630,9 @@ export class TagInputComponent<T = any> implements OnInit, AfterContentInit, OnC
             if (!tagRemovingEvent.defaultPrevented()) {
                 // Select input first to avoid issues with dropping focus
                 this.selectInput();
+
                 // Remove the tag
-                this.tags = [...this.tags].splice(tagIndex, 1);
+                this.tags = this.tags.filter((_tag, index) => index !== tagIndex);
                 // Set focus again since indices have changed
                 this.selectInput();
                 this.tagRemoved.emit(new TagInputEvent(tag));
