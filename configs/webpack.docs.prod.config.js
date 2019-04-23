@@ -21,6 +21,7 @@ module.exports = {
 
     mode: 'production',
     devtool: false,
+    stats: 'minimal',
 
     resolve: {
         extensions: ['.ts', '.js'],
@@ -316,7 +317,5 @@ module.exports = {
         }),
     ],
 
-    node: false,
-
-    stats: 'minimal'
+    node: false
 };
