@@ -1,14 +1,11 @@
-import ListHoverActionsDirective from './listHoverActions.directive.js';
-import ListHoverActionsController from './listHoverActions.controller.js';
+import { listHoverActions } from './listHoverActions.directive';
+import { ListHoverActionsCtrl } from './listHoverActions.controller';
 
-import ListHoverActionDirective from './listHoverAction/listHoverAction.directive.js';
-import ListHoverActionController from './listHoverAction/listHoverAction.controller.js';
+import { listHoverAction } from './listHoverAction/listHoverAction.directive';
+import { ListHoverActionCtrl } from './listHoverAction/listHoverAction.controller';
 
-import '../../services/keyboardService/keyboardService.module.js';
-
-
-angular.module("ux-aspects.listHoverActions", [])
-	.directive('listHoverActions', ListHoverActionsDirective)
-	.controller('ListHoverActionsCtrl', ListHoverActionsController)
-	.directive('listHoverAction', ListHoverActionDirective)
-	.controller('ListHoverActionCtrl', ListHoverActionController);
+angular.module("ux-aspects.listHoverActions", ['ux-aspects.eventHandlers'])
+	.directive('listHoverActions', listHoverActions)
+	.controller('ListHoverActionsCtrl', ListHoverActionsCtrl)
+	.directive('listHoverAction', listHoverAction)
+	.controller('ListHoverActionCtrl', ListHoverActionCtrl);

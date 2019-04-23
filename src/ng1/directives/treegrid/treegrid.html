@@ -11,7 +11,7 @@
                     <span ng-if="$first && vm.allOptions.select.check" class="treegrid-header-checkbox">
                         <checkbox class="treegrid-multiple-select-checkbox"
                             ng-model="selected"
-                            ng-click="vm.toggleAllRows($event); $event.preventDefault();">
+                            ng-click-lazy="vm.toggleAllRows($event); $event.preventDefault();">
                         </checkbox>
                     </span>
 
@@ -37,7 +37,7 @@
                 treegrid-navigation-item="row"
                 treegrid-navigation-item-index="$index"
                 treegrid-navigation-item-disabled="vm.isDisabled(row)"
-                ng-focus="vm.rowFocus(row, $event)"
+                ng-focus-lazy="vm.rowFocus(row, $event)"
                 tabindex="-1">
 
                 <td ng-repeat="col in vm.columns" ng-class="col.cellClass">
@@ -48,8 +48,8 @@
 
                         <span ng-if="row.canExpand && !row.expanding"
                             class="treegrid-expand-toggle"
-                            ng-click="vm.expanderClick(row, $event)"
-                            ng-mousedown="$event.preventDefault()">
+                            ng-click-lazy="vm.expanderClick(row, $event)"
+                            ng-mousedown-lazy="$event.preventDefault()">
 
                             <i ng-if="row.expander.type === 'class'"
                                ng-class="vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)">
@@ -79,7 +79,7 @@
                             class="treegrid-multiple-select-checkbox"
                             ng-model="row.selected"
                             indeterminate-value="-1"
-                            ng-click="vm.checkboxClick($event, row);"
+                            ng-click-lazy="vm.checkboxClick($event, row);"
                             ng-disabled="vm.isDisabled(row)"
                             clickable="false">
                         </checkbox>

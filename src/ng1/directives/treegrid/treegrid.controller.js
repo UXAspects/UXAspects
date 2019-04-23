@@ -344,7 +344,13 @@ export function TreeGridController($scope, $q, multipleSelectProvider) {
             return;
         }
 
-        return row.expanded ? contract(row) : expand(row);
+        if (row.expanded) {
+            return contract(row);
+        } else {
+            row.expanding = true;
+            // run async to allow loading indicator to appear
+            setTimeout(() => expand(row));
+        }
     }
 
     // Remove children of a row from the view model

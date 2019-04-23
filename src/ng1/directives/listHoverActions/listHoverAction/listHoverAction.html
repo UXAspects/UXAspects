@@ -1,3 +1,10 @@
-<a href="" aria-label="{{::lha.tooltipText}}" class="list-hover-action" ng-click="lha.click(); $event.preventDefault(); $event.stopPropagation();" ng-show="lha.icon" tabIndex="-1" ng-focus="lha.focus()" ng-blur="lha.blur()" ng-keydown="lha.enter($event)" tooltip="{{::name}}">
-  <span class="{{ ::lha.iconBase }}" ng-class="::lha.icon" ></span>
-</a>
+<button aria-label="{{ ::lha.name }}"
+   class="list-hover-action"
+   ng-click-lazy="lha.onClick(); $event.preventDefault(); $event.stopPropagation();"
+   ng-show="::lha.icon"
+   tabIndex="-1"
+   ng-focus-lazy="lha.onFocus()"
+   ng-blur-lazy="lha.onBlur()">
+
+   <span class="{{ ::lha.iconBase }}" ng-class="::lha.icon"></span>
+</button>

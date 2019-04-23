@@ -31,10 +31,7 @@ export class TreeGridNavigationItemController {
         this.navigationCtrl = null;
 
         // setup all event bindings
-        this.addEventListeners();
-
-        // cleanup on destroy
-        $scope.$on('$destroy', this.onDestroy.bind(this));
+        $scope.$evalAsync(() => this.addEventListeners());
     }
 
     /**
@@ -47,6 +44,9 @@ export class TreeGridNavigationItemController {
 
     addEventListeners() {
         this.$element.on('keydown', this.onKeydown.bind(this));
+
+        // cleanup on destroy
+        this.$scope.$on('$destroy', this.onDestroy.bind(this));
     }
 
     onDestroy() {

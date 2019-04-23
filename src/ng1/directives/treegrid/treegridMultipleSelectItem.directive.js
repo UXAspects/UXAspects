@@ -30,70 +30,82 @@ export function treegridMultipleSelectItem() {
                         '-webkit-user-select': 'none'
                     });
 
-                    //set up click
-                    element.on('click.multiSelect', event => {
+                    // defer adding any event listeners until after the rendering
+                    scope.$evalAsync(() => {
 
-                        // do nothing if row selection is not enabled or the row itself is disabled
-                        if (!selectOptions.row || isDisabled) {
-                            return;
-                        }
+                        element.on('click.multiSelect', event => {
 
-                        if (event.shiftKey) {
-                            extendOrStartSelection();
-                        } else if (event.ctrlKey) {
-                            addToOrStartSelection();
-                        } else {
-                            startSelection();
-                        }
+                            // do nothing if row selection is not enabled or the row itself is disabled
+                            if (!selectOptions.row || isDisabled) {
+                                return;
+                            }
 
-                        element.focus(); // Workaround for IE, make sure parent element gets focus
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
-                        scope.$apply();
-                    });
-
-                    // for keyboard controls
-                    element.on('keydown.multiSelect', event => {
-                        if (isDisabled) {
-                            return;
-                        }
-
-                        if (event.keyCode === SPACE) {
-
-                            if (selectOptions.row) {
+                            if (event.shiftKey) {
+                                extendOrStartSelection();
+                            } else if (event.ctrlKey) {
                                 addToOrStartSelection();
                             } else {
-                                selectionModel.toggle(treeGridRow.dataItem);
+                                startSelection();
                             }
 
+                            element.focus(); // Workaround for IE, make sure parent element gets focus
                             event.preventDefault();
                             event.stopImmediatePropagation();
-                        }
-                        scope.$apply();
-                    });
+                            scope.$apply();
+                        });
 
-                    // Custom event triggered by navigation directive to handle shift key extension
-                    element.on('treegrid-navigation-focused', event => {
-                        if (!selectOptions.row) {
-                            return;
-                        }
-
-                        if (!event.ctrlKey) {
-                            if (event.shiftKey) {
-                                extendSelectionFromPrevious();
-                            } else {
-                                // if shift key not held then dont select any
-                                selectionModel.deselectAll();
-                                selectionModel.origin = scope.$index;
+                        // for keyboard controls
+                        element.on('keydown.multiSelect', event => {
+                            if (isDisabled) {
+                                return;
                             }
-                        }
-                        scope.$apply();
-                    });
 
-                    // Prevent selection of text on shift click for IE
-                    element.on('selectstart', event => {
-                        event.preventDefault();
-                        return false;
+                            if (event.keyCode === SPACE) {
+
+                                if (selectOptions.row) {
+                                    addToOrStartSelection();
+                                } else {
+                                    selectionModel.toggle(treeGridRow.dataItem);
+                                }
+
+                                event.preventDefault();
+                                event.stopImmediatePropagation();
+                            }
+                            scope.$apply();
+                        });
+
+                        // Custom event triggered by navigation directive to handle shift key extension
+                        element.on('treegrid-navigation-focused', event => {
+                            if (!selectOptions.row) {
+                                return;
+                            }
+
+                            if (!event.ctrlKey) {
+                                if (event.shiftKey) {
+                                    extendSelectionFromPrevious();
+                                } else {
+                                    // if shift key not held then dont select any
+                                    selectionModel.deselectAll();
+                                    selectionModel.origin = scope.$index;
+                                }
+                            }
+                            scope.$apply();
+                        });
+
+                        // Prevent selection of text on shift click for IE
+                        element.on('selectstart', event => {
+                            event.preventDefault();
+                            return false;
+                        });
+
+                        scope.$on('destroy', () => {
+                            element.off('click.multiSelect');
+                            element.off('keydown.multiSelect');
+                            element.off('treegrid-navigation-focused');
+                            element.off('selectstart');
+                            unsubscribe.next();
+                            unsubscribe.complete();
+                        });
                     });
 
                     // Handler for row click, or external change to selection via multipleSelectProvider
@@ -114,15 +126,6 @@ export function treegridMultipleSelectItem() {
                     if (selectionModel.isSelected(treeGridRow.dataItem)) {
                         setSelected(treeGridRow, true);
                     }
-
-                    scope.$on('destroy', () => {
-                        element.off('click.multiSelect');
-                        element.off('keydown.multiSelect');
-                        element.off('treegrid-navigation-focused');
-                        element.off('selectstart');
-                        unsubscribe.next();
-                        unsubscribe.complete();
-                    });
                 }
             }
 

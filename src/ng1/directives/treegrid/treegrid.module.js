@@ -10,7 +10,7 @@ import { TreegridDirective } from './treegrid.directive';
 import { treegridCell } from './treegridCell.directive';
 import { treegridMultipleSelectItem } from './treegridMultipleSelectItem.directive';
 
-angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.keyboardService', 'ux-aspects.keyboardNavigableTable'])
+angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.keyboardService', 'ux-aspects.keyboardNavigableTable', 'ux-aspects.eventHandlers'])
     .controller("TreegridCtrl", TreeGridController)
     .controller("TreeGridNavigationCtrl", TreeGridNavigationController)
     .controller("TreeGridNavigationItemCtrl", TreeGridNavigationItemController)
