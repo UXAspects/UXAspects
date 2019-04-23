@@ -50,10 +50,9 @@ export class ListHoverActionsCtrl {
 
     onActionKeydown(event) {
 
-        event.stopPropagation();
-        event.preventDefault();
-
         if (event.keyCode === LEFT_ARROW && this.hoverActions.isFocused()) {
+            event.stopPropagation();
+            event.preventDefault();
 
             // if we are the first hover action then focus the row
             if (this.hoverActions.getFocusIndex() === 0) {
@@ -64,6 +63,9 @@ export class ListHoverActionsCtrl {
         }
 
         if (event.keyCode === RIGHT_ARROW && this.hoverActions.isFocused()) {
+            event.stopPropagation();
+            event.preventDefault();
+
             this.hoverActions.focusAtIndex(this.hoverActions.getFocusIndex() + 1);
         }
     }
