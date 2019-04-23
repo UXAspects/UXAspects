@@ -87,6 +87,8 @@ describe('Partition Map Component', () => {
         segments = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLDivElement>('.partition-map-segment');
     });
 
+    afterEach(() => fixture.nativeElement.remove());
+
     it('should create', () => {
         expect(component).toBeTruthy();
     });

@@ -60,6 +60,8 @@ describe('NestedDonutChartComponent', () => {
         arcs = chart.querySelectorAll('.ux-nested-donut-chart-arc');
     });
 
+    afterEach(() => fixture.nativeElement.remove());
+
     it('should create the component', () => {
         expect(component).toBeTruthy();
     });

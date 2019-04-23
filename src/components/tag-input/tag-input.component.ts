@@ -34,7 +34,7 @@ const TAGINPUT_VALIDATOR = {
         '[class.invalid]': '!valid || !inputValid'
     }
 })
-export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
+export class TagInputComponent<T = any> implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
 
     /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
@@ -50,7 +50,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         }
         return this._tags;
     }
-    set tags(value: any[]) {
+    set tags(value: ReadonlyArray<T>) {
         this._tags = value;
         this._onChangeHandler(this._tags);
         this.tagsChange.emit(this._tags);
@@ -72,7 +72,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
      * the option object as an argument, and should return the appropriate display value.
      * If the name of a property is provided as a string, that property is used as the display value.
      */
-    @Input() display: (option: any) => string | string;
+    @Input() display: (option: T) => string | string;
 
     /** Controls whether pasting text into the text input area automatically converts that text into one or more tags. */
     @Input() addOnPaste: boolean = true;
@@ -143,7 +143,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
      * - `index: number` - the zero-based index of the tag as it appears in the tag input.
      * - `selected: boolean` - true if the tag is currently selected.
      */
-    @Input() tagClass: TagClassFunction = () => undefined;
+    @Input() tagClass: TagClassFunction<T> = () => undefined;
 
     /**
      * An object which contains details of validation errors. The following properties will be present if there is a related validation error:
@@ -173,7 +173,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() icon: TemplateRef<any>;
 
     /** Emits when tags is changed. */
-    @Output() tagsChange = new EventEmitter<any[]>();
+    @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
 
     /** Emits when input is changed. */
     @Output() inputChange = new EventEmitter<string>();
@@ -204,7 +204,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     selectedIndex: number = -1;
 
-    tagApi: TagApi = {
+    tagApi: TagApi<T> = {
         getTagDisplay: this.getTagDisplay.bind(this),
         removeTagAt: this.removeTagAt.bind(this),
         canRemoveTagAt: this.canRemoveTagAt.bind(this)
@@ -216,7 +216,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     highlightedElement: HTMLElement;
 
     private _input: string = '';
-    private _tags: any[] = [];
+    private _tags: ReadonlyArray<T> = [];
     private _onChangeHandler: (_: any) => void = () => { };
     private _onTouchedHandler: () => void = () => { };
     private _subscription: Subscription;
@@ -265,7 +265,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         this._onDestroy.complete();
     }
 
-    writeValue(value: any[]): void {
+    writeValue(value: T[]): void {
         if (value) {
             this.tags = value;
         }
@@ -417,7 +417,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         this.inputClickHandler();
     }
 
-    tagClickHandler(event: MouseEvent, tag: any, index: number): void {
+    tagClickHandler(event: MouseEvent, tag: T, index: number): void {
 
         if (this.disabled) { return; }
 
@@ -497,7 +497,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     /**
      * Commit the given tag object and clear the input if successful.
      */
-    commitTypeahead(tag: any): void {
+    commitTypeahead(tag: T): void {
         if (this.addTag(tag)) {
             this.selectInput();
             this.input = '';
@@ -630,8 +630,9 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
             if (!tagRemovingEvent.defaultPrevented()) {
                 // Select input first to avoid issues with dropping focus
                 this.selectInput();
+
                 // Remove the tag
-                this.tags.splice(tagIndex, 1);
+                this.tags = this.tags.filter((_tag, index) => index !== tagIndex);
                 // Set focus again since indices have changed
                 this.selectInput();
                 this.tagRemoved.emit(new TagInputEvent(tag));
@@ -705,7 +706,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     /**
      * Create a tag object for the given tagValue. If createTagHandler is specified, use it; otherwise if displayProperty is specified, create an object with the tagValue as the single named property; otherwise return the tagValue itself.
      */
-    private createTag(tagValue: string): any {
+    private createTag(tagValue: string): T {
         let tag = null;
         if (this.createTagHandler && typeof this.createTagHandler === 'function') {
             tag = this.createTagHandler(tagValue);
@@ -721,7 +722,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     /**
      * Add a tag object, calling the tagAdding and tagAdded events. Returns true if the tag was added to the tags array.
      */
-    private addTag(tag: any): boolean {
+    private addTag(tag: T): boolean {
         if (tag) {
             // Verify that the new tag can be displayed
             const displayValue = this.getTagDisplay(tag);
@@ -729,8 +730,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
                 const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
-                    this.tags = this.tags || [];
-                    this.tags.push(tag);
+                    this.tags = [...this.tags, tag];
                     this.tagAdded.emit(new TagInputEvent(tag));
                     this.validate();
                     return true;
@@ -783,11 +783,11 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 /**
  * The API available to tag templates.
  */
-export interface TagApi {
+export interface TagApi<T = any> {
     /**
      * Returns the display value of the given tag, according to the displayProperty property.
      */
-    getTagDisplay: (tag: any) => string;
+    getTagDisplay: (tag: T) => string;
 
     /**
      * Removes the tag at the given index, if possible.
@@ -803,4 +803,4 @@ export interface TagApi {
 /**
  * The function used to return custom class information, for use in `ngClass`.
  */
-export type TagClassFunction = (tag: any, index: number, selected: boolean) => (string | string[] | Set<string>);
+export type TagClassFunction<T = any> = (tag: T, index: number, selected: boolean) => (string | string[] | Set<string>);
