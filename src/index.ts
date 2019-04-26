@@ -29,6 +29,7 @@ export * from './components/navigation/index';
 export * from './components/nested-donut-chart/index';
 export * from './components/notification/index';
 export * from './components/number-picker/index';
+export * from './components/organization-chart/index';
 export * from './components/page-header/index';
 export * from './components/pagination/index';
 export * from './components/partition-map/index';

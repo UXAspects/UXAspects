@@ -1,0 +1,17 @@
+<div class="organization-chart-demo-container">
+    <ux-organization-chart [dataset]="dataset" [connector]="connector">
+        <ng-template #nodeTemplate let-data="data">
+            {{ data.name }}
+        </ng-template>
+    </ux-organization-chart>
+</div>
+
+<br>
+
+<div class="radio-button-container">
+    <ux-radio-button [(ngModel)]="connector" option="elbow">Elbow Connector</ux-radio-button>
+    <ux-radio-button [(ngModel)]="connector" option="curved">Curved Connector</ux-radio-button>
+</div>
+
+
+
