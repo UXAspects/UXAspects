@@ -139,7 +139,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         if (!row.canExpand || row.expanded) {
             return false;
         }
-        expand(row);
+        $timeout(() => expand(row));
         return true;
     };
 
@@ -148,7 +148,11 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         if (!row.canExpand || row.expanded) {
             return $q.when(false);
         }
-        return expand(row);
+
+        row.expanding = true;
+        // run async to allow loading indicator to appear
+        return $q(resolve => $timeout(() => expand(row).then(result => resolve(result))));
+
     };
 
     // Contract the specified row if possible. Returns true if the row is contractable.
