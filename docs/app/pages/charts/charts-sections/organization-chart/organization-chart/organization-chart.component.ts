@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { OrganizationChartConnector, OrganizationChartNode } from '@ux-aspects/ux-aspects';
+import { HierarchyBarNode, OrganizationChartConnector, OrganizationChartNode } from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
+import { Observable } from 'rxjs/Observable';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
@@ -16,8 +17,11 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
 
     connector: OrganizationChartConnector = 'elbow';
 
+    canReveal: boolean = true;
+
     dataset: OrganizationChartNode<OrganizationChartContext> = {
         id: 0,
+        expanded: true,
         data: {
             name: chance.name(),
             position: 'National Manager',
@@ -170,10 +174,68 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
         ]
     };
 
+    hierarchy: HierarchyBarNode = this.getHierarchy(this.dataset);
+
+    hierarchyBarSelected: HierarchyBarNode;
+    organizationChartSelected: OrganizationChartNode<OrganizationChartContext>;
+
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
     }
 
+    onReveal(): void {
+        // add a new node above the root node
+        this.dataset = {
+            id: 14,
+            expanded: true,
+            data: {
+                name: chance.name(),
+                position: 'CEO',
+                phone: chance.phone(),
+                email: 'ceo@company.com',
+                role: 'admin'
+            },
+            children: [this.dataset]
+        };
+
+        // update the hierarchy bar
+        this.hierarchy = this.getHierarchy(this.dataset);
+
+        this.canReveal = false;
+    }
+
+    getHierarchy(node: OrganizationChartNode<OrganizationChartContext>): HierarchyBarNode {
+        return {
+            title: node.data.name,
+            children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
+        } as HierarchyBarNode;
+    }
+
+    onOrganizationChartSelect(node: OrganizationChartNode<OrganizationChartContext>): void {
+        // get a flattened array of all hierarchy bar nodes
+        const nodes = this.flatten(this.hierarchy);
+
+        // find the matching hierarchy bar node
+        this.hierarchyBarSelected = nodes.find(_node => _node.title === node.data.name);
+    }
+
+    onHierarchyBarSelect(node: HierarchyBarNode): void {
+        // get a flattened array of all hierarchy bar nodes
+        const nodes = this.flatten(this.dataset);
+
+        // find the matching hierarchy bar node
+        this.organizationChartSelected = nodes.find(_node => _node.data.name === node.title);
+    }
+
+    /** Get a flattened array of the OrganizationChart nodes or HierarchyBarNodes */
+    flatten<T extends HasChildren<T>>(nodes: T | T[]): T[] {
+        nodes = Array.isArray(nodes) ? nodes : [nodes];
+        return nodes.reduce((accumulation, node) => Array.isArray(node.children) ? [...accumulation, node, ...this.flatten(node.children)] : [...accumulation, node], []);
+    }
+}
+
+export interface HasChildren<T> {
+    children?: T[] | ReadonlyArray<T> | Observable<T[]>;
 }
 
 export interface OrganizationChartContext {

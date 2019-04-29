@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HybridModule, OrganizationChartModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { HierarchyBarModule, HybridModule, OrganizationChartModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -34,7 +34,8 @@ const ROUTES = [
         HybridModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
-        OrganizationChartModule
+        OrganizationChartModule,
+        HierarchyBarModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

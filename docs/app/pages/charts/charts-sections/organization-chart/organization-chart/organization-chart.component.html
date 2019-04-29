@@ -1,5 +1,14 @@
 <div class="organization-chart">
-    <ux-organization-chart [dataset]="dataset" [connector]="connector" [nodeWidth]="210" [nodeHeight]="110">
+    <ux-hierarchy-bar [root]="hierarchy" [selected]="hierarchyBarSelected" (selectedChange)="onHierarchyBarSelect($event)"></ux-hierarchy-bar>
+    <ux-organization-chart
+        [dataset]="dataset"
+        [connector]="connector"
+        [selected]="organizationChartSelected"
+        [nodeWidth]="210"
+        [nodeHeight]="110"
+        [showReveal]="canReveal"
+        (reveal)="onReveal()"
+        (selectedChange)="onOrganizationChartSelect($event)">
         <ng-template #nodeTemplate let-data="data">
             <div class="organization-chart-node">
                 <p class="employee-name">{{ data.name }}</p>

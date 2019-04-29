@@ -41,7 +41,14 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Input() revealAriaLabel: string = 'Reveal More';
 
     /** Programmatically select an item */
-    @Input() selected: OrganizationChartNode<T>;
+    @Input() set selected(selected: OrganizationChartNode<T>) {
+        if (this.selected === selected || !selected) {
+            return;
+        }
+
+        this.select(selected);
+        this.centerNode(selected);
+    }
 
     /** Emit whenever a node is selected */
     @Output() selectedChange = new EventEmitter<OrganizationChartNode<T>>();
@@ -60,6 +67,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Access the container element for the nodes */
     @ViewChild('nodes') nodesContainer: ElementRef;
+
+    /** Store the internal selected node */
+    private _selected: OrganizationChartNode<T>;
 
     /** Store a flattened array of nodes */
     private _nodeLayout: HierarchyPointNode<OrganizationChartNode<T>>[] = [];
@@ -186,6 +196,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             this._hasConnectorChanged = true;
         }
 
+        // if only the selected property has changed then don't re-render as this is handled by the setter
+        if (Object.keys(changes).length === 1 && changes.selected) {
+            return;
+        }
+
         if (this._isInitialised) {
             this.render();
         }
@@ -206,9 +221,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     render(): void {
 
         // perform the layout algorithm on the current dataset
-        this._layout = this.getLayout();
-        this._nodeLayout = this._layout.descendants();
-        this._linkLayout = this._layout.links();
+        this.updateLayout();
 
         // select all the existing links and nodes
         this.updateSelections();
@@ -217,7 +230,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         const defaultTransition = transition()
             .duration(this.duration)
             .on('start', () => this._isTransitioning = true)
-            .on('end', () => this._isTransitioning = false);
+            .on('end', () => {
+                this._isTransitioning = false;
+                this.setNodeAttributes();
+            });
 
         // render the links when they are first added to the DOM
         this._links.enter()
@@ -283,7 +299,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         this.updateSelections();
 
         // update the selected classes - ensure there is always a selected node
-        this.select(this.selected ? this.selected : this.dataset);
+        if (!this._selected) {
+            this.select(this.dataset);
+        }
 
         // set the tab indexes and aria labels for any newly added items
         this.setNodeAttributes();
@@ -297,37 +315,40 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Select a specified node */
     select(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+
         // get the node in the desired format
-        node = this.coercePointNode(node) as HierarchyPointNode<OrganizationChartNode<T>>;
+        node = this.coerceDataNode(node) as OrganizationChartNode<T>;
+
+        // ensure all parents are expanded
+        this.expandParents(node);
 
         // deselect any current node
         this.deselect(false);
 
-        // remove the selected styling from all nodes except the newly selected one
-        this._renderer.addClass(this.getNodeElement(node), 'ux-organization-chart-node-selected');
-
         // check if the node is already selected
-        if (this.selected === node.data) {
+        if (this._selected === node) {
             return;
         }
 
         // if the selected item has changed then store the latest selection
-        this.selected = node.data;
+        this._selected = node;
 
         // emit the latest selection
-        this.selectedChange.next(this.selected);
+        this.selectedChange.next(this._selected);
 
         // update the tab indexes and aria labels
-        this.setNodeAttributes();
+        if (this._isInitialised) {
+            this.render();
+        }
     }
 
     /** Deselect the currently selected node */
     private deselect(emit: boolean = true): void {
 
-        this._nodes.nodes().forEach(element => this._renderer.removeClass(element, 'ux-organization-chart-node-selected'))
+        this._nodes.nodes().forEach(element => this._renderer.removeClass(element, 'ux-organization-chart-node-selected'));
 
-        if (emit && !!this.selected) {
-            this.selected = null;
+        if (emit && !!this._selected) {
+            this._selected = null;
             this.selectedChange.next(null);
 
             // update the tab indexes and aria labels
@@ -477,6 +498,13 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         this._portals.delete(node.data);
     }
 
+    // update the data structure for the node and link layouts
+    private updateLayout(): void {
+        this._layout = this.getLayout();
+        this._nodeLayout = this._layout.descendants();
+        this._linkLayout = this._layout.links();
+    }
+
     /** Ensure the selections stay in sync with the view */
     private updateSelections(): void {
         // select all the newly added dom nodes and associate the dataset
@@ -575,6 +603,14 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         return match;
     }
 
+    private coerceDataNode(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): OrganizationChartNode<T> {
+        if (node.hasOwnProperty('depth') && node.hasOwnProperty('x') && node.hasOwnProperty('y')) {
+            return (node as HierarchyPointNode<OrganizationChartNode<T>>).data;
+        }
+
+        return node as OrganizationChartNode<T>;
+    }
+
     /** Handle chart resize events */
     private onResize({ width, height }: ResizeDimensions): void {
         this._width = width;
@@ -632,11 +668,19 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
             // set the expanded aria attribute
             this._renderer.setAttribute(element, 'aria-expanded', !!this.getNodeData(element).data.expanded ? 'true' : 'false');
+
+            // remove the selected class
+            if (this.getNodeData(element).data !== this._selected) {
+                this._renderer.removeClass(element, 'ux-organization-chart-node-selected');
+            }
         }
 
         // if there is a selected item then it should be tabbable otherwise make the root tabbable
-        if (this.selected) {
-            this._renderer.setAttribute(this.getNodeElement(this.selected), 'tabindex', '0');
+        if (this._selected) {
+            this._renderer.setAttribute(this.getNodeElement(this._selected), 'tabindex', '0');
+
+            // remove the selected styling from all nodes except the newly selected one
+            this._renderer.addClass(this.getNodeElement(this._selected), 'ux-organization-chart-node-selected');
         }
     }
 
@@ -663,6 +707,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private onKeydown(node: HierarchyPointNode<OrganizationChartNode<T>>): void {
         switch (event.keyCode) {
             case DOWN_ARROW:
+                event.preventDefault();
                 // if the node is collapsed and has children expand
                 if (!node.data.expanded && Array.isArray(node.data.children) && node.data.children.length > 0) {
                     return this.expand(node);
@@ -670,12 +715,15 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
                 return this.focusChild(node);
 
             case RIGHT_ARROW:
+                event.preventDefault();
                 return this.focusNextSibling(node);
 
             case UP_ARROW:
+                event.preventDefault();
                 return this.focusParent(node);
 
             case LEFT_ARROW:
+                event.preventDefault();
                 return this.focusPreviousSibling(node);
 
             case ENTER:
@@ -807,7 +855,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private ensureNodesAreVisible(): void {
 
         // determine how many nodes are currently visible
-        const visibleCount = this._nodes.filter(node => !this.isNodeOutsideViewport(node, this.nodeWidth * 1.25, this.nodeHeight * 1.5)).size();
+        const visibleCount = this._nodes.filter(node => !this.isNodeOutsideViewport(node)).size();
 
         if (visibleCount > 0) {
             return;
@@ -826,6 +874,37 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // move the camera by the required amount
         this.moveCamera(x, y);
+    }
+
+    /** Expand all parent nodes */
+    private expandParents(node: OrganizationChartNode<T>): void {
+
+        // get the parent node
+        let parent = this.getParent(node);
+
+        while (parent) {
+            parent.expanded = true;
+            parent = this.getParent(parent);
+        }
+    }
+
+    /** Get the parent of a given node */
+    private getParent(node: OrganizationChartNode<T>): OrganizationChartNode<T> | null {
+        return [this.coerceDataNode(this.dataset), ...this.getAllChildren(this.dataset)].find(_node => {
+            if (!Array.isArray(_node.children)) {
+                return false;
+            }
+
+            return _node.children.find((child: OrganizationChartNode<T>) => child.id === node.id);
+        });
+    }
+
+    /** Get a flat array of all the nodes childrent */
+    private getAllChildren(node: OrganizationChartNode<T>): OrganizationChartNode<T>[] {
+        const children = node.children || [];
+
+        // check for any children on the children
+        return [...children, ...children.reduce((accumulation, child) => [...accumulation, ...this.getAllChildren(child)], [])].map(child => this.coerceDataNode(child));
     }
 
 }
