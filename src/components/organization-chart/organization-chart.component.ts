@@ -230,10 +230,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         const defaultTransition = transition()
             .duration(this.duration)
             .on('start', () => this._isTransitioning = true)
-            .on('end', () => {
-                this._isTransitioning = false;
-                this.setNodeAttributes();
-            });
+            .on('end', () => this._isTransitioning = false);
 
         // render the links when they are first added to the DOM
         this._links.enter()
@@ -319,16 +316,16 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // get the node in the desired format
         node = this.coerceDataNode(node) as OrganizationChartNode<T>;
 
+        // check if the node is already selected
+        if (this._selected === node) {
+            return;
+        }
+
         // ensure all parents are expanded
         this.expandParents(node);
 
         // deselect any current node
         this.deselect(false);
-
-        // check if the node is already selected
-        if (this._selected === node) {
-            return;
-        }
 
         // if the selected item has changed then store the latest selection
         this._selected = node;
@@ -340,6 +337,12 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         if (this._isInitialised) {
             this.render();
         }
+
+        // add the styling to the selected node
+        this._renderer.addClass(this.getNodeElement(this._selected), 'ux-organization-chart-node-selected');
+
+        // update the styling and tabindexes
+        this.setNodeAttributes();
     }
 
     /** Deselect the currently selected node */
@@ -668,19 +671,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
             // set the expanded aria attribute
             this._renderer.setAttribute(element, 'aria-expanded', !!this.getNodeData(element).data.expanded ? 'true' : 'false');
-
-            // remove the selected class
-            if (this.getNodeData(element).data !== this._selected) {
-                this._renderer.removeClass(element, 'ux-organization-chart-node-selected');
-            }
         }
 
         // if there is a selected item then it should be tabbable otherwise make the root tabbable
         if (this._selected) {
             this._renderer.setAttribute(this.getNodeElement(this._selected), 'tabindex', '0');
-
-            // remove the selected styling from all nodes except the newly selected one
-            this._renderer.addClass(this.getNodeElement(this._selected), 'ux-organization-chart-node-selected');
         }
     }
 
@@ -744,6 +739,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             this.focusNode(node.parent);
         } else if (this.revealElement) {
             this.revealElement.nativeElement.focus();
+            // center the root node to ensure the reveal button is in view
+            this.centerNode(this.dataset);
         }
     }
 
