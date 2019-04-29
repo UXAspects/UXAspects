@@ -1,27 +1,139 @@
 <div class="organization-chart">
-    <ux-hierarchy-bar [root]="hierarchy" [selected]="hierarchyBarSelected" (selectedChange)="onHierarchyBarSelect($event)"></ux-hierarchy-bar>
+    <ux-hierarchy-bar
+        [root]="hierarchy"
+        [(selected)]="hierarchyBarSelected"
+        (selectedChange)="onHierarchyBarSelect($event)">
+    </ux-hierarchy-bar>
+
     <ux-organization-chart
         [dataset]="dataset"
         [connector]="connector"
         [selected]="organizationChartSelected"
         [nodeWidth]="210"
-        [nodeHeight]="110"
+        [nodeHeight]="90"
         [showReveal]="canReveal"
         (reveal)="onReveal()"
         (selectedChange)="onOrganizationChartSelect($event)">
-        <ng-template #nodeTemplate let-data="data">
-            <div class="organization-chart-node">
+
+        <ng-template #nodeTemplate let-data="data" let-node="node">
+            <div class="organization-chart-node"
+                [class.organization-chart-node-marker]="data.marker"
+                [class.organization-chart-node-expanded]="node.expanded && node.children?.length > 0">
                 <p class="employee-name">{{ data.name }}</p>
                 <p class="employee-job-title">{{ data.position }}</p>
                 <p class="employee-email">{{ data.email }}</p>
+
+                <div class="employee-icon">
+                    <i class="hpe-icon hpe-user-manager"></i>
+                    <span class="employee-icon-count">{{ node.children?.length }}</span>
+                </div>
+
+                <div class="employee-icon employee-icon-expanded">
+                    <i class="hpe-icon hpe-tab-up"></i>
+                </div>
             </div>
         </ng-template>
+
     </ux-organization-chart>
 </div>
 
 <br>
 
-<div class="radio-button-container">
-    <ux-radio-button [(ngModel)]="connector" option="elbow">Elbow Connector</ux-radio-button>
-    <ux-radio-button [(ngModel)]="connector" option="curved">Curved Connector</ux-radio-button>
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-radio-button [(ngModel)]="connector" option="elbow">Elbow Connector</ux-radio-button>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-radio-button [(ngModel)]="connector" option="curved">Curved Connector</ux-radio-button>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
 </div>
+
+<p>
+    The organization chart can be used to present hierarchical data in an interactive and user friendly way.
+</p>
+
+<p>
+    The content of the nodes should be defined using an <code>ng-template</code> identified as <code>#nodeTemplate</code> that is a child of the component element.
+</p>
+
+<p>The following options are available to customize component:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="dataset" type="OrganizationChartNode<T>" [required]="true">
+        Define the dataset to display in the chart.
+    </tr>
+    <tr uxd-api-property name="connector" type="elbow | curved" defaultValue="elbow">
+        Define the presentation of the lines connecting nodes.
+    </tr>
+    <tr uxd-api-property name="nodeWidth" type="number" [required]="true">
+        Define the width of nodes.
+    </tr>
+    <tr uxd-api-property name="nodeHeight" type="number" [required]="true">
+        Define the height of nodes.
+    </tr>
+    <tr uxd-api-property name="duration" type="number" defaultValue="750">
+        Define the duration of animations.
+    </tr>
+    <tr uxd-api-property name="showReveal" type="boolean" defaultValue="false">
+        Define if the reveal more button should be visible.
+    </tr>
+    <tr uxd-api-property name="revealAriaLabel" type="string" defaultValue="Reveal More">
+        Define the aria label of the reveal more button.
+    </tr>
+    <tr uxd-api-property name="selected" type="OrganizationChartNode<T>">
+        Define the selected node. Initially the root node will be selected.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="OrganizationChartNode<T>">
+        Will emit when a node is selected.
+    </tr>
+    <tr uxd-api-property name="reveal" type="void">
+        Will emit when the reveal button is clicked.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="expand" args="OrganizationChartNode<T>">
+        Expand a node.
+    </tr>
+    <tr uxd-api-property name="collapse" args="OrganizationChartNode<T>">
+        Collapse a node.
+    </tr>
+    <tr uxd-api-property name="toggle" args="OrganizationChartNode<T>">
+        Toggle the expanded state of a node.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="OrganizationChartNode<T> Interface">
+    <tr uxd-api-property name="id" type="number | string" [required]="true">
+        A unique identifier for this item.
+    </tr>
+    <tr uxd-api-property name="data" type="T">
+        Provide custom data for this item. This can be used to display information within the node template.
+    </tr>
+    <tr uxd-api-property name="children" type="ReadonlyArray<OrganizationChartNode<T>>">
+        Define the children of this node if there are any.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        Define the expanded state of this node.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Node Template Context">
+    <tr uxd-api-property name="node" type="OrganizationChartNode<T>">
+        The node object that this item represents.
+    </tr>
+    <tr uxd-api-property name="data" type="T">
+        The custom data that was provided for this node.
+    </tr>
+</uxd-api-properties>

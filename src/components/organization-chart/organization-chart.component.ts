@@ -918,7 +918,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 }
 
 export interface OrganizationChartNode<T> {
-    id: number;
+    id: number | string;
     data?: T;
     children?: ReadonlyArray<OrganizationChartNode<T>>;
     expanded?: boolean;

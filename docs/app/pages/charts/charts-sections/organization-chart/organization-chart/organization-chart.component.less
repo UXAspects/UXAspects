@@ -8,29 +8,84 @@
 }
 
 .organization-chart-node {
-    padding: 16px;
+    padding: 8px 14px;
     user-select: none;
+
+    &.organization-chart-node-marker:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 16px 16px 0;
+        border-color: transparent #ff8d6d transparent transparent;
+    }
+
+    &:hover {
+        .employee-icon,
+        .employee-icon-count {
+            opacity: 1;
+        }
+
+        &.organization-chart-node-expanded {
+            .employee-icon {
+                visibility: hidden;
+
+                &.employee-icon-expanded {
+                    visibility: visible;
+                }
+            }
+
+            .employee-icon-count {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.employee-icon {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.5;
+
+    &.employee-icon-expanded {
+        visibility: hidden;
+    }
+}
+
+.employee-icon-count {
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
 }
 
 .employee-name {
     font-size: 18px;
     font-weight: 700;
-    margin: 0 0 4px;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: break-all;
     color: #000;
+    padding-right: 16px;
 }
 
 .employee-job-title {
     margin-top: 0;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-size: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: break-all;
+    padding-right: 16px;
 }
 
 .employee-email {

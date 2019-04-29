@@ -26,8 +26,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
             name: chance.name(),
             position: 'National Manager',
             phone: chance.phone(),
-            email: 'nat_manager@company.com',
-            role: 'admin',
+            email: 'nat_manager@company.com'
         },
         children: [
             {
@@ -36,8 +35,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                     name: chance.name(),
                     position: 'Regional Manager',
                     phone: chance.phone(),
-                    email: 'reg_manager@company.com',
-                    role: 'admin',
+                    email: 'reg_manager@company.com'
                 },
                 children: [
                     {
@@ -46,8 +44,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                             name: chance.name(),
                             position: 'Assistant',
                             phone: chance.phone(),
-                            email: 'assistant@company.com',
-                            role: 'admin',
+                            email: 'assistant@company.com'
                         },
                         children: [
                             {
@@ -56,8 +53,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     name: chance.name(),
                                     position: 'Human Resources',
                                     phone: chance.phone(),
-                                    email: 'hr@company.com',
-                                    role: 'user'
+                                    email: 'hr@company.com'
                                 },
                             },
                             {
@@ -66,8 +62,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     name: chance.name(),
                                     position: 'Engineer',
                                     phone: chance.phone(),
-                                    email: 'tech@company.com',
-                                    role: 'user'
+                                    email: 'tech@company.com'
                                 },
                             },
                             {
@@ -76,8 +71,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     name: chance.name(),
                                     position: 'Quality Assurance',
                                     phone: chance.phone(),
-                                    email: 'qa@company.com',
-                                    role: 'user'
+                                    email: 'qa@company.com'
                                 },
                             }
                         ]
@@ -90,7 +84,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                             position: 'Manager',
                             phone: chance.phone(),
                             email: 'manager@company.com',
-                            role: 'user',
+                            marker: true
                         },
                         children: [
                             {
@@ -100,7 +94,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     position: 'Sales',
                                     phone: chance.phone(),
                                     email: 'sales1@company.com',
-                                    role: 'user'
                                 },
                             },
                             {
@@ -110,7 +103,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     position: 'Office Administrator',
                                     phone: chance.phone(),
                                     email: 'office_admin@company.com',
-                                    role: 'user',
                                 },
                                 children: [
                                     {
@@ -120,7 +112,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                             position: 'Receptionist',
                                             phone: chance.phone(),
                                             email: 'reception@company.com',
-                                            role: 'user'
                                         },
                                     }
                                 ]
@@ -132,7 +123,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     position: 'Sales',
                                     phone: chance.phone(),
                                     email: 'sales2@company.com',
-                                    role: 'user'
                                 },
                             }
                         ]
@@ -144,7 +134,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                             position: 'Head of Accounting',
                             phone: chance.phone(),
                             email: 'accounting@company.com',
-                            role: 'user',
                         },
                         children: [
                             {
@@ -154,7 +143,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     position: 'Accountant',
                                     phone: chance.phone(),
                                     email: 'accountant1@company.com',
-                                    role: 'user'
                                 },
                             },
                             {
@@ -164,7 +152,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                     position: 'Accountant',
                                     phone: chance.phone(),
                                     email: 'accountant2@company.com',
-                                    role: 'user'
                                 },
                             }
                         ]
@@ -193,7 +180,6 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                 position: 'CEO',
                 phone: chance.phone(),
                 email: 'ceo@company.com',
-                role: 'admin'
             },
             children: [this.dataset]
         };
@@ -207,6 +193,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
     getHierarchy(node: OrganizationChartNode<OrganizationChartContext>): HierarchyBarNode {
         return {
             title: node.data.name,
+            icon: require('../../../../../assets/img/IconManagerColorized.png'),
             children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
         } as HierarchyBarNode;
     }
@@ -230,7 +217,10 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
     /** Get a flattened array of the OrganizationChart nodes or HierarchyBarNodes */
     flatten<T extends HasChildren<T>>(nodes: T | T[]): T[] {
         nodes = Array.isArray(nodes) ? nodes : [nodes];
-        return nodes.reduce((accumulation, node) => Array.isArray(node.children) ? [...accumulation, node, ...this.flatten(node.children)] : [...accumulation, node], []);
+        return nodes.reduce((accumulation, node) =>
+            Array.isArray(node.children) ?
+                [...accumulation, node, ...this.flatten(node.children)] :
+                [...accumulation, node], []);
     }
 }
 
@@ -243,5 +233,5 @@ export interface OrganizationChartContext {
     position: string;
     phone: string;
     email: string;
-    role: string;
+    marker?: boolean;
 }
