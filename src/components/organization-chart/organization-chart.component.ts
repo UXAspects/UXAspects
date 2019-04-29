@@ -2,6 +2,7 @@ import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/c
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { hierarchy, HierarchyPointLink, HierarchyPointNode, tree } from 'd3-hierarchy';
+import { interpolate } from 'd3-interpolate';
 import { event, select, Selection } from 'd3-selection';
 import { linkVertical } from 'd3-shape';
 import { transition } from 'd3-transition';
@@ -25,10 +26,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Input() connector: OrganizationChartConnector = 'elbow';
 
     /** Define the width of a node */
-    @Input() nodeWidth: number = 200;
+    @Input() nodeWidth: number;
 
     /** Define the height of a node */
-    @Input() nodeHeight: number = 100;
+    @Input() nodeHeight: number;
 
     /** Define the duration of the transition animations */
     @Input() duration: number = 750;
@@ -85,10 +86,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     private _layout: HierarchyPointNode<OrganizationChartNode<T>>;
 
     /** Store the current width of the chart */
-    private _width: number = this._elementRef.nativeElement.offsetWidth;
+    private _width: number;
 
     /** Store the current height of the chart */
-    private _height: number = this._elementRef.nativeElement.offsetHeight;
+    private _height: number;
 
     /** Store the portal/outlets associated with some data */
     private _portals = new Map<OrganizationChartNode<T>, OrganizationChartPortalRef>();
@@ -129,9 +130,14 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             throw new Error('Organization Chart - You must provide a node template!');
         }
 
+        if (!this.nodeWidth || !this.nodeHeight) {
+            throw new Error('Organization Chart - You must specify a nodeWidth and nodeHeight');
+        }
+
         // create the zoom drag listener
         this._zoom = zoom()
             .scaleExtent([1, 1])
+            .interpolate(interpolate)
             .on('zoom', this.applyCameraPosition.bind(this))
             .on('end', () => {
                 if (!this._isPanning) {
@@ -148,6 +154,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // perform the initial render
         this.render();
+
+        // ensure we set the initial chart size
+        this._width = this._elementRef.nativeElement.offsetWidth;
+        this._height = this._elementRef.nativeElement.offsetHeight;
 
         // watch for any resizing of the chart
         const resize$ = this._resizeService.addResizeListener(this._elementRef.nativeElement);
@@ -387,8 +397,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // get the current camera position
         const camera = this.getCameraPosition();
 
-        const x = axis === OrganizationChartAxis.Vertical ? camera.x : (this._width / 2) - node.x;
-        const y = axis === OrganizationChartAxis.Horizontal ? camera.y : (this._height / 2) - node.y;
+        const x = axis === OrganizationChartAxis.Vertical ? camera.x : (this._width / 2) - (node.x + (this.nodeWidth / 2));
+        const y = axis === OrganizationChartAxis.Horizontal ? camera.y : (this._height / 2) - (node.y + (this.nodeHeight / 2));
 
         // update the camera position
         this.setCameraPosition(x, y, animate);
@@ -636,11 +646,6 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // find the element that matches the node data
         const index = this._nodes.data().indexOf(node);
-
-        if (index === -1) {
-            // TODO: something is not working quite right here
-            debugger;
-        }
 
         return this._nodes.nodes()[index];
     }

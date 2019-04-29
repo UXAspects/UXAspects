@@ -8,14 +8,15 @@ const chance = new Chance();
 
 @Component({
     selector: 'uxd-charts-organization-chart',
-    templateUrl: './organization-chart.component.html'
+    templateUrl: './organization-chart.component.html',
+    styleUrls: ['./organization-chart.component.less']
 })
 @DocumentationSectionComponent('ChartsOrganizationChartComponent')
 export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
 
     connector: OrganizationChartConnector = 'elbow';
 
-    dataset: OrganizationChartNode<any> = {
+    dataset: OrganizationChartNode<OrganizationChartContext> = {
         id: 0,
         data: {
             name: chance.name(),
@@ -46,7 +47,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                         },
                         children: [
                             {
-                                id: 4,
+                                id: 5,
                                 data: {
                                     name: chance.name(),
                                     position: 'Human Resources',
@@ -56,7 +57,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                 },
                             },
                             {
-                                id: 5,
+                                id: 6,
                                 data: {
                                     name: chance.name(),
                                     position: 'Engineer',
@@ -66,7 +67,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                 },
                             },
                             {
-                                id: 6,
+                                id: 7,
                                 data: {
                                     name: chance.name(),
                                     position: 'Quality Assurance',
@@ -79,7 +80,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                     },
                     {
 
-                        id: 2,
+                        id: 3,
                         data: {
                             name: chance.name(),
                             position: 'Manager',
@@ -89,7 +90,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                         },
                         children: [
                             {
-                                id: 7,
+                                id: 8,
                                 data: {
                                     name: chance.name(),
                                     position: 'Sales',
@@ -99,7 +100,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                 },
                             },
                             {
-                                id: 8,
+                                id: 9,
                                 data: {
                                     name: chance.name(),
                                     position: 'Office Administrator',
@@ -109,7 +110,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                 },
                                 children: [
                                     {
-                                        id: 10,
+                                        id: 11,
                                         data: {
                                             name: chance.name(),
                                             position: 'Receptionist',
@@ -121,7 +122,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                 ]
                             },
                             {
-                                id: 9,
+                                id: 10,
                                 data: {
                                     name: chance.name(),
                                     position: 'Sales',
@@ -133,7 +134,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                         ]
                     },
                     {
-                        id: 3,
+                        id: 4,
                         data: {
                             name: chance.name(),
                             position: 'Head of Accounting',
@@ -143,7 +144,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                         },
                         children: [
                             {
-                                id: 11,
+                                id: 12,
                                 data: {
                                     name: chance.name(),
                                     position: 'Accountant',
@@ -153,7 +154,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
                                 },
                             },
                             {
-                                id: 12,
+                                id: 13,
                                 data: {
                                     name: chance.name(),
                                     position: 'Accountant',
@@ -173,4 +174,12 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
     }
 
+}
+
+export interface OrganizationChartContext {
+    name: string;
+    position: string;
+    phone: string;
+    email: string;
+    role: string;
 }

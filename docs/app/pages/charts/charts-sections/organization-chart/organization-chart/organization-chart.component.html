@@ -1,7 +1,11 @@
-<div class="organization-chart-demo-container">
-    <ux-organization-chart [dataset]="dataset" [connector]="connector">
+<div class="organization-chart">
+    <ux-organization-chart [dataset]="dataset" [connector]="connector" [nodeWidth]="210" [nodeHeight]="110">
         <ng-template #nodeTemplate let-data="data">
-            {{ data.name }}
+            <div class="organization-chart-node">
+                <p class="employee-name">{{ data.name }}</p>
+                <p class="employee-job-title">{{ data.position }}</p>
+                <p class="employee-email">{{ data.email }}</p>
+            </div>
         </ng-template>
     </ux-organization-chart>
 </div>
@@ -12,6 +16,3 @@
     <ux-radio-button [(ngModel)]="connector" option="elbow">Elbow Connector</ux-radio-button>
     <ux-radio-button [(ngModel)]="connector" option="curved">Curved Connector</ux-radio-button>
 </div>
-
-
-
