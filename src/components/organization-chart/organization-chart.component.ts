@@ -379,6 +379,12 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Expand a node */
     expand(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+
+        // do nothing if a transition is currently in progress
+        if (this._isTransitioning) {
+            return;
+        }
+
         // get the node in the desired format
         node = this.coercePointNode(node) as HierarchyPointNode<OrganizationChartNode<T>>;
 
@@ -399,6 +405,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Collapse a node */
     collapse(node: OrganizationChartNode<T> | HierarchyPointNode<OrganizationChartNode<T>>): void {
+        // do nothing if a transition is currently in progress
+        if (this._isTransitioning) {
+            return;
+        }
+
         // get the node in the desired format
         node = this.coercePointNode(node) as HierarchyPointNode<OrganizationChartNode<T>>;
 
