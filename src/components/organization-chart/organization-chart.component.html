@@ -1,0 +1,18 @@
+<!-- Add a button above the root node to load additional parent items -->
+<button #revealElement
+    uxFocusIndicatorOrigin
+    class="ux-organization-chart-reveal"
+    tabindex="-1"
+    [attr.aria-label]="revealAriaLabel"
+    [hidden]="!showReveal"
+    (click)="reveal.emit(); _focusRootNode()"
+    (keydown.ArrowDown)="_focusRootNode(); $event.preventDefault()">
+
+    <i class="hpe-icon hpe-tab-up"></i>
+</button>
+
+<!-- Show the links connecting each node -->
+<svg #links class="ux-organization-chart-links"></svg>
+
+<!-- Show the nodes containing information about each item -->
+<div #nodes class="ux-organization-chart-nodes"></div>

@@ -1,0 +1,39 @@
+<div class="organization-chart">
+    <ux-hierarchy-bar
+        [root]="hierarchy"
+        [(selected)]="hierarchyBarSelected"
+        (selectedChange)="onHierarchyBarSelect($event)">
+    </ux-hierarchy-bar>
+
+    <ux-organization-chart
+        [dataset]="dataset"
+        [connector]="connector"
+        [selected]="organizationChartSelected"
+        [nodeWidth]="210"
+        [nodeHeight]="90"
+        [showReveal]="canReveal"
+        (reveal)="onReveal()"
+        (selectedChange)="onOrganizationChartSelect($event)">
+
+        <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
+            <div class="organization-chart-node"
+                [class.organization-chart-node-focused]="focused"
+                [class.organization-chart-node-marker]="data.marker"
+                [class.organization-chart-node-expanded]="node.expanded && node.children?.length > 0">
+                <p class="employee-name">{{ data.name }}</p>
+                <p class="employee-job-title">{{ data.position }}</p>
+                <p class="employee-email">{{ data.email }}</p>
+
+                <div class="employee-icon">
+                    <i class="hpe-icon hpe-user-manager"></i>
+                    <span class="employee-icon-count">{{ node.children?.length }}</span>
+                </div>
+
+                <div class="employee-icon employee-icon-expanded">
+                    <i class="hpe-icon hpe-tab-up"></i>
+                </div>
+            </div>
+        </ng-template>
+
+    </ux-organization-chart>
+</div>

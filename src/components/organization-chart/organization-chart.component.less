@@ -1,0 +1,73 @@
+ux-organization-chart {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: @white;
+    overflow: hidden;
+
+    .ux-organization-chart-reveal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        font-size: 2rem;
+        color: @grey4;
+        transition: color 0.3s ease-in-out;
+        cursor: pointer;
+        z-index: 1;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        width: 30px;
+        height: 32px;
+
+        &:hover,
+        &:focus {
+            color: @primary;
+            outline: none;
+        }
+    }
+
+    .ux-organization-chart-links,
+    .ux-organization-chart-nodes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .ux-organization-chart-node {
+        position: absolute;
+        background-color: @white;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+        transition: box-shadow 250ms ease-in-out, border-color 250ms ease-in-out;
+        cursor: pointer;
+
+        &.ux-organization-chart-node-selected {
+            box-shadow: 2px 2px rgba(0, 0, 0, 0.15), inset 0 0 0 1px @primary;
+            border-color: @primary;
+
+            &:focus.ux-focus-indicator-active {
+                box-shadow: inset 0 0 0 1px @primary, 0 0 0 1px @grey7, 0 0 0 3px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        &:hover {
+            box-shadow: 5px 5px rgba(0, 0, 0, 0.05), inset 0 0 0 1px @primary;
+            border-color: @primary;
+        }
+
+        &:focus.ux-focus-indicator-active {
+            box-shadow: 0 0 0 1px @grey7, 0 0 0 3px rgba(0, 0, 0, 0.5);
+            outline: none !important;
+        }
+    }
+
+    .ux-organization-chart-link {
+        fill: none;
+        stroke: @grey6;
+        stroke-width: 1.5px;
+    }
+}

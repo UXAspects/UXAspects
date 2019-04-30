@@ -274,7 +274,23 @@
                     "title": "Organization Chart",
                     "component": "ChartsOrganizationChartNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
+                },
+                {
+                    "title": "Organization Chart",
+                    "component": "ChartsOrganizationChartComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-organization-chart"
+                        },
+                        {
+                            "title": "Module name",
+                            "content": "OrganizationChartModule"
+                        }
+                    ]
                 }
             ]
         },

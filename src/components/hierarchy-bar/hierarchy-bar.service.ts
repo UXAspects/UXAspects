@@ -44,6 +44,11 @@ export class HierarchyBarService {
      */
     setRootNode(root: HierarchyBarNode) {
 
+        // if the node is null or undefined then do nothing
+        if (!root) {
+            return;
+        }
+
         // store the root node
         this._root = root;
 
@@ -63,6 +68,11 @@ export class HierarchyBarService {
 
         // deselect all nodes
         this.deselectAll();
+
+        // if the node is undefined then do nothing
+        if (!node) {
+            return;
+        }
 
         // ensure the current node is selected and its parents
         this.select(node);
