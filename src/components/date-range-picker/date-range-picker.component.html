@@ -11,7 +11,7 @@
   <div class="header-separator">
     <i class="hpe-icon hpe-link-next"></i>
     <p class="duration" [style.visibility]="_duration !== null && _duration !== undefined ? 'visible' : 'hidden'">
-      {{ _duration }} {{ _duration > 1 ? 'days' : 'day' }}
+        {{ durationTitle(_duration || 0) }}
     </p>
   </div>
 

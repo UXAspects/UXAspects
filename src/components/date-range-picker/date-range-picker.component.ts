@@ -97,6 +97,9 @@ export class DateRangePickerComponent implements OnDestroy {
     /** Defines the day of the week that should appear in the first column. `WeekDay` is an enumeration available in `@angular/common`. */
     @Input() startOfWeek: WeekDay = WeekDay.Sunday;
 
+    /** Define a function to return the number of days within the selected range */
+    @Input() durationTitle: (days: number) => string = this.getDurationTitle;
+
     /** Emit when the start date changes */
     @Output() startChange = new EventEmitter<Date>();
 
@@ -162,6 +165,11 @@ export class DateRangePickerComponent implements OnDestroy {
     private onEndChange(date: Date): void {
         this.rangeService.setEndDate(date);
         this.endChange.emit(date);
+    }
+
+    /** Get the text to display to indicate the duration */
+    private getDurationTitle(days: number): string {
+        return days + ' ' + (days > 1 ? 'days' : 'day');
     }
 
 }
