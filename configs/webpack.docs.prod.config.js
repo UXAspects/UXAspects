@@ -1,7 +1,6 @@
 const { DefinePlugin, HashedModuleIdsPlugin } = require('webpack');
 const fs = require('fs');
 const gracefulFs = require('graceful-fs');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const { join } = require('path');
 const { cwd } = require('process');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -22,6 +21,7 @@ module.exports = {
 
     mode: 'production',
     devtool: false,
+    stats: 'minimal',
 
     resolve: {
         extensions: ['.ts', '.js'],
@@ -290,8 +290,6 @@ module.exports = {
             VERSION: JSON.stringify(require('../src/package.json').version),
             PRODUCTION: true
         }),
-
-        new ProgressPlugin(),
 
         new CircularDependencyPlugin({
             exclude: /[\\\/]node_modules[\\\/]/

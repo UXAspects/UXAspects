@@ -270,10 +270,7 @@ module.exports = {
 
     devServer: {
         historyApiFallback: true,
-        stats: {
-            colors: true,
-            reasons: true
-        },
+        stats: 'minimal',
         overlay: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
