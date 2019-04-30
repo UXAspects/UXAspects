@@ -70,6 +70,7 @@
 
     <ux-typeahead #singleTypeahead
         [id]="id + '-typeahead'"
+        [active]="value"
         [options]="options"
         [filter]="filter$ | async"
         [(open)]="dropdownOpen"
