@@ -15,8 +15,9 @@
         (reveal)="onReveal()"
         (selectedChange)="onOrganizationChartSelect($event)">
 
-        <ng-template #nodeTemplate let-data="data" let-node="node">
+        <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
             <div class="organization-chart-node"
+                [class.organization-chart-node-focused]="focused"
                 [class.organization-chart-node-marker]="data.marker"
                 [class.organization-chart-node-expanded]="node.expanded && node.children?.length > 0">
                 <p class="employee-name">{{ data.name }}</p>

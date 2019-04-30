@@ -1,6 +1,6 @@
 import { DOWN_ARROW, ENTER, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ElementRef, EventEmitter, Injector, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { hierarchy, HierarchyPointLink, HierarchyPointNode, tree } from 'd3-hierarchy';
 import { interpolate } from 'd3-interpolate';
 import { event, select, Selection } from 'd3-selection';
@@ -119,6 +119,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Determine if the connector type has changed since the last render */
     private _hasConnectorChanged: boolean = false;
 
+    /** Store the currently focused node if there is one */
+    private _focused: OrganizationChartNode<T>;
+
     /** Automatically unsubscribe from all subscriptions on destroy */
     private _onDestroy = new Subject<void>();
 
@@ -130,7 +133,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         private _appRef: ApplicationRef,
         private _viewContainerRef: ViewContainerRef,
         private _renderer: Renderer2,
-        private _focusIndicator: FocusIndicatorService
+        private _focusIndicator: FocusIndicatorService,
+        private _ngZone: NgZone
     ) { }
 
     ngAfterViewInit(): void {
@@ -535,12 +539,21 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Render the content of the node based on the template provided */
     private renderNodeTemplate(node: HierarchyPointNode<OrganizationChartNode<T>>, index: number, group: HTMLElement[]) {
 
+        // create the context for the node
+        const context: OrganizationChartNodeContext<T> = {
+            data: node.data.data,
+            node: node.data,
+            focused: false
+        };
+
+        // the focused state should be a getter
+        Object.defineProperty(context, 'focused', {
+            get: () => this._focused === node.data
+        });
+
         // create the outlet to insert the Template and the portal from the TemplateRef
         const outlet = this.createPortalOutlet(group[index]);
-        const portal = new TemplatePortal<OrganizationChartNodeContext<T>>(this.nodeTemplate, this._viewContainerRef, {
-            data: node.data.data,
-            node: node.data
-        });
+        const portal = new TemplatePortal<OrganizationChartNodeContext<T>>(this.nodeTemplate, this._viewContainerRef, context);
 
         // insert the TemplateRef into the specified region
         portal.attach(outlet);
@@ -855,6 +868,18 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // create the focus indicator
         const indicator = this._focusIndicator.monitor(element, { checkChildren: false, programmaticFocusIndicator: true });
 
+        // store the currently selected node as an instance variable
+        indicator.isFocused$.pipe(takeUntil(this._onDestroy)).subscribe(isFocused => {
+            // by default the CDK runs this outside of NgZone however we need it to run inside NgZone to update the node template
+            this._ngZone.run(() => {
+                if (isFocused) {
+                    this._focused = node.data;
+                } else if (node.data === this._focused) {
+                    this._focused = null;
+                }
+            });
+        });
+
         // store the focus indicator reference
         this._indicators.set(node.data, indicator);
     }
@@ -927,6 +952,7 @@ export interface OrganizationChartNode<T> {
 export interface OrganizationChartNodeContext<T> {
     data: T;
     node: OrganizationChartNode<T>;
+    focused: boolean;
 }
 
 export interface OrganizationChartPortalRef {

@@ -25,19 +25,26 @@
 }
 
 .organization-chart-node:hover .employee-icon,
-.organization-chart-node:hover .employee-icon-count {
+.organization-chart-node.organization-chart-node-focused .employee-icon,
+.organization-chart-node:hover .employee-icon-count,
+.organization-chart-node.organization-chart-node-focused .employee-icon-count {
     opacity: 1;
 }
 
-.organization-chart-node:hover.organization-chart-node-expanded .employee-icon {
+.organization-chart-node:hover.organization-chart-node-expanded .employee-icon,
+.organization-chart-node.organization-chart-node-focused.organization-chart-node-expanded .employee-icon {
     visibility: hidden;
 }
 
-.organization-chart-node:hover.organization-chart-node-expanded .employee-icon.employee-icon-expanded {
+.organization-chart-node:hover.organization-chart-node-expanded .employee-icon.employee-icon-expanded,
+.organization-chart-node.organization-chart-node-focused.organization-chart-node-expanded
+.employee-icon.employee-icon-expanded {
     visibility: visible;
 }
 
-.organization-chart-node:hover.organization-chart-node-expanded .employee-icon-count {
+.organization-chart-node:hover.organization-chart-node-expanded .employee-icon-count,
+.organization-chart-node.organization-chart-node-focused.organization-chart-node-expanded
+ .employee-icon-count {
     opacity: 0;
 }
 

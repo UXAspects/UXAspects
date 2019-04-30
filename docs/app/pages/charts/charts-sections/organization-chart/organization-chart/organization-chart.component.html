@@ -15,8 +15,9 @@
         (reveal)="onReveal()"
         (selectedChange)="onOrganizationChartSelect($event)">
 
-        <ng-template #nodeTemplate let-data="data" let-node="node">
+        <ng-template #nodeTemplate let-data="data" let-node="node" let-focused="focused">
             <div class="organization-chart-node"
+                [class.organization-chart-node-focused]="focused"
                 [class.organization-chart-node-marker]="data.marker"
                 [class.organization-chart-node-expanded]="node.expanded && node.children?.length > 0">
                 <p class="employee-name">{{ data.name }}</p>
@@ -67,29 +68,29 @@
 <p>The following options are available to customize component:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="dataset" type="OrganizationChartNode<T>" [required]="true">
+    <tr uxd-api-property name="dataset" type="Readonly<OrganizationChartNode<T>>" [required]="true">
         Define the dataset to display in the chart.
     </tr>
-    <tr uxd-api-property name="connector" type="elbow | curved" defaultValue="elbow">
+    <tr uxd-api-property name="connector" type="'elbow' | 'curved'" defaultValue="elbow">
         Define the presentation of the lines connecting nodes.
     </tr>
     <tr uxd-api-property name="nodeWidth" type="number" [required]="true">
-        Define the width of nodes.
+        Define the width of nodes in pixels.
     </tr>
     <tr uxd-api-property name="nodeHeight" type="number" [required]="true">
-        Define the height of nodes.
+        Define the height of nodes in pixels.
     </tr>
     <tr uxd-api-property name="duration" type="number" defaultValue="750">
-        Define the duration of animations.
+        Define the duration of animations in milliseconds.
     </tr>
     <tr uxd-api-property name="showReveal" type="boolean" defaultValue="false">
-        Define if the reveal more button should be visible.
+        Define if the reveal more button should be visible. This is used to display ancestor nodes, which may be initially hidden.
     </tr>
     <tr uxd-api-property name="revealAriaLabel" type="string" defaultValue="Reveal More">
         Define the aria label of the reveal more button.
     </tr>
     <tr uxd-api-property name="selected" type="OrganizationChartNode<T>">
-        Define the selected node. Initially the root node will be selected.
+        Define the selected node. By default the root node will be selected.
     </tr>
 </uxd-api-properties>
 
@@ -98,7 +99,7 @@
         Will emit when a node is selected.
     </tr>
     <tr uxd-api-property name="reveal" type="void">
-        Will emit when the reveal button is clicked.
+        Will emit when the reveal button is clicked. Use this handler to modify the dataset with additional nodes.
     </tr>
 </uxd-api-properties>
 
@@ -136,11 +137,14 @@
     <tr uxd-api-property name="data" type="T">
         The custom data that was provided for this node.
     </tr>
+    <tr uxd-api-property name="focused" type="boolean">
+        The focused state of the node.
+    </tr>
 </uxd-api-properties>
 
 <p>The following code can be used to create the example above:</p>
 
-<ux-tabset>
+<ux-tabset [minimal]="false" >
     <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
     </ux-tab>
