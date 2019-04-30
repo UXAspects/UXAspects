@@ -1,15 +1,57 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output
+} from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { SidePanelService } from './side-panel.service';
+
+enum SidePanelAnimationState {
+    Closed = 'closed',
+    Open = 'open',
+    OpenImmediate = 'openImmediate'
+}
 
 @Component({
     selector: 'ux-side-panel',
     exportAs: 'ux-side-panel',
     templateUrl: 'side-panel.component.html',
     providers: [SidePanelService],
+    animations: [
+        trigger('panelState', [
+            state(
+                SidePanelAnimationState.Closed,
+                style({
+                    visibility: 'hidden'
+                })
+            ),
+            state(
+                `${SidePanelAnimationState.Open}, ${SidePanelAnimationState.OpenImmediate}`,
+                style({
+                    visibility: 'visible',
+                    transform: 'none'
+                })
+            ),
+            transition(
+                `${SidePanelAnimationState.Closed} <=> ${SidePanelAnimationState.Open}`,
+                animate('0.2s cubic-bezier(0.49, 1, 0.38, 0.98)')
+            ),
+            transition(
+                `${SidePanelAnimationState.Closed} <=> ${SidePanelAnimationState.OpenImmediate}`,
+                animate('0s')
+            )
+        ])
+    ],
     host: {
-        'class': 'ux-side-panel'
+        class: 'ux-side-panel'
     }
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
@@ -90,15 +132,21 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         return this.inline ? '100%' : this.cssWidth;
     }
 
+    animationPanelState: SidePanelAnimationState;
+
     protected _onDestroy = new Subject<void>();
 
-    constructor(
-        protected service: SidePanelService,
-        private _elementRef: ElementRef
-    ) { }
+    constructor(protected service: SidePanelService, private _elementRef: ElementRef) {}
 
     ngOnInit() {
-        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => this.openChange.emit(isOpen));
+        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => {
+            this.animationPanelState = isOpen
+                ? this.animate
+                    ? SidePanelAnimationState.Open
+                    : SidePanelAnimationState.OpenImmediate
+                : SidePanelAnimationState.Closed;
+            this.openChange.emit(isOpen);
+        });
     }
 
     ngOnDestroy() {
@@ -123,8 +171,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
         const target = event.target as HTMLElement;
 
-        if (!this._elementRef.nativeElement.contains(target) ||
-            (target && target.classList.contains('modal-backdrop'))) {
+        if (
+            !this._elementRef.nativeElement.contains(target) ||
+            (target && target.classList.contains('modal-backdrop'))
+        ) {
             this.closePanel();
         }
     }
