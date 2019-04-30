@@ -18,6 +18,7 @@ export default class DynamicSelectCtrl {
     this.$element           = $element;
     this.$compile           = $compile;
     this.$sanitize          = $sanitize;
+    this.$timeout           = $timeout;
     this.inputModelCtrl     = null;
     this.multiple           = 'multiple' in $attrs;
     this.dropdownFilterFn   = this.getItemVisible.bind(this);
@@ -31,6 +32,8 @@ export default class DynamicSelectCtrl {
     this.dropdown           = null;
     this.dropdownScope      = null;
     this.watchers           = [];
+    this.scrollpane         = null;
+    this.scrollpaneObserver = null;
 
     const defaultOptions = {
       placeholder: this.multiple ? 'Select some options' : 'Select an option',
@@ -192,6 +195,10 @@ export default class DynamicSelectCtrl {
 
       // destroy all watchers
       this.watchers.forEach(watcher => watcher());
+
+      if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
+      }
     });
 
     // Set highlight on first result when opening dropdown
@@ -246,6 +253,7 @@ export default class DynamicSelectCtrl {
         scrollPane.attr('infinite-scroll', '');
         scrollPane.attr('page-size', 'vm.options.pageSize');
         scrollPane.attr('page-fn', 'vm.source');
+        scrollPane.attr('loading-change', 'vm.onLoadingChange()');
         scrollPane.attr('item-template', '"directives/dynamicSelect/dynamicSelectListItem.tmpl.html"');
         scrollPane.attr('item-api', 'vm.itemApi');
         scrollPane.attr('container-id', '"el-dynamicselect-scrollcontainer"');
@@ -426,10 +434,27 @@ export default class DynamicSelectCtrl {
     if (open === true) {
       this.dropdown = this.getDropdown();
       this.$element.append(this.dropdown);
+
+      // remove any existing observer
+      if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
+      }
+
+      // find the scroll pane element
+      this.scrollpane = this.$element.find('.scroll-pane');
+
+      // start watching for any changes
+      this.scrollpaneObserver = new MutationObserver(() => this.updateDropdownHeight());
+
+      this.scrollpaneObserver.observe(this.scrollpane.get(0), { childList: true, subtree: true });
     } else {
       if (this.dropdown && this.dropdownScope) {
         this.dropdownScope.$destroy();
         this.dropdown.remove();
+      }
+
+      if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
       }
     }
   }
@@ -439,6 +464,26 @@ export default class DynamicSelectCtrl {
     if (this.inputModelCtrl) {
       this.inputModelCtrl.$setDirty();
     }
+  }
+
+  updateDropdownHeight() {
+
+    if (!this.scrollpane || !this.dropdown) {
+        return;
+    }
+
+    const api = this.scrollpane.data('jsp');
+
+    if (!api) {
+        return;
+    }
+
+    api.reinitialise();
+    this.dropdown.css('height', api.getContentHeight() + parseFloat(this.dropdown.css('padding-top')) + parseFloat(this.dropdown.css('padding-bottom')));
+  }
+
+  onLoadingChange() {
+    this.$timeout(() => this.updateDropdownHeight());
   }
 }
 
