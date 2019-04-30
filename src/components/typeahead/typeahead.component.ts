@@ -82,6 +82,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /** Specify a custom template to display when there are no options */
     @Input() noOptionsTemplate: TemplateRef<any>;
 
+    /** Specify the currently active item */
+    @Input() set active(item: T) {
+        this.activeKey = this.getKey(item);
+    }
+
     /** Emit when the open state changes */
     @Output() openChange = new EventEmitter<boolean>();
 
@@ -99,6 +104,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     clicking = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
     highlightedKey: string = null;
+    activeKey: string = null;
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
