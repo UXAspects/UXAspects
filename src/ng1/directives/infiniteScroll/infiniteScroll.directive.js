@@ -19,7 +19,8 @@ export default function infiniteScroll($compile, $templateRequest) {
             searchQuery: '=?',
             scrollConfig: '=',
             windowScroll: '=?',
-            loadMoreButton: '=?'
+            loadMoreButton: '=?',
+            loadingChange: '&'
         },
         link: function (scope, element, attrs, controller) {
 

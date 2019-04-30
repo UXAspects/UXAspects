@@ -18,16 +18,28 @@ export class InfiniteScrollController {
         }
     }
 
+    set loading(value) {
+        this._loading = value;
+
+        if (this.loadingChange) {
+            this.loadingChange(value);
+        }
+    }
+
+    get loading() {
+        return this._loading;
+    }
+
     constructor($attrs, $scope, $element, safeInterval, $timeout) {
         this.page = 0;
         this.items = [];
         this.pages = [];
         this.initialised = true;
         this.template = null;
-        this.loading = false;
         this.complete = false;
         this.$element = $element;
         this.$interval = safeInterval.create($scope);
+        this._loading = false;
 
         // private variables
         this._query = this._query || null;
