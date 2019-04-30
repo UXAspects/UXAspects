@@ -57,7 +57,7 @@
 </div>
 
 <p>
-    The organization chart can be used to present hierarchical data in an interactive and user friendly way.
+    The organization chart can be used to visually present an explorable hierarchical dataset.
 </p>
 
 <p>
@@ -137,3 +137,17 @@
         The custom data that was provided for this node.
     </tr>
 </uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset>
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

@@ -51,7 +51,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     }
 
     /** Emit whenever a node is selected */
-    @Output() selectedChange = new EventEmitter<OrganizationChartNode<T>>();
+    @Output() selectedChange = new EventEmitter<OrganizationChartNode<T>>(true);
 
     /** Emit whenever the reveal button is pressed */
     @Output() reveal = new EventEmitter<void>();

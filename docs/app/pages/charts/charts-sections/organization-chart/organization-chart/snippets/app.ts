@@ -1,21 +1,14 @@
 import { Component } from '@angular/core';
 import { HierarchyBarNode, OrganizationChartConnector, OrganizationChartNode } from '@ux-aspects/ux-aspects';
-import { Chance } from 'chance';
+import 'chance';
 import { Observable } from 'rxjs/Observable';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
-import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-
-const chance = new Chance();
 
 @Component({
-    selector: 'uxd-charts-organization-chart',
-    templateUrl: './organization-chart.component.html',
-    styleUrls: ['./organization-chart.component.less']
+    selector: 'app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-@DocumentationSectionComponent('ChartsOrganizationChartComponent')
-export class ChartsOrganizationChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+export class AppComponent {
 
     connector: OrganizationChartConnector = 'elbow';
 
@@ -164,27 +157,8 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
     };
 
     hierarchy: HierarchyBarNode = this.getHierarchy(this.dataset);
-
     hierarchyBarSelected: HierarchyBarNode;
     organizationChartSelected: OrganizationChartNode<OrganizationChartContext>;
-
-    playground: IPlayground = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['OrganizationChartModule', 'HierarchyBarModule'],
-                library: '@ux-aspects/ux-aspects'
-            }
-        ]
-    };
-
-    constructor() {
-        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
-    }
 
     onReveal(): void {
         // add a new node above the root node
@@ -209,7 +183,7 @@ export class ChartsOrganizationChartComponent extends BaseDocumentationSection i
     getHierarchy(node: OrganizationChartNode<OrganizationChartContext>): HierarchyBarNode {
         return {
             title: node.data.name,
-            icon: require('../../../../../assets/img/IconManagerColorized.png'),
+            icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
             children: node.children ? node.children.map(child => this.getHierarchy(child)) : null
         } as HierarchyBarNode;
     }
