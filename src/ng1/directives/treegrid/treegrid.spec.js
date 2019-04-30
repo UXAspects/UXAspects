@@ -234,33 +234,34 @@ describe('treegrid', function () {
                 expect(rows.length).toBe(1);
                 expect(rows[0].level).toBe(0);
                 expect(rows[0].canExpand).toBe(true);
-                // Expand "Row 1"
-                ctrl.expanderClick(rows[0], DummyEvent)
-                    .then(function () {
-                        rows = ctrl.getGridRows();
-                        expect(rows.length).toBe(2);
-                        expect(rows[1].level).toBe(1);
-                        expect(rows[1].canExpand).toBe(true);
-                    })
-                    // Expand "Row 1.1"
-                    .then(function () { return ctrl.expanderClick(rows[1], DummyEvent); })
-                    .then(function () {
-                        rows = ctrl.getGridRows();
-                        expect(rows.length).toBe(3);
-                        expect(rows[2].level).toBe(2);
-                        expect(rows[2].canExpand).toBe(false);
-                    })
-                    // Expand "Row 1.1.1" (should do nothing)
-                    .then(function () { return ctrl.expanderClick(rows[2], DummyEvent); })
-                    .then(function () {
-                        rows = ctrl.getGridRows();
-                        expect(rows.length).toBe(3);
-                    })
-                    .catch(failTest)
-                    .finally(done);
 
-                $timeout.flush();
+                // Expand "Row 1"
+                ctrl.expanderClick(rows[0], DummyEvent).then(() => {
+                    rows = ctrl.getGridRows();
+                    expect(rows.length).toBe(2);
+                    expect(rows[1].level).toBe(1);
+                    expect(rows[1].canExpand).toBe(true);
+
+                    setTimeout(() => {
+                        ctrl.expanderClick(rows[1], DummyEvent).then(() => {
+                            rows = ctrl.getGridRows();
+                            expect(rows.length).toBe(3);
+                            expect(rows[2].level).toBe(2);
+                            expect(rows[2].canExpand).toBe(false);
+
+                            ctrl.expanderClick(rows[2], DummyEvent);
+                            rows = ctrl.getGridRows();
+                            expect(rows.length).toBe(3);
+
+                            done();
+                        });
+
+                        $timeout.flush();
+                    });
+                });
+
                 $rootScope.$apply();
+                setTimeout(() => $timeout.flush());
             });
         });
 

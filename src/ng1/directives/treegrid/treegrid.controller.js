@@ -139,7 +139,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         if (!row.canExpand || row.expanded) {
             return false;
         }
-        expand(row);
+        $timeout(() => expand(row));
         return true;
     };
 
@@ -148,7 +148,13 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         if (!row.canExpand || row.expanded) {
             return $q.when(false);
         }
-        return expand(row);
+
+        row.expanding = true;
+
+        // run async to allow loading indicator to appear
+        // adding in 17ms delay (1 frame at 60fps - 16.6667ms)
+        // to ensure firefox shows the loading indicator before blocking the main UI thread
+        return $q(resolve => $timeout(() => expand(row).then(result => resolve(result)), 17));
     };
 
     // Contract the specified row if possible. Returns true if the row is contractable.
@@ -347,9 +353,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         if (row.expanded) {
             return contract(row);
         } else {
-            row.expanding = true;
-            // run async to allow loading indicator to appear
-            return $q(resolve => $timeout(() => expand(row).then(result => resolve(result))));
+            return vm.expandAsync(row);
         }
     }
 

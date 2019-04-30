@@ -96,7 +96,7 @@ export class TreeGridNavigationItemController {
                 break;
 
             case RIGHT_ARROW:
-                this.expand();
+                this.expand(event);
                 break;
 
             case LEFT_ARROW:
@@ -127,13 +127,20 @@ export class TreeGridNavigationItemController {
         event.preventDefault();
     }
 
-    expand() {
-        if (this.$attrs.treegridExpand) {
-            // make the expansion and update the UI
-            this.$scope.$apply(() => this.$scope.$eval(this.$attrs.treegridExpand));
+    /**
+     * @param {KeyboardEvent} event
+     */
+    expand(event) {
+        if (this.$attrs.treegridExpand && this.data.canExpand && !this.data.expanded) {
+            // stop the list hover actions from focusing the first item
+            event.stopImmediatePropagation();
 
-            // we must focus the index rather than the actual element as ng-repeat will create a new DOM node
-            this.navigationCtrl.focus(null, this.index);
+            // make the expansion and update the UI
+            this.$scope.$apply(() => this.$scope.$eval(this.$attrs.treegridExpand).then(() => {
+                // we must focus the index rather than the actual element as ng-repeat will create a new DOM node
+                // a delay is required to allow ng-repeat to update before we focus
+                requestAnimationFrame(() => this.navigationCtrl.focus(null, this.index));
+            }));
         }
     }
 
