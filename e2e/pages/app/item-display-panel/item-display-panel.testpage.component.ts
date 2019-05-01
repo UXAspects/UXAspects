@@ -16,31 +16,31 @@ export class ItemDisplayPanelTestPageComponent {
     selectedItem: Item;
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
-    animate: boolean = true;
+    animate: boolean = false;
     shadow: boolean = true;
-    
+
     sparkBarColor: string;
     sparkTrackColor: string;
 
     // templates
     pdf = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview PDF</h1>
-  <p>Praesent venenatis eros vel felis vehicula dictum. Phasellus augue libero, vulputate euismod purus 
-  sed, dictum porta mauris. Nunc vitae purus vel velit dapibus porttitor et sagittis mauris. Etiam non 
+  <p>Praesent venenatis eros vel felis vehicula dictum. Phasellus augue libero, vulputate euismod purus
+  sed, dictum porta mauris. Nunc vitae purus vel velit dapibus porttitor et sagittis mauris. Etiam non
   semper odio, at ultricies velit. Duis non suscipit lectus, vitae fringilla turpis.</p>
 </div>`;
 
     doc = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview DOC</h1>
-  <p>Donec sagittis augue et pellentesque ultrices. Nulla quis orci sit amet sem ornare auctor. Ut in 
-  lobortis turpis. Vivamus ante felis, viverra sed ornare ut, ultricies eget ipsum. 
+  <p>Donec sagittis augue et pellentesque ultrices. Nulla quis orci sit amet sem ornare auctor. Ut in
+  lobortis turpis. Vivamus ante felis, viverra sed ornare ut, ultricies eget ipsum.
   Vivamus commodo convallis tortor.</p>
 </div>`;
 
     ppt = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview PPT</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet faucibus 
-  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus 
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet faucibus
+  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus
   interdum. Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum hendrerit ultrices.</p>
 </div>`;
 
