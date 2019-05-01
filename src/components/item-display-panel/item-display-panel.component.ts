@@ -1,5 +1,6 @@
 import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { sidePanelStateAnimation } from '../side-panel/side-panel-animations';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
 
@@ -17,6 +18,7 @@ export class ItemDisplayPanelFooterDirective { }
     selector: 'ux-item-display-panel',
     templateUrl: './item-display-panel.component.html',
     providers: [SidePanelService],
+    animations: [sidePanelStateAnimation],
     host: {
         'class': 'ux-side-panel ux-item-display-panel'
     }
@@ -77,6 +79,7 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
     }
 

@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { sidePanelStateAnimation, SidePanelAnimationState } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
 
 @Component({
@@ -8,8 +9,9 @@ import { SidePanelService } from './side-panel.service';
     exportAs: 'ux-side-panel',
     templateUrl: 'side-panel.component.html',
     providers: [SidePanelService],
+    animations: [sidePanelStateAnimation],
     host: {
-        'class': 'ux-side-panel'
+        class: 'ux-side-panel'
     }
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
@@ -90,15 +92,21 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         return this.inline ? '100%' : this.cssWidth;
     }
 
+    animationPanelState: SidePanelAnimationState;
+
     protected _onDestroy = new Subject<void>();
 
-    constructor(
-        protected service: SidePanelService,
-        private _elementRef: ElementRef
-    ) { }
+    constructor(protected service: SidePanelService, private _elementRef: ElementRef) {}
 
     ngOnInit() {
-        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => this.openChange.emit(isOpen));
+        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => {
+            this.animationPanelState = isOpen
+                ? this.animate
+                    ? SidePanelAnimationState.Open
+                    : SidePanelAnimationState.OpenImmediate
+                : SidePanelAnimationState.Closed;
+            this.openChange.emit(isOpen);
+        });
     }
 
     ngOnDestroy() {
@@ -123,8 +131,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
         const target = event.target as HTMLElement;
 
-        if (!this._elementRef.nativeElement.contains(target) ||
-            (target && target.classList.contains('modal-backdrop'))) {
+        if (
+            !this._elementRef.nativeElement.contains(target) ||
+            (target && target.classList.contains('modal-backdrop'))
+        ) {
             this.closePanel();
         }
     }

@@ -8,6 +8,7 @@
     [style.width]="hostWidth"
     [style.top]="cssTop"
     [tabindex]="open ? 0 : -1"
+    [@panelState]="animationPanelState"
     [focusIf]="open && focusOnShow"
     [focusIfScroll]="false"
     [cdkTrapFocus]="open && modal">

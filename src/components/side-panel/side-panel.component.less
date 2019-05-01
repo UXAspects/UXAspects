@@ -3,7 +3,6 @@
         > .ux-side-panel-host {
             box-shadow: 1px 0 20px 0 @display-panel-shadow;
             border-left: 1px solid @display-panel-border;
-            transform: translateX(0);
         }
     }
 
@@ -11,7 +10,7 @@
         flex: none;
 
         &.animate {
-            transition: width 0.4s;
+            transition: width 0.2s cubic-bezier(0.49, 1, 0.38, 0.98);
         }
 
         > .ux-side-panel-host {
@@ -24,18 +23,6 @@
     &:not(.inline) {
         > .ux-side-panel-host {
             transform: translateX(100%);
-        }
-
-        &.open {
-            > .ux-side-panel-host {
-                transform: translateX(0);
-            }
-        }
-
-        &.animate {
-            > .ux-side-panel-host {
-                transition: transform 0.4s;
-            }
         }
     }
 
