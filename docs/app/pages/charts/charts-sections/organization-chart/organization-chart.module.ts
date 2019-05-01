@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -28,6 +29,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         AccordionModule,
+        CommonModule,
         TabsetModule,
         FormsModule,
         RadioButtonModule,
