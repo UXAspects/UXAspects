@@ -34,6 +34,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Define the duration of the transition animations */
     @Input() duration: number = 750;
 
+    /** Define the vertical space between nodes */
+    @Input() verticalSpacing: number;
+
     /** Define whether or not we can reveal additional parents */
     @Input() showReveal: boolean = false;
 
@@ -46,8 +49,12 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
             return;
         }
 
-        this.select(selected);
-        this.centerNode(selected);
+        if (this._isInitialised) {
+            this.select(selected);
+            this.centerNode(selected);
+        } else {
+            this._pendingSelection = selected;
+        }
     }
 
     /** Emit whenever a node is selected */
@@ -121,6 +128,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
     /** Store the currently focused node if there is one */
     private _focused: OrganizationChartNode<T>;
+
+    /** Store any selection made before the chart is initialised */
+    private _pendingSelection: OrganizationChartNode<T>;
 
     /** Automatically unsubscribe from all subscriptions on destroy */
     private _onDestroy = new Subject<void>();
@@ -301,7 +311,8 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // update the selected classes - ensure there is always a selected node
         if (!this._selected) {
-            this.select(this.dataset);
+            this.select(this._pendingSelection || this.dataset);
+            this._pendingSelection = null;
         }
 
         // set the tab indexes and aria labels for any newly added items
@@ -347,12 +358,15 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
 
         // update the styling and tabindexes
         this.setNodeAttributes();
+
     }
 
     /** Deselect the currently selected node */
     private deselect(emit: boolean = true): void {
 
-        this._nodes.nodes().forEach(element => this._renderer.removeClass(element, 'ux-organization-chart-node-selected'));
+        if (this._nodes) {
+            this._nodes.nodes().forEach(element => this._renderer.removeClass(element, 'ux-organization-chart-node-selected'));
+        }
 
         if (emit && !!this._selected) {
             this._selected = null;
@@ -595,8 +609,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // process the data with the layout
         const treeLayout = layout(treeHierarchy);
 
+        // calculate the vertical spacing
+        const verticalSpacing = this.verticalSpacing === undefined ? this.nodeHeight : this.verticalSpacing;
+
         // set the vertical spacing
-        treeLayout.each(data => data.y = data.depth * this.nodeHeight * 2);
+        treeLayout.each(data => data.y = data.depth * (this.nodeHeight + verticalSpacing));
 
         return treeLayout;
     }
