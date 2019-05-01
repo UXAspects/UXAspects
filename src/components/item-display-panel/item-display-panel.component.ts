@@ -79,6 +79,7 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
     }
 
