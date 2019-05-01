@@ -325,7 +325,16 @@ export default class DynamicSelectCtrl {
    * @param {string} key
    */
   getModelIndex(key) {
-    return Array.isArray(this.ngModel) ? this.ngModel.findIndex(item => this.getItemKey(item) === key) : -1;
+
+    if (Array.isArray(this.ngModel)) {
+        for (let idx = 0; idx < this.ngModel.length; idx++) {
+            if (this.getItemKey(this.ngModel[idx]) === key) {
+                return idx;
+            }
+        }
+    }
+
+    return -1;
   }
 
   select(item) {
