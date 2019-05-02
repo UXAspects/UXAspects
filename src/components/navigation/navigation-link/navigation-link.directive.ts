@@ -1,10 +1,11 @@
 import { LocationStrategy } from '@angular/common';
-import { ChangeDetectorRef, Directive, HostBinding, HostListener, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
 import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.inferface';
+import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from '../navigation-options';
 import { NavigationService } from '../navigation.service';
 
 @Directive({
@@ -48,7 +49,12 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     /** Get the router options with defaults for missing properties */
     private get _routerOptions(): NavigationItemRouterOptions {
-        return { ...{ exact: true, ignoreQueryParams: false }, ...this.navigationItem.routerOptions };
+
+        // get the default options based on the ones provided in `forRoot`
+        const defaultOptions = { exact: true, ignoreQueryParams: false, ...(this._options ? this._options.routerOptions : {}) };
+
+        // if there are item specific router options they should take precendence
+        return { ...defaultOptions, ...this.navigationItem.routerOptions };
     }
 
     constructor(
@@ -56,7 +62,8 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
         private _locationStrategy: LocationStrategy,
         private _navigationService: NavigationService,
         private _changeDetector: ChangeDetectorRef,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        @Optional() @Inject(NAVIGATION_MODULE_OPTIONS) private _options: NavigationModuleOptions
     ) { }
 
     ngOnInit(): void {
