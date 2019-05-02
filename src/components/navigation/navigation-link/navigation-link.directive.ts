@@ -1,10 +1,10 @@
 import { LocationStrategy } from '@angular/common';
-import { Directive, HostBinding, HostListener, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectorRef, Directive, HostBinding, HostListener, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
-import { NavigationItem } from '../navigation-item.inferface';
+import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.inferface';
 import { NavigationService } from '../navigation.service';
 
 @Directive({
@@ -13,46 +13,59 @@ import { NavigationService } from '../navigation.service';
 })
 export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
-    @Input()
-    navigationItem: NavigationItem;
+    /** The NavigationItem this element represents */
+    @Input() navigationItem: NavigationItem;
 
-    @Input()
-    set expanded(value: boolean) {
-        this._expanded$.next(value);
-    }
+    /** The expaned state of this item */
+    @Input() set expanded(value: boolean) { this._expanded$.next(value); }
 
-    @Input()
-    canExpand: boolean;
+    /** Determine if this item can be expanded */
+    @Input() canExpand: boolean;
 
-    @Input()
-    @HostBinding('class.indent')
-    indent: boolean;
+    /** Determine if this item should be indented */
+    @Input() @HostBinding('class.indent') indent: boolean;
 
-    @HostBinding('attr.href')
-    href: string;
+    /** Determine the href of this element */
+    @HostBinding('attr.href') href: string;
 
-    @HostBinding('attr.role')
-    role: string;
+    /** Determine the role of this element */
+    @HostBinding('attr.role') role: string;
 
-    @HostBinding('attr.aria-expanded')
-    ariaExpanded: string = 'undefined';
+    /** Update the aria-expanded attribute of this element */
+    @HostBinding('attr.aria-expanded') ariaExpanded: string;
 
+    /** Store the active state of the item */
     isActive: boolean;
 
+    /** Store the indendation state of the children */
     indentChildren: boolean;
 
+    /** Emit with the current expaned state */
     private _expanded$ = new Subject<boolean>();
+
+    /** Unsubscribe from all observables when this directive is destroyed */
     private _onDestroy = new Subject<void>();
+
+    /** Get the router options with defaults for missing properties */
+    private get _routerOptions(): NavigationItemRouterOptions {
+        return { ...{ exact: true, ignoreQueryParams: false }, ...this.navigationItem.routerOptions };
+    }
 
     constructor(
         private _router: Router,
         private _locationStrategy: LocationStrategy,
-        private _navigationService: NavigationService
+        private _navigationService: NavigationService,
+        private _changeDetector: ChangeDetectorRef,
+        private _route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
 
-        this._expanded$.pipe(takeUntil(this._onDestroy), tick()).subscribe(expanded => {
+        // any time expanded state anywhere change we should run change detection in case we should collapse
+        this._navigationService.expanded$.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this._changeDetector.markForCheck());
+
+        this._expanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
             if (this.navigationItem.children && this.navigationItem.children.length > 0) {
                 this.ariaExpanded = `${expanded}`;
                 this._navigationService.setExpanded(this.navigationItem, expanded);
@@ -106,6 +119,8 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
                 this.navigationItem.expanded = true;
             }
         }
+
+        this._changeDetector.markForCheck();
     }
 
     private updateAttributes(): void {
@@ -129,10 +144,25 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     private isActiveItem(item: NavigationItem): boolean {
 
+        const { exact, ignoreQueryParams } = this._routerOptions;
+
         if (item.routerLink) {
+
+            let routerExtras = item.routerExtras;
+
+            // if we are to ignore the query params we must remove them
+            if (routerExtras && ignoreQueryParams) {
+                // get the current actual query params
+                const { queryParams } = this._route.snapshot;
+
+                // override the provided query params with the actual query params so they will alway match
+                routerExtras = { ...routerExtras, queryParams };
+            }
+
             const commands = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
-            const urlTree = this._router.createUrlTree(commands, item.routerExtras);
-            return this._router.isActive(urlTree, true);
+            const urlTree = this._router.createUrlTree(commands, routerExtras);
+
+            return this._router.isActive(urlTree, exact);
         }
 
         return false;

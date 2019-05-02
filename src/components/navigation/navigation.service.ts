@@ -1,21 +1,34 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { NavigationItem } from './navigation-item.inferface';
 
 @Injectable()
-export class NavigationService {
+export class NavigationService implements OnDestroy {
 
+    /** The navigation items to populate the menu with */
     items: NavigationItem[];
 
+    /** Whether to collapse other menu items when expanding a menu item. */
     autoCollapse: boolean = true;
 
+    /** Emit when the expanded state has changed */
+    expanded$ = new Subject<void>();
+
+    ngOnDestroy(): void {
+        this.expanded$.complete();
+    }
+
+    /** Set the expanded state of an item */
     setExpanded(source: NavigationItem, expanded: boolean): void {
         if (expanded && this.autoCollapse) {
             this.collapseSiblings(source);
+            this.expanded$.next();
         }
     }
 
     private collapseSiblings(source: NavigationItem): void {
         let siblings = this.items;
+
         for (let item of this.items) {
             const parent = this.getParent(source, item);
             if (parent) {
@@ -24,31 +37,18 @@ export class NavigationService {
             }
         }
 
-        for (let item of siblings) {
-            if (item !== source) {
-                this.collapseAll(item);
-            }
-        }
+        // collapse every sibling
+        siblings.filter(item => item !== source).forEach(item => this.collapseAll(item));
     }
 
     private collapseAll(item: NavigationItem): void {
         item.expanded = false;
         if (item.children) {
-            for (let child of item.children) {
-                this.collapseAll(child);
-            }
+            item.children.forEach(child => this.collapseAll(child));
         }
     }
 
     private getParent(target: NavigationItem, item: NavigationItem): NavigationItem {
-        if (item.children) {
-            for (let child of item.children) {
-                if (child === target) {
-                    return item;
-                }
-            }
-        }
-
-        return null;
+        return (item.children || []).find(child => child === target) ? item : null;
     }
 }

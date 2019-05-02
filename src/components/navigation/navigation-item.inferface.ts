@@ -7,7 +7,13 @@ export interface NavigationItem {
     iconLabel?: string;
     routerLink?: string | any[];
     routerExtras?: NavigationExtras;
+    routerOptions?: NavigationItemRouterOptions;
     click?: (event: Event, navigationItem: NavigationItem) => void;
     expanded?: boolean;
     children?: NavigationItem[];
+}
+
+export interface NavigationItemRouterOptions {
+    exact?: boolean;
+    ignoreQueryParams?: boolean;
 }

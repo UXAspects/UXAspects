@@ -4,7 +4,7 @@
 
         <ng-container *ngFor="let item of items; let rank = index"
             [ngTemplateOutlet]="navigationNode"
-            [ngTemplateOutletContext]="{item: item, level: 1, rank: rank, indent: needsIndent(items)}">
+            [ngTemplateOutletContext]="{ item: item, level: 1, rank: rank, indent: _needsIndent(items) }">
         </ng-container>
 
         <ng-template #navigationNode let-item="item" let-parent="parent" let-level="level" let-rank="rank" let-indent="indent">
@@ -16,37 +16,40 @@
 
                 <a uxNavigationLink
                     #navigationLink="uxNavigationLink"
+                    #tli="ux-tabbable-list-item"
                     [navigationItem]="item"
                     [expanded]="item.expanded"
                     [canExpand]="level < depthLimit"
                     [indent]="indent"
                     uxTabbableListItem
-                    #tli="ux-tabbable-list-item"
                     [parent]="parent"
                     [rank]="rank"
                     [(expanded)]="item.expanded">
 
                     <span *ngIf="!navigationItemTemplate && item.children && item.children.length > 0 && level < depthLimit"
-                        aria-hidden="true"
-                        class="nav-expander"
-                        (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
+                          aria-hidden="true"
+                          class="nav-expander"
+                          (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
                     </span>
                     <span *ngIf="!navigationItemTemplate && item.icon && !tree" class="nav-icon hpe-icon" [ngClass]="item.icon"></span>
                     <img *ngIf="!navigationItemTemplate && item.iconUrl && !tree" class="nav-icon" [src]="item.iconUrl" alt="item.iconLabel">
-                    <span *ngIf="!navigationItemTemplate" class="nav-title">{{item.title}}</span>
+                    <span *ngIf="!navigationItemTemplate" class="nav-title">{{ item.title }}</span>
 
-                    <ng-container [ngTemplateOutlet]="navigationItemTemplate"
-                        [ngTemplateOutletContext]="{item: item, level: level}">
+                    <ng-container
+                        [ngTemplateOutlet]="navigationItemTemplate"
+                        [ngTemplateOutletContext]="{ item: item, level: level }">
                     </ng-container>
 
                 </a>
 
                 <ol *ngIf="item.children && item.expanded && level < depthLimit"
-                    role="group" class="nav" [ngClass]="hierarchyClasses[level]">
+                    role="group"
+                    class="nav"
+                    [ngClass]="_hierarchyClasses[level]">
 
                     <ng-container *ngFor="let child of item.children; let rank = index"
                         [ngTemplateOutlet]="navigationNode"
-                        [ngTemplateOutletContext]="{item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren}">
+                        [ngTemplateOutletContext]="{ item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren }">
                     </ng-container>
 
                 </ol>
