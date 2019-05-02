@@ -22789,6 +22789,7 @@ function () {
     this.$element = $element;
     this.$compile = $compile;
     this.$sanitize = $sanitize;
+    this.$timeout = $timeout;
     this.inputModelCtrl = null;
     this.multiple = 'multiple' in $attrs;
     this.dropdownFilterFn = this.getItemVisible.bind(this);
@@ -22802,6 +22803,8 @@ function () {
     this.dropdown = null;
     this.dropdownScope = null;
     this.watchers = [];
+    this.scrollpane = null;
+    this.scrollpaneObserver = null;
     var defaultOptions = {
       placeholder: this.multiple ? 'Select some options' : 'Select an option',
       allowNull: true,
@@ -22975,6 +22978,10 @@ function () {
       _this.watchers.forEach(function (watcher) {
         return watcher();
       });
+
+      if (_this.scrollpaneObserver) {
+        _this.scrollpaneObserver.disconnect();
+      }
     }); // Set highlight on first result when opening dropdown
 
     this.watchers.push($scope.$watch(function () {
@@ -23037,6 +23044,7 @@ function () {
           scrollPane.attr('infinite-scroll', '');
           scrollPane.attr('page-size', 'vm.options.pageSize');
           scrollPane.attr('page-fn', 'vm.source');
+          scrollPane.attr('loading-change', 'vm.onLoadingChange()');
           scrollPane.attr('item-template', '"directives/dynamicSelect/dynamicSelectListItem.tmpl.html"');
           scrollPane.attr('item-api', 'vm.itemApi');
           scrollPane.attr('container-id', '"el-dynamicselect-scrollcontainer"');
@@ -23123,11 +23131,15 @@ function () {
   }, {
     key: "getModelIndex",
     value: function getModelIndex(key) {
-      var _this3 = this;
+      if (Array.isArray(this.ngModel)) {
+        for (var idx = 0; idx < this.ngModel.length; idx++) {
+          if (this.getItemKey(this.ngModel[idx]) === key) {
+            return idx;
+          }
+        }
+      }
 
-      return Array.isArray(this.ngModel) ? this.ngModel.findIndex(function (item) {
-        return _this3.getItemKey(item) === key;
-      }) : -1;
+      return -1;
     }
   }, {
     key: "select",
@@ -23240,6 +23252,8 @@ function () {
   }, {
     key: "setDropdownOpen",
     value: function setDropdownOpen(open) {
+      var _this3 = this;
+
       // if the dropdown is already open then do nothing
       if (this.dropdownOpen === true && open === true) {
         return;
@@ -23249,11 +23263,30 @@ function () {
 
       if (open === true) {
         this.dropdown = this.getDropdown();
-        this.$element.append(this.dropdown);
+        this.$element.append(this.dropdown); // remove any existing observer
+
+        if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
+        } // find the scroll pane element
+
+
+        this.scrollpane = this.$element.find('.scroll-pane'); // start watching for any changes
+
+        this.scrollpaneObserver = new MutationObserver(function () {
+          return _this3.updateDropdownHeight();
+        });
+        this.scrollpaneObserver.observe(this.scrollpane.get(0), {
+          childList: true,
+          subtree: true
+        });
       } else {
         if (this.dropdown && this.dropdownScope) {
           this.dropdownScope.$destroy();
           this.dropdown.remove();
+        }
+
+        if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
         }
       }
     }
@@ -23265,6 +23298,31 @@ function () {
       if (this.inputModelCtrl) {
         this.inputModelCtrl.$setDirty();
       }
+    }
+  }, {
+    key: "updateDropdownHeight",
+    value: function updateDropdownHeight() {
+      if (!this.scrollpane || !this.dropdown) {
+        return;
+      }
+
+      var api = this.scrollpane.data('jsp');
+
+      if (!api) {
+        return;
+      }
+
+      api.reinitialise();
+      this.dropdown.css('height', api.getContentHeight() + parseFloat(this.dropdown.css('padding-top')) + parseFloat(this.dropdown.css('padding-bottom')));
+    }
+  }, {
+    key: "onLoadingChange",
+    value: function onLoadingChange() {
+      var _this4 = this;
+
+      this.$timeout(function () {
+        return _this4.updateDropdownHeight();
+      });
     }
   }]);
 
@@ -23404,6 +23462,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elementReady_directive_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./elementReady.directive.js */ "./src/ng1/directives/elementReady/elementReady.directive.js");
 
 angular.module('ux-aspects.elementReady', []).directive('elementReady', _elementReady_directive_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./src/ng1/directives/eventHandlers/create-event.directive.js":
+/*!********************************************************************!*\
+  !*** ./src/ng1/directives/eventHandlers/create-event.directive.js ***!
+  \********************************************************************/
+/*! exports provided: createEventDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEventDirective", function() { return createEventDirective; });
+function createEventDirective(eventName, directiveName) {
+  return ['$parse', '$rootScope', '$exceptionHandler', function ($parse, $rootScope, $exceptionHandler) {
+    return {
+      restrict: 'A',
+      link: function link(scope, element, attrs) {
+        // get the expression from the attribute with the same name
+        var expression = $parse(attrs[directiveName]); // delay attaching the event listener to prevent blocking the initial render
+
+        scope.$evalAsync(attachEventListener);
+
+        function attachEventListener() {
+          element.on(eventName, function (event) {
+            var callback = function callback() {
+              expression(scope, {
+                $event: event
+              });
+            };
+
+            if (!$rootScope.$$phase) {
+              scope.$apply(callback);
+            } else {
+              try {
+                callback();
+              } catch (error) {
+                $exceptionHandler(error);
+              }
+            }
+          });
+        }
+      }
+    };
+  }];
+}
+
+/***/ }),
+
+/***/ "./src/ng1/directives/eventHandlers/event-handlers.module.js":
+/*!*******************************************************************!*\
+  !*** ./src/ng1/directives/eventHandlers/event-handlers.module.js ***!
+  \*******************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _create_event_directive__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-event.directive */ "./src/ng1/directives/eventHandlers/create-event.directive.js");
+
+angular.module('ux-aspects.eventHandlers', []).directive('ngClickLazy', Object(_create_event_directive__WEBPACK_IMPORTED_MODULE_0__["createEventDirective"])('click', 'ngClickLazy')).directive('ngMousedownLazy', Object(_create_event_directive__WEBPACK_IMPORTED_MODULE_0__["createEventDirective"])('mousedown', 'ngMousedownLazy')).directive('ngKeydownLazy', Object(_create_event_directive__WEBPACK_IMPORTED_MODULE_0__["createEventDirective"])('keydown', 'ngKeydownLazy')).directive('ngFocusLazy', Object(_create_event_directive__WEBPACK_IMPORTED_MODULE_0__["createEventDirective"])('focus', 'ngFocusLazy')).directive('ngBlurLazy', Object(_create_event_directive__WEBPACK_IMPORTED_MODULE_0__["createEventDirective"])('blur', 'ngBlurLazy'));
 
 /***/ }),
 
@@ -27597,6 +27716,18 @@ function () {
         this.reset();
       }
     }
+  }, {
+    key: "loading",
+    set: function set(value) {
+      this._loading = value;
+
+      if (this.loadingChange) {
+        this.loadingChange(value);
+      }
+    },
+    get: function get() {
+      return this._loading;
+    }
   }]);
 
   function InfiniteScrollController($attrs, $scope, $element, safeInterval, $timeout) {
@@ -27609,10 +27740,10 @@ function () {
     this.pages = [];
     this.initialised = true;
     this.template = null;
-    this.loading = false;
     this.complete = false;
     this.$element = $element;
-    this.$interval = safeInterval.create($scope); // private variables
+    this.$interval = safeInterval.create($scope);
+    this._loading = false; // private variables
 
     this._query = this._query || null;
     this._subscriptions = []; // set some default values if required
@@ -27858,7 +27989,8 @@ function infiniteScroll($compile, $templateRequest) {
       searchQuery: '=?',
       scrollConfig: '=',
       windowScroll: '=?',
-      loadMoreButton: '=?'
+      loadMoreButton: '=?',
+      loadingChange: '&'
     },
     link: function link(scope, element, attrs, controller) {
       // create our insertion point
@@ -28273,39 +28405,82 @@ function layoutSwitcherItem($templateRequest, $compile) {
 /*!*******************************************************************************************!*\
   !*** ./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.controller.js ***!
   \*******************************************************************************************/
-/*! exports provided: default */
+/*! exports provided: ListHoverActionCtrl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListHoverActionCtrl; });
-ListHoverActionCtrl.$inject = ["$scope"];
-function ListHoverActionCtrl($scope) {
-  var listHoverActionsCtrl = $scope.$parent.lh;
-  var KEYS = {
-    ENTER: 13
-  };
-  this.icon = $scope.icon;
-  this.iconBase = this.icon && this.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon';
-  this.click = $scope.click; // on focus, set to true for this action
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListHoverActionCtrl", function() { return ListHoverActionCtrl; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  this.focus = function () {
-    listHoverActionsCtrl.actionFocused[$scope.$id] = true;
-  }; // on blur, set to false for this action
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  this.blur = function () {
-    listHoverActionsCtrl.actionFocused[$scope.$id] = false;
-  }; // on enter, stop propagation and call same function as click
+var ListHoverActionCtrl =
+/*#__PURE__*/
+function () {
+  function ListHoverActionCtrl($scope, $element) {
+    var _this = this;
 
+    _classCallCheck(this, ListHoverActionCtrl);
 
-  this.enter = function (e) {
-    if (e.keyCode !== KEYS.ENTER) return;
-    e.preventDefault();
-    e.stopPropagation();
-    $scope.click();
-  };
-}
+    this.$scope = $scope;
+    this.$element = $element;
+    this.isFocused = false;
+    this.hoverActions = $scope.$parent.lh.hoverActions;
+    this.iconBase = this.icon && this.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon'; // when the user first mouses over the action only then should we add a tooltip
+
+    $scope.$evalAsync(function () {
+      return $element.one('mouseenter', _this.setupTooltip.bind(_this));
+    }); // register the hover action in the parent service
+
+    this.hoverActions.register(this); // unregister if this item is removed
+
+    $scope.$on('$destroy', function () {
+      return _this.hoverActions.unregister(_this);
+    });
+  }
+
+  _createClass(ListHoverActionCtrl, [{
+    key: "setupTooltip",
+    value: function setupTooltip() {
+      this.$element.tooltip({
+        title: this.name,
+        trigger: 'hover'
+      });
+      this.$element.tooltip('show');
+    }
+  }, {
+    key: "focus",
+    value: function focus() {
+      this.$element.focus();
+    } // on focus, set to true for this action
+
+  }, {
+    key: "onFocus",
+    value: function onFocus() {
+      this.hoverActions.onFocus(this);
+    } // on blur, set to false for this action
+
+  }, {
+    key: "onBlur",
+    value: function onBlur() {
+      this.hoverActions.onBlur(this);
+    } // on click call the scope click function
+
+  }, {
+    key: "onClick",
+    value: function onClick() {
+      if (typeof this.$scope.click === 'function') {
+        this.click();
+      }
+    }
+  }]);
+
+  return ListHoverActionCtrl;
+}();
+ListHoverActionCtrl.$inject = ["$scope", "$element"];
 
 /***/ }),
 
@@ -28313,48 +28488,24 @@ function ListHoverActionCtrl($scope) {
 /*!******************************************************************************************!*\
   !*** ./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.directive.js ***!
   \******************************************************************************************/
-/*! exports provided: default */
+/*! exports provided: listHoverAction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return listHoverAction; });
-listHoverAction.$inject = ['keyboardService'];
-function listHoverAction(keyboardService) {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listHoverAction", function() { return listHoverAction; });
+function listHoverAction() {
   return {
     restrict: "E",
     replace: true,
     template: __webpack_require__(/*! ./listHoverAction.html */ "./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.html"),
     controller: "ListHoverActionCtrl as lha",
+    bindToController: true,
     require: '^^listHoverActions',
     scope: {
       icon: "@",
       name: "@",
       click: "&"
-    },
-    link: function link(scope, element) {
-      var KEYS = {
-        LEFT: 37,
-        RIGHT: 39
-      }; // clean up after destroyed
-
-      scope.$on('$destroy', function () {
-        element.tooltip('destroy');
-      }); // on left key press focus on previous action
-
-      keyboardService.keydown(element, KEYS.LEFT, function (e) {
-        if (element.prevAll('.list-hover-action').length > 0) {
-          e.stopPropagation();
-          element.prevAll('.list-hover-action').first().focus();
-        }
-      }); // on right key press focus on next action
-
-      keyboardService.keydown(element, KEYS.RIGHT, function (e) {
-        if (element.nextAll('.list-hover-action').length > 0) {
-          e.stopPropagation();
-          element.nextAll('.list-hover-action').first().focus();
-        }
-      });
     }
   };
 }
@@ -28371,7 +28522,7 @@ function listHoverAction(keyboardService) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<a href=\"\" aria-label=\"{{::lha.tooltipText}}\" class=\"list-hover-action\" ng-click=\"lha.click(); $event.preventDefault(); $event.stopPropagation();\" ng-show=\"lha.icon\" tabindex=\"-1\" ng-focus=\"lha.focus()\" ng-blur=\"lha.blur()\" ng-keydown=\"lha.enter($event)\" tooltip=\"{{::name}}\">\n<span class=\"{{ ::lha.iconBase }}\" ng-class=\"::lha.icon\"></span>\n</a>\n";
+var v1="<button aria-label=\"{{ ::lha.name }}\" class=\"list-hover-action\" ng-click-lazy=\"lha.onClick(); $event.preventDefault(); $event.stopPropagation();\" ng-show=\"::lha.icon\" tabindex=\"-1\" ng-focus-lazy=\"lha.onFocus()\" ng-blur-lazy=\"lha.onBlur()\">\n<span class=\"{{ ::lha.iconBase }}\" ng-class=\"::lha.icon\"></span>\n</button>\n";
 var id1="listHoverActions/listHoverAction/listHoverAction.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -28384,30 +28535,102 @@ module.exports=v1;
 /*!****************************************************************************!*\
   !*** ./src/ng1/directives/listHoverActions/listHoverActions.controller.js ***!
   \****************************************************************************/
-/*! exports provided: default */
+/*! exports provided: ListHoverActionsCtrl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListHoverActionsCtrl; });
-ListHoverActionsCtrl.$inject = ['$scope', '$element'];
-function ListHoverActionsCtrl($scope, $element) {
-  var vm = this;
-  vm.actionFocused = {};
-  var row = $element.parents('tr').first(); // watch to see if actions are focused on
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListHoverActionsCtrl", function() { return ListHoverActionsCtrl; });
+/* harmony import */ var _listHoverActions_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listHoverActions.service */ "./src/ng1/directives/listHoverActions/listHoverActions.service.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/Subject.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_Subject__WEBPACK_IMPORTED_MODULE_3__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  $scope.$watch('lh.actionFocused', function () {
-    for (var prop in vm.actionFocused) {
-      // if any actions are focused, the we will add class
-      if (vm.actionFocused[prop]) {
-        row.addClass('row-selected');
-        return;
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
+var ListHoverActionsCtrl =
+/*#__PURE__*/
+function () {
+  function ListHoverActionsCtrl($element, $scope) {
+    var _this = this;
+
+    _classCallCheck(this, ListHoverActionsCtrl);
+
+    // create a new instance of the service for all children
+    this.hoverActions = new _listHoverActions_service__WEBPACK_IMPORTED_MODULE_0__["ListHoverActionsService"](); // automatically unsubscribe from all observables
+
+    this._onDestroy = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_3__["Subject"](); // get the table row element
+
+    this.row = $element.parents('tr').first(); // add the class to the row
+
+    this.row.addClass('hover-actions'); // subscribe to changes to the focused state
+
+    this.hoverActions.isFocused$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._onDestroy)).subscribe(function (isFocused) {
+      return isFocused ? _this.row.addClass('row-selected') : _this.row.removeClass('row-selected');
+    }); // after the initial render attach the event listeners
+
+    $scope.$evalAsync(function () {
+      // add an event listener to the row
+      _this.row.on('keydown', _this.onKeydown.bind(_this)); // teardown the component when it is destroyed
+
+
+      $scope.$on('$destroy', function () {
+        return _this.onDestroy.bind(_this);
+      });
+    });
+  }
+
+  _createClass(ListHoverActionsCtrl, [{
+    key: "onDestroy",
+    value: function onDestroy() {
+      this.row.removeClass('hover-actions');
+
+      this._onDestroy.next();
+
+      this._onDestroy.complete();
+    }
+  }, {
+    key: "onKeydown",
+    value: function onKeydown(event) {
+      if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_1__["RIGHT_ARROW"]) {
+        this.hoverActions.focusAtIndex(0);
+        event.stopPropagation();
+        event.preventDefault();
       }
     }
+  }, {
+    key: "onActionKeydown",
+    value: function onActionKeydown(event) {
+      if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_1__["LEFT_ARROW"] && this.hoverActions.isFocused()) {
+        event.stopPropagation();
+        event.preventDefault(); // if we are the first hover action then focus the row
 
-    row.removeClass('row-selected');
-  }, true);
-}
+        if (this.hoverActions.getFocusIndex() === 0) {
+          this.row.focus();
+        } else {
+          this.hoverActions.focusAtIndex(this.hoverActions.getFocusIndex() - 1);
+        }
+      }
+
+      if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_1__["RIGHT_ARROW"] && this.hoverActions.isFocused()) {
+        event.stopPropagation();
+        event.preventDefault();
+        this.hoverActions.focusAtIndex(this.hoverActions.getFocusIndex() + 1);
+      }
+    }
+  }]);
+
+  return ListHoverActionsCtrl;
+}();
+ListHoverActionsCtrl.$inject = ['$element', '$scope'];
 
 /***/ }),
 
@@ -28415,52 +28638,20 @@ function ListHoverActionsCtrl($scope, $element) {
 /*!***************************************************************************!*\
   !*** ./src/ng1/directives/listHoverActions/listHoverActions.directive.js ***!
   \***************************************************************************/
-/*! exports provided: default */
+/*! exports provided: listHoverActions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return listHoverActions; });
-listHoverActions.$inject = ['keyboardService'];
-function listHoverActions(keyboardService) {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listHoverActions", function() { return listHoverActions; });
+function listHoverActions() {
   return {
     restrict: "E",
     replace: true,
     transclude: true,
     template: __webpack_require__(/*! ./listHoverActions.html */ "./src/ng1/directives/listHoverActions/listHoverActions.html"),
     controller: 'ListHoverActionsCtrl',
-    controllerAs: 'lh',
-    link: function link(scope, element) {
-      var parent = element.parents('tr').first();
-      var KEYS = {
-        LEFT: 37,
-        RIGHT: 39
-      };
-      keyboardService.keydown(parent, KEYS.LEFT, function (e) {
-        var selected = angular.element(document.activeElement);
-
-        if (element.has(selected).length > 0 && window.getComputedStyle(element[0]).getPropertyValue("opacity") !== "0") {
-          parent.focus();
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }, 10);
-      keyboardService.keydown(parent, KEYS.RIGHT, function (e) {
-        var selected = angular.element(document.activeElement);
-
-        if (element.has(selected).length === 0 && window.getComputedStyle(element[0]).getPropertyValue("opacity") !== "0") {
-          element.children().first().focus();
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }, 20); // add class to parent row
-
-      var parentRow = element.parents('tr').get(0);
-
-      if (parentRow) {
-        parentRow.classList.add('hover-actions');
-      }
-    }
+    controllerAs: 'lh'
   };
 }
 
@@ -28476,7 +28667,7 @@ function listHoverActions(keyboardService) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"list-hover-actions\" ng-transclude></div>";
+var v1="<div class=\"list-hover-actions\" ng-transclude ng-keydown-lazy=\"lh.onActionKeydown($event)\">\n</div>";
 var id1="directives/listHoverActions/listHoverActions.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -28494,17 +28685,107 @@ module.exports=v1;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _listHoverActions_directive_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listHoverActions.directive.js */ "./src/ng1/directives/listHoverActions/listHoverActions.directive.js");
-/* harmony import */ var _listHoverActions_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listHoverActions.controller.js */ "./src/ng1/directives/listHoverActions/listHoverActions.controller.js");
-/* harmony import */ var _listHoverAction_listHoverAction_directive_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./listHoverAction/listHoverAction.directive.js */ "./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.directive.js");
-/* harmony import */ var _listHoverAction_listHoverAction_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./listHoverAction/listHoverAction.controller.js */ "./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.controller.js");
-/* harmony import */ var _services_keyboardService_keyboardService_module_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/keyboardService/keyboardService.module.js */ "./src/ng1/services/keyboardService/keyboardService.module.js");
+/* harmony import */ var _listHoverActions_directive__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listHoverActions.directive */ "./src/ng1/directives/listHoverActions/listHoverActions.directive.js");
+/* harmony import */ var _listHoverActions_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listHoverActions.controller */ "./src/ng1/directives/listHoverActions/listHoverActions.controller.js");
+/* harmony import */ var _listHoverAction_listHoverAction_directive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./listHoverAction/listHoverAction.directive */ "./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.directive.js");
+/* harmony import */ var _listHoverAction_listHoverAction_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./listHoverAction/listHoverAction.controller */ "./src/ng1/directives/listHoverActions/listHoverAction/listHoverAction.controller.js");
 
 
 
 
+angular.module("ux-aspects.listHoverActions", ['ux-aspects.eventHandlers']).directive('listHoverActions', _listHoverActions_directive__WEBPACK_IMPORTED_MODULE_0__["listHoverActions"]).controller('ListHoverActionsCtrl', _listHoverActions_controller__WEBPACK_IMPORTED_MODULE_1__["ListHoverActionsCtrl"]).directive('listHoverAction', _listHoverAction_listHoverAction_directive__WEBPACK_IMPORTED_MODULE_2__["listHoverAction"]).controller('ListHoverActionCtrl', _listHoverAction_listHoverAction_controller__WEBPACK_IMPORTED_MODULE_3__["ListHoverActionCtrl"]);
 
-angular.module("ux-aspects.listHoverActions", []).directive('listHoverActions', _listHoverActions_directive_js__WEBPACK_IMPORTED_MODULE_0__["default"]).controller('ListHoverActionsCtrl', _listHoverActions_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"]).directive('listHoverAction', _listHoverAction_listHoverAction_directive_js__WEBPACK_IMPORTED_MODULE_2__["default"]).controller('ListHoverActionCtrl', _listHoverAction_listHoverAction_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
+/***/ }),
+
+/***/ "./src/ng1/directives/listHoverActions/listHoverActions.service.js":
+/*!*************************************************************************!*\
+  !*** ./src/ng1/directives/listHoverActions/listHoverActions.service.js ***!
+  \*************************************************************************/
+/*! exports provided: ListHoverActionsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListHoverActionsService", function() { return ListHoverActionsService; });
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/Subject.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rxjs_Subject__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+var ListHoverActionsService =
+/*#__PURE__*/
+function () {
+  function ListHoverActionsService() {
+    _classCallCheck(this, ListHoverActionsService);
+
+    this._actions = [];
+    this._focused = null;
+    this.isFocused$ = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
+  }
+
+  _createClass(ListHoverActionsService, [{
+    key: "register",
+    value: function register(action) {
+      this._actions = _toConsumableArray(this._actions).concat([action]);
+    }
+  }, {
+    key: "unregister",
+    value: function unregister(action) {
+      this._actions = this._actions.filter(function (_action) {
+        return _action !== action;
+      });
+    }
+  }, {
+    key: "onFocus",
+    value: function onFocus(action) {
+      // if we try to focus the currently focused item do nothing
+      if (this._focused !== action) {
+        this._focused = action;
+        this.isFocused$.next(this.isFocused());
+      }
+    }
+  }, {
+    key: "onBlur",
+    value: function onBlur(action) {
+      if (this._focused === action) {
+        this.onFocus(null);
+      }
+    }
+  }, {
+    key: "isFocused",
+    value: function isFocused() {
+      return !!this._focused;
+    }
+  }, {
+    key: "focusAtIndex",
+    value: function focusAtIndex(index) {
+      var target = this._actions[index];
+
+      if (target) {
+        target.focus();
+      }
+    }
+  }, {
+    key: "getFocusIndex",
+    value: function getFocusIndex() {
+      return this._actions.indexOf(this._focused);
+    }
+  }]);
+
+  return ListHoverActionsService;
+}();
 
 /***/ }),
 
@@ -45339,6 +45620,8 @@ function () {
    * @param {JQuery} $element
    */
   function TreeGridNavigationItemController($scope, $attrs, $element) {
+    var _this = this;
+
     _classCallCheck(this, TreeGridNavigationItemController);
 
     /** @type {any} */
@@ -45362,9 +45645,9 @@ function () {
 
     this.navigationCtrl = null; // setup all event bindings
 
-    this.addEventListeners(); // cleanup on destroy
-
-    $scope.$on('$destroy', this.onDestroy.bind(this));
+    $scope.$evalAsync(function () {
+      return _this.addEventListeners();
+    });
   }
   /**
    * Set the controller so we can communicate between components
@@ -45380,7 +45663,9 @@ function () {
   }, {
     key: "addEventListeners",
     value: function addEventListeners() {
-      this.$element.on('keydown', this.onKeydown.bind(this));
+      this.$element.on('keydown', this.onKeydown.bind(this)); // cleanup on destroy
+
+      this.$scope.$on('$destroy', this.onDestroy.bind(this));
     }
   }, {
     key: "onDestroy",
@@ -45432,7 +45717,7 @@ function () {
           break;
 
         case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["RIGHT_ARROW"]:
-          this.expand();
+          this.expand(event);
           break;
 
         case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["LEFT_ARROW"]:
@@ -45462,29 +45747,39 @@ function () {
 
       event.preventDefault();
     }
+    /**
+     * @param {KeyboardEvent} event
+     */
+
   }, {
     key: "expand",
-    value: function expand() {
-      var _this = this;
+    value: function expand(event) {
+      var _this2 = this;
 
-      if (this.$attrs.treegridExpand) {
-        // make the expansion and update the UI
+      if (this.$attrs.treegridExpand && this.data.canExpand && !this.data.expanded) {
+        // stop the list hover actions from focusing the first item
+        event.stopImmediatePropagation(); // make the expansion and update the UI
+
         this.$scope.$apply(function () {
-          return _this.$scope.$eval(_this.$attrs.treegridExpand);
-        }); // we must focus the index rather than the actual element as ng-repeat will create a new DOM node
-
-        this.navigationCtrl.focus(null, this.index);
+          return _this2.$scope.$eval(_this2.$attrs.treegridExpand).then(function () {
+            // we must focus the index rather than the actual element as ng-repeat will create a new DOM node
+            // a delay is required to allow ng-repeat to update before we focus
+            requestAnimationFrame(function () {
+              return _this2.navigationCtrl.focus(null, _this2.index);
+            });
+          });
+        });
       }
     }
   }, {
     key: "contract",
     value: function contract() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.$attrs.treegridContract) {
         // make the contraction and update the UI
         this.$scope.$apply(function () {
-          return _this2.$scope.$eval(_this2.$attrs.treegridContract);
+          return _this3.$scope.$eval(_this3.$attrs.treegridContract);
         }); // we must focus the index rather than the actual element as ng-repeat will create a new DOM node
 
         this.navigationCtrl.focus(null, this.index);
@@ -45962,7 +46257,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider"];
+TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 /**
  * @param {ng.IScope} $scope
  * @param {ng.IQProvider} $q
@@ -45970,7 +46265,7 @@ TreeGridController.$inject = ["$scope", "$q", "multipleSelectProvider"];
  * @param {ng.ITimeoutService} $timeout
  */
 
-function TreeGridController($scope, $q, multipleSelectProvider) {
+function TreeGridController($scope, $q, multipleSelectProvider, $timeout) {
   var vm = this;
   var treegridId = multipleSelectProvider.getNextComponentId();
   var defaultOptions = {
@@ -46103,7 +46398,9 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
       return false;
     }
 
-    expand(row);
+    $timeout(function () {
+      return expand(row);
+    });
     return true;
   }; // Expand the specified row if possible and return the data load promise.
 
@@ -46113,7 +46410,17 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
       return $q.when(false);
     }
 
-    return expand(row);
+    row.expanding = true; // run async to allow loading indicator to appear
+    // adding in 17ms delay (1 frame at 60fps - 16.6667ms)
+    // to ensure firefox shows the loading indicator before blocking the main UI thread
+
+    return $q(function (resolve) {
+      return $timeout(function () {
+        return expand(row).then(function (result) {
+          return resolve(result);
+        });
+      }, 17);
+    });
   }; // Contract the specified row if possible. Returns true if the row is contractable.
 
 
@@ -46316,7 +46623,11 @@ function TreeGridController($scope, $q, multipleSelectProvider) {
       return;
     }
 
-    return row.expanded ? contract(row) : expand(row);
+    if (row.expanded) {
+      return contract(row);
+    } else {
+      return vm.expandAsync(row);
+    }
   } // Remove children of a row from the view model
 
 
@@ -46428,7 +46739,7 @@ function TreegridDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"table-container\">\n<table class=\"table table-hover treegrid\" treegrid-navigation>\n<thead>\n<tr class=\"table-header-dark\">\n<th ng-repeat=\"column in vm.columns\" ng-class=\"column.headerClass\" ng-style=\"{'width': column.width}\">\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-header-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"selected\" ng-click=\"vm.toggleAllRows($event); $event.preventDefault();\">\n</checkbox>\n</span>\n<span ng-class=\"[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']\" ng-bind=\"column.name\">\n</span>\n</th>\n</tr>\n</thead>\n<tbody ng-if=\"!vm.loading\">\n<tr ng-repeat=\"row in vm.getGridRows()\" class=\"clickable hover-actions treegrid-row-ng1\" ng-class=\"[row.rowClass, vm.isDisabled(row) ? 'disabled' : '', row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']\" treegrid-multiple-select-model=\"vm.selectionModel\" treegrid-multiple-select-item=\"row\" treegrid-multiple-select-item-disabled=\"vm.isDisabled(row)\" treegrid-multiple-select-options=\"vm.allOptions\" treegrid-expand=\"vm.expand(row)\" treegrid-contract=\"vm.contract(row)\" treegrid-navigation-item=\"row\" treegrid-navigation-item-index=\"$index\" treegrid-navigation-item-disabled=\"vm.isDisabled(row)\" ng-focus=\"vm.rowFocus(row, $event)\" tabindex=\"-1\">\n<td ng-repeat=\"col in vm.columns\" ng-class=\"col.cellClass\">\n<span ng-if=\"$first\" class=\"treegrid-indent\" ng-class=\"row.levelClass\"></span>\n<span ng-if=\"$first\" class=\"treegrid-expand\">\n<span ng-if=\"row.canExpand && !row.expanding\" class=\"treegrid-expand-toggle\" ng-click=\"vm.expanderClick(row, $event)\" ng-mousedown=\"$event.preventDefault()\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expanded ? row.expander.expanded : row.expander.contracted}}\" alt=\"expander\"/>\n</span>\n<span ng-if=\"row.expanding\" class=\"treegrid-expand-toggle\" tooltip=\"Loading\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expander.expanding)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expander.expanding}}\" alt=\"expander\"/>\n</span>\n</span>\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"row.selected\" indeterminate-value=\"-1\" ng-click=\"vm.checkboxClick($event, row);\" ng-disabled=\"vm.isDisabled(row)\" clickable=\"false\">\n</checkbox>\n</span>\n<span ng-if=\"$first\" class=\"treegrid-icon\">\n<i ng-if=\"row.icon.type === 'class'\" class=\"hpe-icon\" ng-class=\"row.icon.get(row.dataItem, row.expanded)\">\n</i>\n<img ng-if=\"row.icon.type === 'url'\" ng-src=\"{{row.icon.get(row.dataItem, row.expanded)}}\" alt=\"icon\"/>\n</span>\n<treegrid-cell row=\"row\" column=\"col\"></treegrid-cell>\n</td>\n</tr>\n</tbody>\n</table>\n<div ng-if=\"vm.loading\" class=\"treegrid-loading\">\nLoading...\n</div>\n</div>";
+var v1="<div class=\"table-container\">\n<table class=\"table table-hover treegrid\" treegrid-navigation>\n<thead>\n<tr class=\"table-header-dark\">\n<th ng-repeat=\"column in vm.columns\" ng-class=\"column.headerClass\" ng-style=\"{'width': column.width}\">\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-header-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"selected\" ng-click-lazy=\"vm.toggleAllRows($event); $event.preventDefault();\">\n</checkbox>\n</span>\n<span ng-class=\"[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']\" ng-bind=\"column.name\">\n</span>\n</th>\n</tr>\n</thead>\n<tbody ng-if=\"!vm.loading\">\n<tr ng-repeat=\"row in vm.getGridRows()\" class=\"clickable hover-actions treegrid-row-ng1\" ng-class=\"[row.rowClass, vm.isDisabled(row) ? 'disabled' : '', row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']\" treegrid-multiple-select-model=\"vm.selectionModel\" treegrid-multiple-select-item=\"row\" treegrid-multiple-select-item-disabled=\"vm.isDisabled(row)\" treegrid-multiple-select-options=\"vm.allOptions\" treegrid-expand=\"vm.expandAsync(row)\" treegrid-contract=\"vm.contract(row)\" treegrid-navigation-item=\"row\" treegrid-navigation-item-index=\"$index\" treegrid-navigation-item-disabled=\"vm.isDisabled(row)\" ng-focus-lazy=\"vm.rowFocus(row, $event)\" tabindex=\"-1\">\n<td ng-repeat=\"col in vm.columns\" ng-class=\"col.cellClass\">\n<span ng-if=\"$first\" class=\"treegrid-indent\" ng-class=\"row.levelClass\"></span>\n<span ng-if=\"$first\" class=\"treegrid-expand\">\n<span ng-if=\"row.canExpand && !row.expanding\" class=\"treegrid-expand-toggle\" ng-click-lazy=\"vm.expanderClick(row, $event)\" ng-mousedown-lazy=\"$event.preventDefault()\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expanded ? row.expander.expanded : row.expander.contracted}}\" alt=\"expander\"/>\n</span>\n<span ng-if=\"row.expanding\" class=\"treegrid-expand-toggle\" tooltip=\"Loading\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expander.expanding)\">\n</i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expander.expanding}}\" alt=\"expander\"/>\n</span>\n</span>\n<span ng-if=\"$first && vm.allOptions.select.check\" class=\"treegrid-checkbox\">\n<checkbox class=\"treegrid-multiple-select-checkbox\" ng-model=\"row.selected\" indeterminate-value=\"-1\" ng-click-lazy=\"vm.checkboxClick($event, row);\" ng-disabled=\"vm.isDisabled(row)\" clickable=\"false\">\n</checkbox>\n</span>\n<span ng-if=\"$first\" class=\"treegrid-icon\">\n<i ng-if=\"row.icon.type === 'class'\" class=\"hpe-icon\" ng-class=\"row.icon.get(row.dataItem, row.expanded)\">\n</i>\n<img ng-if=\"row.icon.type === 'url'\" ng-src=\"{{row.icon.get(row.dataItem, row.expanded)}}\" alt=\"icon\"/>\n</span>\n<treegrid-cell row=\"row\" column=\"col\"></treegrid-cell>\n</td>\n</tr>\n</tbody>\n</table>\n<div ng-if=\"vm.loading\" class=\"treegrid-loading\">\nLoading...\n</div>\n</div>";
 var id1="directives/treegrid/treegrid.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -46468,7 +46779,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.keyboardService', 'ux-aspects.keyboardNavigableTable']).controller("TreegridCtrl", _treegrid_controller__WEBPACK_IMPORTED_MODULE_7__["TreeGridController"]).controller("TreeGridNavigationCtrl", _accessibility_treegrid_navigation_controller__WEBPACK_IMPORTED_MODULE_5__["TreeGridNavigationController"]).controller("TreeGridNavigationItemCtrl", _accessibility_treegrid_navigation_item_controller__WEBPACK_IMPORTED_MODULE_3__["TreeGridNavigationItemController"]).directive('treegrid', _treegrid_directive__WEBPACK_IMPORTED_MODULE_8__["TreegridDirective"]).directive('treegridCell', _treegridCell_directive__WEBPACK_IMPORTED_MODULE_9__["treegridCell"]).directive('treegridMultipleSelectItem', _treegridMultipleSelectItem_directive__WEBPACK_IMPORTED_MODULE_10__["treegridMultipleSelectItem"]).directive('treegridNavigation', _accessibility_treegrid_navigation_directive__WEBPACK_IMPORTED_MODULE_6__["treegridNavigation"]).directive('treegridNavigationItem', _accessibility_treegrid_navigation_item_directive__WEBPACK_IMPORTED_MODULE_4__["treegridNavigationItem"]);
+angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.keyboardService', 'ux-aspects.keyboardNavigableTable', 'ux-aspects.eventHandlers']).controller("TreegridCtrl", _treegrid_controller__WEBPACK_IMPORTED_MODULE_7__["TreeGridController"]).controller("TreeGridNavigationCtrl", _accessibility_treegrid_navigation_controller__WEBPACK_IMPORTED_MODULE_5__["TreeGridNavigationController"]).controller("TreeGridNavigationItemCtrl", _accessibility_treegrid_navigation_item_controller__WEBPACK_IMPORTED_MODULE_3__["TreeGridNavigationItemController"]).directive('treegrid', _treegrid_directive__WEBPACK_IMPORTED_MODULE_8__["TreegridDirective"]).directive('treegridCell', _treegridCell_directive__WEBPACK_IMPORTED_MODULE_9__["treegridCell"]).directive('treegridMultipleSelectItem', _treegridMultipleSelectItem_directive__WEBPACK_IMPORTED_MODULE_10__["treegridMultipleSelectItem"]).directive('treegridNavigation', _accessibility_treegrid_navigation_directive__WEBPACK_IMPORTED_MODULE_6__["treegridNavigation"]).directive('treegridNavigationItem', _accessibility_treegrid_navigation_item_directive__WEBPACK_IMPORTED_MODULE_4__["treegridNavigationItem"]);
 
 /***/ }),
 
@@ -46482,8 +46793,14 @@ angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "treegridCell", function() { return treegridCell; });
-treegridCell.$inject = ["$templateRequest", "$compile"];
-function treegridCell($templateRequest, $compile) {
+treegridCell.$inject = ['$templateRequest', '$compile', '$interpolate'];
+/**
+ * @param {ng.ITemplateRequestService} $templateRequest
+ * @param {ng.ICompileService} $compile
+ * @param {ng.IInterpolateService} $interpolate
+ */
+
+function treegridCell($templateRequest, $compile, $interpolate) {
   return {
     restrict: 'E',
     replace: true,
@@ -46491,40 +46808,44 @@ function treegridCell($templateRequest, $compile) {
       row: '=',
       column: '='
     },
-    link: function link(scope, elem) {
-      scope.item = scope.row.dataItem;
+    link: function link(scope, element) {
+      scope.item = scope.row.dataItem; // if a custom template is provided
 
       if (scope.column.template) {
         $templateRequest(scope.column.template).then(function (html) {
           var template = angular.element(html);
-          addTooltip(template);
-          elem.replaceWith(template);
+          element.replaceWith(template);
           $compile(template)(scope);
+          addTooltip(template);
         });
       } else {
-        var expr = "";
+        var expression;
 
         if (angular.isString(scope.column.value) && scope.item.hasOwnProperty(scope.column.value)) {
-          expr = "item[column.value]";
+          expression = 'item[column.value]';
         } else if (angular.isFunction(scope.column.value)) {
-          expr = "column.value(item)";
+          expression = 'column.value(item)';
         }
 
-        var span = angular.element("<span/>", {
-          "ng-bind": expr
+        var span = angular.element('<span/>', {
+          'ng-bind': expression
         });
-        addTooltip(span);
-        elem.replaceWith(span);
+        element.replaceWith(span);
         $compile(span)(scope);
+        addTooltip(span);
       }
 
       function addTooltip(newElement) {
         if (scope.column.tooltip) {
-          newElement.attr("tooltip", scope.column.tooltip);
-        }
-
-        if (scope.column.tooltipPlacement) {
-          newElement.attr("tooltip-placement", scope.column.tooltipPlacement);
+          scope.$evalAsync(function () {
+            newElement.one('mouseenter', function () {
+              newElement.tooltip({
+                title: $interpolate(scope.column.tooltip)(scope),
+                placement: scope.column.tooltipPlacement || 'top'
+              });
+              newElement.tooltip('show');
+            });
+          });
         }
       }
     }
@@ -46581,69 +46902,79 @@ function treegridMultipleSelectItem() {
             '-ms-user-select': 'none',
             '-moz-user-select': 'none',
             '-webkit-user-select': 'none'
-          }); //set up click
+          }); // defer adding any event listeners until after the rendering
 
-          element.on('click.multiSelect', function (event) {
-            // do nothing if row selection is not enabled or the row itself is disabled
-            if (!selectOptions.row || isDisabled) {
-              return;
-            }
+          scope.$evalAsync(function () {
+            element.on('click.multiSelect', function (event) {
+              // do nothing if row selection is not enabled or the row itself is disabled
+              if (!selectOptions.row || isDisabled) {
+                return;
+              }
 
-            if (event.shiftKey) {
-              extendOrStartSelection();
-            } else if (event.ctrlKey) {
-              addToOrStartSelection();
-            } else {
-              startSelection();
-            }
-
-            element.focus(); // Workaround for IE, make sure parent element gets focus
-
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            scope.$apply();
-          }); // for keyboard controls
-
-          element.on('keydown.multiSelect', function (event) {
-            if (isDisabled) {
-              return;
-            }
-
-            if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["SPACE"]) {
-              if (selectOptions.row) {
+              if (event.shiftKey) {
+                extendOrStartSelection();
+              } else if (event.ctrlKey) {
                 addToOrStartSelection();
               } else {
-                selectionModel.toggle(treeGridRow.dataItem);
+                startSelection();
               }
+
+              element.focus(); // Workaround for IE, make sure parent element gets focus
 
               event.preventDefault();
               event.stopImmediatePropagation();
-            }
+              scope.$apply();
+            }); // for keyboard controls
 
-            scope.$apply();
-          }); // Custom event triggered by navigation directive to handle shift key extension
-
-          element.on('treegrid-navigation-focused', function (event) {
-            if (!selectOptions.row) {
-              return;
-            }
-
-            if (!event.ctrlKey) {
-              if (event.shiftKey) {
-                extendSelectionFromPrevious();
-              } else {
-                // if shift key not held then dont select any
-                selectionModel.deselectAll();
-                selectionModel.origin = scope.$index;
+            element.on('keydown.multiSelect', function (event) {
+              if (isDisabled) {
+                return;
               }
-            }
 
-            scope.$apply();
-          }); // Prevent selection of text on shift click for IE
+              if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_0__["SPACE"]) {
+                if (selectOptions.row) {
+                  addToOrStartSelection();
+                } else {
+                  selectionModel.toggle(treeGridRow.dataItem);
+                }
 
-          element.on('selectstart', function (event) {
-            event.preventDefault();
-            return false;
+                event.preventDefault();
+                event.stopImmediatePropagation();
+              }
+
+              scope.$apply();
+            }); // Custom event triggered by navigation directive to handle shift key extension
+
+            element.on('treegrid-navigation-focused', function (event) {
+              if (!selectOptions.row) {
+                return;
+              }
+
+              if (!event.ctrlKey) {
+                if (event.shiftKey) {
+                  extendSelectionFromPrevious();
+                } else {
+                  // if shift key not held then dont select any
+                  selectionModel.deselectAll();
+                  selectionModel.origin = scope.$index;
+                }
+              }
+
+              scope.$apply();
+            }); // Prevent selection of text on shift click for IE
+
+            element.on('selectstart', function (event) {
+              event.preventDefault();
+              return false;
+            });
+            scope.$on('destroy', function () {
+              element.off('click.multiSelect');
+              element.off('keydown.multiSelect');
+              element.off('treegrid-navigation-focused');
+              element.off('selectstart');
+              unsubscribe.next();
+              unsubscribe.complete();
+            });
           }); // Handler for row click, or external change to selection via multipleSelectProvider
 
           selectionModel.onSelect.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(unsubscribe), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (item) {
@@ -46666,15 +46997,6 @@ function treegridMultipleSelectItem() {
           if (selectionModel.isSelected(treeGridRow.dataItem)) {
             setSelected(treeGridRow, true);
           }
-
-          scope.$on('destroy', function () {
-            element.off('click.multiSelect');
-            element.off('keydown.multiSelect');
-            element.off('treegrid-navigation-focused');
-            element.off('selectstart');
-            unsubscribe.next();
-            unsubscribe.complete();
-          });
         }
       } // Clear selection and select this row
 
@@ -50033,146 +50355,147 @@ module.exports=v1;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _external_angular_breadcrumb_angular_breadcrumb_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./external/angular-breadcrumb/angular-breadcrumb.js */ "./src/ng1/external/angular-breadcrumb/angular-breadcrumb.js");
-/* harmony import */ var _external_angular_breadcrumb_angular_breadcrumb_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_external_angular_breadcrumb_angular_breadcrumb_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _external_angular_file_upload_angular_file_upload_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./external/angular-file-upload/angular-file-upload.js */ "./src/ng1/external/angular-file-upload/angular-file-upload.js");
-/* harmony import */ var _external_angular_file_upload_angular_file_upload_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_external_angular_file_upload_angular_file_upload_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _external_angular_flot_angular_flot_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./external/angular-flot/angular-flot.js */ "./src/ng1/external/angular-flot/angular-flot.js");
-/* harmony import */ var _external_angular_flot_angular_flot_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_external_angular_flot_angular_flot_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _external_angular_peity_angular_peity_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./external/angular-peity/angular-peity.js */ "./src/ng1/external/angular-peity/angular-peity.js");
-/* harmony import */ var _external_angular_peity_angular_peity_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_external_angular_peity_angular_peity_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _external_angular_sanitize_angular_sanitize_min_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./external/angular-sanitize/angular-sanitize.min.js */ "./src/ng1/external/angular-sanitize/angular-sanitize.min.js");
-/* harmony import */ var _external_angular_sanitize_angular_sanitize_min_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_external_angular_sanitize_angular_sanitize_min_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _external_angular_scrollable_table_angular_scrollable_table_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./external/angular-scrollable-table/angular-scrollable-table.js */ "./src/ng1/external/angular-scrollable-table/angular-scrollable-table.js");
-/* harmony import */ var _external_angular_scrollable_table_angular_scrollable_table_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_external_angular_scrollable_table_angular_scrollable_table_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _external_angular_scrollPane_angular_jscrollpane_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./external/angular-scrollPane/angular-jscrollpane.js */ "./src/ng1/external/angular-scrollPane/angular-jscrollpane.js");
-/* harmony import */ var _external_angular_scrollPane_angular_jscrollpane_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_external_angular_scrollPane_angular_jscrollpane_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _external_angular_timeline_angular_timeline_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./external/angular-timeline/angular-timeline.js */ "./src/ng1/external/angular-timeline/angular-timeline.js");
-/* harmony import */ var _external_angular_timeline_angular_timeline_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_external_angular_timeline_angular_timeline_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _external_angular_ui_router_angular_ui_router_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./external/angular-ui-router/angular-ui-router.js */ "./src/ng1/external/angular-ui-router/angular-ui-router.js");
-/* harmony import */ var _external_angular_ui_router_angular_ui_router_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_external_angular_ui_router_angular_ui_router_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _external_angular_ui_tree_angular_ui_tree_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./external/angular-ui-tree/angular-ui-tree.js */ "./src/ng1/external/angular-ui-tree/angular-ui-tree.js");
-/* harmony import */ var _external_angular_ui_tree_angular_ui_tree_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_external_angular_ui_tree_angular_ui_tree_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _plugins_d3_d3_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./plugins/d3/d3.js */ "./src/ng1/plugins/d3/d3.js");
-/* harmony import */ var _plugins_d3_d3_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_plugins_d3_d3_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _external_d3_module_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./external/d3/_module.js */ "./src/ng1/external/d3/_module.js");
-/* harmony import */ var _external_d3_module_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_external_d3_module_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _external_d3_d3_directive_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./external/d3/d3.directive.js */ "./src/ng1/external/d3/d3.directive.js");
-/* harmony import */ var _external_d3_d3_directive_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_external_d3_d3_directive_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _external_ng_tags_input_ng_tags_input_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./external/ng-tags-input/ng-tags-input.js */ "./src/ng1/external/ng-tags-input/ng-tags-input.js");
-/* harmony import */ var _external_ng_tags_input_ng_tags_input_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_external_ng_tags_input_ng_tags_input_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _external_sigma_module_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./external/sigma/_module.js */ "./src/ng1/external/sigma/_module.js");
-/* harmony import */ var _external_sigma_module_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_external_sigma_module_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _external_sigma_sigma_directive_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./external/sigma/sigma.directive.js */ "./src/ng1/external/sigma/sigma.directive.js");
-/* harmony import */ var _external_sigma_sigma_directive_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_external_sigma_sigma_directive_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _external_ui_bootstrap_ui_bootstrap_tpls_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./external/ui-bootstrap/ui-bootstrap-tpls.js */ "./src/ng1/external/ui-bootstrap/ui-bootstrap-tpls.js");
-/* harmony import */ var _external_ui_bootstrap_ui_bootstrap_tpls_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_external_ui_bootstrap_ui_bootstrap_tpls_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _directives_affixElement_affixElement_module_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./directives/affixElement/affixElement.module.js */ "./src/ng1/directives/affixElement/affixElement.module.js");
-/* harmony import */ var _directives_applicationSwitcher_applicationSwitcher_module_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./directives/applicationSwitcher/applicationSwitcher.module.js */ "./src/ng1/directives/applicationSwitcher/applicationSwitcher.module.js");
-/* harmony import */ var _directives_backButton_backButton_module_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./directives/backButton/backButton.module.js */ "./src/ng1/directives/backButton/backButton.module.js");
-/* harmony import */ var _directives_backButtonHeader_backButtonHeader_module_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./directives/backButtonHeader/backButtonHeader.module.js */ "./src/ng1/directives/backButtonHeader/backButtonHeader.module.js");
-/* harmony import */ var _directives_cardTabs_cardTabs_module_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./directives/cardTabs/cardTabs.module.js */ "./src/ng1/directives/cardTabs/cardTabs.module.js");
-/* harmony import */ var _directives_checkbox_checkbox_module_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./directives/checkbox/checkbox.module.js */ "./src/ng1/directives/checkbox/checkbox.module.js");
-/* harmony import */ var _directives_componentList_componentList_module_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./directives/componentList/componentList.module.js */ "./src/ng1/directives/componentList/componentList.module.js");
-/* harmony import */ var _directives_condensedHeader_condensedHeader_module_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./directives/condensedHeader/condensedHeader.module.js */ "./src/ng1/directives/condensedHeader/condensedHeader.module.js");
-/* harmony import */ var _directives_contacts_contacts_module_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./directives/contacts/contacts.module.js */ "./src/ng1/directives/contacts/contacts.module.js");
-/* harmony import */ var _directives_dateTimePicker_dateTimePicker_module_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./directives/dateTimePicker/dateTimePicker.module.js */ "./src/ng1/directives/dateTimePicker/dateTimePicker.module.js");
-/* harmony import */ var _directives_displayPanels_displayPanels_module_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./directives/displayPanels/displayPanels.module.js */ "./src/ng1/directives/displayPanels/displayPanels.module.js");
-/* harmony import */ var _directives_draggableCards_draggableCards_module_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./directives/draggableCards/draggableCards.module.js */ "./src/ng1/directives/draggableCards/draggableCards.module.js");
-/* harmony import */ var _directives_draggablePanels_draggablePanels_module_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./directives/draggablePanels/draggablePanels.module.js */ "./src/ng1/directives/draggablePanels/draggablePanels.module.js");
-/* harmony import */ var _directives_dynamicSelect_dynamicSelect_module_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./directives/dynamicSelect/dynamicSelect.module.js */ "./src/ng1/directives/dynamicSelect/dynamicSelect.module.js");
-/* harmony import */ var _directives_elementReady_elementReady_module_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./directives/elementReady/elementReady.module.js */ "./src/ng1/directives/elementReady/elementReady.module.js");
-/* harmony import */ var _directives_expandingTextarea_expandingTextarea_module_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./directives/expandingTextarea/expandingTextarea.module.js */ "./src/ng1/directives/expandingTextarea/expandingTextarea.module.js");
-/* harmony import */ var _directives_expandInputs_expandInput_module_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./directives/expandInputs/expandInput.module.js */ "./src/ng1/directives/expandInputs/expandInput.module.js");
-/* harmony import */ var _directives_expandSearch_expandSearch_module_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./directives/expandSearch/expandSearch.module.js */ "./src/ng1/directives/expandSearch/expandSearch.module.js");
-/* harmony import */ var _directives_extendedCheckboxHit_extendedCheckboxHit_module_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./directives/extendedCheckboxHit/extendedCheckboxHit.module.js */ "./src/ng1/directives/extendedCheckboxHit/extendedCheckboxHit.module.js");
-/* harmony import */ var _directives_facets_facets_module_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./directives/facets/facets.module.js */ "./src/ng1/directives/facets/facets.module.js");
-/* harmony import */ var _directives_filters_filters_module_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./directives/filters/filters.module.js */ "./src/ng1/directives/filters/filters.module.js");
-/* harmony import */ var _directives_fixedHeaderTable_fixed_header_table_module__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./directives/fixedHeaderTable/fixed-header-table.module */ "./src/ng1/directives/fixedHeaderTable/fixed-header-table.module.js");
-/* harmony import */ var _directives_flippableCard_flippableCard_module_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./directives/flippableCard/flippableCard.module.js */ "./src/ng1/directives/flippableCard/flippableCard.module.js");
-/* harmony import */ var _directives_floatingActionButton_floatingActionButton_module_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./directives/floatingActionButton/floatingActionButton.module.js */ "./src/ng1/directives/floatingActionButton/floatingActionButton.module.js");
-/* harmony import */ var _directives_floatLabel_floatLabel_module_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./directives/floatLabel/floatLabel.module.js */ "./src/ng1/directives/floatLabel/floatLabel.module.js");
-/* harmony import */ var _directives_focusIf_focusIf_module_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./directives/focusIf/focusIf.module.js */ "./src/ng1/directives/focusIf/focusIf.module.js");
-/* harmony import */ var _directives_focusOnShow_focusOnShow_module_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./directives/focusOnShow/focusOnShow.module.js */ "./src/ng1/directives/focusOnShow/focusOnShow.module.js");
-/* harmony import */ var _directives_forceFocus_forceFocus_module_js__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./directives/forceFocus/forceFocus.module.js */ "./src/ng1/directives/forceFocus/forceFocus.module.js");
-/* harmony import */ var _directives_grid_grid_module_js__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./directives/grid/grid.module.js */ "./src/ng1/directives/grid/grid.module.js");
-/* harmony import */ var _directives_groupedButtons_groupedButtons_module_js__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./directives/groupedButtons/groupedButtons.module.js */ "./src/ng1/directives/groupedButtons/groupedButtons.module.js");
-/* harmony import */ var _directives_helpCenter_helpCenter_module_js__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./directives/helpCenter/helpCenter.module.js */ "./src/ng1/directives/helpCenter/helpCenter.module.js");
-/* harmony import */ var _directives_hierarchyBar_hierarchyBar_module_js__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./directives/hierarchyBar/hierarchyBar.module.js */ "./src/ng1/directives/hierarchyBar/hierarchyBar.module.js");
-/* harmony import */ var _directives_hotkey_hotkey_module_js__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./directives/hotkey/hotkey.module.js */ "./src/ng1/directives/hotkey/hotkey.module.js");
-/* harmony import */ var _directives_hoverActions_hoverActions_module_js__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./directives/hoverActions/hoverActions.module.js */ "./src/ng1/directives/hoverActions/hoverActions.module.js");
-/* harmony import */ var _directives_index_index_module_js__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./directives/index/index.module.js */ "./src/ng1/directives/index/index.module.js");
-/* harmony import */ var _directives_infiniteScroll_infiniteScroll_module_js__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./directives/infiniteScroll/infiniteScroll.module.js */ "./src/ng1/directives/infiniteScroll/infiniteScroll.module.js");
-/* harmony import */ var _directives_inputMask_inputMask_module_js__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./directives/inputMask/inputMask.module.js */ "./src/ng1/directives/inputMask/inputMask.module.js");
-/* harmony import */ var _directives_keyboardNavigableTable_keyboardNavigableTable_module_js__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./directives/keyboardNavigableTable/keyboardNavigableTable.module.js */ "./src/ng1/directives/keyboardNavigableTable/keyboardNavigableTable.module.js");
-/* harmony import */ var _directives_layoutSwitcher_layoutSwitcher_module_js__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./directives/layoutSwitcher/layoutSwitcher.module.js */ "./src/ng1/directives/layoutSwitcher/layoutSwitcher.module.js");
-/* harmony import */ var _directives_listHoverActions_listHoverActions_module_js__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./directives/listHoverActions/listHoverActions.module.js */ "./src/ng1/directives/listHoverActions/listHoverActions.module.js");
-/* harmony import */ var _directives_listItemFilter_listItemFilter_module_js__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./directives/listItemFilter/listItemFilter.module.js */ "./src/ng1/directives/listItemFilter/listItemFilter.module.js");
-/* harmony import */ var _directives_marqueeWizard_marqueeWizard_module_js__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./directives/marqueeWizard/marqueeWizard.module.js */ "./src/ng1/directives/marqueeWizard/marqueeWizard.module.js");
-/* harmony import */ var _directives_menuTab_menuTab_module_js__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./directives/menuTab/menuTab.module.js */ "./src/ng1/directives/menuTab/menuTab.module.js");
-/* harmony import */ var _directives_minimizeMenu_minimizeMenu_module_js__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./directives/minimizeMenu/minimizeMenu.module.js */ "./src/ng1/directives/minimizeMenu/minimizeMenu.module.js");
-/* harmony import */ var _directives_modalInsetPanel_modalInsetPanel_module_js__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./directives/modalInsetPanel/modalInsetPanel.module.js */ "./src/ng1/directives/modalInsetPanel/modalInsetPanel.module.js");
-/* harmony import */ var _directives_multipleListSelect_multipleListSelect_module_js__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./directives/multipleListSelect/multipleListSelect.module.js */ "./src/ng1/directives/multipleListSelect/multipleListSelect.module.js");
-/* harmony import */ var _directives_multipleRowSelect_multipleRowSelect_module_js__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./directives/multipleRowSelect/multipleRowSelect.module.js */ "./src/ng1/directives/multipleRowSelect/multipleRowSelect.module.js");
-/* harmony import */ var _directives_nestedDonut_nestedDonut_module_js__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./directives/nestedDonut/nestedDonut.module.js */ "./src/ng1/directives/nestedDonut/nestedDonut.module.js");
-/* harmony import */ var _directives_numberPicker_numberPicker_module_js__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./directives/numberPicker/numberPicker.module.js */ "./src/ng1/directives/numberPicker/numberPicker.module.js");
-/* harmony import */ var _directives_organizationChart_organizationChart_module_js__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./directives/organizationChart/organizationChart.module.js */ "./src/ng1/directives/organizationChart/organizationChart.module.js");
-/* harmony import */ var _directives_overflowTooltip_overflowTooltip_module_js__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./directives/overflowTooltip/overflowTooltip.module.js */ "./src/ng1/directives/overflowTooltip/overflowTooltip.module.js");
-/* harmony import */ var _directives_pageTitle_pageTitle_module_js__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./directives/pageTitle/pageTitle.module.js */ "./src/ng1/directives/pageTitle/pageTitle.module.js");
-/* harmony import */ var _directives_partitionMap_partitionMap_module_js__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./directives/partitionMap/partitionMap.module.js */ "./src/ng1/directives/partitionMap/partitionMap.module.js");
-/* harmony import */ var _directives_peityChart_peityChart_module_js__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./directives/peityChart/peityChart.module.js */ "./src/ng1/directives/peityChart/peityChart.module.js");
-/* harmony import */ var _directives_previewPanes_previewPane_module_js__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./directives/previewPanes/previewPane.module.js */ "./src/ng1/directives/previewPanes/previewPane.module.js");
-/* harmony import */ var _directives_radiobutton_radiobutton_module_js__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./directives/radiobutton/radiobutton.module.js */ "./src/ng1/directives/radiobutton/radiobutton.module.js");
-/* harmony import */ var _directives_reorderableTable_reorderableTable_module_js__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./directives/reorderableTable/reorderableTable.module.js */ "./src/ng1/directives/reorderableTable/reorderableTable.module.js");
-/* harmony import */ var _directives_sankey_sankey_module_js__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./directives/sankey/sankey.module.js */ "./src/ng1/directives/sankey/sankey.module.js");
-/* harmony import */ var _directives_scrollTop_scrollTop_module_js__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./directives/scrollTop/scrollTop.module.js */ "./src/ng1/directives/scrollTop/scrollTop.module.js");
-/* harmony import */ var _directives_searchBuilder_searchBuilder_module_js__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./directives/searchBuilder/searchBuilder.module.js */ "./src/ng1/directives/searchBuilder/searchBuilder.module.js");
-/* harmony import */ var _directives_searchCategories_searchCategories_module_js__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./directives/searchCategories/searchCategories.module.js */ "./src/ng1/directives/searchCategories/searchCategories.module.js");
-/* harmony import */ var _directives_searchToolbar_searchToolbar_module_js__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./directives/searchToolbar/searchToolbar.module.js */ "./src/ng1/directives/searchToolbar/searchToolbar.module.js");
-/* harmony import */ var _directives_selectTable_selectTable_module_js__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./directives/selectTable/selectTable.module.js */ "./src/ng1/directives/selectTable/selectTable.module.js");
-/* harmony import */ var _directives_sideInset_sideInset_module_js__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./directives/sideInset/sideInset.module.js */ "./src/ng1/directives/sideInset/sideInset.module.js");
-/* harmony import */ var _directives_sideModal_sideModal_module_js__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./directives/sideModal/sideModal.module.js */ "./src/ng1/directives/sideModal/sideModal.module.js");
-/* harmony import */ var _directives_sideNavigation_sideNavigation_module_js__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./directives/sideNavigation/sideNavigation.module.js */ "./src/ng1/directives/sideNavigation/sideNavigation.module.js");
-/* harmony import */ var _directives_slider_slider_module_js__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./directives/slider/slider.module.js */ "./src/ng1/directives/slider/slider.module.js");
-/* harmony import */ var _directives_sliderChart_sliderChart_module_js__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./directives/sliderChart/sliderChart.module.js */ "./src/ng1/directives/sliderChart/sliderChart.module.js");
-/* harmony import */ var _directives_socialChart_socialChart_module_js__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./directives/socialChart/socialChart.module.js */ "./src/ng1/directives/socialChart/socialChart.module.js");
-/* harmony import */ var _directives_sorters_sorters_module_js__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./directives/sorters/sorters.module.js */ "./src/ng1/directives/sorters/sorters.module.js");
-/* harmony import */ var _directives_spark_spark_module_js__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./directives/spark/spark.module.js */ "./src/ng1/directives/spark/spark.module.js");
-/* harmony import */ var _directives_splitter_splitter_module_js__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./directives/splitter/splitter.module.js */ "./src/ng1/directives/splitter/splitter.module.js");
-/* harmony import */ var _directives_staticTooltip_staticTooltip_module_js__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./directives/staticTooltip/staticTooltip.module.js */ "./src/ng1/directives/staticTooltip/staticTooltip.module.js");
-/* harmony import */ var _directives_tagInput_tagInput_module_js__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./directives/tagInput/tagInput.module.js */ "./src/ng1/directives/tagInput/tagInput.module.js");
-/* harmony import */ var _directives_templateOutlet_template_outlet_module__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./directives/templateOutlet/template-outlet.module */ "./src/ng1/directives/templateOutlet/template-outlet.module.js");
-/* harmony import */ var _directives_thumbnail_thumbnail_module_js__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./directives/thumbnail/thumbnail.module.js */ "./src/ng1/directives/thumbnail/thumbnail.module.js");
-/* harmony import */ var _directives_timeAgo_timeAgo_module_js__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./directives/timeAgo/timeAgo.module.js */ "./src/ng1/directives/timeAgo/timeAgo.module.js");
-/* harmony import */ var _directives_toggleswitch_toggleswitch_module_js__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./directives/toggleswitch/toggleswitch.module.js */ "./src/ng1/directives/toggleswitch/toggleswitch.module.js");
-/* harmony import */ var _directives_tooltipOnOverflow_tooltipOnOverflow_module_js__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./directives/tooltipOnOverflow/tooltipOnOverflow.module.js */ "./src/ng1/directives/tooltipOnOverflow/tooltipOnOverflow.module.js");
-/* harmony import */ var _directives_treegrid_treegrid_module_js__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./directives/treegrid/treegrid.module.js */ "./src/ng1/directives/treegrid/treegrid.module.js");
-/* harmony import */ var _directives_treeView_treeView_module_js__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./directives/treeView/treeView.module.js */ "./src/ng1/directives/treeView/treeView.module.js");
-/* harmony import */ var _directives_wizard_wizard_module_js__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./directives/wizard/wizard.module.js */ "./src/ng1/directives/wizard/wizard.module.js");
-/* harmony import */ var _directives_multipleSelect_multipleSelect_module_js__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./directives/multipleSelect/multipleSelect.module.js */ "./src/ng1/directives/multipleSelect/multipleSelect.module.js");
-/* harmony import */ var _services_colorService_colorService_module_js__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./services/colorService/colorService.module.js */ "./src/ng1/services/colorService/colorService.module.js");
-/* harmony import */ var _services_debounceService_debounce_module_js__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./services/debounceService/debounce.module.js */ "./src/ng1/services/debounceService/debounce.module.js");
-/* harmony import */ var _services_flotDataService_flotDataService_module_js__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./services/flotDataService/flotDataService.module.js */ "./src/ng1/services/flotDataService/flotDataService.module.js");
-/* harmony import */ var _services_keyboardService_keyboardService_module_js__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./services/keyboardService/keyboardService.module.js */ "./src/ng1/services/keyboardService/keyboardService.module.js");
-/* harmony import */ var _services_lineDataService_lineData_module_js__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./services/lineDataService/lineData.module.js */ "./src/ng1/services/lineDataService/lineData.module.js");
-/* harmony import */ var _services_navigationMenuService_navigationMenu_module_js__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./services/navigationMenuService/navigationMenu.module.js */ "./src/ng1/services/navigationMenuService/navigationMenu.module.js");
-/* harmony import */ var _services_notificationService_notification_module_js__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./services/notificationService/notification.module.js */ "./src/ng1/services/notificationService/notification.module.js");
-/* harmony import */ var _services_pdfService_pdf_module_js__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./services/pdfService/pdf.module.js */ "./src/ng1/services/pdfService/pdf.module.js");
-/* harmony import */ var _services_resizeService_resize_module_js__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./services/resizeService/resize.module.js */ "./src/ng1/services/resizeService/resize.module.js");
-/* harmony import */ var _services_safeAnimationFrame_safeAnimationFrame_module_js__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./services/safeAnimationFrame/safeAnimationFrame.module.js */ "./src/ng1/services/safeAnimationFrame/safeAnimationFrame.module.js");
-/* harmony import */ var _services_safeEventListener_safeEventListener_module_js__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./services/safeEventListener/safeEventListener.module.js */ "./src/ng1/services/safeEventListener/safeEventListener.module.js");
-/* harmony import */ var _services_safeInterval_safeInterval_module_js__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./services/safeInterval/safeInterval.module.js */ "./src/ng1/services/safeInterval/safeInterval.module.js");
-/* harmony import */ var _services_safeTimeout_safeTimeout_module_js__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./services/safeTimeout/safeTimeout.module.js */ "./src/ng1/services/safeTimeout/safeTimeout.module.js");
-/* harmony import */ var _services_throttleService_throttle_module_js__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./services/throttleService/throttle.module.js */ "./src/ng1/services/throttleService/throttle.module.js");
-/* harmony import */ var _services_timeAgoService_timeAgo_module_js__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./services/timeAgoService/timeAgo.module.js */ "./src/ng1/services/timeAgoService/timeAgo.module.js");
-/* harmony import */ var _services_windowCommunicationService_windowCommunication_module_js__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./services/windowCommunicationService/windowCommunication.module.js */ "./src/ng1/services/windowCommunicationService/windowCommunication.module.js");
-/* harmony import */ var _templates_angular_breadcrumb_angular_breadcrumb_html__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./templates/angular-breadcrumb/angular-breadcrumb.html */ "./src/ng1/templates/angular-breadcrumb/angular-breadcrumb.html");
-/* harmony import */ var _templates_angular_breadcrumb_angular_breadcrumb_html__WEBPACK_IMPORTED_MODULE_116___default = /*#__PURE__*/__webpack_require__.n(_templates_angular_breadcrumb_angular_breadcrumb_html__WEBPACK_IMPORTED_MODULE_116__);
-/* harmony import */ var _templates_ui_bootstrap_pagination_pagination_html__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./templates/ui-bootstrap/pagination/pagination.html */ "./src/ng1/templates/ui-bootstrap/pagination/pagination.html");
-/* harmony import */ var _templates_ui_bootstrap_pagination_pagination_html__WEBPACK_IMPORTED_MODULE_117___default = /*#__PURE__*/__webpack_require__.n(_templates_ui_bootstrap_pagination_pagination_html__WEBPACK_IMPORTED_MODULE_117__);
-/* harmony import */ var _directives_facets_facetOption_facetOptionDefault_html__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./directives/facets/facetOption/facetOptionDefault.html */ "./src/ng1/directives/facets/facetOption/facetOptionDefault.html");
-/* harmony import */ var _directives_facets_facetOption_facetOptionDefault_html__WEBPACK_IMPORTED_MODULE_118___default = /*#__PURE__*/__webpack_require__.n(_directives_facets_facetOption_facetOptionDefault_html__WEBPACK_IMPORTED_MODULE_118__);
-/* harmony import */ var _wrappers_wrappers_module__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./wrappers/wrappers.module */ "./src/ng1/wrappers/wrappers.module.js");
+/* harmony import */ var _external_angular_breadcrumb_angular_breadcrumb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./external/angular-breadcrumb/angular-breadcrumb */ "./src/ng1/external/angular-breadcrumb/angular-breadcrumb.js");
+/* harmony import */ var _external_angular_breadcrumb_angular_breadcrumb__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_external_angular_breadcrumb_angular_breadcrumb__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _external_angular_file_upload_angular_file_upload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./external/angular-file-upload/angular-file-upload */ "./src/ng1/external/angular-file-upload/angular-file-upload.js");
+/* harmony import */ var _external_angular_file_upload_angular_file_upload__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_external_angular_file_upload_angular_file_upload__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _external_angular_flot_angular_flot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./external/angular-flot/angular-flot */ "./src/ng1/external/angular-flot/angular-flot.js");
+/* harmony import */ var _external_angular_flot_angular_flot__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_external_angular_flot_angular_flot__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _external_angular_peity_angular_peity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./external/angular-peity/angular-peity */ "./src/ng1/external/angular-peity/angular-peity.js");
+/* harmony import */ var _external_angular_peity_angular_peity__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_external_angular_peity_angular_peity__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _external_angular_sanitize_angular_sanitize_min__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./external/angular-sanitize/angular-sanitize.min */ "./src/ng1/external/angular-sanitize/angular-sanitize.min.js");
+/* harmony import */ var _external_angular_sanitize_angular_sanitize_min__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_external_angular_sanitize_angular_sanitize_min__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _external_angular_scrollable_table_angular_scrollable_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./external/angular-scrollable-table/angular-scrollable-table */ "./src/ng1/external/angular-scrollable-table/angular-scrollable-table.js");
+/* harmony import */ var _external_angular_scrollable_table_angular_scrollable_table__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_external_angular_scrollable_table_angular_scrollable_table__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _external_angular_scrollPane_angular_jscrollpane__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./external/angular-scrollPane/angular-jscrollpane */ "./src/ng1/external/angular-scrollPane/angular-jscrollpane.js");
+/* harmony import */ var _external_angular_scrollPane_angular_jscrollpane__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_external_angular_scrollPane_angular_jscrollpane__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _external_angular_timeline_angular_timeline__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./external/angular-timeline/angular-timeline */ "./src/ng1/external/angular-timeline/angular-timeline.js");
+/* harmony import */ var _external_angular_timeline_angular_timeline__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_external_angular_timeline_angular_timeline__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _external_angular_ui_router_angular_ui_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./external/angular-ui-router/angular-ui-router */ "./src/ng1/external/angular-ui-router/angular-ui-router.js");
+/* harmony import */ var _external_angular_ui_router_angular_ui_router__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_external_angular_ui_router_angular_ui_router__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _external_angular_ui_tree_angular_ui_tree__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./external/angular-ui-tree/angular-ui-tree */ "./src/ng1/external/angular-ui-tree/angular-ui-tree.js");
+/* harmony import */ var _external_angular_ui_tree_angular_ui_tree__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_external_angular_ui_tree_angular_ui_tree__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _plugins_d3_d3__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./plugins/d3/d3 */ "./src/ng1/plugins/d3/d3.js");
+/* harmony import */ var _plugins_d3_d3__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_plugins_d3_d3__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _external_d3_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./external/d3/_module */ "./src/ng1/external/d3/_module.js");
+/* harmony import */ var _external_d3_module__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_external_d3_module__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _external_d3_d3_directive__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./external/d3/d3.directive */ "./src/ng1/external/d3/d3.directive.js");
+/* harmony import */ var _external_d3_d3_directive__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_external_d3_d3_directive__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _external_ng_tags_input_ng_tags_input__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./external/ng-tags-input/ng-tags-input */ "./src/ng1/external/ng-tags-input/ng-tags-input.js");
+/* harmony import */ var _external_ng_tags_input_ng_tags_input__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_external_ng_tags_input_ng_tags_input__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _external_sigma_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./external/sigma/_module */ "./src/ng1/external/sigma/_module.js");
+/* harmony import */ var _external_sigma_module__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_external_sigma_module__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _external_sigma_sigma_directive__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./external/sigma/sigma.directive */ "./src/ng1/external/sigma/sigma.directive.js");
+/* harmony import */ var _external_sigma_sigma_directive__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_external_sigma_sigma_directive__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _external_ui_bootstrap_ui_bootstrap_tpls__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./external/ui-bootstrap/ui-bootstrap-tpls */ "./src/ng1/external/ui-bootstrap/ui-bootstrap-tpls.js");
+/* harmony import */ var _external_ui_bootstrap_ui_bootstrap_tpls__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_external_ui_bootstrap_ui_bootstrap_tpls__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _directives_affixElement_affixElement_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./directives/affixElement/affixElement.module */ "./src/ng1/directives/affixElement/affixElement.module.js");
+/* harmony import */ var _directives_applicationSwitcher_applicationSwitcher_module__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./directives/applicationSwitcher/applicationSwitcher.module */ "./src/ng1/directives/applicationSwitcher/applicationSwitcher.module.js");
+/* harmony import */ var _directives_backButton_backButton_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./directives/backButton/backButton.module */ "./src/ng1/directives/backButton/backButton.module.js");
+/* harmony import */ var _directives_backButtonHeader_backButtonHeader_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./directives/backButtonHeader/backButtonHeader.module */ "./src/ng1/directives/backButtonHeader/backButtonHeader.module.js");
+/* harmony import */ var _directives_cardTabs_cardTabs_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./directives/cardTabs/cardTabs.module */ "./src/ng1/directives/cardTabs/cardTabs.module.js");
+/* harmony import */ var _directives_checkbox_checkbox_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./directives/checkbox/checkbox.module */ "./src/ng1/directives/checkbox/checkbox.module.js");
+/* harmony import */ var _directives_componentList_componentList_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./directives/componentList/componentList.module */ "./src/ng1/directives/componentList/componentList.module.js");
+/* harmony import */ var _directives_condensedHeader_condensedHeader_module__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./directives/condensedHeader/condensedHeader.module */ "./src/ng1/directives/condensedHeader/condensedHeader.module.js");
+/* harmony import */ var _directives_contacts_contacts_module__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./directives/contacts/contacts.module */ "./src/ng1/directives/contacts/contacts.module.js");
+/* harmony import */ var _directives_dateTimePicker_dateTimePicker_module__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./directives/dateTimePicker/dateTimePicker.module */ "./src/ng1/directives/dateTimePicker/dateTimePicker.module.js");
+/* harmony import */ var _directives_displayPanels_displayPanels_module__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./directives/displayPanels/displayPanels.module */ "./src/ng1/directives/displayPanels/displayPanels.module.js");
+/* harmony import */ var _directives_draggableCards_draggableCards_module__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./directives/draggableCards/draggableCards.module */ "./src/ng1/directives/draggableCards/draggableCards.module.js");
+/* harmony import */ var _directives_draggablePanels_draggablePanels_module__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./directives/draggablePanels/draggablePanels.module */ "./src/ng1/directives/draggablePanels/draggablePanels.module.js");
+/* harmony import */ var _directives_dynamicSelect_dynamicSelect_module__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./directives/dynamicSelect/dynamicSelect.module */ "./src/ng1/directives/dynamicSelect/dynamicSelect.module.js");
+/* harmony import */ var _directives_elementReady_elementReady_module__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./directives/elementReady/elementReady.module */ "./src/ng1/directives/elementReady/elementReady.module.js");
+/* harmony import */ var _directives_eventHandlers_event_handlers_module__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./directives/eventHandlers/event-handlers.module */ "./src/ng1/directives/eventHandlers/event-handlers.module.js");
+/* harmony import */ var _directives_expandingTextarea_expandingTextarea_module__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./directives/expandingTextarea/expandingTextarea.module */ "./src/ng1/directives/expandingTextarea/expandingTextarea.module.js");
+/* harmony import */ var _directives_expandInputs_expandInput_module__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./directives/expandInputs/expandInput.module */ "./src/ng1/directives/expandInputs/expandInput.module.js");
+/* harmony import */ var _directives_expandSearch_expandSearch_module__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./directives/expandSearch/expandSearch.module */ "./src/ng1/directives/expandSearch/expandSearch.module.js");
+/* harmony import */ var _directives_extendedCheckboxHit_extendedCheckboxHit_module__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./directives/extendedCheckboxHit/extendedCheckboxHit.module */ "./src/ng1/directives/extendedCheckboxHit/extendedCheckboxHit.module.js");
+/* harmony import */ var _directives_facets_facets_module__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./directives/facets/facets.module */ "./src/ng1/directives/facets/facets.module.js");
+/* harmony import */ var _directives_filters_filters_module__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./directives/filters/filters.module */ "./src/ng1/directives/filters/filters.module.js");
+/* harmony import */ var _directives_fixedHeaderTable_fixed_header_table_module__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./directives/fixedHeaderTable/fixed-header-table.module */ "./src/ng1/directives/fixedHeaderTable/fixed-header-table.module.js");
+/* harmony import */ var _directives_flippableCard_flippableCard_module__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./directives/flippableCard/flippableCard.module */ "./src/ng1/directives/flippableCard/flippableCard.module.js");
+/* harmony import */ var _directives_floatingActionButton_floatingActionButton_module__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./directives/floatingActionButton/floatingActionButton.module */ "./src/ng1/directives/floatingActionButton/floatingActionButton.module.js");
+/* harmony import */ var _directives_floatLabel_floatLabel_module__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./directives/floatLabel/floatLabel.module */ "./src/ng1/directives/floatLabel/floatLabel.module.js");
+/* harmony import */ var _directives_focusIf_focusIf_module__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./directives/focusIf/focusIf.module */ "./src/ng1/directives/focusIf/focusIf.module.js");
+/* harmony import */ var _directives_focusOnShow_focusOnShow_module__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./directives/focusOnShow/focusOnShow.module */ "./src/ng1/directives/focusOnShow/focusOnShow.module.js");
+/* harmony import */ var _directives_forceFocus_forceFocus_module__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./directives/forceFocus/forceFocus.module */ "./src/ng1/directives/forceFocus/forceFocus.module.js");
+/* harmony import */ var _directives_grid_grid_module__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./directives/grid/grid.module */ "./src/ng1/directives/grid/grid.module.js");
+/* harmony import */ var _directives_groupedButtons_groupedButtons_module__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./directives/groupedButtons/groupedButtons.module */ "./src/ng1/directives/groupedButtons/groupedButtons.module.js");
+/* harmony import */ var _directives_helpCenter_helpCenter_module__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./directives/helpCenter/helpCenter.module */ "./src/ng1/directives/helpCenter/helpCenter.module.js");
+/* harmony import */ var _directives_hierarchyBar_hierarchyBar_module__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./directives/hierarchyBar/hierarchyBar.module */ "./src/ng1/directives/hierarchyBar/hierarchyBar.module.js");
+/* harmony import */ var _directives_hotkey_hotkey_module__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./directives/hotkey/hotkey.module */ "./src/ng1/directives/hotkey/hotkey.module.js");
+/* harmony import */ var _directives_hoverActions_hoverActions_module__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./directives/hoverActions/hoverActions.module */ "./src/ng1/directives/hoverActions/hoverActions.module.js");
+/* harmony import */ var _directives_index_index_module__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./directives/index/index.module */ "./src/ng1/directives/index/index.module.js");
+/* harmony import */ var _directives_infiniteScroll_infiniteScroll_module__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./directives/infiniteScroll/infiniteScroll.module */ "./src/ng1/directives/infiniteScroll/infiniteScroll.module.js");
+/* harmony import */ var _directives_inputMask_inputMask_module__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./directives/inputMask/inputMask.module */ "./src/ng1/directives/inputMask/inputMask.module.js");
+/* harmony import */ var _directives_keyboardNavigableTable_keyboardNavigableTable_module__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./directives/keyboardNavigableTable/keyboardNavigableTable.module */ "./src/ng1/directives/keyboardNavigableTable/keyboardNavigableTable.module.js");
+/* harmony import */ var _directives_layoutSwitcher_layoutSwitcher_module__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./directives/layoutSwitcher/layoutSwitcher.module */ "./src/ng1/directives/layoutSwitcher/layoutSwitcher.module.js");
+/* harmony import */ var _directives_listHoverActions_listHoverActions_module__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./directives/listHoverActions/listHoverActions.module */ "./src/ng1/directives/listHoverActions/listHoverActions.module.js");
+/* harmony import */ var _directives_listItemFilter_listItemFilter_module__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./directives/listItemFilter/listItemFilter.module */ "./src/ng1/directives/listItemFilter/listItemFilter.module.js");
+/* harmony import */ var _directives_marqueeWizard_marqueeWizard_module__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./directives/marqueeWizard/marqueeWizard.module */ "./src/ng1/directives/marqueeWizard/marqueeWizard.module.js");
+/* harmony import */ var _directives_menuTab_menuTab_module__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./directives/menuTab/menuTab.module */ "./src/ng1/directives/menuTab/menuTab.module.js");
+/* harmony import */ var _directives_minimizeMenu_minimizeMenu_module__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./directives/minimizeMenu/minimizeMenu.module */ "./src/ng1/directives/minimizeMenu/minimizeMenu.module.js");
+/* harmony import */ var _directives_modalInsetPanel_modalInsetPanel_module__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./directives/modalInsetPanel/modalInsetPanel.module */ "./src/ng1/directives/modalInsetPanel/modalInsetPanel.module.js");
+/* harmony import */ var _directives_multipleListSelect_multipleListSelect_module__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./directives/multipleListSelect/multipleListSelect.module */ "./src/ng1/directives/multipleListSelect/multipleListSelect.module.js");
+/* harmony import */ var _directives_multipleRowSelect_multipleRowSelect_module__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./directives/multipleRowSelect/multipleRowSelect.module */ "./src/ng1/directives/multipleRowSelect/multipleRowSelect.module.js");
+/* harmony import */ var _directives_nestedDonut_nestedDonut_module__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./directives/nestedDonut/nestedDonut.module */ "./src/ng1/directives/nestedDonut/nestedDonut.module.js");
+/* harmony import */ var _directives_numberPicker_numberPicker_module__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./directives/numberPicker/numberPicker.module */ "./src/ng1/directives/numberPicker/numberPicker.module.js");
+/* harmony import */ var _directives_organizationChart_organizationChart_module__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./directives/organizationChart/organizationChart.module */ "./src/ng1/directives/organizationChart/organizationChart.module.js");
+/* harmony import */ var _directives_overflowTooltip_overflowTooltip_module__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./directives/overflowTooltip/overflowTooltip.module */ "./src/ng1/directives/overflowTooltip/overflowTooltip.module.js");
+/* harmony import */ var _directives_pageTitle_pageTitle_module__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./directives/pageTitle/pageTitle.module */ "./src/ng1/directives/pageTitle/pageTitle.module.js");
+/* harmony import */ var _directives_partitionMap_partitionMap_module__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./directives/partitionMap/partitionMap.module */ "./src/ng1/directives/partitionMap/partitionMap.module.js");
+/* harmony import */ var _directives_peityChart_peityChart_module__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./directives/peityChart/peityChart.module */ "./src/ng1/directives/peityChart/peityChart.module.js");
+/* harmony import */ var _directives_previewPanes_previewPane_module__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./directives/previewPanes/previewPane.module */ "./src/ng1/directives/previewPanes/previewPane.module.js");
+/* harmony import */ var _directives_radiobutton_radiobutton_module__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./directives/radiobutton/radiobutton.module */ "./src/ng1/directives/radiobutton/radiobutton.module.js");
+/* harmony import */ var _directives_reorderableTable_reorderableTable_module__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./directives/reorderableTable/reorderableTable.module */ "./src/ng1/directives/reorderableTable/reorderableTable.module.js");
+/* harmony import */ var _directives_sankey_sankey_module__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./directives/sankey/sankey.module */ "./src/ng1/directives/sankey/sankey.module.js");
+/* harmony import */ var _directives_scrollTop_scrollTop_module__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./directives/scrollTop/scrollTop.module */ "./src/ng1/directives/scrollTop/scrollTop.module.js");
+/* harmony import */ var _directives_searchBuilder_searchBuilder_module__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./directives/searchBuilder/searchBuilder.module */ "./src/ng1/directives/searchBuilder/searchBuilder.module.js");
+/* harmony import */ var _directives_searchCategories_searchCategories_module__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./directives/searchCategories/searchCategories.module */ "./src/ng1/directives/searchCategories/searchCategories.module.js");
+/* harmony import */ var _directives_searchToolbar_searchToolbar_module__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./directives/searchToolbar/searchToolbar.module */ "./src/ng1/directives/searchToolbar/searchToolbar.module.js");
+/* harmony import */ var _directives_selectTable_selectTable_module__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./directives/selectTable/selectTable.module */ "./src/ng1/directives/selectTable/selectTable.module.js");
+/* harmony import */ var _directives_sideInset_sideInset_module__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./directives/sideInset/sideInset.module */ "./src/ng1/directives/sideInset/sideInset.module.js");
+/* harmony import */ var _directives_sideModal_sideModal_module__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./directives/sideModal/sideModal.module */ "./src/ng1/directives/sideModal/sideModal.module.js");
+/* harmony import */ var _directives_sideNavigation_sideNavigation_module__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./directives/sideNavigation/sideNavigation.module */ "./src/ng1/directives/sideNavigation/sideNavigation.module.js");
+/* harmony import */ var _directives_slider_slider_module__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./directives/slider/slider.module */ "./src/ng1/directives/slider/slider.module.js");
+/* harmony import */ var _directives_sliderChart_sliderChart_module__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./directives/sliderChart/sliderChart.module */ "./src/ng1/directives/sliderChart/sliderChart.module.js");
+/* harmony import */ var _directives_socialChart_socialChart_module__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./directives/socialChart/socialChart.module */ "./src/ng1/directives/socialChart/socialChart.module.js");
+/* harmony import */ var _directives_sorters_sorters_module__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./directives/sorters/sorters.module */ "./src/ng1/directives/sorters/sorters.module.js");
+/* harmony import */ var _directives_spark_spark_module__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./directives/spark/spark.module */ "./src/ng1/directives/spark/spark.module.js");
+/* harmony import */ var _directives_splitter_splitter_module__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./directives/splitter/splitter.module */ "./src/ng1/directives/splitter/splitter.module.js");
+/* harmony import */ var _directives_staticTooltip_staticTooltip_module__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./directives/staticTooltip/staticTooltip.module */ "./src/ng1/directives/staticTooltip/staticTooltip.module.js");
+/* harmony import */ var _directives_tagInput_tagInput_module__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./directives/tagInput/tagInput.module */ "./src/ng1/directives/tagInput/tagInput.module.js");
+/* harmony import */ var _directives_templateOutlet_template_outlet_module__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./directives/templateOutlet/template-outlet.module */ "./src/ng1/directives/templateOutlet/template-outlet.module.js");
+/* harmony import */ var _directives_thumbnail_thumbnail_module__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./directives/thumbnail/thumbnail.module */ "./src/ng1/directives/thumbnail/thumbnail.module.js");
+/* harmony import */ var _directives_timeAgo_timeAgo_module__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./directives/timeAgo/timeAgo.module */ "./src/ng1/directives/timeAgo/timeAgo.module.js");
+/* harmony import */ var _directives_toggleswitch_toggleswitch_module__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./directives/toggleswitch/toggleswitch.module */ "./src/ng1/directives/toggleswitch/toggleswitch.module.js");
+/* harmony import */ var _directives_tooltipOnOverflow_tooltipOnOverflow_module__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./directives/tooltipOnOverflow/tooltipOnOverflow.module */ "./src/ng1/directives/tooltipOnOverflow/tooltipOnOverflow.module.js");
+/* harmony import */ var _directives_treegrid_treegrid_module__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./directives/treegrid/treegrid.module */ "./src/ng1/directives/treegrid/treegrid.module.js");
+/* harmony import */ var _directives_treeView_treeView_module__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./directives/treeView/treeView.module */ "./src/ng1/directives/treeView/treeView.module.js");
+/* harmony import */ var _directives_wizard_wizard_module__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./directives/wizard/wizard.module */ "./src/ng1/directives/wizard/wizard.module.js");
+/* harmony import */ var _directives_multipleSelect_multipleSelect_module__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./directives/multipleSelect/multipleSelect.module */ "./src/ng1/directives/multipleSelect/multipleSelect.module.js");
+/* harmony import */ var _services_colorService_colorService_module__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./services/colorService/colorService.module */ "./src/ng1/services/colorService/colorService.module.js");
+/* harmony import */ var _services_debounceService_debounce_module__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./services/debounceService/debounce.module */ "./src/ng1/services/debounceService/debounce.module.js");
+/* harmony import */ var _services_flotDataService_flotDataService_module__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./services/flotDataService/flotDataService.module */ "./src/ng1/services/flotDataService/flotDataService.module.js");
+/* harmony import */ var _services_keyboardService_keyboardService_module__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./services/keyboardService/keyboardService.module */ "./src/ng1/services/keyboardService/keyboardService.module.js");
+/* harmony import */ var _services_lineDataService_lineData_module__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./services/lineDataService/lineData.module */ "./src/ng1/services/lineDataService/lineData.module.js");
+/* harmony import */ var _services_navigationMenuService_navigationMenu_module__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./services/navigationMenuService/navigationMenu.module */ "./src/ng1/services/navigationMenuService/navigationMenu.module.js");
+/* harmony import */ var _services_notificationService_notification_module__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./services/notificationService/notification.module */ "./src/ng1/services/notificationService/notification.module.js");
+/* harmony import */ var _services_pdfService_pdf_module__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./services/pdfService/pdf.module */ "./src/ng1/services/pdfService/pdf.module.js");
+/* harmony import */ var _services_resizeService_resize_module__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./services/resizeService/resize.module */ "./src/ng1/services/resizeService/resize.module.js");
+/* harmony import */ var _services_safeAnimationFrame_safeAnimationFrame_module__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./services/safeAnimationFrame/safeAnimationFrame.module */ "./src/ng1/services/safeAnimationFrame/safeAnimationFrame.module.js");
+/* harmony import */ var _services_safeEventListener_safeEventListener_module__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./services/safeEventListener/safeEventListener.module */ "./src/ng1/services/safeEventListener/safeEventListener.module.js");
+/* harmony import */ var _services_safeInterval_safeInterval_module__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./services/safeInterval/safeInterval.module */ "./src/ng1/services/safeInterval/safeInterval.module.js");
+/* harmony import */ var _services_safeTimeout_safeTimeout_module__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./services/safeTimeout/safeTimeout.module */ "./src/ng1/services/safeTimeout/safeTimeout.module.js");
+/* harmony import */ var _services_throttleService_throttle_module__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./services/throttleService/throttle.module */ "./src/ng1/services/throttleService/throttle.module.js");
+/* harmony import */ var _services_timeAgoService_timeAgo_module__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./services/timeAgoService/timeAgo.module */ "./src/ng1/services/timeAgoService/timeAgo.module.js");
+/* harmony import */ var _services_windowCommunicationService_windowCommunication_module__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./services/windowCommunicationService/windowCommunication.module */ "./src/ng1/services/windowCommunicationService/windowCommunication.module.js");
+/* harmony import */ var _templates_angular_breadcrumb_angular_breadcrumb_html__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./templates/angular-breadcrumb/angular-breadcrumb.html */ "./src/ng1/templates/angular-breadcrumb/angular-breadcrumb.html");
+/* harmony import */ var _templates_angular_breadcrumb_angular_breadcrumb_html__WEBPACK_IMPORTED_MODULE_117___default = /*#__PURE__*/__webpack_require__.n(_templates_angular_breadcrumb_angular_breadcrumb_html__WEBPACK_IMPORTED_MODULE_117__);
+/* harmony import */ var _templates_ui_bootstrap_pagination_pagination_html__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./templates/ui-bootstrap/pagination/pagination.html */ "./src/ng1/templates/ui-bootstrap/pagination/pagination.html");
+/* harmony import */ var _templates_ui_bootstrap_pagination_pagination_html__WEBPACK_IMPORTED_MODULE_118___default = /*#__PURE__*/__webpack_require__.n(_templates_ui_bootstrap_pagination_pagination_html__WEBPACK_IMPORTED_MODULE_118__);
+/* harmony import */ var _directives_facets_facetOption_facetOptionDefault_html__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./directives/facets/facetOption/facetOptionDefault.html */ "./src/ng1/directives/facets/facetOption/facetOptionDefault.html");
+/* harmony import */ var _directives_facets_facetOption_facetOptionDefault_html__WEBPACK_IMPORTED_MODULE_119___default = /*#__PURE__*/__webpack_require__.n(_directives_facets_facetOption_facetOptionDefault_html__WEBPACK_IMPORTED_MODULE_119__);
+/* harmony import */ var _wrappers_wrappers_module__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ./wrappers/wrappers.module */ "./src/ng1/wrappers/wrappers.module.js");
 // import external libraries
 
 
@@ -50191,6 +50514,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // import UX Aspects directives
+
 
 
 
@@ -50299,7 +50623,7 @@ __webpack_require__.r(__webpack_exports__);
 
  // create the UX Aspects module
 
-var aspects = angular.module('ux-aspects', ['ui.router', 'ui.bootstrap.ux-aspects', 'ngSanitize', 'angular-timeline', 'angular-peity', 'angular-flot', 'angularFileUpload', 'scrollable-table', 'ncy-angular-breadcrumb', 'ui.tree', 'ngJScrollPane', 'ux-aspects.wrappers', 'ux-aspects.affixElement', 'ux-aspects.applicationSwitcher', 'ux-aspects.backButton', 'ux-aspects.backButtonHeader', 'ux-aspects.cardTabs', 'ux-aspects.checkbox', 'ux-aspects.componentList', 'ux-aspects.condensedHeader', 'ux-aspects.contacts', 'ux-aspects.d3', 'ux-aspects.dateTimePicker', 'ux-aspects.displayPanels', 'ux-aspects.draggableCards', 'ux-aspects.draggablePanels', 'ux-aspects.dynamicSelect', 'ux-aspects.elementReady', 'ux-aspects.expandingTextarea', 'ux-aspects.expandInput', 'ux-aspects.expandSearch', 'ux-aspects.extendedCheckboxHit', 'ux-aspects.facets', 'ux-aspects.filters', 'ux-aspects.fixed-header-table', 'ux-aspects.flippableCard', 'ux-aspects.floatingActionButton', 'ux-aspects.floatLabel', 'ux-aspects.focusIf', 'ux-aspects.focusOnShow', 'ux-aspects.forceFocus', 'ux-aspects.grid', 'ux-aspects.groupedButtons', 'ux-aspects.helpCenter', 'ux-aspects.hierarchyBar', 'ux-aspects.hotkey', 'ux-aspects.hoverActions', 'ux-aspects.index', 'ux-aspects.infiniteScroll', 'ux-aspects.inputMask', 'ux-aspects.keyboardNavigableTable', 'ux-aspects.layoutSwitcher', 'ux-aspects.listHoverActions', 'ux-aspects.listItemFilter', 'ux-aspects.marqueeWizard', 'ux-aspects.menuTab', 'ux-aspects.minimizeMenu', 'ux-aspects.modalInsetPanel', 'ux-aspects.multipleListSelect', 'ux-aspects.multipleRowSelect', 'ux-aspects.nestedDonut', 'ux-aspects.numberPicker', 'ux-aspects.organizationChart', 'ux-aspects.overflowTooltip', 'ux-aspects.pageTitle', 'ux-aspects.partitionMap', 'ux-aspects.updatingLinechart', 'ux-aspects.previewPanes', 'ux-aspects.radiobutton', 'ux-aspects.reorderableTable', 'ux-aspects.sankey', 'ux-aspects.scrollTop', 'ux-aspects.searchBuilder', 'ux-aspects.searchCategories', 'ux-aspects.searchToolbar', 'ux-aspects.selectTable', 'ux-aspects.sideInset', 'ux-aspects.sideModal', 'ux-aspects.sideNavigation', 'ux-aspects.slider', 'ux-aspects.sliderChart', 'ux-aspects.socialChart', 'ux-aspects.sigma', 'ux-aspects.sorters', 'ux-aspects.spark', 'ux-aspects.splitter', 'ux-aspects.staticTooltip', 'ux-aspects.tagInput', 'ux-aspects.thumbnail', 'ux-aspects.timeAgo', 'ux-aspects.toggleswitch', 'ux-aspects.tooltipOnOverflow', 'ux-aspects.treegrid', 'ux-aspects.treeview', 'ux-aspects.wizard', // services
+var aspects = angular.module('ux-aspects', ['ui.router', 'ui.bootstrap.ux-aspects', 'ngSanitize', 'angular-timeline', 'angular-peity', 'angular-flot', 'angularFileUpload', 'scrollable-table', 'ncy-angular-breadcrumb', 'ui.tree', 'ngJScrollPane', 'ux-aspects.wrappers', 'ux-aspects.affixElement', 'ux-aspects.applicationSwitcher', 'ux-aspects.backButton', 'ux-aspects.backButtonHeader', 'ux-aspects.cardTabs', 'ux-aspects.checkbox', 'ux-aspects.componentList', 'ux-aspects.condensedHeader', 'ux-aspects.contacts', 'ux-aspects.d3', 'ux-aspects.dateTimePicker', 'ux-aspects.displayPanels', 'ux-aspects.draggableCards', 'ux-aspects.draggablePanels', 'ux-aspects.dynamicSelect', 'ux-aspects.elementReady', 'ux-aspects.eventHandlers', 'ux-aspects.expandingTextarea', 'ux-aspects.expandInput', 'ux-aspects.expandSearch', 'ux-aspects.extendedCheckboxHit', 'ux-aspects.facets', 'ux-aspects.filters', 'ux-aspects.fixed-header-table', 'ux-aspects.flippableCard', 'ux-aspects.floatingActionButton', 'ux-aspects.floatLabel', 'ux-aspects.focusIf', 'ux-aspects.focusOnShow', 'ux-aspects.forceFocus', 'ux-aspects.grid', 'ux-aspects.groupedButtons', 'ux-aspects.helpCenter', 'ux-aspects.hierarchyBar', 'ux-aspects.hotkey', 'ux-aspects.hoverActions', 'ux-aspects.index', 'ux-aspects.infiniteScroll', 'ux-aspects.inputMask', 'ux-aspects.keyboardNavigableTable', 'ux-aspects.layoutSwitcher', 'ux-aspects.listHoverActions', 'ux-aspects.listItemFilter', 'ux-aspects.marqueeWizard', 'ux-aspects.menuTab', 'ux-aspects.minimizeMenu', 'ux-aspects.modalInsetPanel', 'ux-aspects.multipleListSelect', 'ux-aspects.multipleRowSelect', 'ux-aspects.nestedDonut', 'ux-aspects.numberPicker', 'ux-aspects.organizationChart', 'ux-aspects.overflowTooltip', 'ux-aspects.pageTitle', 'ux-aspects.partitionMap', 'ux-aspects.updatingLinechart', 'ux-aspects.previewPanes', 'ux-aspects.radiobutton', 'ux-aspects.reorderableTable', 'ux-aspects.sankey', 'ux-aspects.scrollTop', 'ux-aspects.searchBuilder', 'ux-aspects.searchCategories', 'ux-aspects.searchToolbar', 'ux-aspects.selectTable', 'ux-aspects.sideInset', 'ux-aspects.sideModal', 'ux-aspects.sideNavigation', 'ux-aspects.slider', 'ux-aspects.sliderChart', 'ux-aspects.socialChart', 'ux-aspects.sigma', 'ux-aspects.sorters', 'ux-aspects.spark', 'ux-aspects.splitter', 'ux-aspects.staticTooltip', 'ux-aspects.tagInput', 'ux-aspects.thumbnail', 'ux-aspects.timeAgo', 'ux-aspects.toggleswitch', 'ux-aspects.tooltipOnOverflow', 'ux-aspects.treegrid', 'ux-aspects.treeview', 'ux-aspects.wizard', // services
 'ux-aspects.colorService', 'ux-aspects.debounceService', 'ux-aspects.flotDataService', 'ux-aspects.keyboardService', 'ux-aspects.lineDataService', 'ux-aspects.multipleSelect', 'ux-aspects.navigationMenuService', 'ux-aspects.notificationService', 'ux-aspects.pdfService', 'ux-aspects.resizeService', 'ux-aspects.safeAnimationFrame', 'ux-aspects.safeEventListener', 'ux-aspects.safeInterval', 'ux-aspects.safeTimeout', 'ux-aspects.throttleService', 'ux-aspects.timeAgoService', 'ux-aspects.windowCommunicationService']); // perform some initial configuration
 
 aspects.config(["datepickerPopupConfig", "datepickerConfig", "paginationConfig", "$tooltipProvider", "$breadcrumbProvider", "$compileProvider", function (datepickerPopupConfig, datepickerConfig, paginationConfig, $tooltipProvider, $breadcrumbProvider, $compileProvider) {

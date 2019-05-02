@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('d3-ease'), require('d3-interpolate'), require('d3-shape'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'd3-ease', 'd3-interpolate', 'd3-shape', 'ngx-bootstrap/dropdown', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.d3Ease,global.d3Interpolate,global.d3Shape,global.dropdown,global.ng.router,global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,portal,from,concat,timer,fromEvent,http,of,filter,d3Ease,d3Interpolate,d3Shape,dropdown,router,d3Hierarchy,d3Scale,d3Selection,d3Transition,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,fromEvent,http,of,filter,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,d3Hierarchy,d3Scale,d3Selection,d3Transition,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -11127,6 +11127,10 @@
              */
             this.startOfWeek = common.WeekDay.Sunday;
             /**
+             * Define a function to return the number of days within the selected range
+             */
+            this.durationTitle = this.getDurationTitle;
+            /**
              * Emit when the start date changes
              */
             this.startChange = new core.EventEmitter();
@@ -11300,10 +11304,24 @@
                 this.rangeService.setEndDate(date);
                 this.endChange.emit(date);
             };
+        /** Get the text to display to indicate the duration */
+        /**
+         * Get the text to display to indicate the duration
+         * @param {?} days
+         * @return {?}
+         */
+        DateRangePickerComponent.prototype.getDurationTitle = /**
+         * Get the text to display to indicate the duration
+         * @param {?} days
+         * @return {?}
+         */
+            function (days) {
+                return days + ' ' + (days > 1 ? 'days' : 'day');
+            };
         DateRangePickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-range-picker',
-                        template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <i class=\"hpe-icon hpe-link-next\"></i>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n      {{ _duration }} {{ _duration > 1 ? 'days' : 'day' }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
+                        template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <i class=\"hpe-icon hpe-link-next\"></i>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n        {{ durationTitle(_duration || 0) }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         providers: [DateRangeService]
                     }] }
@@ -11337,6 +11355,7 @@
             startTimezone: [{ type: core.Input }],
             endTimezone: [{ type: core.Input }],
             startOfWeek: [{ type: core.Input }],
+            durationTitle: [{ type: core.Input }],
             startChange: [{ type: core.Output }],
             endChange: [{ type: core.Output }],
             startTimezoneChange: [{ type: core.Output }],
@@ -16237,6 +16256,7 @@
             this.clicking = false;
             this.highlighted$ = new BehaviorSubject.BehaviorSubject(null);
             this.highlightedKey = null;
+            this.activeKey = null;
             this._onDestroy = new Subject.Subject();
             this.optionApi = {
                 getKey: this.getKey.bind(this),
@@ -16293,6 +16313,18 @@
              * @return {?}
              */ function (value) {
                 this._service.open$.next(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TypeaheadComponent.prototype, "active", {
+            /** Specify the currently active item */
+            set: /**
+             * Specify the currently active item
+             * @param {?} item
+             * @return {?}
+             */ function (item) {
+                this.activeKey = this.getKey(item);
             },
             enumerable: true,
             configurable: true
@@ -16657,7 +16689,7 @@
         TypeaheadComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-typeahead',
-                        template: "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [collection]=\"visibleOptions$ | async\"\n    (collectionChange)=\"visibleOptions$.next($event)\"\n    [enabled]=\"isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : null\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
+                        template: "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [collection]=\"visibleOptions$ | async\"\n    (collectionChange)=\"visibleOptions$.next($event)\"\n    [enabled]=\"isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [class.active]=\"activeKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
                         providers: [TypeaheadService],
                         host: {
                             'role': 'listbox',
@@ -16694,6 +16726,7 @@
             loadingTemplate: [{ type: core.Input }],
             optionTemplate: [{ type: core.Input }],
             noOptionsTemplate: [{ type: core.Input }],
+            active: [{ type: core.Input }],
             openChange: [{ type: core.Output }],
             optionSelected: [{ type: core.Output }],
             highlightedChange: [{ type: core.Output }],
@@ -20790,6 +20823,10 @@
          * @return {?}
          */
             function (root) {
+                // if the node is null or undefined then do nothing
+                if (!root) {
+                    return;
+                }
                 // store the root node
                 this._root = root;
                 // create a flat structure of nodes
@@ -20819,6 +20856,10 @@
             function (node) {
                 // deselect all nodes
                 this.deselectAll();
+                // if the node is undefined then do nothing
+                if (!node) {
+                    return;
+                }
                 // ensure the current node is selected and its parents
                 this.select(node);
                 // emit a new node list to trigger change detection
@@ -21617,7 +21658,7 @@
         HierarchyBarNodeComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
-                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
+                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -21852,6 +21893,29 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /** @enum {string} */
+    var SidePanelAnimationState = {
+        Closed: 'closed',
+        Open: 'open',
+        OpenImmediate: 'openImmediate',
+    };
+    /** @type {?} */
+    var sidePanelStateAnimation = animations.trigger('panelState', [
+        animations.state(SidePanelAnimationState.Closed, animations.style({
+            visibility: 'hidden'
+        })),
+        animations.state(SidePanelAnimationState.Open + ", " + SidePanelAnimationState.OpenImmediate, animations.style({
+            visibility: 'visible',
+            transform: 'none'
+        })),
+        animations.transition(SidePanelAnimationState.Closed + " <=> " + SidePanelAnimationState.Open, animations.animate('0.2s cubic-bezier(0.49, 1, 0.38, 0.98)')),
+        animations.transition(SidePanelAnimationState.Closed + " <=> " + SidePanelAnimationState.OpenImmediate, animations.animate('0s'))
+    ]);
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var SidePanelService = /** @class */ (function () {
         function SidePanelService() {
             this.open$ = new BehaviorSubject.BehaviorSubject(false);
@@ -21982,7 +22046,14 @@
          */
             function () {
                 var _this = this;
-                this.service.open$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) { return _this.openChange.emit(isOpen); });
+                this.service.open$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) {
+                    _this.animationPanelState = isOpen
+                        ? _this.animate
+                            ? SidePanelAnimationState.Open
+                            : SidePanelAnimationState.OpenImmediate
+                        : SidePanelAnimationState.Closed;
+                    _this.openChange.emit(isOpen);
+                });
             };
         /**
          * @return {?}
@@ -22035,10 +22106,11 @@
             { type: core.Component, args: [{
                         selector: 'ux-side-panel',
                         exportAs: 'ux-side-panel',
-                        template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\">\n    <ng-content></ng-content>\n</div>\n",
+                        template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\">\n    <ng-content></ng-content>\n</div>\n",
                         providers: [SidePanelService],
+                        animations: [sidePanelStateAnimation],
                         host: {
-                            'class': 'ux-side-panel'
+                            class: 'ux-side-panel'
                         }
                     }] }
         ];
@@ -22166,6 +22238,7 @@
          */
             function () {
                 var _this = this;
+                _super.prototype.ngOnInit.call(this);
                 this.service.open$.pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (isVisible) { return _this.visibleChange.emit(isVisible); });
             };
         /**
@@ -22182,8 +22255,9 @@
         ItemDisplayPanelComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-item-display-panel',
-                        template: "<div class=\"ux-side-panel-host ux-item-display-panel\" #panel\n    [class.box-shadow]=\"boxShadow\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [focusIf]=\"open && focusOnShow\">\n\n    <div class=\"ux-side-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n        <h3>{{ header }}</h3>\n        <button *ngIf=\"closeVisible\" aria-label=\"Close\" i18n-aria-label type=\"button\" class=\"btn btn-lg btn-link btn-icon button-secondary\" (click)=\"visible = false\">\n            <i class=\"hpe-icon hpe-close\"></i>\n        </button>\n    </div>\n\n    <div class=\"ux-side-panel-content\">\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n    </div>\n\n    <div class=\"ux-side-panel-footer\" *ngIf=\"footer\">\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n    </div>\n\n</div>\n",
+                        template: "<div class=\"ux-side-panel-host ux-item-display-panel\" #panel\n    [class.box-shadow]=\"boxShadow\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [@panelState]=\"animationPanelState\"\n    [tabindex]=\"open ? 0 : -1\"\n    [focusIf]=\"open && focusOnShow\">\n\n    <div class=\"ux-side-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n        <h3>{{ header }}</h3>\n        <button *ngIf=\"closeVisible\" aria-label=\"Close\" i18n-aria-label type=\"button\" class=\"btn btn-lg btn-link btn-icon button-secondary\" (click)=\"visible = false\">\n            <i class=\"hpe-icon hpe-close\"></i>\n        </button>\n    </div>\n\n    <div class=\"ux-side-panel-content\">\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n    </div>\n\n    <div class=\"ux-side-panel-footer\" *ngIf=\"footer\">\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n    </div>\n\n</div>\n",
                         providers: [SidePanelService],
+                        animations: [sidePanelStateAnimation],
                         host: {
                             'class': 'ux-side-panel ux-item-display-panel'
                         }
@@ -27406,6 +27480,1379 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
+    var OrganizationChartComponent = /** @class */ (function () {
+        function OrganizationChartComponent(_elementRef, _resizeService, _componentFactoryResolver, _injector, _appRef, _viewContainerRef, _renderer, _focusIndicator, _ngZone) {
+            this._elementRef = _elementRef;
+            this._resizeService = _resizeService;
+            this._componentFactoryResolver = _componentFactoryResolver;
+            this._injector = _injector;
+            this._appRef = _appRef;
+            this._viewContainerRef = _viewContainerRef;
+            this._renderer = _renderer;
+            this._focusIndicator = _focusIndicator;
+            this._ngZone = _ngZone;
+            /**
+             * Define the presentation of the connectors
+             */
+            this.connector = 'elbow';
+            /**
+             * Define the duration of the transition animations
+             */
+            this.duration = 750;
+            /**
+             * Define whether or not we can reveal additional parents
+             */
+            this.showReveal = false;
+            /**
+             * Define the aria label for the reveal button
+             */
+            this.revealAriaLabel = 'Reveal More';
+            /**
+             * Emit whenever a node is selected
+             */
+            this.selectedChange = new core.EventEmitter(true);
+            /**
+             * Emit whenever the reveal button is pressed
+             */
+            this.reveal = new core.EventEmitter();
+            /**
+             * Store a flattened array of nodes
+             */
+            this._nodeLayout = [];
+            /**
+             * Store a flattened array of links
+             */
+            this._linkLayout = [];
+            /**
+             * Store the portal/outlets associated with some data
+             */
+            this._portals = new Map();
+            /**
+             * Store the focus indicators associated with nodes
+             */
+            this._indicators = new Map();
+            /**
+             * Store whether or not a transition is in progress
+             */
+            this._isTransitioning = false;
+            /**
+             * Store whether or not a camera pan is in progress
+             */
+            this._isPanning = false;
+            /**
+             * Determine if the component is initialised
+             */
+            this._isInitialised = false;
+            /**
+             * Determine if the connector type has changed since the last render
+             */
+            this._hasConnectorChanged = false;
+            /**
+             * Automatically unsubscribe from all subscriptions on destroy
+             */
+            this._onDestroy = new Subject.Subject();
+        }
+        Object.defineProperty(OrganizationChartComponent.prototype, "selected", {
+            /** Programmatically select an item */
+            set: /**
+             * Programmatically select an item
+             * @param {?} selected
+             * @return {?}
+             */ function (selected) {
+                if (this.selected === selected || !selected) {
+                    return;
+                }
+                if (this._isInitialised) {
+                    this.select(selected);
+                    this.centerNode(selected);
+                }
+                else {
+                    this._pendingSelection = selected;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // before we do anything ensure they have provided a template
+                if (!this.nodeTemplate) {
+                    throw new Error('Organization Chart - You must provide a node template!');
+                }
+                if (!this.nodeWidth || !this.nodeHeight) {
+                    throw new Error('Organization Chart - You must specify a nodeWidth and nodeHeight');
+                }
+                // create the zoom drag listener
+                this._zoom = d3Zoom.zoom()
+                    .scaleExtent([1, 1])
+                    .interpolate(d3Interpolate.interpolate)
+                    .on('zoom', this.applyCameraPosition.bind(this))
+                    .on('end', function () {
+                    if (!_this._isPanning) {
+                        _this.ensureNodesAreVisible();
+                    }
+                });
+                // set up the selections
+                this._linksContainer = d3Selection.select(this.linksContainer.nativeElement);
+                this._nodesContainer = d3Selection.select(this.nodesContainer.nativeElement);
+                // setup the zoom on the node layer
+                this._nodesContainer.call(this._zoom);
+                // perform the initial render
+                this.render();
+                // ensure we set the initial chart size
+                this._width = this._elementRef.nativeElement.offsetWidth;
+                this._height = this._elementRef.nativeElement.offsetHeight;
+                // watch for any resizing of the chart
+                /** @type {?} */
+                var resize$ = this._resizeService.addResizeListener(this._elementRef.nativeElement);
+                // on size change immediate update the width and height measurements
+                resize$.pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(this.onResize.bind(this));
+                // after a debounce ensure nodes are visible
+                resize$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(this.duration))
+                    .subscribe(this.ensureNodesAreVisible.bind(this));
+                // initially horizontally center the root node
+                this.centerNode(this.dataset, OrganizationChartAxis.Horizontal, false);
+                // initally move the camera down slightly so the root node does not appear at the very top of the chart
+                this.moveCamera(0, 150, false);
+                // mark this component as initialised
+                this._isInitialised = true;
+            };
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.ngOnChanges = /**
+         * @param {?} changes
+         * @return {?}
+         */
+            function (changes) {
+                if (changes.connector && !changes.connector.firstChange) {
+                    this._hasConnectorChanged = true;
+                }
+                // if only the selected property has changed then don't re-render as this is handled by the setter
+                if (Object.keys(changes).length === 1 && changes.selected) {
+                    return;
+                }
+                if (this._isInitialised) {
+                    this.render();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                // correctly dispose all portals and outlets
+                this._portals.forEach(function (node) {
+                    node.portal.detach();
+                    node.outlet.dispose();
+                });
+            };
+        /** Perform the actual rendering of the chart */
+        /**
+         * Perform the actual rendering of the chart
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.render = /**
+         * Perform the actual rendering of the chart
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // perform the layout algorithm on the current dataset
+                this.updateLayout();
+                // select all the existing links and nodes
+                this.updateSelections();
+                // create a d3 transition based in the specified transition time
+                /** @type {?} */
+                var defaultTransition = d3Transition.transition()
+                    .duration(this.duration)
+                    .on('start', function () { return _this._isTransitioning = true; })
+                    .on('end', function () { return _this._isTransitioning = false; });
+                // render the links when they are first added to the DOM
+                this._links.enter()
+                    .insert('path')
+                    .attr('class', 'ux-organization-chart-link')
+                    .attr('d', function (link) { return _this.getLinkPath(link); })
+                    .attr('opacity', -2)
+                    .transition(defaultTransition)
+                    .attr('d', function (link) { return _this.getLinkPath(link); })
+                    .attr('opacity', 1);
+                // define the standard transition while the link is 'alive'
+                this._links.transition()
+                    .duration(this._hasConnectorChanged ? 0 : this.duration)
+                    .attr('d', function (link) { return _this.getLinkPath(link); });
+                // apply transitions when removing nodes
+                this._links.exit()
+                    .transition(defaultTransition)
+                    .attr('d', function (link) { return _this.getCollapsedLinkPath(link); })
+                    .attr('opacity', 0)
+                    .remove();
+                // when a node is first added to the DOM position it
+                this._nodes.enter()
+                    .append('div')
+                    .attr('class', 'ux-organization-chart-node')
+                    .style('width', this.nodeWidth + 'px')
+                    .style('height', this.nodeHeight + 'px')
+                    .style('left', function (node) { return (node.parent ? node.parent.x : node.x) + 'px'; })
+                    .style('top', function (node) { return (node.parent ? node.parent.y : node.y) + 'px'; })
+                    .style('opacity', 0)
+                    .on('keydown', this.onKeydown.bind(this))
+                    .on('focus', this.onFocus.bind(this))
+                    .on('mousedown', function () { return d3Selection.event.stopPropagation(); })
+                    .on('click', this.toggle.bind(this))
+                    .each(this.renderNodeTemplate.bind(this))
+                    .each(function (node, index, group) { return _this.monitorFocus(group[index], node); })
+                    .transition(defaultTransition)
+                    .style('left', function (node) { return node.x + 'px'; })
+                    .style('top', function (node) { return node.y + 'px'; })
+                    .style('opacity', 1);
+                // apply any movements while nodes are 'alive'
+                this._nodes.transition(defaultTransition)
+                    .style('left', function (node) { return node.x + 'px'; })
+                    .style('top', function (node) { return node.y + 'px'; });
+                // apply transitions when removing nodes
+                this._nodes.exit()
+                    .transition(defaultTransition)
+                    .style('left', function (node) { return (node.parent ? node.parent.x : node.x) + 'px'; })
+                    .style('opacity', 0)
+                    .remove()
+                    .on('end', function (node) { return _this.destroyNode(node); });
+                // update the position of the reveal button
+                d3Selection.select(this.revealElement.nativeElement)
+                    .style('left', ((this.nodeWidth / 2) - (this.revealElement.nativeElement.offsetWidth / 2)) + 'px')
+                    .style('top', -((this.nodeHeight / 2) + (this.revealElement.nativeElement.offsetHeight / 2)) + 'px');
+                // after any new links and nodes have been created or removed we should update the selections
+                this.updateSelections();
+                // update the selected classes - ensure there is always a selected node
+                if (!this._selected) {
+                    this.select(this._pendingSelection || this.dataset);
+                    this._pendingSelection = null;
+                }
+                // set the tab indexes and aria labels for any newly added items
+                this.setNodeAttributes();
+                // apply the current camera position to any new nodes/links
+                this.applyCameraPosition();
+                // reset the connector changed status
+                this._hasConnectorChanged = false;
+            };
+        /** Select a specified node */
+        /**
+         * Select a specified node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.select = /**
+         * Select a specified node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // get the node in the desired format
+                node = ( /** @type {?} */(this.coerceDataNode(node)));
+                // check if the node is already selected
+                if (this._selected === node) {
+                    return;
+                }
+                // ensure all parents are expanded
+                this.expandParents(node);
+                // deselect any current node
+                this.deselect(false);
+                // if the selected item has changed then store the latest selection
+                this._selected = node;
+                // emit the latest selection
+                this.selectedChange.next(this._selected);
+                // update the tab indexes and aria labels
+                if (this._isInitialised) {
+                    this.render();
+                }
+                // add the styling to the selected node
+                this._renderer.addClass(this.getNodeElement(this._selected), 'ux-organization-chart-node-selected');
+                // update the styling and tabindexes
+                this.setNodeAttributes();
+            };
+        /** Deselect the currently selected node */
+        /**
+         * Deselect the currently selected node
+         * @param {?=} emit
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.deselect = /**
+         * Deselect the currently selected node
+         * @param {?=} emit
+         * @return {?}
+         */
+            function (emit) {
+                var _this = this;
+                if (emit === void 0) {
+                    emit = true;
+                }
+                if (this._nodes) {
+                    this._nodes.nodes().forEach(function (element) { return _this._renderer.removeClass(element, 'ux-organization-chart-node-selected'); });
+                }
+                if (emit && !!this._selected) {
+                    this._selected = null;
+                    this.selectedChange.next(null);
+                    // update the tab indexes and aria labels
+                    this.setNodeAttributes();
+                }
+            };
+        /** Toggle the collapsed state of a node */
+        /**
+         * Toggle the collapsed state of a node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.toggle = /**
+         * Toggle the collapsed state of a node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // do nothing if a transition is currently in progress
+                if (this._isTransitioning) {
+                    return;
+                }
+                // get the node in the desired format
+                node = ( /** @type {?} */(this.coercePointNode(node)));
+                // ensure the clicked node is selected
+                this.select(node);
+                // apply the appropriate action
+                this.isExpanded(node) ? this.collapse(node) : this.expand(node);
+            };
+        /** Expand a node */
+        /**
+         * Expand a node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.expand = /**
+         * Expand a node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // do nothing if a transition is currently in progress
+                if (this._isTransitioning) {
+                    return;
+                }
+                // get the node in the desired format
+                node = ( /** @type {?} */(this.coercePointNode(node)));
+                // ensure this node and all parent nodes are expanded
+                node.ancestors().forEach(function (_node) { return _node.data.expanded = true; });
+                // re-render the nodes
+                this.render();
+                // if the node has children then we want to move the camera to a child node
+                if (Array.isArray(node.data.children) && node.data.children.length > 0) {
+                    // center on the middle child
+                    this.centerNode(node.data.children[Math.floor(node.data.children.length / 2)]);
+                }
+                else {
+                    this.centerNode(node);
+                }
+            };
+        /** Collapse a node */
+        /**
+         * Collapse a node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.collapse = /**
+         * Collapse a node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // do nothing if a transition is currently in progress
+                if (this._isTransitioning) {
+                    return;
+                }
+                // get the node in the desired format
+                node = ( /** @type {?} */(this.coercePointNode(node)));
+                // ensure this node and all child nodes are collapse
+                node.descendants().forEach(function (_node) { return _node.data.expanded = false; });
+                // re-render the nodes
+                this.render();
+                // center the node that has just been collapsed
+                this.centerNode(node);
+            };
+        /** Move a specific node to the center of the screen */
+        /**
+         * Move a specific node to the center of the screen
+         * @param {?} node
+         * @param {?=} axis
+         * @param {?=} animate
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.centerNode = /**
+         * Move a specific node to the center of the screen
+         * @param {?} node
+         * @param {?=} axis
+         * @param {?=} animate
+         * @return {?}
+         */
+            function (node, axis, animate) {
+                if (axis === void 0) {
+                    axis = OrganizationChartAxis.Both;
+                }
+                if (animate === void 0) {
+                    animate = true;
+                }
+                // get the node in the desired format
+                node = ( /** @type {?} */(this.coercePointNode(node)));
+                // get the current camera position
+                /** @type {?} */
+                var camera = this.getCameraPosition();
+                /** @type {?} */
+                var x = axis === OrganizationChartAxis.Vertical ? camera.x : (this._width / 2) - (node.x + (this.nodeWidth / 2));
+                /** @type {?} */
+                var y = axis === OrganizationChartAxis.Horizontal ? camera.y : (this._height / 2) - (node.y + (this.nodeHeight / 2));
+                // update the camera position
+                this.setCameraPosition(x, y, animate);
+            };
+        /** Explicity set the position of the camera */
+        /**
+         * Explicity set the position of the camera
+         * @param {?} x
+         * @param {?} y
+         * @param {?=} animate
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.setCameraPosition = /**
+         * Explicity set the position of the camera
+         * @param {?} x
+         * @param {?} y
+         * @param {?=} animate
+         * @return {?}
+         */
+            function (x, y, animate) {
+                var _this = this;
+                if (animate === void 0) {
+                    animate = true;
+                }
+                // get the current transform
+                /** @type {?} */
+                var camera = d3Zoom.zoomTransform(this._nodesContainer.node());
+                // do nothing if the co-orindates have not changed
+                if (camera.x === x && camera.y === y) {
+                    return;
+                }
+                // update the camera position
+                camera = camera.translate(x - camera.x, y - camera.y);
+                // indicate that the camera is panning programmatically
+                this._isPanning = true;
+                if (animate) {
+                    this._nodesContainer.transition()
+                        .duration(this.duration)
+                        .call(this._zoom.transform, camera)
+                        .on('end interrupt cancel', function () { return _this._isPanning = false; });
+                }
+                else {
+                    this._nodesContainer.call(this._zoom.transform, camera);
+                    this._isPanning = false;
+                }
+            };
+        /** Move the camera an amount from its current position */
+        /**
+         * Move the camera an amount from its current position
+         * @param {?} x
+         * @param {?} y
+         * @param {?=} animate
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.moveCamera = /**
+         * Move the camera an amount from its current position
+         * @param {?} x
+         * @param {?} y
+         * @param {?=} animate
+         * @return {?}
+         */
+            function (x, y, animate) {
+                if (animate === void 0) {
+                    animate = true;
+                }
+                // get the current camera position
+                /** @type {?} */
+                var camera = this.getCameraPosition();
+                this.setCameraPosition(camera.x + x, camera.y + y, animate);
+            };
+        /** Focus the root node */
+        /**
+         * Focus the root node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype._focusRootNode = /**
+         * Focus the root node
+         * @return {?}
+         */
+            function () {
+                this.focusNode(this.coercePointNode(this.dataset));
+            };
+        /** Destroy the outlet and portal associated with a node */
+        /**
+         * Destroy the outlet and portal associated with a node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.destroyNode = /**
+         * Destroy the outlet and portal associated with a node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // get the node in a consistent format
+                node = this.coercePointNode(node);
+                // remove focus monitoring
+                if (this._indicators.has(node.data)) {
+                    // remove the focus monitoring
+                    this._indicators.get(node.data).destroy();
+                    // remove the indicator from the list of indicators
+                    this._indicators.delete(node.data);
+                }
+                // if there is not portal/outlets associated with this node then do nothing
+                if (!this._portals.has(node.data)) {
+                    return;
+                }
+                // get the portal and outlet from the map
+                /** @type {?} */
+                var portalRef = this._portals.get(node.data);
+                // perform the cleanup
+                portalRef.portal.detach();
+                portalRef.outlet.dispose();
+                // remove this entry from the map
+                this._portals.delete(node.data);
+            };
+        // update the data structure for the node and link layouts
+        // update the data structure for the node and link layouts
+        /**
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.updateLayout =
+            // update the data structure for the node and link layouts
+            /**
+             * @return {?}
+             */
+            function () {
+                this._layout = this.getLayout();
+                this._nodeLayout = this._layout.descendants();
+                this._linkLayout = this._layout.links();
+            };
+        /** Ensure the selections stay in sync with the view */
+        /**
+         * Ensure the selections stay in sync with the view
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.updateSelections = /**
+         * Ensure the selections stay in sync with the view
+         * @return {?}
+         */
+            function () {
+                // select all the newly added dom nodes and associate the dataset
+                this._nodes = ( /** @type {?} */(this._nodesContainer.selectAll('.ux-organization-chart-node')
+                    .data(this._nodeLayout, function (node) { return node.data.id.toString(); })));
+                // select all the newly added path nodes
+                this._links = ( /** @type {?} */(this._linksContainer.selectAll('.ux-organization-chart-link')
+                    .data(this._linkLayout, function (link) {
+                    return link.source.data.id + "-" + link.target.data.id;
+                })));
+            };
+        /** Render the content of the node based on the template provided */
+        /**
+         * Render the content of the node based on the template provided
+         * @param {?} node
+         * @param {?} index
+         * @param {?} group
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.renderNodeTemplate = /**
+         * Render the content of the node based on the template provided
+         * @param {?} node
+         * @param {?} index
+         * @param {?} group
+         * @return {?}
+         */
+            function (node, index, group) {
+                var _this = this;
+                // create the context for the node
+                /** @type {?} */
+                var context = {
+                    data: node.data.data,
+                    node: node.data,
+                    focused: false
+                };
+                // the focused state should be a getter
+                Object.defineProperty(context, 'focused', {
+                    get: function () { return _this._focused === node.data; }
+                });
+                // create the outlet to insert the Template and the portal from the TemplateRef
+                /** @type {?} */
+                var outlet = this.createPortalOutlet(group[index]);
+                /** @type {?} */
+                var portal$$1 = new portal.TemplatePortal(this.nodeTemplate, this._viewContainerRef, context);
+                // insert the TemplateRef into the specified region
+                portal$$1.attach(outlet);
+                // store the portal and outlet so we can correctly dispose of the nodes
+                this._portals.set(node.data, { portal: portal$$1, outlet: outlet });
+            };
+        /** Handle any zoom events (we use zoom for panning behaviour) */
+        /**
+         * Handle any zoom events (we use zoom for panning behaviour)
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.applyCameraPosition = /**
+         * Handle any zoom events (we use zoom for panning behaviour)
+         * @return {?}
+         */
+            function () {
+                // get the new x and y position
+                var _a = d3Zoom.zoomTransform(this._nodesContainer.node()), x = _a.x, y = _a.y;
+                // round the precision to integers to prevent any anti-aliasing
+                x = Math.round(x);
+                y = Math.round(y);
+                // transform the position of the reveal button
+                this._renderer.setStyle(this.revealElement.nativeElement, 'transform', "translate(" + x + "px, " + y + "px)");
+                // transform the position of the nodes
+                this._nodesContainer.selectAll('.ux-organization-chart-node').style('transform', "translate(" + x + "px, " + y + "px)");
+                // transform the position of the links
+                this._linksContainer.selectAll('.ux-organization-chart-link').attr('transform', "translate(" + x + " " + y + ")");
+            };
+        /** Get the data in with the required layout information */
+        /**
+         * Get the data in with the required layout information
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getLayout = /**
+         * Get the data in with the required layout information
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // create a hierarchical representation of the data - don't include collapsed nodes
+                /** @type {?} */
+                var treeHierarchy = d3Hierarchy.hierarchy(this.dataset, function (node) { return Array.isArray(node.children) && node.expanded ? node.children : []; });
+                // create our layout
+                /** @type {?} */
+                var layout = d3Hierarchy.tree()
+                    .nodeSize([this.nodeWidth, this.nodeHeight])
+                    .separation(this.getNodeSpacing.bind(this));
+                // process the data with the layout
+                /** @type {?} */
+                var treeLayout = layout(treeHierarchy);
+                // calculate the vertical spacing
+                /** @type {?} */
+                var verticalSpacing = this.verticalSpacing === undefined ? this.nodeHeight : this.verticalSpacing;
+                // set the vertical spacing
+                treeLayout.each(function (data) { return data.y = data.depth * (_this.nodeHeight + verticalSpacing); });
+                return treeLayout;
+            };
+        /** Determine how much horizontal spacing should be between nodes */
+        /**
+         * Determine how much horizontal spacing should be between nodes
+         * @param {?} nodeOne
+         * @param {?} nodeTwo
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getNodeSpacing = /**
+         * Determine how much horizontal spacing should be between nodes
+         * @param {?} nodeOne
+         * @param {?} nodeTwo
+         * @return {?}
+         */
+            function (nodeOne, nodeTwo) {
+                // if the nodes are not siblings then space further apart
+                if (nodeOne.parent !== nodeTwo.parent) {
+                    return 2;
+                }
+                // if they are siblings they should be closer together
+                return 1.5;
+            };
+        /** Ensure we consistently use the HierarchyPoint data structure */
+        /**
+         * Ensure we consistently use the HierarchyPoint data structure
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.coercePointNode = /**
+         * Ensure we consistently use the HierarchyPoint data structure
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // determine if this is a raw data node or a hierarchy point
+                if (node.hasOwnProperty('depth') && node.hasOwnProperty('x') && node.hasOwnProperty('y')) {
+                    return ( /** @type {?} */(node));
+                }
+                // otherwise find the matching node
+                /** @type {?} */
+                var match = this._nodeLayout.find(function (_node) { return _node.data === node; });
+                // if the data does not exist in the hierarchy throw an exception
+                if (!match) {
+                    throw new Error("The node does not exist in the hierarchy");
+                }
+                return match;
+            };
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.coerceDataNode = /**
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (node.hasOwnProperty('depth') && node.hasOwnProperty('x') && node.hasOwnProperty('y')) {
+                    return (( /** @type {?} */(node))).data;
+                }
+                return ( /** @type {?} */(node));
+            };
+        /** Handle chart resize events */
+        /**
+         * Handle chart resize events
+         * @param {?} __0
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.onResize = /**
+         * Handle chart resize events
+         * @param {?} __0
+         * @return {?}
+         */
+            function (_a) {
+                var width = _a.width, height = _a.height;
+                this._width = width;
+                this._height = height;
+            };
+        /** Deteremine if a node is expanded or collapsed */
+        /**
+         * Deteremine if a node is expanded or collapsed
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.isExpanded = /**
+         * Deteremine if a node is expanded or collapsed
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                return !!node.data.expanded;
+            };
+        /** Get the current position of the camera */
+        /**
+         * Get the current position of the camera
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getCameraPosition = /**
+         * Get the current position of the camera
+         * @return {?}
+         */
+            function () {
+                return d3Zoom.zoomTransform(this._nodesContainer.node());
+            };
+        /** Get the SVG line definition for each link */
+        /**
+         * Get the SVG line definition for each link
+         * @param {?} pointLink
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getLinkPath = /**
+         * Get the SVG line definition for each link
+         * @param {?} pointLink
+         * @return {?}
+         */
+            function (pointLink) {
+                if (this.connector === 'elbow') {
+                    /** @type {?} */
+                    var source = { x: pointLink.source.x + (this.nodeWidth / 2), y: pointLink.source.y + this.nodeHeight };
+                    /** @type {?} */
+                    var target = { x: pointLink.target.x + (this.nodeWidth / 2), y: pointLink.target.y };
+                    return 'M' + source.x + ',' + (source.y) +
+                        'v' + ((target.y - source.y) / 2) +
+                        'h' + (target.x - source.x) +
+                        'v' + ((target.y - source.y) / 2);
+                }
+                else {
+                    /** @type {?} */
+                    var source = { x: pointLink.source.x + (this.nodeWidth / 2), y: pointLink.source.y + (this.nodeHeight / 2) };
+                    /** @type {?} */
+                    var target = { x: pointLink.target.x + (this.nodeWidth / 2), y: pointLink.target.y + (this.nodeHeight / 2) };
+                    return d3Shape.linkVertical()({ source: [source.x, source.y], target: [target.x, target.y] });
+                }
+            };
+        /** Get the link path line defintion when the link is collapsing */
+        /**
+         * Get the link path line defintion when the link is collapsing
+         * @param {?} pointLink
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getCollapsedLinkPath = /**
+         * Get the link path line defintion when the link is collapsing
+         * @param {?} pointLink
+         * @return {?}
+         */
+            function (pointLink) {
+                return this.getLinkPath({ source: pointLink.source, target: pointLink.source });
+            };
+        /** Create a dynamic region that Angular can insert into */
+        /**
+         * Create a dynamic region that Angular can insert into
+         * @param {?} element
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.createPortalOutlet = /**
+         * Create a dynamic region that Angular can insert into
+         * @param {?} element
+         * @return {?}
+         */
+            function (element) {
+                return new portal.DomPortalOutlet(element, this._componentFactoryResolver, this._appRef, this._injector);
+            };
+        /** Make the appropriate node tabbable and update aria attributes */
+        /**
+         * Make the appropriate node tabbable and update aria attributes
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.setNodeAttributes = /**
+         * Make the appropriate node tabbable and update aria attributes
+         * @return {?}
+         */
+            function () {
+                var e_1, _a;
+                try {
+                    for (var _b = __values(this._nodes.nodes()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var element = _c.value;
+                        // intially the tab index of all items to -1
+                        this._renderer.setAttribute(element, 'tabindex', '-1');
+                        // set the expanded aria attribute
+                        this._renderer.setAttribute(element, 'aria-expanded', !!this.getNodeData(element).data.expanded ? 'true' : 'false');
+                    }
+                }
+                catch (e_1_1) {
+                    e_1 = { error: e_1_1 };
+                }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return))
+                            _a.call(_b);
+                    }
+                    finally {
+                        if (e_1)
+                            throw e_1.error;
+                    }
+                }
+                // if there is a selected item then it should be tabbable otherwise make the root tabbable
+                if (this._selected) {
+                    this._renderer.setAttribute(this.getNodeElement(this._selected), 'tabindex', '0');
+                }
+            };
+        /** Get the element that represents a given node */
+        /**
+         * Get the element that represents a given node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getNodeElement = /**
+         * Get the element that represents a given node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                node = this.coercePointNode(node);
+                // find the element that matches the node data
+                /** @type {?} */
+                var index = this._nodes.data().indexOf(node);
+                return this._nodes.nodes()[index];
+            };
+        /** Get the element that represents a given node */
+        /**
+         * Get the element that represents a given node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getNodeData = /**
+         * Get the element that represents a given node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // find the element that matches the node element
+                /** @type {?} */
+                var index = this._nodes.nodes().indexOf(node);
+                return this._nodes.data()[index];
+            };
+        /** Handle keyboard events */
+        /**
+         * Handle keyboard events
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.onKeydown = /**
+         * Handle keyboard events
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                switch (d3Selection.event.keyCode) {
+                    case keycodes.DOWN_ARROW:
+                        d3Selection.event.preventDefault();
+                        // if the node is collapsed and has children expand
+                        if (!node.data.expanded && Array.isArray(node.data.children) && node.data.children.length > 0) {
+                            return this.expand(node);
+                        }
+                        return this.focusChild(node);
+                    case keycodes.RIGHT_ARROW:
+                        d3Selection.event.preventDefault();
+                        return this.focusNextSibling(node);
+                    case keycodes.UP_ARROW:
+                        d3Selection.event.preventDefault();
+                        return this.focusParent(node);
+                    case keycodes.LEFT_ARROW:
+                        d3Selection.event.preventDefault();
+                        return this.focusPreviousSibling(node);
+                    case keycodes.ENTER:
+                        return this.toggle(node);
+                }
+            };
+        /** When a node receives focus */
+        /**
+         * When a node receives focus
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.onFocus = /**
+         * When a node receives focus
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (!this.isNodeInViewport(node, this._width * 0.1, this._height * 0.1)) {
+                    this.centerNode(node);
+                }
+            };
+        /** Move focus to the parent node */
+        /**
+         * Move focus to the parent node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.focusParent = /**
+         * Move focus to the parent node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (node.parent) {
+                    this.focusNode(node.parent);
+                }
+                else if (this.revealElement) {
+                    this.revealElement.nativeElement.focus();
+                    // center the root node to ensure the reveal button is in view
+                    this.centerNode(this.dataset);
+                }
+            };
+        /** Move focus to the child node */
+        /**
+         * Move focus to the child node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.focusChild = /**
+         * Move focus to the child node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (Array.isArray(node.children) && node.children.length > 0) {
+                    this.focusNode(node.children[Math.floor(node.children.length / 2)]);
+                }
+            };
+        /** Move focus to the sibling on the left */
+        /**
+         * Move focus to the sibling on the left
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.focusPreviousSibling = /**
+         * Move focus to the sibling on the left
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (node.parent) {
+                    this.focusNode(node.parent.children[node.parent.children.indexOf(node) - 1]);
+                }
+            };
+        /** Move focus to the sibling on the right */
+        /**
+         * Move focus to the sibling on the right
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.focusNextSibling = /**
+         * Move focus to the sibling on the right
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (node.parent) {
+                    this.focusNode(node.parent.children[node.parent.children.indexOf(node) + 1]);
+                }
+            };
+        /** Focus a given node */
+        /**
+         * Focus a given node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.focusNode = /**
+         * Focus a given node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                if (node) {
+                    this.getNodeElement(node).focus({ preventScroll: true });
+                    // ensure we don't perform scrolling if the node is not in view (we rely on preventScroll as IE doesn't support it)
+                    this.nodesContainer.nativeElement.scrollTop = 0;
+                    this.nodesContainer.nativeElement.scrollLeft = 0;
+                }
+            };
+        /** Determine if a node is fully visible within the viewport */
+        /**
+         * Determine if a node is fully visible within the viewport
+         * @param {?} node
+         * @param {?=} insetX
+         * @param {?=} insetY
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.isNodeInViewport = /**
+         * Determine if a node is fully visible within the viewport
+         * @param {?} node
+         * @param {?=} insetX
+         * @param {?=} insetY
+         * @return {?}
+         */
+            function (node, insetX, insetY) {
+                if (insetX === void 0) {
+                    insetX = 0;
+                }
+                if (insetY === void 0) {
+                    insetY = 0;
+                }
+                var _a = this.getCameraPosition(), x = _a.x, y = _a.y;
+                /** @type {?} */
+                var left = node.x + x;
+                /** @type {?} */
+                var top = node.y + y;
+                /** @type {?} */
+                var right = node.x + x + this.nodeWidth;
+                /** @type {?} */
+                var bottom = node.y + y + this.nodeHeight;
+                return left >= insetX && top >= insetY && right <= (this._width - insetX) && bottom <= (this._height - insetY);
+            };
+        /** Determine if a node is fully outside of the viewport */
+        /**
+         * Determine if a node is fully outside of the viewport
+         * @param {?} node
+         * @param {?=} insetX
+         * @param {?=} insetY
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.isNodeOutsideViewport = /**
+         * Determine if a node is fully outside of the viewport
+         * @param {?} node
+         * @param {?=} insetX
+         * @param {?=} insetY
+         * @return {?}
+         */
+            function (node, insetX, insetY) {
+                if (insetX === void 0) {
+                    insetX = 0;
+                }
+                if (insetY === void 0) {
+                    insetY = 0;
+                }
+                var _a = this.getCameraPosition(), x = _a.x, y = _a.y;
+                /** @type {?} */
+                var left = node.x + x + this.nodeWidth;
+                /** @type {?} */
+                var top = node.y + y + this.nodeHeight;
+                /** @type {?} */
+                var right = node.x + x;
+                /** @type {?} */
+                var bottom = node.y + y;
+                return left < insetX || top < insetY || right > (this._width - insetX) || bottom > (this._height - insetY);
+            };
+        /** Determine how far a node is from being within the viewport */
+        /**
+         * Determine how far a node is from being within the viewport
+         * @param {?} node
+         * @param {?=} insetX
+         * @param {?=} insetY
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getDistanceFromViewport = /**
+         * Determine how far a node is from being within the viewport
+         * @param {?} node
+         * @param {?=} insetX
+         * @param {?=} insetY
+         * @return {?}
+         */
+            function (node, insetX, insetY) {
+                if (insetX === void 0) {
+                    insetX = 0;
+                }
+                if (insetY === void 0) {
+                    insetY = 0;
+                }
+                // if the node is in the viewport then it will always be 0, 0
+                if (!this.isNodeOutsideViewport(node, insetX, insetY)) {
+                    return [0, 0];
+                }
+                var _a = this.getCameraPosition(), x = _a.x, y = _a.y;
+                /** @type {?} */
+                var left = insetX - (node.x + x + this.nodeWidth);
+                /** @type {?} */
+                var top = insetY - (node.y + y + this.nodeHeight);
+                /** @type {?} */
+                var right = (node.x + x) - (this._width - insetX);
+                /** @type {?} */
+                var bottom = (node.y + y) - (this._height - insetY);
+                /** @type {?} */
+                var horizontal = 0;
+                /** @type {?} */
+                var vertical = 0;
+                if (left > 0 && left > right) {
+                    horizontal = left;
+                }
+                if (right > 0 && left < right) {
+                    horizontal = -right;
+                }
+                if (top > 0 && top > bottom) {
+                    vertical = top;
+                }
+                if (bottom > 0 && top < bottom) {
+                    vertical = -bottom;
+                }
+                // calculate the distances on both axis
+                return [horizontal, vertical];
+            };
+        /** Begin monitoring the element focus so we only show styling when navigated by keyboard */
+        /**
+         * Begin monitoring the element focus so we only show styling when navigated by keyboard
+         * @param {?} element
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.monitorFocus = /**
+         * Begin monitoring the element focus so we only show styling when navigated by keyboard
+         * @param {?} element
+         * @param {?} node
+         * @return {?}
+         */
+            function (element, node) {
+                var _this = this;
+                // create the focus indicator
+                /** @type {?} */
+                var indicator = this._focusIndicator.monitor(element, { checkChildren: false, programmaticFocusIndicator: true });
+                // store the currently selected node as an instance variable
+                indicator.isFocused$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isFocused) {
+                    // by default the CDK runs this outside of NgZone however we need it to run inside NgZone to update the node template
+                    _this._ngZone.run(function () {
+                        if (isFocused) {
+                            _this._focused = node.data;
+                        }
+                        else if (node.data === _this._focused) {
+                            _this._focused = null;
+                        }
+                    });
+                });
+                // store the focus indicator reference
+                this._indicators.set(node.data, indicator);
+            };
+        // ensure that there are at least some nodes visible
+        // ensure that there are at least some nodes visible
+        /**
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.ensureNodesAreVisible =
+            // ensure that there are at least some nodes visible
+            /**
+             * @return {?}
+             */
+            function () {
+                var _this = this;
+                // determine how many nodes are currently visible
+                /** @type {?} */
+                var visibleCount = this._nodes.filter(function (node) { return !_this.isNodeOutsideViewport(node); }).size();
+                if (visibleCount > 0) {
+                    return;
+                }
+                // get the distance each node is from being within the viewport
+                /** @type {?} */
+                var distances = this._nodes.data().map(function (node) { return _this.getDistanceFromViewport(node, _this.nodeWidth * 1.25, _this.nodeHeight * 1.5); });
+                // find the closest node
+                var _a = __read(distances.reduce(function (previous, current) {
+                    var _a = __read(previous, 2), previousX = _a[0], previousY = _a[1];
+                    var _b = __read(current, 2), currentX = _b[0], currentY = _b[1];
+                    return (Math.abs(previousX) + Math.abs(previousY)) < (Math.abs(currentX) + Math.abs(currentY)) ? previous : current;
+                }), 2), x = _a[0], y = _a[1];
+                // move the camera by the required amount
+                this.moveCamera(x, y);
+            };
+        /** Expand all parent nodes */
+        /**
+         * Expand all parent nodes
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.expandParents = /**
+         * Expand all parent nodes
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                // get the parent node
+                /** @type {?} */
+                var parent = this.getParent(node);
+                while (parent) {
+                    parent.expanded = true;
+                    parent = this.getParent(parent);
+                }
+            };
+        /** Get the parent of a given node */
+        /**
+         * Get the parent of a given node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getParent = /**
+         * Get the parent of a given node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                return __spread([this.coerceDataNode(this.dataset)], this.getAllChildren(this.dataset)).find(function (_node) {
+                    if (!Array.isArray(_node.children)) {
+                        return false;
+                    }
+                    return _node.children.find(function (child) { return child.id === node.id; });
+                });
+            };
+        /** Get a flat array of all the nodes childrent */
+        /**
+         * Get a flat array of all the nodes childrent
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.getAllChildren = /**
+         * Get a flat array of all the nodes childrent
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                var _this = this;
+                /** @type {?} */
+                var children = node.children || [];
+                // check for any children on the children
+                return __spread(children, children.reduce(function (accumulation, child) { return __spread(accumulation, _this.getAllChildren(child)); }, [])).map(function (child) { return _this.coerceDataNode(child); });
+            };
+        OrganizationChartComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-organization-chart',
+                        template: "<!-- Add a button above the root node to load additional parent items -->\n<button #revealElement\n    uxFocusIndicatorOrigin\n    class=\"ux-organization-chart-reveal\"\n    tabindex=\"-1\"\n    [attr.aria-label]=\"revealAriaLabel\"\n    [hidden]=\"!showReveal\"\n    (click)=\"reveal.emit(); _focusRootNode()\"\n    (keydown.ArrowDown)=\"_focusRootNode(); $event.preventDefault()\">\n\n    <i class=\"hpe-icon hpe-tab-up\"></i>\n</button>\n\n<!-- Show the links connecting each node -->\n<svg #links class=\"ux-organization-chart-links\"></svg>\n\n<!-- Show the nodes containing information about each item -->\n<div #nodes class=\"ux-organization-chart-nodes\"></div>\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                    }] }
+        ];
+        /** @nocollapse */
+        OrganizationChartComponent.ctorParameters = function () {
+            return [
+                { type: core.ElementRef },
+                { type: ResizeService },
+                { type: core.ComponentFactoryResolver },
+                { type: core.Injector },
+                { type: core.ApplicationRef },
+                { type: core.ViewContainerRef },
+                { type: core.Renderer2 },
+                { type: FocusIndicatorService },
+                { type: core.NgZone }
+            ];
+        };
+        OrganizationChartComponent.propDecorators = {
+            dataset: [{ type: core.Input }],
+            connector: [{ type: core.Input }],
+            nodeWidth: [{ type: core.Input }],
+            nodeHeight: [{ type: core.Input }],
+            duration: [{ type: core.Input }],
+            verticalSpacing: [{ type: core.Input }],
+            showReveal: [{ type: core.Input }],
+            revealAriaLabel: [{ type: core.Input }],
+            selected: [{ type: core.Input }],
+            selectedChange: [{ type: core.Output }],
+            reveal: [{ type: core.Output }],
+            nodeTemplate: [{ type: core.ContentChild, args: ['nodeTemplate',] }],
+            revealElement: [{ type: core.ViewChild, args: ['revealElement',] }],
+            linksContainer: [{ type: core.ViewChild, args: ['links',] }],
+            nodesContainer: [{ type: core.ViewChild, args: ['nodes',] }]
+        };
+        return OrganizationChartComponent;
+    }());
+    /** @enum {number} */
+    var OrganizationChartAxis = {
+        Horizontal: 0,
+        Vertical: 1,
+        Both: 2,
+    };
+    OrganizationChartAxis[OrganizationChartAxis.Horizontal] = 'Horizontal';
+    OrganizationChartAxis[OrganizationChartAxis.Vertical] = 'Vertical';
+    OrganizationChartAxis[OrganizationChartAxis.Both] = 'Both';
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var OrganizationChartModule = /** @class */ (function () {
+        function OrganizationChartModule() {
+        }
+        OrganizationChartModule.decorators = [
+            { type: core.NgModule, args: [{
+                        declarations: [
+                            OrganizationChartComponent
+                        ],
+                        imports: [
+                            common.CommonModule,
+                            ResizeModule,
+                            AccessibilityModule
+                        ],
+                        exports: [
+                            OrganizationChartComponent
+                        ]
+                    },] }
+        ];
+        return OrganizationChartModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var TabsetService = /** @class */ (function () {
         function TabsetService() {
             this.tabs$ = new BehaviorSubject.BehaviorSubject([]);
@@ -31717,7 +33164,7 @@
         SelectComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i *ngIf=\"!icon\"\r\n       class=\"hpe-icon select-arrow\"\r\n       [class.hpe-down]=\"dropDirection === 'down'\"\r\n       [class.hpe-up]=\"dropDirection === 'up'\"\r\n       (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i *ngIf=\"!icon\"\r\n       class=\"hpe-icon select-arrow\"\r\n       [class.hpe-down]=\"dropDirection === 'down'\"\r\n       [class.hpe-up]=\"dropDirection === 'up'\"\r\n       (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -31815,6 +33262,9 @@
         useExisting: core.forwardRef(function () { return TagInputComponent; }),
         multi: true
     };
+    /**
+     * @template T
+     */
     var TagInputComponent = /** @class */ (function () {
         function TagInputComponent(_element, _document, _typeaheadKeyService) {
             this._element = _element;
@@ -32607,7 +34057,7 @@
                         // Select input first to avoid issues with dropping focus
                         this.selectInput();
                         // Remove the tag
-                        this.tags.splice(tagIndex, 1);
+                        this.tags = this.tags.filter(function (_tag, index) { return index !== tagIndex; });
                         // Set focus again since indices have changed
                         this.selectInput();
                         this.tagRemoved.emit(new TagInputEvent(tag));
@@ -32770,8 +34220,7 @@
                         var tagAddingEvent = new TagInputEvent(tag);
                         this.tagAdding.emit(tagAddingEvent);
                         if (!tagAddingEvent.defaultPrevented()) {
-                            this.tags = this.tags || [];
-                            this.tags.push(tag);
+                            this.tags = __spread(this.tags, [tag]);
                             this.tagAdded.emit(new TagInputEvent(tag));
                             this.validate();
                             return true;
@@ -35997,7 +37446,7 @@
         ColumnPickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-column-picker',
-                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right\"></i>\n    </button>\n\n    <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n    </button>\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"!selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
+                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right\"></i>\n    </button>\n\n    <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n    </button>\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -42992,6 +44441,9 @@
     exports.NumberPickerModule = NumberPickerModule;
     exports.NUMBER_PICKER_VALUE_ACCESSOR = NUMBER_PICKER_VALUE_ACCESSOR;
     exports.NumberPickerComponent = NumberPickerComponent;
+    exports.OrganizationChartComponent = OrganizationChartComponent;
+    exports.OrganizationChartAxis = OrganizationChartAxis;
+    exports.OrganizationChartModule = OrganizationChartModule;
     exports.PageHeaderModule = PageHeaderModule;
     exports.PageHeaderComponent = PageHeaderComponent;
     exports.PageHeaderNavigationComponent = PageHeaderNavigationComponent;
@@ -43251,23 +44703,25 @@
     exports.ɵz = HierarchyBarPopoverComponent;
     exports.ɵw = HierarchyBarStandardComponent;
     exports.ɵv = HierarchyBarService;
-    exports.ɵbc = MarqueeWizardService;
-    exports.ɵbd = MediaPlayerService;
-    exports.ɵbh = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbg = PageHeaderNavigationItemComponent;
-    exports.ɵbi = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbf = PageHeaderNavigationService;
-    exports.ɵbe = PageHeaderService;
+    exports.ɵbe = MarqueeWizardService;
+    exports.ɵbf = MediaPlayerService;
+    exports.ɵbj = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbi = PageHeaderNavigationItemComponent;
+    exports.ɵbk = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbh = PageHeaderNavigationService;
+    exports.ɵbg = PageHeaderService;
+    exports.ɵbc = SidePanelAnimationState;
+    exports.ɵbd = sidePanelStateAnimation;
     exports.ɵbb = SidePanelService;
-    exports.ɵbj = ResizableTableService;
+    exports.ɵbl = ResizableTableService;
     exports.ɵs = TypeaheadHighlightDirective;
     exports.ɵr = TypeaheadService;
     exports.ɵa = DefaultFocusIndicatorDirective;
     exports.ɵb = LocalFocusIndicatorOptions;
     exports.ɵc = FocusIndicatorOptionsDirective;
-    exports.ɵbk = HoverActionService;
+    exports.ɵbm = HoverActionService;
     exports.ɵt = MenuNavigationService;
-    exports.ɵbl = TreeGridService;
+    exports.ɵbn = TreeGridService;
     exports.ɵd = KEPPEL_COLOR_SET;
     exports.ɵe = MICRO_FOCUS_COLOR_SET;
 

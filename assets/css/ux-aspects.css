@@ -5715,15 +5715,17 @@ table.dataTable {
   margin-top: 3px;
   box-shadow: -2px 0 4px #f5f5f5;
 }
-.list-hover-actions a.list-hover-action {
+.list-hover-actions .list-hover-action {
   display: inline-block;
   padding: 6px;
   color: #676a6c;
   opacity: 0.5;
+  border: none;
+  background-color: transparent;
 }
-.list-hover-actions a.list-hover-action:hover,
-.list-hover-actions a.list-hover-action:focus,
-.list-hover-actions a.list-hover-action:active {
+.list-hover-actions .list-hover-action:hover,
+.list-hover-actions .list-hover-action:focus,
+.list-hover-actions .list-hover-action:active {
   opacity: 1;
   color: #676a6c;
 }
@@ -14558,7 +14560,9 @@ form .button-primary.disabled {
 }
 .el-dynamicselect .el-dynamicselect-dropdown.scroll {
   height: 250px;
+  max-height: 250px;
   overflow-y: auto;
+  min-height: 34px;
 }
 .el-dynamicselect .el-dynamicselect-dropdown > .scroll-pane {
   height: 100%;
@@ -17710,6 +17714,70 @@ ux-number-picker > .number-picker-controls > .number-picker-control-up,
 ux-number-picker-inline > .number-picker-controls > .number-picker-control-up {
   border-top: 1px solid #e5e6e7;
 }
+ux-organization-chart {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+}
+ux-organization-chart .ux-organization-chart-reveal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-size: 2rem;
+  color: #999;
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  width: 30px;
+  height: 32px;
+}
+ux-organization-chart .ux-organization-chart-reveal:hover,
+ux-organization-chart .ux-organization-chart-reveal:focus {
+  color: #00a7a2;
+  outline: none;
+}
+ux-organization-chart .ux-organization-chart-links,
+ux-organization-chart .ux-organization-chart-nodes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+ux-organization-chart .ux-organization-chart-node {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 250ms ease-in-out, border-color 250ms ease-in-out;
+  cursor: pointer;
+}
+ux-organization-chart .ux-organization-chart-node.ux-organization-chart-node-selected {
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.15), inset 0 0 0 1px #00a7a2;
+  border-color: #00a7a2;
+}
+ux-organization-chart .ux-organization-chart-node.ux-organization-chart-node-selected:focus.ux-focus-indicator-active {
+  box-shadow: inset 0 0 0 1px #00a7a2, 0 0 0 1px #f5f5f5, 0 0 0 3px rgba(0, 0, 0, 0.5);
+}
+ux-organization-chart .ux-organization-chart-node:hover {
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.05), inset 0 0 0 1px #00a7a2;
+  border-color: #00a7a2;
+}
+ux-organization-chart .ux-organization-chart-node:focus.ux-focus-indicator-active {
+  box-shadow: 0 0 0 1px #f5f5f5, 0 0 0 3px rgba(0, 0, 0, 0.5);
+  outline: none !important;
+}
+ux-organization-chart .ux-organization-chart-link {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 1.5px;
+}
 ux-page-header-icon-menu {
   display: inline-flex;
   cursor: pointer;
@@ -18576,13 +18644,12 @@ ux-dropdown.ux-select-disabled .ux-select-icon > .hpe-icon {
 .ux-side-panel.open > .ux-side-panel-host {
   box-shadow: 1px 0 20px 0 rgba(51, 51, 51, 0.4);
   border-left: 1px solid rgba(51, 51, 51, 0.4);
-  transform: translateX(0);
 }
 .ux-side-panel.inline {
   flex: none;
 }
 .ux-side-panel.inline.animate {
-  transition: width 0.4s;
+  transition: width 0.2s cubic-bezier(0.49, 1, 0.38, 0.98);
 }
 .ux-side-panel.inline > .ux-side-panel-host {
   height: 100%;
@@ -18591,12 +18658,6 @@ ux-dropdown.ux-select-disabled .ux-select-icon > .hpe-icon {
 }
 .ux-side-panel:not(.inline) > .ux-side-panel-host {
   transform: translateX(100%);
-}
-.ux-side-panel:not(.inline).open > .ux-side-panel-host {
-  transform: translateX(0);
-}
-.ux-side-panel:not(.inline).animate > .ux-side-panel-host {
-  transition: transform 0.4s;
 }
 .ux-side-panel > .ux-side-panel-host {
   position: fixed;
