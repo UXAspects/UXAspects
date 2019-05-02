@@ -26,6 +26,7 @@ export class NavigationService implements OnDestroy {
         }
     }
 
+    /** Collapse all siblings nodes */
     private collapseSiblings(source: NavigationItem): void {
         let siblings = this.items;
 
@@ -41,6 +42,7 @@ export class NavigationService implements OnDestroy {
         siblings.filter(item => item !== source).forEach(item => this.collapseAll(item));
     }
 
+    /** Collapse an item and all its children */
     private collapseAll(item: NavigationItem): void {
         item.expanded = false;
         if (item.children) {
@@ -48,7 +50,8 @@ export class NavigationService implements OnDestroy {
         }
     }
 
-    private getParent(target: NavigationItem, item: NavigationItem): NavigationItem {
+    /** Get a nodes parent if it has one */
+    private getParent(target: NavigationItem, item: NavigationItem): NavigationItem | null {
         return (item.children || []).find(child => child === target) ? item : null;
     }
 }

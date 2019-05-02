@@ -19,14 +19,14 @@
                     #tli="ux-tabbable-list-item"
                     [navigationItem]="item"
                     [expanded]="item.expanded"
-                    [canExpand]="level < depthLimit"
+                    [canExpand]="level < _depthLimit"
                     [indent]="indent"
                     uxTabbableListItem
                     [parent]="parent"
                     [rank]="rank"
                     [(expanded)]="item.expanded">
 
-                    <span *ngIf="!navigationItemTemplate && item.children && item.children.length > 0 && level < depthLimit"
+                    <span *ngIf="!navigationItemTemplate && item.children && item.children.length > 0 && level < _depthLimit"
                           aria-hidden="true"
                           class="nav-expander"
                           (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
@@ -42,7 +42,7 @@
 
                 </a>
 
-                <ol *ngIf="item.children && item.expanded && level < depthLimit"
+                <ol *ngIf="item.children && item.expanded && level < _depthLimit"
                     role="group"
                     class="nav"
                     [ngClass]="_hierarchyClasses[level]">

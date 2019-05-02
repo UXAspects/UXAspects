@@ -33,7 +33,7 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
     @HostBinding('attr.role') role: string;
 
     /** Update the aria-expanded attribute of this element */
-    @HostBinding('attr.aria-expanded') ariaExpanded: string;
+    @HostBinding('attr.aria-expanded') ariaExpanded: boolean;
 
     /** Store the active state of the item */
     isActive: boolean;
@@ -46,16 +46,6 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     /** Unsubscribe from all observables when this directive is destroyed */
     private _onDestroy = new Subject<void>();
-
-    /** Get the router options with defaults for missing properties */
-    private get _routerOptions(): NavigationItemRouterOptions {
-
-        // get the default options based on the ones provided in `forRoot`
-        const defaultOptions = { exact: true, ignoreQueryParams: false, ...(this._options ? this._options.routerOptions : {}) };
-
-        // if there are item specific router options they should take precendence
-        return { ...defaultOptions, ...this.navigationItem.routerOptions };
-    }
 
     constructor(
         private _router: Router,
@@ -74,7 +64,7 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
         this._expanded$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(expanded => {
             if (this.navigationItem.children && this.navigationItem.children.length > 0) {
-                this.ariaExpanded = `${expanded}`;
+                this.ariaExpanded = expanded;
                 this._navigationService.setExpanded(this.navigationItem, expanded);
             }
         });
@@ -151,14 +141,14 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
 
     private isActiveItem(item: NavigationItem): boolean {
 
-        const { exact, ignoreQueryParams } = this._routerOptions;
+        const { exact, ignoreQueryParams } = this.getRouterOptions(item);
 
         if (item.routerLink) {
 
             let routerExtras = item.routerExtras;
 
             // if we are to ignore the query params we must remove them
-            if (routerExtras && ignoreQueryParams) {
+            if (ignoreQueryParams) {
                 // get the current actual query params
                 const { queryParams } = this._route.snapshot;
 
@@ -173,5 +163,15 @@ export class NavigationLinkDirective implements OnInit, OnChanges, OnDestroy {
         }
 
         return false;
+    }
+
+    /** Get the router options with defaults for missing properties */
+    private getRouterOptions(item: NavigationItem): NavigationItemRouterOptions {
+
+        // get the default options based on the ones provided in `forRoot`
+        const defaultOptions = { exact: true, ignoreQueryParams: false, ...(this._options ? this._options.routerOptions : {}) };
+
+        // if there are item specific router options they should take precendence
+        return { ...defaultOptions, ...item.routerOptions };
     }
 }

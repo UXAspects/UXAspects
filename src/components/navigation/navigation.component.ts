@@ -40,7 +40,7 @@ export class NavigationComponent {
         'nav-fifth-level',
     ];
 
-    get depthLimit(): number {
+    get _depthLimit(): number {
         return this.tree ? this._hierarchyClasses.length : 2;
     }
 
