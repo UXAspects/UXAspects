@@ -231,10 +231,10 @@ describe('Number Picker Tests', () => {
 
         // none of these items should be selected
         expect(await page.isItemActive(items[0])).toBeFalsy();
-        expect(await page.isItemActive(items[1])).toBeTruthy();
+        expect(await page.isItemActive(items[1])).toBeFalsy();
         expect(await page.isItemActive(items[2])).toBeFalsy();
 
-        // all items should be collapsed
+        // the second item should be collapsed
         expect((await page.getItemChildren(items[0])).length).toBe(0);
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
