@@ -94,6 +94,10 @@ const routes: Routes = [
         loadChildren: './marquee-wizard/marquee-wizard.module#MarqueeWizardTestPageModule'
     },
     {
+        path: 'navigation',
+        loadChildren: './navigation/navigation.module#NavigationTestPageModule'
+    },
+    {
         path: 'number-picker',
         loadChildren: './number-picker/number-picker.module#NumberPickerTestPageModule'
     },

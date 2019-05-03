@@ -1,7 +1,7 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf } from '@angular/core';
 import { NavigationEnd, Router, UrlTree } from '@angular/router';
-import { filter } from 'rxjs/operators/filter';
-import { Subscription } from 'rxjs/Subscription';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: '[ux-navigation-item]',
@@ -12,22 +12,29 @@ import { Subscription } from 'rxjs/Subscription';
     }
 })
 export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+
+    /** The text to display in the navigation menu item. */
     @Input() header: string;
+
+    /** The name of an icon from the UX Aspects icon set, to be displayed to the left of the title. */
     @Input() icon: string;
+
+    /** Whether the navigation item is expanded, displaying the items from the `children` array. */
     @Input() expanded: boolean = false;
+
+    /** The link that will be navigated to if this item is selected */
     @Input() link: string;
 
+    /** Get the active state of this item from the router */
     get active(): boolean {
-        if (this.link) {
-            return this._router.isActive(this.link, true);
-        }
+        return this.link ? this._router.isActive(this.link, true) : false;
     }
 
-    level: number = 1;
-    indentWithoutArrow: boolean = true;
+    /** Indicate the depth of the item */
+    _level: number = this._parent ? this._parent._level + 1 : 1;
 
-    private _navigationEnd: Subscription;
-    private _childrenChanges: Subscription;
+    /** Indicate whether the indentation should include the arrow */
+    _indentWithoutArrow: boolean = true;
 
     @ContentChildren(NavigationItemComponent, { descendants: true })
     private _children: QueryList<NavigationItemComponent>;
@@ -36,18 +43,18 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         return this._children.filter(item => item !== this);
     }
 
+    /** Automatically unsubscribe when the component is destroyed */
+    private _onDestroy = new Subject<void>();
+
     constructor(
         private _elementRef: ElementRef,
         private _renderer: Renderer2,
-        @Optional()
-        @SkipSelf()
-        private _parent: NavigationItemComponent,
-        private _router: Router
+        private _router: Router,
+        @Optional() @SkipSelf() private _parent: NavigationItemComponent
     ) {
-        this.level = _parent ? _parent.level + 1 : 1;
 
-        this._navigationEnd = _router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
-            // Expand this component if it or a descendant is active.
+        // Expand this component if it or a descendant is active.
+        _router.events.pipe(filter(event => event instanceof NavigationEnd), takeUntil(this._onDestroy)).subscribe(() => {
             this.expanded = this.hasActiveLink(this.link);
         });
     }
@@ -69,14 +76,15 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         this.setIndentWithoutArrow();
 
         // Update 'indentWithoutArrow' in response to changes to children
-        this._childrenChanges = this._children.changes.subscribe(() => this.setIndentWithoutArrow());
+        this._children.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => this.setIndentWithoutArrow());
     }
 
-    ngOnDestroy () {
-        this._navigationEnd.unsubscribe();
-        this._childrenChanges.unsubscribe();
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
+    /** Check if this item or any children are active */
     private hasActiveLink(link: string | UrlTree): boolean {
         // If this component has a link, check if it is active.
         if (link && this._router.isActive(link, true)) {
@@ -84,11 +92,11 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         }
 
         // If this component has children, check if any of them, or their descendants, are active.
-        return this.children.some((item) => item.hasActiveLink(item.link));
+        return this.children.some(item => item.hasActiveLink(item.link));
     }
 
     private getLevelClass(): string {
-        switch (this.level) {
+        switch (this._level) {
             case 2:
                 return 'nav-second-level';
             case 3:
@@ -105,13 +113,13 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     private setIndentWithoutArrow(): void {
         if (this.children.length > 0) {
             // If this element has children it will be indented and will have an arrow
-            this.indentWithoutArrow = false;
+            this._indentWithoutArrow = false;
         } else if (this._parent) {
             // If this element has a parent, indent it if any of its siblings have children
-            this.indentWithoutArrow = !this._parent.children.every((item) => item.children.length === 0);
+            this._indentWithoutArrow = !this._parent.children.every((item) => item.children.length === 0);
         } else {
             // Top-level elements should be indented
-            this.indentWithoutArrow = true;
+            this._indentWithoutArrow = true;
         }
     }
 }
