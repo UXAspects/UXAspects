@@ -1,7 +1,7 @@
 import { browser } from 'protractor';
 import { NavigationPage } from './navigation.po.spec';
 
-describe('Number Picker Tests', () => {
+describe('Navigation Tests', () => {
 
     let page: NavigationPage;
 
