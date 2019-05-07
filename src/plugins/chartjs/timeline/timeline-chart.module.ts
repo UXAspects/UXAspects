@@ -22,7 +22,8 @@ const timelineDefaultOptions: TimelineChartOptions & TimelineChartState = {
         },
         state: {
             lowerHandleFocus: false,
-            upperHandleFocus: false
+            upperHandleFocus: false,
+            rangeHandleFocus: false
         }
     }
 };
@@ -240,25 +241,33 @@ export class TimelineChartPlugin {
         // create the invisible elements
         const lowerHandle = document.createElement('div');
         const upperHandle = document.createElement('div');
+        const rangeHandle = document.createElement('div');
 
         // make the items focusable
         lowerHandle.setAttribute('tabindex', '0');
         upperHandle.setAttribute('tabindex', '0');
+        rangeHandle.setAttribute('tabindex', '0');
 
         // insert the elements
         chart.canvas.appendChild(lowerHandle);
         chart.canvas.appendChild(upperHandle);
+        chart.canvas.appendChild(rangeHandle);
 
         // add the event handlers
         lowerHandle.addEventListener('focus', () => this.setState(chart, { lowerHandleFocus: true }));
         lowerHandle.addEventListener('blur', () => this.setState(chart, { lowerHandleFocus: false }));
         lowerHandle.addEventListener('keydown', (event: KeyboardEvent) => this.onKeydown(chart, event, TimelineHandle.Lower));
+
         upperHandle.addEventListener('focus', () => this.setState(chart, { upperHandleFocus: true }));
         upperHandle.addEventListener('blur', () => this.setState(chart, { upperHandleFocus: false }));
         upperHandle.addEventListener('keydown', (event: KeyboardEvent) => this.onKeydown(chart, event, TimelineHandle.Upper));
 
+        rangeHandle.addEventListener('focus', () => this.setState(chart, { rangeHandleFocus: true }));
+        rangeHandle.addEventListener('blur', () => this.setState(chart, { rangeHandleFocus: false }));
+        rangeHandle.addEventListener('keydown', (event: KeyboardEvent) => this.onRangeKeydown(chart, event));
+
         // store the items in the state object
-        this.setState(chart, { lowerHandleElement: lowerHandle, upperHandleElement: upperHandle });
+        this.setState(chart, { lowerHandleElement: lowerHandle, upperHandleElement: upperHandle, rangeHandleElement: rangeHandle });
     }
 
     /** Handle keyboard accessibility events */
@@ -290,6 +299,59 @@ export class TimelineChartPlugin {
                 event.preventDefault();
                 break;
         }
+    }
+
+    /**
+     * Handle range changes made with the keyboard as these are exempt from
+     * many of the validation checks that are required when dragging only one
+     * handle at a time.
+     */
+    private onRangeKeydown(chart: TimelineChart, event: KeyboardEvent): void {
+
+        // get the current handle values
+        let lowerValue = this.getHandleValue(chart, TimelineHandle.Lower).getTime();
+        let upperValue = this.getHandleValue(chart, TimelineHandle.Upper).getTime();
+        const step = this.getOptions(chart).keyboard.step;
+        const difference = upperValue - lowerValue;
+
+        // get the chart boundaries
+        const [minimum, maximum] = this.getChartRange(chart);
+
+        switch (event.keyCode) {
+            case LEFT_ARROW:
+                lowerValue = Math.max(lowerValue - step, minimum);
+                upperValue = lowerValue + difference;
+                event.preventDefault();
+                break;
+
+            case RIGHT_ARROW:
+                upperValue = Math.min(upperValue + step, maximum);
+                lowerValue = upperValue - difference;
+                event.preventDefault();
+                break;
+
+            case HOME:
+                lowerValue = minimum;
+                upperValue = lowerValue + difference;
+                event.preventDefault();
+                break;
+
+            case END:
+                upperValue = maximum;
+                lowerValue = upperValue - difference;
+                event.preventDefault();
+                break;
+        }
+
+        // store the new values
+        chart.config.options.timeline.range[TimelineHandle.Lower] = new Date(lowerValue);
+        chart.config.options.timeline.range[TimelineHandle.Upper] = new Date(upperValue);
+
+        // update the chart
+        chart.update();
+
+        // emit the latest range
+        this.triggerOnChange(chart);
     }
 
     /**
@@ -407,14 +469,28 @@ export class TimelineChartPlugin {
         // get the fill color
         const selectionColor = this.getOptions(chart).selectionColor;
 
+        // get the focus indicator color
+        const { focusIndicatorColor } = this.getOptions(chart).handles;
+
         // get the lower and upper handle render regions
         const lower = this.getHandleArea(chart, TimelineHandle.Lower);
         const upper = this.getHandleArea(chart, TimelineHandle.Upper);
 
         // draw selection region
         chart.ctx.save();
+
         chart.ctx.fillStyle = selectionColor as string | CanvasGradient | CanvasPattern;
         chart.ctx.fillRect(lower.left, 0, upper.right - lower.left, bottom - top);
+
+        // check if we are focused on the range handle
+        if (this.isHandleFocused(chart, TimelineHandle.Range)) {
+            chart.ctx.strokeStyle = focusIndicatorColor as string | CanvasGradient | CanvasPattern;
+            const handleWidth = 4;
+            const lineWidth = 2;
+            chart.ctx.lineWidth = lineWidth;
+            chart.ctx.strokeRect(lower.left + handleWidth + lineWidth, lineWidth / 2, (upper.right - lower.left) - ((handleWidth + lineWidth) * 2), (bottom - top) - lineWidth);
+        }
+
         chart.ctx.restore();
     }
 
@@ -496,6 +572,10 @@ export class TimelineChartPlugin {
 
         if (handle === TimelineHandle.Upper) {
             return this.getState(chart).upperHandleFocus;
+        }
+
+        if (handle === TimelineHandle.Range) {
+            return this.getState(chart).rangeHandleFocus;
         }
 
         return false;
@@ -650,7 +730,6 @@ export class TimelineChartPlugin {
 
         return merge({ ...timelineDefaultOptions.timeline } as any, options);
     }
-
 }
 
 
@@ -712,8 +791,10 @@ export interface TimelineChartState {
     onKeydown?: (event: KeyboardEvent) => void;
     lowerHandleFocus?: boolean;
     upperHandleFocus?: boolean;
+    rangeHandleFocus?: boolean;
     lowerHandleElement?: HTMLDivElement;
     upperHandleElement?: HTMLDivElement;
+    rangeHandleElement?: HTMLDivElement;
 }
 
 export interface TimelineChartConfig {
