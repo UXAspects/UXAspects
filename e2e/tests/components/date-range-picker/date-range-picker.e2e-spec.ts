@@ -105,50 +105,131 @@ describe('Date Range Picker Tests', () => {
 
     it('should emit the date on date start change', async () => {
         await page.selectDate(Picker.Start, 2);
-        expect(await page.getInputText()).toBe('2 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT');
+        expect(await page.getInputText()).toBe(`2 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
     });
 
     it('should emit the date on date end change', async () => {
         await page.selectDate(Picker.End, 25);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 25 March 2019  11:59 PM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 25 March 2019  11:59 PM ${getTimezoneOffset()}`);
     });
 
     it('should emit on hour change', async () => {
         await page.incrementHour(Picker.Start);
         await page.incrementHour(Picker.End);
 
-        expect(await page.getInputText()).toBe('4 March 2019  1:00 AM GMT — 21 March 2019  12:59 AM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  1:00 AM ${getTimezoneOffset()} — 21 March 2019  12:59 AM ${getTimezoneOffset()}`);
 
         await page.decrementHour(Picker.Start);
         await page.decrementHour(Picker.End);
 
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
     });
 
     it('should emit on minute change', async () => {
         await page.incrementMinute(Picker.Start);
         await page.incrementMinute(Picker.End);
 
-        expect(await page.getInputText()).toBe('4 March 2019  12:01 AM GMT — 21 March 2019  12:00 AM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:01 AM ${getTimezoneOffset()} — 21 March 2019  12:00 AM ${getTimezoneOffset()}`);
 
         await page.decrementMinute(Picker.Start);
         await page.decrementMinute(Picker.End);
 
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
     });
 
     it('should emit on timezone change', async () => {
+
         await page.incrementTimezone(Picker.Start);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset(1)} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
 
         await page.incrementTimezone(Picker.End);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT+1 — 21 March 2019  11:59 PM GMT+1');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset(1)} — 21 March 2019  11:59 PM ${getTimezoneOffset(1)}`);
 
         await page.decrementTimezone(Picker.Start);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT+1');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset(1)}`);
 
         await page.decrementTimezone(Picker.End);
-        expect(await page.getInputText()).toBe('4 March 2019  12:00 AM GMT — 21 March 2019  11:59 PM GMT');
+        expect(await page.getInputText()).toBe(`4 March 2019  12:00 AM ${getTimezoneOffset()} — 21 March 2019  11:59 PM ${getTimezoneOffset()}`);
     });
 
+    it('should update the range end picker on selection when start date is after the visible end month', async () => {
+        await page.clear();
+        await page.goToPreviousMonth(Picker.End);
+        expect(await page.getPickerTitle(Picker.End)).toBe('February 2019');
+
+        // select a date on the start picker
+        await page.selectDate(Picker.Start, 6);
+
+        // the range end date should get updated
+        expect(await page.getPickerTitle(Picker.End)).toBe('March 2019');
+    });
+
+    it('should not update the range end picker on selection when start date is before the visible end month', async () => {
+        await page.clear();
+        await page.goToNextMonth(Picker.End);
+        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+
+        // select a date on the start picker
+        await page.selectDate(Picker.Start, 6);
+
+        // the range end date should get updated
+        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+    });
+
+    it('should update the range start picker on selection when end date is before the visible start month', async () => {
+        await page.clear();
+        await page.goToPreviousMonth(Picker.Start);
+        expect(await page.getPickerTitle(Picker.Start)).toBe('February 2019');
+
+        // select a date on the end picker
+        await page.selectDate(Picker.End, 6);
+
+        // the range end date should get updated
+        expect(await page.getPickerTitle(Picker.Start)).toBe('February 2019');
+    });
+
+    it('should not update the range start picker on selection when end date is after the visible start month', async () => {
+        await page.clear();
+        await page.goToNextMonth(Picker.Start);
+        expect(await page.getPickerTitle(Picker.Start)).toBe('April 2019');
+
+        // select a date on the end picker
+        await page.selectDate(Picker.End, 6);
+
+        // the range end date should get updated
+        expect(await page.getPickerTitle(Picker.Start)).toBe('March 2019');
+    });
+
+    // take into account the current timezone
+    function getTimezoneOffset(offset: number = 0): string {
+        offset = new Date().getTimezoneOffset() + (offset * -60);
+        return timezones.find(timezone => timezone.offset === offset).name;
+    }
 });
+
+const timezones = [
+    { name: 'GMT-11', offset: 660 },
+    { name: 'GMT-10', offset: 600 },
+    { name: 'GMT-9', offset: 540 },
+    { name: 'GMT-8', offset: 480 },
+    { name: 'GMT-7', offset: 420 },
+    { name: 'GMT-6', offset: 360 },
+    { name: 'GMT-5', offset: 300 },
+    { name: 'GMT-4', offset: 240 },
+    { name: 'GMT-3', offset: 180 },
+    { name: 'GMT-2', offset: 120 },
+    { name: 'GMT-1', offset: 60 },
+    { name: 'GMT', offset: 0 },
+    { name: 'GMT+1', offset: -60 },
+    { name: 'GMT+2', offset: -120 },
+    { name: 'GMT+3', offset: -180 },
+    { name: 'GMT+4', offset: -240 },
+    { name: 'GMT+5', offset: -300 },
+    { name: 'GMT+6', offset: -360 },
+    { name: 'GMT+7', offset: -420 },
+    { name: 'GMT+8', offset: -480 },
+    { name: 'GMT+9', offset: -540 },
+    { name: 'GMT+10', offset: -600 },
+    { name: 'GMT+11', offset: -660 },
+    { name: 'GMT+12', offset: -720 }
+];

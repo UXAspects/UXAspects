@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component } from '@angular/core';
-import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
+import { DateTimePickerTimezone, timezones } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-date-range-picker',
@@ -39,8 +39,8 @@ export class DateRangePickerTestPageComponent {
     showNowBtn: boolean = false;
 
     /** Store the currently selected timezones */
-    private _startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
-    private _endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+    private _startTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
+    private _endTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
 
     /** Parse a date string when the input changes */
     onDateChange(date: string): void {
@@ -103,10 +103,21 @@ export class DateRangePickerTestPageComponent {
         this.onRangeChange();
     }
 
+    clear(): void {
+        this.start = null;
+        this.end = null;
+        this.date = null;
+        this.onRangeChange();
+    }
+
     /** Account for the timezone offset */
     private getNormalizedDate(date: Date, timezone: DateTimePickerTimezone): Date {
         const normalizedDate = new Date(date);
         normalizedDate.setMinutes(normalizedDate.getMinutes() + timezone.offset);
         return normalizedDate;
+    }
+
+    private getCurrentTimezone(): DateTimePickerTimezone {
+        return { ...timezones.find(timezone => timezone.offset === new Date().getTimezoneOffset()) };
     }
 }

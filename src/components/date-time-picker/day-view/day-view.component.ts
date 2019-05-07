@@ -317,7 +317,21 @@ export class DayViewComponent implements AfterViewInit, OnDestroy {
 
     /** Update the viewport when the range changes to ensure focus is present on a valid item */
     private onRangeChange(date: Date): void {
-        if (this._isRangeStart && !this._rangeStart || this._isRangeEnd && !this._rangeEnd) {
+
+        if (!(this._isRangeStart && !this._rangeStart || this._isRangeEnd && !this._rangeEnd)) {
+            return;
+        }
+
+        // get the month showing on the other date range picker
+        const currentDate = new Date(this.datePicker.year$.value, this.datePicker.month$.value);
+
+        // if we are the start date and we are after the end date - ONLY then should be change the visible month the match the end date
+        const startShouldUpdate = this._isRangeStart && !this._rangeStart && (currentDate.getFullYear() > date.getFullYear() || currentDate.getFullYear() === date.getFullYear() && currentDate.getMonth() > date.getMonth());
+
+        // if we are the end date and we are before the start date - ONLY then should be change the visible month the match the start date
+        const endShouldUpdate = this._isRangeEnd && !this._rangeEnd && (currentDate.getFullYear() < date.getFullYear() || currentDate.getFullYear() === date.getFullYear() && currentDate.getMonth() < date.getMonth());
+
+        if (startShouldUpdate || endShouldUpdate) {
             this.datePicker.setViewportMonth(date.getMonth());
             this.datePicker.setViewportYear(date.getFullYear());
             this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());

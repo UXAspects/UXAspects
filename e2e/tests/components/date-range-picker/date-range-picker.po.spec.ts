@@ -4,6 +4,7 @@ export class DateRangePickerPage {
 
     input = $('#date-range-input');
     dateRangePicker = $('ux-date-range-picker');
+    clearBtn = $('#clear-btn');
 
     async getPage(): Promise<void> {
         return await browser.get('#/date-range-picker');
@@ -142,6 +143,27 @@ export class DateRangePickerPage {
         const spinner = await pickerElement.$('.time-zone-spinner');
         const buttons = await spinner.$$('.spin-button');
         return buttons[1].click();
+    }
+
+    async goToPreviousMonth(picker: Picker): Promise<void> {
+        const datePicker: ElementFinder = await this.getPicker(picker);
+        const buttons: ElementFinder[] = await datePicker.$$('.header-navigation');
+        await buttons[0].click();
+    }
+
+    async goToNextMonth(picker: Picker): Promise<void> {
+        const datePicker: ElementFinder = await this.getPicker(picker);
+        const buttons: ElementFinder[] = await datePicker.$$('.header-navigation');
+        await buttons[1].click();
+    }
+
+    async getPickerTitle(picker: Picker): Promise<string> {
+        const datePicker: ElementFinder = await this.getPicker(picker);
+        return await datePicker.$('.header-title').getAttribute('innerText');
+    }
+
+    async clear(): Promise<void> {
+        await this.clearBtn.click();
     }
 }
 
