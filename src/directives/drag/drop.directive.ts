@@ -9,13 +9,13 @@ import { DragService, UxDragEvent } from './drag.service';
         '[class.ux-drop-hover]': 'isMouseOver && isDragging'
     }
 })
-export class DropDirective implements OnDestroy {
+export class DropDirective<T = any> implements OnDestroy {
 
     /** Define a specific group of dragged items to listen to */
     @Input() group: string | string[];
 
     /** Emit the model of the item dropped */
-    @Output() onDrop = new EventEmitter<any>();
+    @Output() onDrop = new EventEmitter<T>();
 
     /** Determine whether or not the mouse is within the drop region */
     isMouseOver: boolean = false;
@@ -29,10 +29,13 @@ export class DropDirective implements OnDestroy {
     /** Ensure we destroy all subscriptions */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _dragService: DragService) {
+    constructor(private _dragService: DragService<T>) {
         // subscribe to drag events
-        _dragService.onDragStart.pipe(takeUntil(this._onDestroy), filter(event => this.isGroupAllowed(event.group))).subscribe(this.onDragStart.bind(this));
-        _dragService.onDragEnd.pipe(takeUntil(this._onDestroy), filter(event => this.isGroupAllowed(event.group))).subscribe(this.onDragEnd.bind(this));
+        _dragService.onDragStart.pipe(filter(event => this.isGroupAllowed(event.group)), takeUntil(this._onDestroy))
+            .subscribe(this.onDragStart.bind(this));
+
+        _dragService.onDragEnd.pipe(filter(event => this.isGroupAllowed(event.group)), takeUntil(this._onDestroy))
+            .subscribe(this.onDragEnd.bind(this));
     }
 
     ngOnDestroy(): void {
@@ -65,13 +68,13 @@ export class DropDirective implements OnDestroy {
     }
 
     /** Update the dragging state */
-    onDragStart(event: UxDragEvent): void {
+    onDragStart(event: UxDragEvent<T>): void {
         this.isDragging = true;
         this._group = event.group;
     }
 
     /** Update the dragging state */
-    onDragEnd(event: UxDragEvent): void {
+    onDragEnd(event: UxDragEvent<T>): void {
 
         // update the dragging state
         this.isDragging = false;

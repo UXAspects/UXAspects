@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 
 export enum SidePanelAnimationState {
     Closed = 'closed',
@@ -6,7 +6,7 @@ export enum SidePanelAnimationState {
     OpenImmediate = 'openImmediate'
 }
 
-export const sidePanelStateAnimation = trigger('panelState', [
+export const sidePanelStateAnimation: AnimationTriggerMetadata = trigger('panelState', [
     state(
         SidePanelAnimationState.Closed,
         style({

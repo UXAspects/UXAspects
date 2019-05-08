@@ -1,11 +1,12 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { NavigationItem } from './navigation-item.inferface';
 import { NavigationService } from './navigation.service';
 
 @Component({
     selector: 'ux-navigation',
     templateUrl: './navigation.component.html',
-    providers: [NavigationService]
+    providers: [NavigationService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent {
 
@@ -19,8 +20,7 @@ export class NavigationComponent {
     }
 
     /** Whether to present the menu as a hierarchical tree. */
-    @Input()
-    tree: boolean = true;
+    @Input() tree: boolean = true;
 
     /** Whether to collapse other menu items when expanding a menu item. */
     @Input()
@@ -28,10 +28,11 @@ export class NavigationComponent {
         this._navigationService.autoCollapse = autoCollapse;
     }
 
-    @ContentChild('uxNavigationItem')
-    navigationItemTemplate: TemplateRef<any>;
+    /** Access a custom navigation item template if provided */
+    @ContentChild('uxNavigationItem') navigationItemTemplate: TemplateRef<any>;
 
-    hierarchyClasses = [
+    /** The classes to be added to each different level */
+    _hierarchyClasses = [
         '',
         'nav-second-level',
         'nav-third-level',
@@ -39,27 +40,16 @@ export class NavigationComponent {
         'nav-fifth-level',
     ];
 
-    get depthLimit(): number {
-        return this.tree ? this.hierarchyClasses.length : 2;
+    get _depthLimit(): number {
+        return this.tree ? this._hierarchyClasses.length : 2;
     }
 
     constructor(private _navigationService: NavigationService) { }
 
-    itemClick(item: NavigationItem, event: Event): void {
-
-        // Toggle expanded state (relevant only if it has children)
-        item.expanded = !item.expanded;
-
-        // Invoke the custom click handler if specified
-        if (item.click) {
-            item.click(event, item);
-        }
-    }
-
     /**
      * Returns true if the sets of items needs to be indented to make room for one or more expander.
      */
-    needsIndent(items: NavigationItem[]): boolean {
+    _needsIndent(items: NavigationItem[]): boolean {
         return items && items.some(item => item.children && item.children.length > 0);
     }
 }
