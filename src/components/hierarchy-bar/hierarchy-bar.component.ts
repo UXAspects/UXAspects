@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { OverlayTrigger } from '../tooltip/index';
+import { HierarchyBarNodeIconDirective } from './hierarchy-bar-node/hierarchy-bar-node-icon.directive';
 import { HierarchyBarService } from './hierarchy-bar.service';
+import { HierarchyBarIconContext } from './interfaces/hierarchy-bar-node-icon-context.interface';
 import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
 import { HierarchyBarMode, IHierachyBarComponent } from './interfaces/hierarchy-bar.interface';
 
@@ -54,6 +56,12 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
 
     /** Emit when the selected node changes */
     @Output() selectedChange = new EventEmitter<HierarchyBarNode>();
+
+    /** Allow a custom icon to be specified */
+    @ContentChild(HierarchyBarNodeIconDirective, { read: TemplateRef })
+    set icon(icon: TemplateRef<HierarchyBarIconContext>) {
+        this._hierarchyBar.icon = icon;
+    }
 
     /** Unsubscribe from all subscriptions when component is destroyed */
     private _onDestroy = new Subject<void>();

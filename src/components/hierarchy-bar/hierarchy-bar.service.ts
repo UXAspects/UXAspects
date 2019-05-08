@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { OverlayTrigger } from '../tooltip/index';
 import { HierarchyBarNodeChildren } from './interfaces/hierarchy-bar-node-children.interface';
+import { HierarchyBarIconContext } from './interfaces/hierarchy-bar-node-icon-context.interface';
 import { HierarchyBarNode } from './interfaces/hierarchy-bar-node.interface';
 
 @Injectable()
@@ -32,6 +33,9 @@ export class HierarchyBarService {
 
     /** Define the aria label for the show siblings popover button */
     showSiblingsAriaLabel: string = 'Show Siblings';
+
+    /** Allow a custom icon template to be specified */
+    icon: TemplateRef<HierarchyBarIconContext>;
 
     /** Store the root node */
     private _root: HierarchyBarNode;

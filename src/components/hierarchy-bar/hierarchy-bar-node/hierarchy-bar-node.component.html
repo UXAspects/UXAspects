@@ -6,8 +6,13 @@
             [attr.aria-label]="node.title"
             (click)="select.emit(node)">
 
+        <!-- Show a custom icon if specified -->
+        <div class="hierarchy-bar-node-icon" *ngIf="hierarchyBar.icon">
+            <ng-container [ngTemplateOutlet]="hierarchyBar.icon" [ngTemplateOutletContext]="{ node: node, $implicit: node }"></ng-container>
+        </div>
+
         <!-- Show an icon if specifed -->
-        <img class="hierarchy-bar-node-icon" *ngIf="node.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+        <img class="hierarchy-bar-node-icon" *ngIf="node.icon && !hierarchyBar.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
 
         <!-- Show the name of the current node -->
         <span class="hierarchy-bar-node-title">{{ node.title }}</span>
