@@ -6,13 +6,16 @@ import { DragService, UxDragEvent } from './drag.service';
 @Directive({
     selector: '[uxDrop]',
     host: {
-        '[class.ux-drop-hover]': 'isMouseOver && isDragging'
+        '[class.ux-drop-hover]': 'isMouseOver && isDragging && !dropDisabled'
     }
 })
 export class DropDirective<T = any> implements OnDestroy {
 
     /** Define a specific group of dragged items to listen to */
     @Input() group: string | string[];
+
+    /** Define whether or not dropping is enabled */
+    @Input() dropDisabled: boolean = false;
 
     /** Emit the model of the item dropped */
     @Output() onDrop = new EventEmitter<T>();
@@ -31,10 +34,10 @@ export class DropDirective<T = any> implements OnDestroy {
 
     constructor(private _dragService: DragService<T>) {
         // subscribe to drag events
-        _dragService.onDragStart.pipe(filter(event => this.isGroupAllowed(event.group)), takeUntil(this._onDestroy))
+        _dragService.onDragStart.pipe(filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
             .subscribe(this.onDragStart.bind(this));
 
-        _dragService.onDragEnd.pipe(filter(event => this.isGroupAllowed(event.group)), takeUntil(this._onDestroy))
+        _dragService.onDragEnd.pipe(filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
             .subscribe(this.onDragEnd.bind(this));
     }
 
@@ -46,7 +49,7 @@ export class DropDirective<T = any> implements OnDestroy {
     /** Update the mouse over state */
     @HostListener('mouseenter')
     onMouseOver(): void {
-        if (this.isGroupAllowed(this._group)) {
+        if (this.isDropAllowed(this._group)) {
             this.isMouseOver = true;
 
             // emit that we are over a drop area
@@ -62,7 +65,7 @@ export class DropDirective<T = any> implements OnDestroy {
         this.isMouseOver = false;
 
         // only emit the dropd leave event when appropriate
-        if (this.isGroupAllowed(this._group)) {
+        if (this.isDropAllowed(this._group)) {
             this._dragService.onDropLeave.next();
         }
     }
@@ -83,14 +86,19 @@ export class DropDirective<T = any> implements OnDestroy {
         this._group = null;
 
         // if the mouse is over and it is in an allowed group emit the dop event
-        if (this.isMouseOver && this.isGroupAllowed(event.group)) {
+        if (this.isMouseOver && this.isDropAllowed(event.group)) {
             this.onDrop.emit(event.data);
             this._dragService.onDrop.next(event.data);
         }
     }
 
     /** Determine whether or not the event is part of the specified groups */
-    private isGroupAllowed(group: string): boolean {
+    private isDropAllowed(group: string): boolean {
+
+        // if dropping is disabled then it is never allowed
+        if (this.dropDisabled) {
+            return false;
+        }
 
         // if no group specified allow all groups
         if (!this.group) {
