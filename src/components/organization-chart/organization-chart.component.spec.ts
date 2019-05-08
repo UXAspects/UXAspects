@@ -210,14 +210,14 @@ describe('Organization Chart Component', () => {
     function clickOnNode(node: HTMLElement): Promise<void> {
         return new Promise<void>(resolve => {
             dispatchMouseEvent(node, 'click');
-            setTimeout(() => resolve(), 10);
+            setTimeout(() => resolve(), 100);
         });
     }
 
     function keydownOnNode(node: HTMLElement, keyCode: number): Promise<void> {
         return new Promise<void>(resolve => {
             dispatchKeyboardEvent(node, 'keydown', keyCode);
-            setTimeout(() => resolve(), 10);
+            setTimeout(() => resolve(), 100);
         });
     }
 });
