@@ -17,7 +17,7 @@
                     (ngModelChange)="onDateChange($event)"
                     [uxPopover]="popoverTemplate"
                     placement="bottom"
-                    popoverClass="date-range-picker-popover"
+                    [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' : 'date-range-picker-popover'"
                     class="form-control"
                     aria-label="Selected date"
                     (keydown.enter)="popover.show()">
