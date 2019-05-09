@@ -14,7 +14,7 @@ export class MockResizeService {
     removeResizeListener(_target: HTMLElement): void { }
 }
 
-describe('NestedDonutChartComponent', () => {
+describe('Nested Donut Chart Component', () => {
     let component: NestedDonutChartComponent;
     let fixture: ComponentFixture<NestedDonutChartComponent>;
     let element: HTMLElement;
