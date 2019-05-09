@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { FocusIndicatorOrigin, FocusIndicatorOriginService } from '../../../directives/accessibility/index';
+import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 
 @Component({
@@ -24,7 +25,12 @@ export class HierarchyBarPopoverItemComponent implements OnDestroy {
     /** Allow this to control the focus origin */
     private _focusOrigin: FocusIndicatorOrigin;
 
-    constructor(focusOriginService: FocusIndicatorOriginService, elementRef: ElementRef, renderer: Renderer2) {
+    constructor(
+        focusOriginService: FocusIndicatorOriginService,
+        elementRef: ElementRef,
+        renderer: Renderer2,
+        public readonly hierarchyBar: HierarchyBarService
+    ) {
         this._focusOrigin = new FocusIndicatorOrigin(focusOriginService, elementRef, renderer);
     }
 
