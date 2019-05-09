@@ -1,33 +1,20 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { FocusIndicatorOrigin } from './focus-indicator-origin';
 import { FocusIndicatorOriginService } from './focus-indicator-origin.service';
 
 @Directive({
     selector: '[uxFocusIndicatorOrigin]',
 })
-export class FocusIndicatorOriginDirective {
+export class FocusIndicatorOriginDirective implements OnDestroy {
 
-    /** Click events can be trigged by both mouse and keyboard so we want to ensure we emit the correct origin */
-    private _isMouseEvent: boolean;
+    /** Store the instance of the focus indicator origin */
+    private _focusOrigin: FocusIndicatorOrigin;
 
-    constructor(private _focusIndicatorEvent: FocusIndicatorOriginService) { }
-
-    @HostListener('mousedown')
-    onMouseDown(): void {
-        this._isMouseEvent = true;
+    constructor(focusOriginService: FocusIndicatorOriginService, elementRef: ElementRef, renderer: Renderer2) {
+        this._focusOrigin = new FocusIndicatorOrigin(focusOriginService, elementRef, renderer);
     }
 
-    @HostListener('click')
-    onClick(): void {
-        // if the click was triggered after a mousedown event then it is a keyboard event
-        this._focusIndicatorEvent.setOrigin(this._isMouseEvent ? 'mouse' : 'keyboard');
-
-        // reset the mouse event flag
-        this._isMouseEvent = false;
-    }
-
-    @HostListener('keydown')
-    onKeydown(): void {
-        this._isMouseEvent = false;
-        this._focusIndicatorEvent.setOrigin('keyboard');
+    ngOnDestroy(): void {
+        this._focusOrigin.destroy();
     }
 }
