@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
@@ -70,8 +70,8 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
     constructor(
         private readonly _elementRef: ElementRef,
         private readonly _focusIndicatorService: FocusIndicatorService,
-        private readonly _changeDetectorRef: ChangeDetectorRef,
         readonly optionsService: AccessibilityOptionsService,
+        private readonly _ngZone: NgZone,
         @Optional() readonly localOptions?: LocalFocusIndicatorOptions
     ) {
 
@@ -101,10 +101,7 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
         // subscribe to the focus state to emit an event on change
         this._focusIndicator.isFocused$.pipe(takeUntil(this._onDestroy)).subscribe(isFocused => {
             // emit the latest value
-            this.indicator.emit(isFocused);
-
-            // inform the change detector that we need to run as focus monitor runs outside of NgZone
-            this._changeDetectorRef.detectChanges();
+            this._ngZone.run(() => this.indicator.emit(isFocused));
         });
     }
 
