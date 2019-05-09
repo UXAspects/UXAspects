@@ -20,6 +20,7 @@
 
         <button [attr.aria-label]="hierarchyBar.showSiblingsAriaLabel"
             uxFocusIndicator
+            uxFocusIndicatorOrigin
             class="hierarchy-bar-node-arrow"
             placement="bottom"
             [uxPopover]="siblingsTemplate"
@@ -84,7 +85,9 @@
 
 <!-- Default Overflow Template -->
 <ng-template #defaultOverflowTemplate>
-    <button class="overflow-button"
+    <button uxFocusIndicator
+            uxFocusIndicatorOrigin
+            class="overflow-button"
             aria-label="Show parents"
             [uxPopover]="parentsTemplate"
             popoverClass="hierarchy-bar-popover"
