@@ -330,7 +330,7 @@ select {
 .multi-select-checkbox {
     &:hover,
     &:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 }
 
@@ -1643,7 +1643,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 //JQuery knob input
 .dial {
     &:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 }
 
@@ -1855,9 +1855,11 @@ tree-view > div:first-child > ol:nth-of-type(1) {
             line-height: 1em !important;
             border: none !important;
             margin-left: -5px;
-            .aspects-outline;
-
             padding-left: 5px;
+
+            &:focus {
+                .native-focus-outline();
+            }
         }
 
         .title-readonly:focus {
@@ -1904,12 +1906,12 @@ tree-view > div:first-child > ol:nth-of-type(1) {
 
     a:focus,
     span:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 
     a:active,
     a:active:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 
     .toggle {
@@ -2266,7 +2268,7 @@ table.select-table tr > td {
 }
 
 table.select-table tr:focus {
-    .aspects-outline();
+    .native-focus-outline();
 }
 
 table.select-table > tbody > tr.highlight {
