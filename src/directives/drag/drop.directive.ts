@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DragService, UxDragEvent } from './drag.service';
 
@@ -34,7 +34,7 @@ export class DropDirective<T = any> implements OnDestroy {
 
     constructor(private _dragService: DragService<T>) {
         // subscribe to drag events
-        _dragService.onDragStart.pipe(filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
+        _dragService.onDragStart.pipe(tap(event => this._group = event.group), filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
             .subscribe(this.onDragStart.bind(this));
 
         _dragService.onDragEnd.pipe(filter(event => this.isDropAllowed(event.group)), takeUntil(this._onDestroy))
@@ -71,9 +71,8 @@ export class DropDirective<T = any> implements OnDestroy {
     }
 
     /** Update the dragging state */
-    onDragStart(event: UxDragEvent<T>): void {
+    onDragStart(): void {
         this.isDragging = true;
-        this._group = event.group;
     }
 
     /** Update the dragging state */
