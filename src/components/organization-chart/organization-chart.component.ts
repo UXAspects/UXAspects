@@ -174,7 +174,7 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         this._nodesContainer = select(this.nodesContainer.nativeElement);
 
         // setup the zoom on the node layer
-        this._nodesContainer.call(this._zoom);
+        this._ngZone.runOutsideAngular(() => this._nodesContainer.call(this._zoom));
 
         // perform the initial render
         this.render();

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -13,6 +13,7 @@ let uniqueId = 0;
     selector: 'ux-typeahead',
     templateUrl: 'typeahead.component.html',
     providers: [TypeaheadService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'listbox',
         '[class.open]': 'open',
@@ -74,13 +75,13 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() loading = false;
 
     /** Specify a custom loading template */
-    @Input() loadingTemplate: TemplateRef<any>;
+    @Input() loadingTemplate: TemplateRef<{}>;
 
     /** Specify a custom option template */
-    @Input() optionTemplate: TemplateRef<any>;
+    @Input() optionTemplate: TemplateRef<TypeaheadOptionContext<T>>;
 
     /** Specify a custom template to display when there are no options */
-    @Input() noOptionsTemplate: TemplateRef<any>;
+    @Input() noOptionsTemplate: TemplateRef<{}>;
 
     /** Specify the currently active item */
     @Input() set active(item: T) {
@@ -91,7 +92,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Output() openChange = new EventEmitter<boolean>();
 
     /** Emit when an option is selected */
-    @Output() optionSelected = new EventEmitter<TypeaheadOptionEvent>();
+    @Output() optionSelected = new EventEmitter<TypeaheadOptionEvent<T>>();
 
     /** Emit whenever a highlighted item changes */
     @Output() highlightedChange = new EventEmitter<T>();
@@ -398,4 +399,9 @@ export interface TypeaheadOptionApi<T = any> {
 export interface TypeaheadVisibleOption<T = any> {
     value: T;
     key: string;
+}
+
+export interface TypeaheadOptionContext<T> {
+    option: T;
+    api: TypeaheadOptionApi<T>;
 }
