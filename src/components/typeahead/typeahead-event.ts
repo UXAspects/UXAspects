@@ -1,3 +1,3 @@
-export class TypeaheadOptionEvent {
-    constructor(public option: any) {}
+export class TypeaheadOptionEvent<T = any> {
+    constructor(public option: T) { }
 }
