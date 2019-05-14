@@ -807,6 +807,7 @@ export interface PartitionMapCustomSegmentContext {
     segment: PartitionMapSegment;
     color: string;
     value: number;
+    expanded: boolean;
 }
 
 /** An object of this interface is passed to the announcer function */
