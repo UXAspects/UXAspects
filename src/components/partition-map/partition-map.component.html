@@ -27,7 +27,7 @@
        <!-- Show custom template if provided -->
       <ng-container *ngIf="segmentTemplate"
         [ngTemplateOutlet]="segmentTemplate"
-        [ngTemplateOutletContext]="{ segment: segment.data, value: _getSegmentValue(segment.data), color: _getBackgroundColor(segment), expanded: !_isCollapsed(segment) }">
+        [ngTemplateOutletContext]="_getContext(segment)">
       </ng-container>
     </div>
 
