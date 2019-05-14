@@ -14,7 +14,7 @@
   "scripts": {
     "prepack": "mv src/package.json src_package.json",
     "postpack": "mv src_package.json src/package.json",
-    "start": "webpack-dev-server --config configs/webpack.dev.config.js",
+    "start": "node --max_old_space_size=8192 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config configs/webpack.dev.config.js",
     "start:https": "npm run start -- --https --pfx configs/webpack.docs.dev.pfx",
     "start:e2e": "webpack-dev-server --config configs/webpack.e2e.config.js --progress --colors",
     "start:karma": "karma start",

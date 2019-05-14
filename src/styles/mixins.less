@@ -37,17 +37,20 @@
     }
 }
 
-.aspects-outline {
+.focus-outline {
     outline: 2px dotted;
     outline: auto -webkit-focus-ring-color;
     outline-color: @aspects-outline;
     outline-offset: 0;
 }
 
-.elements-force-outline {
-    outline-style: solid;
-    outline-width: 1px;
-    .aspects-outline;
+.native-focus-outline {
+    &:not(.ux-focus-indicator) {
+        outline: 2px dotted;
+        outline: auto -webkit-focus-ring-color;
+        outline-color: @aspects-outline;
+        outline-offset: 0;
+    }
 }
 
 .btn-hover-active-color(light, @color, @percent) {

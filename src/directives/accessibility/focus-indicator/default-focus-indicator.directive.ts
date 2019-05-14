@@ -12,7 +12,7 @@ import { FocusIndicatorService } from './focus-indicator.service';
  * If the button has a uxFocusIndicator or uxMenuNavigationToggle directive applied we should skip this
  */
 @Directive({
-    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[tabindex]:not([tabindex="-1"]):not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
+    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
 

@@ -76,19 +76,24 @@
         line-height: inherit;
     }
 
+    &,
     &:active,
     &.active {
-        box-shadow: @btn-active-shadow;
-
         &:focus,
         &.focus {
-            .aspects-outline;
+            outline: none;
+
+            .native-focus-outline();
+
+            &.ux-focus-indicator.ux-focus-indicator-active {
+                .focus-outline();
+            }
         }
     }
 
-    &:focus,
-    &.focus {
-        .aspects-outline;
+    &:active,
+    &.active {
+        box-shadow: @btn-active-shadow;
     }
 
     &:hover {
@@ -238,7 +243,8 @@
 
 .button-primary,
 .btn-primary {
-    &.disabled, &[disabled] {
+    &.disabled,
+    &[disabled] {
         .button-primary-disabled;
 
         &:hover,
@@ -701,7 +707,7 @@ button {
 
 .btn-back {
     &:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 }
 
@@ -809,7 +815,7 @@ button {
 
     .dropdown-toggle {
         &:focus {
-            .aspects-outline;
+            .native-focus-outline;
 
             z-index: @button-group-front-z-index;
         }
