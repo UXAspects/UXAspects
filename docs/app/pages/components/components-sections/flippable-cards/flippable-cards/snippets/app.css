@@ -13,13 +13,6 @@
     background: transparent;
 }
 
-.flip-card-btn:focus {
-    outline: 2px dotted;
-    outline: auto -webkit-focus-ring-color;
-    outline-color: #00a7a2;
-    outline-offset: 0;
-}
-
 .flip-card-logo {
     margin: 0 20px;
     transform: translateY(-5px);
