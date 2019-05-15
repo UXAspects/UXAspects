@@ -63,6 +63,9 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     /** Emit whenever the reveal button is pressed */
     @Output() reveal = new EventEmitter<void>();
 
+    /** Emit when the transition ends */
+    @Output() transitionEnd = new EventEmitter<void>();
+
     /** Get the template for the node content */
     @ContentChild('nodeTemplate') nodeTemplate: TemplateRef<OrganizationChartNodeContext<T>>;
 
@@ -244,7 +247,10 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         const defaultTransition = transition()
             .duration(this.duration)
             .on('start', () => this._isTransitioning = true)
-            .on('end', () => this._isTransitioning = false);
+            .on('end', () => {
+                this._isTransitioning = false;
+                this.transitionEnd.emit();
+            });
 
         // render the links when they are first added to the DOM
         this._links.enter()
