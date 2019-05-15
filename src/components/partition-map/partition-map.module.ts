@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
+import { PartitionMapSegmentEventsDirective } from './events/partition-map-segment-events.directive';
 import { PartitionMapComponent } from './partition-map.component';
 
 @NgModule({
@@ -15,10 +16,12 @@ import { PartitionMapComponent } from './partition-map.component';
         ResizeModule
     ],
     declarations: [
-        PartitionMapComponent
+        PartitionMapComponent,
+        PartitionMapSegmentEventsDirective
     ],
     exports: [
-        PartitionMapComponent
+        PartitionMapComponent,
+        PartitionMapSegmentEventsDirective
     ]
 })
 export class PartitionMapModule { }

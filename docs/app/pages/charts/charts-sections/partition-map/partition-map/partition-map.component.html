@@ -78,8 +78,12 @@
 
 <p>
     Additionally the content of a segment can be customized by adding a child <code>ng-template</code> identified as <code>#partitionMapSegment</code>.
-    This custom template can be used to add functionality such as a tooltip or popover. The template context provides access to several variables
-    that can be used to display information within the segment:
+    This custom template can be used to add functionality such as a tooltip or popover. The custom template can use the <code>segmentFocus</code> and
+    <code>segmentBlur</code> events to trigger events when the segment is focused or blurred.
+</p>
+
+<p>
+    The template context provides access to several variables that can be used to display information within the segment:
 </p>
 
 <uxd-api-properties tableTitle="Partition Map Segment Template Context">
