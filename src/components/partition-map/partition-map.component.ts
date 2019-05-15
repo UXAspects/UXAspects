@@ -358,6 +358,23 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
         return (segment as PartitionMapSegmentWithChildren).children.reduce((value, child) => value + this._getSegmentValue(child), 0);
     }
 
+    _getContext(segment: HierarchyRectangularNode<PartitionMapSegment>): PartitionMapCustomSegmentContext {
+        const context: PartitionMapCustomSegmentContext = {
+            segment: segment.data,
+            value: this._getSegmentValue(segment.data),
+            color: this._getBackgroundColor(segment),
+            expanded: !this._isCollapsed(segment),
+            children: []
+        };
+
+        // map the children to their contexts
+        if (segment.children) {
+            context.children = segment.children.map(this._getContext.bind(this));
+        }
+
+        return context;
+    }
+
     /** Convert the public facing data structure into the layout format we require */
     private setDataset(dataset: Readonly<PartitionMapSegment>): void {
 
@@ -807,6 +824,8 @@ export interface PartitionMapCustomSegmentContext {
     segment: PartitionMapSegment;
     color: string;
     value: number;
+    expanded: boolean;
+    children: PartitionMapCustomSegmentContext[];
 }
 
 /** An object of this interface is passed to the announcer function */

@@ -20,14 +20,14 @@
      <div class="partition-map-segment-content" [class.partition-map-segment-content-hidden]="_getSegmentContentHidden(segment)">
 
       <!-- Show default template if provided -->
-      <span class="partion-map-segment-label" *ngIf="!segmentTemplate">
+      <span class="partition-map-segment-label" *ngIf="!segmentTemplate">
         {{ segment.data.name }}
       </span>
 
        <!-- Show custom template if provided -->
       <ng-container *ngIf="segmentTemplate"
         [ngTemplateOutlet]="segmentTemplate"
-        [ngTemplateOutletContext]="{ segment: segment.data, value: _getSegmentValue(segment.data), color: _getBackgroundColor(segment) }">
+        [ngTemplateOutletContext]="_getContext(segment)">
       </ng-container>
     </div>
 

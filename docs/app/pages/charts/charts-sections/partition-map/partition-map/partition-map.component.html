@@ -6,7 +6,7 @@
              (mouseleave)="tooltip.hide()"
              (click)="tooltip.hide()">
 
-            <span class="partion-map-segment-label"
+            <span class="partition-map-segment-label"
                   #tooltip="ux-tooltip"
                   [uxTooltip]="segment.name + ': ' + value"
                   tooltipClass="partition-map-tooltip"
@@ -89,8 +89,14 @@
     <tr uxd-api-property name="value" type="number">
         The amount this segment represents. If this segment has children, the value will represent the sum of all child values.
     </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        This represents the expanded state of the segment.
+    </tr>
     <tr uxd-api-property name="color" type="string">
         The background color of this segment.
+    </tr>
+    <tr uxd-api-property name="children" type="PartitionMapCustomSegmentContext[]">
+        The contexts for all child segments.
     </tr>
 </uxd-api-properties>
 
