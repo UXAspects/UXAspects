@@ -348,6 +348,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         // emit the latest selection
         this.selectedChange.next(this._selected);
 
+        // show reveal any nodes that may previously have been hidden but are now visible due to selection
+        if (this._isInitialised) {
+            this.render();
+        }
+
         // add the styling to the selected node
         this._renderer.addClass(this.getNodeElement(this._selected), 'ux-organization-chart-node-selected');
 
