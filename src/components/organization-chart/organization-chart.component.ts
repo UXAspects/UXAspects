@@ -500,6 +500,11 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
         this.setCameraPosition(camera.x + x, camera.y + y, animate);
     }
 
+    /** Focus a given node */
+    focus(node: OrganizationChartNode<T>): void {
+        this.focusNode(this.coercePointNode(node));
+    }
+
     /** Focus the root node */
     _focusRootNode(): void {
         this.focusNode(this.coercePointNode(this.dataset));
