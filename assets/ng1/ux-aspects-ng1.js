@@ -28849,6 +28849,14 @@ angular.module('ux-aspects.listItemFilter', []).directive('listItemFilter', _lis
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MarqueeWizardCtrl", function() { return MarqueeWizardCtrl; });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -28920,26 +28928,30 @@ function () {
       if (this.stepIndex === this.wizardSteps.length - 1) return; //if on change function specified call it and await its response
 
       if (typeof this.onChanging === 'function') {
-        var response = this.onChanging(this.stepIndex, this.stepIndex + 1); //dont go to the next page if the response is false
+        // get all steps after the current one
+        var steps = _toConsumableArray(this.wizardSteps).slice(this.stepIndex + 1); // find the steps that are visible and gets the first one
+
+
+        var target = steps.filter(function (step) {
+          return !step.hidden;
+        }).shift(); // if there are no visible steps then do nothing
+
+        if (!target) {
+          return;
+        }
+
+        var targetIndex = this.wizardSteps.indexOf(target);
+        var response = this.onChanging(this.stepIndex, targetIndex); //dont go to the next page if the response is false
 
         if (response === false) {
           this.currentStep.error = true;
           return;
-        } //check if the next step is visible
-
-
-        while (this.stepIndex !== this.wizardSteps.length - 1) {
-          if (this.wizardSteps[this.stepIndex + 1].hidden === true) {
-            this.stepIndex += 1;
-          } else {
-            break;
-          }
         }
 
         if (angular.isNumber(response) && response >= 0 && response < this.wizardSteps.length && !this.wizardSteps[response].hidden) {
           this.stepIndex = response;
         } else {
-          this.stepIndex++;
+          this.stepIndex = targetIndex;
         }
 
         this.currentStep.error = false;
@@ -28962,16 +28974,20 @@ function () {
       if (this.stepIndex === 0) return; //if on change function specified call it and await its response
 
       if (typeof this.onChanging === 'function') {
-        var response = this.onChanging(this.stepIndex, this.stepIndex - 1); //check if the next step is visible
+        // get all steps before the current one
+        var steps = _toConsumableArray(this.wizardSteps).slice(0, this.stepIndex); // find the steps that are visible and remove the last one
 
-        while (this.stepIndex !== 0) {
-          if (this.wizardSteps[this.stepIndex - 1].hidden === true) {
-            this.stepIndex -= 1;
-          } else {
-            break;
-          }
-        } //dont go to the previous page if the response is false
 
+        var target = steps.filter(function (step) {
+          return !step.hidden;
+        }).pop(); // if there are no previous visible steps then do nothing
+
+        if (!target) {
+          return;
+        }
+
+        var targetIndex = this.wizardSteps.indexOf(target);
+        var response = this.onChanging(this.stepIndex, targetIndex); // dont go to the previous page if the response is false
 
         if (response === false) {
           return;
@@ -28980,7 +28996,7 @@ function () {
         if (angular.isNumber(response) && response >= 0 && response < this.wizardSteps.length && !this.wizardSteps[response].hidden) {
           this.stepIndex = response;
         } else {
-          this.stepIndex--;
+          this.stepIndex = targetIndex;
         }
       }
 

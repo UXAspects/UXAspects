@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('rxjs/observable/fromEvent'), require('@angular/common/http'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', 'rxjs/observable/fromEvent', '@angular/common/http', 'rxjs/observable/of', 'rxjs/operators/filter', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.rxjs['observable/fromEvent'],global.ng.common.http,global.rxjs['observable/of'],global.rxjs['operators/filter'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,fromEvent,http,of,filter,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,d3Hierarchy,d3Scale,d3Selection,d3Transition,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('@angular/common/http'), require('rxjs/observable/of'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/observable/fromEvent'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', '@angular/common/http', 'rxjs/observable/of', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/observable/fromEvent', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.ng.common.http,global.rxjs['observable/of'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.rxjs['observable/fromEvent'],global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,http,of,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,fromEvent,d3Hierarchy,d3Scale,d3Selection,d3Transition,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -1642,11 +1642,11 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var FocusIndicatorDirective = /** @class */ (function () {
-        function FocusIndicatorDirective(_elementRef, _focusIndicatorService, _changeDetectorRef, optionsService, localOptions) {
+        function FocusIndicatorDirective(_elementRef, _focusIndicatorService, optionsService, _ngZone, localOptions) {
             this._elementRef = _elementRef;
             this._focusIndicatorService = _focusIndicatorService;
-            this._changeDetectorRef = _changeDetectorRef;
             this.optionsService = optionsService;
+            this._ngZone = _ngZone;
             this.localOptions = localOptions;
             /**
              * Emit the latest focus state
@@ -1770,9 +1770,7 @@
                 // subscribe to the focus state to emit an event on change
                 this._focusIndicator.isFocused$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isFocused) {
                     // emit the latest value
-                    _this.indicator.emit(isFocused);
-                    // inform the change detector that we need to run as focus monitor runs outside of NgZone
-                    _this._changeDetectorRef.detectChanges();
+                    _this._ngZone.run(function () { return _this.indicator.emit(isFocused); });
                 });
             };
         /** Tear down the directive */
@@ -1823,8 +1821,8 @@
             return [
                 { type: core.ElementRef },
                 { type: FocusIndicatorService },
-                { type: core.ChangeDetectorRef },
                 { type: AccessibilityOptionsService },
+                { type: core.NgZone },
                 { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Optional }] }
             ];
         };
@@ -1852,15 +1850,15 @@
      */
     var DefaultFocusIndicatorDirective = /** @class */ (function (_super) {
         __extends(DefaultFocusIndicatorDirective, _super);
-        function DefaultFocusIndicatorDirective(elementRef, focusIndicatorService, optionsService, changeDetectorRef, localOptions) {
-            var _this = _super.call(this, elementRef, focusIndicatorService, changeDetectorRef, optionsService, localOptions) || this;
+        function DefaultFocusIndicatorDirective(elementRef, focusIndicatorService, optionsService, ngZone, localOptions) {
+            var _this = _super.call(this, elementRef, focusIndicatorService, optionsService, ngZone, localOptions) || this;
             // Enable programmatic focus by default
             _this.programmaticFocusIndicator = true;
             return _this;
         }
         DefaultFocusIndicatorDirective.decorators = [
             { type: core.Directive, args: [{
-                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[tabindex]:not([tabindex="-1"]):not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
+                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
                     },] }
         ];
         /** @nocollapse */
@@ -1869,7 +1867,7 @@
                 { type: core.ElementRef },
                 { type: FocusIndicatorService },
                 { type: AccessibilityOptionsService },
-                { type: core.ChangeDetectorRef },
+                { type: core.NgZone },
                 { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Optional }] }
             ];
         };
@@ -1957,14 +1955,50 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var FocusIndicatorOriginDirective = /** @class */ (function () {
-        function FocusIndicatorOriginDirective(_focusIndicatorEvent) {
-            this._focusIndicatorEvent = _focusIndicatorEvent;
+    /**
+     * When working with component host elements
+     * we cannot apply directives, eg. FocusIndicatorOriginDirective
+     * however we may still want the functionality to be applied to
+     * the host element. This class allows the host element to become
+     * a focus indicator origin
+     */
+    var /**
+     * When working with component host elements
+     * we cannot apply directives, eg. FocusIndicatorOriginDirective
+     * however we may still want the functionality to be applied to
+     * the host element. This class allows the host element to become
+     * a focus indicator origin
+     */ FocusIndicatorOrigin = /** @class */ (function () {
+        function FocusIndicatorOrigin(_focusIndicatorOrigin, elementRef, renderer) {
+            var _this = this;
+            this._focusIndicatorOrigin = _focusIndicatorOrigin;
+            /**
+             * Store all event handlers
+             */
+            this._handlers = [];
+            // add event handlers
+            this._handlers = [
+                renderer.listen(elementRef.nativeElement, 'click', function () { return _this.onClick(); }),
+                renderer.listen(elementRef.nativeElement, 'mousedown', function () { return _this.onMouseDown(); }),
+                renderer.listen(elementRef.nativeElement, 'keydown', function () { return _this.onKeydown(); })
+            ];
         }
+        /** Remove all event handlers */
+        /**
+         * Remove all event handlers
+         * @return {?}
+         */
+        FocusIndicatorOrigin.prototype.destroy = /**
+         * Remove all event handlers
+         * @return {?}
+         */
+            function () {
+                this._handlers.forEach(function (handler) { return handler(); });
+            };
         /**
          * @return {?}
          */
-        FocusIndicatorOriginDirective.prototype.onMouseDown = /**
+        FocusIndicatorOrigin.prototype.onMouseDown = /**
          * @return {?}
          */
             function () {
@@ -1973,24 +2007,44 @@
         /**
          * @return {?}
          */
-        FocusIndicatorOriginDirective.prototype.onClick = /**
+        FocusIndicatorOrigin.prototype.onClick = /**
          * @return {?}
          */
             function () {
                 // if the click was triggered after a mousedown event then it is a keyboard event
-                this._focusIndicatorEvent.setOrigin(this._isMouseEvent ? 'mouse' : 'keyboard');
+                this._focusIndicatorOrigin.setOrigin(this._isMouseEvent ? 'mouse' : 'keyboard');
                 // reset the mouse event flag
                 this._isMouseEvent = false;
             };
         /**
          * @return {?}
          */
-        FocusIndicatorOriginDirective.prototype.onKeydown = /**
+        FocusIndicatorOrigin.prototype.onKeydown = /**
          * @return {?}
          */
             function () {
                 this._isMouseEvent = false;
-                this._focusIndicatorEvent.setOrigin('keyboard');
+                this._focusIndicatorOrigin.setOrigin('keyboard');
+            };
+        return FocusIndicatorOrigin;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var FocusIndicatorOriginDirective = /** @class */ (function () {
+        function FocusIndicatorOriginDirective(focusOriginService, elementRef, renderer) {
+            this._focusOrigin = new FocusIndicatorOrigin(focusOriginService, elementRef, renderer);
+        }
+        /**
+         * @return {?}
+         */
+        FocusIndicatorOriginDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._focusOrigin.destroy();
             };
         FocusIndicatorOriginDirective.decorators = [
             { type: core.Directive, args: [{
@@ -2000,13 +2054,10 @@
         /** @nocollapse */
         FocusIndicatorOriginDirective.ctorParameters = function () {
             return [
-                { type: FocusIndicatorOriginService }
+                { type: FocusIndicatorOriginService },
+                { type: core.ElementRef },
+                { type: core.Renderer2 }
             ];
-        };
-        FocusIndicatorOriginDirective.propDecorators = {
-            onMouseDown: [{ type: core.HostListener, args: ['mousedown',] }],
-            onClick: [{ type: core.HostListener, args: ['click',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown',] }]
         };
         return FocusIndicatorOriginDirective;
     }());
@@ -3790,6 +3841,36 @@
         ];
         return AccessibilityModule;
     }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
 
     /**
      * @fileoverview added by tsickle
@@ -6970,6 +7051,9 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
     var DragService = /** @class */ (function () {
         function DragService() {
             /**
@@ -7023,6 +7107,9 @@
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
      */
     var DragDirective = /** @class */ (function () {
         function DragDirective(_elementRef, _ngZone, _renderer, _drag) {
@@ -7084,19 +7171,20 @@
              */
             this._onDestroy = new Subject.Subject();
             // ensure all mouse down events on the object are captured
-            this._mousedown$.pipe(operators.filter(function () { return _this.draggable; }), operators.takeUntil(this._onDestroy)).subscribe(this.dragStart.bind(this));
+            this._mousedown$.pipe(operators.filter(function () { return _this.draggable; }), operators.takeUntil(this._onDestroy))
+                .subscribe(this.dragStart.bind(this));
             // emit the outputs when drag events occur
-            _drag.onDragStart.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this._isDragging; }))
+            _drag.onDragStart.pipe(operators.filter(function () { return _this._isDragging; }), operators.takeUntil(this._onDestroy))
                 .subscribe(function (dragEvent) { return _this.onDragStart.emit(dragEvent.event); });
-            _drag.onDrag.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this._isDragging; }))
+            _drag.onDrag.pipe(operators.filter(function () { return _this._isDragging; }), operators.takeUntil(this._onDestroy))
                 .subscribe(function (dragEvent) { return _this.onDrag.emit(dragEvent.event); });
-            _drag.onDragEnd.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this._isDragging; }))
+            _drag.onDragEnd.pipe(operators.filter(function (event) { return _this._isDragging || (_this.model && _this.model === event.data); }), operators.takeUntil(this._onDestroy))
                 .subscribe(function () { return _this.onDragEnd.emit(); });
-            _drag.onDrop.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this._isDragging; }))
+            _drag.onDrop.pipe(operators.filter(function () { return _this._isDragging; }), operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return _this.onDrop.emit(event); });
-            _drag.onDropEnter.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this._isDragging; }))
+            _drag.onDropEnter.pipe(operators.filter(function () { return _this._isDragging; }), operators.takeUntil(this._onDestroy))
                 .subscribe(function () { return _this.onDropEnter.emit(); });
-            _drag.onDropLeave.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this._isDragging; }))
+            _drag.onDropLeave.pipe(operators.filter(function () { return _this._isDragging; }), operators.takeUntil(this._onDestroy))
                 .subscribe(function () { return _this.onDropLeave.emit(); });
         }
         /** Emit events and create clone when drag starts */
@@ -7124,7 +7212,9 @@
                 // emit the drag start event
                 this._ngZone.run(function () { return _this._drag.onDragStart.next({ event: event, group: _this.group, data: _this.model }); });
                 this._mousemove$.pipe(operators.takeUntil(this._mouseup$), operators.takeUntil(this._onDestroy))
-                    .subscribe(this.dragMove.bind(this), null, this.dragEnd.bind(this));
+                    .subscribe(this.dragMove.bind(this));
+                // When dragging stops emit the drag end
+                this._mouseup$.pipe(operators.first()).subscribe(this.dragEnd.bind(this));
             };
         /** Emit event and update clone position when dragging moves */
         /**
@@ -7294,10 +7384,17 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
     var DropDirective = /** @class */ (function () {
         function DropDirective(_dragService) {
             var _this = this;
             this._dragService = _dragService;
+            /**
+             * Define whether or not dropping is enabled
+             */
+            this.dropDisabled = false;
             /**
              * Emit the model of the item dropped
              */
@@ -7315,8 +7412,10 @@
              */
             this._onDestroy = new Subject.Subject();
             // subscribe to drag events
-            _dragService.onDragStart.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (event) { return _this.isGroupAllowed(event.group); })).subscribe(this.onDragStart.bind(this));
-            _dragService.onDragEnd.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (event) { return _this.isGroupAllowed(event.group); })).subscribe(this.onDragEnd.bind(this));
+            _dragService.onDragStart.pipe(operators.tap(function (event) { return _this._group = event.group; }), operators.filter(function (event) { return _this.isDropAllowed(event.group); }), operators.takeUntil(this._onDestroy))
+                .subscribe(this.onDragStart.bind(this));
+            _dragService.onDragEnd.pipe(operators.filter(function (event) { return _this.isDropAllowed(event.group); }), operators.takeUntil(this._onDestroy))
+                .subscribe(this.onDragEnd.bind(this));
         }
         /**
          * @return {?}
@@ -7338,7 +7437,7 @@
          * @return {?}
          */
             function () {
-                if (this.isGroupAllowed(this._group)) {
+                if (this.isDropAllowed(this._group)) {
                     this.isMouseOver = true;
                     // emit that we are over a drop area
                     this._dragService.onDropEnter.next();
@@ -7357,24 +7456,21 @@
                 // always ensure this value is reset
                 this.isMouseOver = false;
                 // only emit the dropd leave event when appropriate
-                if (this.isGroupAllowed(this._group)) {
+                if (this.isDropAllowed(this._group)) {
                     this._dragService.onDropLeave.next();
                 }
             };
         /** Update the dragging state */
         /**
          * Update the dragging state
-         * @param {?} event
          * @return {?}
          */
         DropDirective.prototype.onDragStart = /**
          * Update the dragging state
-         * @param {?} event
          * @return {?}
          */
-            function (event) {
+            function () {
                 this.isDragging = true;
-                this._group = event.group;
             };
         /** Update the dragging state */
         /**
@@ -7393,7 +7489,7 @@
                 // clear the cached group
                 this._group = null;
                 // if the mouse is over and it is in an allowed group emit the dop event
-                if (this.isMouseOver && this.isGroupAllowed(event.group)) {
+                if (this.isMouseOver && this.isDropAllowed(event.group)) {
                     this.onDrop.emit(event.data);
                     this._dragService.onDrop.next(event.data);
                 }
@@ -7404,12 +7500,16 @@
          * @param {?} group
          * @return {?}
          */
-        DropDirective.prototype.isGroupAllowed = /**
+        DropDirective.prototype.isDropAllowed = /**
          * Determine whether or not the event is part of the specified groups
          * @param {?} group
          * @return {?}
          */
             function (group) {
+                // if dropping is disabled then it is never allowed
+                if (this.dropDisabled) {
+                    return false;
+                }
                 // if no group specified allow all groups
                 if (!this.group) {
                     return true;
@@ -7424,7 +7524,7 @@
             { type: core.Directive, args: [{
                         selector: '[uxDrop]',
                         host: {
-                            '[class.ux-drop-hover]': 'isMouseOver && isDragging'
+                            '[class.ux-drop-hover]': 'isMouseOver && isDragging && !dropDisabled'
                         }
                     },] }
         ];
@@ -7436,6 +7536,7 @@
         };
         DropDirective.propDecorators = {
             group: [{ type: core.Input }],
+            dropDisabled: [{ type: core.Input }],
             onDrop: [{ type: core.Output }],
             onMouseOver: [{ type: core.HostListener, args: ['mouseenter',] }],
             onMouseLeave: [{ type: core.HostListener, args: ['mouseleave',] }]
@@ -13592,7 +13693,19 @@
          * @return {?}
          */
             function (date) {
-                if (this._isRangeStart && !this._rangeStart || this._isRangeEnd && !this._rangeEnd) {
+                if (!(this._isRangeStart && !this._rangeStart || this._isRangeEnd && !this._rangeEnd)) {
+                    return;
+                }
+                // get the month showing on the other date range picker
+                /** @type {?} */
+                var currentDate = new Date(this.datePicker.year$.value, this.datePicker.month$.value);
+                // if we are the start date and we are after the end date - ONLY then should be change the visible month the match the end date
+                /** @type {?} */
+                var startShouldUpdate = this._isRangeStart && !this._rangeStart && (currentDate.getFullYear() > date.getFullYear() || currentDate.getFullYear() === date.getFullYear() && currentDate.getMonth() > date.getMonth());
+                // if we are the end date and we are before the start date - ONLY then should be change the visible month the match the start date
+                /** @type {?} */
+                var endShouldUpdate = this._isRangeEnd && !this._rangeEnd && (currentDate.getFullYear() < date.getFullYear() || currentDate.getFullYear() === date.getFullYear() && currentDate.getMonth() < date.getMonth());
+                if (startShouldUpdate || endShouldUpdate) {
                     this.datePicker.setViewportMonth(date.getMonth());
                     this.datePicker.setViewportYear(date.getFullYear());
                     this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
@@ -16108,7 +16221,12 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var TypeaheadOptionEvent = /** @class */ (function () {
+    /**
+     * @template T
+     */
+    var /**
+     * @template T
+     */ TypeaheadOptionEvent = /** @class */ (function () {
         function TypeaheadOptionEvent(option) {
             this.option = option;
         }
@@ -16263,11 +16381,11 @@
                 getDisplay: this.getDisplay.bind(this),
                 getDisplayHtml: this.getDisplayHtml.bind(this)
             };
-            this.loadOptionsCallback = function (pageNum, pageSize, filter$$1) {
+            this.loadOptionsCallback = function (pageNum, pageSize, filter) {
                 if (typeof _this.options === 'function') {
                     // Invoke the callback which may return an array or a promise.
                     /** @type {?} */
-                    var arrayOrPromise = _this.options(pageNum, pageSize, filter$$1);
+                    var arrayOrPromise = _this.options(pageNum, pageSize, filter);
                     // Map the results to an array of TypeaheadVisibleOption.
                     return Promise.resolve(arrayOrPromise).then(function (newOptions) {
                         if (!Array.isArray(newOptions)) {
@@ -16691,6 +16809,7 @@
                         selector: 'ux-typeahead',
                         template: "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [collection]=\"visibleOptions$ | async\"\n    (collectionChange)=\"visibleOptions$.next($event)\"\n    [enabled]=\"isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [class.active]=\"activeKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
                         providers: [TypeaheadService],
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
                         host: {
                             'role': 'listbox',
                             '[class.open]': 'open',
@@ -17416,10 +17535,10 @@
      * Event raised before the `loading` function is called.
      * @template S
      */ InfiniteScrollLoadingEvent = /** @class */ (function () {
-        function InfiniteScrollLoadingEvent(pageNumber, pageSize, filter$$1) {
+        function InfiniteScrollLoadingEvent(pageNumber, pageSize, filter) {
             this.pageNumber = pageNumber;
             this.pageSize = pageSize;
-            this.filter = filter$$1;
+            this.filter = filter;
             this._defaultPrevented = false;
         }
         /**
@@ -17455,10 +17574,10 @@
      * Event raised when the loading function result has been resolved and added to the collection.
      * @template T, S
      */ InfiniteScrollLoadedEvent = /** @class */ (function () {
-        function InfiniteScrollLoadedEvent(pageNumber, pageSize, filter$$1, data, exhausted) {
+        function InfiniteScrollLoadedEvent(pageNumber, pageSize, filter, data, exhausted) {
             this.pageNumber = pageNumber;
             this.pageSize = pageSize;
-            this.filter = filter$$1;
+            this.filter = filter;
             this.data = data;
             this.exhausted = exhausted;
         }
@@ -17472,10 +17591,10 @@
      * Event raised if the loading function returns a rejected promise.
      * @template S
      */ InfiniteScrollLoadErrorEvent = /** @class */ (function () {
-        function InfiniteScrollLoadErrorEvent(pageNumber, pageSize, filter$$1, error) {
+        function InfiniteScrollLoadErrorEvent(pageNumber, pageSize, filter, error) {
             this.pageNumber = pageNumber;
             this.pageSize = pageSize;
-            this.filter = filter$$1;
+            this.filter = filter;
             this.error = error;
         }
         return InfiniteScrollLoadErrorEvent;
@@ -18918,8 +19037,8 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var FilterAddEvent = /** @class */ (function () {
-        function FilterAddEvent(filter$$1) {
-            this.filter = filter$$1;
+        function FilterAddEvent(filter) {
+            this.filter = filter;
         }
         return FilterAddEvent;
     }());
@@ -18939,8 +19058,8 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var FilterRemoveEvent = /** @class */ (function () {
-        function FilterRemoveEvent(filter$$1) {
-            this.filter = filter$$1;
+        function FilterRemoveEvent(filter) {
+            this.filter = filter;
         }
         return FilterRemoveEvent;
     }());
@@ -18968,15 +19087,15 @@
          * @param {?} filter
          * @return {?}
          */
-            function (filter$$1) {
+            function (filter) {
                 // if the filter is already selected or it is the intial filter then do nothing
-                if (this.isSelected(filter$$1) || filter$$1.initial) {
+                if (this.isSelected(filter) || filter.initial) {
                     return;
                 }
                 // update the list of active filters
-                this.filters$.next(__spread(this.filters$.value, [filter$$1]));
+                this.filters$.next(__spread(this.filters$.value, [filter]));
                 // emit the event
-                this.events$.next(new FilterAddEvent(filter$$1));
+                this.events$.next(new FilterAddEvent(filter));
             };
         /**
          * @param {?} filter
@@ -18986,15 +19105,15 @@
          * @param {?} filter
          * @return {?}
          */
-            function (filter$$1) {
+            function (filter) {
                 // if the filter is not selected then do nothing
-                if (!this.isSelected(filter$$1)) {
+                if (!this.isSelected(filter)) {
                     return;
                 }
                 // update the list of active filters
-                this.filters$.next(this.filters$.value.filter(function (_filter) { return _filter !== filter$$1; }));
+                this.filters$.next(this.filters$.value.filter(function (_filter) { return _filter !== filter; }));
                 // emit the event
-                this.events$.next(new FilterRemoveEvent(filter$$1));
+                this.events$.next(new FilterRemoveEvent(filter));
             };
         /**
          * @return {?}
@@ -19016,8 +19135,8 @@
          * @param {?} filter
          * @return {?}
          */
-            function (filter$$1) {
-                return this.filters$.value.indexOf(filter$$1) > -1;
+            function (filter) {
+                return this.filters$.value.indexOf(filter) > -1;
             };
         FilterService.decorators = [
             { type: core.Injectable }
@@ -19201,9 +19320,9 @@
                 this.selected = this.initial;
                 // check to see if any of the filters have been preselected or changes to selected filters
                 this._filterService.filters$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (filters) {
-                    filters.forEach(function (filter$$1) {
-                        if (_this.filters.indexOf(filter$$1) !== -1) {
-                            _this.selected = filter$$1;
+                    filters.forEach(function (filter) {
+                        if (_this.filters.indexOf(filter) !== -1) {
+                            _this.selected = filter;
                         }
                     });
                 });
@@ -19228,9 +19347,9 @@
          * @param {?} event
          * @return {?}
          */
-            function (filter$$1, event) {
+            function (filter, event) {
                 this.removeFilter();
-                this.selected = filter$$1;
+                this.selected = filter;
                 this._filterService.add(this.selected);
                 event.stopPropagation();
                 event.preventDefault();
@@ -19354,9 +19473,9 @@
                 this.selected = this.initial;
                 // watch for changes to the selected filters
                 this._filterService.filters$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (filters) {
-                    filters.forEach(function (filter$$1) {
-                        if (_this.filters.indexOf(filter$$1) !== -1) {
-                            _this.selected = filter$$1;
+                    filters.forEach(function (filter) {
+                        if (_this.filters.indexOf(filter) !== -1) {
+                            _this.selected = filter;
                         }
                     });
                 });
@@ -19467,11 +19586,11 @@
          * @param {?} filter
          * @return {?}
          */
-            function (filter$$1) {
+            function (filter) {
                 // clear any current filters
                 this.removeFilter();
                 // store the newly selected filter
-                this.selected = filter$$1;
+                this.selected = filter;
                 // store the filter in the service
                 this._filterService.add(this.selected);
             };
@@ -19504,9 +19623,9 @@
             function (event) {
                 // find the filter with the matching name
                 /** @type {?} */
-                var filter$$1 = this.filters.find(function (_filter) { return _filter.name === event.option; });
-                if (filter$$1) {
-                    this.selectFilter(filter$$1);
+                var filter = this.filters.find(function (_filter) { return _filter.name === event.option; });
+                if (filter) {
+                    this.selectFilter(filter);
                 }
             };
         FilterDynamicComponent.decorators = [
@@ -20782,6 +20901,21 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var HierarchyBarNodeIconDirective = /** @class */ (function () {
+        function HierarchyBarNodeIconDirective() {
+        }
+        HierarchyBarNodeIconDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxHierarchyBarNodeIcon]',
+                    },] }
+        ];
+        return HierarchyBarNodeIconDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var HierarchyBarService = /** @class */ (function () {
         function HierarchyBarService() {
             /**
@@ -21128,6 +21262,18 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(HierarchyBarComponent.prototype, "icon", {
+            /** Allow a custom icon to be specified */
+            set: /**
+             * Allow a custom icon to be specified
+             * @param {?} icon
+             * @return {?}
+             */ function (icon) {
+                this._hierarchyBar.icon = icon;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -21161,7 +21307,8 @@
             popoverShowTriggers: [{ type: core.Input }],
             popoverHideTriggers: [{ type: core.Input }],
             showSiblingsAriaLabel: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }]
+            selectedChange: [{ type: core.Output }],
+            icon: [{ type: core.ContentChild, args: [HierarchyBarNodeIconDirective, { read: core.TemplateRef },] }]
         };
         return HierarchyBarComponent;
     }());
@@ -21624,7 +21771,7 @@
         HierarchyBarCollapsedComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -21658,7 +21805,7 @@
         HierarchyBarNodeComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
-                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
+                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -21681,12 +21828,27 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var HierarchyBarPopoverItemComponent = /** @class */ (function () {
-        function HierarchyBarPopoverItemComponent() {
+        function HierarchyBarPopoverItemComponent(focusOriginService, elementRef, renderer, hierarchyBar) {
+            this.hierarchyBar = hierarchyBar;
             /**
-             * Emit when a click or enter key press occurs
+             * Emit when a click or enter key press occurs.
+             * Note this is an `async` EventEmitter to ensure that
+             * the event handlers in the `FocusIndicatorOrigin` set
+             * the origin before we emit the select event, otherwise
+             * the item may not get a focus ring when the keyboard is used.
              */
-            this.select = new core.EventEmitter();
+            this.select = new core.EventEmitter(true);
+            this._focusOrigin = new FocusIndicatorOrigin(focusOriginService, elementRef, renderer);
         }
+        /**
+         * @return {?}
+         */
+        HierarchyBarPopoverItemComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._focusOrigin.destroy();
+            };
         /**
          * @return {?}
          */
@@ -21699,10 +21861,19 @@
         HierarchyBarPopoverItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-hierarchy-bar-popover-item',
-                        template: "<!-- Show an icon if specified -->\n<img class=\"hierarchy-bar-node-icon\" *ngIf=\"node?.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n<!-- Show the name of the current node -->\n<span class=\"hierarchy-bar-node-title\">{{ node?.title }}</span>",
+                        template: "<!-- Show an icon if specified -->\n<img class=\"hierarchy-bar-node-icon\" *ngIf=\"!hierarchyBar.icon && node?.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n<!-- Show a custom icon if specified -->\n<div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n    <ng-container\n        [ngTemplateOutlet]=\"hierarchyBar.icon\"\n        [ngTemplateOutlet]=\"{ node: node, $implicit: node }\">\n    </ng-container>\n</div>\n\n<!-- Show the name of the current node -->\n<span class=\"hierarchy-bar-node-title\">{{ node?.title }}</span>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
+        /** @nocollapse */
+        HierarchyBarPopoverItemComponent.ctorParameters = function () {
+            return [
+                { type: FocusIndicatorOriginService },
+                { type: core.ElementRef },
+                { type: core.Renderer2 },
+                { type: HierarchyBarService }
+            ];
+        };
         HierarchyBarPopoverItemComponent.propDecorators = {
             node: [{ type: core.Input }],
             select: [{ type: core.Output }],
@@ -21870,6 +22041,7 @@
                             HierarchyBarComponent,
                             HierarchyBarStandardComponent,
                             HierarchyBarCollapsedComponent,
+                            HierarchyBarNodeIconDirective
                         ],
                         declarations: [
                             HierarchyBarComponent,
@@ -21878,6 +22050,7 @@
                             HierarchyBarNodeComponent,
                             HierarchyBarPopoverComponent,
                             HierarchyBarPopoverItemComponent,
+                            HierarchyBarNodeIconDirective
                         ],
                     },] }
         ];
@@ -25957,28 +26130,40 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var NavigationItemComponent = /** @class */ (function () {
-        function NavigationItemComponent(_elementRef, _renderer, _parent, _router) {
+        function NavigationItemComponent(_elementRef, _renderer, _router, _parent) {
             var _this = this;
             this._elementRef = _elementRef;
             this._renderer = _renderer;
-            this._parent = _parent;
             this._router = _router;
+            this._parent = _parent;
+            /**
+             * Whether the navigation item is expanded, displaying the items from the `children` array.
+             */
             this.expanded = false;
-            this.level = 1;
-            this.indentWithoutArrow = true;
-            this.level = _parent ? _parent.level + 1 : 1;
-            this._navigationEnd = _router.events.pipe(filter.filter(function (event) { return event instanceof router.NavigationEnd; })).subscribe(function (event) {
-                // Expand this component if it or a descendant is active.
+            /**
+             * Indicate the depth of the item
+             */
+            this._level = this._parent ? this._parent._level + 1 : 1;
+            /**
+             * Indicate whether the indentation should include the arrow
+             */
+            this._indentWithoutArrow = true;
+            /**
+             * Automatically unsubscribe when the component is destroyed
+             */
+            this._onDestroy = new Subject.Subject();
+            // Expand this component if it or a descendant is active.
+            _router.events.pipe(operators.filter(function (event) { return event instanceof router.NavigationEnd; }), operators.takeUntil(this._onDestroy)).subscribe(function () {
                 _this.expanded = _this.hasActiveLink(_this.link);
             });
         }
         Object.defineProperty(NavigationItemComponent.prototype, "active", {
+            /** Get the active state of this item from the router */
             get: /**
+             * Get the active state of this item from the router
              * @return {?}
              */ function () {
-                if (this.link) {
-                    return this._router.isActive(this.link, true);
-                }
+                return this.link ? this._router.isActive(this.link, true) : false;
             },
             enumerable: true,
             configurable: true
@@ -26023,7 +26208,7 @@
                 // Set 'indentWithoutArrow'
                 this.setIndentWithoutArrow();
                 // Update 'indentWithoutArrow' in response to changes to children
-                this._childrenChanges = this._children.changes.subscribe(function () { return _this.setIndentWithoutArrow(); });
+                this._children.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.setIndentWithoutArrow(); });
             };
         /**
          * @return {?}
@@ -26032,14 +26217,17 @@
          * @return {?}
          */
             function () {
-                this._navigationEnd.unsubscribe();
-                this._childrenChanges.unsubscribe();
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
+        /** Check if this item or any children are active */
         /**
+         * Check if this item or any children are active
          * @param {?} link
          * @return {?}
          */
         NavigationItemComponent.prototype.hasActiveLink = /**
+         * Check if this item or any children are active
          * @param {?} link
          * @return {?}
          */
@@ -26058,7 +26246,7 @@
          * @return {?}
          */
             function () {
-                switch (this.level) {
+                switch (this._level) {
                     case 2:
                         return 'nav-second-level';
                     case 3:
@@ -26079,21 +26267,21 @@
             function () {
                 if (this.children.length > 0) {
                     // If this element has children it will be indented and will have an arrow
-                    this.indentWithoutArrow = false;
+                    this._indentWithoutArrow = false;
                 }
                 else if (this._parent) {
                     // If this element has a parent, indent it if any of its siblings have children
-                    this.indentWithoutArrow = !this._parent.children.every(function (item) { return item.children.length === 0; });
+                    this._indentWithoutArrow = !this._parent.children.every(function (item) { return item.children.length === 0; });
                 }
                 else {
                     // Top-level elements should be indented
-                    this.indentWithoutArrow = true;
+                    this._indentWithoutArrow = true;
                 }
             };
         NavigationItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: '[ux-navigation-item]',
-                        template: "<a *ngIf=\"link\" [class.has-arrow]=\"children.length > 0\" [class.no-arrow]=\"indentWithoutArrow\" [routerLink]=\"link\">\n    <span>{{header}}</span>\n</a>\n<a *ngIf=\"!link\" (click)=\"expanded = !expanded\" [class.has-arrow]=\"children.length > 0\" [class.no-arrow]=\"indentWithoutArrow\">\n    <span>{{header}}</span>\n</a>\n<ng-content></ng-content>\n",
+                        template: "<a *ngIf=\"link\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\"\n   [routerLink]=\"link\">\n    <span>{{ header }}</span>\n</a>\n\n<a *ngIf=\"!link\"\n   (click)=\"expanded = !expanded\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\">\n    <span>{{ header }}</span>\n</a>\n\n<ng-content></ng-content>\n",
                         host: {
                             '[class.active]': 'active',
                             '[class.selected]': 'expanded',
@@ -26105,8 +26293,8 @@
             return [
                 { type: core.ElementRef },
                 { type: core.Renderer2 },
-                { type: NavigationItemComponent, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
-                { type: router.Router }
+                { type: router.Router },
+                { type: NavigationItemComponent, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
             ];
         };
         NavigationItemComponent.propDecorators = {
@@ -26123,16 +26311,42 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var NAVIGATION_MODULE_OPTIONS = new core.InjectionToken('NAVIGATION_MODULE_OPTIONS');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var NavigationService = /** @class */ (function () {
         function NavigationService() {
+            /**
+             * Whether to collapse other menu items when expanding a menu item.
+             */
             this.autoCollapse = true;
+            /**
+             * Emit when the expanded state has changed
+             */
+            this.expanded$ = new Subject.Subject();
         }
         /**
+         * @return {?}
+         */
+        NavigationService.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this.expanded$.complete();
+            };
+        /** Set the expanded state of an item */
+        /**
+         * Set the expanded state of an item
          * @param {?} source
          * @param {?} expanded
          * @return {?}
          */
         NavigationService.prototype.setExpanded = /**
+         * Set the expanded state of an item
          * @param {?} source
          * @param {?} expanded
          * @return {?}
@@ -26140,23 +26354,28 @@
             function (source, expanded) {
                 if (expanded && this.autoCollapse) {
                     this.collapseSiblings(source);
+                    this.expanded$.next();
                 }
             };
+        /** Collapse all siblings nodes */
         /**
+         * Collapse all siblings nodes
          * @param {?} source
          * @return {?}
          */
         NavigationService.prototype.collapseSiblings = /**
+         * Collapse all siblings nodes
          * @param {?} source
          * @return {?}
          */
             function (source) {
-                var e_1, _a, e_2, _b;
+                var _this = this;
+                var e_1, _a;
                 /** @type {?} */
                 var siblings = this.items;
                 try {
-                    for (var _c = __values(this.items), _d = _c.next(); !_d.done; _d = _c.next()) {
-                        var item = _d.value;
+                    for (var _b = __values(this.items), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var item = _c.value;
                         /** @type {?} */
                         var parent_1 = this.getParent(source, item);
                         if (parent_1) {
@@ -26170,105 +26389,50 @@
                 }
                 finally {
                     try {
-                        if (_d && !_d.done && (_a = _c.return))
-                            _a.call(_c);
+                        if (_c && !_c.done && (_a = _b.return))
+                            _a.call(_b);
                     }
                     finally {
                         if (e_1)
                             throw e_1.error;
                     }
                 }
-                try {
-                    for (var siblings_1 = __values(siblings), siblings_1_1 = siblings_1.next(); !siblings_1_1.done; siblings_1_1 = siblings_1.next()) {
-                        var item = siblings_1_1.value;
-                        if (item !== source) {
-                            this.collapseAll(item);
-                        }
-                    }
-                }
-                catch (e_2_1) {
-                    e_2 = { error: e_2_1 };
-                }
-                finally {
-                    try {
-                        if (siblings_1_1 && !siblings_1_1.done && (_b = siblings_1.return))
-                            _b.call(siblings_1);
-                    }
-                    finally {
-                        if (e_2)
-                            throw e_2.error;
-                    }
-                }
+                // collapse every sibling
+                siblings.filter(function (item) { return item !== source; }).forEach(function (item) { return _this.collapseAll(item); });
             };
+        /** Collapse an item and all its children */
         /**
+         * Collapse an item and all its children
          * @param {?} item
          * @return {?}
          */
         NavigationService.prototype.collapseAll = /**
+         * Collapse an item and all its children
          * @param {?} item
          * @return {?}
          */
             function (item) {
-                var e_3, _a;
+                var _this = this;
                 item.expanded = false;
                 if (item.children) {
-                    try {
-                        for (var _b = __values(item.children), _c = _b.next(); !_c.done; _c = _b.next()) {
-                            var child = _c.value;
-                            this.collapseAll(child);
-                        }
-                    }
-                    catch (e_3_1) {
-                        e_3 = { error: e_3_1 };
-                    }
-                    finally {
-                        try {
-                            if (_c && !_c.done && (_a = _b.return))
-                                _a.call(_b);
-                        }
-                        finally {
-                            if (e_3)
-                                throw e_3.error;
-                        }
-                    }
+                    item.children.forEach(function (child) { return _this.collapseAll(child); });
                 }
             };
+        /** Get a nodes parent if it has one */
         /**
+         * Get a nodes parent if it has one
          * @param {?} target
          * @param {?} item
          * @return {?}
          */
         NavigationService.prototype.getParent = /**
+         * Get a nodes parent if it has one
          * @param {?} target
          * @param {?} item
          * @return {?}
          */
             function (target, item) {
-                var e_4, _a;
-                if (item.children) {
-                    try {
-                        for (var _b = __values(item.children), _c = _b.next(); !_c.done; _c = _b.next()) {
-                            var child = _c.value;
-                            if (child === target) {
-                                return item;
-                            }
-                        }
-                    }
-                    catch (e_4_1) {
-                        e_4 = { error: e_4_1 };
-                    }
-                    finally {
-                        try {
-                            if (_c && !_c.done && (_a = _b.return))
-                                _a.call(_b);
-                        }
-                        finally {
-                            if (e_4)
-                                throw e_4.error;
-                        }
-                    }
-                }
-                return null;
+                return (item.children || []).find(function (child) { return child === target; }) ? item : null;
             };
         NavigationService.decorators = [
             { type: core.Injectable }
@@ -26281,21 +26445,29 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var NavigationLinkDirective = /** @class */ (function () {
-        function NavigationLinkDirective(_router, _locationStrategy, _navigationService) {
+        function NavigationLinkDirective(_router, _locationStrategy, _navigationService, _changeDetector, _route, _options) {
             this._router = _router;
             this._locationStrategy = _locationStrategy;
             this._navigationService = _navigationService;
-            this.ariaExpanded = 'undefined';
+            this._changeDetector = _changeDetector;
+            this._route = _route;
+            this._options = _options;
+            /**
+             * Emit with the current expaned state
+             */
             this._expanded$ = new Subject.Subject();
+            /**
+             * Unsubscribe from all observables when this directive is destroyed
+             */
             this._onDestroy = new Subject.Subject();
         }
         Object.defineProperty(NavigationLinkDirective.prototype, "expanded", {
+            /** The expaned state of this item */
             set: /**
+             * The expaned state of this item
              * @param {?} value
              * @return {?}
-             */ function (value) {
-                this._expanded$.next(value);
-            },
+             */ function (value) { this._expanded$.next(value); },
             enumerable: true,
             configurable: true
         });
@@ -26307,9 +26479,12 @@
          */
             function () {
                 var _this = this;
-                this._expanded$.pipe(operators.takeUntil(this._onDestroy), tick()).subscribe(function (expanded) {
+                // any time expanded state anywhere change we should run change detection in case we should collapse
+                this._navigationService.expanded$.pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this._changeDetector.markForCheck(); });
+                this._expanded$.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
                     if (_this.navigationItem.children && _this.navigationItem.children.length > 0) {
-                        _this.ariaExpanded = "" + expanded;
+                        _this.ariaExpanded = expanded;
                         _this._navigationService.setExpanded(_this.navigationItem, expanded);
                     }
                 });
@@ -26376,6 +26551,7 @@
                         this.navigationItem.expanded = true;
                     }
                 }
+                this._changeDetector.markForCheck();
             };
         /**
          * @return {?}
@@ -26413,14 +26589,42 @@
          * @return {?}
          */
             function (item) {
+                var _a = this.getRouterOptions(item), exact = _a.exact, ignoreQueryParams = _a.ignoreQueryParams;
                 if (item.routerLink) {
+                    /** @type {?} */
+                    var routerExtras = item.routerExtras;
+                    // if we are to ignore the query params we must remove them
+                    if (ignoreQueryParams) {
+                        // get the current actual query params
+                        var queryParams = this._route.snapshot.queryParams;
+                        // override the provided query params with the actual query params so they will alway match
+                        routerExtras = __assign({}, routerExtras, { queryParams: queryParams });
+                    }
                     /** @type {?} */
                     var commands = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
                     /** @type {?} */
-                    var urlTree = this._router.createUrlTree(commands, item.routerExtras);
-                    return this._router.isActive(urlTree, true);
+                    var urlTree = this._router.createUrlTree(commands, routerExtras);
+                    return this._router.isActive(urlTree, exact);
                 }
                 return false;
+            };
+        /** Get the router options with defaults for missing properties */
+        /**
+         * Get the router options with defaults for missing properties
+         * @param {?} item
+         * @return {?}
+         */
+        NavigationLinkDirective.prototype.getRouterOptions = /**
+         * Get the router options with defaults for missing properties
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                // get the default options based on the ones provided in `forRoot`
+                /** @type {?} */
+                var defaultOptions = __assign({ exact: true, ignoreQueryParams: false }, (this._options ? this._options.routerOptions : {}));
+                // if there are item specific router options they should take precendence
+                return __assign({}, defaultOptions, item.routerOptions);
             };
         NavigationLinkDirective.decorators = [
             { type: core.Directive, args: [{
@@ -26433,7 +26637,10 @@
             return [
                 { type: router.Router },
                 { type: common.LocationStrategy },
-                { type: NavigationService }
+                { type: NavigationService },
+                { type: core.ChangeDetectorRef },
+                { type: router.ActivatedRoute },
+                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [NAVIGATION_MODULE_OPTIONS,] }] }
             ];
         };
         NavigationLinkDirective.propDecorators = {
@@ -26460,7 +26667,10 @@
              * Whether to present the menu as a hierarchical tree.
              */
             this.tree = true;
-            this.hierarchyClasses = [
+            /**
+             * The classes to be added to each different level
+             */
+            this._hierarchyClasses = [
                 '',
                 'nav-second-level',
                 'nav-third-level',
@@ -26497,33 +26707,15 @@
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(NavigationComponent.prototype, "depthLimit", {
+        Object.defineProperty(NavigationComponent.prototype, "_depthLimit", {
             get: /**
              * @return {?}
              */ function () {
-                return this.tree ? this.hierarchyClasses.length : 2;
+                return this.tree ? this._hierarchyClasses.length : 2;
             },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @param {?} item
-         * @param {?} event
-         * @return {?}
-         */
-        NavigationComponent.prototype.itemClick = /**
-         * @param {?} item
-         * @param {?} event
-         * @return {?}
-         */
-            function (item, event) {
-                // Toggle expanded state (relevant only if it has children)
-                item.expanded = !item.expanded;
-                // Invoke the custom click handler if specified
-                if (item.click) {
-                    item.click(event, item);
-                }
-            };
         /**
          * Returns true if the sets of items needs to be indented to make room for one or more expander.
          */
@@ -26532,7 +26724,7 @@
          * @param {?} items
          * @return {?}
          */
-        NavigationComponent.prototype.needsIndent = /**
+        NavigationComponent.prototype._needsIndent = /**
          * Returns true if the sets of items needs to be indented to make room for one or more expander.
          * @param {?} items
          * @return {?}
@@ -26543,8 +26735,9 @@
         NavigationComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-navigation',
-                        template: "<nav class=\"ux-side-nav\" [class.tree]=\"tree\" role=\"navigation\">\n\n    <ol *ngIf=\"items\" role=\"tree\" class=\"nav\" uxTabbableList [hierarchy]=\"true\">\n\n        <ng-container *ngFor=\"let item of items; let rank = index\"\n            [ngTemplateOutlet]=\"navigationNode\"\n            [ngTemplateOutletContext]=\"{item: item, level: 1, rank: rank, indent: needsIndent(items)}\">\n        </ng-container>\n\n        <ng-template #navigationNode let-item=\"item\" let-parent=\"parent\" let-level=\"level\" let-rank=\"rank\" let-indent=\"indent\">\n\n            <li [attr.role]=\"(item.children && item.children.length > 0) ? 'treeitem' : 'none'\"\n                [attr.aria-expanded]=\"item.expanded\"\n                [class.selected]=\"item.expanded\"\n                [class.active]=\"navigationLink.isActive\">\n\n                <a uxNavigationLink\n                    #navigationLink=\"uxNavigationLink\"\n                    [navigationItem]=\"item\"\n                    [expanded]=\"item.expanded\"\n                    [canExpand]=\"level < depthLimit\"\n                    [indent]=\"indent\"\n                    uxTabbableListItem\n                    #tli=\"ux-tabbable-list-item\"\n                    [parent]=\"parent\"\n                    [rank]=\"rank\"\n                    [(expanded)]=\"item.expanded\">\n\n                    <span *ngIf=\"!navigationItemTemplate && item.children && item.children.length > 0 && level < depthLimit\"\n                        aria-hidden=\"true\"\n                        class=\"nav-expander\"\n                        (click)=\"item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()\">\n                    </span>\n                    <span *ngIf=\"!navigationItemTemplate && item.icon && !tree\" class=\"nav-icon hpe-icon\" [ngClass]=\"item.icon\"></span>\n                    <img *ngIf=\"!navigationItemTemplate && item.iconUrl && !tree\" class=\"nav-icon\" [src]=\"item.iconUrl\" alt=\"item.iconLabel\">\n                    <span *ngIf=\"!navigationItemTemplate\" class=\"nav-title\">{{item.title}}</span>\n\n                    <ng-container [ngTemplateOutlet]=\"navigationItemTemplate\"\n                        [ngTemplateOutletContext]=\"{item: item, level: level}\">\n                    </ng-container>\n\n                </a>\n\n                <ol *ngIf=\"item.children && item.expanded && level < depthLimit\"\n                    role=\"group\" class=\"nav\" [ngClass]=\"hierarchyClasses[level]\">\n\n                    <ng-container *ngFor=\"let child of item.children; let rank = index\"\n                        [ngTemplateOutlet]=\"navigationNode\"\n                        [ngTemplateOutletContext]=\"{item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren}\">\n                    </ng-container>\n\n                </ol>\n\n            </li>\n\n        </ng-template>\n\n    </ol>\n\n    <!-- Backward compatibility with the original ux-navigation -->\n    <ol *ngIf=\"!items\" role=\"tree\" class=\"nav\">\n        <ng-content></ng-content>\n    </ol>\n\n</nav>\n",
-                        providers: [NavigationService]
+                        template: "<nav class=\"ux-side-nav\" [class.tree]=\"tree\" role=\"navigation\">\n\n    <ol *ngIf=\"items\" role=\"tree\" class=\"nav\" uxTabbableList [hierarchy]=\"true\">\n\n        <ng-container *ngFor=\"let item of items; let rank = index\"\n            [ngTemplateOutlet]=\"navigationNode\"\n            [ngTemplateOutletContext]=\"{ item: item, level: 1, rank: rank, indent: _needsIndent(items) }\">\n        </ng-container>\n\n        <ng-template #navigationNode let-item=\"item\" let-parent=\"parent\" let-level=\"level\" let-rank=\"rank\" let-indent=\"indent\">\n\n            <li [attr.role]=\"(item.children && item.children.length > 0) ? 'treeitem' : 'none'\"\n                [attr.aria-expanded]=\"item.expanded\"\n                [class.selected]=\"item.expanded\"\n                [class.active]=\"navigationLink.isActive\">\n\n                <a uxNavigationLink\n                    #navigationLink=\"uxNavigationLink\"\n                    #tli=\"ux-tabbable-list-item\"\n                    [navigationItem]=\"item\"\n                    [expanded]=\"item.expanded\"\n                    [canExpand]=\"level < _depthLimit\"\n                    [indent]=\"indent\"\n                    uxTabbableListItem\n                    [parent]=\"parent\"\n                    [rank]=\"rank\"\n                    [(expanded)]=\"item.expanded\">\n\n                    <span *ngIf=\"!navigationItemTemplate && item.children && item.children.length > 0 && level < _depthLimit\"\n                          aria-hidden=\"true\"\n                          class=\"nav-expander\"\n                          (click)=\"item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()\">\n                    </span>\n                    <span *ngIf=\"!navigationItemTemplate && item.icon && !tree\" class=\"nav-icon hpe-icon\" [ngClass]=\"item.icon\"></span>\n                    <img *ngIf=\"!navigationItemTemplate && item.iconUrl && !tree\" class=\"nav-icon\" [src]=\"item.iconUrl\" alt=\"item.iconLabel\">\n                    <span *ngIf=\"!navigationItemTemplate\" class=\"nav-title\">{{ item.title }}</span>\n\n                    <ng-container\n                        [ngTemplateOutlet]=\"navigationItemTemplate\"\n                        [ngTemplateOutletContext]=\"{ item: item, level: level }\">\n                    </ng-container>\n\n                </a>\n\n                <ol *ngIf=\"item.children && item.expanded && level < _depthLimit\"\n                    role=\"group\"\n                    class=\"nav\"\n                    [ngClass]=\"_hierarchyClasses[level]\">\n\n                    <ng-container *ngFor=\"let child of item.children; let rank = index\"\n                        [ngTemplateOutlet]=\"navigationNode\"\n                        [ngTemplateOutletContext]=\"{ item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren }\">\n                    </ng-container>\n\n                </ol>\n\n            </li>\n\n        </ng-template>\n\n    </ol>\n\n    <!-- Backward compatibility with the original ux-navigation -->\n    <ol *ngIf=\"!items\" role=\"tree\" class=\"nav\">\n        <ng-content></ng-content>\n    </ol>\n\n</nav>\n",
+                        providers: [NavigationService],
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -26569,6 +26762,26 @@
     var NavigationModule = /** @class */ (function () {
         function NavigationModule() {
         }
+        // allow options to be specified globally
+        // allow options to be specified globally
+        /**
+         * @param {?} options
+         * @return {?}
+         */
+        NavigationModule.forRoot =
+            // allow options to be specified globally
+            /**
+             * @param {?} options
+             * @return {?}
+             */
+            function (options) {
+                return {
+                    ngModule: NavigationModule,
+                    providers: [
+                        { provide: NAVIGATION_MODULE_OPTIONS, useValue: options }
+                    ]
+                };
+            };
         NavigationModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
@@ -27519,6 +27732,10 @@
              */
             this.reveal = new core.EventEmitter();
             /**
+             * Emit when the transition ends
+             */
+            this.transitionEnd = new core.EventEmitter();
+            /**
              * Store a flattened array of nodes
              */
             this._nodeLayout = [];
@@ -27605,7 +27822,7 @@
                 this._linksContainer = d3Selection.select(this.linksContainer.nativeElement);
                 this._nodesContainer = d3Selection.select(this.nodesContainer.nativeElement);
                 // setup the zoom on the node layer
-                this._nodesContainer.call(this._zoom);
+                this._ngZone.runOutsideAngular(function () { return _this._nodesContainer.call(_this._zoom); });
                 // perform the initial render
                 this.render();
                 // ensure we set the initial chart size
@@ -27682,7 +27899,10 @@
                 var defaultTransition = d3Transition.transition()
                     .duration(this.duration)
                     .on('start', function () { return _this._isTransitioning = true; })
-                    .on('end', function () { return _this._isTransitioning = false; });
+                    .on('end', function () {
+                    _this._isTransitioning = false;
+                    _this.transitionEnd.emit();
+                });
                 // render the links when they are first added to the DOM
                 this._links.enter()
                     .insert('path')
@@ -27776,7 +27996,7 @@
                 this._selected = node;
                 // emit the latest selection
                 this.selectedChange.next(this._selected);
-                // update the tab indexes and aria labels
+                // show reveal any nodes that may previously have been hidden but are now visible due to selection
                 if (this._isInitialised) {
                     this.render();
                 }
@@ -27989,6 +28209,20 @@
                 /** @type {?} */
                 var camera = this.getCameraPosition();
                 this.setCameraPosition(camera.x + x, camera.y + y, animate);
+            };
+        /** Focus a given node */
+        /**
+         * Focus a given node
+         * @param {?} node
+         * @return {?}
+         */
+        OrganizationChartComponent.prototype.focus = /**
+         * Focus a given node
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                this.focusNode(this.coercePointNode(node));
             };
         /** Focus the root node */
         /**
@@ -28802,6 +29036,7 @@
             selected: [{ type: core.Input }],
             selectedChange: [{ type: core.Output }],
             reveal: [{ type: core.Output }],
+            transitionEnd: [{ type: core.Output }],
             nodeTemplate: [{ type: core.ContentChild, args: ['nodeTemplate',] }],
             revealElement: [{ type: core.ViewChild, args: ['revealElement',] }],
             linksContainer: [{ type: core.ViewChild, args: ['links',] }],
@@ -30771,6 +31006,97 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var PartitionMapSegmentEventsDirective = /** @class */ (function () {
+        function PartitionMapSegmentEventsDirective(_elementRef) {
+            this._elementRef = _elementRef;
+            /**
+             * Emit when the segment receives focus
+             */
+            this.segmentFocus = new core.EventEmitter();
+            /**
+             * Emit when the segment is blurred
+             */
+            this.segmentBlur = new core.EventEmitter();
+            /**
+             * Unsubscribe from observables
+             */
+            this._onDestroy = new Subject.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        PartitionMapSegmentEventsDirective.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // Get the parent segment element
+                // Note we cannot use DI to get the element as this is a template
+                // and the context has no knowledge of the partition map template
+                /** @type {?} */
+                var segment = this.getSegmentElement();
+                if (segment) {
+                    fromEvent.fromEvent(segment, 'focus')
+                        .pipe(operators.takeUntil(this._onDestroy))
+                        .subscribe(function (event) { return _this.segmentFocus.emit(event); });
+                    fromEvent.fromEvent(segment, 'blur')
+                        .pipe(operators.takeUntil(this._onDestroy))
+                        .subscribe(function (event) { return _this.segmentBlur.emit(event); });
+                }
+            };
+        /**
+         * @return {?}
+         */
+        PartitionMapSegmentEventsDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * Find the parent element that is a partition map segment
+         */
+        /**
+         * Find the parent element that is a partition map segment
+         * @return {?}
+         */
+        PartitionMapSegmentEventsDirective.prototype.getSegmentElement = /**
+         * Find the parent element that is a partition map segment
+         * @return {?}
+         */
+            function () {
+                /** @type {?} */
+                var ancestor = (( /** @type {?} */(this._elementRef.nativeElement))).parentElement;
+                while (ancestor !== null) {
+                    if (ancestor.classList.contains('partition-map-segment')) {
+                        return ancestor;
+                    }
+                    ancestor = ancestor.parentElement;
+                }
+            };
+        PartitionMapSegmentEventsDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[segmentFocus],[segmentBlur]',
+                    },] }
+        ];
+        /** @nocollapse */
+        PartitionMapSegmentEventsDirective.ctorParameters = function () {
+            return [
+                { type: core.ElementRef }
+            ];
+        };
+        PartitionMapSegmentEventsDirective.propDecorators = {
+            segmentFocus: [{ type: core.Output }],
+            segmentBlur: [{ type: core.Output }]
+        };
+        return PartitionMapSegmentEventsDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var PartitionMapComponent = /** @class */ (function () {
         function PartitionMapComponent(_colorService, _elementRef, _changeDetector, _ngZone, _focusOrigin, _contrastRatio, _liveAnnouncer, _resizeService) {
             this._colorService = _colorService;
@@ -31242,6 +31568,29 @@
                     return (( /** @type {?} */(segment))).value;
                 }
                 return (( /** @type {?} */(segment))).children.reduce(function (value, child) { return value + _this._getSegmentValue(child); }, 0);
+            };
+        /**
+         * @param {?} segment
+         * @return {?}
+         */
+        PartitionMapComponent.prototype._getContext = /**
+         * @param {?} segment
+         * @return {?}
+         */
+            function (segment) {
+                /** @type {?} */
+                var context = {
+                    segment: segment.data,
+                    value: this._getSegmentValue(segment.data),
+                    color: this._getBackgroundColor(segment),
+                    expanded: !this._isCollapsed(segment),
+                    children: []
+                };
+                // map the children to their contexts
+                if (segment.children) {
+                    context.children = segment.children.map(this._getContext.bind(this));
+                }
+                return context;
             };
         /** Convert the public facing data structure into the layout format we require */
         /**
@@ -31871,7 +32220,7 @@
         PartitionMapComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-partition-map',
-                        template: "<div class=\"partition-map-segment\"\n     *ngFor=\"let segment of _segments\"\n     uxFocusIndicator\n     [ngClass]=\"_getContrastColor(segment)\"\n     [style.background-color]=\"_getBackgroundColor(segment)\"\n     [tabIndex]=\"_getTabIndex(segment)\"\n     [attr.aria-expanded]=\"!_isCollapsed(segment)\"\n     [attr.aria-selected]=\"_isSelected(segment)\"\n     [attr.aria-level]=\"segment.depth\"\n     (click)=\"_onSegmentSelect(segment)\"\n     (focus)=\"_onFocus(segment)\"\n     (keydown.Enter)=\"_onSegmentSelect(segment)\"\n     (keydown.ArrowUp)=\"_focusParent(segment); $event.preventDefault()\"\n     (keydown.ArrowDown)=\"_focusChild(segment); $event.preventDefault()\"\n     (keydown.ArrowLeft)=\"_focusSibling(segment, -1); $event.preventDefault()\"\n     (keydown.ArrowRight)=\"_focusSibling(segment, 1); $event.preventDefault()\"\n     (keydown.Home)=\"_focusFirstSibling(segment); $event.preventDefault()\"\n     (keydown.End)=\"_focusLastSibling(segment); $event.preventDefault()\">\n\n     <div class=\"partition-map-segment-content\" [class.partition-map-segment-content-hidden]=\"_getSegmentContentHidden(segment)\">\n\n      <!-- Show default template if provided -->\n      <span class=\"partion-map-segment-label\" *ngIf=\"!segmentTemplate\">\n        {{ segment.data.name }}\n      </span>\n\n       <!-- Show custom template if provided -->\n      <ng-container *ngIf=\"segmentTemplate\"\n        [ngTemplateOutlet]=\"segmentTemplate\"\n        [ngTemplateOutletContext]=\"{ segment: segment.data, value: _getSegmentValue(segment.data), color: _getBackgroundColor(segment) }\">\n      </ng-container>\n    </div>\n\n</div>\n",
+                        template: "<div class=\"partition-map-segment\"\n     *ngFor=\"let segment of _segments\"\n     uxFocusIndicator\n     [ngClass]=\"_getContrastColor(segment)\"\n     [style.background-color]=\"_getBackgroundColor(segment)\"\n     [tabIndex]=\"_getTabIndex(segment)\"\n     [attr.aria-expanded]=\"!_isCollapsed(segment)\"\n     [attr.aria-selected]=\"_isSelected(segment)\"\n     [attr.aria-level]=\"segment.depth\"\n     (click)=\"_onSegmentSelect(segment)\"\n     (focus)=\"_onFocus(segment)\"\n     (keydown.Enter)=\"_onSegmentSelect(segment)\"\n     (keydown.ArrowUp)=\"_focusParent(segment); $event.preventDefault()\"\n     (keydown.ArrowDown)=\"_focusChild(segment); $event.preventDefault()\"\n     (keydown.ArrowLeft)=\"_focusSibling(segment, -1); $event.preventDefault()\"\n     (keydown.ArrowRight)=\"_focusSibling(segment, 1); $event.preventDefault()\"\n     (keydown.Home)=\"_focusFirstSibling(segment); $event.preventDefault()\"\n     (keydown.End)=\"_focusLastSibling(segment); $event.preventDefault()\">\n\n     <div class=\"partition-map-segment-content\" [class.partition-map-segment-content-hidden]=\"_getSegmentContentHidden(segment)\">\n\n      <!-- Show default template if provided -->\n      <span class=\"partition-map-segment-label\" *ngIf=\"!segmentTemplate\">\n        {{ segment.data.name }}\n      </span>\n\n       <!-- Show custom template if provided -->\n      <ng-container *ngIf=\"segmentTemplate\"\n        [ngTemplateOutlet]=\"segmentTemplate\"\n        [ngTemplateOutletContext]=\"_getContext(segment)\">\n      </ng-container>\n    </div>\n\n</div>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -31918,10 +32267,12 @@
                             ResizeModule
                         ],
                         declarations: [
-                            PartitionMapComponent
+                            PartitionMapComponent,
+                            PartitionMapSegmentEventsDirective
                         ],
                         exports: [
-                            PartitionMapComponent
+                            PartitionMapComponent,
+                            PartitionMapSegmentEventsDirective
                         ]
                     },] }
         ];
@@ -42919,7 +43270,8 @@
             },
             state: {
                 lowerHandleFocus: false,
-                upperHandleFocus: false
+                upperHandleFocus: false,
+                rangeHandleFocus: false
             }
         }
     };
@@ -43285,12 +43637,16 @@
                 var lowerHandle = document.createElement('div');
                 /** @type {?} */
                 var upperHandle = document.createElement('div');
+                /** @type {?} */
+                var rangeHandle = document.createElement('div');
                 // make the items focusable
                 lowerHandle.setAttribute('tabindex', '0');
                 upperHandle.setAttribute('tabindex', '0');
+                rangeHandle.setAttribute('tabindex', '0');
                 // insert the elements
                 chart.canvas.appendChild(lowerHandle);
                 chart.canvas.appendChild(upperHandle);
+                chart.canvas.appendChild(rangeHandle);
                 // add the event handlers
                 lowerHandle.addEventListener('focus', function () { return _this.setState(chart, { lowerHandleFocus: true }); });
                 lowerHandle.addEventListener('blur', function () { return _this.setState(chart, { lowerHandleFocus: false }); });
@@ -43298,8 +43654,11 @@
                 upperHandle.addEventListener('focus', function () { return _this.setState(chart, { upperHandleFocus: true }); });
                 upperHandle.addEventListener('blur', function () { return _this.setState(chart, { upperHandleFocus: false }); });
                 upperHandle.addEventListener('keydown', function (event) { return _this.onKeydown(chart, event, TimelineHandle.Upper); });
+                rangeHandle.addEventListener('focus', function () { return _this.setState(chart, { rangeHandleFocus: true }); });
+                rangeHandle.addEventListener('blur', function () { return _this.setState(chart, { rangeHandleFocus: false }); });
+                rangeHandle.addEventListener('keydown', function (event) { return _this.onRangeKeydown(chart, event); });
                 // store the items in the state object
-                this.setState(chart, { lowerHandleElement: lowerHandle, upperHandleElement: upperHandle });
+                this.setState(chart, { lowerHandleElement: lowerHandle, upperHandleElement: upperHandle, rangeHandleElement: rangeHandle });
             };
         /** Handle keyboard accessibility events */
         /**
@@ -43341,6 +43700,69 @@
                         event.preventDefault();
                         break;
                 }
+            };
+        /**
+         * Handle range changes made with the keyboard as these are exempt from
+         * many of the validation checks that are required when dragging only one
+         * handle at a time.
+         */
+        /**
+         * Handle range changes made with the keyboard as these are exempt from
+         * many of the validation checks that are required when dragging only one
+         * handle at a time.
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+        TimelineChartPlugin.prototype.onRangeKeydown = /**
+         * Handle range changes made with the keyboard as these are exempt from
+         * many of the validation checks that are required when dragging only one
+         * handle at a time.
+         * @param {?} chart
+         * @param {?} event
+         * @return {?}
+         */
+            function (chart, event) {
+                // get the current handle values
+                /** @type {?} */
+                var lowerValue = this.getHandleValue(chart, TimelineHandle.Lower).getTime();
+                /** @type {?} */
+                var upperValue = this.getHandleValue(chart, TimelineHandle.Upper).getTime();
+                /** @type {?} */
+                var step = this.getOptions(chart).keyboard.step;
+                /** @type {?} */
+                var difference = upperValue - lowerValue;
+                // get the chart boundaries
+                var _a = __read(this.getChartRange(chart), 2), minimum = _a[0], maximum = _a[1];
+                switch (event.keyCode) {
+                    case keycodes.LEFT_ARROW:
+                        lowerValue = Math.max(lowerValue - step, minimum);
+                        upperValue = lowerValue + difference;
+                        event.preventDefault();
+                        break;
+                    case keycodes.RIGHT_ARROW:
+                        upperValue = Math.min(upperValue + step, maximum);
+                        lowerValue = upperValue - difference;
+                        event.preventDefault();
+                        break;
+                    case keycodes.HOME:
+                        lowerValue = minimum;
+                        upperValue = lowerValue + difference;
+                        event.preventDefault();
+                        break;
+                    case keycodes.END:
+                        upperValue = maximum;
+                        lowerValue = upperValue - difference;
+                        event.preventDefault();
+                        break;
+                }
+                // store the new values
+                chart.config.options.timeline.range[TimelineHandle.Lower] = new Date(lowerValue);
+                chart.config.options.timeline.range[TimelineHandle.Upper] = new Date(upperValue);
+                // update the chart
+                chart.update();
+                // emit the latest range
+                this.triggerOnChange(chart);
             };
         /**
          * When the mouse is first pressed within a chart we should see if we are
@@ -43494,6 +43916,8 @@
                 // get the fill color
                 /** @type {?} */
                 var selectionColor = this.getOptions(chart).selectionColor;
+                // get the focus indicator color
+                var focusIndicatorColor = this.getOptions(chart).handles.focusIndicatorColor;
                 // get the lower and upper handle render regions
                 /** @type {?} */
                 var lower = this.getHandleArea(chart, TimelineHandle.Lower);
@@ -43503,6 +43927,16 @@
                 chart.ctx.save();
                 chart.ctx.fillStyle = ( /** @type {?} */(selectionColor));
                 chart.ctx.fillRect(lower.left, 0, upper.right - lower.left, bottom - top);
+                // check if we are focused on the range handle
+                if (this.isHandleFocused(chart, TimelineHandle.Range)) {
+                    chart.ctx.strokeStyle = ( /** @type {?} */(focusIndicatorColor));
+                    /** @type {?} */
+                    var handleWidth = 4;
+                    /** @type {?} */
+                    var lineWidth = 2;
+                    chart.ctx.lineWidth = lineWidth;
+                    chart.ctx.strokeRect(lower.left + handleWidth + lineWidth, lineWidth / 2, (upper.right - lower.left) - ((handleWidth + lineWidth) * 2), (bottom - top) - lineWidth);
+                }
                 chart.ctx.restore();
             };
         /** Darw the drag handles */
@@ -43625,6 +44059,9 @@
                 }
                 if (handle === TimelineHandle.Upper) {
                     return this.getState(chart).upperHandleFocus;
+                }
+                if (handle === TimelineHandle.Range) {
+                    return this.getState(chart).rangeHandleFocus;
                 }
                 return false;
             };
@@ -44430,6 +44867,7 @@
     exports.MediaPlayerModule = MediaPlayerModule;
     exports.NavigationItemComponent = NavigationItemComponent;
     exports.NavigationLinkDirective = NavigationLinkDirective;
+    exports.NAVIGATION_MODULE_OPTIONS = NAVIGATION_MODULE_OPTIONS;
     exports.NavigationComponent = NavigationComponent;
     exports.NavigationModule = NavigationModule;
     exports.NavigationService = NavigationService;
@@ -44452,6 +44890,7 @@
     exports.PAGINATION_CONTROL_VALUE_ACCESSOR = PAGINATION_CONTROL_VALUE_ACCESSOR;
     exports.PaginationComponent = PaginationComponent;
     exports.PaginationModule = PaginationModule;
+    exports.PartitionMapSegmentEventsDirective = PartitionMapSegmentEventsDirective;
     exports.PartitionMapComponent = PartitionMapComponent;
     exports.PartitionMapModule = PartitionMapModule;
     exports.PopoverModule = PopoverModule;
@@ -44550,7 +44989,11 @@
     exports.AccessibilityModule = AccessibilityModule;
     exports.ColorContrastDirective = ColorContrastDirective;
     exports.ContrastService = ContrastService;
+    exports.DefaultFocusIndicatorDirective = DefaultFocusIndicatorDirective;
     exports.FocusIndicator = FocusIndicator;
+    exports.LocalFocusIndicatorOptions = LocalFocusIndicatorOptions;
+    exports.FocusIndicatorOptionsDirective = FocusIndicatorOptionsDirective;
+    exports.FocusIndicatorOrigin = FocusIndicatorOrigin;
     exports.FocusIndicatorOriginDirective = FocusIndicatorOriginDirective;
     exports.FocusIndicatorOriginService = FocusIndicatorOriginService;
     exports.FocusIndicatorDirective = FocusIndicatorDirective;
@@ -44684,46 +45127,44 @@
     exports.CookieAdapter = CookieAdapter;
     exports.LocalStorageAdapter = LocalStorageAdapter;
     exports.SessionStorageAdapter = SessionStorageAdapter;
-    exports.ɵf = DashboardGrabHandleService;
-    exports.ɵh = DayViewComponent;
-    exports.ɵi = DayViewService;
-    exports.ɵg = HeaderComponent;
-    exports.ɵj = MonthViewComponent;
-    exports.ɵk = MonthViewService;
-    exports.ɵo = WeekDaySortPipe;
-    exports.ɵn = TimeViewComponent;
-    exports.ɵl = YearViewComponent;
-    exports.ɵm = YearViewService;
-    exports.ɵp = FacetCheckListItemComponent;
-    exports.ɵq = FacetTypeaheadListItemComponent;
-    exports.ɵu = FloatingActionButtonsService;
-    exports.ɵy = HierarchyBarCollapsedComponent;
-    exports.ɵx = HierarchyBarNodeComponent;
-    exports.ɵba = HierarchyBarPopoverItemComponent;
-    exports.ɵz = HierarchyBarPopoverComponent;
-    exports.ɵw = HierarchyBarStandardComponent;
-    exports.ɵv = HierarchyBarService;
-    exports.ɵbe = MarqueeWizardService;
-    exports.ɵbf = MediaPlayerService;
-    exports.ɵbj = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbi = PageHeaderNavigationItemComponent;
-    exports.ɵbk = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbh = PageHeaderNavigationService;
-    exports.ɵbg = PageHeaderService;
-    exports.ɵbc = SidePanelAnimationState;
-    exports.ɵbd = sidePanelStateAnimation;
-    exports.ɵbb = SidePanelService;
-    exports.ɵbl = ResizableTableService;
-    exports.ɵs = TypeaheadHighlightDirective;
-    exports.ɵr = TypeaheadService;
-    exports.ɵa = DefaultFocusIndicatorDirective;
-    exports.ɵb = LocalFocusIndicatorOptions;
-    exports.ɵc = FocusIndicatorOptionsDirective;
-    exports.ɵbm = HoverActionService;
-    exports.ɵt = MenuNavigationService;
-    exports.ɵbn = TreeGridService;
-    exports.ɵd = KEPPEL_COLOR_SET;
-    exports.ɵe = MICRO_FOCUS_COLOR_SET;
+    exports.ɵc = DashboardGrabHandleService;
+    exports.ɵe = DayViewComponent;
+    exports.ɵf = DayViewService;
+    exports.ɵd = HeaderComponent;
+    exports.ɵg = MonthViewComponent;
+    exports.ɵh = MonthViewService;
+    exports.ɵl = WeekDaySortPipe;
+    exports.ɵk = TimeViewComponent;
+    exports.ɵi = YearViewComponent;
+    exports.ɵj = YearViewService;
+    exports.ɵm = FacetCheckListItemComponent;
+    exports.ɵn = FacetTypeaheadListItemComponent;
+    exports.ɵr = FloatingActionButtonsService;
+    exports.ɵw = HierarchyBarCollapsedComponent;
+    exports.ɵt = HierarchyBarNodeIconDirective;
+    exports.ɵv = HierarchyBarNodeComponent;
+    exports.ɵy = HierarchyBarPopoverItemComponent;
+    exports.ɵx = HierarchyBarPopoverComponent;
+    exports.ɵu = HierarchyBarStandardComponent;
+    exports.ɵs = HierarchyBarService;
+    exports.ɵbc = MarqueeWizardService;
+    exports.ɵbd = MediaPlayerService;
+    exports.ɵbh = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbg = PageHeaderNavigationItemComponent;
+    exports.ɵbi = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbf = PageHeaderNavigationService;
+    exports.ɵbe = PageHeaderService;
+    exports.ɵba = SidePanelAnimationState;
+    exports.ɵbb = sidePanelStateAnimation;
+    exports.ɵz = SidePanelService;
+    exports.ɵbj = ResizableTableService;
+    exports.ɵp = TypeaheadHighlightDirective;
+    exports.ɵo = TypeaheadService;
+    exports.ɵbk = HoverActionService;
+    exports.ɵq = MenuNavigationService;
+    exports.ɵbl = TreeGridService;
+    exports.ɵa = KEPPEL_COLOR_SET;
+    exports.ɵb = MICRO_FOCUS_COLOR_SET;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -131,15 +131,13 @@ tree-node-checkbox {
 .clearfix:after {
   clear: both;
 }
-.aspects-outline {
+.focus-outline {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
-.elements-force-outline {
-  outline-style: solid;
-  outline-width: 1px;
+.native-focus-outline:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -247,7 +245,7 @@ ol.unstyled {
 .footer.condensed-panel .page-heading {
   margin-top: -8px;
 }
-.aspects-focus-outline:focus {
+.aspects-focus-outline:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -1880,23 +1878,23 @@ ng\:form {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-.ux-keyboard-focus:focus {
-  outline: none !important;
+.ux-keyboard-focus:focus:not(.cdk-keyboard-focused) {
+  outline: none;
 }
 .ux-keyboard-focus:focus.cdk-keyboard-focused {
-  outline: 2px dotted !important;
-  outline: auto -webkit-focus-ring-color !important;
-  outline-color: #00a7a2 !important;
-  outline-offset: 0 !important;
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
-.ux-focus-indicator:focus {
-  outline: none !important;
+.ux-focus-indicator:focus:not(.ux-focus-indicator-active) {
+  outline: none;
 }
 .ux-focus-indicator:focus.ux-focus-indicator-active {
-  outline: 2px dotted !important;
-  outline: auto -webkit-focus-ring-color !important;
-  outline-color: #00a7a2 !important;
-  outline-offset: 0 !important;
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .nav > li > a {
   font-weight: 600;
@@ -2641,7 +2639,7 @@ h4.panel-title {
   background-color: #f5f5f5;
   color: #676a6c;
 }
-.dropdown-menu li > a:focus {
+.dropdown-menu li > a:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -3502,8 +3500,8 @@ select.form-control {
 .multi-select-checkbox {
   background-position: 0 0;
 }
-.multi-select-checkbox:hover,
-.multi-select-checkbox:focus {
+.multi-select-checkbox:hover:not(.ux-focus-indicator),
+.multi-select-checkbox:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -4536,7 +4534,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .linkTooltip {
   pointer-events: none;
 }
-.dial:focus {
+.dial:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -4716,11 +4714,13 @@ tree-view > div:first-child > ol:nth-of-type(1) > li:after {
   line-height: 1em !important;
   border: none !important;
   margin-left: -5px;
+  padding-left: 5px;
+}
+.tree-node.highlight > input:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
-  padding-left: 5px;
 }
 .tree-node.highlight .title-readonly:focus {
   background-color: transparent !important;
@@ -4754,15 +4754,15 @@ tree-view > div:first-child > ol:nth-of-type(1) > li:after {
 .tree-node .icon {
   margin-right: 3px;
 }
-.tree-node a:focus,
-.tree-node span:focus {
+.tree-node a:focus:not(.ux-focus-indicator),
+.tree-node span:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
-.tree-node a:active,
-.tree-node a:active:focus {
+.tree-node a:active:not(.ux-focus-indicator),
+.tree-node a:active:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -5085,7 +5085,7 @@ table.select-table tr > td {
   padding: 3px 10px;
   line-height: 25px;
 }
-table.select-table tr:focus {
+table.select-table tr:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -5363,25 +5363,39 @@ tags-input[disabled] .tags .input {
 .pagination > li.page-item > a .hpe-icon {
   line-height: inherit;
 }
+.pagination > li.page-item > a:focus,
+.pagination > li.page-item > a:active:focus,
+.pagination > li.page-item > a.active:focus,
+.pagination > li.page-item > a.focus,
+.pagination > li.page-item > a:active.focus,
+.pagination > li.page-item > a.active.focus {
+  outline: none;
+}
+.pagination > li.page-item > a:focus:not(.ux-focus-indicator),
+.pagination > li.page-item > a:active:focus:not(.ux-focus-indicator),
+.pagination > li.page-item > a.active:focus:not(.ux-focus-indicator),
+.pagination > li.page-item > a.focus:not(.ux-focus-indicator),
+.pagination > li.page-item > a:active.focus:not(.ux-focus-indicator),
+.pagination > li.page-item > a.active.focus:not(.ux-focus-indicator) {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.pagination > li.page-item > a:focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > a:active:focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > a.active:focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > a.focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > a:active.focus.ux-focus-indicator.ux-focus-indicator-active,
+.pagination > li.page-item > a.active.focus.ux-focus-indicator.ux-focus-indicator-active {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 .pagination > li.page-item > a:active,
 .pagination > li.page-item > a.active {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-.pagination > li.page-item > a:active:focus,
-.pagination > li.page-item > a.active:focus,
-.pagination > li.page-item > a:active.focus,
-.pagination > li.page-item > a.active.focus {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
-}
-.pagination > li.page-item > a:focus,
-.pagination > li.page-item > a.focus {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
 }
 .pagination > li.page-item > a:hover {
   box-shadow: none;
@@ -5424,7 +5438,7 @@ tags-input[disabled] .tags .input {
 .pagination > li.page-item > a.listview-clear:active {
   background: url(../img/filter_clear_light.png) no-repeat;
 }
-.pagination > li.page-item > a.listview-clear:focus {
+.pagination > li.page-item > a.listview-clear:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -5667,7 +5681,7 @@ table.dataTable {
   background-color: transparent;
   padding: 0;
 }
-.table > tbody > tr .hover-action-btn:focus {
+.table > tbody > tr .hover-action-btn:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -6020,8 +6034,8 @@ table.dataTable {
 .table tr.ux-selection-selected.ux-selection-focused > td.item-actions .list-hover-actions {
   box-shadow: none;
 }
-.table tr.shift-select-selected-bg.ux-selection-focused:focus,
-.table tr.ux-selection-selected.ux-selection-focused:focus {
+.table tr.shift-select-selected-bg.ux-selection-focused:focus:not(.ux-focus-indicator),
+.table tr.ux-selection-selected.ux-selection-focused:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -6422,7 +6436,7 @@ table.dataTable {
 .sort-direction-toggle .sort-icon:focus {
   background-color: #ebebeb;
 }
-.sort-direction-toggle .sort-icon:focus {
+.sort-direction-toggle .sort-icon:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -6529,7 +6543,7 @@ th:hover .detail-row-header.sort .sort .number {
 /*
  * Reorderable Table
  */
-.reorderable-row:focus {
+.reorderable-row:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -6958,10 +6972,10 @@ th:hover .detail-row-header.sort .sort .number {
 a.accordion-toggle:focus {
   outline: 1px auto #60798d;
 }
-.panel-heading.accordion-toggle:focus,
-.panel-heading:focus,
-.panel-heading.accordion-toggle a:focus,
-.panel-heading a:focus {
+.panel-heading.accordion-toggle:focus:not(.ux-focus-indicator),
+.panel-heading:focus:not(.ux-focus-indicator),
+.panel-heading.accordion-toggle a:focus:not(.ux-focus-indicator),
+.panel-heading a:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -8156,7 +8170,7 @@ strong {
 .marquee-modal-window .modal-close:hover {
   background-color: #222;
 }
-.marquee-modal-window .modal-close:focus {
+.marquee-modal-window .modal-close:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -8531,25 +8545,39 @@ layout-switcher-container {
 .btn .hpe-icon {
   line-height: inherit;
 }
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: none;
+}
+.btn:focus:not(.ux-focus-indicator),
+.btn:active:focus:not(.ux-focus-indicator),
+.btn.active:focus:not(.ux-focus-indicator),
+.btn.focus:not(.ux-focus-indicator),
+.btn:active.focus:not(.ux-focus-indicator),
+.btn.active.focus:not(.ux-focus-indicator) {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.btn:focus.ux-focus-indicator.ux-focus-indicator-active,
+.btn:active:focus.ux-focus-indicator.ux-focus-indicator-active,
+.btn.active:focus.ux-focus-indicator.ux-focus-indicator-active,
+.btn.focus.ux-focus-indicator.ux-focus-indicator-active,
+.btn:active.focus.ux-focus-indicator.ux-focus-indicator-active,
+.btn.active.focus.ux-focus-indicator.ux-focus-indicator-active {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 .btn:active,
 .btn.active {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-.btn:active:focus,
-.btn.active:focus,
-.btn:active.focus,
-.btn.active.focus {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
-}
-.btn:focus,
-.btn.focus {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
 }
 .btn:hover {
   box-shadow: none;
@@ -9428,7 +9456,7 @@ button.dim:active:before {
   position: relative;
   top: 4px;
 }
-.btn-back:focus {
+.btn-back:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -9491,11 +9519,13 @@ button.dim:active:before {
   min-width: 45px;
 }
 .btn-group .dropdown-toggle:focus {
+  z-index: 3;
+}
+.btn-group .dropdown-toggle:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
-  z-index: 3;
 }
 .dropdown-menu {
   margin-top: 5px;
@@ -12470,7 +12500,7 @@ p.no-margin {
   opacity: 0.5;
   top: 4px;
 }
-.alert .close:focus {
+.alert .close:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -12480,7 +12510,7 @@ p.no-margin {
   font-family: 'Source Sans Pro';
   font-weight: 600;
 }
-.alert-link:focus {
+.alert-link:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -12650,7 +12680,7 @@ ux-alert .alert-close {
   color: inherit;
   background: transparent;
 }
-ux-alert .alert-close:focus {
+ux-alert .alert-close:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -12856,7 +12886,7 @@ ux-alert.ux-alert-dark {
 .btn.listview-clear:active {
   background: url(../img/filter_clear_light.png) no-repeat;
 }
-.btn.listview-clear:focus {
+.btn.listview-clear:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -13653,12 +13683,6 @@ ux-alert.ux-alert-dark {
 * html .jspCorner {
   margin: 0 -3px 0 0;
 }
-.scroll-container {
-  outline: 2px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0;
-}
 .navbar-static-side-container .jspDrag {
   left: 3px;
   width: 7px;
@@ -13801,7 +13825,7 @@ ux-alert.ux-alert-dark {
 /*
  * Angular Splitter
  */
-split split-gutter:focus {
+split split-gutter:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -14759,6 +14783,8 @@ tags-input .tags .input:-ms-input-placeholder {
 }
 .treegrid-row:focus {
   background-color: #f5f5f5;
+}
+.treegrid-row:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -15233,8 +15259,8 @@ tags-input .tags .input:-ms-input-placeholder {
 .breadcrumb li span {
   color: rgba(103, 106, 108, 0.7);
 }
-.breadcrumb li a:focus,
-.breadcrumb li span:focus {
+.breadcrumb li a:focus:not(.ux-focus-indicator),
+.breadcrumb li span:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -15271,7 +15297,7 @@ tags-input .tags .input:-ms-input-placeholder {
   cursor: pointer;
   margin-bottom: 24px;
 }
-.file-upload-dropzone:focus {
+.file-upload-dropzone:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -15322,7 +15348,7 @@ tags-input .tags .input:-ms-input-placeholder {
 .file-upload-queue-remove:focus {
   opacity: 1;
 }
-.file-upload-queue-remove:focus {
+.file-upload-queue-remove:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -15567,7 +15593,7 @@ ux-card-tabset .card-tabs-paging-btn {
   border: none;
   z-index: 2;
 }
-ux-card-tabset .card-tabs-paging-btn:focus {
+ux-card-tabset .card-tabs-paging-btn:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -15984,12 +16010,15 @@ ux-date-range-picker .header-separator {
   width: 64px;
   flex: none;
   color: #00a7a2;
+  padding-top: 2px;
 }
 ux-date-range-picker .header-separator > .hpe-icon {
   font-size: 1.5rem;
+  margin-bottom: 2px;
 }
 ux-date-range-picker .header-separator .duration {
   text-align: center;
+  margin: 0;
 }
 ux-date-range-picker .date-header,
 ux-date-range-picker .select-header {
@@ -16076,7 +16105,7 @@ ux-date-time-picker .now-button {
 ux-date-time-picker .now-button:hover:not(:disabled) {
   background-color: #eee;
 }
-ux-date-time-picker .now-button:focus {
+ux-date-time-picker .now-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -16175,7 +16204,7 @@ ux-date-time-picker-header .header .header-navigation {
   border: none;
   background-color: transparent;
 }
-ux-date-time-picker-header .header .header-navigation:focus {
+ux-date-time-picker-header .header .header-navigation:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -16201,7 +16230,7 @@ ux-date-time-picker-header .header .header-title {
   border: none;
   background-color: transparent;
 }
-ux-date-time-picker-header .header .header-title:focus {
+ux-date-time-picker-header .header .header-title:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -16294,7 +16323,7 @@ ux-date-time-picker-time-view .time-zone-picker .time-zone-select {
   padding: 0;
   text-align: center;
 }
-ux-date-time-picker-time-view .time-zone-picker .time-zone-select:focus {
+ux-date-time-picker-time-view .time-zone-picker .time-zone-select:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -16525,7 +16554,7 @@ ux-facet-container .facets-selected-container .facets-selected-list .facet-selec
   border: none;
   background: none;
 }
-ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .facet-selected-remove-btn:focus {
+ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .facet-selected-remove-btn:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -16718,7 +16747,7 @@ ux-flippable-card {
   /* front pane, placed above back */
   /* back, initially hidden pane */
 }
-ux-flippable-card:focus {
+ux-flippable-card:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -16887,13 +16916,16 @@ ux-hierarchy-bar-node .hierarchy-bar-node-content {
   background: transparent;
   padding: 0;
 }
-ux-hierarchy-bar-node .hierarchy-bar-node-content:focus {
+ux-hierarchy-bar-node .hierarchy-bar-node-content:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
 ux-hierarchy-bar-node .hierarchy-bar-node-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   flex: none;
   max-width: 20px;
   max-height: 18px;
@@ -16920,6 +16952,8 @@ ux-hierarchy-bar-node .hierarchy-bar-node-arrow:hover {
 }
 ux-hierarchy-bar-node .hierarchy-bar-node-arrow:focus {
   color: #00a7a2;
+}
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17065,7 +17099,7 @@ ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-overflow-conta
   background: transparent;
   padding: 0 2px;
 }
-ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-overflow-container .overflow-button:focus {
+ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-overflow-container .overflow-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17089,6 +17123,8 @@ ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:hov
 }
 ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:focus {
   color: #00a7a2;
+}
+ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17218,7 +17254,7 @@ ux-media-player-controls .control-button {
 ux-media-player-controls .control-button:hover {
   fill: #333;
 }
-ux-media-player-controls .control-button:focus {
+ux-media-player-controls .control-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17248,7 +17284,7 @@ ux-media-player-controls .action-button {
 ux-media-player-controls .action-button:hover {
   color: #333;
 }
-ux-media-player-controls .action-button:focus {
+ux-media-player-controls .action-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17303,7 +17339,7 @@ ux-media-player-controls .volume-container .volume-slider-container .volume-slid
   width: 27px;
   float: none;
 }
-ux-media-player-controls .volume-container .volume-slider-container .volume-slider-icon:focus {
+ux-media-player-controls .volume-container .volume-slider-container .volume-slider-icon:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17360,7 +17396,7 @@ ux-media-player-controls .media-player-subtitles-popover .popover-content .subti
 ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item:hover {
   background-color: #f5f5f5;
 }
-ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item:focus {
+ux-media-player-controls .media-player-subtitles-popover .popover-content .subtitles-list .subtitles-list-item:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17388,7 +17424,7 @@ ux-media-player-timeline .timeline-bar {
   background-color: #eee;
   cursor: pointer;
 }
-ux-media-player-timeline .timeline-bar:focus {
+ux-media-player-timeline .timeline-bar:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17801,7 +17837,7 @@ ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:ho
 ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:focus {
   background-color: rgba(247, 247, 247, 0.1);
 }
-ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:focus {
+ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17829,7 +17865,7 @@ ux-page-header-icon-menu .dropdown-menu li a {
   min-height: 0;
   font-size: 1rem;
 }
-ux-page-header-icon-menu .dropdown-menu li a:focus {
+ux-page-header-icon-menu .dropdown-menu li a:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17874,7 +17910,7 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button:focus {
   color: #fff;
   background-color: #0f5a67;
 }
-ux-page-header-horizontal-navigation-item .horizontal-navigation-button:focus {
+ux-page-header-horizontal-navigation-item .horizontal-navigation-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -17919,8 +17955,8 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button:disabled
   background-color: #0f5a67;
   color: #eee;
 }
-.horizontal-navigation-dropdown-menu .dropdown-item:focus,
-.horizontal-navigation-dropdown-submenu .dropdown-item:focus {
+.horizontal-navigation-dropdown-menu .dropdown-item:focus:not(.ux-focus-indicator),
+.horizontal-navigation-dropdown-submenu .dropdown-item:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -18025,7 +18061,7 @@ ux-page-header .ux-page-header .page-header-state-container .page-header-back-bu
 ux-page-header .ux-page-header .page-header-state-container .page-header-back-button:focus {
   background-color: rgba(0, 0, 0, 0.1);
 }
-ux-page-header .ux-page-header .page-header-state-container .page-header-back-button:focus {
+ux-page-header .ux-page-header .page-header-state-container .page-header-back-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -18113,7 +18149,7 @@ ux-partition-map .partition-map-segment {
 }
 ux-partition-map .partition-map-segment:focus.ux-focus-indicator-active {
   outline: none !important;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 ux-partition-map .partition-map-segment:focus.ux-focus-indicator-active.partition-map-segment-dark .partition-map-segment-content {
   box-shadow: inset 0 0 0 3px #000;
@@ -18143,10 +18179,10 @@ ux-partition-map .partition-map-segment-content:hover {
   background-color: rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
-ux-partition-map .partition-map-segment-content.partition-map-segment-content-hidden .partion-map-segment-label {
+ux-partition-map .partition-map-segment-content.partition-map-segment-content-hidden .partition-map-segment-label {
   opacity: 0;
 }
-ux-partition-map .partion-map-segment-label {
+ux-partition-map .partition-map-segment-label {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -18437,7 +18473,7 @@ ux-search-builder-group .search-group-content .search-group-items .search-group-
   cursor: pointer;
   transition: opacity 300ms linear;
 }
-ux-search-builder-group .search-group-content .search-group-items .search-group-item-container .search-group-item-remove:focus {
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container .search-group-item-remove:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -18457,7 +18493,7 @@ ux-search-builder-group .search-group-content .search-builder-group-add-field {
   padding: 0;
   background-color: transparent;
 }
-ux-search-builder-group .search-group-content .search-builder-group-add-field:focus {
+ux-search-builder-group .search-group-content .search-builder-group-add-field:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -18556,7 +18592,7 @@ ux-select-list-item {
 ux-select-list-item:hover {
   background-color: #f5f5f5;
 }
-ux-select-list-item:focus {
+ux-select-list-item:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -19112,7 +19148,7 @@ ux-spin-button .spin-button {
 ux-spin-button .spin-button:disabled {
   opacity: 0.5;
 }
-ux-spin-button .spin-button:focus {
+ux-spin-button .spin-button:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
