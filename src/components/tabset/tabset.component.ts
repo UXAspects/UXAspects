@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, AfterViewInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-tabset',
@@ -12,11 +14,16 @@ import { TabsetService } from './tabset.service';
         '[class.tabs-right]': 'stacked === "right"',
     }
 })
-export class TabsetComponent implements AfterViewInit {
+export class TabsetComponent implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() minimal: boolean = true;
     @Input() stacked: 'left' | 'right' | 'none' = 'none';
     @Input('aria-label') ariaLabel: string;
+
+    @ContentChildren(TabComponent)
+    tabs: QueryList<TabComponent>;
+
+    private _onDestroy = new Subject();
 
     constructor(public tabset: TabsetService) { }
 
@@ -26,6 +33,17 @@ export class TabsetComponent implements AfterViewInit {
         if (!this.tabset.active$.value) {
             this.tabset.selectFirstTab();
         }
+    }
+
+    ngAfterContentInit(): void {
+        this.tabs.changes.pipe(takeUntil(this._onDestroy)).subscribe(tabs => this.tabset.tabs$.next(tabs));
+
+        this.tabset.tabs$.next(this.tabs.toArray());
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     /**

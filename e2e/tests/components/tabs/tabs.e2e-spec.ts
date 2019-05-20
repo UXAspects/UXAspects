@@ -188,4 +188,23 @@ describe('Tabs Tests (Angular)', () => {
 
     });
 
+    it('should allow inserting a new tab at the leftmost position', async () => {
+
+        expect(await page.getSelectedTab()).toBe('Schedule');
+
+        // Add a tab at index 0
+        await page.addTab0.click();
+
+        expect(await page.getTabCount()).toBe(5);
+
+        expect(await page.getSelectedTab()).toBe('Schedule');
+
+        // Click the newly added tab
+        await page.clickTabAtIndex(0);
+
+        expect(await page.getSelectedTab()).toBe('New Tab 0');
+        expect(await page.getSelectedTabContent()).toBe('New Tab 0');
+
+    });
+
 });

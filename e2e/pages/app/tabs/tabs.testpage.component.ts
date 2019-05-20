@@ -25,6 +25,10 @@ export class TabsTestPageComponent {
 
     private _stacked: TabStackType = 'none';
 
+    addTab(index: number): void {
+        this.tabs = [`New Tab ${index}`, ...this.tabs];
+    }
+
 }
 
 export type TabStackType = 'left' | 'right' | 'none';
