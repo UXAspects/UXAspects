@@ -36,7 +36,9 @@ export class TabsetComponent implements AfterViewInit, AfterContentInit, OnDestr
     }
 
     ngAfterContentInit(): void {
-        this.tabs.changes.pipe(takeUntil(this._onDestroy)).subscribe(tabs => this.tabset.tabs$.next(tabs));
+        this.tabs.changes
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(tabs => this.tabset.tabs$.next(tabs.toArray()));
 
         this.tabset.tabs$.next(this.tabs.toArray());
     }
