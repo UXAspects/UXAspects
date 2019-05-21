@@ -2,7 +2,7 @@
     [uxInfiniteScroll]="loadOptionsCallback"
     [collection]="visibleOptions$ | async"
     (collectionChange)="visibleOptions$.next($event)"
-    [enabled]="isInfiniteScroll()"
+    [enabled]="hasBeenOpened && isInfiniteScroll()"
     [filter]="filter"
     [loadOnScroll]="true"
     [pageSize]="pageSize"

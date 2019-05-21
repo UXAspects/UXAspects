@@ -192,9 +192,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Changes to the input field
         this._input$.pipe(
-            takeUntil(this._onDestroy),
             filter(() => this.allowNull),
-            filter(value => !this.multiple && value !== this.getDisplay(this.value))
+            filter(value => !this.multiple && value !== this.getDisplay(this.value)),
+            takeUntil(this._onDestroy)
         ).subscribe(() => this.value = null);
 
         // Set up filter from input
@@ -205,16 +205,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Open the dropdown when filter is nonempty.
         this.filter$.pipe(
-            takeUntil(this._onDestroy),
-            filter(value => value && value.length > 0)
+            filter(value => value && value.length > 0),
+            takeUntil(this._onDestroy)
         ).subscribe(() => this.dropdownOpen = true);
 
         // Update the single-select input when the model changes
         this._value$.pipe(
-            takeUntil(this._onDestroy),
             distinctUntilChanged(),
             delay(0),
-            filter(value => value !== null && !this.multiple)
+            filter(value => value !== null && !this.multiple),
+            takeUntil(this._onDestroy)
         ).subscribe(value => {
             this.input = this.getDisplay(value);
         });

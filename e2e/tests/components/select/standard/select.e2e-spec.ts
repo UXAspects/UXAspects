@@ -20,18 +20,6 @@ describe('Select Tests', () => {
 
         // selected location(s) - null
         expect<any>(page.getSelectedLocationText()).toBe('null');
-
-        // expand panel and check inital state
-        expect(page.checkSelectedOptionsButton()).toBeTruthy();
-        expect(page.checkSelectedDirectionButton()).toBeTruthy();
-        expect(page.confirmIsChecked(page.checkboxMulti)).toBeFalsy();
-        expect(page.confirmIsChecked(page.checkboxDisabled)).toBeFalsy();
-        expect(page.confirmIsChecked(page.checkboxAllowNull)).toBeFalsy();
-        expect(page.confirmIsChecked(page.checkboxPaging)).toBeFalsy();
-        expect(page.confirmAllowNullIsDisabled()).toBeFalsy();
-        expect(page.confirmPageSizeIsDisabled()).toBeTruthy();
-        expect(page.confirmPageSizeButtonIsDisabled('down')).toBeTruthy();
-        expect(page.confirmPageSizeButtonIsDisabled('up')).toBeTruthy();
     });
 
     it('should display correct text', () => {
@@ -60,46 +48,6 @@ describe('Select Tests', () => {
 
         page.clickOnDropdown(false);
         expect(page.confirmDropdownIsExpanded()).toBeFalsy();
-
-    });
-
-    it('should react to button clicks', () => {
-
-        // options radio button
-        page.clickOnObjects();
-        expect(page.checkSelectedOptionsButton()).toBeFalsy();
-        page.clickOnStrings();
-        expect(page.checkSelectedOptionsButton()).toBeTruthy();
-
-        // multiple checkbox
-        page.clickOnCheckbox(page.checkboxMulti);
-        expect(page.confirmIsChecked(page.checkboxMulti)).toBeTruthy();
-        page.clickOnCheckbox(page.checkboxMulti);
-        expect(page.confirmIsChecked(page.checkboxMulti)).toBeFalsy();
-
-        // disabled checkbox
-        page.clickOnCheckbox(page.checkboxDisabled);
-        expect(page.confirmIsChecked(page.checkboxDisabled)).toBeTruthy();
-        page.clickOnCheckbox(page.checkboxDisabled);
-        expect(page.confirmIsChecked(page.checkboxDisabled)).toBeFalsy();
-
-        // allowNull checkbox
-        page.clickOnCheckbox(page.checkboxAllowNull);
-        expect(page.confirmIsChecked(page.checkboxAllowNull)).toBeTruthy();
-        page.clickOnCheckbox(page.checkboxAllowNull);
-        expect(page.confirmIsChecked(page.checkboxAllowNull)).toBeFalsy();
-
-        // dropDirection radio button
-        page.clickOnDropDirectionUp();
-        expect(page.checkSelectedDirectionButton()).toBeFalsy();
-        page.clickOnDropDirectionDown();
-        expect(page.checkSelectedDirectionButton()).toBeTruthy();
-
-        // Enable Option Paging button
-        page.clickOnCheckbox(page.checkboxPaging);
-        expect(page.confirmIsChecked(page.checkboxPaging)).toBeTruthy();
-        page.clickOnCheckbox(page.checkboxPaging);
-        expect(page.confirmIsChecked(page.checkboxPaging)).toBeFalsy();
 
     });
 
@@ -381,26 +329,7 @@ describe('Select Tests', () => {
 
     it('should react to changes in the status of the "allowNull" checkbox', () => {
 
-        // unselectable in multiple mode
-        page.clickOnCheckbox(page.checkboxMulti);
-        expect(page.confirmAllowNullIsDisabled()).toBeTruthy();
-        page.clickOnCheckbox(page.checkboxAllowNull);
-        expect(page.confirmIsChecked(page.checkboxAllowNull)).toBeFalsy();
-
-        // checked but disabled
-        page.clickOnCheckbox(page.checkboxMulti);
-        page.clickOnCheckbox(page.checkboxAllowNull);
-        page.clickOnCheckbox(page.checkboxMulti);
-        expect(page.confirmIsChecked(page.checkboxAllowNull)).toBeTruthy();
-        expect(page.confirmAllowNullIsDisabled()).toBeTruthy();
-
-        // checked & enabled after unchecking multiple button
-        page.clickOnCheckbox(page.checkboxMulti);
-        expect(page.confirmIsChecked(page.checkboxAllowNull)).toBeTruthy();
-        expect(page.confirmAllowNullIsDisabled()).toBeFalsy();
-
         // prevent deletion of text when allowNull is unchecked
-        page.clickOnCheckbox(page.checkboxAllowNull);
         page.clickOnDropdown(false);
         page.clickOnCountry(false, 190);
         expect<any>(page.getSelectedLocationText()).toBe('"Saint Martin (French part)"');
@@ -449,22 +378,6 @@ describe('Select Tests', () => {
         page.clickOnDropdown(true);
         page.clickOnCountry(true, 230);
         expect<any>(page.getDropdownPlaceholderText(true)).toEqual('Pick a country');
-
-    });
-
-    it('should react to changes in the status of the "Enable Option Paging" button', () => {
-
-        // enable paging
-        page.clickOnCheckbox(page.checkboxPaging);
-        expect(page.confirmPageSizeIsDisabled()).toBeFalsy();
-        expect(page.confirmPageSizeButtonIsDisabled('down')).toBeFalsy();
-        expect(page.confirmPageSizeButtonIsDisabled('up')).toBeFalsy();
-
-        // disable paging
-        page.clickOnCheckbox(page.checkboxPaging);
-        expect(page.confirmPageSizeIsDisabled()).toBeTruthy();
-        expect(page.confirmPageSizeButtonIsDisabled('down')).toBeTruthy();
-        expect(page.confirmPageSizeButtonIsDisabled('up')).toBeTruthy();
 
     });
 

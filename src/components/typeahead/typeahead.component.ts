@@ -100,12 +100,13 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /** Emit the highlighted element when it changes */
     @Output() highlightedElementChange = new EventEmitter<HTMLElement>();
 
-    loadOptionsCallback: InfiniteScrollLoadFunction;
-    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
+    activeKey: string = null;
     clicking = false;
+    hasBeenOpened = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
     highlightedKey: string = null;
-    activeKey: string = null;
+    loadOptionsCallback: InfiniteScrollLoadFunction;
+    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -150,10 +151,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return null;
         };
 
-        this._service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((next) => {
-            this.openChange.emit(next);
+        this._service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((isOpen) => {
+            this.openChange.emit(isOpen);
 
-            if (next) {
+            if (isOpen) {
+                this.hasBeenOpened = true;
                 this.initOptions();
             }
         });
