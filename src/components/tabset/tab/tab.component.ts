@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
 import { TabsetService } from '../tabset.service';
 
@@ -31,17 +31,15 @@ export class TabComponent implements OnDestroy {
     headingRef: TemplateRef<any>;
     active$: Observable<boolean> = this._tabset.active$.pipe(map(active => active === this), tick());
 
-    private _subscription: Subscription;
+    private _onDestroy = new Subject();
 
     constructor(private _tabset: TabsetService) {
-        _tabset.add(this);
-
-        this._subscription = this.active$.subscribe(active => active ? this.select.emit() : this.deselect.emit());
+        this.active$.pipe(takeUntil(this._onDestroy)).subscribe(active => active ? this.select.emit() : this.deselect.emit());
     }
 
     ngOnDestroy(): void {
-        this._tabset.remove(this);
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
 }
