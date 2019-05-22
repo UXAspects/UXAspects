@@ -5,6 +5,8 @@ export class DateRangePickerPage {
     input = $('#date-range-input');
     dateRangePicker = $('ux-date-range-picker');
     clearBtn = $('#clear-btn');
+    enableMinAndMaxBtn = $('#enable-min-max');
+    disableMinAndMaxBtn = $('#disable-min-max');
 
     async getPage(): Promise<void> {
         return await browser.get('#/date-range-picker');
@@ -65,14 +67,15 @@ export class DateRangePickerPage {
     }
 
     async getPickerDateHeader(picker: Picker): Promise<string> {
-        const headers = await this.dateRangePicker.$$('.date-header');
+        const headerIndex = (picker === Picker.Start) ? 0 : 1;
+        const headers: ElementFinder[] = await this.dateRangePicker.$$('.header-section');
+        const dateHeader = headers[headerIndex].$('.date-header');
 
-        // it will only be 1 if only 1 date is selected
-        if (headers.length === 2) {
-            return await headers[picker === Picker.Start ? 0 : 1].getAttribute('innerText');
-        } else if (headers.length === 1) {
-            return await headers[0].getAttribute('innerText');
+        if (await dateHeader.isPresent()) {
+            return await dateHeader.getAttribute('innerText');
         }
+
+        return null;
     }
 
     async getPickerTimeHeader(picker: Picker): Promise<string> {
@@ -164,6 +167,14 @@ export class DateRangePickerPage {
 
     async clear(): Promise<void> {
         await this.clearBtn.click();
+    }
+
+    async enableMinAndMax(): Promise<void> {
+        await this.enableMinAndMaxBtn.click();
+    }
+
+    async disableMinAndMax(): Promise<void> {
+        await this.disableMinAndMaxBtn.click();
     }
 }
 
