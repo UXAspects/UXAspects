@@ -36,6 +36,7 @@ export * from './components/partition-map/index';
 export * from './components/popover/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
+export * from './components/sankey-chart/index';
 export * from './components/search-builder/index';
 export * from './components/select-list/index';
 export * from './components/select/index';

@@ -1,0 +1,15 @@
+<ux-sankey-chart
+    class="sankey-chart"
+    [nodes]="nodes"
+    [links]="links"
+    [columns]="columns"
+    [maxWidth]="300">
+
+    <ng-template #sankeyNodeTemplate let-node="node" let-active="active" let-focus="focus">
+        <div class="sankey-node" [class.sankey-node-active]="active" [class.sankey-node-focus]="focus">
+            <div class="sankey-node-space">{{ node.data.space | fileSize }}</div>
+            <div class="sankey-node-files">{{ getFileCount(node.data.files) }}</div>
+            <div class="sankey-node-name">{{ node.data.name }}</div>
+        </div>
+    </ng-template>
+</ux-sankey-chart>
