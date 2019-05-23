@@ -5,8 +5,8 @@
     [showMeridian]="datepicker.showMeridian$ | async"
     [showSpinners]="datepicker.showSpinners$ | async"
     [meridians]="datepicker.meridians"
-    [min]="datepicker.min$ | async"
-    [max]="datepicker.max$ | async">
+    [min]="min"
+    [max]="max">
 </ux-time-picker>
 
 <ng-container *ngIf="datepicker.showTimezone$ | async">

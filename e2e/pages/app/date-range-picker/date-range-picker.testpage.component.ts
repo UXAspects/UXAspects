@@ -17,6 +17,12 @@ export class DateRangePickerTestPageComponent {
     /** The formatted date string to display in the input */
     date: string;
 
+    /** Earliest selectable date. */
+    min: Date;
+
+    /** Latest selectable date. */
+    max: Date;
+
     /** Indicate whether or not the selected date is valid */
     invalid: boolean = false;
 
@@ -108,6 +114,16 @@ export class DateRangePickerTestPageComponent {
         this.end = null;
         this.date = null;
         this.onRangeChange();
+    }
+
+    enableMinAndMax(): void {
+        this.min = new Date(2019, 2, 5);
+        this.max = new Date(2019, 3, 1, 23, 59);
+    }
+
+    disableMinAndMax(): void {
+        this.min = null;
+        this.max = null;
     }
 
     /** Account for the timezone offset */

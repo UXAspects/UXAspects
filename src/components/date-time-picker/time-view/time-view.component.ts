@@ -1,19 +1,27 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, Optional, OnInit } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DateTimePickerService } from '../date-time-picker.service';
+import { compareDays } from '../date-time-picker.utils';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
     selector: 'ux-date-time-picker-time-view',
     templateUrl: './time-view.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TimeViewComponent implements OnDestroy {
+export class TimeViewComponent implements OnInit, OnDestroy {
 
     /** Dont bind directly to the selected date as if it's null we can end up in 1970! */
     value: Date;
+
+    /** Earliest time permitted on the time picker. */
+    min: Date = null;
+
+    /** Latest time permitted on the time picker. */
+    max: Date = null;
 
     /** Determine if we are in range selection mode */
     get _isRangeMode(): boolean {
@@ -42,20 +50,20 @@ export class TimeViewComponent implements OnDestroy {
 
     constructor(
         public datepicker: DateTimePickerService,
-        changeDetector: ChangeDetectorRef,
+        private _changeDetector: ChangeDetectorRef,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
 
         // when the date changes we should update the value
-        datepicker.date$.pipe(takeUntil(this._onDestroy), filter(() => this.value instanceof Date)).subscribe(date => {
+        datepicker.date$.pipe(filter(date => date && this.value instanceof Date), takeUntil(this._onDestroy)).subscribe(date => {
             this.value.setFullYear(date.getFullYear());
             this.value.setMonth(date.getMonth());
             this.value.setDate(date.getDate());
-            changeDetector.detectChanges();
+            _changeDetector.detectChanges();
         });
 
         if (!this._isRangeMode) {
-            datepicker.selected$.pipe(takeUntil(this._onDestroy), filter(date => !!date)).subscribe(date => this.value = new Date(date));
+            datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy)).subscribe(date => this.value = new Date(date));
         }
 
         if (this._isRangeMode && this._isRangeStart) {
@@ -75,6 +83,21 @@ export class TimeViewComponent implements OnDestroy {
                 this.value.setHours(this._rangeEnd.getHours(), this._rangeEnd.getMinutes(), this._rangeEnd.getSeconds());
             }
         }
+    }
+
+    ngOnInit(): void {
+
+        // min should only apply if it's on the same day as the selected date
+        combineLatest(this.datepicker.min$, this.datepicker.date$).pipe(takeUntil(this._onDestroy)).subscribe(([min, date]) => {
+            this.min = (min && date && compareDays(date, min)) ? min : null;
+            this._changeDetector.detectChanges();
+        });
+
+        // max should only apply if it's on the same day as the selected date
+        combineLatest(this.datepicker.max$, this.datepicker.date$).pipe(takeUntil(this._onDestroy)).subscribe(([max, date]) => {
+            this.max = (max && date && compareDays(date, max)) ? max : null;
+            this._changeDetector.detectChanges();
+        });
     }
 
     ngOnDestroy(): void {

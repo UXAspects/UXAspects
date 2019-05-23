@@ -91,8 +91,8 @@ export class TimePickerComponent implements ControlValueAccessor {
     /** Emitted when the validity of the control changes. */
     @Output() isValid = new EventEmitter<boolean>();
 
-    onTouchedCallback: () => void = () => { };
-    onChangeCallback: (_: Date) => void = () => { };
+    onTouchedCallback: () => void = () => {};
+    onChangeCallback: (_: Date) => void = () => {};
 
     private _value = new Date();
     private _isValid: boolean = true;
@@ -209,7 +209,11 @@ export class TimePickerComponent implements ControlValueAccessor {
     checkValidity(date: Date): boolean {
         let valid = true;
 
-        if (this.min && date.getTime() <= this.min.getTime() || this.max && date.getTime() >= this.max.getTime()) {
+        // Fix min and max date components in order to compare time only
+        const min = this.normalizeDate(this.min, date);
+        const max = this.normalizeDate(this.max, date);
+
+        if ((min && date.getTime() < min.getTime()) || (max && date.getTime() > max.getTime())) {
             valid = false;
         }
 
@@ -298,6 +302,7 @@ export class TimePickerComponent implements ControlValueAccessor {
     }
 
     secondChange(value: string): void {
+
         // convert the string to a number
         let second = parseInt(value);
         const currentSecond = this.value.getSeconds();
@@ -320,5 +325,19 @@ export class TimePickerComponent implements ControlValueAccessor {
 
         // if the number is invalid then restore it to the previous value
         this.setSeconds(isNaN(second) ? currentSecond : second);
+    }
+
+    /** Normalise a date's year/month/date components. */
+    private normalizeDate(date: Date, reference: Date): Date {
+        if (!date) {
+            return null;
+        }
+
+        const normalized = new Date(date);
+        normalized.setFullYear(reference.getFullYear());
+        normalized.setMonth(reference.getMonth());
+        normalized.setDate(reference.getDate());
+
+        return normalized;
     }
 }

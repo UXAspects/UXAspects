@@ -23,6 +23,12 @@ export class DateRangePickerComponent implements OnDestroy {
         this.rangeService.end = end;
     }
 
+    /** The earliest selectable date. */
+    @Input() min: Date;
+
+    /** The latest selectable date. */
+    @Input() max: Date;
+
     /** Defines whether or not the time picker should allow the user to choose a timezone. */
     @Input() showTimezone: boolean;
 
