@@ -129,6 +129,12 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
     getFileCount(count: number): string {
         return (count / 1_000_000).toPrecision(2) + 'M';
     }
+
+    getAriaLabel(node: SankeyNode<SankeyNodeData>, size: string): string {
+        return node.data.name + ' has ' +
+            (node.data.files / 1_000_000).toPrecision(2) +
+            ' million files, occupying ' + size + ' of disk space';
+    }
 }
 
 export interface SankeyNodeData {
