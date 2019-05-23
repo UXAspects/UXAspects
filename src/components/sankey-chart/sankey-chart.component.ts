@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { formatNumber } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, Input, OnChanges, TemplateRef, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ResizeDimensions } from '../../directives/resize/index';
+import { ColorService, ThemeColor } from '../../services/color/index';
 import { SankeyLink, SankeyLinkInteraction, SankeyLinkPlot } from './interfaces/link.interface';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyNode } from './interfaces/node.interface';
@@ -48,6 +50,9 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
     /** Define the function to get the contents of a falloff tooltip */
     @Input() falloffTooltip: (falloff: number) => string = this.getFalloffTooltip;
 
+    /** Define the active color of a node */
+    @Input() color: string | ThemeColor;
+
     /** Define the template of sankey chart nodes */
     @ContentChild('sankeyNodeTemplate') nodeTemplate: TemplateRef<SankeyNodeContext<T>>;
 
@@ -86,7 +91,9 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
 
     constructor(
         private _focusManager: SankeyFocusManager<T>,
-        private _changeDetector: ChangeDetectorRef
+        private _changeDetector: ChangeDetectorRef,
+        private _colorService: ColorService,
+        private _sanitizer: DomSanitizer
     ) { }
 
     ngAfterViewInit(): void {
@@ -295,6 +302,38 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
      */
     _trackLinkBy(_index: number, link: SankeyLink) {
         return `${link.source}-${link.target}`;
+    }
+
+    /**
+     * Get the color of node based on whether or not
+     * the `color` input has been provided.
+     */
+    _getColor(item: SankeyNodeLink<T> | SankeyLink & SankeyLinkInteraction): string {
+        // if we are not node hovering or focusing or no custom color is defined then return nothing
+        if (!item.active && !item.focus || !this.color) {
+            return;
+        }
+
+        // return an rgba value if it is a `ThemeColor` to support transparency
+        return this.color instanceof ThemeColor ? this.color.toRgba() : this.color;
+    }
+
+    /**
+     * We want the focus indicator color to match the active color,
+     * which if programmatically defined need to be overriden
+     */
+    _getFocusIndicator(nodeLink: SankeyNodeLink<T>): SafeStyle {
+        // if the node is not focused or there is no custom color
+        // then return null in which case CSS indicator will show
+        if (!nodeLink.focus || !this.color) {
+            return;
+        }
+
+        // otherwise return the shadow based on the color provided.
+        const color = this.color instanceof ThemeColor ? this.color : ThemeColor.parse(this.color);
+
+        // generate a box shadow based on the specified color
+        return this._sanitizer.bypassSecurityTrustStyle(`0 0 0 1px #fff, 0 0 0 3px ${color.setAlpha(0.5).toRgba()}`);
     }
 
     /**

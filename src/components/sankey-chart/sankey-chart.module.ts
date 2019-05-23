@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
+import { ColorServiceModule } from '../../services/color/index';
 import { TooltipModule } from '../tooltip/index';
 import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyChartComponent } from './sankey-chart.component';
@@ -15,7 +16,8 @@ import { SankeyChartComponent } from './sankey-chart.component';
         AccessibilityModule,
         CommonModule,
         ResizeModule,
-        TooltipModule
+        TooltipModule,
+        ColorServiceModule
     ],
     exports: [
         SankeyChartComponent
