@@ -14,7 +14,8 @@ export default function searchGroup() {
             buttonText: '=',
             maxFields: '=?',
             addField: '=',
-            removeField: '=?'
+            removeField: '=?',
+            readOnly: '=?'
         },
         link: function(scope, element, attr, controllers) {
 

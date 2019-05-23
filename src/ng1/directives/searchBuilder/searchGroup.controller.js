@@ -7,6 +7,7 @@ export default function SearchGroupCtrl($scope) {
     vm.components = [];
     vm.showPlaceholder = false;
     vm.maxFields = $scope.maxFields ? parseInt($scope.maxFields) : null;
+    vm.readOnly = $scope.readOnly;
 
     vm.addNewField = function(index) {
 
