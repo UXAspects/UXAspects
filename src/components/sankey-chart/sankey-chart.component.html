@@ -49,6 +49,7 @@
      [style.top.px]="!columns || columns.length === 0 ? 8 : null">
 
     <div *ngFor="let node of _nodes; trackBy: _trackNodeBy"
+        #nodeElement
         [uxSankeyNode]="node"
         uxFocusIndicator
         class="ux-sankey-chart-node"
@@ -58,10 +59,9 @@
         [style.width.px]="node.width"
         [style.height.px]="node.height"
         [style.background-color]="_getColor(node)"
-        [style.box-shadow]="_getFocusIndicator(node)"
         (mouseenter)="_setNodeActive(node, true)"
         (mouseleave)="_setNodeActive(node, false)"
-        (indicator)="_setNodeFocus(node, $event)">
+        (indicator)="_setNodeFocus(node, $event, nodeElement)">
 
         <ng-container
             [ngTemplateOutlet]="nodeTemplate"
