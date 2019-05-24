@@ -1,0 +1,105 @@
+<ux-sankey-chart
+    class="sankey-chart"
+    [nodes]="nodes"
+    [links]="links"
+    [columns]="columns"
+    [maxWidth]="300">
+
+    <ng-template #sankeyNodeTemplate let-node="node" let-active="active" let-focus="focus">
+        <div class="sankey-node"
+             [class.sankey-node-active]="active"
+             [class.sankey-node-focus]="focus"
+             [attr.aria-label]="getAriaLabel(node, node.data.space | fileSize)">
+            <div class="sankey-node-space">{{ node.data.space | fileSize }}</div>
+            <div class="sankey-node-files">{{ getFileCount(node.data.files) }}</div>
+            <div class="sankey-node-name">{{ node.data.name }}</div>
+        </div>
+    </ng-template>
+</ux-sankey-chart>
+
+<br>
+
+<p>
+    The Sankey Chart can be used to visualize the flow of data or items to various nodes.
+    An <code>ng-template</code> with the identifier of <code>#sankeyNodeTemplate</code> should
+    be added as a child element to define the content of the nodes.
+</p>
+
+<p>
+    The following options can be used to configure the chart:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="nodes" type="ReadonlyArray<SankeyNode<T>>" [required]="true">
+      Define the nodes to display in the chart.
+    </tr>
+    <tr uxd-api-property name="links" type="ReadonlyArray<SankeyLink>" [required]="true">
+      Define the nodes to display in the chart.
+    </tr>
+    <tr uxd-api-property name="columns" type="ReadonlyArray<string>">
+      Define the title for each column.
+    </tr>
+    <tr uxd-api-property name="minWidth" type="number" defaultValue="0">
+      Define the minimum width of a node.
+    </tr>
+    <tr uxd-api-property name="maxWidth" type="number" defaultValue="Infinity">
+      Define the maximum width of a node.
+    </tr>
+    <tr uxd-api-property name="color" type="string | ThemeColor">
+      Define the active and focus color of nodes and links.
+    </tr>
+    <tr uxd-api-property name="linkTooltip" type="(link: SankeyLink) => string" defaultValue="X Items">
+      Define the content of the tooltip that appears when hovering over a link.
+    </tr>
+    <tr uxd-api-property name="falloffTooltip" type="(falloff: number) => string" defaultValue="X Items">
+      Define the content of the tooltip that appears when hovering over a falloff indicator.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SankeyNode<T> Interface">
+    <tr uxd-api-property name="id" type="string | number" [required]="true">
+        Define a unique ID for this node.
+    </tr>
+    <tr uxd-api-property name="data" type="T" [required]="true">
+        Define additional custom data for this node. This can be accessed in the template
+        and used to display additional information about a node to the user.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SankeyLink Interface">
+    <tr uxd-api-property name="source" type="string | number" [required]="true">
+        Define the ID of the source node.
+    </tr>
+    <tr uxd-api-property name="target" type="string | number" [required]="true">
+        Define the ID of the target node.
+    </tr>
+    <tr uxd-api-property name="value" type="number" [required]="true">
+        Define the value that this link represents.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Sankey Node Template Context">
+    <tr uxd-api-property name="node" type="SankeyNode">
+        The data that represents the node.
+    </tr>
+    <tr uxd-api-property name="active" type="boolean">
+        The current active state of the node.
+    </tr>
+    <tr uxd-api-property name="focus" type="boolean">
+        The current focus state of the node.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
