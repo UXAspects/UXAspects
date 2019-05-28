@@ -1,7 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { formatNumber } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, Input, OnChanges, TemplateRef, ViewChild } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ResizeDimensions } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
 import { SankeyLink, SankeyLinkInteraction, SankeyLinkPlot } from './interfaces/link.interface';
@@ -92,8 +91,7 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
     constructor(
         private _focusManager: SankeyFocusManager<T>,
         private _changeDetector: ChangeDetectorRef,
-        private _colorService: ColorService,
-        private _sanitizer: DomSanitizer
+        private _colorService: ColorService
     ) { }
 
     ngAfterViewInit(): void {
@@ -194,7 +192,7 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
      * Set the focused state of a node and the inputs and outputs
      * associated with this node.
      */
-    _setNodeFocus(nodeLink: SankeyNodeLink<T>, focused: boolean): void {
+    _setNodeFocus(nodeLink: SankeyNodeLink<T>, focused: boolean, element: HTMLDivElement): void {
 
         // set the node focus state
         nodeLink.focus = focused;
@@ -208,6 +206,14 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
         nodeLink.inputs.map(link => this._sankey.getNodeLink(link.target)).forEach(_node => _node.focus = focused);
         nodeLink.outputs.map(link => this._sankey.getNodeLink(link.source)).forEach(_node => _node.focus = focused);
         nodeLink.outputs.map(link => this._sankey.getNodeLink(link.target)).forEach(_node => _node.focus = focused);
+
+        // we need to add the focus indicator here programmatically. The default quantum-ux-aspects focus indicator
+        // styling uses `!important` so our inline style needs to also be `!important` to override this, and unfortunately
+        // there is a known issue with `NgStyle` and `[style.xyz]` bindings preventing them from adding the `!important`
+        // modifier so we must do it manually (not using `Renderer2`).
+        if (this.color) {
+            element.style.setProperty('box-shadow', this._getFocusIndicator(nodeLink), 'important');
+        }
 
         // ensure we update the view to show highlights
         this._changeDetector.detectChanges();
@@ -315,25 +321,25 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
         }
 
         // return an rgba value if it is a `ThemeColor` to support transparency
-        return this.color instanceof ThemeColor ? this.color.toRgba() : this.color;
+        return this.color instanceof ThemeColor ? this.color.toRgba() : this._colorService.resolve(this.color);
     }
 
     /**
      * We want the focus indicator color to match the active color,
      * which if programmatically defined need to be overriden
      */
-    _getFocusIndicator(nodeLink: SankeyNodeLink<T>): SafeStyle {
+    _getFocusIndicator(nodeLink: SankeyNodeLink<T>): string {
         // if the node is not focused or there is no custom color
         // then return null in which case CSS indicator will show
         if (!nodeLink.focus || !this.color) {
-            return;
+            return '';
         }
 
         // otherwise return the shadow based on the color provided.
-        const color = this.color instanceof ThemeColor ? this.color : ThemeColor.parse(this.color);
+        const color = this.color instanceof ThemeColor ? this.color : ThemeColor.parse(this._colorService.resolve(this.color));
 
         // generate a box shadow based on the specified color
-        return this._sanitizer.bypassSecurityTrustStyle(`0 0 0 1px #fff, 0 0 0 3px ${color.setAlpha(0.5).toRgba()}`);
+        return `0 0 0 1px #fff, 0 0 0 3px ${color.setAlpha(0.5).toRgba()}`;
     }
 
     /**
