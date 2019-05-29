@@ -1,11 +1,12 @@
-import { $, $$, browser, Key } from 'protractor';
+import { $, $$, browser } from 'protractor';
 
 export class TabsTestPageComponent {
-        
+
     minimalCheckbox = $('#minimal-checkbox');
     stackNoneRadio = $('#stack-none-radio');
     stackLeftRadio = $('#stack-left-radio');
     stackRightRadio = $('#stack-right-radio');
+    addTab0 = $('#add-tab-0');
     tabsetHost = $('ux-tabset');
     tabset = $('.nav-tabs');
     tabs = $$('.nav-item');
@@ -41,7 +42,7 @@ export class TabsTestPageComponent {
         if (classes.includes('tabs-left')) {
             return 'left';
         }
-        
+
         if (classes.includes('tabs-right')) {
             return 'right';
         }

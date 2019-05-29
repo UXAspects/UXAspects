@@ -1,16 +1,6 @@
 export class ThemeColor {
 
-    private _r: string;
-    private _g: string;
-    private _b: string;
-    private _a: string;
-
-    constructor(r: string, g: string, b: string, a: string) {
-        this._r = r;
-        this._g = g;
-        this._b = b;
-        this._a = a === undefined ? '1' : a;
-    }
+    constructor(private _r: string, private _g: string, private _b: string, private _a: string = '1') { }
 
     /**
      * Create a ThemeColor object from a CSS color string

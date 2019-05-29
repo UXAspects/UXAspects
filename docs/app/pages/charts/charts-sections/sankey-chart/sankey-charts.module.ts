@@ -1,15 +1,17 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HybridModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { FileSizePipeModule, HybridModule, SankeyChartModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ChartsSankeyChartNg1Component } from './sankey-chart-ng1/sankey-chart-ng1.component';
+import { ChartsSankeyChartComponent } from './sankey-chart/sankey-chart.component';
 
 
 const SECTIONS = [
-    ChartsSankeyChartNg1Component
+    ChartsSankeyChartNg1Component,
+    ChartsSankeyChartComponent
 ];
 
 const ROUTES = [
@@ -27,7 +29,9 @@ const ROUTES = [
         TabsetModule,
         WrappersModule,
         HybridModule,
+        FileSizePipeModule,
         DocumentationComponentsModule,
+        SankeyChartModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

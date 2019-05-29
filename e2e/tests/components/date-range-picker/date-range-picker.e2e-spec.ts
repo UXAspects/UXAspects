@@ -200,6 +200,72 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getPickerTitle(Picker.Start)).toBe('March 2019');
     });
 
+    it('should prevent selection outside of the defined min and max values', async () => {
+        await page.enableMinAndMax();
+
+        // Update to min and max does not affect existing selection
+        expect(await page.getRangeStart(Picker.Start)).toBe('4');
+        expect(await page.getRangeStart(Picker.End)).toBe('4');
+        expect(await page.getRangeEnd(Picker.Start)).toBe('21');
+        expect(await page.getRangeEnd(Picker.End)).toBe('21');
+
+        await page.clear();
+
+        // Dates outside of the min and max should be disabled in both panels
+        expect(await page.getDisabled(Picker.Start)).toEqual(['24', '25', '26', '27', '28', '1', '2', '3', '4', '2', '3', '4', '5', '6']);
+        expect(await page.getDisabled(Picker.End)).toEqual(['24', '25', '26', '27', '28', '1', '2', '3', '4', '2', '3', '4', '5', '6']);
+
+        // Cannot go to previous month (February) since it has no selectable dates
+        await page.goToPreviousMonth(Picker.Start);
+        expect(await page.getPickerTitle(Picker.Start)).toBe('March 2019');
+
+        // Move end picker to April
+        await page.goToNextMonth(Picker.End);
+        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+        expect(await page.getDisabled(Picker.End)).toEqual(['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '1', '2', '3', '4']);
+
+        // Cannot go to May since it has no selectable dates
+        await page.goToNextMonth(Picker.End);
+        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+
+        // Clicking a date earlier that the min date should do nothing
+        await page.selectDate(Picker.Start, 4);
+        expect(await page.getPickerDateHeader(Picker.Start)).toBeNull();
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('');
+
+        // Clicking a date later than the min date should select as normal
+        await page.selectDate(Picker.Start, 5);
+        expect(await page.getPickerDateHeader(Picker.Start)).toBe('5 March 2019');
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00 AM');
+
+        // Clicking a date later than the max date should do nothing
+        await page.selectDate(Picker.End, 2);
+        expect(await page.getPickerDateHeader(Picker.End)).toBeNull();
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('');
+
+        // Clicking a date earlier than the max date should select as normal
+        await page.selectDate(Picker.End, 1);
+        expect(await page.getPickerDateHeader(Picker.End)).toBe('1 April 2019');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59 PM');
+
+        // Unset min and max
+        await page.clear();
+        await page.disableMinAndMax();
+
+        // All dates re-enabled
+        expect(await page.getDisabled(Picker.Start)).toEqual([]);
+        expect(await page.getDisabled(Picker.End)).toEqual([]);
+
+        // Clicking previously disabled dates should now work
+        await page.selectDate(Picker.Start, 4);
+        expect(await page.getPickerDateHeader(Picker.Start)).toBe('4 March 2019');
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00 AM');
+        await page.selectDate(Picker.End, 2);
+        expect(await page.getPickerDateHeader(Picker.End)).toBe('2 April 2019');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59 PM');
+
+    });
+
     // take into account the current timezone
     function getTimezoneOffset(offset: number = 0): string {
         offset = new Date().getTimezoneOffset() + (offset * -60);

@@ -1983,6 +1983,16 @@ search-builder {
     .search-group {
         width: 100%;
 
+        &.read-only {
+            .search-group-content .field-list .field-collection .field .search-component .component-remove {
+                display: none;
+            }
+
+            .search-group-content .add-field .button-container {
+                display: none;
+            }
+        }
+
         .search-group-title {
             color: @search-builder-group-title-color;
             font-size: 1.188rem;
