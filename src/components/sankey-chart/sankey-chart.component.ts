@@ -1,5 +1,4 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { formatNumber } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, Input, OnChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ResizeDimensions } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
@@ -364,14 +363,14 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
      * Get the default content of a link tooltip
      */
     private getLinkTooltip(link: SankeyLink): string {
-        return formatNumber(link.value, 'en-US') + ' items';
+        return link.value.toLocaleString('en') + ' items';
     }
 
     /**
      * Get the default content of a falloff tooltip
      */
     private getFalloffTooltip(falloff: number): string {
-        return `${formatNumber(falloff, 'en-US')} items`;
+        return falloff.toLocaleString('en') + ' items';
     }
 
 }
