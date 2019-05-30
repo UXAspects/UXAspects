@@ -3,6 +3,7 @@ import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { tick } from '../../../common/operators/index';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 
 @Injectable()
@@ -51,6 +52,9 @@ export class PageHeaderNavigationService implements OnDestroy {
                 this._focusManager.updateActiveItemIndex(0);
             }
         });
+
+        // emit the initial change
+        this._onChange.next();
     }
 
     /** Listen for keyboard events */
@@ -60,7 +64,7 @@ export class PageHeaderNavigationService implements OnDestroy {
 
     /** Get the tab index for this item as an observable */
     getTabIndex(item: PageHeaderNavigationItemComponent): Observable<number> {
-        return this._onChange.pipe(map(() => this.getItemTabIndex(item)));
+        return this._onChange.pipe(map(() => this.getItemTabIndex(item)), tick(), takeUntil(this._onDestroy));
     }
 
     /** Determine the tab index of a given item */
