@@ -4834,6 +4834,12 @@ search-builder {
 search-builder .search-group {
   width: 100%;
 }
+search-builder .search-group.read-only .search-group-content .field-list .field-collection .field .search-component .component-remove {
+  display: none;
+}
+search-builder .search-group.read-only .search-group-content .add-field .button-container {
+  display: none;
+}
 search-builder .search-group .search-group-title {
   color: #333;
   font-size: 1.188rem;
@@ -18394,6 +18400,107 @@ ux-radio-button .ux-radio-button.ux-radio-button-focused .ux-radio-button-contai
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
+}
+ux-sankey-chart {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+ux-sankey-chart .ux-sankey-chart-nodes,
+ux-sankey-chart .ux-sankey-chart-links,
+ux-sankey-chart .ux-sankey-chart-columns {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+ux-sankey-chart .ux-sankey-chart-links {
+  z-index: 1;
+  top: 64px;
+}
+ux-sankey-chart .ux-sankey-chart-nodes {
+  z-index: 2;
+  top: 64px;
+}
+ux-sankey-chart .ux-sankey-chart-node {
+  position: absolute;
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.16s ease-out, color 0.16s ease-out, box-shadow 0.16s ease-out;
+  pointer-events: all;
+  cursor: default;
+}
+ux-sankey-chart .ux-sankey-chart-node:hover {
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.05);
+}
+ux-sankey-chart .ux-sankey-chart-node.ux-sankey-chart-node-active {
+  background-color: #7b63a3;
+  color: #fff;
+}
+ux-sankey-chart .ux-sankey-chart-node:focus.ux-focus-indicator {
+  outline: none;
+}
+ux-sankey-chart .ux-sankey-chart-node:focus.ux-focus-indicator.ux-focus-indicator-active {
+  outline: none;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(123, 99, 163, 0.5);
+}
+ux-sankey-chart .ux-sankey-chart-columns {
+  display: flex;
+}
+ux-sankey-chart .ux-sankey-chart-column {
+  flex: none;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 24px;
+}
+ux-sankey-chart .ux-sankey-chart-column:last-of-type {
+  border-right: none;
+}
+ux-sankey-chart .ux-sankey-chart-column-title {
+  position: absolute;
+  top: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+ux-sankey-chart .ux-sankey-chart-link {
+  fill: #000;
+  fill-opacity: 0.05;
+  transition: fill 0.16s ease-out, fill-opacity 0.16s ease-out;
+  pointer-events: all;
+}
+ux-sankey-chart .ux-sankey-chart-link.ux-sankey-chart-link-active {
+  fill: #7b63a3;
+  fill-opacity: 0.5;
+}
+ux-sankey-chart .ux-sankey-chart-falloff-indicator {
+  fill: url(#falloff-gradient);
+  pointer-events: all;
+}
+ux-sankey-chart .ux-sankey-chart-falloff-gradient-start {
+  stop-color: #ff8d6e;
+  stop-opacity: 0.75;
+}
+ux-sankey-chart .ux-sankey-chart-falloff-gradient-end {
+  stop-color: #ff8d6e;
+  stop-opacity: 0;
+}
+ux-sankey-chart .ux-sankey-tooltip {
+  position: absolute;
+  z-index: 1;
+  transform: translateX(-50%) translateY(-110%);
+}
+ux-sankey-chart .ux-sankey-tooltip .tooltip .tooltip-arrow {
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-style: solid;
+  position: absolute;
 }
 ux-search-builder-group .search-group-title {
   color: #333;

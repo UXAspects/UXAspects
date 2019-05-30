@@ -37938,6 +37938,7 @@ function SearchGroupCtrl($scope) {
   vm.components = [];
   vm.showPlaceholder = false;
   vm.maxFields = $scope.maxFields ? parseInt($scope.maxFields) : null;
+  vm.readOnly = $scope.readOnly;
 
   vm.addNewField = function (index) {
     var targetFunction = vm.getAddFields()[index]; //call the user function specified to add a field
@@ -38093,7 +38094,8 @@ function searchGroup() {
       buttonText: '=',
       maxFields: '=?',
       addField: '=',
-      removeField: '=?'
+      removeField: '=?',
+      readOnly: '=?'
     },
     link: function link(scope, element, attr, controllers) {
       //provide access to parent controller
@@ -38120,7 +38122,7 @@ function searchGroup() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"search-group\">\n<p class=\"search-group-title\" ng-bind=\"groupTitle\"></p>\n<div class=\"search-group-content\">\n<div class=\"operator-label {{ operator }}\" ng-class=\"{ 'search-builder-show': sg.components.length > 1 }\">\n{{ operator }}\n</div>\n<div class=\"field-list\">\n<ul class=\"field-collection\" ng-class=\"{ 'search-builder-show': sg.components.length > 0 }\">\n<li class=\"field\" ng-repeat=\"component in sg.components\" component-id=\"{{ component.componentId }}\">\n<ng-include src=\"component.templateUrl\"></ng-include>\n</li>\n</ul>\n<div class=\"placeholder-field\" ng-show=\"sg.showPlaceholder\">\n<label class=\"form-label\">New field</label>\n<div class=\"form-control\"></div>\n</div>\n</div>\n<div class=\"add-field-list\">\n<div class=\"add-field\" ng-repeat=\"button in sg.getAddFields()\" ng-class=\"{ 'limit-reached' : sg.maxFields && (sg.components.length >= maxFields) }\">\n<div class=\"button-container\" ng-click=\"sg.addNewField($index)\">\n<div class=\"add-button\"><span class=\"hpe-icon hpe-add\"></span></div>\n<span class=\"add-text\" single-line-overflow-tooltip ng-bind=\"sg.getButtonText($index)\"></span>\n</div>\n</div>\n</div>\n</div>\n<hr class=\"group-divider\"/>\n</div>\n";
+var v1="<div class=\"search-group\" ng-class=\"{'read-only': sg.readOnly}\">\n<p class=\"search-group-title\" ng-bind=\"groupTitle\"></p>\n<div class=\"search-group-content\">\n<div class=\"operator-label {{ operator }}\" ng-class=\"{ 'search-builder-show': sg.components.length > 1 }\">\n{{ operator }}\n</div>\n<div class=\"field-list\">\n<ul class=\"field-collection\" ng-class=\"{ 'search-builder-show': sg.components.length > 0 }\">\n<li class=\"field\" ng-repeat=\"component in sg.components\" component-id=\"{{ component.componentId }}\">\n<ng-include src=\"component.templateUrl\"></ng-include>\n</li>\n</ul>\n<div class=\"placeholder-field\" ng-show=\"sg.showPlaceholder\">\n<label class=\"form-label\">New field</label>\n<div class=\"form-control\"></div>\n</div>\n</div>\n<div class=\"add-field-list\">\n<div class=\"add-field\" ng-repeat=\"button in sg.getAddFields()\" ng-class=\"{ 'limit-reached' : sg.maxFields && (sg.components.length >= maxFields) }\">\n<div class=\"button-container\" ng-click=\"sg.addNewField($index)\">\n<div class=\"add-button\"><span class=\"hpe-icon hpe-add\"></span></div>\n<span class=\"add-text\" single-line-overflow-tooltip ng-bind=\"sg.getButtonText($index)\"></span>\n</div>\n</div>\n</div>\n</div>\n<hr class=\"group-divider\"/>\n</div>\n";
 var id1="directives/searchBuilder/searchGroup.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}

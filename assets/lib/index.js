@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('@angular/common/http'), require('rxjs/observable/of'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/observable/fromEvent'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', '@angular/common/http', 'rxjs/observable/of', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/observable/fromEvent', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.ng.common.http,global.rxjs['observable/of'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.rxjs['observable/fromEvent'],global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,http,of,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,fromEvent,d3Hierarchy,d3Scale,d3Selection,d3Transition,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('@angular/common/http'), require('rxjs/observable/of'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/observable/fromEvent'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', '@angular/common/http', 'rxjs/observable/of', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/observable/fromEvent', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.ng.common.http,global.rxjs['observable/of'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.rxjs['observable/fromEvent'],global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.d3Array,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,http,of,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,fromEvent,d3Hierarchy,d3Scale,d3Selection,d3Transition,d3Array,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -414,11 +414,14 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var ThemeColor = /** @class */ (function () {
-        function ThemeColor(r, g, b, a) {
-            this._r = r;
-            this._g = g;
-            this._b = b;
-            this._a = a === undefined ? '1' : a;
+        function ThemeColor(_r, _g, _b, _a) {
+            if (_a === void 0) {
+                _a = '1';
+            }
+            this._r = _r;
+            this._g = _g;
+            this._b = _b;
+            this._a = _a;
         }
         /**
          * Create a ThemeColor object from a CSS color string
@@ -11422,7 +11425,7 @@
         DateRangePickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-range-picker',
-                        template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <i class=\"hpe-icon hpe-link-next\"></i>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n        {{ durationTitle(_duration || 0) }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
+                        template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <i class=\"hpe-icon hpe-link-next\"></i>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n        {{ durationTitle(_duration || 0) }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         providers: [DateRangeService]
                     }] }
@@ -11436,6 +11439,8 @@
         DateRangePickerComponent.propDecorators = {
             start: [{ type: core.Input }],
             end: [{ type: core.Input }],
+            min: [{ type: core.Input }],
+            max: [{ type: core.Input }],
             showTimezone: [{ type: core.Input }],
             showSeconds: [{ type: core.Input }],
             showMeridian: [{ type: core.Input }],
@@ -12874,7 +12879,12 @@
             function (date) {
                 /** @type {?} */
                 var valid = true;
-                if (this.min && date.getTime() <= this.min.getTime() || this.max && date.getTime() >= this.max.getTime()) {
+                // Fix min and max date components in order to compare time only
+                /** @type {?} */
+                var min = this.normalizeDate(this.min, date);
+                /** @type {?} */
+                var max = this.normalizeDate(this.max, date);
+                if ((min && date.getTime() < min.getTime()) || (max && date.getTime() > max.getTime())) {
                     valid = false;
                 }
                 // if the valid state has changed then emit the isValid output
@@ -12991,6 +13001,30 @@
                 }
                 // if the number is invalid then restore it to the previous value
                 this.setSeconds(isNaN(second) ? currentSecond : second);
+            };
+        /** Normalise a date's year/month/date components. */
+        /**
+         * Normalise a date's year/month/date components.
+         * @param {?} date
+         * @param {?} reference
+         * @return {?}
+         */
+        TimePickerComponent.prototype.normalizeDate = /**
+         * Normalise a date's year/month/date components.
+         * @param {?} date
+         * @param {?} reference
+         * @return {?}
+         */
+            function (date, reference) {
+                if (!date) {
+                    return null;
+                }
+                /** @type {?} */
+                var normalized = new Date(date);
+                normalized.setFullYear(reference.getFullYear());
+                normalized.setMonth(reference.getMonth());
+                normalized.setDate(reference.getDate());
+                return normalized;
             };
         TimePickerComponent.decorators = [
             { type: core.Component, args: [{
@@ -14573,21 +14607,30 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var TimeViewComponent = /** @class */ (function () {
-        function TimeViewComponent(datepicker, changeDetector, _rangeService, _rangeOptions) {
+        function TimeViewComponent(datepicker, _changeDetector, _rangeService, _rangeOptions) {
             var _this = this;
             this.datepicker = datepicker;
+            this._changeDetector = _changeDetector;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
+            /**
+             * Earliest time permitted on the time picker.
+             */
+            this.min = null;
+            /**
+             * Latest time permitted on the time picker.
+             */
+            this.max = null;
             this._onDestroy = new Subject.Subject();
             // when the date changes we should update the value
-            datepicker.date$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this.value instanceof Date; })).subscribe(function (date) {
+            datepicker.date$.pipe(operators.filter(function (date) { return date && _this.value instanceof Date; }), operators.takeUntil(this._onDestroy)).subscribe(function (date) {
                 _this.value.setFullYear(date.getFullYear());
                 _this.value.setMonth(date.getMonth());
                 _this.value.setDate(date.getDate());
-                changeDetector.detectChanges();
+                _changeDetector.detectChanges();
             });
             if (!this._isRangeMode) {
-                datepicker.selected$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (date) { return !!date; })).subscribe(function (date) { return _this.value = new Date(date); });
+                datepicker.selected$.pipe(operators.filter(function (date) { return !!date; }), operators.takeUntil(this._onDestroy)).subscribe(function (date) { return _this.value = new Date(date); });
             }
             if (this._isRangeMode && this._isRangeStart) {
                 this.value = new Date();
@@ -14662,6 +14705,27 @@
         /**
          * @return {?}
          */
+        TimeViewComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // min should only apply if it's on the same day as the selected date
+                combineLatest.combineLatest(this.datepicker.min$, this.datepicker.date$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (_a) {
+                    var _b = __read(_a, 2), min = _b[0], date = _b[1];
+                    _this.min = (min && date && compareDays(date, min)) ? min : null;
+                    _this._changeDetector.detectChanges();
+                });
+                // max should only apply if it's on the same day as the selected date
+                combineLatest.combineLatest(this.datepicker.max$, this.datepicker.date$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (_a) {
+                    var _b = __read(_a, 2), max = _b[0], date = _b[1];
+                    _this.max = (max && date && compareDays(date, max)) ? max : null;
+                    _this._changeDetector.detectChanges();
+                });
+            };
+        /**
+         * @return {?}
+         */
         TimeViewComponent.prototype.ngOnDestroy = /**
          * @return {?}
          */
@@ -14719,10 +14783,10 @@
          */
             function (name) {
                 /** @type {?} */
-                var timezones = this.datepicker.timezones$.value;
+                var timezones$$1 = this.datepicker.timezones$.value;
                 // find matching timezone
                 /** @type {?} */
-                var timezone = timezones.find(function (_timezone) { return _timezone.name === name; });
+                var timezone = timezones$$1.find(function (_timezone) { return _timezone.name === name; });
                 if (timezone) {
                     this.datepicker.setTimezone(timezone);
                 }
@@ -14737,11 +14801,11 @@
                 /** @type {?} */
                 var timezone = this.datepicker.timezone$.value;
                 /** @type {?} */
-                var timezones = this.datepicker.timezones$.value;
+                var timezones$$1 = this.datepicker.timezones$.value;
                 /** @type {?} */
-                var currentZone = timezones.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
+                var currentZone = timezones$$1.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
                 // try to get the previous zone
-                this.datepicker.setTimezone(timezones[currentZone + 1] ? timezones[currentZone + 1] : timezones[currentZone]);
+                this.datepicker.setTimezone(timezones$$1[currentZone + 1] ? timezones$$1[currentZone + 1] : timezones$$1[currentZone]);
             };
         /**
          * @return {?}
@@ -14753,11 +14817,11 @@
                 /** @type {?} */
                 var timezone = this.datepicker.timezone$.value;
                 /** @type {?} */
-                var timezones = this.datepicker.timezones$.value;
+                var timezones$$1 = this.datepicker.timezones$.value;
                 /** @type {?} */
-                var currentZone = timezones.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
+                var currentZone = timezones$$1.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
                 // try to get the previous zone
-                this.datepicker.setTimezone(timezones[currentZone - 1] ? timezones[currentZone - 1] : timezones[currentZone]);
+                this.datepicker.setTimezone(timezones$$1[currentZone - 1] ? timezones$$1[currentZone - 1] : timezones$$1[currentZone]);
             };
         /**
          * @return {?}
@@ -14784,7 +14848,7 @@
         TimeViewComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-date-time-picker-time-view',
-                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\"\n    [min]=\"datepicker.min$ | async\"\n    [max]=\"datepicker.max$ | async\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
+                        template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\"\n    [min]=\"min\"\n    [max]=\"max\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -16370,11 +16434,12 @@
              * Emit the highlighted element when it changes
              */
             this.highlightedElementChange = new core.EventEmitter();
-            this.visibleOptions$ = new BehaviorSubject.BehaviorSubject([]);
+            this.activeKey = null;
             this.clicking = false;
+            this.hasBeenOpened = false;
             this.highlighted$ = new BehaviorSubject.BehaviorSubject(null);
             this.highlightedKey = null;
-            this.activeKey = null;
+            this.visibleOptions$ = new BehaviorSubject.BehaviorSubject([]);
             this._onDestroy = new Subject.Subject();
             this.optionApi = {
                 getKey: this.getKey.bind(this),
@@ -16401,9 +16466,10 @@
                 }
                 return null;
             };
-            this._service.open$.pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (next) {
-                _this.openChange.emit(next);
-                if (next) {
+            this._service.open$.pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) {
+                _this.openChange.emit(isOpen);
+                if (isOpen) {
+                    _this.hasBeenOpened = true;
                     _this.initOptions();
                 }
             });
@@ -16807,7 +16873,7 @@
         TypeaheadComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-typeahead',
-                        template: "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [collection]=\"visibleOptions$ | async\"\n    (collectionChange)=\"visibleOptions$.next($event)\"\n    [enabled]=\"isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [class.active]=\"activeKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
+                        template: "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [collection]=\"visibleOptions$ | async\"\n    (collectionChange)=\"visibleOptions$.next($event)\"\n    [enabled]=\"hasBeenOpened && isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [class.active]=\"activeKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
                         providers: [TypeaheadService],
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         host: {
@@ -29331,8 +29397,8 @@
             this.select = new core.EventEmitter();
             this.deselect = new core.EventEmitter();
             this.active$ = this._tabset.active$.pipe(operators.map(function (active) { return active === _this; }), tick());
-            _tabset.add(this);
-            this._subscription = this.active$.subscribe(function (active) { return active ? _this.select.emit() : _this.deselect.emit(); });
+            this._onDestroy = new Subject.Subject();
+            this.active$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (active) { return active ? _this.select.emit() : _this.deselect.emit(); });
         }
         Object.defineProperty(TabComponent.prototype, "active", {
             set: /**
@@ -29353,8 +29419,8 @@
          * @return {?}
          */
             function () {
-                this._tabset.remove(this);
-                this._subscription.unsubscribe();
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
         TabComponent.decorators = [
             { type: core.Component, args: [{
@@ -29413,6 +29479,7 @@
             this.tabset = tabset;
             this.minimal = true;
             this.stacked = 'none';
+            this._onDestroy = new Subject.Subject();
         }
         /**
          * @return {?}
@@ -29425,6 +29492,29 @@
                 if (!this.tabset.active$.value) {
                     this.tabset.selectFirstTab();
                 }
+            };
+        /**
+         * @return {?}
+         */
+        TabsetComponent.prototype.ngAfterContentInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this.tabs.changes
+                    .pipe(operators.takeUntil(this._onDestroy))
+                    .subscribe(function (tabs) { return _this.tabset.tabs$.next(tabs.toArray()); });
+                this.tabset.tabs$.next(this.tabs.toArray());
+            };
+        /**
+         * @return {?}
+         */
+        TabsetComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
             };
         /**
          * Allow manual tab selected
@@ -29509,7 +29599,8 @@
         TabsetComponent.propDecorators = {
             minimal: [{ type: core.Input }],
             stacked: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }]
+            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+            tabs: [{ type: core.ContentChildren, args: [TabComponent,] }]
         };
         return TabsetComponent;
     }());
@@ -32562,6 +32653,1614 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
+    var /**
+     * @template T
+     */ SankeyChart = /** @class */ (function () {
+        function SankeyChart() {
+            /**
+             * Define the nodes in the chart
+             */
+            this._nodes = [];
+            /**
+             * Define the links in the chart
+             */
+            this._links = [];
+            /**
+             * Store the node-links
+             */
+            this._nodeLinks = [];
+            /**
+             * Define the minimum width of the nodes
+             */
+            this._minWidth = 0;
+            /**
+             * Define the maximum width of the nodes
+             */
+            this._maxWidth = Infinity;
+            /**
+             * Define the minimum distance from the edge of the chart
+             */
+            this._padding = 24;
+        }
+        /** Define the spacing of the chart */
+        /**
+         * Define the spacing of the chart
+         * @template THIS
+         * @this {THIS}
+         * @param {?} spacing
+         * @return {THIS}
+         */
+        SankeyChart.prototype.spacing = /**
+         * Define the spacing of the chart
+         * @template THIS
+         * @this {THIS}
+         * @param {?} spacing
+         * @return {THIS}
+         */
+            function (spacing) {
+                ( /** @type {?} */(this))._spacing = spacing;
+                return ( /** @type {?} */(this));
+            };
+        /** Define the width of the chart */
+        /**
+         * Define the width of the chart
+         * @template THIS
+         * @this {THIS}
+         * @param {?} width
+         * @return {THIS}
+         */
+        SankeyChart.prototype.width = /**
+         * Define the width of the chart
+         * @template THIS
+         * @this {THIS}
+         * @param {?} width
+         * @return {THIS}
+         */
+            function (width) {
+                ( /** @type {?} */(this))._width = width;
+                return ( /** @type {?} */(this));
+            };
+        /** Define the height of the chart */
+        /**
+         * Define the height of the chart
+         * @template THIS
+         * @this {THIS}
+         * @param {?} height
+         * @return {THIS}
+         */
+        SankeyChart.prototype.height = /**
+         * Define the height of the chart
+         * @template THIS
+         * @this {THIS}
+         * @param {?} height
+         * @return {THIS}
+         */
+            function (height) {
+                ( /** @type {?} */(this))._height = height;
+                return ( /** @type {?} */(this));
+            };
+        /** Define the nodes */
+        /**
+         * Define the nodes
+         * @template THIS
+         * @this {THIS}
+         * @param {?} nodes
+         * @return {THIS}
+         */
+        SankeyChart.prototype.nodes = /**
+         * Define the nodes
+         * @template THIS
+         * @this {THIS}
+         * @param {?} nodes
+         * @return {THIS}
+         */
+            function (nodes) {
+                ( /** @type {?} */(this))._nodes = nodes;
+                return ( /** @type {?} */(this));
+            };
+        /** Define the links */
+        /**
+         * Define the links
+         * @template THIS
+         * @this {THIS}
+         * @param {?} links
+         * @return {THIS}
+         */
+        SankeyChart.prototype.links = /**
+         * Define the links
+         * @template THIS
+         * @this {THIS}
+         * @param {?} links
+         * @return {THIS}
+         */
+            function (links) {
+                ( /** @type {?} */(this))._links = links;
+                return ( /** @type {?} */(this));
+            };
+        /** Define the minimum and maximum size of the nodes */
+        /**
+         * Define the minimum and maximum size of the nodes
+         * @template THIS
+         * @this {THIS}
+         * @param {?} minWidth
+         * @param {?} maxWidth
+         * @return {THIS}
+         */
+        SankeyChart.prototype.size = /**
+         * Define the minimum and maximum size of the nodes
+         * @template THIS
+         * @this {THIS}
+         * @param {?} minWidth
+         * @param {?} maxWidth
+         * @return {THIS}
+         */
+            function (minWidth, maxWidth) {
+                ( /** @type {?} */(this))._minWidth = minWidth;
+                ( /** @type {?} */(this))._maxWidth = maxWidth;
+                return ( /** @type {?} */(this));
+            };
+        /** Get the sizes of each column */
+        /**
+         * Get the sizes of each column
+         * @return {?}
+         */
+        SankeyChart.prototype.columns = /**
+         * Get the sizes of each column
+         * @return {?}
+         */
+            function () {
+                // get the number of columns - we use this a lot so avoid multiple function calls
+                /** @type {?} */
+                var columnCount = this.getColumnCount();
+                // get the amount of padding there should be on each side of a node
+                /** @type {?} */
+                var padding = this.getColumnPadding();
+                /** @type {?} */
+                var columnWidths = [];
+                for (var idx = 0; idx < columnCount; idx++) {
+                    columnWidths[idx] = this.getNodeWidth() + (padding * 2);
+                    // do no have the default padding on the left of the start node
+                    // or right of the last node, instead have a default padding
+                    if (idx === 0 || idx === columnCount - 1) {
+                        columnWidths[idx] -= (padding - this._padding);
+                    }
+                }
+                return columnWidths;
+            };
+        /**
+         * Perform the various stages of the layout
+         * in the correct order as some steps are dependant
+         * on the previous layout stages.
+         */
+        /**
+         * Perform the various stages of the layout
+         * in the correct order as some steps are dependant
+         * on the previous layout stages.
+         * @return {?}
+         */
+        SankeyChart.prototype.layout = /**
+         * Perform the various stages of the layout
+         * in the correct order as some steps are dependant
+         * on the previous layout stages.
+         * @return {?}
+         */
+            function () {
+                this.getNodeLinks();
+                this.getNodeValues();
+                this.getNodeColumns();
+                this.getNodeWidths();
+                this.getNodeHeights();
+                this.getNodePositions();
+                this.getLinkPlots();
+                return this._nodeLinks;
+            };
+        /** The curve equation for links */
+        /**
+         * The curve equation for links
+         * @param {?} link
+         * @return {?}
+         */
+        SankeyChart.prototype.link = /**
+         * The curve equation for links
+         * @param {?} link
+         * @return {?}
+         */
+            function (link) {
+                // const dist = chart.blockSpacing / 2;
+                var topLeft = link.topLeft, topRight = link.topRight, bottomLeft = link.bottomLeft, bottomRight = link.bottomRight;
+                /** @type {?} */
+                var dist = (topRight[0] - topLeft[0]) / 2;
+                /** @type {?} */
+                var topLeftCurve = [topLeft[0] + dist, topLeft[1]];
+                /** @type {?} */
+                var topRightCurve = [topRight[0] - dist, topRight[1]];
+                /** @type {?} */
+                var bottomLeftCurve = [bottomLeft[0] + dist, bottomLeft[1]];
+                /** @type {?} */
+                var bottomRightCurve = [bottomRight[0] - dist, bottomRight[1]];
+                return 'M' + topLeft[0] + ',' + topLeft[1] +
+                    'C' + topLeftCurve[0] + ',' + topLeftCurve[1] +
+                    ' ' + topRightCurve[0] + ',' + topRightCurve[1] +
+                    ' ' + topRight[0] + ',' + topRight[1] +
+                    'L' + bottomRight[0] + ',' + bottomRight[1] +
+                    'C' + bottomRightCurve[0] + ',' + bottomRightCurve[1] +
+                    ' ' + bottomLeftCurve[0] + ',' + bottomLeftCurve[1] +
+                    ' ' + bottomLeft[0] + ',' + bottomLeft[1] +
+                    'L' + topLeft[0] + ',' + topLeft[1];
+            };
+        /**
+         * @param {?} nodeLink
+         * @return {?}
+         */
+        SankeyChart.prototype.getFalloffPath = /**
+         * @param {?} nodeLink
+         * @return {?}
+         */
+            function (nodeLink) {
+                /** @type {?} */
+                var x = (nodeLink.x + nodeLink.width);
+                /** @type {?} */
+                var y = nodeLink.outputs.reduce(function (bottom, output) { return Math.max(bottom, output.bottomLeft[1]); }, 0);
+                /** @type {?} */
+                var width = 20;
+                /** @type {?} */
+                var radius = 6;
+                /** @type {?} */
+                var height = (nodeLink.y + nodeLink.height - y) + (this._spacing / 2);
+                return 'M' + x + ',' + y +
+                    'h ' + (width - radius) +
+                    'a' + radius + ',' + radius + ' 0 0,1' +
+                    (radius) + ',' + (radius) + ' ' +
+                    'v' + Math.max(radius, height) + 'h-' + width + 'Z';
+            };
+        /**
+         * Get a `SankeyNodeLink` object from the id of a node
+         */
+        /**
+         * Get a `SankeyNodeLink` object from the id of a node
+         * @param {?} id
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeLink = /**
+         * Get a `SankeyNodeLink` object from the id of a node
+         * @param {?} id
+         * @return {?}
+         */
+            function (id) {
+                return this._nodeLinks.find(function (nodeLink) { return nodeLink.node.id === id; });
+            };
+        /** Replace the node ids with actual references */
+        /**
+         * Replace the node ids with actual references
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeLinks = /**
+         * Replace the node ids with actual references
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this._nodeLinks = this._nodes.map(function (node) {
+                    // get all the links that input into and output from this node
+                    /** @type {?} */
+                    var inputs = _this._links.filter(function (link) { return link.target === node.id; });
+                    /** @type {?} */
+                    var outputs = _this._links.filter(function (link) { return link.source === node.id; });
+                    return ( /** @type {?} */({ node: node, inputs: inputs, outputs: outputs, value: 0, column: 0, x: 0, y: 0, width: 0, height: 0, falloff: 0, active: false, focus: false }));
+                });
+            };
+        /** Get the value for the node based on all its inputs and outputs */
+        /**
+         * Get the value for the node based on all its inputs and outputs
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeValues = /**
+         * Get the value for the node based on all its inputs and outputs
+         * @return {?}
+         */
+            function () {
+                var e_1, _a;
+                try {
+                    for (var _b = __values(this._nodeLinks), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var node = _c.value;
+                        // the node value can be determined by the total values from all inputs
+                        // however the first column of nodes have no inputs so must be based of their outputs.
+                        // We should take the maximum value based on the inputs and outputs as nodes that are
+                        // not in the first column may not output all of the amount the receive from inputs,
+                        // for example in the case of falloff etc..
+                        node.value = Math.max(d3Array.sum(node.inputs, function (input) { return input.value; }), d3Array.sum(node.outputs, function (output) { return output.value; }));
+                    }
+                }
+                catch (e_1_1) {
+                    e_1 = { error: e_1_1 };
+                }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return))
+                            _a.call(_b);
+                    }
+                    finally {
+                        if (e_1)
+                            throw e_1.error;
+                    }
+                }
+            };
+        /**
+         * We need to determine which column the node should
+         * be placed in. This is determined by taking the input
+         * and adding one.
+         */
+        /**
+         * We need to determine which column the node should
+         * be placed in. This is determined by taking the input
+         * and adding one.
+         * @param {?=} nodeLinks
+         * @param {?=} column
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeColumns = /**
+         * We need to determine which column the node should
+         * be placed in. This is determined by taking the input
+         * and adding one.
+         * @param {?=} nodeLinks
+         * @param {?=} column
+         * @return {?}
+         */
+            function (nodeLinks, column) {
+                var _this = this;
+                if (nodeLinks === void 0) {
+                    nodeLinks = this._nodeLinks.filter(function (node) { return node.inputs.length === 0; });
+                }
+                if (column === void 0) {
+                    column = 0;
+                }
+                var e_2, _a;
+                try {
+                    for (var nodeLinks_1 = __values(nodeLinks), nodeLinks_1_1 = nodeLinks_1.next(); !nodeLinks_1_1.done; nodeLinks_1_1 = nodeLinks_1.next()) {
+                        var nodeLink = nodeLinks_1_1.value;
+                        nodeLink.column = column;
+                        // call this function to all output links
+                        this.getNodeColumns(nodeLink.outputs.map(function (output) { return _this.getNodeLink(output.target); }), column + 1);
+                    }
+                }
+                catch (e_2_1) {
+                    e_2 = { error: e_2_1 };
+                }
+                finally {
+                    try {
+                        if (nodeLinks_1_1 && !nodeLinks_1_1.done && (_a = nodeLinks_1.return))
+                            _a.call(nodeLinks_1);
+                    }
+                    finally {
+                        if (e_2)
+                            throw e_2.error;
+                    }
+                }
+            };
+        /** Get the width of each node */
+        /**
+         * Get the width of each node
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeWidths = /**
+         * Get the width of each node
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this._nodeLinks.forEach(function (node) { return node.width = _this.getNodeWidth(); });
+            };
+        /**
+         * Scale the nodes height based on the value the represent
+         */
+        /**
+         * Scale the nodes height based on the value the represent
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeHeights = /**
+         * Scale the nodes height based on the value the represent
+         * @return {?}
+         */
+            function () {
+                var e_3, _a;
+                // get columns by group
+                /** @type {?} */
+                var groups = this.getColumnGroups();
+                // get the column with the largest total value
+                /** @type {?} */
+                var total = Object.keys(groups).map(function (group) { return groups[group]; }).reduce(function (count, nodes) {
+                    return Math.max(count, nodes.reduce(function (accumulation, node) { return accumulation + node.value; }, 0));
+                }, 0);
+                for (var column in groups) {
+                    /** @type {?} */
+                    var nodeLinks = groups[column];
+                    try {
+                        // get the proportional size of each node based on the available space
+                        for (var nodeLinks_2 = __values(nodeLinks), nodeLinks_2_1 = nodeLinks_2.next(); !nodeLinks_2_1.done; nodeLinks_2_1 = nodeLinks_2.next()) {
+                            var nodeLink = nodeLinks_2_1.value;
+                            nodeLink.height = ((nodeLink.value / total) * this._height) - this._spacing;
+                        }
+                    }
+                    catch (e_3_1) {
+                        e_3 = { error: e_3_1 };
+                    }
+                    finally {
+                        try {
+                            if (nodeLinks_2_1 && !nodeLinks_2_1.done && (_a = nodeLinks_2.return))
+                                _a.call(nodeLinks_2);
+                        }
+                        finally {
+                            if (e_3)
+                                throw e_3.error;
+                        }
+                    }
+                }
+            };
+        /**
+         * Get all nodes grouped in their corresponding columns
+         */
+        /**
+         * Get all nodes grouped in their corresponding columns
+         * @return {?}
+         */
+        SankeyChart.prototype.getColumnGroups = /**
+         * Get all nodes grouped in their corresponding columns
+         * @return {?}
+         */
+            function () {
+                // group nodes by columns
+                return this._nodeLinks.reduce(function (collection, nodeLink) {
+                    collection[nodeLink.column] = collection[nodeLink.column] || [];
+                    collection[nodeLink.column].push(nodeLink);
+                    return collection;
+                }, {});
+            };
+        /**
+         * Get the number of columns
+         */
+        /**
+         * Get the number of columns
+         * @return {?}
+         */
+        SankeyChart.prototype.getColumnCount = /**
+         * Get the number of columns
+         * @return {?}
+         */
+            function () {
+                return this._nodeLinks.reduce(function (column, nodeLink) { return Math.max(nodeLink.column + 1, column); }, 0);
+            };
+        /**
+         * Position the nodes in their corresponding x and y positions
+         */
+        /**
+         * Position the nodes in their corresponding x and y positions
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodePositions = /**
+         * Position the nodes in their corresponding x and y positions
+         * @return {?}
+         */
+            function () {
+                var e_4, _a;
+                // get all nodes by group
+                /** @type {?} */
+                var groups = this.getColumnGroups();
+                // get the amount of padding required between each item
+                /** @type {?} */
+                var padding = this.getColumnPadding();
+                try {
+                    for (var _b = __values(this._nodeLinks), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var nodeLink = _c.value;
+                        // get the x position based on the column
+                        nodeLink.x = this.getColumnPosition(nodeLink.column) + padding;
+                        if (nodeLink.column === 0) {
+                            nodeLink.x = this._padding;
+                        }
+                        // get the y position based on the accumulative height of the nodes above it
+                        nodeLink.y = groups[nodeLink.column]
+                            .slice(0, groups[nodeLink.column].indexOf(nodeLink))
+                            .reduce(function (top, _node) { return top + _node.height; }, 0) + (this._spacing * groups[nodeLink.column].indexOf(nodeLink));
+                    }
+                }
+                catch (e_4_1) {
+                    e_4 = { error: e_4_1 };
+                }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return))
+                            _a.call(_b);
+                    }
+                    finally {
+                        if (e_4)
+                            throw e_4.error;
+                    }
+                }
+            };
+        /**
+         * @return {?}
+         */
+        SankeyChart.prototype.getColumnPadding = /**
+         * @return {?}
+         */
+            function () {
+                // get the number of columns - we use this a lot so avoid multiple function calls
+                /** @type {?} */
+                var columnCount = this.getColumnCount();
+                // get the chart width minus the width of the nodes
+                /** @type {?} */
+                var width = (this._width - (columnCount * this.getNodeWidth())) - (this._padding * 2);
+                // get the total amount of places requiring padding (the first and last columns only have padding on one side)
+                /** @type {?} */
+                var paddingCount = Math.max(((columnCount * 2) - 2), 0);
+                // get the actual size of the padding
+                return width / paddingCount;
+            };
+        /**
+         * @return {?}
+         */
+        SankeyChart.prototype.getLinkPlots = /**
+         * @return {?}
+         */
+            function () {
+                var e_5, _a, e_6, _b, e_7, _c;
+                try {
+                    for (var _d = __values(this._nodeLinks), _e = _d.next(); !_e.done; _e = _d.next()) {
+                        var nodeLink = _e.value;
+                        /** @type {?} */
+                        var inputY = nodeLink.y;
+                        try {
+                            // process each input link
+                            for (var _f = __values(nodeLink.inputs), _g = _f.next(); !_g.done; _g = _f.next()) {
+                                var link = _g.value;
+                                link.topRight = [nodeLink.x, inputY];
+                                inputY += ((link.value / nodeLink.value) * nodeLink.height);
+                                link.bottomRight = [nodeLink.x, inputY];
+                            }
+                        }
+                        catch (e_6_1) {
+                            e_6 = { error: e_6_1 };
+                        }
+                        finally {
+                            try {
+                                if (_g && !_g.done && (_b = _f.return))
+                                    _b.call(_f);
+                            }
+                            finally {
+                                if (e_6)
+                                    throw e_6.error;
+                            }
+                        }
+                        /** @type {?} */
+                        var outputValue = 0;
+                        /** @type {?} */
+                        var outputY = nodeLink.y;
+                        try {
+                            // process each output link
+                            for (var _h = __values(nodeLink.outputs), _j = _h.next(); !_j.done; _j = _h.next()) {
+                                var link = _j.value;
+                                link.topLeft = [nodeLink.x + nodeLink.width, outputY];
+                                outputY += ((link.value / nodeLink.value) * nodeLink.height);
+                                link.bottomLeft = [nodeLink.x + nodeLink.width, outputY];
+                                outputValue += link.value;
+                            }
+                        }
+                        catch (e_7_1) {
+                            e_7 = { error: e_7_1 };
+                        }
+                        finally {
+                            try {
+                                if (_j && !_j.done && (_c = _h.return))
+                                    _c.call(_h);
+                            }
+                            finally {
+                                if (e_7)
+                                    throw e_7.error;
+                            }
+                        }
+                        // determine how much falloff there is
+                        nodeLink.falloff = nodeLink.value - outputValue;
+                    }
+                }
+                catch (e_5_1) {
+                    e_5 = { error: e_5_1 };
+                }
+                finally {
+                    try {
+                        if (_e && !_e.done && (_a = _d.return))
+                            _a.call(_d);
+                    }
+                    finally {
+                        if (e_5)
+                            throw e_5.error;
+                    }
+                }
+            };
+        /** Determine the position at which a column starts */
+        /**
+         * Determine the position at which a column starts
+         * @param {?} column
+         * @return {?}
+         */
+        SankeyChart.prototype.getColumnPosition = /**
+         * Determine the position at which a column starts
+         * @param {?} column
+         * @return {?}
+         */
+            function (column) {
+                // the position is the acculation of the widths of all previous columns
+                return this.columns().splice(0, column).reduce(function (total, width) { return total + width; }, 0);
+            };
+        /** Get the pixel width of a node */
+        /**
+         * Get the pixel width of a node
+         * @return {?}
+         */
+        SankeyChart.prototype.getNodeWidth = /**
+         * Get the pixel width of a node
+         * @return {?}
+         */
+            function () {
+                /** @type {?} */
+                var width = (this._width - (this._padding * 2)) / ((this.getColumnCount() * 2) - 1);
+                return Math.min(this._maxWidth, Math.max(this._minWidth, width));
+            };
+        return SankeyChart;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
+     */
+    var SankeyFocusManager = /** @class */ (function () {
+        function SankeyFocusManager() {
+            /**
+             * Store the node that can currently be tabbed to
+             */
+            this.active$ = new BehaviorSubject.BehaviorSubject(null);
+            /**
+             * Emit whenever an item should receive focus
+             */
+            this.focused$ = new Subject.Subject();
+            /**
+             * Store the nodes
+             */
+            this._nodes = [];
+        }
+        Object.defineProperty(SankeyFocusManager.prototype, "_active", {
+            /** Get the current active item */
+            get: /**
+             * Get the current active item
+             * @return {?}
+             */ function () {
+                return this.active$.value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this.active$.complete();
+                this.focused$.complete();
+            };
+        /** Update the list of possible nodes */
+        /**
+         * Update the list of possible nodes
+         * @param {?} nodes
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.setNodes = /**
+         * Update the list of possible nodes
+         * @param {?} nodes
+         * @return {?}
+         */
+            function (nodes) {
+                this._nodes = nodes;
+                // check if there is currently a tabbable node, if not we should make the first node tabbable
+                if (!this.hasActiveNode()) {
+                    this.setActiveItem(this._nodes[0]);
+                }
+            };
+        /** Set the current active item */
+        /**
+         * Set the current active item
+         * @param {?} node
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.setActiveItem = /**
+         * Set the current active item
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                this.active$.next(node);
+            };
+        /** Handle keyboard input from nodes */
+        /**
+         * Handle keyboard input from nodes
+         * @param {?} event
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.onKeydown = /**
+         * Handle keyboard input from nodes
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                switch (event.which) {
+                    case keycodes.UP_ARROW:
+                        this.shiftFocusVertically(-1);
+                        event.preventDefault();
+                        break;
+                    case keycodes.DOWN_ARROW:
+                        this.shiftFocusVertically(1);
+                        event.preventDefault();
+                        break;
+                    case keycodes.LEFT_ARROW:
+                        this.shiftFocusHorizontally(-1);
+                        event.preventDefault();
+                        break;
+                    case keycodes.RIGHT_ARROW:
+                        this.shiftFocusHorizontally(1);
+                        event.preventDefault();
+                        break;
+                }
+            };
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.setFocusedItem = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                this.setActiveItem(item);
+                this.focused$.next(item);
+            };
+        /**
+         * @param {?} delta
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.shiftFocusVertically = /**
+         * @param {?} delta
+         * @return {?}
+         */
+            function (delta) {
+                var _this = this;
+                /** @type {?} */
+                var nodes = this.getNodesInColumn(this._active.column);
+                // get the node below or above the active node
+                /** @type {?} */
+                var target = nodes[nodes.findIndex(function (node) { return node.node.id === _this._active.node.id; }) + delta];
+                if (target) {
+                    this.setFocusedItem(target);
+                }
+            };
+        /** Shift the focus to a node in a sibling column */
+        /**
+         * Shift the focus to a node in a sibling column
+         * @param {?} delta
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.shiftFocusHorizontally = /**
+         * Shift the focus to a node in a sibling column
+         * @param {?} delta
+         * @return {?}
+         */
+            function (delta) {
+                var _this = this;
+                // get nodes in the sibling column in the desired direction
+                /** @type {?} */
+                var nodes = this.getNodesInColumn(this._active.column + delta);
+                // if there are no nodes then do nothing as we cannot reduce an empty array
+                if (nodes.length === 0) {
+                    return;
+                }
+                // get the node with the most similar y position
+                /** @type {?} */
+                var target = nodes.reduce(function (closest, node) {
+                    /** @type {?} */
+                    var closestDiff = Math.max(closest.y, _this._active.y) - Math.min(closest.y, _this._active.y);
+                    /** @type {?} */
+                    var currentDiff = Math.max(node.y, _this._active.y) - Math.min(node.y, _this._active.y);
+                    return closestDiff < currentDiff ? closest : node;
+                });
+                if (target) {
+                    this.setFocusedItem(target);
+                }
+            };
+        /** Get a list of nodes that are in a given column */
+        /**
+         * Get a list of nodes that are in a given column
+         * @param {?} column
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.getNodesInColumn = /**
+         * Get a list of nodes that are in a given column
+         * @param {?} column
+         * @return {?}
+         */
+            function (column) {
+                return this.getNodesInOrder(this._nodes.filter(function (node) { return node.column === column; }));
+            };
+        /** Sort the nodes based on the Y position */
+        /**
+         * Sort the nodes based on the Y position
+         * @param {?} nodes
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.getNodesInOrder = /**
+         * Sort the nodes based on the Y position
+         * @param {?} nodes
+         * @return {?}
+         */
+            function (nodes) {
+                return __spread(nodes).sort(function (nodeOne, nodeTwo) { return nodeOne.y - nodeTwo.y; });
+            };
+        /** Determine whether or not there is a not that is tabbable */
+        /**
+         * Determine whether or not there is a not that is tabbable
+         * @return {?}
+         */
+        SankeyFocusManager.prototype.hasActiveNode = /**
+         * Determine whether or not there is a not that is tabbable
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                return !!this.active$.value && !!this._nodes.find(function (node) { return node.node.id === _this.active$.value.node.id; });
+            };
+        SankeyFocusManager.decorators = [
+            { type: core.Injectable }
+        ];
+        return SankeyFocusManager;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
+     */
+    var SankeyNodeDirective = /** @class */ (function () {
+        function SankeyNodeDirective(_focusManager, _elementRef) {
+            this._focusManager = _focusManager;
+            this._elementRef = _elementRef;
+            /**
+             * Specify the tab index of the current item
+             */
+            this.tabIndex = -1;
+            /**
+             * Unsubscribe from all observables on destroy
+             */
+            this._onDestroy = new Subject.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        SankeyNodeDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // Update the tabindex based on the current active item
+                this._focusManager.active$.pipe(operators.map(function (item) { return item && item.node.id === _this.node.node.id; }), operators.takeUntil(this._onDestroy))
+                    .subscribe(function (isActive) { return _this.tabIndex = isActive ? 0 : -1; });
+                // If this element should be focused perform the focus
+                this._focusManager.focused$.pipe(operators.filter(function (node) { return node.node.id === _this.node.node.id; }), operators.takeUntil(this._onDestroy))
+                    .subscribe(function () { return _this._elementRef.nativeElement.focus(); });
+            };
+        /**
+         * @return {?}
+         */
+        SankeyNodeDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @return {?}
+         */
+        SankeyNodeDirective.prototype.onClick = /**
+         * @return {?}
+         */
+            function () {
+                this._focusManager.setActiveItem(this.node);
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SankeyNodeDirective.prototype.onKeydown = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                this._focusManager.onKeydown(event);
+            };
+        SankeyNodeDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[uxSankeyNode]',
+                    },] }
+        ];
+        /** @nocollapse */
+        SankeyNodeDirective.ctorParameters = function () {
+            return [
+                { type: SankeyFocusManager },
+                { type: core.ElementRef }
+            ];
+        };
+        SankeyNodeDirective.propDecorators = {
+            node: [{ type: core.Input, args: ['uxSankeyNode',] }],
+            tabIndex: [{ type: core.HostBinding }],
+            onClick: [{ type: core.HostListener, args: ['click',] }],
+            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return SankeyNodeDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
+     */
+    var SankeyChartComponent = /** @class */ (function () {
+        function SankeyChartComponent(_focusManager, _changeDetector, _colorService) {
+            this._focusManager = _focusManager;
+            this._changeDetector = _changeDetector;
+            this._colorService = _colorService;
+            /**
+             * Define the nodes to display
+             */
+            this.nodes = [];
+            /**
+             * Define the links to display
+             */
+            this.links = [];
+            /**
+             * Define the headers of each column
+             */
+            this.columns = [];
+            /**
+             * Define the minimum width of a node
+             */
+            this.minWidth = 0;
+            /**
+             * Define the maximum width of a node
+             */
+            this.maxWidth = Infinity;
+            /**
+             * Define the function to get the contents of a link tooltip
+             */
+            this.linkTooltip = this.getLinkTooltip;
+            /**
+             * Define the function to get the contents of a falloff tooltip
+             */
+            this.falloffTooltip = this.getFalloffTooltip;
+            /**
+             * Define the nodes that should be rendered
+             */
+            this._nodes = [];
+            /**
+             * Define the columns to display
+             */
+            this._columns = [];
+            /**
+             * Determine if the tooltip should be visible or not
+             */
+            this._isTooltipOpen = false;
+            /**
+             * Define the position of the tooltip
+             */
+            this._tooltipPosition = { x: 0, y: 0 };
+            /**
+             * Determine if the component is initialised
+             */
+            this._isInitialised = false;
+            /**
+             * Store the instance of the sankey layout
+             */
+            this._sankey = new SankeyChart();
+        }
+        /**
+         * @return {?}
+         */
+        SankeyChartComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                // verify we have a node template defined before proceeding
+                if (!this.nodeTemplate) {
+                    throw new Error('Sankey Chart - Node Template has not been defined.');
+                }
+                // set the initial chart size
+                this._width = this.nodeContainer.nativeElement.offsetWidth;
+                this._height = this.nodeContainer.nativeElement.offsetHeight;
+                // perform the initial render
+                this._render();
+                // mark the component as initialised
+                this._isInitialised = true;
+            };
+        /**
+         * Detect any changes from Inputs. We can skip
+         * the first function call as this happens before
+         * the initial render so it has no effect.
+         */
+        /**
+         * Detect any changes from Inputs. We can skip
+         * the first function call as this happens before
+         * the initial render so it has no effect.
+         * @return {?}
+         */
+        SankeyChartComponent.prototype.ngOnChanges = /**
+         * Detect any changes from Inputs. We can skip
+         * the first function call as this happens before
+         * the initial render so it has no effect.
+         * @return {?}
+         */
+            function () {
+                if (this._isInitialised) {
+                    this._render();
+                }
+            };
+        /** Re-render the chart */
+        /**
+         * Re-render the chart
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._render = /**
+         * Re-render the chart
+         * @return {?}
+         */
+            function () {
+                this._nodes = this._sankey
+                    .nodes(this.nodes)
+                    .links(this.links)
+                    .spacing(14)
+                    .size(this.minWidth, this.maxWidth)
+                    .width(this._width || this.nodeContainer.nativeElement.offsetWidth)
+                    .height(this._height || this.nodeContainer.nativeElement.offsetHeight)
+                    .layout();
+                // ensure the focus manager has the latest node data
+                this._focusManager.setNodes(this._nodes);
+                this._columns = this.getColumns();
+                this._changeDetector.detectChanges();
+            };
+        /** Update the layout whenever the dimensions change changes */
+        /**
+         * Update the layout whenever the dimensions change changes
+         * @param {?} dimensions
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._onResize = /**
+         * Update the layout whenever the dimensions change changes
+         * @param {?} dimensions
+         * @return {?}
+         */
+            function (dimensions) {
+                this._width = dimensions.width;
+                this._height = dimensions.height;
+                this._render();
+            };
+        /**
+         * Column count should be based on the data, not the titles
+         * as they may not specify titles but the nodes will still be
+         * rendered.
+         */
+        /**
+         * Column count should be based on the data, not the titles
+         * as they may not specify titles but the nodes will still be
+         * rendered.
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._getColumnCount = /**
+         * Column count should be based on the data, not the titles
+         * as they may not specify titles but the nodes will still be
+         * rendered.
+         * @return {?}
+         */
+            function () {
+                return this._nodes.reduce(function (column, node) { return Math.max(column, node.column); }, 0);
+            };
+        /**
+         * Get the SVG path that defines the shape of the link
+         */
+        /**
+         * Get the SVG path that defines the shape of the link
+         * @param {?} link
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._getPath = /**
+         * Get the SVG path that defines the shape of the link
+         * @param {?} link
+         * @return {?}
+         */
+            function (link) {
+                return this._sankey.link(link);
+            };
+        /**
+         * Set the active state of a node and the inputs and outputs
+         * associated with this node.
+         */
+        /**
+         * Set the active state of a node and the inputs and outputs
+         * associated with this node.
+         * @param {?} nodeLink
+         * @param {?} active
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._setNodeActive = /**
+         * Set the active state of a node and the inputs and outputs
+         * associated with this node.
+         * @param {?} nodeLink
+         * @param {?} active
+         * @return {?}
+         */
+            function (nodeLink, active) {
+                var _this = this;
+                // set the node active state
+                nodeLink.active = active;
+                // set the active state of each link
+                nodeLink.inputs.forEach(function (link) { return link.active = active; });
+                nodeLink.outputs.forEach(function (link) { return link.active = active; });
+                // set the active state of all input and output nodes
+                nodeLink.inputs.map(function (link) { return _this._sankey.getNodeLink(link.source); }).forEach(function (_node) { return _node.active = active; });
+                nodeLink.inputs.map(function (link) { return _this._sankey.getNodeLink(link.target); }).forEach(function (_node) { return _node.active = active; });
+                nodeLink.outputs.map(function (link) { return _this._sankey.getNodeLink(link.source); }).forEach(function (_node) { return _node.active = active; });
+                nodeLink.outputs.map(function (link) { return _this._sankey.getNodeLink(link.target); }).forEach(function (_node) { return _node.active = active; });
+                // ensure we update the view to show highlights
+                this._changeDetector.detectChanges();
+            };
+        /**
+         * Set the focused state of a node and the inputs and outputs
+         * associated with this node.
+         */
+        /**
+         * Set the focused state of a node and the inputs and outputs
+         * associated with this node.
+         * @param {?} nodeLink
+         * @param {?} focused
+         * @param {?} element
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._setNodeFocus = /**
+         * Set the focused state of a node and the inputs and outputs
+         * associated with this node.
+         * @param {?} nodeLink
+         * @param {?} focused
+         * @param {?} element
+         * @return {?}
+         */
+            function (nodeLink, focused, element) {
+                var _this = this;
+                // set the node focus state
+                nodeLink.focus = focused;
+                // set the active state of each link
+                nodeLink.inputs.forEach(function (link) { return link.focus = focused; });
+                nodeLink.outputs.forEach(function (link) { return link.focus = focused; });
+                // set the active state of all input and output nodes
+                nodeLink.inputs.map(function (link) { return _this._sankey.getNodeLink(link.source); }).forEach(function (_node) { return _node.focus = focused; });
+                nodeLink.inputs.map(function (link) { return _this._sankey.getNodeLink(link.target); }).forEach(function (_node) { return _node.focus = focused; });
+                nodeLink.outputs.map(function (link) { return _this._sankey.getNodeLink(link.source); }).forEach(function (_node) { return _node.focus = focused; });
+                nodeLink.outputs.map(function (link) { return _this._sankey.getNodeLink(link.target); }).forEach(function (_node) { return _node.focus = focused; });
+                // we need to add the focus indicator here programmatically. The default quantum-ux-aspects focus indicator
+                // styling uses `!important` so our inline style needs to also be `!important` to override this, and unfortunately
+                // there is a known issue with `NgStyle` and `[style.xyz]` bindings preventing them from adding the `!important`
+                // modifier so we must do it manually (not using `Renderer2`).
+                if (this.color) {
+                    element.style.setProperty('box-shadow', this._getFocusIndicator(nodeLink), 'important');
+                }
+                // ensure we update the view to show highlights
+                this._changeDetector.detectChanges();
+            };
+        /**
+         * Set the active state of a link and the source and target
+         * nodes associated with the link
+         */
+        /**
+         * Set the active state of a link and the source and target
+         * nodes associated with the link
+         * @param {?} link
+         * @param {?} active
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._setLinkActive = /**
+         * Set the active state of a link and the source and target
+         * nodes associated with the link
+         * @param {?} link
+         * @param {?} active
+         * @return {?}
+         */
+            function (link, active) {
+                link.active = active;
+                if (link.source !== undefined) {
+                    this._sankey.getNodeLink(link.source).active = active;
+                }
+                if (link.target !== undefined) {
+                    this._sankey.getNodeLink(link.target).active = active;
+                }
+                // update the tooltip visibility
+                this._isTooltipOpen = active;
+                // update the tooltip content
+                this._tooltipContent = active ? this.linkTooltip(link) : '';
+                // ensure we update the view to show highlights
+                this._changeDetector.detectChanges();
+            };
+        /**
+         * This is required because we want to toggle a class based on the `active`
+         * property on a link, however toggling classes using `NgClass` or the class
+         * binding syntax `[class.xyz]` does not work in IE when applied to an SVG
+         * element. (https://github.com/angular/angular/issues/6327)
+         *
+         * The alternatice is to bind directly to the `class` attribute and return a
+         * string that will toggle the class based on the `active` property.
+         */
+        /**
+         * This is required because we want to toggle a class based on the `active`
+         * property on a link, however toggling classes using `NgClass` or the class
+         * binding syntax `[class.xyz]` does not work in IE when applied to an SVG
+         * element. (https://github.com/angular/angular/issues/6327)
+         *
+         * The alternatice is to bind directly to the `class` attribute and return a
+         * string that will toggle the class based on the `active` property.
+         * @param {?} link
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._getLinkClass = /**
+         * This is required because we want to toggle a class based on the `active`
+         * property on a link, however toggling classes using `NgClass` or the class
+         * binding syntax `[class.xyz]` does not work in IE when applied to an SVG
+         * element. (https://github.com/angular/angular/issues/6327)
+         *
+         * The alternatice is to bind directly to the `class` attribute and return a
+         * string that will toggle the class based on the `active` property.
+         * @param {?} link
+         * @return {?}
+         */
+            function (link) {
+                return "ux-sankey-chart-link " + ((link.active || link.focus) ? 'ux-sankey-chart-link-active' : '');
+            };
+        /**
+         * Get the SVG path that defines the shape of the falloff indicator
+         */
+        /**
+         * Get the SVG path that defines the shape of the falloff indicator
+         * @param {?} node
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._getFalloffPath = /**
+         * Get the SVG path that defines the shape of the falloff indicator
+         * @param {?} node
+         * @return {?}
+         */
+            function (node) {
+                return this._sankey.getFalloffPath(node);
+            };
+        /**
+         * Falloff represents the amount of data that does not get passed on,
+         * for example, if a node gets 1,000,000 items from inputs and only outputs
+         * 500,000 then there is falloff of 500,000. However, items in the last column
+         * never pass on any information, so tecnhically 100% of their input is falloff
+         * so we shouldn't show it in the last column.
+         */
+        /**
+         * Falloff represents the amount of data that does not get passed on,
+         * for example, if a node gets 1,000,000 items from inputs and only outputs
+         * 500,000 then there is falloff of 500,000. However, items in the last column
+         * never pass on any information, so tecnhically 100% of their input is falloff
+         * so we shouldn't show it in the last column.
+         * @param {?} nodeLink
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._showFalloff = /**
+         * Falloff represents the amount of data that does not get passed on,
+         * for example, if a node gets 1,000,000 items from inputs and only outputs
+         * 500,000 then there is falloff of 500,000. However, items in the last column
+         * never pass on any information, so tecnhically 100% of their input is falloff
+         * so we shouldn't show it in the last column.
+         * @param {?} nodeLink
+         * @return {?}
+         */
+            function (nodeLink) {
+                return nodeLink.column < this._columns.length - 1;
+            };
+        /** Update the visibility and content of the tooltip on falloff hover */
+        /**
+         * Update the visibility and content of the tooltip on falloff hover
+         * @param {?} nodeLink
+         * @param {?} isVisible
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._setFalloffTooltip = /**
+         * Update the visibility and content of the tooltip on falloff hover
+         * @param {?} nodeLink
+         * @param {?} isVisible
+         * @return {?}
+         */
+            function (nodeLink, isVisible) {
+                this._isTooltipOpen = isVisible;
+                this._tooltipContent = isVisible ? this.falloffTooltip(nodeLink.falloff) : '';
+                this._changeDetector.detectChanges();
+            };
+        /**
+         * Update the position of the tooltip
+         */
+        /**
+         * Update the position of the tooltip
+         * @param {?} event
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._setTooltipPosition = /**
+         * Update the position of the tooltip
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                var _a = (( /** @type {?} */(this.nodeContainer.nativeElement))).getBoundingClientRect(), left = _a.left, top = _a.top;
+                /** @type {?} */
+                var x = (event.pageX - left) - (window.scrollX || document.documentElement.scrollLeft);
+                /** @type {?} */
+                var y = (event.pageY - top) - (window.scrollY || document.documentElement.scrollTop);
+                this._tooltipPosition = { x: x, y: y };
+                this._changeDetector.detectChanges();
+            };
+        /**
+         * Correctly track the node changes in `*ngFor` based on
+         * the unique node ids to prevent unnecessary re-rendering
+         */
+        /**
+         * Correctly track the node changes in `*ngFor` based on
+         * the unique node ids to prevent unnecessary re-rendering
+         * @param {?} _index
+         * @param {?} nodeLink
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._trackNodeBy = /**
+         * Correctly track the node changes in `*ngFor` based on
+         * the unique node ids to prevent unnecessary re-rendering
+         * @param {?} _index
+         * @param {?} nodeLink
+         * @return {?}
+         */
+            function (_index, nodeLink) {
+                return nodeLink.node.id;
+            };
+        /**
+         * Correctly track the link changes in `*ngFor` based on
+         * the source and target to prevent unnecessary re-rendering
+         */
+        /**
+         * Correctly track the link changes in `*ngFor` based on
+         * the source and target to prevent unnecessary re-rendering
+         * @param {?} _index
+         * @param {?} link
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._trackLinkBy = /**
+         * Correctly track the link changes in `*ngFor` based on
+         * the source and target to prevent unnecessary re-rendering
+         * @param {?} _index
+         * @param {?} link
+         * @return {?}
+         */
+            function (_index, link) {
+                return link.source + "-" + link.target;
+            };
+        /**
+         * Get the color of node based on whether or not
+         * the `color` input has been provided.
+         */
+        /**
+         * Get the color of node based on whether or not
+         * the `color` input has been provided.
+         * @param {?} item
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._getColor = /**
+         * Get the color of node based on whether or not
+         * the `color` input has been provided.
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                // if we are not node hovering or focusing or no custom color is defined then return nothing
+                if (!item.active && !item.focus || !this.color) {
+                    return;
+                }
+                // return an rgba value if it is a `ThemeColor` to support transparency
+                return this.color instanceof ThemeColor ? this.color.toRgba() : this._colorService.resolve(this.color);
+            };
+        /**
+         * We want the focus indicator color to match the active color,
+         * which if programmatically defined need to be overriden
+         */
+        /**
+         * We want the focus indicator color to match the active color,
+         * which if programmatically defined need to be overriden
+         * @param {?} nodeLink
+         * @return {?}
+         */
+        SankeyChartComponent.prototype._getFocusIndicator = /**
+         * We want the focus indicator color to match the active color,
+         * which if programmatically defined need to be overriden
+         * @param {?} nodeLink
+         * @return {?}
+         */
+            function (nodeLink) {
+                // if the node is not focused or there is no custom color
+                // then return null in which case CSS indicator will show
+                if (!nodeLink.focus || !this.color) {
+                    return '';
+                }
+                // otherwise return the shadow based on the color provided.
+                /** @type {?} */
+                var color = this.color instanceof ThemeColor ? this.color : ThemeColor.parse(this._colorService.resolve(this.color));
+                // generate a box shadow based on the specified color
+                return "0 0 0 1px #fff, 0 0 0 3px " + color.setAlpha(0.5).toRgba();
+            };
+        /**
+         * Get columns mapped with their title if they have any
+         */
+        /**
+         * Get columns mapped with their title if they have any
+         * @return {?}
+         */
+        SankeyChartComponent.prototype.getColumns = /**
+         * Get columns mapped with their title if they have any
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                return this._sankey.columns().map(function (width, index) { return ({ width: width, title: _this.columns[index] || '', position: _this.getColumnPosition(index) }); });
+            };
+        /**
+         * Get the start position of a column which can be determined
+         * by finding a node that is in that column and using its
+         * x position as all nodes start at the same position within a column.
+         */
+        /**
+         * Get the start position of a column which can be determined
+         * by finding a node that is in that column and using its
+         * x position as all nodes start at the same position within a column.
+         * @param {?} column
+         * @return {?}
+         */
+        SankeyChartComponent.prototype.getColumnPosition = /**
+         * Get the start position of a column which can be determined
+         * by finding a node that is in that column and using its
+         * x position as all nodes start at the same position within a column.
+         * @param {?} column
+         * @return {?}
+         */
+            function (column) {
+                // find a node in this column and take its x position
+                /** @type {?} */
+                var node = this._nodes.find(function (_node) { return _node.column === column; });
+                return node ? node.x : 0;
+            };
+        /**
+         * Get the default content of a link tooltip
+         */
+        /**
+         * Get the default content of a link tooltip
+         * @param {?} link
+         * @return {?}
+         */
+        SankeyChartComponent.prototype.getLinkTooltip = /**
+         * Get the default content of a link tooltip
+         * @param {?} link
+         * @return {?}
+         */
+            function (link) {
+                return link.value.toLocaleString('en') + ' items';
+            };
+        /**
+         * Get the default content of a falloff tooltip
+         */
+        /**
+         * Get the default content of a falloff tooltip
+         * @param {?} falloff
+         * @return {?}
+         */
+        SankeyChartComponent.prototype.getFalloffTooltip = /**
+         * Get the default content of a falloff tooltip
+         * @param {?} falloff
+         * @return {?}
+         */
+            function (falloff) {
+                return falloff.toLocaleString('en') + ' items';
+            };
+        SankeyChartComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ux-sankey-chart',
+                        template: "<div class=\"ux-sankey-chart-columns\" *ngIf=\"columns && columns.length > 0\">\n    <div *ngFor=\"let column of _columns\"\n         class=\"ux-sankey-chart-column\"\n         [style.width.px]=\"column.width\">\n\n        <p class=\"ux-sankey-chart-column-title\"\n            [style.left.px]=\"column.position\">\n            {{ column.title }}\n        </p>\n    </div>\n</div>\n\n<svg #linkContainer\n     [attr.width]=\"_width\"\n     [attr.height]=\"_height\"\n     class=\"ux-sankey-chart-links\"\n     [style.top.px]=\"!columns || columns.length === 0 ? 8 : null\">\n\n    <defs>\n        <linearGradient id=\"falloff-gradient\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n            <stop class=\"ux-sankey-chart-falloff-gradient-start\" offset=\"25%\"></stop>\n            <stop class=\"ux-sankey-chart-falloff-gradient-end\" offset=\"100%\"></stop>\n        </linearGradient>\n    </defs>\n    <g>\n        <ng-container *ngFor=\"let node of _nodes; trackBy: _trackNodeBy\">\n            <path *ngFor=\"let link of node.outputs; trackBy: _trackLinkBy\"\n                    [attr.class]=\"_getLinkClass(link)\"\n                    [attr.d]=\"_getPath(link)\"\n                    [style.fill]=\"_getColor(link)\"\n                    (mouseenter)=\"_setLinkActive(link, true)\"\n                    (mouseleave)=\"_setLinkActive(link, false)\"\n                    (mousemove)=\"_setTooltipPosition($event)\">\n            </path>\n            <path *ngIf=\"node.falloff && _showFalloff(node)\"\n                    class=\"ux-sankey-chart-falloff-indicator\"\n                    [attr.d]=\"_getFalloffPath(node)\"\n                    (mouseenter)=\"_setFalloffTooltip(node, true)\"\n                    (mouseleave)=\"_setFalloffTooltip(node, false)\"\n                    (mousemove)=\"_setTooltipPosition($event)\">\n            </path>\n        </ng-container>\n    </g>\n</svg>\n\n<div #nodeContainer\n     class=\"ux-sankey-chart-nodes\"\n     (uxResize)=\"_onResize($event)\"\n     [style.top.px]=\"!columns || columns.length === 0 ? 8 : null\">\n\n    <div *ngFor=\"let node of _nodes; trackBy: _trackNodeBy\"\n        #nodeElement\n        [uxSankeyNode]=\"node\"\n        uxFocusIndicator\n        class=\"ux-sankey-chart-node\"\n        [class.ux-sankey-chart-node-active]=\"node.active || node.focus\"\n        [style.left.px]=\"node.x\"\n        [style.top.px]=\"node.y\"\n        [style.width.px]=\"node.width\"\n        [style.height.px]=\"node.height\"\n        [style.background-color]=\"_getColor(node)\"\n        (mouseenter)=\"_setNodeActive(node, true)\"\n        (mouseleave)=\"_setNodeActive(node, false)\"\n        (indicator)=\"_setNodeFocus(node, $event, nodeElement)\">\n\n        <ng-container\n            [ngTemplateOutlet]=\"nodeTemplate\"\n            [ngTemplateOutletContext]=\"{ node: node.node, active: node.active, focus: node.focus }\">\n        </ng-container>\n    </div>\n\n    <ux-tooltip *ngIf=\"_isTooltipOpen\"\n                class=\"ux-sankey-tooltip\"\n                placement=\"top\"\n                [content]=\"_tooltipContent\"\n                alignment=\"center\"\n                [style.left.px]=\"_tooltipPosition.x\"\n                [style.top.px]=\"_tooltipPosition.y\"\n                [@tooltipAnimation]>\n    </ux-tooltip>\n\n</div>\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        viewProviders: [SankeyFocusManager],
+                        animations: [
+                            animations.trigger('tooltipAnimation', [
+                                animations.transition(':enter', [
+                                    animations.style({ opacity: 0 }),
+                                    animations.animate(160, animations.style({ opacity: 1 }))
+                                ]),
+                                animations.transition(':leave', [
+                                    animations.animate(160, animations.style({ opacity: 0 }))
+                                ])
+                            ])
+                        ]
+                    }] }
+        ];
+        /** @nocollapse */
+        SankeyChartComponent.ctorParameters = function () {
+            return [
+                { type: SankeyFocusManager },
+                { type: core.ChangeDetectorRef },
+                { type: ColorService }
+            ];
+        };
+        SankeyChartComponent.propDecorators = {
+            nodes: [{ type: core.Input }],
+            links: [{ type: core.Input }],
+            columns: [{ type: core.Input }],
+            minWidth: [{ type: core.Input }],
+            maxWidth: [{ type: core.Input }],
+            linkTooltip: [{ type: core.Input }],
+            falloffTooltip: [{ type: core.Input }],
+            color: [{ type: core.Input }],
+            nodeTemplate: [{ type: core.ContentChild, args: ['sankeyNodeTemplate',] }],
+            linkContainer: [{ type: core.ViewChild, args: ['linkContainer',] }],
+            nodeContainer: [{ type: core.ViewChild, args: ['nodeContainer',] }]
+        };
+        return SankeyChartComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var SankeyChartModule = /** @class */ (function () {
+        function SankeyChartModule() {
+        }
+        SankeyChartModule.decorators = [
+            { type: core.NgModule, args: [{
+                        declarations: [
+                            SankeyChartComponent,
+                            SankeyNodeDirective
+                        ],
+                        imports: [
+                            AccessibilityModule,
+                            common.CommonModule,
+                            ResizeModule,
+                            TooltipModule,
+                            ColorServiceModule
+                        ],
+                        exports: [
+                            SankeyChartComponent
+                        ]
+                    },] }
+        ];
+        return SankeyChartModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     /** @type {?} */
     var UNSET_FOCUS = { groupId: null, index: -1 };
     var SearchBuilderFocusService = /** @class */ (function () {
@@ -33279,13 +34978,13 @@
                     _this.inputChange.emit(value);
                 });
                 // Changes to the input field
-                this._input$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return _this.allowNull; }), operators.filter(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); })).subscribe(function () { return _this.value = null; });
+                this._input$.pipe(operators.filter(function () { return _this.allowNull; }), operators.filter(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.value = null; });
                 // Set up filter from input
                 this.filter$ = this._input$.pipe(operators.map(function (input) { return !_this.multiple && input === _this.getDisplay(_this.value) ? '' : input; }), operators.debounceTime(200));
                 // Open the dropdown when filter is nonempty.
-                this.filter$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (value) { return value && value.length > 0; })).subscribe(function () { return _this.dropdownOpen = true; });
+                this.filter$.pipe(operators.filter(function (value) { return value && value.length > 0; }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.dropdownOpen = true; });
                 // Update the single-select input when the model changes
-                this._value$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(), operators.delay(0), operators.filter(function (value) { return value !== null && !_this.multiple; })).subscribe(function (value) {
+                this._value$.pipe(operators.distinctUntilChanged(), operators.delay(0), operators.filter(function (value) { return value !== null && !_this.multiple; }), operators.takeUntil(this._onDestroy)).subscribe(function (value) {
                     _this.input = _this.getDisplay(value);
                 });
             };
@@ -44901,6 +46600,10 @@
     exports.RadioButtonModule = RadioButtonModule;
     exports.RADIOBUTTON_VALUE_ACCESSOR = RADIOBUTTON_VALUE_ACCESSOR;
     exports.RadioButtonComponent = RadioButtonComponent;
+    exports.SankeyChart = SankeyChart;
+    exports.SankeyNodeDirective = SankeyNodeDirective;
+    exports.SankeyChartComponent = SankeyChartComponent;
+    exports.SankeyChartModule = SankeyChartModule;
     exports.SearchBuilderFocusService = SearchBuilderFocusService;
     exports.SearchBuilderGroupComponent = SearchBuilderGroupComponent;
     exports.SearchBuilderGroupService = SearchBuilderGroupService;
@@ -45154,15 +46857,16 @@
     exports.ɵbi = PageHeaderNavigationSecondaryItemDirective;
     exports.ɵbf = PageHeaderNavigationService;
     exports.ɵbe = PageHeaderService;
+    exports.ɵbj = SankeyFocusManager;
     exports.ɵba = SidePanelAnimationState;
     exports.ɵbb = sidePanelStateAnimation;
     exports.ɵz = SidePanelService;
-    exports.ɵbj = ResizableTableService;
+    exports.ɵbk = ResizableTableService;
     exports.ɵp = TypeaheadHighlightDirective;
     exports.ɵo = TypeaheadService;
-    exports.ɵbk = HoverActionService;
+    exports.ɵbl = HoverActionService;
     exports.ɵq = MenuNavigationService;
-    exports.ɵbl = TreeGridService;
+    exports.ɵbm = TreeGridService;
     exports.ɵa = KEPPEL_COLOR_SET;
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
 
