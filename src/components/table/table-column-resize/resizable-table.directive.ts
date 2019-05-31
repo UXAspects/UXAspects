@@ -1,4 +1,4 @@
-import { AfterViewInit, ContentChildren, Directive, ElementRef, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ResizeService } from '../../../directives/resize/index';
@@ -24,7 +24,7 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
     /** Unsubscribe from the observables */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _table: ResizableTableService, resize: ResizeService) {
+    constructor(private _elementRef: ElementRef, private _table: ResizableTableService, private _renderer: Renderer2, resize: ResizeService) {
         // watch for the table being resized
         resize.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(() => {
             // store the latest table size
@@ -33,6 +33,9 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
             // run the initial logic if the table is fully visible
             this.onTableReady();
         });
+
+        // we should hide any horizontal overflow when we are resizing
+        this._table.isResizing$.pipe(takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
     }
 
     /** Once we have the columns make them resizable and watch for changes to columns */
@@ -85,6 +88,16 @@ export class ResizableTableDirective implements AfterViewInit, OnDestroy {
     /** Set all resizable columns to the same width */
     setUniformWidths(): void {
         this._table.setUniformWidths();
+    }
+
+    /**
+     * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
+     * we must set the column widths in pixel values as percentages cause some jankiness when moving them. However pixel
+     * values are less precise and can in some cases cause overflow, so we should hide overflow when we are resizing
+     */
+    private setOverflow(isResizing: boolean): void {
+        Array.from((this._elementRef.nativeElement as HTMLTableElement).tBodies)
+            .forEach(tbody => this._renderer.setStyle(tbody, 'overflow-x', isResizing ? 'hidden' : null));
     }
 
     /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */

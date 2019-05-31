@@ -19,6 +19,15 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Define the width of a column */
     @Input() set width(width: number) {
 
+        // there may be cases where columns are created with an `*ngFor` and a width
+        // may be specified on *some* columns and not others. This this setter will
+        // still be called whenever the value is empty and this will mark this column
+        // as having a fixed width, even though it doesn't. So we should only proceed
+        // whenever there is an actual numeric value passed in.
+        if (width === null || width === undefined) {
+            return;
+        }
+
         // ensure width is a valid number
         this._width = coerceNumberProperty(width);
 
@@ -157,7 +166,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
         }
 
 
-        const width = this._table.isResizing ?
+        const width = this._table.isResizing$.value ?
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
 
@@ -169,7 +178,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
     private setColumnFlex(): void {
 
         // if we are resizing then always return 'none' to allow free movement
-        if (this._table.isResizing || this.disabled) {
+        if (this._table.isResizing$.value || this.disabled) {
             this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
         }
 
