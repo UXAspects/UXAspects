@@ -3,6 +3,7 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
@@ -17,21 +18,31 @@ import { PageHeaderNavigationService } from '../navigation.service';
 })
 export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy, FocusableOption {
 
-    @ViewChild('button') button: MenuNavigationToggleDirective;
-    @ViewChild('menu') menu: BsDropdownDirective;
-    @ViewChild('navigationBtn') navigationBtn: ElementRef;
-    @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
-
+    /** Access the data for this dropdown item */
     @Input() item: PageHeaderNavigationItem;
 
+    /** Access the menu navigation toggle directive */
+    @ViewChild('button') button: MenuNavigationToggleDirective;
+
+    /** Access the dropdown menu directive */
+    @ViewChild('menu') menu: BsDropdownDirective;
+
+    /** Access the navigation button element */
+    @ViewChild('navigationBtn') navigationBtn: ElementRef;
+
+    /** Access the dropdown item components */
+    @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
+
+    /** Store the secondary state */
     secondary$: BehaviorSubject<boolean> = this._pageHeaderService.secondary$;
 
+    /** Store the open state of the item dropdown */
     isOpen: boolean;
 
-    get _tabindex(): number {
-        return this._navigationService.getTabIndex(this);
-    }
+    /** Update the tabindex based on keyboard input */
+    _tabindex: Observable<number> = this._navigationService.getTabIndex(this);
 
+    /** Unsubscribe when the component is destroyed */
     private _onDestroy = new Subject();
 
     constructor(
