@@ -45,6 +45,12 @@ export class DateRangeService {
     /** Indicate if we are currently changing the time */
     isChangingTime: boolean = false;
 
+    /** Store the current start time */
+    startTime: DateRangeTime = { hours: 0, minutes: 0, seconds: 0 };
+
+    /** Store the current end time */
+    endTime: DateRangeTime = { hours: 23, minutes: 59, seconds: 59 };
+
     setStartDate(date: Date | null): void {
 
         // if the start date is after the end date the clear the end date
@@ -85,10 +91,15 @@ export class DateRangeService {
             this.setDateMouseEnter(null);
         }
     }
-
 }
 
 export enum DateRangePicker {
     Start = 'start',
     End = 'end'
+}
+
+export interface DateRangeTime {
+    hours: number;
+    minutes: number;
+    seconds: number;
 }

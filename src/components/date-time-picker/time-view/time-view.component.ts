@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, Optional, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, Optional } from '@angular/core';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DateTimePickerService } from '../date-time-picker.service';
 import { compareDays } from '../date-time-picker.utils';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
     selector: 'ux-date-time-picker-time-view',
@@ -111,6 +111,13 @@ export class TimeViewComponent implements OnInit, OnDestroy {
             this.datepicker.hours = time.getHours();
             this.datepicker.minutes = time.getMinutes();
             this.datepicker.seconds = time.getSeconds();
+
+            // update the time in the range picker service
+            if (this._isRangeStart) {
+                this._rangeService.startTime = { hours: time.getHours(), minutes: time.getMinutes(), seconds: time.getSeconds() };
+            } else {
+                this._rangeService.endTime = { hours: time.getHours(), minutes: time.getMinutes(), seconds: time.getSeconds() };
+            }
 
             // if a date is currently selected we should update it
             if (this._isRangeStart && this._rangeStart) {
