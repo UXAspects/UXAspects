@@ -5,7 +5,7 @@ export default function scrollIntoViewIf() {
             // Scroll into view when condition evaluates to true.
             scope.$watch(attrs.scrollIntoViewIf, value => {
                 if (value) {
-                    element.get(0).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    element.get(0).scrollIntoView({ block: 'nearest' });
                 }
             });
         }
