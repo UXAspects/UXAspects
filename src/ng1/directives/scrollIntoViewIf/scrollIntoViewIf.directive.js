@@ -2,9 +2,6 @@ export default function scrollIntoViewIf() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
-
-            console.log('scrollIntoViewIf.link');
-
             // Scroll into view when condition evaluates to true.
             scope.$watch(attrs.scrollIntoViewIf, value => {
                 if (value) {
