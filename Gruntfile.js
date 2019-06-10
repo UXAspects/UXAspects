@@ -24,7 +24,7 @@ module.exports = function(grunt) {
     grunt.registerTask('scripts', ['execute:iconset']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles', 'copy:md']);
     grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
-    grunt.registerTask('iconset', ['webfont:iconset']);
+    grunt.registerTask('iconset', ['webfont']);
     grunt.registerTask('minify', ['uglify:ng1', 'cssmin:styles']);
     grunt.registerTask('licenses', ['execute:licenses', 'usebanner:ng1']);
     grunt.registerTask('test', ['build:library', 'jasmine:ng1']);

@@ -1,0 +1,1544 @@
+{
+    "icons": [
+        {
+            "name": "3d",
+            "classname": "hpe-3d"
+        },
+        {
+            "name": "achievement",
+            "classname": "hpe-achievement"
+        },
+        {
+            "name": "action",
+            "classname": "hpe-action"
+        },
+        {
+            "name": "actions",
+            "classname": "hpe-actions"
+        },
+        {
+            "name": "active",
+            "classname": "hpe-active"
+        },
+        {
+            "name": "add",
+            "classname": "hpe-add"
+        },
+        {
+            "name": "advanced-search",
+            "classname": "hpe-advanced-search"
+        },
+        {
+            "name": "aggregate",
+            "classname": "hpe-aggregate"
+        },
+        {
+            "name": "alarm",
+            "classname": "hpe-alarm"
+        },
+        {
+            "name": "alert-filled",
+            "classname": "hpe-alert-filled"
+        },
+        {
+            "name": "alert",
+            "classname": "hpe-alert"
+        },
+        {
+            "name": "analytics",
+            "classname": "hpe-analytics"
+        },
+        {
+            "name": "announcement",
+            "classname": "hpe-announcement"
+        },
+        {
+            "name": "app",
+            "classname": "hpe-app"
+        },
+        {
+            "name": "archive",
+            "classname": "hpe-archive"
+        },
+        {
+            "name": "article",
+            "classname": "hpe-article"
+        },
+        {
+            "name": "ascend",
+            "classname": "hpe-ascend"
+        },
+        {
+            "name": "assistant",
+            "classname": "hpe-assistant"
+        },
+        {
+            "name": "attachment",
+            "classname": "hpe-attachment"
+        },
+        {
+            "name": "bar-chart",
+            "classname": "hpe-bar-chart"
+        },
+        {
+            "name": "blog",
+            "classname": "hpe-blog"
+        },
+        {
+            "name": "book",
+            "classname": "hpe-book"
+        },
+        {
+            "name": "bookmark-filled",
+            "classname": "hpe-bookmark-filled"
+        },
+        {
+            "name": "bookmark",
+            "classname": "hpe-bookmark"
+        },
+        {
+            "name": "bundle",
+            "classname": "hpe-bundle"
+        },
+        {
+            "name": "calculator",
+            "classname": "hpe-calculator"
+        },
+        {
+            "name": "calendar",
+            "classname": "hpe-calendar"
+        },
+        {
+            "name": "camera-filled",
+            "classname": "hpe-camera-filled"
+        },
+        {
+            "name": "camera",
+            "classname": "hpe-camera"
+        },
+        {
+            "name": "capacity",
+            "classname": "hpe-capacity"
+        },
+        {
+            "name": "caret-down-filled",
+            "classname": "hpe-caret-down-filled"
+        },
+        {
+            "name": "caret-down",
+            "classname": "hpe-caret-down"
+        },
+        {
+            "name": "caret-next-filled",
+            "classname": "hpe-caret-next-filled"
+        },
+        {
+            "name": "caret-next",
+            "classname": "hpe-caret-next"
+        },
+        {
+            "name": "caret-previous-filled",
+            "classname": "hpe-caret-previous-filled"
+        },
+        {
+            "name": "caret-previous",
+            "classname": "hpe-caret-previous"
+        },
+        {
+            "name": "caret-up-filled",
+            "classname": "hpe-caret-up-filled"
+        },
+        {
+            "name": "caret-up",
+            "classname": "hpe-caret-up"
+        },
+        {
+            "name": "catalog",
+            "classname": "hpe-catalog"
+        },
+        {
+            "name": "chapter-add",
+            "classname": "hpe-chapter-add"
+        },
+        {
+            "name": "chapter-next-filled",
+            "classname": "hpe-chapter-next-filled"
+        },
+        {
+            "name": "chapter-next",
+            "classname": "hpe-chapter-next"
+        },
+        {
+            "name": "chapter-previous-filled",
+            "classname": "hpe-chapter-previous-filled"
+        },
+        {
+            "name": "chapter-previous",
+            "classname": "hpe-chapter-previous"
+        },
+        {
+            "name": "chat-attachment",
+            "classname": "hpe-chat-attachment"
+        },
+        {
+            "name": "chat",
+            "classname": "hpe-chat"
+        },
+        {
+            "name": "checkbox-selected",
+            "classname": "hpe-checkbox-selected"
+        },
+        {
+            "name": "checkbox",
+            "classname": "hpe-checkbox"
+        },
+        {
+            "name": "checkmark",
+            "classname": "hpe-checkmark"
+        },
+        {
+            "name": "chevron-down",
+            "classname": "hpe-chevron-down"
+        },
+        {
+            "name": "chevron-left-double",
+            "classname": "hpe-chevron-left-double"
+        },
+        {
+            "name": "chevron-left",
+            "classname": "hpe-chevron-left"
+        },
+        {
+            "name": "chevron-right-double",
+            "classname": "hpe-chevron-right-double"
+        },
+        {
+            "name": "chevron-right",
+            "classname": "hpe-chevron-right"
+        },
+        {
+            "name": "chevron-up",
+            "classname": "hpe-chevron-up"
+        },
+        {
+            "name": "circular-view",
+            "classname": "hpe-circular-view"
+        },
+        {
+            "name": "clipboard",
+            "classname": "hpe-clipboard"
+        },
+        {
+            "name": "clone",
+            "classname": "hpe-clone"
+        },
+        {
+            "name": "close",
+            "classname": "hpe-close"
+        },
+        {
+            "name": "cloud-computer",
+            "classname": "hpe-cloud-computer"
+        },
+        {
+            "name": "cloud-download",
+            "classname": "hpe-cloud-download"
+        },
+        {
+            "name": "cloud-software",
+            "classname": "hpe-cloud-software"
+        },
+        {
+            "name": "cloud-upload",
+            "classname": "hpe-cloud-upload"
+        },
+        {
+            "name": "cloud",
+            "classname": "hpe-cloud"
+        },
+        {
+            "name": "cluster",
+            "classname": "hpe-cluster"
+        },
+        {
+            "name": "code",
+            "classname": "hpe-code"
+        },
+        {
+            "name": "command-line",
+            "classname": "hpe-command-line"
+        },
+        {
+            "name": "compare",
+            "classname": "hpe-compare"
+        },
+        {
+            "name": "compass",
+            "classname": "hpe-compass"
+        },
+        {
+            "name": "compliance",
+            "classname": "hpe-compliance"
+        },
+        {
+            "name": "computer-personal",
+            "classname": "hpe-computer-personal"
+        },
+        {
+            "name": "configuration-filled",
+            "classname": "hpe-configuration-filled"
+        },
+        {
+            "name": "configuration",
+            "classname": "hpe-configuration"
+        },
+        {
+            "name": "connect",
+            "classname": "hpe-connect"
+        },
+        {
+            "name": "contact-card",
+            "classname": "hpe-contact-card"
+        },
+        {
+            "name": "contact-us-filled",
+            "classname": "hpe-contact-us-filled"
+        },
+        {
+            "name": "contact-us",
+            "classname": "hpe-contact-us"
+        },
+        {
+            "name": "contract",
+            "classname": "hpe-contract"
+        },
+        {
+            "name": "copy",
+            "classname": "hpe-copy"
+        },
+        {
+            "name": "cube-filled",
+            "classname": "hpe-cube-filled"
+        },
+        {
+            "name": "cube",
+            "classname": "hpe-cube"
+        },
+        {
+            "name": "cubes",
+            "classname": "hpe-cubes"
+        },
+        {
+            "name": "cursor-filled",
+            "classname": "hpe-cursor-filled"
+        },
+        {
+            "name": "cursor",
+            "classname": "hpe-cursor"
+        },
+        {
+            "name": "cut",
+            "classname": "hpe-cut"
+        },
+        {
+            "name": "cycle",
+            "classname": "hpe-cycle"
+        },
+        {
+            "name": "dashboard",
+            "classname": "hpe-dashboard"
+        },
+        {
+            "name": "database",
+            "classname": "hpe-database"
+        },
+        {
+            "name": "defect",
+            "classname": "hpe-defect"
+        },
+        {
+            "name": "deliver",
+            "classname": "hpe-deliver"
+        },
+        {
+            "name": "deployment",
+            "classname": "hpe-deployment"
+        },
+        {
+            "name": "descend",
+            "classname": "hpe-descend"
+        },
+        {
+            "name": "desktop",
+            "classname": "hpe-desktop"
+        },
+        {
+            "name": "detach",
+            "classname": "hpe-detach"
+        },
+        {
+            "name": "directions",
+            "classname": "hpe-directions"
+        },
+        {
+            "name": "dislike-filled",
+            "classname": "hpe-dislike-filled"
+        },
+        {
+            "name": "dislike",
+            "classname": "hpe-dislike"
+        },
+        {
+            "name": "divide-four",
+            "classname": "hpe-divide-four"
+        },
+        {
+            "name": "divide-right",
+            "classname": "hpe-divide-right"
+        },
+        {
+            "name": "divide-three",
+            "classname": "hpe-divide-three"
+        },
+        {
+            "name": "divide",
+            "classname": "hpe-divide"
+        },
+        {
+            "name": "document-cloud",
+            "classname": "hpe-document-cloud"
+        },
+        {
+            "name": "document-compress",
+            "classname": "hpe-document-compress"
+        },
+        {
+            "name": "document-config",
+            "classname": "hpe-document-config"
+        },
+        {
+            "name": "document-csv",
+            "classname": "hpe-document-csv"
+        },
+        {
+            "name": "document-data",
+            "classname": "hpe-document-data"
+        },
+        {
+            "name": "document-download",
+            "classname": "hpe-document-download"
+        },
+        {
+            "name": "document-excel",
+            "classname": "hpe-document-excel"
+        },
+        {
+            "name": "document-executable",
+            "classname": "hpe-document-executable"
+        },
+        {
+            "name": "document-image",
+            "classname": "hpe-document-image"
+        },
+        {
+            "name": "document-locked",
+            "classname": "hpe-document-locked"
+        },
+        {
+            "name": "document-missing",
+            "classname": "hpe-document-missing"
+        },
+        {
+            "name": "document-notes",
+            "classname": "hpe-document-notes"
+        },
+        {
+            "name": "document-outlook",
+            "classname": "hpe-document-outlook"
+        },
+        {
+            "name": "document-pdf",
+            "classname": "hpe-document-pdf"
+        },
+        {
+            "name": "document-performance",
+            "classname": "hpe-document-performance"
+        },
+        {
+            "name": "document-powerpoint",
+            "classname": "hpe-document-powerpoint"
+        },
+        {
+            "name": "document-rtf",
+            "classname": "hpe-document-rtf"
+        },
+        {
+            "name": "document-sound",
+            "classname": "hpe-document-sound"
+        },
+        {
+            "name": "document-test",
+            "classname": "hpe-document-test"
+        },
+        {
+            "name": "document-text",
+            "classname": "hpe-document-text"
+        },
+        {
+            "name": "document-threat",
+            "classname": "hpe-document-threat"
+        },
+        {
+            "name": "document-time",
+            "classname": "hpe-document-time"
+        },
+        {
+            "name": "document-transfer",
+            "classname": "hpe-document-transfer"
+        },
+        {
+            "name": "document-txt",
+            "classname": "hpe-document-txt"
+        },
+        {
+            "name": "document-update",
+            "classname": "hpe-document-update"
+        },
+        {
+            "name": "document-upload",
+            "classname": "hpe-document-upload"
+        },
+        {
+            "name": "document-user",
+            "classname": "hpe-document-user"
+        },
+        {
+            "name": "document-verified",
+            "classname": "hpe-document-verified"
+        },
+        {
+            "name": "document-video",
+            "classname": "hpe-document-video"
+        },
+        {
+            "name": "document-word",
+            "classname": "hpe-document-word"
+        },
+        {
+            "name": "document",
+            "classname": "hpe-document"
+        },
+        {
+            "name": "domain",
+            "classname": "hpe-domain"
+        },
+        {
+            "name": "down",
+            "classname": "hpe-down"
+        },
+        {
+            "name": "download",
+            "classname": "hpe-download"
+        },
+        {
+            "name": "drag",
+            "classname": "hpe-drag"
+        },
+        {
+            "name": "drive-cage",
+            "classname": "hpe-drive-cage"
+        },
+        {
+            "name": "duplicate",
+            "classname": "hpe-duplicate"
+        },
+        {
+            "name": "edit-filled",
+            "classname": "hpe-edit-filled"
+        },
+        {
+            "name": "edit",
+            "classname": "hpe-edit"
+        },
+        {
+            "name": "eject-filled",
+            "classname": "hpe-eject-filled"
+        },
+        {
+            "name": "eject",
+            "classname": "hpe-eject"
+        },
+        {
+            "name": "expand",
+            "classname": "hpe-expand"
+        },
+        {
+            "name": "fan",
+            "classname": "hpe-fan"
+        },
+        {
+            "name": "fast-forward-filled",
+            "classname": "hpe-fast-forward-filled"
+        },
+        {
+            "name": "fast-forward",
+            "classname": "hpe-fast-forward"
+        },
+        {
+            "name": "favorite-filled",
+            "classname": "hpe-favorite-filled"
+        },
+        {
+            "name": "favorite",
+            "classname": "hpe-favorite"
+        },
+        {
+            "name": "filter-filled",
+            "classname": "hpe-filter-filled"
+        },
+        {
+            "name": "filter",
+            "classname": "hpe-filter"
+        },
+        {
+            "name": "first-aid",
+            "classname": "hpe-first-aid"
+        },
+        {
+            "name": "flag-filled",
+            "classname": "hpe-flag-filled"
+        },
+        {
+            "name": "flag",
+            "classname": "hpe-flag"
+        },
+        {
+            "name": "folder-cycle",
+            "classname": "hpe-folder-cycle"
+        },
+        {
+            "name": "folder-open",
+            "classname": "hpe-folder-open"
+        },
+        {
+            "name": "folder",
+            "classname": "hpe-folder"
+        },
+        {
+            "name": "gallery-filled",
+            "classname": "hpe-gallery-filled"
+        },
+        {
+            "name": "gallery",
+            "classname": "hpe-gallery"
+        },
+        {
+            "name": "globe",
+            "classname": "hpe-globe"
+        },
+        {
+            "name": "grid",
+            "classname": "hpe-grid"
+        },
+        {
+            "name": "group",
+            "classname": "hpe-group"
+        },
+        {
+            "name": "grow",
+            "classname": "hpe-grow"
+        },
+        {
+            "name": "halt",
+            "classname": "hpe-halt"
+        },
+        {
+            "name": "help-circle",
+            "classname": "hpe-help-circle"
+        },
+        {
+            "name": "help",
+            "classname": "hpe-help"
+        },
+        {
+            "name": "history",
+            "classname": "hpe-history"
+        },
+        {
+            "name": "home-filled",
+            "classname": "hpe-home-filled"
+        },
+        {
+            "name": "home",
+            "classname": "hpe-home"
+        },
+        {
+            "name": "host-maintenance",
+            "classname": "hpe-host-maintenance"
+        },
+        {
+            "name": "host",
+            "classname": "hpe-host"
+        },
+        {
+            "name": "image-filled",
+            "classname": "hpe-image-filled"
+        },
+        {
+            "name": "image",
+            "classname": "hpe-image"
+        },
+        {
+            "name": "impact",
+            "classname": "hpe-impact"
+        },
+        {
+            "name": "in-progress",
+            "classname": "hpe-in-progress"
+        },
+        {
+            "name": "inactive",
+            "classname": "hpe-inactive"
+        },
+        {
+            "name": "inbox",
+            "classname": "hpe-inbox"
+        },
+        {
+            "name": "indicator-filled",
+            "classname": "hpe-indicator-filled"
+        },
+        {
+            "name": "indicator",
+            "classname": "hpe-indicator"
+        },
+        {
+            "name": "information-filled",
+            "classname": "hpe-information-filled"
+        },
+        {
+            "name": "information",
+            "classname": "hpe-information"
+        },
+        {
+            "name": "inherit-filled",
+            "classname": "hpe-inherit-filled"
+        },
+        {
+            "name": "inherit",
+            "classname": "hpe-inherit"
+        },
+        {
+            "name": "install",
+            "classname": "hpe-install"
+        },
+        {
+            "name": "integration",
+            "classname": "hpe-integration"
+        },
+        {
+            "name": "iteration-filled",
+            "classname": "hpe-iteration-filled"
+        },
+        {
+            "name": "iteration",
+            "classname": "hpe-iteration"
+        },
+        {
+            "name": "java-filled",
+            "classname": "hpe-java-filled"
+        },
+        {
+            "name": "java",
+            "classname": "hpe-java"
+        },
+        {
+            "name": "language",
+            "classname": "hpe-language"
+        },
+        {
+            "name": "launch",
+            "classname": "hpe-launch"
+        },
+        {
+            "name": "license-filled",
+            "classname": "hpe-license-filled"
+        },
+        {
+            "name": "license",
+            "classname": "hpe-license"
+        },
+        {
+            "name": "like-filled",
+            "classname": "hpe-like-filled"
+        },
+        {
+            "name": "like",
+            "classname": "hpe-like"
+        },
+        {
+            "name": "line-chart",
+            "classname": "hpe-line-chart"
+        },
+        {
+            "name": "link-bottom",
+            "classname": "hpe-link-bottom"
+        },
+        {
+            "name": "link-down",
+            "classname": "hpe-link-down"
+        },
+        {
+            "name": "link-next",
+            "classname": "hpe-link-next"
+        },
+        {
+            "name": "link-previous",
+            "classname": "hpe-link-previous"
+        },
+        {
+            "name": "link-top",
+            "classname": "hpe-link-top"
+        },
+        {
+            "name": "link-up",
+            "classname": "hpe-link-up"
+        },
+        {
+            "name": "link",
+            "classname": "hpe-link"
+        },
+        {
+            "name": "list",
+            "classname": "hpe-list"
+        },
+        {
+            "name": "location-filled",
+            "classname": "hpe-location-filled"
+        },
+        {
+            "name": "location-pin-filled",
+            "classname": "hpe-location-pin-filled"
+        },
+        {
+            "name": "location-pin",
+            "classname": "hpe-location-pin"
+        },
+        {
+            "name": "location",
+            "classname": "hpe-location"
+        },
+        {
+            "name": "lock",
+            "classname": "hpe-lock"
+        },
+        {
+            "name": "login",
+            "classname": "hpe-login"
+        },
+        {
+            "name": "logout",
+            "classname": "hpe-logout"
+        },
+        {
+            "name": "mail-attachment",
+            "classname": "hpe-mail-attachment"
+        },
+        {
+            "name": "mail",
+            "classname": "hpe-mail"
+        },
+        {
+            "name": "manual",
+            "classname": "hpe-manual"
+        },
+        {
+            "name": "map-location",
+            "classname": "hpe-map-location"
+        },
+        {
+            "name": "map",
+            "classname": "hpe-map"
+        },
+        {
+            "name": "menu",
+            "classname": "hpe-menu"
+        },
+        {
+            "name": "microphone-filled",
+            "classname": "hpe-microphone-filled"
+        },
+        {
+            "name": "microphone",
+            "classname": "hpe-microphone"
+        },
+        {
+            "name": "monitor",
+            "classname": "hpe-monitor"
+        },
+        {
+            "name": "more",
+            "classname": "hpe-more"
+        },
+        {
+            "name": "multiple",
+            "classname": "hpe-multiple"
+        },
+        {
+            "name": "navigate",
+            "classname": "hpe-navigate"
+        },
+        {
+            "name": "new-window",
+            "classname": "hpe-new-window"
+        },
+        {
+            "name": "new",
+            "classname": "hpe-new"
+        },
+        {
+            "name": "next",
+            "classname": "hpe-next"
+        },
+        {
+            "name": "notes",
+            "classname": "hpe-notes"
+        },
+        {
+            "name": "notification-filled",
+            "classname": "hpe-notification-filled"
+        },
+        {
+            "name": "notification",
+            "classname": "hpe-notification"
+        },
+        {
+            "name": "optimization",
+            "classname": "hpe-optimization"
+        },
+        {
+            "name": "organization",
+            "classname": "hpe-organization"
+        },
+        {
+            "name": "overview",
+            "classname": "hpe-overview"
+        },
+        {
+            "name": "pan",
+            "classname": "hpe-pan"
+        },
+        {
+            "name": "pause-filled",
+            "classname": "hpe-pause-filled"
+        },
+        {
+            "name": "pause",
+            "classname": "hpe-pause"
+        },
+        {
+            "name": "payment-google-wallet",
+            "classname": "hpe-payment-google-wallet"
+        },
+        {
+            "name": "payment-mastercard",
+            "classname": "hpe-payment-mastercard"
+        },
+        {
+            "name": "payment-paypal",
+            "classname": "hpe-payment-paypal"
+        },
+        {
+            "name": "payment-square",
+            "classname": "hpe-payment-square"
+        },
+        {
+            "name": "payment-visa",
+            "classname": "hpe-payment-visa"
+        },
+        {
+            "name": "pin-filled",
+            "classname": "hpe-pin-filled"
+        },
+        {
+            "name": "pin",
+            "classname": "hpe-pin"
+        },
+        {
+            "name": "plan",
+            "classname": "hpe-plan"
+        },
+        {
+            "name": "platform-apple",
+            "classname": "hpe-platform-apple"
+        },
+        {
+            "name": "platform-chrome",
+            "classname": "hpe-platform-chrome"
+        },
+        {
+            "name": "platform-dropbox",
+            "classname": "hpe-platform-dropbox"
+        },
+        {
+            "name": "platform-edge",
+            "classname": "hpe-platform-edge"
+        },
+        {
+            "name": "platform-firefox",
+            "classname": "hpe-platform-firefox"
+        },
+        {
+            "name": "platform-internet-explorer",
+            "classname": "hpe-platform-internet-explorer"
+        },
+        {
+            "name": "platform-skype",
+            "classname": "hpe-platform-skype"
+        },
+        {
+            "name": "platform-windows",
+            "classname": "hpe-platform-windows"
+        },
+        {
+            "name": "play-filled",
+            "classname": "hpe-play-filled"
+        },
+        {
+            "name": "play",
+            "classname": "hpe-play"
+        },
+        {
+            "name": "power",
+            "classname": "hpe-power"
+        },
+        {
+            "name": "previous",
+            "classname": "hpe-previous"
+        },
+        {
+            "name": "print",
+            "classname": "hpe-print"
+        },
+        {
+            "name": "quick-view",
+            "classname": "hpe-quick-view"
+        },
+        {
+            "name": "radial-selected",
+            "classname": "hpe-radial-selected"
+        },
+        {
+            "name": "radial",
+            "classname": "hpe-radial"
+        },
+        {
+            "name": "refresh",
+            "classname": "hpe-refresh"
+        },
+        {
+            "name": "resources",
+            "classname": "hpe-resources"
+        },
+        {
+            "name": "rewind-filled",
+            "classname": "hpe-rewind-filled"
+        },
+        {
+            "name": "rewind",
+            "classname": "hpe-rewind"
+        },
+        {
+            "name": "risk",
+            "classname": "hpe-risk"
+        },
+        {
+            "name": "rss",
+            "classname": "hpe-rss"
+        },
+        {
+            "name": "satellite",
+            "classname": "hpe-satellite"
+        },
+        {
+            "name": "schedule-clone",
+            "classname": "hpe-schedule-clone"
+        },
+        {
+            "name": "schedule-new",
+            "classname": "hpe-schedule-new"
+        },
+        {
+            "name": "schedule-play",
+            "classname": "hpe-schedule-play"
+        },
+        {
+            "name": "schedule",
+            "classname": "hpe-schedule"
+        },
+        {
+            "name": "scorecard",
+            "classname": "hpe-scorecard"
+        },
+        {
+            "name": "search",
+            "classname": "hpe-search"
+        },
+        {
+            "name": "secure",
+            "classname": "hpe-secure"
+        },
+        {
+            "name": "select-left",
+            "classname": "hpe-select-left"
+        },
+        {
+            "name": "select",
+            "classname": "hpe-select"
+        },
+        {
+            "name": "server-cluster",
+            "classname": "hpe-server-cluster"
+        },
+        {
+            "name": "server",
+            "classname": "hpe-server"
+        },
+        {
+            "name": "servers",
+            "classname": "hpe-servers"
+        },
+        {
+            "name": "service-business",
+            "classname": "hpe-service-business"
+        },
+        {
+            "name": "service-start",
+            "classname": "hpe-service-start"
+        },
+        {
+            "name": "share",
+            "classname": "hpe-share"
+        },
+        {
+            "name": "shield-configure",
+            "classname": "hpe-shield-configure"
+        },
+        {
+            "name": "shield-filled",
+            "classname": "hpe-shield-filled"
+        },
+        {
+            "name": "shield",
+            "classname": "hpe-shield"
+        },
+        {
+            "name": "shift",
+            "classname": "hpe-shift"
+        },
+        {
+            "name": "shop-basket",
+            "classname": "hpe-shop-basket"
+        },
+        {
+            "name": "shop-cart",
+            "classname": "hpe-shop-cart"
+        },
+        {
+            "name": "soa",
+            "classname": "hpe-soa"
+        },
+        {
+            "name": "social-email",
+            "classname": "hpe-social-email"
+        },
+        {
+            "name": "social-facebook",
+            "classname": "hpe-social-facebook"
+        },
+        {
+            "name": "social-github",
+            "classname": "hpe-social-github"
+        },
+        {
+            "name": "social-google",
+            "classname": "hpe-social-google"
+        },
+        {
+            "name": "social-instagram",
+            "classname": "hpe-social-instagram"
+        },
+        {
+            "name": "social-linkedin",
+            "classname": "hpe-social-linkedin"
+        },
+        {
+            "name": "social-medium",
+            "classname": "hpe-social-medium"
+        },
+        {
+            "name": "social-pinterest",
+            "classname": "hpe-social-pinterest"
+        },
+        {
+            "name": "social-reddit",
+            "classname": "hpe-social-reddit"
+        },
+        {
+            "name": "social-slack",
+            "classname": "hpe-social-slack"
+        },
+        {
+            "name": "social-tumblr",
+            "classname": "hpe-social-tumblr"
+        },
+        {
+            "name": "social-twitter",
+            "classname": "hpe-social-twitter"
+        },
+        {
+            "name": "social-vimeo",
+            "classname": "hpe-social-vimeo"
+        },
+        {
+            "name": "social-youtube",
+            "classname": "hpe-social-youtube"
+        },
+        {
+            "name": "sort",
+            "classname": "hpe-sort"
+        },
+        {
+            "name": "stakeholder",
+            "classname": "hpe-stakeholder"
+        },
+        {
+            "name": "star-filled",
+            "classname": "hpe-star-filled"
+        },
+        {
+            "name": "star-half",
+            "classname": "hpe-star-half"
+        },
+        {
+            "name": "star",
+            "classname": "hpe-star"
+        },
+        {
+            "name": "status-approved-filled",
+            "classname": "hpe-status-approved-filled"
+        },
+        {
+            "name": "status-error-filled",
+            "classname": "hpe-status-error-filled"
+        },
+        {
+            "name": "status-information-filled",
+            "classname": "hpe-status-information-filled"
+        },
+        {
+            "name": "status-warning-filled",
+            "classname": "hpe-status-warning-filled"
+        },
+        {
+            "name": "steps-filled",
+            "classname": "hpe-steps-filled"
+        },
+        {
+            "name": "steps",
+            "classname": "hpe-steps"
+        },
+        {
+            "name": "storage",
+            "classname": "hpe-storage"
+        },
+        {
+            "name": "street-view-filled",
+            "classname": "hpe-street-view-filled"
+        },
+        {
+            "name": "street-view",
+            "classname": "hpe-street-view"
+        },
+        {
+            "name": "subtitles",
+            "classname": "hpe-subtitles"
+        },
+        {
+            "name": "subtract",
+            "classname": "hpe-subtract"
+        },
+        {
+            "name": "support",
+            "classname": "hpe-support"
+        },
+        {
+            "name": "sync",
+            "classname": "hpe-sync"
+        },
+        {
+            "name": "system",
+            "classname": "hpe-system"
+        },
+        {
+            "name": "tab-next",
+            "classname": "hpe-tab-next"
+        },
+        {
+            "name": "tab-previous",
+            "classname": "hpe-tab-previous"
+        },
+        {
+            "name": "tab-up",
+            "classname": "hpe-tab-up"
+        },
+        {
+            "name": "table-add",
+            "classname": "hpe-table-add"
+        },
+        {
+            "name": "table",
+            "classname": "hpe-table"
+        },
+        {
+            "name": "tag-filled",
+            "classname": "hpe-tag-filled"
+        },
+        {
+            "name": "tag",
+            "classname": "hpe-tag"
+        },
+        {
+            "name": "target",
+            "classname": "hpe-target"
+        },
+        {
+            "name": "task",
+            "classname": "hpe-task"
+        },
+        {
+            "name": "template",
+            "classname": "hpe-template"
+        },
+        {
+            "name": "test-desktop",
+            "classname": "hpe-test-desktop"
+        },
+        {
+            "name": "test",
+            "classname": "hpe-test"
+        },
+        {
+            "name": "text-wrap",
+            "classname": "hpe-text-wrap"
+        },
+        {
+            "name": "threats",
+            "classname": "hpe-threats"
+        },
+        {
+            "name": "ticket",
+            "classname": "hpe-ticket"
+        },
+        {
+            "name": "tools",
+            "classname": "hpe-tools"
+        },
+        {
+            "name": "tooltip",
+            "classname": "hpe-tooltip"
+        },
+        {
+            "name": "transaction-filled",
+            "classname": "hpe-transaction-filled"
+        },
+        {
+            "name": "transaction",
+            "classname": "hpe-transaction"
+        },
+        {
+            "name": "trash-filled",
+            "classname": "hpe-trash-filled"
+        },
+        {
+            "name": "trash",
+            "classname": "hpe-trash"
+        },
+        {
+            "name": "tree",
+            "classname": "hpe-tree"
+        },
+        {
+            "name": "trigger",
+            "classname": "hpe-trigger"
+        },
+        {
+            "name": "trophy-filled",
+            "classname": "hpe-trophy-filled"
+        },
+        {
+            "name": "trophy",
+            "classname": "hpe-trophy"
+        },
+        {
+            "name": "troubleshooting",
+            "classname": "hpe-troubleshooting"
+        },
+        {
+            "name": "unlock",
+            "classname": "hpe-unlock"
+        },
+        {
+            "name": "up",
+            "classname": "hpe-up"
+        },
+        {
+            "name": "update",
+            "classname": "hpe-update"
+        },
+        {
+            "name": "upgrade-filled",
+            "classname": "hpe-upgrade-filled"
+        },
+        {
+            "name": "upgrade",
+            "classname": "hpe-upgrade"
+        },
+        {
+            "name": "upload",
+            "classname": "hpe-upload"
+        },
+        {
+            "name": "user-add-filled",
+            "classname": "hpe-user-add-filled"
+        },
+        {
+            "name": "user-add",
+            "classname": "hpe-user-add"
+        },
+        {
+            "name": "user-admin",
+            "classname": "hpe-user-admin"
+        },
+        {
+            "name": "user-expert",
+            "classname": "hpe-user-expert"
+        },
+        {
+            "name": "user-female-filled",
+            "classname": "hpe-user-female-filled"
+        },
+        {
+            "name": "user-female",
+            "classname": "hpe-user-female"
+        },
+        {
+            "name": "user-filled",
+            "classname": "hpe-user-filled"
+        },
+        {
+            "name": "user-manager",
+            "classname": "hpe-user-manager"
+        },
+        {
+            "name": "user-new",
+            "classname": "hpe-user-new"
+        },
+        {
+            "name": "user-police",
+            "classname": "hpe-user-police"
+        },
+        {
+            "name": "user-settings",
+            "classname": "hpe-user-settings"
+        },
+        {
+            "name": "user-worker",
+            "classname": "hpe-user-worker"
+        },
+        {
+            "name": "user",
+            "classname": "hpe-user"
+        },
+        {
+            "name": "validation-filled",
+            "classname": "hpe-validation-filled"
+        },
+        {
+            "name": "validation",
+            "classname": "hpe-validation"
+        },
+        {
+            "name": "video-filled",
+            "classname": "hpe-video-filled"
+        },
+        {
+            "name": "video",
+            "classname": "hpe-video"
+        },
+        {
+            "name": "view-filled",
+            "classname": "hpe-view-filled"
+        },
+        {
+            "name": "view",
+            "classname": "hpe-view"
+        },
+        {
+            "name": "virtual-machine",
+            "classname": "hpe-virtual-machine"
+        },
+        {
+            "name": "vm-maintenance",
+            "classname": "hpe-vm-maintenance"
+        },
+        {
+            "name": "volume-filled",
+            "classname": "hpe-volume-filled"
+        },
+        {
+            "name": "volume-low-filled",
+            "classname": "hpe-volume-low-filled"
+        },
+        {
+            "name": "volume-low",
+            "classname": "hpe-volume-low"
+        },
+        {
+            "name": "volume-mute-filled",
+            "classname": "hpe-volume-mute-filled"
+        },
+        {
+            "name": "volume-mute",
+            "classname": "hpe-volume-mute"
+        },
+        {
+            "name": "volume",
+            "classname": "hpe-volume"
+        },
+        {
+            "name": "vulnerability",
+            "classname": "hpe-vulnerability"
+        },
+        {
+            "name": "waypoint-filled",
+            "classname": "hpe-waypoint-filled"
+        },
+        {
+            "name": "waypoint",
+            "classname": "hpe-waypoint"
+        },
+        {
+            "name": "workshop",
+            "classname": "hpe-workshop"
+        },
+        {
+            "name": "zoom-in",
+            "classname": "hpe-zoom-in"
+        },
+        {
+            "name": "zoom-out",
+            "classname": "hpe-zoom-out"
+        }
+    ]
+}
