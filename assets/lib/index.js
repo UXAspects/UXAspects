@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('rxjs/observable/combineLatest'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('@angular/common/http'), require('rxjs/observable/of'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/observable/fromEvent'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'rxjs/observable/combineLatest', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', '@angular/common/http', 'rxjs/observable/of', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/observable/fromEvent', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.rxjs['observable/combineLatest'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.ng.common.http,global.rxjs['observable/of'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.rxjs['observable/fromEvent'],global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.d3Array,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,combineLatest,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,http,of,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,fromEvent,d3Hierarchy,d3Scale,d3Selection,d3Transition,d3Array,platform,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('@angular/common/http'), require('rxjs/observable/of'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/observable/fromEvent'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('rxjs/observable/combineLatest'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', '@angular/common/http', 'rxjs/observable/of', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/observable/fromEvent', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', 'rxjs/observable/combineLatest', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.ng.common.http,global.rxjs['observable/of'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.rxjs['observable/fromEvent'],global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.d3Array,global.ng.cdk.platform,global.rxjs['observable/combineLatest'],global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,merge,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,http,of,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,fromEvent,d3Hierarchy,d3Scale,d3Selection,d3Transition,d3Array,platform,combineLatest,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -10933,11 +10933,15 @@
     }
     /**
      * Calculate the number of days between two dates
-     * @param {?} start
-     * @param {?} end
+     * @param {?} start The start date
+     * @param {?} end The end date
+     * @param {?=} fullDay Whether or not we should take from 00:00 on the start date and 23:59 on the end date
      * @return {?}
      */
-    function differenceBetweenDates(start, end) {
+    function differenceBetweenDates(start, end, fullDay) {
+        if (fullDay === void 0) {
+            fullDay = true;
+        }
         if (!start || !end) {
             return null;
         }
@@ -10948,8 +10952,10 @@
         /** @type {?} */
         var endDay = new Date(start.getTime() > end.getTime() ? start : end);
         // get the start of day
-        startDay.setHours(0, 0, 0, 0);
-        endDay.setHours(23, 59, 59, 0);
+        if (fullDay) {
+            startDay.setHours(0, 0, 0, 0);
+            endDay.setHours(23, 59, 59, 0);
+        }
         return Math.round((endDay.getTime() - startDay.getTime()) / millisecondsInDay);
     }
     /**
@@ -11093,6 +11099,14 @@
              * Indicate if we are currently changing the time
              */
             this.isChangingTime = false;
+            /**
+             * Store the current start time
+             */
+            this.startTime = { hours: 0, minutes: 0, seconds: 0 };
+            /**
+             * Store the current end time
+             */
+            this.endTime = { hours: 23, minutes: 59, seconds: 59 };
         }
         /**
          * @param {?} date
@@ -11337,14 +11351,22 @@
              * @return {?}
              */ function () {
                 if (this.rangeService.start && this.rangeService.end) {
-                    return differenceBetweenDates(this.rangeService.start, this.rangeService.end);
+                    return differenceBetweenDates(this.rangeService.start, this.rangeService.end, false);
                 }
                 if (this.rangeService.start && !this.rangeService.end && this.rangeService.hover) {
-                    return this.rangeService.start.getTime() <= this.rangeService.hover.getTime() ? differenceBetweenDates(this.rangeService.start, this.rangeService.hover) : null;
+                    // apply the time from the time picker
+                    /** @type {?} */
+                    var hoverDate = new Date(this.rangeService.hover);
+                    hoverDate.setHours(this.rangeService.endTime.hours, this.rangeService.endTime.minutes, this.rangeService.endTime.seconds);
+                    return this.rangeService.start.getTime() <= hoverDate.getTime() ? differenceBetweenDates(this.rangeService.start, hoverDate, false) : null;
                 }
                 // if we only have one selected date and have a hover date
                 if (this.rangeService.end && !this.rangeService.start && this.rangeService.hover) {
-                    return this.rangeService.end.getTime() >= this.rangeService.hover.getTime() ? differenceBetweenDates(this.rangeService.end, this.rangeService.hover) : null;
+                    // apply the time from the time picker
+                    /** @type {?} */
+                    var hoverDate = new Date(this.rangeService.hover);
+                    hoverDate.setHours(this.rangeService.startTime.hours, this.rangeService.startTime.minutes, this.rangeService.startTime.seconds);
+                    return this.rangeService.end.getTime() >= hoverDate.getTime() ? differenceBetweenDates(this.rangeService.end, hoverDate, false) : null;
                 }
             },
             enumerable: true,
@@ -14746,6 +14768,13 @@
                     this.datepicker.hours = time.getHours();
                     this.datepicker.minutes = time.getMinutes();
                     this.datepicker.seconds = time.getSeconds();
+                    // update the time in the range picker service
+                    if (this._isRangeStart) {
+                        this._rangeService.startTime = { hours: time.getHours(), minutes: time.getMinutes(), seconds: time.getSeconds() };
+                    }
+                    else {
+                        this._rangeService.endTime = { hours: time.getHours(), minutes: time.getMinutes(), seconds: time.getSeconds() };
+                    }
                     // if a date is currently selected we should update it
                     if (this._isRangeStart && this._rangeStart) {
                         /** @type {?} */
@@ -30176,7 +30205,27 @@
      */
     var PageHeaderNavigationService = /** @class */ (function () {
         function PageHeaderNavigationService() {
+            /**
+             * Emit when focus changes. We can't directly use the FocusKeyManager
+             * `change` observable as it cannot be instantiate until after the view
+             * has been instantiated.
+             */
+            this._onChange = new Subject.Subject();
+            /**
+             * Unsubscribe on destroy
+             */
+            this._onDestroy = new Subject.Subject();
         }
+        /**
+         * @return {?}
+         */
+        PageHeaderNavigationService.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
         /** Make menu items navigable using arrow keys */
         /**
          * Make menu items navigable using arrow keys
@@ -30195,6 +30244,8 @@
                 // create new focus key manager with horizontal orientation
                 this._focusManager = new a11y.FocusKeyManager(items)
                     .withHorizontalOrientation('ltr');
+                // listen for changes to the focused item
+                this._focusManager.change.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this._onChange.next(); });
                 // make the first item tabbable initially
                 this._focusManager.updateActiveItemIndex(0);
                 // on changes ensure there is always an active item
@@ -30203,6 +30254,8 @@
                         _this._focusManager.updateActiveItemIndex(0);
                     }
                 });
+                // emit the initial change
+                this._onChange.next();
             };
         /** Listen for keyboard events */
         /**
@@ -30218,13 +30271,28 @@
             function (event) {
                 this._focusManager.onKeydown(event);
             };
+        /** Get the tab index for this item as an observable */
+        /**
+         * Get the tab index for this item as an observable
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderNavigationService.prototype.getTabIndex = /**
+         * Get the tab index for this item as an observable
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                var _this = this;
+                return this._onChange.pipe(operators.map(function () { return _this.getItemTabIndex(item); }), tick(), operators.takeUntil(this._onDestroy));
+            };
         /** Determine the tab index of a given item */
         /**
          * Determine the tab index of a given item
          * @param {?} item
          * @return {?}
          */
-        PageHeaderNavigationService.prototype.getTabIndex = /**
+        PageHeaderNavigationService.prototype.getItemTabIndex = /**
          * Determine the tab index of a given item
          * @param {?} item
          * @return {?}
@@ -30255,18 +30323,19 @@
             this.elementRef = elementRef;
             this._pageHeaderService = _pageHeaderService;
             this._navigationService = _navigationService;
+            /**
+             * Store the secondary state
+             */
             this.secondary$ = this._pageHeaderService.secondary$;
+            /**
+             * Update the tabindex based on keyboard input
+             */
+            this._tabindex = this._navigationService.getTabIndex(this);
+            /**
+             * Unsubscribe when the component is destroyed
+             */
             this._onDestroy = new Subject.Subject();
         }
-        Object.defineProperty(PageHeaderNavigationItemComponent.prototype, "_tabindex", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._navigationService.getTabIndex(this);
-            },
-            enumerable: true,
-            configurable: true
-        });
         /**
          * @return {?}
          */
@@ -30339,7 +30408,7 @@
         PageHeaderNavigationItemComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-page-header-horizontal-navigation-item',
-                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex\"\n        uxFocusIndicator\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    #navigationBtn\n    type=\"button\"\n    [tabindex]=\"_tabindex\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
+                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        uxFocusIndicator\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    #navigationBtn\n    type=\"button\"\n    [tabindex]=\"_tabindex | async\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
                     }] }
         ];
         /** @nocollapse */
@@ -30351,11 +30420,11 @@
             ];
         };
         PageHeaderNavigationItemComponent.propDecorators = {
+            item: [{ type: core.Input }],
             button: [{ type: core.ViewChild, args: ['button',] }],
             menu: [{ type: core.ViewChild, args: ['menu',] }],
             navigationBtn: [{ type: core.ViewChild, args: ['navigationBtn',] }],
             dropdowns: [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] }],
-            item: [{ type: core.Input }],
             onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
         };
         return PageHeaderNavigationItemComponent;
@@ -39538,7 +39607,7 @@
             /**
              * Determine if we are currently resizing
              */
-            this.isResizing = false;
+            this.isResizing$ = new BehaviorSubject.BehaviorSubject(false);
             /**
              * Store the percentage widths of each column
              */
@@ -39696,7 +39765,7 @@
          * @return {?}
          */
             function (isResizing) {
-                this.isResizing = isResizing;
+                this.isResizing$.next(isResizing);
             };
         /** Get the width of a column in a specific unit */
         /**
@@ -39945,7 +40014,7 @@
             function () {
                 var _this = this;
                 // update the sizes when columns are resized
-                this._table.onResize$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                combineLatest.combineLatest(this._table.onResize$, this._table.isResizing$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                     _this.setColumnWidth();
                     _this.setColumnFlex();
                 });
@@ -39983,7 +40052,7 @@
          */
             function () {
                 /** @type {?} */
-                var width = this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex()) ?
+                var width = this._table.isResizing$.value || this._table.getColumnDisabled(this.getCellIndex()) ?
                     this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel) + "px" :
                     this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage) + "%";
                 this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
@@ -39999,7 +40068,7 @@
          */
             function () {
                 // if we are resizing then always return 'none' to allow free movement
-                if (this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex())) {
+                if (this._table.isResizing$.value || this._table.getColumnDisabled(this.getCellIndex())) {
                     this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
                     return;
                 }
@@ -40077,6 +40146,14 @@
              * @param {?} width
              * @return {?}
              */ function (width) {
+                // there may be cases where columns are created with an `*ngFor` and a width
+                // may be specified on *some* columns and not others. This this setter will
+                // still be called whenever the value is empty and this will mark this column
+                // as having a fixed width, even though it doesn't. So we should only proceed
+                // whenever there is an actual numeric value passed in.
+                if (width === null || width === undefined) {
+                    return;
+                }
                 // ensure width is a valid number
                 this._width = coercion.coerceNumberProperty(width);
                 // note that this column has a fixed width
@@ -40245,7 +40322,7 @@
                     return;
                 }
                 /** @type {?} */
-                var width = this._table.isResizing ?
+                var width = this._table.isResizing$.value ?
                     this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel) + "px" :
                     this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage) + "%";
                 this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
@@ -40262,7 +40339,7 @@
          */
             function () {
                 // if we are resizing then always return 'none' to allow free movement
-                if (this._table.isResizing || this.disabled) {
+                if (this._table.isResizing$.value || this.disabled) {
                     this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
                 }
                 /** @type {?} */
@@ -40299,10 +40376,11 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var ResizableTableDirective = /** @class */ (function () {
-        function ResizableTableDirective(_elementRef, _table, resize) {
+        function ResizableTableDirective(_elementRef, _table, _renderer, resize) {
             var _this = this;
             this._elementRef = _elementRef;
             this._table = _table;
+            this._renderer = _renderer;
             /**
              * Store the initialised state of the table
              */
@@ -40318,6 +40396,8 @@
                 // run the initial logic if the table is fully visible
                 _this.onTableReady();
             });
+            // we should hide any horizontal overflow when we are resizing
+            this._table.isResizing$.pipe(operators.takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
         }
         /** Once we have the columns make them resizable and watch for changes to columns */
         /**
@@ -40404,6 +40484,30 @@
             function () {
                 this._table.setUniformWidths();
             };
+        /**
+         * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
+         * we must set the column widths in pixel values as percentages cause some jankiness when moving them. However pixel
+         * values are less precise and can in some cases cause overflow, so we should hide overflow when we are resizing
+         */
+        /**
+         * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
+         * we must set the column widths in pixel values as percentages cause some jankiness when moving them. However pixel
+         * values are less precise and can in some cases cause overflow, so we should hide overflow when we are resizing
+         * @param {?} isResizing
+         * @return {?}
+         */
+        ResizableTableDirective.prototype.setOverflow = /**
+         * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
+         * we must set the column widths in pixel values as percentages cause some jankiness when moving them. However pixel
+         * values are less precise and can in some cases cause overflow, so we should hide overflow when we are resizing
+         * @param {?} isResizing
+         * @return {?}
+         */
+            function (isResizing) {
+                var _this = this;
+                Array.from((( /** @type {?} */(this._elementRef.nativeElement))).tBodies)
+                    .forEach(function (tbody) { return _this._renderer.setStyle(tbody, 'overflow-x', isResizing ? 'hidden' : null); });
+            };
         /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
         /**
          * Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable)
@@ -40432,6 +40536,7 @@
             return [
                 { type: core.ElementRef },
                 { type: ResizableTableService },
+                { type: core.Renderer2 },
                 { type: ResizeService }
             ];
         };
