@@ -84,8 +84,13 @@ export function dateComparator(dateOne: Date, dateTwo: Date): boolean {
     return dateOne.getTime() === dateTwo.getTime();
 }
 
-/** Calculate the number of days between two dates */
-export function differenceBetweenDates(start: Date, end: Date): number | null {
+/**
+ * Calculate the number of days between two dates
+ * @param start The start date
+ * @param end The end date
+ * @param fullDay Whether or not we should take from 00:00 on the start date and 23:59 on the end date
+ */
+export function differenceBetweenDates(start: Date, end: Date, fullDay: boolean = true): number | null {
     if (!start || !end) {
         return null;
     }
@@ -95,8 +100,10 @@ export function differenceBetweenDates(start: Date, end: Date): number | null {
     const endDay = new Date(start.getTime() > end.getTime() ? start : end);
 
     // get the start of day
-    startDay.setHours(0, 0, 0, 0);
-    endDay.setHours(23, 59, 59, 0);
+    if (fullDay) {
+        startDay.setHours(0, 0, 0, 0);
+        endDay.setHours(23, 59, 59, 0);
+    }
 
     return Math.round((endDay.getTime() - startDay.getTime()) / millisecondsInDay);
 }

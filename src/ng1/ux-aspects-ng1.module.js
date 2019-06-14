@@ -77,6 +77,7 @@ import './directives/previewPanes/previewPane.module';
 import './directives/radiobutton/radiobutton.module';
 import './directives/reorderableTable/reorderableTable.module';
 import './directives/sankey/sankey.module';
+import './directives/scrollIntoViewIf/scrollIntoViewIf.module';
 import './directives/scrollTop/scrollTop.module';
 import './directives/searchBuilder/searchBuilder.module';
 import './directives/searchCategories/searchCategories.module';
@@ -204,6 +205,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.radiobutton',
     'ux-aspects.reorderableTable',
     'ux-aspects.sankey',
+    'ux-aspects.scrollIntoViewIf',
     'ux-aspects.scrollTop',
     'ux-aspects.searchBuilder',
     'ux-aspects.searchCategories',

@@ -8,7 +8,7 @@
 
     <button #navigationBtn
         type="button"
-        [tabindex]="_tabindex"
+        [tabindex]="_tabindex | async"
         uxFocusIndicator
         role="menuitem"
         class="horizontal-navigation-button"
@@ -51,7 +51,7 @@
     uxFocusIndicator
     #navigationBtn
     type="button"
-    [tabindex]="_tabindex"
+    [tabindex]="_tabindex | async"
     role="menuitem"
     class="horizontal-navigation-button"
     [class.selected]="item.selected"

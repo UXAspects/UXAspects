@@ -10,7 +10,7 @@ export class ResizableTableService implements OnDestroy {
     isInitialised$ = new BehaviorSubject<boolean>(false);
 
     /** Determine if we are currently resizing */
-    isResizing: boolean = false;
+    isResizing$ = new BehaviorSubject<boolean>(false);
 
     /** Store the percentage widths of each column */
     columns: ReadonlyArray<number> = [];
@@ -137,7 +137,7 @@ export class ResizableTableService implements OnDestroy {
 
     /** Update the resizing state */
     setResizing(isResizing: boolean): void {
-        this.isResizing = isResizing;
+        this.isResizing$.next(isResizing);
     }
 
     /** Get the width of a column in a specific unit */

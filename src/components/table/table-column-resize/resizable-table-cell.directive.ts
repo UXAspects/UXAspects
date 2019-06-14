@@ -1,4 +1,5 @@
 import { Directive, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ColumnUnit, ResizableTableService } from './resizable-table.service';
@@ -15,7 +16,7 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // update the sizes when columns are resized
-        this._table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+        combineLatest(this._table.onResize$, this._table.isResizing$).pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.setColumnWidth();
             this.setColumnFlex();
         });
@@ -33,7 +34,7 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
 
     /** Set the width of the column */
     private setColumnWidth(): void {
-        const width = this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex()) ?
+        const width = this._table.isResizing$.value || this._table.getColumnDisabled(this.getCellIndex()) ?
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
 
@@ -43,7 +44,7 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
     /** Set the flex value of the column */
     private setColumnFlex(): void {
         // if we are resizing then always return 'none' to allow free movement
-        if (this._table.isResizing || this._table.getColumnDisabled(this.getCellIndex())) {
+        if (this._table.isResizing$.value || this._table.getColumnDisabled(this.getCellIndex())) {
             this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
             return;
         }

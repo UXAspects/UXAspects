@@ -121,16 +121,22 @@ export class DateRangePickerComponent implements OnDestroy {
     /** Calculate the number of days between the start and end date */
     get _duration(): number | null {
         if (this.rangeService.start && this.rangeService.end) {
-            return differenceBetweenDates(this.rangeService.start, this.rangeService.end);
+            return differenceBetweenDates(this.rangeService.start, this.rangeService.end, false);
         }
 
         if (this.rangeService.start && !this.rangeService.end && this.rangeService.hover) {
-            return this.rangeService.start.getTime() <= this.rangeService.hover.getTime() ? differenceBetweenDates(this.rangeService.start, this.rangeService.hover) : null;
+            // apply the time from the time picker
+            const hoverDate = new Date(this.rangeService.hover);
+            hoverDate.setHours(this.rangeService.endTime.hours, this.rangeService.endTime.minutes, this.rangeService.endTime.seconds);
+            return this.rangeService.start.getTime() <= hoverDate.getTime() ? differenceBetweenDates(this.rangeService.start, hoverDate, false) : null;
         }
 
         // if we only have one selected date and have a hover date
         if (this.rangeService.end && !this.rangeService.start && this.rangeService.hover) {
-            return this.rangeService.end.getTime() >= this.rangeService.hover.getTime() ? differenceBetweenDates(this.rangeService.end, this.rangeService.hover) : null;
+            // apply the time from the time picker
+            const hoverDate = new Date(this.rangeService.hover);
+            hoverDate.setHours(this.rangeService.startTime.hours, this.rangeService.startTime.minutes, this.rangeService.startTime.seconds);
+            return this.rangeService.end.getTime() >= hoverDate.getTime() ? differenceBetweenDates(this.rangeService.end, hoverDate, false) : null;
         }
     }
 
@@ -177,5 +183,4 @@ export class DateRangePickerComponent implements OnDestroy {
     private getDurationTitle(days: number): string {
         return days + ' ' + (days > 1 ? 'days' : 'day');
     }
-
 }
