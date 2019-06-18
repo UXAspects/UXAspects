@@ -136,7 +136,7 @@
     "less-loader": "4.1.0",
     "load-grunt-config": "0.19.2",
     "lodash": "^4.17.11",
-    "marked": "^0.5.1",
+    "marked": "^0.6.2",
     "mini-css-extract-plugin": "^0.4.4",
     "ng-cache-loader": "0.0.26",
     "ng-packagr": "^4.0.0",
