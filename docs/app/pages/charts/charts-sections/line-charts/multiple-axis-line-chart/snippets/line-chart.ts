@@ -1,14 +1,15 @@
-import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
-import { FlotData } from './flot-data';
+import { MultipleAxisLineChartService } from './data.service';
 
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [MultipleAxisLineChartService]
 })
 export class AppComponent implements AfterViewInit {
 
@@ -20,32 +21,29 @@ export class AppComponent implements AfterViewInit {
     lineChartOptions: Chart.ChartOptions;
     lineChartLegend: boolean = false;
     lineChartColors: any;
-
     lineChartLegendContents: SafeHtml;
 
-    constructor(private sanitizer: DomSanitizer, colorService: ColorService) {
+    constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         let gridColor = colorService.getColor('grey6').toHex();
 
         let lineBorderColor1 = colorService.getColor('chart1').toRgb();
         let lineFillColor1 = colorService.getColor('chart1').setAlpha(0.1).toRgba();
-        let lineForecastFillColor1 = colorService.getColor('chart1').setAlpha(0.06).toRgba();
         let pointBorderColor1 = colorService.getColor('chart1').setAlpha(0.5).toRgba();
 
         let lineBorderColor2 = colorService.getColor('chart2').toRgb();
         let lineFillColor2 = colorService.getColor('chart2').setAlpha(0.1).toRgba();
-        let lineForecastFillColor2 = colorService.getColor('chart2').setAlpha(0.06).toRgba();
         let pointBorderColor2 = colorService.getColor('chart2').setAlpha(0.5).toRgba();
 
-        let oilPrices = FlotData.getOilPrices().map((values: number[]) => {
+        let oilPrices = dataService.getOilPrices().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]
             };
         });
 
-        let exchangeRates = FlotData.getExchangeRates().map((values: number[]) => {
+        let exchangeRates = dataService.getExchangeRates().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]
@@ -88,7 +86,7 @@ export class AppComponent implements AfterViewInit {
                 });
 
                 // create html for chart legend
-                return `<ul class="multi-axis-legend-list">${ sets.join('') }</ul>`;
+                return `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
             },
             scales: {
                 xAxes: [{
@@ -100,7 +98,8 @@ export class AppComponent implements AfterViewInit {
                         stepSize: 5313240000,
                         callback: (value: number, index: number, values: number[]) => {
                             let date = new Date(value);
-                            return date.toLocaleString('en', { month: 'short' }) + ' ' + date.toLocaleString('en', { year: 'numeric' });
+                            return date.toLocaleString('en', { month: 'short' })
+                                + ' ' + date.toLocaleString('en', { year: 'numeric' });
                         }
                     } as Chart.LinearTickOptions
                 }],
@@ -189,5 +188,4 @@ export class AppComponent implements AfterViewInit {
     formatDate(date: number): string {
         return new Date(date).toLocaleDateString();
     }
-
 }

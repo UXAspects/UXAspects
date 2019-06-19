@@ -6,18 +6,11 @@ import { AccordionModule, CheckboxModule, HybridModule, NumberPickerModule, Radi
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsMultipleSelectTableNg1Component } from './multiple-select-table-ng1/multiple-select-table-ng1.component';
 import { ComponentsSelectListComponent } from './select-list/select-list.component';
-import { ComponentsSelectNg1Component } from './select-ng1/select-ng1.component';
 import { ComponentsSelectComponent } from './select/select.component';
-import { ComponentsSingleSelectTableNg1Component } from './single-select-table-ng1/single-select-table-ng1.component';
 
 const SECTIONS = [
     ComponentsSelectComponent,
-    ComponentsSelectNg1Component,
-    ComponentsSingleSelectTableNg1Component,
-    ComponentsMultipleSelectTableNg1Component,
     ComponentsSelectListComponent
 ];
 
@@ -38,14 +31,13 @@ const ROUTES = [
         CommonModule,
         DocumentationComponentsModule,
         FormsModule,
+        HybridModule,
+        NumberPickerModule,
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
-        SelectModule,
-        WrappersModule,
-        NumberPickerModule,
         SelectListModule,
+        SelectModule,
         TabsetModule,
-        HybridModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

@@ -6,13 +6,10 @@ import { ChartsModule } from 'ng2-charts';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ChartsScrollableChartNg1Component } from './scrollable-chart-ng1/scrollable-chart-ng1.component';
 import { ChartsScrollableChartComponent } from './scrollable-chart/scrollable-chart.component';
 
 
 const SECTIONS = [
-    ChartsScrollableChartNg1Component,
     ChartsScrollableChartComponent
 ];
 
@@ -28,14 +25,13 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        HybridModule,
         ChartsModule,
+        ColorServiceModule,
         CommonModule,
-        TabsetModule,
         DocumentationComponentsModule,
+        HybridModule,
         RouterModule.forChild(ROUTES),
-        ColorServiceModule
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

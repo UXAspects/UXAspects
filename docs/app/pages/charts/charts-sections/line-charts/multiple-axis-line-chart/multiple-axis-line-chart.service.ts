@@ -1,7 +1,13 @@
-export class FlotData {
+import { Injectable } from '@angular/core';
 
-    static getOilPrices() {
-        return [
+@Injectable()
+export class MultipleAxisLineChartService {
+
+    constructor() { }
+
+    getOilPrices(): any {
+
+        const oilprices = [
             [1167692400000, 61.05],
             [1167778800000, 58.32],
             [1167865200000, 57.35],
@@ -339,10 +345,13 @@ export class FlotData {
             [1220565600000, 106.23],
             [1220824800000, 106.34]
         ];
+
+        return oilprices;
     }
 
-    static getExchangeRates() {
-        return [
+    getExchangeRates(): any {
+
+        const exchangerates = [
             [1167606000000, 0.7580],
             [1167692400000, 0.7580],
             [1167778800000, 0.75470],
@@ -962,5 +971,8 @@ export class FlotData {
             [1220824800000, 0.7010],
             [1220911200000, 0.70050]
         ];
+
+        return exchangerates;
     }
+
 }

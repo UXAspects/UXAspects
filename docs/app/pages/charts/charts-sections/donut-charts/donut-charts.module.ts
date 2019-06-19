@@ -6,15 +6,10 @@ import { ChartsModule } from 'ng2-charts';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ChartsDonutChartNg1Component } from './donut-chart-ng1/donut-chart-ng1.component';
 import { ChartsDonutChartComponent } from './donut-chart/donut-chart.component';
-import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nested-donut-chart-ng1.component';
 import { ChartsNestedDonutChartComponent } from './nested-donut-chart/nested-donut-chart.component';
 
 const SECTIONS = [
-    ChartsDonutChartNg1Component,
-    ChartsNestedDonutChartNg1Component,
     ChartsDonutChartComponent,
     ChartsNestedDonutChartComponent
 ];
@@ -39,7 +34,6 @@ const ROUTES = [
         NestedDonutChartModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
-        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

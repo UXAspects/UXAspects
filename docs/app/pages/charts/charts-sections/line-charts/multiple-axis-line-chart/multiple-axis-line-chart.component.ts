@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
@@ -6,12 +6,14 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { MultipleAxisLineChartService } from './multiple-axis-line-chart.service';
 
 @Component({
     selector: 'uxd-charts-multi-axis-line-chart',
     templateUrl: './multiple-axis-line-chart.component.html',
     styleUrls: ['./multiple-axis-line-chart.component.less'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [MultipleAxisLineChartService]
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
 export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlaygroundProvider {
@@ -21,7 +23,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
             'app.component.ts': this.snippets.raw.lineChartTs,
             'app.component.html': this.snippets.raw.lineChartHtml,
             'app.component.css': this.snippets.raw.lineChartCss,
-            'flot-data.ts': this.snippets.raw.flotServiceTs
+            'data.service.ts': this.snippets.raw.dataServiceTs
         },
         modules: [{
             library: 'chart.js'
@@ -45,7 +47,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     lineChartColors: any;
     lineChartLegendContents: SafeHtml;
 
-    constructor(private sanitizer: DomSanitizer, colorService: ColorService, @Inject('flotDataService') flotDataService: any) {
+    constructor(private sanitizer: DomSanitizer, colorService: ColorService, dataService: MultipleAxisLineChartService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
@@ -53,22 +55,20 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
 
         let lineBorderColor1 = colorService.getColor('chart1').toRgb();
         let lineFillColor1 = colorService.getColor('chart1').setAlpha(0.1).toRgba();
-        let lineForecastFillColor1 = colorService.getColor('chart1').setAlpha(0.06).toRgba();
         let pointBorderColor1 = colorService.getColor('chart1').setAlpha(0.5).toRgba();
 
         let lineBorderColor2 = colorService.getColor('chart2').toRgb();
         let lineFillColor2 = colorService.getColor('chart2').setAlpha(0.1).toRgba();
-        let lineForecastFillColor2 = colorService.getColor('chart2').setAlpha(0.06).toRgba();
         let pointBorderColor2 = colorService.getColor('chart2').setAlpha(0.5).toRgba();
 
-        let oilPrices = flotDataService.getOilPrices().map((values: number[]) => {
+        let oilPrices = dataService.getOilPrices().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]
             };
         });
 
-        let exchangeRates = flotDataService.getExchangeRates().map((values: number[]) => {
+        let exchangeRates = dataService.getExchangeRates().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]

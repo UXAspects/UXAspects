@@ -4,13 +4,10 @@ import { FileSizePipeModule, HybridModule, SankeyChartModule, TabsetModule } fro
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ChartsSankeyChartNg1Component } from './sankey-chart-ng1/sankey-chart-ng1.component';
 import { ChartsSankeyChartComponent } from './sankey-chart/sankey-chart.component';
 
 
 const SECTIONS = [
-    ChartsSankeyChartNg1Component,
     ChartsSankeyChartComponent
 ];
 
@@ -26,13 +23,12 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsetModule,
-        WrappersModule,
-        HybridModule,
-        FileSizePipeModule,
         DocumentationComponentsModule,
+        FileSizePipeModule,
+        HybridModule,
+        RouterModule.forChild(ROUTES),
         SankeyChartModule,
-        RouterModule.forChild(ROUTES)
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

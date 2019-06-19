@@ -5,13 +5,10 @@ import { ChartsModule } from 'ng2-charts';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ChartsLiveChartNg1Component } from './live-chart-ng1/live-chart-ng1.component';
 import { ChartsLiveChartComponent } from './live-chart/live-chart.component';
 
 
 const SECTIONS = [
-    ChartsLiveChartNg1Component,
     ChartsLiveChartComponent
 ];
 
@@ -27,13 +24,12 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsetModule,
-        WrappersModule,
-        HybridModule,
         ChartsModule,
+        ColorServiceModule,
         DocumentationComponentsModule,
+        HybridModule,
         RouterModule.forChild(ROUTES),
-        ColorServiceModule
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

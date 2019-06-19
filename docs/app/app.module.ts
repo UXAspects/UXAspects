@@ -16,7 +16,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { DocumentationComponentsModule } from './components/components.module';
 import { DocumentationType, DOCUMENTATION_TOKEN } from './services/playground/tokens/documentation.token';
-import { WrappersModule } from './wrappers/wrappers.module';
 
 /*
   Configure Application Routes
@@ -40,17 +39,16 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        BrowserModule,
         BrowserAnimationsModule,
-        DocumentationComponentsModule,
-        WrappersModule,
-        UpgradeModule,
+        BrowserModule,
         BsDropdownModule.forRoot(),
         ButtonsModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        NgxMaskModule.forRoot(),
+        DocumentationComponentsModule,
         ModalModule.forRoot(),
-        RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
+        NgxMaskModule.forRoot(),
+        RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false }),
+        TypeaheadModule.forRoot(),
+        UpgradeModule,
     ],
     providers: [
         PersistentDataService,

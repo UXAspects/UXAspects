@@ -4,7 +4,6 @@ import { CheckboxModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { CssBasicFormComponent } from './basic-form/basic-form.component';
 import { CssFormValidationFieldByFieldComponent } from './form-validation-field-by-field/form-validation-field-by-field.component';
 import { CssFormValidationOnSubmitComponent } from './form-validation-on-submit/form-validation-on-submit.component';
@@ -33,10 +32,9 @@ const ROUTES = [
 @NgModule({
     imports: [
         CheckboxModule,
-        WrappersModule,
         DocumentationComponentsModule,
+        RouterModule.forChild(ROUTES),
         TabsetModule,
-        RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

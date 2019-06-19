@@ -7,22 +7,13 @@ import { TreeModule } from 'angular-tree-component';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsTreeGridAsynchronousLoadingNg1Component } from './tree-grid-asynchronous-loading-ng1/tree-grid-asynchronous-loading-ng1.component';
-import { ComponentsTreeGridNg1Component } from './tree-grid-ng1/tree-grid-ng1.component';
 import { ComponentsTreeGridComponent } from './tree-grid/tree-grid.component';
-import { ComponentsTreeViewCompanionViewNg1Component } from './tree-view-companion-view-ng1/tree-view-companion-view-ng1.component';
 import { ComponentsTreeViewCustomNodeComponent } from './tree-view-custom-node/tree-view-custom-node.component';
 import { TreeViewService } from './tree-view-custom-node/tree-view-custom-node.service';
-import { ComponentsTreeViewNg1Component } from './tree-view-ng1/tree-view-ng1.component';
 import { ComponentsTreeViewComponent } from './tree-view/tree-view.component';
 
 const SECTIONS = [
-    ComponentsTreeViewNg1Component,
-    ComponentsTreeViewCompanionViewNg1Component,
     ComponentsTreeGridComponent,
-    ComponentsTreeGridNg1Component,
-    ComponentsTreeGridAsynchronousLoadingNg1Component,
     ComponentsTreeViewComponent,
     ComponentsTreeViewCustomNodeComponent
 ];
@@ -52,7 +43,6 @@ const ROUTES = [
         TabsetModule,
         TreeGridModule,
         TreeModule.forRoot(),
-        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

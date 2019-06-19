@@ -4,12 +4,9 @@ import { PopoverModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsPopoverNg1Component } from './popover-ng1/popover-ng1.component';
 import { ComponentsPopoverComponent } from './popover/popover.component';
 
 const SECTIONS = [
-    ComponentsPopoverNg1Component,
     ComponentsPopoverComponent
 ];
 
@@ -25,11 +22,10 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsetModule,
-        PopoverModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        PopoverModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

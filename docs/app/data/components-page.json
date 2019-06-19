@@ -1006,20 +1006,6 @@
             ]
         },
         {
-            "title": "Side Navigation",
-            "link": "side-navigation",
-            "sections": [
-                {
-                    "title": "Navigation",
-                    "component": "ComponentsNavigationComponent"
-                },
-                {
-                    "title": "App Navigator",
-                    "component": "ComponentsAppNavigatorComponent"
-                }
-            ]
-        },
-        {
             "title": "Splitter",
             "link": "splitter",
             "sections": [

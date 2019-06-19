@@ -4,13 +4,10 @@ import { ColorServiceModule, HybridModule, SparkModule, TabsetModule } from '@ux
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ChartsSparkChartNg1Component } from './spark-chart-ng1/spark-chart-ng1.component';
 import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
 
 
 const SECTIONS = [
-    ChartsSparkChartNg1Component,
     ChartsSparkChartsComponent
 ];
 
@@ -26,13 +23,12 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsetModule,
-        WrappersModule,
-        HybridModule,
-        SparkModule,
         ColorServiceModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        HybridModule,
+        RouterModule.forChild(ROUTES),
+        SparkModule,
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

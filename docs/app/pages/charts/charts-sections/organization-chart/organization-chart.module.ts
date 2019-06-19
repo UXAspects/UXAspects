@@ -6,13 +6,10 @@ import { AccordionModule, HierarchyBarModule, HybridModule, OrganizationChartMod
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ChartsOrganizationChartNg1Component } from './organization-chart-ng1/organization-chart-ng1.component';
 import { ChartsOrganizationChartComponent } from './organization-chart/organization-chart.component';
 
 
 const SECTIONS = [
-    ChartsOrganizationChartNg1Component,
     ChartsOrganizationChartComponent
 ];
 
@@ -30,15 +27,14 @@ const ROUTES = [
     imports: [
         AccordionModule,
         CommonModule,
-        TabsetModule,
-        FormsModule,
-        RadioButtonModule,
-        WrappersModule,
-        HybridModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
+        FormsModule,
+        HierarchyBarModule,
+        HybridModule,
         OrganizationChartModule,
-        HierarchyBarModule
+        RadioButtonModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
