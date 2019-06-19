@@ -1,24 +1,29 @@
 <div class="side-navigation-container" #container>
     <div class="side-navigation" [style.width.px]="width" [style.height.px]="height" [style.top.px]="top">
-         <div class="btn-group version-toggle p-b-sm">
-            <button type="button" class="btn"
-                [ngClass]="angularJsButtonClass"
-                [ngModel]="versionService.version | async"
-                (ngModelChange)="versionService.setVersion($event)"
-                [btnRadio]="Version.AngularJS">AngularJS</button>
-            <button type="button" class="btn"
-                [ngClass]="angularButtonClass"
-                [ngModel]="versionService.version | async"
-                (ngModelChange)="versionService.setVersion($event)"
-                [btnRadio]="Version.Angular">Angular</button>
-        </div>
         <div class="side-navigation-scroll-pane" #scrollParent>
             <ul class="side-navigation-list">
-                <li class="side-navigation-list-item" *ngFor="let category of filteredNavigation.categories">
-                    <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive" [uxScrollIntoViewIf]="rla.isActive" [scrollParent]="scrollParent">{{ category.title }}</a>
+                <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
+                    <a
+                        class="side-navigation-list-item-link"
+                        [routerLink]="category.link"
+                        routerLinkActive="active"
+                        #rla="routerLinkActive"
+                        [uxScrollIntoViewIf]="rla.isActive"
+                        [scrollParent]="scrollParent"
+                        >{{ category.title }}</a
+                    >
                     <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
-                        <li class="side-navigation-list-item" *ngFor="let section of category.sections" [uxScrollIntoViewIf]="isActive(section.id)" [scrollParent]="scrollParent">
-                            <a class="side-navigation-list-item-link" [class.active]="isActive(section.id)" (click)="goToSection(section.id)">
+                        <li
+                            class="side-navigation-list-item"
+                            *ngFor="let section of category.sections"
+                            [uxScrollIntoViewIf]="isActive(section.id)"
+                            [scrollParent]="scrollParent"
+                        >
+                            <a
+                                class="side-navigation-list-item-link"
+                                [class.active]="isActive(section.id)"
+                                (click)="goToSection(section.id)"
+                            >
                                 {{ section.title }}
                             </a>
                         </li>

@@ -1,9 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { VersionService } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-documentation-category',
@@ -13,29 +11,12 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 
     category: ICategory;
     private trackScroll: boolean = false;
-    private versionSub: Subscription;
 
-    constructor(private _router: Router,
+    constructor(
         private _activatedRoute: ActivatedRoute,
         private _navigation: NavigationService,
-        private _changeDetectorRef: ChangeDetectorRef,
-        public versionService: VersionService) {
-        // get version
-        this.versionSub = this.versionService.version.subscribe(() => {
-            if (this.category) {
-                let hasSection = !!this.category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
-                if (!hasSection) {
-                    this._router.navigate(['/'], {});
-                }
-            }
-
-            this._changeDetectorRef.markForCheck();
-        });
-    }
-
-    ngOnDestroy() {
-        this.versionSub.unsubscribe();
-    }
+        private _changeDetectorRef: ChangeDetectorRef
+    ) { }
 
     ngOnInit() {
         // Fetch category details from the route metadata
@@ -79,16 +60,8 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         // Check if no section matched, this means that the document is scrolled at or near the top.
         if (activeSection === null) {
 
-            // find all currently visible sections
-            let sections = this.category.sections.filter(section => this.versionService.isSectionVersionMatch(section));
-
-            // ensure there is at least one match
-            if (sections.length === 0) {
-                sections = this.category.sections;
-            }
-
             // Make the first section active.
-            activeSection = sections[0];
+            activeSection = this.category.sections[0];
 
             // To prevent initially navigating to the first section and hiding the banner, this flag
             // indicates that the URL should only be updated if it already has a fragment.
