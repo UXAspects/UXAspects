@@ -75,10 +75,10 @@ module.exports = function(grunt) {
         'scripts',
         'iconset',
         'styles',
+        'licenses',
         'build:documentation',
         'minify',
         'assets',
-        'licenses',
         'execute:shim'
     ]);
 
