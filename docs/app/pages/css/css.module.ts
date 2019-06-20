@@ -14,7 +14,6 @@ const ROUTES: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'buttons' },
             { path: 'buttons', loadChildren: './css-sections/buttons/buttons.module#CssButtonsModule' },
             { path: 'color-palette', loadChildren: './css-sections/color-palette/color-palette.module#CssColorPaletteModule' },
-            { path: 'forms', loadChildren: './css-sections/forms/forms.module#CssFormsModule' },
             { path: 'icons', loadChildren: './css-sections/icons/icons.module#CssIconsModule' },
             { path: 'labels', loadChildren: './css-sections/labels/labels.module#CssLabelsModule' },
             { path: 'page-header', loadChildren: './css-sections/page-header/page-header.module#CssPageHeaderModule' },
