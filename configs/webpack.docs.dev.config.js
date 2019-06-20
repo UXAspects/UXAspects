@@ -114,39 +114,6 @@ module.exports = {
                 use: 'raw-loader',
                 include: /(templates)/
             },
-
-            /*
-                Angular 1 Rules
-            */
-            {
-                test: /\.js$/,
-                exclude: [
-                    /node_modules/,
-                    /snippets/,
-                    join(cwd(), 'src', 'ng1', 'plugins'),
-                    join(cwd(), 'src', 'ng1', 'external')
-                ],
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                        cacheDirectory: true
-                    }
-                }
-            },
-            {
-                test: /\.js$/,
-                include: [
-                    join(cwd(), 'src', 'ng1', 'plugins'),
-                    join(cwd(), 'src', 'ng1', 'external')
-                ],
-                use: 'script-loader'
-            },
-            {
-                test: /\.html$/,
-                use: 'ng-cache-loader?prefix=[dir]/[dir]',
-                include: /(directives|templates)/
-            },
             // Ignore warnings about System.import in Angular
             {
                 test: /[\/\\]@angular[\/\\].+\.js$/,
@@ -189,18 +156,7 @@ module.exports = {
             sourceMap: false,
             filename: `scripts.js`,
             scripts: [
-                join('node_modules', 'jquery', 'dist', 'jquery.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'version.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widget.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'data.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'ie.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'scroll-parent.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'position.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'unique-id.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'mouse.js'),
-                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'sortable.js'),
-                join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.js'),
-                join('node_modules', 'angular', 'angular.js'),
+                join('node_modules', 'angular', 'angular.js')
             ],
             basePath: cwd(),
         }),
@@ -229,22 +185,6 @@ module.exports = {
             {
                 from: join(cwd(), 'src', 'fonts'),
                 to: join(cwd(), 'dist', 'docs', 'assets', 'fonts')
-            },
-            {
-                from: join(cwd(), 'docs', 'app', 'showcase', 'list_view', 'dist'),
-                to: join(cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
-            },
-            {
-                from: join(cwd(), 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
-                to: join(cwd(), 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
-            },
-            {
-                from: join(cwd(), 'docs', 'app', 'showcase', 'charts', 'dist'),
-                to: join(cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
-            },
-            {
-                from: join(cwd(), 'docs', 'app', 'showcase', 'charts', 'bower_components'),
-                to: join(cwd(), 'dist', 'docs', 'showcase', 'charts', 'bower_components')
             },
         ]),
 

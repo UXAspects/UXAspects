@@ -5,7 +5,6 @@ declare const angular: ng.IAngularStatic;
 
 import 'core-js/es6';
 import 'core-js/es7/reflect';
-import '../src/ng1/ux-aspects-ng1.module';
 import { environment } from './environments/environment';
 
 require('zone.js/dist/zone');
@@ -16,4 +15,4 @@ if (!environment.production) {
 }
 
 // create the AngularJS module
-angular.module('app', ['ux-aspects']);
+angular.module('app', []);
