@@ -191,12 +191,24 @@ export class ColumnPickerComponent {
     onReorderChange(model: string[]): void {
         this.selected = [...model];
     }
+
+    /** Get the action context, ensuring that functions have a pre-bound context */
+    _getActionContext(): ColumnPickerActionsContext {
+        return {
+            addSelection: this._deselectedSelection,
+            removeSelection: this._selectedSelection,
+            addColumns: this.addColumns.bind(this),
+            removeColumns: this.removeColumns.bind(this),
+            addAllColumns: this.addAllColumns.bind(this),
+            removeAllColumns: this.removeAllColumns.bind(this)
+        };
+    }
 }
 
 /** Define a context for the column actions template */
 export interface ColumnPickerActionsContext {
-    selection: ReadonlyArray<string>;
-    deselection: ReadonlyArray<string>;
+    addSelection: ReadonlyArray<string>;
+    removeSelection: ReadonlyArray<string>;
     addColumns(columns?: ReadonlyArray<string>): void;
     removeColumns(columns?: ReadonlyArray<string>): void;
     addAllColumns(): void;

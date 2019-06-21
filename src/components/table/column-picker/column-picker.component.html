@@ -53,7 +53,7 @@
     <ng-container
         *ngIf="actionsTemplate"
         [ngTemplateOutlet]="actionsTemplate"
-        [ngTemplateOutletContext]="{ selection: _selectedSelection, deselection: _deselectedSelection, addColumns: addColumns, removeColumns: removeColumns, addAllColumns: addAllColumns, removeAllColumns: removeAllColumns }">
+        [ngTemplateOutletContext]="_getActionContext()">
     </ng-container>
 
 </div>
