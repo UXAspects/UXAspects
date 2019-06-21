@@ -1,0 +1,1556 @@
+{
+    "icons": [
+        {
+            "name": "3d",
+            "classname": "ux-3d"
+        },
+        {
+            "name": "achievement",
+            "classname": "ux-achievement"
+        },
+        {
+            "name": "action",
+            "classname": "ux-action"
+        },
+        {
+            "name": "actions",
+            "classname": "ux-actions"
+        },
+        {
+            "name": "active",
+            "classname": "ux-active"
+        },
+        {
+            "name": "add",
+            "classname": "ux-add"
+        },
+        {
+            "name": "advanced-search",
+            "classname": "ux-advanced-search"
+        },
+        {
+            "name": "aggregate",
+            "classname": "ux-aggregate"
+        },
+        {
+            "name": "alarm",
+            "classname": "ux-alarm"
+        },
+        {
+            "name": "alert-filled",
+            "classname": "ux-alert-filled"
+        },
+        {
+            "name": "alert",
+            "classname": "ux-alert"
+        },
+        {
+            "name": "analytics",
+            "classname": "ux-analytics"
+        },
+        {
+            "name": "announcement",
+            "classname": "ux-announcement"
+        },
+        {
+            "name": "app",
+            "classname": "ux-app"
+        },
+        {
+            "name": "archive",
+            "classname": "ux-archive"
+        },
+        {
+            "name": "article",
+            "classname": "ux-article"
+        },
+        {
+            "name": "ascend",
+            "classname": "ux-ascend"
+        },
+        {
+            "name": "assistant",
+            "classname": "ux-assistant"
+        },
+        {
+            "name": "attachment",
+            "classname": "ux-attachment"
+        },
+        {
+            "name": "bar-chart",
+            "classname": "ux-bar-chart"
+        },
+        {
+            "name": "blog",
+            "classname": "ux-blog"
+        },
+        {
+            "name": "book",
+            "classname": "ux-book"
+        },
+        {
+            "name": "bookmark-filled",
+            "classname": "ux-bookmark-filled"
+        },
+        {
+            "name": "bookmark",
+            "classname": "ux-bookmark"
+        },
+        {
+            "name": "bundle",
+            "classname": "ux-bundle"
+        },
+        {
+            "name": "calculator",
+            "classname": "ux-calculator"
+        },
+        {
+            "name": "calendar",
+            "classname": "ux-calendar"
+        },
+        {
+            "name": "camera-filled",
+            "classname": "ux-camera-filled"
+        },
+        {
+            "name": "camera",
+            "classname": "ux-camera"
+        },
+        {
+            "name": "capacity",
+            "classname": "ux-capacity"
+        },
+        {
+            "name": "caret-down-filled",
+            "classname": "ux-caret-down-filled"
+        },
+        {
+            "name": "caret-down",
+            "classname": "ux-caret-down"
+        },
+        {
+            "name": "caret-next-filled",
+            "classname": "ux-caret-next-filled"
+        },
+        {
+            "name": "caret-next",
+            "classname": "ux-caret-next"
+        },
+        {
+            "name": "caret-previous-filled",
+            "classname": "ux-caret-previous-filled"
+        },
+        {
+            "name": "caret-previous",
+            "classname": "ux-caret-previous"
+        },
+        {
+            "name": "caret-up-filled",
+            "classname": "ux-caret-up-filled"
+        },
+        {
+            "name": "caret-up",
+            "classname": "ux-caret-up"
+        },
+        {
+            "name": "catalog",
+            "classname": "ux-catalog"
+        },
+        {
+            "name": "chapter-add",
+            "classname": "ux-chapter-add"
+        },
+        {
+            "name": "chapter-next-filled",
+            "classname": "ux-chapter-next-filled"
+        },
+        {
+            "name": "chapter-next",
+            "classname": "ux-chapter-next"
+        },
+        {
+            "name": "chapter-previous-filled",
+            "classname": "ux-chapter-previous-filled"
+        },
+        {
+            "name": "chapter-previous",
+            "classname": "ux-chapter-previous"
+        },
+        {
+            "name": "chart-organization",
+            "classname": "ux-chart-organization"
+        },
+        {
+            "name": "chart-partition",
+            "classname": "ux-chart-partition"
+        },
+        {
+            "name": "chart-sankey",
+            "classname": "ux-chart-sankey"
+        },
+        {
+            "name": "chat-attachment",
+            "classname": "ux-chat-attachment"
+        },
+        {
+            "name": "chat",
+            "classname": "ux-chat"
+        },
+        {
+            "name": "checkbox-selected",
+            "classname": "ux-checkbox-selected"
+        },
+        {
+            "name": "checkbox",
+            "classname": "ux-checkbox"
+        },
+        {
+            "name": "checkmark",
+            "classname": "ux-checkmark"
+        },
+        {
+            "name": "chevron-down",
+            "classname": "ux-chevron-down"
+        },
+        {
+            "name": "chevron-left-double",
+            "classname": "ux-chevron-left-double"
+        },
+        {
+            "name": "chevron-left",
+            "classname": "ux-chevron-left"
+        },
+        {
+            "name": "chevron-right-double",
+            "classname": "ux-chevron-right-double"
+        },
+        {
+            "name": "chevron-right",
+            "classname": "ux-chevron-right"
+        },
+        {
+            "name": "chevron-up",
+            "classname": "ux-chevron-up"
+        },
+        {
+            "name": "circular-view",
+            "classname": "ux-circular-view"
+        },
+        {
+            "name": "clipboard",
+            "classname": "ux-clipboard"
+        },
+        {
+            "name": "clone",
+            "classname": "ux-clone"
+        },
+        {
+            "name": "close",
+            "classname": "ux-close"
+        },
+        {
+            "name": "cloud-computer",
+            "classname": "ux-cloud-computer"
+        },
+        {
+            "name": "cloud-download",
+            "classname": "ux-cloud-download"
+        },
+        {
+            "name": "cloud-software",
+            "classname": "ux-cloud-software"
+        },
+        {
+            "name": "cloud-upload",
+            "classname": "ux-cloud-upload"
+        },
+        {
+            "name": "cloud",
+            "classname": "ux-cloud"
+        },
+        {
+            "name": "cluster",
+            "classname": "ux-cluster"
+        },
+        {
+            "name": "code",
+            "classname": "ux-code"
+        },
+        {
+            "name": "command-line",
+            "classname": "ux-command-line"
+        },
+        {
+            "name": "compare",
+            "classname": "ux-compare"
+        },
+        {
+            "name": "compass",
+            "classname": "ux-compass"
+        },
+        {
+            "name": "compliance",
+            "classname": "ux-compliance"
+        },
+        {
+            "name": "computer-personal",
+            "classname": "ux-computer-personal"
+        },
+        {
+            "name": "configuration-filled",
+            "classname": "ux-configuration-filled"
+        },
+        {
+            "name": "configuration",
+            "classname": "ux-configuration"
+        },
+        {
+            "name": "connect",
+            "classname": "ux-connect"
+        },
+        {
+            "name": "contact-card",
+            "classname": "ux-contact-card"
+        },
+        {
+            "name": "contact-us-filled",
+            "classname": "ux-contact-us-filled"
+        },
+        {
+            "name": "contact-us",
+            "classname": "ux-contact-us"
+        },
+        {
+            "name": "contract",
+            "classname": "ux-contract"
+        },
+        {
+            "name": "copy",
+            "classname": "ux-copy"
+        },
+        {
+            "name": "cube-filled",
+            "classname": "ux-cube-filled"
+        },
+        {
+            "name": "cube",
+            "classname": "ux-cube"
+        },
+        {
+            "name": "cubes",
+            "classname": "ux-cubes"
+        },
+        {
+            "name": "cursor-filled",
+            "classname": "ux-cursor-filled"
+        },
+        {
+            "name": "cursor",
+            "classname": "ux-cursor"
+        },
+        {
+            "name": "cut",
+            "classname": "ux-cut"
+        },
+        {
+            "name": "cycle",
+            "classname": "ux-cycle"
+        },
+        {
+            "name": "dashboard",
+            "classname": "ux-dashboard"
+        },
+        {
+            "name": "database",
+            "classname": "ux-database"
+        },
+        {
+            "name": "defect",
+            "classname": "ux-defect"
+        },
+        {
+            "name": "deliver",
+            "classname": "ux-deliver"
+        },
+        {
+            "name": "deployment",
+            "classname": "ux-deployment"
+        },
+        {
+            "name": "descend",
+            "classname": "ux-descend"
+        },
+        {
+            "name": "desktop",
+            "classname": "ux-desktop"
+        },
+        {
+            "name": "detach",
+            "classname": "ux-detach"
+        },
+        {
+            "name": "directions",
+            "classname": "ux-directions"
+        },
+        {
+            "name": "dislike-filled",
+            "classname": "ux-dislike-filled"
+        },
+        {
+            "name": "dislike",
+            "classname": "ux-dislike"
+        },
+        {
+            "name": "divide-four",
+            "classname": "ux-divide-four"
+        },
+        {
+            "name": "divide-right",
+            "classname": "ux-divide-right"
+        },
+        {
+            "name": "divide-three",
+            "classname": "ux-divide-three"
+        },
+        {
+            "name": "divide",
+            "classname": "ux-divide"
+        },
+        {
+            "name": "document-cloud",
+            "classname": "ux-document-cloud"
+        },
+        {
+            "name": "document-compress",
+            "classname": "ux-document-compress"
+        },
+        {
+            "name": "document-config",
+            "classname": "ux-document-config"
+        },
+        {
+            "name": "document-csv",
+            "classname": "ux-document-csv"
+        },
+        {
+            "name": "document-data",
+            "classname": "ux-document-data"
+        },
+        {
+            "name": "document-download",
+            "classname": "ux-document-download"
+        },
+        {
+            "name": "document-excel",
+            "classname": "ux-document-excel"
+        },
+        {
+            "name": "document-executable",
+            "classname": "ux-document-executable"
+        },
+        {
+            "name": "document-image",
+            "classname": "ux-document-image"
+        },
+        {
+            "name": "document-locked",
+            "classname": "ux-document-locked"
+        },
+        {
+            "name": "document-missing",
+            "classname": "ux-document-missing"
+        },
+        {
+            "name": "document-notes",
+            "classname": "ux-document-notes"
+        },
+        {
+            "name": "document-outlook",
+            "classname": "ux-document-outlook"
+        },
+        {
+            "name": "document-pdf",
+            "classname": "ux-document-pdf"
+        },
+        {
+            "name": "document-performance",
+            "classname": "ux-document-performance"
+        },
+        {
+            "name": "document-powerpoint",
+            "classname": "ux-document-powerpoint"
+        },
+        {
+            "name": "document-rtf",
+            "classname": "ux-document-rtf"
+        },
+        {
+            "name": "document-sound",
+            "classname": "ux-document-sound"
+        },
+        {
+            "name": "document-test",
+            "classname": "ux-document-test"
+        },
+        {
+            "name": "document-text",
+            "classname": "ux-document-text"
+        },
+        {
+            "name": "document-threat",
+            "classname": "ux-document-threat"
+        },
+        {
+            "name": "document-time",
+            "classname": "ux-document-time"
+        },
+        {
+            "name": "document-transfer",
+            "classname": "ux-document-transfer"
+        },
+        {
+            "name": "document-txt",
+            "classname": "ux-document-txt"
+        },
+        {
+            "name": "document-update",
+            "classname": "ux-document-update"
+        },
+        {
+            "name": "document-upload",
+            "classname": "ux-document-upload"
+        },
+        {
+            "name": "document-user",
+            "classname": "ux-document-user"
+        },
+        {
+            "name": "document-verified",
+            "classname": "ux-document-verified"
+        },
+        {
+            "name": "document-video",
+            "classname": "ux-document-video"
+        },
+        {
+            "name": "document-word",
+            "classname": "ux-document-word"
+        },
+        {
+            "name": "document",
+            "classname": "ux-document"
+        },
+        {
+            "name": "domain",
+            "classname": "ux-domain"
+        },
+        {
+            "name": "down",
+            "classname": "ux-down"
+        },
+        {
+            "name": "download",
+            "classname": "ux-download"
+        },
+        {
+            "name": "drag",
+            "classname": "ux-drag"
+        },
+        {
+            "name": "drive-cage",
+            "classname": "ux-drive-cage"
+        },
+        {
+            "name": "duplicate",
+            "classname": "ux-duplicate"
+        },
+        {
+            "name": "edit-filled",
+            "classname": "ux-edit-filled"
+        },
+        {
+            "name": "edit",
+            "classname": "ux-edit"
+        },
+        {
+            "name": "eject-filled",
+            "classname": "ux-eject-filled"
+        },
+        {
+            "name": "eject",
+            "classname": "ux-eject"
+        },
+        {
+            "name": "expand",
+            "classname": "ux-expand"
+        },
+        {
+            "name": "fan",
+            "classname": "ux-fan"
+        },
+        {
+            "name": "fast-forward-filled",
+            "classname": "ux-fast-forward-filled"
+        },
+        {
+            "name": "fast-forward",
+            "classname": "ux-fast-forward"
+        },
+        {
+            "name": "favorite-filled",
+            "classname": "ux-favorite-filled"
+        },
+        {
+            "name": "favorite",
+            "classname": "ux-favorite"
+        },
+        {
+            "name": "filter-filled",
+            "classname": "ux-filter-filled"
+        },
+        {
+            "name": "filter",
+            "classname": "ux-filter"
+        },
+        {
+            "name": "first-aid",
+            "classname": "ux-first-aid"
+        },
+        {
+            "name": "flag-filled",
+            "classname": "ux-flag-filled"
+        },
+        {
+            "name": "flag",
+            "classname": "ux-flag"
+        },
+        {
+            "name": "folder-cycle",
+            "classname": "ux-folder-cycle"
+        },
+        {
+            "name": "folder-open",
+            "classname": "ux-folder-open"
+        },
+        {
+            "name": "folder",
+            "classname": "ux-folder"
+        },
+        {
+            "name": "gallery-filled",
+            "classname": "ux-gallery-filled"
+        },
+        {
+            "name": "gallery",
+            "classname": "ux-gallery"
+        },
+        {
+            "name": "globe",
+            "classname": "ux-globe"
+        },
+        {
+            "name": "grid",
+            "classname": "ux-grid"
+        },
+        {
+            "name": "group",
+            "classname": "ux-group"
+        },
+        {
+            "name": "grow",
+            "classname": "ux-grow"
+        },
+        {
+            "name": "halt",
+            "classname": "ux-halt"
+        },
+        {
+            "name": "help-circle",
+            "classname": "ux-help-circle"
+        },
+        {
+            "name": "help",
+            "classname": "ux-help"
+        },
+        {
+            "name": "history",
+            "classname": "ux-history"
+        },
+        {
+            "name": "home-filled",
+            "classname": "ux-home-filled"
+        },
+        {
+            "name": "home",
+            "classname": "ux-home"
+        },
+        {
+            "name": "host-maintenance",
+            "classname": "ux-host-maintenance"
+        },
+        {
+            "name": "host",
+            "classname": "ux-host"
+        },
+        {
+            "name": "image-filled",
+            "classname": "ux-image-filled"
+        },
+        {
+            "name": "image",
+            "classname": "ux-image"
+        },
+        {
+            "name": "impact",
+            "classname": "ux-impact"
+        },
+        {
+            "name": "in-progress",
+            "classname": "ux-in-progress"
+        },
+        {
+            "name": "inactive",
+            "classname": "ux-inactive"
+        },
+        {
+            "name": "inbox",
+            "classname": "ux-inbox"
+        },
+        {
+            "name": "indicator-filled",
+            "classname": "ux-indicator-filled"
+        },
+        {
+            "name": "indicator",
+            "classname": "ux-indicator"
+        },
+        {
+            "name": "information-filled",
+            "classname": "ux-information-filled"
+        },
+        {
+            "name": "information",
+            "classname": "ux-information"
+        },
+        {
+            "name": "inherit-filled",
+            "classname": "ux-inherit-filled"
+        },
+        {
+            "name": "inherit",
+            "classname": "ux-inherit"
+        },
+        {
+            "name": "install",
+            "classname": "ux-install"
+        },
+        {
+            "name": "integration",
+            "classname": "ux-integration"
+        },
+        {
+            "name": "iteration-filled",
+            "classname": "ux-iteration-filled"
+        },
+        {
+            "name": "iteration",
+            "classname": "ux-iteration"
+        },
+        {
+            "name": "java-filled",
+            "classname": "ux-java-filled"
+        },
+        {
+            "name": "java",
+            "classname": "ux-java"
+        },
+        {
+            "name": "language",
+            "classname": "ux-language"
+        },
+        {
+            "name": "launch",
+            "classname": "ux-launch"
+        },
+        {
+            "name": "license-filled",
+            "classname": "ux-license-filled"
+        },
+        {
+            "name": "license",
+            "classname": "ux-license"
+        },
+        {
+            "name": "like-filled",
+            "classname": "ux-like-filled"
+        },
+        {
+            "name": "like",
+            "classname": "ux-like"
+        },
+        {
+            "name": "line-chart",
+            "classname": "ux-line-chart"
+        },
+        {
+            "name": "link-bottom",
+            "classname": "ux-link-bottom"
+        },
+        {
+            "name": "link-down",
+            "classname": "ux-link-down"
+        },
+        {
+            "name": "link-next",
+            "classname": "ux-link-next"
+        },
+        {
+            "name": "link-previous",
+            "classname": "ux-link-previous"
+        },
+        {
+            "name": "link-top",
+            "classname": "ux-link-top"
+        },
+        {
+            "name": "link-up",
+            "classname": "ux-link-up"
+        },
+        {
+            "name": "link",
+            "classname": "ux-link"
+        },
+        {
+            "name": "list",
+            "classname": "ux-list"
+        },
+        {
+            "name": "location-filled",
+            "classname": "ux-location-filled"
+        },
+        {
+            "name": "location-pin-filled",
+            "classname": "ux-location-pin-filled"
+        },
+        {
+            "name": "location-pin",
+            "classname": "ux-location-pin"
+        },
+        {
+            "name": "location",
+            "classname": "ux-location"
+        },
+        {
+            "name": "lock",
+            "classname": "ux-lock"
+        },
+        {
+            "name": "login",
+            "classname": "ux-login"
+        },
+        {
+            "name": "logout",
+            "classname": "ux-logout"
+        },
+        {
+            "name": "mail-attachment",
+            "classname": "ux-mail-attachment"
+        },
+        {
+            "name": "mail-filled",
+            "classname": "ux-mail-filled"
+        },
+        {
+            "name": "mail",
+            "classname": "ux-mail"
+        },
+        {
+            "name": "manual",
+            "classname": "ux-manual"
+        },
+        {
+            "name": "map-location",
+            "classname": "ux-map-location"
+        },
+        {
+            "name": "map",
+            "classname": "ux-map"
+        },
+        {
+            "name": "menu",
+            "classname": "ux-menu"
+        },
+        {
+            "name": "microphone-filled",
+            "classname": "ux-microphone-filled"
+        },
+        {
+            "name": "microphone",
+            "classname": "ux-microphone"
+        },
+        {
+            "name": "monitor",
+            "classname": "ux-monitor"
+        },
+        {
+            "name": "more",
+            "classname": "ux-more"
+        },
+        {
+            "name": "multiple",
+            "classname": "ux-multiple"
+        },
+        {
+            "name": "navigate",
+            "classname": "ux-navigate"
+        },
+        {
+            "name": "new-window",
+            "classname": "ux-new-window"
+        },
+        {
+            "name": "new",
+            "classname": "ux-new"
+        },
+        {
+            "name": "next",
+            "classname": "ux-next"
+        },
+        {
+            "name": "notes",
+            "classname": "ux-notes"
+        },
+        {
+            "name": "notification-filled",
+            "classname": "ux-notification-filled"
+        },
+        {
+            "name": "notification",
+            "classname": "ux-notification"
+        },
+        {
+            "name": "optimization",
+            "classname": "ux-optimization"
+        },
+        {
+            "name": "organization",
+            "classname": "ux-organization"
+        },
+        {
+            "name": "overview",
+            "classname": "ux-overview"
+        },
+        {
+            "name": "pan",
+            "classname": "ux-pan"
+        },
+        {
+            "name": "pause-filled",
+            "classname": "ux-pause-filled"
+        },
+        {
+            "name": "pause",
+            "classname": "ux-pause"
+        },
+        {
+            "name": "payment-google-wallet",
+            "classname": "ux-payment-google-wallet"
+        },
+        {
+            "name": "payment-mastercard",
+            "classname": "ux-payment-mastercard"
+        },
+        {
+            "name": "payment-paypal",
+            "classname": "ux-payment-paypal"
+        },
+        {
+            "name": "payment-square",
+            "classname": "ux-payment-square"
+        },
+        {
+            "name": "payment-visa",
+            "classname": "ux-payment-visa"
+        },
+        {
+            "name": "pin-filled",
+            "classname": "ux-pin-filled"
+        },
+        {
+            "name": "pin",
+            "classname": "ux-pin"
+        },
+        {
+            "name": "plan",
+            "classname": "ux-plan"
+        },
+        {
+            "name": "platform-apple",
+            "classname": "ux-platform-apple"
+        },
+        {
+            "name": "platform-chrome",
+            "classname": "ux-platform-chrome"
+        },
+        {
+            "name": "platform-dropbox",
+            "classname": "ux-platform-dropbox"
+        },
+        {
+            "name": "platform-edge",
+            "classname": "ux-platform-edge"
+        },
+        {
+            "name": "platform-firefox",
+            "classname": "ux-platform-firefox"
+        },
+        {
+            "name": "platform-internet-explorer",
+            "classname": "ux-platform-internet-explorer"
+        },
+        {
+            "name": "platform-skype",
+            "classname": "ux-platform-skype"
+        },
+        {
+            "name": "platform-windows",
+            "classname": "ux-platform-windows"
+        },
+        {
+            "name": "play-filled",
+            "classname": "ux-play-filled"
+        },
+        {
+            "name": "play",
+            "classname": "ux-play"
+        },
+        {
+            "name": "power",
+            "classname": "ux-power"
+        },
+        {
+            "name": "previous",
+            "classname": "ux-previous"
+        },
+        {
+            "name": "print",
+            "classname": "ux-print"
+        },
+        {
+            "name": "quick-view",
+            "classname": "ux-quick-view"
+        },
+        {
+            "name": "radial-selected",
+            "classname": "ux-radial-selected"
+        },
+        {
+            "name": "radial",
+            "classname": "ux-radial"
+        },
+        {
+            "name": "refresh",
+            "classname": "ux-refresh"
+        },
+        {
+            "name": "resources",
+            "classname": "ux-resources"
+        },
+        {
+            "name": "rewind-filled",
+            "classname": "ux-rewind-filled"
+        },
+        {
+            "name": "rewind",
+            "classname": "ux-rewind"
+        },
+        {
+            "name": "risk",
+            "classname": "ux-risk"
+        },
+        {
+            "name": "rss",
+            "classname": "ux-rss"
+        },
+        {
+            "name": "satellite",
+            "classname": "ux-satellite"
+        },
+        {
+            "name": "schedule-clone",
+            "classname": "ux-schedule-clone"
+        },
+        {
+            "name": "schedule-new",
+            "classname": "ux-schedule-new"
+        },
+        {
+            "name": "schedule-play",
+            "classname": "ux-schedule-play"
+        },
+        {
+            "name": "schedule",
+            "classname": "ux-schedule"
+        },
+        {
+            "name": "scorecard",
+            "classname": "ux-scorecard"
+        },
+        {
+            "name": "search",
+            "classname": "ux-search"
+        },
+        {
+            "name": "secure",
+            "classname": "ux-secure"
+        },
+        {
+            "name": "select-left",
+            "classname": "ux-select-left"
+        },
+        {
+            "name": "select",
+            "classname": "ux-select"
+        },
+        {
+            "name": "server-cluster",
+            "classname": "ux-server-cluster"
+        },
+        {
+            "name": "server",
+            "classname": "ux-server"
+        },
+        {
+            "name": "servers",
+            "classname": "ux-servers"
+        },
+        {
+            "name": "service-business",
+            "classname": "ux-service-business"
+        },
+        {
+            "name": "service-start",
+            "classname": "ux-service-start"
+        },
+        {
+            "name": "share",
+            "classname": "ux-share"
+        },
+        {
+            "name": "shield-configure",
+            "classname": "ux-shield-configure"
+        },
+        {
+            "name": "shield-filled",
+            "classname": "ux-shield-filled"
+        },
+        {
+            "name": "shield",
+            "classname": "ux-shield"
+        },
+        {
+            "name": "shift",
+            "classname": "ux-shift"
+        },
+        {
+            "name": "shop-basket",
+            "classname": "ux-shop-basket"
+        },
+        {
+            "name": "shop-cart",
+            "classname": "ux-shop-cart"
+        },
+        {
+            "name": "soa",
+            "classname": "ux-soa"
+        },
+        {
+            "name": "social-email",
+            "classname": "ux-social-email"
+        },
+        {
+            "name": "social-facebook",
+            "classname": "ux-social-facebook"
+        },
+        {
+            "name": "social-github",
+            "classname": "ux-social-github"
+        },
+        {
+            "name": "social-instagram",
+            "classname": "ux-social-instagram"
+        },
+        {
+            "name": "social-linkedin",
+            "classname": "ux-social-linkedin"
+        },
+        {
+            "name": "social-medium",
+            "classname": "ux-social-medium"
+        },
+        {
+            "name": "social-pinterest",
+            "classname": "ux-social-pinterest"
+        },
+        {
+            "name": "social-reddit",
+            "classname": "ux-social-reddit"
+        },
+        {
+            "name": "social-slack",
+            "classname": "ux-social-slack"
+        },
+        {
+            "name": "social-tumblr",
+            "classname": "ux-social-tumblr"
+        },
+        {
+            "name": "social-twitter",
+            "classname": "ux-social-twitter"
+        },
+        {
+            "name": "social-vimeo",
+            "classname": "ux-social-vimeo"
+        },
+        {
+            "name": "social-youtube",
+            "classname": "ux-social-youtube"
+        },
+        {
+            "name": "sort",
+            "classname": "ux-sort"
+        },
+        {
+            "name": "stakeholder",
+            "classname": "ux-stakeholder"
+        },
+        {
+            "name": "star-filled",
+            "classname": "ux-star-filled"
+        },
+        {
+            "name": "star-half",
+            "classname": "ux-star-half"
+        },
+        {
+            "name": "star",
+            "classname": "ux-star"
+        },
+        {
+            "name": "status-approved-filled",
+            "classname": "ux-status-approved-filled"
+        },
+        {
+            "name": "status-error-filled",
+            "classname": "ux-status-error-filled"
+        },
+        {
+            "name": "status-information-filled",
+            "classname": "ux-status-information-filled"
+        },
+        {
+            "name": "status-warning-filled",
+            "classname": "ux-status-warning-filled"
+        },
+        {
+            "name": "steps-filled",
+            "classname": "ux-steps-filled"
+        },
+        {
+            "name": "steps",
+            "classname": "ux-steps"
+        },
+        {
+            "name": "storage",
+            "classname": "ux-storage"
+        },
+        {
+            "name": "street-view-filled",
+            "classname": "ux-street-view-filled"
+        },
+        {
+            "name": "street-view",
+            "classname": "ux-street-view"
+        },
+        {
+            "name": "subtitles",
+            "classname": "ux-subtitles"
+        },
+        {
+            "name": "subtract",
+            "classname": "ux-subtract"
+        },
+        {
+            "name": "support",
+            "classname": "ux-support"
+        },
+        {
+            "name": "sync",
+            "classname": "ux-sync"
+        },
+        {
+            "name": "system",
+            "classname": "ux-system"
+        },
+        {
+            "name": "tab-next",
+            "classname": "ux-tab-next"
+        },
+        {
+            "name": "tab-previous",
+            "classname": "ux-tab-previous"
+        },
+        {
+            "name": "tab-up",
+            "classname": "ux-tab-up"
+        },
+        {
+            "name": "table-add",
+            "classname": "ux-table-add"
+        },
+        {
+            "name": "table",
+            "classname": "ux-table"
+        },
+        {
+            "name": "tag-filled",
+            "classname": "ux-tag-filled"
+        },
+        {
+            "name": "tag",
+            "classname": "ux-tag"
+        },
+        {
+            "name": "target",
+            "classname": "ux-target"
+        },
+        {
+            "name": "task",
+            "classname": "ux-task"
+        },
+        {
+            "name": "template",
+            "classname": "ux-template"
+        },
+        {
+            "name": "test-desktop",
+            "classname": "ux-test-desktop"
+        },
+        {
+            "name": "test",
+            "classname": "ux-test"
+        },
+        {
+            "name": "text-wrap",
+            "classname": "ux-text-wrap"
+        },
+        {
+            "name": "threats",
+            "classname": "ux-threats"
+        },
+        {
+            "name": "ticket",
+            "classname": "ux-ticket"
+        },
+        {
+            "name": "tools",
+            "classname": "ux-tools"
+        },
+        {
+            "name": "tooltip",
+            "classname": "ux-tooltip"
+        },
+        {
+            "name": "transaction-filled",
+            "classname": "ux-transaction-filled"
+        },
+        {
+            "name": "transaction",
+            "classname": "ux-transaction"
+        },
+        {
+            "name": "trash-filled",
+            "classname": "ux-trash-filled"
+        },
+        {
+            "name": "trash",
+            "classname": "ux-trash"
+        },
+        {
+            "name": "tree",
+            "classname": "ux-tree"
+        },
+        {
+            "name": "trigger",
+            "classname": "ux-trigger"
+        },
+        {
+            "name": "trophy-filled",
+            "classname": "ux-trophy-filled"
+        },
+        {
+            "name": "trophy",
+            "classname": "ux-trophy"
+        },
+        {
+            "name": "troubleshooting",
+            "classname": "ux-troubleshooting"
+        },
+        {
+            "name": "unlock",
+            "classname": "ux-unlock"
+        },
+        {
+            "name": "up",
+            "classname": "ux-up"
+        },
+        {
+            "name": "update",
+            "classname": "ux-update"
+        },
+        {
+            "name": "upgrade-filled",
+            "classname": "ux-upgrade-filled"
+        },
+        {
+            "name": "upgrade",
+            "classname": "ux-upgrade"
+        },
+        {
+            "name": "upload",
+            "classname": "ux-upload"
+        },
+        {
+            "name": "user-add-filled",
+            "classname": "ux-user-add-filled"
+        },
+        {
+            "name": "user-add",
+            "classname": "ux-user-add"
+        },
+        {
+            "name": "user-admin",
+            "classname": "ux-user-admin"
+        },
+        {
+            "name": "user-expert",
+            "classname": "ux-user-expert"
+        },
+        {
+            "name": "user-female-filled",
+            "classname": "ux-user-female-filled"
+        },
+        {
+            "name": "user-female",
+            "classname": "ux-user-female"
+        },
+        {
+            "name": "user-filled",
+            "classname": "ux-user-filled"
+        },
+        {
+            "name": "user-manager",
+            "classname": "ux-user-manager"
+        },
+        {
+            "name": "user-new",
+            "classname": "ux-user-new"
+        },
+        {
+            "name": "user-police",
+            "classname": "ux-user-police"
+        },
+        {
+            "name": "user-settings",
+            "classname": "ux-user-settings"
+        },
+        {
+            "name": "user-worker",
+            "classname": "ux-user-worker"
+        },
+        {
+            "name": "user",
+            "classname": "ux-user"
+        },
+        {
+            "name": "validation-filled",
+            "classname": "ux-validation-filled"
+        },
+        {
+            "name": "validation",
+            "classname": "ux-validation"
+        },
+        {
+            "name": "video-filled",
+            "classname": "ux-video-filled"
+        },
+        {
+            "name": "video",
+            "classname": "ux-video"
+        },
+        {
+            "name": "view-filled",
+            "classname": "ux-view-filled"
+        },
+        {
+            "name": "view",
+            "classname": "ux-view"
+        },
+        {
+            "name": "virtual-machine",
+            "classname": "ux-virtual-machine"
+        },
+        {
+            "name": "vm-maintenance",
+            "classname": "ux-vm-maintenance"
+        },
+        {
+            "name": "volume-filled",
+            "classname": "ux-volume-filled"
+        },
+        {
+            "name": "volume-low-filled",
+            "classname": "ux-volume-low-filled"
+        },
+        {
+            "name": "volume-low",
+            "classname": "ux-volume-low"
+        },
+        {
+            "name": "volume-mute-filled",
+            "classname": "ux-volume-mute-filled"
+        },
+        {
+            "name": "volume-mute",
+            "classname": "ux-volume-mute"
+        },
+        {
+            "name": "volume",
+            "classname": "ux-volume"
+        },
+        {
+            "name": "vulnerability",
+            "classname": "ux-vulnerability"
+        },
+        {
+            "name": "waypoint-filled",
+            "classname": "ux-waypoint-filled"
+        },
+        {
+            "name": "waypoint",
+            "classname": "ux-waypoint"
+        },
+        {
+            "name": "workshop",
+            "classname": "ux-workshop"
+        },
+        {
+            "name": "zoom-in",
+            "classname": "ux-zoom-in"
+        },
+        {
+            "name": "zoom-out",
+            "classname": "ux-zoom-out"
+        }
+    ]
+}

@@ -7,32 +7,30 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
-// define some constant values
-const prefix = 'hpe';
-const iconPath = path.join(process.cwd(), 'src', 'icons');
-const outputPath = path.join(process.cwd(), 'docs', 'app', 'data', 'iconset.json');
+['hpe', 'ux'].forEach(iconset => {
 
-getIcons().then(icons => {
+    const iconPath = path.join(process.cwd(), 'src', 'icons', iconset);
+    const outputPath = path.join(process.cwd(), 'docs', 'app', 'data', `${iconset}-icons.json`);
 
-    // construct output object
-    let output = {
-        icons: icons.map(icon => {
-            return {
-                name: path.parse(icon).name,
-                classname: `${prefix}-${path.parse(icon).name}`
-            };
-        })
-    };
+    getIcons(iconPath).then(icons => {
 
-    // Output a json file to our docs data folder
-    fs.writeFileSync(outputPath, JSON.stringify(output, null, 4));
+        // construct output object
+        let output = {
+            icons: icons.map(icon => {
+                return {
+                    name: path.parse(icon).name,
+                    classname: `${iconset}-${path.parse(icon).name}`
+                };
+            })
+        };
 
-    // end the script
-    process.exit();
-});
+        // Output a json file to our docs data folder
+        fs.writeFileSync(outputPath, JSON.stringify(output, null, 4));
+    });
 
+})
 
-function getIcons() {
+function getIcons(iconPath) {
     return new Promise((resolve) => {
 
         // find all SVG files in icons folder
