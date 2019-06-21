@@ -30,21 +30,32 @@
 </div>
 
 <div class="column-picker-actions-column">
-    <button class="btn button-primary btn-block" [disabled]="_deselectedSelection.length === 0" (click)="addColumns()">
-        <i class="hpe-icon hpe-chevron-right"></i>
-    </button>
+    <!-- Show the default action buttons -->
+    <ng-container *ngIf="!actionsTemplate">
+        <button class="btn button-primary btn-block" [disabled]="_deselectedSelection.length === 0" (click)="addColumns()">
+            <i class="hpe-icon hpe-chevron-right"></i>
+        </button>
 
-    <button class="btn button-primary btn-block m-b-md" [disabled]="_selectedSelection.length === 0" (click)="removeColumns()">
-        <i class="hpe-icon hpe-chevron-left"></i>
-    </button>
+        <button class="btn button-primary btn-block m-b-md" [disabled]="_selectedSelection.length === 0" (click)="removeColumns()">
+            <i class="hpe-icon hpe-chevron-left"></i>
+        </button>
 
-    <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="addAllColumns()">
-        <i class="hpe-icon hpe-chevron-right-double"></i>
-    </button>
+        <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="addAllColumns()">
+            <i class="hpe-icon hpe-chevron-right-double"></i>
+        </button>
 
-    <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="removeAllColumns()">
-        <i class="hpe-icon hpe-chevron-left-double"></i>
-    </button>
+        <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="removeAllColumns()">
+            <i class="hpe-icon hpe-chevron-left-double"></i>
+        </button>
+    </ng-container>
+
+    <!-- Allow custom actions template -->
+    <ng-container
+        *ngIf="actionsTemplate"
+        [ngTemplateOutlet]="actionsTemplate"
+        [ngTemplateOutletContext]="{ selection: _selectedSelection, deselection: _deselectedSelection, addColumns: addColumns, removeColumns: removeColumns, addAllColumns: addAllColumns, removeAllColumns: removeAllColumns }">
+    </ng-container>
+
 </div>
 
 <div class="column-picker-column">
