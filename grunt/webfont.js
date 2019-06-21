@@ -30,8 +30,8 @@ module.exports = {
             htmlDemo: false,
             templateOptions: {
                 baseClass: 'ux-icon',
-                classPrefix: 'ux-',
-                mixinPrefix: 'ux-icon-'
+                classPrefix: 'ux-icon-',
+                mixinPrefix: 'ux-icon-mixin-'
             }
         }
     }
