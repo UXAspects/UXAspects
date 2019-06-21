@@ -7,10 +7,15 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
-['hpe', 'ux'].forEach(iconset => {
+const iconsets = [
+    { name: 'hpe', prefix: 'hpe' },
+    { name: 'ux', prefix: 'ux-icon' },
+];
 
-    const iconPath = path.join(process.cwd(), 'src', 'icons', iconset);
-    const outputPath = path.join(process.cwd(), 'docs', 'app', 'data', `${iconset}-icons.json`);
+iconsets.forEach(iconset => {
+
+    const iconPath = path.join(process.cwd(), 'src', 'icons', iconset.name);
+    const outputPath = path.join(process.cwd(), 'docs', 'app', 'data', `${iconset.name}-icons.json`);
 
     getIcons(iconPath).then(icons => {
 
@@ -19,7 +24,7 @@ const glob = require('glob');
             icons: icons.map(icon => {
                 return {
                     name: path.parse(icon).name,
-                    classname: `${iconset}-${path.parse(icon).name}`
+                    classname: `${iconset.prefix}-${path.parse(icon).name}`
                 };
             })
         };
