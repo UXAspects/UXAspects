@@ -97,12 +97,6 @@
     <tr uxd-api-property name="state" type="ColumnSortingState">
         Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
     </tr>
-    <tr uxd-api-property name="changeState()" type="Object">
-        Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
-        This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
-        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>.
-        The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.
-    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -111,11 +105,32 @@
     </tr>
 </uxd-api-properties>
 
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="changeState" returns="ColumnSortingOrder[]">
+        Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
+        This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
+        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>.
+        The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.
+    </tr>
+</uxd-api-properties>
+
 <p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="singleSort" type="boolean">
         If set to true the column will sort by only this column, removing sorting from all others.
+    </tr>
+    <tr uxd-api-property name="sortIndicator" type="TemplateRef<ColumnSortingIndicatorContext>">
+        A template can be provided to customize the appearance of the sort indicator.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="ColumnSortingIndicatorContext Interface">
+    <tr uxd-api-property name="state" type="ColumnSortingState">
+        Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
+    </tr>
+    <tr uxd-api-property name="order" type="number">
+        If multiple columns are being sorted this will contain the sort order of the column.
     </tr>
 </uxd-api-properties>
 

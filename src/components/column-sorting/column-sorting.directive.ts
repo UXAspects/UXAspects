@@ -1,4 +1,4 @@
-import { Directive, Input, OnDestroy } from '@angular/core';
+import { Directive, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 @Directive({
@@ -9,13 +9,20 @@ export class ColumnSortingDirective implements OnDestroy {
     /** If set to true the column will sort by only this column, removing sorting from all others. */
     @Input() singleSort: boolean;
 
+    /** Provide a custom template for the sort indicator */
+    @Input() sortIndicator: TemplateRef<ColumnSortingIndicatorContext>;
+
+    /** Emit the current sort state for all columns within the table */
     events = new Subject<ColumnSortingOrder[]>();
+
+    /** Store the current sort state for all columns within the table */
     order: ColumnSortingOrder[] = [];
 
     ngOnDestroy(): void {
         this.events.complete();
     }
 
+    /** Toggle the sorting state of a column */
     toggleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[] {
 
         // apply sorting based on the single or multiple sort
@@ -27,10 +34,12 @@ export class ColumnSortingDirective implements OnDestroy {
         return this.order;
     }
 
+    /** Toggle the sorting state of a column when using single select */
     private toggleSingleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[] {
         return sorting.state === ColumnSortingState.NoSort ? [] : [{ key: sorting.key, state: sorting.state }];
     }
 
+    /** Toggle the sorting state of a column when using multiple select */
     private toggleMultipleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[] {
         // reorder columns here
         const idx = this.order.findIndex(column => column.key === sorting.key);
@@ -59,4 +68,9 @@ export enum ColumnSortingState {
     Ascending = 'ascending',
     Descending = 'descending',
     NoSort = 'none'
+}
+
+export interface ColumnSortingIndicatorContext {
+    state: ColumnSortingState;
+    order: number;
 }
