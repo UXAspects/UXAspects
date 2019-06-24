@@ -38,8 +38,6 @@ exports.config = {
     // For angular tests
     useAllAngular2AppRoots: true,
 
-    rootElement: 'my-app',
-
     // Base URL for application server
     baseUrl: 'http://localhost:4000',
 
