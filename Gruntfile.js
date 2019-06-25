@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     grunt.registerTask('styles', ['clean:styles', 'execute:less']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:css', 'copy:md']);
     grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:md']);
-    grunt.registerTask('iconset', ['execute:iconset', 'webfont:iconset']);
+    grunt.registerTask('iconset', ['execute:iconset', 'webfont']);
     grunt.registerTask('minify', ['cssmin:styles']);
 
     // e2e: run the protractor tests

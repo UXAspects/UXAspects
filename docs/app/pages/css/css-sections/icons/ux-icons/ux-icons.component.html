@@ -1,15 +1,29 @@
-<p>To use an icon simply apply the <code>.hpe-icon</code> class along with one of the following classes:</p>
+<p>To use an icon simply apply the <code>{{ iconClass }}</code> class along with one of the following classes:</p>
 
 <div class="row m-b-md">
-    <div class="col-xs-12">
-        <input type="text" class="form-control" placeholder="Search UX Aspects Icons..." icon-search="hpe-icon-demo" [ngModel]="query" (ngModelChange)="search($event)">
+    <div class="col-xs-6">
+        <ux-select
+            [(value)]="iconset"
+            (valueChange)="search()"
+            [options]="iconsets"
+            [readonlyInput]="true">
+        </ux-select>
+    </div>
+
+    <div class="col-xs-6">
+        <input #input
+               type="text"
+               class="form-control"
+               placeholder="Search UX Aspects Icons..."
+               [(ngModel)]="query"
+               (ngModelChange)="search()">
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of iconlist">
+    <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of icons">
         <div class="icon-demo">
-            <i class="hpe-icon p-r-xs" [ngClass]="icon.classname"></i> <span>{{ icon.classname }}</span>
+            <i class="{{ iconClass }} p-r-xs" [ngClass]="icon.classname"></i> <span>{{ icon.classname }}</span>
         </div>
     </div>
 </div>

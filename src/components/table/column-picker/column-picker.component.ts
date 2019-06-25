@@ -18,19 +18,22 @@ export class ColumnPickerComponent {
     @Input() deselected: ReadonlyArray<string> = [];
 
     /** Define a custom selected title template */
-    @Input() selectedTitleTemplate: TemplateRef<any>;
+    @Input() selectedTitleTemplate: TemplateRef<void>;
 
     /** Define a custom deselected title template */
-    @Input() deselectedTitleTemplate: TemplateRef<any>;
+    @Input() deselectedTitleTemplate: TemplateRef<void>;
 
     /** Define a custom template for deselected items */
-    @Input() deselectedTemplate: TemplateRef<any>;
+    @Input() deselectedTemplate: TemplateRef<string>;
 
     /** Define a custom template for selected items */
-    @Input() selectedTemplate: TemplateRef<any>;
+    @Input() selectedTemplate: TemplateRef<string>;
 
     /** Define a custom template for locked items */
-    @Input() lockedTemplate: TemplateRef<any>;
+    @Input() lockedTemplate: TemplateRef<string>;
+
+    /** Define a custom template for actions column */
+    @Input() actionsTemplate: TemplateRef<ColumnPickerActionsContext>;
 
     /** Define a function to get the aria label of reorderable items */
     @Input() selectedAriaLabel: (column: string, index: number) => string = this.getSelectedAriaLabel;
@@ -188,4 +191,26 @@ export class ColumnPickerComponent {
     onReorderChange(model: string[]): void {
         this.selected = [...model];
     }
+
+    /** Get the action context, ensuring that functions have a pre-bound context */
+    _getActionContext(): ColumnPickerActionsContext {
+        return {
+            addSelection: this._deselectedSelection,
+            removeSelection: this._selectedSelection,
+            addColumns: this.addColumns.bind(this),
+            removeColumns: this.removeColumns.bind(this),
+            addAllColumns: this.addAllColumns.bind(this),
+            removeAllColumns: this.removeAllColumns.bind(this)
+        };
+    }
+}
+
+/** Define a context for the column actions template */
+export interface ColumnPickerActionsContext {
+    addSelection: ReadonlyArray<string>;
+    removeSelection: ReadonlyArray<string>;
+    addColumns(columns?: ReadonlyArray<string>): void;
+    removeColumns(columns?: ReadonlyArray<string>): void;
+    addAllColumns(): void;
+    removeAllColumns(): void;
 }
