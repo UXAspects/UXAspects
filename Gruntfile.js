@@ -40,34 +40,6 @@ module.exports = function(grunt) {
         'execute:package_artifactory_ux-aspects-docs'
     ]);
 
-    // grunt.registerTask('package:ux-aspects', [
-    //     'run:npm_pack_ux-aspects',
-    //     'copy:npm_ux-aspects_tgz',
-    //     'copy:artifactory_ux-aspects_tgz',
-    //     'clean:ux-aspects_tgz'
-    // ]);
-
-    // grunt.registerTask('package:ux-aspects_bower', ['compress:bower']);
-
-    // grunt.registerTask('package:ux-aspects-docs', [
-    //     'run:npm_pack_ux-aspects-docs',
-    //     'copy:npm_ux-aspects-docs_tgz',
-    //     'copy:artifactory_ux-aspects-docs_tgz',
-    //     'clean:ux-aspects-docs_tgz'
-    // ]);
-
-    // grunt.registerTask('package:release:ux-aspects', [
-    //     'run:npm_pack_ux-aspects',
-    //     'copy:staging_ux-aspects_tgz',
-    //     'clean:ux-aspects_tgz'
-    // ]);
-
-    // grunt.registerTask('package:release:ux-aspects-docs', [
-    //     'run:npm_pack_ux-aspects-docs',
-    //     'copy:staging_ux-aspects-docs_tgz',
-    //     'clean:ux-aspects-docs_tgz'
-    // ]);
-
     grunt.registerTask('build:documentation', [
         'tslint:documentation',
         'clean:documentation',
