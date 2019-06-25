@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, Injector, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, AccordionModule, CheckboxModule, FocusIfModule, HybridModule, SelectionModule, TabsetModule, TreeGridModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, AccordionModule, CheckboxModule, FocusIfModule, SelectionModule, TabsetModule, TreeGridModule } from '@ux-aspects/ux-aspects';
 import { TreeModule } from 'angular-tree-component';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -37,7 +37,6 @@ const ROUTES = [
         DocumentationComponentsModule,
         FocusIfModule,
         FormsModule,
-        HybridModule,
         RouterModule.forChild(ROUTES),
         SelectionModule,
         TabsetModule,

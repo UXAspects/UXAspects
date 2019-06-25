@@ -1,6 +1,6 @@
-import { HybridModule } from '@ux-aspects/ux-aspects';
+import { HybridModule } from '@ux-aspects/ux-aspects/hybrid';
 
 @NgModule({
     imports: [HybridModule]
 })
-export class AppModule {}
+export class AppModule { }

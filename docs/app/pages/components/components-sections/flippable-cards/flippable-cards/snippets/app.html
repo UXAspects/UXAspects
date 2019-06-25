@@ -47,11 +47,14 @@
                     </p>
                 </div>
 
-                <nested-donut
+                <ux-nested-donut-chart
                     class="flip-card-chart"
                     [dataset]="card.chart"
-                    [options]="options">
-                </nested-donut>
+                    [max]="card.chart[0].value"
+                    [spacing]="3"
+                    [thickness]="3"
+                    [disableTooltip]="true">
+                </ux-nested-donut-chart>
             </div>
 
         </ux-flippable-card-front>

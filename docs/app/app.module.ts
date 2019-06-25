@@ -1,12 +1,7 @@
-declare const angular: ng.IAngularStatic;
-
-const app = angular.module('app');
-
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { downgradeComponent, downgradeInjectable, UpgradeModule } from '@angular/upgrade/static';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -46,51 +41,20 @@ const appRoutes: Routes = [
         DocumentationComponentsModule,
         ModalModule.forRoot(),
         NgxMaskModule.forRoot(),
-        RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false }),
+        RouterModule.forRoot(appRoutes, { useHash: true }),
         TypeaheadModule.forRoot(),
-        UpgradeModule,
     ],
     providers: [
         PersistentDataService,
-        { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel },
-        {
-            provide: '$rootScope',
-            useFactory: (injector: Injector) => injector.get('$rootScope'),
-            deps: ['$injector']
-        },
-        {
-            provide: '$state',
-            useFactory: (injector: Injector) => injector.get('$state'),
-            deps: ['$injector']
-        }
+        { provide: DOCUMENTATION_TOKEN, useValue: DocumentationType.Keppel }
     ],
     declarations: [
         AppComponent,
     ],
-    entryComponents: [
+    bootstrap: [
         AppComponent
     ]
 })
 export class AppModule {
 
-    constructor(private _upgrade: UpgradeModule) { }
-
-    ngDoBootstrap() {
-        this._upgrade.bootstrap(document.body, ['app'], { strictDi: true });
-    }
 }
-
-/*
-  Configure Angular 1
-*/
-app.service('$persistentDataService', downgradeInjectable(PersistentDataService));
-app.directive('uxdApp', downgradeComponent({ component: AppComponent }) as angular.IDirectiveFactory);
-
-app.config(['$anchorScrollProvider', '$locationProvider', ($anchorScrollProvider: angular.IAnchorScrollProvider, $locationProvider: angular.ILocationProvider) => {
-
-    // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
-    $anchorScrollProvider.disableAutoScrolling();
-
-    // Removing new prefix
-    $locationProvider.hashPrefix('');
-}]);

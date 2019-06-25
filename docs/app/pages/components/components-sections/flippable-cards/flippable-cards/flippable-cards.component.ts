@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnDestroy } from '@angular/core';
-import { ColorService } from '@ux-aspects/ux-aspects';
+import { ColorService, NestedDonutChartData } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
@@ -13,19 +13,6 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection implements OnDestroy {
 
     icon: string = require('../../../../../assets/img/IconCaseColorized36x36.png');
-
-    options = {
-        size: 70,
-        donutWidth: 3,
-        donutSpacing: 3,
-        hoverAnimation: true,
-        centerLabel: {
-            show: false
-        },
-        tooltip: {
-            show: false
-        }
-    };
 
     cards: Card[] = [
         {
@@ -80,18 +67,18 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
         this._announcer.ngOnDestroy();
     }
 
-    getChartData(documents: number, reviewed: number, produced: number): ChartData[] {
+    getChartData(documents: number, reviewed: number, produced: number): NestedDonutChartData[] {
         return [
             {
-                label: 'documents',
+                name: 'documents',
                 color: this.colorService.getColor('grey6').toHex(),
                 value: documents
             }, {
-                label: 'reviewed',
+                name: 'reviewed',
                 color: this.colorService.getColor('vibrant1').toHex(),
                 value: reviewed
             }, {
-                label: 'produced',
+                name: 'produced',
                 color: this.colorService.getColor('vibrant2').toHex(),
                 value: produced
             }
@@ -116,11 +103,5 @@ export interface Card {
         produced: number;
         size: number;
     };
-    chart: ChartData[];
-}
-
-export interface ChartData {
-    label: string;
-    color: string;
-    value: number;
+    chart: NestedDonutChartData[];
 }

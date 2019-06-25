@@ -17,7 +17,7 @@ import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.direct
 })
 export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
-    @Input('uxInfiniteScroll') load: InfiniteScrollLoadFunction;
+    @Input('uxInfiniteScroll') load: InfiniteScrollLoadFunction<T>;
 
     @Input('collection') _collection: T[] = [];
     get collection() {
@@ -317,10 +317,10 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
 
-            const observable = Array.isArray(loadResult) ? of(loadResult) : from<any[]>(loadResult);
+            const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
             const subscription = observable.pipe(first()).subscribe(
-                items => {
+                (items: T[]) => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.
                     if (request.filter === this.filter && request.pageSize === this.pageSize) {
@@ -332,7 +332,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
                         this.endLoading(request, items);
                     }
                 },
-                reason => {
+                (reason: any) => {
                     // Emit the loadError event
                     this.endLoadingWithError(request, reason);
                 },

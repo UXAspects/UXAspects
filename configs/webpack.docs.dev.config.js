@@ -8,7 +8,6 @@ const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
-const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 
 const CssLoaderWithSourceMap = {
@@ -50,7 +49,6 @@ module.exports = {
         polyfills: './docs/polyfills.ts',
         styles: './docs/styles.less'
     },
-
 
     output: {
         path: join(cwd(), 'dist', 'docs'),
@@ -151,21 +149,10 @@ module.exports = {
 
     plugins: [
 
-        new ScriptsWebpackPlugin({
-            name: 'scripts',
-            sourceMap: false,
-            filename: `scripts.js`,
-            scripts: [
-                join('node_modules', 'angular', 'angular.js')
-            ],
-            basePath: cwd(),
-        }),
-
         new IndexHtmlWebpackPlugin({
             input: './docs/index.html',
             output: 'index.html',
             entrypoints: [
-                'scripts',
                 'polyfills',
                 'styles',
                 'main'
