@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Conduit, ConduitZone, ConduitZoneComponent } from '../../../../../../dist';
+import { Conduit, ConduitZone, ConduitZoneComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app-zone-three',

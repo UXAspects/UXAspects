@@ -1,9 +1,0 @@
-<div class="m-sm" ng-controller="RepositoryPanelCtrl as vm">
-    <input type="text" placeholder="Find a repository" class="form-control" ng-model="vm.filterText" force-focus>
-    <ul class="add-field-list" list-item-filter filter-text="vm.filterText">
-      <li class="field-name" ng-repeat="repo in vm.repositories" key="{{ repo.name }}" ng-click="vm.selectRepository(repo)" ng-class="{ 'option-deselected': !repo.checked, 'option-selected': repo.checked }">
-        <span class="hpe-icon hpe-checkmark text-accent option-check"></span>
-        {{ repo.name }}
-      </li>
-    </ul>
-</div>

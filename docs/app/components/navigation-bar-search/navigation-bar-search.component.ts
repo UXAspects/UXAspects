@@ -10,7 +10,6 @@ import { ISearchResult } from '../../interfaces/ISearch';
 import { ISection } from '../../interfaces/ISection';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { VersionService } from '../../services/version/version.service';
 
 
 const QUERY_MIN_CHARS = 3;
@@ -41,12 +40,10 @@ export class NavigationBarSearchComponent implements OnDestroy {
 
     constructor(private router: Router,
         private _navigation: NavigationService,
-        private _versionService: VersionService,
         private _appConfig: AppConfiguration,
         private _persistentDataService: PersistentDataService) {
 
         this.query.pipe(debounceTime(200), takeUntil(this._onDestroy)).subscribe(this.search.bind(this));
-        this._versionService.version.pipe(takeUntil(this._onDestroy)).subscribe(() => this._data = this.createSearchData());
     }
 
     ngOnDestroy(): void {
@@ -66,28 +63,27 @@ export class NavigationBarSearchComponent implements OnDestroy {
 
             category.sections = category.sections || [];
 
-            let showCategory = !!category.sections.find(section => this._versionService.isSectionVersionMatch(section));
+            let showCategory = true;
 
             this._navigation.setSectionIds(category.sections);
 
             category.sections.forEach((section: ISection) => {
-                if (this._versionService.isSectionVersionMatch(section)) {
-                    results.push({
-                        id: page.id || page.title,
-                        section: page.title,
-                        link: {
-                            title: section.title,
-                            link: category.link,
-                            fragment: section.id
-                        }
-                    });
-
-                    // Prevent addition of a category entry with the same title as a child section.
-                    if (section.title === category.title) {
-                        showCategory = false;
+                results.push({
+                    id: page.id || page.title,
+                    section: page.title,
+                    link: {
+                        title: section.title,
+                        link: category.link,
+                        fragment: section.id
                     }
+                });
+
+                // Prevent addition of a category entry with the same title as a child section.
+                if (section.title === category.title) {
+                    showCategory = false;
                 }
             });
+
             if (showCategory) {
                 results.push({
                     id: page.id || page.title,

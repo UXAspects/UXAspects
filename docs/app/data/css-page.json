@@ -24,16 +24,6 @@
                 {
                     "title": "Hyperlinks",
                     "component": "CssHyperlinksComponent"
-                },
-                {
-                    "title": "Button Dropdowns",
-                    "component": "CssButtonDropdownsComponent",
-                    "deprecated": true
-                },
-                {
-                    "title": "Split Button Dropdowns",
-                    "component": "CssSplitButtonDropdownsComponent",
-                    "deprecated": true
                 }
             ]
         },
@@ -58,10 +48,6 @@
                 {
                     "title": "HTML Body",
                     "component": "CssHtmlBodyComponent"
-                },
-                {
-                    "title": "Scroll To Top Button",
-                    "component": "CssScrollToTopButtonComponent"
                 }
             ]
         },
@@ -104,87 +90,16 @@
             ]
         },
         {
-            "title": "Page Title",
-            "link": "page-title",
-            "sections": [
-                {
-                    "title": "Page Title",
-                    "component": "CssPageTitleComponent",
-                    "version": "AngularJS"
-                }
-            ]
-        },
-        {
             "title": "Page Header",
             "link": "page-header",
             "sections": [
-                {
-                    "title": "Navigation Header",
-                    "component": "CssNavigationHeaderComponent",
-                    "version": "AngularJS"
-                },
                 {
                     "title": "Breadcrumb",
                     "component": "CssBreadcrumbComponent"
                 },
                 {
-                    "title": "Breadcrumb from States",
-                    "component": "CssBreadcrumbFromStatesComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Breadcrumb with Tab State",
-                    "component": "CssBreadcrumbWithTabStateComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Condensed Header",
-                    "component": "CssCondensedHeaderComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Condensed Header & Toolbar",
-                    "component": "CssCondensedHeaderToolbarComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Standard Header",
-                    "component": "CssStandardHeaderComponent",
-                    "version": "AngularJS"
-                },
-                {
                     "title": "Product Name and Logo",
                     "component": "CssProductNameLogoComponent"
-                },
-                {
-                    "title": "Header Content Panel",
-                    "component": "CssHeaderContentPanelComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Back Button",
-                    "component": "CssBackButtonComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Dynamic Name Callout",
-                    "component": "CssDynamicNameCalloutComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Standard Header & Toolbar",
-                    "component": "CssStandardHeaderToolbarComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Header with Navigation Tab & Toolbar",
-                    "component": "CssHeaderNavTabToolbarComponent",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Page Header Example",
-                    "component": "CssPageHeaderExampleComponent",
-                    "version": "AngularJS"
                 }
             ]
         },
@@ -227,32 +142,6 @@
                 {
                     "title": "Case Usage Guidelines",
                     "component": "CssCaseUsageGuidelinesComponent"
-                }
-            ]
-        },
-        {
-            "title": "Forms",
-            "link": "forms",
-            "sections": [
-                {
-                    "title": "Basic Form",
-                    "component": "CssBasicFormComponent"
-                },
-                {
-                    "title": "Horizontal Form",
-                    "component": "CssHorizontalFormComponent"
-                },
-                {
-                    "title": "Inline Form",
-                    "component": "CssInlineFormComponent"
-                },
-                {
-                    "title": "Form with Validation - field-by-field",
-                    "component": "CssFormValidationFieldByFieldComponent"
-                },
-                {
-                    "title": "Form with Validation - on-submit",
-                    "component": "CssFormValidationOnSubmitComponent"
                 }
             ]
         },
@@ -341,13 +230,6 @@
                     "component": "CssInputGroupsComponent"
                 },
                 {
-                    "title": "Float Labels",
-                    "component": "CssFloatLabelsComponent",
-                    "version": "AngularJS",
-                    "deprecated": true,
-                    "deprecatedFor": "ComponentsFloatLabelComponent"
-                },
-                {
                     "title": "Button Addons",
                     "component": "CssButtonAddonsComponent"
                 },
@@ -358,10 +240,6 @@
                 {
                     "title": "Dropdown Addons",
                     "component": "CssDropdownAddonsComponent"
-                },
-                {
-                    "title": "Segmented Addons",
-                    "component": "CssSegmentedAddonsComponent"
                 }
             ]
         },

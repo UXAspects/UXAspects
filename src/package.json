@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "dist/bundles/ux-aspects.umd.js",
   "files": [
@@ -8,7 +8,6 @@
     "common/",
     "components/",
     "directives/",
-    "dist/",
     "esm2015/",
     "esm5/",
     "fesm2015/",
@@ -18,8 +17,6 @@
     "img/",
     "index.d.ts",
     "less/",
-    "Licenses",
-    "ng1/",
     "package.json",
     "pipes/",
     "plugins/",
@@ -74,9 +71,11 @@
     "@angular/compiler": ">=5.0.0",
     "@angular/core": ">=5.0.0",
     "@angular/forms": ">=5.0.0",
-    "@angular/upgrade": ">=5.0.0",
     "@angular/animations": ">=5.0.0",
     "angular-tree-component": ">=5.2.0",
     "@angular/cdk": ">=5.2.5"
+  },
+  "optionalDependencies": {
+    "@angular/upgrade": ">=5.0.0"
   }
 }

@@ -5,13 +5,10 @@ import { TabsetModule, TimelineModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsTimelineNg1Component } from './timeline-ng1/timeline-ng1.component';
 import { ComponentsTimelineComponent } from './timeline/timeline.component';
 
 
 const SECTIONS = [
-    ComponentsTimelineNg1Component,
     ComponentsTimelineComponent
 ];
 
@@ -27,12 +24,11 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsetModule,
         CommonModule,
-        TimelineModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        TimelineModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

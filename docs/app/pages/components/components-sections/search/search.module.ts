@@ -8,17 +8,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsSearchBuilderNg1Component } from './search-builder-ng1/search-builder-ng1.component';
 import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
-import { ComponentsSearchHistoryNg1Component } from './search-history-ng1/search-history-ng1.component';
-import { ComponentsSearchToolbarNg1Component } from './search-toolbar-ng1/search-toolbar-ng1.component';
 import { ComponentsToolbarSearchComponent } from './toolbar-search/toolbar-search.component';
 
 const SECTIONS = [
-    ComponentsSearchBuilderNg1Component,
-    ComponentsSearchHistoryNg1Component,
-    ComponentsSearchToolbarNg1Component,
     ComponentsToolbarSearchComponent,
     ComponentsSearchBuilderComponent
 ];
@@ -52,7 +45,6 @@ const ROUTES = [
         ToggleSwitchModule,
         ToolbarSearchModule,
         TooltipModule,
-        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

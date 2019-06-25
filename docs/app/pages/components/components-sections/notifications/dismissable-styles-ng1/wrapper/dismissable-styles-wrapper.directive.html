@@ -1,6 +1,0 @@
-<alert ng-repeat="alert in vm.dismissAlerts" type="{{::alert.type}}" close="vm.close(alert)">
-    <span ng-bind="::alert.msg"></span>&nbsp;
-    <a href="" class="alert-link" ng-bind="::alert.linkText"></a>
-</alert>
-<button ng-click="vm.addDismissAlert('info')" class="btn button-secondary">Add Info Alert</button> &nbsp;
-<button ng-click="vm.addDismissAlert('error')" class="btn btn-alert">Add Error Alert</button>

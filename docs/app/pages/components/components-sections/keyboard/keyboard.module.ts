@@ -5,16 +5,11 @@ import { FocusIfModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ComponentsHotkeysNg1Component } from './hotkeys-ng1/hotkeys-ng1.component';
 import { ComponentsHotkeysComponent } from './hotkeys/hotkeys.component';
-import { ComponentsKeyboardServiceNg1Component } from './keyboard-service-ng1/keyboard-service-ng1.component';
 
 
 const SECTIONS = [
     ComponentsHotkeysComponent,
-    ComponentsHotkeysNg1Component,
-    ComponentsKeyboardServiceNg1Component
 ];
 
 const ROUTES = [
@@ -29,12 +24,11 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsetModule,
-        FocusIfModule,
+        A11yModule,
         DocumentationComponentsModule,
+        FocusIfModule,
         RouterModule.forChild(ROUTES),
-        A11yModule
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

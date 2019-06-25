@@ -10,21 +10,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsDragAndDropCardsComponent } from './drag-and-drop-cards/drag-and-drop-cards.component';
-import { ComponentsDraggableCardsListViewNg1Component } from './draggable-cards-list-view-ng1/draggable-cards-list-view-ng1.component';
-import { ComponentsDraggableCardsNg1Component } from './draggable-cards-ng1/draggable-cards-ng1.component';
 import { ComponentsDraggableCardsComponent } from './draggable-cards/draggable-cards.component';
-import { ComponentsDraggablePanelsNg1Component } from './draggable-panels-ng1/draggable-panels-ng1.component';
-import { ComponentsDraggablePanelsViewsNg1Component } from './draggable-panels-views-ng1/draggable-panels-views-ng1.component';
 
 
 const SECTIONS = [
-    ComponentsDraggableCardsNg1Component,
-    ComponentsDraggableCardsListViewNg1Component,
     ComponentsDraggableCardsComponent,
-    ComponentsDraggablePanelsNg1Component,
-    ComponentsDraggablePanelsViewsNg1Component,
     ComponentsDragAndDropCardsComponent,
 ];
 
@@ -40,21 +31,20 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
+        A11yModule,
+        AccessibilityModule,
         BsDropdownModule,
         ButtonsModule,
-        ReorderableModule,
-        FocusIfModule,
-        WrappersModule,
         ChartsModule,
-        TabsetModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
         ColorServiceModule,
-        AccessibilityModule,
+        CommonModule,
+        DocumentationComponentsModule,
+        FocusIfModule,
+        FormsModule,
         MenuNavigationModule,
-        A11yModule
+        ReorderableModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

@@ -33,11 +33,7 @@ export class AppComponent implements OnInit {
             }),
             filter(data => data.route.outlet === 'primary')
         ).subscribe(data => {
-            this.navigation.configureForRoute(data.route);
             this.navigation.scrollOnNavigationChange(data.event.url);
         });
-
-        // manually perform initial navigation - required in hybrid app
-        this.router.initialNavigation();
     }
 }

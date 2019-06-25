@@ -1,0 +1,1556 @@
+{
+    "icons": [
+        {
+            "name": "3d",
+            "classname": "ux-icon-3d"
+        },
+        {
+            "name": "achievement",
+            "classname": "ux-icon-achievement"
+        },
+        {
+            "name": "action",
+            "classname": "ux-icon-action"
+        },
+        {
+            "name": "actions",
+            "classname": "ux-icon-actions"
+        },
+        {
+            "name": "active",
+            "classname": "ux-icon-active"
+        },
+        {
+            "name": "add",
+            "classname": "ux-icon-add"
+        },
+        {
+            "name": "advanced-search",
+            "classname": "ux-icon-advanced-search"
+        },
+        {
+            "name": "aggregate",
+            "classname": "ux-icon-aggregate"
+        },
+        {
+            "name": "alarm",
+            "classname": "ux-icon-alarm"
+        },
+        {
+            "name": "alert-filled",
+            "classname": "ux-icon-alert-filled"
+        },
+        {
+            "name": "alert",
+            "classname": "ux-icon-alert"
+        },
+        {
+            "name": "analytics",
+            "classname": "ux-icon-analytics"
+        },
+        {
+            "name": "announcement",
+            "classname": "ux-icon-announcement"
+        },
+        {
+            "name": "app",
+            "classname": "ux-icon-app"
+        },
+        {
+            "name": "archive",
+            "classname": "ux-icon-archive"
+        },
+        {
+            "name": "article",
+            "classname": "ux-icon-article"
+        },
+        {
+            "name": "ascend",
+            "classname": "ux-icon-ascend"
+        },
+        {
+            "name": "assistant",
+            "classname": "ux-icon-assistant"
+        },
+        {
+            "name": "attachment",
+            "classname": "ux-icon-attachment"
+        },
+        {
+            "name": "bar-chart",
+            "classname": "ux-icon-bar-chart"
+        },
+        {
+            "name": "blog",
+            "classname": "ux-icon-blog"
+        },
+        {
+            "name": "book",
+            "classname": "ux-icon-book"
+        },
+        {
+            "name": "bookmark-filled",
+            "classname": "ux-icon-bookmark-filled"
+        },
+        {
+            "name": "bookmark",
+            "classname": "ux-icon-bookmark"
+        },
+        {
+            "name": "bundle",
+            "classname": "ux-icon-bundle"
+        },
+        {
+            "name": "calculator",
+            "classname": "ux-icon-calculator"
+        },
+        {
+            "name": "calendar",
+            "classname": "ux-icon-calendar"
+        },
+        {
+            "name": "camera-filled",
+            "classname": "ux-icon-camera-filled"
+        },
+        {
+            "name": "camera",
+            "classname": "ux-icon-camera"
+        },
+        {
+            "name": "capacity",
+            "classname": "ux-icon-capacity"
+        },
+        {
+            "name": "caret-down-filled",
+            "classname": "ux-icon-caret-down-filled"
+        },
+        {
+            "name": "caret-down",
+            "classname": "ux-icon-caret-down"
+        },
+        {
+            "name": "caret-next-filled",
+            "classname": "ux-icon-caret-next-filled"
+        },
+        {
+            "name": "caret-next",
+            "classname": "ux-icon-caret-next"
+        },
+        {
+            "name": "caret-previous-filled",
+            "classname": "ux-icon-caret-previous-filled"
+        },
+        {
+            "name": "caret-previous",
+            "classname": "ux-icon-caret-previous"
+        },
+        {
+            "name": "caret-up-filled",
+            "classname": "ux-icon-caret-up-filled"
+        },
+        {
+            "name": "caret-up",
+            "classname": "ux-icon-caret-up"
+        },
+        {
+            "name": "catalog",
+            "classname": "ux-icon-catalog"
+        },
+        {
+            "name": "chapter-add",
+            "classname": "ux-icon-chapter-add"
+        },
+        {
+            "name": "chapter-next-filled",
+            "classname": "ux-icon-chapter-next-filled"
+        },
+        {
+            "name": "chapter-next",
+            "classname": "ux-icon-chapter-next"
+        },
+        {
+            "name": "chapter-previous-filled",
+            "classname": "ux-icon-chapter-previous-filled"
+        },
+        {
+            "name": "chapter-previous",
+            "classname": "ux-icon-chapter-previous"
+        },
+        {
+            "name": "chart-organization",
+            "classname": "ux-icon-chart-organization"
+        },
+        {
+            "name": "chart-partition",
+            "classname": "ux-icon-chart-partition"
+        },
+        {
+            "name": "chart-sankey",
+            "classname": "ux-icon-chart-sankey"
+        },
+        {
+            "name": "chat-attachment",
+            "classname": "ux-icon-chat-attachment"
+        },
+        {
+            "name": "chat",
+            "classname": "ux-icon-chat"
+        },
+        {
+            "name": "checkbox-selected",
+            "classname": "ux-icon-checkbox-selected"
+        },
+        {
+            "name": "checkbox",
+            "classname": "ux-icon-checkbox"
+        },
+        {
+            "name": "checkmark",
+            "classname": "ux-icon-checkmark"
+        },
+        {
+            "name": "chevron-down",
+            "classname": "ux-icon-chevron-down"
+        },
+        {
+            "name": "chevron-left-double",
+            "classname": "ux-icon-chevron-left-double"
+        },
+        {
+            "name": "chevron-left",
+            "classname": "ux-icon-chevron-left"
+        },
+        {
+            "name": "chevron-right-double",
+            "classname": "ux-icon-chevron-right-double"
+        },
+        {
+            "name": "chevron-right",
+            "classname": "ux-icon-chevron-right"
+        },
+        {
+            "name": "chevron-up",
+            "classname": "ux-icon-chevron-up"
+        },
+        {
+            "name": "circular-view",
+            "classname": "ux-icon-circular-view"
+        },
+        {
+            "name": "clipboard",
+            "classname": "ux-icon-clipboard"
+        },
+        {
+            "name": "clone",
+            "classname": "ux-icon-clone"
+        },
+        {
+            "name": "close",
+            "classname": "ux-icon-close"
+        },
+        {
+            "name": "cloud-computer",
+            "classname": "ux-icon-cloud-computer"
+        },
+        {
+            "name": "cloud-download",
+            "classname": "ux-icon-cloud-download"
+        },
+        {
+            "name": "cloud-software",
+            "classname": "ux-icon-cloud-software"
+        },
+        {
+            "name": "cloud-upload",
+            "classname": "ux-icon-cloud-upload"
+        },
+        {
+            "name": "cloud",
+            "classname": "ux-icon-cloud"
+        },
+        {
+            "name": "cluster",
+            "classname": "ux-icon-cluster"
+        },
+        {
+            "name": "code",
+            "classname": "ux-icon-code"
+        },
+        {
+            "name": "command-line",
+            "classname": "ux-icon-command-line"
+        },
+        {
+            "name": "compare",
+            "classname": "ux-icon-compare"
+        },
+        {
+            "name": "compass",
+            "classname": "ux-icon-compass"
+        },
+        {
+            "name": "compliance",
+            "classname": "ux-icon-compliance"
+        },
+        {
+            "name": "computer-personal",
+            "classname": "ux-icon-computer-personal"
+        },
+        {
+            "name": "configuration-filled",
+            "classname": "ux-icon-configuration-filled"
+        },
+        {
+            "name": "configuration",
+            "classname": "ux-icon-configuration"
+        },
+        {
+            "name": "connect",
+            "classname": "ux-icon-connect"
+        },
+        {
+            "name": "contact-card",
+            "classname": "ux-icon-contact-card"
+        },
+        {
+            "name": "contact-us-filled",
+            "classname": "ux-icon-contact-us-filled"
+        },
+        {
+            "name": "contact-us",
+            "classname": "ux-icon-contact-us"
+        },
+        {
+            "name": "contract",
+            "classname": "ux-icon-contract"
+        },
+        {
+            "name": "copy",
+            "classname": "ux-icon-copy"
+        },
+        {
+            "name": "cube-filled",
+            "classname": "ux-icon-cube-filled"
+        },
+        {
+            "name": "cube",
+            "classname": "ux-icon-cube"
+        },
+        {
+            "name": "cubes",
+            "classname": "ux-icon-cubes"
+        },
+        {
+            "name": "cursor-filled",
+            "classname": "ux-icon-cursor-filled"
+        },
+        {
+            "name": "cursor",
+            "classname": "ux-icon-cursor"
+        },
+        {
+            "name": "cut",
+            "classname": "ux-icon-cut"
+        },
+        {
+            "name": "cycle",
+            "classname": "ux-icon-cycle"
+        },
+        {
+            "name": "dashboard",
+            "classname": "ux-icon-dashboard"
+        },
+        {
+            "name": "database",
+            "classname": "ux-icon-database"
+        },
+        {
+            "name": "defect",
+            "classname": "ux-icon-defect"
+        },
+        {
+            "name": "deliver",
+            "classname": "ux-icon-deliver"
+        },
+        {
+            "name": "deployment",
+            "classname": "ux-icon-deployment"
+        },
+        {
+            "name": "descend",
+            "classname": "ux-icon-descend"
+        },
+        {
+            "name": "desktop",
+            "classname": "ux-icon-desktop"
+        },
+        {
+            "name": "detach",
+            "classname": "ux-icon-detach"
+        },
+        {
+            "name": "directions",
+            "classname": "ux-icon-directions"
+        },
+        {
+            "name": "dislike-filled",
+            "classname": "ux-icon-dislike-filled"
+        },
+        {
+            "name": "dislike",
+            "classname": "ux-icon-dislike"
+        },
+        {
+            "name": "divide-four",
+            "classname": "ux-icon-divide-four"
+        },
+        {
+            "name": "divide-right",
+            "classname": "ux-icon-divide-right"
+        },
+        {
+            "name": "divide-three",
+            "classname": "ux-icon-divide-three"
+        },
+        {
+            "name": "divide",
+            "classname": "ux-icon-divide"
+        },
+        {
+            "name": "document-cloud",
+            "classname": "ux-icon-document-cloud"
+        },
+        {
+            "name": "document-compress",
+            "classname": "ux-icon-document-compress"
+        },
+        {
+            "name": "document-config",
+            "classname": "ux-icon-document-config"
+        },
+        {
+            "name": "document-csv",
+            "classname": "ux-icon-document-csv"
+        },
+        {
+            "name": "document-data",
+            "classname": "ux-icon-document-data"
+        },
+        {
+            "name": "document-download",
+            "classname": "ux-icon-document-download"
+        },
+        {
+            "name": "document-excel",
+            "classname": "ux-icon-document-excel"
+        },
+        {
+            "name": "document-executable",
+            "classname": "ux-icon-document-executable"
+        },
+        {
+            "name": "document-image",
+            "classname": "ux-icon-document-image"
+        },
+        {
+            "name": "document-locked",
+            "classname": "ux-icon-document-locked"
+        },
+        {
+            "name": "document-missing",
+            "classname": "ux-icon-document-missing"
+        },
+        {
+            "name": "document-notes",
+            "classname": "ux-icon-document-notes"
+        },
+        {
+            "name": "document-outlook",
+            "classname": "ux-icon-document-outlook"
+        },
+        {
+            "name": "document-pdf",
+            "classname": "ux-icon-document-pdf"
+        },
+        {
+            "name": "document-performance",
+            "classname": "ux-icon-document-performance"
+        },
+        {
+            "name": "document-powerpoint",
+            "classname": "ux-icon-document-powerpoint"
+        },
+        {
+            "name": "document-rtf",
+            "classname": "ux-icon-document-rtf"
+        },
+        {
+            "name": "document-sound",
+            "classname": "ux-icon-document-sound"
+        },
+        {
+            "name": "document-test",
+            "classname": "ux-icon-document-test"
+        },
+        {
+            "name": "document-text",
+            "classname": "ux-icon-document-text"
+        },
+        {
+            "name": "document-threat",
+            "classname": "ux-icon-document-threat"
+        },
+        {
+            "name": "document-time",
+            "classname": "ux-icon-document-time"
+        },
+        {
+            "name": "document-transfer",
+            "classname": "ux-icon-document-transfer"
+        },
+        {
+            "name": "document-txt",
+            "classname": "ux-icon-document-txt"
+        },
+        {
+            "name": "document-update",
+            "classname": "ux-icon-document-update"
+        },
+        {
+            "name": "document-upload",
+            "classname": "ux-icon-document-upload"
+        },
+        {
+            "name": "document-user",
+            "classname": "ux-icon-document-user"
+        },
+        {
+            "name": "document-verified",
+            "classname": "ux-icon-document-verified"
+        },
+        {
+            "name": "document-video",
+            "classname": "ux-icon-document-video"
+        },
+        {
+            "name": "document-word",
+            "classname": "ux-icon-document-word"
+        },
+        {
+            "name": "document",
+            "classname": "ux-icon-document"
+        },
+        {
+            "name": "domain",
+            "classname": "ux-icon-domain"
+        },
+        {
+            "name": "down",
+            "classname": "ux-icon-down"
+        },
+        {
+            "name": "download",
+            "classname": "ux-icon-download"
+        },
+        {
+            "name": "drag",
+            "classname": "ux-icon-drag"
+        },
+        {
+            "name": "drive-cage",
+            "classname": "ux-icon-drive-cage"
+        },
+        {
+            "name": "duplicate",
+            "classname": "ux-icon-duplicate"
+        },
+        {
+            "name": "edit-filled",
+            "classname": "ux-icon-edit-filled"
+        },
+        {
+            "name": "edit",
+            "classname": "ux-icon-edit"
+        },
+        {
+            "name": "eject-filled",
+            "classname": "ux-icon-eject-filled"
+        },
+        {
+            "name": "eject",
+            "classname": "ux-icon-eject"
+        },
+        {
+            "name": "expand",
+            "classname": "ux-icon-expand"
+        },
+        {
+            "name": "fan",
+            "classname": "ux-icon-fan"
+        },
+        {
+            "name": "fast-forward-filled",
+            "classname": "ux-icon-fast-forward-filled"
+        },
+        {
+            "name": "fast-forward",
+            "classname": "ux-icon-fast-forward"
+        },
+        {
+            "name": "favorite-filled",
+            "classname": "ux-icon-favorite-filled"
+        },
+        {
+            "name": "favorite",
+            "classname": "ux-icon-favorite"
+        },
+        {
+            "name": "filter-filled",
+            "classname": "ux-icon-filter-filled"
+        },
+        {
+            "name": "filter",
+            "classname": "ux-icon-filter"
+        },
+        {
+            "name": "first-aid",
+            "classname": "ux-icon-first-aid"
+        },
+        {
+            "name": "flag-filled",
+            "classname": "ux-icon-flag-filled"
+        },
+        {
+            "name": "flag",
+            "classname": "ux-icon-flag"
+        },
+        {
+            "name": "folder-cycle",
+            "classname": "ux-icon-folder-cycle"
+        },
+        {
+            "name": "folder-open",
+            "classname": "ux-icon-folder-open"
+        },
+        {
+            "name": "folder",
+            "classname": "ux-icon-folder"
+        },
+        {
+            "name": "gallery-filled",
+            "classname": "ux-icon-gallery-filled"
+        },
+        {
+            "name": "gallery",
+            "classname": "ux-icon-gallery"
+        },
+        {
+            "name": "globe",
+            "classname": "ux-icon-globe"
+        },
+        {
+            "name": "grid",
+            "classname": "ux-icon-grid"
+        },
+        {
+            "name": "group",
+            "classname": "ux-icon-group"
+        },
+        {
+            "name": "grow",
+            "classname": "ux-icon-grow"
+        },
+        {
+            "name": "halt",
+            "classname": "ux-icon-halt"
+        },
+        {
+            "name": "help-circle",
+            "classname": "ux-icon-help-circle"
+        },
+        {
+            "name": "help",
+            "classname": "ux-icon-help"
+        },
+        {
+            "name": "history",
+            "classname": "ux-icon-history"
+        },
+        {
+            "name": "home-filled",
+            "classname": "ux-icon-home-filled"
+        },
+        {
+            "name": "home",
+            "classname": "ux-icon-home"
+        },
+        {
+            "name": "host-maintenance",
+            "classname": "ux-icon-host-maintenance"
+        },
+        {
+            "name": "host",
+            "classname": "ux-icon-host"
+        },
+        {
+            "name": "image-filled",
+            "classname": "ux-icon-image-filled"
+        },
+        {
+            "name": "image",
+            "classname": "ux-icon-image"
+        },
+        {
+            "name": "impact",
+            "classname": "ux-icon-impact"
+        },
+        {
+            "name": "in-progress",
+            "classname": "ux-icon-in-progress"
+        },
+        {
+            "name": "inactive",
+            "classname": "ux-icon-inactive"
+        },
+        {
+            "name": "inbox",
+            "classname": "ux-icon-inbox"
+        },
+        {
+            "name": "indicator-filled",
+            "classname": "ux-icon-indicator-filled"
+        },
+        {
+            "name": "indicator",
+            "classname": "ux-icon-indicator"
+        },
+        {
+            "name": "information-filled",
+            "classname": "ux-icon-information-filled"
+        },
+        {
+            "name": "information",
+            "classname": "ux-icon-information"
+        },
+        {
+            "name": "inherit-filled",
+            "classname": "ux-icon-inherit-filled"
+        },
+        {
+            "name": "inherit",
+            "classname": "ux-icon-inherit"
+        },
+        {
+            "name": "install",
+            "classname": "ux-icon-install"
+        },
+        {
+            "name": "integration",
+            "classname": "ux-icon-integration"
+        },
+        {
+            "name": "iteration-filled",
+            "classname": "ux-icon-iteration-filled"
+        },
+        {
+            "name": "iteration",
+            "classname": "ux-icon-iteration"
+        },
+        {
+            "name": "java-filled",
+            "classname": "ux-icon-java-filled"
+        },
+        {
+            "name": "java",
+            "classname": "ux-icon-java"
+        },
+        {
+            "name": "language",
+            "classname": "ux-icon-language"
+        },
+        {
+            "name": "launch",
+            "classname": "ux-icon-launch"
+        },
+        {
+            "name": "license-filled",
+            "classname": "ux-icon-license-filled"
+        },
+        {
+            "name": "license",
+            "classname": "ux-icon-license"
+        },
+        {
+            "name": "like-filled",
+            "classname": "ux-icon-like-filled"
+        },
+        {
+            "name": "like",
+            "classname": "ux-icon-like"
+        },
+        {
+            "name": "line-chart",
+            "classname": "ux-icon-line-chart"
+        },
+        {
+            "name": "link-bottom",
+            "classname": "ux-icon-link-bottom"
+        },
+        {
+            "name": "link-down",
+            "classname": "ux-icon-link-down"
+        },
+        {
+            "name": "link-next",
+            "classname": "ux-icon-link-next"
+        },
+        {
+            "name": "link-previous",
+            "classname": "ux-icon-link-previous"
+        },
+        {
+            "name": "link-top",
+            "classname": "ux-icon-link-top"
+        },
+        {
+            "name": "link-up",
+            "classname": "ux-icon-link-up"
+        },
+        {
+            "name": "link",
+            "classname": "ux-icon-link"
+        },
+        {
+            "name": "list",
+            "classname": "ux-icon-list"
+        },
+        {
+            "name": "location-filled",
+            "classname": "ux-icon-location-filled"
+        },
+        {
+            "name": "location-pin-filled",
+            "classname": "ux-icon-location-pin-filled"
+        },
+        {
+            "name": "location-pin",
+            "classname": "ux-icon-location-pin"
+        },
+        {
+            "name": "location",
+            "classname": "ux-icon-location"
+        },
+        {
+            "name": "lock",
+            "classname": "ux-icon-lock"
+        },
+        {
+            "name": "login",
+            "classname": "ux-icon-login"
+        },
+        {
+            "name": "logout",
+            "classname": "ux-icon-logout"
+        },
+        {
+            "name": "mail-attachment",
+            "classname": "ux-icon-mail-attachment"
+        },
+        {
+            "name": "mail-filled",
+            "classname": "ux-icon-mail-filled"
+        },
+        {
+            "name": "mail",
+            "classname": "ux-icon-mail"
+        },
+        {
+            "name": "manual",
+            "classname": "ux-icon-manual"
+        },
+        {
+            "name": "map-location",
+            "classname": "ux-icon-map-location"
+        },
+        {
+            "name": "map",
+            "classname": "ux-icon-map"
+        },
+        {
+            "name": "menu",
+            "classname": "ux-icon-menu"
+        },
+        {
+            "name": "microphone-filled",
+            "classname": "ux-icon-microphone-filled"
+        },
+        {
+            "name": "microphone",
+            "classname": "ux-icon-microphone"
+        },
+        {
+            "name": "monitor",
+            "classname": "ux-icon-monitor"
+        },
+        {
+            "name": "more",
+            "classname": "ux-icon-more"
+        },
+        {
+            "name": "multiple",
+            "classname": "ux-icon-multiple"
+        },
+        {
+            "name": "navigate",
+            "classname": "ux-icon-navigate"
+        },
+        {
+            "name": "new-window",
+            "classname": "ux-icon-new-window"
+        },
+        {
+            "name": "new",
+            "classname": "ux-icon-new"
+        },
+        {
+            "name": "next",
+            "classname": "ux-icon-next"
+        },
+        {
+            "name": "notes",
+            "classname": "ux-icon-notes"
+        },
+        {
+            "name": "notification-filled",
+            "classname": "ux-icon-notification-filled"
+        },
+        {
+            "name": "notification",
+            "classname": "ux-icon-notification"
+        },
+        {
+            "name": "optimization",
+            "classname": "ux-icon-optimization"
+        },
+        {
+            "name": "organization",
+            "classname": "ux-icon-organization"
+        },
+        {
+            "name": "overview",
+            "classname": "ux-icon-overview"
+        },
+        {
+            "name": "pan",
+            "classname": "ux-icon-pan"
+        },
+        {
+            "name": "pause-filled",
+            "classname": "ux-icon-pause-filled"
+        },
+        {
+            "name": "pause",
+            "classname": "ux-icon-pause"
+        },
+        {
+            "name": "payment-google-wallet",
+            "classname": "ux-icon-payment-google-wallet"
+        },
+        {
+            "name": "payment-mastercard",
+            "classname": "ux-icon-payment-mastercard"
+        },
+        {
+            "name": "payment-paypal",
+            "classname": "ux-icon-payment-paypal"
+        },
+        {
+            "name": "payment-square",
+            "classname": "ux-icon-payment-square"
+        },
+        {
+            "name": "payment-visa",
+            "classname": "ux-icon-payment-visa"
+        },
+        {
+            "name": "pin-filled",
+            "classname": "ux-icon-pin-filled"
+        },
+        {
+            "name": "pin",
+            "classname": "ux-icon-pin"
+        },
+        {
+            "name": "plan",
+            "classname": "ux-icon-plan"
+        },
+        {
+            "name": "platform-apple",
+            "classname": "ux-icon-platform-apple"
+        },
+        {
+            "name": "platform-chrome",
+            "classname": "ux-icon-platform-chrome"
+        },
+        {
+            "name": "platform-dropbox",
+            "classname": "ux-icon-platform-dropbox"
+        },
+        {
+            "name": "platform-edge",
+            "classname": "ux-icon-platform-edge"
+        },
+        {
+            "name": "platform-firefox",
+            "classname": "ux-icon-platform-firefox"
+        },
+        {
+            "name": "platform-internet-explorer",
+            "classname": "ux-icon-platform-internet-explorer"
+        },
+        {
+            "name": "platform-skype",
+            "classname": "ux-icon-platform-skype"
+        },
+        {
+            "name": "platform-windows",
+            "classname": "ux-icon-platform-windows"
+        },
+        {
+            "name": "play-filled",
+            "classname": "ux-icon-play-filled"
+        },
+        {
+            "name": "play",
+            "classname": "ux-icon-play"
+        },
+        {
+            "name": "power",
+            "classname": "ux-icon-power"
+        },
+        {
+            "name": "previous",
+            "classname": "ux-icon-previous"
+        },
+        {
+            "name": "print",
+            "classname": "ux-icon-print"
+        },
+        {
+            "name": "quick-view",
+            "classname": "ux-icon-quick-view"
+        },
+        {
+            "name": "radial-selected",
+            "classname": "ux-icon-radial-selected"
+        },
+        {
+            "name": "radial",
+            "classname": "ux-icon-radial"
+        },
+        {
+            "name": "refresh",
+            "classname": "ux-icon-refresh"
+        },
+        {
+            "name": "resources",
+            "classname": "ux-icon-resources"
+        },
+        {
+            "name": "rewind-filled",
+            "classname": "ux-icon-rewind-filled"
+        },
+        {
+            "name": "rewind",
+            "classname": "ux-icon-rewind"
+        },
+        {
+            "name": "risk",
+            "classname": "ux-icon-risk"
+        },
+        {
+            "name": "rss",
+            "classname": "ux-icon-rss"
+        },
+        {
+            "name": "satellite",
+            "classname": "ux-icon-satellite"
+        },
+        {
+            "name": "schedule-clone",
+            "classname": "ux-icon-schedule-clone"
+        },
+        {
+            "name": "schedule-new",
+            "classname": "ux-icon-schedule-new"
+        },
+        {
+            "name": "schedule-play",
+            "classname": "ux-icon-schedule-play"
+        },
+        {
+            "name": "schedule",
+            "classname": "ux-icon-schedule"
+        },
+        {
+            "name": "scorecard",
+            "classname": "ux-icon-scorecard"
+        },
+        {
+            "name": "search",
+            "classname": "ux-icon-search"
+        },
+        {
+            "name": "secure",
+            "classname": "ux-icon-secure"
+        },
+        {
+            "name": "select-left",
+            "classname": "ux-icon-select-left"
+        },
+        {
+            "name": "select",
+            "classname": "ux-icon-select"
+        },
+        {
+            "name": "server-cluster",
+            "classname": "ux-icon-server-cluster"
+        },
+        {
+            "name": "server",
+            "classname": "ux-icon-server"
+        },
+        {
+            "name": "servers",
+            "classname": "ux-icon-servers"
+        },
+        {
+            "name": "service-business",
+            "classname": "ux-icon-service-business"
+        },
+        {
+            "name": "service-start",
+            "classname": "ux-icon-service-start"
+        },
+        {
+            "name": "share",
+            "classname": "ux-icon-share"
+        },
+        {
+            "name": "shield-configure",
+            "classname": "ux-icon-shield-configure"
+        },
+        {
+            "name": "shield-filled",
+            "classname": "ux-icon-shield-filled"
+        },
+        {
+            "name": "shield",
+            "classname": "ux-icon-shield"
+        },
+        {
+            "name": "shift",
+            "classname": "ux-icon-shift"
+        },
+        {
+            "name": "shop-basket",
+            "classname": "ux-icon-shop-basket"
+        },
+        {
+            "name": "shop-cart",
+            "classname": "ux-icon-shop-cart"
+        },
+        {
+            "name": "soa",
+            "classname": "ux-icon-soa"
+        },
+        {
+            "name": "social-email",
+            "classname": "ux-icon-social-email"
+        },
+        {
+            "name": "social-facebook",
+            "classname": "ux-icon-social-facebook"
+        },
+        {
+            "name": "social-github",
+            "classname": "ux-icon-social-github"
+        },
+        {
+            "name": "social-instagram",
+            "classname": "ux-icon-social-instagram"
+        },
+        {
+            "name": "social-linkedin",
+            "classname": "ux-icon-social-linkedin"
+        },
+        {
+            "name": "social-medium",
+            "classname": "ux-icon-social-medium"
+        },
+        {
+            "name": "social-pinterest",
+            "classname": "ux-icon-social-pinterest"
+        },
+        {
+            "name": "social-reddit",
+            "classname": "ux-icon-social-reddit"
+        },
+        {
+            "name": "social-slack",
+            "classname": "ux-icon-social-slack"
+        },
+        {
+            "name": "social-tumblr",
+            "classname": "ux-icon-social-tumblr"
+        },
+        {
+            "name": "social-twitter",
+            "classname": "ux-icon-social-twitter"
+        },
+        {
+            "name": "social-vimeo",
+            "classname": "ux-icon-social-vimeo"
+        },
+        {
+            "name": "social-youtube",
+            "classname": "ux-icon-social-youtube"
+        },
+        {
+            "name": "sort",
+            "classname": "ux-icon-sort"
+        },
+        {
+            "name": "stakeholder",
+            "classname": "ux-icon-stakeholder"
+        },
+        {
+            "name": "star-filled",
+            "classname": "ux-icon-star-filled"
+        },
+        {
+            "name": "star-half",
+            "classname": "ux-icon-star-half"
+        },
+        {
+            "name": "star",
+            "classname": "ux-icon-star"
+        },
+        {
+            "name": "status-approved-filled",
+            "classname": "ux-icon-status-approved-filled"
+        },
+        {
+            "name": "status-error-filled",
+            "classname": "ux-icon-status-error-filled"
+        },
+        {
+            "name": "status-information-filled",
+            "classname": "ux-icon-status-information-filled"
+        },
+        {
+            "name": "status-warning-filled",
+            "classname": "ux-icon-status-warning-filled"
+        },
+        {
+            "name": "steps-filled",
+            "classname": "ux-icon-steps-filled"
+        },
+        {
+            "name": "steps",
+            "classname": "ux-icon-steps"
+        },
+        {
+            "name": "storage",
+            "classname": "ux-icon-storage"
+        },
+        {
+            "name": "street-view-filled",
+            "classname": "ux-icon-street-view-filled"
+        },
+        {
+            "name": "street-view",
+            "classname": "ux-icon-street-view"
+        },
+        {
+            "name": "subtitles",
+            "classname": "ux-icon-subtitles"
+        },
+        {
+            "name": "subtract",
+            "classname": "ux-icon-subtract"
+        },
+        {
+            "name": "support",
+            "classname": "ux-icon-support"
+        },
+        {
+            "name": "sync",
+            "classname": "ux-icon-sync"
+        },
+        {
+            "name": "system",
+            "classname": "ux-icon-system"
+        },
+        {
+            "name": "tab-next",
+            "classname": "ux-icon-tab-next"
+        },
+        {
+            "name": "tab-previous",
+            "classname": "ux-icon-tab-previous"
+        },
+        {
+            "name": "tab-up",
+            "classname": "ux-icon-tab-up"
+        },
+        {
+            "name": "table-add",
+            "classname": "ux-icon-table-add"
+        },
+        {
+            "name": "table",
+            "classname": "ux-icon-table"
+        },
+        {
+            "name": "tag-filled",
+            "classname": "ux-icon-tag-filled"
+        },
+        {
+            "name": "tag",
+            "classname": "ux-icon-tag"
+        },
+        {
+            "name": "target",
+            "classname": "ux-icon-target"
+        },
+        {
+            "name": "task",
+            "classname": "ux-icon-task"
+        },
+        {
+            "name": "template",
+            "classname": "ux-icon-template"
+        },
+        {
+            "name": "test-desktop",
+            "classname": "ux-icon-test-desktop"
+        },
+        {
+            "name": "test",
+            "classname": "ux-icon-test"
+        },
+        {
+            "name": "text-wrap",
+            "classname": "ux-icon-text-wrap"
+        },
+        {
+            "name": "threats",
+            "classname": "ux-icon-threats"
+        },
+        {
+            "name": "ticket",
+            "classname": "ux-icon-ticket"
+        },
+        {
+            "name": "tools",
+            "classname": "ux-icon-tools"
+        },
+        {
+            "name": "tooltip",
+            "classname": "ux-icon-tooltip"
+        },
+        {
+            "name": "transaction-filled",
+            "classname": "ux-icon-transaction-filled"
+        },
+        {
+            "name": "transaction",
+            "classname": "ux-icon-transaction"
+        },
+        {
+            "name": "trash-filled",
+            "classname": "ux-icon-trash-filled"
+        },
+        {
+            "name": "trash",
+            "classname": "ux-icon-trash"
+        },
+        {
+            "name": "tree",
+            "classname": "ux-icon-tree"
+        },
+        {
+            "name": "trigger",
+            "classname": "ux-icon-trigger"
+        },
+        {
+            "name": "trophy-filled",
+            "classname": "ux-icon-trophy-filled"
+        },
+        {
+            "name": "trophy",
+            "classname": "ux-icon-trophy"
+        },
+        {
+            "name": "troubleshooting",
+            "classname": "ux-icon-troubleshooting"
+        },
+        {
+            "name": "unlock",
+            "classname": "ux-icon-unlock"
+        },
+        {
+            "name": "up",
+            "classname": "ux-icon-up"
+        },
+        {
+            "name": "update",
+            "classname": "ux-icon-update"
+        },
+        {
+            "name": "upgrade-filled",
+            "classname": "ux-icon-upgrade-filled"
+        },
+        {
+            "name": "upgrade",
+            "classname": "ux-icon-upgrade"
+        },
+        {
+            "name": "upload",
+            "classname": "ux-icon-upload"
+        },
+        {
+            "name": "user-add-filled",
+            "classname": "ux-icon-user-add-filled"
+        },
+        {
+            "name": "user-add",
+            "classname": "ux-icon-user-add"
+        },
+        {
+            "name": "user-admin",
+            "classname": "ux-icon-user-admin"
+        },
+        {
+            "name": "user-expert",
+            "classname": "ux-icon-user-expert"
+        },
+        {
+            "name": "user-female-filled",
+            "classname": "ux-icon-user-female-filled"
+        },
+        {
+            "name": "user-female",
+            "classname": "ux-icon-user-female"
+        },
+        {
+            "name": "user-filled",
+            "classname": "ux-icon-user-filled"
+        },
+        {
+            "name": "user-manager",
+            "classname": "ux-icon-user-manager"
+        },
+        {
+            "name": "user-new",
+            "classname": "ux-icon-user-new"
+        },
+        {
+            "name": "user-police",
+            "classname": "ux-icon-user-police"
+        },
+        {
+            "name": "user-settings",
+            "classname": "ux-icon-user-settings"
+        },
+        {
+            "name": "user-worker",
+            "classname": "ux-icon-user-worker"
+        },
+        {
+            "name": "user",
+            "classname": "ux-icon-user"
+        },
+        {
+            "name": "validation-filled",
+            "classname": "ux-icon-validation-filled"
+        },
+        {
+            "name": "validation",
+            "classname": "ux-icon-validation"
+        },
+        {
+            "name": "video-filled",
+            "classname": "ux-icon-video-filled"
+        },
+        {
+            "name": "video",
+            "classname": "ux-icon-video"
+        },
+        {
+            "name": "view-filled",
+            "classname": "ux-icon-view-filled"
+        },
+        {
+            "name": "view",
+            "classname": "ux-icon-view"
+        },
+        {
+            "name": "virtual-machine",
+            "classname": "ux-icon-virtual-machine"
+        },
+        {
+            "name": "vm-maintenance",
+            "classname": "ux-icon-vm-maintenance"
+        },
+        {
+            "name": "volume-filled",
+            "classname": "ux-icon-volume-filled"
+        },
+        {
+            "name": "volume-low-filled",
+            "classname": "ux-icon-volume-low-filled"
+        },
+        {
+            "name": "volume-low",
+            "classname": "ux-icon-volume-low"
+        },
+        {
+            "name": "volume-mute-filled",
+            "classname": "ux-icon-volume-mute-filled"
+        },
+        {
+            "name": "volume-mute",
+            "classname": "ux-icon-volume-mute"
+        },
+        {
+            "name": "volume",
+            "classname": "ux-icon-volume"
+        },
+        {
+            "name": "vulnerability",
+            "classname": "ux-icon-vulnerability"
+        },
+        {
+            "name": "waypoint-filled",
+            "classname": "ux-icon-waypoint-filled"
+        },
+        {
+            "name": "waypoint",
+            "classname": "ux-icon-waypoint"
+        },
+        {
+            "name": "workshop",
+            "classname": "ux-icon-workshop"
+        },
+        {
+            "name": "zoom-in",
+            "classname": "ux-icon-zoom-in"
+        },
+        {
+            "name": "zoom-out",
+            "classname": "ux-icon-zoom-out"
+        }
+    ]
+}
