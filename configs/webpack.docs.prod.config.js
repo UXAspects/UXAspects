@@ -10,7 +10,6 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -195,7 +194,6 @@ module.exports = {
             input: './docs/index.html',
             output: 'index.html',
             entrypoints: [
-                'scripts',
                 'polyfills',
                 'styles',
                 'main'
@@ -242,16 +240,6 @@ module.exports = {
 
         new CircularDependencyPlugin({
             exclude: /[\\\/]node_modules[\\\/]/
-        }),
-
-        new ScriptsWebpackPlugin({
-            name: 'scripts',
-            sourceMap: false,
-            filename: `scripts.[hash:20].js`,
-            scripts: [
-                join('node_modules', 'angular', 'angular.js'),
-            ],
-            basePath: cwd(),
         }),
     ],
 

@@ -35,8 +35,5 @@ export class AppComponent implements OnInit {
         ).subscribe(data => {
             this.navigation.scrollOnNavigationChange(data.event.url);
         });
-
-        // manually perform initial navigation - required in hybrid app
-        this.router.initialNavigation();
     }
 }

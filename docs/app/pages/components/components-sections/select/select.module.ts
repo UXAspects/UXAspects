@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, CheckboxModule, HybridModule, NumberPickerModule, RadioButtonModule, SelectListModule, SelectModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, CheckboxModule, NumberPickerModule, RadioButtonModule, SelectListModule, SelectModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -31,7 +31,6 @@ const ROUTES = [
         CommonModule,
         DocumentationComponentsModule,
         FormsModule,
-        HybridModule,
         NumberPickerModule,
         RadioButtonModule,
         RouterModule.forChild(ROUTES),

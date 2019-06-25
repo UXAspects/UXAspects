@@ -77,10 +77,6 @@ export * from './directives/scroll/index';
 export * from './directives/selection/index';
 export * from './directives/tree-grid/index';
 /*
-  Export Hybrid Components
-*/
-export * from './hybrid/index';
-/*
   Export Pipes
 */
 export * from './pipes/duration/index';
@@ -97,4 +93,5 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
+
 
