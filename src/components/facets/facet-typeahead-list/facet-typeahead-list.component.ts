@@ -1,10 +1,7 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { BehaviorSubject ,  Observable ,  of ,  Subject } from 'rxjs';
 import { distinctUntilChanged, first, map, mergeMap, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/index';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';

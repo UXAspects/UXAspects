@@ -1,7 +1,7 @@
 import { DOWN_ARROW, END, ESCAPE, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
 import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';
 import { MenuNavigationService } from './menu-navigation.service';

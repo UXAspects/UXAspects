@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
 import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderService } from './search-builder.service';

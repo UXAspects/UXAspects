@@ -2,8 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, HostListener, OnDestroy, TemplateRef } from '@angular/core';
 import { ColorPickerColor, ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 import { buffer, debounceTime } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject ,  Subscription } from 'rxjs';
 
 @Component({
     selector: 'app',

@@ -1,7 +1,7 @@
 import { END, HOME, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, Input, OnDestroy, Optional, Self } from '@angular/core';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { TabbableListService } from '../../../directives/accessibility/index';
 import { VirtualForDirective } from './virtual-for.directive';
 import { VirtualForRange, VirtualForService } from './virtual-for.service';
@@ -58,7 +58,7 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
     }
 
     /** Access the uxVirtualFor child directive */
-    @ContentChild(VirtualForDirective) virtualFor: VirtualForDirective<T>;
+    @ContentChild(VirtualForDirective, { static: false }) virtualFor: VirtualForDirective<T>;
 
     constructor(
         /** Get the ElementRef of the container element */

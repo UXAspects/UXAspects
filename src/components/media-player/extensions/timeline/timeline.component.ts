@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 
 
@@ -15,8 +14,8 @@ import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 })
 export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
 
-    @ViewChild('progressThumb') thumb: ElementRef;
-    @ViewChild('timeline') timelineRef: ElementRef;
+    @ViewChild('progressThumb', { static: true }) thumb: ElementRef;
+    @ViewChild('timeline', { static: true }) timelineRef: ElementRef;
 
     current: number = 0;
     position: number = 0;

@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
-import { Subscription } from 'rxjs/Subscription';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -12,7 +11,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('input') dateInput: ElementRef;
+    @ViewChild('input', { static: true }) dateInput: ElementRef;
 
     date: Date = new Date();
     timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };

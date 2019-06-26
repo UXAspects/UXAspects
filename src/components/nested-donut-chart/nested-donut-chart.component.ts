@@ -4,8 +4,8 @@ import { interpolate } from 'd3-interpolate';
 import { BaseType, mouse, select, Selection } from 'd3-selection';
 import { arc, Arc } from 'd3-shape';
 import { transition } from 'd3-transition';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { Color } from '../../common/colors/index';
 import { ResizeService } from '../../directives/resize/index';
 import { ColorService, ThemeColor } from '../../services/color/index';
@@ -49,10 +49,10 @@ export class NestedDonutChartComponent implements OnInit, OnChanges, OnDestroy {
     @Output() itemClick = new EventEmitter<NestedDonutChartData>();
 
     /** Access the SVG element */
-    @ViewChild('chart') _chartElement: ElementRef;
+    @ViewChild('chart', { static: true }) _chartElement: ElementRef;
 
     /** Allow custom tooltip template */
-    @ContentChild('tooltip') _customTooltip: TemplateRef<NestedDonutChartData>;
+    @ContentChild('tooltip', { static: false }) _customTooltip: TemplateRef<NestedDonutChartData>;
 
     /** Indicate if the tooltip should be visible */
     _tooltipVisible: boolean = false;

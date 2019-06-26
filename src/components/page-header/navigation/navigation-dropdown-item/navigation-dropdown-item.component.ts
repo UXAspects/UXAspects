@@ -1,7 +1,7 @@
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
@@ -14,7 +14,7 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     @Input() item: PageHeaderNavigationDropdownItem;
 
-    @ViewChild('button') button: ElementRef;
+    @ViewChild('button', { static: false }) button: ElementRef;
 
     dropdownOpen: boolean = false;
 

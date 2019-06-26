@@ -1,5 +1,5 @@
 import { ThemeColor } from '../../services/color/index';
-import { ColorPickerInputMode } from './color-picker.component';
+import { ColorPickerInputMode } from './color-picker.type';
 
 /**
  * Type representing a color, including its descriptive name.

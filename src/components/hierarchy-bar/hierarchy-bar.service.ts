@@ -1,10 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { Observer } from 'rxjs/Observer';
+import { BehaviorSubject ,  Observable ,  of ,  Observer ,  Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { OverlayTrigger } from '../tooltip/index';
 import { HierarchyBarNodeChildren } from './interfaces/hierarchy-bar-node-children.interface';
 import { HierarchyBarIconContext } from './interfaces/hierarchy-bar-node-icon-context.interface';

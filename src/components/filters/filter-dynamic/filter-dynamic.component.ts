@@ -1,9 +1,8 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
@@ -33,7 +32,7 @@ export class FilterDynamicComponent implements OnDestroy {
     }
 
     /** Get the dropdown directive */
-    @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
+    @ViewChild(BsDropdownDirective, { static: true }) dropdown: BsDropdownDirective;
 
     /** Generate a unique id for the typeahead */
     typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;

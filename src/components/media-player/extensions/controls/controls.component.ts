@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { timer } from 'rxjs/observable/timer';
+import { timer ,  Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { SliderOptions, SliderSize } from '../../../slider/index';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 

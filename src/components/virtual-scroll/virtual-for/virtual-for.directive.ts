@@ -1,6 +1,6 @@
 import { Directive, DoCheck, EmbeddedViewRef, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Optional, Renderer2, TemplateRef, TrackByFunction, ViewContainerRef } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { VirtualForRange, VirtualForService } from './virtual-for.service';
 
 /**

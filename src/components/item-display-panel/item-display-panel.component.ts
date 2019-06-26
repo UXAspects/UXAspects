@@ -44,8 +44,8 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
 
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
-    @ViewChild('panel') panel: ElementRef;
+    @ContentChild(ItemDisplayPanelFooterDirective, { static: false }) footer: ItemDisplayPanelFooterDirective;
+    @ViewChild('panel', { static: true }) panel: ElementRef;
 
     /**
      * @deprecated

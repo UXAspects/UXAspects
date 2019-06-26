@@ -1,8 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject ,  Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 

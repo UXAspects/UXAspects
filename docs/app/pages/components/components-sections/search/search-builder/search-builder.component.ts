@@ -2,10 +2,8 @@ import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { SearchBuilderComponentDefinition, SearchBuilderFocusService, SearchBuilderQuery, SearchDateRangeComponent, SearchDateRangeConfig, SearchSelectComponent, SearchSelectConfig, SearchTextComponent, SearchTextConfig } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { takeUntil } from 'rxjs/operators';
-import { first } from 'rxjs/operators/first';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { first, takeUntil } from 'rxjs/operators';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -151,7 +149,7 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
 
     filteredFields: SearchBuilderField[];
 
-    @ViewChild('searchBuilderContent')
+    @ViewChild('searchBuilderContent', { static: false })
     searchBuilderContent: ElementRef<HTMLElement>;
 
     private _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();

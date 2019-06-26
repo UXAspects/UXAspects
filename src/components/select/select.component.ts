@@ -3,10 +3,8 @@ import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
@@ -156,12 +154,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild('icon') icon: TemplateRef<any>;
+    @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
 
-    @ViewChild('singleInput') singleInput: ElementRef;
-    @ViewChild('tagInput') tagInput: TagInputComponent;
-    @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
-    @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
+    @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: TagInputComponent;
+    @ViewChild('multipleTypeahead', { static: false }) multipleTypeahead: TypeaheadComponent;
+    @ViewChild('singleTypeahead', { static: false }) singleTypeahead: TypeaheadComponent;
 
     highlightedElement: HTMLElement;
     filter$: Observable<string>;

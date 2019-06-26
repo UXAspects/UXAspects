@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
@@ -13,7 +13,7 @@ import { FlotData } from './flot-data';
 export class AppComponent implements AfterViewInit {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[];
@@ -88,7 +88,7 @@ export class AppComponent implements AfterViewInit {
                 });
 
                 // create html for chart legend
-                return `<ul class="multi-axis-legend-list">${ sets.join('') }</ul>`;
+                return `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
             },
             scales: {
                 xAxes: [{

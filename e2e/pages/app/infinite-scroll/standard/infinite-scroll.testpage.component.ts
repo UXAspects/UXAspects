@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import 'chance';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 const chance = new Chance();

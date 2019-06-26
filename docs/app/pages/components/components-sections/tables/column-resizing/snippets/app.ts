@@ -17,7 +17,7 @@ export class AppComponent {
     authorWidth: number = 300;
     dateWidth: number;
 
-    @ViewChild(ResizableTableDirective) resizableTable: ResizableTableDirective;
+    @ViewChild(ResizableTableDirective, { static: true }) resizableTable: ResizableTableDirective;
 
     constructor() {
         // generate some dummy data

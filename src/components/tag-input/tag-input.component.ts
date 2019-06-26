@@ -2,9 +2,8 @@ import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angul
 import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { tick } from '../../common/index';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
@@ -198,9 +197,9 @@ export class TagInputComponent<T = any> implements OnInit, AfterContentInit, OnC
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
-    @ViewChild('tagInput') tagInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
 
-    @ViewChild('defaultTagTemplate') private _defaultTagTemplate: TemplateRef<any>;
+    @ViewChild('defaultTagTemplate', { static: true }) private _defaultTagTemplate: TemplateRef<any>;
 
     selectedIndex: number = -1;
 

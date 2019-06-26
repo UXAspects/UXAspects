@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 import { DashboardGrabHandleDirective } from './grab-handle.directive';

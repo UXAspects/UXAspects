@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
 import { FocusIndicator } from './focus-indicator';
 import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';

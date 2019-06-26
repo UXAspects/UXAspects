@@ -46,9 +46,9 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
     focus: DragAndDropComponent = null;
     direction: string;
 
-    @ViewChild('dropdown') dropdownTemplate: TemplateRef<any>;
-    @ViewChild('text') textTemplate: TemplateRef<any>;
-    @ViewChild('buttons') buttonsTemplate: TemplateRef<any>;
+    @ViewChild('dropdown', { static: true }) dropdownTemplate: TemplateRef<any>;
+    @ViewChild('text', { static: true }) textTemplate: TemplateRef<any>;
+    @ViewChild('buttons', { static: true }) buttonsTemplate: TemplateRef<any>;
 
     constructor(private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

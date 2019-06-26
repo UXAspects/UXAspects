@@ -42,9 +42,9 @@ export class ComponentsColorPickerComponent extends BaseDocumentationSection imp
 
     isPickerOpen = true;
 
-    @ViewChild('toggleButton') toggleButton: ElementRef;
-    @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
-    @ViewChild('customize') customize: ElementRef;
+    @ViewChild('toggleButton', { static: true }) toggleButton: ElementRef;
+    @ViewChild('dropdownMenu', { static: false }) dropdownMenu: ElementRef;
+    @ViewChild('customize', { static: true }) customize: ElementRef;
 
     private _colorNames = [
         ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',

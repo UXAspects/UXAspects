@@ -2,10 +2,8 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
@@ -22,13 +20,13 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy, Foc
     @Input() item: PageHeaderNavigationItem;
 
     /** Access the menu navigation toggle directive */
-    @ViewChild('button') button: MenuNavigationToggleDirective;
+    @ViewChild('button', { static: false }) button: MenuNavigationToggleDirective;
 
     /** Access the dropdown menu directive */
-    @ViewChild('menu') menu: BsDropdownDirective;
+    @ViewChild('menu', { static: false }) menu: BsDropdownDirective;
 
     /** Access the navigation button element */
-    @ViewChild('navigationBtn') navigationBtn: ElementRef;
+    @ViewChild('navigationBtn', { static: false }) navigationBtn: ElementRef;
 
     /** Access the dropdown item components */
     @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;

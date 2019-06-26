@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { SankeyNodeLink } from './interfaces/node-link.interface';
 import { SankeyFocusManager } from './sankey-focus-manager';
 

@@ -1,8 +1,6 @@
 import { WeekDay } from '@angular/common';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
 import { compareDays, dateRange, gridify } from '../date-time-picker.utils';
 

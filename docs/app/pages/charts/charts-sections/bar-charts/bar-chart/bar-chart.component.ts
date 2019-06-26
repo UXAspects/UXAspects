@@ -15,7 +15,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ChartsBarChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlaygroundProvider {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     playground: IPlayground = {
         files: {
@@ -89,7 +89,7 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
                         return;
                     },
                     label: (item: Chart.ChartTooltipItem) => {
-                        return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
+                        return `x: ${item.xLabel}, y: ${item.yLabel}`;
                     }
                 },
                 displayColors: false

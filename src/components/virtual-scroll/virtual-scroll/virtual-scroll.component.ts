@@ -1,9 +1,6 @@
 import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { ResizeService } from '../../../directives/resize/index';
 import { VirtualScrollCellDirective } from './directives/virtual-scroll-cell.directive';
 import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';
@@ -27,9 +24,9 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDe
     /** Emit when we need to load another page */
     @Output() loading: EventEmitter<number> = new EventEmitter<number>();
 
-    @ContentChild(VirtualScrollCellDirective, { read: TemplateRef }) cellTemplate: TemplateRef<any>;
-    @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef }) loadingIndicatorTemplate: TemplateRef<any>;
-    @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef }) loadButtonTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollCellDirective, { read: TemplateRef, static: false }) cellTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef, static: false }) loadingIndicatorTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef, static: false }) loadButtonTemplate: TemplateRef<any>;
 
     cells: BehaviorSubject<VirtualCell<T>[]> = new BehaviorSubject([]);
     scrollTop: number = 0;

@@ -32,7 +32,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     };
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[];
@@ -119,7 +119,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
         });
     }
 
-    getRandomData(): { x: number, y: number}[] {
+    getRandomData(): { x: number, y: number }[] {
 
         if (this.livedata.length) {
             this.livedata = this.livedata.slice(1);

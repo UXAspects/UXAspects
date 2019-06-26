@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { delay, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderService } from '../search-builder.service';
 import { BaseSearchComponent } from '../search-components/base-search.component';

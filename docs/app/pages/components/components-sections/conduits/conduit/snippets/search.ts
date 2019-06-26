@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Conduit, ConduitComponent } from '@ux-aspects/ux-aspects';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'conduit-search',

@@ -1,7 +1,9 @@
+
+import {debounceTime} from 'rxjs/operators';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import 'chance';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -20,7 +22,7 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
 export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     filterText = new BehaviorSubject<string>('');
-    debouncedFilterText = this.filterText.debounceTime(500);
+    debouncedFilterText = this.filterText.pipe(debounceTime(500));
     allEmployees: any[] = [];
     loadedEmployees: any[] = [];
     loadCallback = this.load.bind(this);

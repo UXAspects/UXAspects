@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { Version, VersionService } from '../../services/version/version.service';
@@ -21,7 +21,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     @Input() angularJsButtonClass: string = 'button-toggle-primary';
     @Input() angularButtonClass: string = 'button-toggle-accent';
 
-    @ViewChild('container') container: ElementRef;
+    @ViewChild('container', { static: true }) container: ElementRef;
 
     top: number;
     height: number;

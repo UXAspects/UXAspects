@@ -2,7 +2,7 @@ import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { tick } from '../../../common/index';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorOriginService } from '../focus-indicator/focus-indicator-origin/focus-indicator-origin.service';

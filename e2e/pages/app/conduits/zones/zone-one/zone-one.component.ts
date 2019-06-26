@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Conduit, ConduitZone, ConduitZoneComponent } from '../../../../../../dist';
 
 @Component({

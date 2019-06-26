@@ -1,5 +1,5 @@
 import { Directive, Input, OnDestroy, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Directive({
     selector: '[uxColumnSorting]'

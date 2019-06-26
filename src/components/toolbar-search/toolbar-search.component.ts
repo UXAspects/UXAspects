@@ -1,8 +1,8 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { isPlatformServer } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { ColorService } from '../../services/color/color.service';
 import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive';
 import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
@@ -94,10 +94,10 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     }
 
     /** Access the input field element */
-    @ContentChild(ToolbarSearchFieldDirective) field: ToolbarSearchFieldDirective;
+    @ContentChild(ToolbarSearchFieldDirective, { static: false }) field: ToolbarSearchFieldDirective;
 
     /** Access the search button element */
-    @ContentChild(ToolbarSearchButtonDirective) button: ToolbarSearchButtonDirective;
+    @ContentChild(ToolbarSearchButtonDirective, { static: false }) button: ToolbarSearchButtonDirective;
 
     /** Store the CSS position value as this may change to absolute */
     _position: string = 'relative';

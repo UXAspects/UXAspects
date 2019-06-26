@@ -1,8 +1,7 @@
 import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { AfterViewInit, Attribute, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnDestroy, Optional, ViewChild } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { TooltipDirective } from '../tooltip/index';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
@@ -24,7 +23,7 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     @Input('aria-label') ariaLabel: string;
 
     /** Access the element ref of the button element */
-    @ViewChild('button') button: ElementRef;
+    @ViewChild('button', { static: true }) button: ElementRef;
 
     primary: boolean = false;
     tabindex$ = new BehaviorSubject<number>(-1);
