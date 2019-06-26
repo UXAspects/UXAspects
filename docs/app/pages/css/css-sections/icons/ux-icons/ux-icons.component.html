@@ -2,12 +2,12 @@
 
 <div class="row m-b-md">
     <div class="col-xs-6">
-        <ux-select
-            [(value)]="iconset"
-            (valueChange)="search()"
-            [options]="iconsets"
-            [readonlyInput]="true">
-        </ux-select>
+
+        <!-- Show the standard select component in the keppel site -->
+        <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
+
+        <!-- Show the combobox variant in the MF site -->
+        <ux-combobox *ngIf="!isKeppel" [(value)]="iconset" (valueChange)="search()" [options]="iconsets" [readonlyInput]="true"></ux-combobox>
     </div>
 
     <div class="col-xs-6">
