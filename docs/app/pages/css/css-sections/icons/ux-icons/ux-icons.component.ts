@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
 import { IIcon, IIcons } from './../../../../../interfaces/IIcons';
 
 @Component({
@@ -27,6 +28,12 @@ export class CssUxIconsComponent {
 
     /** Store the current search query */
     query: string;
+
+    get isKeppel(): boolean {
+        return this._documentationType === DocumentationType.Keppel;
+    }
+
+    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) { }
 
     /** Get the icon class based on the active iconset */
     get iconClass(): string {
