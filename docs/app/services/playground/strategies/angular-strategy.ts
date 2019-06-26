@@ -7,9 +7,9 @@ export class AngularPlaygroundStrategy extends PlaygroundStrategy {
 
     getGlobalExternalScripts(): string[] {
         return [
-            `https://cdnjs.cloudflare.com/ajax/libs/typescript/2.7.2/typescript.min.js`,
+            `https://cdnjs.cloudflare.com/ajax/libs/typescript/3.4.5/typescript.min.js`,
             `https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.7/core.min.js`,
-            `https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.8.26/zone.min.js`,
+            `https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js`,
             `https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.47/system.js`,
             'systemjs.config.js'
         ];
