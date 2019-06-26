@@ -1,4 +1,3 @@
-ALT_DOCUMENTATION_FOLDER=target/docs
 SEPG_BUILD_ENV_IMAGE=uxaspects/buildenv:1.1.0
 
 GENERIC_1_TARGET_URL=${genericRepoMgr}/saas-npm-dev-local/${path}/${filename}
