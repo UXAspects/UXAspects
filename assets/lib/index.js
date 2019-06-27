@@ -6345,7 +6345,13 @@
      */
     var ColumnSortingDirective = /** @class */ (function () {
         function ColumnSortingDirective() {
+            /**
+             * Emit the current sort state for all columns within the table
+             */
             this.events = new Subject.Subject();
+            /**
+             * Store the current sort state for all columns within the table
+             */
             this.order = [];
         }
         /**
@@ -6357,11 +6363,14 @@
             function () {
                 this.events.complete();
             };
+        /** Toggle the sorting state of a column */
         /**
+         * Toggle the sorting state of a column
          * @param {?} sorting
          * @return {?}
          */
         ColumnSortingDirective.prototype.toggleColumn = /**
+         * Toggle the sorting state of a column
          * @param {?} sorting
          * @return {?}
          */
@@ -6372,22 +6381,28 @@
                 this.events.next(this.order);
                 return this.order;
             };
+        /** Toggle the sorting state of a column when using single select */
         /**
+         * Toggle the sorting state of a column when using single select
          * @param {?} sorting
          * @return {?}
          */
         ColumnSortingDirective.prototype.toggleSingleColumn = /**
+         * Toggle the sorting state of a column when using single select
          * @param {?} sorting
          * @return {?}
          */
             function (sorting) {
                 return sorting.state === ColumnSortingState.NoSort ? [] : [{ key: sorting.key, state: sorting.state }];
             };
+        /** Toggle the sorting state of a column when using multiple select */
         /**
+         * Toggle the sorting state of a column when using multiple select
          * @param {?} sorting
          * @return {?}
          */
         ColumnSortingDirective.prototype.toggleMultipleColumn = /**
+         * Toggle the sorting state of a column when using multiple select
          * @param {?} sorting
          * @return {?}
          */
@@ -6412,7 +6427,8 @@
                     },] }
         ];
         ColumnSortingDirective.propDecorators = {
-            singleSort: [{ type: core.Input }]
+            singleSort: [{ type: core.Input }],
+            sortIndicator: [{ type: core.Input }]
         };
         return ColumnSortingDirective;
     }());
@@ -6428,9 +6444,9 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var ColumnSortingComponent = /** @class */ (function () {
-        function ColumnSortingComponent(_columnSorter) {
-            var _this = this;
-            this._columnSorter = _columnSorter;
+        function ColumnSortingComponent(_sorter, _changeDetector) {
+            this._sorter = _sorter;
+            this._changeDetector = _changeDetector;
             /**
              * Changes the state of the sorting on the column between `NoSort`, `Ascending` and `Descending`.
              * This returns an array of objects for each column being sorted containing `key: string` and `state: ColumnSortingState`.
@@ -6438,22 +6454,29 @@
              * The `ColumnSortingOrder` interface has been provided for objects in the array.
              */
             this.stateChange = new core.EventEmitter();
+            /**
+             * Expose the sorting state enum to the view
+             */
             this.columnSortingState = ColumnSortingState;
+            /**
+             * Unsubscribe from all observables on component destroy
+             */
             this._onDestroy = new Subject.Subject();
-            this._columnSorter.events.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (event) {
-                // if we are sorting this column then find the matching data
-                /** @type {?} */
-                var columnIdx = event.findIndex(function (_column) { return _column.key === _this.key; });
-                // if we are not sorting this column then mark it as NoSort
-                if (columnIdx === -1) {
-                    _this.state = ColumnSortingState.NoSort;
-                }
-                // only store the number if we have 2 or more columns being sorted
-                _this.order = event.length < 2 || columnIdx === -1 ? null : columnIdx + 1;
-                // Emit the latest change
-                _this.stateChange.emit(_this.state);
-            });
+            // listen for changes triggered by the directive
+            this._sorter.events.pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(this.updateState.bind(this));
         }
+        Object.defineProperty(ColumnSortingComponent.prototype, "_sortIndicator", {
+            /** Access the custom sort indicator if one was provided */
+            get: /**
+             * Access the custom sort indicator if one was provided
+             * @return {?}
+             */ function () {
+                return this._sorter.sortIndicator;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -6464,10 +6487,13 @@
                 this._onDestroy.next();
                 this._onDestroy.complete();
             };
+        /** Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component */
         /**
+         * Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component
          * @return {?}
          */
         ColumnSortingComponent.prototype.changeState = /**
+         * Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component
          * @return {?}
          */
             function () {
@@ -6481,20 +6507,51 @@
                     default:
                         this.state = ColumnSortingState.Ascending;
                 }
+                // change detection should be run
+                this._changeDetector.markForCheck();
                 // inform parent
-                return this._columnSorter.toggleColumn({ key: this.key, state: this.state });
+                return this._sorter.toggleColumn({ key: this.key, state: this.state });
+            };
+        /** Update the state based on column order */
+        /**
+         * Update the state based on column order
+         * @param {?} columns
+         * @return {?}
+         */
+        ColumnSortingComponent.prototype.updateState = /**
+         * Update the state based on column order
+         * @param {?} columns
+         * @return {?}
+         */
+            function (columns) {
+                var _this = this;
+                // if we are sorting this column then find the matching data
+                /** @type {?} */
+                var columnIdx = columns.findIndex(function (_column) { return _column.key === _this.key; });
+                // if we are not sorting this column then mark it as NoSort
+                if (columnIdx === -1) {
+                    this.state = ColumnSortingState.NoSort;
+                }
+                // only store the number if we have 2 or more columns being sorted
+                this.order = columns.length < 2 || columnIdx === -1 ? null : columnIdx + 1;
+                // change detection should be run
+                this._changeDetector.markForCheck();
+                // Emit the latest change
+                this.stateChange.emit(this.state);
             };
         ColumnSortingComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-column-sorting',
-                        template: "<div class=\"ux-column-sorting\">\n\n    <i class=\"ux-column-sorting-icon hpe-icon\"\n       [class.hpe-ascend]=\"state === columnSortingState.Ascending\"\n       [class.hpe-descend]=\"state === columnSortingState.Descending\"\n       [class.column-sorting-icon-hidden]=\"state === columnSortingState.NoSort\">\n    </i>\n\n    <p class=\"ux-column-sorting-number\" aria-hidden=\"true\">{{ order }}</p>\n</div>",
-                        exportAs: 'ux-column-sorting'
+                        template: "<div class=\"ux-column-sorting\">\n\n    <!-- The default sort indicator -->\n    <ng-container *ngIf=\"!_sortIndicator\">\n        <i class=\"ux-column-sorting-icon hpe-icon\"\n           [class.hpe-ascend]=\"state === columnSortingState.Ascending\"\n           [class.hpe-descend]=\"state === columnSortingState.Descending\"\n           [class.column-sorting-icon-hidden]=\"state === columnSortingState.NoSort\">\n        </i>\n\n        <p class=\"ux-column-sorting-number\" aria-hidden=\"true\">{{ order }}</p>\n    </ng-container>\n\n    <!-- Custom sort indicator -->\n    <ng-container\n        *ngIf=\"_sortIndicator\"\n        [ngTemplateOutlet]=\"_sortIndicator\"\n        [ngTemplateOutletContext]=\"{ state: state, order: order }\">\n    </ng-container>\n\n</div>",
+                        exportAs: 'ux-column-sorting',
+                        changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         ColumnSortingComponent.ctorParameters = function () {
             return [
-                { type: ColumnSortingDirective }
+                { type: ColumnSortingDirective },
+                { type: core.ChangeDetectorRef }
             ];
         };
         ColumnSortingComponent.propDecorators = {
@@ -6514,6 +6571,9 @@
         }
         ColumnSortingModule.decorators = [
             { type: core.NgModule, args: [{
+                        imports: [
+                            common.CommonModule
+                        ],
                         exports: [
                             ColumnSortingComponent,
                             ColumnSortingDirective
@@ -29101,7 +29161,7 @@
         OrganizationChartComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-organization-chart',
-                        template: "<!-- Add a button above the root node to load additional parent items -->\n<button #revealElement\n    uxFocusIndicatorOrigin\n    class=\"ux-organization-chart-reveal\"\n    tabindex=\"-1\"\n    [attr.aria-label]=\"revealAriaLabel\"\n    [hidden]=\"!showReveal\"\n    (click)=\"reveal.emit(); _focusRootNode()\"\n    (keydown.ArrowDown)=\"_focusRootNode(); $event.preventDefault()\">\n\n    <i class=\"hpe-icon hpe-tab-up\"></i>\n</button>\n\n<!-- Show the links connecting each node -->\n<svg #links class=\"ux-organization-chart-links\"></svg>\n\n<!-- Show the nodes containing information about each item -->\n<div #nodes class=\"ux-organization-chart-nodes\"></div>\n",
+                        template: "<!-- Add a button above the root node to load additional parent items -->\n<button #revealElement\n    uxFocusIndicatorOrigin\n    class=\"ux-organization-chart-reveal\"\n    tabindex=\"-1\"\n    [attr.aria-label]=\"revealAriaLabel\"\n    [hidden]=\"!showReveal\"\n    (click)=\"reveal.emit(); _focusRootNode()\"\n    (keydown.ArrowDown)=\"_focusRootNode(); $event.preventDefault()\">\n\n    <!-- Display Reveal Template -->\n    <ng-container [ngTemplateOutlet]=\"revealTemplate || defaultRevealTemplate\"></ng-container>\n</button>\n\n<!-- Show the links connecting each node -->\n<svg #links class=\"ux-organization-chart-links\"></svg>\n\n<!-- Show the nodes containing information about each item -->\n<div #nodes class=\"ux-organization-chart-nodes\"></div>\n\n<!-- Provide a default reveal template -->\n<ng-template #defaultRevealTemplate>\n    <i class=\"hpe-icon hpe-tab-up\"></i>\n</ng-template>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -29132,10 +29192,11 @@
             selectedChange: [{ type: core.Output }],
             reveal: [{ type: core.Output }],
             transitionEnd: [{ type: core.Output }],
-            nodeTemplate: [{ type: core.ContentChild, args: ['nodeTemplate',] }],
-            revealElement: [{ type: core.ViewChild, args: ['revealElement',] }],
-            linksContainer: [{ type: core.ViewChild, args: ['links',] }],
-            nodesContainer: [{ type: core.ViewChild, args: ['nodes',] }]
+            revealTemplate: [{ type: core.ContentChild, args: ['revealTemplate', ( /** @type {?} */({ static: false })),] }],
+            nodeTemplate: [{ type: core.ContentChild, args: ['nodeTemplate', ( /** @type {?} */({ static: false })),] }],
+            revealElement: [{ type: core.ViewChild, args: ['revealElement', ( /** @type {?} */({ static: true })),] }],
+            linksContainer: [{ type: core.ViewChild, args: ['links', ( /** @type {?} */({ static: true })),] }],
+            nodesContainer: [{ type: core.ViewChild, args: ['nodes', ( /** @type {?} */({ static: true })),] }]
         };
         return OrganizationChartComponent;
     }());
@@ -39562,10 +39623,29 @@
             function (model) {
                 this.selected = __spread(model);
             };
+        /** Get the action context, ensuring that functions have a pre-bound context */
+        /**
+         * Get the action context, ensuring that functions have a pre-bound context
+         * @return {?}
+         */
+        ColumnPickerComponent.prototype._getActionContext = /**
+         * Get the action context, ensuring that functions have a pre-bound context
+         * @return {?}
+         */
+            function () {
+                return {
+                    addSelection: this._deselectedSelection,
+                    removeSelection: this._selectedSelection,
+                    addColumns: this.addColumns.bind(this),
+                    removeColumns: this.removeColumns.bind(this),
+                    addAllColumns: this.addAllColumns.bind(this),
+                    removeAllColumns: this.removeAllColumns.bind(this)
+                };
+            };
         ColumnPickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ux-column-picker',
-                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right\"></i>\n    </button>\n\n    <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n    </button>\n\n    <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n        <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n    </button>\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
+                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <!-- Show the default action buttons -->\n    <ng-container *ngIf=\"!actionsTemplate\">\n        <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right\"></i>\n        </button>\n\n        <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n        </button>\n    </ng-container>\n\n    <!-- Allow custom actions template -->\n    <ng-container\n        *ngIf=\"actionsTemplate\"\n        [ngTemplateOutlet]=\"actionsTemplate\"\n        [ngTemplateOutletContext]=\"_getActionContext()\">\n    </ng-container>\n\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -39585,6 +39665,7 @@
             deselectedTemplate: [{ type: core.Input }],
             selectedTemplate: [{ type: core.Input }],
             lockedTemplate: [{ type: core.Input }],
+            actionsTemplate: [{ type: core.Input }],
             selectedAriaLabel: [{ type: core.Input }],
             columnMovedAnnouncement: [{ type: core.Input }],
             selectedChange: [{ type: core.Output }],
