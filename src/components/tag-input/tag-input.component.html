@@ -10,7 +10,7 @@
         (click)="tagClickHandler($event, tag, i); $event.stopPropagation()"
         (focus)="selectTagAt(i)">
 
-        <ng-container [ngTemplateOutlet]="tagTemplate"
+        <ng-container [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
             [ngTemplateOutletContext]="{tag: tag, index: i, disabled: disabled, api: tagApi}">
         </ng-container>
 

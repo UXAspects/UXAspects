@@ -1,6 +1,6 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
-import { BehaviorSubject ,  Observable ,  of ,  Subject } from 'rxjs';
+import { BehaviorSubject, isObservable, Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, first, map, mergeMap, takeUntil, tap } from 'rxjs/operators';
 import { tick } from '../../../common/index';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -183,7 +183,7 @@ export class FacetTypeaheadListComponent implements AfterViewInit, OnInit, OnDes
     }
 
     getFacetObservable(): Observable<Facet[]> {
-        return this.facets instanceof Observable ? this.facets : of(this.facets);
+        return isObservable(this.facets) ? this.facets : of(this.facets);
     }
 
     select(event: TypeaheadOptionEvent) {

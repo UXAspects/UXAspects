@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, OnDestroy, Output, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorService } from '../focus-indicator/focus-indicator.service';
 

@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { BehaviorSubject ,  Observable ,  of ,  Observer ,  Subject } from 'rxjs';
+import { BehaviorSubject, isObservable, Observable, Observer, of, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { OverlayTrigger } from '../tooltip/index';
 import { HierarchyBarNodeChildren } from './interfaces/hierarchy-bar-node-children.interface';
@@ -152,7 +152,7 @@ export class HierarchyBarService {
     private getNodeList(node: HierarchyBarNode): HierarchyBarNode[] {
 
         // if there are no children then return only itself
-        if (!node.children || node.children instanceof Observable || node.children.length === 0) {
+        if (!node.children || isObservable(node.children) || node.children.length === 0) {
             return [node];
         }
 
@@ -170,7 +170,7 @@ export class HierarchyBarService {
      */
     private getSelectedChildren(node: HierarchyBarNode): HierarchyBarNode[] {
 
-        if (node.children instanceof Observable) {
+        if (isObservable(node.children)) {
             return [node];
         }
 

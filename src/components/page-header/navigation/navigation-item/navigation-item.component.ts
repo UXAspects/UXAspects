@@ -1,6 +1,6 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { PageHeaderNavigationService } from '../navigation.service';
     selector: 'ux-page-header-horizontal-navigation-item',
     templateUrl: './navigation-item.component.html'
 })
-export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy, FocusableOption {
+export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestroy, FocusableOption {
 
     /** Access the data for this dropdown item */
     @Input() item: PageHeaderNavigationItem;
@@ -48,8 +48,7 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy, Foc
         private _pageHeaderService: PageHeaderService,
         private _navigationService: PageHeaderNavigationService) { }
 
-    ngOnInit(): void {
-
+    ngAfterViewInit(): void {
         this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(next => {
 
             // Update selected state for this item
