@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotificationListComponent } from './notification-list.component';
-import { NotificationService } from './notification.service';
+import { NgModule } from '@angular/core';
 import { ColorServiceModule } from '../../services/color/index';
+import { NotificationListComponent } from './notification-list.component';
 
 @NgModule({
     imports: [
@@ -14,9 +13,6 @@ import { ColorServiceModule } from '../../services/color/index';
     ],
     declarations: [
         NotificationListComponent
-    ],
-    providers: [
-        NotificationService
     ]
 })
 export class NotificationModule { }
