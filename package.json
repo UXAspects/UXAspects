@@ -24,7 +24,6 @@
     "build:library": "grunt build:library",
     "lint": "grunt lint",
     "package": "grunt package",
-    "package:release": "grunt package:release",
     "test": "karma start --single-run && grunt e2e",
     "test:e2e": "grunt e2e",
     "test:karma": "karma start --single-run"

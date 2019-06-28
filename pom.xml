@@ -45,6 +45,7 @@
                 <version>1.6.0</version>
                 <configuration>
                     <environmentVariables>
+                        <RE_BUILD_TYPE>${RE_BUILD_TYPE}</RE_BUILD_TYPE>
                         <VERSION>${project.version}</VERSION>
                     </environmentVariables>
                 </configuration>
@@ -124,22 +125,6 @@
                             <arguments>
                                 <argument>run</argument>
                                 <argument>package</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-
-                    <!-- Stage for release -->
-                    <execution>
-                        <id>exec-npm-run-package-release</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>package:release</argument>
                             </arguments>
                         </configuration>
                     </execution>
