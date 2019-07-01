@@ -7,7 +7,6 @@ const { cwd } = require('process');
 const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
 const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 
@@ -262,10 +261,6 @@ module.exports = {
         }),
 
         new ProgressPlugin(),
-
-        new CircularDependencyPlugin({
-            exclude: /[\\\/]node_modules[\\\/]/
-        })
     ],
 
     devServer: {
