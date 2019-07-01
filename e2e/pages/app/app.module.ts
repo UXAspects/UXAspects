@@ -7,195 +7,195 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
     {
         path: 'card-tabs',
-        loadChildren: () => import('./card-tabs/card-tabs.module').then(m => m.CardTabsTestPageModule)
+        loadChildren: './card-tabs/card-tabs.module#CardTabsTestPageModule'
     },
     {
         path: 'checkboxes',
-        loadChildren: () => import('./checkbox/checkbox.module').then(m => m.CheckboxTestPageModule)
+        loadChildren: './checkbox/checkbox.module#CheckboxTestPageModule'
     },
     {
         path: 'column-resizing',
-        loadChildren: () => import('./column-resizing/column-resizing.module').then(m => m.ColumnResizingTestPageModule)
+        loadChildren: './column-resizing/column-resizing.module#ColumnResizingTestPageModule'
     },
     {
         path: 'column-picker',
-        loadChildren: () => import('./column-picker/column-picker.module').then(m => m.ColumnPickerTestPageModule)
+        loadChildren: './column-picker/column-picker.module#ColumnPickerTestPageModule'
     },
     {
         path: 'custom-facet',
-        loadChildren: () => import('./custom-facet/custom-facet.module').then(m => m.CustomFacetTestPageModule)
+        loadChildren: './custom-facet/custom-facet.module#CustomFacetTestPageModule'
     },
     {
         path: 'conduits',
-        loadChildren: () => import('./conduits/conduits.module').then(m => m.ConduitsTestPageModule)
+        loadChildren: './conduits/conduits.module#ConduitsTestPageModule'
     },
     {
         path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardTestPageModule)
+        loadChildren: './dashboard/dashboard.module#DashboardTestPageModule'
     },
     {
         path: 'date-time-picker',
-        loadChildren: () => import('./date-time-picker/date-time-picker.module').then(m => m.DateTimePickerTestPageModule)
+        loadChildren: './date-time-picker/date-time-picker.module#DateTimePickerTestPageModule'
     },
     {
         path: 'date-range-picker',
-        loadChildren: () => import('./date-range-picker/date-range-picker.module').then(m => m.DateRangePickerTestPageModule)
+        loadChildren: './date-range-picker/date-range-picker.module#DateRangePickerTestPageModule'
     },
     {
         path: 'expanding-text-area',
-        loadChildren: () => import('./expanding-text-area/expanding-text-area.module').then(m => m.ExpandingTextAreaModule)
+        loadChildren: './expanding-text-area/expanding-text-area.module#ExpandingTextAreaModule'
     },
     {
         path: 'facet-check-list',
-        loadChildren: () => import('./facet-check-list/facet-check-list.module').then(m => m.FacetCheckListTestPageModule)
+        loadChildren: './facet-check-list/facet-check-list.module#FacetCheckListTestPageModule'
     },
     {
         path: 'facet-container',
-        loadChildren: () => import('./facet-container/facet-container.module').then(m => m.FacetContainerTestPageModule)
+        loadChildren: './facet-container/facet-container.module#FacetContainerTestPageModule'
     },
     {
         path: 'facet-typeahead-list',
-        loadChildren: () => import('./facet-typeahead-list/facet-typeahead-list.module').then(m => m.FacetTypeaheadListPageModule)
+        loadChildren: './facet-typeahead-list/facet-typeahead-list.module#FacetTypeaheadListPageModule'
     },
     {
         path: 'filters',
-        loadChildren: () => import('./filters/filters.module').then(m => m.FiltersTestPageModule)
+        loadChildren: './filters/filters.module#FiltersTestPageModule'
     },
     {
         path: 'flippable-cards',
-        loadChildren: () => import('./flippable-cards/flippable-cards.module').then(m => m.FlippableCardsTestPageModule)
+        loadChildren: './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
     },
     {
         path: 'float-label',
-        loadChildren: () => import('./float-label/float-label.module').then(m => m.FloatLabelTestPageModule)
+        loadChildren: './float-label/float-label.module#FloatLabelTestPageModule'
     },
     {
         path: 'floating-action-buttons',
-        loadChildren: () => import('./floating-action-buttons/floating-action-buttons.module').then(m => m.FloatingActionButtonsTestPageModule)
+        loadChildren: './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'
     },
     {
         path: 'focus-indicator',
-        loadChildren: () => import('./focus-indicator/focus-indicator.module').then(m => m.FocusIndicatorTestPageModule)
+        loadChildren: './focus-indicator/focus-indicator.module#FocusIndicatorTestPageModule'
     },
     {
         path: 'hierarchy-bar',
-        loadChildren: () => import('./hierarchy-bar/hierarchy-bar.module').then(m => m.HierarchyBarTestPageModule)
+        loadChildren: './hierarchy-bar/hierarchy-bar.module#HierarchyBarTestPageModule'
     },
     {
         path: 'infinite-scroll',
-        loadChildren: () => import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
+        loadChildren: './infinite-scroll/infinite-scroll.module#InfiniteScrollTestPageModule'
     },
     {
         path: 'item-display-panel',
-        loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
+        loadChildren: './item-display-panel/item-display-panel.module#ItemDisplayPanelTestPageModule'
     },
     {
         path: 'marquee-wizard',
-        loadChildren: () => import('./marquee-wizard/marquee-wizard.module').then(m => m.MarqueeWizardTestPageModule)
+        loadChildren: './marquee-wizard/marquee-wizard.module#MarqueeWizardTestPageModule'
     },
     {
         path: 'navigation',
-        loadChildren: () => import('./navigation/navigation.module').then(m => m.NavigationTestPageModule)
+        loadChildren: './navigation/navigation.module#NavigationTestPageModule'
     },
     {
         path: 'number-picker',
-        loadChildren: () => import('./number-picker/number-picker.module').then(m => m.NumberPickerTestPageModule)
+        loadChildren: './number-picker/number-picker.module#NumberPickerTestPageModule'
     },
     {
         path: 'page-header',
-        loadChildren: () => import('./page-header/page-header.module').then(m => m.PageHeaderTestPageModule)
+        loadChildren: './page-header/page-header.module#PageHeaderTestPageModule'
     },
     {
         path: 'pagination',
-        loadChildren: () => import('./pagination/pagination.module').then(m => m.PaginationTestPageModule)
+        loadChildren: './pagination/pagination.module#PaginationTestPageModule'
     },
     {
         path: 'popover',
-        loadChildren: () => import('./popover/popover.module').then(m => m.PopoverTestPageModule)
+        loadChildren: './popover/popover.module#PopoverTestPageModule'
     },
     {
         path: 'radiobuttons',
-        loadChildren: () => import('./radiobuttons/radiobuttons.module').then(m => m.RadioButtonsTestPageModule)
+        loadChildren: './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
     },
     {
         path: 'reorderable-table',
-        loadChildren: () => import('./reorderable-table/reorderable-table.module').then(m => m.ReorderableTableTestPageModule)
+        loadChildren: './reorderable-table/reorderable-table.module#ReorderableTableTestPageModule'
     },
     {
         path: 'reorderable-group',
-        loadChildren: () => import('./reorderable-group/reorderable-group.module').then(m => m.ReorderableGroupTestPageModule)
+        loadChildren: './reorderable-group/reorderable-group.module#ReorderableGroupTestPageModule'
     },
     {
         path: 'search-builder',
-        loadChildren: () => import('./search-builder/search-builder.module').then(m => m.SearchBuilderTestPageModule)
+        loadChildren: './search-builder/search-builder.module#SearchBuilderTestPageModule'
     },
     {
         path: 'select',
-        loadChildren: () => import('./select/select.module').then(m => m.SelectTestPageModule)
+        loadChildren: './select/select.module#SelectTestPageModule'
     },
     {
         path: 'select-list',
-        loadChildren: () => import('./select-list/select-list.module').then(m => m.SelectListTestPageModule)
+        loadChildren: './select-list/select-list.module#SelectListTestPageModule'
     },
     {
         path: 'selection',
-        loadChildren: () => import('./selection/selection.module').then(m => m.SelectionTestPageModule)
+        loadChildren: './selection/selection.module#SelectionTestPageModule'
     },
     {
         path: 'side-panel',
-        loadChildren: () => import('./side-panel/side-panel.module').then(m => m.SidePanelTestPageModule)
+        loadChildren: './side-panel/side-panel.module#SidePanelTestPageModule'
     },
     {
         path: 'sliders',
-        loadChildren: () => import('./sliders/sliders.module').then(m => m.SlidersTestPageModule)
+        loadChildren: './sliders/sliders.module#SlidersTestPageModule'
     },
     {
         path: 'spark',
-        loadChildren: () => import('./spark/spark.module').then(m => m.SparkTestPageModule)
+        loadChildren: './spark/spark.module#SparkTestPageModule'
     },
     {
         path: 'splitter',
-        loadChildren: () => import('./splitter/splitter.module').then(m => m.SplitterTestPageModule)
+        loadChildren: './splitter/splitter.module#SplitterTestPageModule'
     },
     {
         path: 'tabbable-list',
-        loadChildren: () => import('./tabbable-list/tabbable-list.module').then(m => m.TabbableListTestPageModule)
+        loadChildren: './tabbable-list/tabbable-list.module#TabbableListTestPageModule'
     },
     {
         path: 'tabs',
-        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsTestPageModule)
+        loadChildren: './tabs/tabs.module#TabsTestPageModule'
     },
     {
         path: 'tags',
-        loadChildren: () => import('./tags/tags.module').then(m => m.TagsTestPageModule)
+        loadChildren: './tags/tags.module#TagsTestPageModule'
     },
     {
         path: 'timeline',
-        loadChildren: () => import('./timeline/timeline.module').then(m => m.TimelineTestPageModule)
+        loadChildren: './timeline/timeline.module#TimelineTestPageModule'
     },
     {
         path: 'toggleswitches',
-        loadChildren: () => import('./toggleswitches/toggleswitches.module').then(m => m.ToggleSwitchesTestPageModule)
+        loadChildren: './toggleswitches/toggleswitches.module#ToggleSwitchesTestPageModule'
     },
     {
         path: 'toolbar-search',
-        loadChildren: () => import('./toolbar-search/toolbar-search.module').then(m => m.ToolbarSearchTestPageModule)
+        loadChildren: './toolbar-search/toolbar-search.module#ToolbarSearchTestPageModule'
     },
     {
         path: 'tooltips',
-        loadChildren: () => import('./tooltips/tooltips.module').then(m => m.TooltipsTestPageModule)
+        loadChildren: './tooltips/tooltips.module#TooltipsTestPageModule'
     },
     {
         path: 'virtual-for',
-        loadChildren: () => import('./virtual-for/virtual-for.module').then(m => m.VirtualForTestPageModule)
+        loadChildren: './virtual-for/virtual-for.module#VirtualForTestPageModule'
     },
     {
         path: 'virtual-scroll',
-        loadChildren: () => import('./virtual-scroll/virtual-scroll.module').then(m => m.VirtualScrollTestPageModule)
+        loadChildren: './virtual-scroll/virtual-scroll.module#VirtualScrollTestPageModule'
     },
     {
         path: 'wizard',
-        loadChildren: () => import('./wizard/wizard.module').then(m => m.WizardTestPageModule)
+        loadChildren: './wizard/wizard.module#WizardTestPageModule'
     }
 ];
 
