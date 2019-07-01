@@ -11,7 +11,7 @@ import { BaseChartDirective } from 'ng2-charts';
 export class AppComponent implements AfterViewInit {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
 
     // configure the directive data
     barChartData: Chart.ChartDataSets[] = [{

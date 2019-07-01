@@ -17,8 +17,8 @@ export class AppComponent {
 
     isPickerOpen = true;
 
-    @ViewChild('toggleButton', { static: true }) toggleButton: ElementRef;
-    @ViewChild('dropdownMenu', { static: false }) dropdownMenu: ElementRef;
+    @ViewChild('toggleButton') toggleButton: ElementRef;
+    @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
 
     private _colorNames = [
         ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1',

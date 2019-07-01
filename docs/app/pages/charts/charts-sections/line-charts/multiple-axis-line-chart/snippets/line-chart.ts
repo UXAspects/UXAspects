@@ -13,7 +13,7 @@ import { FlotData } from './flot-data';
 export class AppComponent implements AfterViewInit {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[];

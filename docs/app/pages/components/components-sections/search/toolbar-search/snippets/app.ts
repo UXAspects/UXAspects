@@ -11,7 +11,7 @@ export class AppComponent {
     searchText: string;
     searchedFor: string = '';
 
-    @ViewChild('searchFieldRight', { static: true })
+    @ViewChild('searchFieldRight')
     searchFieldRight: ElementRef;
 
     onSearch(searchText: string) {

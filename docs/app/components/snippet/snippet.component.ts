@@ -11,7 +11,7 @@ export class SnippetComponent implements OnInit {
     @Input() code: string;
     @Input() content: any;
 
-    @ViewChild('code', { read: ViewContainerRef, static: true }) codeContainer: ViewContainerRef;
+    @ViewChild('code', { read: ViewContainerRef }) codeContainer: ViewContainerRef;
 
     constructor() { }
 

@@ -52,13 +52,13 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
     @Input() color: string | ThemeColor;
 
     /** Define the template of sankey chart nodes */
-    @ContentChild('sankeyNodeTemplate', { static: false }) nodeTemplate: TemplateRef<SankeyNodeContext<T>>;
+    @ContentChild('sankeyNodeTemplate') nodeTemplate: TemplateRef<SankeyNodeContext<T>>;
 
     /** Access the SVG element which will contain the links */
-    @ViewChild('linkContainer', { static: true }) linkContainer: ElementRef;
+    @ViewChild('linkContainer') linkContainer: ElementRef;
 
     /** Access the element which will contain the nodes */
-    @ViewChild('nodeContainer', { static: true }) nodeContainer: ElementRef;
+    @ViewChild('nodeContainer') nodeContainer: ElementRef;
 
     /** Store the width of the chart area */
     _width: number;

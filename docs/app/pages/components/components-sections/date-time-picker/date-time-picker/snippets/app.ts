@@ -11,7 +11,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('input', { static: true }) dateInput: ElementRef;
+    @ViewChild('input') dateInput: ElementRef;
 
     date: Date = new Date();
     timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };

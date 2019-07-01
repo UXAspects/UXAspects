@@ -20,13 +20,13 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
     @Input() item: PageHeaderNavigationItem;
 
     /** Access the menu navigation toggle directive */
-    @ViewChild('button', { static: false }) button: MenuNavigationToggleDirective;
+    @ViewChild('button') button: MenuNavigationToggleDirective;
 
     /** Access the dropdown menu directive */
-    @ViewChild('menu', { static: false }) menu: BsDropdownDirective;
+    @ViewChild('menu') menu: BsDropdownDirective;
 
     /** Access the navigation button element */
-    @ViewChild('navigationBtn', { static: false }) navigationBtn: ElementRef;
+    @ViewChild('navigationBtn') navigationBtn: ElementRef;
 
     /** Access the dropdown item components */
     @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;

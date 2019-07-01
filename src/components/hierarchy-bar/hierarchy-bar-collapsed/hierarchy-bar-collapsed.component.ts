@@ -43,7 +43,7 @@ export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy 
     private _onDestroy = new Subject<void>();
 
     /** Access the node container */
-    @ViewChild('nodes', { static: true }) nodeContainer: ElementRef;
+    @ViewChild('nodes') nodeContainer: ElementRef;
 
     constructor(
         public readonly hierarchyBar: HierarchyBarService,

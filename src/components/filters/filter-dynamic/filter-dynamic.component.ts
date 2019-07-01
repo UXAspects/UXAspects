@@ -32,7 +32,7 @@ export class FilterDynamicComponent implements OnDestroy {
     }
 
     /** Get the dropdown directive */
-    @ViewChild(BsDropdownDirective, { static: true }) dropdown: BsDropdownDirective;
+    @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
 
     /** Generate a unique id for the typeahead */
     typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;

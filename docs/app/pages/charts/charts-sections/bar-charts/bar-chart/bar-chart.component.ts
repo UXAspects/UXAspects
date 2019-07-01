@@ -15,7 +15,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ChartsBarChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlaygroundProvider {
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
 
     playground: IPlayground = {
         files: {

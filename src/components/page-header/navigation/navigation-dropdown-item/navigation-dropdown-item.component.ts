@@ -14,7 +14,7 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     @Input() item: PageHeaderNavigationDropdownItem;
 
-    @ViewChild('button', { static: false }) button: ElementRef;
+    @ViewChild('button') button: ElementRef;
 
     dropdownOpen: boolean = false;
 

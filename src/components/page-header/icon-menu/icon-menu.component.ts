@@ -23,7 +23,7 @@ export class PageHeaderIconMenuComponent implements OnDestroy {
         }
     }
 
-    @ViewChild('menuNavigationToggle', { static: true }) menuNavigationToggle: MenuNavigationToggleDirective;
+    @ViewChild('menuNavigationToggle') menuNavigationToggle: MenuNavigationToggleDirective;
 
     private _isOpen: boolean;
     private _subscription: Subscription;

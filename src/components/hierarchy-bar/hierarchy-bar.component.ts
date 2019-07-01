@@ -58,7 +58,7 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
     @Output() selectedChange = new EventEmitter<HierarchyBarNode>();
 
     /** Allow a custom icon to be specified */
-    @ContentChild(HierarchyBarNodeIconDirective, { read: TemplateRef, static: false })
+    @ContentChild(HierarchyBarNodeIconDirective, { read: TemplateRef })
     set icon(icon: TemplateRef<HierarchyBarIconContext>) {
         this._hierarchyBar.icon = icon;
     }

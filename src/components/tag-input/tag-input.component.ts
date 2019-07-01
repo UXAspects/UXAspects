@@ -197,7 +197,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
-    @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
+    @ViewChild('tagInput') tagInput: ElementRef;
 
     selectedIndex: number = -1;
 

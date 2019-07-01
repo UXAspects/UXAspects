@@ -23,7 +23,7 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     @Input('aria-label') ariaLabel: string;
 
     /** Access the element ref of the button element */
-    @ViewChild('button', { static: true }) button: ElementRef;
+    @ViewChild('button') button: ElementRef;
 
     primary: boolean = false;
     tabindex$ = new BehaviorSubject<number>(-1);

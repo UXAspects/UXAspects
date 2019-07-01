@@ -154,12 +154,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
+    @ContentChild('icon') icon: TemplateRef<any>;
 
-    @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
-    @ViewChild('tagInput', { static: false }) tagInput: TagInputComponent;
-    @ViewChild('multipleTypeahead', { static: false }) multipleTypeahead: TypeaheadComponent;
-    @ViewChild('singleTypeahead', { static: false }) singleTypeahead: TypeaheadComponent;
+    @ViewChild('singleInput') singleInput: ElementRef;
+    @ViewChild('tagInput') tagInput: TagInputComponent;
+    @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
+    @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
 
     highlightedElement: HTMLElement;
     filter$: Observable<string>;

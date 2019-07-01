@@ -126,10 +126,10 @@ export class PageHeaderComponent {
     @Output() backClick = new EventEmitter();
 
     /** @deprecated - Access a custom template title. Use subheaderTemplate instead */
-    @ContentChild('title', { static: false }) titleTemplate: TemplateRef<any>;
+    @ContentChild('title') titleTemplate: TemplateRef<any>;
 
     /** Access a custom subheader template */
-    @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;
+    @ContentChild('subheader') subheaderTemplate: TemplateRef<any>;
 
     /** Access all the custom menu TemplateRefs */
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;

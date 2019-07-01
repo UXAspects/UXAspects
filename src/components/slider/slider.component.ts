@@ -17,9 +17,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     /** Emits when the `value` changes. */
     @Output() valueChange: EventEmitter<SliderValue | number> = new EventEmitter<SliderValue | number>();
 
-    @ViewChild('lowerTooltip', { static: true }) lowerTooltip: ElementRef;
-    @ViewChild('upperTooltip', { static: true }) upperTooltip: ElementRef;
-    @ViewChild('track', { static: true }) track: ElementRef;
+    @ViewChild('lowerTooltip') lowerTooltip: ElementRef;
+    @ViewChild('upperTooltip') upperTooltip: ElementRef;
+    @ViewChild('track') track: ElementRef;
 
     // store current values for deep change detection
     private _value: SliderValue | number;

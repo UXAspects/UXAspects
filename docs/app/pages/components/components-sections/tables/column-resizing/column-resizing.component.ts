@@ -13,7 +13,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
+    @ViewChild(ResizableTableDirective) resizableTable: ResizableTableDirective;
 
     type: string = 'table';
     documents: TableDocument[] = [];

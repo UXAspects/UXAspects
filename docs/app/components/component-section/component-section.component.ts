@@ -24,7 +24,7 @@ export class ComponentSectionComponent implements OnInit {
     @Input() externalUrl: string;
     @Input() usage: Usage[];
 
-    @ViewChild('container', { read: ViewContainerRef, static: true }) viewContainer: ViewContainerRef;
+    @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
     playground: IPlayground;
     deprecatedLink: ILink;

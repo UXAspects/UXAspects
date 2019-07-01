@@ -32,7 +32,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     };
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[];
