@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable ,  concat ,  fromEvent ,  Observer } from 'rxjs';
+import { concat, fromEvent, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class FrameExtractionService {

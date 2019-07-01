@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject ,  Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/operators/tick.operator';
 import { TreeGridItem } from './tree-grid-item.interface';

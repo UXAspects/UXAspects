@@ -1,6 +1,6 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { Observable ,  Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/operators/index';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';

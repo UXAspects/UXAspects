@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { BehaviorSubject ,  Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Facet } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { Observable ,  Observer } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';

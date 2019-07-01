@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable ,  of ,  Observer } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 
 @Injectable()
 export class AudioService {

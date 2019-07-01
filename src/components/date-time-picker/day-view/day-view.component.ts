@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Optional } from '@angular/core';
-import { merge ,  Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { delay, filter, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../../directives/accessibility/index';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';

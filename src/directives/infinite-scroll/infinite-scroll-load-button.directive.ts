@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Output, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Observable ,  Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Directive({
     selector: '[uxInfiniteScrollLoadButton]'

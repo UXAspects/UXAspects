@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Facet } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { Observable ,  Observer } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
     selector: 'facet-typeahead-list-app',

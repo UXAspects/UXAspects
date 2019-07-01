@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject ,  Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { RowAltSelectionStrategy } from './strategies/row-alt-selection.strategy';
 import { RowSelectionStrategy } from './strategies/row-selection.strategy';

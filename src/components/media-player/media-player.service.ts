@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject ,  Observable ,  from ,  Observer ,  ReplaySubject ,  Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, Observer, ReplaySubject, Subject } from 'rxjs';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
 import { MediaPlayerType } from './media-player.component';
 

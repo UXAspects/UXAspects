@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject ,  Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { DatePickerHeaderEvent, DateTimePickerService, YearRange } from '../date-time-picker.service';
 import { gridify, range } from '../date-time-picker.utils';
 

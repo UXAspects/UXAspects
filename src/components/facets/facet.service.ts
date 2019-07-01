@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject ,  Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from './facet-events';
 import { Facet } from './models/facet';
 
