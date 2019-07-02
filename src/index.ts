@@ -22,6 +22,7 @@ export * from './components/filters/index';
 export * from './components/flippable-card/index';
 export * from './components/floating-action-buttons/index';
 export * from './components/hierarchy-bar/index';
+export * from './components/icon/index';
 export * from './components/item-display-panel/index';
 export * from './components/marquee-wizard/index';
 export * from './components/media-player/index';
