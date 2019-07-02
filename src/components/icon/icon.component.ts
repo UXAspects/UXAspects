@@ -58,7 +58,7 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         // watch for changes to the iconset to check if we need to update.
         this._iconService.iconsChanged$.pipe(
-            filter(() => this._iconService.getIcon(this.name, this.size) !== this._icon),
+            filter(event => this._icon && event.name === this._icon.name),
             takeUntil(this._onDestroy)
         ).subscribe(() => this.updateIcon());
     }

@@ -10,7 +10,7 @@ import { uxIconset } from './iconsets/ux-iconset';
 export class IconService {
 
     /** Emit whenever the iconset changes */
-    iconsChanged$ = new Subject<void>();
+    iconsChanged$ = new Subject<IconChangeEvent>();
 
     /** Store a list of all icon */
     private _icons: ReadonlyArray<SingleIconDefinition> = [...uxIconset];
@@ -27,7 +27,7 @@ export class IconService {
     }
 
     /** Define multiple icon definitions. This will override icon definitions if a name and size collision occurs */
-    setIcons(icons: ReadonlyArray<IconDefinition>, clear: boolean = false): void {
+    setIcons(icons: ReadonlyArray<IconDefinition>): void {
         icons.forEach(icon => this.setIcon(icon));
     }
 
@@ -46,7 +46,7 @@ export class IconService {
         this._icons = [...this._icons, { name, icon, iconset, size }];
 
         // emit the icon change
-        this.iconsChanged$.next();
+        this.iconsChanged$.next({ name, size });
     }
 
     /** Find an icon based on the given name and size if provided */
@@ -82,4 +82,9 @@ export class IconService {
 
         return icon;
     }
+}
+
+export interface IconChangeEvent {
+    name: string;
+    size?: string;
 }
