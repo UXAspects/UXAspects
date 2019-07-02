@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directive, Host, Input, OnDestroy } from '@angular/core';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterContainerComponent } from '../filter-container.component';
 import { Filter } from '../interfaces/filter.interface';

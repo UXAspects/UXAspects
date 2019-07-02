@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Host, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FacetContainerComponent } from '../../facet-container.component';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../../facet-events';
 import { Facet } from '../../models/facet';

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Color } from '../../common/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';

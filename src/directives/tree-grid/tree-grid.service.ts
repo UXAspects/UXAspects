@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, isObservable, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridLoadFunction } from './tree-grid-load-function.type';
 import { TreeGridState } from './tree-grid-state.class';
@@ -77,7 +75,7 @@ export class TreeGridService implements OnDestroy {
     private async getNormalizedChildren(response: TreeGridItem[] | Promise<TreeGridItem[]> | Observable<TreeGridItem[]>): Promise<TreeGridItem[]> {
 
         // if it is already an observable do nothing
-        if (response instanceof Observable) {
+        if (isObservable(response)) {
             return await response.toPromise();
         }
 

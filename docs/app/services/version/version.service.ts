@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ISection } from '../../interfaces/ISection';
 
 

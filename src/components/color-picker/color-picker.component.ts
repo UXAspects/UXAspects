@@ -1,9 +1,8 @@
 import { Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { pairwise, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { ColorPickerColor } from './color-picker-color';
+import { ColorPickerButtonSize, ColorPickerButtonStyle, ColorPickerInputColors, ColorPickerInputMode } from './color-picker.type';
 
 // Values corresponding to stylesheet
 const BUTTON_MARGIN = 8;
@@ -153,8 +152,3 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
         this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
     }
 }
-
-export type ColorPickerInputColors = ColorPickerColor | string;
-export type ColorPickerButtonStyle = 'square' | 'circle';
-export type ColorPickerButtonSize = 'sm' | 'md' | 'lg';
-export type ColorPickerInputMode = 'hex' | 'rgba';

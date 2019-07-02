@@ -34,7 +34,7 @@ module.exports = {
 
     module: {
         rules: [{
-            test: /\.ts$/,
+            test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
             use: [
                 {
                     loader: '@angular-devkit/build-optimizer/webpack-loader',
@@ -45,7 +45,6 @@ module.exports = {
                 '@ngtools/webpack'
             ]
         },
-
         {
             test: /\.html$/,
             use: 'raw-loader'
@@ -104,7 +103,7 @@ module.exports = {
             tsConfigPath: join(cwd(), 'e2e', 'tsconfig.app.json'),
             sourceMap: false,
             skipCodeGeneration: false,
-            nameLazyFiles: false
+            nameLazyFiles: false,
         }),
 
         new IndexHtmlWebpackPlugin({

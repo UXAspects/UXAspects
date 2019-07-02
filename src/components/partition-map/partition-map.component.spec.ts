@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';

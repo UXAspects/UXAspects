@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { tick } from '../../../common/index';
 import { FocusIndicator, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { SelectionService } from '../../../directives/selection/selection.service';

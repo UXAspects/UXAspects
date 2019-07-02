@@ -1,6 +1,6 @@
 import { Component, forwardRef } from '@angular/core';
 import { Conduit, ConduitComponent } from '@ux-aspects/ux-aspects';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'uxd-conduit-search',

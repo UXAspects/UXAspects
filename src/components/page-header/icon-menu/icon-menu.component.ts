@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { MenuNavigationToggleDirective } from '../../../directives/menu-navigation/menu-navigation-toggle.directive';
 import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../interfaces';
 import { PageHeaderService } from '../page-header.service';

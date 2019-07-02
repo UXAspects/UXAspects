@@ -1,6 +1,6 @@
 import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { delay, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
 

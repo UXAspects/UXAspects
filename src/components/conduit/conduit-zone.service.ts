@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { ConduitSubject } from './conduit-subject';
 import { ConduitEvent } from './interfaces/conduit-event';
 import { ConduitMetadata } from './interfaces/conduit-metadata';

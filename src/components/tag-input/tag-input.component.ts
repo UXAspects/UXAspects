@@ -1,10 +1,9 @@
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { tick } from '../../common/index';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
@@ -34,7 +33,7 @@ const TAGINPUT_VALIDATOR = {
         '[class.invalid]': '!valid || !inputValid'
     }
 })
-export class TagInputComponent<T = any> implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
+export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
 
     /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
@@ -200,8 +199,6 @@ export class TagInputComponent<T = any> implements OnInit, AfterContentInit, OnC
 
     @ViewChild('tagInput') tagInput: ElementRef;
 
-    @ViewChild('defaultTagTemplate') private _defaultTagTemplate: TemplateRef<any>;
-
     selectedIndex: number = -1;
 
     tagApi: TagApi<T> = {
@@ -226,12 +223,6 @@ export class TagInputComponent<T = any> implements OnInit, AfterContentInit, OnC
         private _element: ElementRef,
         @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
-
-    ngOnInit(): void {
-        if (!this.tagTemplate) {
-            this.tagTemplate = this._defaultTagTemplate;
-        }
-    }
 
     ngAfterContentInit(): void {
         // Watch for optional child typeahead control

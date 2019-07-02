@@ -1,7 +1,6 @@
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent, Subject } from 'rxjs';
 import { filter, first, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { DragService, UxDragEvent } from './drag.service';
 
 @Directive({

@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { filter, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { DragService, UxDragEvent } from './drag.service';
 
 @Directive({

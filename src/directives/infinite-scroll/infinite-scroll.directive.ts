@@ -1,13 +1,7 @@
 
 import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { of } from 'rxjs/observable/of';
+import { BehaviorSubject, from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
 import { auditTime, combineLatest, filter as filterOperator, first, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
 import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.directive';
 
@@ -17,7 +11,7 @@ import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.direct
 })
 export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
-    @Input('uxInfiniteScroll') load: InfiniteScrollLoadFunction;
+    @Input('uxInfiniteScroll') load: InfiniteScrollLoadFunction<T>;
 
     @Input('collection') _collection: T[] = [];
     get collection() {
@@ -317,7 +311,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
 
-            const observable = Array.isArray(loadResult) ? of(loadResult) : from<any[]>(loadResult);
+            const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
             const subscription = observable.pipe(first()).subscribe(
                 items => {

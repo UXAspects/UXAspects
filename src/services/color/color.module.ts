@@ -1,30 +1,7 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ColorSet, colorSets, COLOR_SET_TOKEN } from './color-sets/index';
-import { ColorService } from './color.service';
 
-/**
- * This provider allows us to have only a single instance
- * of the color service throughout out entire application
- * regardless of how many times this module is imported.
- * Otherwise the user would have to set the colorSet every
- * time this is imported into a lazy loaded module
- *
- * Note: This can be removed once Angular 5 support can be dropped
- * and instead we should use `providedIn: 'root'`
- */
-export function COLOR_SERVICE_PROVIDER_FACTORY(parentColorService: ColorService, colorSet: ColorSet) {
-    return parentColorService || new ColorService(colorSet ? colorSet : colorSets.keppel);
-}
-
-export const COLOR_SERVICE_PROVIDER = {
-    provide: ColorService,
-    deps: [[new Optional(), new SkipSelf(), ColorService], [new Optional(), COLOR_SET_TOKEN]],
-    useFactory: COLOR_SERVICE_PROVIDER_FACTORY
-};
-
-@NgModule({
-    providers: [COLOR_SERVICE_PROVIDER],
-})
+@NgModule({})
 export class ColorServiceModule {
 
     /**
@@ -39,8 +16,7 @@ export class ColorServiceModule {
         return {
             ngModule: ColorServiceModule,
             providers: [
-                { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel },
-                COLOR_SERVICE_PROVIDER
+                { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel }
             ]
         };
     }

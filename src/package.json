@@ -70,13 +70,13 @@
     "@types/dragula": "^2.1.33"
   },
   "peerDependencies": {
-    "@angular/common": ">=5.0.0",
-    "@angular/compiler": ">=5.0.0",
-    "@angular/core": ">=5.0.0",
-    "@angular/forms": ">=5.0.0",
-    "@angular/upgrade": ">=5.0.0",
-    "@angular/animations": ">=5.0.0",
+    "@angular/common": ">=6.0.0",
+    "@angular/compiler": ">=6.0.0",
+    "@angular/core": ">=6.0.0",
+    "@angular/forms": ">=6.0.0",
+    "@angular/upgrade": ">=6.0.0",
+    "@angular/animations": ">=6.0.0",
     "angular-tree-component": ">=5.2.0",
-    "@angular/cdk": ">=5.2.5"
+    "@angular/cdk": ">=6.0.0"
   }
 }

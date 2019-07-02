@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { SelectionService } from '../../directives/selection/selection.service';
 import { MultipleSelectListStrategy } from './strategies/multiple-select-list.strategy';
 import { SelectListItemComponent } from './select-list-item/select-list-item.component';

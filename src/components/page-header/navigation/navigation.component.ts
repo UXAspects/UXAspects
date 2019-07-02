@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { ResizeService } from '../../../directives/resize/index';
 import { PageHeaderNavigation, PageHeaderService } from '../page-header.service';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';

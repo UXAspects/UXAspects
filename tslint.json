@@ -20,8 +20,7 @@
     "no-unused-expression": true,
     "import-blacklist": [
       true,
-      "rxjs/Rx",
-      "rxjs"
+      "rxjs/Rx"
     ],
     "one-line": [
       true,

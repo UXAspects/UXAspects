@@ -2,7 +2,7 @@ import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 
 @Injectable()

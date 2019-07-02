@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FilterEvent } from './events/filter-event';
 import { FilterService } from './filter.service';
 import { Filter } from './interfaces/filter.interface';
