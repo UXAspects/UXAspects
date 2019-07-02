@@ -39,13 +39,13 @@ describe('Icon Service', () => {
     it('it should allow adding additional custom icons to the set', () => {
         const service: IconService = TestBed.get(IconService);
 
-        service.setIcon({ name: 'non-existant', icon: 'custom-non-existant-icon', iconset: 'custom-iconset' });
+        service.setIcon({ name: 'non-existent', icon: 'custom-non-existent-icon', iconset: 'custom-iconset' });
 
-        const { icon, iconset, name, size } = service.getIcon('non-existant');
+        const { icon, iconset, name, size } = service.getIcon('non-existent');
 
-        expect(icon).toBe('custom-non-existant-icon');
+        expect(icon).toBe('custom-non-existent-icon');
         expect(iconset).toBe('custom-iconset');
-        expect(name).toBe('non-existant');
+        expect(name).toBe('non-existent');
         expect(size).toBeUndefined();
     });
 
