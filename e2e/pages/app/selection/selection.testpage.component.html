@@ -12,6 +12,7 @@
             id="row-{{ idx }}"
             class="clickable"
             [uxSelectionItem]="item"
+            [uxSelectionDisabled]="item.disabled"
             [(selected)]="item.selected">
 
             <td>
@@ -28,6 +29,7 @@
 
 <button id="select-all" class="btn btn-primary" (click)="select.selectAll()">Select All</button>
 <button id="deselect-all" class="btn btn-primary" (click)="select.deselectAll()">Deselect All</button>
+<button id="disable-item" class="btn btn-primary" (click)="setDisabled()">Disabled Item</button>
 
 <hr>
 

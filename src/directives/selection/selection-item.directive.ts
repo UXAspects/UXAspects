@@ -1,6 +1,7 @@
+import { SPACE } from '@angular/cdk/keycodes';
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService, ManagedFocusContainerService } from '../accessibility/index';
 import { SelectionService } from './selection.service';
 
@@ -28,9 +29,24 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
     /** Defines the tab index of the row */
     @Input() tabindex: number = null;
 
+    /** Determine whether or not this item can be selected */
+    @Input() set uxSelectionDisabled(isDisabled: boolean) {
+        // if this item was selected then deselect it
+        if (this._selected && isDisabled) {
+            this.deselect();
+        }
+
+        // inform the selection service of the disabled state
+        this._selectionService.setItemDisabled(this.uxSelectionItem, isDisabled);
+
+        // store the current disabled state
+        this._isDisabled = isDisabled;
+    }
+
     /** Defines whether or not this item is currently selected. */
     @Output() selectedChange = new EventEmitter<boolean>();
 
+    /** Store the current focused state of the item */
     @HostBinding('class.ux-selection-focused') active: boolean = false;
 
     @HostBinding('attr.tabindex')
@@ -38,10 +54,20 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
         return (this.tabindex !== null) ? this.tabindex : this._managedTabIndex;
     }
 
+    /** Store the current selected state */
     private _selected: boolean = false;
+
+    /** Store the disabled state */
+    private _isDisabled: boolean = false;
+
+    /** Store the tab indexed if using the managed focus container */
     private _managedTabIndex: number = -1;
-    private _onDestroy = new Subject<void>();
-    private _focusIndicator: FocusIndicator;
+
+    /** Automatically unsubscribe when the component is destroyed */
+    private readonly _onDestroy = new Subject<void>();
+
+    /** The the instance of the focus indicator */
+    private readonly _focusIndicator: FocusIndicator;
 
     constructor(
         private _selectionService: SelectionService<T>,
@@ -105,21 +131,27 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
 
     @HostListener('click', ['$event'])
     click(event: MouseEvent): void {
-        if (this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
+        if (!this._isDisabled && this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
             this._selectionService.strategy.click(event, this.uxSelectionItem);
         }
     }
 
     @HostListener('mousedown', ['$event'])
     mousedown(event: MouseEvent): void {
-        if (this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
+        if (!this._isDisabled && this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
             this._selectionService.strategy.mousedown(event, this.uxSelectionItem);
         }
     }
 
     @HostListener('keydown', ['$event'])
     keydown(event: KeyboardEvent): void {
-        if (this._selectionService.isEnabled && this._selectionService.isKeyboardEnabled) {
+
+        // if the space key (selection key) is pressed and we are disabled then we should block
+        // the event from propagating. However if this is a key such as arrow presses then we do
+        // still want this to propagate to allow keyboard navigation for accessibility purposes.
+        const isDisabled = this._isDisabled && event.keyCode === SPACE;
+
+        if (!isDisabled && this._selectionService.isEnabled && this._selectionService.isKeyboardEnabled) {
             this._selectionService.strategy.keydown(event, this.uxSelectionItem);
         }
     }
@@ -136,7 +168,7 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
      * Select this item using the current strategy
      */
     select(): void {
-        if (this._selectionService.isEnabled) {
+        if (!this._isDisabled && this._selectionService.isEnabled) {
             this._selectionService.strategy.select(this.uxSelectionItem);
         }
     }
@@ -145,7 +177,7 @@ export class SelectionItemDirective<T> implements OnInit, OnDestroy {
      * Deselect this item using the current strategy
      */
     deselect(): void {
-        if (this._selectionService.isEnabled) {
+        if (!this._isDisabled && this._selectionService.isEnabled) {
             this._selectionService.strategy.deselect(this.uxSelectionItem);
         }
     }
