@@ -39,7 +39,7 @@ export class ListHoverActionCtrl {
 
     // on click call the scope click function
     onClick() {
-        if (typeof this.$scope.click === 'function') {
+        if (typeof this.click === 'function') {
             this.click();
         }
     }
