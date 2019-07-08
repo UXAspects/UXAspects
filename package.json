@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -18,7 +18,7 @@
     "start:https": "npm run start -- --https --pfx configs/webpack.docs.dev.pfx",
     "start:e2e": "webpack-dev-server --config configs/webpack.e2e.config.js --progress --colors",
     "start:karma": "karma start",
-    "setversion": "ux-setversion",
+    "setversion": "ux-setversion package.json package-lock.json src/package.json",
     "compile": "grunt compile",
     "build": "grunt build",
     "build:library": "grunt build:library",
