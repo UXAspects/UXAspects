@@ -6,13 +6,14 @@ import { hpeIconset } from './iconsets/hpe-iconset';
 
 @Component({
     selector: 'ux-icon-test',
-    template: `<ux-icon [name]="name" [size]="size" [rotate]="rotate" [flip]="flip"></ux-icon>`
+    template: `<ux-icon [name]="name" [size]="size" [rotate]="rotate" [flipHorizontal]="flipHorizontal" [flipVertical]="flipVertical"></ux-icon>`
 })
 export class IconTestComponent {
     @Input() name: string;
     @Input() size: string;
     @Input() rotate: 90 | 180 | 270;
-    @Input() flip: 'horizontal' | 'vertical';
+    @Input() flipHorizontal: boolean;
+    @Input() flipVertical: boolean;
 }
 
 describe('Icon Component', () => {
@@ -112,11 +113,11 @@ describe('Icon Component', () => {
 
     it('should assign the correct classes based on the specified flip', () => {
         component.name = 'alert';
-        component.flip = 'horizontal';
+        component.flipHorizontal = true;
         fixture.detectChanges();
         expect(iconElement.classList.contains('ux-flip-horizontal')).toBeTruthy();
 
-        component.flip = 'vertical';
+        component.flipVertical = true;
         fixture.detectChanges();
         expect(iconElement.classList.contains('ux-flip-vertical')).toBeTruthy();
     });

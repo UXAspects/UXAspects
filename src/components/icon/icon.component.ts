@@ -11,8 +11,8 @@ import { IconDefinition } from './iconsets/iconset.interface';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[style.font-size]': 'size',
-        '[class.ux-flip-horizontal]': 'flip === "horizontal"',
-        '[class.ux-flip-vertical]': 'flip === "vertical"',
+        '[class.ux-flip-horizontal]': 'flipHorizontal',
+        '[class.ux-flip-vertical]': 'flipVertical',
         '[class.ux-rotate-90]': 'rotate == 90',
         '[class.ux-rotate-180]': 'rotate == 180',
         '[class.ux-rotate-270]': 'rotate == 270',
@@ -29,8 +29,11 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     /** The number of degrees to rotate the icon */
     @Input() rotate: 90 | 180 | 270;
 
-    /** Define the flip */
-    @Input() flip: 'horizontal' | 'vertical';
+    /** Define if the icon should be horizontally flipped */
+    @Input() flipHorizontal: boolean = false;
+
+    /** Define if the icon should be horizontally flipped */
+    @Input() flipVertical: boolean = false;
 
     /** Store the matching icon definition */
     _icon: IconDefinition;
