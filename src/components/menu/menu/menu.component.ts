@@ -1,10 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../tooltip/index';
+import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { MenuModuleOptions } from '../menu-options.interface';
+import { MENU_OPTIONS_TOKEN } from '../menu-options.token';
 import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-item.directive';
 
 @Component({
@@ -35,7 +38,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     @Input() alignment: AnchorAlignment = 'start';
 
     /** Define if we should animate the menu */
-    @Input() animate: boolean = true;
+    @Input() animate: boolean = this._options && this._options.hasOwnProperty('animate') ? this._options.animate : true;
 
     /** Forward any classes to the actual menu element */
     @Input() menuClass: string;
@@ -98,13 +101,16 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     /** Return only menu items an not custom tabbable items */
     private get _menuItems(): Observable<MenuItemComponent[]> {
-        return this._items$.pipe(map(items => items.filter(item => item instanceof MenuItemComponent) as MenuItemComponent[]));
+        return this._items$.pipe(map(items => items.filter(item => item.type === MenuItemType.Default) as MenuItemComponent[]));
     }
 
     /** Create an internal querylist to store the menu items */
     private _itemsList = new QueryList<MenuItemComponent | MenuTabbableItemDirective>();
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+    constructor(
+        private readonly _changeDetector: ChangeDetectorRef,
+        @Optional() @Inject(MENU_OPTIONS_TOKEN) private readonly _options: MenuModuleOptions
+    ) { }
 
     ngAfterContentInit(): void {
 

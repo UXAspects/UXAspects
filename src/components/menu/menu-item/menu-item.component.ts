@@ -4,6 +4,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../../directives/accessibility/index';
 import { MenuComponent } from '../menu/menu.component';
+import { MenuItemType } from './menu-item-type.enum';
 
 @Component({
     selector: '[uxMenuItem]',
@@ -22,6 +23,9 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Define the role of the element */
     @Input() role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
+
+    /** Indicate the type of the menu item */
+    readonly type: MenuItemType = MenuItemType.Default;
 
     /** Store the current hover state */
     readonly isHovered$ = new BehaviorSubject<boolean>(false);

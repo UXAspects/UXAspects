@@ -3,6 +3,7 @@ import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusIndicator, FocusIndicatorService } from '../../../directives/accessibility/index';
+import { MenuItemType } from '../menu-item/menu-item-type.enum';
 import { MenuComponent } from '../menu/menu.component';
 
 @Directive({
@@ -12,6 +13,9 @@ export class MenuTabbableItemDirective implements OnInit, OnDestroy, FocusableOp
 
     /** Define if this item is disabled or not */
     @Input() disabled: boolean = false;
+
+    /** Indicate the type of the menu item */
+    readonly type: MenuItemType = MenuItemType.Default;
 
     /** Store the focus indicator instance */
     private _focusIndicator: FocusIndicator;
