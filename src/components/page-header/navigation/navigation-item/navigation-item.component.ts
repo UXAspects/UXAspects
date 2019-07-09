@@ -1,12 +1,9 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
 import { PageHeaderService } from '../../page-header.service';
-import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
 import { PageHeaderNavigationItem } from '../navigation.component';
 import { PageHeaderNavigationService } from '../navigation.service';
 
@@ -19,18 +16,6 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
     /** Access the data for this dropdown item */
     @Input() item: PageHeaderNavigationItem;
 
-    /** Access the menu navigation toggle directive */
-    @ViewChild('button') button: MenuNavigationToggleDirective;
-
-    /** Access the dropdown menu directive */
-    @ViewChild('menu') menu: BsDropdownDirective;
-
-    /** Access the navigation button element */
-    @ViewChild('navigationBtn') navigationBtn: ElementRef;
-
-    /** Access the dropdown item components */
-    @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
-
     /** Store the secondary state */
     secondary$: BehaviorSubject<boolean> = this._pageHeaderService.secondary$;
 
@@ -40,8 +25,11 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
     /** Update the tabindex based on keyboard input */
     _tabindex: Observable<number> = this._navigationService.getTabIndex(this);
 
+    /** Access the navigation button element */
+    @ViewChild('navigationBtn') navigationBtn: ElementRef;
+
     /** Unsubscribe when the component is destroyed */
-    private _onDestroy = new Subject();
+    private _onDestroy = new Subject<void>();
 
     constructor(
         public elementRef: ElementRef,
@@ -49,24 +37,15 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
         private _navigationService: PageHeaderNavigationService) { }
 
     ngAfterViewInit(): void {
-        this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(next => {
+        this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(selectedItem => {
 
             // Update selected state for this item
-            this._pageHeaderService.updateItem(this.item, next);
+            this._pageHeaderService.updateItem(this.item, selectedItem);
 
-            if (next && this.isOpen) {
+            if (selectedItem && this.isOpen) {
                 this.isOpen = false;
-
-                // If menu was closed, keep focus on the toggle button
-                this.button.focus();
             }
         });
-
-        if (this.menu) {
-            this.menu.onHidden
-                .pipe(takeUntil(this._onDestroy))
-                .subscribe(() => this.dropdowns.forEach(dropdown => dropdown.close()));
-        }
     }
 
     ngOnDestroy(): void {

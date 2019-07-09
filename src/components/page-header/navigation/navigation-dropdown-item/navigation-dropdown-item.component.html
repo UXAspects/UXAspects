@@ -1,84 +1,46 @@
-<div *ngIf="item.children && item.children.length > 0"
-    dropdown
-    #subMenu="bs-dropdown"
-    [isOpen]="dropdownOpen"
-    [isDisabled]="item.disabled"
-    container="body"
-    placement="right"
-    (mouseenter)="hoverStart()"
-    (mouseleave)="hoverLeave()">
+<div *ngIf="item.children && item.children.length > 0">
 
-    <a role="menuitem"
-        uxFocusIndicator
-        [programmaticFocusIndicator]="true"
-        class="dropdown-item"
-        [class.disabled]="item.disabled"
+    <button
+        type="button"
+        uxMenuItem
+        [disabled]="item.disabled"
         [class.selected]="item.selected"
-        aria-haspopup="true"
-        [attr.aria-expanded]="dropdownOpen"
         [attr.aria-selected]="item.selected"
-        tabindex="-1"
-        #button
-        dropdownToggle
-        uxMenuNavigationToggle
-        #menuNavigationToggle="uxMenuNavigationToggle"
-        [(menuOpen)]="dropdownOpen"
-        menuPosition="right">
+        [uxMenuTriggerFor]="menu">
 
         <span class="dropdown-item-title">{{ item.title }}</span>
         <span class="dropdown-item-icon hpe-icon hpe-next"></span>
+    </button>
 
-    </a>
+    <ux-menu #menu placement="right" menuClass="horizontal-navigation-dropdown-submenu">
+        <button
+            type="button"
+            *ngFor="let subItem of item.children"
+            uxMenuItem
+            [disabled]="subItem.disabled"
+            [class.selected]="subItem.selected"
+            [attr.aria-selected]="subItem.selected"
+            (click)="select(subItem)"
+            (keydown)="keydownHandler($event, subItem)">
 
-    <ul *dropdownMenu
-        role="menu"
-        class="dropdown-menu horizontal-navigation-dropdown-submenu"
-        (mouseenter)="hoverStart()"
-        (mouseleave)="hoverLeave()"
-        uxMenuNavigation
-        #menuNavigation="uxMenuNavigation"
-        [toggleButton]="menuNavigationToggle"
-        toggleButtonPosition="left">
-
-        <li *ngFor="let subItem of item.children" role="none">
-
-            <a role="menuitem"
-                class="dropdown-item"
-                [class.disabled]="subItem.disabled"
-                [class.selected]="subItem.selected"
-                [attr.aria-selected]="subItem.selected"
-                tabindex="-1"
-                (click)="select(subItem)"
-                (keydown)="keydownHandler($event, subItem)"
-                uxMenuNavigationItem>
-
-                <span class="dropdown-item-title">{{ subItem.title }}</span>
-
-            </a>
-
-        </li>
-    </ul>
+            <span class="dropdown-item-title">{{ subItem.title }}</span>
+        </button>
+    </ux-menu>
 
 </div>
 
-<div *ngIf="!item.children || item.children.length === 0"
-    (mouseenter)="hoverStart()"
-    (mouseleave)="hoverLeave()">
+<div *ngIf="!item.children || item.children.length === 0">
 
-    <a role="menuitem"
-        #button
-        uxFocusIndicator
-        [programmaticFocusIndicator]="true"
-        class="dropdown-item"
-        [class.disabled]="item.disabled"
+    <button
+        type="button"
+        uxMenuItem
+        [disabled]="item.disabled"
         [class.selected]="item.selected"
         [attr.aria-selected]="item.selected"
-        tabindex="-1"
         (click)="select(item)"
         (keydown)="keydownHandler($event, item)">
 
         <span class="dropdown-item-title">{{ item.title }}</span>
-
-    </a>
+    </button>
 
 </div>

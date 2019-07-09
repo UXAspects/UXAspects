@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
-import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 
 @Injectable()
@@ -11,7 +10,6 @@ export class PageHeaderService implements OnDestroy {
     selected$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     selectedRoot$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     secondary$ = new BehaviorSubject<boolean>(false);
-    activeIconMenu$ = new BehaviorSubject<PageHeaderIconMenu>(null);
     secondaryNavigationAutoselect = false;
 
     private _onDestroy = new Subject();

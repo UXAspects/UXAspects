@@ -1,0 +1,23 @@
+.ux-menu-item {
+    display: block;
+    line-height: 25px;
+    padding: 6px 20px;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover,
+    &:focus.ux-focus-indicator.ux-focus-indicator-active {
+        background-color: @dropdown-hover-bg;
+        color: @dropdown-hover-color;
+        text-decoration: none;
+    }
+
+    &.disabled {
+        background-color: transparent;
+        cursor: not-allowed;
+        color: @btn-primary-disabled-color;
+    }
+}

@@ -9,10 +9,10 @@ import { FocusIndicatorService } from './focus-indicator.service';
  * class so we can control when the focus shows. This will help prevent us
  * polluting the FocusIndicatorDirective with an lot of selectors.
  *
- * If the button has a uxFocusIndicator or uxMenuNavigationToggle directive applied we should skip this
+ * If the button has a uxFocusIndicator, uxMenuTriggerFor or uxMenuNavigationToggle directive applied we should skip this
  */
 @Directive({
-    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
+    selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
 })
 export class DefaultFocusIndicatorDirective extends FocusIndicatorDirective {
 

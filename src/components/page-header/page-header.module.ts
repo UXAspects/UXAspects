@@ -2,12 +2,11 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
 import { BreadcrumbsModule } from '../breadcrumbs/index';
+import { MenuModule } from '../menu/index';
 import { TabsetModule } from '../tabset/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
 import { PageHeaderIconMenuComponent } from './icon-menu/icon-menu.component';
@@ -22,13 +21,12 @@ import { PageHeaderComponent } from './page-header.component';
         A11yModule,
         AccessibilityModule,
         BreadcrumbsModule,
-        BsDropdownModule.forRoot(),
         ColorServiceModule,
         CommonModule,
-        MenuNavigationModule,
         ResizeModule,
         RouterModule,
-        TabsetModule
+        TabsetModule,
+        MenuModule
     ],
     exports: [
         PageHeaderComponent,

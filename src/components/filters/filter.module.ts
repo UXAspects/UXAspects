@@ -2,11 +2,10 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { MenuNavigationModule } from '../../directives/menu-navigation/index';
+import { MenuModule } from '../menu/index';
 import { TooltipModule } from '../tooltip/index';
-import { TypeaheadModule } from '../typeahead/typeahead.module';
+import { TypeaheadModule } from '../typeahead/index';
 import { FilterBaseComponent } from './filter-base/filter-base.component';
 import { FilterContainerComponent } from './filter-container.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
@@ -25,12 +24,11 @@ const DECLARATIONS = [
     imports: [
         A11yModule,
         AccessibilityModule,
-        BsDropdownModule.forRoot(),
+        MenuModule,
         CommonModule,
         FormsModule,
-        MenuNavigationModule,
         TooltipModule,
-        TypeaheadModule,
+        TypeaheadModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

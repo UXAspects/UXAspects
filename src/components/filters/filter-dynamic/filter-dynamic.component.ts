@@ -1,6 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -30,9 +28,6 @@ export class FilterDynamicComponent implements OnDestroy {
     get options(): FilterDynamicListConfig {
         return { ... this._defaultOptions, ...this._options };
     }
-
-    /** Get the dropdown directive */
-    @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
 
     /** Generate a unique id for the typeahead */
     typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;
@@ -64,7 +59,7 @@ export class FilterDynamicComponent implements OnDestroy {
     /** Unsubscribe from all subscriptions */
     private _onDestroy = new Subject<void>();
 
-    constructor(public typeaheadKeyService: TypeaheadKeyService, private _filterService: FilterService, private _elementRef: ElementRef) {
+    constructor(public typeaheadKeyService: TypeaheadKeyService, private _filterService: FilterService) {
         // listen for remove all events in which case we should deselect event initial filters
         _filterService.events$.pipe(takeUntil(this._onDestroy), rxFilter(event => event instanceof FilterRemoveAllEvent))
             .subscribe(() => this.removeFilter());
@@ -116,34 +111,9 @@ export class FilterDynamicComponent implements OnDestroy {
             .slice(0, this._options.maxResults);
     }
 
-    /** Handle selection of a typeahead options */
-    selectOption(typeaheadOption: TypeaheadMatch): void {
-
-        // remove any current filters
-        this.removeFilter();
-
-        // find the filter that corresponds to the selected item
-        this.selected = this.filters.find(_filter => _filter.name === typeaheadOption.value);
-
-        // store the selection in the service
-        this._filterService.add(this.selected);
-
-        // clear the search query
+    /** When the dropdown is closed clear the query */
+    onClose(): void {
         this.query$.next('');
-
-        // hide the dropdown
-        this.dropdown.hide();
-    }
-
-    /** If a click occurred that was outside the dropdown then close the dropdown */
-    @HostListener('document:click', ['$event.target'])
-    clickOff(target: HTMLElement): void {
-
-        // if the click was outside the dropdown then close it
-        if (!(this._elementRef.nativeElement as HTMLElement).contains(target)) {
-            this.query$.next('');
-            this.dropdown.hide();
-        }
     }
 
     /** If a filter needs removed, and is not the initial filter then remove it */
