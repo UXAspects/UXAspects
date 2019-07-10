@@ -238,7 +238,14 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
             this.menu.placement === 'bottom' && event.keyCode === DOWN_ARROW
         ) {
             this._focusOrigin.setOrigin('keyboard');
-            this.openMenu();
+
+            // if the menu was opened by a click but we subsequently use the arrow keys focus the first item
+            if (this.menu.isMenuOpen) {
+                this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
+            } else {
+                // otherwise open the menu
+                this.openMenu();
+            }
 
             // prevent the browser from scrolling
             event.preventDefault();
@@ -369,10 +376,6 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
         // regardless of it this is the root menu or not
         if (this._focusOrigin.getOrigin() === 'keyboard') {
             this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
-        } else if (this._isRootTrigger) {
-            // if this is the root menu and the keyboard was not used we should
-            // still focus to allow the keyboard to be used subsequently
-            this.menu._keyManager.setFocusOrigin('mouse').setFirstItemActive();
         }
     }
 

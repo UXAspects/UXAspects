@@ -13,7 +13,8 @@ import { MenuItemType } from './menu-item-type.enum';
     host: {
         '[attr.role]': 'role',
         '[class.disabled]': 'disabled',
-        '[class.ux-menu-item]': 'true'
+        '[class.ux-menu-item]': 'true',
+        '[class.open]': 'isOpen'
     }
 })
 export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
@@ -23,6 +24,11 @@ export class MenuItemComponent implements OnInit, OnDestroy, FocusableOption {
 
     /** Define the role of the element */
     @Input() role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
+
+    /** Access the open state */
+    get isOpen(): boolean {
+        return this._menu.isMenuOpen;
+    }
 
     /** Indicate the type of the menu item */
     readonly type: MenuItemType = MenuItemType.Default;
