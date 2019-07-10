@@ -15,7 +15,8 @@ import { MenuTabbableItemDirective } from '../menu-tabbable-item/menu-tabbable-i
     templateUrl: './menu.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        role: 'menu'
+        'role': 'menu',
+        '[class.ux-sub-menu]': '_isSubMenu'
     },
     animations: [
         trigger('menuAnimation', [
