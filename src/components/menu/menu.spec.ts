@@ -194,16 +194,6 @@ describe('MenuComponent', () => {
         expect(items.item(2).getAttribute('tabindex')).toBe('-1');
     });
 
-    it('should focus the first item when the menu is shown', async () => {
-        component.trigger.openMenu();
-        fixture.detectChanges();
-        await Promise.resolve();
-
-        const items = document.querySelectorAll('button[uxmenuitem]');
-
-        expect(document.activeElement).toBe(items.item(0));
-    });
-
     it('should focus the menu trigger when the menu is closed', async () => {
 
         // open menu

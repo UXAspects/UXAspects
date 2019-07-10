@@ -71,7 +71,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     _keyManager: FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective>;
 
     /** Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook) */
-    readonly _activeItem$ = new Subject<MenuItemComponent | MenuTabbableItemDirective>();
+    readonly _activeItem$ = new BehaviorSubject<MenuItemComponent | MenuTabbableItemDirective>(null);
 
     /** Access allow a close event to propagate all the way up the submenus */
     readonly _closeAll$ = new Subject<FocusOrigin>();
@@ -115,8 +115,15 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     ngAfterContentInit(): void {
 
         // initialise the query list with the items
-        this._items$.pipe(takeUntil(this._onDestroy$))
-            .subscribe(items => this._itemsList.reset(items));
+        this._items$.pipe(takeUntil(this._onDestroy$)).subscribe(items => {
+            // if no items has been marked as tabbable then this should be
+            if (!this._activeItem$.value && items.length > 0) {
+                this._activeItem$.next(items[0]);
+            }
+
+            this._itemsList.reset(items);
+            this._itemsList.notifyOnChanges();
+        });
 
         // setup keyboard functionality
         this._keyManager = new FocusKeyManager<MenuItemComponent | MenuTabbableItemDirective>(this._itemsList)
