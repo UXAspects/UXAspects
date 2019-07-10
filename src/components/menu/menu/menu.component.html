@@ -2,6 +2,7 @@
     <div
         *ngIf="isMenuOpen"
         class="ux-menu"
+        [class.ux-sub-menu]="_isSubMenu"
         [ngClass]="menuClass"
         @menuAnimation
         [@.disabled]="!animate"
