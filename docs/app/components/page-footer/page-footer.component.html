@@ -1,8 +1,8 @@
 <div class="container uxd-page-container">
 
     <div class="row page-footer-columns">
-        
-        <div class="col-12 col-md-2 col-sm-4 col-xs-6" *ngFor="let column of columns">
+
+        <div class="col-12 col-md-4 col-sm-6 col-xs-12" *ngFor="let column of columns">
             <h4 class="page-footer-column-title">{{ column.title }}</h4>
 
             <a class="page-footer-column-link" *ngFor="let link of column.links" [routerLink]="link.link">{{ link.title }}</a>

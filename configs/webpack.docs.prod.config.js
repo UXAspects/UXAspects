@@ -223,6 +223,10 @@ module.exports = {
                 from: join(cwd(), 'src', 'fonts'),
                 to: join(cwd(), 'dist', 'docs', 'assets', 'fonts')
             },
+            {
+                from: join(cwd(), 'src', 'img'),
+                to: join(cwd(), 'dist', 'docs', 'assets', 'img')
+            },
         ]),
 
         new AngularCompilerPlugin({

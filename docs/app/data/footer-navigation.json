@@ -1,14 +1,19 @@
 {
-    "columns": [{
-        "title": "About",
-        "links": [{
-            "title": "Currently v{{VERSION}}",
-            "link": "/landing"
-        }, {
-            "title": "View Changes Log",
-            "link": "/changelog"
-        }]
-    }],
+    "columns": [
+        {
+            "title": "About",
+            "links": [
+                {
+                    "title": "UX Aspects {{VERSION}}",
+                    "link": "/changelog"
+                },
+                {
+                    "title": "Licensed under the Apache License 2.0",
+                    "link": "/licenses"
+                }
+            ]
+        }
+    ],
     "logo": {
         "image": "assets/img/UX-graphic-small.png",
         "title": "UX Aspects"
@@ -16,6 +21,6 @@
     "copyright": "EntIT Software LLC, a Micro Focus company",
     "feedback": {
         "title": "Feedback",
-        "link": "http://github.com"
+        "link": "https://github.com/UXAspects/UXAspects/issues"
     }
 }
