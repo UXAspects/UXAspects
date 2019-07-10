@@ -17,7 +17,6 @@ import { DocumentationType, DOCUMENTATION_TOKEN } from './services/playground/to
 */
 const appRoutes: Routes = [
     { path: 'landing', loadChildren: './pages/landing/landing.module#LandingPageModule' },
-    { path: 'overview', loadChildren: './pages/overview/overview.module#OverviewPageModule' },
     { path: 'features', loadChildren: './pages/features/features.module#FeaturesPageModule' },
     { path: 'gettingstarted', loadChildren: './pages/getting-started/getting-started.module#GettingStartedPageModule' },
     { path: 'showcase', loadChildren: './pages/showcase/showcase.module#ShowcasePageModule' },

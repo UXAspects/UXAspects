@@ -1,3 +1,0 @@
-"styles": [
-    "./node_modules/@ux-aspects/ux-aspects/styles/ux-aspects.css"
-],
