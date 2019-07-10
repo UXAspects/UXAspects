@@ -1,0 +1,18 @@
+<ng-template>
+    <div
+        *ngIf="isMenuOpen"
+        class="ux-menu"
+        [class.ux-sub-menu]="_isSubMenu"
+        [ngClass]="menuClass"
+        @menuAnimation
+        [@.disabled]="!animate"
+        (@menuAnimation.start)="_onAnimationStart()"
+        (@menuAnimation.done)="_onAnimationDone()"
+        (mouseenter)="_onHoverStart()"
+        (mouseover)="_onHoverStart()"
+        (mouseleave)="_onHoverEnd()"
+        (focusin)="_onFocus()"
+        (focusout)="_onBlur()">
+        <ng-content></ng-content>
+    </div>
+</ng-template>

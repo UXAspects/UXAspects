@@ -1,45 +1,28 @@
-<div class="page-header-icon-menu"
-    dropdown
-    placement="bottom right"
-    [(isOpen)]="isOpen">
-
-    <a role="button"
-        uxFocusIndicator
+<div class="page-header-icon-menu">
+    <button
+        type="button"
         class="page-header-icon-menu-button"
         [attr.aria-label]="menu.label"
-        aria-haspopup="true"
-        tabindex="0"
-        (click)="select(menu)"
-        dropdownToggle
-        uxMenuNavigationToggle
-        #menuNavigationToggle="uxMenuNavigationToggle"
-        [(menuOpen)]="isOpen">
+        [uxMenuTriggerFor]="iconMenu"
+        (click)="select(menu)">
 
         <i class="hpe-icon" [ngClass]="menu.icon"></i>
         <span class="label label-primary" *ngIf="menu?.badge" aria-hidden="true">{{ menu.badge }}</span>
+    </button>
 
-    </a>
+    <ux-menu #iconMenu alignment="end" menuClass="ux-page-header-icon-menu">
+        <ng-container *ngFor="let dropdown of menu?.dropdown">
 
-    <ul *dropdownMenu
-        class="dropdown-menu"
-        role="menu"
-        uxMenuNavigation
-        [toggleButton]="menuNavigationToggle">
+            <div class="dropdown-header" *ngIf="dropdown.header">
+                <span class="font-bold">{{ dropdown.title }}</span>
+            </div>
 
-        <li *ngFor="let dropdown of menu?.dropdown"
-            role="none"
-            [class.dropdown-header]="dropdown.header"
-            [class.dropdown-divider]="dropdown.divider">
-
-            <span class="font-bold" *ngIf="dropdown.header">{{ dropdown.title }}</span>
-
-            <a *ngIf="!dropdown.header"
-                role="menuitem"
-                class="dropdown-item"
-                tabindex="-1"
+            <button
+                type="button"
+                *ngIf="!dropdown.header"
+                uxMenuItem
                 (click)="select(dropdown)"
-                (keydown)="keydownHandler(dropdown, $event)"
-                uxMenuNavigationItem>
+                (keydown)="keydownHandler(dropdown, $event)">
 
 
                 <span class="dropdown-item-title">
@@ -48,8 +31,10 @@
                 </span>
                 <span *ngIf="dropdown.subtitle" class="dropdown-item-subtitle">{{ dropdown.subtitle }}</span>
 
-            </a>
-        </li>
+            </button>
 
-    </ul>
+            <ux-menu-divider *ngIf="dropdown.divider"></ux-menu-divider>
+
+        </ng-container>
+    </ux-menu>
 </div>

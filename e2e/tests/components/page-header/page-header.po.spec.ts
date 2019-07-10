@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { $, browser, by, element, ElementFinder } from 'protractor';
 
 export class PageHeaderPage {
 
@@ -38,7 +38,7 @@ export class PageHeaderPage {
         this.condensed = !this.condensed;
     }
 
-    getABreadcrumb(index: number) {
+    async getABreadcrumb(index: number): Promise<string> {
         return this.pageHeader1.$('ux-breadcrumbs').$$('li').get(index).getText();
     }
 
@@ -48,8 +48,7 @@ export class PageHeaderPage {
             $('span.hpe-home').isPresent();
     }
 
-    async getApplicationLogoText() {
-
+    async getApplicationLogoText(): Promise<string> {
         return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
             $('span.navigation-item-label').getText();
@@ -62,58 +61,57 @@ export class PageHeaderPage {
     }
 
     openDropdown() {
-        this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
+        return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').click();
     }
 
-    confirmDropdownIsOpened() {
-        return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
-            $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button.open').isPresent();
+    async confirmDropdownIsOpened() {
+        return await $('.horizontal-navigation-dropdown-menu').isPresent();
     }
 
     getFirstDropdownMenuItem(index: number) {
-        return browser.element(by.css('body')).$$('bs-dropdown-container').get(0).$('div.dropdown').$('div.dropdown-menu').
-            $$('ux-page-header-horizontal-navigation-dropdown-item').get(index).$('div').$('a.dropdown-item').$('span.dropdown-item-title').getText();
+        return $('.horizontal-navigation-dropdown-menu')
+            .$$('ux-page-header-horizontal-navigation-dropdown-item').get(index).$('.dropdown-item-title').getText();
     }
 
     displaySecondDropdownMenu() {
-        browser.actions().mouseMove(browser.element(by.css('body')).$$('bs-dropdown-container').get(0).$('div.dropdown').$('div.dropdown-menu').
-            $$('ux-page-header-horizontal-navigation-dropdown-item').get(1)).perform();
+        const menuItem = $('.horizontal-navigation-dropdown-menu')
+            .$$('ux-page-header-horizontal-navigation-dropdown-item').get(1);
+
+        return browser.actions().mouseMove(menuItem).perform();
     }
 
-    getSecondDropdownMenuItem(index: number) {
-        return browser.element(by.css('body')).$$('bs-dropdown-container').get(1).$('div.dropdown').$('ul.dropdown-menu').
-            $$('li').get(index).$('a.dropdown-item').$('span.dropdown-item-title').getText();
+    async getSecondDropdownMenuItem(index: number) {
+        return $('.horizontal-navigation-dropdown-submenu')
+            .$$('.ux-menu-item').get(index).$('.dropdown-item-title').getText();
     }
 
     confirmNotificationIconIsPresent() {
         return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
-            $('a.page-header-icon-menu-button').$('i.hpe-notification').isPresent();
+            $('.page-header-icon-menu-button').$('i.hpe-notification').isPresent();
     }
 
     openNotifications() {
         return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
-            $('a.page-header-icon-menu-button').click();
+            $('.page-header-icon-menu-button').click();
     }
 
     confirmNotificationsAreDisplayed() {
-        return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).
-            $('div.page-header-icon-menu').$('ul.dropdown-menu').$$('li').count();
+        return $('.ux-page-header-icon-menu').$$('.ux-menu-item').count();
     }
 
     confirmActionsIconIsPresent() {
         return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
-            $('a.page-header-icon-menu-button').$('i.hpe-actions').isPresent();
+            $('.page-header-icon-menu-button').$('i.hpe-actions').isPresent();
     }
 
     openActions() {
         return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
-            $('a.page-header-icon-menu-button').click();
+            $('.page-header-icon-menu-button').click();
     }
 
     confirmActionsAreDisplayed() {
-        return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).
-            $('div.page-header-icon-menu').$('ul.dropdown-menu').$$('li').count();
+        return $('.ux-page-header-icon-menu').$$('.ux-menu-item').count();
     }
 
     async getSecondaryNavigation(): Promise<ElementFinder> {

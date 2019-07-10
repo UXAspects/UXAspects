@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -7,7 +7,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @Component({
     selector: 'uxd-components-buttons-dropdowns',
     templateUrl: './dropdowns.component.html',
-    styleUrls: ['./dropdowns.component.less']
+    styleUrls: ['./dropdowns.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
 export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
@@ -28,8 +29,6 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
     ];
 
     caseFilter: string = '';
-    isMarkAsMenuOpen: boolean = false;
-    isAddCaseMenuOpen: boolean = false;
 
     playground: IPlayground = {
         files: {
@@ -39,12 +38,7 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
         },
         modules: [
             {
-                library: 'ngx-bootstrap/dropdown',
-                imports: ['BsDropdownModule'],
-                providers: ['BsDropdownModule.forRoot()']
-            },
-            {
-                imports: ['StringFilterModule', 'MenuNavigationModule'],
+                imports: ['StringFilterModule', 'MenuModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

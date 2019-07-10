@@ -1,8 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FilterModule, SparkModule } from '@ux-aspects/ux-aspects';
-
+import { FilterModule, MenuModule, SparkModule } from '@ux-aspects/ux-aspects';
 import { FiltersTestPageComponent } from './filters.testpage.component';
 
 @NgModule({
@@ -10,6 +9,7 @@ import { FiltersTestPageComponent } from './filters.testpage.component';
         CommonModule,
         SparkModule,
         FilterModule,
+        MenuModule.forChild({ animate: false }),
         RouterModule.forChild([
             {
                 path: '',

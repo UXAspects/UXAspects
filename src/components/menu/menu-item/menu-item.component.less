@@ -1,0 +1,48 @@
+.ux-menu-item {
+    display: flex;
+    align-items: center;
+    line-height: 25px;
+    padding: 6px 20px;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover,
+    &:focus.ux-focus-indicator.ux-focus-indicator-active {
+        background-color: @dropdown-hover-bg;
+        color: @dropdown-hover-color;
+        text-decoration: none;
+    }
+
+    &.disabled {
+        background-color: transparent;
+        cursor: not-allowed;
+        color: @btn-primary-disabled-color;
+    }
+
+    // support existing dropdown styling classes
+    .dropdown-menu-icon {
+        flex: 0 0 auto;
+        width: 20px;
+        text-align: center;
+        margin-right: 10px;
+    }
+
+    .dropdown-menu-text {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dropdown-menu-right {
+        text-align: right;
+    }
+
+    .dropdown-menu-hint {
+        color: @dropdown-menu-hint;
+        font-size: 80%;
+        margin-left: 16px;
+    }
+}
