@@ -3,6 +3,7 @@
         *ngIf="isMenuOpen"
         class="ux-menu"
         [class.ux-sub-menu]="_isSubMenu"
+        [class.ux-menu-placement-top]="placement === 'top'"
         [ngClass]="menuClass"
         @menuAnimation
         [@.disabled]="!animate"

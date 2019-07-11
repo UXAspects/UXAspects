@@ -71,7 +71,7 @@
                     ]
                 },
                 {
-                    "title": "Dropdowns",
+                    "title": "Dropdown Menu",
                     "component": "ComponentsDropdownsComponent",
                     "version": "Angular",
                     "usage": [
