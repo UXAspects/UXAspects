@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('rxjs/observable/merge'), require('dragula/dist/dragula'), require('rxjs/Subscription'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('rxjs/observable/from'), require('rxjs/observable/concat'), require('rxjs/observable/timer'), require('@angular/common/http'), require('rxjs/observable/of'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('ngx-bootstrap/dropdown'), require('@angular/router'), require('rxjs/observable/fromEvent'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('rxjs/observable/combineLatest'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('rxjs/ReplaySubject'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'rxjs/observable/merge', 'dragula/dist/dragula', 'rxjs/Subscription', '@angular/cdk/observers', '@angular/cdk/overlay', 'rxjs/observable/from', 'rxjs/observable/concat', 'rxjs/observable/timer', '@angular/common/http', 'rxjs/observable/of', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', 'ngx-bootstrap/dropdown', '@angular/router', 'rxjs/observable/fromEvent', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', 'rxjs/observable/combineLatest', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', 'rxjs/ReplaySubject', '@angular/common', 'rxjs/Observable', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.rxjs['observable/merge'],global.dragulaNamespace,global.rxjs.Subscription,global.ng.cdk.observers,global.ng.cdk.overlay,global.rxjs['observable/from'],global.rxjs['observable/concat'],global.rxjs['observable/timer'],global.ng.common.http,global.rxjs['observable/of'],global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.dropdown,global.ng.router,global.rxjs['observable/fromEvent'],global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.d3Array,global.ng.cdk.platform,global.rxjs['observable/combineLatest'],global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.rxjs.ReplaySubject,global.ng.common,global.rxjs.Observable,global.rxjs.BehaviorSubject,global.rxjs.Subject,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,merge,dragulaNamespace,Subscription,observers,overlay,from,concat,timer,http,of,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,dropdown,router,fromEvent,d3Hierarchy,d3Scale,d3Selection,d3Transition,d3Array,platform,combineLatest,coercion,a11y,animations,ReplaySubject,common,Observable,BehaviorSubject,Subject,operators,forms,_static,keycodes,core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/common/http'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.dragulaNamespace,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.common.http,global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.ng.router,global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.d3Array,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.ng.common,global.rxjs,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
+}(this, (function (exports,angularSplit,ResizeObserver,dragulaNamespace,observers,overlay,http,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,router,d3Hierarchy,d3Scale,d3Selection,d3Transition,d3Array,platform,coercion,a11y,animations,common,rxjs,operators,forms,_static,keycodes,i0) { 'use strict';
 
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -68,7 +68,7 @@
      */
     var tick = function () {
         return function (source) {
-            return new Observable.Observable(function (subscriber) {
+            return new rxjs.Observable(function (subscriber) {
                 source.subscribe({
                     next: /**
                      * @param {?} value
@@ -104,7 +104,7 @@
         function AccordionPanelHeadingDirective() {
         }
         AccordionPanelHeadingDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'ux-accordion-panel-header'
                     },] }
         ];
@@ -118,7 +118,7 @@
     var AccordionService = /** @class */ (function () {
         function AccordionService() {
             this.collapseOthers = false;
-            this.collapse = new Subject.Subject();
+            this.collapse = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -130,7 +130,7 @@
                 this.collapse.next();
             };
         AccordionService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return AccordionService;
     }());
@@ -149,7 +149,7 @@
             this.headingId = this.panelId + "-heading";
             this.disabled = false;
             this.expanded = false;
-            this.expandedChange = new core.EventEmitter();
+            this.expandedChange = new i0.EventEmitter();
             accordion.collapse.subscribe(function () { return _this.collapse(); });
         }
         /**
@@ -195,7 +195,7 @@
                 }
             };
         AccordionPanelComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-accordion-panel',
                         template: "<div class=\"panel-heading\"\n      role=\"button\"\n      uxFocusIndicator\n      [tabindex]=\"disabled ? -1 : 0\"\n      [id]=\"headingId\"\n      [attr.aria-expanded]=\"expanded\"\n      [attr.aria-controls]=\"panelId\"\n      (click)=\"toggle()\"\n      (keydown.enter)=\"toggle()\"\n      (keydown.space)=\"toggle(); $event.preventDefault()\"\n      (keydown.spacebar)=\"toggle(); $event.preventDefault()\">\n\n  <div class=\"panel-title\">\n      {{ heading }}\n      <ng-content select=\"ux-accordion-panel-header\"></ng-content>\n  </div>\n</div>\n\n<div [id]=\"panelId\"\n      class=\"panel-collapse collapse\"\n      [class.in]=\"expanded\"\n      role=\"tabpanel\"\n      [attr.aria-labelledby]=\"headingId\">\n\n  <div class=\"panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>",
                         host: {
@@ -211,12 +211,12 @@
             ];
         };
         AccordionPanelComponent.propDecorators = {
-            panelId: [{ type: core.Input }],
-            headingId: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            heading: [{ type: core.Input }],
-            expanded: [{ type: core.Input }, { type: core.HostBinding, args: ['class.panel-open',] }],
-            expandedChange: [{ type: core.Output }]
+            panelId: [{ type: i0.Input }],
+            headingId: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            heading: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.panel-open',] }],
+            expandedChange: [{ type: i0.Output }]
         };
         return AccordionPanelComponent;
     }());
@@ -240,7 +240,7 @@
             configurable: true
         });
         AccordionComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-accordion',
                         template: "<ng-content></ng-content>",
                         providers: [AccordionService],
@@ -258,7 +258,7 @@
             ];
         };
         AccordionComponent.propDecorators = {
-            collapseOthers: [{ type: core.Input }]
+            collapseOthers: [{ type: i0.Input }]
         };
         return AccordionComponent;
     }());
@@ -407,7 +407,54 @@
      * Provide a default color set for an application
      * @type {?}
      */
-    var COLOR_SET_TOKEN = new core.InjectionToken('COLOR_SET_TOKEN');
+    var COLOR_SET_TOKEN = new i0.InjectionToken('COLOR_SET_TOKEN');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ColorServiceModule = /** @class */ (function () {
+        function ColorServiceModule() {
+        }
+        /**
+         * The function allows the consuming applications to specify the applications
+         * color set once in the app module, eg:
+         * ```
+         * ColorServiceModule.forRoot(colorSets.microFocus);
+         * ```
+         * @param colorSet The color set the application should use
+         */
+        /**
+         * The function allows the consuming applications to specify the applications
+         * color set once in the app module, eg:
+         * ```
+         * ColorServiceModule.forRoot(colorSets.microFocus);
+         * ```
+         * @param {?} colorSet The color set the application should use
+         * @return {?}
+         */
+        ColorServiceModule.forRoot = /**
+         * The function allows the consuming applications to specify the applications
+         * color set once in the app module, eg:
+         * ```
+         * ColorServiceModule.forRoot(colorSets.microFocus);
+         * ```
+         * @param {?} colorSet The color set the application should use
+         * @return {?}
+         */
+            function (colorSet) {
+                return {
+                    ngModule: ColorServiceModule,
+                    providers: [
+                        { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel }
+                    ]
+                };
+            };
+        ColorServiceModule.decorators = [
+            { type: i0.NgModule, args: [{},] }
+        ];
+        return ColorServiceModule;
+    }());
 
     /**
      * @fileoverview added by tsickle
@@ -893,87 +940,18 @@
                 return theme;
             };
         ColorService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
         ];
         /** @nocollapse */
         ColorService.ctorParameters = function () {
             return [
-                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [COLOR_SET_TOKEN,] }] }
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [COLOR_SET_TOKEN,] }] }
             ];
         };
+        /** @nocollapse */ ColorService.ngInjectableDef = i0.defineInjectable({ factory: function ColorService_Factory() { return new ColorService(i0.inject(COLOR_SET_TOKEN, 8)); }, token: ColorService, providedIn: "root" });
         return ColorService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * This provider allows us to have only a single instance
-     * of the color service throughout out entire application
-     * regardless of how many times this module is imported.
-     * Otherwise the user would have to set the colorSet every
-     * time this is imported into a lazy loaded module
-     *
-     * Note: This can be removed once Angular 5 support can be dropped
-     * and instead we should use `providedIn: 'root'`
-     * @param {?} parentColorService
-     * @param {?} colorSet
-     * @return {?}
-     */
-    function COLOR_SERVICE_PROVIDER_FACTORY(parentColorService, colorSet) {
-        return parentColorService || new ColorService(colorSet ? colorSet : colorSets.keppel);
-    }
-    /** @type {?} */
-    var COLOR_SERVICE_PROVIDER = {
-        provide: ColorService,
-        deps: [[new core.Optional(), new core.SkipSelf(), ColorService], [new core.Optional(), COLOR_SET_TOKEN]],
-        useFactory: COLOR_SERVICE_PROVIDER_FACTORY
-    };
-    var ColorServiceModule = /** @class */ (function () {
-        function ColorServiceModule() {
-        }
-        /**
-         * The function allows the consuming applications to specify the applications
-         * color set once in the app module, eg:
-         * ```
-         * ColorServiceModule.forRoot(colorSets.microFocus);
-         * ```
-         * @param colorSet The color set the application should use
-         */
-        /**
-         * The function allows the consuming applications to specify the applications
-         * color set once in the app module, eg:
-         * ```
-         * ColorServiceModule.forRoot(colorSets.microFocus);
-         * ```
-         * @param {?} colorSet The color set the application should use
-         * @return {?}
-         */
-        ColorServiceModule.forRoot = /**
-         * The function allows the consuming applications to specify the applications
-         * color set once in the app module, eg:
-         * ```
-         * ColorServiceModule.forRoot(colorSets.microFocus);
-         * ```
-         * @param {?} colorSet The color set the application should use
-         * @return {?}
-         */
-            function (colorSet) {
-                return {
-                    ngModule: ColorServiceModule,
-                    providers: [
-                        { provide: COLOR_SET_TOKEN, useValue: colorSet ? colorSet : colorSets.keppel },
-                        COLOR_SERVICE_PROVIDER
-                    ]
-                };
-            };
-        ColorServiceModule.decorators = [
-            { type: core.NgModule, args: [{
-                        providers: [COLOR_SERVICE_PROVIDER],
-                    },] }
-        ];
-        return ColorServiceModule;
     }());
 
     /**
@@ -1053,7 +1031,7 @@
                 return (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
             };
         ContrastService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return ContrastService;
     }());
@@ -1141,7 +1119,7 @@
             configurable: true
         });
         ColorContrastDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxColorContrast]'
                     },] }
         ];
@@ -1153,10 +1131,10 @@
             ];
         };
         ColorContrastDirective.propDecorators = {
-            uxColorContrast: [{ type: core.Input }],
-            lightColor: [{ type: core.Input }],
-            darkColor: [{ type: core.Input }],
-            _color: [{ type: core.HostBinding, args: ['style.color',] }]
+            uxColorContrast: [{ type: i0.Input }],
+            lightColor: [{ type: i0.Input }],
+            darkColor: [{ type: i0.Input }],
+            _color: [{ type: i0.HostBinding, args: ['style.color',] }]
         };
         return ColorContrastDirective;
     }());
@@ -1335,7 +1313,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var ACCESSIBILITY_OPTIONS_TOKEN = new core.InjectionToken('ACCESSIBILITY_OPTIONS');
+    var ACCESSIBILITY_OPTIONS_TOKEN = new i0.InjectionToken('ACCESSIBILITY_OPTIONS');
 
     /**
      * @fileoverview added by tsickle
@@ -1370,12 +1348,12 @@
             configurable: true
         });
         AccessibilityOptionsService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         AccessibilityOptionsService.ctorParameters = function () {
             return [
-                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] }
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] }
             ];
         };
         return AccessibilityOptionsService;
@@ -1405,15 +1383,15 @@
             /**
              * An observable to monitor the focus state
              */
-            this.isFocused$ = new BehaviorSubject.BehaviorSubject(false);
+            this.isFocused$ = new rxjs.BehaviorSubject(false);
             /**
              * An observable to monitor the focus origin
              */
-            this.origin$ = new Subject.Subject();
+            this.origin$ = new rxjs.Subject();
             /**
              * Remove all subscriptions on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // check if the element is already being monitored
             if (!_element.classList.contains('ux-focus-indicator')) {
                 this.initialise();
@@ -1587,8 +1565,11 @@
                 return origin;
             };
         FocusIndicatorOriginService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
         ];
+        /** @nocollapse */ FocusIndicatorOriginService.ngInjectableDef = i0.defineInjectable({ factory: function FocusIndicatorOriginService_Factory() { return new FocusIndicatorOriginService(); }, token: FocusIndicatorOriginService, providedIn: "root" });
         return FocusIndicatorOriginService;
     }());
 
@@ -1625,7 +1606,7 @@
                 return new FocusIndicator(element, this._focusMonitor, this._renderer, __assign({}, this._globalOptions.options, this._localOptions, options), this._focusIndicatorOrigin);
             };
         FocusIndicatorService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         FocusIndicatorService.ctorParameters = function () {
@@ -1633,8 +1614,8 @@
                 { type: a11y.FocusMonitor },
                 { type: AccessibilityOptionsService },
                 { type: FocusIndicatorOriginService },
-                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] },
-                { type: core.RendererFactory2 }
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [ACCESSIBILITY_OPTIONS_TOKEN,] }] },
+                { type: i0.RendererFactory2 }
             ];
         };
         return FocusIndicatorService;
@@ -1654,7 +1635,7 @@
             /**
              * Emit the latest focus state
              */
-            this.indicator = new core.EventEmitter();
+            this.indicator = new i0.EventEmitter();
             /**
              * Store a private reference for the checkChildren option
              */
@@ -1666,7 +1647,7 @@
             /**
              * Unsubscribe on component destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // set the inital option values based on global options
             for (var option in (optionsService.options || {})) {
                 this._options.set(option, optionsService.options[option]);
@@ -1814,7 +1795,7 @@
                 }
             };
         FocusIndicatorDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFocusIndicator]',
                         exportAs: 'ux-focus-indicator'
                     },] }
@@ -1822,20 +1803,20 @@
         /** @nocollapse */
         FocusIndicatorDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: FocusIndicatorService },
                 { type: AccessibilityOptionsService },
-                { type: core.NgZone },
-                { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Optional }] }
+                { type: i0.NgZone },
+                { type: LocalFocusIndicatorOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         FocusIndicatorDirective.propDecorators = {
-            checkChildren: [{ type: core.Input }],
-            mouseFocusIndicator: [{ type: core.Input }],
-            touchFocusIndicator: [{ type: core.Input }],
-            keyboardFocusIndicator: [{ type: core.Input }],
-            programmaticFocusIndicator: [{ type: core.Input }],
-            indicator: [{ type: core.Output }]
+            checkChildren: [{ type: i0.Input }],
+            mouseFocusIndicator: [{ type: i0.Input }],
+            touchFocusIndicator: [{ type: i0.Input }],
+            keyboardFocusIndicator: [{ type: i0.Input }],
+            programmaticFocusIndicator: [{ type: i0.Input }],
+            indicator: [{ type: i0.Output }]
         };
         return FocusIndicatorDirective;
     }());
@@ -1849,7 +1830,7 @@
      * class so we can control when the focus shows. This will help prevent us
      * polluting the FocusIndicatorDirective with an lot of selectors.
      *
-     * If the button has a uxFocusIndicator or uxMenuNavigationToggle directive applied we should skip this
+     * If the button has a uxFocusIndicator, uxMenuTriggerFor or uxMenuNavigationToggle directive applied we should skip this
      */
     var DefaultFocusIndicatorDirective = /** @class */ (function (_super) {
         __extends(DefaultFocusIndicatorDirective, _super);
@@ -1860,18 +1841,18 @@
             return _this;
         }
         DefaultFocusIndicatorDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle])',
+            { type: i0.Directive, args: [{
+                        selector: '.btn:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor]), a[href]:not([uxFocusIndicator]):not([uxMenuNavigationToggle]):not([uxMenuTriggerFor])',
                     },] }
         ];
         /** @nocollapse */
         DefaultFocusIndicatorDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: FocusIndicatorService },
                 { type: AccessibilityOptionsService },
-                { type: core.NgZone },
-                { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Optional }] }
+                { type: i0.NgZone },
+                { type: LocalFocusIndicatorOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         return DefaultFocusIndicatorDirective;
@@ -1934,7 +1915,7 @@
             configurable: true
         });
         FocusIndicatorOptionsDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFocusIndicatorOptions]',
                         providers: [LocalFocusIndicatorOptions]
                     },] }
@@ -1942,14 +1923,14 @@
         /** @nocollapse */
         FocusIndicatorOptionsDirective.ctorParameters = function () {
             return [
-                { type: LocalFocusIndicatorOptions, decorators: [{ type: core.Self }] }
+                { type: LocalFocusIndicatorOptions, decorators: [{ type: i0.Self }] }
             ];
         };
         FocusIndicatorOptionsDirective.propDecorators = {
-            mouseFocusIndicator: [{ type: core.Input }],
-            touchFocusIndicator: [{ type: core.Input }],
-            keyboardFocusIndicator: [{ type: core.Input }],
-            programmaticFocusIndicator: [{ type: core.Input }]
+            mouseFocusIndicator: [{ type: i0.Input }],
+            touchFocusIndicator: [{ type: i0.Input }],
+            keyboardFocusIndicator: [{ type: i0.Input }],
+            programmaticFocusIndicator: [{ type: i0.Input }]
         };
         return FocusIndicatorOptionsDirective;
     }());
@@ -2050,7 +2031,7 @@
                 this._focusOrigin.destroy();
             };
         FocusIndicatorOriginDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFocusIndicatorOrigin]',
                     },] }
         ];
@@ -2058,8 +2039,8 @@
         FocusIndicatorOriginDirective.ctorParameters = function () {
             return [
                 { type: FocusIndicatorOriginService },
-                { type: core.ElementRef },
-                { type: core.Renderer2 }
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 }
             ];
         };
         return FocusIndicatorOriginDirective;
@@ -2081,11 +2062,11 @@
             /**
              * Emits when a child element gains focus
              */
-            this.uxFocusWithin = new core.EventEmitter();
+            this.uxFocusWithin = new i0.EventEmitter();
             /**
              * Emits when a child element loses focus
              */
-            this.uxBlurWithin = new core.EventEmitter();
+            this.uxBlurWithin = new i0.EventEmitter();
             // We need to listen in capture phase since focus events don't bubble.
             _elementRef.nativeElement.addEventListener('focus', this.onFocus.bind(this), true);
             _elementRef.nativeElement.addEventListener('blur', this.onBlur.bind(this), true);
@@ -2119,19 +2100,19 @@
                 this.uxBlurWithin.emit();
             };
         FocusWithinDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFocusWithin],[uxBlurWithin]',
                     },] }
         ];
         /** @nocollapse */
         FocusWithinDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         FocusWithinDirective.propDecorators = {
-            uxFocusWithin: [{ type: core.Output }],
-            uxBlurWithin: [{ type: core.Output }]
+            uxFocusWithin: [{ type: i0.Output }],
+            uxBlurWithin: [{ type: i0.Output }]
         };
         return FocusWithinDirective;
     }());
@@ -2248,12 +2229,12 @@
                 return containerRef ? containerRef.container : null;
             };
         ManagedFocusContainerService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         ManagedFocusContainerService.ctorParameters = function () {
             return [
-                { type: core.RendererFactory2 }
+                { type: i0.RendererFactory2 }
             ];
         };
         return ManagedFocusContainerService;
@@ -2265,7 +2246,7 @@
             /**
              * Whether the container or one of its descendants has focus.
              */
-            this.hasFocus$ = new BehaviorSubject.BehaviorSubject(false);
+            this.hasFocus$ = new rxjs.BehaviorSubject(false);
             this._modifiedElements = [];
             this._unlisten = [];
         }
@@ -2438,14 +2419,14 @@
                 this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
             };
         ManagedFocusContainerDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxManagedFocusContainer]'
                     },] }
         ];
         /** @nocollapse */
         ManagedFocusContainerDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ManagedFocusContainerService }
             ];
         };
@@ -2467,7 +2448,7 @@
             /**
              * Emit an event whenever the gutter is moved using the keyboard
              */
-            this.gutterKeydown = new core.EventEmitter();
+            this.gutterKeydown = new i0.EventEmitter();
             /**
              * Store all the gutter elements
              */
@@ -2475,7 +2456,7 @@
             /**
              * Teardown our observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             /**
              * Store references to all focus indicators
              */
@@ -2842,29 +2823,29 @@
                 };
             };
         SplitterAccessibilityDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'split'
                     },] }
         ];
         /** @nocollapse */
         SplitterAccessibilityDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
-                { type: String, decorators: [{ type: core.Inject, args: [core.PLATFORM_ID,] }] },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
+                { type: String, decorators: [{ type: i0.Inject, args: [i0.PLATFORM_ID,] }] },
                 { type: angularSplit.SplitComponent },
                 { type: FocusIndicatorService }
             ];
         };
         SplitterAccessibilityDirective.propDecorators = {
-            gutterKeydown: [{ type: core.Output }],
-            areas: [{ type: core.ContentChildren, args: [angularSplit.SplitAreaDirective,] }],
-            onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }],
-            onIncreaseKey: [{ type: core.HostListener, args: ['keydown.ArrowDown', ['$event'],] }, { type: core.HostListener, args: ['keydown.ArrowRight', ['$event'],] }],
-            onDecreaseKey: [{ type: core.HostListener, args: ['keydown.ArrowUp', ['$event'],] }, { type: core.HostListener, args: ['keydown.ArrowLeft', ['$event'],] }],
-            onHomeKey: [{ type: core.HostListener, args: ['keydown.Home', ['$event'],] }],
-            onEndKey: [{ type: core.HostListener, args: ['keydown.End', ['$event'],] }]
+            gutterKeydown: [{ type: i0.Output }],
+            areas: [{ type: i0.ContentChildren, args: [angularSplit.SplitAreaDirective,] }],
+            onClick: [{ type: i0.HostListener, args: ['click', ['$event'],] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }],
+            onIncreaseKey: [{ type: i0.HostListener, args: ['keydown.ArrowDown', ['$event'],] }, { type: i0.HostListener, args: ['keydown.ArrowRight', ['$event'],] }],
+            onDecreaseKey: [{ type: i0.HostListener, args: ['keydown.ArrowUp', ['$event'],] }, { type: i0.HostListener, args: ['keydown.ArrowLeft', ['$event'],] }],
+            onHomeKey: [{ type: i0.HostListener, args: ['keydown.Home', ['$event'],] }],
+            onEndKey: [{ type: i0.HostListener, args: ['keydown.End', ['$event'],] }]
         };
         return SplitterAccessibilityDirective;
     }());
@@ -2902,7 +2883,7 @@
             /**
              * Emit whenever focus does not change but tabindexes have
              */
-            this.onTabIndexChange = new Subject.Subject();
+            this.onTabIndexChange = new rxjs.Subject();
             /**
              * Determine if focus is currently within the tabbable list
              */
@@ -2910,7 +2891,7 @@
             /**
              * Unsubscribe from all observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -3256,7 +3237,7 @@
                 return flatList;
             };
         TabbableListService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return TabbableListService;
     }());
@@ -3293,7 +3274,7 @@
             /**
              * Emit when the expanded state changes.
              */
-            this.expandedChange = new core.EventEmitter();
+            this.expandedChange = new i0.EventEmitter();
             /**
              * Give each tabbable item a unique id
              */
@@ -3309,11 +3290,11 @@
             /**
              * Emit whenever the expanded state changes
              */
-            this.keyboardExpanded$ = new Subject.Subject();
+            this.keyboardExpanded$ = new rxjs.Subject();
             /**
              * Automatically unsubscribe from all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             /**
              * Store a default key to use if one is not provided
              */
@@ -3529,7 +3510,7 @@
                 this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', this.tabindex.toString());
             };
         TabbableListItemDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTabbableListItem]',
                         exportAs: 'ux-tabbable-list-item'
                     },] }
@@ -3538,25 +3519,25 @@
         TabbableListItemDirective.ctorParameters = function () {
             return [
                 { type: TabbableListService },
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: FocusIndicatorService },
                 { type: ManagedFocusContainerService },
                 { type: platform.Platform },
-                { type: core.ChangeDetectorRef },
+                { type: i0.ChangeDetectorRef },
                 { type: FocusIndicatorOriginService },
-                { type: core.Renderer2 }
+                { type: i0.Renderer2 }
             ];
         };
         TabbableListItemDirective.propDecorators = {
-            parent: [{ type: core.Input }],
-            rank: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            key: [{ type: core.Input }],
-            expandedChange: [{ type: core.Output }],
-            onFocus: [{ type: core.HostListener, args: ['focus',] }, { type: core.HostListener, args: ['click',] }],
-            onBlur: [{ type: core.HostListener, args: ['blur',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+            parent: [{ type: i0.Input }],
+            rank: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            key: [{ type: i0.Input }],
+            expandedChange: [{ type: i0.Output }],
+            onFocus: [{ type: i0.HostListener, args: ['focus',] }, { type: i0.HostListener, args: ['click',] }],
+            onBlur: [{ type: i0.HostListener, args: ['blur',] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return TabbableListItemDirective;
     }());
@@ -3589,7 +3570,7 @@
             /**
              * Unsubscribe from all observables automatically on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // store a reference to the container element
             this._tabbableList.containerRef = elementRef.nativeElement;
         }
@@ -3652,7 +3633,7 @@
                 var _this = this;
                 // store the currently focused element
                 this._focusedElement = ( /** @type {?} */(document.activeElement));
-                this._orderedItems = new core.QueryList();
+                this._orderedItems = new i0.QueryList();
                 if (this._tabbableList.hierarchy) {
                     // Sort items in a hierarchy
                     this._orderedItems.reset(this._tabbableList.sortItemsByHierarchy(this.items));
@@ -3730,7 +3711,7 @@
                 this._tabbableList.focusTabbableItem();
             };
         TabbableListDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTabbableList]',
                         exportAs: 'ux-tabbable-list',
                         providers: [TabbableListService]
@@ -3740,19 +3721,19 @@
         TabbableListDirective.ctorParameters = function () {
             return [
                 { type: TabbableListService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         TabbableListDirective.propDecorators = {
-            direction: [{ type: core.Input }],
-            wrap: [{ type: core.Input }],
-            focusOnShow: [{ type: core.Input }],
-            returnFocus: [{ type: core.Input }],
-            hierarchy: [{ type: core.Input }],
-            allowAltModifier: [{ type: core.Input }],
-            allowCtrlModifier: [{ type: core.Input }],
-            allowBoundaryKeys: [{ type: core.Input }],
-            items: [{ type: core.ContentChildren, args: [TabbableListItemDirective, { descendants: true },] }]
+            direction: [{ type: i0.Input }],
+            wrap: [{ type: i0.Input }],
+            focusOnShow: [{ type: i0.Input }],
+            returnFocus: [{ type: i0.Input }],
+            hierarchy: [{ type: i0.Input }],
+            allowAltModifier: [{ type: i0.Input }],
+            allowCtrlModifier: [{ type: i0.Input }],
+            allowBoundaryKeys: [{ type: i0.Input }],
+            items: [{ type: i0.ContentChildren, args: [TabbableListItemDirective, { descendants: true },] }]
         };
         return TabbableListDirective;
     }());
@@ -3761,25 +3742,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    /**
-     * We want this service to be a singleton service (even across lazy modules).
-     * This allows us to ensure that it is a singleton without having to have
-     * the consumer call the `forRoot()` method on the module.
-     *
-     * This can be removed once Angular 5 support is dropped as it can be changed
-     * to be `providedIn: 'root'` instead.
-     * @param {?} parentFocusIndicatorOriginService
-     * @return {?}
-     */
-    function FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY(parentFocusIndicatorOriginService) {
-        return parentFocusIndicatorOriginService || new FocusIndicatorOriginService();
-    }
-    /** @type {?} */
-    var FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = {
-        provide: FocusIndicatorOriginService,
-        deps: [[new core.Optional(), new core.SkipSelf(), FocusIndicatorOriginService]],
-        useFactory: FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY
-    };
     var AccessibilityModule = /** @class */ (function () {
         function AccessibilityModule() {
         }
@@ -3795,13 +3757,12 @@
                 return {
                     ngModule: AccessibilityModule,
                     providers: [
-                        { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options },
-                        FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER
+                        { provide: ACCESSIBILITY_OPTIONS_TOKEN, useValue: options }
                     ]
                 };
             };
         AccessibilityModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         declarations: [
                             DefaultFocusIndicatorDirective,
                             FocusIndicatorDirective,
@@ -3837,7 +3798,6 @@
                             AccessibilityOptionsService,
                             ContrastService,
                             FocusIndicatorService,
-                            FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER,
                             ManagedFocusContainerService,
                         ]
                     },] }
@@ -3888,7 +3848,7 @@
         function AccordionModule() {
         }
         AccordionModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule
@@ -3921,7 +3881,7 @@
         function AlertIconDirective() {
         }
         AlertIconDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxAlertIcon]',
                     },] }
         ];
@@ -3950,7 +3910,7 @@
             /**
              * Emit when the dismiss button is pressed
              */
-            this.dismiss = new core.EventEmitter();
+            this.dismiss = new i0.EventEmitter();
         }
         Object.defineProperty(AlertComponent.prototype, "_backgroundColor", {
             /** Resolve the background color from the color set */
@@ -3994,23 +3954,14 @@
          * @return {?}
          */
             function (color) {
-                // if the color service is not imported in the application throw a warning
-                if (!this.colorService) {
-                    /**
-                     * @deprecated - remove once Angular 5 support is dropped - ColorService will change to
-                     * be providedIn: 'root' which will not require a module import
-                     */
-                    console.warn('To specify an alert color please import the ColorServiceModule and specify the appropriate colorSet.');
-                    return;
-                }
                 // check if it is a color name from the color palette or just return the CSS color value
                 return this.colorService.resolve(color);
             };
         AlertComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-alert',
                         template: "<div class=\"alert-icon\" *ngIf=\"icon\">\n    <ng-content select=\"[uxAlertIcon]\"></ng-content>\n</div>\n\n<div class=\"alert-content\">\n    <ng-content></ng-content>\n</div>\n\n<button *ngIf=\"dismissible\"\n        uxFocusIndicator\n        class=\"alert-close\"\n        type=\"button\"\n        (click)=\"dismiss.emit()\"\n        [attr.aria-label]=\"dismissAriaLabel\">\n    <i class=\"hpe-icon hpe-close\"></i>\n</button>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             'role': 'alert',
                             '[class.ux-alert-info]': 'type === "info" && !_isCustomColor',
@@ -4026,17 +3977,17 @@
         /** @nocollapse */
         AlertComponent.ctorParameters = function () {
             return [
-                { type: ColorService, decorators: [{ type: core.Optional }] }
+                { type: ColorService }
             ];
         };
         AlertComponent.propDecorators = {
-            type: [{ type: core.Input }],
-            dismissible: [{ type: core.Input }],
-            backgroundColor: [{ type: core.Input }],
-            foregroundColor: [{ type: core.Input }],
-            dismissAriaLabel: [{ type: core.Input }],
-            dismiss: [{ type: core.Output }],
-            icon: [{ type: core.ContentChild, args: [AlertIconDirective,] }]
+            type: [{ type: i0.Input }],
+            dismissible: [{ type: i0.Input }],
+            backgroundColor: [{ type: i0.Input }],
+            foregroundColor: [{ type: i0.Input }],
+            dismissAriaLabel: [{ type: i0.Input }],
+            dismiss: [{ type: i0.Output }],
+            icon: [{ type: i0.ContentChild, args: [AlertIconDirective,] }]
         };
         return AlertComponent;
     }());
@@ -4049,7 +4000,7 @@
         function AlertModule() {
         }
         AlertModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule
@@ -4095,14 +4046,14 @@
                 }
             };
         BreadcrumbsComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-breadcrumbs',
                         template: "<nav aria-label=\"Breadcrumb\">\n    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let crumb of crumbs\">\n\n            <!-- If there is a router link then use a tag -->\n            <a *ngIf=\"crumb.routerLink || crumb.onClick\"\n                uxFocusIndicator\n                tabindex=\"0\"\n                [routerLink]=\"crumb.routerLink\"\n                [fragment]=\"crumb.fragment\"\n                [queryParams]=\"crumb.queryParams\"\n                (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n            </a>\n\n            <!-- If there is not router link then display text in a span -->\n            <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n        </li>\n    </ol>\n</nav>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         BreadcrumbsComponent.propDecorators = {
-            crumbs: [{ type: core.Input }]
+            crumbs: [{ type: i0.Input }]
         };
         return BreadcrumbsComponent;
     }());
@@ -4115,7 +4066,7 @@
         function BreadcrumbsModule() {
         }
         BreadcrumbsModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -4168,7 +4119,7 @@
                 }
                 else {
                     /** @type {?} */
-                    var emitter = new ReplaySubject.ReplaySubject();
+                    var emitter = new rxjs.ReplaySubject();
                     this._targets.set(target, emitter);
                     return emitter;
                 }
@@ -4222,12 +4173,12 @@
                 });
             };
         ResizeService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         ResizeService.ctorParameters = function () {
             return [
-                { type: core.NgZone }
+                { type: i0.NgZone }
             ];
         };
         return ResizeService;
@@ -4249,11 +4200,11 @@
             /**
              * Emits whenever a resize event occurs
              */
-            this.uxResize = new core.EventEmitter();
+            this.uxResize = new i0.EventEmitter();
             /**
              * Remove all subscriptions on component destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -4279,7 +4230,7 @@
                 this._onDestroy.complete();
             };
         ResizeDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxResize]',
                         providers: [ResizeService]
                     },] }
@@ -4287,14 +4238,14 @@
         /** @nocollapse */
         ResizeDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizeService },
-                { type: core.NgZone }
+                { type: i0.NgZone }
             ];
         };
         ResizeDirective.propDecorators = {
-            throttle: [{ type: core.Input }],
-            uxResize: [{ type: core.Output }]
+            throttle: [{ type: i0.Input }],
+            uxResize: [{ type: i0.Output }]
         };
         return ResizeDirective;
     }());
@@ -4307,7 +4258,7 @@
         function ResizeModule() {
         }
         ResizeModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [ResizeDirective],
                         declarations: [ResizeDirective],
                         providers: [ResizeService]
@@ -4329,7 +4280,7 @@
         function CardTabContentDirective() {
         }
         CardTabContentDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxCardTabContent]'
                     },] }
         ];
@@ -4343,9 +4294,9 @@
     var CardTabsService = /** @class */ (function () {
         function CardTabsService() {
             var _this = this;
-            this.tab$ = new BehaviorSubject.BehaviorSubject(null);
-            this.tabs$ = new BehaviorSubject.BehaviorSubject([]);
-            this.position$ = new BehaviorSubject.BehaviorSubject('top');
+            this.tab$ = new rxjs.BehaviorSubject(null);
+            this.tabs$ = new rxjs.BehaviorSubject([]);
+            this.position$ = new rxjs.BehaviorSubject('top');
             // when a tab is added or removed ensure we always select one if any are available
             this._subscription = this.tabs$.pipe(operators.filter(function (tabs) { return !_this.tab$.value || !tabs.find(function (tab) { return tab === _this.tab$.value; }); })).subscribe(function (tabs) { return _this.tab$.next(tabs.length > 0 ? tabs[0] : null); });
         }
@@ -4423,7 +4374,7 @@
                 this.position$.next(position);
             };
         CardTabsService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         CardTabsService.ctorParameters = function () { return []; };
@@ -4451,10 +4402,10 @@
                 this._tabService.removeTab(this);
             };
         CardTabComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-card-tab',
                         template: "<ng-content *ngIf=\"active$ | async\"></ng-content>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -4464,7 +4415,7 @@
             ];
         };
         CardTabComponent.propDecorators = {
-            content: [{ type: core.ContentChild, args: [CardTabContentDirective, { read: core.TemplateRef },] }]
+            content: [{ type: i0.ContentChild, args: [CardTabContentDirective, { read: i0.TemplateRef },] }]
         };
         return CardTabComponent;
     }());
@@ -4579,7 +4530,7 @@
                 }
             };
         CardTabsetComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-card-tabset',
                         template: "<div class=\"card-tab-content\" role=\"tabpanel\" *ngIf=\"(tabService.tab$ | async)\">\n    <ng-content></ng-content>\n</div>\n\n<div class=\"card-tabs\" #tabs>\n\n    <button type=\"button\" class=\"card-tabs-paging-btn card-tabs-paging-btn-previous\" aria-label=\"Previous Tabs\" (click)=\"previous()\" *ngIf=\"offset < bounds.lower\">\n        <i class=\"hpe-icon hpe-previous\"></i>\n    </button>\n\n    <div class=\"card-tabs-list\" role=\"tablist\" #tablist (uxResize)=\"resize($event)\" [style.transform]=\"'translateX(' + offset + 'px)'\">\n\n        <div class=\"card-tab\"\n            role=\"tab\"\n            tabindex=\"0\" #card\n            *ngFor=\"let tab of tabService.tabs$ | async\"\n            [ngClass]=\"tabService.position$ | async\"\n            [class.active]=\"tab.active$ | async\"\n            [attr.aria-selected]=\"tab.active$ | async\"\n            (click)=\"select(tab, card)\"\n            (focus)=\"tabs.scrollLeft = 0\"\n            (keydown.enter)=\"select(tab, card)\">\n\n            <ng-container [ngTemplateOutlet]=\"tab.content\"></ng-container>\n        </div>\n\n    </div>\n\n    <button type=\"button\" class=\"card-tabs-paging-btn card-tabs-paging-btn-next\" aria-label=\"Next Tabs\" (click)=\"next()\" *ngIf=\"offset > bounds.upper\">\n        <i class=\"hpe-icon hpe-next\"></i>\n    </button>\n</div>",
                         providers: [CardTabsService]
@@ -4592,8 +4543,8 @@
             ];
         };
         CardTabsetComponent.propDecorators = {
-            position: [{ type: core.HostBinding, args: ['class',] }, { type: core.Input }],
-            tablist: [{ type: core.ViewChild, args: ['tablist',] }]
+            position: [{ type: i0.HostBinding, args: ['class',] }, { type: i0.Input }],
+            tablist: [{ type: i0.ViewChild, args: ['tablist',] }]
         };
         return CardTabsetComponent;
     }());
@@ -4606,7 +4557,7 @@
         function CardTabsModule() {
         }
         CardTabsModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             ResizeModule
@@ -4630,11 +4581,14 @@
     /** @type {?} */
     var CHECKBOX_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return CheckboxComponent; }),
+        useExisting: i0.forwardRef(function () { return CheckboxComponent; }),
         multi: true
     };
     /** @type {?} */
     var uniqueCheckboxId = 0;
+    /**
+     * @template T
+     */
     var CheckboxComponent = /** @class */ (function () {
         function CheckboxComponent() {
             this._checkboxId = "ux-checkbox-" + ++uniqueCheckboxId;
@@ -4674,7 +4628,7 @@
             /**
              * Emits when `value` has been changed.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter(false);
             this._value = false;
             this.indeterminate = false;
             this.focused = false;
@@ -4697,7 +4651,7 @@
                 // determine if it is in the indeterminate state
                 this.indeterminate = this._value === this.indeterminateValue;
                 // determine the checked state
-                this.ariaChecked = this.indeterminate ? 'mixed' : this._value;
+                this.ariaChecked = this.indeterminate ? 'mixed' : ( /** @type {?} */(this._value));
                 // invoke change event
                 this.valueChange.emit(this._value);
                 // call callback
@@ -4784,25 +4738,25 @@
                 this.disabled = isDisabled;
             };
         CheckboxComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-checkbox',
                         template: "<label [attr.for]=\"inputId\"\n       class=\"ux-checkbox\"\n       [class.ux-checkbox-checked]=\"value === true\"\n       [class.ux-checkbox-indeterminate]=\"indeterminate\"\n       [class.ux-checkbox-simplified]=\"simplified\"\n       [class.ux-checkbox-disabled]=\"disabled\"\n       [class.ux-checkbox-focused]=\"focused\">\n\n    <div class=\"ux-checkbox-container\">\n        <input type=\"checkbox\"\n               uxFocusIndicator\n               class=\"ux-checkbox-input\"\n               [id]=\"inputId\"\n               [required]=\"required\"\n               [checked]=\"value\"\n               [attr.value]=\"value\"\n               [disabled]=\"disabled\"\n               [attr.name]=\"name\"\n               [tabindex]=\"tabindex\"\n               [indeterminate]=\"indeterminate\"\n               [attr.aria-label]=\"ariaLabel\"\n               [attr.aria-labelledby]=\"ariaLabelledby\"\n               [attr.aria-checked]=\"ariaChecked\"\n               (indicator)=\"focused = $event\"\n               (change)=\"$event.stopPropagation()\"\n               (click)=\"toggle()\">\n    </div>\n\n    <span class=\"ux-checkbox-label\">\n        <ng-content></ng-content>\n    </span>\n</label>\n",
                         providers: [CHECKBOX_VALUE_ACCESSOR]
                     }] }
         ];
         CheckboxComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            name: [{ type: core.Input }],
-            required: [{ type: core.Input }],
-            tabindex: [{ type: core.Input }],
-            clickable: [{ type: core.Input }],
-            simplified: [{ type: core.Input }],
-            indeterminateValue: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
-            valueChange: [{ type: core.Output }],
-            value: [{ type: core.Input }]
+            id: [{ type: i0.Input }],
+            name: [{ type: i0.Input }],
+            required: [{ type: i0.Input }],
+            tabindex: [{ type: i0.Input }],
+            clickable: [{ type: i0.Input }],
+            simplified: [{ type: i0.Input }],
+            indeterminateValue: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            ariaLabelledby: [{ type: i0.Input, args: ['aria-labelledby',] }],
+            valueChange: [{ type: i0.Output }],
+            value: [{ type: i0.Input }]
         };
         return CheckboxComponent;
     }());
@@ -4815,7 +4769,7 @@
         function CheckboxModule() {
         }
         CheckboxModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             forms.FormsModule
@@ -4968,21 +4922,21 @@
             /**
              * Emitted when the user changes the selected color, either by clicking a color swatch button, or entering a valid color value into the input panel text field.
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
             /**
              * Emitted when the user presses enter in the input panel text field. This can be used to commit a color change and/or close a popup.
              */
-            this.inputSubmit = new core.EventEmitter();
+            this.inputSubmit = new i0.EventEmitter();
             this.cssWidth = 'auto';
             this.colors = [];
-            this.selected$ = new BehaviorSubject.BehaviorSubject(null);
-            this.columns$ = new BehaviorSubject.BehaviorSubject(-1);
-            this.buttonSize$ = new BehaviorSubject.BehaviorSubject('md');
+            this.selected$ = new rxjs.BehaviorSubject(null);
+            this.columns$ = new rxjs.BehaviorSubject(-1);
+            this.buttonSize$ = new rxjs.BehaviorSubject('md');
             this.inputPatterns = {
                 'hex': /^#(?:[\da-fA-F]{3}){1,2}$/,
                 'rgba': /^(?:rgb\(\d{1,3},\s*\d{1,3},\s*\d{1,3}\))|(?:rgba\(\d{1,3},\s*\d{1,3},\s*\d{1,3},\s*\d(\.\d+)?\))$/
             };
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(ColorPickerComponent.prototype, "inputColors", {
             /**
@@ -5084,7 +5038,7 @@
                     }
                 });
                 // Set the width based on column count and button size
-                combineLatest.combineLatest(this.columns$, this.buttonSize$)
+                rxjs.combineLatest(this.columns$, this.buttonSize$)
                     .pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function (_a) {
                     var _b = __read(_a, 2), columns = _b[0], buttonSize = _b[1];
@@ -5133,25 +5087,25 @@
                 this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
             };
         ColorPickerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-color-picker',
                         exportAs: 'ux-color-picker',
                         template: "<div class=\"ux-color-picker\" uxTabbableList direction=\"horizontal\">\n    <div class=\"ux-color-picker-swatch\">\n        <div *ngFor=\"let row of colors\" class=\"ux-color-picker-swatch-row\">\n\n            <div *ngFor=\"let color of row\"\n                class=\"ux-color-picker-color\"\n                [class.ux-small]=\"(buttonSize$ | async) === 'sm'\"\n                [class.ux-large]=\"(buttonSize$ | async) === 'lg'\"\n                [class.ux-circle]=\"buttonStyle === 'circle'\"\n                [class.ux-selected]=\"color === (selected$ | async)\">\n\n                <button type=\"button\"\n                    uxFocusIndicator\n                    attr.aria-label=\"Select color {{color.name}}\"\n                    i18n-aria-label\n                    aria-selected=\"color === (selected$ | async)\"\n                    class=\"btn btn-icon\"\n                    [uxColorContrast]=\"color.hex\"\n                    [style.background-color]=\"color.rgba\"\n                    (click)=\"selected$.next(color)\"\n                    uxTabbableListItem\n                    [uxTooltip]=\"color.name\"\n                    [tooltipDisabled]=\"!showTooltips\">\n                    <i class=\"hpe-icon hpe-checkmark\"></i>\n                </button>\n\n            </div>\n        </div>\n    </div>\n\n    <div *ngIf=\"showInput\" class=\"ux-color-picker-input-panel\">\n        <div class=\"ux-color-picker-input-header\">\n\n            <div class=\"ux-color-picker-preview\"\n                [style.background-color]=\"(selected$ | async).rgba\"\n                [class.ux-circle]=\"buttonStyle === 'circle'\">\n            </div>\n\n            <label *ngIf=\"inputMode === 'hex'\" attr.for=\"{{id}}-input-field\">HEX</label>\n            <label *ngIf=\"inputMode === 'rgba'\" attr.for=\"{{id}}-input-field\">RGBA</label>\n\n            <button type=\"button\"\n                attr.aria-label=\"Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}\" i18n-aria-label\n                class=\"btn btn-link btn-icon button-secondary ux-color-picker-input-toggle\"\n                (click)=\"toggleColorEntryType(); $event.stopPropagation()\">\n                <span class=\"hpe-icon hpe-chevron-right\"></span>\n            </button>\n        </div>\n\n        <div class=\"ux-color-picker-input\"\n            [class.has-error]=\"inputField.errors\"\n            [class.has-feedback]=\"inputField.errors\">\n\n            <input type=\"text\"\n                attr.id=\"{{id}}-input-field\"\n                attr.aria-description=\"Edit {{inputMode}} color value\" i18n-aria-description\n                class=\"form-control\"\n                #inputField=\"ngModel\"\n                [ngModel]=\"(selected$ | async)[inputMode]\"\n                (ngModelChange)=\"updateColorValue($event, inputMode)\"\n                [pattern]=\"inputPatterns[inputMode].source\"\n                (keyup.enter)=\"inputSubmit.emit()\">\n\n            <span class=\"hpe-icon hpe-alert form-control-feedback\"></span>\n        </div>\n    </div>\n</div>\n"
                     }] }
         ];
         ColorPickerComponent.propDecorators = {
-            id: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.id',] }],
-            inputColors: [{ type: core.Input, args: ['colors',] }],
-            selected: [{ type: core.Input }],
-            columns: [{ type: core.Input }],
-            buttonStyle: [{ type: core.Input }],
-            buttonSize: [{ type: core.Input }],
-            showTooltips: [{ type: core.Input }],
-            showInput: [{ type: core.Input }],
-            inputMode: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            inputSubmit: [{ type: core.Output }],
-            cssWidth: [{ type: core.HostBinding, args: ['style.width',] }]
+            id: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.id',] }],
+            inputColors: [{ type: i0.Input, args: ['colors',] }],
+            selected: [{ type: i0.Input }],
+            columns: [{ type: i0.Input }],
+            buttonStyle: [{ type: i0.Input }],
+            buttonSize: [{ type: i0.Input }],
+            showTooltips: [{ type: i0.Input }],
+            showInput: [{ type: i0.Input }],
+            inputMode: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            inputSubmit: [{ type: i0.Output }],
+            cssWidth: [{ type: i0.HostBinding, args: ['style.width',] }]
         };
         return ColorPickerComponent;
     }());
@@ -5165,7 +5119,7 @@
     /** @type {?} */
     var NUMBER_PICKER_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return NumberPickerComponent; }),
+        useExisting: i0.forwardRef(function () { return NumberPickerComponent; }),
         multi: true
     };
     var NumberPickerComponent = /** @class */ (function () {
@@ -5191,7 +5145,7 @@
             /**
              * If two way binding is used this value will be updated any time the number picker value changes.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
         }
         Object.defineProperty(NumberPickerComponent.prototype, "value", {
             /** Sets the value displayed in the number picker component. */
@@ -5397,7 +5351,7 @@
                 this.disabled = isDisabled;
             };
         NumberPickerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-number-picker, ux-number-picker-inline',
                         template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control-up\"\n         (click)=\"increment($event)\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <span class=\"hpe-icon hpe-up\"></span>\n    </div>\n\n    <div class=\"number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         [class.disabled]=\"disabled || value <= min\">\n\n        <span class=\"hpe-icon hpe-down\"></span>\n    </div>\n\n</div>",
                         providers: [NUMBER_PICKER_VALUE_ACCESSOR],
@@ -5407,16 +5361,16 @@
                     }] }
         ];
         NumberPickerComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            valid: [{ type: core.Input }],
-            labelledBy: [{ type: core.Input, args: ['aria-labelledby',] }],
-            precision: [{ type: core.Input }],
-            valueChange: [{ type: core.Output }],
-            value: [{ type: core.Input }],
-            min: [{ type: core.Input }],
-            max: [{ type: core.Input }],
-            step: [{ type: core.Input }],
-            disabled: [{ type: core.Input }]
+            id: [{ type: i0.Input }],
+            valid: [{ type: i0.Input }],
+            labelledBy: [{ type: i0.Input, args: ['aria-labelledby',] }],
+            precision: [{ type: i0.Input }],
+            valueChange: [{ type: i0.Output }],
+            value: [{ type: i0.Input }],
+            min: [{ type: i0.Input }],
+            max: [{ type: i0.Input }],
+            step: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }]
         };
         return NumberPickerComponent;
     }());
@@ -5429,7 +5383,7 @@
         function NumberPickerModule() {
         }
         NumberPickerModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             forms.FormsModule
@@ -5473,7 +5427,7 @@
             /**
              * Emit when the tooltip need to update it's position
              */
-            this.reposition$ = new Subject.Subject();
+            this.reposition$ = new rxjs.Subject();
         }
         Object.defineProperty(TooltipComponent.prototype, "isTemplateRef", {
             /** Indicates whether or not the content is a string or a TemplateRef */
@@ -5481,7 +5435,7 @@
              * Indicates whether or not the content is a string or a TemplateRef
              * @return {?}
              */ function () {
-                return this.content instanceof core.TemplateRef;
+                return this.content instanceof i0.TemplateRef;
             },
             enumerable: true,
             configurable: true
@@ -5616,23 +5570,23 @@
                 this._changeDetectorRef.markForCheck();
             };
         TooltipComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-tooltip',
                         template: "<div class=\"tooltip in\" [id]=\"id\" [attr.role]=\"role\" [ngClass]=\"[placement, customClass]\">\n    <div class=\"tooltip-arrow\"></div>\n    <div class=\"tooltip-inner\" (cdkObserveContent)=\"reposition()\">\n        <ng-container *ngIf=\"!isTemplateRef\">{{ content }}</ng-container>\n        <ng-container *ngIf=\"isTemplateRef\" [ngTemplateOutlet]=\"content\" [ngTemplateOutletContext]=\"context\"></ng-container>\n    </div>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         TooltipComponent.ctorParameters = function () {
             return [
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         TooltipComponent.propDecorators = {
-            content: [{ type: core.Input }],
-            context: [{ type: core.Input }],
-            placement: [{ type: core.Input }],
-            alignment: [{ type: core.Input }]
+            content: [{ type: i0.Input }],
+            context: [{ type: i0.Input }],
+            placement: [{ type: i0.Input }],
+            alignment: [{ type: i0.Input }]
         };
         return TooltipComponent;
     }());
@@ -5643,10 +5597,10 @@
      */
     var TooltipService = /** @class */ (function () {
         function TooltipService() {
-            this.shown$ = new Subject.Subject();
+            this.shown$ = new rxjs.Subject();
         }
         TooltipService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return TooltipService;
     }());
@@ -5703,15 +5657,15 @@
             /**
              * Emits an event when the tooltip is shown
              */
-            this.shown = new core.EventEmitter();
+            this.shown = new i0.EventEmitter();
             /**
              * Emits a event when the tooltip is hidden
              */
-            this.hidden = new core.EventEmitter();
+            this.hidden = new i0.EventEmitter();
             /**
              * Allow two way binding to track the visibility of the tooltip
              */
-            this.isOpenChange = new core.EventEmitter();
+            this.isOpenChange = new i0.EventEmitter();
             /**
              * Keep track of the tooltip visibility
              */
@@ -5723,7 +5677,7 @@
             /**
              * This will emit when the directive is destroyed allowing us to unsubscribe all subscriptions automatically
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             /**
              * Store the timeout interval for cancelation
              */
@@ -5745,11 +5699,11 @@
             function () {
                 var _this = this;
                 // set up show and hide event triggers
-                fromEvent.fromEvent(this._elementRef.nativeElement, 'click').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onClick.bind(this));
-                fromEvent.fromEvent(this._elementRef.nativeElement, 'mouseenter').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onMouseEnter.bind(this));
-                fromEvent.fromEvent(this._elementRef.nativeElement, 'mouseleave').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onMouseLeave.bind(this));
-                fromEvent.fromEvent(this._elementRef.nativeElement, 'focus').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onFocus.bind(this));
-                fromEvent.fromEvent(this._elementRef.nativeElement, 'blur').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onBlur.bind(this));
+                rxjs.fromEvent(this._elementRef.nativeElement, 'click').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onClick.bind(this));
+                rxjs.fromEvent(this._elementRef.nativeElement, 'mouseenter').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onMouseEnter.bind(this));
+                rxjs.fromEvent(this._elementRef.nativeElement, 'mouseleave').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onMouseLeave.bind(this));
+                rxjs.fromEvent(this._elementRef.nativeElement, 'focus').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onFocus.bind(this));
+                rxjs.fromEvent(this._elementRef.nativeElement, 'blur').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onBlur.bind(this));
                 // when any other tooltips open hide this one
                 this._tooltipService.shown$.pipe(operators.filter(function () { return _this._type === 'tooltip'; }), operators.filter(function (tooltip) { return tooltip !== _this._instance; }), operators.takeUntil(this._onDestroy)).subscribe(this.hide.bind(this));
                 // if the tooltip should be initially visible then open it
@@ -6243,7 +6197,7 @@
                 }
             };
         TooltipDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTooltip]',
                         exportAs: 'ux-tooltip'
                     },] }
@@ -6251,30 +6205,30 @@
         /** @nocollapse */
         TooltipDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.ViewContainerRef },
+                { type: i0.ElementRef },
+                { type: i0.ViewContainerRef },
                 { type: overlay.Overlay },
                 { type: overlay.ScrollDispatcher },
-                { type: core.ChangeDetectorRef },
-                { type: core.Renderer2 },
+                { type: i0.ChangeDetectorRef },
+                { type: i0.Renderer2 },
                 { type: TooltipService }
             ];
         };
         TooltipDirective.propDecorators = {
-            content: [{ type: core.Input, args: ['uxTooltip',] }],
-            disabled: [{ type: core.Input, args: ['tooltipDisabled',] }],
-            customClass: [{ type: core.Input, args: ['tooltipClass',] }],
-            role: [{ type: core.Input, args: ['tooltipRole',] }],
-            context: [{ type: core.Input, args: ['tooltipContext',] }],
-            delay: [{ type: core.Input, args: ['tooltipDelay',] }],
-            isOpen: [{ type: core.Input }],
-            placement: [{ type: core.Input }],
-            alignment: [{ type: core.Input }],
-            showTriggers: [{ type: core.Input }],
-            hideTriggers: [{ type: core.Input }],
-            shown: [{ type: core.Output }],
-            hidden: [{ type: core.Output }],
-            isOpenChange: [{ type: core.Output }]
+            content: [{ type: i0.Input, args: ['uxTooltip',] }],
+            disabled: [{ type: i0.Input, args: ['tooltipDisabled',] }],
+            customClass: [{ type: i0.Input, args: ['tooltipClass',] }],
+            role: [{ type: i0.Input, args: ['tooltipRole',] }],
+            context: [{ type: i0.Input, args: ['tooltipContext',] }],
+            delay: [{ type: i0.Input, args: ['tooltipDelay',] }],
+            isOpen: [{ type: i0.Input }],
+            placement: [{ type: i0.Input }],
+            alignment: [{ type: i0.Input }],
+            showTriggers: [{ type: i0.Input }],
+            hideTriggers: [{ type: i0.Input }],
+            shown: [{ type: i0.Output }],
+            hidden: [{ type: i0.Output }],
+            isOpenChange: [{ type: i0.Output }]
         };
         return TooltipDirective;
     }());
@@ -6287,7 +6241,7 @@
         function TooltipModule() {
         }
         TooltipModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             overlay.OverlayModule,
@@ -6315,7 +6269,7 @@
         function ColorPickerModule() {
         }
         ColorPickerModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -6348,7 +6302,7 @@
             /**
              * Emit the current sort state for all columns within the table
              */
-            this.events = new Subject.Subject();
+            this.events = new rxjs.Subject();
             /**
              * Store the current sort state for all columns within the table
              */
@@ -6422,13 +6376,13 @@
                 return this.order.filter(function (_column) { return _column.key !== sorting.key; });
             };
         ColumnSortingDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxColumnSorting]'
                     },] }
         ];
         ColumnSortingDirective.propDecorators = {
-            singleSort: [{ type: core.Input }],
-            sortIndicator: [{ type: core.Input }]
+            singleSort: [{ type: i0.Input }],
+            sortIndicator: [{ type: i0.Input }]
         };
         return ColumnSortingDirective;
     }());
@@ -6453,7 +6407,7 @@
              * State can be used to find the current sorting state of the column eg. `(state === ColumnSortingState.Ascending)`.
              * The `ColumnSortingOrder` interface has been provided for objects in the array.
              */
-            this.stateChange = new core.EventEmitter();
+            this.stateChange = new i0.EventEmitter();
             /**
              * Expose the sorting state enum to the view
              */
@@ -6461,7 +6415,7 @@
             /**
              * Unsubscribe from all observables on component destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // listen for changes triggered by the directive
             this._sorter.events.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(this.updateState.bind(this));
@@ -6540,24 +6494,24 @@
                 this.stateChange.emit(this.state);
             };
         ColumnSortingComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-column-sorting',
                         template: "<div class=\"ux-column-sorting\">\n\n    <!-- The default sort indicator -->\n    <ng-container *ngIf=\"!_sortIndicator\">\n        <i class=\"ux-column-sorting-icon hpe-icon\"\n           [class.hpe-ascend]=\"state === columnSortingState.Ascending\"\n           [class.hpe-descend]=\"state === columnSortingState.Descending\"\n           [class.column-sorting-icon-hidden]=\"state === columnSortingState.NoSort\">\n        </i>\n\n        <p class=\"ux-column-sorting-number\" aria-hidden=\"true\">{{ order }}</p>\n    </ng-container>\n\n    <!-- Custom sort indicator -->\n    <ng-container\n        *ngIf=\"_sortIndicator\"\n        [ngTemplateOutlet]=\"_sortIndicator\"\n        [ngTemplateOutletContext]=\"{ state: state, order: order }\">\n    </ng-container>\n\n</div>",
                         exportAs: 'ux-column-sorting',
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         ColumnSortingComponent.ctorParameters = function () {
             return [
                 { type: ColumnSortingDirective },
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         ColumnSortingComponent.propDecorators = {
-            state: [{ type: core.Input }],
-            key: [{ type: core.Input }],
-            stateChange: [{ type: core.Output }]
+            state: [{ type: i0.Input }],
+            key: [{ type: i0.Input }],
+            stateChange: [{ type: i0.Output }]
         };
         return ColumnSortingComponent;
     }());
@@ -6570,7 +6524,7 @@
         function ColumnSortingModule() {
         }
         ColumnSortingModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule
                         ],
@@ -6601,7 +6555,7 @@
             this.conduit = conduit;
             this._zone = _zone;
             this.zoneId = zoneId;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // store the target subject object
             this._subject = conduit.subject;
             // check if there are any conduits that have supplied an initial value
@@ -6957,9 +6911,9 @@
         /**
          * Expose an event stream of new values
          */
-        ConduitZone.events = new Subject.Subject();
+        ConduitZone.events = new rxjs.Subject();
         ConduitZone.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return ConduitZone;
     }());
@@ -7035,7 +6989,7 @@
         /** @nocollapse */
         ConduitComponent.ctorParameters = function () {
             return [
-                { type: ConduitZone, decorators: [{ type: core.Optional }] }
+                { type: ConduitZone, decorators: [{ type: i0.Optional }] }
             ];
         };
         return ConduitComponent;
@@ -7122,27 +7076,27 @@
             /**
              * Emit when dragging begins
              */
-            this.onDragStart = new Subject.Subject();
+            this.onDragStart = new rxjs.Subject();
             /**
              * Emit when dragging moves
              */
-            this.onDrag = new Subject.Subject();
+            this.onDrag = new rxjs.Subject();
             /**
              * Emit when dragging ends
              */
-            this.onDragEnd = new Subject.Subject();
+            this.onDragEnd = new rxjs.Subject();
             /**
              * Emit when the user is dragging over the drop area
              */
-            this.onDropEnter = new Subject.Subject();
+            this.onDropEnter = new rxjs.Subject();
             /**
              * Emit when the user is dragging out of the drop area
              */
-            this.onDropLeave = new Subject.Subject();
+            this.onDropLeave = new rxjs.Subject();
             /**
              * Emit when a drop occurs
              */
-            this.onDrop = new Subject.Subject();
+            this.onDrop = new rxjs.Subject();
         }
         /** Destroy all observables */
         /**
@@ -7162,7 +7116,7 @@
                 this.onDropLeave.complete();
             };
         DragService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return DragService;
     }());
@@ -7192,27 +7146,27 @@
             /**
              * Emit an event when dragging starts
              */
-            this.onDragStart = new core.EventEmitter();
+            this.onDragStart = new i0.EventEmitter();
             /**
              * Emit an event when the mouse moves while dragging
              */
-            this.onDrag = new core.EventEmitter();
+            this.onDrag = new i0.EventEmitter();
             /**
              * Emit an event when the dragging finishes
              */
-            this.onDragEnd = new core.EventEmitter();
+            this.onDragEnd = new i0.EventEmitter();
             /**
              * Emit when the user drops an item in a drop area
              */
-            this.onDrop = new core.EventEmitter();
+            this.onDrop = new i0.EventEmitter();
             /**
              * Emit when the user drags over a drop area
              */
-            this.onDropEnter = new core.EventEmitter();
+            this.onDropEnter = new i0.EventEmitter();
             /**
              * Emit when the user drags out of a drop area
              */
-            this.onDropLeave = new core.EventEmitter();
+            this.onDropLeave = new i0.EventEmitter();
             /**
              * Store the dragging state
              */
@@ -7220,19 +7174,19 @@
             /**
              * Create an observable from the mouse down event
              */
-            this._mousedown$ = fromEvent.fromEvent(this._elementRef.nativeElement, 'mousedown');
+            this._mousedown$ = rxjs.fromEvent(this._elementRef.nativeElement, 'mousedown');
             /**
              * Create an observable from the mouse move event
              */
-            this._mousemove$ = fromEvent.fromEvent(document, 'mousemove');
+            this._mousemove$ = rxjs.fromEvent(document, 'mousemove');
             /**
              * Create an observable from the mouse up event
              */
-            this._mouseup$ = fromEvent.fromEvent(document, 'mouseup');
+            this._mouseup$ = rxjs.fromEvent(document, 'mouseup');
             /**
              * Use an observable to unsubscribe from all subscriptions
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // ensure all mouse down events on the object are captured
             this._mousedown$.pipe(operators.filter(function () { return _this.draggable; }), operators.takeUntil(this._onDestroy))
                 .subscribe(this.dragStart.bind(this));
@@ -7415,30 +7369,30 @@
                 this._onDestroy.complete();
             };
         DragDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxDrag]'
                     },] }
         ];
         /** @nocollapse */
         DragDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.NgZone },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.NgZone },
+                { type: i0.Renderer2 },
                 { type: DragService }
             ];
         };
         DragDirective.propDecorators = {
-            clone: [{ type: core.Input }],
-            group: [{ type: core.Input }],
-            model: [{ type: core.Input }],
-            draggable: [{ type: core.Input }],
-            onDragStart: [{ type: core.Output }],
-            onDrag: [{ type: core.Output }],
-            onDragEnd: [{ type: core.Output }],
-            onDrop: [{ type: core.Output }],
-            onDropEnter: [{ type: core.Output }],
-            onDropLeave: [{ type: core.Output }]
+            clone: [{ type: i0.Input }],
+            group: [{ type: i0.Input }],
+            model: [{ type: i0.Input }],
+            draggable: [{ type: i0.Input }],
+            onDragStart: [{ type: i0.Output }],
+            onDrag: [{ type: i0.Output }],
+            onDragEnd: [{ type: i0.Output }],
+            onDrop: [{ type: i0.Output }],
+            onDropEnter: [{ type: i0.Output }],
+            onDropLeave: [{ type: i0.Output }]
         };
         return DragDirective;
     }());
@@ -7461,7 +7415,7 @@
             /**
              * Emit the model of the item dropped
              */
-            this.onDrop = new core.EventEmitter();
+            this.onDrop = new i0.EventEmitter();
             /**
              * Determine whether or not the mouse is within the drop region
              */
@@ -7473,7 +7427,7 @@
             /**
              * Ensure we destroy all subscriptions
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // subscribe to drag events
             _dragService.onDragStart.pipe(operators.tap(function (event) { return _this._group = event.group; }), operators.filter(function (event) { return _this.isDropAllowed(event.group); }), operators.takeUntil(this._onDestroy))
                 .subscribe(this.onDragStart.bind(this));
@@ -7584,7 +7538,7 @@
                 return this.group === group;
             };
         DropDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxDrop]',
                         host: {
                             '[class.ux-drop-hover]': 'isMouseOver && isDragging && !dropDisabled'
@@ -7598,11 +7552,11 @@
             ];
         };
         DropDirective.propDecorators = {
-            group: [{ type: core.Input }],
-            dropDisabled: [{ type: core.Input }],
-            onDrop: [{ type: core.Output }],
-            onMouseOver: [{ type: core.HostListener, args: ['mouseenter',] }],
-            onMouseLeave: [{ type: core.HostListener, args: ['mouseleave',] }]
+            group: [{ type: i0.Input }],
+            dropDisabled: [{ type: i0.Input }],
+            onDrop: [{ type: i0.Output }],
+            onMouseOver: [{ type: i0.HostListener, args: ['mouseenter',] }],
+            onMouseLeave: [{ type: i0.HostListener, args: ['mouseleave',] }]
         };
         return DropDirective;
     }());
@@ -7615,7 +7569,7 @@
         function DragModule() {
         }
         DragModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [DragDirective, DropDirective],
                         declarations: [DragDirective, DropDirective],
                         providers: [DragService]
@@ -7637,19 +7591,19 @@
         function DashboardService() {
             var _this = this;
             this._rowHeight = 0;
-            this.widgets$ = new BehaviorSubject.BehaviorSubject([]);
-            this.options$ = new BehaviorSubject.BehaviorSubject(defaultOptions);
-            this.dimensions$ = new BehaviorSubject.BehaviorSubject({});
+            this.widgets$ = new rxjs.BehaviorSubject([]);
+            this.options$ = new rxjs.BehaviorSubject(defaultOptions);
+            this.dimensions$ = new rxjs.BehaviorSubject({});
             this.height$ = this.dimensions$.pipe(tick(), operators.map(function (dimensions) { return dimensions.height; }), operators.distinctUntilChanged());
-            this.placeholder$ = new BehaviorSubject.BehaviorSubject({ visible: false, x: 0, y: 0, width: 0, height: 0 });
-            this.layout$ = new Subject.Subject();
-            this.stacked$ = new BehaviorSubject.BehaviorSubject(false);
-            this.isDragging$ = new BehaviorSubject.BehaviorSubject(null);
-            this.isGrabbing$ = new BehaviorSubject.BehaviorSubject(null);
+            this.placeholder$ = new rxjs.BehaviorSubject({ visible: false, x: 0, y: 0, width: 0, height: 0 });
+            this.layout$ = new rxjs.Subject();
+            this.stacked$ = new rxjs.BehaviorSubject(false);
+            this.isDragging$ = new rxjs.BehaviorSubject(null);
+            this.isGrabbing$ = new rxjs.BehaviorSubject(null);
             /**
              * Unsubscribe from all observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this.layout$.pipe(operators.takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
             this.stacked$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (stacked) { return stacked === true; })).subscribe(this.updateWhenStacked.bind(this));
             this.widgets$.pipe(operators.takeUntil(this._onDestroy), tick()).subscribe(function () { return _this.renderDashboard(); });
@@ -9274,7 +9228,7 @@
                 return widgets;
             };
         DashboardService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         DashboardService.ctorParameters = function () { return []; };
@@ -9353,7 +9307,7 @@
             this._row = { regular: undefined, stacked: undefined };
             this._columnSpan = { regular: 1, stacked: 1 };
             this._rowSpan = { regular: 1, stacked: 1 };
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // subscribe to option changes
             dashboardService.options$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function () { return _this.update(); });
@@ -9716,7 +9670,7 @@
                 return this.dashboardService.stacked ? property.stacked : property.regular;
             };
         DashboardWidgetComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-dashboard-widget',
                         template: "<div class=\"widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}\">\n    <ng-content></ng-content>\n</div>\n\n<div uxDrag\n     #handleTop\n     class=\"resizer-handle handle-top\"\n     (onDragStart)=\"dragstart(handleTop, $event, 0)\"\n     (onDrag)=\"drag(handleTop, $event, 0)\"\n     (onDragEnd)=\"dragend()\"\n     [style.top.px]=\"padding\"\n     [hidden]=\"!resizable\">\n</div>\n\n<div uxDrag\n     #handleTopRight\n     class=\"resizer-handle handle-top-right\"\n     (onDragStart)=\"dragstart(handleTopRight, $event, 1)\"\n     (onDrag)=\"drag(handleTopRight, $event, 1)\"\n     (onDragEnd)=\"dragend()\"\n     [style.top.px]=\"padding\"\n     [style.right.px]=\"padding\"\n     [hidden]=\"!resizable && !(dashboardService.stacked$ | async)\">\n</div>\n\n<div uxDrag\n     #handleRight\n     class=\"resizer-handle handle-right\"\n     (onDragStart)=\"dragstart(handleRight, $event, 2)\"\n     (onDrag)=\"drag(handleRight, $event, 2)\"\n     (onDragEnd)=\"dragend()\"\n     [style.right.px]=\"padding\"\n     [hidden]=\"!resizable || (dashboardService.stacked$ | async)\">\n</div>\n\n<div uxDrag\n     #handleBottomRight\n     class=\"resizer-handle handle-bottom-right\"\n     (onDragStart)=\"dragstart(handleBottomRight, $event, 3)\"\n     (onDrag)=\"drag(handleBottomRight, $event, 3)\"\n     (onDragEnd)=\"dragend()\"\n     [style.bottom.px]=\"padding\"\n     [style.right.px]=\"padding\"\n     [hidden]=\"!resizable && !(dashboardService.stacked$ | async)\">\n</div>\n\n<div uxDrag\n     #handleBottom\n     class=\"resizer-handle handle-bottom\"\n     (onDragStart)=\"dragstart(handleBottom, $event, 4)\"\n     (onDrag)=\"drag(handleBottom, $event, 4)\"\n     (onDragEnd)=\"dragend()\"\n     [style.bottom.px]=\"padding\"\n     [hidden]=\"!resizable\">\n</div>\n\n<div uxDrag\n     #handleBottomLeft\n     class=\"resizer-handle handle-bottom-left\"\n     (onDragStart)=\"dragstart(handleBottomLeft, $event, 5)\"\n     (onDrag)=\"drag(handleBottomLeft, $event, 5)\"\n     (onDragEnd)=\"dragend()\"\n     [style.bottom.px]=\"padding\"\n     [style.left.px]=\"padding\"\n     [hidden]=\"!resizable && !(dashboardService.stacked$ | async)\">\n</div>\n\n<div uxDrag\n     #handleLeft\n     class=\"resizer-handle handle-left\"\n     (onDragStart)=\"dragstart(handleLeft, $event, 6)\"\n     (onDrag)=\"drag(handleLeft, $event, 6)\"\n     (onDragEnd)=\"dragend()\"\n     [style.left.px]=\"padding\"\n     [hidden]=\"!resizable || (dashboardService.stacked$ | async)\">\n</div>\n\n<div uxDrag\n     #handleTopLeft\n     class=\"resizer-handle handle-top-left\"\n     (onDragStart)=\"dragstart(handleTopLeft, $event, 7)\"\n     (onDrag)=\"drag(handleTopLeft, $event, 7)\"\n     (onDragEnd)=\"dragend()\"\n     [style.top.px]=\"padding\"\n     [style.left.px]=\"padding\"\n     [hidden]=\"!resizable && !(dashboardService.stacked$ | async)\">\n</div>"
                     }] }
@@ -9728,24 +9682,24 @@
             ];
         };
         DashboardWidgetComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            name: [{ type: core.Input }],
-            col: [{ type: core.Input }],
-            row: [{ type: core.Input }],
-            colSpan: [{ type: core.Input }],
-            rowSpan: [{ type: core.Input }],
-            resizable: [{ type: core.Input }],
-            widgetAriaLabel: [{ type: core.Input }],
-            x: [{ type: core.HostBinding, args: ['style.left.px',] }],
-            y: [{ type: core.HostBinding, args: ['style.top.px',] }],
-            width: [{ type: core.HostBinding, args: ['style.width.px',] }],
-            height: [{ type: core.HostBinding, args: ['style.height.px',] }],
-            padding: [{ type: core.HostBinding, args: ['style.padding.px',] }],
-            zIndex: [{ type: core.HostBinding, args: ['style.z-index',] }],
-            ariaLabel: [{ type: core.HostBinding, args: ['attr.aria-label',] }],
-            isDragging: [{ type: core.HostBinding, args: ['class.dragging',] }],
-            isGrabbing: [{ type: core.HostBinding, args: ['class.grabbing',] }],
-            isResizing: [{ type: core.HostBinding, args: ['class.resizing',] }]
+            id: [{ type: i0.Input }],
+            name: [{ type: i0.Input }],
+            col: [{ type: i0.Input }],
+            row: [{ type: i0.Input }],
+            colSpan: [{ type: i0.Input }],
+            rowSpan: [{ type: i0.Input }],
+            resizable: [{ type: i0.Input }],
+            widgetAriaLabel: [{ type: i0.Input }],
+            x: [{ type: i0.HostBinding, args: ['style.left.px',] }],
+            y: [{ type: i0.HostBinding, args: ['style.top.px',] }],
+            width: [{ type: i0.HostBinding, args: ['style.width.px',] }],
+            height: [{ type: i0.HostBinding, args: ['style.height.px',] }],
+            padding: [{ type: i0.HostBinding, args: ['style.padding.px',] }],
+            zIndex: [{ type: i0.HostBinding, args: ['style.z-index',] }],
+            ariaLabel: [{ type: i0.HostBinding, args: ['attr.aria-label',] }],
+            isDragging: [{ type: i0.HostBinding, args: ['class.dragging',] }],
+            isGrabbing: [{ type: i0.HostBinding, args: ['class.grabbing',] }],
+            isResizing: [{ type: i0.HostBinding, args: ['class.resizing',] }]
         };
         return DashboardWidgetComponent;
     }());
@@ -9765,7 +9719,7 @@
             /**
              * Automatically unsubscribe from all observables when destroyed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // if a drag is performed by the mouse we should update the focusable item to be the first again
             _dashboard.layout$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function () { return !_this._dashboard.isGrabbing$.value; }))
                 .subscribe(function () { return _this.setFirstItemFocusable(); });
@@ -9966,7 +9920,7 @@
                 }
             };
         DashboardGrabHandleService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         DashboardGrabHandleService.ctorParameters = function () {
@@ -10036,7 +9990,7 @@
             /**
              * Emit when the directive is destroyed to unsubscribe from all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             if (!widget) {
                 throw new Error('uxDashboardGrabHandle must be used within a dashboard widget');
             }
@@ -10651,7 +10605,7 @@
                 });
             };
         DashboardGrabHandleDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxDashboardGrabHandle]',
                         exportAs: 'ux-dashboard-grab-handle'
                     },] }
@@ -10662,24 +10616,24 @@
                 { type: DashboardWidgetComponent },
                 { type: DashboardService },
                 { type: DashboardGrabHandleService },
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: a11y.LiveAnnouncer }
             ];
         };
         DashboardGrabHandleDirective.propDecorators = {
-            uxGrabAllowMove: [{ type: core.Input }],
-            uxGrabAllowResize: [{ type: core.Input }],
-            uxGrabAriaLabel: [{ type: core.Input }],
-            uxGrabChangeSuccessAnnouncement: [{ type: core.Input }],
-            uxGrabStartAnnouncement: [{ type: core.Input }],
-            uxGrabMoveFailAnnouncement: [{ type: core.Input }],
-            uxGrabResizeFailAnnouncement: [{ type: core.Input }],
-            uxGrabConfirmAnnouncement: [{ type: core.Input }],
-            uxGrabCancelAnnouncement: [{ type: core.Input }],
-            ariaLabel: [{ type: core.HostBinding, args: ['attr.aria-label',] }],
-            tabIndex: [{ type: core.HostBinding, args: ['tabIndex',] }],
-            onBlur: [{ type: core.HostListener, args: ['blur',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event', '$event.which', '$event.ctrlKey'],] }]
+            uxGrabAllowMove: [{ type: i0.Input }],
+            uxGrabAllowResize: [{ type: i0.Input }],
+            uxGrabAriaLabel: [{ type: i0.Input }],
+            uxGrabChangeSuccessAnnouncement: [{ type: i0.Input }],
+            uxGrabStartAnnouncement: [{ type: i0.Input }],
+            uxGrabMoveFailAnnouncement: [{ type: i0.Input }],
+            uxGrabResizeFailAnnouncement: [{ type: i0.Input }],
+            uxGrabConfirmAnnouncement: [{ type: i0.Input }],
+            uxGrabCancelAnnouncement: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.HostBinding, args: ['attr.aria-label',] }],
+            tabIndex: [{ type: i0.HostBinding, args: ['tabIndex',] }],
+            onBlur: [{ type: i0.HostListener, args: ['blur',] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event', '$event.which', '$event.ctrlKey'],] }]
         };
         return DashboardGrabHandleDirective;
     }());
@@ -10697,11 +10651,11 @@
             /**
              * Emits when layout has been changed.
              */
-            this.layoutChange = new core.EventEmitter();
+            this.layoutChange = new i0.EventEmitter();
             /**
              * Ensure we unsubscribe from all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             dashboardService.layout$.pipe(operators.takeUntil(this._onDestroy), operators.tap(function () { return _this.ariaLabel = _this.getAriaLabel(); }))
                 .subscribe(function (layout) { return _this.layoutChange.emit(layout); });
             // subscribe to changes to the grab mode
@@ -10810,10 +10764,10 @@
                 return widget.name + " panel in row " + widget.getRow() + ", column " + widget.getColumn() + ", is " + widget.getColumnSpan() + " columns wide and " + widget.getRowSpan() + " rows high.";
             };
         DashboardComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-dashboard',
                         template: "<div #dashboard class=\"dashboard-container\" [style.height.px]=\"dashboardService.height$ | async\">\n    <div (uxResize)=\"onResize($event)\" [throttle]=\"16\" class=\"dashboard\">\n        <ng-content></ng-content>\n    </div>\n\n    <!-- Wrap with ngIf so we only have one subscription rather than one for each property -->\n    <ng-container *ngIf=\"dashboardService.placeholder$ | async; let placeholder\">\n        <div class=\"position-indicator\"\n            *ngIf=\"placeholder.visible\"\n            [style.left.px]=\"placeholder.x\"\n            [style.top.px]=\"placeholder.y\"\n            [style.width.px]=\"placeholder.width\"\n            [style.height.px]=\"placeholder.height\">\n        </div>\n    </ng-container>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [
                             DashboardService,
                             DashboardGrabHandleService
@@ -10827,13 +10781,13 @@
             ];
         };
         DashboardComponent.propDecorators = {
-            customAriaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            layout: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            layoutChange: [{ type: core.Output }],
-            ariaLabel: [{ type: core.HostBinding, args: ['attr.aria-label',] }],
-            dashboardElement: [{ type: core.ViewChild, args: ['dashboard',] }],
-            handles: [{ type: core.ContentChildren, args: [DashboardGrabHandleDirective, { descendants: true },] }]
+            customAriaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            layout: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            layoutChange: [{ type: i0.Output }],
+            ariaLabel: [{ type: i0.HostBinding, args: ['attr.aria-label',] }],
+            dashboardElement: [{ type: i0.ViewChild, args: ['dashboard',] }],
+            handles: [{ type: i0.ContentChildren, args: [DashboardGrabHandleDirective, { descendants: true },] }]
         };
         return DashboardComponent;
     }());
@@ -10857,7 +10811,7 @@
             return _this;
         }
         DashboardDragHandleDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]'
                     },] }
         ];
@@ -10866,9 +10820,9 @@
             return [
                 { type: DashboardWidgetComponent },
                 { type: DashboardService },
-                { type: core.ElementRef },
-                { type: core.NgZone },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.NgZone },
+                { type: i0.Renderer2 },
                 { type: DragService }
             ];
         };
@@ -10890,7 +10844,7 @@
         function DashboardModule() {
         }
         DashboardModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             common.CommonModule,
@@ -11126,23 +11080,23 @@
             /**
              * Emit whenever the start date changes
              */
-            this.onStartChange = new Subject.Subject();
+            this.onStartChange = new rxjs.Subject();
             /**
              * Emit whenever the end date changes
              */
-            this.onEndChange = new Subject.Subject();
+            this.onEndChange = new rxjs.Subject();
             /**
              * Emit whenever the range has changed
              */
-            this.onRangeChange = new Subject.Subject();
+            this.onRangeChange = new rxjs.Subject();
             /**
              * Emit whenever the hover date changes
              */
-            this.onHoverChange = new Subject.Subject();
+            this.onHoverChange = new rxjs.Subject();
             /**
              * Emit whenever the range is cleared
              */
-            this.onClear = new Subject.Subject();
+            this.onClear = new rxjs.Subject();
             /**
              * Indicate if we should show time
              */
@@ -11311,31 +11265,31 @@
             /**
              * Emit when the start date changes
              */
-            this.startChange = new core.EventEmitter();
+            this.startChange = new i0.EventEmitter();
             /**
              * Emit when the end date changes
              */
-            this.endChange = new core.EventEmitter();
+            this.endChange = new i0.EventEmitter();
             /**
              * Emit when the start timezone changes.
              */
-            this.startTimezoneChange = new core.EventEmitter();
+            this.startTimezoneChange = new i0.EventEmitter();
             /**
              * Emit when the end timezone changes.
              */
-            this.endTimezoneChange = new core.EventEmitter();
+            this.endTimezoneChange = new i0.EventEmitter();
             /**
              * Use an observable to debounce rapid start changes
              */
-            this.startChange$ = new Subject.Subject();
+            this.startChange$ = new rxjs.Subject();
             /**
              * Use an observable to debounce rapid end changes
              */
-            this.endChange$ = new Subject.Subject();
+            this.endChange$ = new rxjs.Subject();
             /**
              * Unsubscribe from all observablesprivate
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this.startChange$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (date) { return _this.onStartChange(date); });
             this.endChange$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (date) { return _this.onEndChange(date); });
         }
@@ -11505,10 +11459,10 @@
                 return days + ' ' + (days > 1 ? 'days' : 'day');
             };
         DateRangePickerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-range-picker',
                         template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <i class=\"hpe-icon hpe-link-next\"></i>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n        {{ durationTitle(_duration || 0) }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [DateRangeService]
                     }] }
         ];
@@ -11519,35 +11473,35 @@
             ];
         };
         DateRangePickerComponent.propDecorators = {
-            start: [{ type: core.Input }],
-            end: [{ type: core.Input }],
-            min: [{ type: core.Input }],
-            max: [{ type: core.Input }],
-            showTimezone: [{ type: core.Input }],
-            showSeconds: [{ type: core.Input }],
-            showMeridian: [{ type: core.Input }],
-            showSpinners: [{ type: core.Input }],
-            weekdays: [{ type: core.Input }],
-            months: [{ type: core.Input }],
-            monthsShort: [{ type: core.Input }],
-            meridians: [{ type: core.Input }],
-            nowBtnText: [{ type: core.Input }],
-            showNowBtn: [{ type: core.Input }],
-            selectStartTitle: [{ type: core.Input }],
-            selectEndTitle: [{ type: core.Input }],
-            nowBtnAriaLabel: [{ type: core.Input }],
-            startPickerAriaLabel: [{ type: core.Input }],
-            endPickerAriaLabel: [{ type: core.Input }],
-            showTime: [{ type: core.Input }],
-            timezones: [{ type: core.Input }],
-            startTimezone: [{ type: core.Input }],
-            endTimezone: [{ type: core.Input }],
-            startOfWeek: [{ type: core.Input }],
-            durationTitle: [{ type: core.Input }],
-            startChange: [{ type: core.Output }],
-            endChange: [{ type: core.Output }],
-            startTimezoneChange: [{ type: core.Output }],
-            endTimezoneChange: [{ type: core.Output }]
+            start: [{ type: i0.Input }],
+            end: [{ type: i0.Input }],
+            min: [{ type: i0.Input }],
+            max: [{ type: i0.Input }],
+            showTimezone: [{ type: i0.Input }],
+            showSeconds: [{ type: i0.Input }],
+            showMeridian: [{ type: i0.Input }],
+            showSpinners: [{ type: i0.Input }],
+            weekdays: [{ type: i0.Input }],
+            months: [{ type: i0.Input }],
+            monthsShort: [{ type: i0.Input }],
+            meridians: [{ type: i0.Input }],
+            nowBtnText: [{ type: i0.Input }],
+            showNowBtn: [{ type: i0.Input }],
+            selectStartTitle: [{ type: i0.Input }],
+            selectEndTitle: [{ type: i0.Input }],
+            nowBtnAriaLabel: [{ type: i0.Input }],
+            startPickerAriaLabel: [{ type: i0.Input }],
+            endPickerAriaLabel: [{ type: i0.Input }],
+            showTime: [{ type: i0.Input }],
+            timezones: [{ type: i0.Input }],
+            startTimezone: [{ type: i0.Input }],
+            endTimezone: [{ type: i0.Input }],
+            startOfWeek: [{ type: i0.Input }],
+            durationTitle: [{ type: i0.Input }],
+            startChange: [{ type: i0.Output }],
+            endChange: [{ type: i0.Output }],
+            startTimezoneChange: [{ type: i0.Output }],
+            endTimezoneChange: [{ type: i0.Output }]
         };
         return DateRangePickerComponent;
     }());
@@ -11579,7 +11533,7 @@
             configurable: true
         });
         DateRangePickerDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxDateRangePicker]',
                         providers: [DateRangeOptions]
                     },] }
@@ -11587,11 +11541,11 @@
         /** @nocollapse */
         DateRangePickerDirective.ctorParameters = function () {
             return [
-                { type: DateRangeOptions, decorators: [{ type: core.Self }] }
+                { type: DateRangeOptions, decorators: [{ type: i0.Self }] }
             ];
         };
         DateRangePickerDirective.propDecorators = {
-            picker: [{ type: core.Input }]
+            picker: [{ type: i0.Input }]
         };
         return DateRangePickerDirective;
     }());
@@ -11619,7 +11573,7 @@
             this.max = null;
         }
         DateTimePickerConfig.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return DateTimePickerConfig;
     }());
@@ -11632,29 +11586,29 @@
         function DateTimePickerService(_config) {
             var _this = this;
             this._config = _config;
-            this.mode$ = new BehaviorSubject.BehaviorSubject(DatePickerMode.Day);
-            this.date$ = new BehaviorSubject.BehaviorSubject(new Date());
-            this.timezone$ = new BehaviorSubject.BehaviorSubject(this.getCurrentTimezone());
-            this.selected$ = new BehaviorSubject.BehaviorSubject(new Date());
+            this.mode$ = new rxjs.BehaviorSubject(DatePickerMode.Day);
+            this.date$ = new rxjs.BehaviorSubject(new Date());
+            this.timezone$ = new rxjs.BehaviorSubject(this.getCurrentTimezone());
+            this.selected$ = new rxjs.BehaviorSubject(new Date());
             // the month and year to display in the viewport
-            this.month$ = new BehaviorSubject.BehaviorSubject(new Date().getMonth());
-            this.year$ = new BehaviorSubject.BehaviorSubject(new Date().getFullYear());
-            this.showDate$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showDate : true);
-            this.showTime$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showTime : true);
-            this.showTimezone$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showTimezone : true);
-            this.showSeconds$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showSeconds : false);
-            this.showMeridian$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showMeridian : true);
-            this.showSpinners$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showSpinners : true);
-            this.showNowBtn$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.showNowBtn : true);
-            this.weekdays$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.weekdays : weekdaysShort);
-            this.nowBtnText$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.nowBtnText : 'Today');
-            this.timezones$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.timezones : timezones);
-            this.min$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.min : null);
-            this.max$ = new BehaviorSubject.BehaviorSubject(this._config ? this._config.max : null);
-            this.header$ = new BehaviorSubject.BehaviorSubject(null);
-            this.headerEvent$ = new Subject.Subject();
+            this.month$ = new rxjs.BehaviorSubject(new Date().getMonth());
+            this.year$ = new rxjs.BehaviorSubject(new Date().getFullYear());
+            this.showDate$ = new rxjs.BehaviorSubject(this._config ? this._config.showDate : true);
+            this.showTime$ = new rxjs.BehaviorSubject(this._config ? this._config.showTime : true);
+            this.showTimezone$ = new rxjs.BehaviorSubject(this._config ? this._config.showTimezone : true);
+            this.showSeconds$ = new rxjs.BehaviorSubject(this._config ? this._config.showSeconds : false);
+            this.showMeridian$ = new rxjs.BehaviorSubject(this._config ? this._config.showMeridian : true);
+            this.showSpinners$ = new rxjs.BehaviorSubject(this._config ? this._config.showSpinners : true);
+            this.showNowBtn$ = new rxjs.BehaviorSubject(this._config ? this._config.showNowBtn : true);
+            this.weekdays$ = new rxjs.BehaviorSubject(this._config ? this._config.weekdays : weekdaysShort);
+            this.nowBtnText$ = new rxjs.BehaviorSubject(this._config ? this._config.nowBtnText : 'Today');
+            this.timezones$ = new rxjs.BehaviorSubject(this._config ? this._config.timezones : timezones);
+            this.min$ = new rxjs.BehaviorSubject(this._config ? this._config.min : null);
+            this.max$ = new rxjs.BehaviorSubject(this._config ? this._config.max : null);
+            this.header$ = new rxjs.BehaviorSubject(null);
+            this.headerEvent$ = new rxjs.Subject();
             this.modeDirection = ModeDirection.None;
-            this.startOfWeek$ = new BehaviorSubject.BehaviorSubject(common.WeekDay.Sunday);
+            this.startOfWeek$ = new rxjs.BehaviorSubject(common.WeekDay.Sunday);
             this.months = this._config ? this._config.months : months;
             this.monthsShort = this._config ? this._config.monthsShort : monthsShort;
             this.meridians = this._config ? this._config.meridians : meridians;
@@ -11871,12 +11825,12 @@
                 return (!this.min$.value || date >= this.min$.value) && (!this.max$.value || date <= this.max$.value);
             };
         DateTimePickerService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         DateTimePickerService.ctorParameters = function () {
             return [
-                { type: DateTimePickerConfig, decorators: [{ type: core.Optional }] }
+                { type: DateTimePickerConfig, decorators: [{ type: i0.Optional }] }
             ];
         };
         return DateTimePickerService;
@@ -11920,14 +11874,14 @@
             /**
              * Emits an event when the date is changed using the component.
              */
-            this.dateChange = new core.EventEmitter();
+            this.dateChange = new i0.EventEmitter();
             /**
              * If not defined the picker will try to use the user's timezone. If that is not available, it will revert to GMT.
              */
-            this.timezoneChange = new core.EventEmitter();
+            this.timezoneChange = new i0.EventEmitter();
             // expose enum to view
             this.DatePickerMode = DatePickerMode;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             datepicker.selected$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(dateComparator))
                 .subscribe(function (date) { return _this.dateChange.emit(date); });
             datepicker.timezone$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(timezoneComparator))
@@ -12295,43 +12249,43 @@
                 }
             };
         DateTimePickerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker',
                         template: "<div class=\"calendar-container\">\n\n  <ux-date-time-picker-header></ux-date-time-picker-header>\n\n  <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n  </ng-container>\n\n  <!-- Display a Time Picker -->\n  <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n</div>\n\n<button type=\"button\"\n    *ngIf=\"datepicker.showNowBtn$ | async\"\n    uxFocusIndicator\n    class=\"now-button\"\n    [attr.aria-label]=\"nowBtnAriaLabel\"\n    [disabled]=\"_isTodayDisabled\"\n    (click)=\"setToNow()\">\n    {{ datepicker.nowBtnText$ | async }}\n</button>",
                         providers: [DateTimePickerService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         DateTimePickerComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
-                { type: DateRangeService, decorators: [{ type: core.Optional }] },
-                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
+                { type: DateRangeService, decorators: [{ type: i0.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         DateTimePickerComponent.propDecorators = {
-            showDate: [{ type: core.Input }],
-            showTime: [{ type: core.Input }],
-            showTimezone: [{ type: core.Input }],
-            showSeconds: [{ type: core.Input }],
-            showMeridian: [{ type: core.Input }],
-            showSpinners: [{ type: core.Input }],
-            weekdays: [{ type: core.Input }],
-            months: [{ type: core.Input }],
-            monthsShort: [{ type: core.Input }],
-            meridians: [{ type: core.Input }],
-            nowBtnText: [{ type: core.Input }],
-            showNowBtn: [{ type: core.Input }],
-            timezones: [{ type: core.Input }],
-            startOfWeek: [{ type: core.Input }],
-            nowBtnAriaLabel: [{ type: core.Input }],
-            dateChange: [{ type: core.Output }],
-            timezoneChange: [{ type: core.Output }],
-            date: [{ type: core.Input }],
-            timezone: [{ type: core.Input }],
-            min: [{ type: core.Input }],
-            max: [{ type: core.Input }]
+            showDate: [{ type: i0.Input }],
+            showTime: [{ type: i0.Input }],
+            showTimezone: [{ type: i0.Input }],
+            showSeconds: [{ type: i0.Input }],
+            showMeridian: [{ type: i0.Input }],
+            showSpinners: [{ type: i0.Input }],
+            weekdays: [{ type: i0.Input }],
+            months: [{ type: i0.Input }],
+            monthsShort: [{ type: i0.Input }],
+            meridians: [{ type: i0.Input }],
+            nowBtnText: [{ type: i0.Input }],
+            showNowBtn: [{ type: i0.Input }],
+            timezones: [{ type: i0.Input }],
+            startOfWeek: [{ type: i0.Input }],
+            nowBtnAriaLabel: [{ type: i0.Input }],
+            dateChange: [{ type: i0.Output }],
+            timezoneChange: [{ type: i0.Output }],
+            date: [{ type: i0.Input }],
+            timezone: [{ type: i0.Input }],
+            min: [{ type: i0.Input }],
+            max: [{ type: i0.Input }]
         };
         return DateTimePickerComponent;
     }());
@@ -12388,20 +12342,20 @@
                 }
             };
         FocusIfDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[focusIf]'
                     },] }
         ];
         /** @nocollapse */
         FocusIfDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         FocusIfDirective.propDecorators = {
-            focusIfDelay: [{ type: core.Input }],
-            focusIfScroll: [{ type: core.Input }],
-            focusIf: [{ type: core.Input }]
+            focusIfDelay: [{ type: i0.Input }],
+            focusIfScroll: [{ type: i0.Input }],
+            focusIf: [{ type: i0.Input }]
         };
         return FocusIfDirective;
     }());
@@ -12414,7 +12368,7 @@
         function FocusIfModule() {
         }
         FocusIfModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [FocusIfDirective],
                         declarations: [FocusIfDirective]
                     },] }
@@ -12434,7 +12388,7 @@
     /** @type {?} */
     var SPIN_BUTTON_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return SpinButtonComponent; }),
+        useExisting: i0.forwardRef(function () { return SpinButtonComponent; }),
         multi: true
     };
     var SpinButtonComponent = /** @class */ (function () {
@@ -12446,9 +12400,9 @@
             this.readOnly = true;
             this.scrolling = true;
             this.arrowkeys = true;
-            this.valueChange = new core.EventEmitter();
-            this.increment = new core.EventEmitter();
-            this.decrement = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
+            this.increment = new i0.EventEmitter();
+            this.decrement = new i0.EventEmitter();
             this.onTouchedCallback = function () { };
             this.onChangeCallback = function () { };
         }
@@ -12556,31 +12510,31 @@
                 this.disabled = isDisabled;
             };
         SpinButtonComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-spin-button',
                         template: "<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n  <span class=\"hpe-icon hpe-up\"></span>\n</button>\n\n<input [type]=\"type\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"valueChange.emit($event)\"\n       (wheel)=\"scroll($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n  <span class=\"hpe-icon hpe-down\"></span>\n</button>",
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        encapsulation: i0.ViewEncapsulation.None,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [SPIN_BUTTON_VALUE_ACCESSOR]
                     }] }
         ];
         SpinButtonComponent.propDecorators = {
-            value: [{ type: core.Input }],
-            type: [{ type: core.Input }],
-            min: [{ type: core.Input }],
-            max: [{ type: core.Input }],
-            placeholder: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            spinners: [{ type: core.Input }],
-            readOnly: [{ type: core.Input }],
-            scrolling: [{ type: core.Input }],
-            arrowkeys: [{ type: core.Input }],
-            incrementAriaLabel: [{ type: core.Input }],
-            inputAriaLabel: [{ type: core.Input }],
-            decrementAriaLabel: [{ type: core.Input }],
-            valueChange: [{ type: core.Output }],
-            increment: [{ type: core.Output }],
-            decrement: [{ type: core.Output }]
+            value: [{ type: i0.Input }],
+            type: [{ type: i0.Input }],
+            min: [{ type: i0.Input }],
+            max: [{ type: i0.Input }],
+            placeholder: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            spinners: [{ type: i0.Input }],
+            readOnly: [{ type: i0.Input }],
+            scrolling: [{ type: i0.Input }],
+            arrowkeys: [{ type: i0.Input }],
+            incrementAriaLabel: [{ type: i0.Input }],
+            inputAriaLabel: [{ type: i0.Input }],
+            decrementAriaLabel: [{ type: i0.Input }],
+            valueChange: [{ type: i0.Output }],
+            increment: [{ type: i0.Output }],
+            decrement: [{ type: i0.Output }]
         };
         return SpinButtonComponent;
     }());
@@ -12593,7 +12547,7 @@
         function SpinButtonModule() {
         }
         SpinButtonModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -12618,7 +12572,7 @@
     /** @type {?} */
     var TIME_PICKER_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return TimePickerComponent; }),
+        useExisting: i0.forwardRef(function () { return TimePickerComponent; }),
         multi: true
     };
     var TimePickerComponent = /** @class */ (function () {
@@ -12678,11 +12632,11 @@
             /**
              * Emitted when the `value` changes.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
             /**
              * Emitted when the validity of the control changes.
              */
-            this.isValid = new core.EventEmitter();
+            this.isValid = new i0.EventEmitter();
             this.onTouchedCallback = function () { };
             this.onChangeCallback = function () { };
             this._value = new Date();
@@ -13109,11 +13063,11 @@
                 return normalized;
             };
         TimePickerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-time-picker',
                         template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"value | date: showMeridian ? 'h' : 'HH'\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'mm'\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'ss'\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === _meridian\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === _meridian\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>",
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        encapsulation: i0.ViewEncapsulation.None,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [TIME_PICKER_VALUE_ACCESSOR],
                         host: {
                             'aria-label': 'Time Picker'
@@ -13121,24 +13075,24 @@
                     }] }
         ];
         TimePickerComponent.propDecorators = {
-            arrowkeys: [{ type: core.Input }],
-            mousewheel: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            readOnly: [{ type: core.Input }],
-            showMeridian: [{ type: core.Input }],
-            showHours: [{ type: core.Input }],
-            showMinutes: [{ type: core.Input }],
-            showSeconds: [{ type: core.Input }],
-            showSpinners: [{ type: core.Input }],
-            hourStep: [{ type: core.Input }],
-            minuteStep: [{ type: core.Input }],
-            secondStep: [{ type: core.Input }],
-            min: [{ type: core.Input }],
-            max: [{ type: core.Input }],
-            meridians: [{ type: core.Input }],
-            value: [{ type: core.Input }],
-            valueChange: [{ type: core.Output }],
-            isValid: [{ type: core.Output }]
+            arrowkeys: [{ type: i0.Input }],
+            mousewheel: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            readOnly: [{ type: i0.Input }],
+            showMeridian: [{ type: i0.Input }],
+            showHours: [{ type: i0.Input }],
+            showMinutes: [{ type: i0.Input }],
+            showSeconds: [{ type: i0.Input }],
+            showSpinners: [{ type: i0.Input }],
+            hourStep: [{ type: i0.Input }],
+            minuteStep: [{ type: i0.Input }],
+            secondStep: [{ type: i0.Input }],
+            min: [{ type: i0.Input }],
+            max: [{ type: i0.Input }],
+            meridians: [{ type: i0.Input }],
+            value: [{ type: i0.Input }],
+            valueChange: [{ type: i0.Output }],
+            isValid: [{ type: i0.Output }]
         };
         return TimePickerComponent;
     }());
@@ -13151,7 +13105,7 @@
         function TimePickerModule() {
         }
         TimePickerModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -13178,9 +13132,9 @@
         function DayViewService(_datepicker) {
             var _this = this;
             this._datepicker = _datepicker;
-            this.grid$ = new BehaviorSubject.BehaviorSubject([[]]);
-            this.focused$ = new BehaviorSubject.BehaviorSubject(null);
-            this._subscription = combineLatest.combineLatest(_datepicker.month$, _datepicker.year$, _datepicker.startOfWeek$)
+            this.grid$ = new rxjs.BehaviorSubject([[]]);
+            this.focused$ = new rxjs.BehaviorSubject(null);
+            this._subscription = rxjs.combineLatest(_datepicker.month$, _datepicker.year$, _datepicker.startOfWeek$)
                 .subscribe(function (_a) {
                 var _b = __read(_a, 2), month = _b[0], year = _b[1];
                 return _this.createDayGrid(month, year);
@@ -13310,7 +13264,7 @@
                 return this._datepicker.selected$.value ? compareDays(this._datepicker.selected$.value, date) : false;
             };
         DayViewService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         DayViewService.ctorParameters = function () {
@@ -13335,12 +13289,12 @@
             this._liveAnnouncer = _liveAnnouncer;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             datePicker.headerEvent$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
             // if we are a range picker then we also want to subscribe to range changes
             if (_rangeService) {
-                merge.merge(_rangeService.onRangeChange, _rangeService.onHoverChange).pipe(operators.takeUntil(this._onDestroy))
+                rxjs.merge(_rangeService.onRangeChange, _rangeService.onHoverChange).pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function () { return _changeDetector.detectChanges(); });
                 // subscribe to changes to the start date
                 _rangeService.onStartChange
@@ -13414,7 +13368,7 @@
             function () {
                 var _this = this;
                 // update when there are changes to the min/max values
-                merge.merge(this.datePicker.min$, this.datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                rxjs.merge(this.datePicker.min$, this.datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function () { return _this._changeDetector.detectChanges(); });
                 // if we open and the range start is already selected, ensure that we move the end picker to a month with options
                 if (!this.datePicker.initialised && this._rangeStart && !this._rangeEnd && this._isRangeEnd) {
@@ -13829,11 +13783,11 @@
                 }
             };
         DayViewComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-day-view',
                         template: "<table class=\"calendar\">\n    <thead>\n        <tr>\n            <th *ngFor=\"let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n        </tr>\n    </thead>\n\n    <tbody role=\"grid\">\n        <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n            <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                <button type=\"button\"\n                        uxFocusIndicator\n                        uxFocusIndicatorOrigin\n                        class=\"date-button\"\n                        [class.range-start]=\"isRangeStartDate(item.date)\"\n                        [class.range-between]=\"isWithinRange(item.date) || isDateHovered(item.date)\"\n                        [class.range-end]=\"isRangeEndDate(item.date)\"\n                        [focusIf]=\"shouldFocus(item)\"\n                        [attr.aria-label]=\"item.date | date\"\n                        [attr.aria-selected]=\"isItemActive(item.date, item.isActive)\"\n                        [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                        [class.current]=\"item.isToday\"\n                        [class.active]=\"isItemActive(item.date, item.isActive) && !getDisabled(item.date)\"\n                        [class.preview]=\"!item.isCurrentMonth\"\n                        [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                        [disabled]=\"getDisabled(item.date)\"\n                        (click)=\"select(item.date); $event.stopPropagation()\"\n                        (mouseenter)=\"onRangeMouseEnter(item.date)\"\n                        (mouseleave)=\"onRangeMouseLeave(item.date)\"\n                        (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                        (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                        (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                        (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\"\n                        (focus)=\"announceRangeMode()\">\n\n                    {{ item.date.getDate() }}\n                </button>\n\n            </td>\n        </tr>\n    </tbody>\n</table>",
                         providers: [DayViewService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -13841,11 +13795,11 @@
             return [
                 { type: DateTimePickerService },
                 { type: DayViewService },
-                { type: core.ChangeDetectorRef },
+                { type: i0.ChangeDetectorRef },
                 { type: FocusIndicatorOriginService },
                 { type: a11y.LiveAnnouncer },
-                { type: DateRangeService, decorators: [{ type: core.Optional }] },
-                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
+                { type: DateRangeService, decorators: [{ type: i0.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         return DayViewComponent;
@@ -13905,7 +13859,7 @@
             /**
              * Unsubscribe from all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             if (this._rangeService) {
                 // delay required to allow all ui to update elsewhere
                 this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy), operators.delay(100))
@@ -13972,7 +13926,7 @@
             function () {
                 var _this = this;
                 // update on min/max changes
-                merge.merge(this.datepicker.min$, this.datepicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                rxjs.merge(this.datepicker.min$, this.datepicker.max$).pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function () { return _this._changeDetector.detectChanges(); });
             };
         /**
@@ -14128,19 +14082,19 @@
                 }
             };
         HeaderComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-header',
                         template: "<header class=\"header\">\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isPreviousDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-previous\"></i>\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isNextDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-next\"></i>\n  </button>\n</header>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         HeaderComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
-                { type: core.ChangeDetectorRef },
-                { type: DateRangeService, decorators: [{ type: core.Optional }] },
-                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
+                { type: i0.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: i0.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         return HeaderComponent;
@@ -14154,8 +14108,8 @@
         function MonthViewService(_datepicker) {
             var _this = this;
             this._datepicker = _datepicker;
-            this.grid$ = new BehaviorSubject.BehaviorSubject([[]]);
-            this.focused$ = new BehaviorSubject.BehaviorSubject(null);
+            this.grid$ = new rxjs.BehaviorSubject([[]]);
+            this.focused$ = new rxjs.BehaviorSubject(null);
             this._subscription = _datepicker.year$.subscribe(function (year) { return _this.createMonthGrid(year); });
         }
         /**
@@ -14229,7 +14183,7 @@
                 }
             };
         MonthViewService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         MonthViewService.ctorParameters = function () {
@@ -14254,7 +14208,7 @@
             this._changeDetector = _changeDetector;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             _datePicker.headerEvent$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
             if (this._rangeService) {
@@ -14384,7 +14338,7 @@
             function () {
                 var _this = this;
                 // update on min/max changes
-                merge.merge(this._datePicker.min$, this._datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                rxjs.merge(this._datePicker.min$, this._datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function () { return _this._changeDetector.detectChanges(); });
             };
         /**
@@ -14627,11 +14581,11 @@
                 }
             };
         MonthViewComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-month-view',
                         template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n    <button type=\"button\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n         [focusIf]=\"shouldFocus(item)\"\n         [disabled]=\"getDisabled(item)\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\"\n         [attr.aria-label]=\"item.name + ' ' + item.year\"\n         [attr.aria-selected]=\"item.isActiveMonth\"\n         [class.active]=\"item.isActiveMonth && !getDisabled(item)\"\n         [class.current]=\"item.isCurrentMonth\"\n         (click)=\"select(item.month); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n         {{ item.name }}\n    </button>\n  </div>\n</div>\n",
                         providers: [MonthViewService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -14640,9 +14594,9 @@
                 { type: DateTimePickerService },
                 { type: MonthViewService },
                 { type: a11y.LiveAnnouncer },
-                { type: core.ChangeDetectorRef },
-                { type: DateRangeService, decorators: [{ type: core.Optional }] },
-                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
+                { type: i0.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: i0.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         return MonthViewComponent;
@@ -14677,7 +14631,7 @@
                 return weekdays;
             };
         WeekDaySortPipe.decorators = [
-            { type: core.Pipe, args: [{
+            { type: i0.Pipe, args: [{
                         name: 'weekDaySort'
                     },] }
         ];
@@ -14703,7 +14657,7 @@
              * Latest time permitted on the time picker.
              */
             this.max = null;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // when the date changes we should update the value
             datepicker.date$.pipe(operators.filter(function (date) { return date && _this.value instanceof Date; }), operators.takeUntil(this._onDestroy)).subscribe(function (date) {
                 _this.value.setFullYear(date.getFullYear());
@@ -14793,13 +14747,13 @@
             function () {
                 var _this = this;
                 // min should only apply if it's on the same day as the selected date
-                combineLatest.combineLatest(this.datepicker.min$, this.datepicker.date$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (_a) {
+                rxjs.combineLatest(this.datepicker.min$, this.datepicker.date$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (_a) {
                     var _b = __read(_a, 2), min = _b[0], date = _b[1];
                     _this.min = (min && date && compareDays(date, min)) ? min : null;
                     _this._changeDetector.detectChanges();
                 });
                 // max should only apply if it's on the same day as the selected date
-                combineLatest.combineLatest(this.datepicker.max$, this.datepicker.date$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (_a) {
+                rxjs.combineLatest(this.datepicker.max$, this.datepicker.date$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function (_a) {
                     var _b = __read(_a, 2), max = _b[0], date = _b[1];
                     _this.max = (max && date && compareDays(date, max)) ? max : null;
                     _this._changeDetector.detectChanges();
@@ -14935,24 +14889,24 @@
                 }
             };
         TimeViewComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-time-view',
                         template: "<ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n    [value]=\"value\"\n    (valueChange)=\"onTimeChange($event)\"\n    [showSeconds]=\"datepicker.showSeconds$ | async\"\n    [showMeridian]=\"datepicker.showMeridian$ | async\"\n    [showSpinners]=\"datepicker.showSpinners$ | async\"\n    [meridians]=\"datepicker.meridians\"\n    [min]=\"min\"\n    [max]=\"max\">\n</ux-time-picker>\n\n<ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n    <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n        <ux-spin-button\n            class=\"time-zone-spinner\"\n            [value]=\"(datepicker.timezone$ | async).name\"\n            [readOnly]=\"true\"\n            (increment)=\"incrementTimezone()\"\n            (decrement)=\"decrementTimezone()\"\n            inputAriaLabel=\"Time Zone\"\n            incrementAriaLabel=\"Switch to the next time zone\"\n            decrementAriaLabel=\"Switch to the previous time zone\">\n        </ux-spin-button>\n    </div>\n\n    <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n        <select class=\"form-control time-zone-select\"\n                tabindex=\"0\"\n                [ngModel]=\"(datepicker.timezone$ | async).name\"\n                (ngModelChange)=\"selectTimezone($event)\"\n                aria-label=\"Timezone\"\n                [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n            <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                    [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                    [value]=\"zone.name\">\n                {{ zone?.name }}\n            </option>\n\n        </select>\n    </div>\n\n</ng-container>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         TimeViewComponent.ctorParameters = function () {
             return [
                 { type: DateTimePickerService },
-                { type: core.ChangeDetectorRef },
-                { type: DateRangeService, decorators: [{ type: core.Optional }] },
-                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
+                { type: i0.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: i0.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         TimeViewComponent.propDecorators = {
-            onFocusWithin: [{ type: core.HostListener, args: ['focusin',] }],
-            onFocusOut: [{ type: core.HostListener, args: ['focusout',] }]
+            onFocusWithin: [{ type: i0.HostListener, args: ['focusin',] }],
+            onFocusOut: [{ type: i0.HostListener, args: ['focusout',] }]
         };
         return TimeViewComponent;
     }());
@@ -14965,10 +14919,10 @@
         function YearViewService(_datepicker) {
             var _this = this;
             this._datepicker = _datepicker;
-            this.grid$ = new BehaviorSubject.BehaviorSubject([[]]);
-            this.focused$ = new BehaviorSubject.BehaviorSubject(null);
+            this.grid$ = new rxjs.BehaviorSubject([[]]);
+            this.focused$ = new rxjs.BehaviorSubject(null);
             this._year = new Date().getFullYear();
-            this._subscription = new Subscription.Subscription();
+            this._subscription = new rxjs.Subscription();
             /** @type {?} */
             var year = _datepicker.year$.subscribe(function (_year) { return _this.createYearGrid(_year); });
             /** @type {?} */
@@ -15073,7 +15027,7 @@
                 return this._datepicker.yearRange;
             };
         YearViewService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         YearViewService.ctorParameters = function () {
@@ -15096,7 +15050,7 @@
             this._changeDetector = _changeDetector;
             this._rangeService = _rangeService;
             this._rangeOptions = _rangeOptions;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             if (this._rangeService) {
                 this._rangeService.onRangeChange.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _changeDetector.detectChanges(); });
             }
@@ -15179,7 +15133,7 @@
             function () {
                 var _this = this;
                 // update on min/max changes
-                merge.merge(this._datePicker.min$, this._datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
+                rxjs.merge(this._datePicker.min$, this._datePicker.max$).pipe(operators.takeUntil(this._onDestroy))
                     .subscribe(function () { return _this._changeDetector.detectChanges(); });
             };
         /**
@@ -15362,11 +15316,11 @@
                 }
             };
         YearViewComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-year-view',
                         template: "<div class=\"calendar\" role=\"grid\">\n  <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n    <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n         uxFocusIndicator\n         uxFocusIndicatorOrigin\n         [programmaticFocusIndicator]=\"true\"\n         type=\"button\"\n         role=\"gridcell\"\n         class=\"calendar-item\"\n         [focusIf]=\"(yearService.focused$ | async) === item.year\"\n         [attr.aria-label]=\"item.year\"\n         [attr.aria-selected]=\"item.isActiveYear\"\n         [class.current]=\"item.isCurrentYear\"\n         [class.active]=\"item.isActiveYear && !getDisabled(item)\"\n         [disabled]=\"getDisabled(item)\"\n         (click)=\"select(item.year); $event.stopPropagation()\"\n         (focus)=\"announceRangeMode()\"\n         (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n         (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n         (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n         (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n         [tabindex]=\"getTabbable(item) ? 0 : -1\">\n         {{ item.year }}\n    </button>\n  </div>\n</div>\n",
                         providers: [YearViewService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -15375,9 +15329,9 @@
                 { type: DateTimePickerService },
                 { type: YearViewService },
                 { type: a11y.LiveAnnouncer },
-                { type: core.ChangeDetectorRef },
-                { type: DateRangeService, decorators: [{ type: core.Optional }] },
-                { type: DateRangeOptions, decorators: [{ type: core.Optional }] }
+                { type: i0.ChangeDetectorRef },
+                { type: DateRangeService, decorators: [{ type: i0.Optional }] },
+                { type: DateRangeOptions, decorators: [{ type: i0.Optional }] }
             ];
         };
         return YearViewComponent;
@@ -15405,7 +15359,7 @@
                 };
             };
         DateTimePickerModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
@@ -15443,7 +15397,7 @@
         function DateRangePickerModule() {
         }
         DateRangePickerModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             DateTimePickerModule
@@ -15473,10 +15427,10 @@
         function EboxComponent() {
         }
         EboxComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-ebox',
                         template: "<div class=\"ux-ebox-header\">\n    <ng-content select=\"ux-ebox-header\"></ng-content>\n</div>\n\n<div class=\"ux-ebox-content\">\n    <ng-content select=\"ux-ebox-content\"></ng-content>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         return EboxComponent;
@@ -15485,7 +15439,7 @@
         function EboxHeaderDirective() {
         }
         EboxHeaderDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'ux-ebox-header'
                     },] }
         ];
@@ -15495,7 +15449,7 @@
         function EboxContentDirective() {
         }
         EboxContentDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'ux-ebox-content'
                     },] }
         ];
@@ -15510,7 +15464,7 @@
         function EboxModule() {
         }
         EboxModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [EboxComponent, EboxContentDirective, EboxHeaderDirective],
                         declarations: [EboxComponent, EboxContentDirective, EboxHeaderDirective]
                     },] }
@@ -15531,7 +15485,7 @@
         function FacetClearButtonDirective() {
         }
         FacetClearButtonDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFacetClearButton]'
                     },] }
         ];
@@ -15569,11 +15523,11 @@
             /**
              * The list of active facets
              */
-            this.facets$ = new BehaviorSubject.BehaviorSubject([]);
+            this.facets$ = new rxjs.BehaviorSubject([]);
             /**
              * Emit all the events when they occur
              */
-            this.events$ = new Subject.Subject();
+            this.events$ = new rxjs.Subject();
         }
         /**
          * @param {?} facet
@@ -15646,7 +15600,7 @@
                 return this.facets$.value.indexOf(facet) > -1;
             };
         FacetService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return FacetService;
     }());
@@ -15679,15 +15633,15 @@
             /**
              * If using two-way binding this array will update when the selected facets change.
              */
-            this.facetsChange = new core.EventEmitter();
+            this.facetsChange = new i0.EventEmitter();
             /**
              * This will be triggered when a facet is selected, deselected or all facets are deselected.
              * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
              * will contain the facet being selected or deselected in a `facet` property
              * (deselect all will not contain affected facets).
              */
-            this.events = new core.EventEmitter();
-            this._onDestroy = new Subject.Subject();
+            this.events = new i0.EventEmitter();
+            this._onDestroy = new rxjs.Subject();
             facetService.facets$.subscribe(function (facets) { return _this.facetsChange.next(facets); });
             facetService.events$.subscribe(function (event) { return _this.triggerEvent(event); });
             // announce deselection
@@ -15868,7 +15822,7 @@
                 this.events.next(event);
             };
         FacetContainerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-container',
                         template: "<!-- Display Any Selected Facets -->\n<div class=\"facets-selected-container\">\n\n    <!-- Display Title an Clear Button -->\n    <div class=\"facets-selected-header-container\">\n\n        <!-- Show The Selected Text -->\n        <span class=\"facets-selected-header-label\">{{ header }}</span>\n\n        <!-- Add a Clear Button -->\n        <ng-container *ngIf=\"(facetService.facets$ | async).length > 0\" [ngTemplateOutlet]=\"clearButton || clearButtonDefault\"></ng-container>\n\n    </div>\n\n    <!-- Display Tags For Selected Items -->\n    <div class=\"facets-selected-list\"\n        uxReorderable\n        role=\"list\"\n        [reorderingDisabled]=\"!facetsReorderable\"\n        [(reorderableModel)]=\"facets\"\n        (reorderableModelChange)=\"facetsChange.emit(facets)\">\n\n        <!-- Show Selected Tags -->\n        <div #tag\n            class=\"facet-selected-tag\"\n            role=\"listitem\"\n            tabindex=\"0\"\n            uxReorderableHandle\n            *ngFor=\"let facet of (facetService.facets$ | async); trackBy: trackBy\"\n            [attr.aria-label]=\"facet.title\"\n            [uxReorderableModel]=\"facet\"\n            (mousedown)=\"tag.focus()\"\n            (keydown.ArrowRight)=\"shiftRight(facet, tag)\"\n            (keydown.ArrowLeft)=\"shiftLeft(facet, tag)\">\n\n            <!-- Display Label -->\n            <span class=\"facet-selected-tag-label\">{{ facet.title }}</span>\n\n            <!-- Display Remove Icon -->\n            <button type=\"button\"\n                uxFocusIndicator\n                class=\"facet-selected-remove-btn\"\n                i18n-aria-label\n                aria-label=\"Deselect Facet\"\n                (click)=\"deselectFacet(facet, tag)\">\n\n                <i class=\"hpe-icon hpe-close\"></i>\n            </button>\n        </div>\n\n    </div>\n\n    <!-- Show Message Here if No Facets Selected -->\n    <p class=\"facets-selected-none-label\" *ngIf=\"emptyText && (facetService.facets$ | async).length === 0\">{{ emptyText }}</p>\n\n</div>\n\n<!-- Any Facet Elements Should be Added Here By User -->\n<div class=\"facets-region\">\n    <ng-content></ng-content>\n</div>\n\n<ng-template #clearButtonDefault>\n    <button type=\"button\"\n            class=\"btn btn-link btn-icon button-secondary\"\n            tabindex=\"0\"\n            [attr.aria-label]=\"clearTooltip\"\n            [uxTooltip]=\"clearTooltip\"\n            placement=\"left\"\n            (click)=\"deselectAllFacets()\">\n\n            <svg class=\"facets-selected-clear-graphic\" focusable=\"false\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n                <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n                <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n                <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n                <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n                <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n            </svg>\n        </button>\n</ng-template>",
                         providers: [FacetService]
@@ -15882,14 +15836,14 @@
             ];
         };
         FacetContainerComponent.propDecorators = {
-            header: [{ type: core.Input }],
-            clearTooltip: [{ type: core.Input }],
-            emptyText: [{ type: core.Input }],
-            facetsReorderable: [{ type: core.Input }],
-            facets: [{ type: core.Input }],
-            facetsChange: [{ type: core.Output }],
-            events: [{ type: core.Output }],
-            clearButton: [{ type: core.ContentChild, args: [FacetClearButtonDirective, { read: core.TemplateRef },] }]
+            header: [{ type: i0.Input }],
+            clearTooltip: [{ type: i0.Input }],
+            emptyText: [{ type: i0.Input }],
+            facetsReorderable: [{ type: i0.Input }],
+            facets: [{ type: i0.Input }],
+            facetsChange: [{ type: i0.Output }],
+            events: [{ type: i0.Output }],
+            clearButton: [{ type: i0.ContentChild, args: [FacetClearButtonDirective, { read: i0.TemplateRef },] }]
         };
         return FacetContainerComponent;
     }());
@@ -15907,9 +15861,9 @@
             this.facetContainer = facetContainer;
             this._elementRef = _elementRef;
             this.selected = [];
-            this.selectedChange = new core.EventEmitter();
-            this.events = new Subject.Subject();
-            this._onDestroy = new Subject.Subject();
+            this.selectedChange = new i0.EventEmitter();
+            this.events = new rxjs.Subject();
+            this._onDestroy = new rxjs.Subject();
             if (facetContainer) {
                 // subscribe to any deselect events from the facet container
                 facetContainer.events.pipe(operators.filter(function (event) { return event instanceof FacetDeselect; }), operators.filter(function (event) { return !!_this.selected.find(function (facet) { return facet === event.facet; }); }), operators.takeUntil(this._onDestroy)).subscribe(function (event) { return _this.deselectFacet(event.facet); });
@@ -16045,7 +15999,7 @@
                 this.events.next(event);
             };
         FacetBaseComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-base',
                         template: ''
                     }] }
@@ -16053,14 +16007,14 @@
         /** @nocollapse */
         FacetBaseComponent.ctorParameters = function () {
             return [
-                { type: FacetContainerComponent, decorators: [{ type: core.Host }] },
-                { type: core.ElementRef }
+                { type: FacetContainerComponent, decorators: [{ type: i0.Host }] },
+                { type: i0.ElementRef }
             ];
         };
         FacetBaseComponent.propDecorators = {
-            selected: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            events: [{ type: core.Output }]
+            selected: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            events: [{ type: i0.Output }]
         };
         return FacetBaseComponent;
     }());
@@ -16082,7 +16036,7 @@
             /**
              * If two-way binding is used it will be updated when the expanded state changes.
              */
-            this.expandedChange = new core.EventEmitter();
+            this.expandedChange = new i0.EventEmitter();
             this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
         }
         /**
@@ -16108,7 +16062,7 @@
                 }
             };
         FacetHeaderComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-header',
                         template: "<span class=\"facet-header-title\">{{ header }}</span>\n<span class=\"hpe-icon\" [class.hpe-down]=\"expanded\" [class.hpe-previous]=\"!expanded\" *ngIf=\"canExpand\"></span>",
                         host: {
@@ -16125,14 +16079,14 @@
         FacetHeaderComponent.ctorParameters = function () {
             return [
                 { type: FocusIndicatorService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         FacetHeaderComponent.propDecorators = {
-            header: [{ type: core.Input }],
-            canExpand: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            expandedChange: [{ type: core.Output }]
+            header: [{ type: i0.Input }],
+            canExpand: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            expandedChange: [{ type: i0.Output }]
         };
         return FacetHeaderComponent;
     }());
@@ -16147,9 +16101,9 @@
             this.selected = false;
             this.tabbable = false;
             this.simplified = false;
-            this.selectedChange = new core.EventEmitter();
-            this.itemFocus = new core.EventEmitter();
-            this.itemBlur = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
+            this.itemFocus = new i0.EventEmitter();
+            this.itemBlur = new i0.EventEmitter();
         }
         Object.defineProperty(FacetCheckListItemComponent.prototype, "disabled", {
             get: /**
@@ -16179,21 +16133,21 @@
                 this.option.nativeElement.focus();
             };
         FacetCheckListItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-check-list-item',
                         template: "<div #option\n    uxFocusIndicator\n    class=\"facet-check-list-item\"\n    [class.facet-active]=\"selected\"\n    [attr.aria-checked]=\"selected\"\n    role=\"option\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (blur)=\"itemBlur.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    [class.disabled]=\"facet?.disabled\">\n\n    <!-- Show check icon to indicate the state -->\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-check-list-item-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-check-list-item-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         FacetCheckListItemComponent.propDecorators = {
-            facet: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            tabbable: [{ type: core.Input }],
-            simplified: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            itemFocus: [{ type: core.Output }],
-            itemBlur: [{ type: core.Output }],
-            option: [{ type: core.ViewChild, args: ['option',] }]
+            facet: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            tabbable: [{ type: i0.Input }],
+            simplified: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            itemFocus: [{ type: i0.Output }],
+            itemBlur: [{ type: i0.Output }],
+            option: [{ type: i0.ViewChild, args: ['option',] }]
         };
         return FacetCheckListItemComponent;
     }());
@@ -16227,14 +16181,14 @@
              * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
              * will contain the facet being selected or deselected in a `facet` property (deselect all will not contain affected facets).
              */
-            this.events = new Subject.Subject();
+            this.events = new rxjs.Subject();
             /**
              * If two-way binding is used this array will get updated any time the selected facets change.
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
             this.isFocused = false;
             this.activeIndex = 0;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             facetService.events$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (event) {
                 // deselect all events should always be emitted
                 if (event instanceof FacetDeselectAll) {
@@ -16345,7 +16299,7 @@
                 return this.facets.indexOf(facet) !== -1;
             };
         FacetCheckListComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-check-list',
                         template: "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\n\n<!-- Create a container which will show when section is expanded -->\n<div class=\"facet-check-list-container\"\n    tabindex=\"-1\"\n    role=\"listbox\"\n    [class.facet-check-list-scrollbar]=\"scrollbar\"\n    [class.facet-check-list-scrollbar-focused]=\"isFocused\"\n    *ngIf=\"expanded\">\n\n    <!-- Iterate through each possible facet -->\n    <ux-facet-check-list-item *ngFor=\"let facet of facets; let index = index\"\n        [facet]=\"facet\"\n        [simplified]=\"simplified\"\n        [tabbable]=\"activeIndex === index\"\n        [selected]=\"facetService.isSelected(facet)\"\n        (selectedChange)=\"toggleFacet(index, facet)\"\n        (keydown)=\"onKeydown($event)\"\n        (itemFocus)=\"isFocused = true; onFocus(index)\"\n        (itemBlur)=\"isFocused = false\">\n    </ux-facet-check-list-item>\n\n</div>"
                     }] }
@@ -16357,15 +16311,15 @@
             ];
         };
         FacetCheckListComponent.propDecorators = {
-            selected: [{ type: core.Input }],
-            facets: [{ type: core.Input }],
-            header: [{ type: core.Input }],
-            scrollbar: [{ type: core.Input }],
-            simplified: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            events: [{ type: core.Output }],
-            selectedChange: [{ type: core.Output }],
-            options: [{ type: core.ViewChildren, args: [FacetCheckListItemComponent,] }]
+            selected: [{ type: i0.Input }],
+            facets: [{ type: i0.Input }],
+            header: [{ type: i0.Input }],
+            scrollbar: [{ type: i0.Input }],
+            simplified: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            events: [{ type: i0.Output }],
+            selectedChange: [{ type: i0.Output }],
+            options: [{ type: i0.ViewChildren, args: [FacetCheckListItemComponent,] }]
         };
         return FacetCheckListComponent;
     }());
@@ -16380,8 +16334,9 @@
     var /**
      * @template T
      */ TypeaheadOptionEvent = /** @class */ (function () {
-        function TypeaheadOptionEvent(option) {
+        function TypeaheadOptionEvent(option, origin) {
             this.option = option;
+            this.origin = origin;
         }
         return TypeaheadOptionEvent;
     }());
@@ -16436,7 +16391,7 @@
                 }
             };
         TypeaheadKeyService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return TypeaheadKeyService;
     }());
@@ -16447,11 +16402,11 @@
      */
     var TypeaheadService = /** @class */ (function () {
         function TypeaheadService() {
-            this.open$ = new BehaviorSubject.BehaviorSubject(false);
-            this.highlightedElement$ = new BehaviorSubject.BehaviorSubject(null);
+            this.open$ = new rxjs.BehaviorSubject(false);
+            this.highlightedElement$ = new rxjs.BehaviorSubject(null);
         }
         TypeaheadService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return TypeaheadService;
     }());
@@ -16510,26 +16465,26 @@
             /**
              * Emit when the open state changes
              */
-            this.openChange = new core.EventEmitter();
+            this.openChange = new i0.EventEmitter();
             /**
              * Emit when an option is selected
              */
-            this.optionSelected = new core.EventEmitter();
+            this.optionSelected = new i0.EventEmitter();
             /**
              * Emit whenever a highlighted item changes
              */
-            this.highlightedChange = new core.EventEmitter();
+            this.highlightedChange = new i0.EventEmitter();
             /**
              * Emit the highlighted element when it changes
              */
-            this.highlightedElementChange = new core.EventEmitter();
+            this.highlightedElementChange = new i0.EventEmitter();
             this.activeKey = null;
             this.clicking = false;
             this.hasBeenOpened = false;
-            this.highlighted$ = new BehaviorSubject.BehaviorSubject(null);
+            this.highlighted$ = new rxjs.BehaviorSubject(null);
             this.highlightedKey = null;
-            this.visibleOptions$ = new BehaviorSubject.BehaviorSubject([]);
-            this._onDestroy = new Subject.Subject();
+            this.visibleOptions$ = new rxjs.BehaviorSubject([]);
+            this._onDestroy = new rxjs.Subject();
             this.optionApi = {
                 getKey: this.getKey.bind(this),
                 getDisplay: this.getDisplay.bind(this),
@@ -16566,7 +16521,7 @@
                 _this.highlightedKey = next ? next.key : null;
                 _this.highlightedChange.emit(next ? next.value : null);
             });
-            combineLatest.combineLatest(this._service.open$, this._service.highlightedElement$, this.visibleOptions$)
+            rxjs.combineLatest(this._service.open$, this._service.highlightedElement$, this.visibleOptions$)
                 .pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (_a) {
                 var _b = __read(_a, 3), open = _b[0], highlightedElement = _b[1], visibleOptions = _b[2];
@@ -16682,7 +16637,7 @@
          * @return {?}
          */
             function (_event, option) {
-                this.select(option);
+                this.select(option, 'mouse');
             };
         /**
          * Returns the unique key value of the given option.
@@ -16782,16 +16737,18 @@
         /**
          * Selects the given option, emitting the optionSelected event and closing the dropdown.
          * @param {?} option
+         * @param {?=} origin
          * @return {?}
          */
         TypeaheadComponent.prototype.select = /**
          * Selects the given option, emitting the optionSelected event and closing the dropdown.
          * @param {?} option
+         * @param {?=} origin
          * @return {?}
          */
-            function (option) {
+            function (option, origin) {
                 if (!this.isDisabled(option)) {
-                    this.optionSelected.emit(new TypeaheadOptionEvent(option.value));
+                    this.optionSelected.emit(new TypeaheadOptionEvent(option.value, origin));
                     this.highlighted$.next(null);
                     this.open = false;
                 }
@@ -16882,7 +16839,7 @@
          */
             function () {
                 if (this.highlighted) {
-                    this.select({ value: this.highlighted, key: this.getKey(this.highlighted) });
+                    this.select({ value: this.highlighted, key: this.getKey(this.highlighted) }, 'keyboard');
                 }
             };
         /**
@@ -16960,11 +16917,11 @@
                 return -1;
             };
         TypeaheadComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-typeahead',
                         template: "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [collection]=\"visibleOptions$ | async\"\n    (collectionChange)=\"visibleOptions$.next($event)\"\n    [enabled]=\"hasBeenOpened && isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [class.active]=\"activeKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
                         providers: [TypeaheadService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             'role': 'listbox',
                             '[class.open]': 'open',
@@ -16976,37 +16933,37 @@
         /** @nocollapse */
         TypeaheadComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.ChangeDetectorRef },
+                { type: i0.ElementRef },
+                { type: i0.ChangeDetectorRef },
                 { type: TypeaheadService }
             ];
         };
         TypeaheadComponent.propDecorators = {
-            id: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.id',] }],
-            options: [{ type: core.Input }],
-            filter: [{ type: core.Input }],
-            open: [{ type: core.Input }],
-            display: [{ type: core.Input }],
-            key: [{ type: core.Input }],
-            disabledOptions: [{ type: core.Input }],
-            dropDirection: [{ type: core.Input }],
-            maxHeight: [{ type: core.Input }],
-            multiselectable: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.aria-multiselectable',] }],
-            openOnFilterChange: [{ type: core.Input }],
-            pageSize: [{ type: core.Input }],
-            selectFirst: [{ type: core.Input }],
-            selectOnEnter: [{ type: core.Input }],
-            loading: [{ type: core.Input }],
-            loadingTemplate: [{ type: core.Input }],
-            optionTemplate: [{ type: core.Input }],
-            noOptionsTemplate: [{ type: core.Input }],
-            active: [{ type: core.Input }],
-            openChange: [{ type: core.Output }],
-            optionSelected: [{ type: core.Output }],
-            highlightedChange: [{ type: core.Output }],
-            highlightedElementChange: [{ type: core.Output }],
-            mousedownHandler: [{ type: core.HostListener, args: ['mousedown',] }],
-            mouseupHandler: [{ type: core.HostListener, args: ['mouseup',] }]
+            id: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.id',] }],
+            options: [{ type: i0.Input }],
+            filter: [{ type: i0.Input }],
+            open: [{ type: i0.Input }],
+            display: [{ type: i0.Input }],
+            key: [{ type: i0.Input }],
+            disabledOptions: [{ type: i0.Input }],
+            dropDirection: [{ type: i0.Input }],
+            maxHeight: [{ type: i0.Input }],
+            multiselectable: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.aria-multiselectable',] }],
+            openOnFilterChange: [{ type: i0.Input }],
+            pageSize: [{ type: i0.Input }],
+            selectFirst: [{ type: i0.Input }],
+            selectOnEnter: [{ type: i0.Input }],
+            loading: [{ type: i0.Input }],
+            loadingTemplate: [{ type: i0.Input }],
+            optionTemplate: [{ type: i0.Input }],
+            noOptionsTemplate: [{ type: i0.Input }],
+            active: [{ type: i0.Input }],
+            openChange: [{ type: i0.Output }],
+            optionSelected: [{ type: i0.Output }],
+            highlightedChange: [{ type: i0.Output }],
+            highlightedElementChange: [{ type: i0.Output }],
+            mousedownHandler: [{ type: i0.HostListener, args: ['mousedown',] }],
+            mouseupHandler: [{ type: i0.HostListener, args: ['mouseup',] }]
         };
         return TypeaheadComponent;
     }());
@@ -17022,7 +16979,7 @@
             this._viewContainer = _viewContainer;
             this._renderer = _renderer;
             this._visible = false;
-            this._load = new Subject.Subject();
+            this._load = new rxjs.Subject();
             this.load = ( /** @type {?} */(this._load.asObservable()));
         }
         Object.defineProperty(InfiniteScrollLoadButtonDirective.prototype, "visible", {
@@ -17082,22 +17039,22 @@
                 return null;
             };
         InfiniteScrollLoadButtonDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxInfiniteScrollLoadButton]'
                     },] }
         ];
         /** @nocollapse */
         InfiniteScrollLoadButtonDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.TemplateRef },
-                { type: core.ViewContainerRef },
-                { type: core.Renderer2 }
+                { type: i0.ElementRef },
+                { type: i0.TemplateRef },
+                { type: i0.ViewContainerRef },
+                { type: i0.Renderer2 }
             ];
         };
         InfiniteScrollLoadButtonDirective.propDecorators = {
-            visible: [{ type: core.Input, args: ['uxInfiniteScrollLoadButton',] }],
-            load: [{ type: core.Output }]
+            visible: [{ type: i0.Input, args: ['uxInfiniteScrollLoadButton',] }],
+            load: [{ type: i0.Output }]
         };
         return InfiniteScrollLoadButtonDirective;
     }());
@@ -17136,19 +17093,19 @@
             configurable: true
         });
         InfiniteScrollLoadingDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxInfiniteScrollLoading]'
                     },] }
         ];
         /** @nocollapse */
         InfiniteScrollLoadingDirective.ctorParameters = function () {
             return [
-                { type: core.TemplateRef },
-                { type: core.ViewContainerRef }
+                { type: i0.TemplateRef },
+                { type: i0.ViewContainerRef }
             ];
         };
         InfiniteScrollLoadingDirective.propDecorators = {
-            visible: [{ type: core.Input, args: ['uxInfiniteScrollLoading',] }]
+            visible: [{ type: i0.Input, args: ['uxInfiniteScrollLoading',] }]
         };
         return InfiniteScrollLoadingDirective;
     }());
@@ -17168,18 +17125,18 @@
             this.loadOnInit = true;
             this.loadOnScroll = true;
             this.pageSize = 20;
-            this.collectionChange = new core.EventEmitter();
-            this.loadingEvent = new core.EventEmitter();
-            this.loadedEvent = new core.EventEmitter();
-            this.loadErrorEvent = new core.EventEmitter();
+            this.collectionChange = new i0.EventEmitter();
+            this.loadingEvent = new i0.EventEmitter();
+            this.loadedEvent = new i0.EventEmitter();
+            this.loadErrorEvent = new i0.EventEmitter();
             this._nextPageNum = 0;
-            this._updateRequests = new Subject.Subject();
-            this._isLoading = new BehaviorSubject.BehaviorSubject(false);
-            this._isExhausted = new BehaviorSubject.BehaviorSubject(false);
-            this._loadButtonEnabled = new BehaviorSubject.BehaviorSubject(false);
+            this._updateRequests = new rxjs.Subject();
+            this._isLoading = new rxjs.BehaviorSubject(false);
+            this._isExhausted = new rxjs.BehaviorSubject(false);
+            this._loadButtonEnabled = new rxjs.BehaviorSubject(false);
             this._subscriptions = [];
             this._loadButtonSubscriptions = [];
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this._canLoadManually = this._isLoading.pipe(operators.combineLatest(this._isExhausted, this._loadButtonEnabled, function (isLoading, isExhausted, loadButtonEnabled) {
                 return !isLoading && !isExhausted && loadButtonEnabled;
             }));
@@ -17205,7 +17162,7 @@
              * @param {?} element
              * @return {?}
              */ function (element) {
-                this._scrollElement = element instanceof core.ElementRef ? element : new core.ElementRef(element);
+                this._scrollElement = element instanceof i0.ElementRef ? element : new i0.ElementRef(element);
             },
             enumerable: true,
             configurable: true
@@ -17444,7 +17401,7 @@
                 /** @type {?} */
                 var target = this._scrollElement.nativeElement instanceof HTMLHtmlElement ? document : this._scrollElement.nativeElement;
                 // Subscribe to the scroll event on the target element.
-                this._scrollEventSub = fromEvent.fromEvent(target, 'scroll').subscribe(this.check.bind(this));
+                this._scrollEventSub = rxjs.fromEvent(target, 'scroll').subscribe(this.check.bind(this));
                 // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
                 // required after the initial load.
                 this._domObserver = new MutationObserver(this.check.bind(this));
@@ -17515,7 +17472,7 @@
                     /** @type {?} */
                     var loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
                     /** @type {?} */
-                    var observable = Array.isArray(loadResult) ? of.of(loadResult) : from.from(loadResult);
+                    var observable = Array.isArray(loadResult) ? rxjs.of(loadResult) : rxjs.from(loadResult);
                     /** @type {?} */
                     var subscription_1 = observable.pipe(operators.first()).subscribe(function (items) {
                         // Make sure that the parameters have not changed since the load started;
@@ -17653,7 +17610,7 @@
                 this.loadErrorEvent.emit(new InfiniteScrollLoadErrorEvent(request.pageNumber, request.pageSize, request.filter, error));
             };
         InfiniteScrollDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxInfiniteScroll]',
                         exportAs: 'uxInfiniteScroll'
                     },] }
@@ -17661,24 +17618,24 @@
         /** @nocollapse */
         InfiniteScrollDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         InfiniteScrollDirective.propDecorators = {
-            load: [{ type: core.Input, args: ['uxInfiniteScroll',] }],
-            _collection: [{ type: core.Input, args: ['collection',] }],
-            scrollElement: [{ type: core.Input }],
-            enabled: [{ type: core.Input }],
-            filter: [{ type: core.Input }],
-            loadOnInit: [{ type: core.Input }],
-            loadOnScroll: [{ type: core.Input }],
-            pageSize: [{ type: core.Input }],
-            collectionChange: [{ type: core.Output }],
-            loadingEvent: [{ type: core.Output, args: ['loading',] }],
-            loadedEvent: [{ type: core.Output, args: ['loaded',] }],
-            loadErrorEvent: [{ type: core.Output, args: ['loadError',] }],
-            _loadButtonQuery: [{ type: core.ContentChildren, args: [InfiniteScrollLoadButtonDirective,] }],
-            _loadingIndicatorQuery: [{ type: core.ContentChildren, args: [InfiniteScrollLoadingDirective,] }]
+            load: [{ type: i0.Input, args: ['uxInfiniteScroll',] }],
+            _collection: [{ type: i0.Input, args: ['collection',] }],
+            scrollElement: [{ type: i0.Input }],
+            enabled: [{ type: i0.Input }],
+            filter: [{ type: i0.Input }],
+            loadOnInit: [{ type: i0.Input }],
+            loadOnScroll: [{ type: i0.Input }],
+            pageSize: [{ type: i0.Input }],
+            collectionChange: [{ type: i0.Output }],
+            loadingEvent: [{ type: i0.Output, args: ['loading',] }],
+            loadedEvent: [{ type: i0.Output, args: ['loaded',] }],
+            loadErrorEvent: [{ type: i0.Output, args: ['loadError',] }],
+            _loadButtonQuery: [{ type: i0.ContentChildren, args: [InfiniteScrollLoadButtonDirective,] }],
+            _loadingIndicatorQuery: [{ type: i0.ContentChildren, args: [InfiniteScrollLoadingDirective,] }]
         };
         return InfiniteScrollDirective;
     }());
@@ -17763,7 +17720,7 @@
         function InfiniteScrollModule() {
         }
         InfiniteScrollModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [],
                         exports: [
                             InfiniteScrollDirective,
@@ -17818,7 +17775,7 @@
                 }
             };
         ScrollIntoViewService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return ScrollIntoViewService;
     }());
@@ -17846,7 +17803,7 @@
                 }
             };
         ScrollIntoViewIfDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxScrollIntoViewIf]',
                         providers: [ScrollIntoViewService]
                     },] }
@@ -17854,13 +17811,13 @@
         /** @nocollapse */
         ScrollIntoViewIfDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ScrollIntoViewService }
             ];
         };
         ScrollIntoViewIfDirective.propDecorators = {
-            condition: [{ type: core.Input, args: ['uxScrollIntoViewIf',] }],
-            scrollParent: [{ type: core.Input }]
+            condition: [{ type: i0.Input, args: ['uxScrollIntoViewIf',] }],
+            scrollParent: [{ type: i0.Input }]
         };
         return ScrollIntoViewIfDirective;
     }());
@@ -17893,19 +17850,19 @@
                 }
             };
         ScrollIntoViewDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxScrollIntoView]'
                     },] }
         ];
         /** @nocollapse */
         ScrollIntoViewDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         ScrollIntoViewDirective.propDecorators = {
-            uxScrollIntoView: [{ type: core.Input }],
-            scrollIntoViewOptions: [{ type: core.Input }]
+            uxScrollIntoView: [{ type: i0.Input }],
+            scrollIntoViewOptions: [{ type: i0.Input }]
         };
         return ScrollIntoViewDirective;
     }());
@@ -17918,7 +17875,7 @@
         function ScrollModule() {
         }
         ScrollModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [ScrollIntoViewIfDirective, ScrollIntoViewDirective],
                         declarations: [ScrollIntoViewIfDirective, ScrollIntoViewDirective]
                     },] }
@@ -17953,7 +17910,7 @@
             configurable: true
         });
         TypeaheadHighlightDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTypeaheadHighlight]'
                     },] }
         ];
@@ -17961,11 +17918,11 @@
         TypeaheadHighlightDirective.ctorParameters = function () {
             return [
                 { type: TypeaheadService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         TypeaheadHighlightDirective.propDecorators = {
-            highlight: [{ type: core.Input, args: ['uxTypeaheadHighlight',] }]
+            highlight: [{ type: i0.Input, args: ['uxTypeaheadHighlight',] }]
         };
         return TypeaheadHighlightDirective;
     }());
@@ -17978,7 +17935,7 @@
         function TypeaheadModule() {
         }
         TypeaheadModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             InfiniteScrollModule,
@@ -18006,8 +17963,8 @@
             this.selected = false;
             this.simplified = false;
             this.tabbable = false;
-            this.itemFocus = new core.EventEmitter();
-            this.selectedChange = new core.EventEmitter();
+            this.itemFocus = new i0.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
         }
         Object.defineProperty(FacetTypeaheadListItemComponent.prototype, "disabled", {
             get: /**
@@ -18037,20 +17994,20 @@
                 this.option.nativeElement.focus();
             };
         FacetTypeaheadListItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-typeahead-list-item',
                         template: "<div #option\n    uxFocusIndicator\n    role=\"option\"\n    class=\"facet-typeahead-list-selected-option\"\n    [attr.aria-checked]=\"selected\"\n    [tabindex]=\"tabbable ? 0 : -1\"\n    (focus)=\"itemFocus.emit()\"\n    (click)=\"selectedChange.emit(facet)\"\n    (keydown.enter)=\"selectedChange.emit(facet)\"\n    (keydown.space)=\"selectedChange.emit(facet); $event.preventDefault()\"\n    (keydown.spacebar)=\"selectedChange.emit(facet); $event.preventDefault()\">\n\n    <ux-checkbox [clickable]=\"false\" [value]=\"selected\" [simplified]=\"simplified\" [tabindex]=\"-1\" [disabled]=\"disabled\">\n        <span class=\"facet-typeahead-list-selected-option-title\">{{ facet?.title }}</span>\n        <span *ngIf=\"facet?.count !== undefined\" class=\"facet-typeahead-list-selected-option-count\">({{ facet?.count }})</span>\n    </ux-checkbox>\n\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         FacetTypeaheadListItemComponent.propDecorators = {
-            facet: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            simplified: [{ type: core.Input }],
-            tabbable: [{ type: core.Input }],
-            itemFocus: [{ type: core.Output }],
-            selectedChange: [{ type: core.Output }],
-            option: [{ type: core.ViewChild, args: ['option',] }]
+            facet: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            simplified: [{ type: i0.Input }],
+            tabbable: [{ type: i0.Input }],
+            itemFocus: [{ type: i0.Output }],
+            selectedChange: [{ type: i0.Output }],
+            option: [{ type: i0.ViewChild, args: ['option',] }]
         };
         return FacetTypeaheadListItemComponent;
     }());
@@ -18081,18 +18038,18 @@
             /**
              * Emits the current query when the value of the input field changes.
              */
-            this.queryChange = new core.EventEmitter();
+            this.queryChange = new i0.EventEmitter();
             /**
              * This will be triggered when a facet is selected, deselected or all facets are deselected.
              * The event will be an instance of either `FacetSelect`, `FacetDeselect` or `FacetDeselectAll` and
              * will contain the facet being selected or deselected in a `facet` property (deselect all will not contain affected facets).
              */
-            this.events = new Subject.Subject();
+            this.events = new rxjs.Subject();
             /**
              * If two-way binding is used this array will get updated any time the selected facets change.
              */
-            this.selectedChange = new core.EventEmitter();
-            this.query$ = new BehaviorSubject.BehaviorSubject('');
+            this.selectedChange = new i0.EventEmitter();
+            this.query$ = new rxjs.BehaviorSubject('');
             this.loading = false;
             this.activeIndex = 0;
             this.typeaheadId = "ux-facet-typeahead-" + uniqueId$4++;
@@ -18100,7 +18057,7 @@
             this.typeaheadOptions = [];
             this._facets = [];
             this._selected = [];
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this._config = { placeholder: '', maxResults: 50, minCharacters: 1 };
         }
         Object.defineProperty(FacetTypeaheadListComponent.prototype, "selected", {
@@ -18295,7 +18252,7 @@
          * @return {?}
          */
             function () {
-                return this.facets instanceof Observable.Observable ? this.facets : of.of(this.facets);
+                return rxjs.isObservable(this.facets) ? this.facets : rxjs.of(this.facets);
             };
         /**
          * @param {?} event
@@ -18329,7 +18286,7 @@
                 return this._facets ? this._facets.indexOf(facet) !== -1 : false;
             };
         FacetTypeaheadListComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-facet-typeahead-list',
                         template: "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\n\n<div class=\"facet-typeahead-list-container\" role=\"listbox\" *ngIf=\"expanded\">\n\n    <div class=\"facet-typeahead-list-selected-container\" tabindex=\"-1\" *ngIf=\"suggestions?.length > 0\">\n\n        <ux-facet-typeahead-list-item\n            *ngFor=\"let facet of suggestions; let index = index\"\n            [facet]=\"facet\"\n            [tabbable]=\"activeIndex === index\"\n            [selected]=\"facetService.isSelected(facet)\"\n            (selectedChange)=\"toggleFacet(index, facet)\"\n            (keydown)=\"onKeydown($event)\"\n            (itemFocus)=\"onFocus(index)\">\n        </ux-facet-typeahead-list-item>\n\n    </div>\n\n    <div class=\"facet-typeahead-list-control\">\n\n        <!-- Create Typeahead Control -->\n        <input type=\"text\"\n            class=\"form-control\"\n            [placeholder]=\"typeaheadConfig?.placeholder\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            aria-autocomplete=\"list\"\n            aria-multiline=\"false\"\n            [attr.aria-controls]=\"typeaheadId\"\n            [ngModel]=\"query$ | async\"\n            (ngModelChange)=\"query$.next($event); updateTypeahead($event)\"\n            (keydown)=\"typeaheadKeyService.handleKey($event, typeahead)\"\n            (blur)=\"typeaheadOpen = false\">\n\n        <ux-typeahead #typeahead\n            [id]=\"typeaheadId\"\n            [(open)]=\"typeaheadOpen\"\n            [loading]=\"loading\"\n            display=\"title\"\n            [options]=\"typeaheadOptions\"\n            [optionTemplate]=\"facetOptionTemplate\"\n            [selectOnEnter]=\"true\"\n            (optionSelected)=\"select($event)\"\n            (highlightedElementChange)=\"highlightedElement = $event\">\n        </ux-typeahead>\n\n    </div>\n\n</div>\n\n<ng-template #facetOptionTemplate let-option=\"option\" let-api=\"api\">\n    <p class=\"facet-typeahead-list-option\" [attr.aria-label]=\"option.title\">\n        <span [innerHTML]=\"option.title | facetTypeaheadHighlight: (query$ | async)\"></span>\n        <span class=\"facet-typeahead-list-option-count\"\n            *ngIf=\"option.count\">\n            ({{ option.count }})\n        </span>\n    </p>\n</ng-template>"
                     }] }
@@ -18343,18 +18300,18 @@
             ];
         };
         FacetTypeaheadListComponent.propDecorators = {
-            selected: [{ type: core.Input }],
-            facets: [{ type: core.Input }],
-            header: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            suggestions: [{ type: core.Input }],
-            simplified: [{ type: core.Input }],
-            query: [{ type: core.Input }],
-            queryChange: [{ type: core.Output }],
-            events: [{ type: core.Output }],
-            selectedChange: [{ type: core.Output }],
-            typeaheadConfig: [{ type: core.Input }],
-            options: [{ type: core.ViewChildren, args: [FacetTypeaheadListItemComponent,] }]
+            selected: [{ type: i0.Input }],
+            facets: [{ type: i0.Input }],
+            header: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            suggestions: [{ type: i0.Input }],
+            simplified: [{ type: i0.Input }],
+            query: [{ type: i0.Input }],
+            queryChange: [{ type: i0.Output }],
+            events: [{ type: i0.Output }],
+            selectedChange: [{ type: i0.Output }],
+            typeaheadConfig: [{ type: i0.Input }],
+            options: [{ type: i0.ViewChildren, args: [FacetTypeaheadListItemComponent,] }]
         };
         return FacetTypeaheadListComponent;
     }());
@@ -18377,7 +18334,7 @@
                 return value.replace(regex, "<b class=\"facet-typeahead-highlighted\">" + value.match(regex) + "</b>");
             };
         FacetTypeaheadHighlight.decorators = [
-            { type: core.Pipe, args: [{
+            { type: i0.Pipe, args: [{
                         name: 'facetTypeaheadHighlight'
                     },] }
         ];
@@ -18392,7 +18349,7 @@
         function ReorderableHandleDirective() {
         }
         ReorderableHandleDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxReorderableHandle]'
                     },] }
         ];
@@ -18412,18 +18369,18 @@
             this.elementRef = elementRef;
         }
         ReorderableModelDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxReorderableModel]'
                     },] }
         ];
         /** @nocollapse */
         ReorderableModelDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         ReorderableModelDirective.propDecorators = {
-            uxReorderableModel: [{ type: core.Input }]
+            uxReorderableModel: [{ type: i0.Input }]
         };
         return ReorderableModelDirective;
     }());
@@ -18544,7 +18501,7 @@
                 return this._groups[group];
             };
         ReorderableService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return ReorderableService;
     }());
@@ -18555,11 +18512,11 @@
      * Represents a collection of drag-and-drop containers (uxReorderable) that items can be dragged between.
      */ ReorderableGroup = /** @class */ (function () {
         function ReorderableGroup() {
-            this.drag = new core.EventEmitter();
-            this.dragEnd = new core.EventEmitter();
-            this.drop = new core.EventEmitter();
-            this.cancel = new core.EventEmitter();
-            this.cloned = new core.EventEmitter();
+            this.drag = new i0.EventEmitter();
+            this.dragEnd = new i0.EventEmitter();
+            this.drop = new i0.EventEmitter();
+            this.cancel = new i0.EventEmitter();
+            this.cloned = new i0.EventEmitter();
             this._containers = [];
             this._config = {
                 moves: this.canMove.bind(this)
@@ -18799,21 +18756,21 @@
              * in their current order. This should be used when the list of items is generated using ngFor to ensure the
              * data remains in the same order for both the `uxReorderable` and `ngFor` directives.
              */
-            this.reorderableModelChange = new core.EventEmitter();
+            this.reorderableModelChange = new i0.EventEmitter();
             /**
              * This event is triggered when a user begins dragging an item. The event will contain the element being moved.
              */
-            this.reorderStart = new core.EventEmitter();
+            this.reorderStart = new i0.EventEmitter();
             /**
              * This event is triggered when the item being dragged is returned to the same location as it began. The event will contain the element that was being moved.
              */
-            this.reorderCancel = new core.EventEmitter();
+            this.reorderCancel = new i0.EventEmitter();
             /**
              * This event is triggered when a user has relocated an item. The event will contain the element that was moved.
              */
-            this.reorderEnd = new core.EventEmitter();
+            this.reorderEnd = new i0.EventEmitter();
             this.dragging = false;
-            this._subscriptions = new Subscription.Subscription();
+            this._subscriptions = new rxjs.Subscription();
         }
         /**
          * Initialise dragula and bind to all the required events
@@ -19066,29 +19023,29 @@
                     .forEach(function (context, idx) { return context.drawImage(sourceCanvases[idx], 0, 0); });
             };
         ReorderableDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxReorderable]'
                     },] }
         ];
         /** @nocollapse */
         ReorderableDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
                 { type: ReorderableService }
             ];
         };
         ReorderableDirective.propDecorators = {
-            reorderableModel: [{ type: core.Input }],
-            reorderableGroup: [{ type: core.Input }],
-            reorderingDisabled: [{ type: core.Input }],
-            reorderableModelChange: [{ type: core.Output }],
-            reorderStart: [{ type: core.Output }],
-            reorderCancel: [{ type: core.Output }],
-            reorderEnd: [{ type: core.Output }],
-            handles: [{ type: core.ContentChildren, args: [ReorderableHandleDirective, { read: core.ElementRef, descendants: true },] }],
-            models: [{ type: core.ContentChildren, args: [ReorderableModelDirective,] }],
-            dragging: [{ type: core.HostBinding, args: ['class.ux-reorderable-container-moving',] }]
+            reorderableModel: [{ type: i0.Input }],
+            reorderableGroup: [{ type: i0.Input }],
+            reorderingDisabled: [{ type: i0.Input }],
+            reorderableModelChange: [{ type: i0.Output }],
+            reorderStart: [{ type: i0.Output }],
+            reorderCancel: [{ type: i0.Output }],
+            reorderEnd: [{ type: i0.Output }],
+            handles: [{ type: i0.ContentChildren, args: [ReorderableHandleDirective, { read: i0.ElementRef, descendants: true },] }],
+            models: [{ type: i0.ContentChildren, args: [ReorderableModelDirective,] }],
+            dragging: [{ type: i0.HostBinding, args: ['class.ux-reorderable-container-moving',] }]
         };
         return ReorderableDirective;
     }());
@@ -19101,7 +19058,7 @@
         function ReorderableModule() {
         }
         ReorderableModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule
                         ],
@@ -19143,7 +19100,7 @@
         function FacetsModule() {
         }
         FacetsModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
@@ -19228,11 +19185,11 @@
             /**
              * The list of active filters
              */
-            this.filters$ = new BehaviorSubject.BehaviorSubject([]);
+            this.filters$ = new rxjs.BehaviorSubject([]);
             /**
              * Emit all the events when they occur
              */
-            this.events$ = new Subject.Subject();
+            this.events$ = new rxjs.Subject();
         }
         /**
          * @param {?} filter
@@ -19294,7 +19251,7 @@
                 return this.filters$.value.indexOf(filter) > -1;
             };
         FilterService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return FilterService;
     }());
@@ -19310,15 +19267,15 @@
             /**
              * Emit when the active filters chance
              */
-            this.filtersChange = new core.EventEmitter();
+            this.filtersChange = new i0.EventEmitter();
             /**
              * Emit when a specific event occurs
              */
-            this.events = new core.EventEmitter();
+            this.events = new i0.EventEmitter();
             /**
              * Unsubscribe from the subscriptions on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // subscribe to changes to the active filters
             filterService.filters$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged())
                 .subscribe(function (filters) { return _this.filtersChange.emit(filters); });
@@ -19350,7 +19307,7 @@
                 this._onDestroy.complete();
             };
         FilterContainerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-filter-container',
                         template: "<ng-content></ng-content>\n\n<!-- Add a Clear Button -->\n<button type=\"button\"\n    class=\"btn btn-link btn-icon btn-secondary m-l-xs\"\n    tabindex=\"0\"\n    aria-label=\"Clear all filters\"\n    i18n-aria-label\n    *ngIf=\"(filterService.filters$ | async).length > 0\"\n    [uxTooltip]=\"clearTooltip || 'Clear All'\"\n    (click)=\"filterService.removeAll()\">\n\n    <svg class=\"filter-selected-clear-graphic\" width=\"100%\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n        <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n        <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n        <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n        <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n        <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n    </svg>\n\n</button>",
                         providers: [FilterService]
@@ -19363,10 +19320,10 @@
             ];
         };
         FilterContainerComponent.propDecorators = {
-            filters: [{ type: core.Input }],
-            clearTooltip: [{ type: core.Input }],
-            filtersChange: [{ type: core.Output }],
-            events: [{ type: core.Output }]
+            filters: [{ type: i0.Input }],
+            clearTooltip: [{ type: i0.Input }],
+            filtersChange: [{ type: i0.Output }],
+            events: [{ type: i0.Output }]
         };
         return FilterContainerComponent;
     }());
@@ -19425,19 +19382,19 @@
                 this._announcer.announce("Filter " + _filter.name + " deselected.");
             };
         FilterBaseComponent.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'ux-filter-base'
                     },] }
         ];
         /** @nocollapse */
         FilterBaseComponent.ctorParameters = function () {
             return [
-                { type: FilterContainerComponent, decorators: [{ type: core.Host }] },
+                { type: FilterContainerComponent, decorators: [{ type: i0.Host }] },
                 { type: a11y.LiveAnnouncer }
             ];
         };
         FilterBaseComponent.propDecorators = {
-            filters: [{ type: core.Input }]
+            filters: [{ type: i0.Input }]
         };
         return FilterBaseComponent;
     }());
@@ -19454,7 +19411,7 @@
              * The list of items to display in the dropdown
              */
             this.filters = [];
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             _filterService.events$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (event) { return event instanceof FilterRemoveAllEvent; }))
                 .subscribe(function () { return _this.removeFilter(); });
             // ensure that the current selected filter is still selected when the active filters change
@@ -19520,9 +19477,9 @@
                 this.selected = this.initial;
             };
         FilterDropdownComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-filter-dropdown',
-                        template: "<div class=\"btn-group\" dropdown [autoClose]=\"true\" #dropdown=\"bs-dropdown\">\n\n    <button\n        type=\"button\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"false\"\n        tabindex=\"0\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dropdown.isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"dropdown.isOpen\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [class.active]=\"selected !== initial\">\n        {{ selected?.title }}\n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n\n    <ul *dropdownMenu\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\"\n        class=\"dropdown-menu\" role=\"menu\">\n\n        <li class=\"dropdown-list-item\"\n            *ngFor=\"let filter of filters\"\n            role=\"none\">\n\n            <a class=\"dropdown-item\"\n                uxFocusIndicator\n                [programmaticFocusIndicator]=\"true\"\n                role=\"listitem\"\n                tabindex=\"-1\"\n                uxMenuNavigationItem\n                [attr.aria-selected]=\"filter === selected\"\n                (click)=\"selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.enter)=\"selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.escape)=\"menuNavigationToggle.focus()\">\n\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </a>\n        </li>\n    </ul>\n</div>"
+                        template: "<div class=\"btn-group\">\n    <button\n        type=\"button\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [class.active]=\"selected !== initial\"\n        [uxMenuTriggerFor]=\"menu\">\n\n        {{ selected?.title }} <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n\n    <ux-menu #menu menuClass=\"ux-filter-menu\">\n        <button\n            type=\"button\"\n            *ngFor=\"let filter of filters\"\n            uxMenuItem\n            [attr.aria-selected]=\"filter === selected\"\n            (click)=\"selectFilter(filter, $event)\"\n            (keydown.enter)=\"selectFilter(filter, $event)\">\n\n            <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n            <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n        </button>\n    </ux-menu>\n</div>"
                     }] }
         ];
         /** @nocollapse */
@@ -19532,8 +19489,8 @@
             ];
         };
         FilterDropdownComponent.propDecorators = {
-            filters: [{ type: core.Input }],
-            initial: [{ type: core.Input }]
+            filters: [{ type: i0.Input }],
+            initial: [{ type: i0.Input }]
         };
         return FilterDropdownComponent;
     }());
@@ -19545,11 +19502,10 @@
     /** @type {?} */
     var uniqueId$5 = 1;
     var FilterDynamicComponent = /** @class */ (function () {
-        function FilterDynamicComponent(typeaheadKeyService, _filterService, _elementRef) {
+        function FilterDynamicComponent(typeaheadKeyService, _filterService) {
             var _this = this;
             this.typeaheadKeyService = typeaheadKeyService;
             this._filterService = _filterService;
-            this._elementRef = _elementRef;
             /**
              * The list of possible filter options
              */
@@ -19561,7 +19517,7 @@
             /**
              * Store the current search query
              */
-            this.query$ = new BehaviorSubject.BehaviorSubject('');
+            this.query$ = new rxjs.BehaviorSubject('');
             /**
              * Indicate whether or not the typeahead should be shown
              */
@@ -19585,7 +19541,7 @@
             /**
              * Unsubscribe from all subscriptions
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // listen for remove all events in which case we should deselect event initial filters
             _filterService.events$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (event) { return event instanceof FilterRemoveAllEvent; }))
                 .subscribe(function () { return _this.removeFilter(); });
@@ -19671,46 +19627,17 @@
                     .map(function (item) { return item.name; })
                     .slice(0, this._options.maxResults);
             };
-        /** Handle selection of a typeahead options */
+        /** When the dropdown is closed clear the query */
         /**
-         * Handle selection of a typeahead options
-         * @param {?} typeaheadOption
+         * When the dropdown is closed clear the query
          * @return {?}
          */
-        FilterDynamicComponent.prototype.selectOption = /**
-         * Handle selection of a typeahead options
-         * @param {?} typeaheadOption
+        FilterDynamicComponent.prototype.onClose = /**
+         * When the dropdown is closed clear the query
          * @return {?}
          */
-            function (typeaheadOption) {
-                // remove any current filters
-                this.removeFilter();
-                // find the filter that corresponds to the selected item
-                this.selected = this.filters.find(function (_filter) { return _filter.name === typeaheadOption.value; });
-                // store the selection in the service
-                this._filterService.add(this.selected);
-                // clear the search query
+            function () {
                 this.query$.next('');
-                // hide the dropdown
-                this.dropdown.hide();
-            };
-        /** If a click occurred that was outside the dropdown then close the dropdown */
-        /**
-         * If a click occurred that was outside the dropdown then close the dropdown
-         * @param {?} target
-         * @return {?}
-         */
-        FilterDynamicComponent.prototype.clickOff = /**
-         * If a click occurred that was outside the dropdown then close the dropdown
-         * @param {?} target
-         * @return {?}
-         */
-            function (target) {
-                // if the click was outside the dropdown then close it
-                if (!(( /** @type {?} */(this._elementRef.nativeElement))).contains(target)) {
-                    this.query$.next('');
-                    this.dropdown.hide();
-                }
             };
         /** If a filter needs removed, and is not the initial filter then remove it */
         /**
@@ -19784,25 +19711,22 @@
                 }
             };
         FilterDynamicComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-filter-dynamic',
-                        template: "<div class=\"btn-group ux-dynamic-filter\"\n    dropdown\n    [autoClose]=\"true\"\n    #dynamicDropdown=\"bs-dropdown\">\n\n    <button\n        type=\"button\"\n        tabindex=\"0\"\n        dropdownToggle\n        aria-haspopup=\"true\"\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dynamicDropdown.isOpen\"\n        [attr.aria-expanded]=\"dynamicDropdown.isOpen\"\n        [class.active]=\"selected !== initial\"\n        class=\"filter-dropdown btn dropdown-toggle\">\n        {{ selected?.title }}\n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n\n    <ul *dropdownMenu\n        class=\"dropdown-menu\"\n        role=\"menu\"\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\">\n\n        <li class=\"dropdown-list-item\"\n            *ngIf=\"showTypeahead\"\n            role=\"none\">\n\n            <a class=\"dropdown-item\"\n                role=\"menuitem\"\n                tabindex=\"-1\"\n                uxMenuNavigationItem\n                [attr.aria-selected]=\"initial === selected\"\n                (click)=\"removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.enter)=\"removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()\"\n                (keydown.escape)=\"menuNavigationToggle.focus()\">\n\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"initial === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ initial.name }}</span>\n            </a>\n        </li>\n\n        <li class=\"dropdown-list-item\"\n            *ngIf=\"selected !== initial && showTypeahead\"\n            role=\"none\">\n\n            <a class=\"dropdown-item\"\n                role=\"menuitem\"\n                tabindex=\"-1\"\n                uxMenuNavigationItem>\n                <i class=\"hpe-icon hpe-checkmark\"></i>\n                <span class=\"filter-dropdown-title\">{{ selected.name }}</span>\n            </a>\n        </li>\n\n        <hr>\n\n        <li *ngIf=\"showTypeahead\" class=\"typeahead-box\" role=\"none\">\n\n                <input type=\"text\"\n                    class=\"form-control\"\n                    [placeholder]=\"options?.placeholder\"\n                    [attr.aria-activedescendant]=\"highlightedElement?.id\"\n                    [attr.aria-controls]=\"typeaheadId\"\n                    aria-autocomplete=\"list\"\n                    aria-multiline=\"false\"\n                    [ngModel]=\"query$ | async\"\n                    (ngModelChange)=\"query$.next($event); updateTypeahead($event)\"\n                    (keydown)=\"typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();\"\n                    (keydown.enter)=\"$event.preventDefault()\"\n                    (blur)=\"typeaheadOpen = false\"\n                    (click)=\"$event.stopPropagation()\">\n\n                <ux-typeahead #typeahead\n                    [id]=\"typeaheadId\"\n                    [(open)]=\"typeaheadOpen\"\n                    display=\"title\"\n                    [selectOnEnter]=\"true\"\n                    [options]=\"typeaheadItems\"\n                    [optionTemplate]=\"filterOptionTemplate\"\n                    (optionSelected)=\"select($event); dynamicDropdown.hide(); menuNavigationToggle.focus()\"\n                    (highlightedElementChange)=\"highlightedElement = $event\">\n                </ux-typeahead>\n        </li>\n\n        <ng-container *ngIf=\"!showTypeahead\">\n\n            <li class=\"dropdown-list-item\"\n                *ngFor=\"let filter of filters\"\n                role=\"none\">\n\n                <a class=\"dropdown-item\"\n                    role=\"menuitem\"\n                    tabindex=\"-1\"\n                    uxMenuNavigationItem\n                    [attr.aria-selected]=\"filter === selected\"\n                    (click)=\"selectFilter(filter); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()\"\n                    (keydown.enter)=\"selectFilter(filter); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()\">\n\n                    <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                    <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n                </a>\n            </li>\n\n        </ng-container>\n\n    </ul>\n</div>\n\n<ng-template #filterOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span [attr.aria-label]=\"option\" [innerHTML]=\"option | filterTypeaheadHighlight: (query$ | async)\"></span>\n</ng-template>"
+                        template: "<div class=\"btn-group ux-dynamic-filter\">\n\n    <button\n        type=\"button\"\n        [class.active]=\"selected !== initial\"\n        class=\"filter-dropdown btn dropdown-toggle\"\n        [uxMenuTriggerFor]=\"menu\"\n        #trigger=\"ux-menu-trigger\">\n        {{ selected?.title }}\n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n\n    <ux-menu #menu menuClass=\"ux-dynamic-filter-menu\" (closed)=\"onClose()\">\n        <!-- Initial Option -->\n        <button\n            uxMenuItem\n            *ngIf=\"showTypeahead\"\n            (click)=\"removeFilter()\"\n            (keydown.enter)=\"removeFilter()\">\n            <i class=\"hpe-icon\" [class.hpe-checkmark]=\"initial === selected\"></i>\n            <span class=\"filter-dropdown-title\">{{ initial.name }}</span>\n        </button>\n\n        <!-- Selected Options -->\n        <button uxMenuItem *ngIf=\"selected !== initial && showTypeahead\">\n            <i class=\"hpe-icon hpe-checkmark\"></i>\n            <span class=\"filter-dropdown-title\">{{ selected.name }}</span>\n        </button>\n\n        <ux-menu-divider *ngIf=\"showTypeahead\"></ux-menu-divider>\n\n        <div *ngIf=\"showTypeahead\" class=\"typeahead-box\" role=\"none\">\n\n            <input type=\"text\"\n                class=\"form-control\"\n                [placeholder]=\"options?.placeholder\"\n                [attr.aria-activedescendant]=\"highlightedElement?.id\"\n                [attr.aria-controls]=\"typeaheadId\"\n                aria-autocomplete=\"list\"\n                aria-multiline=\"false\"\n                [ngModel]=\"query$ | async\"\n                (ngModelChange)=\"query$.next($event); updateTypeahead($event)\"\n                (keydown)=\"typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();\"\n                (keydown.enter)=\"$event.preventDefault()\"\n                (blur)=\"typeaheadOpen = false\"\n                (click)=\"$event.stopPropagation()\">\n\n            <ux-typeahead #typeahead\n                [id]=\"typeaheadId\"\n                [(open)]=\"typeaheadOpen\"\n                display=\"title\"\n                [selectOnEnter]=\"true\"\n                [options]=\"typeaheadItems\"\n                [optionTemplate]=\"filterOptionTemplate\"\n                (optionSelected)=\"select($event); trigger.closeMenu($event.origin)\"\n                (highlightedElementChange)=\"highlightedElement = $event\">\n            </ux-typeahead>\n        </div>\n\n        <ng-container *ngIf=\"!showTypeahead\">\n\n            <button\n                *ngFor=\"let filter of filters\"\n                type=\"button\"\n                uxMenuItem\n                (click)=\"selectFilter(filter); trigger.closeMenu('mouse')\"\n                (keydown.enter)=\"selectFilter(filter); trigger.closeMenu('keyboard')\">\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </button>\n\n        </ng-container>\n\n    </ux-menu>\n</div>\n\n<ng-template #filterOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span [attr.aria-label]=\"option\" [innerHTML]=\"option | filterTypeaheadHighlight: (query$ | async)\"></span>\n</ng-template>"
                     }] }
         ];
         /** @nocollapse */
         FilterDynamicComponent.ctorParameters = function () {
             return [
                 { type: TypeaheadKeyService },
-                { type: FilterService },
-                { type: core.ElementRef }
+                { type: FilterService }
             ];
         };
         FilterDynamicComponent.propDecorators = {
-            filters: [{ type: core.Input }],
-            initial: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            dropdown: [{ type: core.ViewChild, args: [dropdown.BsDropdownDirective,] }],
-            clickOff: [{ type: core.HostListener, args: ['document:click', ['$event.target'],] }]
+            filters: [{ type: i0.Input }],
+            initial: [{ type: i0.Input }],
+            options: [{ type: i0.Input }]
         };
         return FilterDynamicComponent;
     }());
@@ -19830,7 +19754,7 @@
                 return value.replace(regex, "<b class=\"filter-typeahead-highlighted\">" + value.match(regex) + "</b>");
             };
         FilterTypeaheadHighlight.decorators = [
-            { type: core.Pipe, args: [{
+            { type: i0.Pipe, args: [{
                         name: 'filterTypeaheadHighlight'
                     },] }
         ];
@@ -19841,529 +19765,1294 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var MenuNavigationService = /** @class */ (function () {
-        function MenuNavigationService() {
-            /**
-             * Store a list of items that belong to this menu
-             */
-            this.menuItems = [];
-            /**
-             * Store the current active menu item
-             */
-            this.active$ = new BehaviorSubject.BehaviorSubject(null);
+    var MenuDividerComponent = /** @class */ (function () {
+        function MenuDividerComponent() {
         }
-        /** Add an item to this menu */
-        /**
-         * Add an item to this menu
-         * @param {?} menuItem
-         * @return {?}
-         */
-        MenuNavigationService.prototype.register = /**
-         * Add an item to this menu
-         * @param {?} menuItem
-         * @return {?}
-         */
-            function (menuItem) {
-                this.menuItems = __spread(this.menuItems, [menuItem]);
-            };
-        /** Remove an item from the list of menu items */
-        /**
-         * Remove an item from the list of menu items
-         * @param {?} menuItem
-         * @return {?}
-         */
-        MenuNavigationService.prototype.unregister = /**
-         * Remove an item from the list of menu items
-         * @param {?} menuItem
-         * @return {?}
-         */
-            function (menuItem) {
-                this.menuItems = this.menuItems.filter(function (_menuItem) { return _menuItem !== menuItem; });
-            };
-        MenuNavigationService.decorators = [
-            { type: core.Injectable }
-        ];
-        return MenuNavigationService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var MenuNavigationItemDirective = /** @class */ (function () {
-        function MenuNavigationItemDirective(_menuNavigationService, _elementRef, focusIndicatorService) {
-            var _this = this;
-            this._menuNavigationService = _menuNavigationService;
-            this._elementRef = _elementRef;
-            /**
-             * Emit when this menu is activated
-             */
-            this.activated = new core.EventEmitter();
-            /**
-             * Unsubscribe from all observables on destroy
-             */
-            this._onDestroy = new Subject.Subject();
-            // register this item with the menu - this allows for nested menus as we each uxMenuNavigation will create its own service
-            _menuNavigationService.register(this);
-            // create the focus indicator
-            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement, { programmaticFocusIndicator: true, checkChildren: false });
-            /** Subscribe to the current active index */
-            _menuNavigationService.active$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (item) { return item === _this; })).subscribe(function () { return _this.setActive(); });
-        }
-        /**
-         * @return {?}
-         */
-        MenuNavigationItemDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._menuNavigationService.unregister(this);
-                this._onDestroy.unsubscribe();
-                this._focusIndicator.destroy();
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationItemDirective.prototype.setActive = /**
-         * @return {?}
-         */
-            function () {
-                this._elementRef.nativeElement.focus();
-                this.activated.emit();
-            };
-        MenuNavigationItemDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxMenuNavigationItem]'
-                    },] }
-        ];
-        /** @nocollapse */
-        MenuNavigationItemDirective.ctorParameters = function () {
-            return [
-                { type: MenuNavigationService },
-                { type: core.ElementRef },
-                { type: FocusIndicatorService }
-            ];
-        };
-        MenuNavigationItemDirective.propDecorators = {
-            activated: [{ type: core.Output }]
-        };
-        return MenuNavigationItemDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var MenuNavigationToggleDirective = /** @class */ (function () {
-        function MenuNavigationToggleDirective(elementRef, focusIndicatorService) {
-            /**
-             * Define the position the menu appears relative to the button
-             */
-            this.menuPosition = 'bottom';
-            /**
-             * Emit when the menu open state changes
-             */
-            this.menuOpenChange = new core.EventEmitter();
-            /**
-             * Emits whenever a key that opens the menu is pressed
-             */
-            this.keyEnter = new core.EventEmitter();
-            this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
-        }
-        Object.defineProperty(MenuNavigationToggleDirective.prototype, "menuOpen", {
-            /** Define if the menu is open */
-            get: /**
-             * Define if the menu is open
-             * @return {?}
-             */ function () {
-                return this._menuOpen;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._menuOpen = value;
-                this.menuOpenChange.emit(value);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        MenuNavigationToggleDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._focusIndicator.destroy();
-            };
-        /**
-         * @param {?=} origin
-         * @return {?}
-         */
-        MenuNavigationToggleDirective.prototype.focus = /**
-         * @param {?=} origin
-         * @return {?}
-         */
-            function (origin) {
-                this._focusIndicator.focus(origin);
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        MenuNavigationToggleDirective.prototype.keydownHandler = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                var _this = this;
-                if (this.isKeyMatch(event.which)) {
-                    // Open the menu
-                    this.menuOpen = true;
-                    // Allow the menu to init, then send the event to give it focus
-                    setTimeout(function () { return _this.keyEnter.emit(); });
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-            };
-        /**
-         * @param {?} key
-         * @return {?}
-         */
-        MenuNavigationToggleDirective.prototype.isKeyMatch = /**
-         * @param {?} key
-         * @return {?}
-         */
-            function (key) {
-                switch (key) {
-                    case keycodes.ENTER:
-                    case keycodes.SPACE:
-                        return true;
-                    case keycodes.UP_ARROW:
-                        return this.menuPosition === 'top';
-                    case keycodes.DOWN_ARROW:
-                        return this.menuPosition === 'bottom';
-                    case keycodes.LEFT_ARROW:
-                        return this.menuPosition === 'left';
-                    case keycodes.RIGHT_ARROW:
-                        return this.menuPosition === 'right';
-                }
-                return false;
-            };
-        MenuNavigationToggleDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxMenuNavigationToggle]',
-                        exportAs: 'uxMenuNavigationToggle'
-                    },] }
-        ];
-        /** @nocollapse */
-        MenuNavigationToggleDirective.ctorParameters = function () {
-            return [
-                { type: core.ElementRef },
-                { type: FocusIndicatorService }
-            ];
-        };
-        MenuNavigationToggleDirective.propDecorators = {
-            menuOpen: [{ type: core.Input }],
-            menuPosition: [{ type: core.Input }],
-            menuOpenChange: [{ type: core.Output }],
-            keyEnter: [{ type: core.Output }],
-            keydownHandler: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
-        };
-        return MenuNavigationToggleDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var MenuNavigationDirective = /** @class */ (function () {
-        function MenuNavigationDirective(_menuNavigationService) {
-            this._menuNavigationService = _menuNavigationService;
-            /**
-             * Define the position of the toggle button relative to the menu
-             */
-            this.toggleButtonPosition = 'top';
-            /**
-             * Emit when the menu is no longer focused
-             */
-            this.navigatedOut = new core.EventEmitter();
-            /**
-             * Determine if the menu currently has focus
-             */
-            this._isFocused = false;
-            /**
-             * Unsubscribe from all observables on destroy
-             */
-            this._onDestroy = new Subject.Subject();
-        }
-        Object.defineProperty(MenuNavigationDirective.prototype, "activeIndex", {
-            /** Get the index of the currently active item */
-            get: /**
-             * Get the index of the currently active item
-             * @return {?}
-             */ function () {
-                return this.menuItems.indexOf(this._menuNavigationService.active$.value);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(MenuNavigationDirective.prototype, "menuItems", {
-            // get the list of menu items
-            get: 
-            // get the list of menu items
-            /**
-             * @return {?}
-             */
-            function () {
-                return this._menuNavigationService.menuItems;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.ngOnInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                if (this.toggleButton) {
-                    this.toggleButton.keyEnter.pipe(operators.takeUntil(this._onDestroy))
-                        .subscribe(function () { return _this.focusFirst(); });
-                }
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.focusFirst = /**
-         * @return {?}
-         */
-            function () {
-                this.moveFirst();
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.onFocusIn = /**
-         * @return {?}
-         */
-            function () {
-                this._isFocused = true;
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.onFocusOut = /**
-         * @return {?}
-         */
-            function () {
-                this._isFocused = false;
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.keydownHandler = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // Only handle events when focus in within the list of menu items
-                if (this._isFocused === false) {
-                    return;
-                }
-                /** @type {?} */
-                var handled = false;
-                switch (event.which) {
-                    case keycodes.UP_ARROW:
-                        this.movePrevious(event);
-                        handled = true;
-                        break;
-                    case keycodes.DOWN_ARROW:
-                        this.moveNext(event);
-                        handled = true;
-                        break;
-                    case keycodes.LEFT_ARROW:
-                        if (this.toggleButtonPosition === 'left') {
-                            this.moveToToggleButton(event);
-                            handled = true;
+        MenuDividerComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-menu-divider',
+                        template: "",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        host: {
+                            role: 'separator'
                         }
-                        break;
-                    case keycodes.RIGHT_ARROW:
-                        if (this.toggleButtonPosition === 'right') {
-                            this.moveToToggleButton(event);
-                            handled = true;
-                        }
-                        break;
-                    case keycodes.HOME:
-                        this.moveFirst();
-                        handled = true;
-                        break;
-                    case keycodes.END:
-                        this.moveLast();
-                        handled = true;
-                        break;
-                    case keycodes.ESCAPE:
-                        this.moveToToggleButton(event);
-                        handled = true;
-                        break;
-                }
-                if (handled) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.moveNext = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // Do nothing if there's no active menu item registered
-                if (this.activeIndex < 0) {
-                    return;
-                }
-                /** @type {?} */
-                var nextIndex = this.activeIndex + 1;
-                if (nextIndex < this.menuItems.length) {
-                    // Activate the next menu item
-                    // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
-                    this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
-                }
-                else {
-                    // Check if focus went out of bounds in the direction of the origin toggle button
-                    if (this.toggleButtonPosition === 'bottom') {
-                        this.moveToToggleButton(event);
-                    }
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.movePrevious = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // Do nothing if there's no active menu item registered
-                if (this.activeIndex < 0) {
-                    return;
-                }
-                /** @type {?} */
-                var nextIndex = this.activeIndex - 1;
-                if (nextIndex >= 0) {
-                    // Activate the previous menu item
-                    // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
-                    this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
-                }
-                else {
-                    // Check if focus went out of bounds in the direction of the origin toggle button
-                    if (this.toggleButtonPosition === 'top') {
-                        this.moveToToggleButton(event);
-                    }
-                }
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.moveFirst = /**
-         * @return {?}
-         */
-            function () {
-                if (this.menuItems.length > 0) {
-                    this._menuNavigationService.active$.next(this.menuItems[0]);
-                }
-            };
-        /**
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.moveLast = /**
-         * @return {?}
-         */
-            function () {
-                if (this.menuItems.length > 0) {
-                    this._menuNavigationService.active$.next(this.menuItems[this.menuItems.length - 1]);
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        MenuNavigationDirective.prototype.moveToToggleButton = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                if (this.toggleButton) {
-                    this.toggleButton.focus('keyboard');
-                    this.toggleButton.menuOpen = false;
-                }
-                this.navigatedOut.emit(event);
-            };
-        MenuNavigationDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[uxMenuNavigation]',
-                        exportAs: 'uxMenuNavigation',
-                        providers: [MenuNavigationService]
-                    },] }
+                    }] }
         ];
-        /** @nocollapse */
-        MenuNavigationDirective.ctorParameters = function () {
-            return [
-                { type: MenuNavigationService }
-            ];
-        };
-        MenuNavigationDirective.propDecorators = {
-            toggleButton: [{ type: core.Input }],
-            toggleButtonPosition: [{ type: core.Input }],
-            navigatedOut: [{ type: core.Output }],
-            onFocusIn: [{ type: core.HostListener, args: ['focusin',] }],
-            onFocusOut: [{ type: core.HostListener, args: ['focusout',] }],
-            keydownHandler: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
-        };
-        return MenuNavigationDirective;
+        return MenuDividerComponent;
     }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @enum {number} */
+    var MenuItemType = {
+        Default: 0,
+        Custom: 1,
+    };
+    MenuItemType[MenuItemType.Default] = 'Default';
+    MenuItemType[MenuItemType.Custom] = 'Custom';
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var EXPORTS = [
-        MenuNavigationDirective,
-        MenuNavigationItemDirective,
-        MenuNavigationToggleDirective
-    ];
-    var MenuNavigationModule = /** @class */ (function () {
-        function MenuNavigationModule() {
+    var MENU_OPTIONS_TOKEN = new i0.InjectionToken('MENU_OPTIONS_TOKEN');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuComponent = /** @class */ (function () {
+        function MenuComponent(_changeDetector, _options) {
+            this._changeDetector = _changeDetector;
+            this._options = _options;
+            /**
+             * Define the position of the menu
+             */
+            this.placement = 'bottom';
+            /**
+             * Define the alignment of the menu
+             */
+            this.alignment = 'start';
+            /**
+             * Define if we should animate the menu
+             */
+            this.animate = this._options && this._options.hasOwnProperty('animate') ? this._options.animate : true;
+            /**
+             * Emit when the opening has begun (the opened EventEmitter waits until the animation has finished)
+             */
+            this.opening = new i0.EventEmitter();
+            /**
+             * Emit when the menu is opened
+             */
+            this.opened = new i0.EventEmitter();
+            /**
+             * Emit whenever closing has begun (the closed EventEmitter waits until animation has finished)
+             */
+            this.closing = new i0.EventEmitter();
+            /**
+             * Emit when the menu is closed
+             */
+            this.closed = new i0.EventEmitter();
+            /**
+             * Store the menu open state
+             */
+            this.isMenuOpen = false;
+            /**
+             * Store the animation state
+             */
+            this._isAnimating = false;
+            /**
+             * Determine if this is a submenu
+             */
+            this._isSubMenu = false;
+            /**
+             * Emit when the focused item changes (we use this as the key manager is not instantiated until a late lifecycle hook)
+             */
+            this._activeItem$ = new rxjs.BehaviorSubject(null);
+            /**
+             * Access allow a close event to propagate all the way up the submenus
+             */
+            this._closeAll$ = new rxjs.Subject();
+            /**
+             * Emit keyboard events
+             */
+            this._onKeydown$ = new rxjs.Subject();
+            /**
+             * Emit hover events
+             */
+            this._isHovering$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Emit focus events
+             */
+            this._isFocused$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Access all child menu items for accessibility purposes
+             */
+            this._items$ = new rxjs.BehaviorSubject([]);
+            /**
+             * Automatically unsubscribe when the component is destroyed
+             */
+            this._onDestroy$ = new rxjs.Subject();
+            /**
+             * Create an internal querylist to store the menu items
+             */
+            this._itemsList = new i0.QueryList();
         }
-        MenuNavigationModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            AccessibilityModule
-                        ],
-                        exports: EXPORTS,
-                        declarations: EXPORTS,
+        Object.defineProperty(MenuComponent.prototype, "_isExpanded", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._menuItems.pipe(operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spread(items.map(function (item) { return item.isExpanded$; }))); }), operators.takeUntil(this._onDestroy$));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuComponent.prototype, "_menuItemClick", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._menuItems.pipe(operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spread(items.map(function (item) { return item.onClick$; }))); }), operators.takeUntil(this._onDestroy$));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuComponent.prototype, "_menuItems", {
+            /** Return only menu items an not custom tabbable items */
+            get: /**
+             * Return only menu items an not custom tabbable items
+             * @return {?}
+             */ function () {
+                return this._items$.pipe(operators.map(function (items) { return ( /** @type {?} */(items.filter(function (item) { return item.type === MenuItemType.Default; }))); }));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype.ngAfterContentInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // initialise the query list with the items
+                this._items$.pipe(operators.takeUntil(this._onDestroy$)).subscribe(function (items) {
+                    // if no items has been marked as tabbable then this should be
+                    if (!_this._activeItem$.value && items.length > 0) {
+                        _this._activeItem$.next(items[0]);
+                    }
+                    _this._itemsList.reset(items);
+                    _this._itemsList.notifyOnChanges();
+                });
+                // setup keyboard functionality
+                this._keyManager = new a11y.FocusKeyManager(this._itemsList)
+                    .withVerticalOrientation()
+                    .withTypeAhead()
+                    .withWrap();
+                // emit the tabbable item on change
+                this._keyManager.change.pipe(operators.map(function () { return _this._keyManager.activeItem; }), operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (item) { return _this._activeItem$.next(item); });
+            };
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
+                this._closeAll$.complete();
+                this._isHovering$.complete();
+                this._isFocused$.complete();
+                this._activeItem$.complete();
+                this._items$.complete();
+            };
+        /** Register a menu item - we do this do avoid `@ContentChildren` detecting submenu items */
+        /**
+         * Register a menu item - we do this do avoid `\@ContentChildren` detecting submenu items
+         * @param {?} item
+         * @return {?}
+         */
+        MenuComponent.prototype._addItem = /**
+         * Register a menu item - we do this do avoid `\@ContentChildren` detecting submenu items
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                if (!this.hasItem(item)) {
+                    this._items$.next(__spread(this._items$.value, [item]));
+                }
+            };
+        /** Remove an item */
+        /**
+         * Remove an item
+         * @param {?} item
+         * @return {?}
+         */
+        MenuComponent.prototype._removeItem = /**
+         * Remove an item
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                if (this.hasItem(item)) {
+                    this._items$.next(this._items$.value.filter(function (_item) { return _item !== item; }));
+                }
+            };
+        /** Determine if an item exists */
+        /**
+         * Determine if an item exists
+         * @param {?} item
+         * @return {?}
+         */
+        MenuComponent.prototype.hasItem = /**
+         * Determine if an item exists
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                return !!this._items$.value.find(function (_item) { return _item === item; });
+            };
+        /** Internal function to set the open state and run change detection */
+        /**
+         * Internal function to set the open state and run change detection
+         * @param {?} menuOpen
+         * @return {?}
+         */
+        MenuComponent.prototype._setMenuOpen = /**
+         * Internal function to set the open state and run change detection
+         * @param {?} menuOpen
+         * @return {?}
+         */
+            function (menuOpen) {
+                // store the open state
+                this.isMenuOpen = menuOpen;
+                // check for changes - required to show the menu as we are using `*ngIf`
+                this._changeDetector.detectChanges();
+                // emit the closing event
+                menuOpen ? this.opening.emit() : this.closing.emit();
+            };
+        /** Track the animation state */
+        /**
+         * Track the animation state
+         * @return {?}
+         */
+        MenuComponent.prototype._onAnimationStart = /**
+         * Track the animation state
+         * @return {?}
+         */
+            function () {
+                this._isAnimating = true;
+            };
+        /** Track animation state and emit event when opening or closing */
+        /**
+         * Track animation state and emit event when opening or closing
+         * @return {?}
+         */
+        MenuComponent.prototype._onAnimationDone = /**
+         * Track animation state and emit event when opening or closing
+         * @return {?}
+         */
+            function () {
+                this._isAnimating = false;
+                if (this.isMenuOpen) {
+                    this.opened.emit();
+                }
+                else {
+                    this.closed.emit();
+                }
+            };
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype._closeMenu = /**
+         * @return {?}
+         */
+            function () {
+                this._setMenuOpen(false);
+            };
+        /** Forward any keyboard events to the key manage for accessibility */
+        /**
+         * Forward any keyboard events to the key manage for accessibility
+         * @param {?} event
+         * @return {?}
+         */
+        MenuComponent.prototype._onKeydown = /**
+         * Forward any keyboard events to the key manage for accessibility
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                this._keyManager.setFocusOrigin('keyboard').onKeydown(event);
+                // emit the keydown event
+                this._onKeydown$.next(event);
+            };
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype._onHoverStart = /**
+         * @return {?}
+         */
+            function () {
+                this._isHovering$.next(true);
+            };
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype._onHoverEnd = /**
+         * @return {?}
+         */
+            function () {
+                this._isHovering$.next(false);
+            };
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype._onFocus = /**
+         * @return {?}
+         */
+            function () {
+                this._isFocused$.next(true);
+            };
+        /**
+         * @return {?}
+         */
+        MenuComponent.prototype._onBlur = /**
+         * @return {?}
+         */
+            function () {
+                this._isFocused$.next(false);
+            };
+        MenuComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-menu',
+                        template: "<ng-template>\n    <div\n        *ngIf=\"isMenuOpen\"\n        class=\"ux-menu\"\n        [class.ux-sub-menu]=\"_isSubMenu\"\n        [class.ux-menu-placement-top]=\"placement === 'top'\"\n        [ngClass]=\"menuClass\"\n        @menuAnimation\n        [@.disabled]=\"!animate\"\n        (@menuAnimation.start)=\"_onAnimationStart()\"\n        (@menuAnimation.done)=\"_onAnimationDone()\"\n        (mouseenter)=\"_onHoverStart()\"\n        (mouseover)=\"_onHoverStart()\"\n        (mouseleave)=\"_onHoverEnd()\"\n        (focusin)=\"_onFocus()\"\n        (focusout)=\"_onBlur()\">\n        <ng-content></ng-content>\n    </div>\n</ng-template>\n",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        host: {
+                            'role': 'menu'
+                        },
+                        animations: [
+                            animations.trigger('menuAnimation', [
+                                animations.transition(':enter', [
+                                    animations.style({ opacity: 0, transform: 'scaleY(0)' }),
+                                    animations.animate('200ms ease-out', animations.style({ opacity: 1, transform: 'none' })),
+                                ]),
+                                animations.transition(':leave', [
+                                    animations.animate('200ms ease-out', animations.style({ opacity: 0, transform: 'scaleY(0)' }))
+                                ])
+                            ]),
+                        ]
+                    }] }
+        ];
+        /** @nocollapse */
+        MenuComponent.ctorParameters = function () {
+            return [
+                { type: i0.ChangeDetectorRef },
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MENU_OPTIONS_TOKEN,] }] }
+            ];
+        };
+        MenuComponent.propDecorators = {
+            placement: [{ type: i0.Input }],
+            alignment: [{ type: i0.Input }],
+            animate: [{ type: i0.Input }],
+            menuClass: [{ type: i0.Input }],
+            opening: [{ type: i0.Output }],
+            opened: [{ type: i0.Output }],
+            closing: [{ type: i0.Output }],
+            closed: [{ type: i0.Output }],
+            templateRef: [{ type: i0.ViewChild, args: [i0.TemplateRef, ( /** @type {?} */({ static: false })),] }]
+        };
+        return MenuComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuItemComponent = /** @class */ (function () {
+        function MenuItemComponent(_menu, _elementRef, _focusIndicatorService, _renderer) {
+            this._menu = _menu;
+            this._elementRef = _elementRef;
+            this._focusIndicatorService = _focusIndicatorService;
+            this._renderer = _renderer;
+            /**
+             * Define if this item is disabled or not
+             */
+            this.disabled = false;
+            /**
+             * Define the role of the element
+             */
+            this.role = 'menuitem';
+            /**
+             * Indicate the type of the menu item
+             */
+            this.type = MenuItemType.Default;
+            /**
+             * Store the current hover state
+             */
+            this.isHovered$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Store the current focus state
+             */
+            this.isFocused$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Store the current expanded state
+             */
+            this.isExpanded$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Emit when an item is clicked
+             */
+            this.onClick$ = new rxjs.Subject();
+            /**
+             * Automatically unsubscribe from observables on destroy
+             */
+            this._onDestroy$ = new rxjs.Subject();
+        }
+        Object.defineProperty(MenuItemComponent.prototype, "isOpen", {
+            /** Access the open state */
+            get: /**
+             * Access the open state
+             * @return {?}
+             */ function () {
+                return this._menu.isMenuOpen;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        MenuItemComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // register this item in the MenuComponent
+                this._menu._addItem(this);
+                // we only want to show the focus indicator whenever the keyboard is used
+                this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+                // subscribe to active item changes
+                this._menu._activeItem$.pipe(operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (item) { return _this.setTabIndex(item === _this); });
+            };
+        /**
+         * @return {?}
+         */
+        MenuItemComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._menu._removeItem(this);
+                this.isHovered$.complete();
+                this.isExpanded$.complete();
+                this.isFocused$.complete();
+                this.onClick$.complete();
+                this._focusIndicator.destroy();
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
+            };
+        /**
+         * @param {?} origin
+         * @return {?}
+         */
+        MenuItemComponent.prototype.focus = /**
+         * @param {?} origin
+         * @return {?}
+         */
+            function (origin) {
+                this._focusIndicator.focus(origin);
+            };
+        /** This function is built into the CDK manager to allow jumping to items based on text content */
+        /**
+         * This function is built into the CDK manager to allow jumping to items based on text content
+         * @return {?}
+         */
+        MenuItemComponent.prototype.getLabel = /**
+         * This function is built into the CDK manager to allow jumping to items based on text content
+         * @return {?}
+         */
+            function () {
+                return this._elementRef.nativeElement.textContent.trim();
+            };
+        /**
+         * @return {?}
+         */
+        MenuItemComponent.prototype._onMouseEnter = /**
+         * @return {?}
+         */
+            function () {
+                this.isHovered$.next(true);
+            };
+        /**
+         * @return {?}
+         */
+        MenuItemComponent.prototype._onMouseLeave = /**
+         * @return {?}
+         */
+            function () {
+                this.isHovered$.next(false);
+            };
+        /**
+         * @return {?}
+         */
+        MenuItemComponent.prototype._onFocus = /**
+         * @return {?}
+         */
+            function () {
+                this.isFocused$.next(true);
+            };
+        /**
+         * @return {?}
+         */
+        MenuItemComponent.prototype._onBlur = /**
+         * @return {?}
+         */
+            function () {
+                this.isFocused$.next(false);
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MenuItemComponent.prototype._onClick = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (!this.disabled) {
+                    this.onClick$.next(event.detail === 0 ? 'keyboard' : 'mouse');
+                }
+            };
+        /** Forward any keyboard events to the MenuComponent for accessibility */
+        /**
+         * Forward any keyboard events to the MenuComponent for accessibility
+         * @param {?} event
+         * @return {?}
+         */
+        MenuItemComponent.prototype._onKeydown = /**
+         * Forward any keyboard events to the MenuComponent for accessibility
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                this._menu._onKeydown(event);
+            };
+        /** Update the tab index on this item */
+        /**
+         * Update the tab index on this item
+         * @param {?} isTabbable
+         * @return {?}
+         */
+        MenuItemComponent.prototype.setTabIndex = /**
+         * Update the tab index on this item
+         * @param {?} isTabbable
+         * @return {?}
+         */
+            function (isTabbable) {
+                this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
+            };
+        MenuItemComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: '[uxMenuItem]',
+                        template: "<ng-content></ng-content>\n",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        host: {
+                            '[attr.role]': 'role',
+                            '[class.disabled]': 'disabled',
+                            '[class.ux-menu-item]': 'true',
+                            '[class.open]': 'isOpen'
+                        }
+                    }] }
+        ];
+        /** @nocollapse */
+        MenuItemComponent.ctorParameters = function () {
+            return [
+                { type: MenuComponent },
+                { type: i0.ElementRef },
+                { type: FocusIndicatorService },
+                { type: i0.Renderer2 }
+            ];
+        };
+        MenuItemComponent.propDecorators = {
+            disabled: [{ type: i0.Input }],
+            role: [{ type: i0.Input }],
+            _onMouseEnter: [{ type: i0.HostListener, args: ['mouseenter',] }],
+            _onMouseLeave: [{ type: i0.HostListener, args: ['mouseleave',] }],
+            _onFocus: [{ type: i0.HostListener, args: ['focus',] }],
+            _onBlur: [{ type: i0.HostListener, args: ['blur',] }],
+            _onClick: [{ type: i0.HostListener, args: ['click', ['$event'],] }, { type: i0.HostListener, args: ['keydown.enter', ['$event'],] }],
+            _onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return MenuItemComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuTabbableItemDirective = /** @class */ (function () {
+        function MenuTabbableItemDirective(_menu, _elementRef, _focusIndicatorService, _renderer) {
+            this._menu = _menu;
+            this._elementRef = _elementRef;
+            this._focusIndicatorService = _focusIndicatorService;
+            this._renderer = _renderer;
+            /**
+             * Define if this item is disabled or not
+             */
+            this.disabled = false;
+            /**
+             * Indicate the type of the menu item
+             */
+            this.type = MenuItemType.Default;
+            /**
+             * Automatically unsubscribe when directive is destroyed
+             */
+            this._onDestroy$ = new rxjs.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        MenuTabbableItemDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // register this item in the MenuComponent
+                this._menu._addItem(this);
+                // we only want to show the focus indicator whenever the keyboard is used
+                this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+                // subscribe to active item changes
+                this._menu._activeItem$.pipe(operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (item) { return _this.setTabIndex(item === _this); });
+            };
+        /**
+         * @return {?}
+         */
+        MenuTabbableItemDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
+                this._focusIndicator.destroy();
+            };
+        /** Focus this item with a given origin */
+        /**
+         * Focus this item with a given origin
+         * @param {?} origin
+         * @return {?}
+         */
+        MenuTabbableItemDirective.prototype.focus = /**
+         * Focus this item with a given origin
+         * @param {?} origin
+         * @return {?}
+         */
+            function (origin) {
+                this._focusIndicator.focus(origin);
+            };
+        /** This function is built into the CDK manager to allow jumping to items based on text content */
+        /**
+         * This function is built into the CDK manager to allow jumping to items based on text content
+         * @return {?}
+         */
+        MenuTabbableItemDirective.prototype.getLabel = /**
+         * This function is built into the CDK manager to allow jumping to items based on text content
+         * @return {?}
+         */
+            function () {
+                return this._elementRef.nativeElement.textContent.trim();
+            };
+        /** Forward any keyboard events to the MenuComponent for accessibility */
+        /**
+         * Forward any keyboard events to the MenuComponent for accessibility
+         * @param {?} event
+         * @return {?}
+         */
+        MenuTabbableItemDirective.prototype._onKeydown = /**
+         * Forward any keyboard events to the MenuComponent for accessibility
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                this._menu._onKeydown(event);
+            };
+        /** Update the tab index on this item */
+        /**
+         * Update the tab index on this item
+         * @param {?} isTabbable
+         * @return {?}
+         */
+        MenuTabbableItemDirective.prototype.setTabIndex = /**
+         * Update the tab index on this item
+         * @param {?} isTabbable
+         * @return {?}
+         */
+            function (isTabbable) {
+                this._renderer.setAttribute(this._elementRef.nativeElement, 'tabindex', isTabbable ? '0' : '-1');
+            };
+        MenuTabbableItemDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxMenuTabbableItem]',
                     },] }
         ];
-        return MenuNavigationModule;
+        /** @nocollapse */
+        MenuTabbableItemDirective.ctorParameters = function () {
+            return [
+                { type: MenuComponent },
+                { type: i0.ElementRef },
+                { type: FocusIndicatorService },
+                { type: i0.Renderer2 }
+            ];
+        };
+        MenuTabbableItemDirective.propDecorators = {
+            disabled: [{ type: i0.Input }],
+            _onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return MenuTabbableItemDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuTriggerDirective = /** @class */ (function () {
+        function MenuTriggerDirective(_overlay, _elementRef, _viewContainerRef, _focusOrigin, _focusIndicatorService, _parentMenu, _menuItem) {
+            this._overlay = _overlay;
+            this._elementRef = _elementRef;
+            this._viewContainerRef = _viewContainerRef;
+            this._focusOrigin = _focusOrigin;
+            this._focusIndicatorService = _focusIndicatorService;
+            this._parentMenu = _parentMenu;
+            this._menuItem = _menuItem;
+            /**
+             * Determine if we should disable the trigger
+             */
+            this.disabled = false;
+            /**
+             * Automatically unsubscribe on directive destroy
+             */
+            this._onDestroy$ = new rxjs.Subject();
+        }
+        Object.defineProperty(MenuTriggerDirective.prototype, "_isSubmenuTrigger", {
+            /** Determine if this triggers a submenu */
+            get: /**
+             * Determine if this triggers a submenu
+             * @return {?}
+             */ function () {
+                return !!this._parentMenu;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuTriggerDirective.prototype, "_isRootTrigger", {
+            /** Determine if this is the root trigger */
+            get: /**
+             * Determine if this is the root trigger
+             * @return {?}
+             */ function () {
+                return !this._isSubmenuTrigger;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuTriggerDirective.prototype, "_menuShouldClose", {
+            /** If this is a submenu we want to know when the mouse leaves the items or parent item */
+            get: /**
+             * If this is a submenu we want to know when the mouse leaves the items or parent item
+             * @return {?}
+             */ function () {
+                if (!this._isSubmenuTrigger) {
+                    return rxjs.of();
+                }
+                // This combined observable will essentially check for all of the combinations of events that can cause a menu
+                // to remain open, for example:
+                //
+                // 1. Hovering over any item in the menu should keep the menu open
+                // 2. Having any item in the menu focused should keep the menu open
+                // 3. Having the parent menu item hovered should keep a submenu open
+                // 4. Having the parent menu item focused should keep a submenu open
+                // 5. Having a submenu open should keep the parent open (if the submenu meets one of the above conditions)
+                //
+                // We also debounce this because there is often a delay between a blur and a focus event or moving the mouse
+                // from a menu item to a sub menu item, so we add this buffer time to prevent the menu from closing unexpectedly
+                return rxjs.combineLatest(this.menu._isHovering$, this.menu._isFocused$, this._menuItem.isHovered$, this.menu._isExpanded, this._menuItem.isFocused$)
+                    .pipe(operators.debounceTime(50), operators.filter(function (_a) {
+                    var _b = __read(_a, 5), isHovered = _b[0], isFocused = _b[1], isItemHovered = _b[2], isExpanded = _b[3], isItemFocused = _b[4];
+                    return !isHovered && !isFocused && !isItemHovered && !isExpanded && !isItemFocused;
+                }));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // set up focus indicator handling
+                this._focusIndicator = this._focusIndicatorService.monitor(this._elementRef.nativeElement);
+                // if there is a parent menu then we should override the default initial
+                // position to be to the right rather than beneath. Note this gets called
+                // before ngOnInit in the MenuComponent so if the user specifies an explicit
+                // position then it will still take precendence
+                if (this._isSubmenuTrigger) {
+                    this.menu._isSubMenu = true;
+                    this.menu.placement = 'right';
+                }
+                // listen for the menu to open (after animation so we can focus the first item)
+                this.menu.opened.pipe(operators.takeUntil(this._onDestroy$))
+                    .subscribe(function () { return _this.menuDidOpen(); });
+                // propagate the close event if it is triggered
+                this.menu._closeAll$.pipe(operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (origin) { return _this.closeMenu(origin, true); });
+                // handle keyboard events in the menu
+                this.menu._onKeydown$.pipe(operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (event) { return _this.onMenuKeydown(event); });
+            };
+        /**
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
+            };
+        /** Open the menu */
+        /**
+         * Open the menu
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.openMenu = /**
+         * Open the menu
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // if the menu is already open then do nothing
+                if (this.menu.isMenuOpen || this.disabled) {
+                    return;
+                }
+                // get or create an overlayRef
+                /** @type {?} */
+                var overlayRef = this.getOverlay();
+                /** @type {?} */
+                var portal$$1 = this.getPortal();
+                // if the overlay is already attached do nothing
+                if (overlayRef.hasAttached()) {
+                    return;
+                }
+                // attach the menu to the DOM
+                overlayRef.attach(portal$$1);
+                // mark the menu as open
+                this.menu._setMenuOpen(true);
+                if (this._menuItem) {
+                    this._menuItem.isExpanded$.next(true);
+                }
+                // listen for a menu item to be selected
+                this.menu._menuItemClick.pipe(operators.take(1), operators.takeUntil(this._onDestroy$))
+                    .subscribe(function (origin) { return _this.closeMenu(origin, true); });
+                // subscribe to any close events
+                this.didMenuClose().pipe(operators.take(1), operators.takeUntil(this._onDestroy$))
+                    .subscribe(function () { return _this.closeMenu(); });
+                // listen for the menu to animate closed then destroy it
+                this.menu.closed.pipe(operators.take(1), operators.takeUntil(this._onDestroy$))
+                    .subscribe(function () { return _this.destroyMenu(); });
+            };
+        /** Close a menu or submenu */
+        /**
+         * Close a menu or submenu
+         * @param {?=} origin
+         * @param {?=} closeParents
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.closeMenu = /**
+         * Close a menu or submenu
+         * @param {?=} origin
+         * @param {?=} closeParents
+         * @return {?}
+         */
+            function (origin, closeParents) {
+                if (closeParents === void 0) {
+                    closeParents = false;
+                }
+                // update the menu state
+                this.menu._setMenuOpen(false);
+                if (this._menuItem) {
+                    this._menuItem.isExpanded$.next(false);
+                }
+                // if we should close parents then propagate the event
+                if (closeParents && this._parentMenu) {
+                    this._parentMenu._closeAll$.next(origin);
+                }
+                // we should focus the trigger element if this is the root trigger
+                if (this._isRootTrigger) {
+                    this._focusIndicator.focus(origin);
+                }
+                return this.menu.closed;
+            };
+        /** Toggle the open state of a menu */
+        /**
+         * Toggle the open state of a menu
+         * @param {?=} event
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.toggleMenu = /**
+         * Toggle the open state of a menu
+         * @param {?=} event
+         * @return {?}
+         */
+            function (event) {
+                // if this occurs on a submenu trigger then we can skip
+                if (this._isSubmenuTrigger) {
+                    return;
+                }
+                if (!this.menu._isAnimating) {
+                    // determine the focus origin based on whether or not a keyboard was used
+                    /** @type {?} */
+                    var origin_1 = event instanceof KeyboardEvent ? 'keyboard' : 'mouse';
+                    // set the correct focus origin - if triggered by an event then use the source otherwise it was programmatic
+                    this._focusOrigin.setOrigin(event ? origin_1 : 'program');
+                    // toggle the menu open state
+                    this.menu.isMenuOpen ? this.closeMenu(origin_1, true) : this.openMenu();
+                }
+                // the enter key will trigger the click event and therefore set the wrong focus origin
+                // so we nee to ensure this doesn't happen
+                if (event) {
+                    event.preventDefault();
+                }
+            };
+        /** Submenus should be opened by hovering on the menu item */
+        /**
+         * Submenus should be opened by hovering on the menu item
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype._onMouseEnter = /**
+         * Submenus should be opened by hovering on the menu item
+         * @return {?}
+         */
+            function () {
+                if (this._isSubmenuTrigger && !this._parentMenu._isAnimating) {
+                    this.openMenu();
+                }
+            };
+        /** Pressing the escape key should close all menus */
+        /**
+         * Pressing the escape key should close all menus
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype._onEscape = /**
+         * Pressing the escape key should close all menus
+         * @return {?}
+         */
+            function () {
+                if (this.menu.isMenuOpen) {
+                    this.closeMenu();
+                    // refocus the root trigger and show the focus ring
+                    if (this._isRootTrigger) {
+                        this._focusIndicator.focus('keyboard');
+                    }
+                }
+            };
+        /** Handle keyboard events for opening submenus */
+        /**
+         * Handle keyboard events for opening submenus
+         * @param {?} event
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype._onKeydown = /**
+         * Handle keyboard events for opening submenus
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // arrow key in the correct direction should open the menu
+                if (this.menu.placement === 'right' && event.keyCode === keycodes.RIGHT_ARROW ||
+                    this.menu.placement === 'left' && event.keyCode === keycodes.LEFT_ARROW ||
+                    this.menu.placement === 'top' && event.keyCode === keycodes.UP_ARROW ||
+                    this.menu.placement === 'bottom' && event.keyCode === keycodes.DOWN_ARROW) {
+                    this._focusOrigin.setOrigin('keyboard');
+                    // if the menu was opened by a click but we subsequently use the arrow keys focus the first item
+                    if (this.menu.isMenuOpen) {
+                        this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
+                    }
+                    else {
+                        // otherwise open the menu
+                        this.openMenu();
+                    }
+                    // prevent the browser from scrolling
+                    event.preventDefault();
+                }
+            };
+        /** Remove the menu from the DOM */
+        /**
+         * Remove the menu from the DOM
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.destroyMenu = /**
+         * Remove the menu from the DOM
+         * @return {?}
+         */
+            function () {
+                // if the menu has been destroyed already then do nothing
+                if (!this._overlayRef) {
+                    return;
+                }
+                // remove the overlay
+                this._overlayRef.detach();
+            };
+        /** Create an overlay or return an existing instance */
+        /**
+         * Create an overlay or return an existing instance
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.getOverlay = /**
+         * Create an overlay or return an existing instance
+         * @return {?}
+         */
+            function () {
+                // if we have already created the overlay then reuse it
+                if (this._overlayRef) {
+                    return this._overlayRef;
+                }
+                var _a = this.getOrigin(), originX = _a.originX, originY = _a.originY;
+                var _b = this.getOverlayPosition(), overlayX = _b.overlayX, overlayY = _b.overlayY;
+                // otherwise create a new one
+                this._overlayRef = this._overlay.create({
+                    hasBackdrop: !this._isSubmenuTrigger,
+                    backdropClass: 'cdk-overlay-transparent-backdrop',
+                    scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
+                    positionStrategy: this._overlay.position()
+                        .flexibleConnectedTo(this._elementRef)
+                        .withLockedPosition()
+                        .withPositions([
+                        { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY },
+                        { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: originY, overlayX: overlayX, overlayY: overlayY },
+                        { originX: originX, originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX: overlayX, overlayY: overlayY },
+                        { originX: this.menu.alignment === 'start' ? 'end' : 'start', originY: this.menu.placement === 'bottom' ? 'top' : 'bottom', overlayX: overlayX, overlayY: overlayY },
+                    ])
+                });
+                return this._overlayRef;
+            };
+        /** Create a Template portal if one does not already exist (or the template has changed) */
+        /**
+         * Create a Template portal if one does not already exist (or the template has changed)
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.getPortal = /**
+         * Create a Template portal if one does not already exist (or the template has changed)
+         * @return {?}
+         */
+            function () {
+                // if there is no portal or the templateRef has changed then create a new one
+                if (!this._portal || this.menu.templateRef !== this._portal.templateRef) {
+                    this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+                }
+                return this._portal;
+            };
+        /** Get the origin position based on the specified tooltip placement */
+        /**
+         * Get the origin position based on the specified tooltip placement
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.getOrigin = /**
+         * Get the origin position based on the specified tooltip placement
+         * @return {?}
+         */
+            function () {
+                // ensure placement is defined
+                this.menu.placement = this.menu.placement || 'bottom';
+                if (this.menu.placement === 'top' || this.menu.placement === 'bottom') {
+                    return { originX: ( /** @type {?} */(this.menu.alignment)), originY: this.menu.placement };
+                }
+                if (this.menu.placement === 'left') {
+                    return { originX: 'start', originY: this.getVerticalAlignment() };
+                }
+                if (this.menu.placement === 'right') {
+                    return { originX: 'end', originY: this.getVerticalAlignment() };
+                }
+            };
+        /** Calculate the overlay position based on the specified tooltip placement */
+        /**
+         * Calculate the overlay position based on the specified tooltip placement
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.getOverlayPosition = /**
+         * Calculate the overlay position based on the specified tooltip placement
+         * @return {?}
+         */
+            function () {
+                // ensure placement is defined
+                this.menu.placement = this.menu.placement || 'top';
+                if (this.menu.placement === 'top') {
+                    return { overlayX: ( /** @type {?} */(this.menu.alignment)), overlayY: 'bottom' };
+                }
+                if (this.menu.placement === 'bottom') {
+                    return { overlayX: ( /** @type {?} */(this.menu.alignment)), overlayY: 'top' };
+                }
+                if (this.menu.placement === 'left') {
+                    return { overlayX: 'end', overlayY: this.getVerticalAlignment() };
+                }
+                if (this.menu.placement === 'right') {
+                    return { overlayX: 'start', overlayY: this.getVerticalAlignment() };
+                }
+            };
+        /** Convert the alignment property to a valid CDK alignment value */
+        /**
+         * Convert the alignment property to a valid CDK alignment value
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.getVerticalAlignment = /**
+         * Convert the alignment property to a valid CDK alignment value
+         * @return {?}
+         */
+            function () {
+                switch (this.menu.alignment) {
+                    case 'start':
+                        return 'top';
+                    case 'end':
+                        return 'bottom';
+                    default:
+                        return this.menu.alignment;
+                }
+            };
+        /** Get an observable that emits on any of the triggers that close a menu */
+        /**
+         * Get an observable that emits on any of the triggers that close a menu
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.didMenuClose = /**
+         * Get an observable that emits on any of the triggers that close a menu
+         * @return {?}
+         */
+            function () {
+                return rxjs.merge(this._overlayRef.backdropClick(), this._overlayRef.detachments(), this._parentMenu ? this._parentMenu.closing : rxjs.of(), this._menuShouldClose);
+            };
+        /** When the menu opens we want to focus the first item in the list */
+        /**
+         * When the menu opens we want to focus the first item in the list
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.menuDidOpen = /**
+         * When the menu opens we want to focus the first item in the list
+         * @return {?}
+         */
+            function () {
+                // if the keyboard is used we should always focus and show the indicator
+                // regardless of it this is the root menu or not
+                if (this._focusOrigin.getOrigin() === 'keyboard') {
+                    this.menu._keyManager.setFocusOrigin('keyboard').setFirstItemActive();
+                }
+            };
+        /** Handle keypresses in submenus where we may want to close them */
+        /**
+         * Handle keypresses in submenus where we may want to close them
+         * @param {?} event
+         * @return {?}
+         */
+        MenuTriggerDirective.prototype.onMenuKeydown = /**
+         * Handle keypresses in submenus where we may want to close them
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // if we are a submenu and the user presses an arrow key in the opposite
+                // direction than it is positioned from its parents then we should close the menu
+                if (this._parentMenu) {
+                    if (this.menu.placement === 'right' && event.keyCode === keycodes.LEFT_ARROW ||
+                        this.menu.placement === 'left' && event.keyCode === keycodes.RIGHT_ARROW ||
+                        this.menu.placement === 'top' && event.keyCode === keycodes.DOWN_ARROW ||
+                        this.menu.placement === 'bottom' && event.keyCode === keycodes.UP_ARROW) {
+                        this.closeMenu();
+                        // refocus the parent menu item
+                        this._menuItem.focus('keyboard');
+                    }
+                }
+            };
+        MenuTriggerDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxMenuTriggerFor]',
+                        exportAs: 'ux-menu-trigger',
+                        host: {
+                            '[attr.aria-haspopup]': '!!menu',
+                            '[attr.aria-expanded]': 'menu?.isMenuOpen'
+                        }
+                    },] }
+        ];
+        /** @nocollapse */
+        MenuTriggerDirective.ctorParameters = function () {
+            return [
+                { type: overlay.Overlay },
+                { type: i0.ElementRef },
+                { type: i0.ViewContainerRef },
+                { type: FocusIndicatorOriginService },
+                { type: FocusIndicatorService },
+                { type: MenuComponent, decorators: [{ type: i0.Optional }] },
+                { type: MenuItemComponent, decorators: [{ type: i0.Optional }, { type: i0.Self }] }
+            ];
+        };
+        MenuTriggerDirective.propDecorators = {
+            menu: [{ type: i0.Input, args: ['uxMenuTriggerFor',] }],
+            disabled: [{ type: i0.Input }],
+            menuTriggers: [{ type: i0.ContentChildren, args: [MenuTriggerDirective,] }],
+            toggleMenu: [{ type: i0.HostListener, args: ['click', ['$event'],] }, { type: i0.HostListener, args: ['keydown.enter', ['$event'],] }],
+            _onMouseEnter: [{ type: i0.HostListener, args: ['mouseenter',] }],
+            _onEscape: [{ type: i0.HostListener, args: ['document:keydown.escape',] }],
+            _onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return MenuTriggerDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuModule = /** @class */ (function () {
+        function MenuModule() {
+        }
+        /**
+         * @param {?} options
+         * @return {?}
+         */
+        MenuModule.forRoot = /**
+         * @param {?} options
+         * @return {?}
+         */
+            function (options) {
+                return {
+                    ngModule: MenuModule,
+                    providers: [
+                        { provide: MENU_OPTIONS_TOKEN, useValue: options }
+                    ]
+                };
+            };
+        /** Support options at a child module level (implementation is the same as `forRoot`) */
+        /**
+         * Support options at a child module level (implementation is the same as `forRoot`)
+         * @param {?} options
+         * @return {?}
+         */
+        MenuModule.forChild = /**
+         * Support options at a child module level (implementation is the same as `forRoot`)
+         * @param {?} options
+         * @return {?}
+         */
+            function (options) {
+                return MenuModule.forRoot(options);
+            };
+        MenuModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        declarations: [
+                            MenuComponent,
+                            MenuTriggerDirective,
+                            MenuItemComponent,
+                            MenuDividerComponent,
+                            MenuTabbableItemDirective
+                        ],
+                        imports: [
+                            a11y.A11yModule,
+                            AccessibilityModule,
+                            common.CommonModule,
+                            overlay.OverlayModule
+                        ],
+                        exports: [
+                            MenuComponent,
+                            MenuTriggerDirective,
+                            MenuItemComponent,
+                            MenuDividerComponent,
+                            MenuTabbableItemDirective
+                        ]
+                    },] }
+        ];
+        return MenuModule;
     }());
 
     /**
@@ -20387,16 +21076,15 @@
         function FilterModule() {
         }
         FilterModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
-                            dropdown.BsDropdownModule.forRoot(),
+                            MenuModule,
                             common.CommonModule,
                             forms.FormsModule,
-                            MenuNavigationModule,
                             TooltipModule,
-                            TypeaheadModule,
+                            TypeaheadModule
                         ],
                         exports: DECLARATIONS$2,
                         declarations: DECLARATIONS$2
@@ -20440,7 +21128,7 @@
             /**
              * If two way binding is used this value will be updated when the state of the card changes.
              */
-            this.flippedChange = new core.EventEmitter();
+            this.flippedChange = new i0.EventEmitter();
             this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
         }
         /**
@@ -20523,7 +21211,7 @@
                 }
             };
         FlippableCardComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-flippable-card',
                         template: "<div class=\"ux-flipper\"\n     [class.ux-flip-card]=\"flipped\"\n     [style.width.px]=\"width\"\n     [style.height.px]=\"height\">\n\n    <div class=\"ux-flippable-card-front\"\n         [style.width.px]=\"width\"\n         [style.height.px]=\"height\"\n         [attr.aria-hidden]=\"flipped\">\n\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\n    </div>\n\n    <div class=\"ux-flippable-card-back\"\n         [style.width.px]=\"width\"\n         [style.height.px]=\"height\"\n         [attr.aria-hidden]=\"!flipped\">\n\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\n    </div>\n</div>",
                         host: {
@@ -20532,27 +21220,27 @@
                             '[class.vertical]': 'direction === "vertical"'
                         },
                         exportAs: 'ux-flippable-card',
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         FlippableCardComponent.ctorParameters = function () {
             return [
                 { type: FocusIndicatorService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         FlippableCardComponent.propDecorators = {
-            direction: [{ type: core.Input }],
-            trigger: [{ type: core.Input }],
-            width: [{ type: core.Input }],
-            height: [{ type: core.Input }],
-            flipped: [{ type: core.Input }],
-            flippedChange: [{ type: core.Output }],
-            clickTrigger: [{ type: core.HostListener, args: ['click',] }],
-            hoverEnter: [{ type: core.HostListener, args: ['mouseenter',] }],
-            hoverExit: [{ type: core.HostListener, args: ['mouseleave',] }],
-            onKeyDown: [{ type: core.HostListener, args: ['keydown.enter', ['$event'],] }, { type: core.HostListener, args: ['keydown.space', ['$event'],] }, { type: core.HostListener, args: ['keydown.spacebar', ['$event'],] }]
+            direction: [{ type: i0.Input }],
+            trigger: [{ type: i0.Input }],
+            width: [{ type: i0.Input }],
+            height: [{ type: i0.Input }],
+            flipped: [{ type: i0.Input }],
+            flippedChange: [{ type: i0.Output }],
+            clickTrigger: [{ type: i0.HostListener, args: ['click',] }],
+            hoverEnter: [{ type: i0.HostListener, args: ['mouseenter',] }],
+            hoverExit: [{ type: i0.HostListener, args: ['mouseleave',] }],
+            onKeyDown: [{ type: i0.HostListener, args: ['keydown.enter', ['$event'],] }, { type: i0.HostListener, args: ['keydown.space', ['$event'],] }, { type: i0.HostListener, args: ['keydown.spacebar', ['$event'],] }]
         };
         return FlippableCardComponent;
     }());
@@ -20560,7 +21248,7 @@
         function FlippableCardFrontDirective() {
         }
         FlippableCardFrontDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'ux-flippable-card-front'
                     },] }
         ];
@@ -20570,7 +21258,7 @@
         function FlippableCardBackDirective() {
         }
         FlippableCardBackDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'ux-flippable-card-back'
                     },] }
         ];
@@ -20585,7 +21273,7 @@
         function FlippableCardModule() {
         }
         FlippableCardModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule
                         ],
@@ -20615,8 +21303,8 @@
      */
     var FloatingActionButtonsService = /** @class */ (function () {
         function FloatingActionButtonsService() {
-            this.open$ = new BehaviorSubject.BehaviorSubject(false);
-            this.direction$ = new BehaviorSubject.BehaviorSubject('top');
+            this.open$ = new rxjs.BehaviorSubject(false);
+            this.direction$ = new rxjs.BehaviorSubject('top');
         }
         /**
          * @return {?}
@@ -20767,7 +21455,7 @@
                 return this._buttons.toArray().findIndex(function (btn) { return btn === button; });
             };
         FloatingActionButtonsService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return FloatingActionButtonsService;
     }());
@@ -20781,8 +21469,8 @@
             this.fab = fab;
             this._tooltip = _tooltip;
             this.primary = false;
-            this.tabindex$ = new BehaviorSubject.BehaviorSubject(-1);
-            this._onDestroy = new Subject.Subject();
+            this.tabindex$ = new rxjs.BehaviorSubject(-1);
+            this._onDestroy = new rxjs.Subject();
             this.primary = primary !== null;
         }
         /**
@@ -20895,26 +21583,26 @@
                 }
             };
         FloatingActionButtonComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-floating-action-button',
                         template: "<button #button\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        type=\"button\"\n        class=\"btn floating-action-button\"\n        [class.button-primary]=\"primary\"\n        [class.button-secondary]=\"!primary\"\n        [attr.aria-label]=\"ariaLabel\"\n        [tabIndex]=\"tabindex$ | async\"\n        (focus)=\"onFocus()\"\n        (blur)=\"onBlur()\"\n        (click)=\"primary ? fab.toggle() : close()\">\n\n    <span class=\"hpe-icon floating-action-button-icon\" *ngIf=\"icon\" [ngClass]=\"icon\"></span>\n    <ng-content *ngIf=\"!icon\"></ng-content>\n\n</button>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         preserveWhitespaces: false
                     }] }
         ];
         /** @nocollapse */
         FloatingActionButtonComponent.ctorParameters = function () {
             return [
-                { type: String, decorators: [{ type: core.Attribute, args: ['fab-primary',] }] },
+                { type: String, decorators: [{ type: i0.Attribute, args: ['fab-primary',] }] },
                 { type: FloatingActionButtonsService },
-                { type: TooltipDirective, decorators: [{ type: core.Optional }] }
+                { type: TooltipDirective, decorators: [{ type: i0.Optional }] }
             ];
         };
         FloatingActionButtonComponent.propDecorators = {
-            icon: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            button: [{ type: core.ViewChild, args: ['button',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+            icon: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            button: [{ type: i0.ViewChild, args: ['button',] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return FloatingActionButtonComponent;
     }());
@@ -20931,8 +21619,8 @@
             /**
              * Emit whenever the open state changes
              */
-            this.openChange = new core.EventEmitter();
-            this._subscription = new Subscription.Subscription();
+            this.openChange = new i0.EventEmitter();
+            this._subscription = new rxjs.Subscription();
             this._subscription.add(this.fab.open$.subscribe(function (value) { return _this.openChange.emit(value); }));
         }
         Object.defineProperty(FloatingActionButtonsComponent.prototype, "direction", {
@@ -20986,11 +21674,11 @@
                 }
             };
         FloatingActionButtonsComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-floating-action-buttons',
                         template: "<ng-content select=\"[fab-primary]\"></ng-content>\n\n<div class=\"floating-action-button-list\" [@fabAnimation]=\"fab.open$ | async\" [ngClass]=\"fab.direction$ | async\" *ngIf=\"fab.open$ | async\">\n    <ng-content></ng-content>\n</div>",
                         providers: [FloatingActionButtonsService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         preserveWhitespaces: false,
                         animations: [
                             animations.trigger('fabAnimation', [
@@ -21009,14 +21697,14 @@
         FloatingActionButtonsComponent.ctorParameters = function () {
             return [
                 { type: FloatingActionButtonsService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         FloatingActionButtonsComponent.propDecorators = {
-            direction: [{ type: core.Input }],
-            openChange: [{ type: core.Output }],
-            buttons: [{ type: core.ContentChildren, args: [FloatingActionButtonComponent,] }],
-            close: [{ type: core.HostListener, args: ['document:click', ['$event.target'],] }]
+            direction: [{ type: i0.Input }],
+            openChange: [{ type: i0.Output }],
+            buttons: [{ type: i0.ContentChildren, args: [FloatingActionButtonComponent,] }],
+            close: [{ type: i0.HostListener, args: ['document:click', ['$event.target'],] }]
         };
         return FloatingActionButtonsComponent;
     }());
@@ -21029,7 +21717,7 @@
         function FloatingActionButtonsModule() {
         }
         FloatingActionButtonsModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule
@@ -21060,7 +21748,7 @@
         function HierarchyBarNodeIconDirective() {
         }
         HierarchyBarNodeIconDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxHierarchyBarNodeIcon]',
                     },] }
         ];
@@ -21076,7 +21764,7 @@
             /**
              * Define the list of selected nodes
              */
-            this.nodes$ = new BehaviorSubject.BehaviorSubject([]);
+            this.nodes$ = new rxjs.BehaviorSubject([]);
             /**
              * Define the events that show the popover when interacting with the arrows
              */
@@ -21088,7 +21776,7 @@
             /**
              * Emit the selected node when it changes
              */
-            this.selection$ = new Subject.Subject();
+            this.selection$ = new rxjs.Subject();
             /**
              * Define the aria label for the show siblings popover button
              */
@@ -21172,12 +21860,12 @@
             function (node) {
                 var _this = this;
                 if (Array.isArray(node.children)) {
-                    return of.of({ loading: false, children: node.children });
+                    return rxjs.of({ loading: false, children: node.children });
                 }
                 /** @type {?} */
                 var children$ = node.children;
                 // if it is an observable then handle loading
-                return Observable.Observable.create(function (observer) {
+                return rxjs.Observable.create(function (observer) {
                     // emit initial value
                     observer.next({ loading: true, children: [] });
                     // now wait until the children observable completes
@@ -21210,7 +21898,7 @@
          * @return {?}
          */
             function (node) {
-                return node.parent ? this.getChildren(node.parent) : of.of({ loading: false, children: [] });
+                return node.parent ? this.getChildren(node.parent) : rxjs.of({ loading: false, children: [] });
             };
         /**
          * Traverses all the parents to ensure they are selected
@@ -21267,7 +21955,7 @@
             function (node) {
                 var _this = this;
                 // if there are no children then return only itself
-                if (!node.children || node.children instanceof Observable.Observable || node.children.length === 0) {
+                if (!node.children || rxjs.isObservable(node.children) || node.children.length === 0) {
                     return [node];
                 }
                 // store the parent property
@@ -21291,7 +21979,7 @@
          * @return {?}
          */
             function (node) {
-                if (node.children instanceof Observable.Observable) {
+                if (rxjs.isObservable(node.children)) {
                     return [node];
                 }
                 // get the children - and account for when there is none
@@ -21304,7 +21992,7 @@
                 return child ? __spread([node], this.getSelectedChildren(child)) : [node];
             };
         HierarchyBarService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return HierarchyBarService;
     }());
@@ -21324,11 +22012,11 @@
             /**
              * Emit when the selected node changes
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
             /**
              * Unsubscribe from all subscriptions when component is destroyed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // emit the latest selection value
             _hierarchyBar.selection$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (selection) { return _this.selectedChange.next(selection); });
@@ -21440,10 +22128,10 @@
                 this._onDestroy.complete();
             };
         HierarchyBarComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar',
                         template: "<!-- Hierarchy Bar - Standard Layout -->\n<ux-hierarchy-bar-standard *ngIf=\"mode === 'standard'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-standard>\n\n<!-- Hierarchy Bar - Collapsed Layout -->\n<ux-hierarchy-bar-collapsed *ngIf=\"mode === 'collapsed'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-collapsed>\n\n<!-- We can only have one ng-content so this allows us to use it more than once -->\n<ng-template #leftAddons>\n    <ng-content select=\"[uxHierarchyBarLeftAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #trailingAddons>\n    <ng-content select=\"[uxHierarchyBarTrailingAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #rightAddons>\n    <ng-content select=\"[uxHierarchyBarRightAddon]\"></ng-content>\n</ng-template>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         viewProviders: [HierarchyBarService]
                     }] }
         ];
@@ -21454,16 +22142,16 @@
             ];
         };
         HierarchyBarComponent.propDecorators = {
-            mode: [{ type: core.Input }],
-            root: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            loadingIndicator: [{ type: core.Input }],
-            overflowTemplate: [{ type: core.Input }],
-            popoverShowTriggers: [{ type: core.Input }],
-            popoverHideTriggers: [{ type: core.Input }],
-            showSiblingsAriaLabel: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            icon: [{ type: core.ContentChild, args: [HierarchyBarNodeIconDirective, { read: core.TemplateRef },] }]
+            mode: [{ type: i0.Input }],
+            root: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            loadingIndicator: [{ type: i0.Input }],
+            overflowTemplate: [{ type: i0.Input }],
+            popoverShowTriggers: [{ type: i0.Input }],
+            popoverHideTriggers: [{ type: i0.Input }],
+            showSiblingsAriaLabel: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            icon: [{ type: i0.ContentChild, args: [HierarchyBarNodeIconDirective, { read: i0.TemplateRef },] }]
         };
         return HierarchyBarComponent;
     }());
@@ -21476,7 +22164,7 @@
         function ClickOutsideDirective(_elementRef) {
             var _this = this;
             this._elementRef = _elementRef;
-            this.uxClickOutside = new core.EventEmitter();
+            this.uxClickOutside = new i0.EventEmitter();
             /**
              * Often a click event makes the element appear - if so we can end up closing it immediately
              */
@@ -21497,19 +22185,19 @@
                 }
             };
         ClickOutsideDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxClickOutside]'
                     },] }
         ];
         /** @nocollapse */
         ClickOutsideDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         ClickOutsideDirective.propDecorators = {
-            uxClickOutside: [{ type: core.Output }],
-            click: [{ type: core.HostListener, args: ['document:click', ['$event'],] }]
+            uxClickOutside: [{ type: i0.Output }],
+            click: [{ type: i0.HostListener, args: ['document:click', ['$event'],] }]
         };
         return ClickOutsideDirective;
     }());
@@ -21522,7 +22210,7 @@
         function ClickOutsideModule() {
         }
         ClickOutsideModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [ClickOutsideDirective],
                         declarations: [ClickOutsideDirective]
                     },] }
@@ -21552,7 +22240,7 @@
             /**
              * This will emit an event any time the user clicks outside the popover
              */
-            _this.clickOutside$ = new Subject.Subject();
+            _this.clickOutside$ = new rxjs.Subject();
             return _this;
         }
         /** This will update the title of the popover and trigger change detection */
@@ -21571,16 +22259,16 @@
                 this._changeDetectorRef.markForCheck();
             };
         PopoverComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-popover',
                         template: "<div class=\"popover show\" [ngClass]=\"[placement, 'popover-align-' + alignment, customClass]\" [id]=\"id\" [attr.role]=\"role\" (uxClickOutside)=\"clickOutside$.next($event)\">\n    <div class=\"arrow\"></div>\n    <h3 class=\"popover-title\" *ngIf=\"title\">{{ title }}</h3>\n    <div class=\"popover-content\" (cdkObserveContent)=\"reposition()\">\n        <ng-container *ngIf=\"!isTemplateRef\">{{ content }}</ng-container>\n        <ng-container *ngIf=\"isTemplateRef\" [ngTemplateOutlet]=\"content\" [ngTemplateOutletContext]=\"context\"></ng-container>\n    </div>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         PopoverComponent.ctorParameters = function () {
             return [
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         return PopoverComponent;
@@ -21643,7 +22331,7 @@
          */
             function () {
                 // set up the event triggers
-                fromEvent.fromEvent(document, 'keydown').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onKeyDown.bind(this));
+                rxjs.fromEvent(document, 'keydown').pipe(operators.takeUntil(this._onDestroy)).subscribe(this.onKeyDown.bind(this));
                 // check if there is an aria-described by attribute
                 this._ariaDescribedBy = this._elementRef.nativeElement.hasAttribute('aria-describedby');
                 // set up the default event triggers
@@ -21751,7 +22439,7 @@
                 }
             };
         PopoverDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxPopover]',
                         exportAs: 'ux-popover'
                     },] }
@@ -21759,26 +22447,26 @@
         /** @nocollapse */
         PopoverDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.ViewContainerRef },
+                { type: i0.ElementRef },
+                { type: i0.ViewContainerRef },
                 { type: overlay.Overlay },
                 { type: overlay.ScrollDispatcher },
-                { type: core.ChangeDetectorRef },
-                { type: core.Renderer2 },
+                { type: i0.ChangeDetectorRef },
+                { type: i0.Renderer2 },
                 { type: TooltipService }
             ];
         };
         PopoverDirective.propDecorators = {
-            content: [{ type: core.Input, args: ['uxPopover',] }],
-            title: [{ type: core.Input, args: ['popoverTitle',] }],
-            disabled: [{ type: core.Input, args: ['popoverDisabled',] }],
-            customClass: [{ type: core.Input, args: ['popoverClass',] }],
-            role: [{ type: core.Input, args: ['popoverRole',] }],
-            context: [{ type: core.Input, args: ['popoverContext',] }],
-            delay: [{ type: core.Input, args: ['popoverDelay',] }],
-            showTriggers: [{ type: core.Input }],
-            hideTriggers: [{ type: core.Input }],
-            isVisible: [{ type: core.HostBinding, args: ['attr.aria-expanded',] }]
+            content: [{ type: i0.Input, args: ['uxPopover',] }],
+            title: [{ type: i0.Input, args: ['popoverTitle',] }],
+            disabled: [{ type: i0.Input, args: ['popoverDisabled',] }],
+            customClass: [{ type: i0.Input, args: ['popoverClass',] }],
+            role: [{ type: i0.Input, args: ['popoverRole',] }],
+            context: [{ type: i0.Input, args: ['popoverContext',] }],
+            delay: [{ type: i0.Input, args: ['popoverDelay',] }],
+            showTriggers: [{ type: i0.Input }],
+            hideTriggers: [{ type: i0.Input }],
+            isVisible: [{ type: i0.HostBinding, args: ['attr.aria-expanded',] }]
         };
         return PopoverDirective;
     }(TooltipDirective));
@@ -21791,7 +22479,7 @@
         function PopoverModule() {
         }
         PopoverModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             overlay.OverlayModule,
@@ -21825,7 +22513,7 @@
             /**
              * Unsubscribe from all observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(HierarchyBarCollapsedComponent.prototype, "_first", {
             /** Get the first node to display */
@@ -21924,23 +22612,23 @@
                 }
             };
         HierarchyBarCollapsedComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
                         template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         HierarchyBarCollapsedComponent.ctorParameters = function () {
             return [
                 { type: HierarchyBarService },
-                { type: core.Renderer2 },
+                { type: i0.Renderer2 },
                 { type: ResizeService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         HierarchyBarCollapsedComponent.propDecorators = {
-            nodeContainer: [{ type: core.ViewChild, args: ['nodes',] }]
+            nodeContainer: [{ type: i0.ViewChild, args: ['nodes',] }]
         };
         return HierarchyBarCollapsedComponent;
     }());
@@ -21955,13 +22643,13 @@
             /**
              * Emit when the node is selected
              */
-            this.select = new core.EventEmitter();
+            this.select = new i0.EventEmitter();
         }
         HierarchyBarNodeComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
                         template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -21971,9 +22659,9 @@
             ];
         };
         HierarchyBarNodeComponent.propDecorators = {
-            node: [{ type: core.Input }],
-            popoverTemplate: [{ type: core.Input }],
-            select: [{ type: core.Output }]
+            node: [{ type: i0.Input }],
+            popoverTemplate: [{ type: i0.Input }],
+            select: [{ type: i0.Output }]
         };
         return HierarchyBarNodeComponent;
     }());
@@ -21992,7 +22680,7 @@
              * the origin before we emit the select event, otherwise
              * the item may not get a focus ring when the keyboard is used.
              */
-            this.select = new core.EventEmitter(true);
+            this.select = new i0.EventEmitter(true);
             this._focusOrigin = new FocusIndicatorOrigin(focusOriginService, elementRef, renderer);
         }
         /**
@@ -22014,25 +22702,25 @@
                 this.select.emit(this.node);
             };
         HierarchyBarPopoverItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-popover-item',
                         template: "<!-- Show an icon if specified -->\n<img class=\"hierarchy-bar-node-icon\" *ngIf=\"!hierarchyBar.icon && node?.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n<!-- Show a custom icon if specified -->\n<div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n    <ng-container\n        [ngTemplateOutlet]=\"hierarchyBar.icon\"\n        [ngTemplateOutlet]=\"{ node: node, $implicit: node }\">\n    </ng-container>\n</div>\n\n<!-- Show the name of the current node -->\n<span class=\"hierarchy-bar-node-title\">{{ node?.title }}</span>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         HierarchyBarPopoverItemComponent.ctorParameters = function () {
             return [
                 { type: FocusIndicatorOriginService },
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
                 { type: HierarchyBarService }
             ];
         };
         HierarchyBarPopoverItemComponent.propDecorators = {
-            node: [{ type: core.Input }],
-            select: [{ type: core.Output }],
-            onSelect: [{ type: core.HostListener, args: ['click',] }, { type: core.HostListener, args: ['keydown.enter',] }]
+            node: [{ type: i0.Input }],
+            select: [{ type: i0.Output }],
+            onSelect: [{ type: i0.HostListener, args: ['click',] }, { type: i0.HostListener, args: ['keydown.enter',] }]
         };
         return HierarchyBarPopoverItemComponent;
     }());
@@ -22055,13 +22743,13 @@
             /**
              * Emit a select event when an item ahs been clicked or enter key pressed
              */
-            this.select = new core.EventEmitter();
+            this.select = new i0.EventEmitter();
         }
         HierarchyBarPopoverComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-popover',
                         template: "<!-- Loading Indicator -->\n<ul class=\"hierarchy-bar-node-list\" *ngIf=\"loading\">\n\n    <li class=\"hierarchy-bar-loading-indicator\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.loadingIndicator || defaultLoadingIndicator\"></ng-container>\n    </li>\n</ul>\n\n<!-- List of children -->\n<div class=\"hierarchy-bar-node-list\"\n    [class.hierarchy-bar-node-list-separator]=\"separator\"\n    *ngIf=\"!loading\"\n    uxTabbableList\n    [returnFocus]=\"true\">\n\n    <ux-hierarchy-bar-popover-item *ngFor=\"let node of nodes; let first = first\"\n        uxFocusIndicator\n        [node]=\"node\"\n        [focusIf]=\"first\"\n        uxTabbableListItem\n        (select)=\"select.emit($event)\">\n    </ux-hierarchy-bar-popover-item>\n\n</div>\n\n<!-- Loading Indicator Template -->\n<ng-template #defaultLoadingIndicator>\n    <div class=\"hierarchy-bar-loading-icon\" alt=\"Hierarchy Bar Loading Indicator\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n    </div>\n\n    <!-- Show the name of the current node -->\n    <span class=\"hierarchy-bar-loading-title\">Loading...</span>\n</ng-template>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -22071,10 +22759,10 @@
             ];
         };
         HierarchyBarPopoverComponent.propDecorators = {
-            nodes: [{ type: core.Input }],
-            loading: [{ type: core.Input }],
-            separator: [{ type: core.Input }],
-            select: [{ type: core.Output }]
+            nodes: [{ type: i0.Input }],
+            loading: [{ type: i0.Input }],
+            separator: [{ type: i0.Input }],
+            select: [{ type: i0.Output }]
         };
         return HierarchyBarPopoverComponent;
     }());
@@ -22090,15 +22778,15 @@
             /**
              * Identify which nodes are overflowing
              */
-            this.overflow$ = new BehaviorSubject.BehaviorSubject([]);
+            this.overflow$ = new rxjs.BehaviorSubject([]);
             /**
              * Determine if there is any overflow
              */
-            this.isOverflowing$ = new BehaviorSubject.BehaviorSubject(false);
+            this.isOverflowing$ = new rxjs.BehaviorSubject(false);
             /**
              * Unsubscribe from all subscriptions when component is destroyed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // subscribe to changes in the selected node - update the UI after the render
             hierarchyBar.nodes$.pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function () { return requestAnimationFrame(_this.scrollIntoView.bind(_this)); });
@@ -22157,10 +22845,10 @@
                 }
             };
         HierarchyBarStandardComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-standard',
                         template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (select)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            uxFocusIndicator\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (select)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -22170,8 +22858,8 @@
             ];
         };
         HierarchyBarStandardComponent.propDecorators = {
-            nodelist: [{ type: core.ViewChild, args: ['nodelist',] }],
-            nodes: [{ type: core.ViewChildren, args: [HierarchyBarNodeComponent, { read: core.ElementRef },] }]
+            nodelist: [{ type: i0.ViewChild, args: ['nodelist',] }],
+            nodes: [{ type: i0.ViewChildren, args: [HierarchyBarNodeComponent, { read: i0.ElementRef },] }]
         };
         return HierarchyBarStandardComponent;
     }());
@@ -22184,7 +22872,7 @@
         function HierarchyBarModule() {
         }
         HierarchyBarModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             ResizeModule,
@@ -22221,6 +22909,739 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var ICON_OPTIONS_TOKEN = new i0.InjectionToken('ICON_OPTIONS_TOKEN');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * Store a list of all the common icons in both iconsets.
+     * Duplicating this results in a bloated bundle
+     */
+    /** @type {?} */
+    var commonIcons = [
+        '3d',
+        'achievement',
+        'action',
+        'actions',
+        'active',
+        'add',
+        'advanced-search',
+        'aggregate',
+        'alarm',
+        'alert-filled',
+        'alert',
+        'analytics',
+        'announcement',
+        'app',
+        'archive',
+        'article',
+        'ascend',
+        'assistant',
+        'attachment',
+        'bar-chart',
+        'blog',
+        'book',
+        'bookmark-filled',
+        'bookmark',
+        'bundle',
+        'calculator',
+        'calendar',
+        'camera-filled',
+        'camera',
+        'capacity',
+        'caret-down-filled',
+        'caret-down',
+        'caret-next-filled',
+        'caret-next',
+        'caret-previous-filled',
+        'caret-previous',
+        'caret-up-filled',
+        'caret-up',
+        'catalog',
+        'chapter-add',
+        'chapter-next-filled',
+        'chapter-next',
+        'chapter-previous-filled',
+        'chapter-previous',
+        'chart-organization',
+        'chart-partition',
+        'chart-sankey',
+        'chat-attachment',
+        'chat',
+        'checkbox-selected',
+        'checkbox',
+        'checkmark',
+        'chevron-down',
+        'chevron-left-double',
+        'chevron-left',
+        'chevron-right-double',
+        'chevron-right',
+        'chevron-up',
+        'circular-view',
+        'clipboard',
+        'clone',
+        'close',
+        'cloud-computer',
+        'cloud-download',
+        'cloud-software',
+        'cloud-upload',
+        'cloud',
+        'cluster',
+        'code',
+        'command-line',
+        'compare',
+        'compass',
+        'compliance',
+        'computer-personal',
+        'configuration-filled',
+        'configuration',
+        'connect',
+        'contact-card',
+        'contact-us-filled',
+        'contact-us',
+        'contract',
+        'copy',
+        'cube-filled',
+        'cube',
+        'cubes',
+        'cursor-filled',
+        'cursor',
+        'cut',
+        'cycle',
+        'dashboard',
+        'database',
+        'defect',
+        'deliver',
+        'deployment',
+        'descend',
+        'desktop',
+        'detach',
+        'directions',
+        'dislike-filled',
+        'dislike',
+        'divide-four',
+        'divide-right',
+        'divide-three',
+        'divide',
+        'document-cloud',
+        'document-compress',
+        'document-config',
+        'document-csv',
+        'document-data',
+        'document-download',
+        'document-excel',
+        'document-executable',
+        'document-image',
+        'document-locked',
+        'document-missing',
+        'document-notes',
+        'document-outlook',
+        'document-pdf',
+        'document-performance',
+        'document-powerpoint',
+        'document-rtf',
+        'document-sound',
+        'document-test',
+        'document-text',
+        'document-threat',
+        'document-time',
+        'document-transfer',
+        'document-txt',
+        'document-update',
+        'document-upload',
+        'document-user',
+        'document-verified',
+        'document-video',
+        'document-word',
+        'document',
+        'domain',
+        'down',
+        'download',
+        'drag',
+        'drive-cage',
+        'duplicate',
+        'edit-filled',
+        'edit',
+        'eject-filled',
+        'eject',
+        'expand',
+        'fan',
+        'fast-forward-filled',
+        'fast-forward',
+        'favorite-filled',
+        'favorite',
+        'filter-filled',
+        'filter',
+        'first-aid',
+        'flag-filled',
+        'flag',
+        'folder-cycle',
+        'folder-open',
+        'folder',
+        'gallery-filled',
+        'gallery',
+        'globe',
+        'grid',
+        'group',
+        'grow',
+        'halt',
+        'help-circle',
+        'help',
+        'history',
+        'home-filled',
+        'home',
+        'host-maintenance',
+        'host',
+        'image-filled',
+        'image',
+        'impact',
+        'in-progress',
+        'inactive',
+        'inbox',
+        'indicator-filled',
+        'indicator',
+        'information-filled',
+        'information',
+        'inherit-filled',
+        'inherit',
+        'install',
+        'integration',
+        'iteration-filled',
+        'iteration',
+        'java-filled',
+        'java',
+        'language',
+        'launch',
+        'license-filled',
+        'license',
+        'like-filled',
+        'like',
+        'line-chart',
+        'link-bottom',
+        'link-down',
+        'link-next',
+        'link-previous',
+        'link-top',
+        'link-up',
+        'link',
+        'list',
+        'location-filled',
+        'location-pin-filled',
+        'location-pin',
+        'location',
+        'lock',
+        'login',
+        'logout',
+        'mail-attachment',
+        'mail-filled',
+        'mail',
+        'manual',
+        'map-location',
+        'map',
+        'menu',
+        'microphone-filled',
+        'microphone',
+        'monitor',
+        'more',
+        'multiple',
+        'navigate',
+        'new-window',
+        'new',
+        'next',
+        'notes',
+        'notification-filled',
+        'notification',
+        'optimization',
+        'organization',
+        'overview',
+        'pan',
+        'pause-filled',
+        'pause',
+        'payment-google-wallet',
+        'payment-mastercard',
+        'payment-paypal',
+        'payment-square',
+        'payment-visa',
+        'pin-filled',
+        'pin',
+        'plan',
+        'platform-apple',
+        'platform-chrome',
+        'platform-dropbox',
+        'platform-edge',
+        'platform-firefox',
+        'platform-internet-explorer',
+        'platform-skype',
+        'platform-windows',
+        'play-filled',
+        'play',
+        'power',
+        'previous',
+        'print',
+        'quick-view',
+        'radial-selected',
+        'radial',
+        'refresh',
+        'resources',
+        'rewind-filled',
+        'rewind',
+        'risk',
+        'rss',
+        'satellite',
+        'schedule-clone',
+        'schedule-new',
+        'schedule-play',
+        'schedule',
+        'scorecard',
+        'search',
+        'secure',
+        'select-left',
+        'select',
+        'server-cluster',
+        'server',
+        'servers',
+        'service-business',
+        'service-start',
+        'share',
+        'shield-configure',
+        'shield-filled',
+        'shield',
+        'shift',
+        'shop-basket',
+        'shop-cart',
+        'soa',
+        'social-email',
+        'social-facebook',
+        'social-github',
+        'social-instagram',
+        'social-linkedin',
+        'social-medium',
+        'social-pinterest',
+        'social-reddit',
+        'social-slack',
+        'social-tumblr',
+        'social-twitter',
+        'social-vimeo',
+        'social-youtube',
+        'sort',
+        'stakeholder',
+        'star-filled',
+        'star-half',
+        'star',
+        'status-approved-filled',
+        'status-error-filled',
+        'status-information-filled',
+        'status-warning-filled',
+        'steps-filled',
+        'steps',
+        'storage',
+        'street-view-filled',
+        'street-view',
+        'subtitles',
+        'subtract',
+        'support',
+        'sync',
+        'system',
+        'tab-next',
+        'tab-previous',
+        'tab-up',
+        'table-add',
+        'table',
+        'tag-filled',
+        'tag',
+        'target',
+        'task',
+        'template',
+        'test-desktop',
+        'test',
+        'text-wrap',
+        'threats',
+        'ticket',
+        'tools',
+        'tooltip',
+        'transaction-filled',
+        'transaction',
+        'trash-filled',
+        'trash',
+        'tree',
+        'trigger',
+        'trophy-filled',
+        'trophy',
+        'troubleshooting',
+        'unlock',
+        'up',
+        'update',
+        'upgrade-filled',
+        'upgrade',
+        'upload',
+        'user-add-filled',
+        'user-add',
+        'user-admin',
+        'user-expert',
+        'user-female-filled',
+        'user-female',
+        'user-filled',
+        'user-manager',
+        'user-new',
+        'user-police',
+        'user-settings',
+        'user-worker',
+        'user',
+        'validation-filled',
+        'validation',
+        'video-filled',
+        'video',
+        'view-filled',
+        'view',
+        'virtual-machine',
+        'vm-maintenance',
+        'volume-filled',
+        'volume-low-filled',
+        'volume-low',
+        'volume-mute-filled',
+        'volume-mute',
+        'volume',
+        'vulnerability',
+        'waypoint-filled',
+        'waypoint',
+        'workshop',
+        'zoom-in',
+        'zoom-out'
+    ];
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * We generate the iconset definition as hardcoding it increases bundle size by ~40kb per iconset
+     * @type {?}
+     */
+    var uxIconset = __spread(commonIcons.map(function (icon) {
+        return { name: icon, iconset: 'ux-icon', icon: "ux-icon-" + icon };
+    }));
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var IconService = /** @class */ (function () {
+        /** Inject a parent service if one exists */
+        function IconService(_iconService, options) {
+            this._iconService = _iconService;
+            /**
+             * Emit whenever the iconset changes
+             */
+            this.iconsChanged$ = new rxjs.Subject();
+            /**
+             * Store a list of all icon
+             */
+            this._icons = __spread(uxIconset);
+            // if the iconset was defined at the root or child module level apply this configuration
+            if (options && options.icons) {
+                this.setIcons(options.icons);
+            }
+        }
+        /** Define multiple icon definitions. This will override icon definitions if a name and size collision occurs */
+        /**
+         * Define multiple icon definitions. This will override icon definitions if a name and size collision occurs
+         * @param {?} icons
+         * @return {?}
+         */
+        IconService.prototype.setIcons = /**
+         * Define multiple icon definitions. This will override icon definitions if a name and size collision occurs
+         * @param {?} icons
+         * @return {?}
+         */
+            function (icons) {
+                var _this = this;
+                icons.forEach(function (icon) { return _this.setIcon(icon); });
+            };
+        /** Provide an icon definition which will override if necessary */
+        /**
+         * Provide an icon definition which will override if necessary
+         * @param {?} __0
+         * @return {?}
+         */
+        IconService.prototype.setIcon = /**
+         * Provide an icon definition which will override if necessary
+         * @param {?} __0
+         * @return {?}
+         */
+            function (_a) {
+                var _this = this;
+                var name = _a.name, icon = _a.icon, iconset = _a.iconset, size = _a.size;
+                // if there are multiple sizes specified add them all as individual records
+                if (Array.isArray(size)) {
+                    return size.forEach(function (variant) { return _this.setIcon({ name: name, icon: icon, iconset: iconset, size: variant }); });
+                }
+                // remove any existing definition with the same parameters
+                this._icons = this._icons.filter(function (definition) { return !(definition.name === name && definition.size === size); });
+                // insert the new definition
+                this._icons = __spread(this._icons, [{ name: name, icon: icon, iconset: iconset, size: size }]);
+                // emit the icon change
+                this.iconsChanged$.next({ name: name, size: size });
+            };
+        /** Find an icon based on the given name and size if provided */
+        /**
+         * Find an icon based on the given name and size if provided
+         * @param {?} name
+         * @param {?=} size
+         * @return {?}
+         */
+        IconService.prototype.getIcon = /**
+         * Find an icon based on the given name and size if provided
+         * @param {?} name
+         * @param {?=} size
+         * @return {?}
+         */
+            function (name, size) {
+                // if no name was specified then do nothing (this can occur if the name input on the component is not initially defined)
+                if (!name) {
+                    return;
+                }
+                // if there is a size specified then check for an exact match
+                if (size) {
+                    // get an icon definition that matches both name and size
+                    /** @type {?} */
+                    var sizedIcon = this._icons.find(function (definition) { return definition.name === name && definition.size === size; });
+                    // if there is a match then return otherwise fallthrough to the default
+                    if (sizedIcon) {
+                        return sizedIcon;
+                    }
+                }
+                // find a general match with no size constraint
+                /** @type {?} */
+                var icon = this._icons.find(function (definition) { return definition.name === name && definition.size === undefined; });
+                // if no match is found and there is a parent service then we should check it
+                if (!icon && this._iconService) {
+                    return this._iconService.getIcon(name, size);
+                }
+                else if (!icon) {
+                    console.warn("Icon '" + name + "' was not found.");
+                }
+                return icon;
+            };
+        IconService.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        IconService.ctorParameters = function () {
+            return [
+                { type: IconService, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [ICON_OPTIONS_TOKEN,] }] }
+            ];
+        };
+        return IconService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var IconComponent = /** @class */ (function () {
+        function IconComponent(_elementRef, _renderer, _iconService) {
+            this._elementRef = _elementRef;
+            this._renderer = _renderer;
+            this._iconService = _iconService;
+            /**
+             * Define if the icon should be horizontally flipped
+             */
+            this.flipHorizontal = false;
+            /**
+             * Define if the icon should be horizontally flipped
+             */
+            this.flipVertical = false;
+            /**
+             * Automatically unsubscribe from observables
+             */
+            this._onDestroy = new rxjs.Subject();
+        }
+        /** When inputs change ensure we have the best icon definition */
+        /**
+         * When inputs change ensure we have the best icon definition
+         * @param {?} changes
+         * @return {?}
+         */
+        IconComponent.prototype.ngOnChanges = /**
+         * When inputs change ensure we have the best icon definition
+         * @param {?} changes
+         * @return {?}
+         */
+            function (changes) {
+                // if the name or size changes then update the icon
+                if (changes.name && changes.name.currentValue !== changes.name.previousValue ||
+                    changes.size && changes.size.currentValue !== changes.size.previousValue) {
+                    this.updateIcon();
+                }
+            };
+        /** Watch for changes to the iconset */
+        /**
+         * Watch for changes to the iconset
+         * @return {?}
+         */
+        IconComponent.prototype.ngAfterViewInit = /**
+         * Watch for changes to the iconset
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // watch for changes to the iconset to check if we need to update.
+                this._iconService.iconsChanged$.pipe(operators.filter(function (event) { return _this._icon && event.name === _this._icon.name; }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.updateIcon(); });
+            };
+        /** Cleanup on component destroy */
+        /**
+         * Cleanup on component destroy
+         * @return {?}
+         */
+        IconComponent.prototype.ngOnDestroy = /**
+         * Cleanup on component destroy
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** get the icon definition based on the name and size specified */
+        /**
+         * get the icon definition based on the name and size specified
+         * @return {?}
+         */
+        IconComponent.prototype.updateIcon = /**
+         * get the icon definition based on the name and size specified
+         * @return {?}
+         */
+            function () {
+                // remove the current icon set and icon classes of the old icon.
+                // note we are using the renderer and not HostBindings as a HostBinding
+                // on the `class` property will override any user added classes which is
+                // not desirable.
+                if (this._icon) {
+                    this._renderer.removeClass(this._elementRef.nativeElement, this._icon.iconset);
+                    this._renderer.removeClass(this._elementRef.nativeElement, this._icon.icon);
+                }
+                // update the stored icon definition with the best match based on name and size
+                this._icon = this._iconService.getIcon(this.name, this.size);
+                // add the new icon classes, again using the renderer to avoid overriding user classes
+                if (this._icon) {
+                    this._renderer.addClass(this._elementRef.nativeElement, this._icon.iconset);
+                    this._renderer.addClass(this._elementRef.nativeElement, this._icon.icon);
+                }
+                else {
+                    console.warn("The icon " + this.name + " could not be found. Ensure you are using the correct iconset.");
+                }
+            };
+        IconComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-icon',
+                        template: '',
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        host: {
+                            '[style.font-size]': 'size',
+                            '[class.ux-flip-horizontal]': 'flipHorizontal',
+                            '[class.ux-flip-vertical]': 'flipVertical',
+                            '[class.ux-rotate-90]': 'rotate == 90',
+                            '[class.ux-rotate-180]': 'rotate == 180',
+                            '[class.ux-rotate-270]': 'rotate == 270',
+                        }
+                    }] }
+        ];
+        /** @nocollapse */
+        IconComponent.ctorParameters = function () {
+            return [
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
+                { type: IconService }
+            ];
+        };
+        IconComponent.propDecorators = {
+            name: [{ type: i0.Input }],
+            size: [{ type: i0.Input }],
+            rotate: [{ type: i0.Input }],
+            flipHorizontal: [{ type: i0.Input }],
+            flipVertical: [{ type: i0.Input }]
+        };
+        return IconComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var IconModule = /** @class */ (function () {
+        function IconModule() {
+        }
+        /** Allow configuration at AppModule level */
+        /**
+         * Allow configuration at AppModule level
+         * @param {?=} options
+         * @return {?}
+         */
+        IconModule.forRoot = /**
+         * Allow configuration at AppModule level
+         * @param {?=} options
+         * @return {?}
+         */
+            function (options) {
+                return {
+                    ngModule: IconModule,
+                    providers: [
+                        { provide: ICON_OPTIONS_TOKEN, useValue: options }
+                    ]
+                };
+            };
+        /** Allow configuration at a child module level */
+        /**
+         * Allow configuration at a child module level
+         * @param {?=} options
+         * @return {?}
+         */
+        IconModule.forChild = /**
+         * Allow configuration at a child module level
+         * @param {?=} options
+         * @return {?}
+         */
+            function (options) {
+                // the `forChild` does the same as `forRoot` however this having
+                // `forChild` follows the correct conventions as we should never
+                // import `forRoot` in a child module
+                return IconModule.forRoot(options);
+            };
+        IconModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        declarations: [
+                            IconComponent
+                        ],
+                        exports: [
+                            IconComponent
+                        ],
+                        providers: [
+                            IconService
+                        ]
+                    },] }
+        ];
+        return IconModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * We generate the iconset definition as hardcoding it increases bundle size by ~40kb per iconset
+     * @type {?}
+     */
+    var hpeIconset = __spread(commonIcons.map(function (icon) {
+        return { name: icon, iconset: 'hpe-icon', icon: "hpe-" + icon };
+    }));
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     /** @enum {string} */
     var SidePanelAnimationState = {
         Closed: 'closed',
@@ -22246,7 +23667,7 @@
      */
     var SidePanelService = /** @class */ (function () {
         function SidePanelService() {
-            this.open$ = new BehaviorSubject.BehaviorSubject(false);
+            this.open$ = new rxjs.BehaviorSubject(false);
         }
         /**
          * @return {?}
@@ -22267,7 +23688,7 @@
                 this.open$.next(false);
             };
         SidePanelService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return SidePanelService;
     }());
@@ -22288,8 +23709,8 @@
             this.animate = false;
             this.closeOnExternalClick = false;
             this.focusOnShow = false;
-            this.openChange = new core.EventEmitter();
-            this._onDestroy = new Subject.Subject();
+            this.openChange = new i0.EventEmitter();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(SidePanelComponent.prototype, "open", {
             get: /**
@@ -22431,7 +23852,7 @@
                 }
             };
         SidePanelComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-side-panel',
                         exportAs: 'ux-side-panel',
                         template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\">\n    <ng-content></ng-content>\n</div>\n",
@@ -22446,23 +23867,23 @@
         SidePanelComponent.ctorParameters = function () {
             return [
                 { type: SidePanelService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         SidePanelComponent.propDecorators = {
-            open: [{ type: core.Input }, { type: core.HostBinding, args: ['class.open',] }],
-            inline: [{ type: core.Input }, { type: core.HostBinding, args: ['class.inline',] }],
-            attachTo: [{ type: core.Input }],
-            width: [{ type: core.Input }],
-            top: [{ type: core.Input }],
-            modal: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.aria-modal',] }],
-            animate: [{ type: core.Input }, { type: core.HostBinding, args: ['class.animate',] }],
-            closeOnExternalClick: [{ type: core.Input }],
-            focusOnShow: [{ type: core.Input }],
-            openChange: [{ type: core.Output }],
-            componentWidth: [{ type: core.HostBinding, args: ['style.width',] }],
-            closePanel: [{ type: core.HostListener, args: ['document:keyup.escape',] }],
-            clickHandler: [{ type: core.HostListener, args: ['document:click', ['$event'],] }]
+            open: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.open',] }],
+            inline: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.inline',] }],
+            attachTo: [{ type: i0.Input }],
+            width: [{ type: i0.Input }],
+            top: [{ type: i0.Input }],
+            modal: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.aria-modal',] }],
+            animate: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.animate',] }],
+            closeOnExternalClick: [{ type: i0.Input }],
+            focusOnShow: [{ type: i0.Input }],
+            openChange: [{ type: i0.Output }],
+            componentWidth: [{ type: i0.HostBinding, args: ['style.width',] }],
+            closePanel: [{ type: i0.HostListener, args: ['document:keyup.escape',] }],
+            clickHandler: [{ type: i0.HostListener, args: ['document:click', ['$event'],] }]
         };
         return SidePanelComponent;
     }());
@@ -22475,7 +23896,7 @@
         function ItemDisplayPanelContentDirective() {
         }
         ItemDisplayPanelContentDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxItemDisplayPanelContent]'
                     },] }
         ];
@@ -22485,7 +23906,7 @@
         function ItemDisplayPanelFooterDirective() {
         }
         ItemDisplayPanelFooterDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxItemDisplayPanelFooter]'
                     },] }
         ];
@@ -22498,7 +23919,7 @@
             _this.boxShadow = true;
             _this.closeVisible = true;
             _this.shadow = false;
-            _this.visibleChange = new core.EventEmitter();
+            _this.visibleChange = new i0.EventEmitter();
             _this.animate = false;
             _this.closeOnExternalClick = true;
             return _this;
@@ -22581,7 +24002,7 @@
                 }
             };
         ItemDisplayPanelComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-item-display-panel',
                         template: "<div class=\"ux-side-panel-host ux-item-display-panel\" #panel\n    [class.box-shadow]=\"boxShadow\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [@panelState]=\"animationPanelState\"\n    [tabindex]=\"open ? 0 : -1\"\n    [focusIf]=\"open && focusOnShow\">\n\n    <div class=\"ux-side-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n        <h3>{{ header }}</h3>\n        <button *ngIf=\"closeVisible\" aria-label=\"Close\" i18n-aria-label type=\"button\" class=\"btn btn-lg btn-link btn-icon button-secondary\" (click)=\"visible = false\">\n            <i class=\"hpe-icon hpe-close\"></i>\n        </button>\n    </div>\n\n    <div class=\"ux-side-panel-content\">\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n    </div>\n\n    <div class=\"ux-side-panel-footer\" *ngIf=\"footer\">\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n    </div>\n\n</div>\n",
                         providers: [SidePanelService],
@@ -22595,20 +24016,20 @@
         ItemDisplayPanelComponent.ctorParameters = function () {
             return [
                 { type: SidePanelService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         ItemDisplayPanelComponent.propDecorators = {
-            header: [{ type: core.Input }],
-            boxShadow: [{ type: core.Input }],
-            closeVisible: [{ type: core.Input }],
-            preventClose: [{ type: core.Input }],
-            shadow: [{ type: core.Input }],
-            visibleChange: [{ type: core.Output }],
-            footer: [{ type: core.ContentChild, args: [ItemDisplayPanelFooterDirective,] }],
-            panel: [{ type: core.ViewChild, args: ['panel',] }],
-            title: [{ type: core.Input }],
-            visible: [{ type: core.Input }]
+            header: [{ type: i0.Input }],
+            boxShadow: [{ type: i0.Input }],
+            closeVisible: [{ type: i0.Input }],
+            preventClose: [{ type: i0.Input }],
+            shadow: [{ type: i0.Input }],
+            visibleChange: [{ type: i0.Output }],
+            footer: [{ type: i0.ContentChild, args: [ItemDisplayPanelFooterDirective,] }],
+            panel: [{ type: i0.ViewChild, args: ['panel',] }],
+            title: [{ type: i0.Input }],
+            visible: [{ type: i0.Input }]
         };
         return ItemDisplayPanelComponent;
     }(SidePanelComponent));
@@ -22627,7 +24048,7 @@
         function ItemDisplayPanelModule() {
         }
         ItemDisplayPanelModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             FocusIfModule
@@ -22657,7 +24078,7 @@
             /**
              * Emits when visited changes.
              */
-            this.visitedChange = new core.EventEmitter();
+            this.visitedChange = new i0.EventEmitter();
             this._active = false;
             this._visited = false;
         }
@@ -22706,7 +24127,7 @@
             configurable: true
         });
         WizardStepComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-wizard-step',
                         template: "<ng-container *ngIf=\"active\">\n    <ng-content></ng-content>\n</ng-container>",
                         host: {
@@ -22716,12 +24137,12 @@
                     }] }
         ];
         WizardStepComponent.propDecorators = {
-            header: [{ type: core.Input }],
-            valid: [{ type: core.Input }],
-            visitedChange: [{ type: core.Input }],
-            visited: [{ type: core.Input }],
-            active: [{ type: core.HostBinding, args: ['attr.aria-expanded',] }],
-            id: [{ type: core.HostBinding, args: ['id',] }]
+            header: [{ type: i0.Input }],
+            valid: [{ type: i0.Input }],
+            visitedChange: [{ type: i0.Input }],
+            visited: [{ type: i0.Input }],
+            active: [{ type: i0.HostBinding, args: ['attr.aria-expanded',] }],
+            id: [{ type: i0.HostBinding, args: ['id',] }]
         };
         return WizardStepComponent;
     }());
@@ -22829,40 +24250,40 @@
             /**
              * Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.
              */
-            this.onNext = new core.EventEmitter();
+            this.onNext = new i0.EventEmitter();
             /**
              * Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter.
              */
-            this.onPrevious = new core.EventEmitter();
+            this.onPrevious = new i0.EventEmitter();
             /**
              * Emits when the 'Cancel' button has been pressed.
              */
-            this.onCancel = new core.EventEmitter();
+            this.onCancel = new i0.EventEmitter();
             /**
              * Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the validity of the final step.
              */
-            this.onFinishing = new core.EventEmitter();
+            this.onFinishing = new i0.EventEmitter();
             /**
              * Emits when the 'Finish' button has been pressed and the final step is valid.
              */
-            this.onFinish = new core.EventEmitter();
+            this.onFinish = new i0.EventEmitter();
             /**
              * Emits before the current step changes. The event contains the current step index in the `from` property, and the requested step index in the `to` property.
              */
-            this.stepChanging = new core.EventEmitter();
+            this.stepChanging = new i0.EventEmitter();
             /**
              * Emits when the current step has changed.
              */
-            this.stepChange = new core.EventEmitter();
+            this.stepChange = new i0.EventEmitter();
             /**
              * Emits when the user tries to continue but the current step is invalid.
              */
-            this.stepError = new core.EventEmitter();
-            this.steps = new core.QueryList();
+            this.stepError = new i0.EventEmitter();
+            this.steps = new i0.QueryList();
             this.id = "ux-wizard-" + uniqueId$6++;
             this.invalidIndicator = false;
             this._step = 0;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(WizardComponent.prototype, "step", {
             /**
@@ -23129,7 +24550,7 @@
                 return this.steps.toArray()[index];
             };
         WizardComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-wizard',
                         template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"stp.id\"\n            [id]=\"stp.id + '-label'\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            {{ stp.header }}\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n</div>\n",
                         host: {
@@ -23138,45 +24559,45 @@
                     }] }
         ];
         WizardComponent.propDecorators = {
-            orientation: [{ type: core.Input }],
-            nextText: [{ type: core.Input }],
-            previousText: [{ type: core.Input }],
-            cancelText: [{ type: core.Input }],
-            finishText: [{ type: core.Input }],
-            nextTooltip: [{ type: core.Input }],
-            previousTooltip: [{ type: core.Input }],
-            cancelTooltip: [{ type: core.Input }],
-            finishTooltip: [{ type: core.Input }],
-            nextAriaLabel: [{ type: core.Input }],
-            previousAriaLabel: [{ type: core.Input }],
-            cancelAriaLabel: [{ type: core.Input }],
-            finishAriaLabel: [{ type: core.Input }],
-            nextDisabled: [{ type: core.Input }],
-            previousDisabled: [{ type: core.Input }],
-            cancelDisabled: [{ type: core.Input }],
-            finishDisabled: [{ type: core.Input }],
-            nextVisible: [{ type: core.Input }],
-            previousVisible: [{ type: core.Input }],
-            cancelVisible: [{ type: core.Input }],
-            finishVisible: [{ type: core.Input }],
-            cancelAlwaysVisible: [{ type: core.Input }],
-            finishAlwaysVisible: [{ type: core.Input }],
-            onNext: [{ type: core.Output }],
-            onPrevious: [{ type: core.Output }],
-            onCancel: [{ type: core.Output }],
-            onFinishing: [{ type: core.Output }],
-            onFinish: [{ type: core.Output }],
-            stepChanging: [{ type: core.Output }],
-            stepChange: [{ type: core.Output }],
-            stepError: [{ type: core.Output }],
-            steps: [{ type: core.ContentChildren, args: [WizardStepComponent,] }],
-            step: [{ type: core.Input }]
+            orientation: [{ type: i0.Input }],
+            nextText: [{ type: i0.Input }],
+            previousText: [{ type: i0.Input }],
+            cancelText: [{ type: i0.Input }],
+            finishText: [{ type: i0.Input }],
+            nextTooltip: [{ type: i0.Input }],
+            previousTooltip: [{ type: i0.Input }],
+            cancelTooltip: [{ type: i0.Input }],
+            finishTooltip: [{ type: i0.Input }],
+            nextAriaLabel: [{ type: i0.Input }],
+            previousAriaLabel: [{ type: i0.Input }],
+            cancelAriaLabel: [{ type: i0.Input }],
+            finishAriaLabel: [{ type: i0.Input }],
+            nextDisabled: [{ type: i0.Input }],
+            previousDisabled: [{ type: i0.Input }],
+            cancelDisabled: [{ type: i0.Input }],
+            finishDisabled: [{ type: i0.Input }],
+            nextVisible: [{ type: i0.Input }],
+            previousVisible: [{ type: i0.Input }],
+            cancelVisible: [{ type: i0.Input }],
+            finishVisible: [{ type: i0.Input }],
+            cancelAlwaysVisible: [{ type: i0.Input }],
+            finishAlwaysVisible: [{ type: i0.Input }],
+            onNext: [{ type: i0.Output }],
+            onPrevious: [{ type: i0.Output }],
+            onCancel: [{ type: i0.Output }],
+            onFinishing: [{ type: i0.Output }],
+            onFinish: [{ type: i0.Output }],
+            stepChanging: [{ type: i0.Output }],
+            stepChange: [{ type: i0.Output }],
+            stepError: [{ type: i0.Output }],
+            steps: [{ type: i0.ContentChildren, args: [WizardStepComponent,] }],
+            step: [{ type: i0.Input }]
         };
         return WizardComponent;
     }());
     var StepChangingEvent = /** @class */ (function () {
-        function StepChangingEvent(from$$1, to) {
-            this.from = from$$1;
+        function StepChangingEvent(from, to) {
+            this.from = from;
             this.to = to;
         }
         return StepChangingEvent;
@@ -23195,7 +24616,7 @@
         function WizardModule() {
         }
         WizardModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             TooltipModule,
@@ -23225,10 +24646,10 @@
      */
     var MarqueeWizardService = /** @class */ (function () {
         function MarqueeWizardService() {
-            this.valid$ = new Subject.Subject();
+            this.valid$ = new rxjs.Subject();
         }
         MarqueeWizardService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return MarqueeWizardService;
     }());
@@ -23243,7 +24664,7 @@
             var _this = _super.call(this) || this;
             _this._marqueeWizardService = _marqueeWizardService;
             _this.completed = false;
-            _this.completedChange = new core.EventEmitter();
+            _this.completedChange = new i0.EventEmitter();
             _this._valid = true;
             return _this;
         }
@@ -23284,7 +24705,7 @@
                 this.completedChange.emit(completed);
             };
         MarqueeWizardStepComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-marquee-wizard-step',
                         template: "<ng-container *ngIf=\"active\">\n    <ng-content></ng-content>\n</ng-container>"
                     }] }
@@ -23296,9 +24717,9 @@
             ];
         };
         MarqueeWizardStepComponent.propDecorators = {
-            icon: [{ type: core.Input }],
-            completed: [{ type: core.Input }],
-            completedChange: [{ type: core.Output }]
+            icon: [{ type: i0.Input }],
+            completed: [{ type: i0.Input }],
+            completedChange: [{ type: i0.Output }]
         };
         return MarqueeWizardStepComponent;
     }(WizardStepComponent));
@@ -23314,7 +24735,7 @@
             /**
              * Access each step content component
              */
-            _this.steps = new core.QueryList();
+            _this.steps = new i0.QueryList();
             marqueeWizardService.valid$.pipe(operators.filter(function (event) { return !event.valid; }))
                 .subscribe(_this.validChange.bind(_this));
             return _this;
@@ -23323,7 +24744,7 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.description && this.description instanceof core.TemplateRef;
+                return this.description && this.description instanceof i0.TemplateRef;
             },
             enumerable: true,
             configurable: true
@@ -23418,7 +24839,7 @@
                 });
             };
         MarqueeWizardComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-marquee-wizard',
                         template: "<div class=\"marquee-wizard-side-panel\">\n\n    <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n        <!-- If a template was provided display it -->\n        <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n        <!-- Otherwise wimply display the string -->\n        <ng-container *ngIf=\"!isTemplate\">\n            <p>{{ description }}</p>\n        </ng-container>\n    </div>\n\n    <ul class=\"marquee-wizard-steps\"\n        uxTabbableList\n        direction=\"vertical\"\n        role=\"tablist\"\n        aria-orientation=\"vertical\">\n\n        <li *ngFor=\"let step of steps; let index = index\"\n            role=\"tab\"\n            uxTabbableListItem\n            [disabled]=\"!step.visited\"\n            class=\"marquee-wizard-step\"\n            [class.active]=\"step.active\"\n            [class.visited]=\"step.visited\"\n            [class.invalid]=\"!step.valid\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"step.active\"\n            [attr.aria-controls]=\"step.id\"\n            [id]=\"step.id + '-label'\"\n            (click)=\"gotoStep(step)\"\n            (keydown.enter)=\"gotoStep(step)\">\n\n            <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n        </li>\n\n    </ul>\n</div>\n\n<div class=\"marquee-wizard-content-panel\">\n    <div class=\"marquee-wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n    <div class=\"modal-footer\">\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-secondary\"\n                *ngIf=\"previousVisible\"\n                [uxTooltip]=\"previousTooltip\"\n                [attr.aria-label]=\"previousAriaLabel\"\n                container=\"body\"\n                [disabled]=\"previousDisabled || step === 0\"\n                (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n        </button>\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-primary\"\n                *ngIf=\"nextVisible && !isLastStep()\"\n                [uxTooltip]=\"nextTooltip\"\n                [attr.aria-label]=\"nextAriaLabel\"\n                container=\"body\"\n                [disabled]=\"nextDisabled\"\n                (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n        </button>\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-primary\"\n                *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                [uxTooltip]=\"finishTooltip\"\n                [attr.aria-label]=\"finishAriaLabel\"\n                container=\"body\"\n                [disabled]=\"finishDisabled\"\n                (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n        </button>\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-secondary\"\n                *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                [uxTooltip]=\"cancelTooltip\"\n                [attr.aria-label]=\"cancelAriaLabel\"\n                container=\"body\"\n                [disabled]=\"cancelDisabled\"\n                (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n        </button>\n    </div>\n</div>\n\n<ng-template #defaultStepTemplate let-step>\n    <i class=\"marquee-wizard-step-icon\" [ngClass]=\"step.icon\"></i>\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <span class=\"marquee-wizard-step-status hpe-icon hpe-checkmark\" *ngIf=\"step.completed\"></span>\n</ng-template>",
                         providers: [MarqueeWizardService]
@@ -23431,9 +24852,9 @@
             ];
         };
         MarqueeWizardComponent.propDecorators = {
-            description: [{ type: core.Input }],
-            stepTemplate: [{ type: core.Input }],
-            steps: [{ type: core.ContentChildren, args: [MarqueeWizardStepComponent,] }]
+            description: [{ type: i0.Input }],
+            stepTemplate: [{ type: i0.Input }],
+            steps: [{ type: i0.ContentChildren, args: [MarqueeWizardStepComponent,] }]
         };
         return MarqueeWizardComponent;
     }(WizardComponent));
@@ -23446,7 +24867,7 @@
         function MarqueeWizardModule() {
         }
         MarqueeWizardModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             WizardModule,
@@ -23522,7 +24943,7 @@
          */
             function (videoPlayer, time) {
                 videoPlayer.currentTime = time;
-                return fromEvent.fromEvent(videoPlayer, time === 0 ? 'loadeddata' : 'seeked');
+                return rxjs.fromEvent(videoPlayer, time === 0 ? 'loadeddata' : 'seeked');
             };
         /**
          * @param {?} videoPlayer
@@ -23548,7 +24969,7 @@
                 if (height === void 0) {
                     height = 90;
                 }
-                return Observable.Observable.create(function (observer) {
+                return rxjs.Observable.create(function (observer) {
                     // go to specified frame
                     /** @type {?} */
                     var subscription = _this.goToFrame(videoPlayer, time).subscribe(function () {
@@ -23617,15 +25038,15 @@
                 var videoPlayer = this.createVideoPlayer(source);
                 /** @type {?} */
                 var canvas = this.createCanvas(width, height);
-                return Observable.Observable.create(function (observer) {
-                    fromEvent.fromEvent(videoPlayer, 'loadedmetadata').subscribe(function () {
+                return rxjs.Observable.create(function (observer) {
+                    rxjs.fromEvent(videoPlayer, 'loadedmetadata').subscribe(function () {
                         // calculate the frames required
                         /** @type {?} */
                         var frames = [];
                         for (var idx = start; idx < end; idx += skip) {
                             frames.push(_this.getThumbnail(videoPlayer, canvas, idx, width, height));
                         }
-                        concat.concat.apply(void 0, __spread(frames)).subscribe(function (frame) { return observer.next(frame); }, null, function () {
+                        rxjs.concat.apply(void 0, __spread(frames)).subscribe(function (frame) { return observer.next(frame); }, null, function () {
                             videoPlayer = null;
                             canvas = null;
                             observer.complete();
@@ -23634,7 +25055,7 @@
                 });
             };
         FrameExtractionService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return FrameExtractionService;
     }());
@@ -23647,7 +25068,7 @@
         function FrameExtractionModule() {
         }
         FrameExtractionModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         providers: [FrameExtractionService],
                     },] }
         ];
@@ -23672,32 +25093,32 @@
             /*
                     Create observables for media player events
                 */
-            this.playing = new BehaviorSubject.BehaviorSubject(false);
-            this.initEvent = new ReplaySubject.ReplaySubject();
-            this.abortEvent = new Subject.Subject();
-            this.canPlayEvent = new BehaviorSubject.BehaviorSubject(false);
-            this.canPlayThroughEvent = new BehaviorSubject.BehaviorSubject(false);
-            this.durationChangeEvent = new Subject.Subject();
-            this.endedEvent = new Subject.Subject();
-            this.errorEvent = new Subject.Subject();
-            this.loadedDataEvent = new Subject.Subject();
-            this.loadedMetadataEvent = new Subject.Subject();
-            this.loadStartEvent = new Subject.Subject();
-            this.pauseEvent = new Subject.Subject();
-            this.playEvent = new Subject.Subject();
-            this.playingEvent = new Subject.Subject();
-            this.rateChangeEvent = new Subject.Subject();
-            this.seekedEvent = new Subject.Subject();
-            this.seekingEvent = new Subject.Subject();
-            this.stalledEvent = new Subject.Subject();
-            this.suspendEvent = new Subject.Subject();
-            this.timeUpdateEvent = new Subject.Subject();
-            this.volumeChangeEvent = new Subject.Subject();
-            this.waitingEvent = new Subject.Subject();
-            this.mediaClickEvent = new Subject.Subject();
-            this.fullscreenEvent = new BehaviorSubject.BehaviorSubject(false);
-            this.quietModeEvent = new BehaviorSubject.BehaviorSubject(false);
-            this.progressEvent = Observable.Observable.create(function (observer) {
+            this.playing = new rxjs.BehaviorSubject(false);
+            this.initEvent = new rxjs.ReplaySubject();
+            this.abortEvent = new rxjs.Subject();
+            this.canPlayEvent = new rxjs.BehaviorSubject(false);
+            this.canPlayThroughEvent = new rxjs.BehaviorSubject(false);
+            this.durationChangeEvent = new rxjs.Subject();
+            this.endedEvent = new rxjs.Subject();
+            this.errorEvent = new rxjs.Subject();
+            this.loadedDataEvent = new rxjs.Subject();
+            this.loadedMetadataEvent = new rxjs.Subject();
+            this.loadStartEvent = new rxjs.Subject();
+            this.pauseEvent = new rxjs.Subject();
+            this.playEvent = new rxjs.Subject();
+            this.playingEvent = new rxjs.Subject();
+            this.rateChangeEvent = new rxjs.Subject();
+            this.seekedEvent = new rxjs.Subject();
+            this.seekingEvent = new rxjs.Subject();
+            this.stalledEvent = new rxjs.Subject();
+            this.suspendEvent = new rxjs.Subject();
+            this.timeUpdateEvent = new rxjs.Subject();
+            this.volumeChangeEvent = new rxjs.Subject();
+            this.waitingEvent = new rxjs.Subject();
+            this.mediaClickEvent = new rxjs.Subject();
+            this.fullscreenEvent = new rxjs.BehaviorSubject(false);
+            this.quietModeEvent = new rxjs.BehaviorSubject(false);
+            this.progressEvent = rxjs.Observable.create(function (observer) {
                 // repeat until the whole video has fully loaded
                 /** @type {?} */
                 var interval = setInterval(function () {
@@ -24283,7 +25704,7 @@
                 if (this.type === 'video') {
                     return this._frameExtractionService.getFrameThumbnails(this.source, width, height, 0, this.duration, 10);
                 }
-                return from.from([]);
+                return rxjs.from([]);
             };
         /**
          * @return {?}
@@ -24297,7 +25718,7 @@
                 }
             };
         MediaPlayerService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         MediaPlayerService.ctorParameters = function () {
@@ -24317,7 +25738,7 @@
             this.mediaPlayerService = mediaPlayerService;
         }
         MediaPlayerBaseExtensionDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[mediaPlayerBaseExtension]'
                     },] }
         ];
@@ -24344,7 +25765,7 @@
             /**
              * Emits when the `value` changes.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
             // expose enums to Angular view
             this.sliderType = SliderType;
             this.sliderStyle = SliderStyle;
@@ -25274,26 +26695,26 @@
                 return instance;
             };
         SliderComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-slider',
                         template: "<div class=\"track\"\n     #track\n     [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n     [class.wide]=\"options.track.height === sliderSize.Wide\"\n     [class.range]=\"options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #lowerthumb\n        [attr.aria-label]=\"options.type === sliderType.Range ? options.handles.aria.lowerThumb : options.handles.aria.thumb\"\n        [attr.aria-valuemin]=\"options?.track?.min\"\n        [attr.aria-valuemax]=\"options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) : options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Lower)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Lower)\"\n        [style.left.%]=\"thumbs.lower.position\"\n        [class.active]=\"thumbs.lower.drag\"\n        [style.z-index]=\"thumbs.lower.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Lower, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Lower, true); $event.preventDefault()\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false\"\n            [style.opacity]=\"tooltips.lower.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.lower.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #upperthumb\n        [attr.aria-label]=\"options.handles.aria.upperThumb\"\n        [attr.aria-valuemin]=\"getThumbValue(sliderThumb.Lower) || options?.track?.min\"\n        [attr.aria-valuemax]=\"options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Upper)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Upper)\"\n        [hidden]=\"options.type !== sliderType.Range\"\n        [class.active]=\"thumbs.upper.drag\"\n        [style.left.%]=\"thumbs.upper.position\"\n        [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Upper, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Upper, true); $event.preventDefault()\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false\"\n            [style.opacity]=\"tooltips.upper.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.upper.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                *ngIf=\"options.type === sliderType.Range\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\"\n    role=\"presentation\"\n    *ngIf=\"(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\"\n    [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n    <div class=\"tick\"\n        *ngFor=\"let tick of ticks\"\n        [class.major]=\"tick.type === sliderTickType.Major\"\n        [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\"\n        [hidden]=\"!tick.showTicks\">\n\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" aria-hidden=\"true\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         SliderComponent.ctorParameters = function () {
             return [
                 { type: ColorService },
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         SliderComponent.propDecorators = {
-            value: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            valueChange: [{ type: core.Output }],
-            lowerTooltip: [{ type: core.ViewChild, args: ['lowerTooltip',] }],
-            upperTooltip: [{ type: core.ViewChild, args: ['upperTooltip',] }],
-            track: [{ type: core.ViewChild, args: ['track',] }]
+            value: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            valueChange: [{ type: i0.Output }],
+            lowerTooltip: [{ type: i0.ViewChild, args: ['lowerTooltip',] }],
+            upperTooltip: [{ type: i0.ViewChild, args: ['upperTooltip',] }],
+            track: [{ type: i0.ViewChild, args: ['track',] }]
         };
         return SliderComponent;
     }());
@@ -25378,7 +26799,7 @@
         function SliderModule() {
         }
         SliderModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -25416,8 +26837,8 @@
             _this.returnFocus = true;
             _this.subtitlesId = "ux-media-player-subtitle-popover-" + uniqueId$7++;
             _this.subtitlesOpen = false;
-            _this.mouseEnterVolume = new Subject.Subject();
-            _this.mouseLeaveVolume = new Subject.Subject();
+            _this.mouseEnterVolume = new rxjs.Subject();
+            _this.mouseLeaveVolume = new rxjs.Subject();
             _this.options = {
                 handles: {
                     aria: {
@@ -25441,7 +26862,7 @@
             };
             _this._volume = 50;
             _this._previousVolume = 50;
-            _this._onDestroy = new Subject.Subject();
+            _this._onDestroy = new rxjs.Subject();
             return _this;
         }
         Object.defineProperty(MediaPlayerControlsExtensionComponent.prototype, "volume", {
@@ -25474,7 +26895,7 @@
                 this.mediaPlayerService.volumeChangeEvent.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (volume) { return _this.volume = volume * 100; });
                 this.mediaPlayerService.initEvent.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.volume = _this.mediaPlayerService.volume * 100; });
                 this.mouseEnterVolume.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.volumeActive = true; });
-                this.mouseLeaveVolume.pipe(operators.switchMap(function () { return timer.timer(1500).pipe(operators.takeUntil(_this.mouseEnterVolume)); }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.volumeActive = false; });
+                this.mouseLeaveVolume.pipe(operators.switchMap(function () { return rxjs.timer(1500).pipe(operators.takeUntil(_this.mouseEnterVolume)); }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.volumeActive = false; });
             };
         /**
          * @return {?}
@@ -25562,7 +26983,7 @@
                 return 'No subtitles';
             };
         MediaPlayerControlsExtensionComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-media-player-controls',
                         template: "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\"\n        #volumeContainer\n        [class.active]=\"volumeActive || volumeFocus\"\n        (mouseenter)=\"mouseEnterVolume.next()\"\n        (mouseleave)=\"mouseLeaveVolume.next()\"\n        (uxFocusWithin)=\"volumeFocus = true\"\n        (uxBlurWithin)=\"volumeFocus = false\">\n\n        <button #volumeIcon\n                uxFocusIndicator\n                type=\"button\"\n                class=\"volume-slider-icon\"\n                attr.aria-label=\"{{ volume === 0 ? 'Unmute' : 'Mute' }}\"\n                i18n-aria-label\n                [uxTooltip]=\"muteTooltip\"\n                [showTriggers]=\"['mouseenter']\"\n                [hideTriggers]=\"['mouseleave']\"\n                (click)=\"toggleMute()\"\n                (mouseup)=\"volumeIcon.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-volume-mute]=\"volume === 0\"\n                  [class.hpe-volume-low]=\"volume > 0 && volume <= 70\"\n                  [class.hpe-volume]=\"volume > 70\">\n            </span>\n        </button>\n\n        <div class=\"volume-slider-node\">\n            <ux-slider [(value)]=\"volume\" [options]=\"options\"></ux-slider>\n        </div>\n    </div>\n</div>\n\n<button #startButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToStart()\"\n    (mouseup)=\"startButton.blur()\"\n    aria-label=\"Go to start\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n    </svg>\n</button>\n\n<button #playButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    attr.aria-label=\"{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}\"\n    i18n-aria-label\n    (click)=\"mediaPlayerService.togglePlay()\"\n    (mouseup)=\"playButton.blur()\">\n\n    <svg *ngIf=\"!(mediaPlayerService.playing | async)\" viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" focusable=\"false\">\n        <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n    </svg>\n    <svg *ngIf=\"mediaPlayerService.playing | async\" viewBox=\"0 0 43 56.9\" width=\"20\" height=\"29\" focusable=\"false\">\n        <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n        <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    </svg>\n</button>\n\n<button #endButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToEnd()\"\n    (mouseup)=\"endButton.blur()\"\n    aria-label=\"Go to end\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"0,64 0,0 44.1,32\" />\n    </svg>\n</button>\n\n<div class=\"actions-list\">\n\n    <ng-content></ng-content>\n\n    <div class=\"action-button-container\" *ngIf=\"mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'\">\n        <button #subtitlesButton\n            uxFocusIndicator\n            type=\"button\"\n            class=\"action-button\"\n            (keydown)=\"returnFocus = true\"\n            (click)=\"subtitlesOpen = !subtitlesOpen\"\n            (mouseup)=\"subtitlesButton.blur(); returnFocus = false\"\n            i18n-aria-label\n            attr.aria-label=\"Select subtitles, {{ getSubtitleTrack() }} currently selected.\"\n            [attr.aria-expanded]=\"subtitlesOpen\"\n            [attr.aria-describedby]=\"subtitlesId\"\n            aria-haspopup=\"true\">\n            <span class=\"hpe-icon hpe-subtitles\"></span>\n        </button>\n\n        <div #subtitles\n            [style.top.px]=\"-subtitles.offsetHeight\"\n            class=\"popover top media-player-subtitles-popover show\"\n            [id]=\"subtitlesId\"\n            (keydown.escape)=\"subtitlesOpen = false\"\n            (uxClickOutside)=\"subtitlesOpen = false\"\n            *ngIf=\"subtitlesOpen\">\n            <div class=\"arrow\"></div>\n            <h3 class=\"popover-title\" i18n>Subtitles</h3>\n            <div class=\"popover-content\">\n                <ul class=\"subtitles-list\" uxTabbableList [focusOnShow]=\"returnFocus\" [returnFocus]=\"returnFocus\">\n                    <li uxTabbableListItem\n                        tabindex=\"0\"\n                        class=\"subtitles-list-item\"\n                        [class.active]=\"!isSubtitleActive()\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false\"\n                        (keydown.enter)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true\">\n\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span i18n>Subtitles Off</span>\n                    </li>\n                    <li uxTabbableListItem\n                        class=\"subtitles-list-item\"\n                        *ngFor=\"let track of mediaPlayerService.textTracks\"\n                        [class.active]=\"track.mode === 'showing'\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"setSubtitleTrack(track); subtitlesOpen = false\"\n                        (keydown.enter)=\"setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true\">\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span>{{ track.label }}</span>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"action-button-container\">\n        <button #fullscreenButton\n            uxFocusIndicator\n            *ngIf=\"mediaPlayerService.type !== 'audio'\"\n            type=\"button\"\n            class=\"action-button\"\n            attr.aria-label=\"{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}\"\n            i18n-aria-label\n            (click)=\"mediaPlayerService.toggleFullscreen()\"\n            (mouseup)=\"fullscreenButton.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-expand]=\"!mediaPlayerService.fullscreen\"\n                  [class.hpe-contract]=\"mediaPlayerService.fullscreen\">\n            </span>\n        </button>\n    </div>\n</div>\n\n\n\n<ng-template #muteTooltip>\n    <span aria-hidden=\"true\">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>\n</ng-template>",
                         host: {
@@ -25581,7 +27002,7 @@
         function MediaPlayerCustomControlDirective() {
         }
         MediaPlayerCustomControlDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxMediaPlayerCustomControl]',
                     },] }
         ];
@@ -25601,7 +27022,7 @@
             _this.buffered = [];
             _this.mouseDown = false;
             _this.scrub = { visible: false, position: 0, time: 0 };
-            _this._onDestroy = new Subject.Subject();
+            _this._onDestroy = new rxjs.Subject();
             return _this;
         }
         /**
@@ -25639,11 +27060,11 @@
             function () {
                 var _this = this;
                 /** @type {?} */
-                var mousedown$ = fromEvent.fromEvent(this.thumb.nativeElement, 'mousedown');
+                var mousedown$ = rxjs.fromEvent(this.thumb.nativeElement, 'mousedown');
                 /** @type {?} */
-                var mousemove$ = fromEvent.fromEvent(document, 'mousemove');
+                var mousemove$ = rxjs.fromEvent(document, 'mousemove');
                 /** @type {?} */
-                var mouseup$ = fromEvent.fromEvent(document, 'mouseup');
+                var mouseup$ = rxjs.fromEvent(document, 'mouseup');
                 mousedown$.pipe(operators.switchMap(function () { return mousemove$.pipe(operators.takeUntil(mouseup$)); }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.scrub.visible = false; });
             };
         /**
@@ -25705,7 +27126,7 @@
                 this.mediaPlayerService.currentTime = target;
             };
         MediaPlayerTimelineExtensionComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-media-player-timeline',
                         template: "<p class=\"current-time\">{{ current | duration }}</p>\n\n<div #timeline\n     class=\"timeline-bar\"\n     tabindex=\"0\"\n     role=\"slider\"\n     aria-label=\"Seek slider\"\n     i18n-aria-label\n     aria-valuemin=\"0\"\n     [attr.aria-valuemax]=\"mediaPlayerService.duration | number: '0.0-0'\"\n     [attr.aria-valuenow]=\"mediaPlayerService.currentTime | number: '0.0-0'\"\n     attr.aria-valuetext=\"{{ mediaPlayerService.currentTime | duration }} of {{ mediaPlayerService.duration | duration }}\"\n     (keydown.ArrowLeft)=\"skip(-5)\"\n     (keydown.ArrowRight)=\"skip(5)\"\n     (mouseenter)=\"scrub.visible = true; tooltip.show()\"\n     (mouseleave)=\"scrub.visible = false; tooltip.hide()\"\n     (mousemove)=\"updateScrub($event); tooltip.reposition()\"\n     (mouseup)=\"updateScrub($event)\"\n     (mousedown)=\"mouseDown = true; $event.preventDefault()\">\n\n    <div class=\"buffered-bar\"\n         *ngFor=\"let buffer of buffered\"\n         [style.left.%]=\"buffer.start\"\n         [style.width.%]=\"buffer.end - buffer.start\">\n    </div>\n\n    <div class=\"media-progress-bar\" [style.width.%]=\"position\">\n        <div #progressThumb\n             class=\"media-progress-bar-thumb\"\n             (mouseenter)=\"scrub.visible = false; tooltip.hide(); $event.stopPropagation()\"\n             (mouseleave)=\"scrub.visible = true; tooltip.show(); $event.stopPropagation()\">\n        </div>\n    </div>\n\n    <div #tooltip=\"ux-tooltip\"\n         class=\"scrub-handle\"\n         [class.scrub-handle-hidden]=\"!scrub.visible\"\n         [style.left.px]=\"scrub.position\"\n         [uxTooltip]=\"popTemplate\"\n         tooltipClass=\"ux-media-player-timeline-tooltip\"\n         placement=\"top\"\n         [showTriggers]=\"[]\"\n         [hideTriggers]=\"[]\"\n         [tooltipDelay]=\"100\"\n         [tooltipDisabled]=\"mediaPlayerService.duration === 0\"></div>\n</div>\n\n<p class=\"duration-time\">{{ mediaPlayerService.duration | duration }}</p>\n\n<ng-template #popTemplate>\n    <span>{{ scrub.time | duration }}</span>\n</ng-template>",
                         host: {
@@ -25715,8 +27136,8 @@
                     }] }
         ];
         MediaPlayerTimelineExtensionComponent.propDecorators = {
-            thumb: [{ type: core.ViewChild, args: ['progressThumb',] }],
-            timelineRef: [{ type: core.ViewChild, args: ['timeline',] }]
+            thumb: [{ type: i0.ViewChild, args: ['progressThumb',] }],
+            timelineRef: [{ type: i0.ViewChild, args: ['timeline',] }]
         };
         return MediaPlayerTimelineExtensionComponent;
     }(MediaPlayerBaseExtensionDirective));
@@ -25739,7 +27160,7 @@
          */
             function (mediaElement) {
                 var _this = this;
-                return Observable.Observable.create(function (observer) {
+                return rxjs.Observable.create(function (observer) {
                     _this._http.get(mediaElement.src, { responseType: 'blob' }).subscribe(function (response) {
                         /** @type {?} */
                         var filename = mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
@@ -25791,12 +27212,12 @@
                 var _this = this;
                 // if audio context is not support return a stream of empty data
                 if (!(( /** @type {?} */(window))).AudioContext) {
-                    return of.of([new Float32Array(0)]);
+                    return rxjs.of([new Float32Array(0)]);
                 }
                 this._audioContext = new AudioContext();
                 this.createVolumeNode();
                 this.createAnalyserNode();
-                return Observable.Observable.create(function (observer) {
+                return rxjs.Observable.create(function (observer) {
                     // load the media from the URL provided
                     _this._http.get(url, { responseType: 'arraybuffer' }).subscribe(function (response) {
                         _this.getAudioBuffer(response).subscribe(function (audioBuffer) {
@@ -25865,7 +27286,7 @@
          */
             function (arrayBuffer) {
                 var _this = this;
-                return Observable.Observable.create(function (observer) {
+                return rxjs.Observable.create(function (observer) {
                     _this.getOfflineAudioContext().decodeAudioData(arrayBuffer, function (audioBuffer) {
                         observer.next(audioBuffer);
                         observer.complete();
@@ -25928,7 +27349,7 @@
                 }
             };
         AudioService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         AudioService.ctorParameters = function () {
@@ -25947,7 +27368,7 @@
         function AudioServiceModule() {
         }
         AudioServiceModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [http.HttpClientModule],
                         providers: [AudioService]
                     },] }
@@ -25976,9 +27397,9 @@
              * The `anonymous` keyword means that there will be no exchange of user credentials when the media source is fetched.
              */
             this.crossorigin = 'use-credentials';
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // show controls when hovering and in quiet mode
-            fromEvent.fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(operators.tap(function () { return _this.hovering = true; }), operators.debounceTime(2000), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.hovering = false; });
+            rxjs.fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(operators.tap(function () { return _this.hovering = true; }), operators.debounceTime(2000), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.hovering = false; });
         }
         Object.defineProperty(MediaPlayerComponent.prototype, "source", {
             get: /**
@@ -26067,7 +27488,7 @@
                 this._onDestroy.complete();
             };
         MediaPlayerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-media-player',
                         template: "<div class=\"player-container\"\n     uxFocusIndicator\n     tabindex=\"0\"\n     aria-label=\"Media Player\"\n     i18n-aria-label\n     [cdkTrapFocus]=\"mediaPlayerService.fullscreen\">\n\n    <div class=\"video-player-container\" *ngIf=\"type === 'video'\">\n\n        <video class=\"video-player\"\n            #player\n            tabindex=\"-1\"\n            [src]=\"source\"\n            [crossOrigin]=\"crossorigin\"\n            (abort)=\"mediaPlayerService.abortEvent.next()\"\n            (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n            (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\"\n            (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\"\n            (ended)=\"mediaPlayerService.endedEvent.next()\"\n            (error)=\"mediaPlayerService.errorEvent.next($event)\"\n            (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\"\n            (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n            (loadstart)=\"mediaPlayerService.loadStartEvent.next()\"\n            (pause)=\"mediaPlayerService.pauseEvent.next()\"\n            (play)=\"mediaPlayerService.playEvent.next()\"\n            (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n            (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\"\n            (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\"\n            (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n            (stalled)=\"mediaPlayerService.stalledEvent.next()\"\n            (suspend)=\"mediaPlayerService.suspendEvent.next()\"\n            (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n            (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\"\n            (waiting)=\"mediaPlayerService.waitingEvent.next()\"\n            (click)=\"mediaPlayerService.mediaClickEvent.next($event)\">\n\n            <ng-content select=\"track\"></ng-content>\n        </video>\n\n        <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\n            <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\n                <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\n                <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\n            </svg>\n        </div>\n\n    </div>\n\n    <div class=\"audio-player\" *ngIf=\"type === 'audio'\">\n\n        <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\n            <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                <g transform=\"translate(-98.000000, -458.000000)\">\n                    <g transform=\"translate(98.000000, 458.000000)\">\n                        <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\n                        <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\n                        <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                        <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\n                            stroke=\"#60798D\"></path>\n                        <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\n                        <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                    </g>\n                </g>\n            </g>\n        </svg>\n\n        <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\n        <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\n        <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\n\n        <audio #player\n            [src]=\"source\"\n            (abort)=\"mediaPlayerService.abortEvent.next()\"\n            (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n            (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\"\n            (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\"\n            (ended)=\"mediaPlayerService.endedEvent.next()\"\n            (error)=\"mediaPlayerService.errorEvent.next($event)\"\n            (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\"\n            (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n            (loadstart)=\"mediaPlayerService.loadStartEvent.next()\"\n            (pause)=\"mediaPlayerService.pauseEvent.next()\"\n            (play)=\"mediaPlayerService.playEvent.next()\"\n            (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n            (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\"\n            (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\"\n            (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n            (stalled)=\"mediaPlayerService.stalledEvent.next()\"\n            (suspend)=\"mediaPlayerService.suspendEvent.next()\"\n            (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n            (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\"\n            (waiting)=\"mediaPlayerService.waitingEvent.next()\"\n            (click)=\"mediaPlayerService.mediaClickEvent.next($event)\">\n        </audio>\n    </div>\n\n    <div class=\"control-bar\"\n        (uxFocusWithin)=\"focused = true\"\n        (uxBlurWithin)=\"focused = false\">\n\n        <ux-media-player-timeline></ux-media-player-timeline>\n        <ux-media-player-controls>\n            <ng-content select=\"[uxMediaPlayerCustomControl]\"></ng-content>\n        </ux-media-player-controls>\n    </div>\n</div>",
                         providers: [MediaPlayerService],
@@ -26093,15 +27514,15 @@
             return [
                 { type: MediaPlayerService },
                 { type: AudioService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         MediaPlayerComponent.propDecorators = {
-            _playerRef: [{ type: core.ViewChild, args: ['player',] }],
-            crossorigin: [{ type: core.Input }],
-            source: [{ type: core.Input }],
-            type: [{ type: core.Input }],
-            quietMode: [{ type: core.Input }]
+            _playerRef: [{ type: i0.ViewChild, args: ['player',] }],
+            crossorigin: [{ type: i0.Input }],
+            source: [{ type: i0.Input }],
+            type: [{ type: i0.Input }],
+            quietMode: [{ type: i0.Input }]
         };
         return MediaPlayerComponent;
     }());
@@ -26153,7 +27574,7 @@
                 return value.toString();
             };
         DurationPipe.decorators = [
-            { type: core.Pipe, args: [{
+            { type: i0.Pipe, args: [{
                         name: 'duration'
                     },] }
         ];
@@ -26168,7 +27589,7 @@
         function DurationPipeModule() {
         }
         DurationPipeModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [DurationPipe],
                         declarations: [DurationPipe]
                     },] }
@@ -26211,7 +27632,7 @@
                 return formattedValue.toFixed(2) + " " + units[idx];
             };
         FileSizePipe.decorators = [
-            { type: core.Pipe, args: [{
+            { type: i0.Pipe, args: [{
                         name: 'fileSize'
                     },] }
         ];
@@ -26226,7 +27647,7 @@
         function FileSizePipeModule() {
         }
         FileSizePipeModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [FileSizePipe],
                         declarations: [FileSizePipe]
                     },] }
@@ -26255,7 +27676,7 @@
         function MediaPlayerModule() {
         }
         MediaPlayerModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             FrameExtractionModule,
@@ -26306,7 +27727,7 @@
             /**
              * Automatically unsubscribe when the component is destroyed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // Expand this component if it or a descendant is active.
             _router.events.pipe(operators.filter(function (event) { return event instanceof router.NavigationEnd; }), operators.takeUntil(this._onDestroy)).subscribe(function () {
                 _this.expanded = _this.hasActiveLink(_this.link);
@@ -26434,7 +27855,7 @@
                 }
             };
         NavigationItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: '[ux-navigation-item]',
                         template: "<a *ngIf=\"link\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\"\n   [routerLink]=\"link\">\n    <span>{{ header }}</span>\n</a>\n\n<a *ngIf=\"!link\"\n   (click)=\"expanded = !expanded\"\n   [class.has-arrow]=\"children.length > 0\"\n   [class.no-arrow]=\"_indentWithoutArrow\">\n    <span>{{ header }}</span>\n</a>\n\n<ng-content></ng-content>\n",
                         host: {
@@ -26446,18 +27867,18 @@
         /** @nocollapse */
         NavigationItemComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
                 { type: router.Router },
-                { type: NavigationItemComponent, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
+                { type: NavigationItemComponent, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] }
             ];
         };
         NavigationItemComponent.propDecorators = {
-            header: [{ type: core.Input }],
-            icon: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            link: [{ type: core.Input }],
-            _children: [{ type: core.ContentChildren, args: [NavigationItemComponent, { descendants: true },] }]
+            header: [{ type: i0.Input }],
+            icon: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            link: [{ type: i0.Input }],
+            _children: [{ type: i0.ContentChildren, args: [NavigationItemComponent, { descendants: true },] }]
         };
         return NavigationItemComponent;
     }());
@@ -26467,7 +27888,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var NAVIGATION_MODULE_OPTIONS = new core.InjectionToken('NAVIGATION_MODULE_OPTIONS');
+    var NAVIGATION_MODULE_OPTIONS = new i0.InjectionToken('NAVIGATION_MODULE_OPTIONS');
 
     /**
      * @fileoverview added by tsickle
@@ -26482,7 +27903,7 @@
             /**
              * Emit when the expanded state has changed
              */
-            this.expanded$ = new Subject.Subject();
+            this.expanded$ = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -26590,7 +28011,7 @@
                 return (item.children || []).find(function (child) { return child === target; }) ? item : null;
             };
         NavigationService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return NavigationService;
     }());
@@ -26610,11 +28031,11 @@
             /**
              * Emit with the current expaned state
              */
-            this._expanded$ = new Subject.Subject();
+            this._expanded$ = new rxjs.Subject();
             /**
              * Unsubscribe from all observables when this directive is destroyed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(NavigationLinkDirective.prototype, "expanded", {
             /** The expaned state of this item */
@@ -26782,7 +28203,7 @@
                 return __assign({}, defaultOptions, item.routerOptions);
             };
         NavigationLinkDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxNavigationLink]',
                         exportAs: 'uxNavigationLink'
                     },] }
@@ -26793,20 +28214,20 @@
                 { type: router.Router },
                 { type: common.LocationStrategy },
                 { type: NavigationService },
-                { type: core.ChangeDetectorRef },
+                { type: i0.ChangeDetectorRef },
                 { type: router.ActivatedRoute },
-                { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [NAVIGATION_MODULE_OPTIONS,] }] }
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [NAVIGATION_MODULE_OPTIONS,] }] }
             ];
         };
         NavigationLinkDirective.propDecorators = {
-            navigationItem: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            canExpand: [{ type: core.Input }],
-            indent: [{ type: core.Input }, { type: core.HostBinding, args: ['class.indent',] }],
-            href: [{ type: core.HostBinding, args: ['attr.href',] }],
-            role: [{ type: core.HostBinding, args: ['attr.role',] }],
-            ariaExpanded: [{ type: core.HostBinding, args: ['attr.aria-expanded',] }],
-            activated: [{ type: core.HostListener, args: ['click', ['$event'],] }, { type: core.HostListener, args: ['keydown.enter', ['$event'],] }]
+            navigationItem: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            canExpand: [{ type: i0.Input }],
+            indent: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.indent',] }],
+            href: [{ type: i0.HostBinding, args: ['attr.href',] }],
+            role: [{ type: i0.HostBinding, args: ['attr.role',] }],
+            ariaExpanded: [{ type: i0.HostBinding, args: ['attr.aria-expanded',] }],
+            activated: [{ type: i0.HostListener, args: ['click', ['$event'],] }, { type: i0.HostListener, args: ['keydown.enter', ['$event'],] }]
         };
         return NavigationLinkDirective;
     }());
@@ -26888,11 +28309,11 @@
                 return items && items.some(function (item) { return item.children && item.children.length > 0; });
             };
         NavigationComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-navigation',
                         template: "<nav class=\"ux-side-nav\" [class.tree]=\"tree\" role=\"navigation\">\n\n    <ol *ngIf=\"items\" role=\"tree\" class=\"nav\" uxTabbableList [hierarchy]=\"true\">\n\n        <ng-container *ngFor=\"let item of items; let rank = index\"\n            [ngTemplateOutlet]=\"navigationNode\"\n            [ngTemplateOutletContext]=\"{ item: item, level: 1, rank: rank, indent: _needsIndent(items) }\">\n        </ng-container>\n\n        <ng-template #navigationNode let-item=\"item\" let-parent=\"parent\" let-level=\"level\" let-rank=\"rank\" let-indent=\"indent\">\n\n            <li [attr.role]=\"(item.children && item.children.length > 0) ? 'treeitem' : 'none'\"\n                [attr.aria-expanded]=\"item.expanded\"\n                [class.selected]=\"item.expanded\"\n                [class.active]=\"navigationLink.isActive\">\n\n                <a uxNavigationLink\n                    #navigationLink=\"uxNavigationLink\"\n                    #tli=\"ux-tabbable-list-item\"\n                    [navigationItem]=\"item\"\n                    [expanded]=\"item.expanded\"\n                    [canExpand]=\"level < _depthLimit\"\n                    [indent]=\"indent\"\n                    uxTabbableListItem\n                    [parent]=\"parent\"\n                    [rank]=\"rank\"\n                    [(expanded)]=\"item.expanded\">\n\n                    <span *ngIf=\"!navigationItemTemplate && item.children && item.children.length > 0 && level < _depthLimit\"\n                          aria-hidden=\"true\"\n                          class=\"nav-expander\"\n                          (click)=\"item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()\">\n                    </span>\n                    <span *ngIf=\"!navigationItemTemplate && item.icon && !tree\" class=\"nav-icon hpe-icon\" [ngClass]=\"item.icon\"></span>\n                    <img *ngIf=\"!navigationItemTemplate && item.iconUrl && !tree\" class=\"nav-icon\" [src]=\"item.iconUrl\" alt=\"item.iconLabel\">\n                    <span *ngIf=\"!navigationItemTemplate\" class=\"nav-title\">{{ item.title }}</span>\n\n                    <ng-container\n                        [ngTemplateOutlet]=\"navigationItemTemplate\"\n                        [ngTemplateOutletContext]=\"{ item: item, level: level }\">\n                    </ng-container>\n\n                </a>\n\n                <ol *ngIf=\"item.children && item.expanded && level < _depthLimit\"\n                    role=\"group\"\n                    class=\"nav\"\n                    [ngClass]=\"_hierarchyClasses[level]\">\n\n                    <ng-container *ngFor=\"let child of item.children; let rank = index\"\n                        [ngTemplateOutlet]=\"navigationNode\"\n                        [ngTemplateOutletContext]=\"{ item: child, parent: tli, level: level + 1, rank: rank, indent: navigationLink.indentChildren }\">\n                    </ng-container>\n\n                </ol>\n\n            </li>\n\n        </ng-template>\n\n    </ol>\n\n    <!-- Backward compatibility with the original ux-navigation -->\n    <ol *ngIf=\"!items\" role=\"tree\" class=\"nav\">\n        <ng-content></ng-content>\n    </ol>\n\n</nav>\n",
                         providers: [NavigationService],
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -26902,10 +28323,10 @@
             ];
         };
         NavigationComponent.propDecorators = {
-            items: [{ type: core.Input }],
-            tree: [{ type: core.Input }],
-            autoCollapse: [{ type: core.Input }],
-            navigationItemTemplate: [{ type: core.ContentChild, args: ['uxNavigationItem',] }]
+            items: [{ type: i0.Input }],
+            tree: [{ type: i0.Input }],
+            autoCollapse: [{ type: i0.Input }],
+            navigationItemTemplate: [{ type: i0.ContentChild, args: ['uxNavigationItem',] }]
         };
         return NavigationComponent;
     }());
@@ -26938,7 +28359,7 @@
                 };
             };
         NavigationModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -26999,7 +28420,7 @@
             /**
              * Emit whenever an arc is clicked
              */
-            this.itemClick = new core.EventEmitter();
+            this.itemClick = new i0.EventEmitter();
             /**
              * Indicate if the tooltip should be visible
              */
@@ -27015,7 +28436,7 @@
             /**
              * Unsubscribe from all observables automatically
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(NestedDonutChartComponent.prototype, "_radius", {
             /** Determine the radius of the chart based on the specified size */
@@ -27434,34 +28855,34 @@
                 this._changeDetector.detectChanges();
             };
         NestedDonutChartComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-nested-donut-chart',
                         template: "<svg #chart\n    class=\"ux-nested-donut-chart\"\n    [attr.focusable]=\"false\"\n    [attr.width]=\"_size\"\n    [attr.height]=\"_size\"\n    [attr.aria-label]=\"_getAriaLabel()\">\n</svg>\n\n<!-- Custom content in center of the chart -->\n<div class=\"ux-nested-donut-chart-content\"\n    [style.top.px]=\"_getContentInset()\"\n    [style.right.px]=\"_getContentInset()\"\n    [style.bottom.px]=\"_getContentInset()\"\n    [style.left.px]=\"_getContentInset()\"\n    [style.width.px]=\"_getContentSize()\"\n    [style.height.px]=\"_getContentSize()\">\n  <ng-content></ng-content>\n</div>\n\n<!-- Tooltip to appear on arc hover -->\n<div class=\"ux-nested-donut-chart-tooltip\" *ngIf=\"_tooltipVisible && !disableTooltip\">\n  <ux-tooltip\n    [placement]=\"tooltipPlacement\"\n    [content]=\"_customTooltip || tooltip\"\n    [context]=\"_tooltipContext\"\n    [style.top.px]=\"_tooltipY\"\n    [style.left.px]=\"_tooltipX\">\n  </ux-tooltip>\n</div>\n\n<!-- Default tooltip template -->\n<ng-template #tooltip let-name=\"name\" let-value=\"value\">\n  <span class=\"ux-nested-donut-chart-tooltip-content\">\n    {{ name }}: {{ value }}\n  </span>\n</ng-template>\n\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         NestedDonutChartComponent.ctorParameters = function () {
             return [
                 { type: ColorService },
-                { type: core.ChangeDetectorRef },
-                { type: core.ElementRef },
+                { type: i0.ChangeDetectorRef },
+                { type: i0.ElementRef },
                 { type: ResizeService }
             ];
         };
         NestedDonutChartComponent.propDecorators = {
-            dataset: [{ type: core.Input }],
-            max: [{ type: core.Input }],
-            thickness: [{ type: core.Input }],
-            spacing: [{ type: core.Input }],
-            trackColor: [{ type: core.Input }],
-            disableHover: [{ type: core.Input }],
-            disableTooltip: [{ type: core.Input }],
-            tooltipPlacement: [{ type: core.Input }],
-            animationDuration: [{ type: core.Input }],
-            itemClick: [{ type: core.Output }],
-            _chartElement: [{ type: core.ViewChild, args: ['chart',] }],
-            _customTooltip: [{ type: core.ContentChild, args: ['tooltip',] }]
+            dataset: [{ type: i0.Input }],
+            max: [{ type: i0.Input }],
+            thickness: [{ type: i0.Input }],
+            spacing: [{ type: i0.Input }],
+            trackColor: [{ type: i0.Input }],
+            disableHover: [{ type: i0.Input }],
+            disableTooltip: [{ type: i0.Input }],
+            tooltipPlacement: [{ type: i0.Input }],
+            animationDuration: [{ type: i0.Input }],
+            itemClick: [{ type: i0.Output }],
+            _chartElement: [{ type: i0.ViewChild, args: ['chart',] }],
+            _customTooltip: [{ type: i0.ContentChild, args: ['tooltip',] }]
         };
         return NestedDonutChartComponent;
     }());
@@ -27474,7 +28895,7 @@
         function NestedDonutChartModule() {
         }
         NestedDonutChartModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             ColorServiceModule,
@@ -27501,11 +28922,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    /**
-     * \@todo Once Angular 5 support is dropped this service should be
-     * changed to `providedIn: 'root` to ensure there is only
-     * a single instance for the entire application
-     */
     var NotificationService = /** @class */ (function () {
         function NotificationService(_colorService) {
             this._colorService = _colorService;
@@ -27518,7 +28934,7 @@
             /**
              * The list of notifications including notifications that have been dismissed
              */
-            this.notifications$ = new BehaviorSubject.BehaviorSubject([]);
+            this.notifications$ = new rxjs.BehaviorSubject([]);
             /**
              * Define the default set of notification options
              */
@@ -27646,7 +29062,9 @@
                 this.notifications$.next(this.notifications);
             };
         NotificationService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
         ];
         /** @nocollapse */
         NotificationService.ctorParameters = function () {
@@ -27654,6 +29072,7 @@
                 { type: ColorService }
             ];
         };
+        /** @nocollapse */ NotificationService.ngInjectableDef = i0.defineInjectable({ factory: function NotificationService_Factory() { return new NotificationService(i0.inject(ColorService)); }, token: NotificationService, providedIn: "root" });
         return NotificationService;
     }());
 
@@ -27677,7 +29096,7 @@
             /**
              * Unsubscribe from all subscriptions on component destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(NotificationListComponent.prototype, "direction", {
             /**
@@ -27776,10 +29195,10 @@
                 }, 0);
             };
         NotificationListComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-notification-list',
                         template: "<div #notification\n    class=\"notification\"\n    *ngFor=\"let notificationRef of notifications$ | async; let index = index\"\n    [style.height.px]=\"_getNotificationHeight(notification, notificationRef)\"\n    [style.top.px]=\"_getNotificationPosition(index)\"\n    [style.background-color]=\"notificationRef.backgroundColor\"\n    [@notificationState]>\n\n    <!-- Notification Content -->\n    <ng-container\n        [ngTemplateOutlet]=\"notificationRef.templateRef\"\n        [ngTemplateOutletContext]=\"{ $implicit: notificationRef, data: notificationRef.data }\">\n    </ng-container>\n</div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         animations: [
                             animations.trigger('notificationState', [
                                 animations.state('in', animations.style({ transform: 'translateY(0)', opacity: 0.9 })),
@@ -27801,13 +29220,13 @@
         NotificationListComponent.ctorParameters = function () {
             return [
                 { type: NotificationService },
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         NotificationListComponent.propDecorators = {
-            direction: [{ type: core.Input }],
-            position: [{ type: core.Input }, { type: core.HostBinding, args: ['class',] }],
-            _elements: [{ type: core.ViewChildren, args: ['notification',] }]
+            direction: [{ type: i0.Input }],
+            position: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class',] }],
+            _elements: [{ type: i0.ViewChildren, args: ['notification',] }]
         };
         return NotificationListComponent;
     }());
@@ -27820,7 +29239,7 @@
         function NotificationModule() {
         }
         NotificationModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             ColorServiceModule
@@ -27830,9 +29249,6 @@
                         ],
                         declarations: [
                             NotificationListComponent
-                        ],
-                        providers: [
-                            NotificationService
                         ]
                     },] }
         ];
@@ -27881,15 +29297,15 @@
             /**
              * Emit whenever a node is selected
              */
-            this.selectedChange = new core.EventEmitter(true);
+            this.selectedChange = new i0.EventEmitter(true);
             /**
              * Emit whenever the reveal button is pressed
              */
-            this.reveal = new core.EventEmitter();
+            this.reveal = new i0.EventEmitter();
             /**
              * Emit when the transition ends
              */
-            this.transitionEnd = new core.EventEmitter();
+            this.transitionEnd = new i0.EventEmitter();
             /**
              * Store a flattened array of nodes
              */
@@ -27925,7 +29341,7 @@
             /**
              * Automatically unsubscribe from all subscriptions on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(OrganizationChartComponent.prototype, "selected", {
             /** Programmatically select an item */
@@ -29159,44 +30575,44 @@
                 return __spread(children, children.reduce(function (accumulation, child) { return __spread(accumulation, _this.getAllChildren(child)); }, [])).map(function (child) { return _this.coerceDataNode(child); });
             };
         OrganizationChartComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-organization-chart',
                         template: "<!-- Add a button above the root node to load additional parent items -->\n<button #revealElement\n    uxFocusIndicatorOrigin\n    class=\"ux-organization-chart-reveal\"\n    tabindex=\"-1\"\n    [attr.aria-label]=\"revealAriaLabel\"\n    [hidden]=\"!showReveal\"\n    (click)=\"reveal.emit(); _focusRootNode()\"\n    (keydown.ArrowDown)=\"_focusRootNode(); $event.preventDefault()\">\n\n    <!-- Display Reveal Template -->\n    <ng-container [ngTemplateOutlet]=\"revealTemplate || defaultRevealTemplate\"></ng-container>\n</button>\n\n<!-- Show the links connecting each node -->\n<svg #links class=\"ux-organization-chart-links\"></svg>\n\n<!-- Show the nodes containing information about each item -->\n<div #nodes class=\"ux-organization-chart-nodes\"></div>\n\n<!-- Provide a default reveal template -->\n<ng-template #defaultRevealTemplate>\n    <i class=\"hpe-icon hpe-tab-up\"></i>\n</ng-template>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         OrganizationChartComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizeService },
-                { type: core.ComponentFactoryResolver },
-                { type: core.Injector },
-                { type: core.ApplicationRef },
-                { type: core.ViewContainerRef },
-                { type: core.Renderer2 },
+                { type: i0.ComponentFactoryResolver },
+                { type: i0.Injector },
+                { type: i0.ApplicationRef },
+                { type: i0.ViewContainerRef },
+                { type: i0.Renderer2 },
                 { type: FocusIndicatorService },
-                { type: core.NgZone }
+                { type: i0.NgZone }
             ];
         };
         OrganizationChartComponent.propDecorators = {
-            dataset: [{ type: core.Input }],
-            connector: [{ type: core.Input }],
-            nodeWidth: [{ type: core.Input }],
-            nodeHeight: [{ type: core.Input }],
-            duration: [{ type: core.Input }],
-            verticalSpacing: [{ type: core.Input }],
-            showReveal: [{ type: core.Input }],
-            revealAriaLabel: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            reveal: [{ type: core.Output }],
-            transitionEnd: [{ type: core.Output }],
-            revealTemplate: [{ type: core.ContentChild, args: ['revealTemplate', ( /** @type {?} */({ static: false })),] }],
-            nodeTemplate: [{ type: core.ContentChild, args: ['nodeTemplate', ( /** @type {?} */({ static: false })),] }],
-            revealElement: [{ type: core.ViewChild, args: ['revealElement', ( /** @type {?} */({ static: true })),] }],
-            linksContainer: [{ type: core.ViewChild, args: ['links', ( /** @type {?} */({ static: true })),] }],
-            nodesContainer: [{ type: core.ViewChild, args: ['nodes', ( /** @type {?} */({ static: true })),] }]
+            dataset: [{ type: i0.Input }],
+            connector: [{ type: i0.Input }],
+            nodeWidth: [{ type: i0.Input }],
+            nodeHeight: [{ type: i0.Input }],
+            duration: [{ type: i0.Input }],
+            verticalSpacing: [{ type: i0.Input }],
+            showReveal: [{ type: i0.Input }],
+            revealAriaLabel: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            reveal: [{ type: i0.Output }],
+            transitionEnd: [{ type: i0.Output }],
+            revealTemplate: [{ type: i0.ContentChild, args: ['revealTemplate',] }],
+            nodeTemplate: [{ type: i0.ContentChild, args: ['nodeTemplate',] }],
+            revealElement: [{ type: i0.ViewChild, args: ['revealElement',] }],
+            linksContainer: [{ type: i0.ViewChild, args: ['links',] }],
+            nodesContainer: [{ type: i0.ViewChild, args: ['nodes',] }]
         };
         return OrganizationChartComponent;
     }());
@@ -29218,7 +30634,7 @@
         function OrganizationChartModule() {
         }
         OrganizationChartModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         declarations: [
                             OrganizationChartComponent
                         ],
@@ -29246,10 +30662,10 @@
      */
     var TabsetService = /** @class */ (function () {
         function TabsetService() {
-            this.tabs$ = new BehaviorSubject.BehaviorSubject([]);
-            this.active$ = new BehaviorSubject.BehaviorSubject(null);
-            this.focused$ = new BehaviorSubject.BehaviorSubject(false);
-            this.highlighted$ = new BehaviorSubject.BehaviorSubject(null);
+            this.tabs$ = new rxjs.BehaviorSubject([]);
+            this.active$ = new rxjs.BehaviorSubject(null);
+            this.focused$ = new rxjs.BehaviorSubject(false);
+            this.highlighted$ = new rxjs.BehaviorSubject(null);
         }
         /**
          * @param {?} tab
@@ -29421,7 +30837,7 @@
                 }
             };
         TabsetService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return TabsetService;
     }());
@@ -29455,7 +30871,7 @@
                 this._subscription.unsubscribe();
             };
         TabFocusDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTabFocus]'
                     },] }
         ];
@@ -29463,11 +30879,11 @@
         TabFocusDirective.ctorParameters = function () {
             return [
                 { type: TabsetService },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         TabFocusDirective.propDecorators = {
-            uxTabFocus: [{ type: core.Input }]
+            uxTabFocus: [{ type: i0.Input }]
         };
         return TabFocusDirective;
     }());
@@ -29484,10 +30900,10 @@
             this._tabset = _tabset;
             this.id = "ux-tab-" + ++uniqueTabId;
             this.disabled = false;
-            this.select = new core.EventEmitter();
-            this.deselect = new core.EventEmitter();
+            this.select = new i0.EventEmitter();
+            this.deselect = new i0.EventEmitter();
             this.active$ = this._tabset.active$.pipe(operators.map(function (active) { return active === _this; }), tick());
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this.active$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (active) { return active ? _this.select.emit() : _this.deselect.emit(); });
         }
         Object.defineProperty(TabComponent.prototype, "active", {
@@ -29513,10 +30929,10 @@
                 this._onDestroy.complete();
             };
         TabComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-tab',
                         template: "<div role=\"tabpanel\"\n     class=\"tab-pane\"\n     [class.active]=\"active$ | async\"\n     [id]=\"id + '-panel'\"\n     [attr.aria-labelledby]=\"id\"\n     [attr.aria-hidden]=\"!(active$ | async)\">\n  <ng-content></ng-content>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -29526,13 +30942,13 @@
             ];
         };
         TabComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            heading: [{ type: core.Input }],
-            customClass: [{ type: core.Input }],
-            select: [{ type: core.Output }],
-            deselect: [{ type: core.Output }],
-            active: [{ type: core.Input }]
+            id: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            heading: [{ type: i0.Input }],
+            customClass: [{ type: i0.Input }],
+            select: [{ type: i0.Output }],
+            deselect: [{ type: i0.Output }],
+            active: [{ type: i0.Input }]
         };
         return TabComponent;
     }());
@@ -29546,14 +30962,14 @@
             tab.headingRef = templateRef;
         }
         TabHeadingDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTabHeading]'
                     },] }
         ];
         /** @nocollapse */
         TabHeadingDirective.ctorParameters = function () {
             return [
-                { type: core.TemplateRef },
+                { type: i0.TemplateRef },
                 { type: TabComponent }
             ];
         };
@@ -29569,7 +30985,7 @@
             this.tabset = tabset;
             this.minimal = true;
             this.stacked = 'none';
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -29669,10 +31085,10 @@
                 event.preventDefault();
             };
         TabsetComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-tabset',
                         template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n\t<li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of tabset.tabs$ | async; let index = index\"\n        [class.active]=\"tab.active$ | async\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <a class=\"nav-link\"\n            [id]=\"tab.id\"\n            role=\"tab\"\n            [uxTabFocus]=\"tab\"\n            [tabindex]=\"(tab.active$ | async) ? 0 : -1\"\n            uxFocusIndicator\n            (mousedown)=\"tabset.select(tab)\"\n            (focus)=\"tabset.focused$.next(true)\"\n            (blur)=\"tabset.focused$.next(false)\"\n            (mousedown)=\"tabset.focused$.next(true)\"\n            (keydown.ArrowUp)=\"selectPreviousTab($event)\"\n            (keydown.ArrowLeft)=\"selectPreviousTab($event)\"\n            (keydown.ArrowRight)=\"selectNextTab($event)\"\n            (keydown.ArrowDown)=\"selectNextTab($event)\"\n            (keydown.Home)=\"tabset.selectFirstTab(); $event.preventDefault()\"\n            (keydown.End)=\"tabset.selectLastTab(); $event.preventDefault()\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"tab.active$ | async\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </a>\n\n\t</li>\n\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n\t<ng-content></ng-content>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [TabsetService],
                         host: {
                             '[class.tabs-left]': 'stacked === "left"',
@@ -29687,10 +31103,10 @@
             ];
         };
         TabsetComponent.propDecorators = {
-            minimal: [{ type: core.Input }],
-            stacked: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            tabs: [{ type: core.ContentChildren, args: [TabComponent,] }]
+            minimal: [{ type: i0.Input }],
+            stacked: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            tabs: [{ type: i0.ContentChildren, args: [TabComponent,] }]
         };
         return TabsetComponent;
     }());
@@ -29703,7 +31119,7 @@
         function TabsetModule() {
         }
         TabsetModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule
@@ -29728,7 +31144,7 @@
         function PageHeaderCustomMenuDirective() {
         }
         PageHeaderCustomMenuDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxPageHeaderCustomMenu]'
                     },] }
         ];
@@ -29739,17 +31155,68 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var PageHeaderIconMenuComponent = /** @class */ (function () {
+        function PageHeaderIconMenuComponent() {
+        }
+        /**
+         * @param {?} item
+         * @return {?}
+         */
+        PageHeaderIconMenuComponent.prototype.select = /**
+         * @param {?} item
+         * @return {?}
+         */
+            function (item) {
+                if (item.select) {
+                    item.select.call(item, item);
+                }
+            };
+        /**
+         * @param {?} item
+         * @param {?} event
+         * @return {?}
+         */
+        PageHeaderIconMenuComponent.prototype.keydownHandler = /**
+         * @param {?} item
+         * @param {?} event
+         * @return {?}
+         */
+            function (item, event) {
+                switch (event.keyCode) {
+                    case keycodes.ENTER:
+                    case keycodes.SPACE:
+                        this.select(item);
+                        event.preventDefault();
+                        event.stopPropagation();
+                        break;
+                }
+            };
+        PageHeaderIconMenuComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-page-header-icon-menu',
+                        template: "<div class=\"page-header-icon-menu\">\n    <button\n        type=\"button\"\n        class=\"page-header-icon-menu-button\"\n        [attr.aria-label]=\"menu.label\"\n        [uxMenuTriggerFor]=\"iconMenu\"\n        (click)=\"select(menu)\">\n\n        <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n        <span class=\"label label-primary\" *ngIf=\"menu?.badge\" aria-hidden=\"true\">{{ menu.badge }}</span>\n    </button>\n\n    <ux-menu #iconMenu alignment=\"end\" menuClass=\"ux-page-header-icon-menu\">\n        <ng-container *ngFor=\"let dropdown of menu?.dropdown\">\n\n            <div class=\"dropdown-header\" *ngIf=\"dropdown.header\">\n                <span class=\"font-bold\">{{ dropdown.title }}</span>\n            </div>\n\n            <button\n                type=\"button\"\n                *ngIf=\"!dropdown.header\"\n                uxMenuItem\n                (click)=\"select(dropdown)\"\n                (keydown)=\"keydownHandler(dropdown, $event)\">\n\n\n                <span class=\"dropdown-item-title\">\n                    <i class=\"hpe-icon hpe-fw\" [ngClass]=\"dropdown.icon\"></i>\n                    {{ dropdown.title }}\n                </span>\n                <span *ngIf=\"dropdown.subtitle\" class=\"dropdown-item-subtitle\">{{ dropdown.subtitle }}</span>\n\n            </button>\n\n            <ux-menu-divider *ngIf=\"dropdown.divider\"></ux-menu-divider>\n\n        </ng-container>\n    </ux-menu>\n</div>"
+                    }] }
+        ];
+        PageHeaderIconMenuComponent.propDecorators = {
+            menu: [{ type: i0.Input }]
+        };
+        return PageHeaderIconMenuComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var PageHeaderService = /** @class */ (function () {
         function PageHeaderService(_router) {
             var _this = this;
             this._router = _router;
-            this.items$ = new BehaviorSubject.BehaviorSubject([]);
-            this.selected$ = new BehaviorSubject.BehaviorSubject(null);
-            this.selectedRoot$ = new BehaviorSubject.BehaviorSubject(null);
-            this.secondary$ = new BehaviorSubject.BehaviorSubject(false);
-            this.activeIconMenu$ = new BehaviorSubject.BehaviorSubject(null);
+            this.items$ = new rxjs.BehaviorSubject([]);
+            this.selected$ = new rxjs.BehaviorSubject(null);
+            this.selectedRoot$ = new rxjs.BehaviorSubject(null);
+            this.secondary$ = new rxjs.BehaviorSubject(false);
             this.secondaryNavigationAutoselect = false;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this.selected$
                 .pipe(operators.takeUntil(this._onDestroy), operators.map(function (selected) { return _this.getRoot(selected); }))
                 .subscribe(function (root) { return _this.selectedRoot$.next(root); });
@@ -30030,7 +31497,7 @@
                 }
             };
         PageHeaderService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         PageHeaderService.ctorParameters = function () {
@@ -30050,124 +31517,10 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var PageHeaderIconMenuComponent = /** @class */ (function () {
-        function PageHeaderIconMenuComponent(_service) {
-            var _this = this;
-            this._service = _service;
-            this._subscription = _service.activeIconMenu$.subscribe(function (next) {
-                // Close all but the most recently opened menu
-                if (next !== _this.menu) {
-                    _this._isOpen = false;
-                }
-            });
-        }
-        Object.defineProperty(PageHeaderIconMenuComponent.prototype, "isOpen", {
-            get: /**
-             * @return {?}
-             */ function () {
-                return this._isOpen;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._isOpen = value;
-                if (value) {
-                    this._service.activeIconMenu$.next(this.menu);
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        PageHeaderIconMenuComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._subscription.unsubscribe();
-            };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        PageHeaderIconMenuComponent.prototype.select = /**
-         * @param {?} item
-         * @return {?}
-         */
-            function (item) {
-                if (item.select) {
-                    item.select.call(item, item);
-                }
-            };
-        /**
-         * @param {?} item
-         * @param {?} event
-         * @return {?}
-         */
-        PageHeaderIconMenuComponent.prototype.keydownHandler = /**
-         * @param {?} item
-         * @param {?} event
-         * @return {?}
-         */
-            function (item, event) {
-                switch (event.key) {
-                    case 'Enter':
-                    case ' ':
-                        this.select(item);
-                        this.isOpen = false;
-                        this.menuNavigationToggle.focus();
-                        event.preventDefault();
-                        event.stopPropagation();
-                        break;
-                }
-            };
-        PageHeaderIconMenuComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ux-page-header-icon-menu',
-                        template: "<div class=\"page-header-icon-menu\"\n    dropdown\n    placement=\"bottom right\"\n    [(isOpen)]=\"isOpen\">\n\n    <a role=\"button\"\n        uxFocusIndicator\n        class=\"page-header-icon-menu-button\"\n        [attr.aria-label]=\"menu.label\"\n        aria-haspopup=\"true\"\n        tabindex=\"0\"\n        (click)=\"select(menu)\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n        <span class=\"label label-primary\" *ngIf=\"menu?.badge\" aria-hidden=\"true\">{{ menu.badge }}</span>\n\n    </a>\n\n    <ul *dropdownMenu\n        class=\"dropdown-menu\"\n        role=\"menu\"\n        uxMenuNavigation\n        [toggleButton]=\"menuNavigationToggle\">\n\n        <li *ngFor=\"let dropdown of menu?.dropdown\"\n            role=\"none\"\n            [class.dropdown-header]=\"dropdown.header\"\n            [class.dropdown-divider]=\"dropdown.divider\">\n\n            <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n            <a *ngIf=\"!dropdown.header\"\n                role=\"menuitem\"\n                class=\"dropdown-item\"\n                tabindex=\"-1\"\n                (click)=\"select(dropdown)\"\n                (keydown)=\"keydownHandler(dropdown, $event)\"\n                uxMenuNavigationItem>\n\n\n                <span class=\"dropdown-item-title\">\n                    <i class=\"hpe-icon hpe-fw\" [ngClass]=\"dropdown.icon\"></i>\n                    {{ dropdown.title }}\n                </span>\n                <span *ngIf=\"dropdown.subtitle\" class=\"dropdown-item-subtitle\">{{ dropdown.subtitle }}</span>\n\n            </a>\n        </li>\n\n    </ul>\n</div>"
-                    }] }
-        ];
-        /** @nocollapse */
-        PageHeaderIconMenuComponent.ctorParameters = function () {
-            return [
-                { type: PageHeaderService }
-            ];
-        };
-        PageHeaderIconMenuComponent.propDecorators = {
-            menu: [{ type: core.Input }],
-            menuNavigationToggle: [{ type: core.ViewChild, args: ['menuNavigationToggle',] }]
-        };
-        return PageHeaderIconMenuComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
     var PageHeaderNavigationDropdownItemComponent = /** @class */ (function () {
         function PageHeaderNavigationDropdownItemComponent(_pageHeaderService) {
-            var _this = this;
             this._pageHeaderService = _pageHeaderService;
-            this.dropdownOpen = false;
-            this._hover$ = new Subject.Subject();
-            this._onDestroy = new Subject.Subject();
-            // subscribe to stream with a debounce (a small debounce is all that is required)
-            this._hover$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(1)).subscribe(function (visible) { return _this.dropdownOpen = visible; });
-            // Close submenus when selected item changes
-            _pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.dropdownOpen = false; });
         }
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
         /**
          * @param {?} item
          * @return {?}
@@ -30183,42 +31536,6 @@
                 }
                 // emit the selected item in an event
                 this._pageHeaderService.select(item);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.focus = /**
-         * @return {?}
-         */
-            function () {
-                this.button.nativeElement.focus();
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.hoverStart = /**
-         * @return {?}
-         */
-            function () {
-                this._hover$.next(true);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.hoverLeave = /**
-         * @return {?}
-         */
-            function () {
-                this._hover$.next(false);
-            };
-        /**
-         * @return {?}
-         */
-        PageHeaderNavigationDropdownItemComponent.prototype.close = /**
-         * @return {?}
-         */
-            function () {
-                this.dropdownOpen = false;
             };
         /**
          * @param {?} event
@@ -30241,10 +31558,10 @@
                 }
             };
         PageHeaderNavigationDropdownItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-page-header-horizontal-navigation-dropdown-item',
                         exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
-                        template: "<div *ngIf=\"item.children && item.children.length > 0\"\n    dropdown\n    #subMenu=\"bs-dropdown\"\n    [isOpen]=\"dropdownOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"right\"\n    (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\">\n\n    <a role=\"menuitem\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        class=\"dropdown-item\"\n        [class.disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"dropdownOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        tabindex=\"-1\"\n        #button\n        dropdownToggle\n        uxMenuNavigationToggle\n        #menuNavigationToggle=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"dropdownOpen\"\n        menuPosition=\"right\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n        <span class=\"dropdown-item-icon hpe-icon hpe-next\"></span>\n\n    </a>\n\n    <ul *dropdownMenu\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-submenu\"\n        (mouseenter)=\"hoverStart()\"\n        (mouseleave)=\"hoverLeave()\"\n        uxMenuNavigation\n        #menuNavigation=\"uxMenuNavigation\"\n        [toggleButton]=\"menuNavigationToggle\"\n        toggleButtonPosition=\"left\">\n\n        <li *ngFor=\"let subItem of item.children\" role=\"none\">\n\n            <a role=\"menuitem\"\n                class=\"dropdown-item\"\n                [class.disabled]=\"subItem.disabled\"\n                [class.selected]=\"subItem.selected\"\n                [attr.aria-selected]=\"subItem.selected\"\n                tabindex=\"-1\"\n                (click)=\"select(subItem)\"\n                (keydown)=\"keydownHandler($event, subItem)\"\n                uxMenuNavigationItem>\n\n                <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n\n            </a>\n\n        </li>\n    </ul>\n\n</div>\n\n<div *ngIf=\"!item.children || item.children.length === 0\"\n    (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\">\n\n    <a role=\"menuitem\"\n        #button\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        class=\"dropdown-item\"\n        [class.disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        [attr.aria-selected]=\"item.selected\"\n        tabindex=\"-1\"\n        (click)=\"select(item)\"\n        (keydown)=\"keydownHandler($event, item)\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n\n    </a>\n\n</div>"
+                        template: "<div *ngIf=\"item.children && item.children.length > 0\">\n\n    <button\n        type=\"button\"\n        uxMenuItem\n        [disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        [attr.aria-selected]=\"item.selected\"\n        [uxMenuTriggerFor]=\"menu\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n        <span class=\"dropdown-item-icon hpe-icon hpe-next\"></span>\n    </button>\n\n    <ux-menu #menu placement=\"right\" menuClass=\"horizontal-navigation-dropdown-submenu\">\n        <button\n            type=\"button\"\n            *ngFor=\"let subItem of item.children\"\n            uxMenuItem\n            [disabled]=\"subItem.disabled\"\n            [class.selected]=\"subItem.selected\"\n            [attr.aria-selected]=\"subItem.selected\"\n            (click)=\"select(subItem)\"\n            (keydown)=\"keydownHandler($event, subItem)\">\n\n            <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n        </button>\n    </ux-menu>\n\n</div>\n\n<div *ngIf=\"!item.children || item.children.length === 0\">\n\n    <button\n        type=\"button\"\n        uxMenuItem\n        [disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        [attr.aria-selected]=\"item.selected\"\n        (click)=\"select(item)\"\n        (keydown)=\"keydownHandler($event, item)\">\n\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n    </button>\n\n</div>"
                     }] }
         ];
         /** @nocollapse */
@@ -30254,8 +31571,7 @@
             ];
         };
         PageHeaderNavigationDropdownItemComponent.propDecorators = {
-            item: [{ type: core.Input }],
-            button: [{ type: core.ViewChild, args: ['button',] }]
+            item: [{ type: i0.Input }]
         };
         return PageHeaderNavigationDropdownItemComponent;
     }());
@@ -30271,11 +31587,11 @@
              * `change` observable as it cannot be instantiate until after the view
              * has been instantiated.
              */
-            this._onChange = new Subject.Subject();
+            this._onChange = new rxjs.Subject();
             /**
              * Unsubscribe on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -30370,7 +31686,7 @@
                 return index === this._focusManager.activeItemIndex ? 0 : -1;
             };
         PageHeaderNavigationService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return PageHeaderNavigationService;
     }());
@@ -30395,30 +31711,23 @@
             /**
              * Unsubscribe when the component is destroyed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
          */
-        PageHeaderNavigationItemComponent.prototype.ngOnInit = /**
+        PageHeaderNavigationItemComponent.prototype.ngAfterViewInit = /**
          * @return {?}
          */
             function () {
                 var _this = this;
-                this._pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (next) {
+                this._pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (selectedItem) {
                     // Update selected state for this item
-                    _this._pageHeaderService.updateItem(_this.item, next);
-                    if (next && _this.isOpen) {
+                    _this._pageHeaderService.updateItem(_this.item, selectedItem);
+                    if (selectedItem && _this.isOpen) {
                         _this.isOpen = false;
-                        // If menu was closed, keep focus on the toggle button
-                        _this.button.focus();
                     }
                 });
-                if (this.menu) {
-                    this.menu.onHidden
-                        .pipe(operators.takeUntil(this._onDestroy))
-                        .subscribe(function () { return _this.dropdowns.forEach(function (dropdown$$1) { return dropdown$$1.close(); }); });
-                }
             };
         /**
          * @return {?}
@@ -30467,26 +31776,23 @@
                 }
             };
         PageHeaderNavigationItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-page-header-horizontal-navigation-item',
-                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n    dropdown\n    #menu=\"bs-dropdown\"\n    [(isOpen)]=\"isOpen\"\n    [isDisabled]=\"item.disabled\"\n    container=\"body\"\n    placement=\"bottom left\">\n\n    <button #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        uxFocusIndicator\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        aria-haspopup=\"true\"\n        [attr.aria-expanded]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\"\n        dropdownToggle\n        uxMenuNavigationToggle\n        #button=\"uxMenuNavigationToggle\"\n        [(menuOpen)]=\"isOpen\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <div *dropdownMenu\n        type=\"button\"\n        role=\"menu\"\n        class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n        uxMenuNavigation\n        [toggleButton]=\"button\"\n        toggleButtonPosition=\"top\">\n\n        <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n            <ux-page-header-horizontal-navigation-dropdown-item\n                #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                [item]=\"item\">\n            </ux-page-header-horizontal-navigation-dropdown-item>\n        </div>\n\n    </div>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    #navigationBtn\n    type=\"button\"\n    [tabindex]=\"_tabindex | async\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
+                        template: "<div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\">\n\n    <button #navigationBtn\n        type=\"button\"\n        [tabindex]=\"_tabindex | async\"\n        [uxMenuTriggerFor]=\"menu\"\n        [disabled]=\"item.disabled\"\n        role=\"menuitem\"\n        class=\"horizontal-navigation-button\"\n        [class.disabled]=\"item.disabled\"\n        [class.selected]=\"item.selected\"\n        [class.open]=\"isOpen\"\n        [attr.aria-selected]=\"item.selected\">\n\n        <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n        <span class=\"navigation-item-label\">{{ item?.title }}</span>\n        <span class=\"hpe-icon hpe-down\"></span>\n\n    </button>\n\n    <ux-menu\n        #menu\n        menuClass=\"horizontal-navigation-dropdown-menu\"\n        (opened)=\"isOpen = true\"\n        (closed)=\"isOpen = false\">\n\n        <ux-page-header-horizontal-navigation-dropdown-item\n            *ngFor=\"let item of item?.children\"\n            [item]=\"item\">\n        </ux-page-header-horizontal-navigation-dropdown-item>\n    </ux-menu>\n\n</div>\n\n<button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n    uxFocusIndicator\n    #navigationBtn\n    type=\"button\"\n    [tabindex]=\"_tabindex | async\"\n    role=\"menuitem\"\n    class=\"horizontal-navigation-button\"\n    [class.disabled]=\"item.disabled\"\n    [class.selected]=\"item.selected\"\n    [attr.aria-selected]=\"item.selected\"\n    (click)=\"select()\"\n    [disabled]=\"item.disabled\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n</button>"
                     }] }
         ];
         /** @nocollapse */
         PageHeaderNavigationItemComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: PageHeaderService },
                 { type: PageHeaderNavigationService }
             ];
         };
         PageHeaderNavigationItemComponent.propDecorators = {
-            item: [{ type: core.Input }],
-            button: [{ type: core.ViewChild, args: ['button',] }],
-            menu: [{ type: core.ViewChild, args: ['menu',] }],
-            navigationBtn: [{ type: core.ViewChild, args: ['navigationBtn',] }],
-            dropdowns: [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+            item: [{ type: i0.Input }],
+            navigationBtn: [{ type: i0.ViewChild, args: ['navigationBtn',] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return PageHeaderNavigationItemComponent;
     }());
@@ -30498,7 +31804,7 @@
     var PageHeaderNavigationSecondaryItemDirective = /** @class */ (function () {
         function PageHeaderNavigationSecondaryItemDirective(_pageHeaderService) {
             this._pageHeaderService = _pageHeaderService;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -30524,7 +31830,7 @@
                 this._onDestroy.complete();
             };
         PageHeaderNavigationSecondaryItemDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxPageHeaderNavigationSecondaryItem]'
                     },] }
         ];
@@ -30535,7 +31841,7 @@
             ];
         };
         PageHeaderNavigationSecondaryItemDirective.propDecorators = {
-            item: [{ type: core.Input, args: ['uxPageHeaderNavigationSecondaryItem',] }]
+            item: [{ type: i0.Input, args: ['uxPageHeaderNavigationSecondaryItem',] }]
         };
         return PageHeaderNavigationSecondaryItemDirective;
     }());
@@ -30552,7 +31858,7 @@
             this.indicatorVisible = false;
             this.indicatorX = 0;
             this.indicatorWidth = 0;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             resizeService.addResizeListener(elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy)).subscribe(this.updateSelectedIndicator.bind(this));
             _pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
             _pageHeaderService.secondary$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this));
@@ -30602,7 +31908,7 @@
                 });
             };
         PageHeaderNavigationComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-page-header-horizontal-navigation',
                         template: "<ux-page-header-horizontal-navigation-item\n    *ngFor=\"let item of items$ | async\"\n    [item]=\"item\">\n</ux-page-header-horizontal-navigation-item>\n\n<div class=\"selected-indicator\"\n    [style.opacity]=\"indicatorVisible ? 1 : 0\"\n    [style.margin-left.px]=\"indicatorX\"\n    [style.width.px]=\"indicatorWidth\">\n</div>",
                         providers: [PageHeaderNavigationService],
@@ -30614,14 +31920,14 @@
         /** @nocollapse */
         PageHeaderNavigationComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizeService },
                 { type: PageHeaderNavigationService },
                 { type: PageHeaderService }
             ];
         };
         PageHeaderNavigationComponent.propDecorators = {
-            menuItems: [{ type: core.ViewChildren, args: [PageHeaderNavigationItemComponent,] }]
+            menuItems: [{ type: i0.ViewChildren, args: [PageHeaderNavigationItemComponent,] }]
         };
         return PageHeaderNavigationComponent;
     }());
@@ -30659,7 +31965,7 @@
             /**
              * Emit whenever the back button is clicked
              */
-            this.backClick = new core.EventEmitter();
+            this.backClick = new i0.EventEmitter();
             /**
              * The currently selected page header item
              */
@@ -30827,7 +32133,7 @@
                 this._pageHeaderService.select(item);
             };
         PageHeaderComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-page-header',
                         exportAs: 'ux-page-header',
                         template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
@@ -30842,28 +32148,28 @@
             ];
         };
         PageHeaderComponent.propDecorators = {
-            logo: [{ type: core.Input }],
-            header: [{ type: core.Input }],
-            subheader: [{ type: core.Input }],
-            alignment: [{ type: core.Input }],
-            condensed: [{ type: core.Input }],
-            iconMenus: [{ type: core.Input }],
-            backVisible: [{ type: core.Input }],
-            secondaryNavigationAlignment: [{ type: core.Input }],
-            title: [{ type: core.Input }],
-            secondaryNavigationAutoselect: [{ type: core.Input }],
-            items: [{ type: core.Input }],
-            secondaryNavigation: [{ type: core.Input }],
-            crumbs: [{ type: core.Input }],
-            crumbsStyle: [{ type: core.Input }],
-            logoBackground: [{ type: core.Input }],
-            logoForeground: [{ type: core.Input }],
-            familyBackground: [{ type: core.Input }],
-            familyForeground: [{ type: core.Input }],
-            backClick: [{ type: core.Output }],
-            titleTemplate: [{ type: core.ContentChild, args: ['title',] }],
-            subheaderTemplate: [{ type: core.ContentChild, args: ['subheader',] }],
-            customMenus: [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] }]
+            logo: [{ type: i0.Input }],
+            header: [{ type: i0.Input }],
+            subheader: [{ type: i0.Input }],
+            alignment: [{ type: i0.Input }],
+            condensed: [{ type: i0.Input }],
+            iconMenus: [{ type: i0.Input }],
+            backVisible: [{ type: i0.Input }],
+            secondaryNavigationAlignment: [{ type: i0.Input }],
+            title: [{ type: i0.Input }],
+            secondaryNavigationAutoselect: [{ type: i0.Input }],
+            items: [{ type: i0.Input }],
+            secondaryNavigation: [{ type: i0.Input }],
+            crumbs: [{ type: i0.Input }],
+            crumbsStyle: [{ type: i0.Input }],
+            logoBackground: [{ type: i0.Input }],
+            logoForeground: [{ type: i0.Input }],
+            familyBackground: [{ type: i0.Input }],
+            familyForeground: [{ type: i0.Input }],
+            backClick: [{ type: i0.Output }],
+            titleTemplate: [{ type: i0.ContentChild, args: ['title',] }],
+            subheaderTemplate: [{ type: i0.ContentChild, args: ['subheader',] }],
+            customMenus: [{ type: i0.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: i0.TemplateRef },] }]
         };
         return PageHeaderComponent;
     }());
@@ -30876,18 +32182,17 @@
         function PageHeaderModule() {
         }
         PageHeaderModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
                             BreadcrumbsModule,
-                            dropdown.BsDropdownModule.forRoot(),
                             ColorServiceModule,
                             common.CommonModule,
-                            MenuNavigationModule,
                             ResizeModule,
                             router.RouterModule,
-                            TabsetModule
+                            TabsetModule,
+                            MenuModule
                         ],
                         exports: [
                             PageHeaderComponent,
@@ -30919,7 +32224,7 @@
     /** @type {?} */
     var PAGINATION_CONTROL_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return PaginationComponent; }),
+        useExisting: i0.forwardRef(function () { return PaginationComponent; }),
         multi: true
     };
     var PaginationComponent = /** @class */ (function () {
@@ -30951,11 +32256,11 @@
             /**
              * Emit the current page number
              */
-            this.pageChange = new core.EventEmitter();
+            this.pageChange = new i0.EventEmitter();
             /**
              * Emit the total number of pages
              */
-            this.numPages = new core.EventEmitter();
+            this.numPages = new i0.EventEmitter();
             /**
              * Store a list of pages to display in the UI
              */
@@ -31166,28 +32471,28 @@
                 return index >= start && index < end;
             };
         PaginationComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-pagination',
                         template: "<nav role=\"navigation\" [attr.aria-label]=\"ariaLabel\">\n  <ul #container class=\"pagination\"\n    [ngClass]=\"classes\"\n    direction=\"horizontal\"\n    (blur)=\"isKeyboardEvent = false\"\n    (keydown.ArrowLeft)=\"select(page - 1); isKeyboardEvent = true\"\n    (keydown.ArrowRight)=\"select(page + 1); isKeyboardEvent = true\"\n    (keydown.Home)=\"select(1); isKeyboardEvent = true; $event.preventDefault()\"\n    (keydown.End)=\"select(pageCount); isKeyboardEvent = true; $event.preventDefault()\">\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === 1 || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === 1 || disabled ? -1 : 0\"\n         [attr.aria-label]=\"previousAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page - 1)\"\n         (keydown.enter)=\"select(page - 1)\">\n        <ng-container [ngTemplateOutlet]=\"previousBtnTemplate || defaultPreviousBtnTemplate\"></ng-container>\n      </a>\n    </li>\n\n    <ng-container *ngFor=\"let pg of pages; trackBy: trackByFn\">\n      <li *ngIf=\"pg.visible\"\n          uxFocusIndicator\n          [programmaticFocusIndicator]=\"true\"\n          [checkChildren]=\"true\"\n          [class.disabled]=\"disabled\"\n          [class.active]=\"page === pg.index\"\n          class=\"pagination-page page-item\">\n\n        <a class=\"page-link\"\n           tabindex=\"0\"\n           [ngClass]=\"pageBtnClass\"\n           [focusIf]=\"isKeyboardEvent && page === pg.index\"\n           [attr.aria-current]=\"page === pg.index\"\n           [attr.aria-setsize]=\"pageCount\"\n           [attr.aria-posinset]=\"pg.index\"\n           (click)=\"select(pg.index)\"\n           (keydown.enter)=\"select(pg.index)\">\n            {{ pg.index }}\n        </a>\n      </li>\n    </ng-container>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === pageCount || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === pageCount || disabled ? -1 : 0\"\n         [attr.aria-label]=\"nextAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page + 1)\"\n         (keydown.enter)=\"select(page + 1)\">\n\n        <ng-container [ngTemplateOutlet]=\"nextBtnTemplate || defaultNextBtnTemplate\"></ng-container>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n<ng-template #defaultPreviousBtnTemplate>\n  <span class=\"hpe-icon hpe-previous\"></span>\n</ng-template>\n\n<ng-template #defaultNextBtnTemplate>\n  <span class=\"hpe-icon hpe-next\"></span>\n</ng-template>\n",
                         providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
                     }] }
         ];
         PaginationComponent.propDecorators = {
-            directionButtons: [{ type: core.Input }],
-            maxSize: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            classes: [{ type: core.Input, args: ['class',] }],
-            pageBtnClass: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            previousAriaLabel: [{ type: core.Input }],
-            nextAriaLabel: [{ type: core.Input }],
-            page: [{ type: core.Input }],
-            previousBtnTemplate: [{ type: core.Input }],
-            nextBtnTemplate: [{ type: core.Input }],
-            itemsPerPage: [{ type: core.Input }],
-            totalItems: [{ type: core.Input }],
-            pageChange: [{ type: core.Output }],
-            numPages: [{ type: core.Output }]
+            directionButtons: [{ type: i0.Input }],
+            maxSize: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            classes: [{ type: i0.Input, args: ['class',] }],
+            pageBtnClass: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            previousAriaLabel: [{ type: i0.Input }],
+            nextAriaLabel: [{ type: i0.Input }],
+            page: [{ type: i0.Input }],
+            previousBtnTemplate: [{ type: i0.Input }],
+            nextBtnTemplate: [{ type: i0.Input }],
+            itemsPerPage: [{ type: i0.Input }],
+            totalItems: [{ type: i0.Input }],
+            pageChange: [{ type: i0.Output }],
+            numPages: [{ type: i0.Output }]
         };
         return PaginationComponent;
     }());
@@ -31200,7 +32505,7 @@
         function PaginationModule() {
         }
         PaginationModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             a11y.A11yModule,
@@ -31233,15 +32538,15 @@
             /**
              * Emit when the segment receives focus
              */
-            this.segmentFocus = new core.EventEmitter();
+            this.segmentFocus = new i0.EventEmitter();
             /**
              * Emit when the segment is blurred
              */
-            this.segmentBlur = new core.EventEmitter();
+            this.segmentBlur = new i0.EventEmitter();
             /**
              * Unsubscribe from observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -31257,10 +32562,10 @@
                 /** @type {?} */
                 var segment = this.getSegmentElement();
                 if (segment) {
-                    fromEvent.fromEvent(segment, 'focus')
+                    rxjs.fromEvent(segment, 'focus')
                         .pipe(operators.takeUntil(this._onDestroy))
                         .subscribe(function (event) { return _this.segmentFocus.emit(event); });
-                    fromEvent.fromEvent(segment, 'blur')
+                    rxjs.fromEvent(segment, 'blur')
                         .pipe(operators.takeUntil(this._onDestroy))
                         .subscribe(function (event) { return _this.segmentBlur.emit(event); });
                 }
@@ -31297,19 +32602,19 @@
                 }
             };
         PartitionMapSegmentEventsDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[segmentFocus],[segmentBlur]',
                     },] }
         ];
         /** @nocollapse */
         PartitionMapSegmentEventsDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         PartitionMapSegmentEventsDirective.propDecorators = {
-            segmentFocus: [{ type: core.Output }],
-            segmentBlur: [{ type: core.Output }]
+            segmentFocus: [{ type: i0.Output }],
+            segmentBlur: [{ type: i0.Output }]
         };
         return PartitionMapSegmentEventsDirective;
     }());
@@ -31343,7 +32648,7 @@
             /**
              * Emits whenever a segment is selected.
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
             /**
              * Store the processed segments
              */
@@ -31375,7 +32680,7 @@
             /**
              * Unsubscribe from any observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(PartitionMapComponent.prototype, "colors", {
             /** Define the colors to be used for each row and the order they should appear. */
@@ -32439,19 +33744,19 @@
                 return info.item.name + " has a value of " + info.value + " and is a " + info.parents.map(function (parent) { return "descendant of " + parent.name; }).join(' and a ');
             };
         PartitionMapComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-partition-map',
                         template: "<div class=\"partition-map-segment\"\n     *ngFor=\"let segment of _segments\"\n     uxFocusIndicator\n     [ngClass]=\"_getContrastColor(segment)\"\n     [style.background-color]=\"_getBackgroundColor(segment)\"\n     [tabIndex]=\"_getTabIndex(segment)\"\n     [attr.aria-expanded]=\"!_isCollapsed(segment)\"\n     [attr.aria-selected]=\"_isSelected(segment)\"\n     [attr.aria-level]=\"segment.depth\"\n     (click)=\"_onSegmentSelect(segment)\"\n     (focus)=\"_onFocus(segment)\"\n     (keydown.Enter)=\"_onSegmentSelect(segment)\"\n     (keydown.ArrowUp)=\"_focusParent(segment); $event.preventDefault()\"\n     (keydown.ArrowDown)=\"_focusChild(segment); $event.preventDefault()\"\n     (keydown.ArrowLeft)=\"_focusSibling(segment, -1); $event.preventDefault()\"\n     (keydown.ArrowRight)=\"_focusSibling(segment, 1); $event.preventDefault()\"\n     (keydown.Home)=\"_focusFirstSibling(segment); $event.preventDefault()\"\n     (keydown.End)=\"_focusLastSibling(segment); $event.preventDefault()\">\n\n     <div class=\"partition-map-segment-content\" [class.partition-map-segment-content-hidden]=\"_getSegmentContentHidden(segment)\">\n\n      <!-- Show default template if provided -->\n      <span class=\"partition-map-segment-label\" *ngIf=\"!segmentTemplate\">\n        {{ segment.data.name }}\n      </span>\n\n       <!-- Show custom template if provided -->\n      <ng-container *ngIf=\"segmentTemplate\"\n        [ngTemplateOutlet]=\"segmentTemplate\"\n        [ngTemplateOutletContext]=\"_getContext(segment)\">\n      </ng-container>\n    </div>\n\n</div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         PartitionMapComponent.ctorParameters = function () {
             return [
                 { type: ColorService },
-                { type: core.ElementRef },
-                { type: core.ChangeDetectorRef },
-                { type: core.NgZone },
+                { type: i0.ElementRef },
+                { type: i0.ChangeDetectorRef },
+                { type: i0.NgZone },
                 { type: FocusIndicatorOriginService },
                 { type: ContrastService },
                 { type: a11y.LiveAnnouncer },
@@ -32459,14 +33764,14 @@
             ];
         };
         PartitionMapComponent.propDecorators = {
-            colors: [{ type: core.Input }],
-            collapsedHeight: [{ type: core.Input }],
-            minSegmentWidth: [{ type: core.Input }],
-            dataset: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            segmentAnnouncement: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            segmentTemplate: [{ type: core.ContentChild, args: ['partitionMapSegment',] }]
+            colors: [{ type: i0.Input }],
+            collapsedHeight: [{ type: i0.Input }],
+            minSegmentWidth: [{ type: i0.Input }],
+            dataset: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            segmentAnnouncement: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            segmentTemplate: [{ type: i0.ContentChild, args: ['partitionMapSegment',] }]
         };
         return PartitionMapComponent;
     }());
@@ -32479,7 +33784,7 @@
         function PartitionMapModule() {
         }
         PartitionMapModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
@@ -32528,23 +33833,23 @@
             configurable: true
         });
         ProgressBarComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-progress-bar',
                         template: "<div *ngIf=\"!indeterminate\" class=\"progressbar-track\" [style.width.%]=\"((value - min) / (max - min)) * 100\" [style.backgroundColor]=\"barColor\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n</div>\n<div *ngIf=\"indeterminate\" class=\"progressbar-track indeterminate\" [style.backgroundColor]=\"barColor\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n</div>\n\n<!-- Workaround for Multiple ng-content tags issue: https://github.com/angular/angular/issues/22972 -->\n<ng-template #content><ng-content></ng-content></ng-template>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             role: 'progressbar'
                         }
                     }] }
         ];
         ProgressBarComponent.propDecorators = {
-            value: [{ type: core.Input }],
-            min: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.aria-valuemin',] }],
-            max: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.aria-valuemax',] }],
-            indeterminate: [{ type: core.Input }],
-            trackColor: [{ type: core.Input }],
-            barColor: [{ type: core.Input }],
-            valueNow: [{ type: core.HostBinding, args: ['attr.aria-valuenow',] }]
+            value: [{ type: i0.Input }],
+            min: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.aria-valuemin',] }],
+            max: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.aria-valuemax',] }],
+            indeterminate: [{ type: i0.Input }],
+            trackColor: [{ type: i0.Input }],
+            barColor: [{ type: i0.Input }],
+            valueNow: [{ type: i0.HostBinding, args: ['attr.aria-valuenow',] }]
         };
         return ProgressBarComponent;
     }());
@@ -32557,7 +33862,7 @@
         function ProgressBarModule() {
         }
         ProgressBarModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule
                         ],
@@ -32580,7 +33885,7 @@
     /** @type {?} */
     var RADIOBUTTON_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return RadioButtonComponent; }),
+        useExisting: i0.forwardRef(function () { return RadioButtonComponent; }),
         multi: true
     };
     /** @type {?} */
@@ -32623,7 +33928,7 @@
             /**
              * Emits when the value has been changed.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
             this._value = false;
             this.focused = false;
             this.onTouchedCallback = function () { };
@@ -32726,26 +34031,26 @@
                 this.disabled = isDisabled;
             };
         RadioButtonComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-radio-button',
                         template: "<label [attr.for]=\"inputId\" class=\"ux-radio-button\"\n       [class.ux-radio-button-checked]=\"value === option\"\n       [class.ux-radio-button-simplified]=\"simplified\"\n       [class.ux-radio-button-disabled]=\"disabled\"\n       [class.ux-radio-button-focused]=\"focused\">\n\n    <div class=\"ux-radio-button-container\">\n        <input class=\"ux-radio-button-input\"\n            uxFocusIndicator\n            type=\"radio\"\n            [id]=\"inputId\"\n            [checked]=\"value === option\"\n            [disabled]=\"disabled\"\n            [tabindex]=\"tabindex || value === option ? 0 : -1\"\n            [attr.name]=\"name\"\n            [required]=\"required\"\n            [attr.aria-label]=\"ariaLabel\"\n            [attr.aria-labelledby]=\"ariaLabelledby\"\n            [attr.aria-describedby]=\"ariaDescribedby\"\n            [attr.aria-checked]=\"value === option\"\n            (indicator)=\"focused = $event\"\n            (change)=\"toggle()\"\n            (click)=\"$event.stopPropagation()\">\n    </div>\n\n    <span class=\"ux-radio-button-label\">\n        <ng-content></ng-content>\n    </span>\n\n</label>",
                         providers: [RADIOBUTTON_VALUE_ACCESSOR]
                     }] }
         ];
         RadioButtonComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            name: [{ type: core.Input }],
-            required: [{ type: core.Input }],
-            tabindex: [{ type: core.Input }],
-            clickable: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            simplified: [{ type: core.Input }],
-            option: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
-            ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
-            valueChange: [{ type: core.Output }],
-            value: [{ type: core.Input }]
+            id: [{ type: i0.Input }],
+            name: [{ type: i0.Input }],
+            required: [{ type: i0.Input }],
+            tabindex: [{ type: i0.Input }],
+            clickable: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            simplified: [{ type: i0.Input }],
+            option: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            ariaLabelledby: [{ type: i0.Input, args: ['aria-labelledby',] }],
+            ariaDescribedby: [{ type: i0.Input, args: ['aria-describedby',] }],
+            valueChange: [{ type: i0.Output }],
+            value: [{ type: i0.Input }]
         };
         return RadioButtonComponent;
     }());
@@ -32758,7 +34063,7 @@
         function RadioButtonModule() {
         }
         RadioButtonModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             forms.FormsModule
@@ -33452,11 +34757,11 @@
             /**
              * Store the node that can currently be tabbed to
              */
-            this.active$ = new BehaviorSubject.BehaviorSubject(null);
+            this.active$ = new rxjs.BehaviorSubject(null);
             /**
              * Emit whenever an item should receive focus
              */
-            this.focused$ = new Subject.Subject();
+            this.focused$ = new rxjs.Subject();
             /**
              * Store the nodes
              */
@@ -33652,7 +34957,7 @@
                 return !!this.active$.value && !!this._nodes.find(function (node) { return node.node.id === _this.active$.value.node.id; });
             };
         SankeyFocusManager.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return SankeyFocusManager;
     }());
@@ -33675,7 +34980,7 @@
             /**
              * Unsubscribe from all observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -33723,7 +35028,7 @@
                 this._focusManager.onKeydown(event);
             };
         SankeyNodeDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxSankeyNode]',
                     },] }
         ];
@@ -33731,14 +35036,14 @@
         SankeyNodeDirective.ctorParameters = function () {
             return [
                 { type: SankeyFocusManager },
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         SankeyNodeDirective.propDecorators = {
-            node: [{ type: core.Input, args: ['uxSankeyNode',] }],
-            tabIndex: [{ type: core.HostBinding }],
-            onClick: [{ type: core.HostListener, args: ['click',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+            node: [{ type: i0.Input, args: ['uxSankeyNode',] }],
+            tabIndex: [{ type: i0.HostBinding }],
+            onClick: [{ type: i0.HostListener, args: ['click',] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return SankeyNodeDirective;
     }());
@@ -34317,10 +35622,10 @@
                 return falloff.toLocaleString('en') + ' items';
             };
         SankeyChartComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-sankey-chart',
                         template: "<div class=\"ux-sankey-chart-columns\" *ngIf=\"columns && columns.length > 0\">\n    <div *ngFor=\"let column of _columns\"\n         class=\"ux-sankey-chart-column\"\n         [style.width.px]=\"column.width\">\n\n        <p class=\"ux-sankey-chart-column-title\"\n            [style.left.px]=\"column.position\">\n            {{ column.title }}\n        </p>\n    </div>\n</div>\n\n<svg #linkContainer\n     [attr.width]=\"_width\"\n     [attr.height]=\"_height\"\n     class=\"ux-sankey-chart-links\"\n     [style.top.px]=\"!columns || columns.length === 0 ? 8 : null\">\n\n    <defs>\n        <linearGradient id=\"falloff-gradient\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n            <stop class=\"ux-sankey-chart-falloff-gradient-start\" offset=\"25%\"></stop>\n            <stop class=\"ux-sankey-chart-falloff-gradient-end\" offset=\"100%\"></stop>\n        </linearGradient>\n    </defs>\n    <g>\n        <ng-container *ngFor=\"let node of _nodes; trackBy: _trackNodeBy\">\n            <path *ngFor=\"let link of node.outputs; trackBy: _trackLinkBy\"\n                    [attr.class]=\"_getLinkClass(link)\"\n                    [attr.d]=\"_getPath(link)\"\n                    [style.fill]=\"_getColor(link)\"\n                    (mouseenter)=\"_setLinkActive(link, true)\"\n                    (mouseleave)=\"_setLinkActive(link, false)\"\n                    (mousemove)=\"_setTooltipPosition($event)\">\n            </path>\n            <path *ngIf=\"node.falloff && _showFalloff(node)\"\n                    class=\"ux-sankey-chart-falloff-indicator\"\n                    [attr.d]=\"_getFalloffPath(node)\"\n                    (mouseenter)=\"_setFalloffTooltip(node, true)\"\n                    (mouseleave)=\"_setFalloffTooltip(node, false)\"\n                    (mousemove)=\"_setTooltipPosition($event)\">\n            </path>\n        </ng-container>\n    </g>\n</svg>\n\n<div #nodeContainer\n     class=\"ux-sankey-chart-nodes\"\n     (uxResize)=\"_onResize($event)\"\n     [style.top.px]=\"!columns || columns.length === 0 ? 8 : null\">\n\n    <div *ngFor=\"let node of _nodes; trackBy: _trackNodeBy\"\n        #nodeElement\n        [uxSankeyNode]=\"node\"\n        uxFocusIndicator\n        class=\"ux-sankey-chart-node\"\n        [class.ux-sankey-chart-node-active]=\"node.active || node.focus\"\n        [style.left.px]=\"node.x\"\n        [style.top.px]=\"node.y\"\n        [style.width.px]=\"node.width\"\n        [style.height.px]=\"node.height\"\n        [style.background-color]=\"_getColor(node)\"\n        (mouseenter)=\"_setNodeActive(node, true)\"\n        (mouseleave)=\"_setNodeActive(node, false)\"\n        (indicator)=\"_setNodeFocus(node, $event, nodeElement)\">\n\n        <ng-container\n            [ngTemplateOutlet]=\"nodeTemplate\"\n            [ngTemplateOutletContext]=\"{ node: node.node, active: node.active, focus: node.focus }\">\n        </ng-container>\n    </div>\n\n    <ux-tooltip *ngIf=\"_isTooltipOpen\"\n                class=\"ux-sankey-tooltip\"\n                placement=\"top\"\n                [content]=\"_tooltipContent\"\n                alignment=\"center\"\n                [style.left.px]=\"_tooltipPosition.x\"\n                [style.top.px]=\"_tooltipPosition.y\"\n                [@tooltipAnimation]>\n    </ux-tooltip>\n\n</div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         viewProviders: [SankeyFocusManager],
                         animations: [
                             animations.trigger('tooltipAnimation', [
@@ -34339,22 +35644,22 @@
         SankeyChartComponent.ctorParameters = function () {
             return [
                 { type: SankeyFocusManager },
-                { type: core.ChangeDetectorRef },
+                { type: i0.ChangeDetectorRef },
                 { type: ColorService }
             ];
         };
         SankeyChartComponent.propDecorators = {
-            nodes: [{ type: core.Input }],
-            links: [{ type: core.Input }],
-            columns: [{ type: core.Input }],
-            minWidth: [{ type: core.Input }],
-            maxWidth: [{ type: core.Input }],
-            linkTooltip: [{ type: core.Input }],
-            falloffTooltip: [{ type: core.Input }],
-            color: [{ type: core.Input }],
-            nodeTemplate: [{ type: core.ContentChild, args: ['sankeyNodeTemplate',] }],
-            linkContainer: [{ type: core.ViewChild, args: ['linkContainer',] }],
-            nodeContainer: [{ type: core.ViewChild, args: ['nodeContainer',] }]
+            nodes: [{ type: i0.Input }],
+            links: [{ type: i0.Input }],
+            columns: [{ type: i0.Input }],
+            minWidth: [{ type: i0.Input }],
+            maxWidth: [{ type: i0.Input }],
+            linkTooltip: [{ type: i0.Input }],
+            falloffTooltip: [{ type: i0.Input }],
+            color: [{ type: i0.Input }],
+            nodeTemplate: [{ type: i0.ContentChild, args: ['sankeyNodeTemplate',] }],
+            linkContainer: [{ type: i0.ViewChild, args: ['linkContainer',] }],
+            nodeContainer: [{ type: i0.ViewChild, args: ['nodeContainer',] }]
         };
         return SankeyChartComponent;
     }());
@@ -34367,7 +35672,7 @@
         function SankeyChartModule() {
         }
         SankeyChartModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         declarations: [
                             SankeyChartComponent,
                             SankeyNodeDirective
@@ -34395,7 +35700,7 @@
     var UNSET_FOCUS = { groupId: null, index: -1 };
     var SearchBuilderFocusService = /** @class */ (function () {
         function SearchBuilderFocusService() {
-            this.focus$ = new BehaviorSubject.BehaviorSubject(UNSET_FOCUS);
+            this.focus$ = new rxjs.BehaviorSubject(UNSET_FOCUS);
         }
         /**
          * Set focus on a search builder component.
@@ -34432,7 +35737,7 @@
                 this.focus$.next(UNSET_FOCUS);
             };
         SearchBuilderFocusService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return SearchBuilderFocusService;
     }());
@@ -34444,8 +35749,8 @@
     var SearchBuilderService = /** @class */ (function () {
         function SearchBuilderService() {
             this.query = {};
-            this.queryChange = new Subject.Subject();
-            this.validationChange = new BehaviorSubject.BehaviorSubject(true);
+            this.queryChange = new rxjs.Subject();
+            this.validationChange = new rxjs.BehaviorSubject(true);
             this._componentId = 0;
             this._components = [];
             this._validation = {};
@@ -34600,7 +35905,7 @@
                 return this._componentId++;
             };
         SearchBuilderService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return SearchBuilderService;
     }());
@@ -34676,7 +35981,7 @@
                 return this._searchBuilderService.query[this._id] ? this._searchBuilderService.query[this._id] : [];
             };
         SearchBuilderGroupService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         SearchBuilderGroupService.ctorParameters = function () {
@@ -34699,10 +36004,10 @@
             this.operator = 'and';
             this.addText = 'Add a field';
             this.showPlaceholder = false;
-            this.add = new core.EventEmitter();
-            this.remove = new core.EventEmitter();
+            this.add = new i0.EventEmitter();
+            this.remove = new i0.EventEmitter();
             this.focusIndex = -1;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -34779,7 +36084,7 @@
                 this._searchBuilderFocusService.clearFocus();
             };
         SearchBuilderGroupComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-search-builder-group',
                         template: "<h4 class=\"search-group-title\">{{ header }}</h4>\n\n<div class=\"search-group-content\">\n\n  <div class=\"search-group-operator search-group-operator-{{ operator }}\"\n    [class.hidden-operator]=\"searchBuilderGroupService.getQuery().length < 2\">{{ operator }}</div>\n\n  <div class=\"search-group-items\">\n\n    <div *ngFor=\"let field of searchBuilderGroupService.getQuery(); let i = index\"\n      class=\"search-group-item-container\"\n      [class.search-group-item-focus]=\"focusIndex === i\"\n      (uxFocusWithin)=\"setFocus(i)\"\n      (uxBlurWithin)=\"clearFocus()\">\n\n      <div class=\"search-group-item\">\n        <ng-container *uxSearchBuilderOutlet=\"field.type; context: field; groupId: id; index: i\"></ng-container>\n      </div>\n\n      <button type=\"button\"\n        uxFocusIndicator\n        aria-label=\"Remove field\"\n        class=\"search-group-item-remove\"\n        (click)=\"removeFieldAtIndex(i, field)\">\n\n        <span class=\"hpe-icon hpe-close\"></span>\n\n      </button>\n\n    </div>\n\n    <!-- Placeholder Item -->\n    <ng-container *ngIf=\"showPlaceholder\">\n\n      <!-- The Default Placeholder -->\n      <div class=\"search-group-item-container placeholder-item\" *ngIf=\"!placeholder\">\n\n        <div class=\"search-group-item\">\n          <label class=\"form-label\">New field</label>\n          <div class=\"form-control\"></div>\n        </div>\n\n      </div>\n\n      <!-- Allow a custom placeholder -->\n      <ng-container *ngTemplateOutlet=\"placeholder\"></ng-container>\n\n    </ng-container>\n\n  </div>\n\n  <button type=\"button\" uxFocusIndicator class=\"search-builder-group-add-field\" (click)=\"addField($event)\">\n    <span class=\"search-builder-group-add-field-icon hpe-icon hpe-add\" aria-hidden=\"true\"></span>\n    <span class=\"search-builder-group-add-field-label\">{{ addText }}</span>\n  </button>\n\n</div>\n\n<hr class=\"search-builder-group-divider\">\n",
                         providers: [SearchBuilderGroupService]
@@ -34793,14 +36098,14 @@
             ];
         };
         SearchBuilderGroupComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            header: [{ type: core.Input }],
-            operator: [{ type: core.Input }],
-            addText: [{ type: core.Input }],
-            placeholder: [{ type: core.Input }],
-            showPlaceholder: [{ type: core.Input }],
-            add: [{ type: core.Output }],
-            remove: [{ type: core.Output }]
+            id: [{ type: i0.Input }],
+            header: [{ type: i0.Input }],
+            operator: [{ type: i0.Input }],
+            addText: [{ type: i0.Input }],
+            placeholder: [{ type: i0.Input }],
+            showPlaceholder: [{ type: i0.Input }],
+            add: [{ type: i0.Output }],
+            remove: [{ type: i0.Output }]
         };
         return SearchBuilderGroupComponent;
     }());
@@ -34815,7 +36120,7 @@
             this._componentFactoryResolver = _componentFactoryResolver;
             this._searchBuilderService = _searchBuilderService;
             this._searchBuilderFocusService = _searchBuilderFocusService;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -34856,24 +36161,24 @@
                 this._onDestroy.complete();
             };
         SearchBuilderOutletDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxSearchBuilderOutlet]'
                     },] }
         ];
         /** @nocollapse */
         SearchBuilderOutletDirective.ctorParameters = function () {
             return [
-                { type: core.ViewContainerRef },
-                { type: core.ComponentFactoryResolver },
+                { type: i0.ViewContainerRef },
+                { type: i0.ComponentFactoryResolver },
                 { type: SearchBuilderService },
                 { type: SearchBuilderFocusService }
             ];
         };
         SearchBuilderOutletDirective.propDecorators = {
-            outlet: [{ type: core.Input, args: ['uxSearchBuilderOutlet',] }],
-            context: [{ type: core.Input, args: ['uxSearchBuilderOutletContext',] }],
-            groupId: [{ type: core.Input, args: ['uxSearchBuilderOutletGroupId',] }],
-            index: [{ type: core.Input, args: ['uxSearchBuilderOutletIndex',] }]
+            outlet: [{ type: i0.Input, args: ['uxSearchBuilderOutlet',] }],
+            context: [{ type: i0.Input, args: ['uxSearchBuilderOutletContext',] }],
+            groupId: [{ type: i0.Input, args: ['uxSearchBuilderOutletGroupId',] }],
+            index: [{ type: i0.Input, args: ['uxSearchBuilderOutletIndex',] }]
         };
         return SearchBuilderOutletDirective;
     }());
@@ -34889,8 +36194,8 @@
         function SearchBuilderComponent(_searchBuilderService) {
             var _this = this;
             this._searchBuilderService = _searchBuilderService;
-            this.queryChange = new core.EventEmitter();
-            this.valid = new core.EventEmitter(true);
+            this.queryChange = new i0.EventEmitter();
+            this.valid = new i0.EventEmitter(true);
             // watch for any query changes
             this._querySubscription = _searchBuilderService.queryChange.subscribe(function (query) { return _this.queryChange.emit(query); });
             // watch for any changes to the validation
@@ -34937,7 +36242,7 @@
                 this._validSubscription.unsubscribe();
             };
         SearchBuilderComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-search-builder',
                         template: "<ng-content></ng-content>",
                         providers: [SearchBuilderService]
@@ -34950,10 +36255,10 @@
             ];
         };
         SearchBuilderComponent.propDecorators = {
-            components: [{ type: core.Input }],
-            query: [{ type: core.Input }],
-            queryChange: [{ type: core.Output }],
-            valid: [{ type: core.Output }]
+            components: [{ type: i0.Input }],
+            query: [{ type: i0.Input }],
+            queryChange: [{ type: i0.Output }],
+            valid: [{ type: i0.Output }]
         };
         return SearchBuilderComponent;
     }());
@@ -34967,7 +36272,7 @@
     /** @type {?} */
     var SELECT_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return SelectComponent; }),
+        useExisting: i0.forwardRef(function () { return SelectComponent; }),
         multi: true
     };
     /**
@@ -35024,20 +36329,20 @@
             /**
              * Emits when `value` changes.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
             /**
              * Emits when `input` changes.
              */
-            this.inputChange = new core.EventEmitter();
+            this.inputChange = new i0.EventEmitter();
             /**
              * Emits when `dropdownOpen` changes.
              */
-            this.dropdownOpenChange = new core.EventEmitter();
+            this.dropdownOpenChange = new i0.EventEmitter();
             this.propagateChange = function (_) { };
-            this._value$ = new BehaviorSubject.BehaviorSubject(null);
-            this._input$ = new BehaviorSubject.BehaviorSubject('');
+            this._value$ = new rxjs.BehaviorSubject(null);
+            this._input$ = new rxjs.BehaviorSubject('');
             this._dropdownOpen = false;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(SelectComponent.prototype, "value", {
             get: /**
@@ -35342,7 +36647,7 @@
                 }
             };
         SelectComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
                         template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i *ngIf=\"!icon\"\r\n       class=\"hpe-icon select-arrow\"\r\n       [class.hpe-down]=\"dropDirection === 'down'\"\r\n       [class.hpe-up]=\"dropDirection === 'up'\"\r\n       (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR],
@@ -35355,41 +36660,41 @@
         /** @nocollapse */
         SelectComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: platform.Platform },
-                { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+                { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] },
                 { type: TypeaheadKeyService }
             ];
         };
         SelectComponent.propDecorators = {
-            id: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.id',] }],
-            value: [{ type: core.Input }],
-            input: [{ type: core.Input }],
-            dropdownOpen: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            display: [{ type: core.Input }],
-            key: [{ type: core.Input }],
-            allowNull: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            dropDirection: [{ type: core.Input }],
-            maxHeight: [{ type: core.Input }],
-            multiple: [{ type: core.Input }],
-            pageSize: [{ type: core.Input }],
-            placeholder: [{ type: core.Input }],
-            autocomplete: [{ type: core.Input }],
-            loadingTemplate: [{ type: core.Input }],
-            noOptionsTemplate: [{ type: core.Input }],
-            readonlyInput: [{ type: core.Input }],
-            optionTemplate: [{ type: core.Input }],
-            valueChange: [{ type: core.Output }],
-            inputChange: [{ type: core.Output }],
-            dropdownOpenChange: [{ type: core.Output }],
-            icon: [{ type: core.ContentChild, args: ['icon',] }],
-            singleInput: [{ type: core.ViewChild, args: ['singleInput',] }],
-            tagInput: [{ type: core.ViewChild, args: ['tagInput',] }],
-            multipleTypeahead: [{ type: core.ViewChild, args: ['multipleTypeahead',] }],
-            singleTypeahead: [{ type: core.ViewChild, args: ['singleTypeahead',] }]
+            id: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.id',] }],
+            value: [{ type: i0.Input }],
+            input: [{ type: i0.Input }],
+            dropdownOpen: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            display: [{ type: i0.Input }],
+            key: [{ type: i0.Input }],
+            allowNull: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            dropDirection: [{ type: i0.Input }],
+            maxHeight: [{ type: i0.Input }],
+            multiple: [{ type: i0.Input }],
+            pageSize: [{ type: i0.Input }],
+            placeholder: [{ type: i0.Input }],
+            autocomplete: [{ type: i0.Input }],
+            loadingTemplate: [{ type: i0.Input }],
+            noOptionsTemplate: [{ type: i0.Input }],
+            readonlyInput: [{ type: i0.Input }],
+            optionTemplate: [{ type: i0.Input }],
+            valueChange: [{ type: i0.Output }],
+            inputChange: [{ type: i0.Output }],
+            dropdownOpenChange: [{ type: i0.Output }],
+            icon: [{ type: i0.ContentChild, args: ['icon',] }],
+            singleInput: [{ type: i0.ViewChild, args: ['singleInput',] }],
+            tagInput: [{ type: i0.ViewChild, args: ['tagInput',] }],
+            multipleTypeahead: [{ type: i0.ViewChild, args: ['multipleTypeahead',] }],
+            singleTypeahead: [{ type: i0.ViewChild, args: ['singleTypeahead',] }]
         };
         return SelectComponent;
     }());
@@ -35433,13 +36738,13 @@
     /** @type {?} */
     var TAGINPUT_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return TagInputComponent; }),
+        useExisting: i0.forwardRef(function () { return TagInputComponent; }),
         multi: true
     };
     /** @type {?} */
     var TAGINPUT_VALIDATOR = {
         provide: forms.NG_VALIDATORS,
-        useExisting: core.forwardRef(function () { return TagInputComponent; }),
+        useExisting: i0.forwardRef(function () { return TagInputComponent; }),
         multi: true
     };
     /**
@@ -35528,35 +36833,35 @@
             /**
              * Emits when tags is changed.
              */
-            this.tagsChange = new core.EventEmitter();
+            this.tagsChange = new i0.EventEmitter();
             /**
              * Emits when input is changed.
              */
-            this.inputChange = new core.EventEmitter();
+            this.inputChange = new i0.EventEmitter();
             /**
              * Raised when a tag is about to be added. The `tag` property of the event contains the tag to be added. Call `preventDefault()` on the event to prevent addition.
              */
-            this.tagAdding = new core.EventEmitter();
+            this.tagAdding = new i0.EventEmitter();
             /**
              * Raised when a tag has been added. The tag property of the event contains the tag.
              */
-            this.tagAdded = new core.EventEmitter();
+            this.tagAdded = new i0.EventEmitter();
             /**
              * Raised when a tag has failed validation according to the `tagPattern`. The tag property of the event contains the string which failed validation.
              */
-            this.tagInvalidated = new core.EventEmitter();
+            this.tagInvalidated = new i0.EventEmitter();
             /**
              * Raised when a tag is about to be removed. The `tag` property of the event contains the tag to be removed. Call `preventDefault()` on the event to prevent removal.
              */
-            this.tagRemoving = new core.EventEmitter();
+            this.tagRemoving = new i0.EventEmitter();
             /**
              * Raised when a tag has been removed. The tag property of the event contains the tag.
              */
-            this.tagRemoved = new core.EventEmitter();
+            this.tagRemoved = new i0.EventEmitter();
             /**
              * Raised when a tag has been clicked. The `tag` property of the event contains the clicked tag. Call `preventDefault()` on the event to prevent the default behaviour of selecting the tag.
              */
-            this.tagClick = new core.EventEmitter();
+            this.tagClick = new i0.EventEmitter();
             this.selectedIndex = -1;
             this.tagApi = {
                 getTagDisplay: this.getTagDisplay.bind(this),
@@ -35569,7 +36874,7 @@
             this._tags = [];
             this._onChangeHandler = function () { };
             this._onTouchedHandler = function () { };
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(TagInputComponent.prototype, "tags", {
             /**
@@ -35615,17 +36920,6 @@
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        TagInputComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-            function () {
-                if (!this.tagTemplate) {
-                    this.tagTemplate = this._defaultTagTemplate;
-                }
-            };
         /**
          * @return {?}
          */
@@ -36487,10 +37781,10 @@
                 return tagValues;
             };
         TagInputComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -36502,49 +37796,48 @@
         /** @nocollapse */
         TagInputComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+                { type: i0.ElementRef },
+                { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] },
                 { type: TypeaheadKeyService }
             ];
         };
         TagInputComponent.propDecorators = {
-            id: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.id',] }],
-            tags: [{ type: core.Input }],
-            input: [{ type: core.Input }],
-            display: [{ type: core.Input }],
-            addOnPaste: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            enforceTagLimits: [{ type: core.Input }],
-            freeInput: [{ type: core.Input }],
-            readonlyInput: [{ type: core.Input }],
-            maxTags: [{ type: core.Input }],
-            minTags: [{ type: core.Input }],
-            placeholder: [{ type: core.Input }],
-            showTypeaheadOnClick: [{ type: core.Input }],
-            tagDelimiters: [{ type: core.Input }],
-            tagPattern: [{ type: core.Input }],
-            tagTemplate: [{ type: core.Input }],
-            tagClass: [{ type: core.Input }],
-            validationErrors: [{ type: core.Input }],
-            autocomplete: [{ type: core.Input }],
-            createTagHandler: [{ type: core.Input, args: ['createTag',] }],
-            trackAriaDescendant: [{ type: core.Input }],
-            icon: [{ type: core.Input }],
-            tagsChange: [{ type: core.Output }],
-            inputChange: [{ type: core.Output }],
-            tagAdding: [{ type: core.Output }],
-            tagAdded: [{ type: core.Output }],
-            tagInvalidated: [{ type: core.Output }],
-            tagRemoving: [{ type: core.Output }],
-            tagRemoved: [{ type: core.Output }],
-            tagClick: [{ type: core.Output }],
-            typeaheadQuery: [{ type: core.ContentChildren, args: [TypeaheadComponent,] }],
-            tagInput: [{ type: core.ViewChild, args: ['tagInput',] }],
-            _defaultTagTemplate: [{ type: core.ViewChild, args: ['defaultTagTemplate',] }],
-            keyHandler: [{ type: core.HostListener, args: ['keydown', ['$event'],] }],
-            focusOutHandler: [{ type: core.HostListener, args: ['focusout',] }],
-            onClick: [{ type: core.HostListener, args: ['click',] }]
+            id: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.id',] }],
+            tags: [{ type: i0.Input }],
+            input: [{ type: i0.Input }],
+            display: [{ type: i0.Input }],
+            addOnPaste: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            enforceTagLimits: [{ type: i0.Input }],
+            freeInput: [{ type: i0.Input }],
+            readonlyInput: [{ type: i0.Input }],
+            maxTags: [{ type: i0.Input }],
+            minTags: [{ type: i0.Input }],
+            placeholder: [{ type: i0.Input }],
+            showTypeaheadOnClick: [{ type: i0.Input }],
+            tagDelimiters: [{ type: i0.Input }],
+            tagPattern: [{ type: i0.Input }],
+            tagTemplate: [{ type: i0.Input }],
+            tagClass: [{ type: i0.Input }],
+            validationErrors: [{ type: i0.Input }],
+            autocomplete: [{ type: i0.Input }],
+            createTagHandler: [{ type: i0.Input, args: ['createTag',] }],
+            trackAriaDescendant: [{ type: i0.Input }],
+            icon: [{ type: i0.Input }],
+            tagsChange: [{ type: i0.Output }],
+            inputChange: [{ type: i0.Output }],
+            tagAdding: [{ type: i0.Output }],
+            tagAdded: [{ type: i0.Output }],
+            tagInvalidated: [{ type: i0.Output }],
+            tagRemoving: [{ type: i0.Output }],
+            tagRemoved: [{ type: i0.Output }],
+            tagClick: [{ type: i0.Output }],
+            typeaheadQuery: [{ type: i0.ContentChildren, args: [TypeaheadComponent,] }],
+            tagInput: [{ type: i0.ViewChild, args: ['tagInput',] }],
+            keyHandler: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }],
+            focusOutHandler: [{ type: i0.HostListener, args: ['focusout',] }],
+            onClick: [{ type: i0.HostListener, args: ['click',] }]
         };
         return TagInputComponent;
     }());
@@ -36557,7 +37850,7 @@
         function TagInputModule() {
         }
         TagInputModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -36586,7 +37879,7 @@
         function SelectModule() {
         }
         SelectModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             forms.FormsModule,
@@ -36698,7 +37991,7 @@
                 this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
             };
         BaseSearchComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-base-search',
                         template: ''
                     }] }
@@ -36852,17 +38145,17 @@
                 }
                 // create copies of the dates so we can modify time value (to ignore it)
                 /** @type {?} */
-                var from$$1 = new Date(this.value.from);
+                var from = new Date(this.value.from);
                 /** @type {?} */
                 var to = new Date(this.value.to);
                 // set the time to the same so we dont compare it
-                from$$1.setHours(0, 0, 0, 0);
+                from.setHours(0, 0, 0, 0);
                 to.setHours(0, 0, 0, 0);
                 // valid if the from date is less than or equal to the to date
-                this.valid = from$$1 <= to;
+                this.valid = from <= to;
             };
         SearchDateRangeComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-search-date-range',
                         template: "<label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n\n<div class=\"row\">\n    <div class=\"col-sm-12\">\n        <div class=\"form-inline\" [class.has-error]=\"!valid\">\n\n            <div class=\"form-group p-r-md\">\n                <label class=\"form-label m-r-xs\">{{ fromLabel }}</label>\n\n                <div class=\"input-group date m-nil\">\n                    <span class=\"input-group-addon p-r-xs\" tabindex=\"1\" (click)=\"fromPopover.show()\">\n                        <i class=\"hpe-icon hpe-calendar\" aria-hidden=\"true\"></i>\n                    </span>\n                    <input type=\"text\" #fromPopover=\"ux-popover\" [ngModel]=\"from | date:'dd MMMM yyyy'\"\n                        [uxPopover]=\"fromPopoverTemplate\" placement=\"bottom\" popoverClass=\"date-time-picker-popover\"\n                        class=\"form-control\" aria-label=\"Selected date\" [placeholder]=\"fromPlaceholder\" [focusIf]=\"focus\">\n                </div>\n            </div>\n\n            <div class=\"form-group p-r-xs\">\n                <label class=\"form-label m-r-xs\">{{ toLabel }}</label>\n\n                <div class=\"input-group date m-nil\">\n                    <span class=\"input-group-addon\" tabindex=\"1\" (click)=\"toPopover.show()\">\n                        <i class=\"hpe-icon hpe-calendar\" aria-hidden=\"true\"></i>\n                    </span>\n                    <input type=\"text\" #toPopover=\"ux-popover\" [ngModel]=\"to | date:'dd MMMM yyyy'\"\n                        [uxPopover]=\"toPopoverTemplate\" placement=\"bottom\" popoverClass=\"date-time-picker-popover\"\n                        class=\"form-control\" aria-label=\"Selected date\" [placeholder]=\"toPlaceholder\">\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n<ng-template #fromPopoverTemplate>\n    <ux-date-time-picker [(date)]=\"from\" [showTime]=\"false\"></ux-date-time-picker>\n</ng-template>\n\n<ng-template #toPopoverTemplate>\n    <ux-date-time-picker [(date)]=\"to\" [showTime]=\"false\"></ux-date-time-picker>\n</ng-template>"
                     }] }
@@ -36912,7 +38205,7 @@
                 }
             };
         SearchDateComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-search-date',
                         template: "<label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n\n<div class=\"input-group date m-nil\">\n    <span class=\"input-group-addon\" tabindex=\"1\" (click)=\"popover.show()\">\n        <i class=\"hpe-icon hpe-calendar\" aria-hidden=\"true\"></i>\n    </span>\n    <input type=\"text\"\n        class=\"form-control\"\n        aria-label=\"Selected date\"\n        [placeholder]=\"placeholder\"\n        #popover=\"ux-popover\"\n        [ngModel]=\"value | date:'dd MMMM yyyy'\"\n        [uxPopover]=\"popoverTemplate\"\n        placement=\"bottom\"\n        popoverClass=\"date-time-picker-popover\"\n        [focusIf]=\"focus\">\n</div>\n\n<ng-template #popoverTemplate>\n    <ux-date-time-picker [(date)]=\"value\" [showTime]=\"false\"></ux-date-time-picker>\n</ng-template>"
                     }] }
@@ -37017,7 +38310,7 @@
             configurable: true
         });
         SearchSelectComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-search-select',
                         template: "<label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n\n<ux-select [(value)]=\"value\"\n           [options]=\"options\"\n           [multiple]=\"multiple\"\n           [placeholder]=\"placeholder\"\n           [dropDirection]=\"dropDirection\"\n           [pageSize]=\"pageSize\"\n           [allowNull]=\"allowNull\"\n           [disabled]=\"disabled\"\n           [maxHeight]=\"maxHeight\"\n           [key]=\"config.key\"\n           [display]=\"config.display\"\n           [loadingTemplate]=\"config.loadingTemplate\"\n           [optionTemplate]=\"config.optionTemplate\"\n           [noOptionsTemplate]=\"config.noOptionsTemplate\"\n           [focusIf]=\"focus\">\n</ux-select>"
                     }] }
@@ -37055,7 +38348,7 @@
             configurable: true
         });
         SearchTextComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-search-text',
                         template: "<label *ngIf=\"label\" class=\"form-label\" [attr.for]=\"id\">{{ label }}</label>\n<input [attr.id]=\"id\" class=\"form-control\" [placeholder]=\"placeholder\" [(ngModel)]=\"value\" [focusIf]=\"focus\">"
                     }] }
@@ -37071,7 +38364,7 @@
         function SearchBuilderModule() {
         }
         SearchBuilderModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -37777,24 +39070,62 @@
      */
     var SelectionService = /** @class */ (function () {
         function SelectionService() {
+            /**
+             * The active selection strategy that defines how selections can be made
+             */
             this.strategy = new SimpleSelectionStrategy(this);
+            /**
+             * Define if selections can be performed on any items
+             */
             this.isEnabled = true;
+            /**
+             * Define if the mouse can be used to perform selections
+             */
             this.isClickEnabled = true;
+            /**
+             * Define if the keyboard can be used to perform selections
+             */
             this.isKeyboardEnabled = true;
-            this.focus$ = new BehaviorSubject.BehaviorSubject(null);
-            this.active$ = new BehaviorSubject.BehaviorSubject(null);
-            this.selection$ = new BehaviorSubject.BehaviorSubject([]);
+            /**
+             * Define the currently focused item
+             */
+            this.focus$ = new rxjs.BehaviorSubject(null);
+            /**
+             * Define the currently active item
+             */
+            this.active$ = new rxjs.BehaviorSubject(null);
+            /**
+             * Store the current list of selected items as an array
+             */
+            this.selection$ = new rxjs.BehaviorSubject([]);
+            /**
+             * Store the current set of selectable items
+             */
             this._dataset = [];
-            this._selection = new Set();
+            /**
+             * Store the selection strategy that should be destroyed
+             */
             this._strategyToDestroy = this.strategy;
+            /**
+             * Store the current selection in a set
+             */
+            this._selection = new Set();
+            /**
+             * Store the current disabled items in a set
+             */
+            this._disabled = new Set();
         }
         Object.defineProperty(SelectionService.prototype, "dataset", {
+            /** Get the current set of selectable items */
             get: /**
+             * Get the current set of selectable items
              * @return {?}
              */ function () {
                 return this._dataset;
             },
+            /** Store the current set of selectable items and ensure an item can be focused */
             set: /**
+             * Store the current set of selectable items and ensure an item can be focused
              * @param {?} dataset
              * @return {?}
              */ function (dataset) {
@@ -37813,9 +39144,14 @@
          * @return {?}
          */
             function () {
+                // destroy the active stategy
                 if (this._strategyToDestroy) {
                     this._strategyToDestroy.destroy();
                 }
+                // complete all observables
+                this.focus$.complete();
+                this.active$.complete();
+                this.selection$.complete();
             };
         /**
          * If the item is not currently selected then add it
@@ -37839,6 +39175,8 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     selections[_i] = arguments[_i];
                 }
+                // filter out any disabled items
+                selections = selections.filter(function (item) { return !_this._disabled.has(item); });
                 // add each selection to the set
                 selections.forEach(function (selection) { return _this._selection.add(selection); });
                 // propagate the changes
@@ -37863,6 +39201,8 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     selection[_i] = arguments[_i];
                 }
+                // filter out any disabled items
+                selection = selection.filter(function (item) { return !_this._disabled.has(item); });
                 // remove all currently selected items
                 this._selection.clear();
                 // select only the specified item
@@ -38130,6 +39470,28 @@
                 // emit the selection change information
                 this.selectionHasMutated();
             };
+        /** Store the disabled state of an item */
+        /**
+         * Store the disabled state of an item
+         * @param {?} item
+         * @param {?} isDisabled
+         * @return {?}
+         */
+        SelectionService.prototype.setItemDisabled = /**
+         * Store the disabled state of an item
+         * @param {?} item
+         * @param {?} isDisabled
+         * @return {?}
+         */
+            function (item, isDisabled) {
+                // update the internal list of disabled items
+                if (isDisabled && !this._disabled.has(item)) {
+                    this._disabled.add(item);
+                }
+                else if (!isDisabled) {
+                    this._disabled.delete(item);
+                }
+            };
         /**
          * @return {?}
          */
@@ -38155,7 +39517,7 @@
                 }
             };
         SelectionService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return SelectionService;
     }());
@@ -38175,7 +39537,7 @@
             /**
              * Unsubscribe from all subscriptions on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // create the focus indicator
             this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
             _selection.active$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (data) { return data === _this.data; })).subscribe(function (active) {
@@ -38246,7 +39608,7 @@
                 this._selection.strategy.keydown(event, this.data);
             };
         SelectListItemComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-select-list-item',
                         template: "<ng-content></ng-content>",
                         host: {
@@ -38258,17 +39620,17 @@
         SelectListItemComponent.ctorParameters = function () {
             return [
                 { type: SelectionService },
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: FocusIndicatorService }
             ];
         };
         SelectListItemComponent.propDecorators = {
-            data: [{ type: core.Input }],
-            tabindex: [{ type: core.HostBinding, args: ['tabindex',] }],
-            selected: [{ type: core.HostBinding, args: ['class.selected',] }, { type: core.HostBinding, args: ['attr.aria-selected',] }],
-            onMouseDown: [{ type: core.HostListener, args: ['mousedown', ['$event'],] }],
-            onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }]
+            data: [{ type: i0.Input }],
+            tabindex: [{ type: i0.HostBinding, args: ['tabindex',] }],
+            selected: [{ type: i0.HostBinding, args: ['class.selected',] }, { type: i0.HostBinding, args: ['attr.aria-selected',] }],
+            onMouseDown: [{ type: i0.HostListener, args: ['mousedown', ['$event'],] }],
+            onClick: [{ type: i0.HostListener, args: ['click', ['$event'],] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return SelectListItemComponent;
     }());
@@ -38292,11 +39654,27 @@
             /**
              * Defines whether or not this item is currently selected.
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
+            /**
+             * Store the current focused state of the item
+             */
             this.active = false;
+            /**
+             * Store the current selected state
+             */
             this._selected = false;
+            /**
+             * Store the disabled state
+             */
+            this._isDisabled = false;
+            /**
+             * Store the tab indexed if using the managed focus container
+             */
             this._managedTabIndex = -1;
-            this._onDestroy = new Subject.Subject();
+            /**
+             * Automatically unsubscribe when the component is destroyed
+             */
+            this._onDestroy = new rxjs.Subject();
             this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
         }
         Object.defineProperty(SelectionItemDirective.prototype, "selected", {
@@ -38312,6 +39690,25 @@
              * @return {?}
              */ function (selected) {
                 selected ? this.select() : this.deselect();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(SelectionItemDirective.prototype, "uxSelectionDisabled", {
+            /** Determine whether or not this item can be selected */
+            set: /**
+             * Determine whether or not this item can be selected
+             * @param {?} isDisabled
+             * @return {?}
+             */ function (isDisabled) {
+                // if this item was selected then deselect it
+                if (this._selected && isDisabled) {
+                    this.deselect();
+                }
+                // inform the selection service of the disabled state
+                this._selectionService.setItemDisabled(this.uxSelectionItem, isDisabled);
+                // store the current disabled state
+                this._isDisabled = isDisabled;
             },
             enumerable: true,
             configurable: true
@@ -38385,7 +39782,7 @@
          * @return {?}
          */
             function (event) {
-                if (this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
+                if (!this._isDisabled && this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
                     this._selectionService.strategy.click(event, this.uxSelectionItem);
                 }
             };
@@ -38398,7 +39795,7 @@
          * @return {?}
          */
             function (event) {
-                if (this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
+                if (!this._isDisabled && this._selectionService.isEnabled && this._selectionService.isClickEnabled) {
                     this._selectionService.strategy.mousedown(event, this.uxSelectionItem);
                 }
             };
@@ -38411,7 +39808,12 @@
          * @return {?}
          */
             function (event) {
-                if (this._selectionService.isEnabled && this._selectionService.isKeyboardEnabled) {
+                // if the space key (selection key) is pressed and we are disabled then we should block
+                // the event from propagating. However if this is a key such as arrow presses then we do
+                // still want this to propagate to allow keyboard navigation for accessibility purposes.
+                /** @type {?} */
+                var isDisabled = this._isDisabled && event.keyCode === keycodes.SPACE;
+                if (!isDisabled && this._selectionService.isEnabled && this._selectionService.isKeyboardEnabled) {
                     this._selectionService.strategy.keydown(event, this.uxSelectionItem);
                 }
             };
@@ -38439,7 +39841,7 @@
          * @return {?}
          */
             function () {
-                if (this._selectionService.isEnabled) {
+                if (!this._isDisabled && this._selectionService.isEnabled) {
                     this._selectionService.strategy.select(this.uxSelectionItem);
                 }
             };
@@ -38455,12 +39857,12 @@
          * @return {?}
          */
             function () {
-                if (this._selectionService.isEnabled) {
+                if (!this._isDisabled && this._selectionService.isEnabled) {
                     this._selectionService.strategy.deselect(this.uxSelectionItem);
                 }
             };
         SelectionItemDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxSelectionItem]',
                         exportAs: 'ux-selection-item'
                     },] }
@@ -38469,22 +39871,23 @@
         SelectionItemDirective.ctorParameters = function () {
             return [
                 { type: SelectionService },
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: FocusIndicatorService },
                 { type: ManagedFocusContainerService }
             ];
         };
         SelectionItemDirective.propDecorators = {
-            uxSelectionItem: [{ type: core.Input }],
-            selected: [{ type: core.Input }, { type: core.HostBinding, args: ['class.ux-selection-selected',] }, { type: core.HostBinding, args: ['attr.aria-selected',] }],
-            tabindex: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            active: [{ type: core.HostBinding, args: ['class.ux-selection-focused',] }],
-            attrTabIndex: [{ type: core.HostBinding, args: ['attr.tabindex',] }],
-            click: [{ type: core.HostListener, args: ['click', ['$event'],] }],
-            mousedown: [{ type: core.HostListener, args: ['mousedown', ['$event'],] }],
-            keydown: [{ type: core.HostListener, args: ['keydown', ['$event'],] }],
-            focus: [{ type: core.HostListener, args: ['focus',] }]
+            uxSelectionItem: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.ux-selection-selected',] }, { type: i0.HostBinding, args: ['attr.aria-selected',] }],
+            tabindex: [{ type: i0.Input }],
+            uxSelectionDisabled: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            active: [{ type: i0.HostBinding, args: ['class.ux-selection-focused',] }],
+            attrTabIndex: [{ type: i0.HostBinding, args: ['attr.tabindex',] }],
+            click: [{ type: i0.HostListener, args: ['click', ['$event'],] }],
+            mousedown: [{ type: i0.HostListener, args: ['mousedown', ['$event'],] }],
+            keydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }],
+            focus: [{ type: i0.HostListener, args: ['focus',] }]
         };
         return SelectionItemDirective;
     }());
@@ -38508,11 +39911,11 @@
             /**
              * This event will be triggered when there is a change to the selected items. It will contain an array of the currently selected items.
              */
-            this.uxSelectionChange = new core.EventEmitter();
+            this.uxSelectionChange = new i0.EventEmitter();
             /**
              * Unsubscribe from all observables on component destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             _selectionService.selection$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (items) {
                 if (_this.isSelectionChanged(items)) {
                     _this.uxSelectionChange.emit(items);
@@ -38693,7 +40096,7 @@
                 return !this._lastSelection.every(function (item) { return selection.indexOf(item) !== -1; });
             };
         SelectionDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxSelection]',
                         exportAs: 'ux-selection',
                         providers: [SelectionService]
@@ -38703,18 +40106,18 @@
         SelectionDirective.ctorParameters = function () {
             return [
                 { type: SelectionService },
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         SelectionDirective.propDecorators = {
-            uxSelection: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            mode: [{ type: core.Input }],
-            clickSelection: [{ type: core.Input }],
-            keyboardSelection: [{ type: core.Input }],
-            tabindex: [{ type: core.Input }, { type: core.HostBinding, args: ['attr.tabindex',] }],
-            uxSelectionChange: [{ type: core.Output }],
-            items: [{ type: core.ContentChildren, args: [SelectionItemDirective,] }]
+            uxSelection: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            mode: [{ type: i0.Input }],
+            clickSelection: [{ type: i0.Input }],
+            keyboardSelection: [{ type: i0.Input }],
+            tabindex: [{ type: i0.Input }, { type: i0.HostBinding, args: ['attr.tabindex',] }],
+            uxSelectionChange: [{ type: i0.Output }],
+            items: [{ type: i0.ContentChildren, args: [SelectionItemDirective,] }]
         };
         return SelectionDirective;
     }());
@@ -38727,7 +40130,7 @@
         function SelectionModule() {
         }
         SelectionModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule
                         ],
@@ -38963,11 +40366,11 @@
             /**
              * Emit when the selection changes
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
             /**
              * Automatically unsubscribe all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // set the selection strategy to single by default
             this._selection.setStrategy(new SingleSelectListStrategy());
             // emit the selection changes when they occur
@@ -39038,7 +40441,7 @@
                 this._onDestroy.complete();
             };
         SelectListComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-select-list',
                         template: "<ng-content></ng-content>",
                         providers: [SelectionService],
@@ -39054,10 +40457,10 @@
             ];
         };
         SelectListComponent.propDecorators = {
-            multiple: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            items: [{ type: core.ContentChildren, args: [SelectListItemComponent,] }]
+            multiple: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            items: [{ type: i0.ContentChildren, args: [SelectListItemComponent,] }]
         };
         return SelectListComponent;
     }());
@@ -39070,7 +40473,7 @@
         function SelectListModule() {
         }
         SelectListModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule
                         ],
@@ -39110,7 +40513,7 @@
                 this._service.close();
             };
         SidePanelCloseDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxSidePanelClose]'
                     },] }
         ];
@@ -39121,7 +40524,7 @@
             ];
         };
         SidePanelCloseDirective.propDecorators = {
-            clickHandler: [{ type: core.HostListener, args: ['click',] }]
+            clickHandler: [{ type: i0.HostListener, args: ['click',] }]
         };
         return SidePanelCloseDirective;
     }());
@@ -39131,7 +40534,7 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var EXPORTS$1 = [
+    var EXPORTS = [
         SidePanelComponent,
         SidePanelCloseDirective
     ];
@@ -39139,14 +40542,14 @@
         function SidePanelModule() {
         }
         SidePanelModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             a11y.A11yModule,
                             FocusIfModule
                         ],
-                        exports: EXPORTS$1,
-                        declarations: EXPORTS$1
+                        exports: EXPORTS,
+                        declarations: EXPORTS
                     },] }
         ];
         return SidePanelModule;
@@ -39280,10 +40683,10 @@
                 }
             };
         SparkComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-spark',
                         template: "<!-- Inline Spark Chart -->\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n    <div class=\"ux-spark-line\">\n\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n        </div>\n\n        <div role=\"progressbar\"\n            [attr.aria-label]=\"getAriaLabel()\"\n            [attr.aria-description]=\"ariaDescription\"\n            aria-valuemin=\"0\"\n            aria-valuemax=\"100\"\n            [attr.aria-valuenow]=\"values.length === 1 ? values[0] : undefined\"\n            class=\"ux-spark ux-inline ux-spark-theme-{{theme}}\"\n            [style.height.px]=\"barHeight\"\n            [style.backgroundColor]=\"trackColor\"\n            [uxTooltip]=\"tooltip\">\n\n            <div class=\"ux-spark-bar\"\n                *ngFor=\"let line of values; let idx = index\"\n                [attr.aria-label]=\"getSegmentAriaLabel(idx)\"\n                [style.width.%]=\"line\"\n                [style.backgroundColor]=\"barColor[idx]\">\n            </div>\n        </div>\n\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n        </div>\n\n    </div>\n</div>\n\n<!-- End Inline Spark Chart -->\n\n\n<!-- Non Inline Spark Chart -->\n<div *ngIf=\"!inlineLabel\" [attr.aria-label]=\"ariaLabel\" [attr.aria-description]=\"ariaDescription\">\n\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n    </div>\n\n    <div role=\"progressbar\"\n        [attr.aria-label]=\"getAriaLabel()\"\n        [attr.aria-description]=\"ariaDescription\"\n        aria-valuemin=\"0\"\n        aria-valuemax=\"100\"\n        [attr.aria-valuenow]=\"values.length === 1 ? values[0] : undefined\"\n        class=\"ux-spark ux-spark-theme-{{theme}}\"\n        [class.ux-spark-multi-value]=\"values.length > 1\"\n        [style.height.px]=\"barHeight\"\n        [style.backgroundColor]=\"trackColor\"\n        [uxTooltip]=\"tooltip\">\n\n        <div class=\"ux-spark-bar\"\n            *ngFor=\"let line of value; let idx = index\"\n            [attr.aria-label]=\"getSegmentAriaLabel(idx)\"\n            [style.width.%]=\"line\"\n            [style.backgroundColor]=\"barColor[idx]\">\n        </div>\n    </div>\n\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n    </div>\n</div>\n\n<!-- End Non Inline Spark Chart -->",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
@@ -39293,19 +40696,19 @@
             ];
         };
         SparkComponent.propDecorators = {
-            barHeight: [{ type: core.Input }],
-            inlineLabel: [{ type: core.Input }],
-            topLeftLabel: [{ type: core.Input }],
-            topRightLabel: [{ type: core.Input }],
-            bottomLeftLabel: [{ type: core.Input }],
-            bottomRightLabel: [{ type: core.Input }],
-            tooltip: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            ariaDescription: [{ type: core.Input, args: ['aria-description',] }],
-            theme: [{ type: core.Input }],
-            trackColor: [{ type: core.Input }],
-            barColor: [{ type: core.Input }],
-            value: [{ type: core.Input }]
+            barHeight: [{ type: i0.Input }],
+            inlineLabel: [{ type: i0.Input }],
+            topLeftLabel: [{ type: i0.Input }],
+            topRightLabel: [{ type: i0.Input }],
+            bottomLeftLabel: [{ type: i0.Input }],
+            bottomRightLabel: [{ type: i0.Input }],
+            tooltip: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            ariaDescription: [{ type: i0.Input, args: ['aria-description',] }],
+            theme: [{ type: i0.Input }],
+            trackColor: [{ type: i0.Input }],
+            barColor: [{ type: i0.Input }],
+            value: [{ type: i0.Input }]
         };
         return SparkComponent;
     }());
@@ -39318,7 +40721,7 @@
         function SparkModule() {
         }
         SparkModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
                             ColorServiceModule,
@@ -39367,11 +40770,11 @@
             /**
              * Emits when the selected items change
              */
-            this.selectedChange = new core.EventEmitter();
+            this.selectedChange = new i0.EventEmitter();
             /**
              * Emits when the deselected items change
              */
-            this.deselectedChange = new core.EventEmitter();
+            this.deselectedChange = new i0.EventEmitter();
             /**
              * Store the list of deselected columns that can be moved
              */
@@ -39643,34 +41046,34 @@
                 };
             };
         ColumnPickerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-column-picker',
                         template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <!-- Show the default action buttons -->\n    <ng-container *ngIf=\"!actionsTemplate\">\n        <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right\"></i>\n        </button>\n\n        <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n        </button>\n    </ng-container>\n\n    <!-- Allow custom actions template -->\n    <ng-container\n        *ngIf=\"actionsTemplate\"\n        [ngTemplateOutlet]=\"actionsTemplate\"\n        [ngTemplateOutletContext]=\"_getActionContext()\">\n    </ng-container>\n\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
         /** @nocollapse */
         ColumnPickerComponent.ctorParameters = function () {
             return [
                 { type: a11y.LiveAnnouncer },
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         ColumnPickerComponent.propDecorators = {
-            selected: [{ type: core.Input }],
-            locked: [{ type: core.Input }],
-            deselected: [{ type: core.Input }],
-            selectedTitleTemplate: [{ type: core.Input }],
-            deselectedTitleTemplate: [{ type: core.Input }],
-            deselectedTemplate: [{ type: core.Input }],
-            selectedTemplate: [{ type: core.Input }],
-            lockedTemplate: [{ type: core.Input }],
-            actionsTemplate: [{ type: core.Input }],
-            selectedAriaLabel: [{ type: core.Input }],
-            columnMovedAnnouncement: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }],
-            deselectedChange: [{ type: core.Output }],
-            selectedElements: [{ type: core.ViewChildren, args: ['selectedColumn',] }]
+            selected: [{ type: i0.Input }],
+            locked: [{ type: i0.Input }],
+            deselected: [{ type: i0.Input }],
+            selectedTitleTemplate: [{ type: i0.Input }],
+            deselectedTitleTemplate: [{ type: i0.Input }],
+            deselectedTemplate: [{ type: i0.Input }],
+            selectedTemplate: [{ type: i0.Input }],
+            lockedTemplate: [{ type: i0.Input }],
+            actionsTemplate: [{ type: i0.Input }],
+            selectedAriaLabel: [{ type: i0.Input }],
+            columnMovedAnnouncement: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }],
+            deselectedChange: [{ type: i0.Output }],
+            selectedElements: [{ type: i0.ViewChildren, args: ['selectedColumn',] }]
         };
         return ColumnPickerComponent;
     }());
@@ -39684,11 +41087,11 @@
             /**
              * Indicate when the columns are ready
              */
-            this.isInitialised$ = new BehaviorSubject.BehaviorSubject(false);
+            this.isInitialised$ = new rxjs.BehaviorSubject(false);
             /**
              * Determine if we are currently resizing
              */
-            this.isResizing$ = new BehaviorSubject.BehaviorSubject(false);
+            this.isResizing$ = new rxjs.BehaviorSubject(false);
             /**
              * Store the percentage widths of each column
              */
@@ -39700,7 +41103,7 @@
             /**
              * Emit an event whenever a column is resized
              */
-            this.onResize$ = new Subject.Subject();
+            this.onResize$ = new rxjs.Subject();
         }
         /** Cleanup when service is disposed */
         /**
@@ -40060,7 +41463,7 @@
                 return this._columns ? this._columns.toArray()[index] : null;
             };
         ResizableTableService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return ResizableTableService;
     }());
@@ -40084,7 +41487,7 @@
             /**
              * Unsubscribe from all subscriptions on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -40095,7 +41498,7 @@
             function () {
                 var _this = this;
                 // update the sizes when columns are resized
-                combineLatest.combineLatest(this._table.onResize$, this._table.isResizing$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                rxjs.combineLatest(this._table.onResize$, this._table.isResizing$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                     _this.setColumnWidth();
                     _this.setColumnFlex();
                 });
@@ -40158,15 +41561,15 @@
                 this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
             };
         ResizableTableCellDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxResizableTableCell]'
                     },] }
         ];
         /** @nocollapse */
         ResizableTableCellDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
                 { type: ResizableTableService }
             ];
         };
@@ -40190,7 +41593,7 @@
             /**
              * Emit the current column width
              */
-            this.widthChange = new core.EventEmitter();
+            this.widthChange = new i0.EventEmitter();
             /**
              * Determine if this column is a variable width column
              */
@@ -40198,7 +41601,7 @@
             /**
              * Emit when all observables should be unsubscribed
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // initially emit the size when we have initialised
             _table.isInitialised$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (isInitialised) { return isInitialised; }))
                 .subscribe(function () { return _this.widthChange.emit(_table.getColumnWidth(_this.getCellIndex(), ColumnUnit.Pixel)); });
@@ -40428,7 +41831,7 @@
                 this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
             };
         ResizableTableColumnComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: '[uxResizableTableColumn]',
                         template: "<ng-content></ng-content>\n\n<div #handle\n     uxDrag\n     uxFocusIndicator\n     tabindex=\"0\"\n     aria-label=\"Column resize handle. Use arrow keys to change the column width.\"\n     class=\"ux-resizable-table-column-handle\"\n     *ngIf=\"!disabled\"\n     (onDragStart)=\"onDragStart($event)\"\n     (onDrag)=\"onDragMove($event, handle)\"\n     (onDragEnd)=\"onDragEnd()\"\n     (keydown.ArrowLeft)=\"onMoveLeft()\"\n     (keydown.ArrowRight)=\"onMoveRight()\">\n\n     <div class=\"ux-resizable-table-column-handle-icon\"></div>\n</div>\n",
                         host: {
@@ -40439,15 +41842,15 @@
         /** @nocollapse */
         ResizableTableColumnComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizableTableService },
-                { type: core.Renderer2 }
+                { type: i0.Renderer2 }
             ];
         };
         ResizableTableColumnComponent.propDecorators = {
-            disabled: [{ type: core.Input }],
-            width: [{ type: core.Input }],
-            widthChange: [{ type: core.Output }]
+            disabled: [{ type: i0.Input }],
+            width: [{ type: i0.Input }],
+            widthChange: [{ type: i0.Output }]
         };
         return ResizableTableColumnComponent;
     }());
@@ -40469,7 +41872,7 @@
             /**
              * Unsubscribe from the observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // watch for the table being resized
             resize.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                 // store the latest table size
@@ -40603,7 +42006,7 @@
                     .reduce(function (width, tbody) { return Math.min(width, tbody.scrollWidth); }, (( /** @type {?} */(this._elementRef.nativeElement))).offsetWidth);
             };
         ResizableTableDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxResizableTable]',
                         exportAs: 'ux-resizable-table',
                         providers: [ResizableTableService],
@@ -40615,14 +42018,14 @@
         /** @nocollapse */
         ResizableTableDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizableTableService },
-                { type: core.Renderer2 },
+                { type: i0.Renderer2 },
                 { type: ResizeService }
             ];
         };
         ResizableTableDirective.propDecorators = {
-            columns: [{ type: core.ContentChildren, args: [ResizableTableColumnComponent, { descendants: true },] }]
+            columns: [{ type: i0.ContentChildren, args: [ResizableTableColumnComponent, { descendants: true },] }]
         };
         return ResizableTableDirective;
     }());
@@ -40640,7 +42043,7 @@
         function TableModule() {
         }
         TableModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
@@ -40680,7 +42083,7 @@
         function TimelineComponent() {
         }
         TimelineComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-timeline',
                         template: "<div class=\"timeline\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
                     }] }
@@ -40699,15 +42102,15 @@
             this.id = "ux-timeline-event-" + uniqueId$a++;
         }
         TimelineEventComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-timeline-event',
                         template: "<div class=\"timeline-badge\" [ngClass]=\"badgeColor\" [attr.aria-describedby]=\"id\">\r\n    <span>{{ badgeTitle }}</span>\r\n</div>\r\n\r\n<div class=\"timeline-panel\" [id]=\"id\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
                     }] }
         ];
         TimelineEventComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            badgeColor: [{ type: core.Input }],
-            badgeTitle: [{ type: core.Input }]
+            id: [{ type: i0.Input }],
+            badgeColor: [{ type: i0.Input }],
+            badgeTitle: [{ type: i0.Input }]
         };
         return TimelineEventComponent;
     }());
@@ -40720,7 +42123,7 @@
         function TimelineModule() {
         }
         TimelineModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule
                         ],
@@ -40749,7 +42152,7 @@
     /** @type {?} */
     var TOGGLESWITCH_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return ToggleSwitchComponent; }),
+        useExisting: i0.forwardRef(function () { return ToggleSwitchComponent; }),
         multi: true
     };
     /** @type {?} */
@@ -40784,7 +42187,7 @@
             /**
              * Emits when `value` has been changed.
              */
-            this.valueChange = new core.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
             this._value = false;
             this.focused = false;
             this.onTouchedCallback = function () { };
@@ -40877,22 +42280,22 @@
                 this.disabled = isDisabled;
             };
         ToggleSwitchComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-toggleswitch',
                         template: "<label [attr.for]=\"inputId\"\n       class=\"ux-toggleswitch\"\n       [class.ux-toggleswitch-checked]=\"value\"\n       [class.ux-toggleswitch-disabled]=\"disabled\"\n       [class.ux-toggleswitch-focused]=\"focused\">\n\n    <input class=\"ux-toggleswitch-input\"\n           uxFocusIndicator\n           type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [checked]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabindex]=\"tabindex\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"value\"\n           (indicator)=\"focused = $event\"\n           (change)=\"toggle()\"\n           (click)=\"$event.stopPropagation()\">\n\n    <div class=\"ux-toggleswitch-container\">\n        <div class=\"ux-toggleswitch-bg\"></div>\n        <div class=\"ux-toggleswitch-nub\"></div>\n    </div>\n\n    <span class=\"ux-toggleswitch-label\">\n        <ng-content></ng-content>\n    </span>\n</label>",
                         providers: [TOGGLESWITCH_VALUE_ACCESSOR]
                     }] }
         ];
         ToggleSwitchComponent.propDecorators = {
-            id: [{ type: core.Input }],
-            name: [{ type: core.Input }],
-            tabindex: [{ type: core.Input }],
-            clickable: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
-            valueChange: [{ type: core.Output }],
-            value: [{ type: core.Input }]
+            id: [{ type: i0.Input }],
+            name: [{ type: i0.Input }],
+            tabindex: [{ type: i0.Input }],
+            clickable: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
+            ariaLabelledby: [{ type: i0.Input, args: ['aria-labelledby',] }],
+            valueChange: [{ type: i0.Output }],
+            value: [{ type: i0.Input }]
         };
         return ToggleSwitchComponent;
     }());
@@ -40905,7 +42308,7 @@
         function ToggleSwitchModule() {
         }
         ToggleSwitchModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             forms.FormsModule
@@ -40936,7 +42339,7 @@
             /**
              * Emit whenever the button is clicked
              */
-            this.clicked = new core.EventEmitter();
+            this.clicked = new i0.EventEmitter();
         }
         Object.defineProperty(ToolbarSearchButtonDirective.prototype, "width", {
             /** Get the width of the button element */
@@ -40959,19 +42362,19 @@
                 this.clicked.emit();
             };
         ToolbarSearchButtonDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxToolbarSearchButton]'
                     },] }
         ];
         /** @nocollapse */
         ToolbarSearchButtonDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         ToolbarSearchButtonDirective.propDecorators = {
-            clicked: [{ type: core.Output }],
-            clickHandler: [{ type: core.HostListener, args: ['click',] }]
+            clicked: [{ type: i0.Output }],
+            clickHandler: [{ type: i0.HostListener, args: ['click',] }]
         };
         return ToolbarSearchButtonDirective;
     }());
@@ -40983,7 +42386,7 @@
     /** @type {?} */
     var TOOLBAR_SEARCH_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return ToolbarSearchFieldDirective; }),
+        useExisting: i0.forwardRef(function () { return ToolbarSearchFieldDirective; }),
         multi: true
     };
     var ToolbarSearchFieldDirective = /** @class */ (function () {
@@ -40992,11 +42395,11 @@
             /**
              * Emit whenever the escape key is pressed
              */
-            this.cancel = new core.EventEmitter();
+            this.cancel = new i0.EventEmitter();
             /**
              * Emit whenever the enter key is pressed
              */
-            this.submit = new core.EventEmitter();
+            this.submit = new i0.EventEmitter();
             /**
              * For use with the Forms and ReactiveForms
              */
@@ -41145,7 +42548,7 @@
                 this._elementRef.nativeElement.value = value;
             };
         ToolbarSearchFieldDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxToolbarSearchField]',
                         providers: [TOOLBAR_SEARCH_VALUE_ACCESSOR]
                     },] }
@@ -41153,15 +42556,15 @@
         /** @nocollapse */
         ToolbarSearchFieldDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         ToolbarSearchFieldDirective.propDecorators = {
-            cancel: [{ type: core.Output }],
-            submit: [{ type: core.Output }],
-            onEnter: [{ type: core.HostListener, args: ['keydown.enter',] }],
-            onEscape: [{ type: core.HostListener, args: ['keydown.escape',] }],
-            onInput: [{ type: core.HostListener, args: ['input',] }]
+            cancel: [{ type: i0.Output }],
+            submit: [{ type: i0.Output }],
+            onEnter: [{ type: i0.HostListener, args: ['keydown.enter',] }],
+            onEscape: [{ type: i0.HostListener, args: ['keydown.escape',] }],
+            onInput: [{ type: i0.HostListener, args: ['input',] }]
         };
         return ToolbarSearchFieldDirective;
     }());
@@ -41191,12 +42594,12 @@
             /**
              * Emitted when the expanded state changes
              */
-            this.expandedChange = new core.EventEmitter();
+            this.expandedChange = new i0.EventEmitter();
             /**
              * Emitted when a search query has been submitted, either by pressing enter when the search field has focus, or by clicking the search button
              * when the search field contains text. The event contains the search text.
              */
-            this.search = new core.EventEmitter();
+            this.search = new i0.EventEmitter();
             /**
              * Store the CSS position value as this may change to absolute
              */
@@ -41212,7 +42615,7 @@
             /**
              * Unsubscribe from all subscriptions on component destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(ToolbarSearchComponent.prototype, "expanded", {
             get: /**
@@ -41384,10 +42787,10 @@
                 this._renderer.setStyle(this._placeholder, 'display', isVisible ? 'inline-block' : 'none');
             };
         ToolbarSearchComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-toolbar-search',
                         template: "<ng-content></ng-content>",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         animations: [
                             animations.trigger('expanded', [
                                 animations.state('collapsed', animations.style({ width: '{{initialWidth}}' }), { params: { initialWidth: '30px' } }),
@@ -41409,24 +42812,24 @@
         /** @nocollapse */
         ToolbarSearchComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ColorService },
-                { type: core.Renderer2 },
-                { type: Object, decorators: [{ type: core.Inject, args: [core.PLATFORM_ID,] }] }
+                { type: i0.Renderer2 },
+                { type: Object, decorators: [{ type: i0.Inject, args: [i0.PLATFORM_ID,] }] }
             ];
         };
         ToolbarSearchComponent.propDecorators = {
-            direction: [{ type: core.Input }],
-            inverse: [{ type: core.Input }],
-            alwaysExpanded: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            background: [{ type: core.Input }],
-            expandedChange: [{ type: core.Output }],
-            search: [{ type: core.Output }],
-            field: [{ type: core.ContentChild, args: [ToolbarSearchFieldDirective,] }],
-            button: [{ type: core.ContentChild, args: [ToolbarSearchButtonDirective,] }],
-            animationStart: [{ type: core.HostListener, args: ['@expanded.start', ['$event'],] }],
-            animationDone: [{ type: core.HostListener, args: ['@expanded.done', ['$event'],] }]
+            direction: [{ type: i0.Input }],
+            inverse: [{ type: i0.Input }],
+            alwaysExpanded: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            background: [{ type: i0.Input }],
+            expandedChange: [{ type: i0.Output }],
+            search: [{ type: i0.Output }],
+            field: [{ type: i0.ContentChild, args: [ToolbarSearchFieldDirective,] }],
+            button: [{ type: i0.ContentChild, args: [ToolbarSearchButtonDirective,] }],
+            animationStart: [{ type: i0.HostListener, args: ['@expanded.start', ['$event'],] }],
+            animationDone: [{ type: i0.HostListener, args: ['@expanded.done', ['$event'],] }]
         };
         return ToolbarSearchComponent;
     }());
@@ -41445,7 +42848,7 @@
         function ToolbarSearchModule() {
         }
         ToolbarSearchModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule
                         ],
@@ -41478,14 +42881,14 @@
             /**
              * Emit the current dataset
              */
-            this.dataset = new ReplaySubject.ReplaySubject(1);
+            this.dataset = new rxjs.ReplaySubject(1);
             /**
              * Emit the visible range
              */
-            this.range = new ReplaySubject.ReplaySubject(1);
+            this.range = new rxjs.ReplaySubject(1);
         }
         VirtualForService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return VirtualForService;
     }());
@@ -41528,7 +42931,7 @@
             /**
              * Unsubscribe from all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // While marked as optional, it isn't. We do this so we can provide a more helpful error message
             if (!this._virtualScroll) {
                 throw new Error('The "uxVirtualFor" directive requires the "uxVirtualForContainer" directive to be added to the parent element.');
@@ -41821,23 +43224,23 @@
                 return index;
             };
         VirtualForDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxVirtualFor][uxVirtualForOf]',
                     },] }
         ];
         /** @nocollapse */
         VirtualForDirective.ctorParameters = function () {
             return [
-                { type: core.ViewContainerRef },
-                { type: core.TemplateRef },
-                { type: core.IterableDiffers },
-                { type: core.Renderer2 },
-                { type: VirtualForService, decorators: [{ type: core.Optional }] }
+                { type: i0.ViewContainerRef },
+                { type: i0.TemplateRef },
+                { type: i0.IterableDiffers },
+                { type: i0.Renderer2 },
+                { type: VirtualForService, decorators: [{ type: i0.Optional }] }
             ];
         };
         VirtualForDirective.propDecorators = {
-            uxVirtualForOf: [{ type: core.Input }],
-            uxVirtualForTrackBy: [{ type: core.Input }]
+            uxVirtualForOf: [{ type: i0.Input }],
+            uxVirtualForTrackBy: [{ type: i0.Input }]
         };
         return VirtualForDirective;
     }());
@@ -41865,7 +43268,7 @@
             /**
              * Unsubscribe from all observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(VirtualForContainerComponent.prototype, "itemSize", {
             get: /**
@@ -42061,7 +43464,7 @@
                 return (( /** @type {?} */(this._elementRef.nativeElement))).clientHeight;
             };
         VirtualForContainerComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: '[uxVirtualForContainer]',
                         template: "<!-- Display the appropriate top spacer -->\n<tr class=\"ux-virtual-scroll-spacer\"\n    [style.height.px]=\"_totalHeight\"\n    [style.padding.px]=\"0\"\n    [style.margin.px]=\"0\"\n    [style.border]=\"'none'\"\n    *ngIf=\"_isTable\">\n</tr>\n\n<li class=\"ux-virtual-scroll-spacer\"\n    [style.height.px]=\"_totalHeight\"\n    [style.padding.px]=\"0\"\n    [style.margin.px]=\"0\"\n    [style.border]=\"'none'\"\n    *ngIf=\"_isList\">\n</li>\n\n<div class=\"ux-virtual-scroll-spacer\"\n    [style.height.px]=\"_totalHeight\"\n    [style.padding.px]=\"0\"\n    [style.margin.px]=\"0\"\n    [style.border]=\"'none'\"\n    *ngIf=\"!_isTable && !_isList\">\n</div>\n\n\n<ng-content></ng-content>\n",
                         providers: [VirtualForService],
@@ -42073,16 +43476,16 @@
         /** @nocollapse */
         VirtualForContainerComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: VirtualForService },
-                { type: TabbableListService, decorators: [{ type: core.Self }, { type: core.Optional }] }
+                { type: TabbableListService, decorators: [{ type: i0.Self }, { type: i0.Optional }] }
             ];
         };
         VirtualForContainerComponent.propDecorators = {
-            itemSize: [{ type: core.Input }],
-            virtualFor: [{ type: core.ContentChild, args: [VirtualForDirective,] }],
-            updateContainer: [{ type: core.HostListener, args: ['scroll',] }],
-            onKeydown: [{ type: core.HostListener, args: ['keydown', ['$event', '$event.keyCode'],] }]
+            itemSize: [{ type: i0.Input }],
+            virtualFor: [{ type: i0.ContentChild, args: [VirtualForDirective,] }],
+            updateContainer: [{ type: i0.HostListener, args: ['scroll',] }],
+            onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event', '$event.keyCode'],] }]
         };
         return VirtualForContainerComponent;
     }());
@@ -42095,7 +43498,7 @@
         function VirtualScrollCellDirective() {
         }
         VirtualScrollCellDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxVirtualScrollCell]'
                     },] }
         ];
@@ -42110,7 +43513,7 @@
         function VirtualScrollLoadButtonDirective() {
         }
         VirtualScrollLoadButtonDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxVirtualScrollLoadButton]'
                     },] }
         ];
@@ -42125,7 +43528,7 @@
         function VirtualScrollLoadingDirective() {
         }
         VirtualScrollLoadingDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxVirtualScrollLoading]'
                     },] }
         ];
@@ -42146,7 +43549,7 @@
             /**
              * Provide the collection of items to display
              */
-            this.collection = Observable.Observable.create();
+            this.collection = rxjs.Observable.create();
             /**
              * Indicate whether pages should be loaded on scroll or button click
              */
@@ -42154,15 +43557,15 @@
             /**
              * Emit when we need to load another page
              */
-            this.loading = new core.EventEmitter();
-            this.cells = new BehaviorSubject.BehaviorSubject([]);
+            this.loading = new i0.EventEmitter();
+            this.cells = new rxjs.BehaviorSubject([]);
             this.scrollTop = 0;
             this.isLoading = false;
             this.pageNumber = 0;
             this.data = [];
             this.loadingComplete = false;
             this._buffer = 5;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // watch for any future changes to size
             resizeService.addResizeListener(_elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (event) { return _this._height = event.height; });
@@ -42326,7 +43729,7 @@
                 this.loadNextPage();
             };
         VirtualScrollComponent.decorators = [
-            { type: core.Component, args: [{
+            { type: i0.Component, args: [{
                         selector: 'ux-virtual-scroll',
                         template: "<div class=\"virtual-scroll-content-height\" [style.height.px]=\"getTotalHeight()\"></div>\n<div class=\"virtual-scroll-content\" [style.transform]=\"'translateY(' + scrollTop + 'px)'\">\n\n    <!-- Virtually Render Cells -->\n    <ng-container *ngFor=\"let cell of cells | async\">\n        <ng-container *ngTemplateOutlet=\"cellTemplate; context: { cell: cell.data, index: cell.index }\"></ng-container>\n    </ng-container>\n\n    <!-- Loading Indicator -->\n    <ng-container *ngIf=\"loadingIndicatorTemplate && isLoading\" [ngTemplateOutlet]=\"loadingIndicatorTemplate\"></ng-container>\n\n    <!-- Loading Button -->\n    <div class=\"virtual-scroll-load-button\" *ngIf=\"loadButtonTemplate && !loadOnScroll && !loadingComplete && !isLoading\" (click)=\"loadNextPage()\">\n        <ng-container *ngTemplateOutlet=\"loadButtonTemplate\"></ng-container>\n    </div>\n\n</div>"
                     }] }
@@ -42334,19 +43737,19 @@
         /** @nocollapse */
         VirtualScrollComponent.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizeService }
             ];
         };
         VirtualScrollComponent.propDecorators = {
-            collection: [{ type: core.Input }],
-            cellHeight: [{ type: core.Input }],
-            loadOnScroll: [{ type: core.Input }],
-            loading: [{ type: core.Output }],
-            cellTemplate: [{ type: core.ContentChild, args: [VirtualScrollCellDirective, { read: core.TemplateRef },] }],
-            loadingIndicatorTemplate: [{ type: core.ContentChild, args: [VirtualScrollLoadingDirective, { read: core.TemplateRef },] }],
-            loadButtonTemplate: [{ type: core.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: core.TemplateRef },] }],
-            renderCells: [{ type: core.HostListener, args: ['scroll',] }]
+            collection: [{ type: i0.Input }],
+            cellHeight: [{ type: i0.Input }],
+            loadOnScroll: [{ type: i0.Input }],
+            loading: [{ type: i0.Output }],
+            cellTemplate: [{ type: i0.ContentChild, args: [VirtualScrollCellDirective, { read: i0.TemplateRef },] }],
+            loadingIndicatorTemplate: [{ type: i0.ContentChild, args: [VirtualScrollLoadingDirective, { read: i0.TemplateRef },] }],
+            loadButtonTemplate: [{ type: i0.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: i0.TemplateRef },] }],
+            renderCells: [{ type: i0.HostListener, args: ['scroll',] }]
         };
         return VirtualScrollComponent;
     }());
@@ -42368,7 +43771,7 @@
         function VirtualScrollModule() {
         }
         VirtualScrollModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
@@ -42434,19 +43837,19 @@
                 }
             };
         AutoGrowDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxAutoGrow]'
                     },] }
         ];
         /** @nocollapse */
         AutoGrowDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 }
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 }
             ];
         };
         AutoGrowDirective.propDecorators = {
-            update: [{ type: core.HostListener, args: ['input',] }]
+            update: [{ type: i0.HostListener, args: ['input',] }]
         };
         return AutoGrowDirective;
     }());
@@ -42459,7 +43862,7 @@
         function AutoGrowModule() {
         }
         AutoGrowModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [AutoGrowDirective],
                         declarations: [AutoGrowDirective]
                     },] }
@@ -42487,11 +43890,11 @@
             /**
              * Emit when the table tries to load more data
              */
-            this.tablePaging = new core.EventEmitter();
+            this.tablePaging = new i0.EventEmitter();
             /**
              * Unsubscribe from all observables on destroy
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(FixedHeaderTableDirective.prototype, "dataset", {
             /** Allow dataset changes to trigger re-layout */
@@ -42607,7 +44010,7 @@
                 }
             };
         FixedHeaderTableDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFixedHeaderTable]',
                         exportAs: 'ux-fixed-header-table'
                     },] }
@@ -42615,15 +44018,15 @@
         /** @nocollapse */
         FixedHeaderTableDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
                 { type: ResizeService }
             ];
         };
         FixedHeaderTableDirective.propDecorators = {
-            dataset: [{ type: core.Input }],
-            tableHeight: [{ type: core.Input }],
-            tablePaging: [{ type: core.Output }]
+            dataset: [{ type: i0.Input }],
+            tableHeight: [{ type: i0.Input }],
+            tablePaging: [{ type: i0.Output }]
         };
         return FixedHeaderTableDirective;
     }());
@@ -42636,7 +44039,7 @@
         function FixedHeaderTableModule() {
         }
         FixedHeaderTableModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             ResizeModule
                         ],
@@ -42753,7 +44156,7 @@
                 }
             };
         FloatLabelDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxFloatLabel]',
                         host: {
                             'class': 'ux-float-label'
@@ -42763,15 +44166,15 @@
         /** @nocollapse */
         FloatLabelDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Renderer2 }
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 }
             ];
         };
         FloatLabelDirective.propDecorators = {
-            input: [{ type: core.Input, args: ['uxFloatLabel',] }],
-            value: [{ type: core.Input }],
-            mode: [{ type: core.Input }],
-            raised: [{ type: core.HostBinding, args: ['class.ux-float-label-raised',] }]
+            input: [{ type: i0.Input, args: ['uxFloatLabel',] }],
+            value: [{ type: i0.Input }],
+            mode: [{ type: i0.Input }],
+            raised: [{ type: i0.HostBinding, args: ['class.ux-float-label-raised',] }]
         };
         return FloatLabelDirective;
     }());
@@ -42784,7 +44187,7 @@
         function FloatLabelModule() {
         }
         FloatLabelModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [],
                         exports: [FloatLabelDirective],
                         declarations: [FloatLabelDirective],
@@ -42805,7 +44208,7 @@
      */
     var HelpCenterService = /** @class */ (function () {
         function HelpCenterService() {
-            this.items = new BehaviorSubject.BehaviorSubject([]);
+            this.items = new rxjs.BehaviorSubject([]);
         }
         /**
          * @param {?} item
@@ -42842,7 +44245,7 @@
                 this.items.next(items);
             };
         HelpCenterService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return HelpCenterService;
     }());
@@ -42876,7 +44279,7 @@
                 this._helpCenterService.unregisterItem(this.uxHelpCenterItem);
             };
         HelpCenterItemDirective.decorators = [
-            { type: core.Directive, args: [{ selector: '[uxHelpCenterItem]' },] }
+            { type: i0.Directive, args: [{ selector: '[uxHelpCenterItem]' },] }
         ];
         /** @nocollapse */
         HelpCenterItemDirective.ctorParameters = function () {
@@ -42885,7 +44288,7 @@
             ];
         };
         HelpCenterItemDirective.propDecorators = {
-            uxHelpCenterItem: [{ type: core.Input }]
+            uxHelpCenterItem: [{ type: i0.Input }]
         };
         return HelpCenterItemDirective;
     }());
@@ -42898,7 +44301,7 @@
         function HelpCenterModule() {
         }
         HelpCenterModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [],
                         exports: [HelpCenterItemDirective],
                         declarations: [HelpCenterItemDirective],
@@ -42919,7 +44322,7 @@
      */
     var HoverActionService = /** @class */ (function () {
         function HoverActionService() {
-            this.active = new BehaviorSubject.BehaviorSubject(false);
+            this.active = new rxjs.BehaviorSubject(false);
             this._focused = false;
             this._hovered = false;
             this._actions = [];
@@ -42998,7 +44401,7 @@
                 return this._actions.find(function (action) { return action.focused; });
             };
         HoverActionService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return HoverActionService;
     }());
@@ -43014,7 +44417,7 @@
             this._hoverActionService = _hoverActionService;
             this.tabindex = 0;
             this.active = false;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -43063,7 +44466,7 @@
                 this._hoverActionService.setHoverState(false);
             };
         HoverActionContainerDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxHoverActionContainer]',
                         providers: [HoverActionService]
                     },] }
@@ -43071,16 +44474,16 @@
         /** @nocollapse */
         HoverActionContainerDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ManagedFocusContainerService },
                 { type: HoverActionService }
             ];
         };
         HoverActionContainerDirective.propDecorators = {
-            tabindex: [{ type: core.Input }, { type: core.HostBinding, args: ['tabindex',] }],
-            active: [{ type: core.HostBinding, args: ['class.hover-action-container-active',] }],
-            onHover: [{ type: core.HostListener, args: ['mouseenter',] }],
-            onLeave: [{ type: core.HostListener, args: ['mouseleave',] }]
+            tabindex: [{ type: i0.Input }, { type: i0.HostBinding, args: ['tabindex',] }],
+            active: [{ type: i0.HostBinding, args: ['class.hover-action-container-active',] }],
+            onHover: [{ type: i0.HostListener, args: ['mouseenter',] }],
+            onLeave: [{ type: i0.HostListener, args: ['mouseleave',] }]
         };
         return HoverActionContainerDirective;
     }());
@@ -43097,7 +44500,7 @@
             this.tabindex = 0;
             this.active = false;
             this.focused = false;
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             // create the focus indicator
             this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement);
             // register the action
@@ -43147,24 +44550,24 @@
                 this._hoverActionService.updateVisibility();
             };
         HoverActionDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxHoverAction]'
                     },] }
         ];
         /** @nocollapse */
         HoverActionDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: HoverActionService },
                 { type: FocusIndicatorService }
             ];
         };
         HoverActionDirective.propDecorators = {
-            tabindex: [{ type: core.Input }, { type: core.HostBinding, args: ['tabindex',] }],
-            active: [{ type: core.HostBinding, args: ['class.hover-action-active',] }],
-            focused: [{ type: core.HostBinding, args: ['class.hover-action-focused',] }],
-            onFocus: [{ type: core.HostListener, args: ['focus',] }],
-            onBlur: [{ type: core.HostListener, args: ['blur',] }]
+            tabindex: [{ type: i0.Input }, { type: i0.HostBinding, args: ['tabindex',] }],
+            active: [{ type: i0.HostBinding, args: ['class.hover-action-active',] }],
+            focused: [{ type: i0.HostBinding, args: ['class.hover-action-focused',] }],
+            onFocus: [{ type: i0.HostListener, args: ['focus',] }],
+            onBlur: [{ type: i0.HostListener, args: ['blur',] }]
         };
         return HoverActionDirective;
     }());
@@ -43182,7 +44585,7 @@
         function HoverActionModule() {
         }
         HoverActionModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule
                         ],
@@ -43247,19 +44650,19 @@
                 this._embeddedView = null;
             };
         LayoutSwitcherItemDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxLayoutSwitcherItem]'
                     },] }
         ];
         /** @nocollapse */
         LayoutSwitcherItemDirective.ctorParameters = function () {
             return [
-                { type: core.TemplateRef },
-                { type: core.ViewContainerRef }
+                { type: i0.TemplateRef },
+                { type: i0.ViewContainerRef }
             ];
         };
         LayoutSwitcherItemDirective.propDecorators = {
-            _config: [{ type: core.Input, args: ['uxLayoutSwitcherItem',] }]
+            _config: [{ type: i0.Input, args: ['uxLayoutSwitcherItem',] }]
         };
         return LayoutSwitcherItemDirective;
     }());
@@ -43353,21 +44756,21 @@
                 requestAnimationFrame(this.updateActiveLayout.bind(this));
             };
         LayoutSwitcherDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxLayoutSwitcher]'
                     },] }
         ];
         /** @nocollapse */
         LayoutSwitcherDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
+                { type: i0.ElementRef },
                 { type: ResizeService },
-                { type: core.ViewContainerRef }
+                { type: i0.ViewContainerRef }
             ];
         };
         LayoutSwitcherDirective.propDecorators = {
-            group: [{ type: core.Input }],
-            _layouts: [{ type: core.ContentChildren, args: [LayoutSwitcherItemDirective,] }]
+            group: [{ type: i0.Input }],
+            _layouts: [{ type: i0.ContentChildren, args: [LayoutSwitcherItemDirective,] }]
         };
         return LayoutSwitcherDirective;
     }());
@@ -43385,7 +44788,7 @@
         function LayoutSwitcherModule() {
         }
         LayoutSwitcherModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [
                             ResizeModule
                         ],
@@ -43395,6 +44798,540 @@
                     },] }
         ];
         return LayoutSwitcherModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuNavigationService = /** @class */ (function () {
+        function MenuNavigationService() {
+            /**
+             * Store a list of items that belong to this menu
+             */
+            this.menuItems = [];
+            /**
+             * Store the current active menu item
+             */
+            this.active$ = new rxjs.BehaviorSubject(null);
+        }
+        /** Add an item to this menu */
+        /**
+         * Add an item to this menu
+         * @param {?} menuItem
+         * @return {?}
+         */
+        MenuNavigationService.prototype.register = /**
+         * Add an item to this menu
+         * @param {?} menuItem
+         * @return {?}
+         */
+            function (menuItem) {
+                this.menuItems = __spread(this.menuItems, [menuItem]);
+            };
+        /** Remove an item from the list of menu items */
+        /**
+         * Remove an item from the list of menu items
+         * @param {?} menuItem
+         * @return {?}
+         */
+        MenuNavigationService.prototype.unregister = /**
+         * Remove an item from the list of menu items
+         * @param {?} menuItem
+         * @return {?}
+         */
+            function (menuItem) {
+                this.menuItems = this.menuItems.filter(function (_menuItem) { return _menuItem !== menuItem; });
+            };
+        MenuNavigationService.decorators = [
+            { type: i0.Injectable }
+        ];
+        return MenuNavigationService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuNavigationItemDirective = /** @class */ (function () {
+        function MenuNavigationItemDirective(_menuNavigationService, _elementRef, focusIndicatorService) {
+            var _this = this;
+            this._menuNavigationService = _menuNavigationService;
+            this._elementRef = _elementRef;
+            /**
+             * Emit when this menu is activated
+             */
+            this.activated = new i0.EventEmitter();
+            /**
+             * Unsubscribe from all observables on destroy
+             */
+            this._onDestroy = new rxjs.Subject();
+            // register this item with the menu - this allows for nested menus as we each uxMenuNavigation will create its own service
+            _menuNavigationService.register(this);
+            // create the focus indicator
+            this._focusIndicator = focusIndicatorService.monitor(_elementRef.nativeElement, { programmaticFocusIndicator: true, checkChildren: false });
+            /** Subscribe to the current active index */
+            _menuNavigationService.active$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (item) { return item === _this; })).subscribe(function () { return _this.setActive(); });
+        }
+        /**
+         * @return {?}
+         */
+        MenuNavigationItemDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._menuNavigationService.unregister(this);
+                this._onDestroy.unsubscribe();
+                this._focusIndicator.destroy();
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationItemDirective.prototype.setActive = /**
+         * @return {?}
+         */
+            function () {
+                this._elementRef.nativeElement.focus();
+                this.activated.emit();
+            };
+        MenuNavigationItemDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxMenuNavigationItem]'
+                    },] }
+        ];
+        /** @nocollapse */
+        MenuNavigationItemDirective.ctorParameters = function () {
+            return [
+                { type: MenuNavigationService },
+                { type: i0.ElementRef },
+                { type: FocusIndicatorService }
+            ];
+        };
+        MenuNavigationItemDirective.propDecorators = {
+            activated: [{ type: i0.Output }]
+        };
+        return MenuNavigationItemDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuNavigationToggleDirective = /** @class */ (function () {
+        function MenuNavigationToggleDirective(elementRef, focusIndicatorService) {
+            /**
+             * Define the position the menu appears relative to the button
+             */
+            this.menuPosition = 'bottom';
+            /**
+             * Emit when the menu open state changes
+             */
+            this.menuOpenChange = new i0.EventEmitter();
+            /**
+             * Emits whenever a key that opens the menu is pressed
+             */
+            this.keyEnter = new i0.EventEmitter();
+            this._focusIndicator = focusIndicatorService.monitor(elementRef.nativeElement);
+        }
+        Object.defineProperty(MenuNavigationToggleDirective.prototype, "menuOpen", {
+            /** Define if the menu is open */
+            get: /**
+             * Define if the menu is open
+             * @return {?}
+             */ function () {
+                return this._menuOpen;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */ function (value) {
+                this._menuOpen = value;
+                this.menuOpenChange.emit(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        MenuNavigationToggleDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._focusIndicator.destroy();
+            };
+        /**
+         * @param {?=} origin
+         * @return {?}
+         */
+        MenuNavigationToggleDirective.prototype.focus = /**
+         * @param {?=} origin
+         * @return {?}
+         */
+            function (origin) {
+                this._focusIndicator.focus(origin);
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MenuNavigationToggleDirective.prototype.keydownHandler = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                var _this = this;
+                if (this.isKeyMatch(event.which)) {
+                    // Open the menu
+                    this.menuOpen = true;
+                    // Allow the menu to init, then send the event to give it focus
+                    setTimeout(function () { return _this.keyEnter.emit(); });
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            };
+        /**
+         * @param {?} key
+         * @return {?}
+         */
+        MenuNavigationToggleDirective.prototype.isKeyMatch = /**
+         * @param {?} key
+         * @return {?}
+         */
+            function (key) {
+                switch (key) {
+                    case keycodes.ENTER:
+                    case keycodes.SPACE:
+                        return true;
+                    case keycodes.UP_ARROW:
+                        return this.menuPosition === 'top';
+                    case keycodes.DOWN_ARROW:
+                        return this.menuPosition === 'bottom';
+                    case keycodes.LEFT_ARROW:
+                        return this.menuPosition === 'left';
+                    case keycodes.RIGHT_ARROW:
+                        return this.menuPosition === 'right';
+                }
+                return false;
+            };
+        MenuNavigationToggleDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxMenuNavigationToggle]',
+                        exportAs: 'uxMenuNavigationToggle'
+                    },] }
+        ];
+        /** @nocollapse */
+        MenuNavigationToggleDirective.ctorParameters = function () {
+            return [
+                { type: i0.ElementRef },
+                { type: FocusIndicatorService }
+            ];
+        };
+        MenuNavigationToggleDirective.propDecorators = {
+            menuOpen: [{ type: i0.Input }],
+            menuPosition: [{ type: i0.Input }],
+            menuOpenChange: [{ type: i0.Output }],
+            keyEnter: [{ type: i0.Output }],
+            keydownHandler: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return MenuNavigationToggleDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var MenuNavigationDirective = /** @class */ (function () {
+        function MenuNavigationDirective(_menuNavigationService) {
+            this._menuNavigationService = _menuNavigationService;
+            /**
+             * Define the position of the toggle button relative to the menu
+             */
+            this.toggleButtonPosition = 'top';
+            /**
+             * Emit when the menu is no longer focused
+             */
+            this.navigatedOut = new i0.EventEmitter();
+            /**
+             * Determine if the menu currently has focus
+             */
+            this._isFocused = false;
+            /**
+             * Unsubscribe from all observables on destroy
+             */
+            this._onDestroy = new rxjs.Subject();
+        }
+        Object.defineProperty(MenuNavigationDirective.prototype, "activeIndex", {
+            /** Get the index of the currently active item */
+            get: /**
+             * Get the index of the currently active item
+             * @return {?}
+             */ function () {
+                return this.menuItems.indexOf(this._menuNavigationService.active$.value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MenuNavigationDirective.prototype, "menuItems", {
+            // get the list of menu items
+            get: 
+            // get the list of menu items
+            /**
+             * @return {?}
+             */
+            function () {
+                return this._menuNavigationService.menuItems;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                if (this.toggleButton) {
+                    this.toggleButton.keyEnter.pipe(operators.takeUntil(this._onDestroy))
+                        .subscribe(function () { return _this.focusFirst(); });
+                }
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.focusFirst = /**
+         * @return {?}
+         */
+            function () {
+                this.moveFirst();
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.onFocusIn = /**
+         * @return {?}
+         */
+            function () {
+                this._isFocused = true;
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.onFocusOut = /**
+         * @return {?}
+         */
+            function () {
+                this._isFocused = false;
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.keydownHandler = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // Only handle events when focus in within the list of menu items
+                if (this._isFocused === false) {
+                    return;
+                }
+                /** @type {?} */
+                var handled = false;
+                switch (event.which) {
+                    case keycodes.UP_ARROW:
+                        this.movePrevious(event);
+                        handled = true;
+                        break;
+                    case keycodes.DOWN_ARROW:
+                        this.moveNext(event);
+                        handled = true;
+                        break;
+                    case keycodes.LEFT_ARROW:
+                        if (this.toggleButtonPosition === 'left') {
+                            this.moveToToggleButton(event);
+                            handled = true;
+                        }
+                        break;
+                    case keycodes.RIGHT_ARROW:
+                        if (this.toggleButtonPosition === 'right') {
+                            this.moveToToggleButton(event);
+                            handled = true;
+                        }
+                        break;
+                    case keycodes.HOME:
+                        this.moveFirst();
+                        handled = true;
+                        break;
+                    case keycodes.END:
+                        this.moveLast();
+                        handled = true;
+                        break;
+                    case keycodes.ESCAPE:
+                        this.moveToToggleButton(event);
+                        handled = true;
+                        break;
+                }
+                if (handled) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.moveNext = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // Do nothing if there's no active menu item registered
+                if (this.activeIndex < 0) {
+                    return;
+                }
+                /** @type {?} */
+                var nextIndex = this.activeIndex + 1;
+                if (nextIndex < this.menuItems.length) {
+                    // Activate the next menu item
+                    // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
+                    this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
+                }
+                else {
+                    // Check if focus went out of bounds in the direction of the origin toggle button
+                    if (this.toggleButtonPosition === 'bottom') {
+                        this.moveToToggleButton(event);
+                    }
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.movePrevious = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // Do nothing if there's no active menu item registered
+                if (this.activeIndex < 0) {
+                    return;
+                }
+                /** @type {?} */
+                var nextIndex = this.activeIndex - 1;
+                if (nextIndex >= 0) {
+                    // Activate the previous menu item
+                    // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
+                    this._menuNavigationService.active$.next(this.menuItems[nextIndex]);
+                }
+                else {
+                    // Check if focus went out of bounds in the direction of the origin toggle button
+                    if (this.toggleButtonPosition === 'top') {
+                        this.moveToToggleButton(event);
+                    }
+                }
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.moveFirst = /**
+         * @return {?}
+         */
+            function () {
+                if (this.menuItems.length > 0) {
+                    this._menuNavigationService.active$.next(this.menuItems[0]);
+                }
+            };
+        /**
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.moveLast = /**
+         * @return {?}
+         */
+            function () {
+                if (this.menuItems.length > 0) {
+                    this._menuNavigationService.active$.next(this.menuItems[this.menuItems.length - 1]);
+                }
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MenuNavigationDirective.prototype.moveToToggleButton = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (this.toggleButton) {
+                    this.toggleButton.focus('keyboard');
+                    this.toggleButton.menuOpen = false;
+                }
+                this.navigatedOut.emit(event);
+            };
+        MenuNavigationDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxMenuNavigation]',
+                        exportAs: 'uxMenuNavigation',
+                        providers: [MenuNavigationService]
+                    },] }
+        ];
+        /** @nocollapse */
+        MenuNavigationDirective.ctorParameters = function () {
+            return [
+                { type: MenuNavigationService }
+            ];
+        };
+        MenuNavigationDirective.propDecorators = {
+            toggleButton: [{ type: i0.Input }],
+            toggleButtonPosition: [{ type: i0.Input }],
+            navigatedOut: [{ type: i0.Output }],
+            onFocusIn: [{ type: i0.HostListener, args: ['focusin',] }],
+            onFocusOut: [{ type: i0.HostListener, args: ['focusout',] }],
+            keydownHandler: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
+        };
+        return MenuNavigationDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var EXPORTS$1 = [
+        MenuNavigationDirective,
+        MenuNavigationItemDirective,
+        MenuNavigationToggleDirective
+    ];
+    var MenuNavigationModule = /** @class */ (function () {
+        function MenuNavigationModule() {
+        }
+        MenuNavigationModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [
+                            AccessibilityModule
+                        ],
+                        exports: EXPORTS$1,
+                        declarations: EXPORTS$1,
+                    },] }
+        ];
+        return MenuNavigationModule;
     }());
 
     /**
@@ -43416,15 +45353,15 @@
             /**
              * Emit when there is a change to the overflow state - horizontal or vertical
              */
-            this.uxOverflowObserver = new core.EventEmitter();
+            this.uxOverflowObserver = new i0.EventEmitter();
             /**
              * Emit when there is a change to overflow on the horizontal axis
              */
-            this.uxOverflowHorizontalObserver = new core.EventEmitter();
+            this.uxOverflowHorizontalObserver = new i0.EventEmitter();
             /**
              * Emit when there is a change to overflow on the vertical axis
              */
-            this.uxOverflowVerticalObserver = new core.EventEmitter();
+            this.uxOverflowVerticalObserver = new i0.EventEmitter();
             /**
              * Store the overflow state on both axis
              */
@@ -43432,7 +45369,7 @@
             /**
              * Unsubscribe from all the observables
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
         }
         /** Set up the trigger if specified */
         /**
@@ -43503,7 +45440,7 @@
                 this._state = { horizontalOverflow: horizontalOverflow, verticalOverflow: verticalOverflow };
             };
         OverflowDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxOverflowObserver], [uxOverflowHorizontalObserver], [uxOverflowVerticalObserver]',
                         exportAs: 'ux-overflow-observer'
                     },] }
@@ -43511,15 +45448,15 @@
         /** @nocollapse */
         OverflowDirective.ctorParameters = function () {
             return [
-                { type: core.ElementRef }
+                { type: i0.ElementRef }
             ];
         };
         OverflowDirective.propDecorators = {
-            trigger: [{ type: core.Input }],
-            tolerance: [{ type: core.Input }],
-            uxOverflowObserver: [{ type: core.Output }],
-            uxOverflowHorizontalObserver: [{ type: core.Output }],
-            uxOverflowVerticalObserver: [{ type: core.Output }]
+            trigger: [{ type: i0.Input }],
+            tolerance: [{ type: i0.Input }],
+            uxOverflowObserver: [{ type: i0.Output }],
+            uxOverflowHorizontalObserver: [{ type: i0.Output }],
+            uxOverflowVerticalObserver: [{ type: i0.Output }]
         };
         return OverflowDirective;
     }());
@@ -43532,7 +45469,7 @@
         function ObserversModule() {
         }
         ObserversModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [OverflowDirective],
                         declarations: [OverflowDirective]
                     },] }
@@ -43554,7 +45491,7 @@
             this.level = level;
             this.setSize = setSize;
             this.positionInSet = positionInSet;
-            this.loading$ = new BehaviorSubject.BehaviorSubject(false);
+            this.loading$ = new rxjs.BehaviorSubject(false);
         }
         return TreeGridState;
     }());
@@ -43570,15 +45507,15 @@
             /**
              * The raw table data
              */
-            this.data$ = new BehaviorSubject.BehaviorSubject([]);
+            this.data$ = new rxjs.BehaviorSubject([]);
             /**
              * The flattened table data
              */
-            this.rows$ = new BehaviorSubject.BehaviorSubject([]);
+            this.rows$ = new rxjs.BehaviorSubject([]);
             /**
              * Ensure we destroy all observables correctly
              */
-            this._onDestroy = new Subject.Subject();
+            this._onDestroy = new rxjs.Subject();
             this.data$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (data) { return _this.rows$.next(_this.getFlattenedTree(data)); });
         }
         /** Unsubscribe from all observables */
@@ -43706,7 +45643,7 @@
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                if (!(response instanceof Observable.Observable))
+                                if (!rxjs.isObservable(response))
                                     return [3 /*break*/, 2];
                                 return [4 /*yield*/, response.toPromise()];
                             case 1: return [2 /*return*/, _a.sent()];
@@ -43775,12 +45712,12 @@
                 }
             };
         TreeGridService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         TreeGridService.ctorParameters = function () {
             return [
-                { type: core.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef }
             ];
         };
         return TreeGridService;
@@ -43794,11 +45731,11 @@
         function TreeGridRowDirective(_treeGridService) {
             var _this = this;
             this._treeGridService = _treeGridService;
-            this.expandedChange = new core.EventEmitter();
+            this.expandedChange = new i0.EventEmitter();
             this.loading = false;
             this.isExpanded = false;
-            this._expanded$ = new BehaviorSubject.BehaviorSubject(false);
-            this._onDestroy = new Subject.Subject();
+            this._expanded$ = new rxjs.BehaviorSubject(false);
+            this._onDestroy = new rxjs.Subject();
             this._expanded$.pipe(operators.skip(1), tick(), operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (expanded) {
                 _this.expandedChange.emit(expanded);
                 _this._treeGridService.setExpanded(_this.item, expanded);
@@ -43883,7 +45820,7 @@
                 this.expanded ? this.collapse() : this.expand();
             };
         TreeGridRowDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTreeGridRow]',
                         exportAs: 'uxTreeGridRow',
                         host: {
@@ -43898,14 +45835,14 @@
             ];
         };
         TreeGridRowDirective.propDecorators = {
-            item: [{ type: core.Input, args: ['uxTreeGridRow',] }],
-            canExpand: [{ type: core.Input }],
-            expanded: [{ type: core.Input }],
-            expandedChange: [{ type: core.Output }],
-            loading: [{ type: core.HostBinding, args: ['class.treegrid-row-loading',] }],
-            isExpanded: [{ type: core.HostBinding, args: ['class.treegrid-row-expanded',] }],
-            collapse: [{ type: core.HostListener, args: ['keydown.ArrowLeft', ['$event'],] }],
-            expand: [{ type: core.HostListener, args: ['keydown.ArrowRight', ['$event'],] }]
+            item: [{ type: i0.Input, args: ['uxTreeGridRow',] }],
+            canExpand: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }],
+            expandedChange: [{ type: i0.Output }],
+            loading: [{ type: i0.HostBinding, args: ['class.treegrid-row-loading',] }],
+            isExpanded: [{ type: i0.HostBinding, args: ['class.treegrid-row-expanded',] }],
+            collapse: [{ type: i0.HostListener, args: ['keydown.ArrowLeft', ['$event'],] }],
+            expand: [{ type: i0.HostListener, args: ['keydown.ArrowRight', ['$event'],] }]
         };
         return TreeGridRowDirective;
     }());
@@ -43930,7 +45867,7 @@
             configurable: true
         });
         TreeGridIndentDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTreeGridIndent]',
                     },] }
         ];
@@ -43941,8 +45878,8 @@
             ];
         };
         TreeGridIndentDirective.propDecorators = {
-            uxTreeGridIndent: [{ type: core.Input }],
-            indentation: [{ type: core.HostBinding, args: ['style.padding-left.px',] }]
+            uxTreeGridIndent: [{ type: i0.Input }],
+            indentation: [{ type: i0.HostBinding, args: ['style.padding-left.px',] }]
         };
         return TreeGridIndentDirective;
     }());
@@ -43954,8 +45891,8 @@
     var TreeGridDirective = /** @class */ (function () {
         function TreeGridDirective(_treeGridService) {
             this._treeGridService = _treeGridService;
-            this.rowsChange = new core.EventEmitter();
-            this._onDestroy = new Subject.Subject();
+            this.rowsChange = new i0.EventEmitter();
+            this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(TreeGridDirective.prototype, "data", {
             set: /**
@@ -43998,7 +45935,7 @@
                 this._onDestroy.complete();
             };
         TreeGridDirective.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: '[uxTreeGrid]',
                         providers: [TreeGridService],
                         host: {
@@ -44013,10 +45950,10 @@
             ];
         };
         TreeGridDirective.propDecorators = {
-            data: [{ type: core.Input, args: ['uxTreeGrid',] }],
-            loadChildren: [{ type: core.Input }],
-            rows: [{ type: core.Input }],
-            rowsChange: [{ type: core.Output }]
+            data: [{ type: i0.Input, args: ['uxTreeGrid',] }],
+            loadChildren: [{ type: i0.Input }],
+            rows: [{ type: i0.Input }],
+            rowsChange: [{ type: i0.Output }]
         };
         return TreeGridDirective;
     }());
@@ -44029,7 +45966,7 @@
         function TreeGridModule() {
         }
         TreeGridModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         declarations: [
                             TreeGridDirective,
                             TreeGridRowDirective,
@@ -44058,28 +45995,28 @@
         __extends(ContactsNg1Component, _super);
         function ContactsNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'contactGroup', elementRef, injector) || this;
-            _this.overflowClick = new core.EventEmitter();
+            _this.overflowClick = new i0.EventEmitter();
             return _this;
         }
         ContactsNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'contact-group'
                     },] }
         ];
         /** @nocollapse */
         ContactsNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         ContactsNg1Component.propDecorators = {
-            contacts: [{ type: core.Input }],
-            organization: [{ type: core.Input }],
-            size: [{ type: core.Input }],
-            colors: [{ type: core.Input }],
-            maxContacts: [{ type: core.Input }],
-            overflowClick: [{ type: core.Output }]
+            contacts: [{ type: i0.Input }],
+            organization: [{ type: i0.Input }],
+            size: [{ type: i0.Input }],
+            colors: [{ type: i0.Input }],
+            maxContacts: [{ type: i0.Input }],
+            overflowClick: [{ type: i0.Output }]
         };
         return ContactsNg1Component;
     }(_static.UpgradeComponent));
@@ -44092,30 +46029,30 @@
         __extends(ExpandInputNg1Component, _super);
         function ExpandInputNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'expandInput', elementRef, injector) || this;
-            _this.focus = new core.EventEmitter();
+            _this.focus = new i0.EventEmitter();
             return _this;
         }
         ExpandInputNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'expand-input'
                     },] }
         ];
         /** @nocollapse */
         ExpandInputNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         ExpandInputNg1Component.propDecorators = {
-            elname: [{ type: core.Input }],
-            placeHolder: [{ type: core.Input }],
-            className: [{ type: core.Input }],
-            clearTextIcon: [{ type: core.Input }],
-            closeSearch: [{ type: core.Input }],
-            expandAlways: [{ type: core.Input }],
-            onEnter: [{ type: core.Input }],
-            focus: [{ type: core.Output }]
+            elname: [{ type: i0.Input }],
+            placeHolder: [{ type: i0.Input }],
+            className: [{ type: i0.Input }],
+            clearTextIcon: [{ type: i0.Input }],
+            closeSearch: [{ type: i0.Input }],
+            expandAlways: [{ type: i0.Input }],
+            onEnter: [{ type: i0.Input }],
+            focus: [{ type: i0.Output }]
         };
         return ExpandInputNg1Component;
     }(_static.UpgradeComponent));
@@ -44132,23 +46069,23 @@
             return _this;
         }
         FloatingActionButtonNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'floating-action-button'
                     },] }
         ];
         /** @nocollapse */
         FloatingActionButtonNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         FloatingActionButtonNg1Component.propDecorators = {
-            items: [{ type: core.Input }],
-            primary: [{ type: core.Input }],
-            direction: [{ type: core.Input }],
-            fabTooltip: [{ type: core.Input }],
-            fabTooltipPlacement: [{ type: core.Input }]
+            items: [{ type: i0.Input }],
+            primary: [{ type: i0.Input }],
+            direction: [{ type: i0.Input }],
+            fabTooltip: [{ type: i0.Input }],
+            fabTooltipPlacement: [{ type: i0.Input }]
         };
         return FloatingActionButtonNg1Component;
     }(_static.UpgradeComponent));
@@ -44161,29 +46098,29 @@
         __extends(FlotNg1Component, _super);
         function FlotNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'uxFlotNg1', elementRef, injector) || this;
-            _this.onPlotClick = new core.EventEmitter();
-            _this.onPlotHover = new core.EventEmitter();
+            _this.onPlotClick = new i0.EventEmitter();
+            _this.onPlotHover = new i0.EventEmitter();
             return _this;
         }
         FlotNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'flot'
                     },] }
         ];
         /** @nocollapse */
         FlotNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         FlotNg1Component.propDecorators = {
-            dataset: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            callback: [{ type: core.Input }],
-            donutLabels: [{ type: core.Input }],
-            onPlotClick: [{ type: core.Output }],
-            onPlotHover: [{ type: core.Output }]
+            dataset: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            callback: [{ type: i0.Input }],
+            donutLabels: [{ type: i0.Input }],
+            onPlotClick: [{ type: i0.Output }],
+            onPlotHover: [{ type: i0.Output }]
         };
         return FlotNg1Component;
     }(_static.UpgradeComponent));
@@ -44201,23 +46138,23 @@
             return _this;
         }
         GridNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'grid'
                     },] }
         ];
         /** @nocollapse */
         GridNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         GridNg1Component.propDecorators = {
-            source: [{ type: core.Input }],
-            columns: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            events: [{ type: core.Input }],
-            plugins: [{ type: core.Input }]
+            source: [{ type: i0.Input }],
+            columns: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            events: [{ type: i0.Input }],
+            plugins: [{ type: i0.Input }]
         };
         return GridNg1Component;
     }(_static.UpgradeComponent));
@@ -44232,22 +46169,22 @@
             return _super.call(this, 'hierarchyBar', elementRef, injector) || this;
         }
         HierarchyBarNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'hierarchy-bar'
                     },] }
         ];
         /** @nocollapse */
         HierarchyBarNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         HierarchyBarNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            selectNode: [{ type: core.Input }],
-            containerClass: [{ type: core.Input }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            selectNode: [{ type: i0.Input }],
+            containerClass: [{ type: i0.Input }]
         };
         return HierarchyBarNg1Component;
     }(_static.UpgradeComponent));
@@ -44260,32 +46197,32 @@
         __extends(MarqueeWizardNg1Component, _super);
         function MarqueeWizardNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'marqueeWizard', elementRef, injector) || this;
-            _this.wizardStepsChange = new core.EventEmitter();
+            _this.wizardStepsChange = new i0.EventEmitter();
             return _this;
         }
         MarqueeWizardNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'marquee-wizard'
                     },] }
         ];
         /** @nocollapse */
         MarqueeWizardNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         MarqueeWizardNg1Component.propDecorators = {
-            wizardIcon: [{ type: core.Input }],
-            wizardSteps: [{ type: core.Input }],
-            buttonOptions: [{ type: core.Input }],
-            onChanging: [{ type: core.Input }],
-            onFinished: [{ type: core.Input }],
-            onFinishing: [{ type: core.Input }],
-            onCanceled: [{ type: core.Input }],
-            isVisited: [{ type: core.Input }],
-            sideInfo: [{ type: core.Input }],
-            wizardStepsChange: [{ type: core.Output }]
+            wizardIcon: [{ type: i0.Input }],
+            wizardSteps: [{ type: i0.Input }],
+            buttonOptions: [{ type: i0.Input }],
+            onChanging: [{ type: i0.Input }],
+            onFinished: [{ type: i0.Input }],
+            onFinishing: [{ type: i0.Input }],
+            onCanceled: [{ type: i0.Input }],
+            isVisited: [{ type: i0.Input }],
+            sideInfo: [{ type: i0.Input }],
+            wizardStepsChange: [{ type: i0.Output }]
         };
         return MarqueeWizardNg1Component;
     }(_static.UpgradeComponent));
@@ -44300,20 +46237,20 @@
             return _super.call(this, 'uxNestedDonutNg1', elementRef, injector) || this;
         }
         NestedDonutNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'nested-donut'
                     },] }
         ];
         /** @nocollapse */
         NestedDonutNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         NestedDonutNg1Component.propDecorators = {
-            dataset: [{ type: core.Input }],
-            options: [{ type: core.Input }]
+            dataset: [{ type: i0.Input }],
+            options: [{ type: i0.Input }]
         };
         return NestedDonutNg1Component;
     }(_static.UpgradeComponent));
@@ -44326,27 +46263,27 @@
         __extends(OrganizationChartNg1Component, _super);
         function OrganizationChartNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'uxOrganizationChartNg1', elementRef, injector) || this;
-            _this.dataChange = new core.EventEmitter();
-            _this.optionsChange = new core.EventEmitter();
+            _this.dataChange = new i0.EventEmitter();
+            _this.optionsChange = new i0.EventEmitter();
             return _this;
         }
         OrganizationChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'organization-chart'
                     },] }
         ];
         /** @nocollapse */
         OrganizationChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         OrganizationChartNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            dataChange: [{ type: core.Output }],
-            optionsChange: [{ type: core.Output }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            dataChange: [{ type: i0.Output }],
+            optionsChange: [{ type: i0.Output }]
         };
         return OrganizationChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44361,21 +46298,21 @@
             return _super.call(this, 'uxPartitionMapNg1', elementRef, injector) || this;
         }
         PartitionMapNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'partition-map'
                     },] }
         ];
         /** @nocollapse */
         PartitionMapNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         PartitionMapNg1Component.propDecorators = {
-            chartData: [{ type: core.Input }],
-            chartOptions: [{ type: core.Input }],
-            chartLoading: [{ type: core.Input }]
+            chartData: [{ type: i0.Input }],
+            chartOptions: [{ type: i0.Input }],
+            chartLoading: [{ type: i0.Input }]
         };
         return PartitionMapNg1Component;
     }(_static.UpgradeComponent));
@@ -44390,20 +46327,20 @@
             return _super.call(this, 'uxPeityBarChartNg1', elementRef, injector) || this;
         }
         PeityBarChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'bar-chart'
                     },] }
         ];
         /** @nocollapse */
         PeityBarChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         PeityBarChartNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }]
         };
         return PeityBarChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44418,20 +46355,20 @@
             return _super.call(this, 'uxPeityLineChartNg1', elementRef, injector) || this;
         }
         PeityLineChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'line-chart'
                     },] }
         ];
         /** @nocollapse */
         PeityLineChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         PeityLineChartNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }]
         };
         return PeityLineChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44446,20 +46383,20 @@
             return _super.call(this, 'uxPeityPieChartNg1', elementRef, injector) || this;
         }
         PeityPieChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'pie-chart'
                     },] }
         ];
         /** @nocollapse */
         PeityPieChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         PeityPieChartNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }]
         };
         return PeityPieChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44474,22 +46411,22 @@
             return _super.call(this, 'uxPeityUpdatingLineChartNg1', elementRef, injector) || this;
         }
         PeityUpdatingLineChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'updating-line-chart'
                     },] }
         ];
         /** @nocollapse */
         PeityUpdatingLineChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         PeityUpdatingLineChartNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            method: [{ type: core.Input }],
-            updateinterval: [{ type: core.Input }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            method: [{ type: i0.Input }],
+            updateinterval: [{ type: i0.Input }]
         };
         return PeityUpdatingLineChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44504,22 +46441,22 @@
             return _super.call(this, 'uxSankeyNg1', elementRef, injector) || this;
         }
         SankeyNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'sankey'
                     },] }
         ];
         /** @nocollapse */
         SankeyNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         SankeyNg1Component.propDecorators = {
-            chartSize: [{ type: core.Input }],
-            chartData: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            click: [{ type: core.Input }]
+            chartSize: [{ type: i0.Input }],
+            chartData: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            click: [{ type: i0.Input }]
         };
         return SankeyNg1Component;
     }(_static.UpgradeComponent));
@@ -44534,23 +46471,23 @@
             return _super.call(this, 'searchToolbar', elementRef, injector) || this;
         }
         SearchToolbarNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'search-toolbar'
                     },] }
         ];
         /** @nocollapse */
         SearchToolbarNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         SearchToolbarNg1Component.propDecorators = {
-            searchTypeahead: [{ type: core.Input }],
-            placeHolder: [{ type: core.Input }],
-            closeSearch: [{ type: core.Input }],
-            onSearch: [{ type: core.Input }],
-            onFocus: [{ type: core.Input }]
+            searchTypeahead: [{ type: i0.Input }],
+            placeHolder: [{ type: i0.Input }],
+            closeSearch: [{ type: i0.Input }],
+            onSearch: [{ type: i0.Input }],
+            onFocus: [{ type: i0.Input }]
         };
         return SearchToolbarNg1Component;
     }(_static.UpgradeComponent));
@@ -44563,32 +46500,32 @@
         __extends(SelectTableNg1Component, _super);
         function SelectTableNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'selectTable', elementRef, injector) || this;
-            _this.selectedChange = new core.EventEmitter();
+            _this.selectedChange = new i0.EventEmitter();
             return _this;
         }
         SelectTableNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'select-table'
                     },] }
         ];
         /** @nocollapse */
         SelectTableNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         SelectTableNg1Component.propDecorators = {
-            values: [{ type: core.Input }],
-            multipleSelect: [{ type: core.Input }],
-            selectKey: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            searchText: [{ type: core.Input }],
-            tableHeight: [{ type: core.Input }],
-            template: [{ type: core.Input }],
-            templateUrl: [{ type: core.Input }],
-            selectHiddenItems: [{ type: core.Input }],
-            selectedChange: [{ type: core.Output }]
+            values: [{ type: i0.Input }],
+            multipleSelect: [{ type: i0.Input }],
+            selectKey: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            searchText: [{ type: i0.Input }],
+            tableHeight: [{ type: i0.Input }],
+            template: [{ type: i0.Input }],
+            templateUrl: [{ type: i0.Input }],
+            selectHiddenItems: [{ type: i0.Input }],
+            selectedChange: [{ type: i0.Output }]
         };
         return SelectTableNg1Component;
     }(_static.UpgradeComponent));
@@ -44600,14 +46537,14 @@
     /** @type {?} */
     var SLIDER_CHART_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef(function () { return SliderChartNg1Component; }),
+        useExisting: i0.forwardRef(function () { return SliderChartNg1Component; }),
         multi: true
     };
     var SliderChartNg1Component = /** @class */ (function (_super) {
         __extends(SliderChartNg1Component, _super);
         function SliderChartNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'sliderChart', elementRef, injector) || this;
-            _this.ngModelChange = new core.EventEmitter();
+            _this.ngModelChange = new i0.EventEmitter();
             return _this;
         }
         /**
@@ -44638,7 +46575,7 @@
          */
             function (fn) { };
         SliderChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'slider-chart',
                         providers: [SLIDER_CHART_VALUE_ACCESSOR]
                     },] }
@@ -44646,16 +46583,16 @@
         /** @nocollapse */
         SliderChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         SliderChartNg1Component.propDecorators = {
-            sliderOptions: [{ type: core.Input }],
-            ngModel: [{ type: core.Input }],
-            chartOptions: [{ type: core.Input }],
-            chartData: [{ type: core.Input }],
-            ngModelChange: [{ type: core.Output }]
+            sliderOptions: [{ type: i0.Input }],
+            ngModel: [{ type: i0.Input }],
+            chartOptions: [{ type: i0.Input }],
+            chartData: [{ type: i0.Input }],
+            ngModelChange: [{ type: i0.Output }]
         };
         return SliderChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44670,43 +46607,43 @@
             return _super.call(this, 'uxSocialChartNg1', elementRef, injector) || this;
         }
         SocialChartNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'social-chart'
                     },] }
         ];
         /** @nocollapse */
         SocialChartNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         SocialChartNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            width: [{ type: core.Input }],
-            height: [{ type: core.Input }],
-            api: [{ type: core.Input }],
-            communities: [{ type: core.Input }],
-            detailStyle: [{ type: core.Input }],
-            popoverStyle: [{ type: core.Input }],
-            nodeDetail: [{ type: core.Input }],
-            edgeDetail: [{ type: core.Input }],
-            nodePopover: [{ type: core.Input }],
-            edgePopover: [{ type: core.Input }],
-            forceAtlasDuration: [{ type: core.Input }],
-            nodeSizeAttribute: [{ type: core.Input }],
-            startMaximized: [{ type: core.Input }],
-            startMaximised: [{ type: core.Input }],
-            showMaximizeControl: [{ type: core.Input }],
-            showMaximiseControl: [{ type: core.Input }],
-            socialChartContainer: [{ type: core.Input }],
-            fullscreenButtonPosition: [{ type: core.Input }],
-            localStrings: [{ type: core.Input }],
-            chartTitle: [{ type: core.Input }],
-            titleDisplayTime: [{ type: core.Input }],
-            edgeWeightInfluence: [{ type: core.Input }],
-            minLabels: [{ type: core.Input }]
+            data: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            width: [{ type: i0.Input }],
+            height: [{ type: i0.Input }],
+            api: [{ type: i0.Input }],
+            communities: [{ type: i0.Input }],
+            detailStyle: [{ type: i0.Input }],
+            popoverStyle: [{ type: i0.Input }],
+            nodeDetail: [{ type: i0.Input }],
+            edgeDetail: [{ type: i0.Input }],
+            nodePopover: [{ type: i0.Input }],
+            edgePopover: [{ type: i0.Input }],
+            forceAtlasDuration: [{ type: i0.Input }],
+            nodeSizeAttribute: [{ type: i0.Input }],
+            startMaximized: [{ type: i0.Input }],
+            startMaximised: [{ type: i0.Input }],
+            showMaximizeControl: [{ type: i0.Input }],
+            showMaximiseControl: [{ type: i0.Input }],
+            socialChartContainer: [{ type: i0.Input }],
+            fullscreenButtonPosition: [{ type: i0.Input }],
+            localStrings: [{ type: i0.Input }],
+            chartTitle: [{ type: i0.Input }],
+            titleDisplayTime: [{ type: i0.Input }],
+            edgeWeightInfluence: [{ type: i0.Input }],
+            minLabels: [{ type: i0.Input }]
         };
         return SocialChartNg1Component;
     }(_static.UpgradeComponent));
@@ -44721,21 +46658,21 @@
             return _super.call(this, 'sortDirectionToggle', elementRef, injector) || this;
         }
         SortDirectionToggleNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'sort-direction-toggle'
                     },] }
         ];
         /** @nocollapse */
         SortDirectionToggleNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         SortDirectionToggleNg1Component.propDecorators = {
-            label: [{ type: core.Input }],
-            sorters: [{ type: core.Input }],
-            descend: [{ type: core.Input }]
+            label: [{ type: i0.Input }],
+            sorters: [{ type: i0.Input }],
+            descend: [{ type: i0.Input }]
         };
         return SortDirectionToggleNg1Component;
     }(_static.UpgradeComponent));
@@ -44750,22 +46687,22 @@
             return _super.call(this, 'thumbnail', elementRef, injector) || this;
         }
         ThumbnailNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'thumbnail'
                     },] }
         ];
         /** @nocollapse */
         ThumbnailNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         ThumbnailNg1Component.propDecorators = {
-            url: [{ type: core.Input }],
-            show: [{ type: core.Input }],
-            width: [{ type: core.Input }],
-            height: [{ type: core.Input }]
+            url: [{ type: i0.Input }],
+            show: [{ type: i0.Input }],
+            width: [{ type: i0.Input }],
+            height: [{ type: i0.Input }]
         };
         return ThumbnailNg1Component;
     }(_static.UpgradeComponent));
@@ -44778,36 +46715,36 @@
         __extends(TreeGridNg1Component, _super);
         function TreeGridNg1Component(elementRef, injector) {
             var _this = _super.call(this, 'treegrid', elementRef, injector) || this;
-            _this.optionsChange = new core.EventEmitter();
-            _this.selectedChange = new core.EventEmitter();
-            _this.currentRowChange = new core.EventEmitter();
-            _this.treeDataChange = new core.EventEmitter();
+            _this.optionsChange = new i0.EventEmitter();
+            _this.selectedChange = new i0.EventEmitter();
+            _this.currentRowChange = new i0.EventEmitter();
+            _this.treeDataChange = new i0.EventEmitter();
             return _this;
         }
         TreeGridNg1Component.decorators = [
-            { type: core.Directive, args: [{
+            { type: i0.Directive, args: [{
                         selector: 'treegrid'
                     },] }
         ];
         /** @nocollapse */
         TreeGridNg1Component.ctorParameters = function () {
             return [
-                { type: core.ElementRef },
-                { type: core.Injector }
+                { type: i0.ElementRef },
+                { type: i0.Injector }
             ];
         };
         TreeGridNg1Component.propDecorators = {
-            data: [{ type: core.Input }],
-            columns: [{ type: core.Input }],
-            treeData: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            currentRow: [{ type: core.Input }],
-            options: [{ type: core.Input }],
-            optionsChange: [{ type: core.Output }],
-            selectedChange: [{ type: core.Output }],
-            currentRowChange: [{ type: core.Output }],
-            treeDataChange: [{ type: core.Output }],
-            selectionManager: [{ type: core.Output }]
+            data: [{ type: i0.Input }],
+            columns: [{ type: i0.Input }],
+            treeData: [{ type: i0.Input }],
+            selected: [{ type: i0.Input }],
+            currentRow: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            optionsChange: [{ type: i0.Output }],
+            selectedChange: [{ type: i0.Output }],
+            currentRowChange: [{ type: i0.Output }],
+            treeDataChange: [{ type: i0.Output }],
+            selectionManager: [{ type: i0.Output }]
         };
         return TreeGridNg1Component;
     }(_static.UpgradeComponent));
@@ -44877,12 +46814,12 @@
                 this._navigationMenuService.setDefaultCollapseAtWidth();
             };
         NavigationMenuService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         NavigationMenuService.ctorParameters = function () {
             return [
-                { type: undefined, decorators: [{ type: core.Inject, args: ['$navigationMenu',] }] }
+                { type: undefined, decorators: [{ type: i0.Inject, args: ['$navigationMenu',] }] }
             ];
         };
         return NavigationMenuService;
@@ -44928,12 +46865,12 @@
                 return this._pdfService.createTable(columns, rows, options);
             };
         PdfService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         PdfService.ctorParameters = function () {
             return [
-                { type: undefined, decorators: [{ type: core.Inject, args: ['$pdf',] }] }
+                { type: undefined, decorators: [{ type: i0.Inject, args: ['$pdf',] }] }
             ];
         };
         return PdfService;
@@ -44996,12 +46933,12 @@
                 return this._timeAgoService.timeSinceNow(moment);
             };
         TimeAgoService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         /** @nocollapse */
         TimeAgoService.ctorParameters = function () {
             return [
-                { type: undefined, decorators: [{ type: core.Inject, args: ['timeAgoService',] }] }
+                { type: undefined, decorators: [{ type: i0.Inject, args: ['timeAgoService',] }] }
             ];
         };
         return TimeAgoService;
@@ -45053,7 +46990,7 @@
         function HybridModule() {
         }
         HybridModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         imports: [],
                         exports: declarations,
                         declarations: declarations,
@@ -45099,10 +47036,10 @@
                 return items.filter(function (it) { return it.toLowerCase().indexOf(value.toLowerCase()) >= 0; });
             };
         StringFilterPipe.decorators = [
-            { type: core.Pipe, args: [{
+            { type: i0.Pipe, args: [{
                         name: 'stringFilter'
                     },] },
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return StringFilterPipe;
     }());
@@ -45115,7 +47052,7 @@
         function StringFilterModule() {
         }
         StringFilterModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         exports: [StringFilterPipe],
                         declarations: [StringFilterPipe]
                     },] }
@@ -46154,13 +48091,13 @@
          */
             function (options) {
                 /** @type {?} */
-                var merge$$1 = function (target, source) {
+                var merge = function (target, source) {
                     var e_1, _a;
                     try {
                         for (var _b = __values(Object.keys(source)), _c = _b.next(); !_c.done; _c = _b.next()) {
                             var key = _c.value;
                             if (source[key] instanceof Object && !(source[key] instanceof Date) && typeof source[key] !== 'function') {
-                                Object.assign(source[key], merge$$1(target[key], source[key]));
+                                Object.assign(source[key], merge(target[key], source[key]));
                             }
                         }
                     }
@@ -46179,7 +48116,7 @@
                     }
                     return Object.assign(target || {}, source);
                 };
-                return merge$$1(( /** @type {?} */(__assign({}, timelineDefaultOptions.timeline))), options);
+                return merge(( /** @type {?} */(__assign({}, timelineDefaultOptions.timeline))), options);
             };
         /**
          * We only want to register the plugin once per application
@@ -46197,7 +48134,7 @@
             TimelineChartPlugin.register();
         }
         TimelineChartModule.decorators = [
-            { type: core.NgModule, args: [{},] }
+            { type: i0.NgModule, args: [{},] }
         ];
         /** @nocollapse */
         TimelineChartModule.ctorParameters = function () { return []; };
@@ -46570,7 +48507,7 @@
                 }
             };
         PersistentDataService.decorators = [
-            { type: core.Injectable }
+            { type: i0.Injectable }
         ];
         return PersistentDataService;
     }());
@@ -46592,7 +48529,7 @@
         function PersistentDataModule() {
         }
         PersistentDataModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         providers: [PersistentDataService],
                     },] }
         ];
@@ -46737,6 +48674,12 @@
     exports.FloatingActionButtonComponent = FloatingActionButtonComponent;
     exports.HierarchyBarComponent = HierarchyBarComponent;
     exports.HierarchyBarModule = HierarchyBarModule;
+    exports.ICON_OPTIONS_TOKEN = ICON_OPTIONS_TOKEN;
+    exports.IconComponent = IconComponent;
+    exports.IconModule = IconModule;
+    exports.IconService = IconService;
+    exports.hpeIconset = hpeIconset;
+    exports.uxIconset = uxIconset;
     exports.ItemDisplayPanelModule = ItemDisplayPanelModule;
     exports.ItemDisplayPanelContentDirective = ItemDisplayPanelContentDirective;
     exports.ItemDisplayPanelFooterDirective = ItemDisplayPanelFooterDirective;
@@ -46750,6 +48693,12 @@
     exports.MediaPlayerTimelineExtensionComponent = MediaPlayerTimelineExtensionComponent;
     exports.MediaPlayerComponent = MediaPlayerComponent;
     exports.MediaPlayerModule = MediaPlayerModule;
+    exports.MenuDividerComponent = MenuDividerComponent;
+    exports.MenuItemComponent = MenuItemComponent;
+    exports.MenuTabbableItemDirective = MenuTabbableItemDirective;
+    exports.MenuTriggerDirective = MenuTriggerDirective;
+    exports.MenuModule = MenuModule;
+    exports.MenuComponent = MenuComponent;
     exports.NavigationItemComponent = NavigationItemComponent;
     exports.NavigationLinkDirective = NavigationLinkDirective;
     exports.NAVIGATION_MODULE_OPTIONS = NAVIGATION_MODULE_OPTIONS;
@@ -46873,8 +48822,6 @@
     exports.WizardComponent = WizardComponent;
     exports.StepChangingEvent = StepChangingEvent;
     exports.WizardStepComponent = WizardStepComponent;
-    exports.FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY = FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER_FACTORY;
-    exports.FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER = FOCUS_INDICATOR_ORIGIN_SERVICE_PROVIDER;
     exports.AccessibilityModule = AccessibilityModule;
     exports.ColorContrastDirective = ColorContrastDirective;
     exports.ContrastService = ContrastService;
@@ -47002,8 +48949,6 @@
     exports.AudioService = AudioService;
     exports.colorSets = colorSets;
     exports.COLOR_SET_TOKEN = COLOR_SET_TOKEN;
-    exports.COLOR_SERVICE_PROVIDER_FACTORY = COLOR_SERVICE_PROVIDER_FACTORY;
-    exports.COLOR_SERVICE_PROVIDER = COLOR_SERVICE_PROVIDER;
     exports.ColorServiceModule = ColorServiceModule;
     exports.ColorService = ColorService;
     exports.ThemeColor = ThemeColor;
@@ -47016,43 +48961,45 @@
     exports.CookieAdapter = CookieAdapter;
     exports.LocalStorageAdapter = LocalStorageAdapter;
     exports.SessionStorageAdapter = SessionStorageAdapter;
-    exports.ɵc = DashboardGrabHandleService;
-    exports.ɵe = DayViewComponent;
-    exports.ɵf = DayViewService;
-    exports.ɵd = HeaderComponent;
-    exports.ɵg = MonthViewComponent;
-    exports.ɵh = MonthViewService;
-    exports.ɵl = WeekDaySortPipe;
-    exports.ɵk = TimeViewComponent;
-    exports.ɵi = YearViewComponent;
-    exports.ɵj = YearViewService;
-    exports.ɵm = FacetCheckListItemComponent;
-    exports.ɵn = FacetTypeaheadListItemComponent;
-    exports.ɵr = FloatingActionButtonsService;
-    exports.ɵw = HierarchyBarCollapsedComponent;
-    exports.ɵt = HierarchyBarNodeIconDirective;
-    exports.ɵv = HierarchyBarNodeComponent;
-    exports.ɵy = HierarchyBarPopoverItemComponent;
-    exports.ɵx = HierarchyBarPopoverComponent;
-    exports.ɵu = HierarchyBarStandardComponent;
-    exports.ɵs = HierarchyBarService;
-    exports.ɵbc = MarqueeWizardService;
-    exports.ɵbd = MediaPlayerService;
-    exports.ɵbh = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbg = PageHeaderNavigationItemComponent;
-    exports.ɵbi = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbf = PageHeaderNavigationService;
-    exports.ɵbe = PageHeaderService;
-    exports.ɵbj = SankeyFocusManager;
-    exports.ɵba = SidePanelAnimationState;
-    exports.ɵbb = sidePanelStateAnimation;
-    exports.ɵz = SidePanelService;
-    exports.ɵbk = ResizableTableService;
-    exports.ɵp = TypeaheadHighlightDirective;
-    exports.ɵo = TypeaheadService;
-    exports.ɵbl = HoverActionService;
-    exports.ɵq = MenuNavigationService;
-    exports.ɵbm = TreeGridService;
+    exports.ɵd = DashboardGrabHandleService;
+    exports.ɵf = DayViewComponent;
+    exports.ɵg = DayViewService;
+    exports.ɵe = HeaderComponent;
+    exports.ɵh = MonthViewComponent;
+    exports.ɵi = MonthViewService;
+    exports.ɵm = WeekDaySortPipe;
+    exports.ɵl = TimeViewComponent;
+    exports.ɵj = YearViewComponent;
+    exports.ɵk = YearViewService;
+    exports.ɵn = FacetCheckListItemComponent;
+    exports.ɵo = FacetTypeaheadListItemComponent;
+    exports.ɵt = FloatingActionButtonsService;
+    exports.ɵy = HierarchyBarCollapsedComponent;
+    exports.ɵv = HierarchyBarNodeIconDirective;
+    exports.ɵx = HierarchyBarNodeComponent;
+    exports.ɵba = HierarchyBarPopoverItemComponent;
+    exports.ɵz = HierarchyBarPopoverComponent;
+    exports.ɵw = HierarchyBarStandardComponent;
+    exports.ɵu = HierarchyBarService;
+    exports.ɵbb = commonIcons;
+    exports.ɵbf = MarqueeWizardService;
+    exports.ɵbg = MediaPlayerService;
+    exports.ɵr = MENU_OPTIONS_TOKEN;
+    exports.ɵbk = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbj = PageHeaderNavigationItemComponent;
+    exports.ɵbl = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbi = PageHeaderNavigationService;
+    exports.ɵbh = PageHeaderService;
+    exports.ɵbm = SankeyFocusManager;
+    exports.ɵbd = SidePanelAnimationState;
+    exports.ɵbe = sidePanelStateAnimation;
+    exports.ɵbc = SidePanelService;
+    exports.ɵbn = ResizableTableService;
+    exports.ɵq = TypeaheadHighlightDirective;
+    exports.ɵp = TypeaheadService;
+    exports.ɵbo = HoverActionService;
+    exports.ɵbp = MenuNavigationService;
+    exports.ɵbq = TreeGridService;
     exports.ɵa = KEPPEL_COLOR_SET;
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
 

@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.7.16-44 
+* @ux-aspects/ux-aspects-docs - v1.8.0-51 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -104,30 +104,129 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!********************************************************!*\
   !*** ./node_modules/@angular/cdk/esm5/keycodes.es5.js ***!
   \********************************************************/
-/*! exports provided: UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, ZERO, NINE, COMMA */
+/*! exports provided: MAC_ENTER, BACKSPACE, TAB, NUM_CENTER, ENTER, SHIFT, CONTROL, ALT, PAUSE, CAPS_LOCK, ESCAPE, SPACE, PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW, PLUS_SIGN, PRINT_SCREEN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, FF_SEMICOLON, FF_EQUALS, QUESTION_MARK, AT_SIGN, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, META, MAC_WK_CMD_LEFT, MAC_WK_CMD_RIGHT, CONTEXT_MENU, NUMPAD_ZERO, NUMPAD_ONE, NUMPAD_TWO, NUMPAD_THREE, NUMPAD_FOUR, NUMPAD_FIVE, NUMPAD_SIX, NUMPAD_SEVEN, NUMPAD_EIGHT, NUMPAD_NINE, NUMPAD_MULTIPLY, NUMPAD_PLUS, NUMPAD_MINUS, NUMPAD_PERIOD, NUMPAD_DIVIDE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, NUM_LOCK, SCROLL_LOCK, FIRST_MEDIA, FF_MINUS, MUTE, VOLUME_DOWN, VOLUME_UP, FF_MUTE, FF_VOLUME_DOWN, LAST_MEDIA, FF_VOLUME_UP, SEMICOLON, EQUALS, COMMA, DASH, SLASH, APOSTROPHE, TILDE, OPEN_SQUARE_BRACKET, BACKSLASH, CLOSE_SQUARE_BRACKET, SINGLE_QUOTE, MAC_META */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UP_ARROW", function() { return UP_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOWN_ARROW", function() { return DOWN_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RIGHT_ARROW", function() { return RIGHT_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEFT_ARROW", function() { return LEFT_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAC_ENTER", function() { return MAC_ENTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKSPACE", function() { return BACKSPACE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TAB", function() { return TAB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUM_CENTER", function() { return NUM_CENTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ENTER", function() { return ENTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHIFT", function() { return SHIFT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTROL", function() { return CONTROL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALT", function() { return ALT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAUSE", function() { return PAUSE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CAPS_LOCK", function() { return CAPS_LOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ESCAPE", function() { return ESCAPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SPACE", function() { return SPACE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAGE_UP", function() { return PAGE_UP; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAGE_DOWN", function() { return PAGE_DOWN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HOME", function() { return HOME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "END", function() { return END; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ENTER", function() { return ENTER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SPACE", function() { return SPACE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TAB", function() { return TAB; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ESCAPE", function() { return ESCAPE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKSPACE", function() { return BACKSPACE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HOME", function() { return HOME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEFT_ARROW", function() { return LEFT_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UP_ARROW", function() { return UP_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RIGHT_ARROW", function() { return RIGHT_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOWN_ARROW", function() { return DOWN_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLUS_SIGN", function() { return PLUS_SIGN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PRINT_SCREEN", function() { return PRINT_SCREEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INSERT", function() { return INSERT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE", function() { return DELETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return A; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Z", function() { return Z; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZERO", function() { return ZERO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ONE", function() { return ONE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TWO", function() { return TWO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "THREE", function() { return THREE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FOUR", function() { return FOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FIVE", function() { return FIVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIX", function() { return SIX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEVEN", function() { return SEVEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EIGHT", function() { return EIGHT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NINE", function() { return NINE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FF_SEMICOLON", function() { return FF_SEMICOLON; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FF_EQUALS", function() { return FF_EQUALS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUESTION_MARK", function() { return QUESTION_MARK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AT_SIGN", function() { return AT_SIGN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return A; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return B; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return C; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return D; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return E; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return F; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return G; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return H; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I", function() { return I; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "J", function() { return J; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "K", function() { return K; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "L", function() { return L; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return M; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "N", function() { return N; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "O", function() { return O; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "P", function() { return P; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Q", function() { return Q; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "R", function() { return R; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S", function() { return S; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T", function() { return T; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "U", function() { return U; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "V", function() { return V; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "W", function() { return W; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "X", function() { return X; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Y", function() { return Y; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Z", function() { return Z; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "META", function() { return META; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAC_WK_CMD_LEFT", function() { return MAC_WK_CMD_LEFT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAC_WK_CMD_RIGHT", function() { return MAC_WK_CMD_RIGHT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTEXT_MENU", function() { return CONTEXT_MENU; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_ZERO", function() { return NUMPAD_ZERO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_ONE", function() { return NUMPAD_ONE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_TWO", function() { return NUMPAD_TWO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_THREE", function() { return NUMPAD_THREE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_FOUR", function() { return NUMPAD_FOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_FIVE", function() { return NUMPAD_FIVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_SIX", function() { return NUMPAD_SIX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_SEVEN", function() { return NUMPAD_SEVEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_EIGHT", function() { return NUMPAD_EIGHT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_NINE", function() { return NUMPAD_NINE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_MULTIPLY", function() { return NUMPAD_MULTIPLY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_PLUS", function() { return NUMPAD_PLUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_MINUS", function() { return NUMPAD_MINUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_PERIOD", function() { return NUMPAD_PERIOD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUMPAD_DIVIDE", function() { return NUMPAD_DIVIDE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F1", function() { return F1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F2", function() { return F2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F3", function() { return F3; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F4", function() { return F4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F5", function() { return F5; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F6", function() { return F6; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F7", function() { return F7; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F8", function() { return F8; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F9", function() { return F9; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F10", function() { return F10; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F11", function() { return F11; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F12", function() { return F12; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NUM_LOCK", function() { return NUM_LOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCROLL_LOCK", function() { return SCROLL_LOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FIRST_MEDIA", function() { return FIRST_MEDIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FF_MINUS", function() { return FF_MINUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MUTE", function() { return MUTE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VOLUME_DOWN", function() { return VOLUME_DOWN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VOLUME_UP", function() { return VOLUME_UP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FF_MUTE", function() { return FF_MUTE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FF_VOLUME_DOWN", function() { return FF_VOLUME_DOWN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LAST_MEDIA", function() { return LAST_MEDIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FF_VOLUME_UP", function() { return FF_VOLUME_UP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEMICOLON", function() { return SEMICOLON; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EQUALS", function() { return EQUALS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COMMA", function() { return COMMA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DASH", function() { return DASH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLASH", function() { return SLASH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APOSTROPHE", function() { return APOSTROPHE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TILDE", function() { return TILDE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_SQUARE_BRACKET", function() { return OPEN_SQUARE_BRACKET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKSLASH", function() { return BACKSLASH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_SQUARE_BRACKET", function() { return CLOSE_SQUARE_BRACKET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SINGLE_QUOTE", function() { return SINGLE_QUOTE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAC_META", function() { return MAC_META; });
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -140,25 +239,124 @@ __webpack_require__.r(__webpack_exports__);
  * @suppress {checkTypes} checked by tsc
  */
 
-var UP_ARROW = 38;
-var DOWN_ARROW = 40;
-var RIGHT_ARROW = 39;
-var LEFT_ARROW = 37;
-var PAGE_UP = 33;
-var PAGE_DOWN = 34;
-var HOME = 36;
-var END = 35;
-var ENTER = 13;
-var SPACE = 32;
-var TAB = 9;
-var ESCAPE = 27;
-var BACKSPACE = 8;
-var DELETE = 46;
-var A = 65;
-var Z = 90;
-var ZERO = 48;
-var NINE = 57;
-var COMMA = 188;
+var /** @type {?} */ MAC_ENTER = 3;
+var /** @type {?} */ BACKSPACE = 8;
+var /** @type {?} */ TAB = 9;
+var /** @type {?} */ NUM_CENTER = 12;
+var /** @type {?} */ ENTER = 13;
+var /** @type {?} */ SHIFT = 16;
+var /** @type {?} */ CONTROL = 17;
+var /** @type {?} */ ALT = 18;
+var /** @type {?} */ PAUSE = 19;
+var /** @type {?} */ CAPS_LOCK = 20;
+var /** @type {?} */ ESCAPE = 27;
+var /** @type {?} */ SPACE = 32;
+var /** @type {?} */ PAGE_UP = 33;
+var /** @type {?} */ PAGE_DOWN = 34;
+var /** @type {?} */ END = 35;
+var /** @type {?} */ HOME = 36;
+var /** @type {?} */ LEFT_ARROW = 37;
+var /** @type {?} */ UP_ARROW = 38;
+var /** @type {?} */ RIGHT_ARROW = 39;
+var /** @type {?} */ DOWN_ARROW = 40;
+var /** @type {?} */ PLUS_SIGN = 43;
+var /** @type {?} */ PRINT_SCREEN = 44;
+var /** @type {?} */ INSERT = 45;
+var /** @type {?} */ DELETE = 46;
+var /** @type {?} */ ZERO = 48;
+var /** @type {?} */ ONE = 49;
+var /** @type {?} */ TWO = 50;
+var /** @type {?} */ THREE = 51;
+var /** @type {?} */ FOUR = 52;
+var /** @type {?} */ FIVE = 53;
+var /** @type {?} */ SIX = 54;
+var /** @type {?} */ SEVEN = 55;
+var /** @type {?} */ EIGHT = 56;
+var /** @type {?} */ NINE = 57;
+var /** @type {?} */ FF_SEMICOLON = 59; // Firefox (Gecko) fires this for semicolon instead of 186
+var /** @type {?} */ FF_EQUALS = 61; // Firefox (Gecko) fires this for equals instead of 187
+var /** @type {?} */ QUESTION_MARK = 63;
+var /** @type {?} */ AT_SIGN = 64;
+var /** @type {?} */ A = 65;
+var /** @type {?} */ B = 66;
+var /** @type {?} */ C = 67;
+var /** @type {?} */ D = 68;
+var /** @type {?} */ E = 69;
+var /** @type {?} */ F = 70;
+var /** @type {?} */ G = 71;
+var /** @type {?} */ H = 72;
+var /** @type {?} */ I = 73;
+var /** @type {?} */ J = 74;
+var /** @type {?} */ K = 75;
+var /** @type {?} */ L = 76;
+var /** @type {?} */ M = 77;
+var /** @type {?} */ N = 78;
+var /** @type {?} */ O = 79;
+var /** @type {?} */ P = 80;
+var /** @type {?} */ Q = 81;
+var /** @type {?} */ R = 82;
+var /** @type {?} */ S = 83;
+var /** @type {?} */ T = 84;
+var /** @type {?} */ U = 85;
+var /** @type {?} */ V = 86;
+var /** @type {?} */ W = 87;
+var /** @type {?} */ X = 88;
+var /** @type {?} */ Y = 89;
+var /** @type {?} */ Z = 90;
+var /** @type {?} */ META = 91; // WIN_KEY_LEFT
+var /** @type {?} */ MAC_WK_CMD_LEFT = 91;
+var /** @type {?} */ MAC_WK_CMD_RIGHT = 93;
+var /** @type {?} */ CONTEXT_MENU = 93;
+var /** @type {?} */ NUMPAD_ZERO = 96;
+var /** @type {?} */ NUMPAD_ONE = 97;
+var /** @type {?} */ NUMPAD_TWO = 98;
+var /** @type {?} */ NUMPAD_THREE = 99;
+var /** @type {?} */ NUMPAD_FOUR = 100;
+var /** @type {?} */ NUMPAD_FIVE = 101;
+var /** @type {?} */ NUMPAD_SIX = 102;
+var /** @type {?} */ NUMPAD_SEVEN = 103;
+var /** @type {?} */ NUMPAD_EIGHT = 104;
+var /** @type {?} */ NUMPAD_NINE = 105;
+var /** @type {?} */ NUMPAD_MULTIPLY = 106;
+var /** @type {?} */ NUMPAD_PLUS = 107;
+var /** @type {?} */ NUMPAD_MINUS = 109;
+var /** @type {?} */ NUMPAD_PERIOD = 110;
+var /** @type {?} */ NUMPAD_DIVIDE = 111;
+var /** @type {?} */ F1 = 112;
+var /** @type {?} */ F2 = 113;
+var /** @type {?} */ F3 = 114;
+var /** @type {?} */ F4 = 115;
+var /** @type {?} */ F5 = 116;
+var /** @type {?} */ F6 = 117;
+var /** @type {?} */ F7 = 118;
+var /** @type {?} */ F8 = 119;
+var /** @type {?} */ F9 = 120;
+var /** @type {?} */ F10 = 121;
+var /** @type {?} */ F11 = 122;
+var /** @type {?} */ F12 = 123;
+var /** @type {?} */ NUM_LOCK = 144;
+var /** @type {?} */ SCROLL_LOCK = 145;
+var /** @type {?} */ FIRST_MEDIA = 166;
+var /** @type {?} */ FF_MINUS = 173;
+var /** @type {?} */ MUTE = 173; // Firefox (Gecko) fires 181 for MUTE
+var /** @type {?} */ VOLUME_DOWN = 174; // Firefox (Gecko) fires 182 for VOLUME_DOWN
+var /** @type {?} */ VOLUME_UP = 175; // Firefox (Gecko) fires 183 for VOLUME_UP
+var /** @type {?} */ FF_MUTE = 181;
+var /** @type {?} */ FF_VOLUME_DOWN = 182;
+var /** @type {?} */ LAST_MEDIA = 183;
+var /** @type {?} */ FF_VOLUME_UP = 183;
+var /** @type {?} */ SEMICOLON = 186; // Firefox (Gecko) fires 59 for SEMICOLON
+var /** @type {?} */ EQUALS = 187; // Firefox (Gecko) fires 61 for EQUALS
+var /** @type {?} */ COMMA = 188;
+var /** @type {?} */ DASH = 189; // Firefox (Gecko) fires 173 for DASH/MINUS
+var /** @type {?} */ SLASH = 191;
+var /** @type {?} */ APOSTROPHE = 192;
+var /** @type {?} */ TILDE = 192;
+var /** @type {?} */ OPEN_SQUARE_BRACKET = 219;
+var /** @type {?} */ BACKSLASH = 220;
+var /** @type {?} */ CLOSE_SQUARE_BRACKET = 221;
+var /** @type {?} */ SINGLE_QUOTE = 222;
+var /** @type {?} */ MAC_META = 224;
 
 /**
  * @fileoverview added by tsickle
@@ -168,9 +366,6 @@ var COMMA = 188;
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 
@@ -18804,28 +18999,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./src/data/keppel-colors.json":
-/*!*************************************!*\
-  !*** ./src/data/keppel-colors.json ***!
-  \*************************************/
-/*! exports provided: colorClassSet, default */
-/***/ (function(module) {
-
-module.exports = {"colorClassSet":{"primary":"primary","accent":"accent","secondary":"secondary","alternate1":"alternate1","alternate2":"alternate2","alternate3":"alternate3","vibrant1":"vibrant1","vibrant2":"vibrant2","grey1":"grey1","grey2":"grey2","grey3":"grey3","grey4":"grey4","grey5":"grey5","grey6":"grey6","grey7":"grey7","grey8":"grey8","chart1":"chart1","chart2":"chart2","chart3":"chart3","chart4":"chart4","chart5":"chart5","chart6":"chart6","ok":"ok","warning":"warning","critical":"critical","partition1":"partition1","partition9":"partition9","partition10":"partition10","partition11":"partition11","partition12":"partition12","partition13":"partition13","partition14":"partition14","social-chart-node":"social-chart-node","social-chart-edge":"social-chart-edge"}};
-
-/***/ }),
-
-/***/ "./src/data/micro-focus-colors.json":
-/*!******************************************!*\
-  !*** ./src/data/micro-focus-colors.json ***!
-  \******************************************/
-/*! exports provided: colorValueSet, default */
-/***/ (function(module) {
-
-module.exports = {"colorValueSet":{"cerulean":"#1668c1","aqua":"#29ceff","aquamarine":"#2fd6c3","fuchsia":"#c6179d","indigo":"#7425ad","dark-blue":"#231ca5","white":"#ffffff","slightly-gray":"#f5f7f8","bright-gray":"#f1f2f3","gray":"#dcdedf","silver":"#bdbec0","dim-gray":"#656668","dark-gray":"#323435","black":"#000000","crimson-negative":"#e5004c","apricot":"#f48b34","yellow":"#fcdb1f","green-positive":"#1aac60","ultramarine":"#3939c6","skyblue":"#00abf3","pale-aqua":"#43e4ff","pale-green":"#1ffbba","lime":"#75da4d","orange":"#ffce00","magenta":"#eb23c2","pale-purple":"#ba47e2","dark-ultramarine":"#271782","steelblue":"#014272","arctic-blue":"#0b8eac","emerald":"#00a989","olive":"#5bba36","goldenrod":"#ffb000","purple":"#9b1e83","pale-eggplant":"#5216ac","red":"#ff454f","pale-amber":"#ffb24d","pale-lemon":"#fde159","pale-emerald":"#33c180","plum":"#b21646","copper":"#e57828","amber":"#ffc002","leaf-green":"#118c4f","forest-green":"#00645a","primary":"#0073e7","accent":"#7425ad","secondary":"#ffffff","alternate1":"#29ceff","alternate2":"#2fd6c3","alternate3":"#c6179d","vibrant1":"#43e4ff","vibrant2":"#ffce00","grey1":"#000000","grey2":"#323435","grey3":"#656668","grey4":"#bdbec0","grey5":"#dcdedf","grey6":"#f1f2f3","grey7":"#f5f7f8","grey8":"#ffffff","chart1":"#3939c6","chart2":"#00abf3","chart3":"#75da4d","chart4":"#ffce00","chart5":"#eb23c2","chart6":"#ba47e2","ok":"#1aac60","warning":"#f48b34","critical":"#e5004c","partition1":"#7425ad","partition9":"#5216ac","partition10":"#5bba36","partition11":"#014272","partition12":"#ffb000","partition13":"#bdbec0","partition14":"#271782","social-chart-node":"#ff00ff","social-chart-edge":"#ff00ff"}};
-
-/***/ }),
-
 /***/ "./src/ng1/directives/affixElement/affixElement.directive.js":
 /*!*******************************************************************!*\
   !*** ./src/ng1/directives/affixElement/affixElement.directive.js ***!
@@ -28476,7 +28649,7 @@ function () {
   }, {
     key: "onClick",
     value: function onClick() {
-      if (typeof this.$scope.click === 'function') {
+      if (typeof this.click === 'function') {
         this.click();
       }
     }
@@ -48415,36 +48588,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function $colorService() {
   var $colorService = {};
   var colorSet = colorSets.keppel;
-  var html;
-  var element;
-  var colors;
+  var colors = {};
 
-  function setColors() {
-    html = '';
-
-    for (var key in colorSet.colorClassSet) {
-      html += '<div class="' + colorSet.colorClassSet[key] + '-color"></div>';
-    }
-
-    element = document.createElement('div');
-    element.className = 'color-chart';
-    element.innerHTML = html;
-    document.body.appendChild(element);
-    colors = {};
-
-    for (var _key in colorSet.colorClassSet) {
-      colors[_key] = getColorValue(colorSet.colorClassSet[_key]);
-    }
-
-    element.parentNode.removeChild(element);
-  }
-
-  if (colorSet.colorClassSet) {
-    setColors();
-  } else {
-    for (var key in colorSet.colorValueSet) {
-      colors[key] = getColorValueByHex(colorSet.colorValueSet[key]);
-    }
+  for (var key in colorSet.colorValueSet) {
+    colors[key] = getColorValueByHex(colorSet.colorValueSet[key]);
   }
 
   function getColorValueByHex(color) {
@@ -48453,18 +48600,6 @@ function $colorService() {
     var g = parseInt(hex.substring(2, 4), 16).toString();
     var b = parseInt(hex.substring(4, 6), 16).toString();
     return new ThemeColor(r, g, b, '1');
-  }
-
-  function getColorValue(color) {
-    var target = element.querySelector('.' + colorSet.colorClassSet[color] + '-color');
-
-    if (!target) {
-      throw new Error('Invalid color');
-    }
-
-    var colorValue = window.getComputedStyle(target).backgroundColor;
-    var rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
-    return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
   }
 
   $colorService.getColor = function (color) {
@@ -48485,12 +48620,8 @@ function $colorService() {
     colorSet = customColorSet;
     colors = {};
 
-    if (colorSet.colorClassSet) {
-      setColors();
-    } else {
-      for (var _key2 in colorSet.colorValueSet) {
-        colors[_key2] = getColorValueByHex(colorSet.colorValueSet[_key2]);
-      }
+    for (var _key in colorSet.colorValueSet) {
+      colors[_key] = getColorValueByHex(colorSet.colorValueSet[_key]);
     }
   };
 
@@ -48604,8 +48735,125 @@ function () {
 }();
 
 var colorSets = {
-  keppel: __webpack_require__(/*! ../../../data/keppel-colors.json */ "./src/data/keppel-colors.json"),
-  microFocus: __webpack_require__(/*! ../../../data/micro-focus-colors.json */ "./src/data/micro-focus-colors.json")
+  keppel: {
+    colorValueSet: {
+      'primary': '#00a7a2',
+      'accent': '#7b63a3',
+      'secondary': '#ffffff',
+      'alternate1': '#3baa43',
+      'alternate2': '#025662',
+      'alternate3': '#b08f5c',
+      'vibrant1': '#00cceb',
+      'vibrant2': '#ff9048',
+      'grey1': '#2a2a2a',
+      'grey2': '#333333',
+      'grey3': '#666666',
+      'grey4': '#999999',
+      'grey5': '#cccccc',
+      'grey6': '#eeeeee',
+      'grey7': '#f5f5f5',
+      'grey8': '#fafafa',
+      'chart1': '#00a7a2',
+      'chart2': '#7b63a3',
+      'chart3': '#3baa43',
+      'chart4': '#025662',
+      'chart5': '#b08f5c',
+      'chart6': '#cccccc',
+      'ok': '#3baa43',
+      'warning': '#ff9048',
+      'critical': '#ff454f',
+      'partition1': '#635387',
+      'partition9': '#4a4066',
+      'partition10': '#308935',
+      'partition11': '#023e42',
+      'partition12': '#91744d',
+      'partition13': '#999999',
+      'partition14': '#294266',
+      'social-chart-node': '#00cceb',
+      'social-chart-edge': '#00cceb'
+    }
+  },
+  microFocus: {
+    colorValueSet: {
+      'cerulean': '#1668c1',
+      'aqua': '#29ceff',
+      'aquamarine': '#2fd6c3',
+      'fuchsia': '#c6179d',
+      'indigo': '#7425ad',
+      'dark-blue': '#231ca5',
+      'white': '#ffffff',
+      'slightly-gray': '#f5f7f8',
+      'bright-gray': '#f1f2f3',
+      'gray': '#dcdedf',
+      'silver': '#bdbec0',
+      'dim-gray': '#656668',
+      'dark-gray': '#323435',
+      'black': '#000000',
+      'crimson-negative': '#e5004c',
+      'apricot': '#f48b34',
+      'yellow': '#fcdb1f',
+      'green-positive': '#1aac60',
+      'ultramarine': '#3939c6',
+      'skyblue': '#00abf3',
+      'pale-aqua': '#43e4ff',
+      'pale-green': '#1ffbba',
+      'lime': '#75da4d',
+      'orange': '#ffce00',
+      'magenta': '#eb23c2',
+      'pale-purple': '#ba47e2',
+      'dark-ultramarine': '#271782',
+      'steelblue': '#014272',
+      'arctic-blue': '#0b8eac',
+      'emerald': '#00a989',
+      'olive': '#5bba36',
+      'goldenrod': '#ffb000',
+      'purple': '#9b1e83',
+      'pale-eggplant': '#5216ac',
+      'red': '#ff454f',
+      'pale-amber': '#ffb24d',
+      'pale-lemon': '#fde159',
+      'pale-emerald': '#33c180',
+      'plum': '#b21646',
+      'copper': '#e57828',
+      'amber': '#ffc002',
+      'leaf-green': '#118c4f',
+      'forest-green': '#00645a',
+      'primary': '#0073e7',
+      'accent': '#7425ad',
+      'secondary': '#ffffff',
+      'alternate1': '#29ceff',
+      'alternate2': '#2fd6c3',
+      'alternate3': '#c6179d',
+      'vibrant1': '#43e4ff',
+      'vibrant2': '#ffce00',
+      'grey1': '#000000',
+      'grey2': '#323435',
+      'grey3': '#656668',
+      'grey4': '#bdbec0',
+      'grey5': '#dcdedf',
+      'grey6': '#f1f2f3',
+      'grey7': '#f5f7f8',
+      'grey8': '#ffffff',
+      'chart1': '#3939c6',
+      'chart2': '#00abf3',
+      'chart3': '#75da4d',
+      'chart4': '#ffce00',
+      'chart5': '#eb23c2',
+      'chart6': '#ba47e2',
+      'ok': '#1aac60',
+      'warning': '#f48b34',
+      'critical': '#e5004c',
+      'partition1': '#7425ad',
+      'partition9': '#5216ac',
+      'partition10': '#5bba36',
+      'partition11': '#014272',
+      'partition12': '#ffb000',
+      'partition13': '#bdbec0',
+      'partition14': '#271782',
+      'social-chart-node': '#ff00ff',
+      'social-chart-edge': '#ff00f'
+    }
+  }
 };
 
 /***/ }),
