@@ -1,9 +1,6 @@
 import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { ResizeService } from '../../../directives/resize/index';
 import { VirtualScrollCellDirective } from './directives/virtual-scroll-cell.directive';
 import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';

@@ -1,13 +1,7 @@
 
 import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { of } from 'rxjs/observable/of';
+import { BehaviorSubject, from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
 import { auditTime, combineLatest, filter as filterOperator, first, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
 import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.directive';
 

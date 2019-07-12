@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 import { SearchBuilderFocusService } from '../search-builder-focus.service';
 import { SearchBuilderGroupService } from './search-builder-group.service';

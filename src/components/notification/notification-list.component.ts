@@ -1,8 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, QueryList, ViewChildren } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { tick } from '../../common/index';
 import { NotificationListDirection, NotificationRef, NotificationService } from './notification.service';
 

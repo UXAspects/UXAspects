@@ -1,8 +1,7 @@
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Renderer2 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { FocusIndicatorOptions } from './focus-indicator-options.interface';
 import { FocusIndicatorOriginService } from './focus-indicator-origin/focus-indicator-origin.service';
 

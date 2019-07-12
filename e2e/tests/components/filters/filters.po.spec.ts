@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { $, $$, browser, by, element, ElementFinder } from 'protractor';
 
 export class FiltersPage {
 
@@ -25,11 +25,11 @@ export class FiltersPage {
     }
 
     confirmAuthorsAreFiltered() {
-        return this.confirmClassExists(this.getAuthorMenu(), 'active');
+        return this.confirmClassExists(this.getAuthorMenuBtn(), 'active');
     }
 
     confirmStatusIsFiltered() {
-        return this.confirmClassExists(this.getStatusMenu(), 'active');
+        return this.confirmClassExists(this.getStatusMenuBtn(), 'active');
     }
 
     confirmFilterItemIsHighlighted(index: number) {
@@ -37,21 +37,19 @@ export class FiltersPage {
     }
 
     confirmAuthorMenuIsExpanded() {
-        return this.authorMenu.$('div.open').isPresent();
+        return $('.ux-dynamic-filter-menu').isPresent();
     }
 
     confirmStatusMenuIsExpanded() {
-        return this.statusMenu.$('div.open').isPresent();
+        return $('.ux-filter-menu').isPresent();
     }
 
     confirmAuthorMenuItemCheckExists(index: number) {
-        return this.authorMenu.$$('.dropdown-list-item').get(index).
-            $('a.dropdown-item').$('i.hpe-checkmark').isPresent();
+        return $('.ux-dynamic-filter-menu').$$('.ux-menu-item').get(index).$('i.hpe-checkmark').isPresent();
     }
 
     confirmStatusMenuItemCheckExists(index: number) {
-        return this.statusMenu.$$('li.dropdown-list-item').get(index).
-            $('a.dropdown-item').$('i.hpe-checkmark').isPresent();
+        return $('.ux-filter-menu').$$('.ux-menu-item').get(index).$('i.hpe-checkmark').isPresent();
     }
 
     confirmClearAllIsVisible() {
@@ -64,30 +62,28 @@ export class FiltersPage {
 
 
     // get item
-    getAuthorMenu() {
+    getAuthorMenuBtn() {
         return this.authorMenu.$('button.filter-dropdown');
     }
 
     getAuthorMenuItem(index: number) {
-        return this.authorMenu.$('div.btn-group').$('.dropdown-menu').$$('li.dropdown-list-item').get(index).
-            $('a.dropdown-item').$('span.filter-dropdown-title');
+        return $('.ux-dynamic-filter-menu').$$('.ux-menu-item').get(index).$('.filter-dropdown-title');
     }
 
-    getStatusMenu() {
+    getStatusMenuBtn() {
         return this.statusMenu.$('div.btn-group').$('button.filter-dropdown');
     }
 
     getStatusMenuItem(index: number) {
-        return this.statusMenu.$('div.btn-group').$('.dropdown-menu').$$('li.dropdown-list-item').get(index).
-            $('a.dropdown-item').$('span.filter-dropdown-title');
+        return $('.ux-filter-menu').$$('.ux-menu-item').get(index).$('.filter-dropdown-title');
     }
 
     getFilter() {
-        return this.authorMenu.$('div.btn-group').$('.dropdown-menu').$('li.typeahead-box').$('input.form-control');
+        return $('.ux-dynamic-filter-menu').$('.typeahead-box').$('input.form-control');
     }
 
     getFilterItem(index: number) {
-        return this.authorMenu.$('div.btn-group').$('.dropdown-menu').$('li.typeahead-box').
+        return $('.ux-dynamic-filter-menu').$('.typeahead-box').
             $('.ux-typeahead-options').$$('li').get(index);
     }
 
@@ -129,7 +125,7 @@ export class FiltersPage {
 
     // click
     clickOnAuthorMenu() {
-        return this.getAuthorMenu().click();
+        return this.getAuthorMenuBtn().click();
     }
 
     clickOnAuthorMenuItem(index: number) {
@@ -145,7 +141,7 @@ export class FiltersPage {
     }
 
     clickOnStatusMenu() {
-        return this.getStatusMenu().click();
+        return this.getStatusMenuBtn().click();
     }
 
     clickOnStatusMenuItem(index: number) {
@@ -163,10 +159,14 @@ export class FiltersPage {
     }
 
     getNumberOfFilterItems() {
-        return this.authorMenu.$('.ux-typeahead-options').$$('li').count();
+        return $('.ux-dynamic-filter-menu').$('.ux-typeahead-options').$$('li').count();
     }
 
     hoverOverFilterItem(index: number) {
         browser.actions().mouseMove(this.getFilterItem(index)).perform();
+    }
+
+    async closeMenus() {
+        return $$('.cdk-overlay-backdrop.cdk-overlay-backdrop-showing').click();
     }
 }

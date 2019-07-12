@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { compareDays, isDateAfter, isDateBefore } from '../date-time-picker/date-time-picker.utils';
 
 export class DateRangeService {

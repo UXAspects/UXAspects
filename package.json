@@ -67,7 +67,9 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "0.10.6",
     "@angular-devkit/build-optimizer": "^0.10.5",
-    "@angular/cdk": "^5.2.5",
+    "@angular/cdk": "^6.4.7",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
     "@ngtools/webpack": "7.0.5",
     "@types/chance": "0.7.35",
     "@types/chart.js": "^2.7.45",

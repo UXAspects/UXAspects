@@ -1,7 +1,9 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FocusIndicatorOriginService {
 
     /** Store the most recent origin event */

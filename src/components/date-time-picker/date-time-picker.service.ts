@@ -1,9 +1,7 @@
 import { WeekDay } from '@angular/common';
 import { Injectable, OnDestroy, Optional } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
 

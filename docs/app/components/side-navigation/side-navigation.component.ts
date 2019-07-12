@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
 

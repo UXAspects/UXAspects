@@ -1,6 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class ManagedFocusContainerService {

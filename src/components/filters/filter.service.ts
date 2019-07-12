@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { FilterAddEvent } from './events/filter-add-event';
 import { FilterEvent } from './events/filter-event';
 import { FilterRemoveAllEvent } from './events/filter-remove-all-event';

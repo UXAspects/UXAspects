@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export class TreeGridState {
     readonly loading$ = new BehaviorSubject<boolean>(false);

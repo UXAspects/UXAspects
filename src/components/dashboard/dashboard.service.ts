@@ -1,8 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';

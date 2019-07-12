@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { HoverActionService } from './hover-action.service';
 

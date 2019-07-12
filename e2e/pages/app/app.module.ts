@@ -151,7 +151,7 @@ const routes: Routes = [
     },
     {
         path: 'spark',
-        loadChildren: './spark/spark.module#SparkTestPageModule',
+        loadChildren: './spark/spark.module#SparkTestPageModule'
     },
     {
         path: 'splitter',

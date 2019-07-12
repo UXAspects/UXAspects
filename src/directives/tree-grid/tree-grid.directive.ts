@@ -2,7 +2,7 @@ import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { TreeGridItem } from './tree-grid-item.interface';
 import { TreeGridLoadFunction } from './tree-grid-load-function.type';
 import { TreeGridService } from './tree-grid.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive({

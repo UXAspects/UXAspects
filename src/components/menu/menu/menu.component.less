@@ -1,0 +1,20 @@
+.ux-menu {
+    display: inline-block;
+    background-color: @dropdown-bg;
+    color: @dropdown-color;
+    box-shadow: 0 0 3px @dropdown-shadow;
+    border-radius: 2px;
+    transform-origin: top center;
+    z-index: @dropdown-menu-z-index;
+    min-width: 160px;
+    overflow: hidden;
+    margin-top: 5px;
+
+    &.ux-sub-menu {
+        margin-top: 0;
+    }
+
+    &.ux-menu-placement-top {
+        transform-origin: bottom center;
+    }
+}

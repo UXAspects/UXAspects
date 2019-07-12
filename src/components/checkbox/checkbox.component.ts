@@ -1,7 +1,7 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const CHECKBOX_VALUE_ACCESSOR: any = {
+export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => CheckboxComponent),
     multi: true
@@ -14,7 +14,7 @@ let uniqueCheckboxId = 0;
     templateUrl: './checkbox.component.html',
     providers: [CHECKBOX_VALUE_ACCESSOR]
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent<T = number> implements ControlValueAccessor {
 
     private _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
 
@@ -40,7 +40,7 @@ export class CheckboxComponent implements ControlValueAccessor {
      * If `value` is set to the indeterminate value specified using this attribute, it will neither
      * display the checkbox as checked or unchecked, and will instead show the indeterminate variation.
      */
-    @Input() indeterminateValue: any = -1;
+    @Input() indeterminateValue: T | number = -1;
 
     /** Specify if the checkbox should be disabled. */
     @Input() disabled: boolean = false;
@@ -52,7 +52,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     @Input('aria-labelledby') ariaLabelledby: string = null;
 
     /** Emits when `value` has been changed. */
-    @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() valueChange = new EventEmitter<boolean | T>(false);
 
     /** Determines if the checkbox should be checked, unchecked or indeterminate. */
     @Input()
@@ -60,14 +60,14 @@ export class CheckboxComponent implements ControlValueAccessor {
         return this._value;
     }
 
-    set value(value: any) {
+    set value(value: boolean | T) {
         this._value = value;
 
         // determine if it is in the indeterminate state
         this.indeterminate = this._value === this.indeterminateValue;
 
         // determine the checked state
-        this.ariaChecked = this.indeterminate ? 'mixed' : this._value;
+        this.ariaChecked = this.indeterminate ? 'mixed' : this._value as boolean;
 
         // invoke change event
         this.valueChange.emit(this._value);
@@ -81,14 +81,14 @@ export class CheckboxComponent implements ControlValueAccessor {
         return `${this.id || this._checkboxId}-input`;
     }
 
-    private _value: any = false;
+    private _value: boolean | T = false;
 
     indeterminate: boolean = false;
     ariaChecked: boolean | string;
     focused: boolean = false;
 
     onTouchedCallback: () => void = () => { };
-    onChangeCallback: (_: any) => void = () => { };
+    onChangeCallback: (_: boolean | T) => void = () => { };
 
     toggle(): void {
 
@@ -107,17 +107,17 @@ export class CheckboxComponent implements ControlValueAccessor {
 
     // Functions required to update ngModel
 
-    writeValue(value: any): void {
+    writeValue(value: boolean | T): void {
         if (value !== this._value) {
             this._value = value;
         }
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: (_: boolean | T) => void): void {
         this.onChangeCallback = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: () => void): void {
         this.onTouchedCallback = fn;
     }
 

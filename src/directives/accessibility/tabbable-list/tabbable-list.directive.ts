@@ -1,7 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit, ContentChildren, Directive, ElementRef, Input, OnDestroy, QueryList } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { TabbableListItemDirective } from './tabbable-list-item.directive';
 import { TabbableListService } from './tabbable-list.service';
 

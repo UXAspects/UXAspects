@@ -1,13 +1,10 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ColorService } from '../../services/color/index';
 
-/**
- * @todo Once Angular 5 support is dropped this service should be
- * changed to `providedIn: 'root` to ensure there is only
- * a single instance for the entire application
- */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NotificationService {
 
     /**

@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FilterRemoveAllEvent } from '../events/filter-remove-all-event';
 import { FilterService } from '../filter.service';
 import { Filter } from '../interfaces/filter.interface';

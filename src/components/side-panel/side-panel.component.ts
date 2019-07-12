@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { sidePanelStateAnimation, SidePanelAnimationState } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
 

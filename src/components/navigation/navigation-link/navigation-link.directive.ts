@@ -2,7 +2,7 @@ import { LocationStrategy } from '@angular/common';
 import { ChangeDetectorRef, Directive, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { tick } from '../../../common/index';
 import { NavigationItem, NavigationItemRouterOptions } from '../navigation-item.inferface';
 import { NavigationModuleOptions, NAVIGATION_MODULE_OPTIONS } from '../navigation-options';

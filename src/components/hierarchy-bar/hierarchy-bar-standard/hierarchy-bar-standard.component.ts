@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
 import { HierarchyBarService } from '../hierarchy-bar.service';
 import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';

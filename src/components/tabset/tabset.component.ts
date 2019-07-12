@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
 import { takeUntil } from 'rxjs/operators';

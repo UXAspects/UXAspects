@@ -1,8 +1,7 @@
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadService } from './typeahead.service';
@@ -205,7 +204,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     optionClickHandler(_event: MouseEvent, option: TypeaheadVisibleOption<T>): void {
-        this.select(option);
+        this.select(option, 'mouse');
     }
 
     /**
@@ -265,9 +264,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /**
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
-    select(option: TypeaheadVisibleOption<T>): void {
+    select(option: TypeaheadVisibleOption<T>, origin?: FocusOrigin): void {
         if (!this.isDisabled(option)) {
-            this.optionSelected.emit(new TypeaheadOptionEvent(option.value));
+            this.optionSelected.emit(new TypeaheadOptionEvent(option.value, origin));
             this.highlighted$.next(null);
             this.open = false;
         }
@@ -322,7 +321,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     selectHighlighted(): void {
         if (this.highlighted) {
-            this.select({ value: this.highlighted, key: this.getKey(this.highlighted) });
+            this.select({ value: this.highlighted, key: this.getKey(this.highlighted) }, 'keyboard');
         }
     }
 

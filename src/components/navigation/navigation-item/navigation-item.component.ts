@@ -1,7 +1,7 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf } from '@angular/core';
 import { NavigationEnd, Router, UrlTree } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: '[ux-navigation-item]',

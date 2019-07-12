@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FocusIndicator, FocusIndicatorService } from '../accessibility/index';
 import { MenuNavigationService } from './menu-navigation.service';
 

@@ -3,7 +3,7 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from '../../common/testing/index';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';

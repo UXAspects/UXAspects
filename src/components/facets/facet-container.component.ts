@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { ReorderEvent } from '../../directives/reorderable/index';
 import { FacetClearButtonDirective } from './facet-clear-button/facet-clear-button.directive';
 import { FacetDeselect, FacetEvent } from './facet-events';

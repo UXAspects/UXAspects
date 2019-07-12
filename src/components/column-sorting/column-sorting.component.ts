@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrder, ColumnSortingState } from './column-sorting.directive';
 
 @Component({

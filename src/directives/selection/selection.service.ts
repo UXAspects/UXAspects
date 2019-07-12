@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { RowAltSelectionStrategy } from './strategies/row-alt-selection.strategy';
 import { RowSelectionStrategy } from './strategies/row-selection.strategy';
@@ -10,6 +9,7 @@ import { SimpleSelectionStrategy } from './strategies/simple-selection.strategy'
 @Injectable()
 export class SelectionService<T> implements OnDestroy {
 
+    /** Store the current set of selectable items and ensure an item can be focused */
     set dataset(dataset: ReadonlyArray<T>) {
         this._dataset = dataset;
         if (this._dataset.indexOf(this._active) === -1) {
@@ -17,28 +17,57 @@ export class SelectionService<T> implements OnDestroy {
         }
     }
 
+    /** Get the current set of selectable items */
     get dataset(): ReadonlyArray<T> {
         return this._dataset;
     }
 
+    /** The active selection strategy that defines how selections can be made */
     strategy: SelectionStrategy<T> = new SimpleSelectionStrategy<T>(this);
+
+    /** Define if selections can be performed on any items */
     isEnabled: boolean = true;
+
+    /** Define if the mouse can be used to perform selections */
     isClickEnabled: boolean = true;
+
+    /** Define if the keyboard can be used to perform selections */
     isKeyboardEnabled: boolean = true;
 
-    focus$ = new BehaviorSubject<T>(null);
-    active$ = new BehaviorSubject<T>(null);
-    selection$ = new BehaviorSubject<T[]>([]);
+    /** Define the currently focused item */
+    readonly focus$ = new BehaviorSubject<T>(null);
 
+    /** Define the currently active item */
+    readonly active$ = new BehaviorSubject<T>(null);
+
+    /** Store the current list of selected items as an array */
+    readonly selection$ = new BehaviorSubject<T[]>([]);
+
+    /** Store the active item */
     private _active: T;
+
+    /** Store the current set of selectable items */
     private _dataset: ReadonlyArray<T> = [];
-    private _selection = new Set();
+
+    /** Store the selection strategy that should be destroyed */
     private _strategyToDestroy: SelectionStrategy<T> = this.strategy;
 
+    /** Store the current selection in a set */
+    private readonly _selection = new Set<T>();
+
+    /** Store the current disabled items in a set */
+    private readonly _disabled = new Set<T>();
+
     ngOnDestroy(): void {
+        // destroy the active stategy
         if (this._strategyToDestroy) {
             this._strategyToDestroy.destroy();
         }
+
+        // complete all observables
+        this.focus$.complete();
+        this.active$.complete();
+        this.selection$.complete();
     }
 
     /**
@@ -46,6 +75,9 @@ export class SelectionService<T> implements OnDestroy {
      * to the list of selected items
      */
     select(...selections: T[]): void {
+
+        // filter out any disabled items
+        selections = selections.filter(item => !this._disabled.has(item));
 
         // add each selection to the set
         selections.forEach(selection => this._selection.add(selection));
@@ -58,6 +90,9 @@ export class SelectionService<T> implements OnDestroy {
      * Deselect all currently selected items and replace with a new selection
      */
     selectOnly(...selection: T[]): void {
+
+        // filter out any disabled items
+        selection = selection.filter(item => !this._disabled.has(item));
 
         // remove all currently selected items
         this._selection.clear();
@@ -73,6 +108,7 @@ export class SelectionService<T> implements OnDestroy {
      * Remove an item from the list of selected items
      */
     deselect(...selections: T[]): void {
+
         // remove each item from the set
         selections.forEach(selection => this._selection.delete(selection));
 
@@ -218,6 +254,17 @@ export class SelectionService<T> implements OnDestroy {
 
         // emit the selection change information
         this.selectionHasMutated();
+    }
+
+    /** Store the disabled state of an item */
+    setItemDisabled(item: T, isDisabled: boolean): void {
+
+        // update the internal list of disabled items
+        if (isDisabled && !this._disabled.has(item)) {
+            this._disabled.add(item);
+        } else if (!isDisabled) {
+            this._disabled.delete(item);
+        }
     }
 
     private selectionHasMutated(): void {

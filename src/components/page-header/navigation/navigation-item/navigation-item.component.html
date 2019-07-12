@@ -1,26 +1,16 @@
-<div *ngIf="item.children && item.children.length > 0 && !(secondary$ | async)"
-    dropdown
-    #menu="bs-dropdown"
-    [(isOpen)]="isOpen"
-    [isDisabled]="item.disabled"
-    container="body"
-    placement="bottom left">
+<div *ngIf="item.children && item.children.length > 0 && !(secondary$ | async)">
 
     <button #navigationBtn
         type="button"
         [tabindex]="_tabindex | async"
-        uxFocusIndicator
+        [uxMenuTriggerFor]="menu"
+        [disabled]="item.disabled"
         role="menuitem"
         class="horizontal-navigation-button"
+        [class.disabled]="item.disabled"
         [class.selected]="item.selected"
         [class.open]="isOpen"
-        aria-haspopup="true"
-        [attr.aria-expanded]="isOpen"
-        [attr.aria-selected]="item.selected"
-        dropdownToggle
-        uxMenuNavigationToggle
-        #button="uxMenuNavigationToggle"
-        [(menuOpen)]="isOpen">
+        [attr.aria-selected]="item.selected">
 
         <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
         <span class="navigation-item-label">{{ item?.title }}</span>
@@ -28,22 +18,17 @@
 
     </button>
 
-    <div *dropdownMenu
-        type="button"
-        role="menu"
-        class="dropdown-menu horizontal-navigation-dropdown-menu"
-        uxMenuNavigation
-        [toggleButton]="button"
-        toggleButtonPosition="top">
+    <ux-menu
+        #menu
+        menuClass="horizontal-navigation-dropdown-menu"
+        (opened)="isOpen = true"
+        (closed)="isOpen = false">
 
-        <div *ngFor="let item of item?.children" uxMenuNavigationItem (activated)="dropdownItem.focus()">
-            <ux-page-header-horizontal-navigation-dropdown-item
-                #dropdownItem="ux-page-header-horizontal-navigation-dropdown-item"
-                [item]="item">
-            </ux-page-header-horizontal-navigation-dropdown-item>
-        </div>
-
-    </div>
+        <ux-page-header-horizontal-navigation-dropdown-item
+            *ngFor="let item of item?.children"
+            [item]="item">
+        </ux-page-header-horizontal-navigation-dropdown-item>
+    </ux-menu>
 
 </div>
 
@@ -54,6 +39,7 @@
     [tabindex]="_tabindex | async"
     role="menuitem"
     class="horizontal-navigation-button"
+    [class.disabled]="item.disabled"
     [class.selected]="item.selected"
     [attr.aria-selected]="item.selected"
     (click)="select()"

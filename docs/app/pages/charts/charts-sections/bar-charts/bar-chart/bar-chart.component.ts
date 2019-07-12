@@ -89,7 +89,7 @@ export class ChartsBarChartComponent extends BaseDocumentationSection implements
                         return;
                     },
                     label: (item: Chart.ChartTooltipItem) => {
-                        return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
+                        return `x: ${item.xLabel}, y: ${item.yLabel}`;
                     }
                 },
                 displayColors: false

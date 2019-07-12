@@ -11,7 +11,7 @@ ux-filter-dropdown {
             text-decoration: none;
         }
 
-        &:focus {
+        &:focus.ux-focus-indicator.ux-focus-indicator-active {
             background-color: @filter-dropdown-focus-bg;
             border-radius: 0;
             border-color: @filter-dropdown-focus-border;
@@ -26,20 +26,18 @@ ux-filter-dropdown {
             font-size: 0.625rem;
         }
     }
+}
 
-    .dropdown-menu {
-        .dropdown-list-item {
-            .dropdown-item {
-                padding-left: 10px;
+.ux-filter-menu {
+    .ux-menu-item {
+        padding-left: 10px;
 
-                .hpe-icon {
-                    width: 16px;
-                }
+        .hpe-icon {
+            width: 16px;
+        }
 
-                .filter-dropdown-title {
-                    padding-left: 10px;
-                }
-            }
+        .filter-dropdown-title {
+            padding-left: 10px;
         }
     }
 }

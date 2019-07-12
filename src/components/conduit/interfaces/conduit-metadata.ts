@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { ConduitProperties } from './conduit-properties';
 
 export interface ConduitMetadata extends ConduitProperties {

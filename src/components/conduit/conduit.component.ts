@@ -1,5 +1,5 @@
 import { OnDestroy, OnInit, Optional } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { invokeSuperFunction } from './conduit-utils';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitProperties } from './interfaces/conduit-properties';

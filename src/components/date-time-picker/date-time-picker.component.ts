@@ -1,7 +1,7 @@
 import { WeekDay } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Optional, Output } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';

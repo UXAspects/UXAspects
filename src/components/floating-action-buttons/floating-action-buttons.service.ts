@@ -1,5 +1,5 @@
 import { Injectable, QueryList } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { AnchorPlacement } from '../tooltip/index';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 

@@ -15,6 +15,8 @@ ux-page-header-icon-menu {
             width: 100%;
             height: 100%;
             color: #fff;
+            background-color: transparent;
+            border: none;
             transition: background-color 0.3s ease-in-out;
 
             &:hover,
@@ -35,44 +37,36 @@ ux-page-header-icon-menu {
         right: 6px;
         top: 13px;
     }
+}
 
-    .dropdown-menu {
-        transform: translateX(-100%);
-        margin-left: 40px;
-        width: 310px;
+.ux-page-header-icon-menu {
+    width: 310px;
 
-        li {
-            &.dropdown-divider {
-                border-bottom: 1px solid #e5e5e5;
-            }
+    .ux-menu-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 20px;
+        min-height: 0;
+        font-size: 1rem;
 
-            a {
-                display: flex;
-                justify-content: space-between;
-                padding: 6px 20px;
-                min-height: 0;
-                font-size: 1rem;
-
-                &:focus {
-                    .native-focus-outline;
-                }
-
-                .hpe-icon {
-                    color: #888;
-                }
-
-                .dropdown-item-subtitle {
-                    font-size: 87%;
-                    color: #888;
-                }
-            }
+        &:focus {
+            .native-focus-outline;
         }
 
-        .dropdown-header {
-            padding: 3px 20px 8px;
-            margin: 4px;
-            font-size: 1rem;
-            cursor: default;
+        .hpe-icon {
+            color: #888;
         }
+
+        .dropdown-item-subtitle {
+            font-size: 87%;
+            color: #888;
+        }
+    }
+
+    .dropdown-header {
+        padding: 3px 20px 8px;
+        margin: 4px;
+        font-size: 1rem;
+        cursor: default;
     }
 }

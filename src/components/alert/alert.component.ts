@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Optional, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 import { AlertIconDirective } from './alert-icon.directive';
 
@@ -55,20 +55,9 @@ export class AlertComponent {
         return !!this.backgroundColor && !!this.foregroundColor;
     }
 
-    constructor(@Optional() private readonly colorService: ColorService) { }
+    constructor(private readonly colorService: ColorService) { }
 
     private getColor(color: string): string | null {
-
-        // if the color service is not imported in the application throw a warning
-        if (!this.colorService) {
-            /**
-             * @deprecated - remove once Angular 5 support is dropped - ColorService will change to
-             * be providedIn: 'root' which will not require a module import
-             */
-            console.warn('To specify an alert color please import the ColorServiceModule and specify the appropriate colorSet.');
-            return;
-        }
-
         // check if it is a color name from the color palette or just return the CSS color value
         return this.colorService.resolve(color);
     }

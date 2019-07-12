@@ -13,12 +13,11 @@ describe('Page Header Tests', () => {
     });
 
     it('should have correct initial states', async () => {
-
         // Initial values.
         expect(await page.confirmPageHeaderIsCondensed()).toBeFalsy();
-        expect<any>(await page.getABreadcrumb(0)).toEqual('Archive');
+        expect(await page.getABreadcrumb(0)).toEqual('Archive');
         expect(await page.confirmApplicationLogoIsPresent()).toBeTruthy();
-        expect<any>(await page.getApplicationLogoText()).toEqual('Home');
+        expect(await page.getApplicationLogoText()).toEqual('Home');
         expect(await page.confirmDropdownIsPresent()).toBeTruthy();
         expect(await page.confirmDropdownIsOpened()).toBeFalsy();
         expect(await page.confirmNotificationIconIsPresent()).toBeTruthy();
@@ -26,99 +25,100 @@ describe('Page Header Tests', () => {
 
     });
 
-    it('should display breadcrumbs when condensed', () => {
+    it('should display breadcrumbs when condensed', async () => {
 
-        page.toggleTheHeader();
-        expect<any>(page.getABreadcrumb(0)).toEqual('Archive');
-        expect<any>(page.getABreadcrumb(1)).toEqual('My Page');
-
-    });
-
-    it('should display an application logo and text when condensed', () => {
-
-        page.toggleTheHeader();
-        expect(page.confirmApplicationLogoIsPresent()).toBeTruthy();
-        expect<any>(page.getApplicationLogoText()).toEqual('Home');
+        await page.toggleTheHeader();
+        expect(await page.getABreadcrumb(0)).toEqual('Archive');
+        expect(await page.getABreadcrumb(1)).toEqual('My Page');
 
     });
 
-    it('should display the dropdown menu', () => {
+    it('should display an application logo and text when condensed', async () => {
 
-        expect(page.confirmDropdownIsPresent()).toBeTruthy();
-        page.openDropdown();
-        expect(page.confirmDropdownIsOpened()).toBeTruthy();
-
-    });
-
-    it('should display the dropdown menu when condensed', () => {
-
-        page.toggleTheHeader();
-        expect(page.confirmDropdownIsPresent()).toBeTruthy();
-        page.openDropdown();
-        expect(page.confirmDropdownIsOpened()).toBeTruthy();
+        await page.toggleTheHeader();
+        expect(await page.confirmApplicationLogoIsPresent()).toBeTruthy();
+        expect(await page.getApplicationLogoText()).toEqual('Home');
 
     });
 
-    it('should display the dropdown menu items', () => {
+    it('should display the dropdown menu', async () => {
 
-        expect(page.confirmDropdownIsPresent()).toBeTruthy();
-        page.openDropdown();
-        expect(page.confirmDropdownIsOpened()).toBeTruthy();
-        expect<any>(page.getFirstDropdownMenuItem(1)).toEqual('Pie Charts');
-        page.displaySecondDropdownMenu();
-        expect<any>(page.getSecondDropdownMenuItem(2)).toEqual('Monthly View');
+        expect(await page.confirmDropdownIsPresent()).toBeTruthy();
+        await page.openDropdown();
+        expect(await page.confirmDropdownIsOpened()).toBeTruthy();
 
     });
 
-    it('should display the dropdown menu items when condensed', () => {
+    it('should display the dropdown menu when condensed', async () => {
 
-        page.toggleTheHeader();
-        expect(page.confirmDropdownIsPresent()).toBeTruthy();
-        page.openDropdown();
-        expect(page.confirmDropdownIsOpened()).toBeTruthy();
-        expect<any>(page.getFirstDropdownMenuItem(1)).toEqual('Pie Charts');
-        page.displaySecondDropdownMenu();
-        expect<any>(page.getSecondDropdownMenuItem(2)).toEqual('Monthly View');
+        await page.toggleTheHeader();
+        expect(await page.confirmDropdownIsPresent()).toBeTruthy();
+        await page.openDropdown();
+        expect(await page.confirmDropdownIsOpened()).toBeTruthy();
 
     });
 
-    it('should display the notifications menu', () => {
+    it('should display the dropdown menu items', async () => {
 
-        expect(page.confirmNotificationIconIsPresent()).toBeTruthy();
-        page.openNotifications();
-        expect<any>(page.confirmNotificationsAreDisplayed()).toEqual(3);
+        expect(await page.confirmDropdownIsPresent()).toBeTruthy();
+        await page.openDropdown();
+        expect(await page.confirmDropdownIsOpened()).toBeTruthy();
 
-    });
-
-    it('should display the notifications menu when condensed', () => {
-
-        page.toggleTheHeader();
-        expect(page.confirmNotificationIconIsPresent()).toBeTruthy();
-        page.openNotifications();
-        expect<any>(page.confirmNotificationsAreDisplayed()).toEqual(3);
+        expect(await page.getFirstDropdownMenuItem(1)).toEqual('Pie Charts');
+        await page.displaySecondDropdownMenu();
+        expect(await page.getSecondDropdownMenuItem(2)).toEqual('Monthly View');
 
     });
 
-    it('should display the actions menu', () => {
+    it('should display the dropdown menu items when condensed', async () => {
 
-        expect(page.confirmActionsIconIsPresent()).toBeTruthy();
-        page.openActions();
-        expect<any>(page.confirmActionsAreDisplayed()).toEqual(4);
+        await page.toggleTheHeader();
+        expect(await page.confirmDropdownIsPresent()).toBeTruthy();
+        await page.openDropdown();
+        expect(await page.confirmDropdownIsOpened()).toBeTruthy();
+        expect(await page.getFirstDropdownMenuItem(1)).toEqual('Pie Charts');
+        await page.displaySecondDropdownMenu();
+        expect(await page.getSecondDropdownMenuItem(2)).toEqual('Monthly View');
 
     });
 
-    it('should display the actions menu when condensed', () => {
+    it('should display the notifications menu', async () => {
 
-        page.toggleTheHeader();
-        expect(page.confirmActionsIconIsPresent()).toBeTruthy();
-        page.openActions();
-        expect<any>(page.confirmActionsAreDisplayed()).toEqual(4);
+        expect(await page.confirmNotificationIconIsPresent()).toBeTruthy();
+        await page.openNotifications();
+        expect(await page.confirmNotificationsAreDisplayed()).toEqual(3);
+
+    });
+
+    it('should display the notifications menu when condensed', async () => {
+
+        await page.toggleTheHeader();
+        expect(await page.confirmNotificationIconIsPresent()).toBeTruthy();
+        await page.openNotifications();
+        expect(await page.confirmNotificationsAreDisplayed()).toEqual(3);
+
+    });
+
+    it('should display the actions menu', async () => {
+
+        expect(await page.confirmActionsIconIsPresent()).toBeTruthy();
+        await page.openActions();
+        expect(await page.confirmActionsAreDisplayed()).toEqual(3);
+
+    });
+
+    it('should display the actions menu when condensed', async () => {
+
+        await page.toggleTheHeader();
+        expect(await page.confirmActionsIconIsPresent()).toBeTruthy();
+        await page.openActions();
+        expect(await page.confirmActionsAreDisplayed()).toEqual(3);
 
     });
 
     it('should not show secondary navigation when nothing is selected', async () => {
         const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
-        expect<any>(secondaryNavigation.isPresent()).toBe(false);
+        expect(await secondaryNavigation.isPresent()).toBe(false);
     });
 
     it('should not show secondary navigation items when there is no children on the selected item', async () => {
@@ -133,8 +133,8 @@ describe('Page Header Tests', () => {
         const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
         const tabset = await secondaryNavigation.$('.nav-tabs');
 
-        expect<any>(await secondaryNavigation.isPresent()).toBe(false);
-        expect<any>(await tabset.isPresent()).toBe(false);
+        expect(await secondaryNavigation.isPresent()).toBe(false);
+        expect(await tabset.isPresent()).toBe(false);
     });
 
     it('should show secondary navigation items when there are children on the selected item', async () => {
@@ -150,11 +150,11 @@ describe('Page Header Tests', () => {
         const tabset = await secondaryNavigation.$('.nav-tabs');
         const tabs: ElementArrayFinder = await tabset.$$('li');
 
-        expect<any>(await secondaryNavigation.isPresent()).toBe(true);
-        expect<any>(await tabset.isPresent()).toBe(true);
+        expect(await secondaryNavigation.isPresent()).toBe(true);
+        expect(await tabset.isPresent()).toBe(true);
 
         // check the number of tabs are correct
-        expect<any>(tabs.length).toBe(3);
+        expect(tabs.length).toBe(3);
     });
 
     it('should align the tabset accordingly', async () => {

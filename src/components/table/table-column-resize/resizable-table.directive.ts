@@ -1,6 +1,6 @@
 import { AfterViewInit, ContentChildren, Directive, ElementRef, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { ResizeService } from '../../../directives/resize/index';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
 import { ResizableTableService } from './resizable-table.service';

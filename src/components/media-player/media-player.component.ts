@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
 import { MediaPlayerService } from './media-player.service';
 

@@ -1,5 +1,5 @@
 import { Component, ContentChild, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';

@@ -10,8 +10,11 @@ export class SelectionPage {
     row1 = element(by.id('row-1'));
     row2 = element(by.id('row-2'));
     row3 = element(by.id('row-3'));
+    row4 = element(by.id('row-4'));
     selectAllBtn = element(by.id('select-all'));
     deselectAllBtn = element(by.id('deselect-all'));
+    disableItemBtn = element(by.id('disable-item'));
+    rows: ElementFinder[] = [this.row0, this.row1, this.row2, this.row3];
 
     getPage(): void {
         browser.get('#/selection');
@@ -31,6 +34,10 @@ export class SelectionPage {
 
     async setRowAltMode() {
         return await this.rowAltMode.click();
+    }
+
+    async addDisabledItem() {
+        return await this.disableItemBtn.click();
     }
 
     async clickSelectRow(row: ElementFinder, shift: boolean = false, ctrl: boolean = false) {
@@ -82,4 +89,8 @@ export class SelectionPage {
         return btn.getAttribute('tabindex');
     }
 
+    async isRowSelected(row: ElementFinder): Promise<boolean> {
+        const classes = await row.getAttribute('class');
+        return classes.indexOf('ux-selection-selected') > -1;
+    }
 }

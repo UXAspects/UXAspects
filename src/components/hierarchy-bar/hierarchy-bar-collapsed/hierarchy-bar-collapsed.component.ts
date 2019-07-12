@@ -1,7 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { tick } from '../../../common/operators/index';
 import { ResizeService } from '../../../directives/resize/index';
 import { HierarchyBarService } from '../hierarchy-bar.service';

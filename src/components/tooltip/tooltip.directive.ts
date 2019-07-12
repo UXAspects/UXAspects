@@ -1,9 +1,8 @@
 import { HorizontalConnectionPos, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 

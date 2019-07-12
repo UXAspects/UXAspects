@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HierarchyBarNode, OrganizationChartConnector, OrganizationChartNode } from '@ux-aspects/ux-aspects';
 import { Chance } from 'chance';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';

@@ -8,7 +8,6 @@ const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -240,10 +239,6 @@ module.exports = {
         new DefinePlugin({
             VERSION: JSON.stringify(require('../src/package.json').version),
             PRODUCTION: true
-        }),
-
-        new CircularDependencyPlugin({
-            exclude: /[\\\/]node_modules[\\\/]/
         }),
     ],
 

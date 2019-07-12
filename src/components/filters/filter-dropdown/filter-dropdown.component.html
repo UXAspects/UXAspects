@@ -1,45 +1,24 @@
-<div class="btn-group" dropdown [autoClose]="true" #dropdown="bs-dropdown">
-
+<div class="btn-group">
     <button
         type="button"
-        uxFocusIndicator
-        [programmaticFocusIndicator]="false"
-        tabindex="0"
-        dropdownToggle
-        uxMenuNavigationToggle
-        #menuNavigationToggle="uxMenuNavigationToggle"
-        [(menuOpen)]="dropdown.isOpen"
-        aria-haspopup="true"
-        [attr.aria-expanded]="dropdown.isOpen"
         class="filter-dropdown btn dropdown-toggle"
-        [class.active]="selected !== initial">
-        {{ selected?.title }}
-        <span class="hpe-icon hpe-down"></span>
+        [class.active]="selected !== initial"
+        [uxMenuTriggerFor]="menu">
+
+        {{ selected?.title }} <span class="hpe-icon hpe-down"></span>
     </button>
 
-    <ul *dropdownMenu
-        uxMenuNavigation
-        [toggleButton]="menuNavigationToggle"
-        class="dropdown-menu" role="menu">
-
-        <li class="dropdown-list-item"
+    <ux-menu #menu menuClass="ux-filter-menu">
+        <button
+            type="button"
             *ngFor="let filter of filters"
-            role="none">
+            uxMenuItem
+            [attr.aria-selected]="filter === selected"
+            (click)="selectFilter(filter, $event)"
+            (keydown.enter)="selectFilter(filter, $event)">
 
-            <a class="dropdown-item"
-                uxFocusIndicator
-                [programmaticFocusIndicator]="true"
-                role="listitem"
-                tabindex="-1"
-                uxMenuNavigationItem
-                [attr.aria-selected]="filter === selected"
-                (click)="selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()"
-                (keydown.enter)="selectFilter(filter, $event); dropdown.hide(); menuNavigationToggle.focus()"
-                (keydown.escape)="menuNavigationToggle.focus()">
-
-                <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
-                <span class="filter-dropdown-title">{{ filter.name }}</span>
-            </a>
-        </li>
-    </ul>
+            <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+            <span class="filter-dropdown-title">{{ filter.name }}</span>
+        </button>
+    </ux-menu>
 </div>

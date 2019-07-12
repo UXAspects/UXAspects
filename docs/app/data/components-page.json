@@ -69,38 +69,17 @@
                     ]
                 },
                 {
-                    "title": "Dropdowns",
+                    "title": "Dropdown Menu",
                     "component": "ComponentsDropdownsComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/dropdowns",
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "dropdown, dropdownToggle, dropdownMenu"
+                            "content": "ux-menu, [uxMenuItem], [uxMenuTriggerFor]"
                         },
                         {
                             "title": "Module",
-                            "content": "BsDropdownModule"
-                        },
-                        {
-                            "title": "Import As",
-                            "content": "BsDropdownModule.forRoot()"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "ngx-bootstrap"
-                        },
-                        {
-                            "title": "Selector",
-                            "content": "uxMenuNavigation, uxMenuNavigationToggle, uxMenuNavigationItem"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "MenuNavigationModule"
-                        },
-                        {
-                            "title": "Library",
-                            "content": "@ux-aspects/ux-aspects"
+                            "content": "MenuModule"
                         }
                     ]
                 },

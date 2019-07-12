@@ -2,7 +2,9 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { ColorSet, colorSets, COLOR_SET_TOKEN } from './color-sets/index';
 import { ThemeColor } from './theme-color';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ColorService {
 
     /** Set the default theme to the Keppel colorset */

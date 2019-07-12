@@ -1,7 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChildren } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../facet-events';
 import { FacetService } from '../facet.service';
 import { Facet } from '../models/facet';

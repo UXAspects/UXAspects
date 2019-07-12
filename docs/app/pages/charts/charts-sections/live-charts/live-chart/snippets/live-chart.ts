@@ -96,7 +96,7 @@ export class AppComponent {
         });
     }
 
-    getRandomData(): { x: number, y: number}[] {
+    getRandomData(): { x: number, y: number }[] {
 
         if (this.livedata.length) {
             this.livedata = this.livedata.slice(1);

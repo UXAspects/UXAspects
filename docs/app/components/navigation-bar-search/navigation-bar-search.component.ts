@@ -1,9 +1,8 @@
 import { Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { ICategory } from '../../interfaces/ICategory';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ISearchResult } from '../../interfaces/ISearch';

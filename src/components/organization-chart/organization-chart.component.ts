@@ -7,8 +7,8 @@ import { event, select, Selection } from 'd3-selection';
 import { linkVertical } from 'd3-shape';
 import { transition } from 'd3-transition';
 import { zoom, ZoomBehavior, ZoomTransform, zoomTransform } from 'd3-zoom';
+import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { FocusIndicator, FocusIndicatorService } from '../../directives/accessibility/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
 
@@ -67,19 +67,19 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Output() transitionEnd = new EventEmitter<void>();
 
     /** Get the template for the node content */
-    @ContentChild('revealTemplate', { static: false } as any) revealTemplate: TemplateRef<any>;
+    @ContentChild('revealTemplate') revealTemplate: TemplateRef<any>;
 
     /** Get the template for the node content */
-    @ContentChild('nodeTemplate', { static: false } as any) nodeTemplate: TemplateRef<OrganizationChartNodeContext<T>>;
+    @ContentChild('nodeTemplate') nodeTemplate: TemplateRef<OrganizationChartNodeContext<T>>;
 
     /** Access the reveal button element */
-    @ViewChild('revealElement', { static: true } as any) revealElement: ElementRef;
+    @ViewChild('revealElement') revealElement: ElementRef;
 
     /** Access the container element for the links */
-    @ViewChild('links', { static: true } as any) linksContainer: ElementRef;
+    @ViewChild('links') linksContainer: ElementRef;
 
     /** Access the container element for the nodes */
-    @ViewChild('nodes', { static: true } as any) nodesContainer: ElementRef;
+    @ViewChild('nodes') nodesContainer: ElementRef;
 
     /** Store the internal selected node */
     private _selected: OrganizationChartNode<T>;

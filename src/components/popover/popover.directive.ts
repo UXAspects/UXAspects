@@ -2,7 +2,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 import { Overlay, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OverlayTrigger, TooltipDirective, TooltipService } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';

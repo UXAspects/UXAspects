@@ -20,27 +20,28 @@ module.exports = {
 
     externals: [
         /^@angular\//,
-        /^rxjs\//
+        /^rxjs\//,
+        /^angular-split/
     ],
 
     module: {
         rules: [{
-                test: /\.html$/,
-                use: 'raw-loader'
+            test: /\.html$/,
+            use: 'raw-loader'
+        }, {
+            test: /\.ts$/,
+            use: [{
+                loader: 'awesome-typescript-loader',
+                options: {
+                    configFileName: join(cwd(), 'src', 'tsconfig-build.json')
+                },
             }, {
-                test: /\.ts$/,
-                use: [{
-                    loader: 'awesome-typescript-loader',
-                    options: {
-                        configFileName: join(cwd(), 'src', 'tsconfig-build.json')
-                    },
-                }, {
-                    loader: 'angular2-template-loader'
-                }]
-            }, {
-                test: /\.less$/,
-                use: ['raw-loader', 'less-loader']
-            }
+                loader: 'angular2-template-loader'
+            }]
+        }, {
+            test: /\.less$/,
+            use: ['raw-loader', 'less-loader']
+        }
         ]
     },
 
@@ -48,6 +49,6 @@ module.exports = {
         new ContextReplacementPlugin(
             /(.+)?angular(\\|\/)core(.+)?/,
             join(cwd(), 'docs')
-        ),
+        )
     ]
 };

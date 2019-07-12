@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, QueryList, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
 import { DashboardLayoutData, DashboardService, defaultOptions } from './dashboard.service';
 import { DashboardGrabHandleDirective } from './grab-handle/grab-handle.directive';
