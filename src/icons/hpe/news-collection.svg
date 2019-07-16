@@ -1,0 +1,10 @@
+<svg id="Icons_stroked" data-name="Icons stroked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <title>news-collection</title>
+  <g id="news-collection">
+    <path d="M20.5,19H3.5A3.5,3.5,0,0,1,0,15.5V4H5V0H24V15.5A3.5,3.5,0,0,1,20.5,19ZM6.662,17H20.5A1.5,1.5,0,0,0,22,15.5V2H7V15.5A3.487,3.487,0,0,1,6.662,17ZM2,6v9.5a1.5,1.5,0,0,0,3,0V6Z"/>
+    <path d="M20,6H9V4H20Z"/>
+    <path d="M16,10H9V8h7Z"/>
+    <path d="M18,14H9V12h9Z"/>
+    <path d="M0,24l3-4,3,4H0m9,0h6l-3-4L9,24m9,0h6l-3-4-3,4"/>
+  </g>
+</svg>
