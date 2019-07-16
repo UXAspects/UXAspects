@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <title>save-filled</title>
+  <g id="save-filled">
+    <path d="M19,0H1A.9.9,0,0,0,0,1V23a.9.9,0,0,0,1,1H23a.9.9,0,0,0,1-1V5ZM6,3A.9.9,0,0,1,7,2H17a.9.9,0,0,1,1,1V9a.9.9,0,0,1-1,1H7A.9.9,0,0,1,6,9ZM20,22H4V15a.9.9,0,0,1,1-1H19a.9.9,0,0,1,1,1Z"/>
+    <path d="M16,9H12V3h4Z"/>
+  </g>
+</svg>

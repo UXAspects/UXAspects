@@ -897,6 +897,22 @@
             "classname": "hpe-new"
         },
         {
+            "name": "news-aggregation",
+            "classname": "hpe-news-aggregation"
+        },
+        {
+            "name": "news-collection",
+            "classname": "hpe-news-collection"
+        },
+        {
+            "name": "news-content",
+            "classname": "hpe-news-content"
+        },
+        {
+            "name": "news",
+            "classname": "hpe-news"
+        },
+        {
             "name": "next",
             "classname": "hpe-next"
         },
@@ -1059,6 +1075,14 @@
         {
             "name": "satellite",
             "classname": "hpe-satellite"
+        },
+        {
+            "name": "save-filled",
+            "classname": "hpe-save-filled"
+        },
+        {
+            "name": "save",
+            "classname": "hpe-save"
         },
         {
             "name": "schedule-clone",

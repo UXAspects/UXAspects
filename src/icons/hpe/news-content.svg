@@ -1,0 +1,14 @@
+<svg id="Icons_stroked" data-name="Icons stroked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <title>news-content</title>
+  <g id="news-content">
+    <rect x="15" y="4" width="5" height="6"/>
+    <path d="M5,0V19H19.5A4.481,4.481,0,0,0,24,14.5V0ZM22,14.5A2.362,2.362,0,0,1,19.5,17H7V2H22Z"/>
+    <rect x="9" y="4" width="4" height="2"/>
+    <rect x="9" y="8" width="4" height="2"/>
+    <rect x="9" y="12" width="11" height="2"/>
+    <polygon points="0 17 4 14 0 11 0 17"/>
+    <polygon points="0 8 4 5 0 2 0 8"/>
+    <polygon points="16 24 22 24 19 20 16 24"/>
+    <polygon points="7 24 13 24 10 20 7 24"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <title>save</title>
+  <g id="save">
+    <path d="M22.1,24H1.9A2,2,0,0,1,0,22.1V1.9A2,2,0,0,1,1.9,0H18.8L24,5.2V22.1A2,2,0,0,1,22.1,24ZM20,22h2V6L19,3V9a2,2,0,0,1-2,2H7A2,2,0,0,1,5,9V2H2V22H4V15a2,2,0,0,1,2-2H18a2,2,0,0,1,2,2ZM6,22H18V15H6ZM7,2V9H17V2Z"/>
+    <path d="M15,8H11V3h4Z"/>
+  </g>
+</svg>

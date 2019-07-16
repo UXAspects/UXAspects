@@ -21,7 +21,7 @@ export class CssUxIconsComponent {
     uxIcons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/ux-icons.json').icons;
 
     /** Store the hpe-icon set */
-    hpeIcons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/iconset.json').icons;
+    hpeIcons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/hpe-icons.json').icons;
 
     /** Store the filtered icons to display */
     icons: ReadonlyArray<IIcon> = this.getIconset();
