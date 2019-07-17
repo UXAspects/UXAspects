@@ -149,15 +149,7 @@ export class PageHeaderComponent {
 
     constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
 
-    goBack(): void {
-        this.backClick.emit();
-    }
-
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);
-    }
-
-    logoClicked(): void {
-        this.logoClick.emit();
     }
 }
