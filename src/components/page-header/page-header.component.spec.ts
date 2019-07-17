@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed} from "@angular/core/testing";
-import {PageHeaderModule} from "./page-header.module";
-import {Component, } from "@angular/core";
-import {RouterModule} from "@angular/router";
-import {APP_BASE_HREF} from "@angular/common";
+import { ComponentFixture, TestBed} from '@angular/core/testing';
+import { PageHeaderModule } from './page-header.module';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 @Component({
     selector: 'app-page-header-test',
@@ -17,9 +17,9 @@ import {APP_BASE_HREF} from "@angular/common";
 })
 export class PageHeaderTestComponent {
 
-    onLogoClick() :void {}
+    onLogoClick(): void {}
 
-    onBackClick() :void {}
+    onBackClick(): void {}
 }
 
 describe('Page Header Component', () => {
@@ -80,7 +80,7 @@ describe('Page Header Component', () => {
 
     it ('should have a product header of UX', () => {
 
-        //Checks that the page header us 'UX'
+        // Checks that the page header us 'UX'
         const pageHeader: HTMLElement = nativeElement.querySelector('.page-header-acronym');
         expect(pageHeader.textContent).toContain('UX');
     });
