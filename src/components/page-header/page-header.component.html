@@ -3,7 +3,7 @@
     <div *ngIf="!condensed" class="page-header-content">
 
         <!-- Logo/product acronym -->
-        <div class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground">
+        <div uxFocusIndicator class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClicked()">
             <img *ngIf="logo" [attr.src]="logo" [alt]="header" class="page-header-logo">
             <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
         </div>
