@@ -3,7 +3,7 @@
     <div *ngIf="!condensed" class="page-header-content">
 
         <!-- Logo/product acronym -->
-        <div class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground">
+        <div uxFocusIndicator tabindex="0" class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
             <img *ngIf="logo" [attr.src]="logo" [alt]="header" class="page-header-logo">
             <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
         </div>
@@ -17,7 +17,7 @@
         <div class="page-header-state-container" role="navigation">
 
             <!-- Back button -->
-            <button *ngIf="backVisible === true" uxFocusIndicator type="button" class="page-header-back-button" (click)="goBack()" aria-label="Go Back">
+            <button *ngIf="backVisible === true" uxFocusIndicator type="button" class="page-header-back-button" (click)="backClick.emit($event)" aria-label="Go Back">
                 <span class="hpe-icon hpe-previous text-primary"></span>
             </button>
 

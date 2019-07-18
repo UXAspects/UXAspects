@@ -123,7 +123,10 @@ export class PageHeaderComponent {
     }
 
     /** Emit whenever the back button is clicked */
-    @Output() backClick = new EventEmitter();
+    @Output() backClick = new EventEmitter<MouseEvent>();
+
+    /** Emit whenever the product logo in the left corner is clicked. */
+    @Output() logoClick = new EventEmitter<MouseEvent>();
 
     /** @deprecated - Access a custom template title. Use subheaderTemplate instead */
     @ContentChild('title') titleTemplate: TemplateRef<any>;
@@ -145,10 +148,6 @@ export class PageHeaderComponent {
     private _logoForeground: string;
 
     constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
-
-    goBack(): void {
-        this.backClick.emit();
-    }
 
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);
