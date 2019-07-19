@@ -7,7 +7,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-tags',
-    templateUrl: 'tags.component.html'
+    templateUrl: 'tags.component.html',
+    styleUrls: ['./tags.component.less'],
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
 export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
@@ -22,6 +23,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
 
     addOnPaste: boolean = true;
     disabled: boolean = false;
+    addTagIcon: boolean = false;
     enforceTagLimits: boolean = false;
     freeInput: boolean = true;
     minTags: number = 1;
@@ -51,7 +53,8 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
     playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
             imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule', 'AccordionModule'],
