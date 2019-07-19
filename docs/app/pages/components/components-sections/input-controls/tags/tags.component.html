@@ -43,14 +43,17 @@
         <ux-accordion>
             <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="addOnPaste">addOnPaste</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="enforceTagLimits">enforceTagLimits</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="addTagIcon">addTagIcon</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -106,7 +109,7 @@
 </div>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>
+    <i class="ux-icon ux-icon-tag tag-padding" *ngIf="addTagIcon"></i>
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
     <button *ngIf="api.canRemoveTagAt(index)"
             uxFocusIndicator
@@ -114,7 +117,7 @@
             class="ux-tag-remove"
             [disabled]="disabled"
             (click)="api.removeTagAt(index); $event.stopPropagation();">
-        <i class="hpe-icon hpe-close"></i>
+        <i class="ux-icon ux-icon-close"></i>
     </button>
 </ng-template>
 

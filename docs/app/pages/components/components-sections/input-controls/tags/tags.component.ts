@@ -7,7 +7,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-tags',
-    templateUrl: 'tags.component.html'
+    templateUrl: 'tags.component.html',
+    styleUrls: ['tags.component.less'],
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
 export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
@@ -22,6 +23,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
 
     addOnPaste: boolean = true;
     disabled: boolean = false;
+    addTagIcon: boolean = false;
     enforceTagLimits: boolean = false;
     freeInput: boolean = true;
     minTags: number = 1;
