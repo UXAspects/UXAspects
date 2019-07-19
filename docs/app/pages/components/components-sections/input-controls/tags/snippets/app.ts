@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
     tags = ['Alpha', 'Beta', 'Kappa'];
@@ -15,6 +16,7 @@ export class AppComponent {
 
     addOnPaste: boolean = true;
     disabled: boolean = false;
+    addTagIcon: boolean = false;
     enforceTagLimits: boolean = false;
     freeInput: boolean = true;
     minTags: number = 1;

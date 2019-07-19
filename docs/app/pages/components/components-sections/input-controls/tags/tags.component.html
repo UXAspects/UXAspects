@@ -109,7 +109,7 @@
 </div>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <i class="ux-icon ux-icon-tag tag-padding" *ngIf="addTagIcon"></i>
+    <i class="ux-icon ux-icon-tag" *ngIf="addTagIcon"></i>
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
     <button *ngIf="api.canRemoveTagAt(index)"
             uxFocusIndicator
