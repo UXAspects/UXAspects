@@ -1,7 +1,6 @@
 import { WeekDay } from '@angular/common';
 import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator, DateTimePickerTimezone, meridians, months, monthsShort, timezones, weekdaysShort } from './date-time-picker.utils';
 
@@ -56,7 +55,7 @@ export class DateTimePickerService implements OnDestroy {
     constructor(@Optional() private _config: DateTimePickerConfig) {
 
         // when the active date changes set the currently selected date
-        this._subscription = this.selected$.pipe(distinctUntilChanged(dateComparator)).subscribe(date => {
+        this._subscription = this.selected$.subscribe(date => {
 
             // the month and year displayed in the viewport should reflect the newly selected items
             if (date instanceof Date) {
@@ -64,8 +63,10 @@ export class DateTimePickerService implements OnDestroy {
                 this.setViewportYear(date.getFullYear());
             }
 
-            // emit the new date to the component host
-            this.date$.next(date);
+            // emit the new date to the component host but only if they are different
+            if (dateComparator(date, this.date$.value)) {
+                this.date$.next(date);
+            }
         });
     }
 
