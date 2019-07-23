@@ -122,6 +122,10 @@ export class PageHeaderComponent {
         console.warn(`The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.`);
     }
 
+    get _hasLogoClick(): boolean {
+        return this.logoClick.observers.length > 0;
+    }
+
     /** Emit whenever the back button is clicked */
     @Output() backClick = new EventEmitter<MouseEvent>();
 
@@ -151,9 +155,5 @@ export class PageHeaderComponent {
 
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);
-    }
-
-    get hasLogoClick(): boolean {
-        return this.logoClick.observers.length > 0;
     }
 }
