@@ -152,4 +152,8 @@ export class PageHeaderComponent {
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);
     }
+
+    get hasLogoClick(): boolean {
+        return this.logoClick.observers.length > 0;
+    }
 }
