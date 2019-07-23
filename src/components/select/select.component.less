@@ -15,8 +15,6 @@ ux-select {
     }
 
     .ux-select-container {
-        position: relative;
-
         > input[readonly]:not(:disabled) {
             background-color: @form-control-bg;
             color: @form-control-color;
@@ -28,6 +26,14 @@ ux-select {
                 .placeholder(@form-control-placeholder-color);
             }
         }
+    }
+}
+
+ux-select,
+ux-combobox,
+ux-dropdown {
+    .ux-select-container {
+        position: relative;
 
         &.disabled {
             .ux-select-icons,
@@ -53,28 +59,25 @@ ux-select {
                     margin-right: 5px;
                 }
             }
-        }
-    }
-}
 
-ux-select,
-ux-combobox,
-ux-dropdown {
-    .ux-select-icon {
-        cursor: pointer;
+            .ux-select-icon {
+                cursor: pointer;
 
-        > .hpe-icon,
-        > .ux-icon,
-        > ux-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 16px;
-            height: 16px;
+                > .hpe-icon,
+                > .ux-icon,
+                > ux-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 16px;
+                    height: 16px;
+                    line-height: 16px;
+                }
+            }
         }
     }
 
-    &.ux-select-disabled {
+    &.ux-select-disabled .ux-select-container .ux-select-icons {
         .ux-select-icon,
         ux-tag-input .ux-tag-icons .ux-tag-icon,
         ux-tag-input .ux-tag-icons .ux-select-icon {
