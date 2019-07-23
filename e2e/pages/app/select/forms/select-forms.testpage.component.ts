@@ -1,12 +1,12 @@
-import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-select-forms',
     templateUrl: './select-forms.testpage.component.html'
 })
 export class SelectFormsTestPageComponent implements OnInit {
-    
+
     // ux-select configuration properties
     options: string[] | Function;
     display: string = null;
@@ -19,6 +19,7 @@ export class SelectFormsTestPageComponent implements OnInit {
     dropdownOpen: boolean;
     maxHeight: string = '250px';
     placeholder = 'Select a country';
+    clearButton = false;
 
     private _pageSize = 20;
     get pageSize() {
@@ -73,7 +74,7 @@ export class SelectFormsTestPageComponent implements OnInit {
             return { id: i, name: option };
         });
     }
-    
+
     ngOnInit() {
         this.options = this.selectedDataSet();
     }
@@ -94,7 +95,7 @@ export class SelectFormsTestPageComponent implements OnInit {
 
         return promise;
     }
-    
+
     isFilterMatch(option: string, filter: string): boolean {
         if (!filter) {
             return true;

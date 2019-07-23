@@ -14,7 +14,9 @@ ux-select {
         word-break: break-all;
     }
 
-    .inner-addon {
+    .ux-select-container {
+        position: relative;
+
         > input[readonly]:not(:disabled) {
             background-color: @form-control-bg;
             color: @form-control-color;
@@ -26,17 +28,30 @@ ux-select {
                 .placeholder(@form-control-placeholder-color);
             }
         }
-    }
-
-    .right-addon {
-        .select-arrow {
-            cursor: pointer;
-            pointer-events: all;
-        }
 
         &.disabled {
-            .select-arrow {
-                cursor: default;
+            .ux-select-icons,
+            .ux-tag-icons {
+                .ux-select-icon,
+                .ux-tag-icon {
+                    cursor: default;
+                }
+            }
+        }
+
+        .ux-select-icons {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            .ux-select-icon {
+                cursor: pointer;
+                pointer-events: all;
+                padding: 10px 5px;
+
+                &:last-of-type {
+                    margin-right: 5px;
+                }
             }
         }
     }
@@ -46,22 +61,23 @@ ux-select,
 ux-combobox,
 ux-dropdown {
     .ux-select-icon {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-    }
-
-    .ux-select-icon > .hpe-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         cursor: pointer;
-        width: 16px;
-        height: 16px;
+
+        > .hpe-icon,
+        > .ux-icon,
+        > ux-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 16px;
+            height: 16px;
+        }
     }
 
     &.ux-select-disabled {
-        .ux-select-icon > .hpe-icon {
+        .ux-select-icon,
+        ux-tag-input .ux-tag-icons .ux-tag-icon,
+        ux-tag-input .ux-tag-icons .ux-select-icon {
             cursor: default;
         }
     }
