@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
     maxHeight: string = '250px';
     placeholder = 'Select a country';
     readonlyInput: boolean = false;
+    clearButton: boolean = false;
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();

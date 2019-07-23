@@ -12,7 +12,8 @@
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
-                [readonlyInput]="readonlyInput">
+                [readonlyInput]="readonlyInput"
+                [clearButton]="clearButton">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
@@ -74,6 +75,9 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [value]="pagingEnabled | async"
                             (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">

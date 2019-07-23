@@ -137,7 +137,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() readonlyInput: boolean = false;
 
     /** Determine if we should show the clear all button */
-    @Input() clearButton: boolean = true;
+    @Input() clearButton: boolean = false;
 
     /** Determine an aria label for the clear button */
     @Input() clearButtonAriaLabel: string = 'Reset selection';
