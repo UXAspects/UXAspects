@@ -73,7 +73,7 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     }
 
     /** get the icon definition based on the name and size specified */
-    private updateIcon(): void {
+    updateIcon(): void {
 
         // remove the current icon set and icon classes of the old icon.
         // note we are using the renderer and not HostBindings as a HostBinding

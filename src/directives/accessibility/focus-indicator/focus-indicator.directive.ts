@@ -1,6 +1,7 @@
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AccessibilityOptionsService } from '../options/accessibility-options.service';
 import { FocusIndicator } from './focus-indicator';
 import { LocalFocusIndicatorOptions } from './focus-indicator-options/focus-indicator-options';
@@ -114,6 +115,11 @@ export class FocusIndicatorDirective implements OnInit, OnDestroy {
         // unsubscribe from all observables
         this._onDestroy.next();
         this._onDestroy.complete();
+    }
+
+    /** Focus this element with a specific origin */
+    focus(origin?: FocusOrigin, options?: { preventScroll: boolean }): void {
+        this._focusIndicator.focus(origin, options);
     }
 
     /** Update the focus indicator with the latest options */
