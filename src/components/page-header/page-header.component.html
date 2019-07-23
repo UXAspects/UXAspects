@@ -3,7 +3,7 @@
     <div *ngIf="!condensed" class="page-header-content">
 
         <!-- Logo/product acronym -->
-        <div uxFocusIndicator tabindex="0" class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
+        <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0 : -1" [class.clickable]="_hasLogoClick" class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
             <img *ngIf="logo" [attr.src]="logo" [alt]="header" class="page-header-logo">
             <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
         </div>
