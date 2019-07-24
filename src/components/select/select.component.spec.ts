@@ -41,7 +41,7 @@ describe('Select Component', () => {
 
     it('should initialise', () => {
         expect(component).toBeTruthy();
-    })
+    });
 
     it('should not show the clear button by default in single select', () => {
         expect(getClearButton()).toBeFalsy();
