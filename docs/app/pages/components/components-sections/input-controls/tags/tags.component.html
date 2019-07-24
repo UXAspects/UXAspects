@@ -13,8 +13,7 @@
                 [placeholder]="placeholder"
                 [showTypeaheadOnClick]="showTypeaheadOnClick"
                 [tagDelimiters]="tagDelimiters"
-                [tagPattern]="tagPatternRegExp"
-                [tagTemplate]="demoTagTemplate">
+                [tagPattern]="tagPatternRegExp">
 
                 <ux-typeahead *ngIf="typeaheadEnabled"
                     [filter]="input"
@@ -194,8 +193,8 @@
         this expression will not be added as tags.
     </tr>
     <tr uxd-api-property name="tagTemplate" type="TemplateRef">
-        <span>A template which will be rendered as the content of each tag. The following context
-            properties are available in the template:</span>
+        <p>A template which will be rendered as the content of each tag. The following context
+            properties are available in the template:</p>
         <ul>
             <li><code>tag: any</code> - the string or custom object representing the tag.</li>
             <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag
@@ -204,6 +203,10 @@
             <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more
             information.</li>
         </ul>
+        <p>
+            The following code snippet shows how to use a custom template to display an icon alongside the tag text:
+        </p>
+        <uxd-snippet [content]="snippets.compiled.tagTemplateHtml"></uxd-snippet>
     </tr>
     <tr uxd-api-property name="tagClass" type="TagClassFunction">
         <p>A function which returns either a <code>string</code>, <code>string[]</code>, or

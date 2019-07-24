@@ -13,8 +13,7 @@
                 [placeholder]="placeholder"
                 [showTypeaheadOnClick]="showTypeaheadOnClick"
                 [tagDelimiters]="tagDelimiters"
-                [tagPattern]="tagPatternRegExp"
-                [tagTemplate]="demoTagTemplate">
+                [tagPattern]="tagPatternRegExp">
 
                 <ux-typeahead *ngIf="typeaheadEnabled"
                     [filter]="input"
@@ -105,15 +104,3 @@
         </div>
     </ux-accordion-panel>
 </ux-accordion>
-
-<ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <i class="ux-icon ux-icon-tag"></i>
-    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
-    <button *ngIf="api.canRemoveTagAt(index)"
-        uxFocusIndicator
-        type="button"
-        class="ux-tag-remove"
-        [disabled]="disabled"
-        (click)="api.removeTagAt(index); $event.stopPropagation();"
-        ><i class="ux-icon ux-icon-close"></i></button>
-</ng-template>
