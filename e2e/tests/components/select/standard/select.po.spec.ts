@@ -259,10 +259,6 @@ export class SelectPage {
         return this.waitForLoadingToFinish();
     }
 
-    async enableClearButton(): Promise<void> {
-        await this.checkboxClearButton.click();
-    }
-
     async getClearButton(isMultiple: boolean = false): Promise<ElementFinder> {
         return await this.dropdown.$(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
     }
