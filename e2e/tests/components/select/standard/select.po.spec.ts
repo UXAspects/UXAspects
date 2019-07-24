@@ -13,7 +13,6 @@ export class SelectPage {
     checkboxDisabled = element(by.id('checkbox2'));
     checkboxAllowNull = element(by.id('checkbox3'));
     checkboxPaging = element(by.id('checkbox4'));
-    checkboxClearButton = element(by.id('clear-button-checkbox'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
 
@@ -257,21 +256,5 @@ export class SelectPage {
                 $('ol').$$('li').last()).perform();
         }
         return this.waitForLoadingToFinish();
-    }
-
-    async getClearButton(isMultiple: boolean = false): Promise<ElementFinder> {
-        return await this.dropdown.$(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
-    }
-
-    async clickClearButton(isMultiple: boolean = false): Promise<void> {
-        const button = await this.getClearButton(isMultiple);
-
-        if (button) {
-            await button.click();
-        }
-    }
-
-    async isClearButtonPresent(isMultiple: boolean = false): Promise<boolean> {
-        return (await this.getClearButton(isMultiple)).isPresent();
     }
 }
