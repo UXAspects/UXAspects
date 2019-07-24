@@ -96,6 +96,15 @@ ux-tag-input {
                 }
             }
         }
+
+        &.ux-tag-input-icon-inset,
+        &.ux-tag-input-clear-inset {
+            padding-right: 32px;
+        }
+
+        &.ux-tag-input-icon-inset.ux-tag-input-clear-inset {
+            padding-right: 64px;
+        }
     }
 
     &.disabled {
@@ -108,5 +117,25 @@ ux-tag-input {
 
     &.invalid {
         border-color: @critical;
+    }
+
+    .ux-tag-icons {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        .ux-tag-icon,
+        .ux-select-icon {
+            cursor: pointer;
+            pointer-events: all;
+            padding: 9px 5px;
+            font-size: 16px;
+            line-height: 16px;
+
+            &:last-of-type {
+                margin-right: 5px;
+            }
+        }
     }
 }

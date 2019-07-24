@@ -1,12 +1,12 @@
-import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-select',
     templateUrl: './select.testpage.component.html'
 })
 export class SelectTestPageComponent implements OnInit {
-    
+
     // ux-select configuration properties
     options: string[] | Function;
     display: string = null;
@@ -73,7 +73,7 @@ export class SelectTestPageComponent implements OnInit {
             return { id: i, name: option };
         });
     }
-    
+
     ngOnInit() {
         this.options = this.selectedDataSet();
     }
@@ -94,7 +94,7 @@ export class SelectTestPageComponent implements OnInit {
 
         return promise;
     }
-    
+
     isFilterMatch(option: string, filter: string): boolean {
         if (!filter) {
             return true;

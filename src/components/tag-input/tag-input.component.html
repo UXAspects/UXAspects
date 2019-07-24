@@ -1,5 +1,7 @@
 <ol [attr.role]="typeahead ? 'combobox' : 'none'"
     [attr.aria-haspopup]="typeahead ? 'listbox' : null"
+    [class.ux-tag-input-clear-inset]="_showClearButton"
+    [class.ux-tag-input-icon-inset]="icon"
     (click)="toggle()">
 
     <li *ngFor="let tag of tags; let i = index" class="ux-tag"
@@ -36,12 +38,26 @@
 </ol>
 
 <!-- Insert the custom icon if provided -->
-<ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
+<div class="ux-tag-icons" *ngIf="icon || _showClearButton">
+
+    <!-- Clear All Button -->
+    <i uxFocusIndicator
+        class="ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon"
+        tabindex="0"
+        [attr.aria-label]="clearButtonAriaLabel"
+        *ngIf="_showClearButton"
+        (click)="clear(); $event.stopPropagation()"
+        (keydown.enter)="clear(); $event.stopPropagation()">
+    </i>
+
+    <!-- Custom Icon -->
+    <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
+</div>
 
 <ng-content #typeahead></ng-content>
 
 <ng-template #defaultTagTemplate let-tag="tag" let-index="index" let-disabled="disabled" let-api="api">
-    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
+    <span class="ux-tag-text">{{ api.getTagDisplay(tag) }}</span>
     <button *ngIf="api.canRemoveTagAt(index)"
         uxFocusIndicator
         type="button"

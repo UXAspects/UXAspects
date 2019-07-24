@@ -171,6 +171,12 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Define a custom icon to be used instead of the chevron */
     @Input() icon: TemplateRef<any>;
 
+    /** Determine if we should show the clear all button */
+    @Input() clearButton: boolean = false;
+
+    /** Determine an aria label for the clear button */
+    @Input() clearButtonAriaLabel: string = 'Reset selection';
+
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
 
@@ -211,6 +217,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     inputValid: boolean = true;
     typeahead: TypeaheadComponent;
     highlightedElement: HTMLElement;
+
+    get _showClearButton(): boolean {
+        return this.clearButton && this.tags && this.tags.length > 0;
+    }
 
     private _input: string = '';
     private _tags: ReadonlyArray<T> = [];
@@ -655,6 +665,15 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     toggle(): void {
         this.typeahead && this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
+    }
+
+    clear(): void {
+        if (this.disabled) {
+            return;
+        }
+
+        this.tags = [];
+        this.input = '';
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent): void {

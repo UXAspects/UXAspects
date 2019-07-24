@@ -12,11 +12,12 @@
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
-                [readonlyInput]="readonlyInput">
+                [readonlyInput]="readonlyInput"
+                [clearButton]="clearButton">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
-                        <i class="hpe-icon hpe-add"></i>
+                        <i class="ux-icon ux-icon-add"></i>
                     </div>
                 </ng-template>
             </ux-select>
@@ -56,6 +57,11 @@
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">

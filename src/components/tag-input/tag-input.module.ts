@@ -14,8 +14,11 @@ import { TagInputComponent } from './tag-input.component';
         FocusIfModule,
         TypeaheadModule
     ],
-    exports: [TagInputComponent],
-    declarations: [TagInputComponent],
-    providers: [],
+    exports: [
+        TagInputComponent
+    ],
+    declarations: [
+        TagInputComponent
+    ]
 })
 export class TagInputModule { }

@@ -33,7 +33,7 @@ export class SelectPage {
     }
 
     confirmDropdownIsExpanded() {
-        return this.dropdown.$('div.inner-addon').$('ux-typeahead.open').isPresent();
+        return this.dropdown.$('ux-typeahead.open').isPresent();
     }
 
     // use Truthy for "strings" button and Falsy for "objects" button
@@ -81,7 +81,7 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input').$$(this.dropdown.$('ux-tag-input').locator().value + ' > ol').get(0).
                 $('li.ux-tag-input').$('input.ux-tag-input');
         } else {
-            return this.dropdown.$('div.inner-addon').$('input.form-control');
+            return this.dropdown.$('input.form-control');
         }
     }
 
@@ -90,7 +90,7 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').get(index);
         } else {
-            return this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
         }
     }
 
@@ -99,7 +99,7 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').last();
         } else {
-            return this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').last();
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').last();
         }
     }
 
@@ -137,11 +137,11 @@ export class SelectPage {
 
     // click
     clickOnDropdown(allowMultiple: boolean) {
-        this.getDropdown(allowMultiple).click();
+        return this.getDropdown(allowMultiple).click();
     }
 
     clickOnCountry(allowMultiple: boolean, index: number) {
-        this.getCountry(allowMultiple, index).click();
+        return this.getCountry(allowMultiple, index).click();
     }
 
     clickOnStrings() {
@@ -199,7 +199,7 @@ export class SelectPage {
             browser.actions().mouseMove(this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').last()).perform();
         } else {
-            browser.actions().mouseMove(this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').
+            browser.actions().mouseMove(this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
                 $('ol').$$('li').last()).perform();
         }
     }
@@ -209,8 +209,8 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').count();
         } else {
-            return this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').
-                $$(this.dropdown.$('div.inner-addon').$('ux-typeahead').
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
+                $$(this.dropdown.$('ux-typeahead').
                     $('div.ux-typeahead-options').locator().value + ' > ol').get(0).$$('li').count();
         }
     }
@@ -242,7 +242,7 @@ export class SelectPage {
             browser.actions().click(this.dropdown.$('ux-tag-input').$$(this.dropdown.$('ux-tag-input').
                 locator().value + ' > ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input')).perform();
         } else {
-            browser.actions().click(this.dropdown.$('div.inner-addon').$('input.form-control')).perform();
+            browser.actions().click(this.dropdown.$('input.form-control')).perform();
         }
         return this.waitForLoadingToFinish();
     }
@@ -252,7 +252,7 @@ export class SelectPage {
             browser.actions().mouseMove(this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').
                 $('div.ux-typeahead-options').$('ol').$$('li').last()).perform();
         } else {
-            browser.actions().mouseMove(this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').
+            browser.actions().mouseMove(this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
                 $('ol').$$('li').last()).perform();
         }
         return this.waitForLoadingToFinish();

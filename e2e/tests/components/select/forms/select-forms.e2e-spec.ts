@@ -578,4 +578,5 @@ describe('Select (forms) Tests', () => {
         expect<any>(page.getNumberOfCountries(false)).toEqual(result);
 
     });
+
 });
