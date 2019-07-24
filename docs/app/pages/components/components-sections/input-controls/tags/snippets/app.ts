@@ -16,7 +16,6 @@ export class AppComponent {
 
     addOnPaste: boolean = true;
     disabled: boolean = false;
-    addTagIcon: boolean = false;
     enforceTagLimits: boolean = false;
     freeInput: boolean = true;
     minTags: number = 1;

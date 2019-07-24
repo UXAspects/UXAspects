@@ -42,17 +42,14 @@
 <ux-accordion>
     <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
         <div class="row">
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-4 col-sm-12">
                 <ux-checkbox [(value)]="addOnPaste">addOnPaste</ux-checkbox>
             </div>
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-4 col-sm-12">
                 <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
             </div>
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-4 col-sm-12">
                 <ux-checkbox [(value)]="enforceTagLimits">enforceTagLimits</ux-checkbox>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <ux-checkbox [(value)]="addTagIcon">addTagIcon</ux-checkbox>
             </div>
         </div>
         <div class="row m-t-md">
@@ -110,7 +107,7 @@
 </ux-accordion>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <i class="ux-icon ux-icon-tag" *ngIf="addTagIcon"></i>
+    <i class="ux-icon ux-icon-tag"></i>
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
     <button *ngIf="api.canRemoveTagAt(index)"
         uxFocusIndicator
