@@ -46,7 +46,8 @@
         tabindex="0"
         [attr.aria-label]="clearButtonAriaLabel"
         *ngIf="_showClearButton"
-        (click)="clear(); $event.stopPropagation()">
+        (click)="clear(); $event.stopPropagation()"
+        (keydown.enter)="clear(); $event.stopPropagation()">
     </i>
 
     <!-- Custom Icon -->

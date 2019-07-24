@@ -19,7 +19,6 @@ export class SelectFormsTestPageComponent implements OnInit {
     dropdownOpen: boolean;
     maxHeight: string = '250px';
     placeholder = 'Select a country';
-    clearButton = false;
 
     private _pageSize = 20;
     get pageSize() {

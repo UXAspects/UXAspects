@@ -69,7 +69,8 @@
            tabindex="0"
            [attr.aria-label]="clearButtonAriaLabel"
            class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
-           (click)="clear(); $event.stopPropagation()">
+           (click)="clear(); $event.stopPropagation()"
+           (keydown.enter)="clear(); $event.stopPropagation()">
         </i>
 
         <i *ngIf="!icon"
