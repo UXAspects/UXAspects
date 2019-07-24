@@ -41,15 +41,13 @@
 <div class="ux-tag-icons" *ngIf="icon || _showClearButton">
 
     <!-- Clear All Button -->
-    <ux-icon
-        uxFocusIndicator
-        class="ux-tag-icon"
+    <i uxFocusIndicator
+        class="ux-tag-icon ux-icon ux-icon-close"
         tabindex="0"
         [attr.aria-label]="clearButtonAriaLabel"
         *ngIf="_showClearButton"
-        name="close"
         (click)="clear(); $event.stopPropagation()">
-    </ux-icon>
+    </i>
 
     <!-- Custom Icon -->
     <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
-import { IconModule } from '../icon/index';
 import { TypeaheadModule } from '../typeahead/index';
 import { TagInputComponent } from './tag-input.component';
 
@@ -13,8 +12,7 @@ import { TagInputComponent } from './tag-input.component';
         CommonModule,
         FormsModule,
         FocusIfModule,
-        TypeaheadModule,
-        IconModule
+        TypeaheadModule
     ],
     exports: [
         TagInputComponent

@@ -64,22 +64,20 @@
         [readonly]="readonlyInput">
 
     <div class="ux-select-icons">
-        <ux-icon
-            uxFocusIndicator
-            tabindex="0"
-            [attr.aria-label]="clearButtonAriaLabel"
-            class="ux-select-icon"
-            *ngIf="clearButton && allowNull && value"
-            name="close"
-            (click)="clear(); $event.stopPropagation()">
-        </ux-icon>
+        <i *ngIf="clearButton && allowNull && value"
+           uxFocusIndicator
+           tabindex="0"
+           [attr.aria-label]="clearButtonAriaLabel"
+           class="ux-select-icon ux-icon ux-icon-close"
+           (click)="clear(); $event.stopPropagation()">
+        </i>
 
-        <ux-icon
-            *ngIf="!icon"
-            class="ux-select-icon"
-            [name]="dropDirection"
-            (click)="toggle(); $event.stopPropagation()">
-        </ux-icon>
+        <i *ngIf="!icon"
+           class="ux-select-icon ux-icon"
+           [class.ux-icon-up]="dropDirection === 'up'"
+           [class.ux-icon-down]="dropDirection === 'down'"
+           (click)="toggle(); $event.stopPropagation()">
+        </i>
     </div>
 
     <ux-typeahead #singleTypeahead
