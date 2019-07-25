@@ -1774,6 +1774,22 @@
                 this._onDestroy.next();
                 this._onDestroy.complete();
             };
+        /** Focus this element with a specific origin */
+        /**
+         * Focus this element with a specific origin
+         * @param {?=} origin
+         * @param {?=} options
+         * @return {?}
+         */
+        FocusIndicatorDirective.prototype.focus = /**
+         * Focus this element with a specific origin
+         * @param {?=} origin
+         * @param {?=} options
+         * @return {?}
+         */
+            function (origin, options) {
+                this._focusIndicator.focus(origin, options);
+            };
         /** Update the focus indicator with the latest options */
         /**
          * Update the focus indicator with the latest options
@@ -11618,14 +11634,16 @@
              */
             this.initialised = false;
             // when the active date changes set the currently selected date
-            this._subscription = this.selected$.pipe(operators.distinctUntilChanged(dateComparator)).subscribe(function (date) {
+            this._subscription = this.selected$.subscribe(function (date) {
                 // the month and year displayed in the viewport should reflect the newly selected items
                 if (date instanceof Date) {
                     _this.setViewportMonth(date.getMonth());
                     _this.setViewportYear(date.getFullYear());
                 }
-                // emit the new date to the component host
-                _this.date$.next(date);
+                // emit the new date to the component host but only if they are different
+                if (dateComparator(date, _this.date$.value)) {
+                    _this.date$.next(date);
+                }
             });
         }
         /**
@@ -31967,6 +31985,10 @@
              */
             this.backClick = new i0.EventEmitter();
             /**
+             * Emit whenever the product logo in the left corner is clicked.
+             */
+            this.logoClick = new i0.EventEmitter();
+            /**
              * The currently selected page header item
              */
             this.selected$ = this._pageHeaderService.selected$;
@@ -32112,15 +32134,15 @@
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        PageHeaderComponent.prototype.goBack = /**
-         * @return {?}
-         */
-            function () {
-                this.backClick.emit();
-            };
+        Object.defineProperty(PageHeaderComponent.prototype, "_hasLogoClick", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this.logoClick.observers.length > 0;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @param {?} item
          * @return {?}
@@ -32136,7 +32158,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-page-header',
                         exportAs: 'ux-page-header',
-                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
+                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0 : -1\" [class.clickable]=\"_hasLogoClick\" class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
                         providers: [PageHeaderService]
                     }] }
         ];
@@ -32167,6 +32189,7 @@
             familyBackground: [{ type: i0.Input }],
             familyForeground: [{ type: i0.Input }],
             backClick: [{ type: i0.Output }],
+            logoClick: [{ type: i0.Output }],
             titleTemplate: [{ type: i0.ContentChild, args: ['title',] }],
             subheaderTemplate: [{ type: i0.ContentChild, args: ['subheader',] }],
             customMenus: [{ type: i0.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: i0.TemplateRef },] }]
@@ -36327,6 +36350,14 @@
              */
             this.readonlyInput = false;
             /**
+             * Determine if we should show the clear all button
+             */
+            this.clearButton = false;
+            /**
+             * Determine an aria label for the clear button
+             */
+            this.clearButtonAriaLabel = 'Reset selection';
+            /**
              * Emits when `value` changes.
              */
             this.valueChange = new i0.EventEmitter();
@@ -36638,6 +36669,20 @@
         /**
          * @return {?}
          */
+        SelectComponent.prototype.clear = /**
+         * @return {?}
+         */
+            function () {
+                if (this.disabled) {
+                    return;
+                }
+                // clear the value and input text
+                this.value = null;
+                this.input = null;
+            };
+        /**
+         * @return {?}
+         */
         SelectComponent.prototype.selectInputText = /**
          * @return {?}
          */
@@ -36649,7 +36694,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"inner-addon right-addon\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <i *ngIf=\"!icon\"\r\n       class=\"hpe-icon select-arrow\"\r\n       [class.hpe-down]=\"dropDirection === 'down'\"\r\n       [class.hpe-up]=\"dropDirection === 'up'\"\r\n       (click)=\"toggle(); $event.stopPropagation()\">\r\n    </i>\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && value\"\r\n           uxFocusIndicator\r\n           tabindex=\"0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -36686,6 +36731,8 @@
             loadingTemplate: [{ type: i0.Input }],
             noOptionsTemplate: [{ type: i0.Input }],
             readonlyInput: [{ type: i0.Input }],
+            clearButton: [{ type: i0.Input }],
+            clearButtonAriaLabel: [{ type: i0.Input }],
             optionTemplate: [{ type: i0.Input }],
             valueChange: [{ type: i0.Output }],
             inputChange: [{ type: i0.Output }],
@@ -36831,6 +36878,14 @@
              */
             this.trackAriaDescendant = true;
             /**
+             * Determine if we should show the clear all button
+             */
+            this.clearButton = false;
+            /**
+             * Determine an aria label for the clear button
+             */
+            this.clearButtonAriaLabel = 'Reset selection';
+            /**
              * Emits when tags is changed.
              */
             this.tagsChange = new i0.EventEmitter();
@@ -36916,6 +36971,15 @@
              */ function (value) {
                 this._input = value;
                 this.inputChange.emit(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TagInputComponent.prototype, "_showClearButton", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this.clearButton && this.tags && this.tags.length > 0;
             },
             enumerable: true,
             configurable: true
@@ -37593,6 +37657,19 @@
                 this.typeahead && this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
             };
         /**
+         * @return {?}
+         */
+        TagInputComponent.prototype.clear = /**
+         * @return {?}
+         */
+            function () {
+                if (this.disabled) {
+                    return;
+                }
+                this.tags = [];
+                this.input = '';
+            };
+        /**
          * @param {?} typeahead
          * @return {?}
          */
@@ -37784,7 +37861,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n        class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n        tabindex=\"0\"\n        [attr.aria-label]=\"clearButtonAriaLabel\"\n        *ngIf=\"_showClearButton\"\n        (click)=\"clear(); $event.stopPropagation()\"\n        (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -37825,6 +37902,8 @@
             createTagHandler: [{ type: i0.Input, args: ['createTag',] }],
             trackAriaDescendant: [{ type: i0.Input }],
             icon: [{ type: i0.Input }],
+            clearButton: [{ type: i0.Input }],
+            clearButtonAriaLabel: [{ type: i0.Input }],
             tagsChange: [{ type: i0.Output }],
             inputChange: [{ type: i0.Output }],
             tagAdding: [{ type: i0.Output }],
@@ -37858,9 +37937,12 @@
                             FocusIfModule,
                             TypeaheadModule
                         ],
-                        exports: [TagInputComponent],
-                        declarations: [TagInputComponent],
-                        providers: [],
+                        exports: [
+                            TagInputComponent
+                        ],
+                        declarations: [
+                            TagInputComponent
+                        ]
                     },] }
         ];
         return TagInputModule;
@@ -37881,6 +37963,7 @@
         SelectModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             forms.FormsModule,
                             InfiniteScrollModule,

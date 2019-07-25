@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.0-51 
+* @ux-aspects/ux-aspects-docs - v1.8.1-55 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -25566,7 +25566,7 @@ function () {
     key: "onScroll",
     value: function onScroll() {
       // determine if we are scrolled to the bottom and if so load the next page
-      if (this._tableBody.scrollTop === this._tableBody.scrollHeight - this._tableBody.offsetHeight) {
+      if (this._tableBody.scrollTop === this._tableBody.scrollHeight - this._tableBody.clientHeight) {
         this.requestPage();
       }
     }
