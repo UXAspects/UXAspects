@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ICategory } from '../../interfaces/ICategory';
@@ -9,7 +9,7 @@ import { VersionService } from '../../services/version/version.service';
     selector: 'uxd-documentation-category',
     templateUrl: './documentation-category.component.html'
 })
-export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
+export class DocumentationCategoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
     category: ICategory;
     private trackScroll: boolean = false;

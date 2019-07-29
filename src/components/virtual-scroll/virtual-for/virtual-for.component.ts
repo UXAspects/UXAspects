@@ -58,7 +58,7 @@ export class VirtualForContainerComponent<T> implements AfterViewInit, OnDestroy
     }
 
     /** Access the uxVirtualFor child directive */
-    @ContentChild(VirtualForDirective) virtualFor: VirtualForDirective<T>;
+    @ContentChild(VirtualForDirective, { static: false }) virtualFor: VirtualForDirective<T>;
 
     constructor(
         /** Get the ElementRef of the container element */
