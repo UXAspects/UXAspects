@@ -64,6 +64,7 @@
       "check-type"
     ],
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "no-conflicting-lifecycle": true
   }
 }
