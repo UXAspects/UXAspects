@@ -1,4 +1,7 @@
 {
+  "rulesDirectory": [
+    "codelyzer"
+  ],
   "rules": {
     "no-inferrable-types": false,
     "class-name": true,
@@ -59,6 +62,9 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+    "use-lifecycle-interface": true,
+    "use-pipe-transform-interface": true,
+    "no-conflicting-lifecycle": true
   }
 }

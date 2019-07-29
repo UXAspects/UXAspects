@@ -56,7 +56,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     @Output() readonly closed = new EventEmitter<void>();
 
     /** Access the menu content template */
-    @ViewChild(TemplateRef, { static: false } as any) templateRef: TemplateRef<void>;
+    @ViewChild(TemplateRef, { static: false }) templateRef: TemplateRef<void>;
 
     /** Store the menu open state */
     isMenuOpen: boolean = false;

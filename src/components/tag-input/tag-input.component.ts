@@ -203,7 +203,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
-    @ViewChild('tagInput') tagInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
 
     selectedIndex: number = -1;
 

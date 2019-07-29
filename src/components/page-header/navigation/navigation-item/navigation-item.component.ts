@@ -26,7 +26,7 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
     _tabindex: Observable<number> = this._navigationService.getTabIndex(this);
 
     /** Access the navigation button element */
-    @ViewChild('navigationBtn') navigationBtn: ElementRef;
+    @ViewChild('navigationBtn', { static: false }) navigationBtn: ElementRef;
 
     /** Unsubscribe when the component is destroyed */
     private _onDestroy = new Subject<void>();

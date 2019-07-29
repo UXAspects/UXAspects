@@ -16,7 +16,7 @@ export class FacetCheckListItemComponent implements FocusableOption {
     @Output() selectedChange = new EventEmitter<Facet>();
     @Output() itemFocus = new EventEmitter<void>();
     @Output() itemBlur = new EventEmitter<void>();
-    @ViewChild('option') option: ElementRef;
+    @ViewChild('option', { static: true }) option: ElementRef;
 
     get disabled(): boolean {
         return this.facet && this.facet.disabled;
