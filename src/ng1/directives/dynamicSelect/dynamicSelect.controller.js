@@ -452,10 +452,14 @@ export default class DynamicSelectCtrl {
       // find the scroll pane element
       this.scrollpane = this.$element.find('.scroll-pane');
 
-      // start watching for any changes
-      this.scrollpaneObserver = new MutationObserver(() => this.updateDropdownHeight());
+      // the scroll pane will not be present if the `scroll` option is set to false
+      if (this.scrollpane.get(0)) {
+          // start watching for any changes
+          this.scrollpaneObserver = new MutationObserver(() => this.updateDropdownHeight());
 
-      this.scrollpaneObserver.observe(this.scrollpane.get(0), { childList: true, subtree: true });
+          this.scrollpaneObserver.observe(this.scrollpane.get(0), { childList: true, subtree: true });
+      }
+
     } else {
       if (this.dropdown && this.dropdownScope) {
         this.dropdownScope.$destroy();
