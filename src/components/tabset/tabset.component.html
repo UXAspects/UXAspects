@@ -1,5 +1,8 @@
 <!-- Nav tabs -->
 <ul role="tablist"
+    uxTabbableList
+    [direction]="stacked === 'none' ? 'horizontal' : 'vertical'"
+    [allowBoundaryKeys]="true"
     class="nav nav-tabs"
     [class.minimal-tab]="minimal"
     [attr.aria-label]="ariaLabel"
@@ -7,29 +10,20 @@
 
 	<li role="presentation"
         class="nav-item"
-        *ngFor="let tab of tabset.tabs$ | async; let index = index"
-        [class.active]="tab.active$ | async"
+        *ngFor="let tab of tabset.tabs; let index = index"
+        [class.active]="tab.active"
         [class.disabled]="tab.disabled"
         [ngClass]="tab.customClass">
 
         <a class="nav-link"
             [id]="tab.id"
             role="tab"
-            [uxTabFocus]="tab"
-            [tabindex]="(tab.active$ | async) ? 0 : -1"
+            uxTabbableListItem
             uxFocusIndicator
             (mousedown)="tabset.select(tab)"
-            (focus)="tabset.focused$.next(true)"
-            (blur)="tabset.focused$.next(false)"
-            (mousedown)="tabset.focused$.next(true)"
-            (keydown.ArrowUp)="selectPreviousTab($event)"
-            (keydown.ArrowLeft)="selectPreviousTab($event)"
-            (keydown.ArrowRight)="selectNextTab($event)"
-            (keydown.ArrowDown)="selectNextTab($event)"
-            (keydown.Home)="tabset.selectFirstTab(); $event.preventDefault()"
-            (keydown.End)="tabset.selectLastTab(); $event.preventDefault()"
+            (focus)="tabset.select(tab)"
             [attr.aria-controls]="tab.id"
-            [attr.aria-selected]="tab.active$ | async"
+            [attr.aria-selected]="tab.active"
             [attr.aria-disabled]="tab.disabled">
 
             <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>

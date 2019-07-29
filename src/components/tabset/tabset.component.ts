@@ -1,8 +1,6 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
-import { Subject } from 'rxjs';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'ux-tabset',
@@ -14,38 +12,29 @@ import { takeUntil } from 'rxjs/operators';
         '[class.tabs-right]': 'stacked === "right"',
     }
 })
-export class TabsetComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class TabsetComponent implements AfterViewInit {
 
+    /** Determine if the appearance of the tabset */
     @Input() minimal: boolean = true;
+
+    /** Determine if the tabset should appear stacked */
     @Input() stacked: 'left' | 'right' | 'none' = 'none';
+
+    /** Provide am aria label for the tabset */
     @Input('aria-label') ariaLabel: string;
 
-    @ContentChildren(TabComponent)
-    tabs: QueryList<TabComponent>;
-
-    private _onDestroy = new Subject();
-
-    constructor(public tabset: TabsetService) { }
+    constructor(
+        public readonly tabset: TabsetService,
+        private readonly _changeDetector: ChangeDetectorRef
+    ) { }
 
     ngAfterViewInit(): void {
 
         // Make sure a tab is selected
-        if (!this.tabset.active$.value) {
+        if (!this.tabset.isTabActive()) {
             this.tabset.selectFirstTab();
+            this._changeDetector.detectChanges();
         }
-    }
-
-    ngAfterContentInit(): void {
-        this.tabs.changes
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(tabs => this.tabset.tabs$.next(tabs.toArray()));
-
-        this.tabset.tabs$.next(this.tabs.toArray());
-    }
-
-    ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
     }
 
     /**
@@ -53,41 +42,5 @@ export class TabsetComponent implements AfterViewInit, AfterContentInit, OnDestr
      */
     select(tab: TabComponent): void {
         this.tabset.select(tab);
-    }
-
-    selectPreviousTab(event: KeyboardEvent): void {
-
-        // determine which arrow key is pressed
-        const arrowLeft = event.key === 'ArrowLeft' || event.keyCode === 37;
-        const arrowUp = event.key === 'ArrowUp' || event.keyCode === 38;
-
-        // only perform action if the arrow key matches the orientation
-        if (arrowLeft && this.stacked !== 'none' || arrowUp && this.stacked === 'none') {
-            return;
-        }
-
-        // perform selection
-        this.tabset.selectPreviousTab();
-
-        // prevent the browser from scrolling when arrow keys are pressed
-        event.preventDefault();
-    }
-
-    selectNextTab(event: KeyboardEvent): void {
-
-        // determine which arrow key is pressed
-        const arrowRight = event.key === 'ArrowRight' || event.keyCode === 39;
-        const arrowDown = event.key === 'ArrowDown' || event.keyCode === 40;
-
-        // only perform action if the arrow key matches the orientation
-        if (arrowRight && this.stacked !== 'none' || arrowDown && this.stacked === 'none') {
-            return;
-        }
-
-        // perform selection
-        this.tabset.selectNextTab();
-
-        // prevent the browser from scrolling when arrow keys are pressed
-        event.preventDefault();
     }
 }

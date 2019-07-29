@@ -1,8 +1,8 @@
 <div role="tabpanel"
      class="tab-pane"
-     [class.active]="active$ | async"
+     [class.active]="_active$ | async"
      [id]="id + '-panel'"
      [attr.aria-labelledby]="id"
-     [attr.aria-hidden]="!(active$ | async)">
+     [attr.aria-hidden]="!_active$ | async">
   <ng-content></ng-content>
 </div>

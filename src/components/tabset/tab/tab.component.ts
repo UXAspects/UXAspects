@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { tick } from '../../../common/index';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { TabsetService } from '../tabset.service';
+import { TabHeadingDirective } from './tab-heading.directive';
 
 let uniqueTabId = 0;
 
@@ -11,34 +10,69 @@ let uniqueTabId = 0;
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabComponent implements OnDestroy {
+export class TabComponent implements OnInit, OnDestroy {
 
+    /** Define the tab unique id */
     @Input() id: string = `ux-tab-${++uniqueTabId}`;
+
+    /** Define if this tab is disabled */
     @Input() disabled: boolean = false;
+
+    /** Define the tab heading */
     @Input() heading: string;
+
+    /** provide a custom class for the tab */
     @Input() customClass: string;
 
+    /** Emit when this tab is selected */
     @Output() select = new EventEmitter<void>();
+
+    /** Emit when this tab is deselected */
     @Output() deselect = new EventEmitter<void>();
 
-    @Input() set active(value: boolean) {
-        if (value) {
+    /** Define the active state of this tab */
+    @Input() set active(isActive: boolean) {
+
+        // store the previous value
+        const wasActive = this.active;
+
+        // store the new active state
+        this._active$.next(isActive);
+
+        // update the active state of all other tabs
+        if (isActive && isActive !== wasActive) {
             this._tabset.select(this);
         }
+
+        // emit the appropriate value
+        if (isActive !== wasActive) {
+            isActive ? this.select.emit() : this.deselect.emit();
+        }
+
+        // mark this component for check
+        this._changeDetector.detectChanges();
     }
 
-    headingRef: TemplateRef<any>;
-    active$: Observable<boolean> = this._tabset.active$.pipe(map(active => active === this), tick());
+    get active(): boolean {
+        return this._active$.value;
+    }
 
-    private _onDestroy = new Subject();
+    /** Store a custom header templateRef */
+    @ContentChild(TabHeadingDirective, { read: TemplateRef }) headingRef: TemplateRef<void>;
 
-    constructor(private _tabset: TabsetService) {
-        this.active$.pipe(takeUntil(this._onDestroy)).subscribe(active => active ? this.select.emit() : this.deselect.emit());
+    /** Store the internal active state */
+    _active$ = new BehaviorSubject<boolean>(false);
+
+    constructor(
+        private readonly _tabset: TabsetService,
+        private readonly _changeDetector: ChangeDetectorRef
+    ) { }
+
+    ngOnInit(): void {
+        this._tabset.add(this);
     }
 
     ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
+        this._tabset.remove(this);
     }
-
 }
