@@ -74,7 +74,7 @@
     "@angular/cdk": "^6.4.7",
     "@babel/core": "^7.1.5",
     "@babel/preset-env": "^7.1.5",
-    "@ngtools/webpack": "7.0.5",
+    "@ngtools/webpack": "^8.1.2",
     "@types/angular": "1.6.6",
     "@types/angular-ui-router": "1.1.40",
     "@types/chance": "0.7.35",
