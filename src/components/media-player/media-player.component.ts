@@ -26,7 +26,7 @@ import { MediaPlayerService } from './media-player.service';
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('player') private _playerRef: ElementRef;
+    @ViewChild('player', { static: false }) private _playerRef: ElementRef;
 
     hovering: boolean = false;
     focused: boolean = false;

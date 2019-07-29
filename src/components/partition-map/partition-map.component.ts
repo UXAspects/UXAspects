@@ -68,7 +68,7 @@ export class PartitionMapComponent implements OnInit, OnDestroy {
     @Output() selectedChange = new EventEmitter<PartitionMapSegment>();
 
     /** Access a if provided custom template */
-    @ContentChild('partitionMapSegment') segmentTemplate: TemplateRef<PartitionMapCustomSegmentContext>;
+    @ContentChild('partitionMapSegment', { static: false }) segmentTemplate: TemplateRef<PartitionMapCustomSegmentContext>;
 
     /** Store the processed segments */
     _segments: HierarchyRectangularNode<PartitionMapSegment>[] = [];

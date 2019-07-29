@@ -22,18 +22,18 @@ import { WrappersModule } from './wrappers/wrappers.module';
   Configure Application Routes
 */
 const appRoutes: Routes = [
-    { path: 'landing', loadChildren: './pages/landing/landing.module#LandingPageModule' },
-    { path: 'overview', loadChildren: './pages/overview/overview.module#OverviewPageModule' },
-    { path: 'features', loadChildren: './pages/features/features.module#FeaturesPageModule' },
-    { path: 'gettingstarted', loadChildren: './pages/getting-started/getting-started.module#GettingStartedPageModule' },
-    { path: 'showcase', loadChildren: './pages/showcase/showcase.module#ShowcasePageModule' },
-    { path: 'components', loadChildren: './pages/components/components.module#ComponentsPageModule' },
-    { path: 'css', loadChildren: './pages/css/css.module#CssPageModule' },
-    { path: 'charts', loadChildren: './pages/charts/charts.module#ChartsPageModule' },
-    { path: 'team', loadChildren: './pages/team/team.module#TeamPageModule' },
-    { path: 'blog', loadChildren: './pages/blog/blog.module#BlogPageModule' },
-    { path: 'licenses', loadChildren: './pages/licenses/licenses.module#LicensesPageModule' },
-    { path: 'changelog', loadChildren: './pages/changelog/changelog.module#ChangeLogPageModule' },
+    { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingPageModule) },
+    { path: 'overview', loadChildren: () => import('./pages/overview/overview.module').then(m => m.OverviewPageModule) },
+    { path: 'features', loadChildren: () => import('./pages/features/features.module').then(m => m.FeaturesPageModule) },
+    { path: 'gettingstarted', loadChildren: () => import('./pages/getting-started/getting-started.module').then(m => m.GettingStartedPageModule) },
+    { path: 'showcase', loadChildren: () => import('./pages/showcase/showcase.module').then(m => m.ShowcasePageModule) },
+    { path: 'components', loadChildren: () => import('./pages/components/components.module').then(m => m.ComponentsPageModule) },
+    { path: 'css', loadChildren: () => import('./pages/css/css.module').then(m => m.CssPageModule) },
+    { path: 'charts', loadChildren: () => import('./pages/charts/charts.module').then(m => m.ChartsPageModule) },
+    { path: 'team', loadChildren: () => import('./pages/team/team.module').then(m => m.TeamPageModule) },
+    { path: 'blog', loadChildren: () => import('./pages/blog/blog.module').then(m => m.BlogPageModule) },
+    { path: 'licenses', loadChildren: () => import('./pages/licenses/licenses.module').then(m => m.LicensesPageModule) },
+    { path: 'changelog', loadChildren: () => import('./pages/changelog/changelog.module').then(m => m.ChangeLogPageModule) },
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
     { path: '**', redirectTo: '/landing' }
 ];
