@@ -1,13 +1,14 @@
-<p>To use an icon simply apply the <code>{{ iconClass }}</code> class along with one of the following classes <ng-container *ngIf="iconClass === 'ux-icon'">or alternatively use the ux-icon component and the name of the icon</ng-container>:</p>
+<ng-container *ngIf="iconset !== 'ux-icon'"><p>To use an icon simply apply the <code>{{ iconClass }}</code> class along with one of the following classes:</p></ng-container>
+<ng-container *ngIf="iconset === 'ux-icon'"><p>To use an icon simply apply the <code>{{ iconClass }}</code> component along with one of the following names:</p></ng-container>
 
 <div class="row m-b-md">
     <div class="col-xs-6">
 
         <!-- Show the standard select component in the keppel site -->
-        <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="updateIconset(); search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
+        <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
 
         <!-- Show the combobox variant in the MF site -->
-        <ux-combobox *ngIf="!isKeppel" [(value)]="iconset" (valueChange)="updateIconset(); search()" [options]="iconsets" [readonlyInput]="true"></ux-combobox>
+        <ux-combobox *ngIf="!isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-combobox>
     </div>
 
     <div class="col-xs-6">

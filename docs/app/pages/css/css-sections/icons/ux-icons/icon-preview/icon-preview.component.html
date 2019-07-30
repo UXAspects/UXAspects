@@ -1,11 +1,8 @@
-<div class="icon-demo" (click)="copy(classname, name)">
-    <p uxTooltip="Copied" placement="top" tooltipClass="tooltip-copied">dfjswef</p>
-    <span #tooltip="ux-tooltip" uxTooltip="Click to copy icon code" placement="top" class="btn btn-link button-secondary btn-text">
-        <i class="{{ iconClass }} p-r-xs" [ngClass]="classname"></i>
-        <span>{{ iconset === 'ux-icon' ? name : classname }}</span>
-    </span>
-</div>
+<button uxFocusIndicator class="icon-demo btn btn-link button-secondary btn-text" (click)="copy()" [uxTooltip]="tooltipContent" [tooltipClass]="copied ? 'tooltip-info' : ''"  placement="top" [hideTriggers]="hideTriggers">
+    <i class="{{ iconClass }} p-r-xs" [ngClass]="classname"></i>
+    <span>{{ iconset === 'ux-icon' ? name : classname }}</span>
+</button>
 
 <ng-template #tooltipContent>
-
+    <span [class.icon-preview-tooltip]="copied">{{ tooltipText }}</span>
 </ng-template>

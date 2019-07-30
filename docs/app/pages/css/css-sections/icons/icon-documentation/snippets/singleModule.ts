@@ -1,5 +1,5 @@
 import { IconModule } from '@ux-aspects/ux-aspects';
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 
 @NgModule({
     imports: [
