@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { TabsetService } from '../tabset.service';
 import { TabHeadingDirective } from './tab-heading.directive';
 
@@ -37,7 +36,7 @@ export class TabComponent implements OnInit, OnDestroy {
         const wasActive = this.active;
 
         // store the new active state
-        this._active$.next(isActive);
+        this._active = isActive;
 
         // update the active state of all other tabs
         if (isActive && isActive !== wasActive) {
@@ -54,14 +53,14 @@ export class TabComponent implements OnInit, OnDestroy {
     }
 
     get active(): boolean {
-        return this._active$.value;
+        return this._active;
     }
 
     /** Store a custom header templateRef */
-    @ContentChild(TabHeadingDirective, { read: TemplateRef }) headingRef: TemplateRef<void>;
+    @ContentChild(TabHeadingDirective, { read: TemplateRef, static: false }) headingRef: TemplateRef<void>;
 
     /** Store the internal active state */
-    _active$ = new BehaviorSubject<boolean>(false);
+    private _active: boolean = false;
 
     constructor(
         private readonly _tabset: TabsetService,
