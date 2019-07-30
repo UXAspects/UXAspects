@@ -14,6 +14,9 @@ export class TabComponent implements OnInit, OnDestroy {
     /** Define the tab unique id */
     @Input() id: string = `ux-tab-${++uniqueTabId}`;
 
+    /** Define the active state of this tab */
+    @Input() active: boolean = false;
+
     /** Define if this tab is disabled */
     @Input() disabled: boolean = false;
 
@@ -29,38 +32,8 @@ export class TabComponent implements OnInit, OnDestroy {
     /** Emit when this tab is deselected */
     @Output() deselect = new EventEmitter<void>();
 
-    /** Define the active state of this tab */
-    @Input() set active(isActive: boolean) {
-
-        // store the previous value
-        const wasActive = this.active;
-
-        // store the new active state
-        this._active = isActive;
-
-        // update the active state of all other tabs
-        if (isActive && isActive !== wasActive) {
-            this._tabset.select(this);
-        }
-
-        // emit the appropriate value
-        if (isActive !== wasActive) {
-            isActive ? this.select.emit() : this.deselect.emit();
-        }
-
-        // mark this component for check
-        this._changeDetector.detectChanges();
-    }
-
-    get active(): boolean {
-        return this._active;
-    }
-
     /** Store a custom header templateRef */
     @ContentChild(TabHeadingDirective, { read: TemplateRef, static: false }) headingRef: TemplateRef<void>;
-
-    /** Store the internal active state */
-    private _active: boolean = false;
 
     constructor(
         private readonly _tabset: TabsetService,
@@ -73,5 +46,36 @@ export class TabComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._tabset.remove(this);
+    }
+
+    selectTab(): void {
+        // if this tab is currently active do nothing
+        if (this.active && !this._tabset.manual) {
+            return;
+        }
+
+        if (!this._tabset.manual) {
+            this.active = true;
+        }
+
+        this.select.emit();
+
+        this._changeDetector.detectChanges();
+    }
+
+    deselectTab(): void {
+
+        // if this tab is not currently active do nothing
+        if (!this.active && !this._tabset.manual) {
+            return;
+        }
+
+        if (!this._tabset.manual) {
+            this.active = false;
+        }
+
+        this.deselect.emit();
+
+        this._changeDetector.detectChanges();
     }
 }

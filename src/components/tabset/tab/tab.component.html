@@ -1,6 +1,5 @@
 <div role="tabpanel"
-     class="tab-pane"
-     [class.active]="active"
+     [style.display]="active ? 'block' : 'none'"
      [id]="id + '-panel'"
      [attr.aria-labelledby]="id"
      [attr.aria-hidden]="!active">

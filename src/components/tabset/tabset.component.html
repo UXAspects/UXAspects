@@ -21,7 +21,7 @@
             uxTabbableListItem
             uxFocusIndicator
             (mousedown)="tabset.select(tab)"
-            (focus)="tabset.select(tab)"
+            (activated)="tabset.select(tab)"
             [attr.aria-controls]="tab.id"
             [attr.aria-selected]="tab.active"
             [attr.aria-disabled]="tab.disabled">
