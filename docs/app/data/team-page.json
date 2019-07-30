@@ -70,6 +70,17 @@
                     "url": "mailto:roland.penny@microfocus.com"
                 }
             ]
+        },
+        {
+            "name": "Tara Todd",
+            "email": "tara.todd@microfocus.com",
+            "avatar": "assets/img/team/user.png",
+            "social": [
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:tara.todd@microfocus.com"
+                }
+            ]
         }
     ]
 }
