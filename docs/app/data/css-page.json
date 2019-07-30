@@ -265,6 +265,21 @@
                     "component": "CssUxIconsComponent"
                 },
                 {
+                    "title": "Icons Documentation",
+                    "component": "CssDocumentationComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-icon"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "IconModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Basic Usage",
                     "component": "CssBasicUsageComponent"
                 },

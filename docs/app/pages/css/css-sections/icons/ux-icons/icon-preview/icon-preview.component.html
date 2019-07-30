@@ -1,0 +1,11 @@
+<div class="icon-demo" (click)="copy(classname, name)">
+    <p uxTooltip="Copied" placement="top" tooltipClass="tooltip-copied">dfjswef</p>
+    <span #tooltip="ux-tooltip" uxTooltip="Click to copy icon code" placement="top" class="btn btn-link button-secondary btn-text">
+        <i class="{{ iconClass }} p-r-xs" [ngClass]="classname"></i>
+        <span>{{ iconset === 'ux-icon' ? name : classname }}</span>
+    </span>
+</div>
+
+<ng-template #tooltipContent>
+
+</ng-template>

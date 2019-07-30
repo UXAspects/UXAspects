@@ -1,0 +1,67 @@
+<ux-icon
+    name="alert"
+    size="30px"
+    [rotate]="90"
+    [flipHorizontal]="false"
+    [flipVertical]="false">
+</ux-icon>
+
+<ux-icon
+    name="alert"
+    size="60px"
+    [rotate]="270"
+    [flipHorizontal]="false"
+    [flipVertical]="false">
+</ux-icon>
+
+<ux-icon
+    name="alert"
+    size="60px"
+    [flipHorizontal]="false"
+    [flipVertical]="true">
+</ux-icon>
+
+<hr>
+
+<p><code>ux-icon</code> can be used to allow a user to dynamically add icons.</p>
+
+<p>
+    The following properties can be used to configure the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="name" type="string">
+        Defines the icon to be displayed.
+    </tr>
+    <tr uxd-api-property name="size" type="string">
+        Defines a custom size for the icon.
+    </tr>
+    <tr uxd-api-property name="rotate" type="number">
+        Defines the number of degrees to rotate the icon either <code>90</code>, <code>180</code>, <code>270</code>.
+    </tr>
+    <tr uxd-api-property name="flipHorizontal" type="boolean" defaultValue="false">
+        Define if the icon should be horizontally flipped.
+    </tr>
+    <tr uxd-api-property name="flipVertical" type="boolean" defaultValue="false">
+        Define if the icon should be horizontally flipped.
+    </tr>
+</uxd-api-properties>
+
+<h3>Overriding Custom Iconset</h3>
+
+<h4>Whole Application</h4>
+<p>Add this code snippet to your app.module.ts file to override icons within your whole application from a different icon set, by specifying the <code>name</code> of the icon you want to replace, the <code>icon</code> you want to replace it with and the <code>iconset</code> you want to replace it from. Optionally you can add a <code>size</code> parameter.</p>
+<uxd-snippet [content]="snippets.compiled.appModuleTs" language="javascript"></uxd-snippet>
+
+<h4>Single Component</h4>
+<p>Add this code snippet to a components module file to override icons within a specific module, by specifying the <code>name</code> of the icon you want to replace, the <code>icon</code> you want to replace it with and the <code>iconset</code> you want to replace it from. Optionally you can add a <code>size</code> parameter.</p>
+<uxd-snippet [content]="snippets.compiled.singleModuleTs" language="javascript"></uxd-snippet>
+
+<h4>Single Component(Alternative)</h4>
+<p>An alternative way is to use the iconService add this code snippet to your module file to override icons within the specific module, by specifying the <code>name</code> of the icon you want to replace, the <code>icon</code> you want to replace it with and the <code>iconset</code> you want to replace it from. Optionally you can add a <code>size</code> parameter.</p>
+<uxd-snippet [content]="snippets.compiled.serviceTs" language="javascript"></uxd-snippet>
+
+
+<p>The following code can be used to create the example above:</p>
+
+<uxd-snippet [content]="snippets.compiled.sampleHtml" language="html"></uxd-snippet>

@@ -3,18 +3,25 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-css-icons-basic-usage',
-    templateUrl: './basic-usage.component.html'
+    selector: 'uxd-css-icons-documentation',
+    templateUrl: './icon-documentation.component.html'
 })
-@DocumentationSectionComponent('CssBasicUsageComponent')
-export class CssBasicUsageComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+@DocumentationSectionComponent('CssDocumentationComponent')
+export class CssDocumentationComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml,
-    });
+    playground: IPlayground = {
+        files: {
+            'app.component.html': this.snippets.raw.sampleHtml,
+        },
+        modules: [
+            {
+                imports: ['IconModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
+    };
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

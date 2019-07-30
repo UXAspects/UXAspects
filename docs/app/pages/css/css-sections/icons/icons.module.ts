@@ -13,10 +13,14 @@ import { CssIconColorsComponent } from './icon-colors/icon-colors.component';
 import { CssIconSizeComponent } from './icon-size/icon-size.component';
 import { CssRotateFlipIconsComponent } from './rotate-flip-icons/rotate-flip-icons.component';
 import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
+import { CssDocumentationComponent } from "./icon-documentation/icon-documentation.component";
+import { IconModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import {IconPreviewComponent} from "./ux-icons/icon-preview/icon-preview.component";
 
 
 const SECTIONS = [
     CssUxIconsComponent,
+    CssDocumentationComponent,
     CssBasicUsageComponent,
     CssIconSizeComponent,
     CssFixedWidthComponent,
@@ -41,10 +45,16 @@ const ROUTES = [
         CommonModule,
         FormsModule,
         SelectModule,
+        IconModule,
+        TooltipModule,
+        TabsetModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
-    declarations: SECTIONS,
+    declarations: [
+        SECTIONS,
+        IconPreviewComponent
+    ],
     entryComponents: SECTIONS
 })
 export class CssIconsModule {
