@@ -1,4 +1,7 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnDestroy, QueryList } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { TabComponent } from './tab/tab.component';
 import { TabsetService } from './tabset.service';
 
 @Component({
@@ -11,7 +14,7 @@ import { TabsetService } from './tabset.service';
         '[class.tabs-right]': 'stacked === "right"',
     }
 })
-export class TabsetComponent implements AfterViewInit {
+export class TabsetComponent implements AfterViewInit, OnDestroy {
 
     /** Determine if the appearance of the tabset */
     @Input() minimal: boolean = true;
@@ -21,23 +24,46 @@ export class TabsetComponent implements AfterViewInit {
 
     /** Determine if we want to manually update the active state */
     @Input() set manual(manual: boolean) {
-        this.tabset.manual = manual;
+        this._tabset.manual = manual;
     }
 
     /** Provide am aria label for the tabset */
     @Input('aria-label') ariaLabel: string;
 
+    /** Access all the children */
+    @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
+
+    /** Remove subscriptions on destroy */
+    private _onDestroy$ = new Subject<void>();
+
     constructor(
-        public readonly tabset: TabsetService,
+        public readonly _tabset: TabsetService,
         private readonly _changeDetector: ChangeDetectorRef
     ) { }
 
     ngAfterViewInit(): void {
 
+        // provide the service with the initial array of items
+        this._tabset.update(this._tabs.toArray());
+
         // Make sure a tab is selected
-        if (!this.tabset.isTabActive()) {
-            this.tabset.selectFirstTab();
+        if (!this._tabset.isTabActive()) {
+            this._tabset.selectFirstTab();
             this._changeDetector.detectChanges();
         }
+
+        // watch for any future changes
+        this._tabs.changes.pipe(takeUntil(this._onDestroy$)).subscribe(tabs => {
+            // update the internal list of tabs
+            this._tabset.update(tabs);
+
+            // run change detection
+            this._changeDetector.markForCheck();
+        });
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
     }
 }

@@ -10,7 +10,7 @@
 
 	<li role="presentation"
         class="nav-item"
-        *ngFor="let tab of tabset.tabs; let index = index"
+        *ngFor="let tab of _tabset.tabs; let index = index"
         [class.active]="tab.active"
         [class.disabled]="tab.disabled"
         [ngClass]="tab.customClass">
@@ -20,8 +20,8 @@
             role="tab"
             uxTabbableListItem
             uxFocusIndicator
-            (mousedown)="tabset.select(tab)"
-            (activated)="tabset.select(tab)"
+            (mousedown)="_tabset.select(tab)"
+            (activated)="_tabset.select(tab)"
             [attr.aria-controls]="tab.id"
             [attr.aria-selected]="tab.active"
             [attr.aria-disabled]="tab.disabled">

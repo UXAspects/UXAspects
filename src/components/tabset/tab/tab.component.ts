@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { TabsetService } from '../tabset.service';
 import { TabHeadingDirective } from './tab-heading.directive';
 
@@ -9,7 +9,7 @@ let uniqueTabId = 0;
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabComponent implements OnInit, OnDestroy {
+export class TabComponent {
 
     /** Define the tab unique id */
     @Input() id: string = `ux-tab-${++uniqueTabId}`;
@@ -39,14 +39,6 @@ export class TabComponent implements OnInit, OnDestroy {
         private readonly _tabset: TabsetService,
         private readonly _changeDetector: ChangeDetectorRef
     ) { }
-
-    ngOnInit(): void {
-        this._tabset.add(this);
-    }
-
-    ngOnDestroy(): void {
-        this._tabset.remove(this);
-    }
 
     selectTab(): void {
         // if this tab is currently active do nothing

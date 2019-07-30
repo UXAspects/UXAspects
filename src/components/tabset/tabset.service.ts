@@ -10,14 +10,9 @@ export class TabsetService {
     /** Store the manual state */
     manual: boolean = false;
 
-    /** Register a tab in the tabset */
-    add(tab: TabComponent): void {
-        this.tabs = [...this.tabs, tab];
-    }
-
-    /** Remove a tab from the tabset */
-    remove(tab: TabComponent): void {
-        this.tabs = this.tabs.filter(_tab => _tab !== tab);
+    /** Update the array of tabs - required to preserve order */
+    update(tabs: TabComponent[]): void {
+        this.tabs = [...tabs];
     }
 
     /** Programmatically select a tab */
