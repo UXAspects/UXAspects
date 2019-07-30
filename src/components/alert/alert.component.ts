@@ -38,7 +38,7 @@ export class AlertComponent {
     @Output() dismiss = new EventEmitter<void>();
 
     /** Identify if we have an icon */
-    @ContentChild(AlertIconDirective) icon: AlertIconDirective;
+    @ContentChild(AlertIconDirective, { static: false }) icon: AlertIconDirective;
 
     /** Resolve the background color from the color set */
     get _backgroundColor(): string {

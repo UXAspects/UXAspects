@@ -133,10 +133,10 @@ export class PageHeaderComponent {
     @Output() logoClick = new EventEmitter<MouseEvent>();
 
     /** @deprecated - Access a custom template title. Use subheaderTemplate instead */
-    @ContentChild('title') titleTemplate: TemplateRef<any>;
+    @ContentChild('title', { static: false }) titleTemplate: TemplateRef<any>;
 
     /** Access a custom subheader template */
-    @ContentChild('subheader') subheaderTemplate: TemplateRef<any>;
+    @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;
 
     /** Access all the custom menu TemplateRefs */
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;

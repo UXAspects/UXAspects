@@ -19,7 +19,7 @@ export class CardTabsetComponent {
         return this.tabService.position$.getValue();
     }
 
-    @ViewChild('tablist') tablist: ElementRef;
+    @ViewChild('tablist', { static: true }) tablist: ElementRef;
 
     offset: number = 0;
     bounds: CardTabsBounds = { lower: 0, upper: 0 };

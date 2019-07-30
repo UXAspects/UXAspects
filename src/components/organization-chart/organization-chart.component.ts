@@ -67,19 +67,19 @@ export class OrganizationChartComponent<T> implements AfterViewInit, OnChanges, 
     @Output() transitionEnd = new EventEmitter<void>();
 
     /** Get the template for the node content */
-    @ContentChild('revealTemplate') revealTemplate: TemplateRef<any>;
+    @ContentChild('revealTemplate', { static: false }) revealTemplate: TemplateRef<any>;
 
     /** Get the template for the node content */
-    @ContentChild('nodeTemplate') nodeTemplate: TemplateRef<OrganizationChartNodeContext<T>>;
+    @ContentChild('nodeTemplate', { static: false }) nodeTemplate: TemplateRef<OrganizationChartNodeContext<T>>;
 
     /** Access the reveal button element */
-    @ViewChild('revealElement') revealElement: ElementRef;
+    @ViewChild('revealElement', { static: true }) revealElement: ElementRef;
 
     /** Access the container element for the links */
-    @ViewChild('links') linksContainer: ElementRef;
+    @ViewChild('links', { static: true }) linksContainer: ElementRef;
 
     /** Access the container element for the nodes */
-    @ViewChild('nodes') nodesContainer: ElementRef;
+    @ViewChild('nodes', { static: true }) nodesContainer: ElementRef;
 
     /** Store the internal selected node */
     private _selected: OrganizationChartNode<T>;

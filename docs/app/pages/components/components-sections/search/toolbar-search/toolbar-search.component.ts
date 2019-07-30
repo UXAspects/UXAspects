@@ -30,7 +30,7 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
     searchText: string;
     searchedFor: string = '';
 
-    @ViewChild('searchFieldRight')
+    @ViewChild('searchFieldRight', { static: true })
     searchFieldRight: ElementRef;
 
     constructor() {

@@ -149,7 +149,7 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
 
     filteredFields: SearchBuilderField[];
 
-    @ViewChild('searchBuilderContent')
+    @ViewChild('searchBuilderContent', { static: false })
     searchBuilderContent: ElementRef<HTMLElement>;
 
     private _field$: Subject<SearchBuilderField> = new Subject<SearchBuilderField>();

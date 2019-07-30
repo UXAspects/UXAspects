@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { PersistentDataService } from '@ux-aspects/ux-aspects';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -25,7 +25,7 @@ const LOCAL_STORAGE_KEY = 'uxd-search-history';
         '[class.active]': 'searching'
     }
 })
-export class NavigationBarSearchComponent implements OnDestroy {
+export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
 
     @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
 

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize/index';
@@ -10,7 +10,7 @@ import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loadi
     selector: 'ux-virtual-scroll',
     templateUrl: './virtual-scroll.component.html'
 })
-export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDestroy {
+export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
     /** Provide the collection of items to display */
     @Input() collection: Observable<T[]> = Observable.create();
@@ -24,9 +24,9 @@ export class VirtualScrollComponent<T> implements OnInit, AfterContentInit, OnDe
     /** Emit when we need to load another page */
     @Output() loading: EventEmitter<number> = new EventEmitter<number>();
 
-    @ContentChild(VirtualScrollCellDirective, { read: TemplateRef }) cellTemplate: TemplateRef<any>;
-    @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef }) loadingIndicatorTemplate: TemplateRef<any>;
-    @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef }) loadButtonTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollCellDirective, { read: TemplateRef, static: false }) cellTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollLoadingDirective, { read: TemplateRef, static: false }) loadingIndicatorTemplate: TemplateRef<any>;
+    @ContentChild(VirtualScrollLoadButtonDirective, { read: TemplateRef, static: false }) loadButtonTemplate: TemplateRef<any>;
 
     cells: BehaviorSubject<VirtualCell<T>[]> = new BehaviorSubject([]);
     scrollTop: number = 0;

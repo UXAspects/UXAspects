@@ -49,6 +49,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
     vm.treeData = [];
     vm.selectionModel = new SelectionModel();
     vm.allSelected = false;
+    vm.initialized = false;
 
     // private fields
     vm._selected = [];
@@ -96,6 +97,9 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
             optionsWatcher();
             reloadWatcher();
         });
+
+        // mark data as initialised
+        vm.initialized = true;
     };
 
     // Retrieves array for ng-repeat of grid rows
@@ -218,9 +222,9 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
         getTreeData(getChildren(), 0)
             .then(rows => vm.treeData = rows)
             .then(function () {
-                // Expand top level items if configured
+                // Expand top level items if configured and it is the initial render
                 var promises = vm.treeData
-                    .filter(row => row.canExpand && (vm.allOptions.expandTopLevel || row.expanded))
+                    .filter(row => row.canExpand && ((vm.allOptions.expandTopLevel && !vm.initialized) || row.expanded))
                     .map(row => expand(row));
                 return $q.all(promises);
             })

@@ -94,10 +94,10 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     }
 
     /** Access the input field element */
-    @ContentChild(ToolbarSearchFieldDirective) field: ToolbarSearchFieldDirective;
+    @ContentChild(ToolbarSearchFieldDirective, { static: true }) field: ToolbarSearchFieldDirective;
 
     /** Access the search button element */
-    @ContentChild(ToolbarSearchButtonDirective) button: ToolbarSearchButtonDirective;
+    @ContentChild(ToolbarSearchButtonDirective, { static: false }) button: ToolbarSearchButtonDirective;
 
     /** Store the CSS position value as this may change to absolute */
     _position: string = 'relative';

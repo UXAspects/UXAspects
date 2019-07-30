@@ -26,8 +26,8 @@ import { MenuModule } from './menu.module';
 })
 export class MenuTestComponent {
 
-    @ViewChild('menuTrigger', { static: true } as any) trigger: MenuTriggerDirective;
-    @ViewChild('subMenuTrigger', { static: true } as any) subMenuTrigger: MenuTriggerDirective;
+    @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
+    @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 
 }
 

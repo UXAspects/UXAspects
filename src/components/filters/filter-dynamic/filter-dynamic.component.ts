@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter as rxFilter, takeUntil } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
@@ -13,7 +13,7 @@ let uniqueId = 1;
     selector: 'ux-filter-dynamic',
     templateUrl: './filter-dynamic.component.html'
 })
-export class FilterDynamicComponent implements OnDestroy {
+export class FilterDynamicComponent implements OnInit, OnDestroy {
 
     /** The list of possible filter options */
     @Input() filters: Filter[] = [];
