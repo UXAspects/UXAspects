@@ -24,6 +24,7 @@ const ROUTES: Routes = [
             { path: 'grid', loadChildren: () => import('./components-sections/grid/grid.module').then(m => m.ComponentsGridModule) },
             { path: 'help-center', loadChildren: () => import('./components-sections/help-center/help-center.module').then(m => m.ComponentsHelpCenterModule) },
             { path: 'hierarchy-bar', loadChildren: () => import('./components-sections/hierarchy-bar/hierarchy-bar.module').then(m => m.ComponentsHierarchyBarModule) },
+            { path: 'icons', loadChildren: () => import('./components-sections/icon/icon.module').then(m => m.ComponentsIconModule) },
             { path: 'input-controls', loadChildren: () => import('./components-sections/input-controls/input-controls.module').then(m => m.ComponentsInputControlsModule) },
             { path: 'keyboard', loadChildren: () => import('./components-sections/keyboard/keyboard.module').then(m => m.ComponentsKeyboardModule) },
             { path: 'media-player', loadChildren: () => import('./components-sections/media-player/media-player.module').then(m => m.ComponentsMediaPlayerModule) },

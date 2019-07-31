@@ -12,8 +12,6 @@ import { IIcon, IIcons } from './../../../../../interfaces/IIcons';
 @DocumentationSectionComponent('CssUxIconsComponent')
 export class CssUxIconsComponent {
 
-    public copied: boolean = false;
-
     /** Store the active icons set */
     iconset: Iconset = 'ux-icons';
 

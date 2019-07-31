@@ -13,11 +13,10 @@ export class IconPreviewComponent {
     @Input() iconset: string;
     @Input() iconClass: string;
 
-    public tooltipText: string = 'Click to copy icon text';
-    public copied: boolean = false;
+    tooltipText: string = 'Click to copy icon text';
+    copied: boolean = false;
 
     hideTriggers: string [] = ['mouseleave', 'blur'];
-    showTriggers: string [] = ['focus', 'mouseenter'];
 
     @ViewChild(TooltipDirective, { static: true }) tooltip: TooltipDirective;
 
@@ -33,13 +32,13 @@ export class IconPreviewComponent {
 
         switch (this.iconset) {
             case 'ux-icons':
-                dummy.value =  '<i class="ux-icon' + ' ' + this.classname + '"></i>';
+                dummy.value = `<i class="ux-icon ${this.classname}"></i>`;
                 break;
             case 'ux-icon':
-                dummy.value =  '<ux-icon name="' + this.name + '"></ux-icon>';
+                dummy.value = `<ux-icon name="${this.name}"></ux-icon>`;
                 break;
             case 'hpe-icons':
-                dummy.value =  '<i class="hpe-icon' + ' ' + this.classname + '"></i>';
+                dummy.value = `<i class="hpe-icon ${this.classname}"></i>`;
                 break;
         }
 

@@ -5,8 +5,8 @@ import { NgModule } from '@angular/core';
     imports: [
         IconModule.forChild({
             icons: [
-                { name: '3d', icon: 'ux-icon-3d', iconset: 'ux-icon', size: '14px' },
-                { name: 'alert', icon: 'ux-icon-alert', iconset: 'ux-icons', size: '14px' }
+                { name: '3d', icon: 'qtm-icon-ci', iconset: 'qtm-font-icon', size: '14px' },
+                { name: 'alert', icon: 'qtm-icon-error', iconset: 'qtm-font-icon', size: '14px' }
             ]
         })
     ],

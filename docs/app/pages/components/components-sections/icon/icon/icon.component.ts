@@ -5,8 +5,8 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
-    selector: 'uxd-css-icons-documentation',
-    templateUrl: './icon-documentation.component.html'
+    selector: 'uxd-components-icon',
+    templateUrl: './icon.component.html'
 })
 @DocumentationSectionComponent('CssDocumentationComponent')
 export class CssDocumentationComponent extends BaseDocumentationSection implements IPlaygroundProvider {
