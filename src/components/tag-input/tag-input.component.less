@@ -115,7 +115,9 @@ ux-tag-input {
         border-color: @form-control-focus-border;
     }
 
-    &.invalid {
+    &.invalid,
+    &.ng-invalid.ng-touched:not(.focus),
+    &.ng-invalid.ng-dirty {
         border-color: @critical;
     }
 
