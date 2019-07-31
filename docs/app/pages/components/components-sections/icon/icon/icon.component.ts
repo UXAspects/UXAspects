@@ -8,12 +8,14 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
     selector: 'uxd-components-icon',
     templateUrl: './icon.component.html'
 })
-@DocumentationSectionComponent('CssDocumentationComponent')
-export class CssDocumentationComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+@DocumentationSectionComponent('ComponentsIconComponent')
+export class ComponentsIconComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     playground: IPlayground = {
         files: {
-            'app.component.html': this.snippets.raw.sampleHtml,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs
         },
         modules: [
             {

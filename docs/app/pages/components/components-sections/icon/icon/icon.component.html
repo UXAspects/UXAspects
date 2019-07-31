@@ -23,52 +23,79 @@
 
 <hr>
 
-<p><code>ux-icon</code> can be used to allow a user to dynamically add icons.</p>
-
+<p>The <code>ux-icon</code> component can be used to dynamically display icons. The default icon set can
+    be found at <a [routerLink]="['/css/icons']">UX Aspects icons</a>. The <code>ux-icon</code> component
+    also allows the ability to load icons from alternative icon and override the custom icon set which is
+    detailed below.</p>
 <p>
     The following properties can be used to configure the component:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="name" type="string">
-        Defines the icon to be displayed.
+        The name of the icon to be displayed. By default this will be one of the UX Aspects icons, unless a
+        custom icon with this name has been defined.
     </tr>
     <tr uxd-api-property name="size" type="string">
-        Defines a custom size for the icon.
+        The size of the icon to be displayed. This value is in CSS units for example <code>24px</code> or
+        <code>2rem</code>.
     </tr>
-    <tr uxd-api-property name="rotate" type="number">
-        Defines the number of degrees to rotate the icon either <code>90</code>, <code>180</code>, <code>270</code>.
+    <tr uxd-api-property name="rotate" type="90 | 180 | 270">
+        Rotation of the icon in degrees.
     </tr>
     <tr uxd-api-property name="flipHorizontal" type="boolean" defaultValue="false">
-        Define if the icon should be horizontally flipped.
+        If the displayed icon should be horizontally flipped. The default will be false unless set to true.
     </tr>
     <tr uxd-api-property name="flipVertical" type="boolean" defaultValue="false">
-        Define if the icon should be horizontally flipped.
+        If the displayed icon should be vertically flipped. The default will be false unless set to true.
     </tr>
 </uxd-api-properties>
 
-<h3>Overriding Custom Iconset</h3>
-
-<h4>Whole Application</h4>
-<p>Add this code snippet to your app.module.ts file to override icons within your whole application from a different
-    icon set, by specifying the <code>name</code> of the icon you want to replace, the <code>icon</code> you want to
-    replace it with and the <code>iconset</code> you want to replace it from. Optionally you can add a <code>size</code>
-    parameter.</p>
-<uxd-snippet [content]="snippets.compiled.appModuleTs" language="javascript"></uxd-snippet>
-
-<h4>Per Module</h4>
-<p>Add this code snippet to a components module file to override icons on a per module basis, by specifying the
-    <code>name</code> of the icon you want to replace, the <code>icon</code> you want to replace it with and the <code>iconset</code>
-    you want to replace it from. Optionally you can add a <code>size</code> parameter.</p>
-<uxd-snippet [content]="snippets.compiled.singleModuleTs" language="javascript"></uxd-snippet>
-
-<h4>Per Module (Alternative)</h4>
-<p>An alternative way is to use the iconService add this code snippet to your module file to override icons icons on a per module basis, by specifying the <code>name</code> of the icon you want to replace, the <code>icon</code> you want
-    to replace it with and the <code>iconset</code> you want to replace it from. Optionally you can add a
-    <code>size</code> parameter.</p>
-<uxd-snippet [content]="snippets.compiled.serviceTs" language="javascript"></uxd-snippet>
-
-
 <p>The following code can be used to create the example above:</p>
 
-<uxd-snippet [content]="snippets.compiled.sampleHtml" language="html"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+
+<h4>Overriding the Default Icon Set</h4>
+
+<p>Add this code snippet to your root module file to override icons within your whole application from a
+    different icon set. To override the icon set on a  per module basis the <code>forRoot</code> should be
+    replaced with <code>forChild</code>. This is achieved by specifying the <code>name</code> default
+    icon to be replaced, the name of the <code>icon</code> to replace it and the <code>iconset
+    </code> the icon will be from. Optionally you can add a <code>size</code> parameter in CSS units.</p>
+
+<uxd-snippet [content]="snippets.compiled.appModuleTs" language="javascript"></uxd-snippet>
+
+<p>The default icon set can be overridden by using the <code>IconService</code> on a per module basis.
+    The following functions can be called on the service:</p>
+
+<uxd-api-properties tableTitle="Icon Service">
+    <tr uxd-api-property name="setIcon" args="IconDefinition">
+        This function should be called to override a single icon from the default icon set. It should be
+        passed a <code>IconDefinition</code> object containing properties to override the default icon set.
+    </tr>
+    <tr uxd-api-property name="setIcons" args="Array<IconDefinition>">
+        This function should be called to override several icons from the default icon set in an array. It
+        should be passed an array of <code>IconDefinition</code> objects containing properties to override
+        the default icon set.
+    </tr>
+</uxd-api-properties>
+
+<p>The object to be passed to the <code>setIcon</code> and <code>setIcons</code> functions. The following
+    options can be passed in this object to configure the overriding of the default icon set:</p>
+
+<uxd-api-properties tableTitle="IconDefinition Interface">
+    <tr uxd-api-property name="name" type="string">
+        The name of the icon to be overridden in the default icon set.
+    </tr>
+    <tr uxd-api-property name="icon" type="string">
+        The name of the icon to override the override the default icon.
+    </tr>
+    <tr uxd-api-property name="iconset" type="string">
+        The name of the icon set that will be used to override the default icon set.
+    </tr>
+    <tr uxd-api-property name="size" type="string">
+        An optional parameter that can be used to override icons of an exact size.
+    </tr>
+</uxd-api-properties>
+
+<uxd-snippet [content]="snippets.compiled.serviceTs" language="javascript"></uxd-snippet>

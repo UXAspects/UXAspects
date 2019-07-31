@@ -655,7 +655,7 @@
             "sections": [
                 {
                     "title": "Icon",
-                    "component": "CssDocumentationComponent",
+                    "component": "ComponentsIconComponent",
                     "version": "Angular",
                     "usage": [
                         {

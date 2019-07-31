@@ -6,12 +6,12 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { AccessibilityModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
-import { CssDocumentationComponent } from './icon/icon.component';
+import { ComponentsIconComponent } from './icon/icon.component';
 import { WrappersModule } from "../../../../wrappers/wrappers.module";
 
 
 const SECTIONS = [
-    CssDocumentationComponent
+    ComponentsIconComponent
 ];
 
 const ROUTES = [
