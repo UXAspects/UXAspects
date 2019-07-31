@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common'
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -7,7 +7,7 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { AccessibilityModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ComponentsIconComponent } from './icon/icon.component';
-import { WrappersModule } from "../../../../wrappers/wrappers.module";
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 
 
 const SECTIONS = [
