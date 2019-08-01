@@ -3,6 +3,7 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { tick } from '../../../../common/operators/index';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
 import { PageHeaderNavigationService } from '../navigation.service';
@@ -37,7 +38,7 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
         private _navigationService: PageHeaderNavigationService) { }
 
     ngAfterViewInit(): void {
-        this._pageHeaderService.selected$.pipe(takeUntil(this._onDestroy)).subscribe(selectedItem => {
+        this._pageHeaderService.selected$.pipe(tick(), takeUntil(this._onDestroy)).subscribe(selectedItem => {
 
             // Update selected state for this item
             this._pageHeaderService.updateItem(this.item, selectedItem);
