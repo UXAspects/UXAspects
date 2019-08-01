@@ -67,10 +67,10 @@
         Rotation of the icon in degrees.
     </tr>
     <tr uxd-api-property name="flipHorizontal" type="boolean" defaultValue="false">
-        The icon can be horizontally flipped if set to true. The default is false.”
+        The icon can be horizontally flipped if set to true. The default is false.
     </tr>
     <tr uxd-api-property name="flipVertical" type="boolean" defaultValue="false">
-        The icon can be vertically flipped if set to true. The default is false.”
+        The icon can be vertically flipped if set to true. The default is false.
     </tr>
 </uxd-api-properties>
 
@@ -78,23 +78,25 @@
 
 <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
 
-<h4>Overriding the Default Icon Set</h4>
+<h4>Defining Custom Icons</h4>
 
-<p>Add this code snippet to your root module file to override icons within your whole application from a
-    different icon set. To override the icon set on a  per module basis the <code>forRoot</code> should be
-    replaced with <code>forChild</code>. This is achieved by specifying the <code>name</code> default
-    icon to be replaced, the name of the <code>icon</code> to replace it and the <code>iconset
-    </code> the icon will be from. Optionally you can add a <code>size</code> parameter in CSS units.</p>
+<p>Custom icons may want to be implemented to define new icons which can be rendered using <code>ux
+    -icon</code>, to override the default icons which appear within UX Aspects components or to provide
+    an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
+
+<p>Add this code snippet to your root module file to define icons within your whole application from a
+    different icon set. To override the icon set on a per-module basis, the <code>forRoot</code> should be
+    replaced with <code>forChild</code>.See the IconDefinition interface for details of the properties to
+    provide</p>
 
 <uxd-snippet [content]="snippets.compiled.appModuleTs" language="javascript"></uxd-snippet>
 
-<p>The default icon set can be overridden by using the <code>IconService</code> on a per module basis.
-    The following functions can be called on the service:</p>
+<p>Within an individual component, icons can be added or customized by injecting the <code>IconService</code>.</p>
 
 <uxd-api-properties tableTitle="Icon Service">
     <tr uxd-api-property name="setIcon" args="IconDefinition">
-        This function should be called to override a single icon from the default icon set. It should be
-        passed a <code>IconDefinition</code> object containing properties to override the default icon set.
+        Create a single icon definition. See the <code>IconDefinition</code> interface below for
+        details.
     </tr>
     <tr uxd-api-property name="setIcons" args="Array<IconDefinition>">
         This function should be called to override several icons from the default icon set in an array. It
@@ -103,21 +105,31 @@
     </tr>
 </uxd-api-properties>
 
-<p>The object to be passed to the <code>setIcon</code> and <code>setIcons</code> functions. The following
-    options can be passed in this object to configure the overriding of the default icon set:</p>
+<h3>IconDefinition Interface</h3>
 
-<uxd-api-properties tableTitle="IconDefinition Interface">
-    <tr uxd-api-property name="name" type="string">
-        The name of the icon to be overridden in the default icon set.
+<p>This interface defines the properties used to create a custom icon definition.</p>
+
+<p>The custom icon definitions will take precedence over the default icon set, and can therefore be used to
+    customize the icons that appear within UX Aspects components.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" required="true">
+        The name of the icon. This corresponds to the <code>name</code> property of <code>ux-icon</code>.
     </tr>
-    <tr uxd-api-property name="icon" type="string">
-        The name of the icon to override the default icon.
+    <tr uxd-api-property name="size" type="string | array">
+        The size(s) at which this icon is defined, in CSS units. This corresponds to the <code>size
+        </code> property of <code>ux-icon</code>. This property can be used to provide an alternate icon
+        glyph at different sizes, as an alternative to the browser scaling which would otherwise apply.
+        Note that due to technical limitations this only applies to icons explicitly sized using the
+        <code>size</code> property, and cannot match a size defined in CSS.
     </tr>
-    <tr uxd-api-property name="iconset" type="string">
-        The name of the icon set that will be used to override the default icon set.
+    <tr uxd-api-property name="icon" type="string" required="true">
+        The CSS class of the font icon which should be rendered for the above <code>name</code>, e.g.
+        <code>qtm-icon-action</code>.
     </tr>
-    <tr uxd-api-property name="size" type="string">
-        An optional parameter that can be used to override icons to an exact size.
+    <tr uxd-api-property name="iconset" type="string" required="true">
+        The CSS class of the font icon set containing the given <code>icon</code>, e.g.
+        <code>qtm-font-icon</code>.
     </tr>
 </uxd-api-properties>
 
