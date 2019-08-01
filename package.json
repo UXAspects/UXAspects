@@ -5,7 +5,10 @@
   "main": "docs/app/app.module.ts",
   "contributors": [
     "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
     "Donna Marijne Worby",
+    "Chris Brennan",
     "Tara Todd"
   ],
   "license": "Apache-2.0",
