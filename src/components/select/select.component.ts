@@ -359,6 +359,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // clear the value and input text
         this.value = null;
         this.input = null;
+        this.selectInputText();
     }
 
     private selectInputText(): void {
