@@ -31,36 +31,6 @@
             ]
         },
         {
-            "name": "Alastair McKee",
-            "email": "alastair.ian.mckee@microfocus.com",
-            "avatar": "assets/img/team/alastair.jpg",
-            "social": [
-                {
-                    "icon": "hpe-social-twitter",
-                    "url": "http://twitter.com/mckee_alastair"
-                },
-                {
-                    "icon": "hpe-mail",
-                    "url": "mailto:alastair.ian.mckee@microfocus.com"
-                },
-                {
-                    "icon": "hpe-social-github",
-                    "url": "http://github.com/a-mckee"
-                }
-            ]
-        },
-        {
-            "name": "Pearse McMurray",
-            "email": "pearse.mcmurray@microfocus.com",
-            "avatar": "assets/img/team/user.png",
-            "social": [
-                {
-                    "icon": "hpe-mail",
-                    "url": "mailto:pearse.mcmurray@microfocus.com"
-                }
-            ]
-        },
-        {
             "name": "Roland Penny",
             "email": "roland.penny@microfocus.com",
             "avatar": "assets/img/team/roland.jpg",
@@ -68,6 +38,17 @@
                 {
                     "icon": "hpe-mail",
                     "url": "mailto:roland.penny@microfocus.com"
+                }
+            ]
+        },
+        {
+            "name": "Tara Todd",
+            "email": "tara.todd@microfocus.com",
+            "avatar": "assets/img/team/user.png",
+            "social": [
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:tara.todd@microfocus.com"
                 }
             ]
         }
