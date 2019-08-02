@@ -49,7 +49,7 @@
     their size and orientation. Icons can be selected from the UX Aspects <a [routerLink]="['/css/icons']">
     ux-icons </a>set. The <code>ux-icon</code> component also allows alternative icons to be loaded from a
     custom icon set to override default icons. For example, icons for a specific project could be implemented
-    via a custom set, or an icon set created for a particular size could be used</p>
+    via a custom set, or an icon set created for a particular size could be used.</p>
 <p>
     The following properties can be used to configure the component:
 </p>
@@ -80,14 +80,14 @@
 
 <h4>Defining Custom Icons</h4>
 
-<p>Custom icons may want to be implemented to define new icons which can be rendered using <code>ux
-    -icon</code>, to override the default icons which appear within UX Aspects components or to provide
+<p>Custom icons may want to be implemented to define new icons which can be rendered using
+    <code>ux-icon</code>, to override the default icons which appear within UX Aspects components or to provide
     an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
 
 <p>Add this code snippet to your root module file to define icons within your whole application from a
     different icon set. To override the icon set on a per-module basis, the <code>forRoot</code> should be
-    replaced with <code>forChild</code>.See the IconDefinition interface for details of the properties to
-    provide</p>
+    replaced with <code>forChild</code>. See the <code>IconDefinition</code> interface for details of
+    the properties to provide.</p>
 
 <uxd-snippet [content]="snippets.compiled.appModuleTs" language="javascript"></uxd-snippet>
 
@@ -105,7 +105,7 @@
     </tr>
 </uxd-api-properties>
 
-<h3>IconDefinition Interface</h3>
+<h4>IconDefinition Interface</h4>
 
 <p>This interface defines the properties used to create a custom icon definition.</p>
 

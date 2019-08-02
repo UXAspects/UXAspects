@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Inject, Renderer2} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { DocumentationType, DOCUMENTATION_TOKEN } from '../../../../../services/playground/tokens/documentation.token';
-import { IIcon, IIcons } from './../../../../../interfaces/IIcons';
+import { IIcon, IIcons } from '../../../../../interfaces/IIcons';
 
 @Component({
     selector: 'uxd-css-icons-ux-icons',
@@ -16,7 +16,7 @@ export class CssUxIconsComponent {
     iconset: Iconset = 'ux-icons';
 
     /** Store the list of available iconsets */
-    iconsets: ReadonlyArray<Iconset> = ['ux-icons', 'hpe-icons', 'ux-icon'];
+    iconsets: ReadonlyArray<Iconset> = ['ux-icons', 'hpe-icons'];
 
     /** Store the hpe-icon set */
     uxIcons: ReadonlyArray<IIcon> = require<IIcons>('../../../../../data/ux-icons.json').icons;
@@ -43,7 +43,7 @@ export class CssUxIconsComponent {
     }
 
     updateIconset(value: string): void {
-        this.iconClass = value === 'ux-icons' || value === 'ux-icon' ? 'ux-icon' : 'hpe-icon';
+        this.iconClass = value === 'ux-icons' ? 'ux-icon' : 'hpe-icon';
     }
 
     /** Filter icons by search query */
@@ -53,9 +53,9 @@ export class CssUxIconsComponent {
 
     /** Get the current active iconset */
     private getIconset(): ReadonlyArray<IIcon> {
-        return this.iconset === 'ux-icons' || this.iconset === 'ux-icon' ? this.uxIcons : this.hpeIcons;
+        return this.iconset === 'ux-icons' ? this.uxIcons : this.hpeIcons;
     }
 
 }
 
-export type Iconset = 'ux-icons' | 'hpe-icons' | 'ux-icon';
+export type Iconset = 'ux-icons' | 'hpe-icons';

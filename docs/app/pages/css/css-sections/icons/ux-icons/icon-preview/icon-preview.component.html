@@ -1,8 +1,42 @@
-<button uxFocusIndicator class="icon-demo btn btn-link button-secondary btn-text" (click)="copy()" [uxTooltip]="tooltipContent" [tooltipClass]="copied ? 'tooltip-info' : ''"  placement="top" [hideTriggers]="hideTriggers">
+<button uxFocusIndicator
+        tabindex="0"
+        class="icon-demo btn btn-link button-secondary btn-text"
+        [uxPopover]="iconCodeSnippet"
+        popoverClass="icon-code-snippets"
+        placement="bottom">
     <i class="{{ iconClass }} p-r-xs" [ngClass]="classname"></i>
-    <span>{{ iconset === 'ux-icon' ? name : classname }}</span>
+    <span>{{ iconset === 'ux-icons' ? name : classname }}</span>
 </button>
 
-<ng-template #tooltipContent>
-    <span [class.icon-preview-tooltip]="copied">{{ tooltipText }}</span>
+<ng-template #iconCodeSnippet>
+    <table class="icon-code-snippets-table">
+        <tbody>
+        <tr *ngIf="iconset === 'ux-icons'">
+            <td class="p-l-xs">&lt;ux-icon name="{{name}}"&gt;&lt;/ux-icon&gt;&nbsp;&nbsp;</td>
+            <td><i class="ux-icon ux-icon-clipboard m-r-xs"
+                   [uxTooltip]="tooltipTemplate"
+                    (click)="copy('ux-icon-component')"></i></td>
+        </tr>
+        <tr *ngIf="iconset === 'ux-icons'">
+            <td class="p-l-xs">&lt;i class="ux-icon {{classname}}"&gt;&lt;/i&gt;&nbsp;&nbsp;</td>
+            <td><i class="ux-icon ux-icon-clipboard m-r-xs"
+                   [uxTooltip]="tooltipTemplate"
+                   (click)="copy('ux-icon')"></i></td>
+        </tr>
+        <tr *ngIf="iconset !== 'ux-icons'">
+            <td class="p-l-xs">&lt;i class="hpe-icon {{classname}}"&gt;&lt;/i&gt;&nbsp;&nbsp;</td>
+            <td><i class="ux-icon ux-icon-clipboard m-r-xs"
+                   [uxTooltip]="tooltipTemplate"
+                    (click)="copy('hpe-icon')"></i></td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="usage-text" *ngIf="iconset === 'ux-icons'">The latter form is recommended only if Angular is
+        not available.
+    </p>
 </ng-template>
+
+<ng-template #tooltipTemplate>
+    <p class="usage-tooltip">Copy to Clipboard</p>
+</ng-template>
+

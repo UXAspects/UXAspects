@@ -1,6 +1,30 @@
+@import '../../../../../../assets/styles/variables.less';
+
 .btn-text {
     color: #676a6c;
     text-transform: none;
     font-size: 16px;
     font-weight: 400;
+}
+
+.icon-code-snippets-table {
+    width: 100%;
+    tr {
+        height: 30px;
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            .ux-icon-clipboard {
+                color: @grey5;
+                cursor: pointer;
+                &:hover, &:focus {
+                    color: @grey1;
+                }
+            }
+        }
+    }
+}
+
+.usage-text {
+    padding-top: 10px;
 }

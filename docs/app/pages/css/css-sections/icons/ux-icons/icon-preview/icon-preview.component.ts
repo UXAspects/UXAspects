@@ -13,10 +13,7 @@ export class IconPreviewComponent {
     @Input() iconset: string;
     @Input() iconClass: string;
 
-    tooltipText: string = 'Click to copy icon text';
-    copied: boolean = false;
-
-    hideTriggers: string [] = ['mouseleave', 'blur'];
+    iconType: string;
 
     @ViewChild(TooltipDirective, { static: true }) tooltip: TooltipDirective;
 
@@ -25,38 +22,21 @@ export class IconPreviewComponent {
         private readonly _elementRef: ElementRef
     ) {}
 
-    copy(): void {
+    copy(iconType: string): void {
 
         const dummy = this._renderer.createElement('input');
         this._renderer.appendChild(this._elementRef.nativeElement, dummy);
 
-        switch (this.iconset) {
-            case 'ux-icons':
-                dummy.value = `<i class="ux-icon ${this.classname}"></i>`;
-                break;
-            case 'ux-icon':
-                dummy.value = `<ux-icon name="${this.name}"></ux-icon>`;
-                break;
-            case 'hpe-icons':
-                dummy.value = `<i class="hpe-icon ${this.classname}"></i>`;
-                break;
+        if (iconType === 'ux-icon-component') {
+            dummy.value = `<ux-icon name="${this.name}"></ux-icon>`;
+        } else if (icoType === 'ux-icon') {
+            dummy.value = `<i class="ux-icon ${this.classname}"></i>`;
+        } else {
+            dummy.value = `<i class="hpe-icon ${this.classname}"></i>`;
         }
 
         dummy.select();
         document.execCommand('copy');
         this._renderer.removeChild(this._elementRef.nativeElement, dummy);
-
-        this.hideTriggers = ['mouseleave', 'blur'];
-        this.tooltip.show();
-        this.tooltipText = 'Copied';
-        this.copied = true;
-
-        setTimeout(() => {
-            this.hideTriggers  = ['mouseleave', 'blur'];
-            this.tooltip.hide();
-            this.tooltipText = 'Click to copy icon text';
-            this.copied = false;
-        }, 1000);
-
     }
 }

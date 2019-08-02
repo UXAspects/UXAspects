@@ -1,6 +1,7 @@
-<ng-container *ngIf="iconset !== 'ux-icon'"><p>To use an icon simply apply the <code>{{ iconClass }}</code> class along with one of the following classes:</p></ng-container>
-<ng-container *ngIf="iconset === 'ux-icon'"><p>To use an icon simply apply
-    the<code>{{ iconClass }}</code> <a [routerLink]="['/components/icons']">component</a> along with one of the following names:</p></ng-container>
+<p>To use an icon simply apply the <code>{{ iconClass }}</code> class along with one of the following
+    classes<ng-container *ngIf="iconset === 'ux-icons'">or use the <code>ux-icon</code> <a
+    [routerLink]="['/components/icons']">component</a> along with one of the following
+    names</ng-container>. Click on an icon to view its implementation.</p>
 
 <div class="row m-b-md">
     <div class="col-xs-6">
