@@ -13,8 +13,6 @@ export class IconPreviewComponent {
     @Input() iconset: string;
     @Input() iconClass: string;
 
-    iconType: string;
-
     @ViewChild(TooltipDirective, { static: true }) tooltip: TooltipDirective;
 
     constructor(
@@ -29,7 +27,7 @@ export class IconPreviewComponent {
 
         if (iconType === 'ux-icon-component') {
             dummy.value = `<ux-icon name="${this.name}"></ux-icon>`;
-        } else if (icoType === 'ux-icon') {
+        } else if (iconType === 'ux-icon') {
             dummy.value = `<i class="ux-icon ${this.classname}"></i>`;
         } else {
             dummy.value = `<i class="hpe-icon ${this.classname}"></i>`;
