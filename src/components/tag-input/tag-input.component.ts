@@ -681,7 +681,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
         this.tags = [];
         this.input = '';
-        this.focus()
+        this.focus();
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent): void {
