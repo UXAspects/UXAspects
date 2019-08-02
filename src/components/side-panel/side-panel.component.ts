@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { FocusIndicatorOriginService } from '../../directives/accessibility';
+import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { SidePanelAnimationState, sidePanelStateAnimation } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
 
