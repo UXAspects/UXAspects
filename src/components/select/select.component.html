@@ -66,7 +66,7 @@
     <div class="ux-select-icons">
         <i *ngIf="clearButton && allowNull && value"
            uxFocusIndicator
-           [attr.tabindex]="disabled ? null : 0"
+           [attr.tabindex]="disabled ? -1 : 0"
            [attr.aria-label]="clearButtonAriaLabel"
            class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
            (click)="clear(); $event.stopPropagation()"
