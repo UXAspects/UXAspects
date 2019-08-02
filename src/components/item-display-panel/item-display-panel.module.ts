@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AccessibilityModule } from '../../directives/accessibility';
+import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/focus-if.module';
 import { ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective } from './item-display-panel.component';
 
