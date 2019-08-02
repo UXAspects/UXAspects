@@ -13,8 +13,6 @@ export class IconPreviewComponent {
     @Input() iconset: string;
     @Input() iconClass: string;
 
-    @ViewChild(TooltipDirective, { static: true }) tooltip: TooltipDirective;
-
     constructor(
         private readonly _renderer: Renderer2,
         private readonly _elementRef: ElementRef

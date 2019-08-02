@@ -6,7 +6,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 
 @Component({
     selector: 'uxd-components-icon',
-    templateUrl: './icon.component.html'
+    templateUrl: './icon.component.html',
+    styleUrls: ['./icon.component.less']
 })
 
 @DocumentationSectionComponent('ComponentsIconComponent')
@@ -15,7 +16,8 @@ export class ComponentsIconComponent extends BaseDocumentationSection implements
     playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.less': this.snippets.raw.appCss
         },
         modules: [
             {

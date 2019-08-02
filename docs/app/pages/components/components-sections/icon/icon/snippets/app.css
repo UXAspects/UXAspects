@@ -1,0 +1,12 @@
+ux-icon {
+    padding: 0 6px;
+}
+
+.ux-icon-examples-left-container {
+     margin-right: 35px;
+}
+
+.ux-icon-examples-left-container, .ux-icon-examples-right-container {
+    display: inline-block;
+}
+
