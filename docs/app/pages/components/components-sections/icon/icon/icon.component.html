@@ -1,49 +1,48 @@
-<div class="ux-icon-component-example">
-    <div class="ux-icon-examples-left-container">
-        <ux-icon
-            name="attachment"
-            size="24px"
-            [flipHorizontal]="false"
-            [flipVertical]="false">
-        </ux-icon>
+<div class="icon-group">
+    <ux-icon
+        name="attachment"
+        size="24px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
 
-        <ux-icon
-            name="print"
-            size="24px"
-            [flipHorizontal]="false"
-            [flipVertical]="false">
-        </ux-icon>
+    <ux-icon
+        name="print"
+        size="24px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
 
-        <ux-icon
-            name="search"
-            size="25px"
-            [flipHorizontal]="false"
-            [flipVertical]="false">
-        </ux-icon>
-    </div>
-    <div class="ux-icon-examples-right-container">
-        <ux-icon
-            name="configuration"
-            size="16px"
-            [flipHorizontal]="false"
-            [flipVertical]="false">
-        </ux-icon>
+    <ux-icon
+        name="search"
+        size="25px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
+</div>
 
-        <ux-icon
-            name="configuration"
-            size="32px"
-            [flipHorizontal]="true"
-            [flipVertical]="false">
-        </ux-icon>
+<div class="icon-group">
+    <ux-icon
+        name="configuration"
+        size="16px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
 
-        <ux-icon
-            name="configuration"
-            size="48px"
-            rotate="90"
-            [flipHorizontal]="false"
-            [flipVertical]="false">
-        </ux-icon>
-    </div>
+    <ux-icon
+        name="configuration"
+        size="32px"
+        [flipHorizontal]="true"
+        [flipVertical]="false">
+    </ux-icon>
+
+    <ux-icon
+        name="configuration"
+        size="48px"
+        rotate="90"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
 </div>
 
 <hr>
@@ -79,7 +78,14 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
 
 <h4>Defining Custom Icons</h4>
 

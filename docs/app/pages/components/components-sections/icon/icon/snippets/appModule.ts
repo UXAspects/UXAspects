@@ -11,7 +11,6 @@ import { NgModule } from '@angular/core';
         })
     ],
 })
-
 export class AppComponent {
 
 }
