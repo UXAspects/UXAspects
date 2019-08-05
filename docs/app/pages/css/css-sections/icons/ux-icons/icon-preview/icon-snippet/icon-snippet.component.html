@@ -1,9 +1,10 @@
-<uxd-snippet [code]="code">
-</uxd-snippet>
+<div class="icon-snippet-container">
+    <uxd-snippet [code]="code"></uxd-snippet>
 
-<button [uxTooltip]="tooltipTemplate" (click)="copy()" type="button" class="btn btn-link btn-icon button-secondary" aria-label="copy">
-    <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
-</button>
+    <button [uxTooltip]="tooltipTemplate" (click)="copy()" type="button" class="btn btn-link btn-icon button-secondary" aria-label="copy">
+        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
+    </button>
+</div>
 
 <ng-template #tooltipTemplate>
     <div class="usage-tooltip">Copy to Clipboard</div>
