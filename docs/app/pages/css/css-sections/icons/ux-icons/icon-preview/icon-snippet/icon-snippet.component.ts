@@ -7,7 +7,6 @@ import { FocusIndicatorDirective, FocusIndicatorOriginService } from '@ux-aspect
     styleUrls: ['./icon-snippet.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class IconSnippetComponent implements AfterViewInit {
 
     /** The code to display in the snippet */

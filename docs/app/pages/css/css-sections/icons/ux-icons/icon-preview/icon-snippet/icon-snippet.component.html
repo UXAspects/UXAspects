@@ -1,11 +1,11 @@
-<uxd-snippet [code]="code" [synchronous]="true"></uxd-snippet>
+<uxd-snippet class="icon-code-snippet" [code]="code" [synchronous]="true"></uxd-snippet>
 
 <button uxFocusIndicator
         [uxTooltip]="tooltipTemplate"
         [showTriggers]="['mouseenter']"
         (click)="copy()"
         type="button"
-        class="btn btn-link btn-icon button-secondary"
+        class="btn btn-link btn-icon button-secondary snippet-copy-button"
         aria-label="Copy to clipboard">
     <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
 </button>
