@@ -69,10 +69,10 @@
         Rotation of the icon in degrees.
     </tr>
     <tr uxd-api-property name="flipHorizontal" type="boolean" defaultValue="false">
-        The icon can be horizontally flipped if set to <code>true</code>. The default is <code>false</code>.
+        The icon can be horizontally flipped if set to <code>true</code>.
     </tr>
     <tr uxd-api-property name="flipVertical" type="boolean" defaultValue="false">
-        The icon can be vertically flipped if set to <code>true</code>. The default is <code>false</code>.
+        The icon can be vertically flipped if set to <code>true</code>.
     </tr>
 </uxd-api-properties>
 
@@ -89,9 +89,9 @@
 
 <h4>Defining Custom Icons</h4>
 
-<p>Custom icons may want to be implemented to define new icons which can be rendered using
-    <code>ux-icon</code>, to override the default icons which appear within UX Aspects components or to provide
-    an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
+<p>Custom icons can be defined to override new icons which can be rendered using
+    <code>ux-icon</code>, to override the default icons which appear within UX Aspects components, or to
+    provide an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
 
 <p>Add this code snippet to your root module file to define icons within your whole application from a
     different icon set. To override the icon set on a per-module basis, the <code>forRoot</code> should be
@@ -108,9 +108,8 @@
         details.
     </tr>
     <tr uxd-api-property name="setIcons" args="Array<IconDefinition>">
-        This function should be called to override several icons from the default icon set in an array. It
-        should be passed an array of <code>IconDefinition</code> objects containing properties to override
-        the default icon set.
+        Create a multiple icon definitions. It should be passed an array of <code>IconDefinition</code>
+        objects, see below for details.
     </tr>
 </uxd-api-properties>
 
@@ -125,7 +124,7 @@
     <tr uxd-api-property name="name" type="string" required="true">
         The name of the icon. This corresponds to the <code>name</code> property of <code>ux-icon</code>.
     </tr>
-    <tr uxd-api-property name="size" type="string | array">
+    <tr uxd-api-property name="size" type="string | string[]">
         The size(s) at which this icon is defined, in CSS units. This corresponds to the <code>size
         </code> property of <code>ux-icon</code>. This property can be used to provide an alternate icon
         glyph at different sizes, as an alternative to the browser scaling which would otherwise apply.

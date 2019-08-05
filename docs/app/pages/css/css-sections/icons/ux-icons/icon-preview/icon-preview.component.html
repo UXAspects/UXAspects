@@ -1,6 +1,6 @@
 <button uxFocusIndicator
         tabindex="0"
-        class="icon-demo btn btn-link button-secondary btn-text"
+        class="icon-demo btn btn-link button-secondary uxd-icon-button"
         [uxPopover]="iconCodeSnippet"
         popoverClass="icon-code-snippet-popover"
         placement="bottom">
@@ -9,53 +9,48 @@
 </button>
 
 <ng-template #iconCodeSnippet>
+    <p>To use ux-icon, ensure that IconModule has been imported, and bind the icon name to name:</p>
     <table class="icon-code-snippets-table">
         <tbody>
             <tr *ngIf="iconset === 'ux-icons'">
                 <td class="p-l-xs">
-                    <code>
-                        &lt;ux-icon name="{{name}}"&gt;&lt;/ux-icon&gt;
-                    </code>&nbsp;&nbsp;
+                    <uxd-snippet [code]="getUXComponentSnippet()">
+                    </uxd-snippet>
                 </td>
                 <td>
-                    <i class="ux-icon ux-icon-clipboard m-r-xs"
-                       [uxTooltip]="tooltipTemplate"
-                       (click)="copy('ux-icon-component')">
-                    </i>
+                    <button [uxTooltip]="tooltipTemplate" (click)="copy('ux-icon-component')" type="button" class="btn btn-link btn-icon button-secondary" aria-label="copy">
+                        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
+                    </button>
                 </td>
             </tr>
+            <p class="usage-text" *ngIf="iconset === 'ux-icons'">If Angular is not available, the classes can be used directly:
+            </p>
             <tr *ngIf="iconset === 'ux-icons'">
                 <td class="p-l-xs">
-                    <code>
-                        &lt;i class="ux-icon {{classname}}"&gt;&lt;/i&gt;
-                    </code>&nbsp;&nbsp;
+                    <uxd-snippet [code]="getUXIconSnippet()">
+                    </uxd-snippet>
                 </td>
                 <td>
-                    <i class="ux-icon ux-icon-clipboard m-r-xs"
-                       [uxTooltip]="tooltipTemplate"
-                       (click)="copy('ux-icon')">
-
-                    </i>
+                    <button [uxTooltip]="tooltipTemplate" (click)="copy('ux-icon')" type="button"
+                            class="btn btn-link btn-icon button-secondary" aria-label="copy">
+                        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
+                    </button>
                 </td>
             </tr>
-            <tr *ngIf="iconset !== 'ux-icons'">
+            <tr *ngIf="iconset === 'hpe-icons'">
                 <td class="p-l-xs">
-                    <code>
-                        &lt;i class="hpe-icon {{classname}}"&gt;&lt;/i&gt;
-                    </code>&nbsp;&nbsp;
+                    <uxd-snippet [code]="getHpeIconSnippet()">
+                    </uxd-snippet>
                 </td>
                 <td>
-                    <i class="ux-icon ux-icon-clipboard m-r-xs"
-                       [uxTooltip]="tooltipTemplate"
-                       (click)="copy('hpe-icon')">
-                    </i>
+                    <button [uxTooltip]="tooltipTemplate" (click)="copy('hpe-icon')" type="button"
+                            class="btn btn-link btn-icon button-secondary" aria-label="copy">
+                        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
+                    </button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <p class="usage-text" *ngIf="iconset === 'ux-icons'">The latter form is recommended only if Angular is
-        not available.
-    </p>
 </ng-template>
 
 <ng-template #tooltipTemplate>

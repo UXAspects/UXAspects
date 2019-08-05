@@ -35,4 +35,16 @@ export class IconPreviewComponent {
         document.execCommand('copy');
         this._renderer.removeChild(this._elementRef.nativeElement, dummy);
     }
+
+    getUXComponentSnippet(): string {
+        return `<ux-icon name="${this.name}"></ux-icon>`;
+    }
+
+    getUXIconSnippet(): string {
+        return `<i class="ux-icon ${this.classname}"></i>`;
+    }
+
+    getHpeIconSnippet(): string {
+        return `<i class="hpe-icon ${this.classname}"></i>`;
+    }
 }
