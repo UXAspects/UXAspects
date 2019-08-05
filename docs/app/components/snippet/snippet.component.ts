@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { highlight, languages } from 'prismjs';
 
 @Component({
     selector: 'uxd-snippet',
@@ -10,6 +11,7 @@ export class SnippetComponent implements OnInit {
     @Input() language: string = 'html';
     @Input() code: string;
     @Input() content: any;
+    @Input() synchronous: boolean = false;
 
     @ViewChild('code', { read: ViewContainerRef, static: true }) codeContainer: ViewContainerRef;
 
@@ -25,6 +27,15 @@ export class SnippetComponent implements OnInit {
     }
 
     private loadCode(): void {
+
+        // we might want to perform the render synchronously if its only a small
+        // amount of code as async can cause a delay before showing the code
+        if (this.synchronous) {
+            const code = highlight(this.code, languages[this.language]);
+            this.codeContainer.element.nativeElement.innerHTML = `<code>${code}</code>`;
+            return;
+        }
+
         // create a blob containing prismjs
         const blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
 

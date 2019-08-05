@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectModule, PopoverModule } from '@ux-aspects/ux-aspects';
+import { SelectModule, PopoverModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -15,7 +15,7 @@ import { CssRotateFlipIconsComponent } from './rotate-flip-icons/rotate-flip-ico
 import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
 import { IconModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { IconPreviewComponent } from './ux-icons/icon-preview/icon-preview.component';
-import { IconSnippetComponent } from "./ux-icons/icon-preview/icon-snippet/icon-snippet.component";
+import { IconSnippetComponent } from './ux-icons/icon-preview/icon-snippet/icon-snippet.component';
 
 
 const SECTIONS = [
@@ -41,6 +41,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         DocumentationComponentsModule,
         CommonModule,
         FormsModule,
