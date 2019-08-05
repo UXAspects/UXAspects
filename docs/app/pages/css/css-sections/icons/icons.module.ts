@@ -15,6 +15,7 @@ import { CssRotateFlipIconsComponent } from './rotate-flip-icons/rotate-flip-ico
 import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
 import { IconModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { IconPreviewComponent } from './ux-icons/icon-preview/icon-preview.component';
+import { IconSnippetComponent } from "./ux-icons/icon-preview/icon-snippet/icon-snippet.component";
 
 
 const SECTIONS = [
@@ -24,7 +25,8 @@ const SECTIONS = [
     CssFixedWidthComponent,
     CssRotateFlipIconsComponent,
     CssIconButtonsComponent,
-    CssIconColorsComponent
+    CssIconColorsComponent,
+    IconSnippetComponent
 ];
 
 const ROUTES = [

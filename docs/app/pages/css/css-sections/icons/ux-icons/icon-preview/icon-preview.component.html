@@ -4,56 +4,16 @@
         [uxPopover]="iconCodeSnippet"
         popoverClass="icon-code-snippet-popover"
         placement="bottom">
-    <i class="{{ iconClass }} p-r-xs" [ngClass]="classname"></i>
+    <i class="{{ iconSetClass }} p-r-xs" [ngClass]="classname"></i>
     <span>{{ iconset === 'ux-icons' ? name : classname }}</span>
 </button>
 
 <ng-template #iconCodeSnippet>
+
     <p>To use ux-icon, ensure that IconModule has been imported, and bind the icon name to name:</p>
-    <table class="icon-code-snippets-table">
-        <tbody>
-            <tr *ngIf="iconset === 'ux-icons'">
-                <td class="p-l-xs">
-                    <uxd-snippet [code]="getUXComponentSnippet()">
-                    </uxd-snippet>
-                </td>
-                <td>
-                    <button [uxTooltip]="tooltipTemplate" (click)="copy('ux-icon-component')" type="button" class="btn btn-link btn-icon button-secondary" aria-label="copy">
-                        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
-                    </button>
-                </td>
-            </tr>
-            <p class="usage-text" *ngIf="iconset === 'ux-icons'">If Angular is not available, the classes can be used directly:
-            </p>
-            <tr *ngIf="iconset === 'ux-icons'">
-                <td class="p-l-xs">
-                    <uxd-snippet [code]="getUXIconSnippet()">
-                    </uxd-snippet>
-                </td>
-                <td>
-                    <button [uxTooltip]="tooltipTemplate" (click)="copy('ux-icon')" type="button"
-                            class="btn btn-link btn-icon button-secondary" aria-label="copy">
-                        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
-                    </button>
-                </td>
-            </tr>
-            <tr *ngIf="iconset === 'hpe-icons'">
-                <td class="p-l-xs">
-                    <uxd-snippet [code]="getHpeIconSnippet()">
-                    </uxd-snippet>
-                </td>
-                <td>
-                    <button [uxTooltip]="tooltipTemplate" (click)="copy('hpe-icon')" type="button"
-                            class="btn btn-link btn-icon button-secondary" aria-label="copy">
-                        <ux-icon name="clipboard" aria-hidden="true"></ux-icon>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</ng-template>
 
-<ng-template #tooltipTemplate>
-    <div class="usage-tooltip">Copy to Clipboard</div>
-</ng-template>
+    <uxd-icon-snippet [code]="getUXComponentSnippet()"></uxd-icon-snippet>
+    <uxd-icon-snippet [code]="getUXIconSnippet()"></uxd-icon-snippet>
+    <uxd-icon-snippet [code]="getHpeIconSnippet()"></uxd-icon-snippet>
 
+</ng-template>

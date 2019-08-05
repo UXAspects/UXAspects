@@ -32,11 +32,16 @@ export class CssUxIconsComponent {
 
     iconClass: string = 'ux-icon';
 
+    uxIconComponentRoute: string;
+
     get isKeppel(): boolean {
         return this._documentationType === DocumentationType.Keppel;
     }
 
-    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) { }
+    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
+
+        this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling#icon' : '/components/icons';
+    }
 
     trackByFn(index: number, icon: IIcon): string {
         return icon.name;
@@ -55,7 +60,6 @@ export class CssUxIconsComponent {
     private getIconset(): ReadonlyArray<IIcon> {
         return this.iconset === 'ux-icons' ? this.uxIcons : this.hpeIcons;
     }
-
 }
 
 export type Iconset = 'ux-icons' | 'hpe-icons';
