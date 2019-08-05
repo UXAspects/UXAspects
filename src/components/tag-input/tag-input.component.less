@@ -109,6 +109,11 @@ ux-tag-input {
 
     &.disabled {
         background-color: @tag-input-disabled-bg;
+        .ux-tag-icon,
+        .ux-select-icon {
+            cursor: default;
+            color: #d8d9db;
+        }
     }
 
     &.focus {
@@ -137,14 +142,6 @@ ux-tag-input {
 
             &:last-of-type {
                 margin-right: 5px;
-            }
-        }
-
-        &.disabled {
-            .ux-tag-icon,
-            .ux-select-icon {
-                cursor: default;
-                color: #d8d9db;
             }
         }
     }
