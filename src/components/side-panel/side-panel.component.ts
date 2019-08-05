@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { SidePanelAnimationState, sidePanelStateAnimation } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
@@ -107,7 +107,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         private readonly _focusOrigin: FocusIndicatorOriginService) { }
 
     ngOnInit(): void {
-        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => {
+        this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isOpen => {
             this.animationPanelState = isOpen
                 ? this.animate
                     ? SidePanelAnimationState.Open
