@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
 import { ResizeModule } from '../../directives/resize/index';
+import { IconModule } from '../icon/index';
 import { PopoverModule } from '../popover/index';
 import { HierarchyBarCollapsedComponent } from './hierarchy-bar-collapsed/hierarchy-bar-collapsed.component';
 import { HierarchyBarNodeIconDirective } from './hierarchy-bar-node/hierarchy-bar-node-icon.directive';
@@ -14,11 +15,12 @@ import { HierarchyBarComponent } from './hierarchy-bar.component';
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         CommonModule,
-        ResizeModule,
         FocusIfModule,
+        IconModule,
         PopoverModule,
-        AccessibilityModule
+        ResizeModule,
     ],
     exports: [
         HierarchyBarComponent,

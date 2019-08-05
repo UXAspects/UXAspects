@@ -102,7 +102,7 @@
                  (keydown.alt.arrowdown)="move(column, 1)">
 
                  <ng-container *ngIf="!selectedTemplate">
-                    <i uxReorderableHandle class="hpe-icon hpe-drag"></i>
+                    <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
                     {{ column }}
                  </ng-container>
 
