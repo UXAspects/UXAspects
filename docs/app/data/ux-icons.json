@@ -741,6 +741,10 @@
             "classname": "ux-icon-inherit"
         },
         {
+            "name": "input-to-process",
+            "classname": "ux-icon-input-to-process"
+        },
+        {
             "name": "install",
             "classname": "ux-icon-install"
         },

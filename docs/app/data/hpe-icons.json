@@ -729,6 +729,10 @@
             "classname": "hpe-inherit"
         },
         {
+            "name": "input-to-process",
+            "classname": "hpe-input-to-process"
+        },
+        {
             "name": "install",
             "classname": "hpe-install"
         },
