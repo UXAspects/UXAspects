@@ -17,18 +17,18 @@
 
 <div class="number-picker-controls">
 
-    <div class="number-picker-control-up"
+    <div class="number-picker-control number-picker-control-up"
          (click)="increment($event)"
          [class.disabled]="disabled || value >= max">
 
-        <span class="hpe-icon hpe-up"></span>
+        <ux-icon name="up"></ux-icon>
     </div>
 
-    <div class="number-picker-control-down"
+    <div class="number-picker-control number-picker-control-down"
          (click)="decrement($event)"
          [class.disabled]="disabled || value <= min">
 
-        <span class="hpe-icon hpe-down"></span>
+         <ux-icon name="down"></ux-icon>
     </div>
 
 </div>
