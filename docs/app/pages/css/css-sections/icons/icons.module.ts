@@ -26,6 +26,7 @@ const SECTIONS = [
     CssRotateFlipIconsComponent,
     CssIconButtonsComponent,
     CssIconColorsComponent,
+    IconPreviewComponent,
     IconSnippetComponent
 ];
 

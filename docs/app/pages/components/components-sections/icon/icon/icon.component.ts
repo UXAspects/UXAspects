@@ -1,14 +1,18 @@
-import { Component, Inject } from '@angular/core';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlayground } from '../../../../../interfaces/IPlayground';
-import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../services/playground/tokens/documentation.token';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {BaseDocumentationSection} from '../../../../../components/base-documentation-section/base-documentation-section';
+import {DocumentationSectionComponent} from '../../../../../decorators/documentation-section-component';
+import {IPlayground} from '../../../../../interfaces/IPlayground';
+import {IPlaygroundProvider} from '../../../../../interfaces/IPlaygroundProvider';
+import {
+    DOCUMENTATION_TOKEN,
+    DocumentationType
+} from '../../../../../services/playground/tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-icon',
     templateUrl: './icon.component.html',
-    styleUrls: ['./icon.component.less']
+    styleUrls: ['./icon.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 @DocumentationSectionComponent('ComponentsIconComponent')
