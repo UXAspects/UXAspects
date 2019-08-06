@@ -27,7 +27,7 @@
             #popover="ux-popover"
             aria-label="Show children"
             role="button"
-            class="hierarchy-bar-node-arrow hpe-icon hpe-next"
+            class="hierarchy-bar-node-arrow"
             [uxPopover]="popoverTemplate"
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
@@ -35,6 +35,7 @@
             [showTriggers]="hierarchyBar.popoverShowTriggers"
             [hideTriggers]="hierarchyBar.popoverHideTriggers"
             tabindex="0">
+        <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"></ux-icon>
     </button>
 
 </div>
