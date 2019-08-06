@@ -40,7 +40,7 @@ export class CssUxIconsComponent {
 
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
 
-        this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling#icon' : '/components/icons';
+        this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/components/icons';
     }
 
     trackByFn(index: number, icon: IIcon): string {

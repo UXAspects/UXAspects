@@ -1,8 +1,8 @@
 <p *ngIf="iconClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconClass }}</code> class along
     with one of the following classes:</p>
 
-<p  *ngIf="iconClass === 'ux-icon'">To use an icon apply the <code>ux-icon</code><a
-    [routerLink]="['/components/icons']"> component</a> along with one of the following names. Click on an
+<p  *ngIf="iconClass === 'ux-icon'">To use an icon apply the <code>ux-icon</code><a fragment="icon"
+    [routerLink]="[uxIconComponentRoute]"> component</a> along with one of the following names. Click on an
     icon to view its implementation.</p>
 
 <div class="row m-b-md">

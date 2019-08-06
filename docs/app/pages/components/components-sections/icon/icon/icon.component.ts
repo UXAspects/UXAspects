@@ -34,7 +34,7 @@ export class ComponentsIconComponent extends BaseDocumentationSection implements
     constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
-        this.iconSetDocumentationRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling#ux-icons' : '/css/icons';
+        this.iconSetDocumentationRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/css/icons';
     }
 
 }
