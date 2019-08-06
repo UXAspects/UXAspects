@@ -66,13 +66,12 @@
     <div class="ux-select-icons">
         <i *ngIf="clearButton && allowNull && value"
            uxFocusIndicator
-           tabindex="0"
+           [attr.tabindex]="disabled ? -1 : 0"
            [attr.aria-label]="clearButtonAriaLabel"
            class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
            (click)="clear(); $event.stopPropagation()"
            (keydown.enter)="clear(); $event.stopPropagation()">
         </i>
-
         <i *ngIf="!icon"
            class="ux-select-icon ux-icon ux-select-chevron-icon"
            [class.ux-icon-up]="dropDirection === 'up'"
