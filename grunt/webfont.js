@@ -7,8 +7,9 @@ module.exports = {
         destCss: path.join(process.cwd(), 'src', 'styles'),
         options: {
             font: 'hpe-icons',
-            engine: 'node',
+            engine: 'fontforge',
             hashes: false,
+            types: ['eot', 'woff', 'ttf'],
             stylesheet: 'less',
             htmlDemo: false,
             templateOptions: {
@@ -24,8 +25,9 @@ module.exports = {
         destCss: path.join(process.cwd(), 'src', 'styles'),
         options: {
             font: 'ux-icons',
-            engine: 'node',
+            engine: 'fontforge',
             hashes: false,
+            types: ['eot', 'woff', 'ttf'],
             stylesheet: 'less',
             htmlDemo: false,
             templateOptions: {

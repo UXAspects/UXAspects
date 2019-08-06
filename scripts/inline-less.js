@@ -50,11 +50,21 @@ less.parse(stylesheet, options, (err, ruleset, imports, options) => {
     // produce the inline less file
     less.render(statements, options, (err, output) => {
 
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+
         // output the less file
         fs.writeFileSync(lessDestinationPath, output.css);
 
         // convert to CSS
         less.render(output.css, (err, output) => {
+
+            if (err) {
+                console.error(err);
+                process.exit(2);
+            }
 
             // output the css file
             fs.writeFileSync(cssDestinationPath, output.css);
@@ -71,7 +81,7 @@ less.parse(stylesheet, options, (err, ruleset, imports, options) => {
  * however the less.js library does not. This function will allow us to
  * continue to use the tilde to represent the node modules folder even
  * when using less.js to compile the source.
- * 
+ *
  * This will allow people to import the ux-aspects.less file in their projects
  * as if we use a relative path to node_modules this may be incorrect due
  * to NPM flattening the folder structure.
