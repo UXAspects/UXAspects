@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-5">
+
+        <ux-select-custom [(selected)]="selected" (filterChange)="filter = $event" [allowNull]="allowNull"
+                          [busy]="showBusyIndicator" [width]="componentWidth" [maxHeight]="componentMaxHeight"
+                          [placeholder]="placeholder">
+
+            <ng-template #buttonContent>
+                <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+            </ng-template>
+
+            <ng-template #dropdownContent>
+                <div role="radiogroup" class="radio-button-container">
+                    <ux-radio-button *ngFor="let option of optionList" name="group" [value]="selected"
+                                     (valueChange)="setSelected($event)" [option]="option"
+                                     [hidden]="isHidden(option.name)">
+                        {{ beforeHighlight(option.name) }}<span class="highlight">{{ highlightText(option.name)
+                        }}</span>{{ afterHighlight(option.name) }}
+                    </ux-radio-button>
+                </div>
+            </ng-template>
+
+        </ux-select-custom>
+    </div>
+</div>

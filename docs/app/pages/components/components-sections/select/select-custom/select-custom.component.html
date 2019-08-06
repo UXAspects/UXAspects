@@ -1,0 +1,136 @@
+<div class="row">
+  <div class="col-md-5">
+
+    <ux-select-custom [(selected)]="selected" (filterChange)="filter = $event" [allowNull]="allowNull"
+                      [busy]="showBusyIndicator" [width]="componentWidth" [maxHeight]="componentMaxHeight"
+                      [placeholder]="placeholder">
+
+      <ng-template #buttonContent>
+        <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+      </ng-template>
+
+      <ng-template #dropdownContent>
+        <div role="radiogroup" class="radio-button-container">
+          <ux-radio-button *ngFor="let option of optionList" name="group" [value]="selected"
+                           (valueChange)="setSelected($event)" [option]="option"
+                           [hidden]="isHidden(option.name)">
+            {{ beforeHighlight(option.name) }}<span class="highlight">{{ highlightText(option.name)
+            }}</span>{{ afterHighlight(option.name) }}
+          </ux-radio-button>
+        </div>
+      </ng-template>
+
+    </ux-select-custom>
+  </div>
+</div>
+
+<p class="dropdown-placeholder">Filter string: <b>{{ filter }}</b></p>
+
+<div class="row uxd-customize-example">
+  <div class="col-md-12">
+    <ux-accordion>
+      <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+          <div class="col-md-2 col-sm-12">
+            <label>Width:</label>
+          </div>
+          <div class="col-md-2 col-sm-12">
+            <ux-number-picker [(value)]="componentWidth"></ux-number-picker>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-2 col-sm-12">
+            <label>Maximum height:</label>
+          </div>
+          <div class="col-md-2 col-sm-12">
+            <ux-number-picker [(value)]="componentMaxHeight"></ux-number-picker>
+          </div>
+        </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <ux-checkbox [(value)]="allowNull">Allow null</ux-checkbox>
+          </div>
+        </div>
+          <div class="row uxd-customize-row">
+              <div class="col-md-4 col-sm-12">
+                  <ux-checkbox [(value)]="showBusyIndicator">Show busy indicator</ux-checkbox>
+              </div>
+          </div>
+          <div class="row uxd-customize-row">
+              <div class="col-md-2 col-sm-12">
+                  <label>Placeholder</label>
+              </div>
+              <div class="col-md-2 col-sm-12">
+                  <input [(ngModel)]="placeholder">
+              </div>
+          </div>
+        <div class="row uxd-customize-row">
+          <div class="col-md-4 col-sm-12">
+            <button (click)="selected = optionList[0]">Select first element</button>
+          </div>
+        </div>
+      </ux-accordion-panel>
+    </ux-accordion>
+  </div>
+</div>
+
+<hr>
+
+<p>
+  The <code>select-custom</code> component is a drop-down with flexible content.
+  The following can be used to customize and interact with the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+  <tr uxd-api-property name="buttonContent" type="transcluded HTML">
+    Rendering the selected item on the drop-down button.
+  </tr>
+  <tr uxd-api-property name="dropdownContent" type="transcluded HTML">
+    Rendering the complete data to select from on the drop-down panel.
+  </tr>
+
+  <tr uxd-api-property name="selected" type="Object">
+    If specified, the items provided will be selected.
+    To programmatically modify the selection, assign a new array object to this property.
+  </tr>
+  <tr uxd-api-property name="hideFilter" type="boolean" defaultValue="false">
+    If <code>true</code>, the filter field is not displayed.
+  </tr>
+  <tr uxd-api-property name="width" type="number">
+    Width of the drop-down.
+  </tr>
+  <tr uxd-api-property name="maxHeight" type="number">
+    Maximum height of the drop-down.
+  </tr>
+    <tr uxd-api-property name="busy" type="boolean" defaultValue="false">
+        If <code>true</code>, displays a busy indicator.
+    </tr>
+    <tr uxd-api-property name="placeholder" type="string" defaultValue="type to filter ...">
+        Placeholder to display inside the filter field.<br>
+        <b>Note:</b> The default value is not localized!
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+  <tr uxd-api-property name="filterChange" type="string">
+    Fires whenever the filter term changes, sends new filter string as event.
+  </tr>
+  <tr uxd-api-property name="selectedChange" type="Object">
+    This event will emit any time the selection changes. The event will contain the new selected items.
+  </tr>
+</uxd-api-properties>
+
+
+<p>The sample code for the above example is:</p>
+
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </ux-tab>
+</ux-tabset>

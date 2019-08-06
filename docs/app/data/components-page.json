@@ -1418,6 +1418,21 @@
                             "content": "SelectListModule"
                         }
                     ]
+                },
+                {
+                    "title": "Select Custom",
+                    "component": "ComponentsSelectCustomComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-select-custom"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SelectCustomModule"
+                        }
+                    ]
                 }
             ]
         },

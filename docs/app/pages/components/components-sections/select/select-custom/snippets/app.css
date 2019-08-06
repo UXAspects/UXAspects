@@ -1,0 +1,12 @@
+.radio-button-container {
+    padding: 16px;
+}
+
+::ng-deep .ux-radio-button-label {
+    font-size: 16px;
+}
+
+.highlight {
+    color: blue;
+    font-weight: 600;
+}
