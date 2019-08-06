@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { PopoverDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'uxd-icon-preview',
@@ -6,23 +7,30 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     styleUrls: ['./icon-preview.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IconPreviewComponent {
+export class IconPreviewComponent implements OnInit {
     @Input() name: string;
     @Input() classname: string;
     @Input() iconset: string;
     @Input() iconSetClass: string;
 
-    constructor() {}
+    uxComponentSnippet: string;
+    iconSnippet: string;
 
-    getUXComponentSnippet(): string {
-        return `<ux-icon name="${this.name}"></ux-icon>`;
+    @ViewChild('button', { static: true }) button: ElementRef<HTMLButtonElement>;
+
+    @ViewChild(PopoverDirective, { static: true }) popover: PopoverDirective;
+
+    ngOnInit(): void {
+        this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
+
+        this.iconSnippet = `<i class="${this.iconSetClass} ${this.classname}"></i>`;
     }
 
-    getUXIconSnippet(): string {
-        return `<i class="ux-icon ${this.classname}"></i>`;
-    }
-
-    getHpeIconSnippet(): string {
-        return `<i class="hpe-icon ${this.classname}"></i>`;
+    @HostListener('document:keydown.escape')
+    closePopover(): void {
+        if (this.popover.isVisible) {
+            this.popover.hide();
+            this.button.nativeElement.focus();
+        }
     }
 }

@@ -1,17 +1,18 @@
-<button uxFocusIndicator
+<button #button
+        uxFocusIndicator
         uxFocusIndicatorOrigin
         tabindex="0"
         class="icon-demo btn btn-link button-secondary uxd-icon-button"
-        (click)="popover.show()"
-        #button>
-
-    <i [uxPopover]="iconCodeSnippet"
+        [uxPopover]="iconCodeSnippet"
         popoverClass="icon-code-snippet-popover"
         placement="bottom"
-        #popover="ux-popover"
-        class="{{ iconSetClass }} p-r-xs"
-        [ngClass]="classname">
-    </i>
+        alignment="start"
+        [hideTriggers]="['click', 'clickoutside']">
+
+    <ux-icon
+        class="p-r-xs"
+        [name]="name">
+    </ux-icon>
 
     <span>{{ iconset === 'ux-icons' ? name : classname }}</span>
 </button>
@@ -20,28 +21,22 @@
 
     <ng-container *ngIf="iconSetClass  === 'ux-icon'">
 
-        <p>To use ux-icon, ensure that IconModule has been imported, and bind the icon name to name:</p>
+        <p>To use <code>ux-icon</code>, ensure that <code>IconModule</code> has been imported, and bind the
+            icon name to name:</p>
 
         <uxd-icon-snippet [focusOnShow]="true"
-                          [code]="getUXComponentSnippet()"
-                          (copied)="popover.hide(); button.focus()">
+                          [code]="uxComponentSnippet"
+                          (copied)="closePopover()">
         </uxd-icon-snippet>
 
         <p>If Angular is not available, the classes can be used directly:</p>
-
-        <uxd-icon-snippet [code]="getUXIconSnippet()"
-                          (copied)="popover.hide(); button.focus()">
-        </uxd-icon-snippet>
-
     </ng-container>
 
-    <ng-container *ngIf="iconSetClass === 'hpe-icon'">
+    <uxd-icon-snippet [code]="iconSnippet"
+                      [focusOnShow]="iconSetClass === 'hpe-icon'"
+                      (copied)="closePopover()">
+    </uxd-icon-snippet>
 
-        <uxd-icon-snippet [focusOnShow]="true"
-                          [code]="getHpeIconSnippet()"
-                          (copied)="popover.hide(); button.focus()">
-        </uxd-icon-snippet>
 
-    </ng-container>
 
 </ng-template>

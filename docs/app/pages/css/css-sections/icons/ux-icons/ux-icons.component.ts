@@ -30,7 +30,7 @@ export class CssUxIconsComponent {
     /** Store the current search query */
     query: string;
 
-    iconClass: string = 'ux-icon';
+    iconSetClass: string = 'ux-icon';
 
     uxIconComponentRoute: string;
 
@@ -43,12 +43,8 @@ export class CssUxIconsComponent {
         this.uxIconComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/styling' : '/components/icons';
     }
 
-    trackByFn(index: number, icon: IIcon): string {
-        return icon.name;
-    }
-
     updateIconset(value: string): void {
-        this.iconClass = value === 'ux-icons' ? 'ux-icon' : 'hpe-icon';
+        this.iconSetClass = value === 'ux-icons' ? 'ux-icon' : 'hpe-icon';
     }
 
     /** Filter icons by search query */

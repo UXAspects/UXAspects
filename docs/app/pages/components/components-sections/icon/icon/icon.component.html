@@ -90,12 +90,11 @@
 
 <h4>Defining Custom Icons</h4>
 
-<p>Custom icons can be defined to override new icons which can be rendered using
-    <code>ux-icon</code>, to override the default icons which appear within UX Aspects components, or to
-    provide an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
+<p>Custom icons can be defined to override the default icons which appear within UX Aspects components, or
+    to provide an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
 
 <p>Add this code snippet to your root module file to define icons within your whole application from a
-    different icon set. To override the icon set on a per-module basis, the <code>forRoot</code> should be
+    different icon set. To customize icons on a per-module basis, the <code>forRoot</code> should be
     replaced with <code>forChild</code>. See the <code>IconDefinition</code> interface for details of
     the properties to provide.</p>
 
@@ -109,7 +108,7 @@
         details.
     </tr>
     <tr uxd-api-property name="setIcons" args="Array<IconDefinition>">
-        Create a multiple icon definitions. It should be passed an array of <code>IconDefinition</code>
+        Create multiple icon definitions. It should be passed an array of <code>IconDefinition</code>
         objects, see below for details.
     </tr>
 </uxd-api-properties>
@@ -126,8 +125,8 @@
         The name of the icon. This corresponds to the <code>name</code> property of <code>ux-icon</code>.
     </tr>
     <tr uxd-api-property name="size" type="string | string[]">
-        The size(s) at which this icon is defined, in CSS units. This corresponds to the <code>size
-        </code> property of <code>ux-icon</code>. This property can be used to provide an alternate icon
+        The size(s) at which this icon is defined, in CSS units. This corresponds to the <code>size</code>
+        property of <code>ux-icon</code>. This property can be used to provide an alternate icon
         glyph at different sizes, as an alternative to the browser scaling which would otherwise apply.
         Note that due to technical limitations this only applies to icons explicitly sized using the
         <code>size</code> property, and cannot match a size defined in CSS.

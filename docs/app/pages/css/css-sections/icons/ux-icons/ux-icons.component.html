@@ -1,7 +1,8 @@
-<p *ngIf="iconClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconClass }}</code> class along
+<p *ngIf="iconSetClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconSetClass }}</code>
+    class along
     with one of the following classes:</p>
 
-<p  *ngIf="iconClass === 'ux-icon'">To use an icon apply the <code>ux-icon</code><a fragment="icon"
+<p  *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <code>ux-icon</code><a fragment="icon"
     [routerLink]="[uxIconComponentRoute]"> component</a> along with one of the following names. Click on an
     icon to view its implementation.</p>
 
@@ -26,12 +27,12 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of icons; trackBy: trackByFn">
+    <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of icons">
         <uxd-icon-preview
             [name]="icon.name"
             [classname]="icon.classname"
             [iconset]="iconset"
-            [iconSetClass]="iconClass">
+            [iconSetClass]="iconSetClass">
         </uxd-icon-preview>
     </div>
 </div>
