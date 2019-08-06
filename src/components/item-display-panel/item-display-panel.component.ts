@@ -1,5 +1,6 @@
 import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { sidePanelStateAnimation } from '../side-panel/side-panel-animations';
 import { SidePanelComponent } from '../side-panel/side-panel.component';
 import { SidePanelService } from '../side-panel/side-panel.service';
@@ -72,8 +73,8 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
         return this.open;
     }
 
-    constructor(service: SidePanelService, elementRef: ElementRef) {
-        super(service, elementRef);
+    constructor(service: SidePanelService, elementRef: ElementRef, focusOrigin: FocusIndicatorOriginService) {
+        super(service, elementRef, focusOrigin);
 
         this.animate = false;
         this.closeOnExternalClick = true;

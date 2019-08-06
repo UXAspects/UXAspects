@@ -1,7 +1,12 @@
 <div class="ux-side-panel-inline-container demo-side-panel-container">
 
     <div class="demo-content">
-        <button #launch type="button" class="btn button-primary"
+        <button
+            #launch
+            type="button"
+            class="btn button-primary"
+            uxFocusIndicator
+            programmaticFocusIndicator="false"
             (click)="open = !open; $event.stopPropagation()">
             Toggle Side Panel
         </button>
