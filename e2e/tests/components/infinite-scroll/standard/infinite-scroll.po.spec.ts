@@ -88,11 +88,11 @@ export class InfiniteScrollPage {
     }
 
     clickOnIncrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').$('span.hpe-up').click();
+        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').click();
     }
 
     clickOnDecrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').$('span.hpe-down').click();
+        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
 

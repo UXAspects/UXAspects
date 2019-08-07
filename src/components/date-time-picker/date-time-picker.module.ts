@@ -4,6 +4,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
+import { IconModule } from '../icon/index';
 import { SpinButtonModule } from '../spin-button/index';
 import { TimePickerModule } from '../time-picker/index';
 import { DateTimePickerComponent } from './date-time-picker.component';
@@ -20,10 +21,11 @@ import { YearViewComponent } from './year-view/year-view.component';
         A11yModule,
         AccessibilityModule,
         CommonModule,
+        FocusIfModule,
         FormsModule,
-        TimePickerModule,
+        IconModule,
         SpinButtonModule,
-        FocusIfModule
+        TimePickerModule,
     ],
     exports: [DateTimePickerComponent],
     declarations: [

@@ -1,2 +1,2 @@
 <span class="facet-header-title">{{ header }}</span>
-<span class="hpe-icon" [class.hpe-down]="expanded" [class.hpe-previous]="!expanded" *ngIf="canExpand"></span>
+<ux-icon *ngIf="canExpand" [name]="expanded ? 'down' : 'previous'" class="facet-header-icon"></ux-icon>
