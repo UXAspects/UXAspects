@@ -1,0 +1,20 @@
+:host {
+    display: inline-flex;
+    padding: 10px 0;
+    width: 100%;
+
+    .icon-code-snippet {
+        display: flex;
+        flex: 1;
+    }
+
+    .snippet-copy-button {
+        display: flex;
+    }
+
+    ::ng-deep pre[class*="language-"] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+}

@@ -1,13 +1,18 @@
-<p>To use an icon simply apply the <code>{{ iconClass }}</code> class along with one of the following classes:</p>
+<p *ngIf="iconSetClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconSetClass }}</code>
+    class along with one of the following classes:</p>
+
+<p  *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <a fragment="icon"
+    [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a> along with one of the
+    following names. Click on an icon to view its implementation.</p>
 
 <div class="row m-b-md">
     <div class="col-xs-6">
 
         <!-- Show the standard select component in the keppel site -->
-        <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
+        <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
 
         <!-- Show the combobox variant in the MF site -->
-        <ux-combobox *ngIf="!isKeppel" [(value)]="iconset" (valueChange)="search()" [options]="iconsets" [readonlyInput]="true"></ux-combobox>
+        <ux-combobox *ngIf="!isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-combobox>
     </div>
 
     <div class="col-xs-6">
@@ -22,8 +27,11 @@
 
 <div class="row">
     <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of icons">
-        <div class="icon-demo">
-            <i class="{{ iconClass }} p-r-xs" [ngClass]="icon.classname"></i> <span>{{ icon.classname }}</span>
-        </div>
+        <uxd-icon-preview
+            [name]="icon.name"
+            [classname]="icon.classname"
+            [iconset]="iconset"
+            [iconSetClass]="iconSetClass">
+        </uxd-icon-preview>
     </div>
 </div>
