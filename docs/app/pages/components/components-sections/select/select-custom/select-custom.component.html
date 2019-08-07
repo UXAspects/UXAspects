@@ -10,10 +10,12 @@
       </ng-template>
 
       <ng-template #dropdownContent>
-        <div role="radiogroup" class="radio-button-container">
-          <ux-radio-button *ngFor="let option of optionList" name="group" [value]="selected"
-                           (valueChange)="setSelected($event)" [option]="option"
-                           [hidden]="isHidden(option.name)">
+        <div role="radiogroup" class="radio-button-container" tabindex="0" (keydown.space)="selectButton($event)"
+             (keydown.up)="navigateUp($event)" (keydown.arrowUp)="navigateUp($event)"
+             (keydown.down)="navigateDown($event)" (keydown.arrowDown)="navigateDown($event)">
+          <ux-radio-button *ngFor="let option of optionList; let index = index" name="group" [value]="selected"
+                           (valueChange)="selected = $event" [option]="option"
+                           [hidden]="isHidden(option.name)" [class.focused]="focusIndex === index">
             {{ beforeHighlight(option.name) }}<span class="highlight">{{ highlightText(option.name)
             }}</span>{{ afterHighlight(option.name) }}
           </ux-radio-button>

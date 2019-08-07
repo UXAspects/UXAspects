@@ -13,7 +13,8 @@
       <span [hidden]="hideFilter">
         <input #filterInput type="text" placeholder="{{placeholder}}" class="filter-input" [(ngModel)]="filterText"
                (ngModelChange)='onFilterTextChanged($event)' (click)="$event.stopPropagation()"/>
-        <button type="button" class="btn btn-flat btn-icon-only filter-button" (click)="resetFilter($event)">
+        <button type="button" class="btn btn-flat btn-icon-only filter-button" (click)="resetFilter($event)"
+                [tabindex]="(filterText.length > 0) ? 0 : 1">
           <ux-icon [name]="(filterText.length === 0) ? 'search' : 'close'"></ux-icon>
         </button>
       </span>

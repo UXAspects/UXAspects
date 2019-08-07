@@ -1,17 +1,27 @@
 .radio-button-container {
     padding-top: 16px;
-    padding-right: 16px;
     padding-bottom: 16px;
-    padding-left: 16px;
-      
-    ::ng-deep .ux-radio-button-label {
-        font-size: 16px;
+
+    ux-radio-button {
+        padding-top: 4px;
+        padding-right: 16px;
+        padding-bottom: 4px;
+        padding-left: 16px;
+        margin-bottom: 0;
     
-        .highlight {
-            color: blue;
-            font-weight: 600;
+        ::ng-deep .ux-radio-button-label {
+            font-size: 16px;
+        
+            .highlight {
+                color: blue;
+                font-weight: 600;
+            }
         }
     }
+}
+    
+.radio-button-container:focus ux-radio-button.focused {
+      background-color: lightblue;
 }
 
 .dropdown-placeholder {

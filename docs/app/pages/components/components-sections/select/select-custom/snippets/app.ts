@@ -21,6 +21,7 @@ export class AppComponent {
     componentWidth: number = 400;
     componentMaxHeight: number = 400;
     placeholder: string = 'type to search ...';
+    focusIndex = 0;
 
     constructor() {
     }
@@ -49,9 +50,22 @@ export class AppComponent {
         return (highlightIndex < 0) ? '' : text.substr(highlightIndex + this.filter.length);
     }
 
-    setSelected(event: RadioOption) {
-        this.selected = event;
-        // this.selectedChange.emit(this.selected);
+    navigateUp(event: KeyboardEvent) {
+        if (this.focusIndex > 0) {
+            this.focusIndex--;
+            event.preventDefault();
+        }
     }
 
+    navigateDown(event: KeyboardEvent) {
+        if (this.focusIndex < this.optionList.length - 1) {
+            this.focusIndex++;
+            event.preventDefault();
+        }
+    }
+
+    public selectButton(event: KeyboardEvent) {
+        this.selected = this.optionList[this.focusIndex];
+        event.preventDefault();
+    }
 }
