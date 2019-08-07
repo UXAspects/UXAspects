@@ -35,7 +35,7 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['SelectCustomModule'],
+                imports: ['RadioButtonModule', 'SelectCustomModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
