@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class SidePanelService {
 
-    open$ = new BehaviorSubject<boolean>(false);
+    /** Emit the open state when it changes */
+    open$ = new Subject<boolean>();
 
-    open() {
+    open(): void {
         this.open$.next(true);
     }
 
-    close() {
+    close(): void {
         this.open$.next(false);
     }
 }

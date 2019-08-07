@@ -1,4 +1,4 @@
-import { $, $$, browser } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class TabsTestPageComponent {
 
@@ -12,7 +12,6 @@ export class TabsTestPageComponent {
     tabs = $$('.nav-item');
     selectedTab = $('.nav-item.active');
     selectedLabel = $('#selected-tab');
-    selectedTabPanel = $('.tab-pane.active');
 
     getPage(): void {
         browser.get('#/tabs');
@@ -27,7 +26,7 @@ export class TabsTestPageComponent {
     }
 
     async getSelectedTabContent(): Promise<string> {
-        return await this.selectedTabPanel.getText();
+        return (await this.getSelectedTabElement()).getText();
     }
 
     async getTabsetStyle(): Promise<string> {
@@ -60,6 +59,10 @@ export class TabsTestPageComponent {
 
     async getSelectedLabelText(): Promise<string> {
         return await this.selectedLabel.getText();
+    }
+
+    async getSelectedTabElement(): Promise<ElementFinder> {
+        return await $$('ux-tab > .tab-pane').filter(async pane => await pane.getCssValue('display') === 'block').first();
     }
 
 }

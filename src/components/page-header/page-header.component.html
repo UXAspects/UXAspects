@@ -71,7 +71,7 @@
 <div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))"
     class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation">
 
-    <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children">
+    <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
         <ux-tab *ngFor="let child of children"
             [heading]="child.title"
             [active]="child === (selected$ | async)"

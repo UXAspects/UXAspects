@@ -43,7 +43,7 @@
     <!-- Clear All Button -->
     <i uxFocusIndicator
         class="ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon"
-        tabindex="0"
+        [attr.tabindex]="disabled ? -1 : 0"
         [attr.aria-label]="clearButtonAriaLabel"
         *ngIf="_showClearButton"
         (click)="clear(); $event.stopPropagation()"

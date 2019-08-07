@@ -109,6 +109,14 @@ ux-tag-input {
 
     &.disabled {
         background-color: @tag-input-disabled-bg;
+
+        .ux-tag-icons {
+            .ux-tag-icon,
+            .ux-select-icon {
+                cursor: default;
+                color: #d8d9db;
+            }
+        }
     }
 
     &.focus {
