@@ -16,6 +16,8 @@ describe('Flippable Cards Tests', () => {
         expect(page.confirmIsFlipped(page.flippableCard2)).toBeFalsy();
         expect(page.confirmIsFlipped(page.flippableCard3)).toBeFalsy();
 
+        expect(browser.imageComparison.checkScreen('flippable-card-initial')).toEqual(0);
+
     });
 
     it('should only be possible to flip card 1 by clicking on the icon', () => {
@@ -60,6 +62,7 @@ describe('Flippable Cards Tests', () => {
         page.clickOnCardIcon(page.flippableCard1).then(() => {
             browser.sleep(FLIP_DELAY_MS);
             expect(page.confirmIsFlipped(page.flippableCard1)).toBeTruthy();    // Back
+            expect(browser.imageComparison.checkScreen('flippable-card-flipped')).toEqual(0);
         });
 
         // Click on the icon again.

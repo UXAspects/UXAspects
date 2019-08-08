@@ -1,4 +1,4 @@
-import { ElementArrayFinder } from 'protractor';
+import { browser, ElementArrayFinder } from 'protractor';
 import { Constants, Functions } from '../common/common.spec';
 import { FloatingActionButtonsPage } from './floating-action-buttons.po.spec';
 
@@ -40,6 +40,8 @@ describe('Floating Action Button Tests', () => {
         // there should only be the trigger button visible
         expect(await page.fabLeft.$$('ux-floating-action-button').count()).toBe(1);
 
+        expect(browser.imageComparison.checkScreen('fab-initial')).toEqual(0);
+
     });
 
     it('should change the vertical (bottom) button\'s colour upon hover', async () => {
@@ -64,6 +66,7 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
         expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
 
+        expect(browser.imageComparison.checkScreen('fab-bottom-open')).toEqual(0);
     });
 
     it('should display action buttons in the correct position when the vertical (bottom) button is clicked', async () => {
@@ -105,6 +108,8 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
         expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
         expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+
+        expect(browser.imageComparison.checkScreen('fab-right-open')).toEqual(0);
 
     });
 
@@ -148,6 +153,8 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
         expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
 
+        expect(browser.imageComparison.checkScreen('fab-up-open')).toEqual(0);
+
     });
 
     it('should display action buttons in the correct position when the vertical (up) button is clicked', async () => {
@@ -189,6 +196,8 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
         expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
         expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+
+        expect(browser.imageComparison.checkScreen('fab-left-open')).toEqual(0);
 
     });
 

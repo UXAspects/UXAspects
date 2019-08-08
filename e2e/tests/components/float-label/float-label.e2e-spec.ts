@@ -1,5 +1,5 @@
+import { browser, Key } from 'protractor';
 import { FloatLabelPage } from './float-label.po.spec';
-import { Key } from 'protractor';
 
 describe('Float Label', () => {
 
@@ -20,6 +20,8 @@ describe('Float Label', () => {
             // Blur username
             await page.locationInput.click();
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
+
+            expect(browser.imageComparison.checkScreen('float-label-initial')).toEqual(0);
         });
 
         it('should be visible while input has text', async () => {
@@ -34,6 +36,8 @@ describe('Float Label', () => {
             await page.usernameInput.click();
             await page.usernameInput.sendKeys(Key.BACK_SPACE);
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
+
+            expect(browser.imageComparison.checkScreen('float-label-raised')).toEqual(0);
         });
 
         it('should become visible when `raised` becomes true', async () => {

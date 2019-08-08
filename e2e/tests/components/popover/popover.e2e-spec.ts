@@ -1,4 +1,4 @@
-import { $, Key, browser } from 'protractor';
+import { $, browser, Key } from 'protractor';
 import { PopoverPage } from './popover.po.spec';
 
 describe('Popover', () => {
@@ -13,6 +13,8 @@ describe('Popover', () => {
     it('should have correct initial states', async () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
         expect(await page.popover.isPresent()).toBe(false);
+
+        expect(browser.imageComparison.checkScreen('popover-initial')).toEqual(0);
     });
 
     it('should show popover on mouse click', async () => {
@@ -23,6 +25,8 @@ describe('Popover', () => {
         // the popover should now be visible
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.popover.isPresent()).toBe(true);
+
+        expect(browser.imageComparison.checkScreen('popover-open')).toEqual(0);
     });
 
     it('should hide popover on mouse click', async () => {
@@ -42,12 +46,12 @@ describe('Popover', () => {
         expect(await page.popover.isPresent()).toBe(false);
     });
 
-    it ('should be able to programmatically show the popover', async () => {
+    it('should be able to programmatically show the popover', async () => {
         await page.showPopover();
         expect(await page.popover.isPresent()).toBe(true);
     });
 
-    it ('should be able to programmatically hide the popover', async () => {
+    it('should be able to programmatically hide the popover', async () => {
         await page.showPopover();
         expect(await page.popover.isPresent()).toBe(true);
 
@@ -55,7 +59,7 @@ describe('Popover', () => {
         expect(await page.popover.isPresent()).toBe(false);
     });
 
-    it ('should be able to programmatically toggle the popover', async () => {
+    it('should be able to programmatically toggle the popover', async () => {
         await page.togglePopover();
         expect(await page.popover.isPresent()).toBe(true);
 
@@ -66,7 +70,7 @@ describe('Popover', () => {
         expect(await page.popover.isPresent()).toBe(true);
     });
 
-    it ('should be able to position the popover', async () => {
+    it('should be able to position the popover', async () => {
         // by default the popover should be displayed on top
         expect(await page.getPopoverPlacement()).toBe('top');
 
@@ -88,11 +92,11 @@ describe('Popover', () => {
 
     });
 
-    it ('should show the correct content', async () => {
+    it('should show the correct content', async () => {
         expect(await page.getPopoverContent()).toBe('Some content here');
     });
 
-    it ('should allow a custom class', async () => {
+    it('should allow a custom class', async () => {
 
         // should not initially have the class
         expect(await page.popoverHasClass('my-custom-class')).toBe(false);
@@ -102,9 +106,11 @@ describe('Popover', () => {
 
         // should now have the class
         expect(await page.popoverHasClass('my-custom-class')).toBe(true);
+
+        expect(browser.imageComparison.checkScreen('popover-custom-class')).toEqual(0);
     });
 
-    it ('should allow a TemplateRef to be used', async () => {
+    it('should allow a TemplateRef to be used', async () => {
         // the original content should initially be shown
         expect(await page.getPopoverContent()).toBe('Some content here');
 
@@ -115,7 +121,7 @@ describe('Popover', () => {
         expect(await page.getPopoverContent()).toBe('My Template Here');
     });
 
-    it ('should show a title when specified', async () => {
+    it('should show a title when specified', async () => {
 
         // open the popover
         await page.showPopover();
@@ -136,7 +142,7 @@ describe('Popover', () => {
         expect(await await page.popoverTitle.getAttribute('textContent')).toBe('Popover Title');
     });
 
-    it ('should close when escape is pressed', async () => {
+    it('should close when escape is pressed', async () => {
 
         // open the popover
         await page.showPopover();
@@ -149,7 +155,7 @@ describe('Popover', () => {
         expect(await page.popover.isPresent()).toBe(false);
     });
 
-    it ('should close when a click outside occurs', async () => {
+    it('should close when a click outside occurs', async () => {
 
         // open the popover
         await page.showPopover();

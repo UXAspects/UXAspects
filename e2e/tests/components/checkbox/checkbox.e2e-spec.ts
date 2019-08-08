@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { CheckBoxesPage } from './checkbox.po.spec';
 
 describe('Checkbox Tests', () => {
@@ -35,6 +35,8 @@ describe('Checkbox Tests', () => {
         expect(page.confirmIsSimplified(page.checkbox2)).toBeFalsy();
         expect(page.confirmIsSimplified(page.checkbox3)).toBeFalsy();
         expect(page.confirmIsSimplified(page.checkbox4)).toBeFalsy();
+
+        expect(browser.imageComparison.checkScreen('checkbox-initial')).toEqual(0);
     });
 
     it('should react to clicks', async () => {
@@ -53,6 +55,8 @@ describe('Checkbox Tests', () => {
         expect<any>(page.text2.getText()).toBe('true');
         expect<any>(page.text3.getText()).toBe('true');
         expect<any>(page.text4.getText()).toBe('false');
+
+        expect(browser.imageComparison.checkScreen('checkbox-active')).toEqual(0);
 
         page.checkbox1.click();
         page.checkbox4.click();
@@ -90,6 +94,8 @@ describe('Checkbox Tests', () => {
         expect<any>(page.text2.getText()).toBe('false');
         expect<any>(page.text3.getText()).toBe('false');
         expect<any>(page.text4.getText()).toBe('true');
+
+        expect(browser.imageComparison.checkScreen('checkbox-disabled')).toEqual(0);
     });
 
     it('should react to setting to indeterminate state', async () => {
@@ -107,6 +113,8 @@ describe('Checkbox Tests', () => {
         expect<any>(page.text2.getText()).toBe('-1');
         expect<any>(page.text3.getText()).toBe('false');
         expect<any>(page.text4.getText()).toBe('false');
+
+        expect(browser.imageComparison.checkScreen('checkbox-intermediate')).toEqual(0);
     });
 
     it('should react to setting to simplified style', async () => {
@@ -120,6 +128,8 @@ describe('Checkbox Tests', () => {
         expect(page.confirmIsSimplified(page.checkbox2)).toBeTruthy();
         expect(page.confirmIsSimplified(page.checkbox3)).toBeTruthy();
         expect(page.confirmIsSimplified(page.checkbox4)).toBeTruthy();
+
+        expect(browser.imageComparison.checkScreen('checkbox-simplified')).toEqual(0);
     });
 
     it('should toggle the checkbox when pressing space', async () => {

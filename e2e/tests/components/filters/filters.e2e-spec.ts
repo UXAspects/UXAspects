@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { FiltersPage } from './filters.po.spec';
 
 describe('Filters Tests', () => {
@@ -25,6 +25,8 @@ describe('Filters Tests', () => {
 
         // 8 items visible
         expect(await page.getNumberOfItems()).toEqual(8);
+
+        expect(browser.imageComparison.checkScreen('filters-initial')).toEqual(0);
 
     });
 
@@ -97,6 +99,8 @@ describe('Filters Tests', () => {
 
         await page.clickOnStatusMenu();
         expect(await page.confirmStatusMenuIsExpanded()).toBeTruthy();
+
+        expect(browser.imageComparison.checkScreen('filters-menu-open')).toEqual(0);
 
     });
 

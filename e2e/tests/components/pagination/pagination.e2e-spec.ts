@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { PaginationPage } from './pagination.po.spec';
 
 describe('Pagination Tests', () => {
@@ -27,6 +28,8 @@ describe('Pagination Tests', () => {
         expect<any>(page.text.getText()).toBe('Page 1 of 10');
 
         await page.resetBtn.click();
+
+        expect(browser.imageComparison.checkScreen('pagination-initial')).toEqual(0);
     });
 
     it('should react to arrow clicks', async () => {

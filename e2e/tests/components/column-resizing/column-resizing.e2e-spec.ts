@@ -18,6 +18,8 @@ describe('Column Resizing Tests', () => {
         expect(await page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.standardTable, 1)).toBe(260);
         expect(await page.getColumnHeaderWidth(page.standardTable, 2)).toBe(300);
+
+        expect(browser.imageComparison.checkScreen('column-resize-initial')).toEqual(0);
     });
 
     it('should have correct initial states (fixed table)', async () => {
@@ -25,6 +27,8 @@ describe('Column Resizing Tests', () => {
         expect(await page.getColumnHeaderWidth(page.fixedTable, 0)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.fixedTable, 1)).toBe(260);
         expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBe(300);
+
+        expect(browser.imageComparison.checkScreen('column-resize-initial-fixed')).toEqual(0);
     });
 
     it('can increase the width of a column (standard table)', async () => {
@@ -32,6 +36,8 @@ describe('Column Resizing Tests', () => {
         expect(await page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.standardTable, 1)).toBe(365);
         expect(await page.getColumnHeaderWidth(page.standardTable, 2)).toBe(195);
+
+        expect(browser.imageComparison.checkScreen('column-resize-increase')).toEqual(0);
     });
 
     it('can increase the width of a column (fixed table)', async () => {
@@ -42,6 +48,8 @@ describe('Column Resizing Tests', () => {
         expect(await page.getColumnHeaderWidth(page.fixedTable, 1)).toBeLessThanOrEqual(366);
         expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBeGreaterThanOrEqual(194);
         expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBeLessThanOrEqual(196);
+
+        expect(browser.imageComparison.checkScreen('column-resize-increase-fixed')).toEqual(0);
     });
 
     it('can decrease the width of a column (standard table)', async () => {
@@ -49,6 +57,8 @@ describe('Column Resizing Tests', () => {
         expect(await page.getColumnHeaderWidth(page.standardTable, 0)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.standardTable, 1)).toBe(165);
         expect(await page.getColumnHeaderWidth(page.standardTable, 2)).toBe(395);
+
+        expect(browser.imageComparison.checkScreen('column-resize-decrease')).toEqual(0);
     });
 
     it('can decrease the width of a column (fixed table)', async () => {
@@ -59,6 +69,8 @@ describe('Column Resizing Tests', () => {
         expect(await page.getColumnHeaderWidth(page.fixedTable, 1)).toBeLessThanOrEqual(166);
         expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBeGreaterThanOrEqual(394);
         expect(await page.getColumnHeaderWidth(page.fixedTable, 2)).toBeLessThanOrEqual(396);
+
+        expect(browser.imageComparison.checkScreen('column-resize-decrease-fixed')).toEqual(0);
     });
 
     it('can force update layout after pagination (fixed table)', async () => {

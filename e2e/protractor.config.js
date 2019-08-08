@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('canonical-path');
 const _ = require('lodash');
+const { join } = require('path');
 const JasmineReporters = require('jasmine-reporters');
 const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
@@ -25,13 +26,27 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/**/*e2e-spec.ts'],
+  specs: ['./tests/**/column-resizing/**/*e2e-spec.ts'],
 
   // protractor_istanbul_plugin package
-  plugins: [{
-    path: '../node_modules/protractor-istanbul-plugin',
-    outputPath: './e2e/coverage'
-  }],
+  plugins: [
+      {
+        path: '../node_modules/protractor-istanbul-plugin',
+        outputPath: './e2e/coverage'
+      },
+      {
+        // The module name
+        package: 'protractor-image-comparison',
+        // Some options, see the docs for more
+        options: {
+            baselineFolder: join(process.cwd(), './e2e/screenshots'),
+            formatImageName: `{tag}-{logName}-{width}x{height}`,
+            screenshotPath: join(process.cwd(), '.tmp/'),
+            savePerInstance: true,
+            autoSaveBaseline: true
+        },
+      },
+  ],
 
   // For angular tests
   useAllAngular2AppRoots: true,

@@ -1,116 +1,127 @@
-import { Key, browser } from 'protractor';
+import { browser, Key } from 'protractor';
 import { CardTabsPage } from './card-tabs.po.spec';
 
 describe('Card Tab Tests', () => {
 
-  let page: CardTabsPage;
+    let page: CardTabsPage;
 
-  beforeEach(() => {
-    page = new CardTabsPage();
-    page.getPage();
-  });
+    beforeEach(() => {
+        page = new CardTabsPage();
+        page.getPage();
+    });
 
-  it('should have correct initial states', async () => {
+    it('should have correct initial states', async () => {
 
-    // only the first tab should be selected initially
-    expect(await page.getTabSelected(0)).toBe(true);
-    expect(await page.getTabSelected(1)).toBe(false);
-    expect(await page.getTabSelected(2)).toBe(false);
-    expect(await page.getTabSelected(3)).toBe(false);
-    expect(await page.getTabSelected(4)).toBe(false);
+        // only the first tab should be selected initially
+        expect(await page.getTabSelected(0)).toBe(true);
+        expect(await page.getTabSelected(1)).toBe(false);
+        expect(await page.getTabSelected(2)).toBe(false);
+        expect(await page.getTabSelected(3)).toBe(false);
+        expect(await page.getTabSelected(4)).toBe(false);
 
-    // the initial position should be 'top'
-    expect(await page.getPosition()).toBe('top');
+        // the initial position should be 'top'
+        expect(await page.getPosition()).toBe('top');
 
-    // expect the tab content to be correct
-    expect(await page.getTabContent()).toBe('Tab 1 Content');
-  });
+        // expect the tab content to be correct
+        expect(await page.getTabContent()).toBe('Tab 1 Content');
 
-  it('should select a card on click', async () => {
+        // screenshot the page
+        expect(browser.imageComparison.checkScreen('card-tabs-initial')).toEqual(0);
+    });
 
-    // the first tab should initially be selected
-    expect(await page.getTabSelected(0)).toBe(true);
-    expect(await page.getTabSelected(1)).toBe(false);
+    it('should select a card on click', async () => {
 
-    // get the tab element
-    const tab = await page.getTab(1);
+        // the first tab should initially be selected
+        expect(await page.getTabSelected(0)).toBe(true);
+        expect(await page.getTabSelected(1)).toBe(false);
 
-    // click on the tab
-    await tab.click();
+        // get the tab element
+        const tab = await page.getTab(1);
 
-    // the secpnd tab to be selected
-    expect(await page.getTabSelected(0)).toBe(false);
-    expect(await page.getTabSelected(1)).toBe(true);
+        // click on the tab
+        await tab.click();
 
-    // expect the tab content to be updated
-    expect(await page.getTabContent()).toBe('Tab 2 Content');
-  });
+        // the secpnd tab to be selected
+        expect(await page.getTabSelected(0)).toBe(false);
+        expect(await page.getTabSelected(1)).toBe(true);
 
-  it('should select a card on enter', async () => {
+        // expect the tab content to be updated
+        expect(await page.getTabContent()).toBe('Tab 2 Content');
 
-    // the first tab should initially be selected
-    expect(await page.getTabSelected(0)).toBe(true);
-    expect(await page.getTabSelected(1)).toBe(false);
+        expect(browser.imageComparison.checkScreen('card-tabs-click-selected')).toEqual(0);
+    });
 
-    // tab to the second card
-    await browser.actions().sendKeys(Key.TAB).sendKeys(Key.TAB).sendKeys(Key.ENTER).perform();
+    it('should select a card on enter', async () => {
 
-    // the secpnd tab to be selected
-    expect(await page.getTabSelected(0)).toBe(false);
-    expect(await page.getTabSelected(1)).toBe(true);
+        // the first tab should initially be selected
+        expect(await page.getTabSelected(0)).toBe(true);
+        expect(await page.getTabSelected(1)).toBe(false);
 
-    // expect the tab content to be updated
-    expect(await page.getTabContent()).toBe('Tab 2 Content');
-  });
+        // tab to the second card
+        await browser.actions().sendKeys(Key.TAB).sendKeys(Key.TAB).sendKeys(Key.ENTER).perform();
 
-  it('should show more items on next button click', async () => {
+        // the secpnd tab to be selected
+        expect(await page.getTabSelected(0)).toBe(false);
+        expect(await page.getTabSelected(1)).toBe(true);
 
-    // initial scroll position should be 0
-    expect(await page.getScrollPosition()).toBe(0);
-    
-    // scroll to next page
-    await page.nextBtn.click();
+        // expect the tab content to be updated
+        expect(await page.getTabContent()).toBe('Tab 2 Content');
+    });
 
-    // wait for the animations to finish
-    await browser.sleep(500);
+    it('should show more items on next button click', async () => {
 
-    // get the scroll position now
-    expect(await page.getScrollPosition()).toBe(-400);  
-  });
+        // initial scroll position should be 0
+        expect(await page.getScrollPosition()).toBe(0);
 
-  it('should be able to scroll back again', async () => {
+        // scroll to next page
+        await page.nextBtn.click();
 
-    // initial scroll position should be 0
-    expect(await page.getScrollPosition()).toBe(0);
-    
-    // scroll to next page
-    await page.nextBtn.click();
+        // wait for the animations to finish
+        await browser.sleep(500);
 
-    // wait for the animations to finish
-    await browser.sleep(500);
+        // get the scroll position now
+        expect(await page.getScrollPosition()).toBe(-400);
 
-    // get the scroll position now
-    expect(await page.getScrollPosition()).toBe(-400);
-    
-    // scroll to next page
-    await page.previousBtn.click();
+        expect(browser.imageComparison.checkScreen('card-tabs-show-more')).toEqual(0);
+    });
 
-    // wait for the animations to finish
-    await browser.sleep(500);
+    it('should be able to scroll back again', async () => {
 
-    // get the scroll position now
-    expect(await page.getScrollPosition()).toBe(0);
-  });
+        // initial scroll position should be 0
+        expect(await page.getScrollPosition()).toBe(0);
 
-  it('should be able to change the position', async () => {
+        // scroll to next page
+        await page.nextBtn.click();
 
-    // get the current position
-    expect(await page.getPosition()).toBe('top');
+        // wait for the animations to finish
+        await browser.sleep(500);
 
-    await page.positionBtn.click();
+        // get the scroll position now
+        expect(await page.getScrollPosition()).toBe(-400);
 
-    // get the current position
-    expect(await page.getPosition()).toBe('bottom');
-  });
+        // scroll to next page
+        await page.previousBtn.click();
+
+        // wait for the animations to finish
+        await browser.sleep(500);
+
+        // get the scroll position now
+        expect(await page.getScrollPosition()).toBe(0);
+
+        expect(browser.imageComparison.checkScreen('card-tabs-click-show-less')).toEqual(0);
+    });
+
+    it('should be able to change the position', async () => {
+
+        // get the current position
+        expect(await page.getPosition()).toBe('top');
+
+        await page.positionBtn.click();
+
+        // get the current position
+        expect(await page.getPosition()).toBe('bottom');
+
+        expect(browser.imageComparison.checkScreen('card-tabs-position')).toEqual(0);
+    });
 
 });

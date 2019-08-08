@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { FacetContainerPage } from './facet-container.po.spec';
 
 describe('FacetContainerPage Tests', () => {
@@ -12,6 +13,7 @@ describe('FacetContainerPage Tests', () => {
         expect(page.getClearAllButton().isPresent()).toBeFalsy();
         expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
 
+        expect(browser.imageComparison.checkScreen('facet-container-list-initial')).toEqual(0);
     });
 
     it('should allow addition of facets', async () => {
@@ -30,6 +32,8 @@ describe('FacetContainerPage Tests', () => {
         expect(page.getFacetName(2)).toMatch('\\w+\\d*\\w*');
 
         await page.getClearAllButton().click();
+
+        expect(browser.imageComparison.checkScreen('facet-container-list-addition')).toEqual(0);
     });
 
     it('should allow deletion of facets one by one', async () => {

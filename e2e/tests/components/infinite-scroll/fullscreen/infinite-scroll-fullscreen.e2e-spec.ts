@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { InfiniteScrollFullscreenPage } from './infinite-scroll-fullscreen.po.spec';
 
 describe('Infinite Scroll (Fullscreen) Tests', () => {
@@ -27,6 +27,8 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
         // valid value in number picker
         expect(page.confirmValueIsInvalid()).toBeFalsy();
+
+        expect(browser.imageComparison.checkScreen('infinite-scroll-fullscreen-initial')).toEqual(0);
 
     });
 

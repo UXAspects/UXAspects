@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { FacetCheckListPage } from './facet-check-list.po.spec';
 
 describe('FacetCheckListPage Tests', () => {
@@ -17,6 +18,7 @@ describe('FacetCheckListPage Tests', () => {
         expect(page.confirmCheckListScrollbarExists()).toBeTruthy();
         expect(page.confirmCheckListFacetIsTicked(0)).toBeFalsy();
 
+        expect(browser.imageComparison.checkScreen('facet-check-list-initial')).toEqual(0);
     });
 
     it('should allow addition of facets', async () => {
@@ -41,6 +43,8 @@ describe('FacetCheckListPage Tests', () => {
         expect<any>(page.getNumberOfFacetsInCheckList()).toEqual(30);
 
         await page.getClearAllButton().click();
+
+        expect(browser.imageComparison.checkScreen('facet-check-list-selected')).toEqual(0);
 
     });
 

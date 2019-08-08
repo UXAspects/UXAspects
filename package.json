@@ -145,6 +145,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prismjs-loader": "0.0.4",
     "protractor": "^5.4.1",
+    "protractor-image-comparison": "^3.3.0",
     "protractor-istanbul-plugin": "2.0.0",
     "protractor-jasmine2-html-reporter": "0.0.7",
     "raw-loader": "0.5.1",

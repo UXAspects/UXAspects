@@ -39,6 +39,8 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+
+        expect(browser.imageComparison.checkScreen('dashboard-initial')).toEqual(0);
     });
 
     it('should react correctly when a widget is moved down', async () => {
@@ -57,7 +59,6 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
     });
 
     it('should react correctly when a widget is moved up', async () => {
@@ -79,7 +80,6 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
-
     });
 
     it('should react correctly when a widget is moved right', async () => {
@@ -197,6 +197,8 @@ describe('Dashboard Tests', () => {
 
         // expect the announcer to read the correct initial state
         expect(announcement).toBe('Usage Analytics panel is currently on row 0, column 0 and is 4 columns wide and 2 rows high. Use the cursor keys to move the widget and the cursor keys with the control modifier to resize the widget. Press enter to commit changes and press escape to cancel changes.');
+
+        expect(browser.imageComparison.checkScreen('dashboard-grab-mode')).toEqual(0);
     });
 
     it('should allow widget to be moved down in grab mode', async () => {
