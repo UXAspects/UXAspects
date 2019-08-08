@@ -6,16 +6,12 @@ ux-media-player-controls {
     justify-content: center;
     height: 40px;
 
-    .hpe-icon {
+    ux-icon {
         flex: none;
         cursor: pointer;
         padding: 2px 5px;
         font-size: 18px;
         transition: color 0.3s ease-in-out;
-
-        &.hpe-volume-low {
-            padding-left: 4px;
-        }
 
         &:hover {
             color: @mediaplayer-controls-btn-hover-color;
@@ -79,7 +75,7 @@ ux-media-player-controls {
     }
 
     &.quiet {
-        .hpe-icon {
+        ux-icon {
             color: @mediaplayer-controls-quiet-color;
 
             &:hover {
@@ -195,7 +191,7 @@ ux-media-player-controls {
                     padding: 0 10px;
                     white-space: nowrap;
 
-                    .hpe-icon {
+                    .subtitles-list-item-checkmark {
                         color: @accent;
                         opacity: 0;
                     }
@@ -209,7 +205,7 @@ ux-media-player-controls {
                     }
 
                     &.active {
-                        .hpe-icon {
+                        .subtitles-list-item-checkmark {
                             opacity: 1;
                         }
                     }

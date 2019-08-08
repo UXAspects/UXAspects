@@ -47,7 +47,7 @@ export class FacetContainerComponent implements OnDestroy {
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();
 
     /** Allow a custom clear button */
-    @ContentChild(FacetClearButtonDirective, { read: TemplateRef }) clearButton: TemplateRef<FacetClearButtonDirective>;
+    @ContentChild(FacetClearButtonDirective, { read: TemplateRef, static: false }) clearButton: TemplateRef<FacetClearButtonDirective>;
 
     private _onDestroy = new Subject<void>();
 

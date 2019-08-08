@@ -49,11 +49,11 @@ export class NumberPickerPage {
     }
 
     async incrementNumberPickerValue(numberPicker: ElementFinder): Promise<void> {
-        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-up').$('span').click();
+        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-up').click();
     }
 
     async decrementNumberPickerValue(numberPicker: ElementFinder): Promise<void> {
-        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').$('span').click();
+        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
     async confirmErrorMessage1IsVisible(): Promise<boolean> {

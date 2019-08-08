@@ -1,7 +1,8 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { sidePanelStateAnimation, SidePanelAnimationState } from './side-panel-animations';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
+import { SidePanelAnimationState, sidePanelStateAnimation } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { SidePanelService } from './side-panel.service';
     templateUrl: 'side-panel.component.html',
     providers: [SidePanelService],
     animations: [sidePanelStateAnimation],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'ux-side-panel'
     }
@@ -19,7 +21,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Input()
     @HostBinding('class.open')
     get open(): boolean {
-        return this.service.open$.value;
+        return this._isOpen;
     }
 
     set open(value: boolean) {
@@ -56,7 +58,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Output()
     openChange = new EventEmitter<boolean>();
 
-    get position() {
+    get position(): string {
         if (this.inline) {
             return 'static';
         }
@@ -88,53 +90,64 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         return null;
     }
 
-    get hostWidth() {
+    get hostWidth(): string {
         return this.inline ? '100%' : this.cssWidth;
     }
 
-    animationPanelState: SidePanelAnimationState;
+    animationPanelState: SidePanelAnimationState = SidePanelAnimationState.Closed;
+
+    /** Store the current open state */
+    private _isOpen: boolean = false;
 
     protected _onDestroy = new Subject<void>();
 
-    constructor(protected service: SidePanelService, private _elementRef: ElementRef) {}
+    constructor(
+        protected readonly service: SidePanelService,
+        private readonly _elementRef: ElementRef,
+        private readonly _focusOrigin: FocusIndicatorOriginService) { }
 
-    ngOnInit() {
-        this.service.open$.pipe(takeUntil(this._onDestroy)).subscribe(isOpen => {
+    ngOnInit(): void {
+        this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isOpen => {
             this.animationPanelState = isOpen
                 ? this.animate
                     ? SidePanelAnimationState.Open
                     : SidePanelAnimationState.OpenImmediate
                 : SidePanelAnimationState.Closed;
+
+            // only if the open state changed should we emit the latest value
             this.openChange.emit(isOpen);
+            this._isOpen = isOpen;
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
     }
 
-    openPanel() {
+    openPanel(): void {
         this.service.open();
     }
 
-    @HostListener('document:keyup.escape')
-    closePanel() {
+    closePanel(): void {
         this.service.close();
     }
 
-    @HostListener('document:click', ['$event'])
-    clickHandler(event: MouseEvent) {
+    @HostListener('document:keyup.escape')
+    _onDocumentEscape(): void {
+        if (this.open) {
+            this._focusOrigin.setOrigin('keyboard');
+            this.closePanel();
+        }
+    }
+
+    @HostListener('document:click', ['$event.target'])
+    _onDocumentClick(target: HTMLElement): void {
         if (!this.open || !this.closeOnExternalClick) {
             return;
         }
 
-        const target = event.target as HTMLElement;
-
-        if (
-            !this._elementRef.nativeElement.contains(target) ||
-            (target && target.classList.contains('modal-backdrop'))
-        ) {
+        if (!this._elementRef.nativeElement.contains(target) || (target && target.classList.contains('modal-backdrop'))) {
             this.closePanel();
         }
     }

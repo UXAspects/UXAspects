@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, HostBinding } from '@angular/core';
 import { FocusIndicator, FocusIndicatorService } from '../../../../directives/accessibility/index';
 
 @Component({
@@ -21,8 +21,8 @@ export class FacetHeaderComponent implements OnDestroy {
     /** Defines whether or not clicking on the header will toggle the expanded state. */
     @Input() canExpand: boolean = true;
 
-    /** Can be used to set the initial expanded. */
-    @Input() expanded: boolean = true;
+    /** Can be used to set the initial expanded state. */
+    @Input() @HostBinding('class.expanded') expanded: boolean = true;
 
     /** If two-way binding is used it will be updated when the expanded state changes. */
     @Output() expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();

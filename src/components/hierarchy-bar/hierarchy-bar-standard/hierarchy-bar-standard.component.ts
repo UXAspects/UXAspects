@@ -13,7 +13,7 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
 export class HierarchyBarStandardComponent implements OnDestroy {
 
     /** Get the elementRef of the node list */
-    @ViewChild('nodelist') nodelist: ElementRef;
+    @ViewChild('nodelist', { static: true }) nodelist: ElementRef;
 
     /** Get elementRefs for all the nodes */
     @ViewChildren(HierarchyBarNodeComponent, { read: ElementRef }) nodes: QueryList<ElementRef>;

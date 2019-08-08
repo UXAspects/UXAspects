@@ -109,13 +109,23 @@ ux-tag-input {
 
     &.disabled {
         background-color: @tag-input-disabled-bg;
+
+        .ux-tag-icons {
+            .ux-tag-icon,
+            .ux-select-icon {
+                cursor: default;
+                color: #d8d9db;
+            }
+        }
     }
 
     &.focus {
         border-color: @form-control-focus-border;
     }
 
-    &.invalid {
+    &.invalid,
+    &.ng-invalid.ng-touched:not(.focus),
+    &.ng-invalid.ng-dirty {
         border-color: @critical;
     }
 

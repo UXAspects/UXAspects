@@ -650,6 +650,27 @@
             ]
         },
         {
+            "title": "Icons",
+            "link": "icons",
+            "sections": [
+                {
+                    "title": "Icon",
+                    "component": "ComponentsIconComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-icon"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "IconModule"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "Input Controls",
             "link": "input-controls",
             "sections": [

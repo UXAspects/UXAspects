@@ -20,11 +20,9 @@
                 (click)="toggleMute()"
                 (mouseup)="volumeIcon.blur()">
 
-            <span class="hpe-icon"
-                  [class.hpe-volume-mute]="volume === 0"
-                  [class.hpe-volume-low]="volume > 0 && volume <= 70"
-                  [class.hpe-volume]="volume > 70">
-            </span>
+            <ux-icon *ngIf="volume === 0" name="volume-mute"></ux-icon>
+            <ux-icon *ngIf="volume > 0 && volume <= 70" name="volume-low"></ux-icon>
+            <ux-icon *ngIf="volume > 70" name="volume"></ux-icon>
         </button>
 
         <div class="volume-slider-node">
@@ -98,7 +96,8 @@
             [attr.aria-expanded]="subtitlesOpen"
             [attr.aria-describedby]="subtitlesId"
             aria-haspopup="true">
-            <span class="hpe-icon hpe-subtitles"></span>
+
+            <ux-icon name="subtitles"></ux-icon>
         </button>
 
         <div #subtitles
@@ -120,7 +119,7 @@
                         (click)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false"
                         (keydown.enter)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true">
 
-                        <i class="hpe-icon hpe-checkmark m-r-xs"></i>
+                        <ux-icon name="checkmark" class="subtitles-list-item-checkmark"></ux-icon>
                         <span i18n>Subtitles Off</span>
                     </li>
                     <li uxTabbableListItem
@@ -130,7 +129,8 @@
                         [attr.aria-selected]="isSubtitleActive()"
                         (click)="setSubtitleTrack(track); subtitlesOpen = false"
                         (keydown.enter)="setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true">
-                        <i class="hpe-icon hpe-checkmark m-r-xs"></i>
+
+                        <ux-icon name="checkmark" class="subtitles-list-item-checkmark"></ux-icon>
                         <span>{{ track.label }}</span>
                     </li>
                 </ul>
@@ -149,10 +149,7 @@
             (click)="mediaPlayerService.toggleFullscreen()"
             (mouseup)="fullscreenButton.blur()">
 
-            <span class="hpe-icon"
-                  [class.hpe-expand]="!mediaPlayerService.fullscreen"
-                  [class.hpe-contract]="mediaPlayerService.fullscreen">
-            </span>
+            <ux-icon [name]="mediaPlayerService.fullscreen ? 'contract' : 'expand'"></ux-icon>
         </button>
     </div>
 </div>

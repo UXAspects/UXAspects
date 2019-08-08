@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { CheckboxModule } from '../checkbox/index';
+import { IconModule } from '../icon/index';
 import { TooltipModule } from '../tooltip/index';
 import { TypeaheadModule } from '../typeahead/index';
 import { ReorderableModule } from './../../directives/reorderable/reorderable.module';
@@ -32,12 +33,13 @@ const DECLARATIONS = [
     imports: [
         A11yModule,
         AccessibilityModule,
+        CheckboxModule,
         CommonModule,
         FormsModule,
-        CheckboxModule,
-        TooltipModule,
+        IconModule,
         ReorderableModule,
-        TypeaheadModule
+        TooltipModule,
+        TypeaheadModule,
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

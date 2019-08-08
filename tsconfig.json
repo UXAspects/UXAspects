@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "declaration": false,
     "suppressImplicitAnyIndexErrors": true,
+    "downlevelIteration": true,
     "paths": {
       "@ux-aspects/ux-aspects/*": [
         "./src"

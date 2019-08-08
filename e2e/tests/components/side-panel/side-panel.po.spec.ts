@@ -1,4 +1,4 @@
-import { browser, $, ElementFinder, Key } from 'protractor';
+import { $, browser, ElementFinder } from 'protractor';
 
 export class SidePanelPage {
 
@@ -22,6 +22,10 @@ export class SidePanelPage {
 
     getPage() {
         browser.get('#/side-panel');
+    }
+
+    async isPanelOpen(): Promise<boolean> {
+        return this.panelHost.isPresent();
     }
 
     async getPanelWidth(): Promise<number> {

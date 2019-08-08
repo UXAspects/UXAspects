@@ -72,10 +72,6 @@
     padding: 4px 15px;
     box-shadow: @btn-shadow;
 
-    .hpe-icon {
-        line-height: inherit;
-    }
-
     &,
     &:active,
     &.active {
@@ -128,6 +124,10 @@
 
     .hpe-icon {
         line-height: inherit;
+
+        & + * {
+            margin-left: 4px;
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
@@ -20,9 +20,10 @@ export class PageHeaderService implements OnDestroy {
             .pipe(takeUntil(this._onDestroy), map(selected => this.getRoot(selected)))
             .subscribe(root => this.selectedRoot$.next(root));
 
-        this._router.events
-            .pipe(takeUntil(this._onDestroy), filter(e => e instanceof NavigationEnd))
-            .subscribe(this.updateItemsWithActiveRoute.bind(this));
+        this._router.events.pipe(
+            filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError),
+            takeUntil(this._onDestroy)
+        ).subscribe(() => this.updateItemsWithActiveRoute());
     }
 
     ngOnDestroy(): void {

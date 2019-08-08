@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "dist/bundles/ux-aspects.umd.js",
   "files": [
@@ -47,7 +47,8 @@
     "Alastair McKee",
     "Pearse McMurray",
     "Donna Marijne Worby",
-    "Chris Brennan"
+    "Chris Brennan",
+    "Tara Todd"
   ],
   "license": "Apache-2.0",
   "bugs": {

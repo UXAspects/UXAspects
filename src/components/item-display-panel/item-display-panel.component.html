@@ -5,11 +5,19 @@
     [style.top]="cssTop"
     [@panelState]="animationPanelState"
     [tabindex]="open ? 0 : -1"
-    [focusIf]="open && focusOnShow">
+    [focusIf]="open && focusOnShow"
+    *ngIf="open">
 
     <div class="ux-side-panel-header" [class.item-display-panel-shadow]="shadow">
         <h3>{{ header }}</h3>
-        <button *ngIf="closeVisible" aria-label="Close" i18n-aria-label type="button" class="btn btn-lg btn-link btn-icon button-secondary" (click)="visible = false">
+
+        <button *ngIf="closeVisible"
+                uxFocusIndicator
+                aria-label="Close"
+                i18n-aria-label
+                type="button"
+                class="btn btn-lg btn-link btn-icon button-secondary"
+                (click)="visible = false">
             <i class="hpe-icon hpe-close"></i>
         </button>
     </div>

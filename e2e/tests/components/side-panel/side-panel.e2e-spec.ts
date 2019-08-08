@@ -1,5 +1,4 @@
 import { SidePanelPage } from './side-panel.po.spec';
-import { protractor } from 'protractor';
 
 describe('Side Panel', () => {
 
@@ -13,14 +12,13 @@ describe('Side Panel', () => {
     describe('in the default state', () => {
 
         it('should be hidden initially', async () => {
-            expect(page.panel.getAttribute('class')).not.toContain('open');
-            expect(await page.panelHost.getCssValue('position')).toBe('fixed');
-            expect(await page.getRightOffsetFromWindow()).toBe(0);
+            expect(await page.isPanelOpen()).toBeFalsy();
         });
 
         it('should be visible when open', async () => {
             await page.toggle.click();
             expect(page.panel.getAttribute('class')).toContain('open');
+            expect(await page.panelHost.getCssValue('position')).toBe('fixed');
             expect(await page.getRightOffsetFromWindow()).toBe(200);
             expect(await page.getPanelWidth()).toBe(200);
             expect(page.getPanelHeight()).toBe(page.getViewportHeight());
@@ -30,8 +28,7 @@ describe('Side Panel', () => {
             await page.toggle.click();
             expect(page.panel.getAttribute('class')).toContain('open');
             await page.panelClose.click();
-            expect(page.panel.getAttribute('class')).not.toContain('open');
-            expect(await page.getRightOffsetFromWindow()).toBe(0);
+            expect(await page.isPanelOpen()).toBeFalsy();
         });
 
         it('should not close on external click', async () => {
@@ -52,14 +49,13 @@ describe('Side Panel', () => {
         });
 
         it('should be hidden initially', async () => {
-            expect(page.panel.getAttribute('class')).not.toContain('open');
-            expect(await page.getInlinePanelWidth()).toBe(0);
-            expect(await page.panelHost.getCssValue('position')).toBe('static');
+            expect(await page.isPanelOpen()).toBeFalsy();
         });
 
         it('should be visible when open', async () => {
             await page.toggle.click();
             expect(page.panel.getAttribute('class')).toContain('open');
+            expect(await page.panelHost.getCssValue('position')).toBe('static');
             expect(await page.getInlinePanelWidth()).toBe(200);
             expect(await page.getInlinePanelHeight()).toBe(300);
         });
@@ -82,9 +78,7 @@ describe('Side Panel', () => {
         });
 
         it('should be hidden initially', async () => {
-            expect(page.panel.getAttribute('class')).not.toContain('open');
-            expect(await page.getRightOffsetFromContainer()).toBe(0);
-            expect(await page.panelHost.getCssValue('position')).toBe('absolute');
+            expect(await page.isPanelOpen()).toBeFalsy();
         });
 
         it('should be visible when open', async () => {
@@ -93,6 +87,7 @@ describe('Side Panel', () => {
             expect(await page.getRightOffsetFromContainer()).toBe(200);
             expect(await page.getPanelWidth()).toBe(200);
             expect(page.getPanelHeight()).toBe(page.getContainerHeight());
+            expect(await page.panelHost.getCssValue('position')).toBe('absolute');
         });
 
         it('should not close on external click', async () => {
