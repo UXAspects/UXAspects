@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmit
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+// import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
+
 
 @Component({
     selector: 'ux-select-custom',
@@ -53,6 +55,7 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     @ContentChild('dropdownContent', { static: false }) dropdownContentRef: TemplateRef<void>;
     @ContentChild('buttonContent', { static: false }) buttonContentRef: TemplateRef<void>;
 
+    // @ViewChild(MenuTriggerDirective, { static: false }) menuTrigger: MenuTriggerDirective;
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef;
 
     filterText: string = '';
@@ -63,7 +66,7 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
 
     private readonly _onDestroy$ = new Subject<void>();
 
-    constructor(private readonly _elementRef: ElementRef) { }
+    constructor() { }
 
     ngOnInit(): void {
         this.filterTextChanged$.pipe(
@@ -88,16 +91,6 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
         this._onDestroy$.complete();
     }
 
-    onToggle(): void {
-        setTimeout(
-            () => {
-                if (this._elementRef.nativeElement.classList.contains('open')) {
-                    this.filterInputElement.nativeElement.focus();
-                }
-            }, 0
-        );
-    }
-
     resetFilter(event: MouseEvent): void {
         this.filterTextChanged$.next('');
         this.filterInputElement.nativeElement.focus();
@@ -119,10 +112,12 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     writeValue(value: T): void {
         this.selected = value;
         this.selectedChange.emit(value);
+        // this.menuTrigger.closeMenu();
     }
 
     resetValue(event: Event): void {
         this.writeValue(undefined);
         event.stopPropagation();
     }
+
 }

@@ -1,7 +1,7 @@
 // import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { PageHeaderPage } from './page-header.po.spec';
 
-describe('Page Header Tests', () => {
+xdescribe('Page Header Tests', () => {
 
     let page: PageHeaderPage;
 

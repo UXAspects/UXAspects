@@ -13,7 +13,9 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsSelectCustomComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     selected: RadioOption;
-    optionList: ReadonlyArray<RadioOption> = [{ name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }];
+    optionList: ReadonlyArray<RadioOption> = [
+        { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
+    ];
     filter: string = '';
     showBusyIndicator: boolean = false;
     allowNull: boolean = false;
@@ -30,7 +32,7 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
         },
         modules: [
             {
-                imports: ['RadioButtonModule', 'SelectCustomModule'],
+                imports: ['AccordionModule', 'CheckboxModule', 'NumberPickerModule', 'RadioButtonModule', 'SelectCustomModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

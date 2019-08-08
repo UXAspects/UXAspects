@@ -8,8 +8,8 @@ import { IconModule } from '../icon';
 import { MenuModule } from '../menu';
 
 describe('SelectCustomComponent', () => {
-  let component: SelectCustomComponent;
-  let fixture: ComponentFixture<SelectCustomComponent>;
+  let component: SelectCustomComponent<any>;
+  let fixture: ComponentFixture<SelectCustomComponent<any>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,7 +24,6 @@ describe('SelectCustomComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.rootElement = new ElementRef({classList: {contains: () => true}});
     component.filterInputElement = new ElementRef({focus: () => true});
     component.filterChangeDebounce = 0;
   });
@@ -43,17 +42,6 @@ describe('SelectCustomComponent', () => {
 
     expect(component.filterTextChanged$.next).toHaveBeenCalledWith('');
     expect(component.filterInputElement.nativeElement.focus).toHaveBeenCalledWith();
-  });
-
-  it('should focus filter when toggling drop-down', (done) => {
-    const focusSpy = spyOn(component.filterInputElement.nativeElement, 'focus');
-
-    component.onToggle();
-
-    setTimeout(() => {
-      expect(focusSpy).toHaveBeenCalledWith();
-      done();
-    }, 100);
   });
 
   it('should write value', () => {

@@ -1,7 +1,6 @@
 <button type="button"
         class="select-button"
-        [uxMenuTriggerFor]="menu"
-        (click)="onToggle()">
+        [uxMenuTriggerFor]="menu">
 
     <ng-container [ngTemplateOutlet]="buttonContentRef"></ng-container>
 
@@ -16,7 +15,7 @@
 
 </button>
 
-<ux-menu #menu menuClass="select-menu">
+<ux-menu #menu menuClass="select-menu" (opened)="filterInputElement.nativeElement.focus()">
 
     <div [style.max-height.px]="maxHeight"
          [style.width.px]="width">

@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 
-export interface RadioOption {
-    name: string;
-}
-
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
@@ -64,4 +60,8 @@ export class AppComponent {
         this.selected = this.optionList[this.focusIndex];
         event.preventDefault();
     }
+}
+
+export interface RadioOption {
+    name: string;
 }

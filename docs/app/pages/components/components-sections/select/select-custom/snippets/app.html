@@ -17,13 +17,13 @@
             <ng-template #dropdownContent>
 
                 <div role="radiogroup"
-                        class="radio-button-container"
-                        tabindex="0"
-                        (keydown.space)="selectButton($event)"
-                        (keydown.up)="navigateUp($event)"
-                        (keydown.arrowUp)="navigateUp($event)"
-                        (keydown.down)="navigateDown($event)"
-                        (keydown.arrowDown)="navigateDown($event)">
+                     class="radio-button-container"
+                     tabindex="0"
+                     (keydown.space)="selectButton($event)"
+                     (keydown.up)="navigateUp($event)"
+                     (keydown.arrowUp)="navigateUp($event)"
+                     (keydown.down)="navigateDown($event)"
+                     (keydown.arrowDown)="navigateDown($event)">
 
                     <ux-radio-button
                         *ngFor="let option of optionList; let index = index"
@@ -33,13 +33,60 @@
                         [option]="option"
                         [hidden]="isHidden(option.name)"
                         [class.focused]="focusIndex === index">
-                        {{ beforeHighlight(option.name) }}
-                        <span class="highlight">{{ highlightText(option.name)}}</span>
-                        {{ afterHighlight(option.name) }}
+                        {{ beforeHighlight(option.name) }}<span class="highlight">{{ highlightText(option.name)
+                        }}</span>{{ afterHighlight(option.name) }}
                     </ux-radio-button>
                 </div>
             </ng-template>
 
         </ux-select-custom>
+    </div>
+</div>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-2 col-sm-12">
+                        <label>width</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <ux-number-picker [(value)]="componentWidth"></ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-2 col-sm-12">
+                        <label>maxHeight</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <ux-number-picker [(value)]="componentMaxHeight"></ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="allowNull">allowNull</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="showBusyIndicator">busy</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-2 col-sm-12">
+                        <label>placeholder</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <input class="form-control" [(ngModel)]="placeholder">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <button class="btn button-primary" (click)="selected = optionList[0]">Select first element</button>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>

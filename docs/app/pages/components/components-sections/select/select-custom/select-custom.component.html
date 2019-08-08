@@ -33,9 +33,8 @@
                         [option]="option"
                         [hidden]="isHidden(option.name)"
                         [class.focused]="focusIndex === index">
-                        {{ beforeHighlight(option.name) }}
-                        <span class="highlight">{{ highlightText(option.name)}}</span>
-                        {{ afterHighlight(option.name) }}
+                        {{ beforeHighlight(option.name) }}<span class="highlight">{{ highlightText(option.name)
+                        }}</span>{{ afterHighlight(option.name) }}
                     </ux-radio-button>
                 </div>
             </ng-template>
