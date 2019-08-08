@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SelectCustomComponent } from './select-custom.component';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
 import { IconModule } from '../icon/icon.module';
+import { MenuModule } from '../menu/menu.module';
+
 
 @NgModule({
-  imports: [CommonModule, FormsModule, BsDropdownModule.forRoot(), IconModule],
+  imports: [CommonModule, FormsModule, IconModule, MenuModule],
   declarations: [
     SelectCustomComponent
   ],

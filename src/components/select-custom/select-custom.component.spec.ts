@@ -4,7 +4,6 @@ import { SelectCustomComponent } from './select-custom.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ElementRef } from '@angular/core';
-import { BsDropdownModule } from 'ngx-bootstrap';
 import { IconModule } from '../icon';
 
 describe('SelectCustomComponent', () => {
@@ -14,7 +13,7 @@ describe('SelectCustomComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SelectCustomComponent],
-      imports: [CommonModule, FormsModule, BsDropdownModule.forRoot(), IconModule]
+      imports: [CommonModule, FormsModule, IconModule]
     })
       .compileComponents();
   }));
