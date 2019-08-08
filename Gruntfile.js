@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
     // Register Tasks
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint', 'tslint:e2e']);
-    grunt.registerTask('library', ['clean:library', 'run:angular_components_build', 'run:webpack_ng1']);
+    grunt.registerTask('library', ['clean:library', 'run:angular_components_build', 'execute:typescriptTransform', 'run:webpack_ng1']);
     grunt.registerTask('styles', ['clean:styles', 'execute:less']);
     grunt.registerTask('scripts', ['execute:iconset']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles', 'copy:md']);
