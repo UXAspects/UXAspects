@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { IconModule } from '../icon';
+import { MenuModule } from '../menu';
 
 describe('SelectCustomComponent', () => {
   let component: SelectCustomComponent;
@@ -13,7 +14,7 @@ describe('SelectCustomComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SelectCustomComponent],
-      imports: [CommonModule, FormsModule, IconModule]
+      imports: [CommonModule, FormsModule, IconModule, MenuModule]
     })
       .compileComponents();
   }));
@@ -79,7 +80,6 @@ describe('SelectCustomComponent', () => {
   it('should register onTouched', () => {
     const callbackObject = {callback: () => true};
     spyOn(callbackObject, 'callback');
-    const newValue = 'Hoppsasa';
 
     component.registerOnTouched(callbackObject.callback);
     component.onTouched();
