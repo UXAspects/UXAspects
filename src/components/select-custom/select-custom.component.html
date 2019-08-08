@@ -1,31 +1,51 @@
-<div #rootElement class="root-element" [ngStyle]="{'width.px': width ? width.toString() : null}">
+<button type="button"
+        class="select-button"
+        [uxMenuTriggerFor]="menu"
+        (click)="onToggle()">
 
-  <button type="button" class="select-button" [uxMenuTriggerFor]="menu" (click)="onToggle()">
     <ng-container [ngTemplateOutlet]="buttonContentRef"></ng-container>
+
     <div class="ux-select-icons">
-      <i class="ux-select-icon ux-icon ux-icon-close" *ngIf="allowNull && selected" (click)="resetValue($event)"></i>
-      <i class="ux-select-icon ux-icon ux-icon-chevron-down ux-icon-down"></i>
-    </div>
-  </button>
+        <i class="ux-select-icon ux-icon ux-icon-close"
+            *ngIf="allowNull && selected"
+            (click)="resetValue($event)">
+        </i>
 
-  <ux-menu #menu menuClass="select-menu">
-    <div [ngStyle]="{'max-height.px': maxHeight ? maxHeight.toString() : null,
-                     'width.px': width ? width.toString() : null}">
-      <div [hidden]="busy">
-        <span [hidden]="hideFilter">
-          <input #filterInput type="text" placeholder="{{placeholder}}" class="filter-input" [(ngModel)]="filterText"
-                 (ngModelChange)='onFilterTextChanged($event)' (click)="$event.stopPropagation()"/>
-          <button type="button" class="btn btn-flat btn-icon-only filter-button" (click)="resetFilter($event)"
-                  [tabindex]="(filterText.length > 0) ? 0 : 1">
-            <ux-icon [name]="(filterText.length === 0) ? 'search' : 'close'"></ux-icon>
-          </button>
-        </span>
-        <ng-container [ngTemplateOutlet]="dropdownContentRef"></ng-container>
-      </div>
-      <div class="busy-indicator" [hidden]="!busy">
-        <div class="ux-loader"></div>
-      </div>
+        <i class="ux-select-icon ux-icon ux-icon-chevron-down ux-icon-down"></i>
     </div>
-  </ux-menu>
 
-</div>
+</button>
+
+<ux-menu #menu menuClass="select-menu">
+
+    <div [style.max-height.px]="maxHeight"
+         [style.width.px]="width">
+
+        <div [hidden]="busy">
+            <div [hidden]="hideFilter">
+
+                <input #filterInput
+                        type="text"
+                        [placeholder]="placeholder"
+                        class="filter-input"
+                        [(ngModel)]="filterText"
+                        (ngModelChange)='onFilterTextChanged($event)'
+                        (click)="$event.stopPropagation()" />
+
+                <button type="button"
+                        class="btn btn-flat btn-icon-only filter-button"
+                        (click)="resetFilter($event)"
+                        [tabindex]="filterText.length > 0 ? 0 : 1">
+
+                    <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
+                </button>
+            </div>
+
+            <ng-container [ngTemplateOutlet]="dropdownContentRef"></ng-container>
+        </div>
+
+        <div class="busy-indicator" [hidden]="!busy">
+            <div class="ux-loader"></div>
+        </div>
+    </div>
+</ux-menu>

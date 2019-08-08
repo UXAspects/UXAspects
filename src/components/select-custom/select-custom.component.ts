@@ -1,112 +1,128 @@
-import {
-  Component,
-  ContentChild,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'ux-select-custom',
-  templateUrl: './select-custom.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: forwardRef(() => SelectCustomComponent)
-    }
-  ]
-})
-export class SelectCustomComponent implements ControlValueAccessor, OnChanges, OnInit {
-
-  @ContentChild('dropdownContent') dropdownContentRef: TemplateRef<any>;
-  @ContentChild('buttonContent') buttonContentRef: TemplateRef<any>;
-  @Input() selected: Object;
-  @Output() selectedChange = new EventEmitter();
-  @Input() hideFilter: boolean;
-  @Input() filterChangeDebounce: number = 500;
-  @Output() filterChange = new EventEmitter<string>();
-  @Input() width: number;
-  @Input() maxHeight: number;
-  @Input() busy: boolean;
-  @Input() allowNull: boolean;
-  @Input() placeholder: string = 'type to filter ...';
-
-  @ViewChild('rootElement') rootElement: ElementRef;
-  @ViewChild('filterInput') filterInputElement: ElementRef;
-
-
-  filterText = '';
-  filterTextChanged$: Subject<string> = new Subject<string>();
-
-  onChange: (_: any) => void = () => true;
-  onTouched: () => void = () => true;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-    this.filterTextChanged$.pipe(
-      debounceTime(this.filterChangeDebounce),
-      distinctUntilChanged() // only emit if value is different from previous value
-    ).subscribe(textValue => {
-      this.filterText = textValue;
-      this.filterChange.emit(this.filterText);
-    });
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selected) {
-      this.onChange(changes.selected.currentValue);
-      this.onTouched();
-    }
-  }
-
-  onToggle() {
-    setTimeout(
-      () => {
-        if (this.rootElement.nativeElement.classList.contains('open')) {
-          this.filterInputElement.nativeElement.focus();
+    selector: 'ux-select-custom',
+    templateUrl: './select-custom.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => SelectCustomComponent)
         }
-      }, 0
-    );
-  }
+    ],
+    host: {
+        '[style.width.px]': 'width'
+    }
+})
+export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
 
-  resetFilter(event: MouseEvent) {
-    this.filterTextChanged$.next('');
-    this.filterInputElement.nativeElement.focus();
-    event.stopPropagation();
-  }
+    /** Define the selected item */
+    @Input() selected: T;
 
-  onFilterTextChanged(textValue: string) {
-    this.filterTextChanged$.next(textValue);
-  }
+    /** Hide the filter input */
+    @Input() hideFilter: boolean;
 
-  public registerOnChange(onChange: any): void {
-    this.onChange = onChange;
-  }
+    /** Debounce the filter change event emitter */
+    @Input() filterChangeDebounce: number = 500;
 
-  public registerOnTouched(onTouched: any): void {
-    this.onTouched = onTouched;
-  }
+    /** Define the width of the component */
+    @Input() width: number;
 
-  public writeValue(obj: any): void {
-    this.selected = obj;
-    this.selectedChange.emit(obj);
-  }
+    /** Define the max height of the dropdown */
+    @Input() maxHeight: number;
 
-  resetValue($event: Event) {
-    this.writeValue(undefined);
-    $event.stopPropagation();
-  }
+    /** Determine if we should show the loading indicator */
+    @Input() busy: boolean;
+
+    /** Define if null values are allowed */
+    @Input() allowNull: boolean;
+
+    /** Define the placeholder for the filter input */
+    @Input() placeholder: string = 'Type to filter...';
+
+    /** Emit when the selected item is changed */
+    @Output() selectedChange = new EventEmitter<T>();
+
+    /** Emit when the filter text is changed */
+    @Output() filterChange = new EventEmitter<string>();
+
+    @ContentChild('dropdownContent', { static: false }) dropdownContentRef: TemplateRef<void>;
+    @ContentChild('buttonContent', { static: false }) buttonContentRef: TemplateRef<void>;
+
+    @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef;
+
+    filterText: string = '';
+    filterTextChanged$: Subject<string> = new Subject<string>();
+
+    onChange: (_: T) => void = () => { };
+    onTouched: () => void = () => { };
+
+    private readonly _onDestroy$ = new Subject<void>();
+
+    constructor(private readonly _elementRef: ElementRef) { }
+
+    ngOnInit(): void {
+        this.filterTextChanged$.pipe(
+            debounceTime(this.filterChangeDebounce),
+            distinctUntilChanged(), // only emit if value is different from previous value
+            takeUntil(this._onDestroy$)
+        ).subscribe(textValue => {
+            this.filterText = textValue;
+            this.filterChange.emit(this.filterText);
+        });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.selected) {
+            this.onChange(changes.selected.currentValue);
+            this.onTouched();
+        }
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
+    }
+
+    onToggle(): void {
+        setTimeout(
+            () => {
+                if (this._elementRef.nativeElement.classList.contains('open')) {
+                    this.filterInputElement.nativeElement.focus();
+                }
+            }, 0
+        );
+    }
+
+    resetFilter(event: MouseEvent): void {
+        this.filterTextChanged$.next('');
+        this.filterInputElement.nativeElement.focus();
+        event.stopPropagation();
+    }
+
+    onFilterTextChanged(textValue: string): void {
+        this.filterTextChanged$.next(textValue);
+    }
+
+    registerOnChange(onChange: (value: T) => void): void {
+        this.onChange = onChange;
+    }
+
+    registerOnTouched(onTouched: () => void): void {
+        this.onTouched = onTouched;
+    }
+
+    writeValue(value: T): void {
+        this.selected = value;
+        this.selectedChange.emit(value);
+    }
+
+    resetValue(event: Event): void {
+        this.writeValue(undefined);
+        event.stopPropagation();
+    }
 }

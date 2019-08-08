@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 
-
 export interface RadioOption {
     name: string;
 }
 
-// noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
@@ -14,24 +12,22 @@ export interface RadioOption {
 export class AppComponent {
 
     selected: RadioOption;
-    optionList = [{name: 'One'}, {name: 'Two'}, {name: 'Three'}, {name: 'Four'}];
-    filter = '';
-    showBusyIndicator = false;
-    allowNull = false;
+    optionList: ReadonlyArray<RadioOption> = [
+        { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
+    ];
+    filter: string = '';
+    showBusyIndicator: boolean = false;
+    allowNull: boolean = false;
     componentWidth: number = 400;
     componentMaxHeight: number = 400;
-    placeholder: string = 'type to search ...';
-    focusIndex = 0;
+    placeholder: string = 'Type to search...';
+    focusIndex: number = 0;
 
-    constructor() {
-    }
-
-
-    private index(text: any): number {
+    private index(text: string): number {
         return text.toLowerCase().indexOf(this.filter.toLowerCase());
     }
 
-    isHidden(name: string) {
+    isHidden(name: string): boolean {
         return this.filter && (this.filter.length > 0) && (this.index(name) === -1);
     }
 
@@ -50,21 +46,21 @@ export class AppComponent {
         return (highlightIndex < 0) ? '' : text.substr(highlightIndex + this.filter.length);
     }
 
-    navigateUp(event: KeyboardEvent) {
+    navigateUp(event: KeyboardEvent): void {
         if (this.focusIndex > 0) {
             this.focusIndex--;
             event.preventDefault();
         }
     }
 
-    navigateDown(event: KeyboardEvent) {
+    navigateDown(event: KeyboardEvent): void {
         if (this.focusIndex < this.optionList.length - 1) {
             this.focusIndex++;
             event.preventDefault();
         }
     }
 
-    public selectButton(event: KeyboardEvent) {
+    selectButton(event: KeyboardEvent): void {
         this.selected = this.optionList[this.focusIndex];
         event.preventDefault();
     }

@@ -1,4 +1,5 @@
-.root-element {
+ux-select-custom {
+    display: inline-block;
     position: relative;
 
     .select-button {
@@ -32,6 +33,7 @@
 }
 
 .select-menu {
+    position: relative;
     overflow-y: auto;
     z-index: 1010;
     border: none;
@@ -114,6 +116,7 @@
         &:extend(.ux-loader-block);
     }
 }
+
 
 @keyframes loader-block-animation {
     0% {
