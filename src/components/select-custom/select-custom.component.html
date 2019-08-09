@@ -1,4 +1,4 @@
-<button type="button"
+<button #button type="button"
         class="select-button"
         [uxMenuTriggerFor]="menu">
 
@@ -17,7 +17,7 @@
 <ux-menu #menu menuClass="select-menu" (opened)="filterInputElement.nativeElement.focus()">
 
     <div [style.max-height.px]="maxHeight"
-         [style.width.px]="width">
+         [style.width.px]="button.offsetWidth">
 
         <div *ngIf="!busy">
             <div *ngIf="!hideFilter">

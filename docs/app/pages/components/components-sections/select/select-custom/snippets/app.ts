@@ -30,7 +30,6 @@ export class AppComponent {
     filter: string = '';
     showBusyIndicator: boolean = false;
     allowNull: boolean = false;
-    componentWidth: number = 400;
     componentMaxHeight: number = 400;
     placeholder: string = 'Type to search...';
     focusIndex: number = 0;

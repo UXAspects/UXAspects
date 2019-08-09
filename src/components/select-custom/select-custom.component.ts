@@ -29,10 +29,7 @@ import { Subject } from 'rxjs';
             multi: true,
             useExisting: forwardRef(() => SelectCustomComponent)
         }
-    ],
-    host: {
-        '[style.width.px]': 'width'
-    }
+    ]
 })
 export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
 
@@ -41,9 +38,6 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
 
     /** Hide the filter input */
     @Input() hideFilter: boolean;
-
-    /** Define the width of the component */
-    @Input() width: number;
 
     /** Define the max height of the dropdown */
     @Input() maxHeight: number;
