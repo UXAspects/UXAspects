@@ -5,12 +5,11 @@
     <ng-container [ngTemplateOutlet]="buttonContentRef"></ng-container>
 
     <div class="ux-select-icons">
-        <i class="ux-select-icon ux-icon ux-icon-close"
-            *ngIf="allowNull && selected"
-            (click)="resetValue($event)">
-        </i>
-
-        <i class="ux-select-icon ux-icon ux-icon-chevron-down ux-icon-down"></i>
+        <ux-icon name="close"
+                 *ngIf="allowNull && selected"
+                 (click)="resetValue($event)">
+        </ux-icon>
+        <ux-icon name="chevron-down" class="ux-icon-down"></ux-icon>
     </div>
 
 </button>
@@ -20,8 +19,8 @@
     <div [style.max-height.px]="maxHeight"
          [style.width.px]="width">
 
-        <div [hidden]="busy">
-            <div [hidden]="hideFilter">
+        <div *ngIf="!busy">
+            <div *ngIf="!hideFilter">
 
                 <input #filterInput
                         type="text"
@@ -43,7 +42,7 @@
             <ng-container [ngTemplateOutlet]="dropdownContentRef"></ng-container>
         </div>
 
-        <div class="busy-indicator" [hidden]="!busy">
+        <div class="busy-indicator" *ngIf="busy">
             <div class="ux-loader"></div>
         </div>
     </div>

@@ -1,19 +1,17 @@
 .radio-button-container {
     padding-top: 16px;
     padding-bottom: 16px;
+    outline: none;
 
     ux-radio-button {
-        padding-top: 4px;
-        padding-right: 16px;
-        padding-bottom: 4px;
-        padding-left: 16px;
+        padding: 4px 16px;
         margin-bottom: 0;
     
         ::ng-deep .ux-radio-button-label {
             font-size: 16px;
         
             .highlight {
-                color: blue;
+                color: #2a2a2a;
                 font-weight: 600;
             }
         }
@@ -21,7 +19,7 @@
 }
     
 .radio-button-container:focus ux-radio-button.focused {
-      background-color: lightblue;
+      background-color: #e7f1f9;
 }
 
 .dropdown-placeholder {
