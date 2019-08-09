@@ -18,7 +18,7 @@ module.exports = {
         src: [ join(cwd(), 'scripts', 'protractor.js') ]
     },
     typescriptTransform: {
-        src: [ join(cwd(), 'scripts', 'typescript-compat.js') ]
+        src: [ join(cwd(), 'scripts', 'typescript-transforms.js') ]
     },
     version: {
         src: [ join(cwd(), 'scripts', 'version.js') ]

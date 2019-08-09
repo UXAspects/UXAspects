@@ -26,7 +26,7 @@ async function transformDeclarations() {
 
 function getDeclarations() {
     return new Promise(resolve => {
-        glob('**/*.d.ts', { cwd: join(cwd(), 'dist'), ignore: '**/ng1/*.js' }, (error, matches) => resolve(matches));
+        glob('**/*.d.ts', { cwd: join(cwd(), 'dist'), ignore: ['**/ng1/*.js', '**/docs/**/*.js'] }, (error, matches) => resolve(matches));
     });
 }
 
@@ -82,10 +82,11 @@ function getBundles() {
     });
 }
 
-/** 
- * Perform an identifier rename from `defineInjectable` to `ɵɵdefineInjectable`.
- * 
- * There are two possible places where this is used:
+/**
+ * Perform an identifier rename from `defineInjectable` to `ɵɵdefineInjectable`
+ * and `ɵɵinject` to `inject`.
+ *
+ * There are only two possible places where these is used:
  * 1. In an import statement
  * 2. As an identifier on a static function
  */
@@ -102,6 +103,19 @@ const injectableTransformerFactory = (context) => (bundle) => {
             // rename `ɵɵdefineInjectable` import to `defineInjectable`
             if (ts.isImportSpecifier(node)) {
                 return ts.createImportSpecifier(undefined, ts.createIdentifier('defineInjectable'));
+            }
+        }
+
+        if (node.getText() === 'ɵɵinject') {
+
+            // rename `ɵɵinject` identifier to `inject`
+            if (ts.isIdentifier(node)) {
+                return ts.createIdentifier('inject');
+            }
+
+            // rename `ɵɵinject` import to `inject`
+            if (ts.isImportSpecifier(node)) {
+                return ts.createImportSpecifier(undefined, ts.createIdentifier('inject'));
             }
         }
 
