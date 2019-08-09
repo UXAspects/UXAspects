@@ -34,6 +34,8 @@ export class CssUxIconsComponent {
 
     uxIconComponentRoute: string;
 
+    iconSizeValue: string = '24px';
+
     get isKeppel(): boolean {
         return this._documentationType === DocumentationType.Keppel;
     }

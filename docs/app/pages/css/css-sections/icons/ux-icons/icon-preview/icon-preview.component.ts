@@ -12,6 +12,7 @@ export class IconPreviewComponent implements OnInit {
     @Input() classname: string;
     @Input() iconset: string;
     @Input() iconSetClass: string;
+    @Input() iconSizeValue: string;
 
     uxComponentSnippet: string;
     iconSnippet: string;
@@ -21,7 +22,7 @@ export class IconPreviewComponent implements OnInit {
     @ViewChild(PopoverDirective, { static: true }) popover: PopoverDirective;
 
     ngOnInit(): void {
-        this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
+        this.uxComponentSnippet = `<ux-icon name="${this.name}" size="${this.iconSizeValue}"></ux-icon>`;
 
         this.iconSnippet = `<i class="${this.iconSetClass} ${this.classname}"></i>`;
     }

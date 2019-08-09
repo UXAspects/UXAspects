@@ -1,0 +1,25 @@
+.icon-search-container {
+    display: flex;
+
+    .icon-resize-container {
+        display: inline-flex;
+        align-items: center;
+
+        .icon-resize-text {
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .icon-resize-buttons {
+            margin-left: 8px;
+
+            .icon-resize-button {
+                text-transform: none;
+
+                &:first-child {
+                    margin-left: -1px;
+                }
+            }
+        }
+    }
+}

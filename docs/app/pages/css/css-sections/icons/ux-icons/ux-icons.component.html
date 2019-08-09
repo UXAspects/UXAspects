@@ -5,8 +5,8 @@
     [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a> along with one of the
     following names. Click on an icon to view its implementation.</p>
 
-<div class="row m-b-md">
-    <div class="col-xs-6">
+<div class="row m-b-md icon-search-container">
+    <div class="col-xs-5">
 
         <!-- Show the standard select component in the keppel site -->
         <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
@@ -23,6 +23,28 @@
                [(ngModel)]="query"
                (ngModelChange)="search()">
     </div>
+
+    <div *ngIf="iconSetClass === 'ux-icon'" class="col-xs-6 icon-resize-container">
+        <div class="icon-resize-text">Icon Size</div>
+        <div class="btn-group icon-resize-buttons">
+            <button type="button"
+                    class="btn button-toggle-primary icon-resize-button"
+                    [(ngModel)]="iconSizeValue"
+                    btnRadio="16px">16px
+            </button>
+            <button type="button"
+                    class="btn button-toggle-primary icon-resize-button"
+                    [(ngModel)]="iconSizeValue"
+                    btnRadio="24px">24px
+            </button>
+            <button type="button"
+                    class="btn button-toggle-primary icon-resize-button"
+                    [(ngModel)]="iconSizeValue"
+                    btnRadio="32px">32px
+            </button>
+        </div>
+    </div>
+
 </div>
 
 <div class="row">
@@ -31,6 +53,7 @@
             [name]="icon.name"
             [classname]="icon.classname"
             [iconset]="iconset"
+            [iconSizeValue]="iconSizeValue"
             [iconSetClass]="iconSetClass">
         </uxd-icon-preview>
     </div>
