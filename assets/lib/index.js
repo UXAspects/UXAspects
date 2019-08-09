@@ -1,12 +1,11 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/common/http'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-    (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}),global.angularSplit,global.ResizeObserver,global.dragulaNamespace,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.common.http,global.d3Ease,global.ng.cdk.portal,global.d3Interpolate,global.d3Shape,global.d3Zoom,global.ng.router,global.d3Hierarchy,global.d3Scale,global.d3Selection,global.d3Transition,global.d3Array,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.animations,global.ng.common,global.rxjs,global.rxjs.operators,global.ng.forms,global.ng.upgrade.static,global.ng.cdk.keycodes,global.ng.core));
-}(this, (function (exports,angularSplit,ResizeObserver,dragulaNamespace,observers,overlay,http,d3Ease,portal,d3Interpolate,d3Shape,d3Zoom,router,d3Hierarchy,d3Scale,d3Selection,d3Transition,d3Array,platform,coercion,a11y,animations,common,rxjs,operators,forms,_static,keycodes,i0) { 'use strict';
-
+        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+            (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.angularSplit, global.ResizeObserver, global.dragulaNamespace, global.ng.cdk.observers, global.ng.cdk.overlay, global.ng.common.http, global.d3Ease, global.ng.cdk.portal, global.d3Interpolate, global.d3Shape, global.d3Zoom, global.ng.router, global.d3Hierarchy, global.d3Scale, global.d3Selection, global.d3Transition, global.d3Array, global.ng.cdk.platform, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.animations, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.forms, global.ng.upgrade.static, global.ng.cdk.keycodes, global.ng.core));
+}(this, (function (exports, angularSplit, ResizeObserver, dragulaNamespace, observers, overlay, http, d3Ease, portal, d3Interpolate, d3Shape, d3Zoom, router, d3Hierarchy, d3Scale, d3Selection, d3Transition, d3Array, platform, coercion, a11y, animations, common, rxjs, operators, forms, _static, keycodes, i0) {
+    'use strict';
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48,12 +47,10 @@
         SocialChartNode: 'social-chart-node',
         SocialChartEdge: 'social-chart-edge',
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -85,17 +82,41 @@
             });
         };
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
+    /**
+     * A button will trigger a click event whenever the a mouse click occurs or the enter key is pressed.
+     * These functions can be used to identify if a `click` event was caused by the keyboard or
+     * by a mouse.
+     *
+     * The `event.detail` property will change based on the source of the event.
+     * A mouse click will have varying values based on the browser, however
+     * the enter key will always have a value of `0` so we can check against that
+     */
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    function isKeyboardTrigger(event) {
+        return event.detail === 0;
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    function isMouseTrigger(event) {
+        return !isKeyboardTrigger(event);
+    }
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -110,7 +131,6 @@
         ];
         return AccordionPanelHeadingDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -134,7 +154,6 @@
         ];
         return AccordionService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -220,7 +239,6 @@
         };
         return AccordionPanelComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -262,7 +280,6 @@
         };
         return AccordionComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -304,7 +321,6 @@
         'social-chart-node': '#00cceb',
         'social-chart-edge': '#00cceb'
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -389,7 +405,6 @@
         'social-chart-node': '#ff00ff',
         'social-chart-edge': '#ff00ff'
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -408,7 +423,6 @@
      * @type {?}
      */
     var COLOR_SET_TOKEN = new i0.InjectionToken('COLOR_SET_TOKEN');
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -455,7 +469,6 @@
         ];
         return ColorServiceModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -770,7 +783,6 @@
             };
         return ThemeColor;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -953,12 +965,10 @@
         /** @nocollapse */ ColorService.ngInjectableDef = i0.defineInjectable({ factory: function ColorService_Factory() { return new ColorService(i0.inject(COLOR_SET_TOKEN, 8)); }, token: ColorService, providedIn: "root" });
         return ColorService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1035,7 +1045,6 @@
         ];
         return ContrastService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1138,7 +1147,6 @@
         };
         return ColorContrastDirective;
     }());
-
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -1157,9 +1165,11 @@
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
-                    d[p] = b[p]; };
+            function (d, b) {
+                for (var p in b)
+                    if (b.hasOwnProperty(p))
+                        d[p] = b[p];
+            };
         return extendStatics(d, b);
     };
     function __extends(d, b) {
@@ -1181,25 +1191,32 @@
     };
     function __awaiter(thisArg, _arguments, P, generator) {
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try {
-                step(generator.next(value));
+            function fulfilled(value) {
+                try {
+                    step(generator.next(value));
+                }
+                catch (e) {
+                    reject(e);
+                }
             }
-            catch (e) {
-                reject(e);
-            } }
-            function rejected(value) { try {
-                step(generator["throw"](value));
+            function rejected(value) {
+                try {
+                    step(generator["throw"](value));
+                }
+                catch (e) {
+                    reject(e);
+                }
             }
-            catch (e) {
-                reject(e);
-            } }
             function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function () { if (t[0] & 1)
-                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        var _ = { label: 0, sent: function () {
+                if (t[0] & 1)
+                    throw t[1];
+                return t[1];
+            }, trys: [], ops: [] }, f, y, t, g;
         return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
@@ -1307,14 +1324,12 @@
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
     var ACCESSIBILITY_OPTIONS_TOKEN = new i0.InjectionToken('ACCESSIBILITY_OPTIONS');
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1358,7 +1373,6 @@
         };
         return AccessibilityOptionsService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1368,7 +1382,6 @@
         }
         return LocalFocusIndicatorOptions;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1525,7 +1538,6 @@
             };
         return FocusIndicator;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1572,7 +1584,6 @@
         /** @nocollapse */ FocusIndicatorOriginService.ngInjectableDef = i0.defineInjectable({ factory: function FocusIndicatorOriginService_Factory() { return new FocusIndicatorOriginService(); }, token: FocusIndicatorOriginService, providedIn: "root" });
         return FocusIndicatorOriginService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1620,7 +1631,6 @@
         };
         return FocusIndicatorService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1664,6 +1674,8 @@
              * @param {?} checkChildren
              * @return {?}
              */ function (checkChildren) {
+                // allow a string to be used so we can skip checking a binding for performance benefits
+                checkChildren = coercion.coerceBooleanProperty(checkChildren);
                 if (checkChildren !== null && checkChildren !== undefined) {
                     this._checkChildren = checkChildren;
                     this.setOptions();
@@ -1679,6 +1691,8 @@
              * @param {?} mouseFocusIndicator
              * @return {?}
              */ function (mouseFocusIndicator) {
+                // allow a string to be used so we can skip checking a binding for performance benefits
+                mouseFocusIndicator = coercion.coerceBooleanProperty(mouseFocusIndicator);
                 if (mouseFocusIndicator !== null && mouseFocusIndicator !== undefined) {
                     this._options.set('mouseFocusIndicator', mouseFocusIndicator);
                     this.setOptions();
@@ -1694,6 +1708,8 @@
              * @param {?} touchFocusIndicator
              * @return {?}
              */ function (touchFocusIndicator) {
+                // allow a string to be used so we can skip checking a binding for performance benefits
+                touchFocusIndicator = coercion.coerceBooleanProperty(touchFocusIndicator);
                 if (touchFocusIndicator !== null && touchFocusIndicator !== undefined) {
                     this._options.set('touchFocusIndicator', touchFocusIndicator);
                     this.setOptions();
@@ -1709,6 +1725,8 @@
              * @param {?} keyboardFocusIndicator
              * @return {?}
              */ function (keyboardFocusIndicator) {
+                // allow a string to be used so we can skip checking a binding for performance benefits
+                keyboardFocusIndicator = coercion.coerceBooleanProperty(keyboardFocusIndicator);
                 if (keyboardFocusIndicator !== null && keyboardFocusIndicator !== undefined) {
                     this._options.set('keyboardFocusIndicator', keyboardFocusIndicator);
                     this.setOptions();
@@ -1724,6 +1742,8 @@
              * @param {?} programmaticFocusIndicator
              * @return {?}
              */ function (programmaticFocusIndicator) {
+                // allow a string to be used so we can skip checking a binding for performance benefits
+                programmaticFocusIndicator = coercion.coerceBooleanProperty(programmaticFocusIndicator);
                 if (programmaticFocusIndicator !== null && programmaticFocusIndicator !== undefined) {
                     this._options.set('programmaticFocusIndicator', programmaticFocusIndicator);
                     this.setOptions();
@@ -1836,7 +1856,6 @@
         };
         return FocusIndicatorDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1873,7 +1892,6 @@
         };
         return DefaultFocusIndicatorDirective;
     }(FocusIndicatorDirective));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -1950,7 +1968,6 @@
         };
         return FocusIndicatorOptionsDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2028,7 +2045,6 @@
             };
         return FocusIndicatorOrigin;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2061,7 +2077,6 @@
         };
         return FocusIndicatorOriginDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2132,7 +2147,6 @@
         };
         return FocusWithinDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2406,7 +2420,6 @@
             };
         return ManagedFocusContainerWithReferences;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2448,7 +2461,6 @@
         };
         return ManagedFocusContainerDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -2865,7 +2877,6 @@
         };
         return SplitterAccessibilityDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3257,7 +3268,6 @@
         ];
         return TabbableListService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3291,6 +3301,10 @@
              * Emit when the expanded state changes.
              */
             this.expandedChange = new i0.EventEmitter();
+            /**
+             * Emit when the element receives focus via the tabbable list.
+             */
+            this.activated = new i0.EventEmitter();
             /**
              * Give each tabbable item a unique id
              */
@@ -3427,10 +3441,15 @@
                 // check if there are currently any items that are tabbable
                 /** @type {?} */
                 var hasTabbableItem = this._tabbableList.hasTabbableItem();
+                // determine the focus origin
+                /** @type {?} */
+                var origin = hasTabbableItem ? this._focusOriginService.getOrigin() || 'keyboard' : 'keyboard';
                 // apply focus to the element
-                this.focusWithOrigin(hasTabbableItem ? this._focusOriginService.getOrigin() || 'keyboard' : 'keyboard', !this._tabbableList.shouldScrollInView);
+                this.focusWithOrigin(origin, !this._tabbableList.shouldScrollInView);
                 // ensure the focus key manager updates the active item correctly
                 this._tabbableList.activate(this, hasTabbableItem);
+                // emit the focus event
+                this.activated.emit(origin);
             };
         /**
          * @return {?}
@@ -3551,13 +3570,13 @@
             expanded: [{ type: i0.Input }],
             key: [{ type: i0.Input }],
             expandedChange: [{ type: i0.Output }],
+            activated: [{ type: i0.Output }],
             onFocus: [{ type: i0.HostListener, args: ['focus',] }, { type: i0.HostListener, args: ['click',] }],
             onBlur: [{ type: i0.HostListener, args: ['blur',] }],
             onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return TabbableListItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3753,7 +3772,6 @@
         };
         return TabbableListDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3820,42 +3838,34 @@
         ];
         return AccessibilityModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3883,12 +3893,10 @@
         ];
         return AccordionModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3903,7 +3911,6 @@
         ];
         return AlertIconDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -3976,7 +3983,7 @@
         AlertComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-alert',
-                        template: "<div class=\"alert-icon\" *ngIf=\"icon\">\n    <ng-content select=\"[uxAlertIcon]\"></ng-content>\n</div>\n\n<div class=\"alert-content\">\n    <ng-content></ng-content>\n</div>\n\n<button *ngIf=\"dismissible\"\n        uxFocusIndicator\n        class=\"alert-close\"\n        type=\"button\"\n        (click)=\"dismiss.emit()\"\n        [attr.aria-label]=\"dismissAriaLabel\">\n    <i class=\"hpe-icon hpe-close\"></i>\n</button>\n",
+                        template: "<div class=\"alert-icon\" *ngIf=\"icon\">\n    <ng-content select=\"[uxAlertIcon]\"></ng-content>\n</div>\n\n<div class=\"alert-content\">\n    <ng-content></ng-content>\n</div>\n\n<button *ngIf=\"dismissible\"\n        uxFocusIndicator\n        class=\"alert-close\"\n        type=\"button\"\n        (click)=\"dismiss.emit()\"\n        [attr.aria-label]=\"dismissAriaLabel\">\n    <ux-icon name=\"close\" class=\"alert-close-icon\"></ux-icon>\n</button>\n",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             'role': 'alert',
@@ -4003,11 +4010,742 @@
             foregroundColor: [{ type: i0.Input }],
             dismissAriaLabel: [{ type: i0.Input }],
             dismiss: [{ type: i0.Output }],
-            icon: [{ type: i0.ContentChild, args: [AlertIconDirective,] }]
+            icon: [{ type: i0.ContentChild, args: [AlertIconDirective, { static: false },] }]
         };
         return AlertComponent;
     }());
-
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var ICON_OPTIONS_TOKEN = new i0.InjectionToken('ICON_OPTIONS_TOKEN');
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** AUTOGENERATED: DO NOT MODIFY **/
+    /** @type {?} */
+    var commonIcons = [
+        '3d',
+        'achievement',
+        'action',
+        'actions',
+        'active',
+        'add',
+        'advanced-search',
+        'aggregate',
+        'alarm',
+        'alert-filled',
+        'alert',
+        'analytics',
+        'announcement',
+        'app',
+        'archive',
+        'article',
+        'ascend',
+        'assistant',
+        'attachment',
+        'bar-chart',
+        'blog',
+        'book',
+        'bookmark-filled',
+        'bookmark',
+        'bundle',
+        'calculator',
+        'calendar',
+        'camera-filled',
+        'camera',
+        'capacity',
+        'caret-down-filled',
+        'caret-down',
+        'caret-next-filled',
+        'caret-next',
+        'caret-previous-filled',
+        'caret-previous',
+        'caret-up-filled',
+        'caret-up',
+        'catalog',
+        'chapter-add',
+        'chapter-next-filled',
+        'chapter-next',
+        'chapter-previous-filled',
+        'chapter-previous',
+        'chart-organization',
+        'chart-partition',
+        'chart-sankey',
+        'chat-attachment',
+        'chat',
+        'checkbox-selected',
+        'checkbox',
+        'checkmark',
+        'chevron-down',
+        'chevron-left-double',
+        'chevron-left',
+        'chevron-right-double',
+        'chevron-right',
+        'chevron-up',
+        'circular-view',
+        'clipboard',
+        'clone',
+        'close',
+        'cloud-computer',
+        'cloud-download',
+        'cloud-software',
+        'cloud-upload',
+        'cloud',
+        'cluster',
+        'code',
+        'command-line',
+        'compare',
+        'compass',
+        'compliance',
+        'computer-personal',
+        'configuration-filled',
+        'configuration',
+        'connect',
+        'contact-card',
+        'contact-us-filled',
+        'contact-us',
+        'contract',
+        'copy',
+        'cube-filled',
+        'cube',
+        'cubes',
+        'cursor-filled',
+        'cursor',
+        'cut',
+        'cycle',
+        'dashboard',
+        'database',
+        'defect',
+        'deliver',
+        'deployment',
+        'descend',
+        'desktop',
+        'detach',
+        'directions',
+        'dislike-filled',
+        'dislike',
+        'divide-four',
+        'divide-right',
+        'divide-three',
+        'divide',
+        'document-cloud',
+        'document-compress',
+        'document-config',
+        'document-csv',
+        'document-data',
+        'document-download',
+        'document-excel',
+        'document-executable',
+        'document-image',
+        'document-locked',
+        'document-missing',
+        'document-notes',
+        'document-outlook',
+        'document-pdf',
+        'document-performance',
+        'document-powerpoint',
+        'document-rtf',
+        'document-sound',
+        'document-test',
+        'document-text',
+        'document-threat',
+        'document-time',
+        'document-transfer',
+        'document-txt',
+        'document-update',
+        'document-upload',
+        'document-user',
+        'document-verified',
+        'document-video',
+        'document-word',
+        'document',
+        'domain',
+        'down',
+        'download',
+        'drag',
+        'drive-cage',
+        'duplicate',
+        'edit-filled',
+        'edit',
+        'eject-filled',
+        'eject',
+        'expand',
+        'fan',
+        'fast-forward-filled',
+        'fast-forward',
+        'favorite-filled',
+        'favorite',
+        'filter-filled',
+        'filter',
+        'first-aid',
+        'flag-filled',
+        'flag',
+        'folder-cycle',
+        'folder-open',
+        'folder',
+        'gallery-filled',
+        'gallery',
+        'globe',
+        'grid',
+        'group',
+        'grow',
+        'halt',
+        'help-circle',
+        'help',
+        'history',
+        'home-filled',
+        'home',
+        'host-maintenance',
+        'host',
+        'image-filled',
+        'image',
+        'impact',
+        'in-progress',
+        'inactive',
+        'inbox',
+        'indicator-filled',
+        'indicator',
+        'information-filled',
+        'information',
+        'inherit-filled',
+        'inherit',
+        'input-to-process',
+        'install',
+        'integration',
+        'iteration-filled',
+        'iteration',
+        'java-filled',
+        'java',
+        'language',
+        'launch',
+        'license-filled',
+        'license',
+        'like-filled',
+        'like',
+        'line-chart',
+        'link-bottom',
+        'link-down',
+        'link-next',
+        'link-previous',
+        'link-top',
+        'link-up',
+        'link',
+        'list',
+        'location-filled',
+        'location-pin-filled',
+        'location-pin',
+        'location',
+        'lock',
+        'login',
+        'logout',
+        'mail-attachment',
+        'mail-filled',
+        'mail',
+        'manual',
+        'map-location',
+        'map',
+        'menu',
+        'microphone-filled',
+        'microphone',
+        'monitor',
+        'more',
+        'multiple',
+        'navigate',
+        'new-window',
+        'new',
+        'news-aggregation',
+        'news-collection',
+        'news-content',
+        'news',
+        'next',
+        'notes',
+        'notification-filled',
+        'notification',
+        'optimization',
+        'organization',
+        'overview',
+        'pan',
+        'pause-filled',
+        'pause',
+        'payment-google-wallet',
+        'payment-mastercard',
+        'payment-paypal',
+        'payment-square',
+        'payment-visa',
+        'pin-filled',
+        'pin',
+        'plan',
+        'platform-apple',
+        'platform-chrome',
+        'platform-dropbox',
+        'platform-edge',
+        'platform-firefox',
+        'platform-internet-explorer',
+        'platform-skype',
+        'platform-windows',
+        'play-filled',
+        'play',
+        'power',
+        'previous',
+        'print',
+        'quick-view',
+        'radial-selected',
+        'radial',
+        'refresh',
+        'resources',
+        'rewind-filled',
+        'rewind',
+        'risk',
+        'rss',
+        'satellite',
+        'save-filled',
+        'save',
+        'schedule-clone',
+        'schedule-new',
+        'schedule-play',
+        'schedule',
+        'scorecard',
+        'search',
+        'secure',
+        'select-left',
+        'select',
+        'server-cluster',
+        'server',
+        'servers',
+        'service-business',
+        'service-start',
+        'share',
+        'shield-configure',
+        'shield-filled',
+        'shield',
+        'shift',
+        'shop-basket',
+        'shop-cart',
+        'soa',
+        'social-email',
+        'social-facebook',
+        'social-github',
+        'social-instagram',
+        'social-linkedin',
+        'social-medium',
+        'social-pinterest',
+        'social-reddit',
+        'social-slack',
+        'social-tumblr',
+        'social-twitter',
+        'social-vimeo',
+        'social-youtube',
+        'sort',
+        'stakeholder',
+        'star-filled',
+        'star-half',
+        'star',
+        'status-approved-filled',
+        'status-error-filled',
+        'status-information-filled',
+        'status-warning-filled',
+        'steps-filled',
+        'steps',
+        'storage',
+        'street-view-filled',
+        'street-view',
+        'subtitles',
+        'subtract',
+        'support',
+        'sync',
+        'system',
+        'tab-next',
+        'tab-previous',
+        'tab-up',
+        'table-add',
+        'table',
+        'tag-filled',
+        'tag',
+        'target',
+        'task',
+        'template',
+        'test-desktop',
+        'test',
+        'text-wrap',
+        'threats',
+        'ticket',
+        'tools',
+        'tooltip',
+        'transaction-filled',
+        'transaction',
+        'trash-filled',
+        'trash',
+        'tree',
+        'trigger',
+        'trophy-filled',
+        'trophy',
+        'troubleshooting',
+        'unlock',
+        'up',
+        'update',
+        'upgrade-filled',
+        'upgrade',
+        'upload',
+        'user-add-filled',
+        'user-add',
+        'user-admin',
+        'user-expert',
+        'user-female-filled',
+        'user-female',
+        'user-filled',
+        'user-manager',
+        'user-new',
+        'user-police',
+        'user-settings',
+        'user-worker',
+        'user',
+        'validation-filled',
+        'validation',
+        'video-filled',
+        'video',
+        'view-filled',
+        'view',
+        'virtual-machine',
+        'vm-maintenance',
+        'volume-filled',
+        'volume-low-filled',
+        'volume-low',
+        'volume-mute-filled',
+        'volume-mute',
+        'volume',
+        'vulnerability',
+        'waypoint-filled',
+        'waypoint',
+        'workshop',
+        'zoom-in',
+        'zoom-out'
+    ];
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ɵ0 = function (icon) {
+        return { name: icon, iconset: 'ux-icon', icon: "ux-icon-" + icon };
+    };
+    /**
+     * We generate the iconset definition as hardcoding it increases bundle size by ~40kb per iconset
+     * @type {?}
+     */
+    var uxIconset = __spread(commonIcons.map(ɵ0));
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var IconService = /** @class */ (function () {
+        /** Inject a parent service if one exists */
+        function IconService(_iconService, options) {
+            this._iconService = _iconService;
+            /**
+             * Emit whenever the iconset changes
+             */
+            this.iconsChanged$ = new rxjs.Subject();
+            /**
+             * Store a list of all icon
+             */
+            this._icons = __spread(uxIconset);
+            // if the iconset was defined at the root or child module level apply this configuration
+            if (options && options.icons) {
+                this.setIcons(options.icons);
+            }
+        }
+        /** Define multiple icon definitions. This will override icon definitions if a name and size collision occurs */
+        /**
+         * Define multiple icon definitions. This will override icon definitions if a name and size collision occurs
+         * @param {?} icons
+         * @return {?}
+         */
+        IconService.prototype.setIcons = /**
+         * Define multiple icon definitions. This will override icon definitions if a name and size collision occurs
+         * @param {?} icons
+         * @return {?}
+         */
+            function (icons) {
+                var _this = this;
+                icons.forEach(function (icon) { return _this.setIcon(icon); });
+            };
+        /** Provide an icon definition which will override if necessary */
+        /**
+         * Provide an icon definition which will override if necessary
+         * @param {?} __0
+         * @return {?}
+         */
+        IconService.prototype.setIcon = /**
+         * Provide an icon definition which will override if necessary
+         * @param {?} __0
+         * @return {?}
+         */
+            function (_a) {
+                var _this = this;
+                var name = _a.name, icon = _a.icon, iconset = _a.iconset, size = _a.size;
+                // if there are multiple sizes specified add them all as individual records
+                if (Array.isArray(size)) {
+                    return size.forEach(function (variant) { return _this.setIcon({ name: name, icon: icon, iconset: iconset, size: variant }); });
+                }
+                // remove any existing definition with the same parameters
+                this._icons = this._icons.filter(function (definition) { return !(definition.name === name && definition.size === size); });
+                // insert the new definition
+                this._icons = __spread(this._icons, [{ name: name, icon: icon, iconset: iconset, size: size }]);
+                // emit the icon change
+                this.iconsChanged$.next({ name: name, size: size });
+            };
+        /** Find an icon based on the given name and size if provided */
+        /**
+         * Find an icon based on the given name and size if provided
+         * @param {?} name
+         * @param {?=} size
+         * @return {?}
+         */
+        IconService.prototype.getIcon = /**
+         * Find an icon based on the given name and size if provided
+         * @param {?} name
+         * @param {?=} size
+         * @return {?}
+         */
+            function (name, size) {
+                // if no name was specified then do nothing (this can occur if the name input on the component is not initially defined)
+                if (!name) {
+                    return;
+                }
+                // if there is a size specified then check for an exact match
+                if (size) {
+                    // get an icon definition that matches both name and size
+                    /** @type {?} */
+                    var sizedIcon = this._icons.find(function (definition) { return definition.name === name && definition.size === size; });
+                    // if there is a match then return otherwise fallthrough to the default
+                    if (sizedIcon) {
+                        return sizedIcon;
+                    }
+                }
+                // find a general match with no size constraint
+                /** @type {?} */
+                var icon = this._icons.find(function (definition) { return definition.name === name && definition.size === undefined; });
+                // if no match is found and there is a parent service then we should check it
+                if (!icon && this._iconService) {
+                    return this._iconService.getIcon(name, size);
+                }
+                else if (!icon) {
+                    console.warn("Icon '" + name + "' was not found.");
+                }
+                return icon;
+            };
+        IconService.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        IconService.ctorParameters = function () {
+            return [
+                { type: IconService, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
+                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [ICON_OPTIONS_TOKEN,] }] }
+            ];
+        };
+        return IconService;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var IconComponent = /** @class */ (function () {
+        function IconComponent(_elementRef, _renderer, _iconService) {
+            this._elementRef = _elementRef;
+            this._renderer = _renderer;
+            this._iconService = _iconService;
+            /**
+             * Define if the icon should be horizontally flipped
+             */
+            this.flipHorizontal = false;
+            /**
+             * Define if the icon should be horizontally flipped
+             */
+            this.flipVertical = false;
+            /**
+             * Automatically unsubscribe from observables
+             */
+            this._onDestroy = new rxjs.Subject();
+        }
+        /** When inputs change ensure we have the best icon definition */
+        /**
+         * When inputs change ensure we have the best icon definition
+         * @param {?} changes
+         * @return {?}
+         */
+        IconComponent.prototype.ngOnChanges = /**
+         * When inputs change ensure we have the best icon definition
+         * @param {?} changes
+         * @return {?}
+         */
+            function (changes) {
+                // if the name or size changes then update the icon
+                if (changes.name && changes.name.currentValue !== changes.name.previousValue ||
+                    changes.size && changes.size.currentValue !== changes.size.previousValue) {
+                    this.updateIcon();
+                }
+            };
+        /** Watch for changes to the iconset */
+        /**
+         * Watch for changes to the iconset
+         * @return {?}
+         */
+        IconComponent.prototype.ngAfterViewInit = /**
+         * Watch for changes to the iconset
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // watch for changes to the iconset to check if we need to update.
+                this._iconService.iconsChanged$.pipe(operators.filter(function (event) { return _this._icon && event.name === _this._icon.name; }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.updateIcon(); });
+            };
+        /** Cleanup on component destroy */
+        /**
+         * Cleanup on component destroy
+         * @return {?}
+         */
+        IconComponent.prototype.ngOnDestroy = /**
+         * Cleanup on component destroy
+         * @return {?}
+         */
+            function () {
+                this._onDestroy.next();
+                this._onDestroy.complete();
+            };
+        /** get the icon definition based on the name and size specified */
+        /**
+         * get the icon definition based on the name and size specified
+         * @return {?}
+         */
+        IconComponent.prototype.updateIcon = /**
+         * get the icon definition based on the name and size specified
+         * @return {?}
+         */
+            function () {
+                // remove the current icon set and icon classes of the old icon.
+                // note we are using the renderer and not HostBindings as a HostBinding
+                // on the `class` property will override any user added classes which is
+                // not desirable.
+                if (this._icon) {
+                    this._renderer.removeClass(this._elementRef.nativeElement, this._icon.iconset);
+                    this._renderer.removeClass(this._elementRef.nativeElement, this._icon.icon);
+                }
+                // update the stored icon definition with the best match based on name and size
+                this._icon = this._iconService.getIcon(this.name, this.size);
+                // add the new icon classes, again using the renderer to avoid overriding user classes
+                if (this._icon) {
+                    this._renderer.addClass(this._elementRef.nativeElement, this._icon.iconset);
+                    this._renderer.addClass(this._elementRef.nativeElement, this._icon.icon);
+                }
+                else {
+                    console.warn("The icon " + this.name + " could not be found. Ensure you are using the correct iconset.");
+                }
+            };
+        IconComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-icon',
+                        template: '',
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        host: {
+                            '[style.font-size]': 'size',
+                            '[class.ux-flip-horizontal]': 'flipHorizontal',
+                            '[class.ux-flip-vertical]': 'flipVertical',
+                            '[class.ux-rotate-90]': 'rotate == 90',
+                            '[class.ux-rotate-180]': 'rotate == 180',
+                            '[class.ux-rotate-270]': 'rotate == 270',
+                        }
+                    }] }
+        ];
+        /** @nocollapse */
+        IconComponent.ctorParameters = function () {
+            return [
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
+                { type: IconService }
+            ];
+        };
+        IconComponent.propDecorators = {
+            name: [{ type: i0.Input }],
+            size: [{ type: i0.Input }],
+            rotate: [{ type: i0.Input }],
+            flipHorizontal: [{ type: i0.Input }],
+            flipVertical: [{ type: i0.Input }]
+        };
+        return IconComponent;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var IconModule = /** @class */ (function () {
+        function IconModule() {
+        }
+        /** Allow configuration at AppModule level */
+        /**
+         * Allow configuration at AppModule level
+         * @param {?=} options
+         * @return {?}
+         */
+        IconModule.forRoot = /**
+         * Allow configuration at AppModule level
+         * @param {?=} options
+         * @return {?}
+         */
+            function (options) {
+                return {
+                    ngModule: IconModule,
+                    providers: [
+                        { provide: ICON_OPTIONS_TOKEN, useValue: options }
+                    ]
+                };
+            };
+        /** Allow configuration at a child module level */
+        /**
+         * Allow configuration at a child module level
+         * @param {?=} options
+         * @return {?}
+         */
+        IconModule.forChild = /**
+         * Allow configuration at a child module level
+         * @param {?=} options
+         * @return {?}
+         */
+            function (options) {
+                // the `forChild` does the same as `forRoot` however this having
+                // `forChild` follows the correct conventions as we should never
+                // import `forRoot` in a child module
+                return IconModule.forRoot(options);
+            };
+        IconModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        declarations: [
+                            IconComponent
+                        ],
+                        exports: [
+                            IconComponent
+                        ],
+                        providers: [
+                            IconService
+                        ]
+                    },] }
+        ];
+        return IconModule;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ɵ0$1 = function (icon) {
+        return { name: icon, iconset: 'hpe-icon', icon: "hpe-" + icon };
+    };
+    /**
+     * We generate the iconset definition as hardcoding it increases bundle size by ~40kb per iconset
+     * @type {?}
+     */
+    var hpeIconset = __spread(commonIcons.map(ɵ0$1));
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4019,7 +4757,8 @@
             { type: i0.NgModule, args: [{
                         imports: [
                             AccessibilityModule,
-                            common.CommonModule
+                            common.CommonModule,
+                            IconModule
                         ],
                         declarations: [
                             AlertComponent,
@@ -4033,12 +4772,10 @@
         ];
         return AlertModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4073,7 +4810,6 @@
         };
         return BreadcrumbsComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4094,12 +4830,10 @@
         ];
         return BreadcrumbsModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4199,7 +4933,6 @@
         };
         return ResizeService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4265,7 +4998,6 @@
         };
         return ResizeDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4282,12 +5014,10 @@
         ];
         return ResizeModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4302,7 +5032,6 @@
         ];
         return CardTabContentDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4396,7 +5125,6 @@
         CardTabsService.ctorParameters = function () { return []; };
         return CardTabsService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4431,11 +5159,10 @@
             ];
         };
         CardTabComponent.propDecorators = {
-            content: [{ type: i0.ContentChild, args: [CardTabContentDirective, { read: i0.TemplateRef },] }]
+            content: [{ type: i0.ContentChild, args: [CardTabContentDirective, { read: i0.TemplateRef, static: false },] }]
         };
         return CardTabComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4560,11 +5287,10 @@
         };
         CardTabsetComponent.propDecorators = {
             position: [{ type: i0.HostBinding, args: ['class',] }, { type: i0.Input }],
-            tablist: [{ type: i0.ViewChild, args: ['tablist',] }]
+            tablist: [{ type: i0.ViewChild, args: ['tablist', { static: true },] }]
         };
         return CardTabsetComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4584,12 +5310,10 @@
         ];
         return CardTabsModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4776,7 +5500,6 @@
         };
         return CheckboxComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4800,12 +5523,10 @@
         ];
         return CheckboxModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -4900,7 +5621,6 @@
             };
         return ColorPickerColor;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -5125,7 +5845,6 @@
         };
         return ColorPickerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -5369,7 +6088,7 @@
         NumberPickerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-number-picker, ux-number-picker-inline',
-                        template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control-up\"\n         (click)=\"increment($event)\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <span class=\"hpe-icon hpe-up\"></span>\n    </div>\n\n    <div class=\"number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         [class.disabled]=\"disabled || value <= min\">\n\n        <span class=\"hpe-icon hpe-down\"></span>\n    </div>\n\n</div>",
+                        template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control number-picker-control-up\"\n         (click)=\"increment($event)\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <ux-icon name=\"up\"></ux-icon>\n    </div>\n\n    <div class=\"number-picker-control number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         [class.disabled]=\"disabled || value <= min\">\n\n         <ux-icon name=\"down\"></ux-icon>\n    </div>\n\n</div>",
                         providers: [NUMBER_PICKER_VALUE_ACCESSOR],
                         host: {
                             '[class.has-error]': '!isValid()'
@@ -5390,7 +6109,6 @@
         };
         return NumberPickerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -5402,6 +6120,7 @@
             { type: i0.NgModule, args: [{
                         imports: [
                             common.CommonModule,
+                            IconModule,
                             forms.FormsModule
                         ],
                         exports: [NumberPickerComponent],
@@ -5410,12 +6129,10 @@
         ];
         return NumberPickerModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -5606,7 +6323,6 @@
         };
         return TooltipComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -5620,7 +6336,6 @@
         ];
         return TooltipService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6248,7 +6963,6 @@
         };
         return TooltipDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6271,12 +6985,10 @@
         ];
         return TooltipModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6303,12 +7015,10 @@
         ];
         return ColorPickerModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6408,7 +7118,6 @@
         Descending: 'descending',
         NoSort: 'none',
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6531,7 +7240,6 @@
         };
         return ColumnSortingComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6556,12 +7264,10 @@
         ];
         return ColumnSortingModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6689,7 +7395,6 @@
             };
         return ConduitSubject;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6723,7 +7428,6 @@
             functionList.forEach(function (func) { return func.call.apply(func, __spread([target], args)); });
         };
     }
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -6933,7 +7637,6 @@
         ];
         return ConduitZone;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7010,7 +7713,6 @@
         };
         return ConduitComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7036,7 +7738,6 @@
             };
         return ConduitZoneComponent;
     }(ConduitComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7046,7 +7747,6 @@
         acceptsInput: true,
         producesOutput: true,
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7074,12 +7774,10 @@
             target[CONDUITS].push(( /** @type {?} */(__assign({}, defaultConduitProps, properties, { target: target, propertyKey: propertyKey }))));
         };
     }
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7136,7 +7834,6 @@
         ];
         return DragService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7412,7 +8109,6 @@
         };
         return DragDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7576,7 +8272,6 @@
         };
         return DropDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -7593,12 +8288,10 @@
         ];
         return DragModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -9284,7 +9977,6 @@
     Rounding[Rounding.RoundDownBelowHalf] = 'RoundDownBelowHalf';
     Rounding[Rounding.RoundUp] = 'RoundUp';
     Rounding[Rounding.RoundUpOverHalf] = 'RoundUpOverHalf';
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -9719,7 +10411,6 @@
         };
         return DashboardWidgetComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -9946,7 +10637,6 @@
         };
         return DashboardGrabHandleService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -10653,7 +11343,6 @@
         };
         return DashboardGrabHandleDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -10802,12 +11491,11 @@
             options: [{ type: i0.Input }],
             layoutChange: [{ type: i0.Output }],
             ariaLabel: [{ type: i0.HostBinding, args: ['attr.aria-label',] }],
-            dashboardElement: [{ type: i0.ViewChild, args: ['dashboard',] }],
+            dashboardElement: [{ type: i0.ViewChild, args: ['dashboard', { static: true },] }],
             handles: [{ type: i0.ContentChildren, args: [DashboardGrabHandleDirective, { descendants: true },] }]
         };
         return DashboardComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -10844,7 +11532,6 @@
         };
         return DashboardDragHandleDirective;
     }(DragDirective));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -10874,12 +11561,10 @@
         ];
         return DashboardModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -11037,15 +11722,17 @@
      * @type {?}
      */
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var ɵ0$2 = function (month) { return month.substring(0, 3); };
     /** @type {?} */
-    var monthsShort = months.map(function (month) { return month.substring(0, 3); });
+    var monthsShort = months.map(ɵ0$2);
     /**
      * Export an array of all the available days of the week
      * @type {?}
      */
     var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var ɵ1 = function (weekday) { return weekday.substring(0, 3); };
     /** @type {?} */
-    var weekdaysShort = weekdays.map(function (weekday) { return weekday.substring(0, 3); });
+    var weekdaysShort = weekdays.map(ɵ1);
     /** @type {?} */
     var meridians = ['AM', 'PM'];
     /**
@@ -11078,7 +11765,6 @@
         { name: 'GMT+11', offset: -660 },
         { name: 'GMT+12', offset: -720 }
     ];
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -11215,7 +11901,6 @@
         Start: 'start',
         End: 'end',
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -11521,7 +12206,6 @@
         };
         return DateRangePickerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -11565,7 +12249,6 @@
         };
         return DateRangePickerDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -11593,7 +12276,6 @@
         ];
         return DateTimePickerConfig;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -11878,7 +12560,6 @@
     };
     DatePickerHeaderEvent[DatePickerHeaderEvent.Previous] = 'Previous';
     DatePickerHeaderEvent[DatePickerHeaderEvent.Next] = 'Next';
-
     var DateTimePickerComponent = /** @class */ (function () {
         function DateTimePickerComponent(datepicker, _rangeService, _rangeOptions) {
             var _this = this;
@@ -12307,7 +12988,6 @@
         };
         return DateTimePickerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -12377,7 +13057,6 @@
         };
         return FocusIfDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -12393,12 +13072,10 @@
         ];
         return FocusIfModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -12530,7 +13207,7 @@
         SpinButtonComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-spin-button',
-                        template: "<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n  <span class=\"hpe-icon hpe-up\"></span>\n</button>\n\n<input [type]=\"type\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"valueChange.emit($event)\"\n       (wheel)=\"scroll($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n  <span class=\"hpe-icon hpe-down\"></span>\n</button>",
+                        template: "<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n    <ux-icon name=\"up\" class=\"spin-button-up-icon\"></ux-icon>\n</button>\n\n<input [type]=\"type\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"valueChange.emit($event)\"\n       (wheel)=\"scroll($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n    <ux-icon name=\"down\" class=\"spin-button-down-icon\"></ux-icon>\n</button>",
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [SPIN_BUTTON_VALUE_ACCESSOR]
@@ -12556,7 +13233,6 @@
         };
         return SpinButtonComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -12569,7 +13245,8 @@
                         imports: [
                             AccessibilityModule,
                             common.CommonModule,
-                            forms.FormsModule
+                            forms.FormsModule,
+                            IconModule,
                         ],
                         exports: [SpinButtonComponent],
                         declarations: [SpinButtonComponent]
@@ -12577,12 +13254,10 @@
         ];
         return SpinButtonModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -13114,7 +13789,6 @@
         };
         return TimePickerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -13136,12 +13810,10 @@
         ];
         return TimePickerModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -13292,7 +13964,6 @@
         };
         return DayViewService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -13822,7 +14493,6 @@
         };
         return DayViewComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -14102,7 +14772,7 @@
         HeaderComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-date-time-picker-header',
-                        template: "<header class=\"header\">\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isPreviousDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-previous\"></i>\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isNextDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <i class=\"hpe-icon hpe-next\"></i>\n  </button>\n</header>",
+                        template: "<header class=\"header\">\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isPreviousDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"previous(); $event.stopPropagation()\"\n          [attr.aria-label]=\"previousAria$ | async\"\n          tabindex=\"0\">\n\n    <ux-icon name=\"previous\" class=\"header-navigation-previous-icon\"></ux-icon>\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          class=\"header-title\"\n          [attr.aria-label]=\"headerAria$ | async\"\n          [class.active]=\"canAscend$ | async\"\n          (click)=\"ascend(); $event.stopPropagation()\"\n          [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n       {{ datepicker.header$ | async }}\n  </button>\n\n  <button type=\"button\"\n          uxFocusIndicator\n          [disabled]=\"isNextDisabled()\"\n          class=\"header-navigation\"\n          (click)=\"next(); $event.stopPropagation()\"\n          [attr.aria-label]=\"nextAria$ | async\"\n          tabindex=\"0\">\n\n    <ux-icon name=\"next\" class=\"header-navigation-next-icon\"></ux-icon>\n  </button>\n</header>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -14117,7 +14787,6 @@
         };
         return HeaderComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -14211,15 +14880,14 @@
         };
         return MonthViewService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var MonthViewComponent = /** @class */ (function () {
         function MonthViewComponent(_datePicker, monthService, _liveAnnouncer, _changeDetector, _rangeService, _rangeOptions) {
-            var e_1, _a, e_2, _b;
             var _this = this;
+            var e_1, _a, e_2, _b;
             this._datePicker = _datePicker;
             this.monthService = monthService;
             this._liveAnnouncer = _liveAnnouncer;
@@ -14619,7 +15287,6 @@
         };
         return MonthViewComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -14655,7 +15322,6 @@
         ];
         return WeekDaySortPipe;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -14928,7 +15594,6 @@
         };
         return TimeViewComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15055,7 +15720,6 @@
         };
         return YearViewService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15354,7 +16018,6 @@
         };
         return YearViewComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15382,10 +16045,11 @@
                             a11y.A11yModule,
                             AccessibilityModule,
                             common.CommonModule,
+                            FocusIfModule,
                             forms.FormsModule,
-                            TimePickerModule,
+                            IconModule,
                             SpinButtonModule,
-                            FocusIfModule
+                            TimePickerModule,
                         ],
                         exports: [DateTimePickerComponent],
                         declarations: [
@@ -15401,12 +16065,10 @@
         ];
         return DateTimePickerModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15431,12 +16093,10 @@
         ];
         return DateRangePickerModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15473,7 +16133,6 @@
         ];
         return EboxContentDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15489,12 +16148,10 @@
         ];
         return EboxModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15509,7 +16166,6 @@
         ];
         return FacetClearButtonDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15531,7 +16187,6 @@
         }
         return FacetDeselectAll;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15622,7 +16277,6 @@
         ];
         return FacetService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -15861,11 +16515,10 @@
             facets: [{ type: i0.Input }],
             facetsChange: [{ type: i0.Output }],
             events: [{ type: i0.Output }],
-            clearButton: [{ type: i0.ContentChild, args: [FacetClearButtonDirective, { read: i0.TemplateRef },] }]
+            clearButton: [{ type: i0.ContentChild, args: [FacetClearButtonDirective, { read: i0.TemplateRef, static: false },] }]
         };
         return FacetContainerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16036,7 +16689,6 @@
         };
         return FacetBaseComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16048,7 +16700,7 @@
              */
             this.canExpand = true;
             /**
-             * Can be used to set the initial expanded.
+             * Can be used to set the initial expanded state.
              */
             this.expanded = true;
             /**
@@ -16082,7 +16734,7 @@
         FacetHeaderComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-facet-header',
-                        template: "<span class=\"facet-header-title\">{{ header }}</span>\n<span class=\"hpe-icon\" [class.hpe-down]=\"expanded\" [class.hpe-previous]=\"!expanded\" *ngIf=\"canExpand\"></span>",
+                        template: "<span class=\"facet-header-title\">{{ header }}</span>\n<ux-icon *ngIf=\"canExpand\" [name]=\"expanded ? 'down' : 'previous'\" class=\"facet-header-icon\"></ux-icon>\n",
                         host: {
                             'role': 'button',
                             'tabindex': '0',
@@ -16103,12 +16755,11 @@
         FacetHeaderComponent.propDecorators = {
             header: [{ type: i0.Input }],
             canExpand: [{ type: i0.Input }],
-            expanded: [{ type: i0.Input }],
+            expanded: [{ type: i0.Input }, { type: i0.HostBinding, args: ['class.expanded',] }],
             expandedChange: [{ type: i0.Output }]
         };
         return FacetHeaderComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16165,11 +16816,10 @@
             selectedChange: [{ type: i0.Output }],
             itemFocus: [{ type: i0.Output }],
             itemBlur: [{ type: i0.Output }],
-            option: [{ type: i0.ViewChild, args: ['option',] }]
+            option: [{ type: i0.ViewChild, args: ['option', { static: true },] }]
         };
         return FacetCheckListItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16341,7 +16991,6 @@
         };
         return FacetCheckListComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16358,7 +17007,6 @@
         }
         return TypeaheadOptionEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16413,7 +17061,6 @@
         ];
         return TypeaheadKeyService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16428,7 +17075,6 @@
         ];
         return TypeaheadService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -16985,7 +17631,6 @@
         };
         return TypeaheadComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17076,7 +17721,6 @@
         };
         return InfiniteScrollLoadButtonDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17127,7 +17771,6 @@
         };
         return InfiniteScrollLoadingDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17729,7 +18372,6 @@
         }
         return InfiniteScrollLoadErrorEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17755,12 +18397,10 @@
         ];
         return InfiniteScrollModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17797,7 +18437,6 @@
         ];
         return ScrollIntoViewService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17839,7 +18478,6 @@
         };
         return ScrollIntoViewIfDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17884,7 +18522,6 @@
         };
         return ScrollIntoViewDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17900,12 +18537,10 @@
         ];
         return ScrollModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17944,7 +18579,6 @@
         };
         return TypeaheadHighlightDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -17966,12 +18600,10 @@
         ];
         return TypeaheadModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -18025,11 +18657,10 @@
             tabbable: [{ type: i0.Input }],
             itemFocus: [{ type: i0.Output }],
             selectedChange: [{ type: i0.Output }],
-            option: [{ type: i0.ViewChild, args: ['option',] }]
+            option: [{ type: i0.ViewChild, args: ['option', { static: true },] }]
         };
         return FacetTypeaheadListItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -18358,7 +18989,6 @@
         ];
         return FacetTypeaheadHighlight;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -18373,7 +19003,6 @@
         ];
         return ReorderableHandleDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -18402,14 +19031,12 @@
         };
         return ReorderableModelDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
     var dragula = dragulaNamespace__default || dragulaNamespace;
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -18752,7 +19379,6 @@
             };
         return ReorderableGroup;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19067,7 +19693,6 @@
         };
         return ReorderableDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19097,7 +19722,6 @@
         ];
         return ReorderableModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19122,12 +19746,13 @@
                         imports: [
                             a11y.A11yModule,
                             AccessibilityModule,
+                            CheckboxModule,
                             common.CommonModule,
                             forms.FormsModule,
-                            CheckboxModule,
-                            TooltipModule,
+                            IconModule,
                             ReorderableModule,
-                            TypeaheadModule
+                            TooltipModule,
+                            TypeaheadModule,
                         ],
                         exports: DECLARATIONS$1,
                         declarations: DECLARATIONS$1
@@ -19135,7 +19760,6 @@
         ];
         return FacetsModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19156,12 +19780,10 @@
         }
         return Facet;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19172,7 +19794,6 @@
         }
         return FilterAddEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19182,7 +19803,6 @@
         }
         return FilterRemoveAllEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19193,7 +19813,6 @@
         }
         return FilterRemoveEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19273,7 +19892,6 @@
         ];
         return FilterService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19345,7 +19963,6 @@
         };
         return FilterContainerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19416,7 +20033,6 @@
         };
         return FilterBaseComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19512,7 +20128,6 @@
         };
         return FilterDropdownComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19748,7 +20363,6 @@
         };
         return FilterDynamicComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19778,7 +20392,6 @@
         ];
         return FilterTypeaheadHighlight;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19798,7 +20411,6 @@
         ];
         return MenuDividerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -19810,14 +20422,12 @@
     };
     MenuItemType[MenuItemType.Default] = 'Default';
     MenuItemType[MenuItemType.Custom] = 'Custom';
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
     var MENU_OPTIONS_TOKEN = new i0.InjectionToken('MENU_OPTIONS_TOKEN');
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -20162,11 +20772,10 @@
             opened: [{ type: i0.Output }],
             closing: [{ type: i0.Output }],
             closed: [{ type: i0.Output }],
-            templateRef: [{ type: i0.ViewChild, args: [i0.TemplateRef, ( /** @type {?} */({ static: false })),] }]
+            templateRef: [{ type: i0.ViewChild, args: [i0.TemplateRef, { static: false },] }]
         };
         return MenuComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -20322,7 +20931,7 @@
          */
             function (event) {
                 if (!this.disabled) {
-                    this.onClick$.next(event.detail === 0 ? 'keyboard' : 'mouse');
+                    this.onClick$.next(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
                 }
             };
         /** Forward any keyboard events to the MenuComponent for accessibility */
@@ -20387,7 +20996,6 @@
         };
         return MenuItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -20512,7 +21120,6 @@
         };
         return MenuTabbableItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21008,7 +21615,6 @@
         };
         return MenuTriggerDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21072,12 +21678,10 @@
         ];
         return MenuModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21110,12 +21714,10 @@
         ];
         return FilterModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21282,7 +21884,6 @@
         ];
         return FlippableCardBackDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21309,12 +21910,10 @@
         ];
         return FlippableCardModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21477,7 +22076,6 @@
         ];
         return FloatingActionButtonsService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21619,12 +22217,11 @@
         FloatingActionButtonComponent.propDecorators = {
             icon: [{ type: i0.Input }],
             ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
-            button: [{ type: i0.ViewChild, args: ['button',] }],
+            button: [{ type: i0.ViewChild, args: ['button', { static: true },] }],
             onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return FloatingActionButtonComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21726,7 +22323,6 @@
         };
         return FloatingActionButtonsComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21752,12 +22348,10 @@
         ];
         return FloatingActionButtonsModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -21772,7 +22366,6 @@
         ];
         return HierarchyBarNodeIconDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22014,7 +22607,6 @@
         ];
         return HierarchyBarService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22169,11 +22761,10 @@
             popoverHideTriggers: [{ type: i0.Input }],
             showSiblingsAriaLabel: [{ type: i0.Input }],
             selectedChange: [{ type: i0.Output }],
-            icon: [{ type: i0.ContentChild, args: [HierarchyBarNodeIconDirective, { read: i0.TemplateRef },] }]
+            icon: [{ type: i0.ContentChild, args: [HierarchyBarNodeIconDirective, { read: i0.TemplateRef, static: false },] }]
         };
         return HierarchyBarComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22219,7 +22810,6 @@
         };
         return ClickOutsideDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22235,12 +22825,10 @@
         ];
         return ClickOutsideModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22291,7 +22879,6 @@
         };
         return PopoverComponent;
     }(TooltipComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22488,7 +23075,6 @@
         };
         return PopoverDirective;
     }(TooltipDirective));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22512,12 +23098,10 @@
         ];
         return PopoverModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22632,7 +23216,7 @@
         HierarchyBarCollapsedComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n            <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n\n            <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (select)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (select)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n        <i class=\"hpe-icon hpe-more\"></i>\n    </button>\n</ng-template>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -22646,11 +23230,10 @@
             ];
         };
         HierarchyBarCollapsedComponent.propDecorators = {
-            nodeContainer: [{ type: i0.ViewChild, args: ['nodes',] }]
+            nodeContainer: [{ type: i0.ViewChild, args: ['nodes', { static: true },] }]
         };
         return HierarchyBarCollapsedComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22666,7 +23249,7 @@
         HierarchyBarNodeComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
-                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n    </button>\n\n</div>",
+                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"select.emit(node)\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n        <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n    </button>\n\n</div>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -22683,7 +23266,6 @@
         };
         return HierarchyBarNodeComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22742,7 +23324,6 @@
         };
         return HierarchyBarPopoverItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22784,7 +23365,6 @@
         };
         return HierarchyBarPopoverComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22876,12 +23456,11 @@
             ];
         };
         HierarchyBarStandardComponent.propDecorators = {
-            nodelist: [{ type: i0.ViewChild, args: ['nodelist',] }],
+            nodelist: [{ type: i0.ViewChild, args: ['nodelist', { static: true },] }],
             nodes: [{ type: i0.ViewChildren, args: [HierarchyBarNodeComponent, { read: i0.ElementRef },] }]
         };
         return HierarchyBarStandardComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -22892,11 +23471,12 @@
         HierarchyBarModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
-                            ResizeModule,
                             FocusIfModule,
+                            IconModule,
                             PopoverModule,
-                            AccessibilityModule
+                            ResizeModule,
                         ],
                         exports: [
                             HierarchyBarComponent,
@@ -22917,745 +23497,10 @@
         ];
         return HierarchyBarModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var ICON_OPTIONS_TOKEN = new i0.InjectionToken('ICON_OPTIONS_TOKEN');
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * Store a list of all the common icons in both iconsets.
-     * Duplicating this results in a bloated bundle
-     */
-    /** @type {?} */
-    var commonIcons = [
-        '3d',
-        'achievement',
-        'action',
-        'actions',
-        'active',
-        'add',
-        'advanced-search',
-        'aggregate',
-        'alarm',
-        'alert-filled',
-        'alert',
-        'analytics',
-        'announcement',
-        'app',
-        'archive',
-        'article',
-        'ascend',
-        'assistant',
-        'attachment',
-        'bar-chart',
-        'blog',
-        'book',
-        'bookmark-filled',
-        'bookmark',
-        'bundle',
-        'calculator',
-        'calendar',
-        'camera-filled',
-        'camera',
-        'capacity',
-        'caret-down-filled',
-        'caret-down',
-        'caret-next-filled',
-        'caret-next',
-        'caret-previous-filled',
-        'caret-previous',
-        'caret-up-filled',
-        'caret-up',
-        'catalog',
-        'chapter-add',
-        'chapter-next-filled',
-        'chapter-next',
-        'chapter-previous-filled',
-        'chapter-previous',
-        'chart-organization',
-        'chart-partition',
-        'chart-sankey',
-        'chat-attachment',
-        'chat',
-        'checkbox-selected',
-        'checkbox',
-        'checkmark',
-        'chevron-down',
-        'chevron-left-double',
-        'chevron-left',
-        'chevron-right-double',
-        'chevron-right',
-        'chevron-up',
-        'circular-view',
-        'clipboard',
-        'clone',
-        'close',
-        'cloud-computer',
-        'cloud-download',
-        'cloud-software',
-        'cloud-upload',
-        'cloud',
-        'cluster',
-        'code',
-        'command-line',
-        'compare',
-        'compass',
-        'compliance',
-        'computer-personal',
-        'configuration-filled',
-        'configuration',
-        'connect',
-        'contact-card',
-        'contact-us-filled',
-        'contact-us',
-        'contract',
-        'copy',
-        'cube-filled',
-        'cube',
-        'cubes',
-        'cursor-filled',
-        'cursor',
-        'cut',
-        'cycle',
-        'dashboard',
-        'database',
-        'defect',
-        'deliver',
-        'deployment',
-        'descend',
-        'desktop',
-        'detach',
-        'directions',
-        'dislike-filled',
-        'dislike',
-        'divide-four',
-        'divide-right',
-        'divide-three',
-        'divide',
-        'document-cloud',
-        'document-compress',
-        'document-config',
-        'document-csv',
-        'document-data',
-        'document-download',
-        'document-excel',
-        'document-executable',
-        'document-image',
-        'document-locked',
-        'document-missing',
-        'document-notes',
-        'document-outlook',
-        'document-pdf',
-        'document-performance',
-        'document-powerpoint',
-        'document-rtf',
-        'document-sound',
-        'document-test',
-        'document-text',
-        'document-threat',
-        'document-time',
-        'document-transfer',
-        'document-txt',
-        'document-update',
-        'document-upload',
-        'document-user',
-        'document-verified',
-        'document-video',
-        'document-word',
-        'document',
-        'domain',
-        'down',
-        'download',
-        'drag',
-        'drive-cage',
-        'duplicate',
-        'edit-filled',
-        'edit',
-        'eject-filled',
-        'eject',
-        'expand',
-        'fan',
-        'fast-forward-filled',
-        'fast-forward',
-        'favorite-filled',
-        'favorite',
-        'filter-filled',
-        'filter',
-        'first-aid',
-        'flag-filled',
-        'flag',
-        'folder-cycle',
-        'folder-open',
-        'folder',
-        'gallery-filled',
-        'gallery',
-        'globe',
-        'grid',
-        'group',
-        'grow',
-        'halt',
-        'help-circle',
-        'help',
-        'history',
-        'home-filled',
-        'home',
-        'host-maintenance',
-        'host',
-        'image-filled',
-        'image',
-        'impact',
-        'in-progress',
-        'inactive',
-        'inbox',
-        'indicator-filled',
-        'indicator',
-        'information-filled',
-        'information',
-        'inherit-filled',
-        'inherit',
-        'install',
-        'integration',
-        'iteration-filled',
-        'iteration',
-        'java-filled',
-        'java',
-        'language',
-        'launch',
-        'license-filled',
-        'license',
-        'like-filled',
-        'like',
-        'line-chart',
-        'link-bottom',
-        'link-down',
-        'link-next',
-        'link-previous',
-        'link-top',
-        'link-up',
-        'link',
-        'list',
-        'location-filled',
-        'location-pin-filled',
-        'location-pin',
-        'location',
-        'lock',
-        'login',
-        'logout',
-        'mail-attachment',
-        'mail-filled',
-        'mail',
-        'manual',
-        'map-location',
-        'map',
-        'menu',
-        'microphone-filled',
-        'microphone',
-        'monitor',
-        'more',
-        'multiple',
-        'navigate',
-        'new-window',
-        'new',
-        'next',
-        'notes',
-        'notification-filled',
-        'notification',
-        'optimization',
-        'organization',
-        'overview',
-        'pan',
-        'pause-filled',
-        'pause',
-        'payment-google-wallet',
-        'payment-mastercard',
-        'payment-paypal',
-        'payment-square',
-        'payment-visa',
-        'pin-filled',
-        'pin',
-        'plan',
-        'platform-apple',
-        'platform-chrome',
-        'platform-dropbox',
-        'platform-edge',
-        'platform-firefox',
-        'platform-internet-explorer',
-        'platform-skype',
-        'platform-windows',
-        'play-filled',
-        'play',
-        'power',
-        'previous',
-        'print',
-        'quick-view',
-        'radial-selected',
-        'radial',
-        'refresh',
-        'resources',
-        'rewind-filled',
-        'rewind',
-        'risk',
-        'rss',
-        'satellite',
-        'schedule-clone',
-        'schedule-new',
-        'schedule-play',
-        'schedule',
-        'scorecard',
-        'search',
-        'secure',
-        'select-left',
-        'select',
-        'server-cluster',
-        'server',
-        'servers',
-        'service-business',
-        'service-start',
-        'share',
-        'shield-configure',
-        'shield-filled',
-        'shield',
-        'shift',
-        'shop-basket',
-        'shop-cart',
-        'soa',
-        'social-email',
-        'social-facebook',
-        'social-github',
-        'social-instagram',
-        'social-linkedin',
-        'social-medium',
-        'social-pinterest',
-        'social-reddit',
-        'social-slack',
-        'social-tumblr',
-        'social-twitter',
-        'social-vimeo',
-        'social-youtube',
-        'sort',
-        'stakeholder',
-        'star-filled',
-        'star-half',
-        'star',
-        'status-approved-filled',
-        'status-error-filled',
-        'status-information-filled',
-        'status-warning-filled',
-        'steps-filled',
-        'steps',
-        'storage',
-        'street-view-filled',
-        'street-view',
-        'subtitles',
-        'subtract',
-        'support',
-        'sync',
-        'system',
-        'tab-next',
-        'tab-previous',
-        'tab-up',
-        'table-add',
-        'table',
-        'tag-filled',
-        'tag',
-        'target',
-        'task',
-        'template',
-        'test-desktop',
-        'test',
-        'text-wrap',
-        'threats',
-        'ticket',
-        'tools',
-        'tooltip',
-        'transaction-filled',
-        'transaction',
-        'trash-filled',
-        'trash',
-        'tree',
-        'trigger',
-        'trophy-filled',
-        'trophy',
-        'troubleshooting',
-        'unlock',
-        'up',
-        'update',
-        'upgrade-filled',
-        'upgrade',
-        'upload',
-        'user-add-filled',
-        'user-add',
-        'user-admin',
-        'user-expert',
-        'user-female-filled',
-        'user-female',
-        'user-filled',
-        'user-manager',
-        'user-new',
-        'user-police',
-        'user-settings',
-        'user-worker',
-        'user',
-        'validation-filled',
-        'validation',
-        'video-filled',
-        'video',
-        'view-filled',
-        'view',
-        'virtual-machine',
-        'vm-maintenance',
-        'volume-filled',
-        'volume-low-filled',
-        'volume-low',
-        'volume-mute-filled',
-        'volume-mute',
-        'volume',
-        'vulnerability',
-        'waypoint-filled',
-        'waypoint',
-        'workshop',
-        'zoom-in',
-        'zoom-out'
-    ];
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * We generate the iconset definition as hardcoding it increases bundle size by ~40kb per iconset
-     * @type {?}
-     */
-    var uxIconset = __spread(commonIcons.map(function (icon) {
-        return { name: icon, iconset: 'ux-icon', icon: "ux-icon-" + icon };
-    }));
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var IconService = /** @class */ (function () {
-        /** Inject a parent service if one exists */
-        function IconService(_iconService, options) {
-            this._iconService = _iconService;
-            /**
-             * Emit whenever the iconset changes
-             */
-            this.iconsChanged$ = new rxjs.Subject();
-            /**
-             * Store a list of all icon
-             */
-            this._icons = __spread(uxIconset);
-            // if the iconset was defined at the root or child module level apply this configuration
-            if (options && options.icons) {
-                this.setIcons(options.icons);
-            }
-        }
-        /** Define multiple icon definitions. This will override icon definitions if a name and size collision occurs */
-        /**
-         * Define multiple icon definitions. This will override icon definitions if a name and size collision occurs
-         * @param {?} icons
-         * @return {?}
-         */
-        IconService.prototype.setIcons = /**
-         * Define multiple icon definitions. This will override icon definitions if a name and size collision occurs
-         * @param {?} icons
-         * @return {?}
-         */
-            function (icons) {
-                var _this = this;
-                icons.forEach(function (icon) { return _this.setIcon(icon); });
-            };
-        /** Provide an icon definition which will override if necessary */
-        /**
-         * Provide an icon definition which will override if necessary
-         * @param {?} __0
-         * @return {?}
-         */
-        IconService.prototype.setIcon = /**
-         * Provide an icon definition which will override if necessary
-         * @param {?} __0
-         * @return {?}
-         */
-            function (_a) {
-                var _this = this;
-                var name = _a.name, icon = _a.icon, iconset = _a.iconset, size = _a.size;
-                // if there are multiple sizes specified add them all as individual records
-                if (Array.isArray(size)) {
-                    return size.forEach(function (variant) { return _this.setIcon({ name: name, icon: icon, iconset: iconset, size: variant }); });
-                }
-                // remove any existing definition with the same parameters
-                this._icons = this._icons.filter(function (definition) { return !(definition.name === name && definition.size === size); });
-                // insert the new definition
-                this._icons = __spread(this._icons, [{ name: name, icon: icon, iconset: iconset, size: size }]);
-                // emit the icon change
-                this.iconsChanged$.next({ name: name, size: size });
-            };
-        /** Find an icon based on the given name and size if provided */
-        /**
-         * Find an icon based on the given name and size if provided
-         * @param {?} name
-         * @param {?=} size
-         * @return {?}
-         */
-        IconService.prototype.getIcon = /**
-         * Find an icon based on the given name and size if provided
-         * @param {?} name
-         * @param {?=} size
-         * @return {?}
-         */
-            function (name, size) {
-                // if no name was specified then do nothing (this can occur if the name input on the component is not initially defined)
-                if (!name) {
-                    return;
-                }
-                // if there is a size specified then check for an exact match
-                if (size) {
-                    // get an icon definition that matches both name and size
-                    /** @type {?} */
-                    var sizedIcon = this._icons.find(function (definition) { return definition.name === name && definition.size === size; });
-                    // if there is a match then return otherwise fallthrough to the default
-                    if (sizedIcon) {
-                        return sizedIcon;
-                    }
-                }
-                // find a general match with no size constraint
-                /** @type {?} */
-                var icon = this._icons.find(function (definition) { return definition.name === name && definition.size === undefined; });
-                // if no match is found and there is a parent service then we should check it
-                if (!icon && this._iconService) {
-                    return this._iconService.getIcon(name, size);
-                }
-                else if (!icon) {
-                    console.warn("Icon '" + name + "' was not found.");
-                }
-                return icon;
-            };
-        IconService.decorators = [
-            { type: i0.Injectable }
-        ];
-        /** @nocollapse */
-        IconService.ctorParameters = function () {
-            return [
-                { type: IconService, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
-                { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [ICON_OPTIONS_TOKEN,] }] }
-            ];
-        };
-        return IconService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var IconComponent = /** @class */ (function () {
-        function IconComponent(_elementRef, _renderer, _iconService) {
-            this._elementRef = _elementRef;
-            this._renderer = _renderer;
-            this._iconService = _iconService;
-            /**
-             * Define if the icon should be horizontally flipped
-             */
-            this.flipHorizontal = false;
-            /**
-             * Define if the icon should be horizontally flipped
-             */
-            this.flipVertical = false;
-            /**
-             * Automatically unsubscribe from observables
-             */
-            this._onDestroy = new rxjs.Subject();
-        }
-        /** When inputs change ensure we have the best icon definition */
-        /**
-         * When inputs change ensure we have the best icon definition
-         * @param {?} changes
-         * @return {?}
-         */
-        IconComponent.prototype.ngOnChanges = /**
-         * When inputs change ensure we have the best icon definition
-         * @param {?} changes
-         * @return {?}
-         */
-            function (changes) {
-                // if the name or size changes then update the icon
-                if (changes.name && changes.name.currentValue !== changes.name.previousValue ||
-                    changes.size && changes.size.currentValue !== changes.size.previousValue) {
-                    this.updateIcon();
-                }
-            };
-        /** Watch for changes to the iconset */
-        /**
-         * Watch for changes to the iconset
-         * @return {?}
-         */
-        IconComponent.prototype.ngAfterViewInit = /**
-         * Watch for changes to the iconset
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                // watch for changes to the iconset to check if we need to update.
-                this._iconService.iconsChanged$.pipe(operators.filter(function (event) { return _this._icon && event.name === _this._icon.name; }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.updateIcon(); });
-            };
-        /** Cleanup on component destroy */
-        /**
-         * Cleanup on component destroy
-         * @return {?}
-         */
-        IconComponent.prototype.ngOnDestroy = /**
-         * Cleanup on component destroy
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /** get the icon definition based on the name and size specified */
-        /**
-         * get the icon definition based on the name and size specified
-         * @return {?}
-         */
-        IconComponent.prototype.updateIcon = /**
-         * get the icon definition based on the name and size specified
-         * @return {?}
-         */
-            function () {
-                // remove the current icon set and icon classes of the old icon.
-                // note we are using the renderer and not HostBindings as a HostBinding
-                // on the `class` property will override any user added classes which is
-                // not desirable.
-                if (this._icon) {
-                    this._renderer.removeClass(this._elementRef.nativeElement, this._icon.iconset);
-                    this._renderer.removeClass(this._elementRef.nativeElement, this._icon.icon);
-                }
-                // update the stored icon definition with the best match based on name and size
-                this._icon = this._iconService.getIcon(this.name, this.size);
-                // add the new icon classes, again using the renderer to avoid overriding user classes
-                if (this._icon) {
-                    this._renderer.addClass(this._elementRef.nativeElement, this._icon.iconset);
-                    this._renderer.addClass(this._elementRef.nativeElement, this._icon.icon);
-                }
-                else {
-                    console.warn("The icon " + this.name + " could not be found. Ensure you are using the correct iconset.");
-                }
-            };
-        IconComponent.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'ux-icon',
-                        template: '',
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        host: {
-                            '[style.font-size]': 'size',
-                            '[class.ux-flip-horizontal]': 'flipHorizontal',
-                            '[class.ux-flip-vertical]': 'flipVertical',
-                            '[class.ux-rotate-90]': 'rotate == 90',
-                            '[class.ux-rotate-180]': 'rotate == 180',
-                            '[class.ux-rotate-270]': 'rotate == 270',
-                        }
-                    }] }
-        ];
-        /** @nocollapse */
-        IconComponent.ctorParameters = function () {
-            return [
-                { type: i0.ElementRef },
-                { type: i0.Renderer2 },
-                { type: IconService }
-            ];
-        };
-        IconComponent.propDecorators = {
-            name: [{ type: i0.Input }],
-            size: [{ type: i0.Input }],
-            rotate: [{ type: i0.Input }],
-            flipHorizontal: [{ type: i0.Input }],
-            flipVertical: [{ type: i0.Input }]
-        };
-        return IconComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var IconModule = /** @class */ (function () {
-        function IconModule() {
-        }
-        /** Allow configuration at AppModule level */
-        /**
-         * Allow configuration at AppModule level
-         * @param {?=} options
-         * @return {?}
-         */
-        IconModule.forRoot = /**
-         * Allow configuration at AppModule level
-         * @param {?=} options
-         * @return {?}
-         */
-            function (options) {
-                return {
-                    ngModule: IconModule,
-                    providers: [
-                        { provide: ICON_OPTIONS_TOKEN, useValue: options }
-                    ]
-                };
-            };
-        /** Allow configuration at a child module level */
-        /**
-         * Allow configuration at a child module level
-         * @param {?=} options
-         * @return {?}
-         */
-        IconModule.forChild = /**
-         * Allow configuration at a child module level
-         * @param {?=} options
-         * @return {?}
-         */
-            function (options) {
-                // the `forChild` does the same as `forRoot` however this having
-                // `forChild` follows the correct conventions as we should never
-                // import `forRoot` in a child module
-                return IconModule.forRoot(options);
-            };
-        IconModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        declarations: [
-                            IconComponent
-                        ],
-                        exports: [
-                            IconComponent
-                        ],
-                        providers: [
-                            IconService
-                        ]
-                    },] }
-        ];
-        return IconModule;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * We generate the iconset definition as hardcoding it increases bundle size by ~40kb per iconset
-     * @type {?}
-     */
-    var hpeIconset = __spread(commonIcons.map(function (icon) {
-        return { name: icon, iconset: 'hpe-icon', icon: "hpe-" + icon };
-    }));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -23668,24 +23513,21 @@
     };
     /** @type {?} */
     var sidePanelStateAnimation = animations.trigger('panelState', [
-        animations.state(SidePanelAnimationState.Closed, animations.style({
-            visibility: 'hidden'
-        })),
-        animations.state(SidePanelAnimationState.Open + ", " + SidePanelAnimationState.OpenImmediate, animations.style({
-            visibility: 'visible',
-            transform: 'none'
-        })),
-        animations.transition(SidePanelAnimationState.Closed + " <=> " + SidePanelAnimationState.Open, animations.animate('0.2s cubic-bezier(0.49, 1, 0.38, 0.98)')),
-        animations.transition(SidePanelAnimationState.Closed + " <=> " + SidePanelAnimationState.OpenImmediate, animations.animate('0s'))
+        animations.state(SidePanelAnimationState.Closed, animations.style({ visibility: 'hidden' })),
+        animations.state(SidePanelAnimationState.Open + ", " + SidePanelAnimationState.OpenImmediate, animations.style({ visibility: 'visible', transform: 'none' })),
+        animations.transition("void <=> " + SidePanelAnimationState.Open, animations.animate('0.2s cubic-bezier(0.49, 1, 0.38, 0.98)')),
+        animations.transition("void <=> " + SidePanelAnimationState.OpenImmediate, animations.animate('0s'))
     ]);
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var SidePanelService = /** @class */ (function () {
         function SidePanelService() {
-            this.open$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Emit the open state when it changes
+             */
+            this.open$ = new rxjs.Subject();
         }
         /**
          * @return {?}
@@ -23710,15 +23552,15 @@
         ];
         return SidePanelService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var SidePanelComponent = /** @class */ (function () {
-        function SidePanelComponent(service, _elementRef) {
+        function SidePanelComponent(service, _elementRef, _focusOrigin) {
             this.service = service;
             this._elementRef = _elementRef;
+            this._focusOrigin = _focusOrigin;
             this.inline = false;
             this.attachTo = 'window';
             this.width = '50%';
@@ -23728,13 +23570,18 @@
             this.closeOnExternalClick = false;
             this.focusOnShow = false;
             this.openChange = new i0.EventEmitter();
+            this.animationPanelState = SidePanelAnimationState.Closed;
+            /**
+             * Store the current open state
+             */
+            this._isOpen = false;
             this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(SidePanelComponent.prototype, "open", {
             get: /**
              * @return {?}
              */ function () {
-                return this.service.open$.value;
+                return this._isOpen;
             },
             set: /**
              * @param {?} value
@@ -23813,13 +23660,15 @@
          */
             function () {
                 var _this = this;
-                this.service.open$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) {
+                this.service.open$.pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) {
                     _this.animationPanelState = isOpen
                         ? _this.animate
                             ? SidePanelAnimationState.Open
                             : SidePanelAnimationState.OpenImmediate
                         : SidePanelAnimationState.Closed;
+                    // only if the open state changed should we emit the latest value
                     _this.openChange.emit(isOpen);
+                    _this._isOpen = isOpen;
                 });
             };
         /**
@@ -23851,21 +23700,30 @@
                 this.service.close();
             };
         /**
-         * @param {?} event
          * @return {?}
          */
-        SidePanelComponent.prototype.clickHandler = /**
-         * @param {?} event
+        SidePanelComponent.prototype._onDocumentEscape = /**
          * @return {?}
          */
-            function (event) {
+            function () {
+                if (this.open) {
+                    this._focusOrigin.setOrigin('keyboard');
+                    this.closePanel();
+                }
+            };
+        /**
+         * @param {?} target
+         * @return {?}
+         */
+        SidePanelComponent.prototype._onDocumentClick = /**
+         * @param {?} target
+         * @return {?}
+         */
+            function (target) {
                 if (!this.open || !this.closeOnExternalClick) {
                     return;
                 }
-                /** @type {?} */
-                var target = ( /** @type {?} */(event.target));
-                if (!this._elementRef.nativeElement.contains(target) ||
-                    (target && target.classList.contains('modal-backdrop'))) {
+                if (!this._elementRef.nativeElement.contains(target) || (target && target.classList.contains('modal-backdrop'))) {
                     this.closePanel();
                 }
             };
@@ -23873,9 +23731,10 @@
             { type: i0.Component, args: [{
                         selector: 'ux-side-panel',
                         exportAs: 'ux-side-panel',
-                        template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\">\n    <ng-content></ng-content>\n</div>\n",
+                        template: "<div *ngIf=\"modal && open\" class=\"modal-backdrop\"\n    [style.position]=\"position\"\n    [style.top]=\"cssTop\"></div>\n\n<div class=\"ux-side-panel-host\"\n    [class.modal-panel]=\"modal\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [tabindex]=\"open ? 0 : -1\"\n    [@panelState]=\"animationPanelState\"\n    [focusIf]=\"open && focusOnShow\"\n    [focusIfScroll]=\"false\"\n    [cdkTrapFocus]=\"open && modal\"\n    *ngIf=\"open\">\n    <ng-content></ng-content>\n</div>\n",
                         providers: [SidePanelService],
                         animations: [sidePanelStateAnimation],
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             class: 'ux-side-panel'
                         }
@@ -23885,7 +23744,8 @@
         SidePanelComponent.ctorParameters = function () {
             return [
                 { type: SidePanelService },
-                { type: i0.ElementRef }
+                { type: i0.ElementRef },
+                { type: FocusIndicatorOriginService }
             ];
         };
         SidePanelComponent.propDecorators = {
@@ -23900,12 +23760,11 @@
             focusOnShow: [{ type: i0.Input }],
             openChange: [{ type: i0.Output }],
             componentWidth: [{ type: i0.HostBinding, args: ['style.width',] }],
-            closePanel: [{ type: i0.HostListener, args: ['document:keyup.escape',] }],
-            clickHandler: [{ type: i0.HostListener, args: ['document:click', ['$event'],] }]
+            _onDocumentEscape: [{ type: i0.HostListener, args: ['document:keyup.escape',] }],
+            _onDocumentClick: [{ type: i0.HostListener, args: ['document:click', ['$event.target'],] }]
         };
         return SidePanelComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -23932,8 +23791,8 @@
     }());
     var ItemDisplayPanelComponent = /** @class */ (function (_super) {
         __extends(ItemDisplayPanelComponent, _super);
-        function ItemDisplayPanelComponent(service, elementRef) {
-            var _this = _super.call(this, service, elementRef) || this;
+        function ItemDisplayPanelComponent(service, elementRef, focusOrigin) {
+            var _this = _super.call(this, service, elementRef, focusOrigin) || this;
             _this.boxShadow = true;
             _this.closeVisible = true;
             _this.shadow = false;
@@ -24022,7 +23881,7 @@
         ItemDisplayPanelComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-item-display-panel',
-                        template: "<div class=\"ux-side-panel-host ux-item-display-panel\" #panel\n    [class.box-shadow]=\"boxShadow\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [@panelState]=\"animationPanelState\"\n    [tabindex]=\"open ? 0 : -1\"\n    [focusIf]=\"open && focusOnShow\">\n\n    <div class=\"ux-side-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n        <h3>{{ header }}</h3>\n        <button *ngIf=\"closeVisible\" aria-label=\"Close\" i18n-aria-label type=\"button\" class=\"btn btn-lg btn-link btn-icon button-secondary\" (click)=\"visible = false\">\n            <i class=\"hpe-icon hpe-close\"></i>\n        </button>\n    </div>\n\n    <div class=\"ux-side-panel-content\">\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n    </div>\n\n    <div class=\"ux-side-panel-footer\" *ngIf=\"footer\">\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n    </div>\n\n</div>\n",
+                        template: "<div class=\"ux-side-panel-host ux-item-display-panel\" #panel\n    [class.box-shadow]=\"boxShadow\"\n    [style.position]=\"position\"\n    [style.width]=\"hostWidth\"\n    [style.top]=\"cssTop\"\n    [@panelState]=\"animationPanelState\"\n    [tabindex]=\"open ? 0 : -1\"\n    [focusIf]=\"open && focusOnShow\"\n    *ngIf=\"open\">\n\n    <div class=\"ux-side-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n        <h3>{{ header }}</h3>\n\n        <button *ngIf=\"closeVisible\"\n                uxFocusIndicator\n                aria-label=\"Close\"\n                i18n-aria-label\n                type=\"button\"\n                class=\"btn btn-lg btn-link btn-icon button-secondary\"\n                (click)=\"visible = false\">\n            <i class=\"hpe-icon hpe-close\"></i>\n        </button>\n    </div>\n\n    <div class=\"ux-side-panel-content\">\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n    </div>\n\n    <div class=\"ux-side-panel-footer\" *ngIf=\"footer\">\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n    </div>\n\n</div>\n",
                         providers: [SidePanelService],
                         animations: [sidePanelStateAnimation],
                         host: {
@@ -24034,7 +23893,8 @@
         ItemDisplayPanelComponent.ctorParameters = function () {
             return [
                 { type: SidePanelService },
-                { type: i0.ElementRef }
+                { type: i0.ElementRef },
+                { type: FocusIndicatorOriginService }
             ];
         };
         ItemDisplayPanelComponent.propDecorators = {
@@ -24044,14 +23904,13 @@
             preventClose: [{ type: i0.Input }],
             shadow: [{ type: i0.Input }],
             visibleChange: [{ type: i0.Output }],
-            footer: [{ type: i0.ContentChild, args: [ItemDisplayPanelFooterDirective,] }],
-            panel: [{ type: i0.ViewChild, args: ['panel',] }],
+            footer: [{ type: i0.ContentChild, args: [ItemDisplayPanelFooterDirective, { static: false },] }],
+            panel: [{ type: i0.ViewChild, args: ['panel', { static: true },] }],
             title: [{ type: i0.Input }],
             visible: [{ type: i0.Input }]
         };
         return ItemDisplayPanelComponent;
     }(SidePanelComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24068,6 +23927,7 @@
         ItemDisplayPanelModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             FocusIfModule
                         ],
@@ -24077,12 +23937,10 @@
         ];
         return ItemDisplayPanelModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24164,7 +24022,6 @@
         };
         return WizardStepComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24620,7 +24477,6 @@
         }
         return StepChangingEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24646,12 +24502,10 @@
         ];
         return WizardModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24671,7 +24525,6 @@
         ];
         return MarqueeWizardService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24741,7 +24594,6 @@
         };
         return MarqueeWizardStepComponent;
     }(WizardStepComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24876,7 +24728,6 @@
         };
         return MarqueeWizardComponent;
     }(WizardComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -24904,12 +24755,10 @@
         ];
         return MarqueeWizardModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -25077,7 +24926,6 @@
         ];
         return FrameExtractionService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -25092,12 +24940,10 @@
         ];
         return FrameExtractionModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -25746,7 +25592,6 @@
         };
         return MediaPlayerService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -25768,7 +25613,6 @@
         };
         return MediaPlayerBaseExtensionDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -26730,9 +26574,9 @@
             value: [{ type: i0.Input }],
             options: [{ type: i0.Input }],
             valueChange: [{ type: i0.Output }],
-            lowerTooltip: [{ type: i0.ViewChild, args: ['lowerTooltip',] }],
-            upperTooltip: [{ type: i0.ViewChild, args: ['upperTooltip',] }],
-            track: [{ type: i0.ViewChild, args: ['track',] }]
+            lowerTooltip: [{ type: i0.ViewChild, args: ['lowerTooltip', { static: true },] }],
+            upperTooltip: [{ type: i0.ViewChild, args: ['upperTooltip', { static: true },] }],
+            track: [{ type: i0.ViewChild, args: ['track', { static: true },] }]
         };
         return SliderComponent;
     }());
@@ -26808,7 +26652,6 @@
     };
     SliderThumb[SliderThumb.Lower] = 'Lower';
     SliderThumb[SliderThumb.Upper] = 'Upper';
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -26834,12 +26677,10 @@
         ];
         return SliderModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27003,7 +26844,7 @@
         MediaPlayerControlsExtensionComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-media-player-controls',
-                        template: "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\"\n        #volumeContainer\n        [class.active]=\"volumeActive || volumeFocus\"\n        (mouseenter)=\"mouseEnterVolume.next()\"\n        (mouseleave)=\"mouseLeaveVolume.next()\"\n        (uxFocusWithin)=\"volumeFocus = true\"\n        (uxBlurWithin)=\"volumeFocus = false\">\n\n        <button #volumeIcon\n                uxFocusIndicator\n                type=\"button\"\n                class=\"volume-slider-icon\"\n                attr.aria-label=\"{{ volume === 0 ? 'Unmute' : 'Mute' }}\"\n                i18n-aria-label\n                [uxTooltip]=\"muteTooltip\"\n                [showTriggers]=\"['mouseenter']\"\n                [hideTriggers]=\"['mouseleave']\"\n                (click)=\"toggleMute()\"\n                (mouseup)=\"volumeIcon.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-volume-mute]=\"volume === 0\"\n                  [class.hpe-volume-low]=\"volume > 0 && volume <= 70\"\n                  [class.hpe-volume]=\"volume > 70\">\n            </span>\n        </button>\n\n        <div class=\"volume-slider-node\">\n            <ux-slider [(value)]=\"volume\" [options]=\"options\"></ux-slider>\n        </div>\n    </div>\n</div>\n\n<button #startButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToStart()\"\n    (mouseup)=\"startButton.blur()\"\n    aria-label=\"Go to start\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n    </svg>\n</button>\n\n<button #playButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    attr.aria-label=\"{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}\"\n    i18n-aria-label\n    (click)=\"mediaPlayerService.togglePlay()\"\n    (mouseup)=\"playButton.blur()\">\n\n    <svg *ngIf=\"!(mediaPlayerService.playing | async)\" viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" focusable=\"false\">\n        <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n    </svg>\n    <svg *ngIf=\"mediaPlayerService.playing | async\" viewBox=\"0 0 43 56.9\" width=\"20\" height=\"29\" focusable=\"false\">\n        <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n        <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    </svg>\n</button>\n\n<button #endButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToEnd()\"\n    (mouseup)=\"endButton.blur()\"\n    aria-label=\"Go to end\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"0,64 0,0 44.1,32\" />\n    </svg>\n</button>\n\n<div class=\"actions-list\">\n\n    <ng-content></ng-content>\n\n    <div class=\"action-button-container\" *ngIf=\"mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'\">\n        <button #subtitlesButton\n            uxFocusIndicator\n            type=\"button\"\n            class=\"action-button\"\n            (keydown)=\"returnFocus = true\"\n            (click)=\"subtitlesOpen = !subtitlesOpen\"\n            (mouseup)=\"subtitlesButton.blur(); returnFocus = false\"\n            i18n-aria-label\n            attr.aria-label=\"Select subtitles, {{ getSubtitleTrack() }} currently selected.\"\n            [attr.aria-expanded]=\"subtitlesOpen\"\n            [attr.aria-describedby]=\"subtitlesId\"\n            aria-haspopup=\"true\">\n            <span class=\"hpe-icon hpe-subtitles\"></span>\n        </button>\n\n        <div #subtitles\n            [style.top.px]=\"-subtitles.offsetHeight\"\n            class=\"popover top media-player-subtitles-popover show\"\n            [id]=\"subtitlesId\"\n            (keydown.escape)=\"subtitlesOpen = false\"\n            (uxClickOutside)=\"subtitlesOpen = false\"\n            *ngIf=\"subtitlesOpen\">\n            <div class=\"arrow\"></div>\n            <h3 class=\"popover-title\" i18n>Subtitles</h3>\n            <div class=\"popover-content\">\n                <ul class=\"subtitles-list\" uxTabbableList [focusOnShow]=\"returnFocus\" [returnFocus]=\"returnFocus\">\n                    <li uxTabbableListItem\n                        tabindex=\"0\"\n                        class=\"subtitles-list-item\"\n                        [class.active]=\"!isSubtitleActive()\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false\"\n                        (keydown.enter)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true\">\n\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span i18n>Subtitles Off</span>\n                    </li>\n                    <li uxTabbableListItem\n                        class=\"subtitles-list-item\"\n                        *ngFor=\"let track of mediaPlayerService.textTracks\"\n                        [class.active]=\"track.mode === 'showing'\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"setSubtitleTrack(track); subtitlesOpen = false\"\n                        (keydown.enter)=\"setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true\">\n                        <i class=\"hpe-icon hpe-checkmark m-r-xs\"></i>\n                        <span>{{ track.label }}</span>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"action-button-container\">\n        <button #fullscreenButton\n            uxFocusIndicator\n            *ngIf=\"mediaPlayerService.type !== 'audio'\"\n            type=\"button\"\n            class=\"action-button\"\n            attr.aria-label=\"{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}\"\n            i18n-aria-label\n            (click)=\"mediaPlayerService.toggleFullscreen()\"\n            (mouseup)=\"fullscreenButton.blur()\">\n\n            <span class=\"hpe-icon\"\n                  [class.hpe-expand]=\"!mediaPlayerService.fullscreen\"\n                  [class.hpe-contract]=\"mediaPlayerService.fullscreen\">\n            </span>\n        </button>\n    </div>\n</div>\n\n\n\n<ng-template #muteTooltip>\n    <span aria-hidden=\"true\">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>\n</ng-template>",
+                        template: "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\"\n        #volumeContainer\n        [class.active]=\"volumeActive || volumeFocus\"\n        (mouseenter)=\"mouseEnterVolume.next()\"\n        (mouseleave)=\"mouseLeaveVolume.next()\"\n        (uxFocusWithin)=\"volumeFocus = true\"\n        (uxBlurWithin)=\"volumeFocus = false\">\n\n        <button #volumeIcon\n                uxFocusIndicator\n                type=\"button\"\n                class=\"volume-slider-icon\"\n                attr.aria-label=\"{{ volume === 0 ? 'Unmute' : 'Mute' }}\"\n                i18n-aria-label\n                [uxTooltip]=\"muteTooltip\"\n                [showTriggers]=\"['mouseenter']\"\n                [hideTriggers]=\"['mouseleave']\"\n                (click)=\"toggleMute()\"\n                (mouseup)=\"volumeIcon.blur()\">\n\n            <ux-icon *ngIf=\"volume === 0\" name=\"volume-mute\"></ux-icon>\n            <ux-icon *ngIf=\"volume > 0 && volume <= 70\" name=\"volume-low\"></ux-icon>\n            <ux-icon *ngIf=\"volume > 70\" name=\"volume\"></ux-icon>\n        </button>\n\n        <div class=\"volume-slider-node\">\n            <ux-slider [(value)]=\"volume\" [options]=\"options\"></ux-slider>\n        </div>\n    </div>\n</div>\n\n<button #startButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToStart()\"\n    (mouseup)=\"startButton.blur()\"\n    aria-label=\"Go to start\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n    </svg>\n</button>\n\n<button #playButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    attr.aria-label=\"{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}\"\n    i18n-aria-label\n    (click)=\"mediaPlayerService.togglePlay()\"\n    (mouseup)=\"playButton.blur()\">\n\n    <svg *ngIf=\"!(mediaPlayerService.playing | async)\" viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" focusable=\"false\">\n        <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n    </svg>\n    <svg *ngIf=\"mediaPlayerService.playing | async\" viewBox=\"0 0 43 56.9\" width=\"20\" height=\"29\" focusable=\"false\">\n        <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n        <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    </svg>\n</button>\n\n<button #endButton\n    uxFocusIndicator\n    type=\"button\"\n    class=\"control-button\"\n    (click)=\"goToEnd()\"\n    (mouseup)=\"endButton.blur()\"\n    aria-label=\"Go to end\"\n    i18n-aria-label>\n\n    <svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" focusable=\"false\">\n        <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n        <polygon points=\"0,64 0,0 44.1,32\" />\n    </svg>\n</button>\n\n<div class=\"actions-list\">\n\n    <ng-content></ng-content>\n\n    <div class=\"action-button-container\" *ngIf=\"mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'\">\n        <button #subtitlesButton\n            uxFocusIndicator\n            type=\"button\"\n            class=\"action-button\"\n            (keydown)=\"returnFocus = true\"\n            (click)=\"subtitlesOpen = !subtitlesOpen\"\n            (mouseup)=\"subtitlesButton.blur(); returnFocus = false\"\n            i18n-aria-label\n            attr.aria-label=\"Select subtitles, {{ getSubtitleTrack() }} currently selected.\"\n            [attr.aria-expanded]=\"subtitlesOpen\"\n            [attr.aria-describedby]=\"subtitlesId\"\n            aria-haspopup=\"true\">\n\n            <ux-icon name=\"subtitles\"></ux-icon>\n        </button>\n\n        <div #subtitles\n            [style.top.px]=\"-subtitles.offsetHeight\"\n            class=\"popover top media-player-subtitles-popover show\"\n            [id]=\"subtitlesId\"\n            (keydown.escape)=\"subtitlesOpen = false\"\n            (uxClickOutside)=\"subtitlesOpen = false\"\n            *ngIf=\"subtitlesOpen\">\n            <div class=\"arrow\"></div>\n            <h3 class=\"popover-title\" i18n>Subtitles</h3>\n            <div class=\"popover-content\">\n                <ul class=\"subtitles-list\" uxTabbableList [focusOnShow]=\"returnFocus\" [returnFocus]=\"returnFocus\">\n                    <li uxTabbableListItem\n                        tabindex=\"0\"\n                        class=\"subtitles-list-item\"\n                        [class.active]=\"!isSubtitleActive()\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false\"\n                        (keydown.enter)=\"mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true\">\n\n                        <ux-icon name=\"checkmark\" class=\"subtitles-list-item-checkmark\"></ux-icon>\n                        <span i18n>Subtitles Off</span>\n                    </li>\n                    <li uxTabbableListItem\n                        class=\"subtitles-list-item\"\n                        *ngFor=\"let track of mediaPlayerService.textTracks\"\n                        [class.active]=\"track.mode === 'showing'\"\n                        [attr.aria-selected]=\"isSubtitleActive()\"\n                        (click)=\"setSubtitleTrack(track); subtitlesOpen = false\"\n                        (keydown.enter)=\"setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true\">\n\n                        <ux-icon name=\"checkmark\" class=\"subtitles-list-item-checkmark\"></ux-icon>\n                        <span>{{ track.label }}</span>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"action-button-container\">\n        <button #fullscreenButton\n            uxFocusIndicator\n            *ngIf=\"mediaPlayerService.type !== 'audio'\"\n            type=\"button\"\n            class=\"action-button\"\n            attr.aria-label=\"{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}\"\n            i18n-aria-label\n            (click)=\"mediaPlayerService.toggleFullscreen()\"\n            (mouseup)=\"fullscreenButton.blur()\">\n\n            <ux-icon [name]=\"mediaPlayerService.fullscreen ? 'contract' : 'expand'\"></ux-icon>\n        </button>\n    </div>\n</div>\n\n\n\n<ng-template #muteTooltip>\n    <span aria-hidden=\"true\">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>\n</ng-template>",
                         host: {
                             '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
                         }
@@ -27011,7 +26852,6 @@
         ];
         return MediaPlayerControlsExtensionComponent;
     }(MediaPlayerBaseExtensionDirective));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27026,7 +26866,6 @@
         ];
         return MediaPlayerCustomControlDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27154,12 +26993,11 @@
                     }] }
         ];
         MediaPlayerTimelineExtensionComponent.propDecorators = {
-            thumb: [{ type: i0.ViewChild, args: ['progressThumb',] }],
-            timelineRef: [{ type: i0.ViewChild, args: ['timeline',] }]
+            thumb: [{ type: i0.ViewChild, args: ['progressThumb', { static: true },] }],
+            timelineRef: [{ type: i0.ViewChild, args: ['timeline', { static: true },] }]
         };
         return MediaPlayerTimelineExtensionComponent;
     }(MediaPlayerBaseExtensionDirective));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27377,7 +27215,6 @@
         };
         return AudioService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27393,12 +27230,10 @@
         ];
         return AudioServiceModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27536,7 +27371,7 @@
             ];
         };
         MediaPlayerComponent.propDecorators = {
-            _playerRef: [{ type: i0.ViewChild, args: ['player',] }],
+            _playerRef: [{ type: i0.ViewChild, args: ['player', { static: false },] }],
             crossorigin: [{ type: i0.Input }],
             source: [{ type: i0.Input }],
             type: [{ type: i0.Input }],
@@ -27544,7 +27379,6 @@
         };
         return MediaPlayerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27598,7 +27432,6 @@
         ];
         return DurationPipe;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27614,12 +27447,10 @@
         ];
         return DurationPipeModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27656,7 +27487,6 @@
         ];
         return FileSizePipe;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27672,12 +27502,10 @@
         ];
         return FileSizePipeModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27696,16 +27524,17 @@
         MediaPlayerModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
-                            common.CommonModule,
-                            FrameExtractionModule,
-                            TooltipModule,
+                            a11y.A11yModule,
+                            AccessibilityModule,
                             AudioServiceModule,
+                            ClickOutsideModule,
+                            common.CommonModule,
                             DurationPipeModule,
                             FileSizePipeModule,
+                            FrameExtractionModule,
+                            IconModule,
                             SliderModule,
-                            AccessibilityModule,
-                            a11y.A11yModule,
-                            ClickOutsideModule
+                            TooltipModule,
                         ],
                         exports: DECLARATIONS$5,
                         declarations: DECLARATIONS$5
@@ -27713,12 +27542,10 @@
         ];
         return MediaPlayerModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -27900,14 +27727,12 @@
         };
         return NavigationItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     /** @type {?} */
     var NAVIGATION_MODULE_OPTIONS = new i0.InjectionToken('NAVIGATION_MODULE_OPTIONS');
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -28033,7 +27858,6 @@
         ];
         return NavigationService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -28249,7 +28073,6 @@
         };
         return NavigationLinkDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -28344,11 +28167,10 @@
             items: [{ type: i0.Input }],
             tree: [{ type: i0.Input }],
             autoCollapse: [{ type: i0.Input }],
-            navigationItemTemplate: [{ type: i0.ContentChild, args: ['uxNavigationItem',] }]
+            navigationItemTemplate: [{ type: i0.ContentChild, args: ['uxNavigationItem', { static: false },] }]
         };
         return NavigationComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -28396,7 +28218,6 @@
         ];
         return NavigationModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -28899,12 +28720,11 @@
             tooltipPlacement: [{ type: i0.Input }],
             animationDuration: [{ type: i0.Input }],
             itemClick: [{ type: i0.Output }],
-            _chartElement: [{ type: i0.ViewChild, args: ['chart',] }],
-            _customTooltip: [{ type: i0.ContentChild, args: ['tooltip',] }]
+            _chartElement: [{ type: i0.ViewChild, args: ['chart', { static: true },] }],
+            _customTooltip: [{ type: i0.ContentChild, args: ['tooltip', { static: false },] }]
         };
         return NestedDonutChartComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -28930,12 +28750,10 @@
         ];
         return NestedDonutChartModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -29093,7 +28911,6 @@
         /** @nocollapse */ NotificationService.ngInjectableDef = i0.defineInjectable({ factory: function NotificationService_Factory() { return new NotificationService(i0.inject(ColorService)); }, token: NotificationService, providedIn: "root" });
         return NotificationService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -29248,7 +29065,6 @@
         };
         return NotificationListComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -29272,12 +29088,10 @@
         ];
         return NotificationModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -30626,11 +30440,11 @@
             selectedChange: [{ type: i0.Output }],
             reveal: [{ type: i0.Output }],
             transitionEnd: [{ type: i0.Output }],
-            revealTemplate: [{ type: i0.ContentChild, args: ['revealTemplate',] }],
-            nodeTemplate: [{ type: i0.ContentChild, args: ['nodeTemplate',] }],
-            revealElement: [{ type: i0.ViewChild, args: ['revealElement',] }],
-            linksContainer: [{ type: i0.ViewChild, args: ['links',] }],
-            nodesContainer: [{ type: i0.ViewChild, args: ['nodes',] }]
+            revealTemplate: [{ type: i0.ContentChild, args: ['revealTemplate', { static: false },] }],
+            nodeTemplate: [{ type: i0.ContentChild, args: ['nodeTemplate', { static: false },] }],
+            revealElement: [{ type: i0.ViewChild, args: ['revealElement', { static: true },] }],
+            linksContainer: [{ type: i0.ViewChild, args: ['links', { static: true },] }],
+            nodesContainer: [{ type: i0.ViewChild, args: ['nodes', { static: true },] }]
         };
         return OrganizationChartComponent;
     }());
@@ -30643,7 +30457,6 @@
     OrganizationChartAxis[OrganizationChartAxis.Horizontal] = 'Horizontal';
     OrganizationChartAxis[OrganizationChartAxis.Vertical] = 'Vertical';
     OrganizationChartAxis[OrganizationChartAxis.Both] = 'Both';
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -30668,190 +30481,97 @@
         ];
         return OrganizationChartModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var TabHeadingDirective = /** @class */ (function () {
+        function TabHeadingDirective() {
+        }
+        TabHeadingDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxTabHeading]'
+                    },] }
+        ];
+        return TabHeadingDirective;
+    }());
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var TabsetService = /** @class */ (function () {
         function TabsetService() {
-            this.tabs$ = new rxjs.BehaviorSubject([]);
-            this.active$ = new rxjs.BehaviorSubject(null);
-            this.focused$ = new rxjs.BehaviorSubject(false);
-            this.highlighted$ = new rxjs.BehaviorSubject(null);
+            /**
+             * Store the list of tabs
+             */
+            this.tabs = [];
+            /**
+             * Store the manual state
+             */
+            this.manual = false;
         }
+        /** Update the array of tabs - required to preserve order */
         /**
-         * @param {?} tab
+         * Update the array of tabs - required to preserve order
+         * @param {?} tabs
          * @return {?}
          */
-        TabsetService.prototype.add = /**
-         * @param {?} tab
+        TabsetService.prototype.update = /**
+         * Update the array of tabs - required to preserve order
+         * @param {?} tabs
          * @return {?}
          */
-            function (tab) {
-                this.tabs$.next(__spread(this.tabs$.value, [tab]));
+            function (tabs) {
+                this.tabs = __spread(tabs);
             };
+        /** Programmatically select a tab */
         /**
-         * @param {?} tab
-         * @return {?}
-         */
-        TabsetService.prototype.remove = /**
-         * @param {?} tab
-         * @return {?}
-         */
-            function (tab) {
-                // remove the tab
-                this.tabs$.next(this.tabs$.value.filter(function (_tab) { return _tab !== tab; }));
-            };
-        /**
+         * Programmatically select a tab
          * @param {?} tab
          * @return {?}
          */
         TabsetService.prototype.select = /**
+         * Programmatically select a tab
          * @param {?} tab
          * @return {?}
          */
             function (tab) {
                 if (!tab.disabled) {
-                    this.active$.next(tab);
-                    this.highlighted$.next(tab);
+                    // update the active state of each tab accordingly
+                    this.tabs.forEach(function (_tab) { return _tab === tab ? _tab.selectTab() : _tab.deselectTab(); });
                 }
             };
+        /** Determine if there is a selected tab */
         /**
-         * @param {?} index
+         * Determine if there is a selected tab
          * @return {?}
          */
-        TabsetService.prototype.selectAtIndex = /**
-         * @param {?} index
-         * @return {?}
-         */
-            function (index) {
-                // if there are no tabs then do nothing
-                if (this.tabs$.value.length === 0) {
-                    return;
-                }
-                // check if the index is within the bounds
-                if (index < 0) {
-                    return this.selectAtIndex(this.tabs$.value.length - 1);
-                }
-                else if (index >= this.tabs$.value.length) {
-                    return this.selectAtIndex(0);
-                }
-                /** @type {?} */
-                var target = this.tabs$.value[index];
-                if (target) {
-                    this.select(target);
-                }
-            };
-        /**
-         * @return {?}
-         */
-        TabsetService.prototype.selectNextTab = /**
+        TabsetService.prototype.isTabActive = /**
+         * Determine if there is a selected tab
          * @return {?}
          */
             function () {
-                var e_1, _a;
-                // find the currently selected index
-                /** @type {?} */
-                var index = this.tabs$.value.indexOf(this.active$.value);
-                // check the tabs after the active one to see if there are any selectable tabs
-                /** @type {?} */
-                var tabs = this.tabs$.value.slice(index + 1);
-                try {
-                    // check if any of the tabs are not disabled
-                    for (var tabs_1 = __values(tabs), tabs_1_1 = tabs_1.next(); !tabs_1_1.done; tabs_1_1 = tabs_1.next()) {
-                        var tab = tabs_1_1.value;
-                        if (!tab.disabled) {
-                            return this.select(tab);
-                        }
-                    }
-                }
-                catch (e_1_1) {
-                    e_1 = { error: e_1_1 };
-                }
-                finally {
-                    try {
-                        if (tabs_1_1 && !tabs_1_1.done && (_a = tabs_1.return))
-                            _a.call(tabs_1);
-                    }
-                    finally {
-                        if (e_1)
-                            throw e_1.error;
-                    }
-                }
-                // if we reach here then no tab could be selected - select the first tab
-                this.selectFirstTab();
+                return !!this.tabs.find(function (tab) { return tab.active; });
             };
+        /** Select the first non-disabled tab */
         /**
-         * @return {?}
-         */
-        TabsetService.prototype.selectPreviousTab = /**
-         * @return {?}
-         */
-            function () {
-                var e_2, _a;
-                // find the currently selected index
-                /** @type {?} */
-                var index = this.tabs$.value.indexOf(this.active$.value);
-                // check the tabs before the active one to see if there are any selectable tabs
-                /** @type {?} */
-                var tabs = this.tabs$.value.slice(0, index);
-                try {
-                    // check if any of the tabs are not disabled
-                    for (var _b = __values(tabs.reverse()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var tab = _c.value;
-                        if (!tab.disabled) {
-                            return this.select(tab);
-                        }
-                    }
-                }
-                catch (e_2_1) {
-                    e_2 = { error: e_2_1 };
-                }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return))
-                            _a.call(_b);
-                    }
-                    finally {
-                        if (e_2)
-                            throw e_2.error;
-                    }
-                }
-                // if we reach here then no previous tab could be selected - select the last tab
-                this.selectLastTab();
-            };
-        /**
+         * Select the first non-disabled tab
          * @return {?}
          */
         TabsetService.prototype.selectFirstTab = /**
+         * Select the first non-disabled tab
          * @return {?}
          */
             function () {
                 // find the index of the first non-disabled tab
                 /** @type {?} */
-                var tabIndex = this.tabs$.value.findIndex(function (tab) { return !tab.disabled; });
-                if (tabIndex !== -1) {
-                    this.selectAtIndex(tabIndex);
-                }
-            };
-        /**
-         * @return {?}
-         */
-        TabsetService.prototype.selectLastTab = /**
-         * @return {?}
-         */
-            function () {
-                // find the index of the first non-disabled tab
-                /** @type {?} */
-                var tabIndex = this.tabs$.value.slice().reverse().findIndex(function (tab) { return !tab.disabled; });
-                if (tabIndex !== -1) {
-                    this.selectAtIndex((this.tabs$.value.length - 1) - tabIndex);
+                var tab = this.tabs.find(function (_tab) { return !_tab.disabled; });
+                if (tab) {
+                    this.select(tab);
                 }
             };
         TabsetService.decorators = [
@@ -30859,53 +30579,6 @@
         ];
         return TabsetService;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var TabFocusDirective = /** @class */ (function () {
-        function TabFocusDirective(_tabset, _elementRef) {
-            this._tabset = _tabset;
-            this._elementRef = _elementRef;
-        }
-        /**
-         * @return {?}
-         */
-        TabFocusDirective.prototype.ngOnInit = /**
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                this._subscription = this._tabset.highlighted$.pipe(operators.filter(function () { return _this._tabset.focused$.value === true; }), operators.filter(function () { return _this._tabset.highlighted$.value === _this.uxTabFocus; })).subscribe(function () { return _this._elementRef.nativeElement.focus(); });
-            };
-        /**
-         * @return {?}
-         */
-        TabFocusDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._subscription.unsubscribe();
-            };
-        TabFocusDirective.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: '[uxTabFocus]'
-                    },] }
-        ];
-        /** @nocollapse */
-        TabFocusDirective.ctorParameters = function () {
-            return [
-                { type: TabsetService },
-                { type: i0.ElementRef }
-            ];
-        };
-        TabFocusDirective.propDecorators = {
-            uxTabFocus: [{ type: i0.Input }]
-        };
-        return TabFocusDirective;
-    }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -30913,25 +30586,119 @@
     /** @type {?} */
     var uniqueTabId = 0;
     var TabComponent = /** @class */ (function () {
-        function TabComponent(_tabset) {
-            var _this = this;
+        function TabComponent(_tabset, _changeDetector) {
             this._tabset = _tabset;
+            this._changeDetector = _changeDetector;
+            /**
+             * Define the tab unique id
+             */
             this.id = "ux-tab-" + ++uniqueTabId;
+            /**
+             * Define the active state of this tab
+             */
+            this.active = false;
+            /**
+             * Define if this tab is disabled
+             */
             this.disabled = false;
+            /**
+             * Emit when this tab is selected
+             */
             this.select = new i0.EventEmitter();
+            /**
+             * Emit when this tab is deselected
+             */
             this.deselect = new i0.EventEmitter();
-            this.active$ = this._tabset.active$.pipe(operators.map(function (active) { return active === _this; }), tick());
-            this._onDestroy = new rxjs.Subject();
-            this.active$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (active) { return active ? _this.select.emit() : _this.deselect.emit(); });
         }
-        Object.defineProperty(TabComponent.prototype, "active", {
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                if (value) {
-                    this._tabset.select(this);
+        /**
+         * @return {?}
+         */
+        TabComponent.prototype.selectTab = /**
+         * @return {?}
+         */
+            function () {
+                // if this tab is currently active do nothing
+                if (this.active && !this._tabset.manual) {
+                    return;
                 }
+                if (!this._tabset.manual) {
+                    this.active = true;
+                }
+                this.select.emit();
+                this._changeDetector.detectChanges();
+            };
+        /**
+         * @return {?}
+         */
+        TabComponent.prototype.deselectTab = /**
+         * @return {?}
+         */
+            function () {
+                // if this tab is not currently active do nothing
+                if (!this.active && !this._tabset.manual) {
+                    return;
+                }
+                if (!this._tabset.manual) {
+                    this.active = false;
+                }
+                this.deselect.emit();
+                this._changeDetector.detectChanges();
+            };
+        TabComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-tab',
+                        template: "<div role=\"tabpanel\"\n     class=\"tab-pane\"\n     [style.display]=\"active ? 'block' : 'none'\"\n     [id]=\"id + '-panel'\"\n     [attr.aria-labelledby]=\"id\"\n     [attr.aria-hidden]=\"!active\">\n  <ng-content></ng-content>\n</div>",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
+                    }] }
+        ];
+        /** @nocollapse */
+        TabComponent.ctorParameters = function () {
+            return [
+                { type: TabsetService },
+                { type: i0.ChangeDetectorRef }
+            ];
+        };
+        TabComponent.propDecorators = {
+            id: [{ type: i0.Input }],
+            active: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            heading: [{ type: i0.Input }],
+            customClass: [{ type: i0.Input }],
+            select: [{ type: i0.Output }],
+            deselect: [{ type: i0.Output }],
+            headingRef: [{ type: i0.ContentChild, args: [TabHeadingDirective, { read: i0.TemplateRef, static: false },] }]
+        };
+        return TabComponent;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var TabsetComponent = /** @class */ (function () {
+        function TabsetComponent(_tabset, _changeDetector) {
+            this._tabset = _tabset;
+            this._changeDetector = _changeDetector;
+            /**
+             * Determine if the appearance of the tabset
+             */
+            this.minimal = true;
+            /**
+             * Determine if the tabset should appear stacked
+             */
+            this.stacked = 'none';
+            /**
+             * Remove subscriptions on destroy
+             */
+            this._onDestroy$ = new rxjs.Subject();
+        }
+        Object.defineProperty(TabsetComponent.prototype, "manual", {
+            /** Determine if we want to manually update the active state */
+            set: /**
+             * Determine if we want to manually update the active state
+             * @param {?} manual
+             * @return {?}
+             */ function (manual) {
+                this._tabset.manual = manual;
             },
             enumerable: true,
             configurable: true
@@ -30939,96 +30706,26 @@
         /**
          * @return {?}
          */
-        TabComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-            function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        TabComponent.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'ux-tab',
-                        template: "<div role=\"tabpanel\"\n     class=\"tab-pane\"\n     [class.active]=\"active$ | async\"\n     [id]=\"id + '-panel'\"\n     [attr.aria-labelledby]=\"id\"\n     [attr.aria-hidden]=\"!(active$ | async)\">\n  <ng-content></ng-content>\n</div>",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush
-                    }] }
-        ];
-        /** @nocollapse */
-        TabComponent.ctorParameters = function () {
-            return [
-                { type: TabsetService }
-            ];
-        };
-        TabComponent.propDecorators = {
-            id: [{ type: i0.Input }],
-            disabled: [{ type: i0.Input }],
-            heading: [{ type: i0.Input }],
-            customClass: [{ type: i0.Input }],
-            select: [{ type: i0.Output }],
-            deselect: [{ type: i0.Output }],
-            active: [{ type: i0.Input }]
-        };
-        return TabComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var TabHeadingDirective = /** @class */ (function () {
-        function TabHeadingDirective(templateRef, tab) {
-            tab.headingRef = templateRef;
-        }
-        TabHeadingDirective.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: '[uxTabHeading]'
-                    },] }
-        ];
-        /** @nocollapse */
-        TabHeadingDirective.ctorParameters = function () {
-            return [
-                { type: i0.TemplateRef },
-                { type: TabComponent }
-            ];
-        };
-        return TabHeadingDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var TabsetComponent = /** @class */ (function () {
-        function TabsetComponent(tabset) {
-            this.tabset = tabset;
-            this.minimal = true;
-            this.stacked = 'none';
-            this._onDestroy = new rxjs.Subject();
-        }
-        /**
-         * @return {?}
-         */
         TabsetComponent.prototype.ngAfterViewInit = /**
          * @return {?}
          */
             function () {
-                // Make sure a tab is selected
-                if (!this.tabset.active$.value) {
-                    this.tabset.selectFirstTab();
-                }
-            };
-        /**
-         * @return {?}
-         */
-        TabsetComponent.prototype.ngAfterContentInit = /**
-         * @return {?}
-         */
-            function () {
                 var _this = this;
-                this.tabs.changes
-                    .pipe(operators.takeUntil(this._onDestroy))
-                    .subscribe(function (tabs) { return _this.tabset.tabs$.next(tabs.toArray()); });
-                this.tabset.tabs$.next(this.tabs.toArray());
+                // provide the service with the initial array of items
+                this._tabset.update(this._tabs.toArray());
+                // Make sure a tab is selected
+                if (!this._tabset.isTabActive()) {
+                    this._tabset.selectFirstTab();
+                }
+                // run change detection once we have setup the tabs
+                this._changeDetector.detectChanges();
+                // watch for any future changes
+                this._tabs.changes.pipe(operators.takeUntil(this._onDestroy$)).subscribe(function (tabs) {
+                    // update the internal list of tabs
+                    _this._tabset.update(tabs);
+                    // run change detection
+                    _this._changeDetector.detectChanges();
+                });
             };
         /**
          * @return {?}
@@ -31037,75 +30734,13 @@
          * @return {?}
          */
             function () {
-                this._onDestroy.next();
-                this._onDestroy.complete();
-            };
-        /**
-         * Allow manual tab selected
-         */
-        /**
-         * Allow manual tab selected
-         * @param {?} tab
-         * @return {?}
-         */
-        TabsetComponent.prototype.select = /**
-         * Allow manual tab selected
-         * @param {?} tab
-         * @return {?}
-         */
-            function (tab) {
-                this.tabset.select(tab);
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        TabsetComponent.prototype.selectPreviousTab = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // determine which arrow key is pressed
-                /** @type {?} */
-                var arrowLeft = event.key === 'ArrowLeft' || event.keyCode === 37;
-                /** @type {?} */
-                var arrowUp = event.key === 'ArrowUp' || event.keyCode === 38;
-                // only perform action if the arrow key matches the orientation
-                if (arrowLeft && this.stacked !== 'none' || arrowUp && this.stacked === 'none') {
-                    return;
-                }
-                // perform selection
-                this.tabset.selectPreviousTab();
-                // prevent the browser from scrolling when arrow keys are pressed
-                event.preventDefault();
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        TabsetComponent.prototype.selectNextTab = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                // determine which arrow key is pressed
-                /** @type {?} */
-                var arrowRight = event.key === 'ArrowRight' || event.keyCode === 39;
-                /** @type {?} */
-                var arrowDown = event.key === 'ArrowDown' || event.keyCode === 40;
-                // only perform action if the arrow key matches the orientation
-                if (arrowRight && this.stacked !== 'none' || arrowDown && this.stacked === 'none') {
-                    return;
-                }
-                // perform selection
-                this.tabset.selectNextTab();
-                // prevent the browser from scrolling when arrow keys are pressed
-                event.preventDefault();
+                this._onDestroy$.next();
+                this._onDestroy$.complete();
             };
         TabsetComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-tabset',
-                        template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n\t<li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of tabset.tabs$ | async; let index = index\"\n        [class.active]=\"tab.active$ | async\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <a class=\"nav-link\"\n            [id]=\"tab.id\"\n            role=\"tab\"\n            [uxTabFocus]=\"tab\"\n            [tabindex]=\"(tab.active$ | async) ? 0 : -1\"\n            uxFocusIndicator\n            (mousedown)=\"tabset.select(tab)\"\n            (focus)=\"tabset.focused$.next(true)\"\n            (blur)=\"tabset.focused$.next(false)\"\n            (mousedown)=\"tabset.focused$.next(true)\"\n            (keydown.ArrowUp)=\"selectPreviousTab($event)\"\n            (keydown.ArrowLeft)=\"selectPreviousTab($event)\"\n            (keydown.ArrowRight)=\"selectNextTab($event)\"\n            (keydown.ArrowDown)=\"selectNextTab($event)\"\n            (keydown.Home)=\"tabset.selectFirstTab(); $event.preventDefault()\"\n            (keydown.End)=\"tabset.selectLastTab(); $event.preventDefault()\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"tab.active$ | async\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </a>\n\n\t</li>\n\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n\t<ng-content></ng-content>\n</div>",
+                        template: "<!-- Nav tabs -->\n<ul role=\"tablist\"\n    uxTabbableList\n    [direction]=\"stacked === 'none' ? 'horizontal' : 'vertical'\"\n    [allowBoundaryKeys]=\"true\"\n    class=\"nav nav-tabs\"\n    [class.minimal-tab]=\"minimal\"\n    [attr.aria-label]=\"ariaLabel\"\n    [attr.aria-orientation]=\"stacked === 'none' ? 'horizontal' : 'vertical'\">\n\n\t<li role=\"presentation\"\n        class=\"nav-item\"\n        *ngFor=\"let tab of _tabset.tabs; let index = index\"\n        [class.active]=\"tab.active\"\n        [class.disabled]=\"tab.disabled\"\n        [ngClass]=\"tab.customClass\">\n\n        <a class=\"nav-link\"\n            [id]=\"tab.id\"\n            role=\"tab\"\n            uxTabbableListItem\n            uxFocusIndicator\n            (mousedown)=\"_tabset.select(tab)\"\n            (activated)=\"_tabset.select(tab)\"\n            [attr.aria-controls]=\"tab.id\"\n            [attr.aria-selected]=\"tab.active\"\n            [attr.aria-disabled]=\"tab.disabled\">\n\n            <span *ngIf=\"!tab.headingRef\">{{ tab.heading }}</span>\n\n            <ng-container *ngIf=\"tab.headingRef\" [ngTemplateOutlet]=\"tab.headingRef\"></ng-container>\n        </a>\n\n\t</li>\n\n</ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n\t<ng-content></ng-content>\n</div>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [TabsetService],
                         host: {
@@ -31117,18 +30752,19 @@
         /** @nocollapse */
         TabsetComponent.ctorParameters = function () {
             return [
-                { type: TabsetService }
+                { type: TabsetService },
+                { type: i0.ChangeDetectorRef }
             ];
         };
         TabsetComponent.propDecorators = {
             minimal: [{ type: i0.Input }],
             stacked: [{ type: i0.Input }],
+            manual: [{ type: i0.Input }],
             ariaLabel: [{ type: i0.Input, args: ['aria-label',] }],
-            tabs: [{ type: i0.ContentChildren, args: [TabComponent,] }]
+            _tabs: [{ type: i0.ContentChildren, args: [TabComponent,] }]
         };
         return TabsetComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31142,18 +30778,24 @@
                             AccessibilityModule,
                             common.CommonModule
                         ],
-                        exports: [TabsetComponent, TabComponent, TabHeadingDirective],
-                        declarations: [TabsetComponent, TabComponent, TabHeadingDirective, TabFocusDirective],
+                        exports: [
+                            TabsetComponent,
+                            TabComponent,
+                            TabHeadingDirective
+                        ],
+                        declarations: [
+                            TabsetComponent,
+                            TabComponent,
+                            TabHeadingDirective
+                        ],
                     },] }
         ];
         return TabsetModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31168,7 +30810,6 @@
         ];
         return PageHeaderCustomMenuDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31220,7 +30861,6 @@
         };
         return PageHeaderIconMenuComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31238,9 +30878,7 @@
             this.selected$
                 .pipe(operators.takeUntil(this._onDestroy), operators.map(function (selected) { return _this.getRoot(selected); }))
                 .subscribe(function (root) { return _this.selectedRoot$.next(root); });
-            this._router.events
-                .pipe(operators.takeUntil(this._onDestroy), operators.filter(function (e) { return e instanceof router.NavigationEnd; }))
-                .subscribe(this.updateItemsWithActiveRoute.bind(this));
+            this._router.events.pipe(operators.filter(function (event) { return event instanceof router.NavigationEnd || event instanceof router.NavigationCancel || event instanceof router.NavigationError; }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.updateItemsWithActiveRoute(); });
         }
         /**
          * @return {?}
@@ -31530,7 +31168,6 @@
         }
         return PageHeaderActiveNavigationItem;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31593,7 +31230,6 @@
         };
         return PageHeaderNavigationDropdownItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31708,7 +31344,6 @@
         ];
         return PageHeaderNavigationService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31739,7 +31374,7 @@
          */
             function () {
                 var _this = this;
-                this._pageHeaderService.selected$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (selectedItem) {
+                this._pageHeaderService.selected$.pipe(tick(), operators.takeUntil(this._onDestroy)).subscribe(function (selectedItem) {
                     // Update selected state for this item
                     _this._pageHeaderService.updateItem(_this.item, selectedItem);
                     if (selectedItem && _this.isOpen) {
@@ -31809,12 +31444,11 @@
         };
         PageHeaderNavigationItemComponent.propDecorators = {
             item: [{ type: i0.Input }],
-            navigationBtn: [{ type: i0.ViewChild, args: ['navigationBtn',] }],
+            navigationBtn: [{ type: i0.ViewChild, args: ['navigationBtn', { static: false },] }],
             onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }]
         };
         return PageHeaderNavigationItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31863,7 +31497,6 @@
         };
         return PageHeaderNavigationSecondaryItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -31949,7 +31582,6 @@
         };
         return PageHeaderNavigationComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -32158,7 +31790,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-page-header',
                         exportAs: 'ux-page-header',
-                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0 : -1\" [class.clickable]=\"_hasLogoClick\" class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
+                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0 : -1\" [class.clickable]=\"_hasLogoClick\" class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <span class=\"hpe-icon hpe-previous text-primary\"></span>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\" [manual]=\"true\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
                         providers: [PageHeaderService]
                     }] }
         ];
@@ -32190,13 +31822,12 @@
             familyForeground: [{ type: i0.Input }],
             backClick: [{ type: i0.Output }],
             logoClick: [{ type: i0.Output }],
-            titleTemplate: [{ type: i0.ContentChild, args: ['title',] }],
-            subheaderTemplate: [{ type: i0.ContentChild, args: ['subheader',] }],
+            titleTemplate: [{ type: i0.ContentChild, args: ['title', { static: false },] }],
+            subheaderTemplate: [{ type: i0.ContentChild, args: ['subheader', { static: false },] }],
             customMenus: [{ type: i0.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: i0.TemplateRef },] }]
         };
         return PageHeaderComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -32234,12 +31865,10 @@
         ];
         return PageHeaderModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -32496,7 +32125,7 @@
         PaginationComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-pagination',
-                        template: "<nav role=\"navigation\" [attr.aria-label]=\"ariaLabel\">\n  <ul #container class=\"pagination\"\n    [ngClass]=\"classes\"\n    direction=\"horizontal\"\n    (blur)=\"isKeyboardEvent = false\"\n    (keydown.ArrowLeft)=\"select(page - 1); isKeyboardEvent = true\"\n    (keydown.ArrowRight)=\"select(page + 1); isKeyboardEvent = true\"\n    (keydown.Home)=\"select(1); isKeyboardEvent = true; $event.preventDefault()\"\n    (keydown.End)=\"select(pageCount); isKeyboardEvent = true; $event.preventDefault()\">\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === 1 || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === 1 || disabled ? -1 : 0\"\n         [attr.aria-label]=\"previousAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page - 1)\"\n         (keydown.enter)=\"select(page - 1)\">\n        <ng-container [ngTemplateOutlet]=\"previousBtnTemplate || defaultPreviousBtnTemplate\"></ng-container>\n      </a>\n    </li>\n\n    <ng-container *ngFor=\"let pg of pages; trackBy: trackByFn\">\n      <li *ngIf=\"pg.visible\"\n          uxFocusIndicator\n          [programmaticFocusIndicator]=\"true\"\n          [checkChildren]=\"true\"\n          [class.disabled]=\"disabled\"\n          [class.active]=\"page === pg.index\"\n          class=\"pagination-page page-item\">\n\n        <a class=\"page-link\"\n           tabindex=\"0\"\n           [ngClass]=\"pageBtnClass\"\n           [focusIf]=\"isKeyboardEvent && page === pg.index\"\n           [attr.aria-current]=\"page === pg.index\"\n           [attr.aria-setsize]=\"pageCount\"\n           [attr.aria-posinset]=\"pg.index\"\n           (click)=\"select(pg.index)\"\n           (keydown.enter)=\"select(pg.index)\">\n            {{ pg.index }}\n        </a>\n      </li>\n    </ng-container>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === pageCount || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === pageCount || disabled ? -1 : 0\"\n         [attr.aria-label]=\"nextAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page + 1)\"\n         (keydown.enter)=\"select(page + 1)\">\n\n        <ng-container [ngTemplateOutlet]=\"nextBtnTemplate || defaultNextBtnTemplate\"></ng-container>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n<ng-template #defaultPreviousBtnTemplate>\n  <span class=\"hpe-icon hpe-previous\"></span>\n</ng-template>\n\n<ng-template #defaultNextBtnTemplate>\n  <span class=\"hpe-icon hpe-next\"></span>\n</ng-template>\n",
+                        template: "<nav role=\"navigation\" [attr.aria-label]=\"ariaLabel\">\n  <ul #container class=\"pagination\"\n    [ngClass]=\"classes\"\n    direction=\"horizontal\"\n    (blur)=\"isKeyboardEvent = false\"\n    (keydown.ArrowLeft)=\"select(page - 1); isKeyboardEvent = true\"\n    (keydown.ArrowRight)=\"select(page + 1); isKeyboardEvent = true\"\n    (keydown.Home)=\"select(1); isKeyboardEvent = true; $event.preventDefault()\"\n    (keydown.End)=\"select(pageCount); isKeyboardEvent = true; $event.preventDefault()\">\n\n    <li class=\"pagination-prev page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === 1 || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === 1 || disabled ? -1 : 0\"\n         [attr.aria-label]=\"previousAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page - 1)\"\n         (keydown.enter)=\"select(page - 1)\">\n        <ng-container [ngTemplateOutlet]=\"previousBtnTemplate || defaultPreviousBtnTemplate\"></ng-container>\n      </a>\n    </li>\n\n    <ng-container *ngFor=\"let pg of pages; trackBy: trackByFn\">\n      <li *ngIf=\"pg.visible\"\n          uxFocusIndicator\n          [programmaticFocusIndicator]=\"true\"\n          [checkChildren]=\"true\"\n          [class.disabled]=\"disabled\"\n          [class.active]=\"page === pg.index\"\n          class=\"pagination-page page-item\">\n\n        <a class=\"page-link\"\n           tabindex=\"0\"\n           [ngClass]=\"pageBtnClass\"\n           [focusIf]=\"isKeyboardEvent && page === pg.index\"\n           [attr.aria-current]=\"page === pg.index\"\n           [attr.aria-setsize]=\"pageCount\"\n           [attr.aria-posinset]=\"pg.index\"\n           (click)=\"select(pg.index)\"\n           (keydown.enter)=\"select(pg.index)\">\n            {{ pg.index }}\n        </a>\n      </li>\n    </ng-container>\n\n    <li class=\"pagination-next page-item\"\n        *ngIf=\"directionButtons\"\n        uxFocusIndicator\n        [programmaticFocusIndicator]=\"true\"\n        [checkChildren]=\"true\"\n        [class.disabled]=\"page === pageCount || disabled\">\n\n      <a class=\"page-link\"\n         [tabindex]=\"page === pageCount || disabled ? -1 : 0\"\n         [attr.aria-label]=\"nextAriaLabel\"\n         [ngClass]=\"pageBtnClass\"\n         (click)=\"select(page + 1)\"\n         (keydown.enter)=\"select(page + 1)\">\n\n        <ng-container [ngTemplateOutlet]=\"nextBtnTemplate || defaultNextBtnTemplate\"></ng-container>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n<ng-template #defaultPreviousBtnTemplate>\n    <ux-icon class=\"pagination-prev-icon-default\" name=\"previous\"></ux-icon>\n</ng-template>\n\n<ng-template #defaultNextBtnTemplate>\n    <ux-icon class=\"pagination-next-icon-default\" name=\"next\"></ux-icon>\n</ng-template>\n",
                         providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
                     }] }
         ];
@@ -32519,7 +32148,6 @@
         };
         return PaginationComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -32530,10 +32158,11 @@
         PaginationModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
-                            common.CommonModule,
                             a11y.A11yModule,
                             AccessibilityModule,
-                            FocusIfModule
+                            common.CommonModule,
+                            FocusIfModule,
+                            IconModule,
                         ],
                         declarations: [
                             PaginationComponent
@@ -32545,12 +32174,10 @@
         ];
         return PaginationModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -32641,7 +32268,6 @@
         };
         return PartitionMapSegmentEventsDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -33794,11 +33420,10 @@
             selected: [{ type: i0.Input }],
             segmentAnnouncement: [{ type: i0.Input }],
             selectedChange: [{ type: i0.Output }],
-            segmentTemplate: [{ type: i0.ContentChild, args: ['partitionMapSegment',] }]
+            segmentTemplate: [{ type: i0.ContentChild, args: ['partitionMapSegment', { static: false },] }]
         };
         return PartitionMapComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -33827,12 +33452,10 @@
         ];
         return PartitionMapModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -33876,7 +33499,6 @@
         };
         return ProgressBarComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -33895,12 +33517,10 @@
         ];
         return ProgressBarModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -34077,7 +33697,6 @@
         };
         return RadioButtonComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -34101,12 +33720,10 @@
         ];
         return RadioButtonModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -34469,13 +34086,13 @@
          */
             function (nodeLinks, column) {
                 var _this = this;
+                var e_2, _a;
                 if (nodeLinks === void 0) {
                     nodeLinks = this._nodeLinks.filter(function (node) { return node.inputs.length === 0; });
                 }
                 if (column === void 0) {
                     column = 0;
                 }
-                var e_2, _a;
                 try {
                     for (var nodeLinks_1 = __values(nodeLinks), nodeLinks_1_1 = nodeLinks_1.next(); !nodeLinks_1_1.done; nodeLinks_1_1 = nodeLinks_1.next()) {
                         var nodeLink = nodeLinks_1_1.value;
@@ -34767,7 +34384,6 @@
             };
         return SankeyChart;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -34984,7 +34600,6 @@
         ];
         return SankeyFocusManager;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -35070,7 +34685,6 @@
         };
         return SankeyNodeDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -35680,13 +35294,12 @@
             linkTooltip: [{ type: i0.Input }],
             falloffTooltip: [{ type: i0.Input }],
             color: [{ type: i0.Input }],
-            nodeTemplate: [{ type: i0.ContentChild, args: ['sankeyNodeTemplate',] }],
-            linkContainer: [{ type: i0.ViewChild, args: ['linkContainer',] }],
-            nodeContainer: [{ type: i0.ViewChild, args: ['nodeContainer',] }]
+            nodeTemplate: [{ type: i0.ContentChild, args: ['sankeyNodeTemplate', { static: false },] }],
+            linkContainer: [{ type: i0.ViewChild, args: ['linkContainer', { static: true },] }],
+            nodeContainer: [{ type: i0.ViewChild, args: ['nodeContainer', { static: true },] }]
         };
         return SankeyChartComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -35714,7 +35327,6 @@
         ];
         return SankeyChartModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -35764,7 +35376,6 @@
         ];
         return SearchBuilderFocusService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -35932,7 +35543,6 @@
         ];
         return SearchBuilderService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -36015,7 +35625,6 @@
         };
         return SearchBuilderGroupService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -36132,7 +35741,6 @@
         };
         return SearchBuilderGroupComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -36205,7 +35813,6 @@
         };
         return SearchBuilderOutletDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -36285,7 +35892,6 @@
         };
         return SearchBuilderComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -36679,6 +36285,7 @@
                 // clear the value and input text
                 this.value = null;
                 this.input = null;
+                this.selectInputText();
             };
         /**
          * @return {?}
@@ -36694,7 +36301,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && value\"\r\n           uxFocusIndicator\r\n           tabindex=\"0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && value\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -36737,15 +36344,14 @@
             valueChange: [{ type: i0.Output }],
             inputChange: [{ type: i0.Output }],
             dropdownOpenChange: [{ type: i0.Output }],
-            icon: [{ type: i0.ContentChild, args: ['icon',] }],
-            singleInput: [{ type: i0.ViewChild, args: ['singleInput',] }],
-            tagInput: [{ type: i0.ViewChild, args: ['tagInput',] }],
-            multipleTypeahead: [{ type: i0.ViewChild, args: ['multipleTypeahead',] }],
-            singleTypeahead: [{ type: i0.ViewChild, args: ['singleTypeahead',] }]
+            icon: [{ type: i0.ContentChild, args: ['icon', { static: false },] }],
+            singleInput: [{ type: i0.ViewChild, args: ['singleInput', { static: false },] }],
+            tagInput: [{ type: i0.ViewChild, args: ['tagInput', { static: false },] }],
+            multipleTypeahead: [{ type: i0.ViewChild, args: ['multipleTypeahead', { static: false },] }],
+            singleTypeahead: [{ type: i0.ViewChild, args: ['singleTypeahead', { static: false },] }]
         };
         return SelectComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -36775,7 +36381,6 @@
             };
         return TagInputEvent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -37117,6 +36722,8 @@
                     this.valid = false;
                 }
                 this.validationErrors['tagRangeError'] = tagRangeError;
+                // forward any error to the form control
+                return tagRangeError;
             };
         /**
          * @param {?} event
@@ -37286,6 +36893,8 @@
                     return;
                 }
                 this.selectInput();
+                // mark form control as touched
+                this._onTouchedHandler();
             };
         /**
          * @param {?} event
@@ -37668,6 +37277,7 @@
                 }
                 this.tags = [];
                 this.input = '';
+                this.focus();
             };
         /**
          * @param {?} typeahead
@@ -37861,7 +37471,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n        class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n        tabindex=\"0\"\n        [attr.aria-label]=\"clearButtonAriaLabel\"\n        *ngIf=\"_showClearButton\"\n        (click)=\"clear(); $event.stopPropagation()\"\n        (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n        class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n        [attr.tabindex]=\"disabled ? -1 : 0\"\n        [attr.aria-label]=\"clearButtonAriaLabel\"\n        *ngIf=\"_showClearButton\"\n        (click)=\"clear(); $event.stopPropagation()\"\n        (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <span class=\"hpe-icon hpe-close\"></span>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -37913,14 +37523,13 @@
             tagRemoved: [{ type: i0.Output }],
             tagClick: [{ type: i0.Output }],
             typeaheadQuery: [{ type: i0.ContentChildren, args: [TypeaheadComponent,] }],
-            tagInput: [{ type: i0.ViewChild, args: ['tagInput',] }],
+            tagInput: [{ type: i0.ViewChild, args: ['tagInput', { static: false },] }],
             keyHandler: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }],
             focusOutHandler: [{ type: i0.HostListener, args: ['focusout',] }],
             onClick: [{ type: i0.HostListener, args: ['click',] }]
         };
         return TagInputComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -37947,12 +37556,10 @@
         ];
         return TagInputModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -37977,12 +37584,10 @@
         ];
         return SelectModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38087,7 +37692,6 @@
         };
         return BaseSearchComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38245,7 +37849,6 @@
         ];
         return SearchDateRangeComponent;
     }(BaseSearchComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38295,7 +37898,6 @@
         ];
         return SearchDateComponent;
     }(BaseSearchComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38400,7 +38002,6 @@
         ];
         return SearchSelectComponent;
     }(BaseSearchComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38438,7 +38039,6 @@
         ];
         return SearchTextComponent;
     }(BaseSearchComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38485,7 +38085,6 @@
         ];
         return SearchBuilderModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38557,11 +38156,11 @@
          * @return {?}
          */
             function () {
+                var _a;
                 var data = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     data[_i] = arguments[_i];
                 }
-                var _a;
                 (_a = this.selectionService).select.apply(_a, __spread(data));
             };
         /**
@@ -38578,11 +38177,11 @@
          * @return {?}
          */
             function () {
+                var _a;
                 var data = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     data[_i] = arguments[_i];
                 }
-                var _a;
                 (_a = this.selectionService).selectOnly.apply(_a, __spread(data));
             };
         /**
@@ -38599,11 +38198,11 @@
          * @return {?}
          */
             function () {
+                var _a;
                 var data = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     data[_i] = arguments[_i];
                 }
-                var _a;
                 (_a = this.selectionService).toggle.apply(_a, __spread(data));
             };
         /**
@@ -38620,11 +38219,11 @@
          * @return {?}
          */
             function () {
+                var _a;
                 var data = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     data[_i] = arguments[_i];
                 }
-                var _a;
                 (_a = this.selectionService).deselect.apply(_a, __spread(data));
             };
         /**
@@ -38665,7 +38264,6 @@
             function () { };
         return SelectionStrategy;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -38986,7 +38584,6 @@
             };
         return RowSelectionStrategy;
     }(SelectionStrategy));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -39058,7 +38655,6 @@
             };
         return RowAltSelectionStrategy;
     }(RowSelectionStrategy));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -39143,7 +38739,6 @@
             };
         return SimpleSelectionStrategy;
     }(SelectionStrategy));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -39604,7 +39199,6 @@
         ];
         return SelectionService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -39717,7 +39311,6 @@
         };
         return SelectListItemComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -39974,7 +39567,6 @@
         };
         return SelectionItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40204,7 +39796,6 @@
         };
         return SelectionDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40223,12 +39814,10 @@
         ];
         return SelectionModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40367,7 +39956,6 @@
             };
         return MultipleSelectListStrategy;
     }(SelectionStrategy));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40434,7 +40022,6 @@
             };
         return SingleSelectListStrategy;
     }(SelectionStrategy));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40547,7 +40134,6 @@
         };
         return SelectListComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40572,27 +40158,31 @@
         ];
         return SelectListModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var SidePanelCloseDirective = /** @class */ (function () {
-        function SidePanelCloseDirective(_service) {
+        function SidePanelCloseDirective(_service, _focusOrigin) {
             this._service = _service;
+            this._focusOrigin = _focusOrigin;
         }
         /**
+         * @param {?} event
          * @return {?}
          */
-        SidePanelCloseDirective.prototype.clickHandler = /**
+        SidePanelCloseDirective.prototype.onClick = /**
+         * @param {?} event
          * @return {?}
          */
-            function () {
+            function (event) {
+                // determine the correct origin for the trigger event
+                this._focusOrigin.setOrigin(isKeyboardTrigger(event) ? 'keyboard' : 'mouse');
+                // close the side panel menu
                 this._service.close();
             };
         SidePanelCloseDirective.decorators = [
@@ -40603,15 +40193,15 @@
         /** @nocollapse */
         SidePanelCloseDirective.ctorParameters = function () {
             return [
-                { type: SidePanelService }
+                { type: SidePanelService },
+                { type: FocusIndicatorOriginService }
             ];
         };
         SidePanelCloseDirective.propDecorators = {
-            clickHandler: [{ type: i0.HostListener, args: ['click',] }]
+            onClick: [{ type: i0.HostListener, args: ['click', ['$event'],] }]
         };
         return SidePanelCloseDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40627,6 +40217,7 @@
         SidePanelModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
                             a11y.A11yModule,
                             FocusIfModule
@@ -40637,12 +40228,10 @@
         ];
         return SidePanelModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40795,7 +40384,6 @@
         };
         return SparkComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -40816,12 +40404,10 @@
         ];
         return SparkModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -41131,7 +40717,7 @@
         ColumnPickerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-column-picker',
-                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <!-- Show the default action buttons -->\n    <ng-container *ngIf=\"!actionsTemplate\">\n        <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right\"></i>\n        </button>\n\n        <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n        </button>\n    </ng-container>\n\n    <!-- Allow custom actions template -->\n    <ng-container\n        *ngIf=\"actionsTemplate\"\n        [ngTemplateOutlet]=\"actionsTemplate\"\n        [ngTemplateOutletContext]=\"_getActionContext()\">\n    </ng-container>\n\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <i uxReorderableHandle class=\"hpe-icon hpe-drag\"></i>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
+                        template: "<div class=\"column-picker-column\">\n\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!deselectedTitleTemplate\">\n            {{ _deselectedSelection.length }} of {{ deselected.length }} selected\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"deselectedTitleTemplate\"\n            [ngTemplateOutlet]=\"deselectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\" [(uxSelection)]=\"_deselectedSelection\">\n\n        <div *ngFor=\"let column of deselected\"\n             class=\"column-picker-list-item\"\n             [uxSelectionItem]=\"column\">\n\n            <ng-container *ngIf=\"!deselectedTemplate\">{{ column }}</ng-container>\n\n            <ng-container\n                *ngIf=\"deselectedTemplate\"\n                [ngTemplateOutlet]=\"deselectedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n    </div>\n</div>\n\n<div class=\"column-picker-actions-column\">\n    <!-- Show the default action buttons -->\n    <ng-container *ngIf=\"!actionsTemplate\">\n        <button class=\"btn button-primary btn-block\" [disabled]=\"_deselectedSelection.length === 0\" (click)=\"addColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right\"></i>\n        </button>\n\n        <button class=\"btn button-primary btn-block m-b-md\" [disabled]=\"_selectedSelection.length === 0\" (click)=\"removeColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"deselected.length === 0\" (click)=\"addAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-right-double\"></i>\n        </button>\n\n        <button class=\"btn button-secondary btn-block\" [disabled]=\"selected.length === 0\" (click)=\"removeAllColumns()\">\n            <i class=\"hpe-icon hpe-chevron-left-double\"></i>\n        </button>\n    </ng-container>\n\n    <!-- Allow custom actions template -->\n    <ng-container\n        *ngIf=\"actionsTemplate\"\n        [ngTemplateOutlet]=\"actionsTemplate\"\n        [ngTemplateOutletContext]=\"_getActionContext()\">\n    </ng-container>\n\n</div>\n\n<div class=\"column-picker-column\">\n    <div class=\"column-picker-stats\">\n\n        <ng-container *ngIf=\"!selectedTitleTemplate\">\n            {{ selected.length + locked.length }} columns added\n        </ng-container>\n\n        <ng-container\n            *ngIf=\"selectedTitleTemplate\"\n            [ngTemplateOutlet]=\"selectedTitleTemplate\">\n        </ng-container>\n    </div>\n\n    <div class=\"column-picker-list\">\n\n        <div *ngFor=\"let column of locked\"\n             class=\"column-picker-list-item column-picker-list-item-locked\">\n\n             <ng-container *ngIf=\"!lockedTemplate\">\n                {{ column }} <i class=\"hpe-icon hpe-lock\"></i>\n            </ng-container>\n\n             <ng-container\n                *ngIf=\"lockedTemplate\"\n                [ngTemplateOutlet]=\"lockedTemplate\"\n                [ngTemplateOutletContext]=\"{ $implicit: column }\">\n            </ng-container>\n        </div>\n\n        <div [(uxSelection)]=\"_selectedSelection\" uxReorderable [reorderableModel]=\"selected\" (reorderableModelChange)=\"onReorderChange($event)\" (reorderStart)=\"storeSelection()\"\n            (reorderEnd)=\"restoreSelection()\" (reorderEnd)=\"onReorder()\">\n\n            <div *ngFor=\"let column of selected; trackBy: selectedTrackBy; let index = index\"\n                 #selectedColumn\n                 uxFocusIndicator\n                 [programmaticFocusIndicator]=\"true\"\n                 class=\"column-picker-list-item column-picker-list-item-selected\"\n                 [uxSelectionItem]=\"column\"\n                 [uxReorderableModel]=\"column\"\n                 [attr.aria-label]=\"getSelectedAriaLabel(column)\"\n                 (keydown.alt.arrowup)=\"move(column, -1)\"\n                 (keydown.alt.arrowdown)=\"move(column, 1)\">\n\n                 <ng-container *ngIf=\"!selectedTemplate\">\n                    <ux-icon uxReorderableHandle name=\"drag\" class=\"drag-handle-icon\"></ux-icon>\n                    {{ column }}\n                 </ng-container>\n\n                 <ng-container\n                    *ngIf=\"selectedTemplate\"\n                    [ngTemplateOutlet]=\"selectedTemplate\"\n                    [ngTemplateOutletContext]=\"{ $implicit: column }\">\n                </ng-container>\n            </div>\n        </div>\n\n    </div>\n</div>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -41160,7 +40746,6 @@
         };
         return ColumnPickerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -41557,7 +41142,6 @@
     };
     ColumnUnit[ColumnUnit.Pixel] = 'Pixel';
     ColumnUnit[ColumnUnit.Percentage] = 'Percentage';
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -41658,7 +41242,6 @@
         };
         return ResizableTableCellDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -41937,7 +41520,6 @@
         };
         return ResizableTableColumnComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42112,12 +41694,10 @@
         };
         return ResizableTableDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42132,6 +41712,7 @@
                             AccessibilityModule,
                             common.CommonModule,
                             DragModule,
+                            IconModule,
                             ResizeModule,
                             ReorderableModule,
                             SelectionModule
@@ -42152,12 +41733,10 @@
         ];
         return TableModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42173,7 +41752,6 @@
         ];
         return TimelineComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42197,7 +41775,6 @@
         };
         return TimelineEventComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42222,12 +41799,10 @@
         ];
         return TimelineModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42382,7 +41957,6 @@
         };
         return ToggleSwitchComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42406,12 +41980,10 @@
         ];
         return ToggleSwitchModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42461,7 +42033,6 @@
         };
         return ToolbarSearchButtonDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42651,7 +42222,6 @@
         };
         return ToolbarSearchFieldDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42909,14 +42479,13 @@
             background: [{ type: i0.Input }],
             expandedChange: [{ type: i0.Output }],
             search: [{ type: i0.Output }],
-            field: [{ type: i0.ContentChild, args: [ToolbarSearchFieldDirective,] }],
-            button: [{ type: i0.ContentChild, args: [ToolbarSearchButtonDirective,] }],
+            field: [{ type: i0.ContentChild, args: [ToolbarSearchFieldDirective, { static: true },] }],
+            button: [{ type: i0.ContentChild, args: [ToolbarSearchButtonDirective, { static: false },] }],
             animationStart: [{ type: i0.HostListener, args: ['@expanded.start', ['$event'],] }],
             animationDone: [{ type: i0.HostListener, args: ['@expanded.done', ['$event'],] }]
         };
         return ToolbarSearchComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42942,12 +42511,10 @@
         ];
         return ToolbarSearchModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42975,7 +42542,6 @@
         ];
         return VirtualForService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43327,7 +42893,6 @@
         };
         return VirtualForDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43566,13 +43131,12 @@
         };
         VirtualForContainerComponent.propDecorators = {
             itemSize: [{ type: i0.Input }],
-            virtualFor: [{ type: i0.ContentChild, args: [VirtualForDirective,] }],
+            virtualFor: [{ type: i0.ContentChild, args: [VirtualForDirective, { static: false },] }],
             updateContainer: [{ type: i0.HostListener, args: ['scroll',] }],
             onKeydown: [{ type: i0.HostListener, args: ['keydown', ['$event', '$event.keyCode'],] }]
         };
         return VirtualForContainerComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43587,7 +43151,6 @@
         ];
         return VirtualScrollCellDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43602,7 +43165,6 @@
         ];
         return VirtualScrollLoadButtonDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43617,7 +43179,6 @@
         ];
         return VirtualScrollLoadingDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43829,14 +43390,13 @@
             cellHeight: [{ type: i0.Input }],
             loadOnScroll: [{ type: i0.Input }],
             loading: [{ type: i0.Output }],
-            cellTemplate: [{ type: i0.ContentChild, args: [VirtualScrollCellDirective, { read: i0.TemplateRef },] }],
-            loadingIndicatorTemplate: [{ type: i0.ContentChild, args: [VirtualScrollLoadingDirective, { read: i0.TemplateRef },] }],
-            loadButtonTemplate: [{ type: i0.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: i0.TemplateRef },] }],
+            cellTemplate: [{ type: i0.ContentChild, args: [VirtualScrollCellDirective, { read: i0.TemplateRef, static: false },] }],
+            loadingIndicatorTemplate: [{ type: i0.ContentChild, args: [VirtualScrollLoadingDirective, { read: i0.TemplateRef, static: false },] }],
+            loadButtonTemplate: [{ type: i0.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: i0.TemplateRef, static: false },] }],
             renderCells: [{ type: i0.HostListener, args: ['scroll',] }]
         };
         return VirtualScrollComponent;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43866,12 +43426,10 @@
         ];
         return VirtualScrollModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43936,7 +43494,6 @@
         };
         return AutoGrowDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -43952,12 +43509,10 @@
         ];
         return AutoGrowModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44113,7 +43668,6 @@
         };
         return FixedHeaderTableDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44136,12 +43690,10 @@
         ];
         return FixedHeaderTableModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44261,7 +43813,6 @@
         };
         return FloatLabelDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44279,12 +43830,10 @@
         ];
         return FloatLabelModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44332,7 +43881,6 @@
         ];
         return HelpCenterService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44375,7 +43923,6 @@
         };
         return HelpCenterItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44393,12 +43940,10 @@
         ];
         return HelpCenterModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44488,7 +44033,6 @@
         ];
         return HoverActionService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44570,7 +44114,6 @@
         };
         return HoverActionContainerDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44654,7 +44197,6 @@
         };
         return HoverActionDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44678,12 +44220,10 @@
         ];
         return HoverActionModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44749,7 +44289,6 @@
         };
         return LayoutSwitcherItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44857,7 +44396,6 @@
         };
         return LayoutSwitcherDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44882,12 +44420,10 @@
         ];
         return LayoutSwitcherModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -44936,7 +44472,6 @@
         ];
         return MenuNavigationService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45000,7 +44535,6 @@
         };
         return MenuNavigationItemDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45124,7 +44658,6 @@
         };
         return MenuNavigationToggleDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45391,7 +44924,6 @@
         };
         return MenuNavigationDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45416,12 +44948,10 @@
         ];
         return MenuNavigationModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45543,7 +45073,6 @@
         };
         return OverflowDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45559,12 +45088,10 @@
         ];
         return ObserversModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45578,7 +45105,6 @@
         }
         return TreeGridState;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45805,7 +45331,6 @@
         };
         return TreeGridService;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45929,7 +45454,6 @@
         };
         return TreeGridRowDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -45966,7 +45490,6 @@
         };
         return TreeGridIndentDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46040,7 +45563,6 @@
         };
         return TreeGridDirective;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46064,12 +45586,10 @@
         ];
         return TreeGridModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46103,7 +45623,6 @@
         };
         return ContactsNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46139,7 +45658,6 @@
         };
         return ExpandInputNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46172,7 +45690,6 @@
         };
         return FloatingActionButtonNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46207,7 +45724,6 @@
         };
         return FlotNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46241,7 +45757,6 @@
         };
         return GridNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46271,7 +45786,6 @@
         };
         return HierarchyBarNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46309,7 +45823,6 @@
         };
         return MarqueeWizardNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46337,7 +45850,6 @@
         };
         return NestedDonutNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46370,7 +45882,6 @@
         };
         return OrganizationChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46399,7 +45910,6 @@
         };
         return PartitionMapNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46427,7 +45937,6 @@
         };
         return PeityBarChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46455,7 +45964,6 @@
         };
         return PeityLineChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46483,7 +45991,6 @@
         };
         return PeityPieChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46513,7 +46020,6 @@
         };
         return PeityUpdatingLineChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46543,7 +46049,6 @@
         };
         return SankeyNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46574,7 +46079,6 @@
         };
         return SearchToolbarNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46612,7 +46116,6 @@
         };
         return SelectTableNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46679,7 +46182,6 @@
         };
         return SliderChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46730,7 +46232,6 @@
         };
         return SocialChartNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46759,7 +46260,6 @@
         };
         return SortDirectionToggleNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46789,7 +46289,6 @@
         };
         return ThumbnailNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46831,7 +46330,6 @@
         };
         return TreeGridNg1Component;
     }(_static.UpgradeComponent));
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46920,7 +46418,6 @@
         useFactory: navigationMenuServiceFactory,
         deps: ['$injector']
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -46971,7 +46468,6 @@
         useFactory: pdfServiceFactory,
         deps: ['$injector']
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -47039,7 +46535,6 @@
         useFactory: timeAgoServiceFactory,
         deps: ['$injector']
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -47089,12 +46584,10 @@
         ];
         return HybridModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -47126,7 +46619,6 @@
         ];
         return StringFilterPipe;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -47142,23 +46634,21 @@
         ];
         return StringFilterModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var ɵ0 = function () { };
+    var ɵ0$3 = function () { };
     /** @type {?} */
     var timelineDefaultOptions = {
         timeline: {
             backgroundColor: '#f1f2f3',
             selectionColor: 'rgba(198, 23, 157, 0.15)',
-            onChange: ɵ0,
+            onChange: ɵ0$3,
             keyboard: {
                 step: 2592000000 // 30 days
             },
@@ -48229,12 +47719,10 @@
         Upper: 'upper',
         Range: 'range',
     };
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48320,7 +47808,6 @@
             };
         return CookieAdapter;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48395,7 +47882,6 @@
             };
         return LocalStorageAdapter;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48470,7 +47956,6 @@
             };
         return SessionStorageAdapter;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48603,7 +48088,6 @@
     PersistentDataStorageType[PersistentDataStorageType.LocalStorage] = 'LocalStorage';
     PersistentDataStorageType[PersistentDataStorageType.Cookie] = 'Cookie';
     PersistentDataStorageType[PersistentDataStorageType.SessionStorage] = 'SessionStorage';
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48618,7 +48102,6 @@
         ];
         return PersistentDataModule;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -48633,24 +48116,22 @@
         }
         return StorageAdapter;
     }());
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-
     exports.Color = Color;
     exports.tick = tick;
+    exports.isKeyboardTrigger = isKeyboardTrigger;
+    exports.isMouseTrigger = isMouseTrigger;
     exports.AccordionPanelHeadingDirective = AccordionPanelHeadingDirective;
     exports.AccordionPanelComponent = AccordionPanelComponent;
     exports.AccordionComponent = AccordionComponent;
@@ -48863,12 +48344,11 @@
     exports.ResizableTableColumnComponent = ResizableTableColumnComponent;
     exports.ResizableTableDirective = ResizableTableDirective;
     exports.TableModule = TableModule;
-    exports.TabsetModule = TabsetModule;
-    exports.TabsetComponent = TabsetComponent;
-    exports.TabsetService = TabsetService;
-    exports.TabComponent = TabComponent;
     exports.TabHeadingDirective = TabHeadingDirective;
-    exports.TabFocusDirective = TabFocusDirective;
+    exports.TabComponent = TabComponent;
+    exports.TabsetComponent = TabsetComponent;
+    exports.TabsetModule = TabsetModule;
+    exports.TabsetService = TabsetService;
     exports.TagInputEvent = TagInputEvent;
     exports.TagInputComponent = TagInputComponent;
     exports.TagInputModule = TagInputModule;
@@ -49085,9 +48565,6 @@
     exports.ɵbq = TreeGridService;
     exports.ɵa = KEPPEL_COLOR_SET;
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
-
     Object.defineProperty(exports, '__esModule', { value: true });
-
 })));
-
 //# sourceMappingURL=ux-aspects-ux-aspects.umd.js.map
