@@ -1,4 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
+
+
+@Pipe({
+    name: 'highlightSearch'
+})
+export class HighlightSearch implements PipeTransform {
+    transform(text: string, filter: string): string {
+        const highlightIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+        return (highlightIndex < 0) ?
+               text :
+               text.substr(0, highlightIndex) +
+                 '<b>' + text.substr(highlightIndex, filter.length) + '</b>' +
+                 text.substr(highlightIndex + filter.length);
+    }
+}
+
 
 @Component({
     selector: 'app',
@@ -25,21 +41,6 @@ export class AppComponent {
 
     isHidden(name: string): boolean {
         return this.filter && (this.filter.length > 0) && (this.index(name) === -1);
-    }
-
-    beforeHighlight(text: string): string {
-        const highlightIndex = this.index(text);
-        return (highlightIndex < 0) ? text : text.substr(0, highlightIndex);
-    }
-
-    highlightText(text: string): string {
-        const highlightIndex = this.index(text);
-        return (highlightIndex < 0) ? '' : text.substr(highlightIndex, this.filter.length);
-    }
-
-    afterHighlight(text: string): string {
-        const highlightIndex = this.index(text);
-        return (highlightIndex < 0) ? '' : text.substr(highlightIndex + this.filter.length);
     }
 
     navigateUp(event: KeyboardEvent): void {

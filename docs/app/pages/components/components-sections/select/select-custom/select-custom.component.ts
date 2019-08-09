@@ -1,8 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+
+
+@Pipe({name: 'highlightSearch'})
+export class HighlightSearch implements PipeTransform {
+    transform(text: string, filter: string): string {
+        const highlightIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+        return (highlightIndex < 0) ?
+               text :
+               text.substr(0, highlightIndex) +
+                 '<b>' + text.substr(highlightIndex, filter.length) + '</b>' +
+                 text.substr(highlightIndex + filter.length);
+    }
+}
+
 
 @Component({
     selector: 'uxd-components-select-custom',
@@ -32,6 +46,11 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
         },
         modules: [
             {
+                imports: ['HighlightSearch'],
+                library: './app.component',
+                declaration: true
+            }, 
+            {
                 imports: ['AccordionModule', 'CheckboxModule', 'NumberPickerModule', 'RadioButtonModule', 'SelectCustomModule'],
                 library: '@ux-aspects/ux-aspects'
             }
@@ -48,21 +67,6 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
 
     isHidden(name: string): boolean {
         return this.filter && (this.filter.length > 0) && (this.index(name) === -1);
-    }
-
-    beforeHighlight(text: string): string {
-        const highlightIndex = this.index(text);
-        return (highlightIndex < 0) ? text : text.substr(0, highlightIndex);
-    }
-
-    highlightText(text: string): string {
-        const highlightIndex = this.index(text);
-        return (highlightIndex < 0) ? '' : text.substr(highlightIndex, this.filter.length);
-    }
-
-    afterHighlight(text: string): string {
-        const highlightIndex = this.index(text);
-        return (highlightIndex < 0) ? '' : text.substr(highlightIndex + this.filter.length);
     }
 
     navigateUp(event: KeyboardEvent): void {

@@ -12,7 +12,7 @@ import { ComponentsSelectListComponent } from './select-list/select-list.compone
 import { ComponentsSelectNg1Component } from './select-ng1/select-ng1.component';
 import { ComponentsSelectComponent } from './select/select.component';
 import { ComponentsSingleSelectTableNg1Component } from './single-select-table-ng1/single-select-table-ng1.component';
-import { ComponentsSelectCustomComponent } from './select-custom/select-custom.component';
+import { ComponentsSelectCustomComponent, HighlightSearch } from './select-custom/select-custom.component';
 
 const SECTIONS = [
     ComponentsSelectComponent,
@@ -51,7 +51,7 @@ const ROUTES = [
         HybridModule
     ],
     exports: SECTIONS,
-    declarations: SECTIONS,
+    declarations: [...SECTIONS, HighlightSearch],
     entryComponents: SECTIONS
 })
 export class ComponentsSelectModule {

@@ -32,9 +32,8 @@
                         (valueChange)="selected = $event"
                         [option]="option"
                         [hidden]="isHidden(option.name)"
-                        [class.focused]="focusIndex === index">
-                        {{ beforeHighlight(option.name) }}<span class="highlight">{{ highlightText(option.name)
-                        }}</span>{{ afterHighlight(option.name) }}
+                        [class.focused]="focusIndex === index"
+                        [innerHTML]="option.name | highlightSearch: filter">
                     </ux-radio-button>
                 </div>
             </ng-template>
@@ -42,8 +41,6 @@
         </ux-select-custom>
     </div>
 </div>
-
-<p class="dropdown-placeholder">Filter string: <b>{{ filter }}</b></p>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
