@@ -25,7 +25,6 @@ describe('SelectCustomComponent', () => {
     fixture.detectChanges();
 
     component.filterInputElement = new ElementRef({focus: () => true});
-    component.filterChangeDebounce = 0;
   });
 
   it('should create', () => {
@@ -33,14 +32,16 @@ describe('SelectCustomComponent', () => {
   });
 
   it('should reset filter correctly', () => {
+    component.filterText = 'Tralala';
+
+    spyOn(component.filterChange, 'emit');
     spyOn(component.filterInputElement.nativeElement, 'focus');
-    spyOn(component.filterTextChanged$, 'next');
 
     component.resetFilter(new MouseEvent('click'));
 
     fixture.detectChanges();
-
-    expect(component.filterTextChanged$.next).toHaveBeenCalledWith('');
+    expect(component.filterText).toEqual('');
+    expect(component.filterChange.emit).toHaveBeenCalledWith('');
     expect(component.filterInputElement.nativeElement.focus).toHaveBeenCalledWith();
   });
 

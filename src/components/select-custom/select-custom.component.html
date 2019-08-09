@@ -27,7 +27,7 @@
                         [placeholder]="placeholder"
                         class="filter-input"
                         [(ngModel)]="filterText"
-                        (ngModelChange)='onFilterTextChanged($event)'
+                        (input)="filterChange.emit(filterText)"
                         (click)="$event.stopPropagation()" />
 
                 <button type="button"

@@ -1,7 +1,21 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+
 // import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
 
 
@@ -20,16 +34,13 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
         '[style.width.px]': 'width'
     }
 })
-export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
+export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
 
     /** Define the selected item */
     @Input() selected: T;
 
     /** Hide the filter input */
     @Input() hideFilter: boolean;
-
-    /** Debounce the filter change event emitter */
-    @Input() filterChangeDebounce: number = 500;
 
     /** Define the width of the component */
     @Input() width: number;
@@ -59,7 +70,6 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef;
 
     filterText: string = '';
-    filterTextChanged$: Subject<string> = new Subject<string>();
 
     onChange: (_: T) => void = () => { };
     onTouched: () => void = () => { };
@@ -67,17 +77,6 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     private readonly _onDestroy$ = new Subject<void>();
 
     constructor() { }
-
-    ngOnInit(): void {
-        this.filterTextChanged$.pipe(
-            debounceTime(this.filterChangeDebounce),
-            distinctUntilChanged(), // only emit if value is different from previous value
-            takeUntil(this._onDestroy$)
-        ).subscribe(textValue => {
-            this.filterText = textValue;
-            this.filterChange.emit(this.filterText);
-        });
-    }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
@@ -92,13 +91,10 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     }
 
     resetFilter(event: MouseEvent): void {
-        this.filterTextChanged$.next('');
+        this.filterText = '';
+        this.filterChange.emit(this.filterText);
         this.filterInputElement.nativeElement.focus();
         event.stopPropagation();
-    }
-
-    onFilterTextChanged(textValue: string): void {
-        this.filterTextChanged$.next(textValue);
     }
 
     registerOnChange(onChange: (value: T) => void): void {

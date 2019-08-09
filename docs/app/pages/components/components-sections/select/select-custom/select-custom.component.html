@@ -32,8 +32,8 @@
                         (valueChange)="selected = $event"
                         [option]="option"
                         [hidden]="isHidden(option.name)"
-                        [class.focused]="focusIndex === index"
-                        [innerHTML]="option.name | highlightSearch: filter">
+                        [class.focused]="focusIndex === index">
+                        <span [innerHTML]="option.name | highlightSearch: filter"></span>
                     </ux-radio-button>
                 </div>
             </ng-template>
