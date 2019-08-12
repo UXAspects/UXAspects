@@ -3,7 +3,7 @@
 
         <ux-select-custom
             [(selected)]="selected"
-            (filterChange)="filter = $event"
+            (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
             [busy]="showBusyIndicator"
             [maxHeight]="componentMaxHeight"
@@ -25,12 +25,11 @@
                      (keydown.arrowDown)="navigateDown($event)">
 
                     <ux-radio-button
-                        *ngFor="let option of optionList; let index = index"
+                        *ngFor="let option of filteredOptionList; let index = index"
                         name="group"
                         [value]="selected"
                         (valueChange)="selected = $event"
                         [option]="option"
-                        [hidden]="isHidden(option.name)"
                         [class.focused]="focusIndex === index">
                         <span [innerHTML]="option.name | highlightSearch: filter"></span>
                     </ux-radio-button>
@@ -73,7 +72,7 @@
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
-                        <button class="btn button-primary" (click)="selected = optionList[0]">Select first element</button>
+                        <button class="btn button-primary" (click)="selected = filteredOptionList[0]">Select first element</button>
                     </div>
                 </div>
             </ux-accordion-panel>
