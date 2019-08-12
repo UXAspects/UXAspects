@@ -29,17 +29,17 @@
         <div class="btn-group icon-resize-buttons">
             <button type="button"
                     class="btn button-toggle-primary icon-resize-button"
-                    [(ngModel)]="iconSizeValue"
+                    [(ngModel)]="size"
                     btnRadio="16px">16px
             </button>
             <button type="button"
                     class="btn button-toggle-primary icon-resize-button"
-                    [(ngModel)]="iconSizeValue"
+                    [(ngModel)]="size"
                     btnRadio="24px">24px
             </button>
             <button type="button"
                     class="btn button-toggle-primary icon-resize-button"
-                    [(ngModel)]="iconSizeValue"
+                    [(ngModel)]="size"
                     btnRadio="32px">32px
             </button>
         </div>
@@ -53,7 +53,7 @@
             [name]="icon.name"
             [classname]="icon.classname"
             [iconset]="iconset"
-            [iconSizeValue]="iconSizeValue"
+            [size]="size"
             [iconSetClass]="iconSetClass">
         </uxd-icon-preview>
     </div>
