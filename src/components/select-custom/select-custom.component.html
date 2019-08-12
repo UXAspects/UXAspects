@@ -25,7 +25,7 @@
                 <input #filterInput
                         type="text"
                         [placeholder]="placeholder"
-                        class="filter-input"
+                        class="form-control"
                         [(ngModel)]="filterText"
                         (input)="filterChange.emit(filterText)"
                         (click)="$event.stopPropagation()" />
