@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Facet, FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '@ux-aspects/ux-aspects';
-import 'chance';
 
 @Component({
     selector: 'facet-check-list-app',

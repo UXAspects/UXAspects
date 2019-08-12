@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextComponent, SearchDateRangeComponent, SearchDateRangeConfig, SearchTextConfig, SearchSelectComponent, SearchSelectConfig, SearchDateComponent, SearchDateConfig } from '@ux-aspects/ux-aspects';
-import 'chance';
 
 @Component({
     selector: 'app-search-builder',
@@ -72,7 +71,7 @@ export class SearchBuilderTestPageComponent {
         const custodians: string[] = [];
 
         for (let idx = 0; idx < 20; idx++) {
-            custodians.push(chance.name());
+            custodians.push(`User ${idx}`);
         }
 
         return custodians;

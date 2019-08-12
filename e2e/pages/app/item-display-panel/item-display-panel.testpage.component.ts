@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
-import 'chance';
 
 @Component({
     selector: 'item-display-panel-app',
