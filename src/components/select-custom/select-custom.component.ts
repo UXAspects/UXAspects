@@ -16,7 +16,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 
-// import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
+import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
 
 
 @Component({
@@ -60,7 +60,7 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     @ContentChild('dropdownContent', { static: false }) dropdownContentRef: TemplateRef<void>;
     @ContentChild('buttonContent', { static: false }) buttonContentRef: TemplateRef<void>;
 
-    // @ViewChild(MenuTriggerDirective, { static: false }) menuTrigger: MenuTriggerDirective;
+    @ViewChild(MenuTriggerDirective, { static: false }) menuTrigger: MenuTriggerDirective;
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef;
 
     filterText: string = '';
@@ -74,6 +74,7 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
+            this.menuTrigger.closeMenu();
             this.onChange(changes.selected.currentValue);
             this.onTouched();
         }
@@ -102,7 +103,6 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
     writeValue(value: T): void {
         this.selected = value;
         this.selectedChange.emit(value);
-        // this.menuTrigger.closeMenu();
     }
 
     resetValue(event: Event): void {
