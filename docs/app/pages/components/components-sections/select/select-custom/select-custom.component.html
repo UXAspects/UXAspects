@@ -15,23 +15,18 @@
 
             <ng-template #dropdownContent>
 
-                <div role="radiogroup"
-                     class="radio-button-container"
-                     tabindex="0"
-                     (keydown.space)="selectButton($event)"
-                     (keydown.up)="navigateUp($event)"
-                     (keydown.arrowUp)="navigateUp($event)"
-                     (keydown.down)="navigateDown($event)"
-                     (keydown.arrowDown)="navigateDown($event)">
-
+                <div class="radio-button-container"
+                     uxTabbableList>
                     <ux-radio-button
-                        *ngFor="let option of filteredOptionList; let index = index"
+                        uxTabbableListItem
+                        *ngFor="let option of filteredOptionList"
                         name="group"
                         [value]="selected"
                         (valueChange)="selected = $event"
                         [option]="option"
-                        [class.focused]="focusIndex === index">
-                        <span [innerHTML]="option.name | highlightSearch: filter"></span>
+                        (keydown.space)="selectButton($event, option)">
+                        <span [innerHTML]="option.name | highlightSearch: filter">
+                        </span>
                     </ux-radio-button>
                 </div>
             </ng-template>

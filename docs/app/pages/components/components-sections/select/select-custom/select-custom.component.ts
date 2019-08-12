@@ -36,7 +36,6 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
     allowNull: boolean = false;
     componentMaxHeight: number = 400;
     placeholder: string = 'Type to search...';
-    focusIndex: number = 0;
 
     playground: IPlayground = {
         files: {
@@ -62,7 +61,7 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
     }
 
     ngOnInit(): void {
-        this.filterList(); 
+        this.filterList();
     }
 
     private index(text: string): number {
@@ -72,27 +71,13 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
     isHidden(name: string): boolean {
         return this.filter && (this.filter.length > 0) && (this.index(name) === -1);
     }
-
-    navigateUp(event: KeyboardEvent): void {
-        if (this.focusIndex > 0) {
-            this.focusIndex--;
-            event.preventDefault();
-        }
-    }
-
-    navigateDown(event: KeyboardEvent): void {
-        if (this.focusIndex < this.filteredOptionList.length - 1) {
-            this.focusIndex++;
-            event.preventDefault();
-        }
-    }
-
-    selectButton(event: KeyboardEvent): void {
-        this.selected = this.filteredOptionList[this.focusIndex];
+    
+    selectButton(event: KeyboardEvent, option: RadioOption): void {
+        this.selected = option;
         event.preventDefault();
     }
 
-    public setFilter($event: string) {
+    setFilter($event: string) {
         this.filter = $event;
         this.filterList();
     }

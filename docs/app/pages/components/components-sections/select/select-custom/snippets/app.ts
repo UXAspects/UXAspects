@@ -1,9 +1,7 @@
-import { Component, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 
 
-@Pipe({
-    name: 'highlightSearch'
-})
+@Pipe({name: 'highlightSearch'})
 export class HighlightSearch implements PipeTransform {
     transform(text: string, filter: string): string {
         const highlightIndex = text.toLowerCase().indexOf(filter.toLowerCase());
@@ -21,18 +19,22 @@ export class HighlightSearch implements PipeTransform {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
     selected: RadioOption;
     optionList: ReadonlyArray<RadioOption> = [
         { name: 'One' }, { name: 'Two' }, { name: 'Three' }, { name: 'Four' }
     ];
+    filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
     showBusyIndicator: boolean = false;
     allowNull: boolean = false;
     componentMaxHeight: number = 400;
     placeholder: string = 'Type to search...';
-    focusIndex: number = 0;
+
+    ngOnInit(): void {
+        this.filterList();
+    }
 
     private index(text: string): number {
         return text.toLowerCase().indexOf(this.filter.toLowerCase());
@@ -41,24 +43,22 @@ export class AppComponent {
     isHidden(name: string): boolean {
         return this.filter && (this.filter.length > 0) && (this.index(name) === -1);
     }
-
-    navigateUp(event: KeyboardEvent): void {
-        if (this.focusIndex > 0) {
-            this.focusIndex--;
-            event.preventDefault();
-        }
-    }
-
-    navigateDown(event: KeyboardEvent): void {
-        if (this.focusIndex < this.optionList.length - 1) {
-            this.focusIndex++;
-            event.preventDefault();
-        }
-    }
-
-    selectButton(event: KeyboardEvent): void {
-        this.selected = this.optionList[this.focusIndex];
+    
+    selectButton(event: KeyboardEvent, option: RadioOption): void {
+        this.selected = option;
         event.preventDefault();
+    }
+
+    setFilter($event: string) {
+        this.filter = $event;
+        this.filterList();
+    }
+
+    private filterList() {
+        this.filteredOptionList =
+          this.filter && (this.filter.length > 0) ?
+          this.optionList.filter(option => (this.index(option.name) > -1)) :
+          this.optionList;
     }
 }
 
