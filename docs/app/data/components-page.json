@@ -892,6 +892,21 @@
                     "component": "ComponentsTagsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
+                },
+                {
+                    "title": "Typeahead",
+                    "component": "ComponentsTypeaheadComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-typeahead"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TypeaheadModule"
+                        }
+                    ]
                 }
             ]
         },
