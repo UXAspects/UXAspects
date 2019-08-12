@@ -45,7 +45,6 @@ const ROUTES = [
         FormsModule,
         MenuModule,
         MenuNavigationModule,
-        MenuNavigationModule,
         PaginationModule,
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
