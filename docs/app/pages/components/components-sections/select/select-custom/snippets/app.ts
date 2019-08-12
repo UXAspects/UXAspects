@@ -19,7 +19,7 @@ export class HighlightSearch implements PipeTransform {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
     selected: RadioOption;
     optionList: ReadonlyArray<RadioOption> = [
