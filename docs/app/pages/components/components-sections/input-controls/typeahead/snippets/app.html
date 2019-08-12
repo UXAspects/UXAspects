@@ -1,10 +1,52 @@
-<div class="row m-b-md">
+<div class="row">
     <div class="col-md-12 form-group-validate has-feedback">
         <form>
-            <typeahead-container>
-                <ux-typeahead>
-                </ux-typeahead>
-            </typeahead-container>
+            <input #singleInput
+                   [value]="value"
+                   [(ngModel)]="input"
+                   [ngModelOptions]="{standalone: true}"
+                   [placeholder]="'Enter Text'"
+                   class="form-control"
+                   (keydown.enter)="$event.preventDefault()"
+                   (click)="dropdown(); $event.stopPropagation();"
+                   (keydown)="dropdown(); typeaheadKeyService.handleKey($event, typeahead);
+                $event.stopPropagation();">
+            <ux-typeahead #typeahead
+                          class="typeahead-example"
+                          [open]="dropdownOpened"
+                          [filter]="input"
+                          [pageSize]="5"
+                          [options]="loadOptions"
+                          [openOnFilterChange]="true"
+                          [selectOnEnter]="selectOnEnter"
+                          [selectFirst]="selectFirst"
+                          [dropDirection]="dropDirection"
+                          (optionSelected)="singleOptionSelected($event)">
+            </ux-typeahead>
         </form>
+    </div>
+</div>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="selectFirst">selectFirst</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="selectOnEnter">selectOnEnter</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label>dropDirection</label>
+                        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+                        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>

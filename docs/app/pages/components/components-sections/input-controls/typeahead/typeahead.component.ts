@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -16,18 +16,27 @@ export class ComponentsTypeaheadComponent<T> extends BaseDocumentationSection im
 
     dropdownOpened: boolean = false;
 
-    allTags = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'];
+    selectOnEnter: boolean = false;
 
     private _input$ = new BehaviorSubject<string>('');
 
-    private _value$ = new BehaviorSubject<T>(null);
+    private  _value$ = new BehaviorSubject<T>(null);
 
-    selectFirst: boolean = true;
     dropDirection: 'up' | 'down' = 'down';
+
+    selectFirst: boolean = false;
+
+    loadOptions(pageNum: number, pageSize: number, filter: string) {
+
+        const allTags = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'];
+
+        return allTags.filter(tag => tag.toLowerCase().indexOf(filter.toLowerCase()) !== -1).slice(pageNum * pageSize, (pageNum + 1) * pageSize);
+    }
 
     @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
 
-    /** The selected option (for single select) or array of options (for multiple select). */
+
+    /** The selected option */
     @Input()
     set value(value: T) {
         this._value$.next(value);
@@ -36,14 +45,17 @@ export class ComponentsTypeaheadComponent<T> extends BaseDocumentationSection im
         return this._value$.value;
     }
 
+    /** selected option and closing dropdown **/
+
     singleOptionSelected(event: TypeaheadOptionEvent): void {
-        console.log(event);
         if (event.option) {
             this.value = event.option;
             this.dropdownOpened = false;
         }
     }
 
+
+    /** Opening the dropdown with filter options. */
     dropdown() {
         this.dropdownOpened = true;
     }
