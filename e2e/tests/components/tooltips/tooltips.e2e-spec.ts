@@ -10,6 +10,8 @@ describe('Tooltips', () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
         expect(await page.tooltip.isPresent()).toBe(false);
 
+        expect(await browser.imageComparison.checkScreen('tooltip-initial')).toEqual(0);
+
         await page.reset();
     });
 
@@ -21,6 +23,8 @@ describe('Tooltips', () => {
         // the tooltip should now be visible
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.tooltip.isPresent()).toBe(true);
+
+        expect(await browser.imageComparison.checkScreen('tooltip-open')).toEqual(0);
 
         await page.reset();
     });

@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder, protractor } from 'protractor';
+import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export class ItemDisplayPanelPage {
 
@@ -15,7 +15,7 @@ export class ItemDisplayPanelPage {
     nextButton = element(by.id('panel1')).$('div.ux-item-display-panel > div.ux-side-panel-footer button:nth-of-type(2)');
 
     confirmClassExists(item: ElementFinder, soughtClass: string) {
-        return item.getAttribute('class').then(function(classes: string) {
+        return item.getAttribute('class').then(function (classes: string) {
             var allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
@@ -57,34 +57,30 @@ export class ItemDisplayPanelPage {
         return this.closeButton.isPresent();
     }
 
-    checkPanelPreviousButtonIsEnabled() {
-        return(this.previousButton.getAttribute('disabled').then(function(attr: string) {
-                return (attr) ? false : true;
-            })
-        );
+    async checkPanelPreviousButtonIsEnabled() {
+        const disabled = await this.previousButton.getAttribute('disabled');
+        return disabled ? false : true;
     }
 
-    checkPanelNextButtonIsEnabled() {
-        return(this.nextButton.getAttribute('disabled').then(function(attr: string) {
-                return (attr) ? false : true;
-            })
-        );
+    async checkPanelNextButtonIsEnabled() {
+        const disabled = await this.nextButton.getAttribute('disabled');
+        return disabled ? false : true;
     }
 
-    clickCloseButton() {
+    async clickCloseButton() {
         // Sometimes fails with button no visible. Therefore, wait for it to become visible.
-        var EC = protractor.ExpectedConditions;
-        var elem = this.closeButton;
+        const EC = protractor.ExpectedConditions;
+        const elem = this.closeButton;
         browser.wait(EC.visibilityOf(elem));
-        elem.click();
+        await elem.click();
     }
 
-    clickPreviousButton() {
-        this.previousButton.click();
+    async clickPreviousButton() {
+        await this.previousButton.click();
     }
 
-    clickNextButton() {
-        this.nextButton.click();
+    async clickNextButton() {
+        await this.nextButton.click();
     }
 }
 

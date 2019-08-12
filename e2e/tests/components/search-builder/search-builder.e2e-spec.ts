@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { SearchBuilderPage } from './search-builder.po.spec';
 
 describe('Search Builder Tests', () => {
@@ -17,6 +18,8 @@ describe('Search Builder Tests', () => {
         expect(query.all.length).toBe(0);
         expect(query.none.length).toBe(0);
         expect(await page.getValid()).toBeTruthy();
+
+        expect(await browser.imageComparison.checkScreen('search-builder-initial')).toEqual(0);
     });
 
     it('should be able to add a text component', async () => {
@@ -33,6 +36,8 @@ describe('Search Builder Tests', () => {
         expect(query.all.length).toBe(0);
         expect(query.none.length).toBe(0);
         expect(await page.getValid()).toBeTruthy();
+
+        expect(await browser.imageComparison.checkScreen('search-builder-text')).toEqual(0);
     });
 
     it('should be able to add a date component', async () => {
@@ -81,6 +86,8 @@ describe('Search Builder Tests', () => {
         expect(query.all.length).toBe(0);
         expect(query.none.length).toBe(1);
         expect(await page.getValid()).toBeTruthy();
+
+        expect(await browser.imageComparison.checkScreen('search-builder-select')).toEqual(0);
     });
 
     it('should update when the query object changes', async () => {

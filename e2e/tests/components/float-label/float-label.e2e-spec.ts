@@ -21,7 +21,7 @@ describe('Float Label', () => {
             await page.locationInput.click();
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
 
-            expect(browser.imageComparison.checkScreen('float-label-initial')).toEqual(0);
+            expect(await browser.imageComparison.checkScreen('float-label-initial')).toEqual(0);
         });
 
         it('should be visible while input has text', async () => {
@@ -37,7 +37,7 @@ describe('Float Label', () => {
             await page.usernameInput.sendKeys(Key.BACK_SPACE);
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
 
-            expect(browser.imageComparison.checkScreen('float-label-raised')).toEqual(0);
+            expect(await browser.imageComparison.checkScreen('float-label-raised')).toEqual(0);
         });
 
         it('should become visible when `raised` becomes true', async () => {

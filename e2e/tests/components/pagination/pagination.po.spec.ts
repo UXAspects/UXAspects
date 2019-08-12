@@ -27,7 +27,7 @@ export class PaginationPage {
         return this.pagination.$('ul.pagination').$$('li.page-item').get(index);
     }
 
-    clickButton(index: number) {
-        this.pagination.$('ul.pagination').$$('li.page-item').get(index).$('a').click();
+    async clickButton(index: number) {
+        await this.pagination.$('ul.pagination').$$('li.page-item').get(index).$('a').click();
     }
 }

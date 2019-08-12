@@ -24,8 +24,8 @@ export class FacetCheckListPage {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('span.facet-selected-tag-label').getText();
     }
 
-    closeFacet(index: number) {
-        this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
+    async closeFacet(index: number) {
+        await this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
     }
 
     getNoItemsLabel() {

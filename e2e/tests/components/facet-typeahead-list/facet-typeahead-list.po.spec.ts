@@ -24,8 +24,8 @@ export class FacetTypeaheadListPage {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('span.facet-selected-tag-label').getText();
     }
 
-    closeFacet(index: number) {
-        this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
+    async closeFacet(index: number) {
+        await this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
     }
 
     getNoItemsLabel() {
@@ -62,8 +62,8 @@ export class FacetTypeaheadListPage {
             });
     }
 
-    addTextToTypeaheadInput(text: string) {
-        this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
+    async addTextToTypeaheadInput(text: string) {
+        await this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
             $('div.facet-typeahead-list-control').$('input').sendKeys(text);
     }
 

@@ -1,7 +1,7 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class SlidersPage {
-        
+
     slider1 = element(by.id('slider1'));
     slider2 = element(by.id('slider2'));
     slider3 = element(by.id('slider3'));
@@ -16,7 +16,7 @@ export class SlidersPage {
     getPage(): void {
         browser.get('#/sliders');
     }
-    
+
     getHandleAttribute(slider: ElementFinder, handle: string, attribute: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').getAttribute(attribute);
@@ -24,59 +24,59 @@ export class SlidersPage {
             return slider.$('div.track').$('div.thumb.upper').getAttribute(attribute);
         }
     }
-    
-    mouseDownOnHandle(slider: ElementFinder, handle: string) {
+
+    async mouseDownOnHandle(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
-            browser.actions().mouseDown(slider.$('div.track').$('div.thumb.lower')).perform();
+            await browser.actions().mouseDown(slider.$('div.track').$('div.thumb.lower')).perform();
         } else {
-            browser.actions().mouseDown(slider.$('div.track').$('div.thumb.upper')).perform();
+            await browser.actions().mouseDown(slider.$('div.track').$('div.thumb.upper')).perform();
         }
     }
-    
-    mouseUpFromHandle(slider: ElementFinder, handle: string) {
+
+    async mouseUpFromHandle(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
-            browser.actions().mouseUp(slider.$('div.track').$('div.thumb.lower')).perform();
+            await browser.actions().mouseUp(slider.$('div.track').$('div.thumb.lower')).perform();
         } else {
-            browser.actions().mouseUp(slider.$('div.track').$('div.thumb.upper')).perform();
+            await browser.actions().mouseUp(slider.$('div.track').$('div.thumb.upper')).perform();
         }
     }
-    
-    moveMouseToHandle(slider: ElementFinder, handle: string) {
+
+    async moveMouseToHandle(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
-            browser.actions().mouseMove(slider.$('div.track').$('div.thumb.lower')).perform();
+            await browser.actions().mouseMove(slider.$('div.track').$('div.thumb.lower')).perform();
         } else {
-            browser.actions().mouseMove(slider.$('div.track').$('div.thumb.upper')).perform();
+            await browser.actions().mouseMove(slider.$('div.track').$('div.thumb.upper')).perform();
         }
     }
-    
-    moveHandleToTick(slider: ElementFinder, handle: string, tick: number) {
+
+    async moveHandleToTick(slider: ElementFinder, handle: string, tick: number) {
         if (handle === 'lower') {
-            browser.actions().
+            await browser.actions().
                 mouseDown(slider.$('div.track').$('div.thumb.lower')).
                 mouseMove(slider.$('div.tick-container').$$('div.tick').get(tick)).
                 mouseUp(slider.$('div.track').$('div.thumb.lower')).
                 perform();
         } else {
-            browser.actions().
+            await browser.actions().
                 mouseDown(slider.$('div.track').$('div.thumb.upper')).
                 mouseMove(slider.$('div.tick-container').$$('div.tick').get(tick)).
                 mouseUp(slider.$('div.track').$('div.thumb.upper')).
                 perform();
         }
     }
-    
-    moveMouseToTick(slider: ElementFinder, tick: number) {
-        browser.actions().mouseMove(slider.$('div.tick-container').$$('div.tick').get(tick)).perform();
+
+    async moveMouseToTick(slider: ElementFinder, tick: number) {
+        await browser.actions().mouseMove(slider.$('div.tick-container').$$('div.tick').get(tick)).perform();
     }
-    
-    dragAndDropHandle(slider: ElementFinder, handle: string, offset: { x: number, y: number }) {
+
+    async dragAndDropHandle(slider: ElementFinder, handle: string, offset: { x: number, y: number }) {
         if (handle === 'lower') {
-            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.lower'), offset).perform();
+            await browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.lower'), offset).perform();
         } else {
-            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.upper'), offset).perform();
+            await browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.upper'), offset).perform();
         }
     }
-    
+
     getTooltipValue(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').$('div.tooltip-inner').getText();
@@ -84,7 +84,7 @@ export class SlidersPage {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').$('div.tooltip-inner').getText();
         }
     }
-    
+
     getTooltipAttribute(slider: ElementFinder, handle: string, attribute: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').$('div.tooltip-inner').getAttribute(attribute);
@@ -100,7 +100,7 @@ export class SlidersPage {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').getAttribute('class');
         }
     }
-    
+
     confirmTooltipExists(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').$('div.tooltip-inner').isPresent();
@@ -108,28 +108,28 @@ export class SlidersPage {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').$('div.tooltip-inner').isPresent();
         }
     }
-    
+
     getSliderRangeAttribute(slider: ElementFinder, attribute: string) {
         return slider.$('div.track').$('div.track-range').getAttribute(attribute);
     }
-    
+
     getTickAttribute(slider: ElementFinder, attribute: string, tick: number) {
         return slider.$('div.tick-container').$$('div.tick').get(tick).getAttribute(attribute);
     }
-    
+
     getTickLabel(slider: ElementFinder, tick: number) {
         return slider.$('div.tick-container').$$('div.tick').get(tick).$('div.tick-label').getText();
     }
-    
+
     confirmTicksExist(slider: ElementFinder) {
         return slider.$('.tick-container').isPresent();
     }
-    
+
     getInputValue(input: ElementFinder) {
         return input.getAttribute('value');
     }
-    
-    clickOnSlider(slider: ElementFinder) {
-        slider.$('div.track').click();
+
+    async clickOnSlider(slider: ElementFinder) {
+        await slider.$('div.track').click();
     }
 }

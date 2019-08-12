@@ -26,7 +26,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['./tests/**/column-resizing/**/*e2e-spec.ts'],
+  specs: ['./tests/**/**/*e2e-spec.ts'],
 
   // protractor_istanbul_plugin package
   plugins: [

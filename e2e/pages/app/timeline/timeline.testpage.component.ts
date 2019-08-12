@@ -13,32 +13,32 @@ export class TimelineTestPageComponent {
 
     events: TimelineEvent[] = [{
         color: 'accent',
-        date: new Date(this._now + (this._dayInMilliSeconds * 3)),
+        date: new Date(2019, 9, 15),
         url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
+        id: 6831,
         action: 'tested',
-        assignee: chance.name()
+        assignee: 'Lettie Bradley'
     }, {
         color: 'alternate2',
-        date: new Date(this._now + (this._dayInMilliSeconds * 2)),
+        date: new Date(2019, 9, 14),
         url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
+        id: 9774,
         action: 'reviewed',
-        assignee: chance.name()
+        assignee: 'Joe Mills'
     }, {
         color: 'grey4',
-        date: new Date(this._now + this._dayInMilliSeconds),
+        date: new Date(2019, 9, 13),
         url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
+        id: 6632,
         action: 'developed',
-        assignee: chance.name()
+        assignee: 'Mable Hammond'
     }, {
         color: 'primary',
-        date: new Date(this._now),
+        date: new Date(2019, 9, 12),
         url: '#',
-        id: chance.integer({ min: 1000, max: 9999 }),
+        id: 8185,
         action: 'recorded',
-        assignee: chance.name()
+        assignee: 'Ellen Obrien'
     }];
 
     private _events = [...this.events];
@@ -47,11 +47,11 @@ export class TimelineTestPageComponent {
         this._daysAfterFirstEvent++;
         this.events.unshift({
             color: 'grey4',
-            date: new Date(this._now + (this._dayInMilliSeconds * this._daysAfterFirstEvent)),
+            date: new Date(2019, 9, 12 + this._daysAfterFirstEvent),
             url: '#',
-            id: chance.integer({ min: 1000, max: 9999 }),
+            id: 2298,
             action: 'updated',
-            assignee: chance.name()
+            assignee: 'Madge Simpson'
         });
     }
 

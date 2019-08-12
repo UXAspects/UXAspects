@@ -26,7 +26,7 @@ describe('Card Tab Tests', () => {
         expect(await page.getTabContent()).toBe('Tab 1 Content');
 
         // screenshot the page
-        expect(browser.imageComparison.checkScreen('card-tabs-initial')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('card-tabs-initial')).toEqual(0);
     });
 
     it('should select a card on click', async () => {
@@ -47,8 +47,6 @@ describe('Card Tab Tests', () => {
 
         // expect the tab content to be updated
         expect(await page.getTabContent()).toBe('Tab 2 Content');
-
-        expect(browser.imageComparison.checkScreen('card-tabs-click-selected')).toEqual(0);
     });
 
     it('should select a card on enter', async () => {
@@ -82,7 +80,7 @@ describe('Card Tab Tests', () => {
         // get the scroll position now
         expect(await page.getScrollPosition()).toBe(-400);
 
-        expect(browser.imageComparison.checkScreen('card-tabs-show-more')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('card-tabs-show-more')).toEqual(0);
     });
 
     it('should be able to scroll back again', async () => {
@@ -108,7 +106,7 @@ describe('Card Tab Tests', () => {
         // get the scroll position now
         expect(await page.getScrollPosition()).toBe(0);
 
-        expect(browser.imageComparison.checkScreen('card-tabs-click-show-less')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('card-tabs-click-show-less')).toEqual(0);
     });
 
     it('should be able to change the position', async () => {
@@ -121,7 +119,7 @@ describe('Card Tab Tests', () => {
         // get the current position
         expect(await page.getPosition()).toBe('bottom');
 
-        expect(browser.imageComparison.checkScreen('card-tabs-position')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('card-tabs-position')).toEqual(0);
     });
 
 });

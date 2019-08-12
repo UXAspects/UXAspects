@@ -29,7 +29,7 @@ describe('Number Picker Tests', () => {
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'down')).toBeTruthy();
         expect(await page.confirmErrorMessage2IsVisible()).toBeFalsy();
 
-        expect(browser.imageComparison.checkScreen('number-picker-initial')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('number-picker-initial')).toEqual(0);
 
     });
 
@@ -106,7 +106,7 @@ describe('Number Picker Tests', () => {
         await page.setNumberPickerValue(page.numberPicker2, '-0.5');
         expect(await page.confirmErrorMessage2IsVisible()).toBeTruthy();
 
-        expect(browser.imageComparison.checkScreen('number-picker-invalid')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('number-picker-invalid')).toEqual(0);
 
     });
 

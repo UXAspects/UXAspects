@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { SplitterPage } from './splitter.po.spec';
 
 describe('SplitterPage Tests', () => {
@@ -18,6 +19,8 @@ describe('SplitterPage Tests', () => {
         expect(valuenow).toBe('40');
         expect(valuemin).toBe('0');
         expect(valuemax).toBe('100');
+
+        expect(await browser.imageComparison.checkScreen('splitter-initial')).toEqual(0);
     });
 
     it('should move left when left arrow key is pressed', async () => {

@@ -7,19 +7,29 @@ import 'chance';
 })
 export class ReorderableTableTestPageComponent {
 
-    data: ReorderableTableData[] = [];
-
-    constructor() {
-        for (let idx = 0; idx < 3; idx++) {
-            this.data.push({
-                document: `Document ${idx}`,
-                author: chance.name(),
-                date: chance.date({ year: 2018 }) as Date,
-                completed: chance.integer({ min: 10, max: 100 }),
-                active: chance.bool()
-            });
+    data: ReorderableTableData[] = [
+        {
+            document: 'Document 1',
+            author: 'Francis Porter',
+            date: new Date(2019, 2, 2),
+            completed: 92,
+            active: false
+        },
+        {
+            document: 'Document 2',
+            author: 'Catherine Holt',
+            date: new Date(2019, 4, 13),
+            completed: 71,
+            active: true
+        },
+        {
+            document: 'Document 3',
+            author: 'Sue Sherman',
+            date: new Date(2019, 5, 4),
+            completed: 40,
+            active: true
         }
-    }
+    ];
 }
 
 @Pipe({

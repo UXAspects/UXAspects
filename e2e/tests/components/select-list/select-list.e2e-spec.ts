@@ -9,6 +9,8 @@ describe('Select List Tests', () => {
     it('should have correct initial state', async () => {
         expect(await page.getItemCount()).toBe(20);
         expect(await page.getSelection()).toBe('');
+
+        expect(await browser.imageComparison.checkScreen('select-list-initial')).toEqual(0);
     });
 
     it('should select an item', async () => {

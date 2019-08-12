@@ -35,8 +35,8 @@ export class CheckBoxesPage {
         return checkbox.$('.ux-checkbox-simplified').isPresent();
     }
 
-    toggleByKey(checkbox: ElementFinder, key: string) {
-        checkbox.$('.ux-checkbox').sendKeys(key);
+    async toggleByKey(checkbox: ElementFinder, key: string) {
+        await checkbox.$('.ux-checkbox').sendKeys(key);
     }
 }
 

@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { SidePanelPage } from './side-panel.po.spec';
 
 describe('Side Panel', () => {
@@ -22,6 +23,8 @@ describe('Side Panel', () => {
             expect(await page.getRightOffsetFromWindow()).toBe(200);
             expect(await page.getPanelWidth()).toBe(200);
             expect(page.getPanelHeight()).toBe(page.getViewportHeight());
+
+            expect(await browser.imageComparison.checkScreen('side-panel-initial')).toEqual(0);
         });
 
         it('should close when the panel close button is clicked', async () => {
@@ -58,6 +61,8 @@ describe('Side Panel', () => {
             expect(await page.panelHost.getCssValue('position')).toBe('static');
             expect(await page.getInlinePanelWidth()).toBe(200);
             expect(await page.getInlinePanelHeight()).toBe(300);
+
+            expect(await browser.imageComparison.checkScreen('side-panel-inline-initial')).toEqual(0);
         });
 
         it('should not close on external click', async () => {
@@ -88,6 +93,8 @@ describe('Side Panel', () => {
             expect(await page.getPanelWidth()).toBe(200);
             expect(page.getPanelHeight()).toBe(page.getContainerHeight());
             expect(await page.panelHost.getCssValue('position')).toBe('absolute');
+
+            expect(await browser.imageComparison.checkScreen('side-panel-contain-initial')).toEqual(0);
         });
 
         it('should not close on external click', async () => {
@@ -173,6 +180,8 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(false);
             expect(await page.isClickable(page.externalClick2)).toBe(false);
             expect(await page.externalClick2.$('input').isSelected()).toBe(false);
+
+            expect(await browser.imageComparison.checkScreen('side-panel-modal-initial')).toEqual(0);
         });
 
         it('should display a backdrop over the container only when attachTo = container', async () => {
@@ -190,6 +199,8 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(false);
             expect(await page.isClickable(page.externalClick2)).toBe(true);
             expect(await page.externalClick2.$('input').isSelected()).toBe(true);
+
+            expect(await browser.imageComparison.checkScreen('side-panel-backdrop')).toEqual(0);
         });
 
         it('should display a backdrop offset by the top value', async () => {

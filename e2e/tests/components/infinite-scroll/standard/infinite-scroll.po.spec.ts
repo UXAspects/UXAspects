@@ -79,20 +79,20 @@ export class InfiniteScrollPage {
         return this.getEmployee(index).$('div.employee-id').getText();
     }
 
-    clickOnLoadOnScroll() {
-        this.getCheckbox().click();
+    async clickOnLoadOnScroll() {
+        await this.getCheckbox().click();
     }
 
-    clickOnPageSize() {
-        this.getPageSize().click();
+    async clickOnPageSize() {
+        await this.getPageSize().click();
     }
 
-    clickOnIncrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').click();
+    async clickOnIncrementPageSize() {
+        await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').click();
     }
 
-    clickOnDecrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
+    async clickOnDecrementPageSize() {
+        await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
 
@@ -101,7 +101,7 @@ export class InfiniteScrollPage {
         return this.employees.$$('li.employee-item').count();
     }
 
-    hoverOverLastEmployee() {
-        browser.actions().mouseMove(this.employees.$$('li.employee-item').last()).perform();
+    async hoverOverLastEmployee() {
+        await browser.actions().mouseMove(this.employees.$$('li.employee-item').last()).perform();
     }
 }

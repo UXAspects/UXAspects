@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { SparkPage } from './spark.po.spec';
 
 describe('Spark Chart Tests', () => {
@@ -6,6 +7,10 @@ describe('Spark Chart Tests', () => {
 
     // initially load the page
     page.getPage();
+
+    it('should have the correct appearance', async () => {
+        expect(await browser.imageComparison.checkScreen('spark-initial')).toEqual(0);
+    });
 
     it('should have the correct theme (single value)', async () => {
         expect(await page.getTheme(page.singleValueChart)).toBe('ux-spark-theme-vibrant2');

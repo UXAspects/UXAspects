@@ -15,7 +15,7 @@ describe('Marquee Wizard Tests', () => {
         // there should initially be four steps
         expect(await page.stepHeaders.count()).toBe(4);
 
-        expect(browser.imageComparison.checkScreen('marquee-wizard-initial')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('marquee-wizard-initial')).toEqual(0);
     });
 
     it('should have steps with the correct titles', async () => {

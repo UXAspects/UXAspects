@@ -1,4 +1,4 @@
-import { browser, Key, ElementFinder } from 'protractor';
+import { browser, ElementFinder } from 'protractor';
 import { WizardPage } from './wizard.po.spec';
 
 describe('Wizard Tests', () => {
@@ -59,6 +59,8 @@ describe('Wizard Tests', () => {
 
         // Finish button not present
         expect(finish).toBeNull();
+
+        expect(await browser.imageComparison.checkScreen('wizard-initial')).toEqual(0);
     });
 
     it('should navigate to the next page when the next button is clicked', async () => {

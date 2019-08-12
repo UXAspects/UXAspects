@@ -12,7 +12,7 @@ describe('Expanding Text Area Tests', () => {
         expect(await page.getHeight()).toBe(height);
         expect(await page.getText()).toBe('');
 
-        expect(browser.imageComparison.checkScreen('expanding-text-area-initial')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('expanding-text-area-initial')).toEqual(0);
     });
 
     it('should not grow when one line has been entered', async () => {

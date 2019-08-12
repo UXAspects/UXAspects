@@ -25,8 +25,8 @@ export class ToggleSwitchesPage {
         return toggleswitch.$('.ux-toggleswitch-disabled').isPresent();
     }
 
-    toggleByKey(toggleswitch: ElementFinder, key: string) {
-        toggleswitch.$('.ux-toggleswitch').sendKeys(key);
+    async toggleByKey(toggleswitch: ElementFinder, key: string) {
+        await toggleswitch.$('.ux-toggleswitch').sendKeys(key);
     }
 
     reset() {

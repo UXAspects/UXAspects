@@ -26,7 +26,7 @@ describe('Filters Tests', () => {
         // 8 items visible
         expect(await page.getNumberOfItems()).toEqual(8);
 
-        expect(browser.imageComparison.checkScreen('filters-initial')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('filters-initial')).toEqual(0);
 
     });
 
@@ -100,7 +100,7 @@ describe('Filters Tests', () => {
         await page.clickOnStatusMenu();
         expect(await page.confirmStatusMenuIsExpanded()).toBeTruthy();
 
-        expect(browser.imageComparison.checkScreen('filters-menu-open')).toEqual(0);
+        expect(await browser.imageComparison.checkScreen('filters-menu-open')).toEqual(0);
 
     });
 
