@@ -74,7 +74,9 @@ export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
-            this.menuTrigger.closeMenu();
+            if (this.menuTrigger) {
+                this.menuTrigger.closeMenu();
+            }
             this.onChange(changes.selected.currentValue);
             this.onTouched();
         }
