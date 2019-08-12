@@ -13,7 +13,7 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-      args: ["--headless", "--disable-gpu", "--no-sandbox", "--window-size=800x600"]
+      args: ["--headless", "--no-sandbox", "--window-size=800x600"]
     },
     shardTestFiles: true,
     maxInstances: 5
@@ -43,7 +43,8 @@ exports.config = {
             formatImageName: `{tag}-{logName}-{width}x{height}`,
             screenshotPath: join(process.cwd(), '.tmp/'),
             savePerInstance: true,
-            autoSaveBaseline: true
+            autoSaveBaseline: true,
+            clearRuntimeFolder: true
         },
       },
   ],
