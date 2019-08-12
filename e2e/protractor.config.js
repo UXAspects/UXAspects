@@ -43,8 +43,7 @@ exports.config = {
             formatImageName: `{tag}-{logName}-{width}x{height}`,
             screenshotPath: join(process.cwd(), '.tmp/'),
             savePerInstance: true,
-            autoSaveBaseline: true,
-            clearRuntimeFolder: true
+            autoSaveBaseline: true
         },
       },
   ],
