@@ -1,25 +1,26 @@
 <div class="row">
-    <div class="col-md-12 form-group-validate has-feedback">
-        <form>
+    <div class="col-md-12 has-feedback">
+        <form class="input-typeahead-form">
             <input [value]="value"
                    [(ngModel)]="input"
                    [ngModelOptions]="{standalone: true}"
                    [placeholder]="'Enter Text'"
                    class="form-control"
-                   (keydown.enter)="$event.preventDefault()"
-                   (click)="dropdown(); $event.stopPropagation();"
-                   (keydown)="dropdown(); typeaheadKeyService.handleKey($event, typeahead);
-                   $event.stopPropagation();">
+                   (keydown.enter)="dropdownOpen = true; $event.preventDefault()"
+                   (click)="dropdownOpen = true; $event.stopPropagation();"
+                   (keydown.escape)="dropdownOpen = false; $event.stopPropagation();"
+                   [attr.aria-controls]="typeahead">
             <ux-typeahead #typeahead
                           class="typeahead-example"
-                          [open]="dropdownOpened"
+                          [open]="dropdownOpen"
                           [filter]="input"
-                          [options]="loadOptions"
+                          [options]="loadOptionsFn"
                           [openOnFilterChange]="true"
+                          [pageSize]="5"
                           [selectOnEnter]="selectOnEnter"
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
-                          (optionSelected)="singleOptionSelected($event)">
+                          (optionSelected)="select($event)">
             </ux-typeahead>
         </form>
     </div>
@@ -55,7 +56,7 @@
     It has the following properties:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="options" type="	any[] | InfiniteScrollLoadFunction">
+    <tr uxd-api-property name="options" type="T[] | InfiniteScrollLoadFunction">
         <span>If an array is provided, this is the list of options which can be chosen from. It can be an
              array of strings or custom objects, matching the format used by the tag input control.
              If custom objects are required, the <code>display</code> property must also be set.</span>
@@ -64,7 +65,8 @@
         <ul>
             <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
             <li><code>pageSize: number</code> - The number of items requested.</li>
-            <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
+            <li><code>filter: T</code> - The filter details as provided via the <code>filter</code>
+                binding.</li>
         </ul>
         <span>The return value should be either a promise which resolves to an array, or a plain array in
             case the data can be loaded synchronously. An empty array or an array with fewer than
@@ -79,23 +81,23 @@
     <tr uxd-api-property name="open" type="boolean">
         Controls whether the typeahead dropdown is visible.
     </tr>
-    <tr uxd-api-property name="display" type="(option: any) => string | string" defaultValue="">
+    <tr uxd-api-property name="display" type="(option: T) => string | string" defaultValue="">
         Determines the display value of the <code>options</code>, if they are custom objects. This may be
         a function or a string. If a function is provided, it receives the option object as an argument,
         and should return the appropriate display value. If the name of a property is provided as a string,
         that property is used as the display value.
     </tr>
-    <tr uxd-api-property name="key" type="(option: any) => string | string">
+    <tr uxd-api-property name="key" type="(option: T) => string | string">
         Determines the unique key value of the <code>options</code>, if they are custom objects. This is
         only relevant if multiple options will have the same display value. This may be a function or a
         string. If a function is provided, it receives the option object as an argument, and should
         return the appropriate key value. If the name of a property is provided as a string, that property
         is used as the key value. The default behaviour is to use the <code>display</code> value as the key.
     </tr>
-    <tr uxd-api-property name="active" type="any">
+    <tr uxd-api-property name="active" type="T">
         Set the currently active item.
     </tr>
-    <tr uxd-api-property name="disabledOptions" type="any[]">
+    <tr uxd-api-property name="disabledOptions" type="T[]">
         The list of options which should appear disabled in the typeahead. This is useful if duplicate tags
         are not wanted in the tag input, in which case the <code>tags</code> binding should also be set here.
     </tr>
@@ -121,7 +123,7 @@
         <span>A template which will be rendered in the dropdown for each option. The following context
             properties are available in the template:</span>
         <ul>
-            <li><code>option: any</code> - the string or custom object representing the option.</li>
+            <li><code>option: T</code> - the string or custom object representing the option.</li>
             <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>,
                 <code>getDisplay</code> and <code>getDisplayHtml</code>. See the section below for more
                 information.</li>
@@ -149,7 +151,7 @@
     <tr uxd-api-property name="optionSelected" type="TypeaheadOptionEvent">
         Raised when an option on the dropdown is clicked. The <code>option</code> property on the event contains the clicked option.
     </tr>
-    <tr uxd-api-property name="highlightedChange" type="any">
+    <tr uxd-api-property name="highlightedChange" type="T">
         Raised when the highlighted option changes, providing the currently highlighted option.
     </tr>
     <tr uxd-api-property name="highlightedElementChange" type="HTMLElement">
@@ -162,13 +164,13 @@
 <p>The <code>api</code> object available to the <code>optionTemplate</code> has the following interface:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="getKey" args="option: any" returns="string">
+    <tr uxd-api-property name="getKey" args="option: T" returns="string">
         Returns the unique key value of the given <code>option</code>.
     </tr>
     <tr uxd-api-property name="getDisplay" args="option: any" returns="string">
         Returns the display value of the given <code>option</code>.
     </tr>
-    <tr uxd-api-property name="getDisplayHtml" args="option: any" returns="string">
+    <tr uxd-api-property name="getDisplayHtml" args="option: T" returns="string">
         Returns the display value of the given <code>option</code> with HTML markup added to highlight
         the part which matches the current <code>filter</code> value. Override the
         <code>ux-filter-match</code> class in CSS to modify the default appearance.
