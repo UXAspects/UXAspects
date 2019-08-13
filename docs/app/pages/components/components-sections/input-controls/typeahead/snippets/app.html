@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-md-12 form-group-validate has-feedback">
         <form>
-            <input #singleInput
-                   [value]="value"
+            <input [value]="value"
                    [(ngModel)]="input"
                    [ngModelOptions]="{standalone: true}"
                    [placeholder]="'Enter Text'"
@@ -10,12 +9,11 @@
                    (keydown.enter)="$event.preventDefault()"
                    (click)="dropdown(); $event.stopPropagation();"
                    (keydown)="dropdown(); typeaheadKeyService.handleKey($event, typeahead);
-                $event.stopPropagation();">
+                   $event.stopPropagation();">
             <ux-typeahead #typeahead
                           class="typeahead-example"
                           [open]="dropdownOpened"
                           [filter]="input"
-                          [pageSize]="5"
                           [options]="loadOptions"
                           [openOnFilterChange]="true"
                           [selectOnEnter]="selectOnEnter"
@@ -38,8 +36,6 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="selectOnEnter">selectOnEnter</ux-checkbox>
                     </div>
-                </div>
-                <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label>dropDirection</label>
                         <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
