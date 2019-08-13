@@ -1,4 +1,5 @@
 import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { NavigationPage } from './navigation.po.spec';
 
 describe('Navigation Tests', () => {
@@ -26,7 +27,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[1])).length).toBe(0);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
 
-        expect(await browser.imageComparison.checkScreen('navigation-initial')).toEqual(0);
+        expect(await imageCompare('navigation-initial')).toEqual(0);
     });
 
     it('should navigate to the routerLink when clicked', async () => {
@@ -53,7 +54,7 @@ describe('Navigation Tests', () => {
         expect((await page.getItemChildren(items[1])).length).toBe(2);
         expect((await page.getItemChildren(items[2])).length).toBe(0);
 
-        expect(await browser.imageComparison.checkScreen('navigation-expanded')).toEqual(0);
+        expect(await imageCompare('navigation-expanded')).toEqual(0);
     });
 
     it('should expand and change route when item has children and routerLink', async () => {
@@ -92,7 +93,7 @@ describe('Navigation Tests', () => {
         // expect the page content to be correct
         expect(await page.getPageContent()).toBe('Product Add');
 
-        expect(await browser.imageComparison.checkScreen('navigation-child-selection')).toEqual(0);
+        expect(await imageCompare('navigation-child-selection')).toEqual(0);
     });
 
     it('should initially select a root node if the router link matches', async () => {
@@ -108,7 +109,7 @@ describe('Navigation Tests', () => {
         // expect the page content to be correct
         expect(await page.getPageContent()).toBe('Dashboard');
 
-        expect(await browser.imageComparison.checkScreen('navigation-root-selection')).toEqual(0);
+        expect(await imageCompare('navigation-root-selection')).toEqual(0);
     });
 
     it('should initially select a child node if the router link matches', async () => {
@@ -215,7 +216,7 @@ describe('Navigation Tests', () => {
         await page.enableTreeBtn.click();
         expect(await page.isTreeModeActive()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('navigation-tree-initial')).toEqual(0);
+        expect(await imageCompare('navigation-tree-initial')).toEqual(0);
     });
 
     it('should not activate item when queryParams are set', async () => {

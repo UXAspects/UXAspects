@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FiltersPage } from './filters.po.spec';
 
 describe('Filters Tests', () => {
@@ -26,7 +27,7 @@ describe('Filters Tests', () => {
         // 8 items visible
         expect(await page.getNumberOfItems()).toEqual(8);
 
-        expect(await browser.imageComparison.checkScreen('filters-initial')).toEqual(0);
+        expect(await imageCompare('filters-initial')).toEqual(0);
 
     });
 
@@ -100,7 +101,7 @@ describe('Filters Tests', () => {
         await page.clickOnStatusMenu();
         expect(await page.confirmStatusMenuIsExpanded()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('filters-menu-open')).toEqual(0);
+        expect(await imageCompare('filters-menu-open')).toEqual(0);
 
     });
 

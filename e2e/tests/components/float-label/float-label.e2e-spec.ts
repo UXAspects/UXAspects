@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FloatLabelPage } from './float-label.po.spec';
 
 describe('Float Label', () => {
@@ -21,7 +22,7 @@ describe('Float Label', () => {
             await page.locationInput.click();
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
 
-            expect(await browser.imageComparison.checkScreen('float-label-initial')).toEqual(0);
+            expect(await imageCompare('float-label-initial')).toEqual(0);
         });
 
         it('should be visible while input has text', async () => {
@@ -37,7 +38,7 @@ describe('Float Label', () => {
             await page.usernameInput.sendKeys(Key.BACK_SPACE);
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
 
-            expect(await browser.imageComparison.checkScreen('float-label-raised')).toEqual(0);
+            expect(await imageCompare('float-label-raised')).toEqual(0);
         });
 
         it('should become visible when `raised` becomes true', async () => {

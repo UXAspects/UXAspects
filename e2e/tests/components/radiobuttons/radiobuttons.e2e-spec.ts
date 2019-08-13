@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { RadioButtonsPage } from './radiobuttons.po.spec';
 
 describe('RadioButton Tests', () => {
@@ -27,7 +28,7 @@ describe('RadioButton Tests', () => {
         expect(await page.confirmIsSimplified(page.radiobutton3)).toBeFalsy();
         expect(await page.confirmIsSimplified(page.radiobutton4)).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('radio-buttons-initial')).toEqual(0);
+        expect(await imageCompare('radio-buttons-initial')).toEqual(0);
 
     });
 
@@ -93,7 +94,7 @@ describe('RadioButton Tests', () => {
         expect(await page.confirmIsChecked(page.radiobutton4)).toBeTruthy();
         expect(await page.text1.getText()).toBe('Wrap-Text');
 
-        expect(await browser.imageComparison.checkScreen('radio-buttons-disabled')).toEqual(0);
+        expect(await imageCompare('radio-buttons-disabled')).toEqual(0);
     });
 
     it('should react to setting to simplified style', async () => {
@@ -105,7 +106,7 @@ describe('RadioButton Tests', () => {
         expect(await page.confirmIsSimplified(page.radiobutton3)).toBeTruthy();
         expect(await page.confirmIsSimplified(page.radiobutton4)).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('radio-buttons-simplified')).toEqual(0);
+        expect(await imageCompare('radio-buttons-simplified')).toEqual(0);
 
     });
 

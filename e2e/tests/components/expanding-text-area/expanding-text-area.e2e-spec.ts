@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ExpandingTextAreaPage } from './expanding-text-area.po.spec';
 
 describe('Expanding Text Area Tests', () => {
@@ -12,7 +12,7 @@ describe('Expanding Text Area Tests', () => {
         expect(await page.getHeight()).toBe(height);
         expect(await page.getText()).toBe('');
 
-        expect(await browser.imageComparison.checkScreen('expanding-text-area-initial')).toEqual(0);
+        expect(await imageCompare('expanding-text-area-initial')).toEqual(0);
     });
 
     it('should not grow when one line has been entered', async () => {

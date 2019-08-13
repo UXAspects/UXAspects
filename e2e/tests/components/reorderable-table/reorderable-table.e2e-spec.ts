@@ -1,4 +1,5 @@
 import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ReorderableTablePage } from './reorderable-table.po.spec';
 
 describe('Reorderable Table Tests', () => {
@@ -20,7 +21,7 @@ describe('Reorderable Table Tests', () => {
         expect(await page.handle2.isDisplayed()).toBeTruthy();
         expect(await page.handle3.isDisplayed()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('reorderable-table-initial')).toEqual(0);
+        expect(await imageCompare('reorderable-table-initial')).toEqual(0);
 
     });
 

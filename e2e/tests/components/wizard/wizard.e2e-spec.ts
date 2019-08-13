@@ -1,4 +1,5 @@
-import { browser, ElementFinder } from 'protractor';
+import { ElementFinder } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { WizardPage } from './wizard.po.spec';
 
 describe('Wizard Tests', () => {
@@ -60,7 +61,7 @@ describe('Wizard Tests', () => {
         // Finish button not present
         expect(finish).toBeNull();
 
-        expect(await browser.imageComparison.checkScreen('wizard-initial')).toEqual(0);
+        expect(await imageCompare('wizard-initial')).toEqual(0);
     });
 
     it('should navigate to the next page when the next button is clicked', async () => {

@@ -1,5 +1,6 @@
 import { browser, Key } from 'protractor';
 import { TagsPage } from './tags.po.spec';
+import { imageCompare } from '../common/image-compare';
 
 describe('TagsPage Tests', () => {
 
@@ -20,7 +21,7 @@ describe('TagsPage Tests', () => {
         expect(await page.confirmRangeErrorIsVisible()).toBeFalsy();
         expect(await page.confirmInputPatternErrorIsVisible()).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('tags-initial')).toEqual(0);
+        expect(await imageCompare('tags-initial')).toEqual(0);
 
     });
 
@@ -85,7 +86,7 @@ describe('TagsPage Tests', () => {
     it('should allow disabling of the tag input', async () => {
         await page.disabled.click();
         expect(await page.confirmTagsInputIsDisabled()).toBeTruthy();
-        expect(await browser.imageComparison.checkScreen('tags-disabled')).toEqual(0);
+        expect(await imageCompare('tags-disabled')).toEqual(0);
     });
 
     it('should validate input tag names against the supplied tag pattern', async () => {
@@ -97,7 +98,7 @@ describe('TagsPage Tests', () => {
         expect(await page.confirmInputPatternErrorIsVisible()).toBeTruthy();
         expect(await page.getInputPatternErrorMessage()).toEqual('Expected format: \\w{5}');
 
-        expect(await browser.imageComparison.checkScreen('tags-invalid')).toEqual(0);
+        expect(await imageCompare('tags-invalid')).toEqual(0);
 
         await page.clearTagsInput();
         await page.typeInATag('Delta');

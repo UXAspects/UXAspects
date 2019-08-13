@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { DateTimePickerPage } from './date-time-picker.po.spec';
 
 describe('Date Time Picker Tests', () => {
@@ -34,7 +34,7 @@ describe('Date Time Picker Tests', () => {
         // check that the today button is not disabled
         expect(await page.getDisabled(page.todayBtn)).toBe(false);
 
-        expect(await browser.imageComparison.checkScreen('date-picker-initial')).toEqual(0);
+        expect(await imageCompare('date-picker-initial')).toEqual(0);
     });
 
     it('should select a valid date on click', async () => {
@@ -53,7 +53,7 @@ describe('Date Time Picker Tests', () => {
         // it should have the correct date selected
         expect(await page.getCurrentDate()).toBe('January 8, 2019, 12:00:00 PM');
 
-        expect(await browser.imageComparison.checkScreen('date-picker-select')).toEqual(0);
+        expect(await imageCompare('date-picker-select')).toEqual(0);
     });
 
     it('should allow changing the startOfWeek', async () => {

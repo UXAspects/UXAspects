@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries } from '../standard/select.po.spec';
 import { SelectFormsPage } from './select-forms.po.spec';
 
@@ -34,7 +35,7 @@ describe('Select (forms) Tests', () => {
         expect(await page.confirmPageSizeButtonIsDisabled('down')).toBeTruthy();
         expect(await page.confirmPageSizeButtonIsDisabled('up')).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('select-forms-initial')).toEqual(0);
+        expect(await imageCompare('select-forms-initial')).toEqual(0);
 
     });
 
@@ -55,7 +56,7 @@ describe('Select (forms) Tests', () => {
         await page.clickOnDropdown(false);
         expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('select-forms-dropdown')).toEqual(0);
+        expect(await imageCompare('select-forms-dropdown')).toEqual(0);
 
     });
 
@@ -181,7 +182,7 @@ describe('Select (forms) Tests', () => {
         expect(await page.getFilterText(3)).toBe('Ch');
         expect(await page.getFilterText(4)).toBe('ch');
 
-        expect(await browser.imageComparison.checkScreen('select-forms-highlight')).toEqual(0);
+        expect(await imageCompare('select-forms-highlight')).toEqual(0);
 
     });
 
@@ -249,7 +250,7 @@ describe('Select (forms) Tests', () => {
         await page.getDropdown(true).sendKeys('ire');
         expect(await page.getCountryText(true, 2)).toBe('Ireland');
 
-        expect(await browser.imageComparison.checkScreen('select-forms-multiple')).toEqual(0);
+        expect(await imageCompare('select-forms-multiple')).toEqual(0);
 
     });
 
@@ -278,7 +279,7 @@ describe('Select (forms) Tests', () => {
         await page.clickOnCountry(true, 70);
         expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
-        expect(await browser.imageComparison.checkScreen('select-forms-multiple-disabled')).toEqual(0);
+        expect(await imageCompare('select-forms-multiple-disabled')).toEqual(0);
 
     });
 

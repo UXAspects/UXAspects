@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
 describe('Select Tests', () => {
@@ -21,7 +22,7 @@ describe('Select Tests', () => {
         // selected location(s) - null
         expect(await page.getSelectedLocationText()).toBe('null');
 
-        expect(await browser.imageComparison.checkScreen('select-initial')).toEqual(0);
+        expect(await imageCompare('select-initial')).toEqual(0);
     });
 
     it('should display correct text', async () => {
@@ -41,7 +42,7 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(false);
         expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('select-dropdown')).toEqual(0);
+        expect(await imageCompare('select-dropdown')).toEqual(0);
 
     });
 
@@ -137,7 +138,7 @@ describe('Select Tests', () => {
         expect(await page.getFilterText(3)).toBe('Ch');
         expect(await page.getFilterText(4)).toBe('ch');
 
-        expect(await browser.imageComparison.checkScreen('select-dropdown-highlight')).toEqual(0);
+        expect(await imageCompare('select-dropdown-highlight')).toEqual(0);
 
     });
 
@@ -205,7 +206,7 @@ describe('Select Tests', () => {
         await page.getDropdown(true).sendKeys('ire');
         expect(await page.getCountryText(true, 2)).toBe('Ireland');
 
-        expect(await browser.imageComparison.checkScreen('select-multiple')).toEqual(0);
+        expect(await imageCompare('select-multiple')).toEqual(0);
 
     });
 

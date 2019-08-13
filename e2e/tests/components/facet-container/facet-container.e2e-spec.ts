@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FacetContainerPage } from './facet-container.po.spec';
 
 describe('FacetContainerPage Tests', () => {
@@ -13,7 +13,7 @@ describe('FacetContainerPage Tests', () => {
         expect(page.getClearAllButton().isPresent()).toBeFalsy();
         expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('facet-container-list-initial')).toEqual(0);
+        expect(await imageCompare('facet-container-list-initial')).toEqual(0);
     });
 
     it('should allow addition of facets', async () => {
@@ -27,7 +27,7 @@ describe('FacetContainerPage Tests', () => {
         await page.addFacet.click();
         expect(await page.getNumberOfFacets()).toEqual(3);
 
-        expect(await browser.imageComparison.checkScreen('facet-container-list-addition')).toEqual(0);
+        expect(await imageCompare('facet-container-list-addition')).toEqual(0);
 
         expect(await page.getFacetName(0)).toMatch('\\w+\\d*\\w*');
         expect(await page.getFacetName(1)).toMatch('\\w+\\d*\\w*');

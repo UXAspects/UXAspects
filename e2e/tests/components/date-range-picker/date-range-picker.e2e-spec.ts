@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { DateRangePickerPage, Picker } from './date-range-picker.po.spec';
 
 describe('Date Range Picker Tests', () => {
@@ -27,7 +27,7 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getRange(Picker.Start)).toEqual(['5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
         expect(await page.getRange(Picker.End)).toEqual(['5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
 
-        expect(await browser.imageComparison.checkScreen('date-range-initial')).toEqual(0);
+        expect(await imageCompare('date-range-initial')).toEqual(0);
     });
 
     it('should change the start date when click a date in the left panel', async () => {
@@ -42,7 +42,7 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getRange(Picker.Start)).toEqual(['3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
         expect(await page.getRange(Picker.End)).toEqual(['3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
 
-        expect(await browser.imageComparison.checkScreen('date-range-left-select')).toEqual(0);
+        expect(await imageCompare('date-range-left-select')).toEqual(0);
     });
 
     it('should change the end date when click a date in the right panel', async () => {
@@ -59,7 +59,7 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getRange(Picker.Start)).toEqual(['5', '6', '7']);
         expect(await page.getRange(Picker.End)).toEqual(['5', '6', '7']);
 
-        expect(await browser.imageComparison.checkScreen('date-range-right-select')).toEqual(0);
+        expect(await imageCompare('date-range-right-select')).toEqual(0);
     });
 
     it('should clear if start date is selected after end date', async () => {
@@ -103,7 +103,7 @@ describe('Date Range Picker Tests', () => {
     it('should disabled items before the start range', async () => {
         await page.selectDate(Picker.End, 21);
         expect(await page.getDisabled(Picker.End)).toEqual(['24', '25', '26', '27', '28', '1', '2', '3']);
-        expect(await browser.imageComparison.checkScreen('date-range-disabled')).toEqual(0);
+        expect(await imageCompare('date-range-disabled')).toEqual(0);
     });
 
     it('should disabled items after the end range', async () => {

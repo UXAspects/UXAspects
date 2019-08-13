@@ -1,5 +1,6 @@
 import { browser } from 'protractor';
 import { TimelinePage } from './timeline.po.spec';
+import { imageCompare } from '../common/image-compare';
 
 describe('TimelinePage Tests', () => {
 
@@ -13,7 +14,7 @@ describe('TimelinePage Tests', () => {
         expect(await page.getNumberOfEvents()).toEqual(4);
         expect(await page.addEvent.isPresent()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('timeline-initial')).toEqual(0);
+        expect(await imageCompare('timeline-initial')).toEqual(0);
 
         await page.reset();
     });

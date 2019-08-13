@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 import { InfiniteScrollPage } from './infinite-scroll.po.spec';
 
 describe('Infinite Scroll Tests', () => {
@@ -28,7 +29,7 @@ describe('Infinite Scroll Tests', () => {
         // valid value in number picker
         expect(await page.confirmValueIsInvalid()).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('infinite-scroll-initial')).toEqual(0);
+        expect(await imageCompare('infinite-scroll-initial')).toEqual(0);
 
     });
 

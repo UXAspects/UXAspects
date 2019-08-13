@@ -1,4 +1,5 @@
-import { browser, ElementFinder } from 'protractor';
+import { ElementFinder } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { MarqueeWizardPage } from './marquee-wizard.po.spec';
 
 describe('Marquee Wizard Tests', () => {
@@ -15,7 +16,7 @@ describe('Marquee Wizard Tests', () => {
         // there should initially be four steps
         expect(await page.stepHeaders.count()).toBe(4);
 
-        expect(await browser.imageComparison.checkScreen('marquee-wizard-initial')).toEqual(0);
+        expect(await imageCompare('marquee-wizard-initial')).toEqual(0);
     });
 
     it('should have steps with the correct titles', async () => {

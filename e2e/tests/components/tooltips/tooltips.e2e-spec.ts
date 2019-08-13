@@ -1,5 +1,6 @@
 import { browser, Key } from 'protractor';
 import { TooltipsPage } from './tooltips.po.spec';
+import { imageCompare } from '../common/image-compare';
 
 describe('Tooltips', () => {
 
@@ -10,7 +11,7 @@ describe('Tooltips', () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
         expect(await page.tooltip.isPresent()).toBe(false);
 
-        expect(await browser.imageComparison.checkScreen('tooltip-initial')).toEqual(0);
+        expect(await imageCompare('tooltip-initial')).toEqual(0);
 
         await page.reset();
     });
@@ -24,7 +25,7 @@ describe('Tooltips', () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.tooltip.isPresent()).toBe(true);
 
-        expect(await browser.imageComparison.checkScreen('tooltip-open')).toEqual(0);
+        expect(await imageCompare('tooltip-open')).toEqual(0);
 
         await page.reset();
     });

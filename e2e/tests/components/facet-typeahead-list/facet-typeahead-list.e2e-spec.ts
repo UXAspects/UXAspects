@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FacetTypeaheadListPage } from './facet-typeahead-list.po.spec';
 
 describe('FacetTypeaheadListPage Tests', () => {
@@ -26,7 +26,7 @@ describe('FacetTypeaheadListPage Tests', () => {
         expect(await page.confirmSuggestedListFacetIsTicked(4)).toBeFalsy();
         expect(await page.confirmSuggestedListFacetIsTicked(5)).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('facet-typeahead-initial')).toEqual(0);
+        expect(await imageCompare('facet-typeahead-initial')).toEqual(0);
     });
 
     it('should allow addition of facets', async () => {
@@ -49,7 +49,7 @@ describe('FacetTypeaheadListPage Tests', () => {
 
         expect(await page.getNumberOfFacets()).toEqual(3);
 
-        expect(await browser.imageComparison.checkScreen('facet-typeahead-selection')).toEqual(0);
+        expect(await imageCompare('facet-typeahead-selection')).toEqual(0);
 
     });
 

@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FacetCheckListPage } from './facet-check-list.po.spec';
 
 describe('FacetCheckListPage Tests', () => {
@@ -18,7 +18,7 @@ describe('FacetCheckListPage Tests', () => {
         expect(await page.confirmCheckListScrollbarExists()).toBeTruthy();
         expect(await page.confirmCheckListFacetIsTicked(0)).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('facet-check-list-initial')).toEqual(0);
+        expect(await imageCompare('facet-check-list-initial')).toEqual(0);
     });
 
     it('should allow addition of facets', async () => {
@@ -44,7 +44,7 @@ describe('FacetCheckListPage Tests', () => {
 
         await page.getClearAllButton().click();
 
-        expect(await browser.imageComparison.checkScreen('facet-check-list-selected')).toEqual(0);
+        expect(await imageCompare('facet-check-list-selected')).toEqual(0);
 
     });
 

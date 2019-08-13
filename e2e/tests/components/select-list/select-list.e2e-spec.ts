@@ -1,4 +1,5 @@
 import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { SelectListPage } from './select-list.po.spec';
 
 describe('Select List Tests', () => {
@@ -10,7 +11,7 @@ describe('Select List Tests', () => {
         expect(await page.getItemCount()).toBe(20);
         expect(await page.getSelection()).toBe('');
 
-        expect(await browser.imageComparison.checkScreen('select-list-initial')).toEqual(0);
+        expect(await imageCompare('select-list-initial')).toEqual(0);
     });
 
     it('should select an item', async () => {

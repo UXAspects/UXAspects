@@ -1,4 +1,5 @@
 import { $, browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { PopoverPage } from './popover.po.spec';
 
 describe('Popover', () => {
@@ -14,7 +15,7 @@ describe('Popover', () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
         expect(await page.popover.isPresent()).toBe(false);
 
-        expect(await browser.imageComparison.checkScreen('popover-initial')).toEqual(0);
+        expect(await imageCompare('popover-initial')).toEqual(0);
     });
 
     it('should show popover on mouse click', async () => {
@@ -26,7 +27,7 @@ describe('Popover', () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.popover.isPresent()).toBe(true);
 
-        expect(await browser.imageComparison.checkScreen('popover-open')).toEqual(0);
+        expect(await imageCompare('popover-open')).toEqual(0);
     });
 
     it('should hide popover on mouse click', async () => {
@@ -107,7 +108,7 @@ describe('Popover', () => {
         // should now have the class
         expect(await page.popoverHasClass('my-custom-class')).toBe(true);
 
-        expect(await browser.imageComparison.checkScreen('popover-custom-class')).toEqual(0);
+        expect(await imageCompare('popover-custom-class')).toEqual(0);
     });
 
     it('should allow a TemplateRef to be used', async () => {

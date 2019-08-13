@@ -1,5 +1,6 @@
 import { browser, protractor } from 'protractor';
 import { ToolbarSearchPage } from './toolbar-search.po.spec';
+import { imageCompare } from '../common/image-compare';
 
 const ec = protractor.ExpectedConditions;
 
@@ -26,7 +27,7 @@ describe('Toolbar Search', () => {
 
         expect(await page.searchedFor.getText()).toBe('');
 
-        expect(await browser.imageComparison.checkScreen('toolbar-search-initial')).toEqual(0);
+        expect(await imageCompare('toolbar-search-initial')).toEqual(0);
 
     });
 
@@ -51,7 +52,7 @@ describe('Toolbar Search', () => {
         expect(await page.rightButton.isDisplayed()).toBeTruthy();
         expect(await page.rightClear.isPresent()).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('toolbar-search-expanded')).toEqual(0);
+        expect(await imageCompare('toolbar-search-expanded')).toEqual(0);
 
     });
 

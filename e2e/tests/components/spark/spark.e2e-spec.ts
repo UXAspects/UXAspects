@@ -1,5 +1,6 @@
 import { browser } from 'protractor';
 import { SparkPage } from './spark.po.spec';
+import { imageCompare } from '../common/image-compare';
 
 describe('Spark Chart Tests', () => {
 
@@ -9,7 +10,7 @@ describe('Spark Chart Tests', () => {
     page.getPage();
 
     it('should have the correct appearance', async () => {
-        expect(await browser.imageComparison.checkScreen('spark-initial')).toEqual(0);
+        expect(await imageCompare('spark-initial')).toEqual(0);
     });
 
     it('should have the correct theme (single value)', async () => {

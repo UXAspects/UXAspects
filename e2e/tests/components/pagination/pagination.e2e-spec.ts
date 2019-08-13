@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { PaginationPage } from './pagination.po.spec';
 
 describe('Pagination Tests', () => {
@@ -29,7 +29,7 @@ describe('Pagination Tests', () => {
 
         await page.resetBtn.click();
 
-        expect(await browser.imageComparison.checkScreen('pagination-initial')).toEqual(0);
+        expect(await imageCompare('pagination-initial')).toEqual(0);
     });
 
     it('should react to arrow clicks', async () => {

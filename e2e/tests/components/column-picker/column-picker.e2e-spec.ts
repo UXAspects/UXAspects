@@ -1,4 +1,5 @@
 import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ColumnPickerList, ColumnPickerPage } from './column-picker.po.spec';
 
 describe('Column Picker Tests', () => {
@@ -21,48 +22,48 @@ describe('Column Picker Tests', () => {
         expect(await page.getSelection()).toBe('[ "Type", "Date", "Requested by", "Status", "Completion" ]');
         expect(await page.getDeselection()).toBe('[ "Author", "Category", "Date Created", "Date Modified", "Department", "Document ID", "Flag", "From", "Icon", "Importance", "Location", "Location ID", "Message", "Organization", "Time", "Time Created", "Time Modified", "Work Completed" ]');
 
-        expect(await browser.imageComparison.checkScreen('column-picker-initial')).toEqual(0);
+        expect(await imageCompare('column-picker-initial')).toEqual(0);
     });
 
     it('should lock the ID column', async () => {
         expect(await page.isColumnLocked(0)).toBe(true);
         expect(await page.isColumnLocked(1)).toBe(false);
-        expect(await browser.imageComparison.checkScreen('column-picker-locked')).toEqual(0);
+        expect(await imageCompare('column-picker-locked')).toEqual(0);
     });
 
     it('should allow selection of deselected columns', async () => {
         expect(await page.isColumnSelected(ColumnPickerList.Deselected, 0)).toBe(false);
         await page.selectColumn(ColumnPickerList.Deselected, 0);
         expect(await page.isColumnSelected(ColumnPickerList.Deselected, 0)).toBe(true);
-        expect(await browser.imageComparison.checkScreen('column-picker-selection-1')).toEqual(0);
+        expect(await imageCompare('column-picker-selection-1')).toEqual(0);
     });
 
     it('should allow selection of selected columns', async () => {
         expect(await page.isColumnSelected(ColumnPickerList.Selected, 1)).toBe(false);
         await page.selectColumn(ColumnPickerList.Selected, 1);
         expect(await page.isColumnSelected(ColumnPickerList.Selected, 1)).toBe(true);
-        expect(await browser.imageComparison.checkScreen('column-picker-selection-2')).toEqual(0);
+        expect(await imageCompare('column-picker-selection-2')).toEqual(0);
     });
 
     it('should not allow selection of locked selected columns', async () => {
         expect(await page.isColumnSelected(ColumnPickerList.Selected, 0)).toBe(false);
         await page.selectColumn(ColumnPickerList.Selected, 0);
         expect(await page.isColumnSelected(ColumnPickerList.Selected, 0)).toBe(false);
-        expect(await browser.imageComparison.checkScreen('column-picker-prevent-selection')).toEqual(0);
+        expect(await imageCompare('column-picker-prevent-selection')).toEqual(0);
     });
 
     it('should enable the move button when a deselected column is selected', async () => {
         await page.selectColumn(ColumnPickerList.Deselected, 0);
         expect(await page.getButtonDisabled(page.selectBtn)).toBe(false);
         expect(await page.getButtonDisabled(page.deselectBtn)).toBe(true);
-        expect(await browser.imageComparison.checkScreen('column-picker-button-enable-1')).toEqual(0);
+        expect(await imageCompare('column-picker-button-enable-1')).toEqual(0);
     });
 
     it('should enable the move button when a selected column is selected', async () => {
         await page.selectColumn(ColumnPickerList.Selected, 1);
         expect(await page.getButtonDisabled(page.selectBtn)).toBe(true);
         expect(await page.getButtonDisabled(page.deselectBtn)).toBe(false);
-        expect(await browser.imageComparison.checkScreen('column-picker-button-enable-2')).toEqual(0);
+        expect(await imageCompare('column-picker-button-enable-2')).toEqual(0);
     });
 
     it('should allow moving a deselected column', async () => {

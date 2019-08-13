@@ -1,4 +1,5 @@
 import { browser, by, element } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ReorderableGroupPage } from './reorderable-group.po.spec';
 
 describe('Reorderable Group', () => {
@@ -23,7 +24,7 @@ describe('Reorderable Group', () => {
         const objects2 = await page.getObjects2();
         expect(objects2.length).toBe(0);
 
-        expect(await browser.imageComparison.checkScreen('reorderable-group-initial')).toEqual(0);
+        expect(await imageCompare('reorderable-group-initial')).toEqual(0);
     });
 
     it('should be able to reorder within a container', async () => {

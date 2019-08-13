@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 import { InfiniteScrollFullscreenPage } from './infinite-scroll-fullscreen.po.spec';
 
 describe('Infinite Scroll (Fullscreen) Tests', () => {
@@ -28,7 +29,7 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
         // valid value in number picker
         expect(await page.confirmValueIsInvalid()).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('infinite-scroll-fullscreen-initial')).toEqual(0);
+        expect(await imageCompare('infinite-scroll-fullscreen-initial')).toEqual(0);
 
     });
 

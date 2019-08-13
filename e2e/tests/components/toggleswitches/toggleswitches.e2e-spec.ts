@@ -1,4 +1,5 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ToggleSwitchesPage } from './toggleswitches.po.spec';
 
 describe('ToggleSwitchesPage Tests', () => {
@@ -23,7 +24,7 @@ describe('ToggleSwitchesPage Tests', () => {
         expect(await page.confirmIsDisabled(page.toggleswitch3)).toBeFalsy();
         expect(await page.confirmIsDisabled(page.toggleswitch4)).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('toggle-switches-initial')).toEqual(0);
+        expect(await imageCompare('toggle-switches-initial')).toEqual(0);
 
         await page.reset();
     });
@@ -62,7 +63,7 @@ describe('ToggleSwitchesPage Tests', () => {
         expect(await page.text3.getText()).toBe('true');
         expect(await page.text4.getText()).toBe('true');
 
-        expect(await browser.imageComparison.checkScreen('toggle-switches-click')).toEqual(0);
+        expect(await imageCompare('toggle-switches-click')).toEqual(0);
 
         await page.reset();
     });
@@ -101,7 +102,7 @@ describe('ToggleSwitchesPage Tests', () => {
         expect(await page.text3.getText()).toBe('false');
         expect(await page.text4.getText()).toBe('true');
 
-        expect(await browser.imageComparison.checkScreen('toggle-switches-disabled')).toEqual(0);
+        expect(await imageCompare('toggle-switches-disabled')).toEqual(0);
 
         await page.reset();
     });

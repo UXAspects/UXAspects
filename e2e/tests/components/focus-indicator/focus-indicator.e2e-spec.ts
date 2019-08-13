@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FocusIndicatorButtonsPage } from './focus-indicator.po.spec';
 
 describe('Focus Indicator Tests', () => {
@@ -19,7 +19,7 @@ describe('Focus Indicator Tests', () => {
         // the initial indicator state should be false
         expect(await page.getIndicatorLabel()).toBe('false');
 
-        expect(await browser.imageComparison.checkScreen('focus-indicator-initial')).toEqual(0);
+        expect(await imageCompare('focus-indicator-initial')).toEqual(0);
     });
 
     it('should not focus on click when mouseFocusIndicator: false', async () => {
@@ -75,7 +75,7 @@ describe('Focus Indicator Tests', () => {
         // the indicator state should be false
         expect(await page.getIndicatorLabel()).toBe('true');
 
-        expect(await browser.imageComparison.checkScreen('focus-indicator-focused')).toEqual(0);
+        expect(await imageCompare('focus-indicator-focused')).toEqual(0);
     });
 
     it('should not focus on keyboard when keyboardFocusIndicator: false', async () => {

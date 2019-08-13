@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { NumberPickerPage } from './number-picker.po.spec';
 
 describe('Number Picker Tests', () => {
@@ -29,7 +29,7 @@ describe('Number Picker Tests', () => {
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'down')).toBeTruthy();
         expect(await page.confirmErrorMessage2IsVisible()).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('number-picker-initial')).toEqual(0);
+        expect(await imageCompare('number-picker-initial')).toEqual(0);
 
     });
 
@@ -106,7 +106,7 @@ describe('Number Picker Tests', () => {
         await page.setNumberPickerValue(page.numberPicker2, '-0.5');
         expect(await page.confirmErrorMessage2IsVisible()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('number-picker-invalid')).toEqual(0);
+        expect(await imageCompare('number-picker-invalid')).toEqual(0);
 
     });
 

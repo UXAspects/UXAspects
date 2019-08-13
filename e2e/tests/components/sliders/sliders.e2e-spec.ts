@@ -1,4 +1,5 @@
 import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { SlidersPage } from './sliders.po.spec';
 
 describe('SlidersPage Tests', () => {
@@ -39,7 +40,7 @@ describe('SlidersPage Tests', () => {
         expect(await page.getHandleAttribute(page.slider8, 'lower', 'hidden')).toBeNull();
         expect(await page.getHandleAttribute(page.slider8, 'upper', 'hidden')).toBeNull();
 
-        expect(await browser.imageComparison.checkScreen('sliders-initial')).toEqual(0);
+        expect(await imageCompare('sliders-initial')).toEqual(0);
     });
 
     it('should display the expected ticks', async () => {

@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ItemDisplayPanelPage } from './item-display-panel.po.spec';
 
 describe('Item Display Panel Tests', () => {
@@ -16,7 +16,7 @@ describe('Item Display Panel Tests', () => {
         expect(await page.getNumberOfTableRows()).toEqual(5);
         expect(await page.confirmPanelIsDisplayed()).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('item-display-panel-initial')).toEqual(0);
+        expect(await imageCompare('item-display-panel-initial')).toEqual(0);
 
     });
 
@@ -31,7 +31,7 @@ describe('Item Display Panel Tests', () => {
         expect(await page.checkPanelPreviousButtonIsEnabled()).toBeFalsy();
         expect(await page.checkPanelNextButtonIsEnabled()).toBeTruthy();
 
-        expect(await browser.imageComparison.checkScreen('item-display-panel-open')).toEqual(0);
+        expect(await imageCompare('item-display-panel-open')).toEqual(0);
 
     });
 

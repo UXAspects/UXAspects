@@ -1,4 +1,5 @@
 import { browser } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FlippableCardsPage } from './flippable-cards.po.spec';
 
 describe('Flippable Cards Tests', () => {
@@ -16,7 +17,7 @@ describe('Flippable Cards Tests', () => {
         expect(await page.confirmIsFlipped(page.flippableCard2)).toBeFalsy();
         expect(await page.confirmIsFlipped(page.flippableCard3)).toBeFalsy();
 
-        expect(await browser.imageComparison.checkScreen('flippable-card-initial')).toEqual(0);
+        expect(await imageCompare('flippable-card-initial')).toEqual(0);
 
     });
 
@@ -52,7 +53,7 @@ describe('Flippable Cards Tests', () => {
         await page.clickOnCardIcon(page.flippableCard1);
         await browser.sleep(FLIP_DELAY_MS);
         expect(await page.confirmIsFlipped(page.flippableCard1)).toBeTruthy();    // Back
-        expect(await browser.imageComparison.checkScreen('flippable-card-flipped')).toEqual(0);
+        expect(await imageCompare('flippable-card-flipped')).toEqual(0);
 
         // Click on the icon again.
         await page.clickOnCardIcon(page.flippableCard1);
