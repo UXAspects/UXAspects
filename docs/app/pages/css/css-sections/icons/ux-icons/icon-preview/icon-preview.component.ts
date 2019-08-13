@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { PopoverDirective } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -7,7 +7,7 @@ import { PopoverDirective } from '@ux-aspects/ux-aspects';
     styleUrls: ['./icon-preview.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IconPreviewComponent implements OnChanges {
+export class IconPreviewComponent implements OnInit {
     @Input() name: string;
     @Input() classname: string;
     @Input() iconset: string;
@@ -21,12 +21,8 @@ export class IconPreviewComponent implements OnChanges {
 
     @ViewChild(PopoverDirective, { static: true }) popover: PopoverDirective;
 
-    ngOnChanges(): void {
-        if (this.size === '16px') {
-            this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
-        } else {
-            this.uxComponentSnippet = `<ux-icon name="${this.name}" size="${this.size}"></ux-icon>`;
-        }
+    ngOnInit(): void {
+        this.uxComponentSnippet = `<ux-icon name="${this.name}"></ux-icon>`;
 
         this.iconSnippet = `<i class="${this.iconSetClass} ${this.classname}"></i>`;
     }
