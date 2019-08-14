@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
     ];
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
-    showBusyIndicator: boolean = false;
     allowNull: boolean = false;
     componentMaxHeight: number = 400;
     placeholder: string = 'Type to search...';

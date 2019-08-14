@@ -23,32 +23,27 @@
     <div [style.max-height.px]="maxHeight"
          [style.width.px]="button.offsetWidth">
 
-        <div *ngIf="!busy">
-            <div *ngIf="!hideFilter"
-                 class="filter-container">
+        <div *ngIf="!hideFilter"
+             class="filter-container">
 
-                <input #filterInput
-                        type="text"
-                        [placeholder]="placeholder"
-                        class="form-control"
-                        [(ngModel)]="filterText"
-                        (input)="filterChange.emit(filterText)"
-                        (click)="$event.stopPropagation()" />
+            <input #filterInput
+                    type="text"
+                    [placeholder]="placeholder"
+                    class="form-control"
+                    [(ngModel)]="filterText"
+                    (input)="filterChange.emit(filterText)"
+                    (click)="$event.stopPropagation()" />
 
-                <button type="button"
-                        class="btn btn-flat btn-icon-only filter-button"
-                        (click)="resetFilter($event)"
-                        [tabindex]="filterText.length > 0 ? 0 : 1">
+            <button type="button"
+                    class="btn btn-flat btn-icon-only filter-button"
+                    (click)="resetFilter($event)"
+                    [tabindex]="filterText.length > 0 ? 0 : 1">
 
-                    <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
-                </button>
-            </div>
-
-            <ng-content></ng-content>
+                <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
+            </button>
         </div>
 
-        <div class="busy-indicator" *ngIf="busy">
-            <div class="ux-loader"></div>
-        </div>
+        <ng-content></ng-content>
+
     </div>
 </ux-menu>

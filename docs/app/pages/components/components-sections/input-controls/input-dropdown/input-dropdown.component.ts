@@ -32,7 +32,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     ];
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
-    showBusyIndicator: boolean = false;
     allowNull: boolean = false;
     componentMaxHeight: number = 400;
     placeholder: string = 'Type to search...';

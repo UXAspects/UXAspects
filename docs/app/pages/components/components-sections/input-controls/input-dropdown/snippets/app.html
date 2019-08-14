@@ -5,7 +5,6 @@
             [(selected)]="selected"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
-            [busy]="showBusyIndicator"
             [maxHeight]="componentMaxHeight"
             [placeholder]="placeholder">
 
@@ -47,11 +46,6 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="allowNull">allowNull</ux-checkbox>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [(value)]="showBusyIndicator">busy</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">

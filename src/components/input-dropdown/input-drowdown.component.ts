@@ -42,9 +42,6 @@ export class InputDrowdownComponent<T> implements ControlValueAccessor, OnChange
     /** Define the max height of the dropdown */
     @Input() maxHeight: number;
 
-    /** Determine if we should show the loading indicator */
-    @Input() busy: boolean;
-
     /** Define if null values are allowed */
     @Input() allowNull: boolean;
 
