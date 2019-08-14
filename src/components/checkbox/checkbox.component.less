@@ -19,7 +19,6 @@ ux-checkbox {
             display: inline-flex;
             flex: none;
             color: transparent;
-            font-family: 'hpe-icons';
             width: 24px;
             height: 24px;
             border: 1px solid @grey5;
@@ -27,8 +26,6 @@ ux-checkbox {
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
-
-            .hpe-icon-checkmark();
 
             .ux-checkbox-input {
                 position: absolute;
@@ -57,12 +54,6 @@ ux-checkbox {
                 .ux-checkbox-container {
                     background-color: @grey6;
                 }
-            }
-        }
-
-        &.ux-checkbox-indeterminate {
-            .ux-checkbox-container {
-                .hpe-icon-subtract();
             }
         }
 

@@ -7,6 +7,12 @@
        [class.ux-checkbox-focused]="focused">
 
     <div class="ux-checkbox-container">
+
+        <ux-icon
+            class="ux-checkbox-checkmark"
+            [name]="indeterminate ? 'subtract' : 'checkmark'">
+        </ux-icon>
+
         <input type="checkbox"
                uxFocusIndicator
                class="ux-checkbox-input"
