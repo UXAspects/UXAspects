@@ -5,9 +5,9 @@ describe('Item Display Panel Tests', () => {
 
     let page: ItemDisplayPanelPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new ItemDisplayPanelPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class FacetCheckListPage {
 
-    getPage(): void {
-        browser.get('#/facet-check-list');
+    async getPage(): Promise<void> {
+        await browser.get('#/facet-check-list');
     }
 
     container = element(by.id('container1'));

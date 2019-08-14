@@ -6,11 +6,11 @@ describe('SlidersPage Tests', () => {
 
     let page: SlidersPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SlidersPage();
-        page.getPage();
+        await page.getPage();
 
-        browser.driver.manage().window().maximize();
+        await browser.driver.manage().window().maximize();
     });
 
     it('should display the expected drag handles', async () => {

@@ -4,7 +4,10 @@ import { FacetContainerPage } from './facet-container.po.spec';
 describe('FacetContainerPage Tests', () => {
 
     let page: FacetContainerPage = new FacetContainerPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should start with no facets', async () => {
 

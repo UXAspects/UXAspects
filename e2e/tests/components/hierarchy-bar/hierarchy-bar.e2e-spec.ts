@@ -5,9 +5,9 @@ describe('Hierarchy Bar Tests', () => {
 
     let page: HierarchyBarPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new HierarchyBarPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

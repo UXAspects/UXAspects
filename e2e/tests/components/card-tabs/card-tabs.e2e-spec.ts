@@ -6,9 +6,9 @@ describe('Card Tab Tests', () => {
 
     let page: CardTabsPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new CardTabsPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -80,8 +80,6 @@ describe('Card Tab Tests', () => {
 
         // get the scroll position now
         expect(await page.getScrollPosition()).toBe(-400);
-
-        expect(await imageCompare('card-tabs-show-more')).toEqual(0);
     });
 
     it('should be able to scroll back again', async () => {
@@ -106,8 +104,6 @@ describe('Card Tab Tests', () => {
 
         // get the scroll position now
         expect(await page.getScrollPosition()).toBe(0);
-
-        expect(await imageCompare('card-tabs-click-show-less')).toEqual(0);
     });
 
     it('should be able to change the position', async () => {
@@ -119,8 +115,6 @@ describe('Card Tab Tests', () => {
 
         // get the current position
         expect(await page.getPosition()).toBe('bottom');
-
-        expect(await imageCompare('card-tabs-position')).toEqual(0);
     });
 
 });

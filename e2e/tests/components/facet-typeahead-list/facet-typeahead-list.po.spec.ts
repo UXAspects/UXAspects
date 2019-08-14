@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class FacetTypeaheadListPage {
 
-    getPage(): void {
-        browser.get('#/facet-typeahead-list');
+    async getPage(): Promise<void> {
+        await browser.get('#/facet-typeahead-list');
     }
 
     container = element(by.id('container1'));

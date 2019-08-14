@@ -11,8 +11,8 @@ export class HierarchyBarPage {
     showRightAddonBtn = $('#show-right-addon-btn');
     showTrailingAddonBtn = $('#show-trailing-addon-btn');
 
-    getPage(): void {
-        browser.get('#/hierarchy-bar');
+    async getPage(): Promise<void> {
+        await browser.get('#/hierarchy-bar');
     }
 
     async getSelectedNodeTitle(): Promise<string> {

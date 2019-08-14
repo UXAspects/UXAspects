@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export class ItemDisplayPanelPage {
 
-    getPage(): void {
-        browser.get('#/item-display-panel');
+    async getPage(): Promise<void> {
+        await browser.get('#/item-display-panel');
     }
 
     table1 = element(by.id('table1'));

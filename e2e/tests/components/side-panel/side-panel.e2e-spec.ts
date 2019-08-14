@@ -5,9 +5,9 @@ describe('Side Panel', () => {
 
     let page: SidePanelPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SidePanelPage();
-        page.getPage();
+        await page.getPage();
     });
 
     describe('in the default state', () => {
@@ -47,8 +47,8 @@ describe('Side Panel', () => {
 
     describe('with inline = true', () => {
 
-        beforeEach(() => {
-            page.inline.click();
+        beforeEach(async () => {
+            await page.inline.click();
         });
 
         it('should be hidden initially', async () => {
@@ -78,8 +78,8 @@ describe('Side Panel', () => {
 
     describe('with attachTo = container', () => {
 
-        beforeEach(() => {
-            page.attachToContainer.click();
+        beforeEach(async () => {
+            await page.attachToContainer.click();
         });
 
         it('should be hidden initially', async () => {
@@ -110,8 +110,8 @@ describe('Side Panel', () => {
 
     describe('with width = 50%', () => {
 
-        beforeEach(() => {
-            page.width2.click();
+        beforeEach(async () => {
+            await page.width2.click();
         });
 
         it('should occupy 50% of the width of the window', async () => {
@@ -142,9 +142,9 @@ describe('Side Panel', () => {
 
     describe('with top = 60px', () => {
 
-        beforeEach(() => {
-            page.attachToContainer.click();
-            page.top2.click();
+        beforeEach(async () => {
+            await page.attachToContainer.click();
+            await page.top2.click();
         });
 
         it('should have offset top and reduced height when open', async () => {
@@ -158,8 +158,8 @@ describe('Side Panel', () => {
 
     describe('with modal = true', () => {
 
-        beforeEach(() => {
-            page.modal.click();
+        beforeEach(async () => {
+            await page.modal.click();
         });
 
         it('should not display a backdrop when closed', async () => {
@@ -226,8 +226,8 @@ describe('Side Panel', () => {
 
     describe('with closeOnExternalClick = true', () => {
 
-        beforeEach(() => {
-            page.closeOnExternalClick.click();
+        beforeEach(async () => {
+            await page.closeOnExternalClick.click();
         });
 
         it('should close on external click', async () => {

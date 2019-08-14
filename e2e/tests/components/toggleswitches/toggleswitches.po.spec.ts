@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class ToggleSwitchesPage {
 
-    getPage(): void {
-        browser.get('#/toggleswitches');
+    async getPage(): Promise<void> {
+        await browser.get('#/toggleswitches');
     }
 
     toggleswitch1 = element(by.id('switch1'));

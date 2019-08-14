@@ -5,7 +5,10 @@ import { CheckBoxesPage } from './checkbox.po.spec';
 describe('Checkbox Tests', () => {
 
     let page: CheckBoxesPage = new CheckBoxesPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 

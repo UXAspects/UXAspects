@@ -5,7 +5,10 @@ import { ToggleSwitchesPage } from './toggleswitches.po.spec';
 describe('ToggleSwitchesPage Tests', () => {
 
     let page: ToggleSwitchesPage = new ToggleSwitchesPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
         // Initial values

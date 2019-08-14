@@ -1,11 +1,11 @@
 import { browser, Key } from 'protractor';
-import { TooltipsPage } from './tooltips.po.spec';
 import { imageCompare } from '../common/image-compare';
+import { TooltipsPage } from './tooltips.po.spec';
 
-describe('Tooltips', () => {
+describe('Tooltips', async () => {
 
     let page: TooltipsPage = new TooltipsPage();
-    page.getPage();
+    await page.getPage();
 
     it('should have correct initial states', async () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);

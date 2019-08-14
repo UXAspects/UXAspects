@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class CheckBoxesPage {
 
-    getPage(): void {
-        browser.get('#/checkboxes');
+    async getPage(): Promise<void> {
+        await browser.get('#/checkboxes');
     }
 
     checkbox1 = element(by.id('checkbox1'));

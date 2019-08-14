@@ -5,8 +5,8 @@ export class SparkPage {
     singleValueChart = $('#single-value');
     multiValueChart = $('#multi-value');
 
-    getPage(): void {
-        browser.get('#/spark');
+    async getPage(): Promise<void> {
+        await browser.get('#/spark');
     }
 
     getSegments(chart: ElementFinder): ElementArrayFinder {

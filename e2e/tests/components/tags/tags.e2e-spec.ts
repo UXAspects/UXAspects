@@ -1,14 +1,14 @@
-import { browser, Key } from 'protractor';
-import { TagsPage } from './tags.po.spec';
+import { Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
+import { TagsPage } from './tags.po.spec';
 
 describe('TagsPage Tests', () => {
 
     let page: TagsPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new TagsPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should start with three tags, the customize example section closed and no error messages visible', async () => {
@@ -59,7 +59,7 @@ describe('TagsPage Tests', () => {
 
         await page.copyAndPasteTags('Eta.Theta');
         expect(await page.getNumberOfTags()).toEqual(7);
-        expect(await await page.getTagName(6)).toEqual('Eta.Theta');
+        expect(await page.getTagName(6)).toEqual('Eta.Theta');
 
     });
 

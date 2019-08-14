@@ -6,9 +6,9 @@ describe('Navigation Tests', () => {
 
     let page: NavigationPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new NavigationPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should intially be collapsed with no items selected', async () => {

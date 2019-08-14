@@ -1,14 +1,13 @@
-import { browser } from 'protractor';
-import { SplitterPage } from './splitter.po.spec';
 import { imageCompare } from '../common/image-compare';
+import { SplitterPage } from './splitter.po.spec';
 
 describe('SplitterPage Tests', () => {
 
     let page: SplitterPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SplitterPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have the correct initial properties', async () => {

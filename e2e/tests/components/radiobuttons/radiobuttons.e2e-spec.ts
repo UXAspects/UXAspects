@@ -5,7 +5,10 @@ import { RadioButtonsPage } from './radiobuttons.po.spec';
 describe('RadioButton Tests', () => {
 
     let page: RadioButtonsPage = new RadioButtonsPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 

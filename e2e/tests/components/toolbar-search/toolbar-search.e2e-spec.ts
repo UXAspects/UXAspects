@@ -1,6 +1,6 @@
 import { browser, protractor } from 'protractor';
-import { ToolbarSearchPage } from './toolbar-search.po.spec';
 import { imageCompare } from '../common/image-compare';
+import { ToolbarSearchPage } from './toolbar-search.po.spec';
 
 const ec = protractor.ExpectedConditions;
 
@@ -10,9 +10,9 @@ describe('Toolbar Search', () => {
 
     let page: ToolbarSearchPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new ToolbarSearchPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

@@ -6,9 +6,9 @@ describe('Wizard Tests', () => {
 
     let page: WizardPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new WizardPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial state', async () => {

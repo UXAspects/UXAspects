@@ -6,9 +6,9 @@ describe('Marquee Wizard Tests', () => {
 
     let page: MarqueeWizardPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new MarqueeWizardPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct number of steps', async () => {

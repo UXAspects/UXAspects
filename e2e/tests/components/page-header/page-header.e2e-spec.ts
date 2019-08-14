@@ -5,9 +5,9 @@ describe('Page Header Tests', () => {
 
     let page: PageHeaderPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new PageHeaderPage();
-        page.getPage();
+        await page.getPage();
 
         page.condensed = false;
     });

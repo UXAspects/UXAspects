@@ -2,8 +2,8 @@ import { $, browser, by, element, ElementFinder } from 'protractor';
 
 export class PageHeaderPage {
 
-    getPage(): void {
-        browser.get('#/page-header');
+    async getPage(): Promise<void> {
+        await browser.get('#/page-header');
     }
 
     pageHeader1 = element(by.id('pageHeader1'));

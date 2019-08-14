@@ -16,8 +16,8 @@ export class SelectionPage {
     disableItemBtn = element(by.id('disable-item'));
     rows: ElementFinder[] = [this.row0, this.row1, this.row2, this.row3];
 
-    getPage(): void {
-        browser.get('#/selection');
+    async getPage(): Promise<void> {
+        await browser.get('#/selection');
     }
 
     async getSelection() {

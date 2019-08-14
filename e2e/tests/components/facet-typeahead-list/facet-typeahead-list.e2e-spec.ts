@@ -5,9 +5,9 @@ describe('FacetTypeaheadListPage Tests', () => {
 
     let page: FacetTypeaheadListPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new FacetTypeaheadListPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should start with no facets', async () => {

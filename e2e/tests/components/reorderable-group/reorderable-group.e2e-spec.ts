@@ -6,9 +6,9 @@ describe('Reorderable Group', () => {
 
     let page: ReorderableGroupPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new ReorderableGroupPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

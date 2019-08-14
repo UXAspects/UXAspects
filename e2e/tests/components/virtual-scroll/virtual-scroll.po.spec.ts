@@ -7,8 +7,8 @@ export class VirtualScrollPage {
     loadMoreButton = element(by.id('load-more-button'));
     loadOnScrollCheckbox = element(by.id('load-on-scroll-checkbox'));
 
-    getPage(): void {
-        browser.get('#/virtual-scroll');
+    async getPage(): Promise<void> {
+        await browser.get('#/virtual-scroll');
     }
 
     confirmClassExists(elem: ElementFinder, soughtClass: string) {
@@ -64,13 +64,12 @@ export class VirtualScrollPage {
         return this.getLastVisibleEmployee().$('div.employee-id').getText();
     }
 
-    clickOnLoadOnScroll() {
-        this.getCheckbox().click();
+    async clickOnLoadOnScroll() {
+        await this.getCheckbox().click();
     }
 
     // scrollbar
-    scrollToEnd() {
-        var scrollbar = this.container;
-        browser.executeScript('arguments[0].scrollTop = 2000000', scrollbar);
+    async scrollToEnd() {
+        await browser.executeScript('arguments[0].scrollTop = 2000000', this.container);
     }
 }

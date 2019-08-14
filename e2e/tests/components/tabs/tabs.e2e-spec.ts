@@ -1,15 +1,15 @@
 import { browser, Key } from 'protractor';
-import { TabsTestPageComponent } from './tabs.po.spec';
 import { imageCompare } from '../common/image-compare';
+import { TabsTestPageComponent } from './tabs.po.spec';
 
 describe('Tabs Tests (Angular)', () => {
 
     let page: TabsTestPageComponent;
 
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new TabsTestPageComponent();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

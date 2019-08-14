@@ -6,9 +6,9 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
     let page: InfiniteScrollFullscreenPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new InfiniteScrollFullscreenPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

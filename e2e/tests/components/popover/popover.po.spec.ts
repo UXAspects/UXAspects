@@ -18,8 +18,8 @@ export class PopoverPage {
     popover = $('.popover');
     popoverTitle = this.popover.$('.popover-title');
 
-    getPage(): void {
-        browser.get('#/popover');
+    async getPage(): Promise<void> {
+        await browser.get('#/popover');
     }
 
     async showPopover(): Promise<void> {

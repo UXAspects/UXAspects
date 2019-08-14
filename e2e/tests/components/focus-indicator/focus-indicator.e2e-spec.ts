@@ -5,8 +5,8 @@ describe('Focus Indicator Tests', () => {
 
     let page = new FocusIndicatorButtonsPage();
 
-    beforeEach(() => {
-        page.getPage();
+    beforeEach(async () => {
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

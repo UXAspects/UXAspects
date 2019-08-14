@@ -6,9 +6,9 @@ describe('Reorderable Table Tests', () => {
 
     let page: ReorderableTablePage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new ReorderableTablePage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

@@ -1,4 +1,4 @@
-import { browser, $, $$, ElementFinder, ElementArrayFinder } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class CardTabsPage {
 
@@ -11,8 +11,8 @@ export class CardTabsPage {
     nextBtn = $('.card-tabs-paging-btn-next');
     positionBtn = $('.button-primary');
 
-    getPage(): void {
-        browser.get('#/card-tabs');
+    async getPage(): Promise<void> {
+        await browser.get('#/card-tabs');
     }
 
     async getTab(index: number): Promise<ElementFinder> {

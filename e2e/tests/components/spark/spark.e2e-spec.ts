@@ -1,13 +1,12 @@
-import { browser } from 'protractor';
-import { SparkPage } from './spark.po.spec';
 import { imageCompare } from '../common/image-compare';
+import { SparkPage } from './spark.po.spec';
 
 describe('Spark Chart Tests', () => {
 
     const page = new SparkPage();
 
     // initially load the page
-    page.getPage();
+    await page.getPage();
 
     it('should have the correct appearance', async () => {
         expect(await imageCompare('spark-initial')).toEqual(0);

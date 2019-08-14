@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class InfiniteScrollPage {
 
-    getPage(): void {
-        browser.get('#/infinite-scroll');
+    async getPage(): Promise<void> {
+        await browser.get('#/infinite-scroll');
     }
 
     filter = element(by.id('filter'));

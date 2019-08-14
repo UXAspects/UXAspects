@@ -4,8 +4,8 @@ export class SplitterPage {
 
     gutter = element(by.tagName('split-gutter'));
 
-    getPage(): void {
-        browser.get('#/splitter');
+    async getPage(): Promise<void> {
+        await browser.get('#/splitter');
     }
 
     async setGutterFocused(): Promise<void> {

@@ -16,8 +16,8 @@ export class SelectPage {
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
 
-    getPage(): void {
-        browser.get('#/select');
+    async getPage(): Promise<void> {
+        await browser.get('#/select');
     }
 
     // confirm & check

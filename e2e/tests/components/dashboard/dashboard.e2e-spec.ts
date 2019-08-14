@@ -12,7 +12,7 @@ describe('Dashboard Tests', () => {
 
     beforeEach(async () => {
         page = new DashboardPage();
-        page.getPage();
+        await page.getPage();
 
         // set the browser window to a specific size to ensure consistency
         await browser.driver.manage().window().setSize(1320, 800);

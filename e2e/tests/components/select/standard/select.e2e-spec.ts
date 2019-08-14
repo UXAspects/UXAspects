@@ -6,9 +6,9 @@ describe('Select Tests', () => {
 
     let page: SelectPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SelectPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

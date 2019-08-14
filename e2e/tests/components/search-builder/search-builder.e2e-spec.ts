@@ -5,9 +5,9 @@ describe('Search Builder Tests', () => {
 
     let page: SearchBuilderPage.Page;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SearchBuilderPage.Page();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have the correct initial state', async () => {

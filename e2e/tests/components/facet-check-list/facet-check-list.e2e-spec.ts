@@ -4,7 +4,10 @@ import { FacetCheckListPage } from './facet-check-list.po.spec';
 describe('FacetCheckListPage Tests', () => {
 
     let page: FacetCheckListPage = new FacetCheckListPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should start with no facets', async () => {
 

@@ -13,8 +13,8 @@ export class SlidersPage {
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
 
-    getPage(): void {
-        browser.get('#/sliders');
+    async getPage(): Promise<void> {
+        await browser.get('#/sliders');
     }
 
     getHandleAttribute(slider: ElementFinder, handle: string, attribute: string) {

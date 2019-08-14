@@ -6,9 +6,9 @@ describe('Float Label', () => {
 
     let page: FloatLabelPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new FloatLabelPage();
-        page.getPage();
+        await page.getPage();
     });
 
     describe('with mode = input', () => {
@@ -59,8 +59,8 @@ describe('Float Label', () => {
 
     describe('with mode = focus', () => {
 
-        beforeEach(() => {
-            page.modeFocusButton.click();
+        beforeEach(async () => {
+            await page.modeFocusButton.click();
         });
 
         it('should be visible on focus', async () => {

@@ -6,9 +6,9 @@ describe('Infinite Scroll Tests', () => {
 
     let page: InfiniteScrollPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new InfiniteScrollPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

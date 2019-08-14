@@ -4,7 +4,10 @@ import { NumberPickerPage } from './number-picker.po.spec';
 describe('Number Picker Tests', () => {
 
     const page: NumberPickerPage = new NumberPickerPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 

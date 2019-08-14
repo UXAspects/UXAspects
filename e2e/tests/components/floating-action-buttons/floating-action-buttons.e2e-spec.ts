@@ -6,7 +6,10 @@ import { FloatingActionButtonsPage } from './floating-action-buttons.po.spec';
 describe('Floating Action Button Tests', () => {
 
     const page: FloatingActionButtonsPage = new FloatingActionButtonsPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     const constants = new Constants();
     const functions = new Functions();

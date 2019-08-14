@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class PaginationPage {
 
-    getPage(): void {
-        browser.get('#/pagination');
+    async getPage(): Promise<void> {
+        await browser.get('#/pagination');
     }
 
     pagination = element(by.id('pagination'));

@@ -6,9 +6,9 @@ describe('Popover', () => {
 
     let page: PopoverPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new PopoverPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -140,7 +140,7 @@ describe('Popover', () => {
         expect(await page.popoverTitle.isPresent()).toBe(true);
 
         // expect the title content to be correct
-        expect(await await page.popoverTitle.getAttribute('textContent')).toBe('Popover Title');
+        expect(await page.popoverTitle.getAttribute('textContent')).toBe('Popover Title');
     });
 
     it('should close when escape is pressed', async () => {

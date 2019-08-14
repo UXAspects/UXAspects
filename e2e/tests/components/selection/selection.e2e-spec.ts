@@ -4,9 +4,9 @@ describe('Selection Tests', () => {
 
     let page: SelectionPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SelectionPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial state', async () => {

@@ -4,7 +4,10 @@ import { PaginationPage } from './pagination.po.spec';
 describe('Pagination Tests', () => {
 
     let page: PaginationPage = new PaginationPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 

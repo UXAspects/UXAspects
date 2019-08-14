@@ -1,11 +1,10 @@
-import { browser } from 'protractor';
-import { TimelinePage } from './timeline.po.spec';
 import { imageCompare } from '../common/image-compare';
+import { TimelinePage } from './timeline.po.spec';
 
-describe('TimelinePage Tests', () => {
+describe('TimelinePage Tests', async () => {
 
     let page: TimelinePage = new TimelinePage();
-    page.getPage();
+    await page.getPage();
 
     it('should start with 4 events', async () => {
 

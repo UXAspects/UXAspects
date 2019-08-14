@@ -5,9 +5,9 @@ describe('Date Time Picker Tests', () => {
 
     let page: DateTimePickerPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new DateTimePickerPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

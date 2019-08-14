@@ -8,7 +8,10 @@ describe('Flippable Cards Tests', () => {
     const FLIP_DELAY_MS = 700;
 
     let page: FlippableCardsPage = new FlippableCardsPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 

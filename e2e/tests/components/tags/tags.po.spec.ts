@@ -19,8 +19,8 @@ export class TagsPage {
     selectFirst = element(by.id('selectFirst'));
     showTypeaheadOnClick = element(by.id('showTypeaheadOnClick'));
 
-    getPage(): void {
-        browser.get('#/tags');
+    async getPage(): Promise<void> {
+        await browser.get('#/tags');
     }
 
     getNumberOfTags() {
