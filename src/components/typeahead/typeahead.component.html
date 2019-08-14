@@ -8,7 +8,7 @@
     [pageSize]="pageSize"
     [scrollElement]="typeaheadElement"
     (loading)="loading = true"
-    (loaded)="loading = false">
+     (loaded)="loading = false; onLoadedHighlight()">
 
     <ol *ngIf="(visibleOptions$ | async).length > 0">
         <li *ngFor="let option of (visibleOptions$ | async); let i = index"

@@ -1,27 +1,26 @@
 <div class="row">
     <div class="col-md-12 has-feedback">
         <form class="input-typeahead-form">
-            <input [value]="value"
-                   [(ngModel)]="input"
+            <input [(ngModel)]="input"
                    [ngModelOptions]="{standalone: true}"
                    placeholder="Enter Text"
                    class="form-control"
-                   (keydown.enter)="dropdownOpen = true;"
-                   (click)="dropdownOpen = true;"
-                   (keydown)="typeaheadKeyService.handleKey($event, typeahead);"
-                   (keydown.escape)="dropdownOpen = false;">
+                   (click)="dropdownOpen = true"
+                   (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+                   (keydown.escape)="dropdownOpen = false"
+                   (blur)="dropdownOpen = false">
+
             <ux-typeahead #typeahead
                           class="typeahead-example"
-                          [open]="dropdownOpen"
+                          [(open)]="dropdownOpen"
                           [filter]="input"
                           [options]="loadOptionsFn"
                           [openOnFilterChange]="true"
-                          (uxClickOutside)="dropdownOpen = false"
                           [pageSize]="20"
                           [selectOnEnter]="selectOnEnter"
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
-                          (optionSelected)="select($event)">
+                          (optionSelected)="input = $event.option">
             </ux-typeahead>
         </form>
     </div>
@@ -51,10 +50,10 @@
 
 <hr>
 
-<p>Typeahead functionality is provided by defining a <code>ux-typeahead</code> component as a child of
-    the <a fragment="tags" [routerLink]="[tagDocumentationRoute]"><code>ux-tag-input</code></a>
-        or can be used within other text inputs.
-    It has the following properties:</p>
+<p>The ux-typeahead component can be used to apply a dropdown typeahead list to a text input. To match the
+    width of the input control, place both inside a container with a defined width and <code>position:
+        relative.</code></p>
+<p>It has the following properties:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="options" type="T[] | InfiniteScrollLoadFunction">

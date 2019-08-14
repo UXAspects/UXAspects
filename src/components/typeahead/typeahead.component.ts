@@ -164,7 +164,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             this.highlightedChange.emit(next ? next.value : null);
         });
 
-        combineLatest(this._service.open$, this._service.highlightedElement$, this.visibleOptions$)
+        combineLatest([this._service.open$, this._service.highlightedElement$, this.visibleOptions$])
             .pipe(takeUntil(this._onDestroy))
             .subscribe(([open, highlightedElement, visibleOptions]) => {
                 this.highlightedElementChange.emit(open && visibleOptions.length > 0 ? highlightedElement : null);
@@ -175,6 +175,15 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         // Open the dropdown if the filter value updates
         if (changes.filter) {
             if (this.openOnFilterChange && changes.filter.currentValue && changes.filter.currentValue.length > 0) {
+
+                // if the dropdown item was just selected, and we set the filter value to match the
+                // selected value then open will have also just been set to `false`, in which case we do
+                // not want to set open to `true`
+                if (changes.open && changes.open.previousValue === true && changes.open.currentValue === false) {
+                    return;
+                }
+
+                // show the dropdown
                 this.open = true;
             }
         }
@@ -332,6 +341,18 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         // Clear previous highlight
         this.highlighted$.next(null);
         if (this.selectFirst) {
+            // This will highlight the first non-disabled option.
+            this.moveHighlight(1);
+        }
+    }
+
+    /**
+     * Display the first item as highlighted when there are several pages
+     */
+    onLoadedHighlight(): void {
+        // Clear previous highlight
+        this.highlighted$.next(null);
+        if (this.selectFirst && this.options) {
             // This will highlight the first non-disabled option.
             this.moveHighlight(1);
         }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AutoGrowModule, CheckboxModule, ClickOutsideModule, ColorServiceModule, FloatLabelModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
 import { NgxMaskModule } from 'ngx-mask';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -89,8 +89,7 @@ const ROUTES = [
         ReactiveFormsModule,
         AccordionModule,
         NgxMaskModule,
-        TypeaheadModule,
-        ClickOutsideModule
+        TypeaheadModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

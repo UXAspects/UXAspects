@@ -1,28 +1,28 @@
 <div class="row">
     <div class="col-md-12 has-feedback">
         <form class="input-typeahead-form">
-            <input [value]="value"
-                   [(ngModel)]="input"
+            <input [(ngModel)]="input"
                    [ngModelOptions]="{standalone: true}"
                    placeholder="Enter Text"
                    class="form-control"
-                   (keydown.enter)="dropdownOpen = true;"
-                   (click)="dropdownOpen = true;"
-                   (keydown)="typeaheadKeyService.handleKey($event, typeahead);"
-                   (keydown.escape)="dropdownOpen = false;">
+                   (click)="dropdownOpen = true"
+                   (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+                   (keydown.escape)="dropdownOpen = false"
+                   (blur)="dropdownOpen = false">
+
             <ux-typeahead #typeahead
                           class="typeahead-example"
-                          [open]="dropdownOpen"
+                          [(open)]="dropdownOpen"
                           [filter]="input"
                           [options]="loadOptionsFn"
                           [openOnFilterChange]="true"
-                          (uxClickOutside)="dropdownOpen = false"
                           [pageSize]="20"
                           [selectOnEnter]="selectOnEnter"
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
-                          (optionSelected)="select($event)">
+                          (optionSelected)="input = $event.option">
             </ux-typeahead>
         </form>
     </div>
 </div>
+
