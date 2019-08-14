@@ -1,66 +1,75 @@
 <p *ngIf="iconSetClass === 'hpe-icon'">To use an icon simply apply the <code>{{ iconSetClass }}</code>
     class along with one of the following classes:</p>
 
-<p  *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <a fragment="icon"
+<p *ngIf="iconSetClass === 'ux-icon'">To use an icon apply the <a fragment="icon"
     [routerLink]="[uxIconComponentRoute]"><code>ux-icon</code> component</a> along with one of the
     following names. Click on an icon to view its implementation.</p>
 
-<div class="row m-b-md icon-search-container">
+<div class="row m-b-md">
 
-    <div class="icon-search-items-container col-xs-6">
-        <input #input
-               type="text"
-               class="form-control"
-               placeholder="Search UX Aspects Icons..."
-               [(ngModel)]="query"
-               (ngModelChange)="search()">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+
+        <div class="icon-search-items-container">
+
+            <input #input
+                   type="text"
+                   class="form-control"
+                   placeholder="Search UX Aspects Icons..."
+                   [(ngModel)]="query"
+                   (ngModelChange)="search()">
+
+        </div>
     </div>
 
-    <div [class.col-xs-4]="iconSetClass === 'ux-icon'"
-         [class.col-xs-6]="iconSetClass === 'hpe-icon'"
-         [class.icon-set-selector-alignment]="iconSetClass === 'ux-icon'"
-         class="icon-search-items-container">
+    <div class="col-lg-4 col-md-12 col-sm-12">
 
-        <div class="icon-selector-text">Icon Set</div>
+        <div class="icon-search-items-container">
 
-        <!-- Show the standard select component in the keppel site -->
-        <ux-select [class.icon-set-dropdown]="iconSetClass === 'ux-icon'"
-                   *ngIf="isKeppel"
-                   [(value)]="iconset"
-                   (valueChange)="updateIconset(iconset); search()"
-                   [options]="iconsets"
-                   [readonlyInput]="true">
-        </ux-select>
+            <div class="icon-selector-text">Icon Set</div>
 
-        <!-- Show the combobox variant in the MF site -->
-        <ux-combobox *ngIf="!isKeppel"
-                     [(value)]="iconset"
-                     (valueChange)="updateIconset(iconset); search()"
-                     [options]="iconsets"
-                     [readonlyInput]="true">
-        </ux-combobox>
+            <!-- Show the standard select component in the keppel site -->
+            <ux-select *ngIf="isKeppel"
+                       [class.icon-set-dropdown]="iconSetClass === 'ux-icon'"
+                       [(value)]="iconset"
+                       (valueChange)="updateIconset(iconset); search()"
+                       [options]="iconsets"
+                       [readonlyInput]="true">
+            </ux-select>
+
+            <!-- Show the combobox variant in the MF site -->
+            <ux-combobox *ngIf="!isKeppel"
+                         [(value)]="iconset"
+                         (valueChange)="updateIconset(iconset); search()"
+                         [options]="iconsets"
+                         [readonlyInput]="true">
+            </ux-combobox>
+
+        </div>
+
     </div>
 
-    <div *ngIf="iconSetClass === 'ux-icon'"
-         class="col-xs-4 icon-search-items-container icon-resize-container-alignment">
+    <div class="col-lg-4 col-md-12 col-sm-12">
 
-        <div class="icon-selector-text">Icon Size</div>
-        <div class="btn-group icon-resize-buttons">
-            <button type="button"
-                    class="btn button-toggle-primary icon-resize-button"
-                    [(ngModel)]="size"
-                    btnRadio="16px">16px
-            </button>
-            <button type="button"
-                    class="btn button-toggle-primary icon-resize-button"
-                    [(ngModel)]="size"
-                    btnRadio="24px">24px
-            </button>
-            <button type="button"
-                    class="btn button-toggle-primary icon-resize-button"
-                    [(ngModel)]="size"
-                    btnRadio="32px">32px
-            </button>
+        <div *ngIf="iconSetClass === 'ux-icon'" class="icon-search-items-container">
+
+            <div class="icon-selector-text">Icon Size</div>
+            <div class="btn-group icon-resize-buttons">
+                <button type="button"
+                        class="btn button-toggle-primary icon-resize-button"
+                        [(ngModel)]="size"
+                        btnRadio="16px">16px
+                </button>
+                <button type="button"
+                        class="btn button-toggle-primary icon-resize-button"
+                        [(ngModel)]="size"
+                        btnRadio="24px">24px
+                </button>
+                <button type="button"
+                        class="btn button-toggle-primary icon-resize-button"
+                        [(ngModel)]="size"
+                        btnRadio="32px">32px
+                </button>
+            </div>
         </div>
 
     </div>

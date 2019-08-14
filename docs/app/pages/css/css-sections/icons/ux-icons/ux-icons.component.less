@@ -1,32 +1,21 @@
-.icon-search-container {
+.icon-search-items-container {
     display: flex;
+    align-items: center;
+    padding: 5px 0;
 
-    .icon-search-items-container {
-        display: inline-flex;
-        align-items: center;
+    .icon-selector-text {
+        justify-content: center;
+        flex-direction: column;
+        margin-right: 8px;
+    }
 
-        &.icon-resize-container-alignment {
-            justify-content: flex-end;
-        }
+    .icon-set-dropdown {
+        width: 208px;
+        min-width: 120px;
+    }
 
-        &.icon-set-selector-alignment {
-            justify-content: center;
-        }
-
-        .icon-set-dropdown {
-            width: 155px;
-            min-width: 120px;
-        }
-
-        .icon-selector-text {
-            justify-content: center;
-            flex-direction: column;
-            margin-right: 8px;
-        }
-
-        .icon-resize-button {
-            text-transform: none;
-            padding: 4px 12px;
-        }
+    .icon-resize-button {
+        text-transform: none;
+        padding: 4px 12px;
     }
 }
