@@ -30,38 +30,3 @@
         </ux-input-dropdown>
     </div>
 </div>
-
-<div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <ux-accordion>
-            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-2 col-sm-12">
-                        <label>maxHeight</label>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <ux-number-picker-inline [(value)]="componentMaxHeight"></ux-number-picker-inline>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [(value)]="allowNull">allowNull</ux-checkbox>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-2 col-sm-12">
-                        <label>placeholder</label>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <input class="form-control" [(ngModel)]="placeholder">
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <button class="btn button-primary" (click)="selected = filteredOptionList[0]">Select first element</button>
-                    </div>
-                </div>
-            </ux-accordion-panel>
-        </ux-accordion>
-    </div>
-</div>
