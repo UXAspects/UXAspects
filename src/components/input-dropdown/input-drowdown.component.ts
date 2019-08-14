@@ -20,18 +20,18 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
 
 
 @Component({
-    selector: 'ux-select-custom',
-    templateUrl: './select-custom.component.html',
+    selector: 'ux-input-dropdown',
+    templateUrl: './input-drowdown.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => SelectCustomComponent)
+            useExisting: forwardRef(() => InputDrowdownComponent)
         }
     ]
 })
-export class SelectCustomComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
+export class InputDrowdownComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
 
     /** Define the selected item */
     @Input() selected: T;

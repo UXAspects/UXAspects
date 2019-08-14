@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-5">
 
-        <ux-select-custom
+        <ux-input-dropdown
             [(selected)]="selected"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
@@ -31,7 +31,7 @@
                 </div>
             </ng-template>
 
-        </ux-select-custom>
+        </ux-input-dropdown>
     </div>
 </div>
 
@@ -61,7 +61,7 @@
                     <div class="col-md-2 col-sm-12">
                         <label>placeholder</label>
                     </div>
-                    <div class="col-md-2 col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <input class="form-control" [(ngModel)]="placeholder">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
 <hr>
 
 <p>
-    The <code>select-custom</code> component is a drop-down with flexible content.
+    The <code>input-dropdown</code> component is a drop-down with flexible content.
     The following can be used to customize and interact with the component:
 </p>
 

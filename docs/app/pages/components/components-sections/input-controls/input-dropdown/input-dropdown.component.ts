@@ -19,12 +19,12 @@ export class HighlightSearch implements PipeTransform {
 
 
 @Component({
-    selector: 'uxd-components-select-custom',
-    templateUrl: './select-custom.component.html',
-    styleUrls: ['./select-custom.component.less']
+    selector: 'uxd-components-input-dropdown',
+    templateUrl: './input-dropdown.component.html',
+    styleUrls: ['./input-dropdown.component.less']
 })
-@DocumentationSectionComponent('ComponentsSelectCustomComponent')
-export class ComponentsSelectCustomComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnInit {
+@DocumentationSectionComponent('ComponentsInputDropdownComponent')
+export class ComponentsInputDropdownComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnInit {
 
     selected: RadioOption;
     optionList: ReadonlyArray<RadioOption> = [
@@ -50,7 +50,7 @@ export class ComponentsSelectCustomComponent extends BaseDocumentationSection im
                 declaration: true
             }, 
             {
-                imports: ['AccordionModule', 'CheckboxModule', 'NumberPickerModule', 'RadioButtonModule', 'SelectCustomModule'],
+                imports: ['AccordionModule', 'CheckboxModule', 'NumberPickerModule', 'RadioButtonModule', 'InputDropdownModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

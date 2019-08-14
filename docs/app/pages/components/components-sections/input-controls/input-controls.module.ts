@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, InputDropdownModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
 import { NgxMaskModule } from 'ngx-mask';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -29,6 +29,7 @@ import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
 import { ComponentsTagsComponent } from './tags/tags.component';
 import { ComponentsToggleSwitchNg1Component } from './toggle-switch-ng1/toggle-switch-ng1.component';
 import { ComponentsToggleSwitchComponent } from './toggleswitch/toggleswitch.component';
+import { ComponentsInputDropdownComponent, HighlightSearch } from './input-dropdown/input-dropdown.component';
 
 
 const SECTIONS = [
@@ -39,6 +40,7 @@ const SECTIONS = [
     ComponentsExpandingTextAreaNg1Component,
     ComponentsFloatLabelComponent,
     ComponentsInlineDropdownNg1Component,
+    ComponentsInputDropdownComponent,
     ComponentsInputExpandNg1Component,
     ComponentsInputMaskComponent,
     ComponentsInputMaskNg1Component,
@@ -79,6 +81,7 @@ const ROUTES = [
         SliderModule,
         FormsModule,
         NumberPickerModule,
+        InputDropdownModule,
         ColorServiceModule,
         AutoGrowModule,
         FloatLabelModule,
@@ -89,7 +92,7 @@ const ROUTES = [
         NgxMaskModule
     ],
     exports: SECTIONS,
-    declarations: SECTIONS,
+    declarations: [...SECTIONS, HighlightSearch],
     entryComponents: SECTIONS
 })
 export class ComponentsInputControlsModule {

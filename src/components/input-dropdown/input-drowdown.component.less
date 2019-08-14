@@ -1,4 +1,4 @@
-ux-select-custom {
+ux-input-dropdown {
     display: inline-block;
     position: relative;
 
@@ -15,12 +15,17 @@ ux-select-custom {
     position: relative;
     overflow-y: auto;
 
-    .filter-button {
-        position: absolute;
-        right: 0;
-        top: 0;
-        background-color: transparent;
-        padding: 6px;
+    .filter-container {
+        position: relative;
+
+        .filter-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: transparent;
+            padding: 6px;
+            min-width: auto;
+        }
     }
 }
 

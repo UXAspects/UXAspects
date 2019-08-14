@@ -1,26 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectCustomComponent } from './select-custom.component';
+import { InputDrowdownComponent } from './input-drowdown.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { IconModule } from '../icon';
 import { MenuModule } from '../menu';
 
-describe('SelectCustomComponent', () => {
-  let component: SelectCustomComponent<any>;
-  let fixture: ComponentFixture<SelectCustomComponent<any>>;
+describe('InputDrowdownComponent', () => {
+  let component: InputDrowdownComponent<any>;
+  let fixture: ComponentFixture<InputDrowdownComponent<any>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SelectCustomComponent],
+      declarations: [InputDrowdownComponent],
       imports: [CommonModule, FormsModule, IconModule, MenuModule]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectCustomComponent);
+    fixture = TestBed.createComponent(InputDrowdownComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
