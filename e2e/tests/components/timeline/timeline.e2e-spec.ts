@@ -1,10 +1,13 @@
 import { imageCompare } from '../common/image-compare';
 import { TimelinePage } from './timeline.po.spec';
 
-describe('TimelinePage Tests', async () => {
+describe('TimelinePage Tests', () => {
 
     let page: TimelinePage = new TimelinePage();
-    await page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should start with 4 events', async () => {
 
