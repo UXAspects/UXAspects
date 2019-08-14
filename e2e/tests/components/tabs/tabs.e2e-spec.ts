@@ -6,7 +6,6 @@ describe('Tabs Tests (Angular)', () => {
 
     let page: TabsTestPageComponent;
 
-
     beforeEach(async () => {
         page = new TabsTestPageComponent();
         await page.getPage();

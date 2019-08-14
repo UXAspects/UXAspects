@@ -2,10 +2,13 @@ import { browser, Key } from 'protractor';
 import { imageCompare } from '../common/image-compare';
 import { SelectListPage } from './select-list.po.spec';
 
-describe('Select List Tests', async () => {
+describe('Select List Tests', () => {
 
     let page: SelectListPage = new SelectListPage();
-    await page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial state', async () => {
         expect(await page.getItemCount()).toBe(20);
