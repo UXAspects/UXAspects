@@ -6,16 +6,8 @@
     following names. Click on an icon to view its implementation.</p>
 
 <div class="row m-b-md icon-search-container">
-    <div class="col-xs-5">
 
-        <!-- Show the standard select component in the keppel site -->
-        <ux-select *ngIf="isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-select>
-
-        <!-- Show the combobox variant in the MF site -->
-        <ux-combobox *ngIf="!isKeppel" [(value)]="iconset" (valueChange)="updateIconset(iconset); search()" [options]="iconsets" [readonlyInput]="true"></ux-combobox>
-    </div>
-
-    <div class="col-xs-6">
+    <div class="icon-search-items-container col-xs-6">
         <input #input
                type="text"
                class="form-control"
@@ -24,8 +16,35 @@
                (ngModelChange)="search()">
     </div>
 
-    <div *ngIf="iconSetClass === 'ux-icon'" class="col-xs-6 icon-resize-container">
-        <div class="icon-resize-text">Icon Size</div>
+    <div [class.col-xs-4]="iconSetClass === 'ux-icon'"
+         [class.col-xs-6]="iconSetClass === 'hpe-icon'"
+         [class.icon-set-selector-alignment]="iconSetClass === 'ux-icon'"
+         class="icon-search-items-container">
+
+        <div class="icon-selector-text">Icon Set</div>
+
+        <!-- Show the standard select component in the keppel site -->
+        <ux-select [class.icon-set-dropdown]="iconSetClass === 'ux-icon'"
+                   *ngIf="isKeppel"
+                   [(value)]="iconset"
+                   (valueChange)="updateIconset(iconset); search()"
+                   [options]="iconsets"
+                   [readonlyInput]="true">
+        </ux-select>
+
+        <!-- Show the combobox variant in the MF site -->
+        <ux-combobox *ngIf="!isKeppel"
+                     [(value)]="iconset"
+                     (valueChange)="updateIconset(iconset); search()"
+                     [options]="iconsets"
+                     [readonlyInput]="true">
+        </ux-combobox>
+    </div>
+
+    <div *ngIf="iconSetClass === 'ux-icon'"
+         class="col-xs-4 icon-search-items-container icon-resize-container-alignment">
+
+        <div class="icon-selector-text">Icon Size</div>
         <div class="btn-group icon-resize-buttons">
             <button type="button"
                     class="btn button-toggle-primary icon-resize-button"
@@ -43,6 +62,7 @@
                     btnRadio="32px">32px
             </button>
         </div>
+
     </div>
 
 </div>
