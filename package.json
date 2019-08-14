@@ -28,7 +28,9 @@
     "package:release": "grunt package:release",
     "test": "grunt jasmine:ng1 && karma start --single-run && grunt e2e",
     "test:e2e": "grunt e2e",
-    "test:karma": "karma start --single-run"
+    "test:karma": "karma start --single-run",
+    "docker:build-e2e": "docker build -f \"e2e\\Dockerfile\" -t ux-apsects-e2e:latest .",
+    "docker:e2e": "docker run --privileged -p 4000:4000 -v %INIT_CWD%/dist:/ux-aspects-e2e/dist -v %INIT_CWD%/e2e:/ux-aspects-e2e/e2e -ti ux-apsects-e2e:latest"
   },
   "dependencies": {
     "@angular/animations": "~8.1.2",
