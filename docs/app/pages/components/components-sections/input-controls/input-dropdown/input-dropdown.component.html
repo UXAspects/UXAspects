@@ -9,27 +9,24 @@
             [maxHeight]="componentMaxHeight"
             [placeholder]="placeholder">
 
-            <ng-template #buttonContent>
+            <ng-template #displayContent>
                 <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
             </ng-template>
 
-            <ng-template #dropdownContent>
-
-                <div class="radio-button-container"
-                     uxTabbableList>
-                    <ux-radio-button
-                        uxTabbableListItem
-                        *ngFor="let option of filteredOptionList"
-                        name="group"
-                        [value]="selected"
-                        (valueChange)="selected = $event"
-                        [option]="option"
-                        (keydown.space)="selectButton($event, option)">
-                        <span [innerHTML]="option.name | highlightSearch: filter">
-                        </span>
-                    </ux-radio-button>
-                </div>
-            </ng-template>
+            <div class="radio-button-container"
+                 uxTabbableList>
+                <ux-radio-button
+                    uxTabbableListItem
+                    *ngFor="let option of filteredOptionList"
+                    name="group"
+                    [value]="selected"
+                    (valueChange)="selected = $event"
+                    [option]="option"
+                    (keydown.space)="selectButton($event, option)">
+                    <span [innerHTML]="option.name | highlightSearch: filter">
+                    </span>
+                </ux-radio-button>
+            </div>
 
         </ux-input-dropdown>
     </div>
@@ -83,11 +80,11 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="buttonContent" type="TemplateRef<void>">
-        Rendering the selected item on the drop-down button.
-    </tr>
-    <tr uxd-api-property name="dropdownContent" type="TemplateRef<void>">
+    <tr uxd-api-property name="<HTML content>" type="<HTML content>">
         Rendering the complete data to select from on the drop-down panel.
+    </tr>
+    <tr uxd-api-property name="displayContent" type="TemplateRef<void>">
+        Rendering the selected item on the drop-down button.
     </tr>
 
     <tr uxd-api-property name="selected" type="T">

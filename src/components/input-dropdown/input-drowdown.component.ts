@@ -57,8 +57,7 @@ export class InputDrowdownComponent<T> implements ControlValueAccessor, OnChange
     /** Emit when the filter text is changed */
     @Output() filterChange = new EventEmitter<string>();
 
-    @ContentChild('dropdownContent', { static: false }) dropdownContentRef: TemplateRef<void>;
-    @ContentChild('buttonContent', { static: false }) buttonContentRef: TemplateRef<void>;
+    @ContentChild('displayContent', { static: false }) displayContentRef: TemplateRef<void>;
 
     @ViewChild(MenuTriggerDirective, { static: false }) menuTrigger: MenuTriggerDirective;
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef;
@@ -112,4 +111,7 @@ export class InputDrowdownComponent<T> implements ControlValueAccessor, OnChange
         event.stopPropagation();
     }
 
+    selectedString() {
+        return this.selected ? JSON.stringify(this.selected) : '-';
+    }
 }

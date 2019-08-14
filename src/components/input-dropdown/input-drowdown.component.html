@@ -1,7 +1,8 @@
 <div class="ux-select-container">
     <button #button type="button" class="form-control"
             [uxMenuTriggerFor]="menu">
-        <ng-container [ngTemplateOutlet]="buttonContentRef"></ng-container>
+        <ng-template #defaultDisplayContent>{{selectedString()}}</ng-template>
+        <ng-container [ngTemplateOutlet]="displayContentRef ? displayContentRef : defaultDisplayContent"></ng-container>
     </button>
     <div class="ux-select-icons">
         <ux-icon name="close"
@@ -43,7 +44,7 @@
                 </button>
             </div>
 
-            <ng-container [ngTemplateOutlet]="dropdownContentRef"></ng-container>
+            <ng-content></ng-content>
         </div>
 
         <div class="busy-indicator" *ngIf="busy">
