@@ -1,20 +1,23 @@
-<button #button type="button"
-        class="select-button"
-        [uxMenuTriggerFor]="menu">
-
-    <ng-container [ngTemplateOutlet]="buttonContentRef"></ng-container>
-
+<div class="ux-select-container">
+    <button #button type="button" class="form-control"
+            [uxMenuTriggerFor]="menu">
+        <ng-container [ngTemplateOutlet]="buttonContentRef"></ng-container>
+    </button>
     <div class="ux-select-icons">
         <ux-icon name="close"
+                 class="ux-select-icon ux-select-clear-icon"
                  *ngIf="allowNull && selected"
                  (click)="resetValue($event)">
         </ux-icon>
-        <ux-icon name="chevron-down" class="ux-icon-down"></ux-icon>
+        <ux-icon name="chevron-down"
+                 class="ux-select-icon ux-select-chevron-icon"
+                 (click)="menuTrigger.toggleMenu(); $event.stopPropagation()">
+        </ux-icon>
     </div>
+</div>
 
-</button>
-
-<ux-menu #menu menuClass="select-menu" (opened)="filterInputElement.nativeElement.focus()">
+<ux-menu #menu menuClass="select-menu"
+         (opened)="filterInputElement.nativeElement.focus()">
 
     <div [style.max-height.px]="maxHeight"
          [style.width.px]="button.offsetWidth">

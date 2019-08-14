@@ -2,51 +2,23 @@ ux-select-custom {
     display: inline-block;
     position: relative;
 
-    .select-button {
-        height: 36px;
-        padding: 4px 60px 4px 12px;
-        background-color: @white;
-        border: 1px solid @grey6;
-        border-radius: 1px;
-        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-        box-shadow: none;
-        width: 100%;
+    .form-control {
+        padding-right: 60px;
         text-align: left;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-
-        &:focus {
-            border-color: @accent;
-        }
-
-        .ux-select-icons {
-            position: absolute;
-            top: 0;
-            right: 5px;
-
-            ux-icon {
-                padding: 10px 5px;
-            }
-        }
     }
 }
 
 .select-menu {
     position: relative;
     overflow-y: auto;
-    z-index: 1010;
-    border: none;
-    border-radius: 2px;
-    margin: 5px 0;
-    background-color: @white;
-    box-shadow: 0 0 3px @dropdown-shadow;
 
     .filter-button {
         position: absolute;
         right: 0;
         top: 0;
-        height: 32px;
         background-color: transparent;
         padding: 6px;
     }
