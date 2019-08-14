@@ -21,17 +21,17 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
 
 @Component({
     selector: 'ux-input-dropdown',
-    templateUrl: './input-drowdown.component.html',
+    templateUrl: './input-dropdown.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => InputDrowdownComponent)
+            useExisting: forwardRef(() => InputDropdownComponent)
         }
     ]
 })
-export class InputDrowdownComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
+export class InputDropdownComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
 
     /** Define the selected item */
     @Input() selected: T;
