@@ -8,7 +8,7 @@ describe('Spark Chart Tests', () => {
     // initially load the page
     beforeAll(async () => {
         await page.getPage();
-    })
+    });
 
     it('should have the correct appearance', async () => {
         expect(await imageCompare('spark-initial')).toEqual(0);
