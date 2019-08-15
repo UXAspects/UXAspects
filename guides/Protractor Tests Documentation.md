@@ -48,12 +48,30 @@ Create the new tests
 
 - Create a file (names xxxxxx.e2e-spec.ts) containing the Jasmine-based tests. The tests should access elements in the test page through exports from the PageObject file.
 
+#### Screenshot Testing
+
+To prevent style regressions we can add screenshot comparison tests:
+
+```typescript
+expect(await imageCompare('checkbox-initial')).toEqual(0);
+```
+
+If this test is run and there is no baseline image to compare against one will be generated in the `e2e/screenshots` folder. Subsequent runs
+will then test against the previous baseline image.
+
+If a component has been updated and has visually changed, the baseline image needs to be updated otherwise tests will fail.
+Our CI build runs in a Linux environment, which has different font rendering than a Windows environment, therefore to prevent differences in the font variation baseline images should be generated in a Linux environment.
+
+We provide an `npm` script that allows you to use Docker to run a CI environment on your local machine. Your current developer environment will be
+mounted allowing you to run the `e2e` tests and produce baseline images. This can be run by using `npm run docker:ci`. You will need to run
+`npm install` inside the container to ensure all required dependencies are available.
+
 ### Executing tests in different browsers
 
 By default, tests will be executed in the Chrome browser. To test in other browsers uncomment the appropriate line in the 'capabilities' object in e2e/protracor.config.js. Only one browser may be tested at a time.
 
 ### Useful links
 
-Protractor Tutorials  
+Protractor Tutorials
 <http://www.protractortest.org>
 
