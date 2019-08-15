@@ -36,7 +36,7 @@ export class AppComponent {
     constructor(public typeaheadKeyService: TypeaheadKeyService<string>) {
 
         /* Adding values to typeahead list */
-        for (let index = 0; index < 40; index++) {
+        for (let index = 0; index < 200; index++) {
             this.values = [...this.values, chance.name()];
         }
     }

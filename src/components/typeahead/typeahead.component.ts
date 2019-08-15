@@ -106,6 +106,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     highlightedKey: string = null;
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
+    private _currentPageNumber: number;
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -127,6 +128,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     ) {
 
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
+
+            this._currentPageNumber = pageNum;
+
             if (typeof this.options === 'function') {
 
                 // Invoke the callback which may return an array or a promise.
@@ -350,9 +354,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Display the first item as highlighted when there are several pages
      */
     onLoadedHighlight(): void {
-        // Clear previous highlight
-        this.highlighted$.next(null);
-        if (this.selectFirst && this.options) {
+        if (this.selectFirst && this.options && this._currentPageNumber === 0) {
             // This will highlight the first non-disabled option.
             this.moveHighlight(1);
         }
