@@ -6,7 +6,7 @@ export class PageHeaderPage {
         browser.get('#/page-header');
     }
 
-    pageHeader1 = element(by.id('pageHeader1'));
+    // pageHeader1 = element(by.id('pageHeader1'));
     pageHeader2 = element(by.id('pageHeader2'));
     selected = element(by.id('selected'));
     toggleButton = element(by.id('button1'));
@@ -28,7 +28,7 @@ export class PageHeaderPage {
     }
 
     confirmPageHeaderIsCondensed() {
-        return this.confirmClassExists(this.pageHeader1, 'page-header-condensed');
+        return this.confirmClassExists(element(by.id('pageHeader1')), 'page-header-condensed');
     }
 
     toggleTheHeader() {
@@ -36,29 +36,29 @@ export class PageHeaderPage {
     }
 
     async getABreadcrumb(index: number): Promise<string> {
-        return this.pageHeader1.$('ux-breadcrumbs').$$('li').get(index).getText();
+        return element(by.id('pageHeader1')).$('ux-breadcrumbs').$$('li').get(index).getText();
     }
 
     async confirmApplicationLogoIsPresent() {
-        return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
+        return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
             $('span.hpe-home').isPresent();
     }
 
     async getApplicationLogoText(): Promise<string> {
-        return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
+        return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
             $('span.navigation-item-label').getText();
     }
 
     confirmDropdownIsPresent() {
-        return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
+        return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').
             $('span.hpe-analytics').isPresent();
     }
 
     openDropdown() {
-        return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
+        return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').click();
     }
 
@@ -84,12 +84,12 @@ export class PageHeaderPage {
     }
 
     confirmNotificationIconIsPresent() {
-        return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
+        return element(by.id('pageHeader1')).$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
             $('.page-header-icon-menu-button').$('i.hpe-notification').isPresent();
     }
 
     openNotifications() {
-        return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
+        return element(by.id('pageHeader1')).$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
             $('.page-header-icon-menu-button').click();
     }
 
@@ -98,12 +98,12 @@ export class PageHeaderPage {
     }
 
     confirmActionsIconIsPresent() {
-        return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
+        return element(by.id('pageHeader1')).$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
             $('.page-header-icon-menu-button').$('i.hpe-actions').isPresent();
     }
 
     openActions() {
-        return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
+        return element(by.id('pageHeader1')).$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
             $('.page-header-icon-menu-button').click();
     }
 
