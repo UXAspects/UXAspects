@@ -33,7 +33,7 @@ import { coerceCssPixelValue } from '@angular/cdk/coercion';
     ]
 })
 export class InputDropdownComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
-    maxHeightString: string;
+    _maxHeightString: string;
 
     /** Define the selected item */
     @Input() selected: T;
@@ -43,7 +43,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
 
     /** Define the max height of the dropdown */
     @Input() set maxHeight(value: string | any) {
-        this.maxHeightString = coerceCssPixelValue(value);
+        this._maxHeightString = coerceCssPixelValue(value);
     }
 
     /** Define if null values are allowed */
