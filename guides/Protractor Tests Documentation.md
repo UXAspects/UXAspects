@@ -64,7 +64,8 @@ Our CI build runs in a Linux environment, which has different font rendering tha
 
 We provide an `npm` script that allows you to use Docker to run a CI environment on your local machine. Your current developer environment will be
 mounted allowing you to run the `e2e` tests and produce baseline images. This can be run by using `npm run docker:ci`. You will need to run
-`npm install` inside the container to ensure all required dependencies are available.
+`npm ci` inside the container to ensure all required dependencies are available. Once you have finished running the container you will need to
+run `npm ci` in your development environment to ensure the correct packages are installed for your operating system.
 
 ### Executing tests in different browsers
 

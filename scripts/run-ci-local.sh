@@ -5,7 +5,6 @@ dockerCommand="docker run --rm -it \
     -e \"http_proxy=$HTTP_PROXY\" \
     -e \"https_proxy=$HTTPS_PROXY\" \
     -v \"$(pwd -W)\"://wd \
-    -v //wd/node_modules \
     -w //wd \
     --entrypoint //bin/bash \
     uxaspects/buildenv:latest"
