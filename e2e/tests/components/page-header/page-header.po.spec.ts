@@ -16,8 +16,6 @@ export class PageHeaderPage {
     alignRightButton = element(by.id('align-right'));
     autoselectButton = element(by.id('autoselect'));
 
-    condensed = false;
-
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
             var allClasses = classes.split(' ');
@@ -35,7 +33,6 @@ export class PageHeaderPage {
 
     toggleTheHeader() {
         this.toggleButton.click();
-        this.condensed = !this.condensed;
     }
 
     async getABreadcrumb(index: number): Promise<string> {
