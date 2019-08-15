@@ -12,7 +12,20 @@
         [class.open]="isOpen"
         [attr.aria-selected]="item.selected">
 
-        <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
+        <!-- Support all icon types -->
+        <ng-container *ngIf="item.icon">
+            <i *ngIf="_getIconType() !== 'component'"
+                class="navigation-item-icon"
+                [ngClass]="[_getIconType(), item.icon]">
+            </i>
+
+            <ux-icon *ngIf="_getIconType() === 'component'"
+                     class="navigation-item-icon"
+                     [name]="item.icon">
+            </ux-icon>
+
+        </ng-container>
+
         <span class="navigation-item-label">{{ item?.title }}</span>
         <ux-icon class="navigation-item-dropdown-icon" name="down"></ux-icon>
 
@@ -45,7 +58,20 @@
     (click)="select()"
     [disabled]="item.disabled">
 
-    <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
+    <!-- Support all icon types -->
+    <ng-container *ngIf="item.icon">
+        <i *ngIf="_getIconType() !== 'component'"
+            class="navigation-item-icon"
+            [ngClass]="[_getIconType(), item.icon]">
+        </i>
+
+        <ux-icon *ngIf="_getIconType() === 'component'"
+                 class="navigation-item-icon"
+                 [name]="item.icon">
+        </ux-icon>
+
+    </ng-container>
+
     <span class="navigation-item-label">{{ item?.title }}</span>
 
 </button>

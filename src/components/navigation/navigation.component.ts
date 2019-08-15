@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { getIconType } from '../../common/index';
 import { NavigationItem } from './navigation-item.inferface';
 import { NavigationService } from './navigation.service';
 
@@ -51,5 +52,10 @@ export class NavigationComponent {
      */
     _needsIndent(items: NavigationItem[]): boolean {
         return items && items.some(item => item.children && item.children.length > 0);
+    }
+
+    /** Determine the type of icon to display. We support `hpe-icon`, `ux-icon` or `component` */
+    _getIconType(item: NavigationItem): string {
+        return getIconType(item.icon);
     }
 }

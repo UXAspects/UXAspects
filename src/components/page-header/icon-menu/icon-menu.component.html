@@ -6,7 +6,15 @@
         [uxMenuTriggerFor]="iconMenu"
         (click)="select(menu)">
 
-        <i class="hpe-icon" [ngClass]="menu.icon"></i>
+        <!-- Support all icon types -->
+        <i *ngIf="_getIconType(menu.icon) !== 'component'"
+           [ngClass]="[_getIconType(menu.icon), menu.icon]">
+        </i>
+
+        <ux-icon *ngIf="_getIconType(menu.icon) === 'component'"
+                 [name]="menu.icon">
+        </ux-icon>
+
         <span class="label label-primary" *ngIf="menu?.badge" aria-hidden="true">{{ menu.badge }}</span>
     </button>
 
@@ -26,7 +34,16 @@
 
 
                 <span class="dropdown-item-title">
-                    <i class="hpe-icon hpe-fw" [ngClass]="dropdown.icon"></i>
+                    <!-- Support all icon types -->
+                    <i *ngIf="_getIconType(dropdown.icon) !== 'component'"
+                       class="hpe-fw"
+                       [ngClass]="[_getIconType(dropdown.icon) || 'ux-icon', dropdown.icon || '']">
+                    </i>
+
+                    <ux-icon *ngIf="_getIconType(dropdown.icon) === 'component'"
+                             [name]="dropdown.icon">
+                    </ux-icon>
+
                     {{ dropdown.title }}
                 </span>
                 <span *ngIf="dropdown.subtitle" class="dropdown-item-subtitle">{{ dropdown.subtitle }}</span>

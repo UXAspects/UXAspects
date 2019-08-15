@@ -3,6 +3,7 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { getIconType } from '../../../../common/index';
 import { tick } from '../../../../common/operators/index';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
@@ -74,5 +75,9 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
         if (event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW) {
             this._navigationService.onKeydown(event);
         }
+    }
+
+    _getIconType(): string {
+        return getIconType(this.item.icon);
     }
 }
