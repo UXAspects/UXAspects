@@ -12,6 +12,7 @@ export class IconPreviewComponent implements OnInit {
     @Input() classname: string;
     @Input() iconset: string;
     @Input() iconSetClass: string;
+    @Input() size: string;
 
     uxComponentSnippet: string;
     iconSnippet: string;

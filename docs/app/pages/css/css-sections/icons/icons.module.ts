@@ -16,6 +16,7 @@ import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
 import { IconModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { IconPreviewComponent } from './ux-icons/icon-preview/icon-preview.component';
 import { IconSnippetComponent } from './ux-icons/icon-preview/icon-snippet/icon-snippet.component';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
 const SECTIONS = [
@@ -51,7 +52,8 @@ const ROUTES = [
         TooltipModule,
         PopoverModule,
         TabsetModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        ButtonsModule
     ],
     exports: SECTIONS,
     declarations: [
