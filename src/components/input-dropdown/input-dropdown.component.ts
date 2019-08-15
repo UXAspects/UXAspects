@@ -17,6 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 
 
 @Component({
@@ -32,6 +33,7 @@ import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directiv
     ]
 })
 export class InputDropdownComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
+    private _maxHeight: string;
 
     /** Define the selected item */
     @Input() selected: T;
@@ -40,7 +42,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     @Input() hideFilter: boolean;
 
     /** Define the max height of the dropdown */
-    @Input() maxHeight: number;
+    @Input() set maxHeight(value: string | any) {
+        this._maxHeight = coerceCssPixelValue(value);
+    }
 
     /** Define if null values are allowed */
     @Input() allowNull: boolean;
@@ -65,8 +69,6 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     onTouched: () => void = () => { };
 
     private readonly _onDestroy$ = new Subject<void>();
-
-    constructor() { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
@@ -106,9 +108,5 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     resetValue(event: Event): void {
         this.writeValue(undefined);
         event.stopPropagation();
-    }
-
-    selectedString() {
-        return this.selected ? JSON.stringify(this.selected) : '-';
     }
 }

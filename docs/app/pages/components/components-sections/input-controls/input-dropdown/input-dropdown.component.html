@@ -5,7 +5,7 @@
             [(selected)]="selected"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
-            [maxHeight]="componentMaxHeight"
+            [maxHeight]="maxHeight"
             [placeholder]="placeholder">
 
             <ng-template #displayContent>
@@ -18,10 +18,9 @@
                     uxTabbableListItem
                     *ngFor="let option of filteredOptionList"
                     name="group"
-                    [value]="selected"
-                    (valueChange)="selected = $event"
+                    [(value)]="selected"
                     [option]="option"
-                    (keydown.space)="selectButton($event, option)">
+                    (keydown.space)="selectOption($event, option)">
                     <span [innerHTML]="option.name | highlightSearch: filter">
                     </span>
                 </ux-radio-button>
@@ -31,7 +30,10 @@
     </div>
 </div>
 
-<button class="btn button-primary" (click)="selected = filteredOptionList[0]">Select first element</button>
+<button class="btn button-primary dropdown-placeholder"
+        (click)="selected = filteredOptionList[0]">
+    Select first element
+</button>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
@@ -42,7 +44,7 @@
                         <label>maxHeight</label>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <ux-number-picker-inline [(value)]="componentMaxHeight"></ux-number-picker-inline>
+                        <input class="form-control" [(ngModel)]="maxHeight">
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -67,17 +69,12 @@
 
 <p>
     The <code>input-dropdown</code> component is a drop-down with flexible content.
+    The content of the drop-down can be transcluded, the display of the closed
+    component should be inserted into a ng-template with name "displayContent". 
     The following can be used to customize and interact with the component:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="<HTML content>" type="<HTML content>">
-        Rendering the complete data to select from on the drop-down panel.
-    </tr>
-    <tr uxd-api-property name="displayContent" type="TemplateRef<void>">
-        Rendering the selected item on the drop-down button.
-    </tr>
-
     <tr uxd-api-property name="selected" type="T">
         If specified, the items provided will be selected.
         To programmatically modify the selection, assign a new array object to this property.

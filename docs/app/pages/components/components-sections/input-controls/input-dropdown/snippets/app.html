@@ -5,7 +5,7 @@
             [(selected)]="selected"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
-            [maxHeight]="componentMaxHeight"
+            [maxHeight]="maxHeight"
             [placeholder]="placeholder">
 
             <ng-template #displayContent>
@@ -18,10 +18,9 @@
                     uxTabbableListItem
                     *ngFor="let option of filteredOptionList"
                     name="group"
-                    [value]="selected"
-                    (valueChange)="selected = $event"
+                    [(value)]="selected"
                     [option]="option"
-                    (keydown.space)="selectButton($event, option)">
+                    (keydown.space)="selectOption($event, option)">
                     <span [innerHTML]="option.name | highlightSearch: filter">
                     </span>
                 </ux-radio-button>

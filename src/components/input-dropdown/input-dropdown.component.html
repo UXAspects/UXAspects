@@ -1,8 +1,8 @@
 <div class="ux-select-container">
     <button #button type="button" class="form-control"
             [uxMenuTriggerFor]="menu">
-        <ng-template #defaultDisplayContent>{{selectedString()}}</ng-template>
-        <ng-container [ngTemplateOutlet]="displayContentRef ? displayContentRef : defaultDisplayContent"></ng-container>
+        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>
+        <ng-container [ngTemplateOutlet]="displayContentRef || defaultDisplayContent"></ng-container>
     </button>
     <div class="ux-select-icons">
         <ux-icon name="close"
@@ -20,7 +20,7 @@
 <ux-menu #menu menuClass="select-menu"
          (opened)="filterInputElement.nativeElement.focus()">
 
-    <div [style.max-height.px]="maxHeight"
+    <div [style.max-height]="_maxHeight"
          [style.width.px]="button.offsetWidth">
 
         <div *ngIf="!hideFilter"
@@ -37,8 +37,7 @@
             <button type="button"
                     class="btn btn-flat btn-icon-only filter-button"
                     (click)="resetFilter($event)"
-                    [tabindex]="filterText.length > 0 ? 0 : 1">
-
+                    [tabindex]="filterText.length > 0 ? 0 : -1">
                 <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
             </button>
         </div>

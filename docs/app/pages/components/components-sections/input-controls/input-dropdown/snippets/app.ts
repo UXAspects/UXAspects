@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
     allowNull: boolean = false;
-    componentMaxHeight: number = 400;
+    maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
 
     ngOnInit(): void {
@@ -39,21 +39,17 @@ export class AppComponent implements OnInit {
         return text.toLowerCase().indexOf(this.filter.toLowerCase());
     }
 
-    isHidden(name: string): boolean {
-        return this.filter && (this.filter.length > 0) && (this.index(name) === -1);
-    }
-    
-    selectButton(event: KeyboardEvent, option: RadioOption): void {
+    selectOption(event: KeyboardEvent, option: RadioOption): void {
         this.selected = option;
         event.preventDefault();
     }
 
-    setFilter($event: string) {
-        this.filter = $event;
+    setFilter(filter: string): void {
+        this.filter = filter;
         this.filterList();
     }
 
-    private filterList() {
+    private filterList(): void {
         this.filteredOptionList =
           this.filter && (this.filter.length > 0) ?
           this.optionList.filter(option => (this.index(option.name) > -1)) :
