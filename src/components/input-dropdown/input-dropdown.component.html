@@ -35,7 +35,7 @@
                     [(ngModel)]="filterText"
                     (input)="filterChange.emit(filterText)"
                     (click)="$event.stopPropagation()"
-                    aria-label="Filter"/>
+                    [attr.aria-label]="ariaLabel || placeholder"/>
 
             <button type="button"
                     class="btn btn-flat filter-button"

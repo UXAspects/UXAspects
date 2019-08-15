@@ -52,6 +52,9 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     /** Define the placeholder for the filter input */
     @Input() placeholder: string = 'Type to filter...';
 
+    /** Aria label of the filter field. If not specified, the placeholder will be used. */
+    @Input('aria-label') ariaLabel: string = '';
+    
     /** Emit when the selected item is changed */
     @Output() selectedChange = new EventEmitter<T>();
 

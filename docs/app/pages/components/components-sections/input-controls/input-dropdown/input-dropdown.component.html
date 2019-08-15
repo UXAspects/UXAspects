@@ -6,7 +6,8 @@
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
-            [placeholder]="placeholder">
+            [placeholder]="placeholder"
+            aria-label="Filter input">
 
             <ng-template #displayContent>
                 <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
@@ -91,6 +92,9 @@
     <tr uxd-api-property name="placeholder" type="string" defaultValue="Type to filter...">
         Placeholder to display inside the filter field.
         <b>Note:</b> The default value is not localized!
+    </tr>
+    <tr uxd-api-property name="aria-label" type="string">
+        Aria label of the filter field. If not specified, the placeholder will be used.
     </tr>
 </uxd-api-properties>
 
