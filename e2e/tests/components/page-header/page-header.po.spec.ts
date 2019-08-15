@@ -6,7 +6,7 @@ export class PageHeaderPage {
         browser.get('#/page-header');
     }
 
-    // pageHeader1 = element(by.id('pageHeader1'));
+    pageHeader1 = element(by.id('pageHeader1'));
     pageHeader2 = element(by.id('pageHeader2'));
     selected = element(by.id('selected'));
     toggleButton = element(by.id('button1'));
