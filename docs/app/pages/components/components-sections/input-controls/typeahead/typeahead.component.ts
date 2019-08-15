@@ -1,4 +1,4 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -12,8 +12,7 @@ import { delay } from 'rxjs/operators';
 @Component({
     selector: 'uxd-components-typeahead',
     templateUrl: 'typeahead.component.html',
-    styleUrls: ['./typeahead.component.less'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./typeahead.component.less']
 })
 @DocumentationSectionComponent('ComponentsTypeaheadComponent')
 export class ComponentsTypeaheadComponent extends BaseDocumentationSection implements IPlaygroundProvider {

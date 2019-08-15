@@ -2,7 +2,7 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadService } from './typeahead.service';
 
@@ -106,7 +106,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     highlightedKey: string = null;
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
-    private _currentPageNumber: number;
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -128,8 +127,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     ) {
 
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
-
-            this._currentPageNumber = pageNum;
 
             if (typeof this.options === 'function') {
 
@@ -353,8 +350,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /**
      * Display the first item as highlighted when there are several pages
      */
-    onLoadedHighlight(): void {
-        if (this.selectFirst && this.options && this._currentPageNumber === 0) {
+    onLoadedHighlight(event: InfiniteScrollLoadedEvent): void {
+        if (this.selectFirst && this.options && event.pageNumber === 0) {
             // This will highlight the first non-disabled option.
             this.moveHighlight(1);
         }
