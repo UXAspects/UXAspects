@@ -6,6 +6,7 @@ import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
 import { BreadcrumbsModule } from '../breadcrumbs/index';
+import { IconModule } from '../icon/index';
 import { MenuModule } from '../menu/index';
 import { TabsetModule } from '../tabset/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
@@ -23,10 +24,11 @@ import { PageHeaderComponent } from './page-header.component';
         BreadcrumbsModule,
         ColorServiceModule,
         CommonModule,
+        IconModule,
+        MenuModule,
         ResizeModule,
         RouterModule,
         TabsetModule,
-        MenuModule
     ],
     exports: [
         PageHeaderComponent,

@@ -98,5 +98,5 @@
 <ng-template #defaultStepTemplate let-step>
     <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
     <span class="marquee-wizard-step-title">{{ step.header }}</span>
-    <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
+    <ux-icon *ngIf="step.completed" class="marquee-wizard-step-status" name="checkmark"></ux-icon>
 </ng-template>

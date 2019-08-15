@@ -14,6 +14,7 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
 
     /**
+     * @deprecated - Use ng-content instead
      * If specified, defines which icon from the icon set to display in the button.
      * If you wish to display custom content you can simply add children to the
      * component and they will be displayed within the button. */
@@ -28,13 +29,25 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     primary: boolean = false;
     tabindex$ = new BehaviorSubject<number>(-1);
 
-    private _onDestroy = new Subject<void>();
+    /** Determine if the icon is from the legacy `hpe` iconset or `ux` iconset */
+    get _isLegacyIcon(): boolean {
+        return this.icon.indexOf('hpe') !== -1;
+    }
+
+    /** Unsubscribe from all observables on component destroy */
+    private readonly _onDestroy = new Subject<void>();
 
     constructor(@Attribute('fab-primary') primary: string, public fab: FloatingActionButtonsService, @Optional() private _tooltip: TooltipDirective) {
         this.primary = primary !== null;
     }
 
     ngAfterViewInit(): void {
+
+        // warn about use of deprecated input
+        if (this.icon) {
+            console.warn('ux-floating-action-button - `icon` input is deprecated. Instead add the icon as content of the `ux-floating-action-button` element.');
+        }
+
         if (this._tooltip) {
             // ensure the tooltip gets hidden when the button is hidden
             this.fab.open$.pipe(takeUntil(this._onDestroy), filter(isOpen => !isOpen && !this.primary))

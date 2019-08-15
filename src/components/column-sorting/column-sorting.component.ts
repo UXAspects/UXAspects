@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrder, ColumnSortingState } from './column-sorting.directive';
 
 @Component({
@@ -30,6 +30,17 @@ export class ColumnSortingComponent implements OnDestroy {
 
     /** Expose the sorting state enum to the view */
     columnSortingState = ColumnSortingState;
+
+    /** Determine which icon should be shown based on sort order */
+    get _icon(): string {
+        if (this.state === ColumnSortingState.Ascending) {
+            return 'ascend';
+        }
+
+        if (this.state === ColumnSortingState.Descending) {
+            return 'descend';
+        }
+    }
 
     /** Access the custom sort indicator if one was provided */
     get _sortIndicator(): TemplateRef<ColumnSortingIndicatorContext> {

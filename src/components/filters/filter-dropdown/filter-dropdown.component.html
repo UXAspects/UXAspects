@@ -5,7 +5,7 @@
         [class.active]="selected !== initial"
         [uxMenuTriggerFor]="menu">
 
-        {{ selected?.title }} <span class="hpe-icon hpe-down"></span>
+        {{ selected?.title }} <ux-icon name="down"></ux-icon>
     </button>
 
     <ux-menu #menu menuClass="ux-filter-menu">
@@ -17,7 +17,11 @@
             (click)="selectFilter(filter, $event)"
             (keydown.enter)="selectFilter(filter, $event)">
 
-            <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+            <ux-icon
+                name="checkmark"
+                [style.visibility]="filter === selected ? 'visible' : 'hidden'">
+            </ux-icon>
+
             <span class="filter-dropdown-title">{{ filter.name }}</span>
         </button>
     </ux-menu>

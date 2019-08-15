@@ -37,6 +37,7 @@ const DECLARATIONS = [
         CommonModule,
         FormsModule,
         IconModule,
+        IconModule,
         ReorderableModule,
         TooltipModule,
         TypeaheadModule,

@@ -44,7 +44,7 @@
                 attr.aria-label="Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}" i18n-aria-label
                 class="btn btn-link btn-icon button-secondary ux-color-picker-input-toggle"
                 (click)="toggleColorEntryType(); $event.stopPropagation()">
-                <span class="hpe-icon hpe-chevron-right"></span>
+                <ux-icon name="chevron-right"></ux-icon>
             </button>
         </div>
 
@@ -62,7 +62,7 @@
                 [pattern]="inputPatterns[inputMode].source"
                 (keyup.enter)="inputSubmit.emit()">
 
-            <span class="hpe-icon hpe-alert form-control-feedback"></span>
+                <ux-icon class="form-control-feedback" name="alert"></ux-icon>
         </div>
     </div>
 </div>

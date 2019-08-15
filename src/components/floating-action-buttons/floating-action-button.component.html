@@ -11,7 +11,13 @@
         (blur)="onBlur()"
         (click)="primary ? fab.toggle() : close()">
 
-    <span class="hpe-icon floating-action-button-icon" *ngIf="icon" [ngClass]="icon"></span>
+    <span *ngIf="icon"
+          class="floating-action-button-icon"
+          [class.hpe-icon]="_isLegacyIcon"
+          [class.ux-icon]="!_isLegacyIcon"
+          [ngClass]="icon">
+    </span>
+
     <ng-content *ngIf="!icon"></ng-content>
 
 </button>
