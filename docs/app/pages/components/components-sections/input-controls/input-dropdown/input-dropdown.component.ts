@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -24,7 +24,7 @@ export class HighlightSearch implements PipeTransform {
     styleUrls: ['./input-dropdown.component.less']
 })
 @DocumentationSectionComponent('ComponentsInputDropdownComponent')
-export class ComponentsInputDropdownComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnInit {
+export class ComponentsInputDropdownComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     selected: RadioOption;
     optionList: ReadonlyArray<RadioOption> = [
@@ -59,10 +59,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    ngOnInit(): void {
-        this.filterList();
-    }
-
     private index(text: string): number {
         return text.toLowerCase().indexOf(this.filter.toLowerCase());
     }
@@ -74,10 +70,6 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
 
     setFilter(filter: string): void {
         this.filter = filter;
-        this.filterList();
-    }
-
-    private filterList(): void {
         this.filteredOptionList =
           this.filter && (this.filter.length > 0) ?
           this.optionList.filter(option => (this.index(option.name) > -1)) :

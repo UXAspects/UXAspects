@@ -19,7 +19,7 @@ export class HighlightSearch implements PipeTransform {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
     selected: RadioOption;
     optionList: ReadonlyArray<RadioOption> = [
@@ -30,10 +30,6 @@ export class AppComponent implements OnInit {
     allowNull: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
-
-    ngOnInit(): void {
-        this.filterList();
-    }
 
     private index(text: string): number {
         return text.toLowerCase().indexOf(this.filter.toLowerCase());
@@ -46,10 +42,6 @@ export class AppComponent implements OnInit {
 
     setFilter(filter: string): void {
         this.filter = filter;
-        this.filterList();
-    }
-
-    private filterList(): void {
         this.filteredOptionList =
           this.filter && (this.filter.length > 0) ?
           this.optionList.filter(option => (this.index(option.name) > -1)) :
