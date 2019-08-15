@@ -20,7 +20,7 @@
 <ux-menu #menu menuClass="select-menu"
          (opened)="filterInputElement.nativeElement.focus()">
 
-    <div [style.max-height]="_maxHeight"
+    <div [style.max-height]="maxHeightString"
          [style.width.px]="button.offsetWidth">
 
         <div *ngIf="!hideFilter"
