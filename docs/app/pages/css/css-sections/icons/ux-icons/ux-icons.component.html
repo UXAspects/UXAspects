@@ -29,7 +29,7 @@
 
             <!-- Show the standard select component in the keppel site -->
             <ux-select *ngIf="isKeppel"
-                       [class.icon-set-dropdown]="iconSetClass === 'ux-icon'"
+                       class="icon-set-dropdown"
                        [(value)]="iconset"
                        (valueChange)="updateIconset(iconset); search()"
                        [options]="iconsets"
