@@ -25,11 +25,10 @@
 
         <div class="icon-search-items-container">
 
-            <div class="icon-selector-text">Icon Set</div>
+            <label class="icon-selector-text">Icon Set</label>
 
             <!-- Show the standard select component in the keppel site -->
             <ux-select *ngIf="isKeppel"
-                       class="icon-set-dropdown"
                        [(value)]="iconset"
                        (valueChange)="updateIconset(iconset); search()"
                        [options]="iconsets"
@@ -52,7 +51,7 @@
 
         <div *ngIf="iconSetClass === 'ux-icon'" class="icon-search-items-container">
 
-            <div class="icon-selector-text">Icon Size</div>
+            <label class="icon-selector-text">Icon Size</label>
             <div class="btn-group icon-resize-buttons">
                 <button type="button"
                         class="btn button-toggle-primary icon-resize-button"
