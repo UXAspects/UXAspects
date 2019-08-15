@@ -8,7 +8,9 @@
         <ux-icon name="close"
                  class="ux-select-icon ux-select-clear-icon"
                  *ngIf="allowNull && selected"
-                 (click)="resetValue($event)">
+                 (click)="resetValue($event)"
+                 (keydown.enter)="resetValue($event)"
+                 tabindex="0">
         </ux-icon>
         <ux-icon name="chevron-down"
                  class="ux-select-icon ux-select-chevron-icon"
@@ -32,10 +34,11 @@
                     class="form-control"
                     [(ngModel)]="filterText"
                     (input)="filterChange.emit(filterText)"
-                    (click)="$event.stopPropagation()" />
+                    (click)="$event.stopPropagation()"
+                    aria-label="Filter"/>
 
             <button type="button"
-                    class="btn btn-flat btn-icon-only filter-button"
+                    class="btn btn-flat filter-button"
                     (click)="resetFilter($event)"
                     [tabindex]="filterText.length > 0 ? 0 : -1">
                 <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
