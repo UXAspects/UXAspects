@@ -785,6 +785,21 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "Input Dropdown",
+                    "component": "ComponentsInputDropdownComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-input-dropdown"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "InputDropdownModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Input Expand",
                     "component": "ComponentsInputExpandNg1Component",
                     "version": "AngularJS",

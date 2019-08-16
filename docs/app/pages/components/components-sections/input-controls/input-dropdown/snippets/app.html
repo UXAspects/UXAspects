@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-5">
+
+        <ux-input-dropdown
+            [(selected)]="selected"
+            (filterChange)="setFilter($event)"
+            [allowNull]="allowNull"
+            [maxHeight]="maxHeight"
+            [placeholder]="placeholder">
+
+            <ng-template #displayContent>
+                <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+            </ng-template>
+
+            <div class="radio-button-container"
+                 uxTabbableList>
+                <ux-radio-button
+                    uxTabbableListItem
+                    *ngFor="let option of filteredOptionList"
+                    name="group"
+                    [(value)]="selected"
+                    [option]="option"
+                    (keydown.space)="selectOption($event, option)">
+                    <span [innerHTML]="option.name | highlightSearch: filter">
+                    </span>
+                </ux-radio-button>
+            </div>
+
+        </ux-input-dropdown>
+    </div>
+</div>

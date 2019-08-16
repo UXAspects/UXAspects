@@ -1,0 +1,51 @@
+<div class="ux-select-container">
+    <button #button type="button" class="form-control"
+            [uxMenuTriggerFor]="menu">
+        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>
+        <ng-container [ngTemplateOutlet]="displayContentRef || defaultDisplayContent"></ng-container>
+    </button>
+    <div class="ux-select-icons">
+        <ux-icon name="close"
+                 class="ux-select-icon ux-select-clear-icon"
+                 *ngIf="allowNull && selected"
+                 (click)="resetValue($event)"
+                 (keydown.enter)="resetValue($event)"
+                 tabindex="0">
+        </ux-icon>
+        <ux-icon name="chevron-down"
+                 class="ux-select-icon ux-select-chevron-icon"
+                 (click)="menuTrigger.toggleMenu(); $event.stopPropagation()">
+        </ux-icon>
+    </div>
+</div>
+
+<ux-menu #menu menuClass="select-menu"
+         (opened)="filterInputElement.nativeElement.focus()">
+
+    <div [style.max-height]="_maxHeightString"
+         [style.width.px]="button.offsetWidth">
+
+        <div *ngIf="!hideFilter"
+             class="filter-container">
+
+            <input #filterInput
+                    type="text"
+                    [placeholder]="placeholder"
+                    class="form-control"
+                    [(ngModel)]="filterText"
+                    (input)="filterChange.emit(filterText)"
+                    (click)="$event.stopPropagation()"
+                    [attr.aria-label]="ariaLabel || placeholder"/>
+
+            <button type="button"
+                    class="btn btn-flat filter-button"
+                    (click)="resetFilter($event)"
+                    [tabindex]="filterText.length > 0 ? 0 : -1">
+                <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
+            </button>
+        </div>
+
+        <ng-content></ng-content>
+
+    </div>
+</ux-menu>
