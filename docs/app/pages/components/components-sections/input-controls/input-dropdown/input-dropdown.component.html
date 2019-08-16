@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-md-5">
+
+        <ux-input-dropdown
+            [(selected)]="selected"
+            (filterChange)="setFilter($event)"
+            [allowNull]="allowNull"
+            [maxHeight]="maxHeight"
+            [placeholder]="placeholder"
+            aria-label="Filter input">
+
+            <ng-template #displayContent>
+                <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+            </ng-template>
+
+            <div class="radio-button-container"
+                 uxTabbableList>
+                <ux-radio-button
+                    uxTabbableListItem
+                    *ngFor="let option of filteredOptionList"
+                    name="group"
+                    [(value)]="selected"
+                    [option]="option"
+                    (keydown.space)="selectOption($event, option)">
+                    <span [innerHTML]="option.name | highlightSearch: filter">
+                    </span>
+                </ux-radio-button>
+            </div>
+
+        </ux-input-dropdown>
+    </div>
+</div>
+
+<button class="btn button-primary dropdown-placeholder"
+        (click)="selected = filteredOptionList[0]">
+    Select first element
+</button>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-2 col-sm-12">
+                        <label>maxHeight</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <input class="form-control" [(ngModel)]="maxHeight">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="allowNull">allowNull</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-2 col-sm-12">
+                        <label>placeholder</label>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <input class="form-control" [(ngModel)]="placeholder">
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-input-dropdown</code> component is a drop-down with flexible content.
+    The content of the drop-down can be transcluded; the display of the closed
+    component should be inserted into an <code>ng-template</code> with name
+    <code>displayContent</code>.
+</p>
+<p>
+    The following can be used to customize and interact with the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="selected" type="T[]">
+        If specified, the items provided will be selected.
+        To programmatically modify the selection, assign a new array object to this property.
+    </tr>
+    <tr uxd-api-property name="hideFilter" type="boolean" defaultValue="false">
+        If <code>true</code>, the filter field is not displayed.
+    </tr>
+    <tr uxd-api-property name="maxHeight" type="string | number">
+        Maximum height of the drop-down.
+    </tr>
+    <tr uxd-api-property name="placeholder" type="string" defaultValue="Type to filter...">
+        Placeholder to display inside the filter field.
+        <b>Note:</b> The default value is not localized!
+    </tr>
+    <tr uxd-api-property name="aria-label" type="string">
+        Aria label of the filter field. If not specified, the placeholder will be used.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="filterChange" type="string">
+        Emits when the filter term changes. The event will contain the new filter string.
+    </tr>
+    <tr uxd-api-property name="selectedChange" type="T[]">
+        Emits when the selection changes. The event will contain the new selected items.
+    </tr>
+</uxd-api-properties>
+
+
+<p>The sample code for the above example is:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
