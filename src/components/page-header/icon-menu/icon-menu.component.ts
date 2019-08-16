@@ -31,6 +31,6 @@ export class PageHeaderIconMenuComponent {
     }
 
     _getIconType(identifier: string): string {
-        return identifier ? getIconType(identifier) : null;
+        return identifier ? getIconType(identifier) : '';
     }
 }
