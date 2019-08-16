@@ -23,7 +23,7 @@
             <td>{{ person.address }}</td>
             <td>{{ person.phone }}</td>
             <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
-                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
+                <ux-icon name="checkmark" *ngIf="person.active"></ux-icon>
             </td>
         </tr>
 

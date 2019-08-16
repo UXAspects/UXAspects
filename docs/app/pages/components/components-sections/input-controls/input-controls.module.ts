@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, IconModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
 import { NgxMaskModule } from 'ngx-mask';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -67,26 +67,27 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
+        AccordionModule,
+        AutoGrowModule,
         CheckboxModule,
-        ToggleSwitchModule,
-        RadioButtonModule,
+        ColorServiceModule,
         CommonModule,
-        WrappersModule,
+        DocumentationComponentsModule,
+        FloatLabelModule,
+        FormsModule,
+        IconModule,
+        NgxMaskModule,
+        NumberPickerModule,
+        RadioButtonModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(ROUTES),
+        SliderModule,
         TabsetModule,
         TagInputModule,
+        ToggleSwitchModule,
         TypeaheadModule,
-        SliderModule,
-        FormsModule,
-        NumberPickerModule,
-        ColorServiceModule,
-        AutoGrowModule,
-        FloatLabelModule,
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        ReactiveFormsModule,
-        AccordionModule,
-        NgxMaskModule
+        WrappersModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

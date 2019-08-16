@@ -3,10 +3,10 @@
     <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example">
         <ux-tab customClass="text-center" *ngFor="let tab of tabs">
             <ng-template uxTabHeading>
-                <i class="hpe-icon" [ngClass]="tab.icon" aria-hidden="true"></i>
+                <ux-icon [name]="tab.icon" aria-hidden="true"></ux-icon>
                 <span>{{ tab.title }}</span>
             </ng-template>
-    
+
             <div class="m-t">
                 <h4>{{ tab.title }}</h4>
                 <p>{{ tab.content }}</p>
@@ -39,7 +39,7 @@
 <hr>
 
 <p>
-    The <code>ux-tabset</code> component can be used to split up content into different tabs. 
+    The <code>ux-tabset</code> component can be used to split up content into different tabs.
     It should contain one or more <code>ux-tab</code> components as children.
 </p>
 
@@ -70,8 +70,8 @@
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="heading" type="string">
         If specified, this text will display in the tab heading.
-        Alternatively, you can place a custom template in the tab heading by 
-        having a child <code>ng-template</code> with a <code>uxTabHeading</code> attribute, 
+        Alternatively, you can place a custom template in the tab heading by
+        having a child <code>ng-template</code> with a <code>uxTabHeading</code> attribute,
         the contents of which will be displayed in the tab heading.
     </tr>
     <tr uxd-api-property name="active" type="boolean">

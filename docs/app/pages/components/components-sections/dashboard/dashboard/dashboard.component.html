@@ -18,7 +18,7 @@
                 uxDashboardGrabHandle
                 uxDashboardWidgetDragHandle
                 #usageHandle="ux-dashboard-grab-handle">
-                <span class="hpe-icon hpe-pan"></span>
+                <ux-icon name="pan"></ux-icon>
             </button>
 
             <div class="widget-chart">
@@ -42,7 +42,7 @@
                 uxDashboardGrabHandle
                 uxDashboardWidgetDragHandle
                 #servicesHandle="ux-dashboard-grab-handle">
-                <span class="hpe-icon hpe-pan"></span>
+                <ux-icon name="pan"></ux-icon>
             </button>
 
             <div class="dashboard-split-panel">
@@ -80,7 +80,7 @@
                 uxDashboardGrabHandle
                 uxDashboardWidgetDragHandle
                 #usersHandle="ux-dashboard-grab-handle">
-                <span class="hpe-icon hpe-pan"></span>
+                <ux-icon name="pan"></ux-icon>
             </button>
 
             <div class="widget-split">
@@ -111,7 +111,7 @@
                 uxDashboardGrabHandle
                 uxDashboardWidgetDragHandle
                 #alertHandle="ux-dashboard-grab-handle">
-                <span class="hpe-icon hpe-pan"></span>
+                <ux-icon name="pan"></ux-icon>
             </button>
 
             <p class="info-title">18 Dec, 2016 10:17 AM</p>
@@ -134,7 +134,7 @@
 </p>
 
 <p>
-    The dashboard layout can be manually configured using the <code>layout</code> attribute. This is a two way binding which will be updated 
+    The dashboard layout can be manually configured using the <code>layout</code> attribute. This is a two way binding which will be updated
     whenever the layout changes.
 </p>
 
@@ -146,23 +146,23 @@
 
 <p>
     Widgets can also be resized, by setting the <code>resizable</code> attribute to <code>true</code> on a <code>ux-dashboard-widget</code> component.
-    Widgets are given two classes, <code>widget-col-span-*</code> and <code>widget-row-span-*</code>, with the <code>*</code> being replaced by the number 
+    Widgets are given two classes, <code>widget-col-span-*</code> and <code>widget-row-span-*</code>, with the <code>*</code> being replaced by the number
     of columns and rows the widget is occupying. This can be used to apply different styles based on the size of the widget.
 </p>
 
 <p>
-    If the dashboard becomes too small to display widgets without them becoming smaller than the specified minimum size, the dashboard will display 
+    If the dashboard becomes too small to display widgets without them becoming smaller than the specified minimum size, the dashboard will display
     in stacked mode where all items are presented in a vertical list and will span the entire width of the dashboard.
 </p>
 
 <p>The following attributes can be added to the <code>ux-dashboard</code> component to configure its behavior:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="layout" type="DashboardLayoutData[]">If defined or changed this will set 
-        the positions of the widgets within the dashboard. This is a two way binding that will be 
+    <tr uxd-api-property name="layout" type="DashboardLayoutData[]">If defined or changed this will set
+        the positions of the widgets within the dashboard. This is a two way binding that will be
         updated with the current layout when it changes.
     </tr>
-    <tr uxd-api-property name="options" type="DashboardOptions">Configures the options for the dashboard, if an option is not 
+    <tr uxd-api-property name="options" type="DashboardOptions">Configures the options for the dashboard, if an option is not
         specified the default value will be used.</tr>
 </uxd-api-properties>
 

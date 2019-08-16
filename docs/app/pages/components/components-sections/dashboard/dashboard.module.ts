@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ColorServiceModule, DashboardModule, SparkModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { ColorServiceModule, DashboardModule, IconModule, SparkModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import 'chart.js';
 import { ChartsModule } from 'ng2-charts';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -24,13 +24,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsetModule,
-        DashboardModule,
-        SparkModule,
         ChartsModule,
         ColorServiceModule,
+        DashboardModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        IconModule,
+        RouterModule.forChild(ROUTES),
+        SparkModule,
+        TabsetModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

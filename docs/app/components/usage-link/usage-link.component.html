@@ -4,7 +4,9 @@
             <tr *ngFor="let use of usage">
                 <td class="usage-title p-l-xs">{{ use.title }}</td>
                 <td class="p-r-sm">{{ use.content }}</td>
-                <td><i class="hpe-icon hpe-clipboard m-r-xs" [uxTooltip]="tooltipTemplate" (click)="copy(use.content)"></i></td>
+                <td>
+                    <ux-icon name="clipboard" class="m-r-xs" [uxTooltip]="tooltipTemplate" (click)="copy(use.content)"></ux-icon>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -25,5 +27,6 @@
    placement="bottom"
    popoverClass="ux-usage-popover"
    uxFocusIndicator>
-    <i class="hpe-icon hpe-action p-r-xs"></i> Usage
+
+   <ux-icon name="action" class="p-r-xs"></ux-icon> Usage
 </a>

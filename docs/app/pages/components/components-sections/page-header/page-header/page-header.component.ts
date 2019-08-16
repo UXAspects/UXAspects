@@ -50,11 +50,11 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
 
     items: PageHeaderNavigationItem[] = [
         {
-            icon: 'hpe-home',
+            icon: 'home',
             title: 'Home'
         },
         {
-            icon: 'hpe-analytics',
+            icon: 'analytics',
             title: 'Analytics',
             children: [
                 {
@@ -80,31 +80,31 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
 
     iconMenus: PageHeaderIconMenu[] = [
         {
-            icon: 'hpe-notification',
+            icon: 'notification',
             label: 'Notifications. 3 new items.',
             badge: 3,
             dropdown: [
                 {
-                    icon: 'hpe-chat',
+                    icon: 'chat',
                     title: 'You have 16 messages',
                     subtitle: '4 minutes ago',
                     divider: true
                 },
                 {
-                    icon: 'hpe-social-twitter',
+                    icon: 'social-twitter',
                     title: '3 New Followers',
                     subtitle: '12 minutes ago',
                     divider: true
                 },
                 {
-                    icon: 'hpe-cloud',
+                    icon: 'cloud',
                     title: 'Server Rebooted',
                     subtitle: '22 minutes ago'
                 }
             ]
         },
         {
-            icon: 'hpe-actions',
+            icon: 'actions',
             label: 'Actions',
             dropdown: [
                 {
@@ -113,11 +113,11 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
                     divider: true
                 },
                 {
-                    icon: 'hpe-user-settings',
+                    icon: 'user-settings',
                     title: 'Settings'
                 },
                 {
-                    icon: 'hpe-logout',
+                    icon: 'logout',
                     title: 'Log Out'
                 },
                 {

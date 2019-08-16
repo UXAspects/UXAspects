@@ -1,5 +1,5 @@
 <ux-alert *ngFor="let alert of alerts" [type]="alert.type" [dismissible]="true" (dismiss)="remove(alert)">
-    <i uxAlertIcon class="hpe-icon" [ngClass]="alert.icon"></i>
+    <ux-icon uxAlertIcon [name]="alert.icon"></ux-icon>
     {{ alert.description }}
 </ux-alert>
 

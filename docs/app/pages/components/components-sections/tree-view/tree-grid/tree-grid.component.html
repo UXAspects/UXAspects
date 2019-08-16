@@ -39,10 +39,15 @@
                                 type="button"
                                 tabindex="-1"
                                 (click)="treeGridRow.toggle(); $event.stopPropagation()">
-                                <span [ngClass]="{
-                                    'treegrid-expander-icon hpe-icon hpe-chevron-right': !treeGridRow.loading,
-                                    'spinner spinner-accent spinner-bounce-middle': treeGridRow.loading
-                                }"></span>
+
+                                <ux-icon *ngIf="!treeGridRow.loading"
+                                         name="chevron-right"
+                                         class="treegrid-expander-icon">
+                                </ux-icon>
+
+                                <span *ngIf="treeGridRow.loading"
+                                      class="spinner spinner-accent spinner-bounce-middle">
+                                </span>
                             </button>
                         </span>
 
@@ -51,10 +56,7 @@
                             (valueChange)="$event ? select(row) : deselect(row)"></ux-checkbox>
 
                         <span class="treegrid-icon">
-                            <span class="hpe-icon"
-                                [class.hpe-folder]="row.type === 'folder' && !row.expanded"
-                                [class.hpe-folder-open]="row.type === 'folder' && row.expanded"
-                                [class.hpe-document]="row.type === 'file'"></span>
+                            <ux-icon [name]="getIcon(row)"></ux-icon>
                         </span>
 
                         <span>{{ row.title }}</span>
@@ -80,13 +82,13 @@
 
         <div class="btn-container">
             <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, true)">
-                <span class="hpe-icon hpe-chevron-down"></span> Expand All
+                <ux-icon name="chevron-down"></ux-icon> Expand All
             </button>
             <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, false)">
-                <span class="hpe-icon hpe-chevron-right"></span> Contract All
+                <ux-icon name="chevron-right"></ux-icon> Contract All
             </button>
             <button type="button" class="btn button-secondary" (click)="clearChildren()">
-                <span class="hpe-icon hpe-close"></span> Clear Cached Data
+                <ux-icon name="close"></ux-icon> Clear Cached Data
             </button>
         </div>
 
@@ -127,18 +129,20 @@
                                 type="button"
                                 tabindex="-1"
                                 (click)="treeGridRow.toggle(); $event.stopPropagation()">
-                                <span [ngClass]="{
-                                    'treegrid-expander-icon hpe-icon hpe-chevron-right': !treeGridRow.loading,
-                                    'spinner spinner-accent spinner-bounce-middle': treeGridRow.loading
-                                }"></span>
+
+                                <ux-icon *ngIf="!treeGridRow.loading"
+                                         name="chevron-right"
+                                         class="treegrid-expander-icon">
+                                </ux-icon>
+
+                                <span *ngIf="treeGridRow.loading"
+                                      class="spinner spinner-accent spinner-bounce-middle">
+                                </span>
                             </button>
                         </span>
 
                         <span class="treegrid-icon">
-                            <span class="hpe-icon"
-                                [class.hpe-folder]="row.type === 'folder' && !row.expanded"
-                                [class.hpe-folder-open]="row.type === 'folder' && row.expanded"
-                                [class.hpe-document]="row.type === 'file'"></span>
+                            <ux-icon name="getIcon(row)"></ux-icon>
                         </span>
 
                         <span>{{ row.title }}</span>

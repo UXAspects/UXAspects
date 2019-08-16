@@ -23,17 +23,17 @@ export class AppComponent implements AfterViewInit {
             {
                 name: 'Actions',
                 type: 'Dropdown',
-                icon: 'hpe-down',
+                icon: 'down',
             },
             {
                 name: 'Comments',
                 type: 'Text',
-                icon: 'hpe-document',
+                icon: 'document',
             },
             {
                 name: 'Direction',
                 type: 'Buttons',
-                icon: 'hpe-divide',
+                icon: 'divide',
             }
         ];
 

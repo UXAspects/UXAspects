@@ -1,5 +1,5 @@
 <button type="button" class="btn button-primary" (click)="modalOpen = true">
-    <span class="hpe-icon hpe-deployment" aria-hidden="true"></span> Launch Marquee Wizard
+    <ux-icon name="deployment" aria-hidden="true"></ux-icon> Launch Marquee Wizard
 </button>
 
 <div *ngIf="modalOpen"
@@ -23,7 +23,7 @@
             <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
                 <button class="modal-close" uxFocusIndicator (click)="close()" type="button" aria-label="Close Modal" tabindex="0">
-                    <i class="hpe-icon hpe-close"></i>
+                    <ux-icon name="close"></ux-icon>
                 </button>
             </div>
 
