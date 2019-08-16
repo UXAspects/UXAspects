@@ -38,7 +38,10 @@
                     <img src="https://uxaspects.github.io/UXAspects/assets/img/IconUser.png" alt="">
                 </ng-template>
 
-                <ux-marquee-wizard-step icon="ux-icon ux-icon-soa" header="First step">
+                <ux-marquee-wizard-step header="First step">
+
+                    <ux-icon name="soa" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
 
                     <div class="row">
@@ -63,7 +66,10 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="ux-icon ux-icon-schedule-clone" header="Second step" [valid]="!error">
+                <ux-marquee-wizard-step header="Second step" [valid]="!error">
+
+                    <ux-icon name="schedule-clone" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Second step title</h1>
 
                     <div class="row">
@@ -74,7 +80,10 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="ux-icon ux-icon-sync" header="Third step">
+                <ux-marquee-wizard-step header="Third step">
+
+                    <ux-icon name="sync" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Third step title</h1>
 
                     <div class="row">
@@ -85,7 +94,10 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="ux-icon ux-icon-compliance" header="Fourth step" *ngIf="!skip">
+                <ux-marquee-wizard-step header="Fourth step" *ngIf="!skip">
+
+                    <ux-icon name="compliance" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Fourth step title</h1>
 
                     <div class="row">
@@ -95,7 +107,10 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="ux-icon ux-icon-storage" header="Fifth step" *ngIf="!skip">
+                <ux-marquee-wizard-step header="Fifth step" *ngIf="!skip">
+
+                    <ux-icon name="storage" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Fifth step title</h1>
 
                     <div class="row">
@@ -105,8 +120,11 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="ux-icon ux-icon-scorecard" header="Sixth step"
+                <ux-marquee-wizard-step header="Sixth step"
                     [valid]="requiredText.valid || !validate">
+
+                    <ux-icon name="scorecard" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Sixth step title</h1>
 
                     <div class="row">

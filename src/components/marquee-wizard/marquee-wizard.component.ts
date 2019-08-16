@@ -1,5 +1,6 @@
 import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
 import { filter } from 'rxjs/operators';
+import { getIconType } from '../../common/index';
 import { WizardComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.service';
@@ -91,5 +92,10 @@ export class MarqueeWizardComponent extends WizardComponent {
             }
         });
 
+    }
+
+    /** Determine the type of the icon specified */
+    _getIconType(icon: string): string {
+        return getIconType(icon);
     }
 }
