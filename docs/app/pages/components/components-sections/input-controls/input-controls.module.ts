@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, IconModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, AutoGrowModule, CheckboxModule, ColorServiceModule, FloatLabelModule, IconModule, InputDropdownModule, NumberPickerModule, RadioButtonModule, SliderModule, TabsetModule, TagInputModule, ToggleSwitchModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
 import { NgxMaskModule } from 'ngx-mask';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -15,6 +15,7 @@ import { ComponentsExpandingTextAreaNg1Component } from './expanding-text-area-n
 import { ComponentsExpandingTextAreaComponent } from './expanding-text-area/expanding-text-area.component';
 import { ComponentsFloatLabelComponent } from './float-label/float-label.component';
 import { ComponentsInlineDropdownNg1Component } from './inline-dropdown-ng1/inline-dropdown-ng1.component';
+import { ComponentsInputDropdownComponent, HighlightSearch } from './input-dropdown/input-dropdown.component';
 import { ComponentsInputExpandNg1Component } from './input-expand-ng1/input-expand-ng1.component';
 import { ComponentsInputMaskNg1Component } from './input-mask-ng1/input-mask-ng1.component';
 import { ComponentsInputMaskComponent } from './input-mask/input-mask.component';
@@ -39,6 +40,7 @@ const SECTIONS = [
     ComponentsExpandingTextAreaNg1Component,
     ComponentsFloatLabelComponent,
     ComponentsInlineDropdownNg1Component,
+    ComponentsInputDropdownComponent,
     ComponentsInputExpandNg1Component,
     ComponentsInputMaskComponent,
     ComponentsInputMaskNg1Component,
@@ -76,6 +78,7 @@ const ROUTES = [
         FloatLabelModule,
         FormsModule,
         IconModule,
+        InputDropdownModule,
         NgxMaskModule,
         NumberPickerModule,
         RadioButtonModule,
@@ -87,10 +90,9 @@ const ROUTES = [
         ToggleSwitchModule,
         TypeaheadModule,
         WrappersModule,
-        WrappersModule,
     ],
     exports: SECTIONS,
-    declarations: SECTIONS,
+    declarations: [...SECTIONS, HighlightSearch],
     entryComponents: SECTIONS
 })
 export class ComponentsInputControlsModule {
