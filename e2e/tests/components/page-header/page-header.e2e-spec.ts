@@ -1,13 +1,13 @@
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { PageHeaderPage } from './page-header.po.spec';
 
-xdescribe('Page Header Tests', () => {
+describe('Page Header Tests', () => {
 
     let page: PageHeaderPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new PageHeaderPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
