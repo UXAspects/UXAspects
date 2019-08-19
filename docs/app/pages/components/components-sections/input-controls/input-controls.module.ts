@@ -30,7 +30,7 @@ import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
 import { ComponentsTagsComponent } from './tags/tags.component';
 import { ComponentsToggleSwitchNg1Component } from './toggle-switch-ng1/toggle-switch-ng1.component';
 import { ComponentsToggleSwitchComponent } from './toggleswitch/toggleswitch.component';
-
+import { ComponentsTypeaheadComponent } from './typeahead/typeahead.component';
 
 const SECTIONS = [
     ComponentsCheckboxComponent,
@@ -55,6 +55,7 @@ const SECTIONS = [
     ComponentsTagsNg1Component,
     ComponentsToggleSwitchComponent,
     ComponentsToggleSwitchNg1Component,
+    ComponentsTypeaheadComponent
 ];
 
 const ROUTES = [
