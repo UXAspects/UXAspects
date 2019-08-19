@@ -1,7 +1,6 @@
-<div role="radiogroup" class="radio-button-container">
+<div uxRadioButtonGroup [(value)]="selected" role="radiogroup" class="radio-button-container">
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option1"
         [disabled]="disabled"
         [simplified]="simplified">
@@ -10,7 +9,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option2"
         [simplified]="simplified">
         Option2
@@ -18,7 +16,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option3"
         [simplified]="simplified">
         Option3
@@ -26,7 +23,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option4"
         [simplified]="simplified">
         Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur

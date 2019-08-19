@@ -1,7 +1,6 @@
-<div role="radiogroup" class="radio-button-container">
+<div role="radiogroup" uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option1"
         [disabled]="disabled"
         [simplified]="simplified">
@@ -10,7 +9,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option2"
         [simplified]="simplified">
         Option2
@@ -18,7 +16,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option3"
         [simplified]="simplified">
         Option3
@@ -26,7 +23,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option4"
         [simplified]="simplified">
         Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur
@@ -52,8 +48,9 @@
 <hr>
 
 <p>
-    A radio button can be created by using the <code>ux-radio-button</code> component. The following attributes can be used
-    to configure the appearance and behavior of the component:
+    A radio button can be created by using the <code>ux-radio-button</code> component placed inside a
+    <code>uxRadioButtonGroup</code>. The following attributes can be used to configure the appearance and
+    behavior of the component:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
@@ -75,7 +72,20 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="valueChange" type="any" defaultValue="">
+    <tr uxd-api-property name="valueChange" type="any">
+        Emits when the value has been changed.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="uxRadioButtonGroup Inputs">
+    <tr uxd-api-property name="value" type="any">
+        This should be a two way binding and will store the currently selected option. Each radio button in the same
+        group should have the same <code>value</code> variable.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="uxRadioButtonGroup Outputs">
+    <tr uxd-api-property name="valueChange" type="any">
         Emits when the value has been changed.
     </tr>
 </uxd-api-properties>
@@ -95,3 +105,15 @@
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
+
+<p>The following code can be used to create a reactive form:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.reactiveFormHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.reactiveFormTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
