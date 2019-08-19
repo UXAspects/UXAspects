@@ -37,7 +37,7 @@
 
                         <span *ngIf="_getIconType(item) !== 'component'"
                               class="nav-icon"
-                              [ngClass]="[_getIconType(), item.icon]">
+                              [ngClass]="[_getIconType(item), item.icon]">
                         </span>
 
                         <ux-icon *ngIf="_getIconType(item) === 'component'"
