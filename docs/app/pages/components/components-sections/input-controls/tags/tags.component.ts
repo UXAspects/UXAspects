@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../services/playground/tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-tags',
@@ -12,6 +13,8 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
 export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    typeaheadDocumentationRoute: string;
 
     tagInput: FormControl;
 
@@ -61,7 +64,9 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
         }]
     };
 
-    constructor() {
+    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.typeaheadDocumentationRoute = _documentationType === DocumentationType.MicroFocus ? 'ui-components/input-controls' : 'components/input-controls';
     }
 }

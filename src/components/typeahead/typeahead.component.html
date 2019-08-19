@@ -1,14 +1,14 @@
 <div class="ux-typeahead-options"
-    [uxInfiniteScroll]="loadOptionsCallback"
-    [collection]="visibleOptions$ | async"
-    (collectionChange)="visibleOptions$.next($event)"
-    [enabled]="hasBeenOpened && isInfiniteScroll()"
-    [filter]="filter"
-    [loadOnScroll]="true"
-    [pageSize]="pageSize"
-    [scrollElement]="typeaheadElement"
-    (loading)="loading = true"
-    (loaded)="loading = false">
+     [uxInfiniteScroll]="loadOptionsCallback"
+     [collection]="visibleOptions$ | async"
+     (collectionChange)="visibleOptions$.next($event)"
+     [enabled]="hasBeenOpened && isInfiniteScroll()"
+     [filter]="filter"
+     [loadOnScroll]="true"
+     [pageSize]="pageSize"
+     [scrollElement]="typeaheadElement"
+     (loading)="loading = true"
+     (loaded)="loading = false; onLoadedHighlight($event)">
 
     <ol *ngIf="(visibleOptions$ | async).length > 0">
         <li *ngFor="let option of (visibleOptions$ | async); let i = index"
