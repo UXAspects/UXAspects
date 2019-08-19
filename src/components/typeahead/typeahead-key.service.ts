@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { TypeaheadComponent } from './typeahead.component';
 
 @Injectable()
-export class TypeaheadKeyService {
+export class TypeaheadKeyService<T = any> {
 
-    handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent): void {
+    handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent<T>): void {
 
         if (!typeahead) {
             return;
