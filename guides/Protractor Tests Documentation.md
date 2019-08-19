@@ -63,9 +63,27 @@ If a component has been updated and has visually changed, the baseline image nee
 Our CI build runs in a Linux environment, which has different font rendering than a Windows environment, therefore to prevent differences in the font variation baseline images should be generated in a Linux environment.
 
 We provide an `npm` script that allows you to use Docker to run a CI environment on your local machine. Your current developer environment will be
-mounted allowing you to run the `e2e` tests and produce baseline images. This can be run by using `npm run docker:ci`. You will need to run
-`npm ci` inside the container to ensure all required dependencies are available. Once you have finished running the container you will need to
-run `npm ci` in your development environment to ensure the correct packages are installed for your operating system.
+mounted allowing you to run the `e2e` tests and produce baseline images.
+
+##### Prerequisites
+
+1. Install Docker
+3. Configure Docker proxy settings (optional)
+
+##### Run Tests
+
+Follow these steps to run the tests in a CI environment locally:
+
+1. `npm run docker:ci`
+2. `npm ci`
+3. `npm run build:library`
+4. `npm run test:e2e`
+
+To exit the docker container and restore your developer environment run the following:
+
+1. `exit`
+2. `npm ci`
+
 
 ### Executing tests in different browsers
 
