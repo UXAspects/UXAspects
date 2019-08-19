@@ -45,7 +45,7 @@ export class PageHeaderPage {
     async confirmApplicationLogoIsPresent() {
         return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
-            $('span.hpe-home').isPresent();
+            $('ux-icon').isPresent();
     }
 
     async getApplicationLogoText(): Promise<string> {
@@ -57,7 +57,7 @@ export class PageHeaderPage {
     confirmDropdownIsPresent() {
         return this.pageHeader1.$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').
-            $('span.hpe-analytics').isPresent();
+            $('ux-icon').isPresent();
     }
 
     openDropdown() {
@@ -88,7 +88,7 @@ export class PageHeaderPage {
 
     confirmNotificationIconIsPresent() {
         return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
-            $('.page-header-icon-menu-button').$('i.hpe-notification').isPresent();
+            $('.page-header-icon-menu-button').$('ux-icon').isPresent();
     }
 
     openNotifications() {
@@ -102,7 +102,7 @@ export class PageHeaderPage {
 
     confirmActionsIconIsPresent() {
         return this.pageHeader1.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
-            $('.page-header-icon-menu-button').$('i.hpe-actions').isPresent();
+            $('.page-header-icon-menu-button').$('ux-icon').isPresent();
     }
 
     openActions() {
