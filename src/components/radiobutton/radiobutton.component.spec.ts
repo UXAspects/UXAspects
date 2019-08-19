@@ -36,7 +36,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
         </div>
     `
 })
-export class RadioButtonTestComponent {
+export class RadioButtonValueTestComponent {
 
     selected: number | string | object = 100;
 
@@ -57,17 +57,17 @@ export class RadioButtonTestComponent {
 }
 
 describe('Radio Button Component - Value', () => {
-    let component: RadioButtonTestComponent;
-    let fixture: ComponentFixture<RadioButtonTestComponent>;
+    let component: RadioButtonValueTestComponent;
+    let fixture: ComponentFixture<RadioButtonValueTestComponent>;
     let nativeElement: HTMLElement;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RadioButtonModule],
-            declarations: [RadioButtonTestComponent]
+            declarations: [RadioButtonValueTestComponent]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(RadioButtonTestComponent);
+        fixture = TestBed.createComponent(RadioButtonValueTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
@@ -192,7 +192,7 @@ describe('Radio Button Component - Value', () => {
         </div>
     `
 })
-export class RadioButtonTestValueComponent {
+export class RadioButtonTestValueGroupComponent {
 
     selected: number | string | object = 100;
 
@@ -213,17 +213,17 @@ export class RadioButtonTestValueComponent {
 }
 
 describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
-    let component: RadioButtonTestValueComponent;
-    let fixture: ComponentFixture<RadioButtonTestValueComponent>;
+    let component: RadioButtonTestValueGroupComponent;
+    let fixture: ComponentFixture<RadioButtonTestValueGroupComponent>;
     let nativeElement: HTMLElement;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RadioButtonModule],
-            declarations: [RadioButtonTestValueComponent]
+            declarations: [RadioButtonTestValueGroupComponent]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(RadioButtonTestValueComponent);
+        fixture = TestBed.createComponent(RadioButtonTestValueGroupComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
