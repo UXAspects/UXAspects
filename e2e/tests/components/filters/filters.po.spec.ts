@@ -2,8 +2,8 @@ import { $, $$, browser, by, element, ElementFinder } from 'protractor';
 
 export class FiltersPage {
 
-    getPage(): void {
-        browser.get('#/filters');
+    async getPage(): Promise<void> {
+        await browser.get('#/filters');
     }
 
     container = element(by.id('container'));

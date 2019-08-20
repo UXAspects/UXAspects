@@ -1,12 +1,13 @@
+import { imageCompare } from '../common/image-compare';
 import { SidePanelPage } from './side-panel.po.spec';
 
 describe('Side Panel', () => {
 
     let page: SidePanelPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SidePanelPage();
-        page.getPage();
+        await page.getPage();
     });
 
     describe('in the default state', () => {
@@ -22,6 +23,8 @@ describe('Side Panel', () => {
             expect(await page.getRightOffsetFromWindow()).toBe(200);
             expect(await page.getPanelWidth()).toBe(200);
             expect(page.getPanelHeight()).toBe(page.getViewportHeight());
+
+            expect(await imageCompare('side-panel-initial')).toEqual(0);
         });
 
         it('should close when the panel close button is clicked', async () => {
@@ -44,8 +47,8 @@ describe('Side Panel', () => {
 
     describe('with inline = true', () => {
 
-        beforeEach(() => {
-            page.inline.click();
+        beforeEach(async () => {
+            await page.inline.click();
         });
 
         it('should be hidden initially', async () => {
@@ -58,6 +61,8 @@ describe('Side Panel', () => {
             expect(await page.panelHost.getCssValue('position')).toBe('static');
             expect(await page.getInlinePanelWidth()).toBe(200);
             expect(await page.getInlinePanelHeight()).toBe(300);
+
+            expect(await imageCompare('side-panel-inline-initial')).toEqual(0);
         });
 
         it('should not close on external click', async () => {
@@ -73,8 +78,8 @@ describe('Side Panel', () => {
 
     describe('with attachTo = container', () => {
 
-        beforeEach(() => {
-            page.attachToContainer.click();
+        beforeEach(async () => {
+            await page.attachToContainer.click();
         });
 
         it('should be hidden initially', async () => {
@@ -88,6 +93,8 @@ describe('Side Panel', () => {
             expect(await page.getPanelWidth()).toBe(200);
             expect(page.getPanelHeight()).toBe(page.getContainerHeight());
             expect(await page.panelHost.getCssValue('position')).toBe('absolute');
+
+            expect(await imageCompare('side-panel-contain-initial')).toEqual(0);
         });
 
         it('should not close on external click', async () => {
@@ -103,8 +110,8 @@ describe('Side Panel', () => {
 
     describe('with width = 50%', () => {
 
-        beforeEach(() => {
-            page.width2.click();
+        beforeEach(async () => {
+            await page.width2.click();
         });
 
         it('should occupy 50% of the width of the window', async () => {
@@ -135,9 +142,9 @@ describe('Side Panel', () => {
 
     describe('with top = 60px', () => {
 
-        beforeEach(() => {
-            page.attachToContainer.click();
-            page.top2.click();
+        beforeEach(async () => {
+            await page.attachToContainer.click();
+            await page.top2.click();
         });
 
         it('should have offset top and reduced height when open', async () => {
@@ -151,8 +158,8 @@ describe('Side Panel', () => {
 
     describe('with modal = true', () => {
 
-        beforeEach(() => {
-            page.modal.click();
+        beforeEach(async () => {
+            await page.modal.click();
         });
 
         it('should not display a backdrop when closed', async () => {
@@ -173,6 +180,8 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(false);
             expect(await page.isClickable(page.externalClick2)).toBe(false);
             expect(await page.externalClick2.$('input').isSelected()).toBe(false);
+
+            expect(await imageCompare('side-panel-modal-initial')).toEqual(0);
         });
 
         it('should display a backdrop over the container only when attachTo = container', async () => {
@@ -190,6 +199,8 @@ describe('Side Panel', () => {
             expect(await page.externalClick1.$('input').isSelected()).toBe(false);
             expect(await page.isClickable(page.externalClick2)).toBe(true);
             expect(await page.externalClick2.$('input').isSelected()).toBe(true);
+
+            expect(await imageCompare('side-panel-backdrop')).toEqual(0);
         });
 
         it('should display a backdrop offset by the top value', async () => {
@@ -215,8 +226,8 @@ describe('Side Panel', () => {
 
     describe('with closeOnExternalClick = true', () => {
 
-        beforeEach(() => {
-            page.closeOnExternalClick.click();
+        beforeEach(async () => {
+            await page.closeOnExternalClick.click();
         });
 
         it('should close on external click', async () => {

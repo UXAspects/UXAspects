@@ -20,8 +20,8 @@ export class SidePanelPage {
     modal = $('#modal');
     closeOnExternalClick = $('#closeOnExternalClick');
 
-    getPage() {
-        browser.get('#/side-panel');
+    async getPage() {
+        await browser.get('#/side-panel');
     }
 
     async isPanelOpen(): Promise<boolean> {

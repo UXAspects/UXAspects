@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class FlippableCardsPage {
 
-    getPage(): void {
-        browser.get('#/flippable-cards');
+    async getPage(): Promise<void> {
+        await browser.get('#/flippable-cards');
     }
 
     flippableCard1 = element(by.id('flippableCard1'));

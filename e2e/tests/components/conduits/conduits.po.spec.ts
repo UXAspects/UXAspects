@@ -21,8 +21,8 @@ export class ConduitsPage {
 
     toggleBtn = element(by.id('toggle-visibility'));
 
-    getPage(): void {
-        browser.get('#/conduits');
+    async getPage(): Promise<void> {
+        await browser.get('#/conduits');
     }
 
     async getConduitValue(zone: Zone): Promise<string> {

@@ -1,7 +1,4 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Chance } from 'chance';
-
-const chance = new Chance();
 
 @Component({
     selector: 'app-simple-tabbable-list',
@@ -31,7 +28,7 @@ export class SimpleTabbableListComponent {
     constructor(private _changeDetector: ChangeDetectorRef) {
         // populate the list of items
         for (let idx = 0; idx < 5; idx++) {
-            this.data = [...this.data, { id: idx, name: `Document ${idx}`, author: chance.name(), date: chance.date() }];
+            this.data = [...this.data, { id: idx, name: `Document ${idx}`, author: `Author ${idx}`, date: new Date(2019, 8, 12) }];
         }
 
         // create the list of items to display

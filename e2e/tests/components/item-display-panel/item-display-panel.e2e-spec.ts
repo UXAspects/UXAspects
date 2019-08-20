@@ -1,108 +1,106 @@
+import { imageCompare } from '../common/image-compare';
 import { ItemDisplayPanelPage } from './item-display-panel.po.spec';
 
 describe('Item Display Panel Tests', () => {
 
-  let page: ItemDisplayPanelPage;
+    let page: ItemDisplayPanelPage;
 
-  beforeEach(() => {
-    page = new ItemDisplayPanelPage();
-    page.getPage();
-  });
-
-  it('should have correct initial states', () => {
-  
-    // Initial values.
-    expect<any>(page.getNumberOfTableRows()).toEqual(5);
-    expect(page.confirmPanelIsDisplayed()).toBeFalsy();
-
-  });
-  
-  it('should display the panel upon clicking', () => {
-  
-    page.clickARow(0);
-    page.waitForPanelToBeDisplayed().then(() => {
-        expect(page.confirmPanelIsDisplayed()).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
-        expect<any>(page.getPanelContent()).toEqual('Preview PPT');
-        expect(page.confirmPanelCloseButtonIsVisible()).toBeTruthy();
-        expect<any>(page.checkPanelPreviousButtonIsEnabled()).toBeFalsy();
-        expect<any>(page.checkPanelNextButtonIsEnabled()).toBeTruthy();
+    beforeEach(async () => {
+        page = new ItemDisplayPanelPage();
+        await page.getPage();
     });
 
-  });
-  
-  it('should display each item upon clicking next', () => {
-  
-    page.clickARow(0);
-    page.waitForPanelToBeDisplayed().then(() => {
-        expect(page.confirmRowIsHighlighted(0)).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
-        expect<any>(page.getPanelContent()).toEqual('Preview PPT');
-    
-        page.clickNextButton();
-        expect(page.confirmRowIsHighlighted(0)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(1)).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PDF)');
-        expect<any>(page.getPanelContent()).toEqual('Preview PDF');
-    
-        page.clickNextButton();
-        page.clickNextButton();
-        page.clickNextButton();
-        expect(page.confirmRowIsHighlighted(0)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(1)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(2)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(3)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(4)).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (DOC)');
-        expect<any>(page.getPanelContent()).toEqual('Preview DOC');
-    
-        expect<any>(page.checkPanelPreviousButtonIsEnabled()).toBeTruthy();
-        expect<any>(page.checkPanelNextButtonIsEnabled()).toBeFalsy();
+    it('should have correct initial states', async () => {
+
+        // Initial values.
+        expect(await page.getNumberOfTableRows()).toEqual(5);
+        expect(await page.confirmPanelIsDisplayed()).toBeFalsy();
+
+        expect(await imageCompare('item-display-panel-initial')).toEqual(0);
+
     });
 
-  });
-  
-  it('should display each item upon clicking previous', () => {
-  
-    page.clickARow(4);
-    page.waitForPanelToBeDisplayed().then(() => {
-        expect(page.confirmRowIsHighlighted(4)).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (DOC)');
-        expect<any>(page.getPanelContent()).toEqual('Preview DOC');
-        expect<any>(page.checkPanelPreviousButtonIsEnabled()).toBeTruthy();
-        expect<any>(page.checkPanelNextButtonIsEnabled()).toBeFalsy();   
-    
-        page.clickPreviousButton();
-        expect(page.confirmRowIsHighlighted(4)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(3)).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PDF)');
-        expect<any>(page.getPanelContent()).toEqual('Preview PDF');
-    
-        page.clickPreviousButton();
-        page.clickPreviousButton();
-        page.clickPreviousButton();
-        expect(page.confirmRowIsHighlighted(4)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(3)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(2)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(1)).toBeFalsy();
-        expect(page.confirmRowIsHighlighted(0)).toBeTruthy();
-        expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
-        expect<any>(page.getPanelContent()).toEqual('Preview PPT');
-    
-        expect<any>(page.checkPanelPreviousButtonIsEnabled()).toBeFalsy();
-        expect<any>(page.checkPanelNextButtonIsEnabled()).toBeTruthy();
+    it('should display the panel upon clicking', async () => {
+
+        await page.clickARow(0);
+        await page.waitForPanelToBeDisplayed();
+        expect(await page.confirmPanelIsDisplayed()).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
+        expect(await page.getPanelContent()).toEqual('Preview PPT');
+        expect(await page.confirmPanelCloseButtonIsVisible()).toBeTruthy();
+        expect(await page.checkPanelPreviousButtonIsEnabled()).toBeFalsy();
+        expect(await page.checkPanelNextButtonIsEnabled()).toBeTruthy();
+
+        expect(await imageCompare('item-display-panel-open')).toEqual(0);
+
     });
 
-  });
-  
-  it('should be possible to use the close button to close the panel', () => {
-  
-    page.clickARow(4);
-    page.waitForPanelToBeDisplayed().then(() => {
-        expect(page.confirmPanelIsDisplayed()).toBeTruthy();
-        page.clickCloseButton();
-        expect(page.confirmPanelIsDisplayed()).toBeFalsy();
+    it('should display each item upon clicking next', async () => {
+
+        await page.clickARow(0);
+        await page.waitForPanelToBeDisplayed();
+        expect(await page.confirmRowIsHighlighted(0)).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
+        expect(await page.getPanelContent()).toEqual('Preview PPT');
+
+        await page.clickNextButton();
+        expect(await page.confirmRowIsHighlighted(0)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(1)).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PDF)');
+        expect(await page.getPanelContent()).toEqual('Preview PDF');
+
+        await page.clickNextButton();
+        await page.clickNextButton();
+        await page.clickNextButton();
+        expect(await page.confirmRowIsHighlighted(0)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(1)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(2)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(3)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(4)).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (DOC)');
+        expect(await page.getPanelContent()).toEqual('Preview DOC');
+
+        expect(await page.checkPanelPreviousButtonIsEnabled()).toBeTruthy();
+        expect(await page.checkPanelNextButtonIsEnabled()).toBeFalsy();
     });
-    
-  });
+
+    it('should display each item upon clicking previous', async () => {
+
+        await page.clickARow(4);
+        await page.waitForPanelToBeDisplayed();
+        expect(await page.confirmRowIsHighlighted(4)).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (DOC)');
+        expect(await page.getPanelContent()).toEqual('Preview DOC');
+        expect(await page.checkPanelPreviousButtonIsEnabled()).toBeTruthy();
+        expect(await page.checkPanelNextButtonIsEnabled()).toBeFalsy();
+
+        await page.clickPreviousButton();
+        expect(await page.confirmRowIsHighlighted(4)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(3)).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PDF)');
+        expect(await page.getPanelContent()).toEqual('Preview PDF');
+
+        await page.clickPreviousButton();
+        await page.clickPreviousButton();
+        await page.clickPreviousButton();
+        expect(await page.confirmRowIsHighlighted(4)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(3)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(2)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(1)).toBeFalsy();
+        expect(await page.confirmRowIsHighlighted(0)).toBeTruthy();
+        expect(await page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
+        expect(await page.getPanelContent()).toEqual('Preview PPT');
+
+        expect(await page.checkPanelPreviousButtonIsEnabled()).toBeFalsy();
+        expect(await page.checkPanelNextButtonIsEnabled()).toBeTruthy();
+
+    });
+
+    it('should be possible to use the close button to close the panel', async () => {
+        await page.clickARow(4);
+        await page.waitForPanelToBeDisplayed();
+        expect(await page.confirmPanelIsDisplayed()).toBeTruthy();
+        await page.clickCloseButton();
+        expect(await page.confirmPanelIsDisplayed()).toBeFalsy();
+    });
 });

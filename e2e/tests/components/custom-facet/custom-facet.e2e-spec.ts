@@ -3,7 +3,10 @@ import { CustomFacetPage } from './custom-facet.po.spec';
 describe('Custom Facet Tests', () => {
 
     let page: CustomFacetPage = new CustomFacetPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should start with no facets', () => {
 

@@ -1,13 +1,14 @@
 import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FiltersPage } from './filters.po.spec';
 
 describe('Filters Tests', () => {
 
     let page: FiltersPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new FiltersPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -25,6 +26,8 @@ describe('Filters Tests', () => {
 
         // 8 items visible
         expect(await page.getNumberOfItems()).toEqual(8);
+
+        expect(await imageCompare('filters-initial')).toEqual(0);
 
     });
 
@@ -98,22 +101,24 @@ describe('Filters Tests', () => {
         await page.clickOnStatusMenu();
         expect(await page.confirmStatusMenuIsExpanded()).toBeTruthy();
 
+        expect(await imageCompare('filters-menu-open')).toEqual(0);
+
     });
 
     it('should react to selecting an author from the author menu', async () => {
 
         // select author using filter + clicking
-        await await page.clickOnAuthorMenu();
+        await page.clickOnAuthorMenu();
         await page.clickOnFilter();
         await page.getFilter().sendKeys('j');
         await page.clickOnFilterItem(0);
 
         expect(await page.confirmAuthorMenuIsExpanded()).toBeFalsy();
         expect(await page.confirmAuthorsAreFiltered()).toBeTruthy();
-        expect(await await page.getNumberOfItems()).toEqual(1);
-        expect(await await page.getItemText(0, 2)).toBe('Jesse Bass');
-        await await page.clickOnAuthorMenu();
-        expect(await await page.getAuthorMenuItemText(1)).toBe('Jesse Bass');
+        expect(await page.getNumberOfItems()).toEqual(1);
+        expect(await page.getItemText(0, 2)).toBe('Jesse Bass');
+        await page.clickOnAuthorMenu();
+        expect(await page.getAuthorMenuItemText(1)).toBe('Jesse Bass');
 
         // select author using filter + enter key
         await page.clickOnFilter();
@@ -122,9 +127,9 @@ describe('Filters Tests', () => {
 
         expect(await page.confirmAuthorMenuIsExpanded()).toBeFalsy();
         expect(await page.confirmAuthorsAreFiltered()).toBeTruthy();
-        expect(await await page.getNumberOfItems()).toEqual(0);
-        await await page.clickOnAuthorMenu();
-        expect(await await page.getAuthorMenuItemText(1)).toBe('Lois Saunders');
+        expect(await page.getNumberOfItems()).toEqual(0);
+        await page.clickOnAuthorMenu();
+        expect(await page.getAuthorMenuItemText(1)).toBe('Lois Saunders');
 
         await page.clickOnFilter();
         await page.getFilter().sendKeys('ar');
@@ -133,16 +138,16 @@ describe('Filters Tests', () => {
 
         expect(await page.confirmAuthorMenuIsExpanded()).toBeFalsy();
         expect(await page.confirmAuthorsAreFiltered()).toBeTruthy();
-        expect(await await page.getNumberOfItems()).toEqual(1);
-        await await page.clickOnAuthorMenu();
-        expect(await await page.getAuthorMenuItemText(1)).toBe('Aaron Scott');
+        expect(await page.getNumberOfItems()).toEqual(1);
+        await page.clickOnAuthorMenu();
+        expect(await page.getAuthorMenuItemText(1)).toBe('Aaron Scott');
 
         // choose Author (All) from Author menu
         await page.clickOnAuthorMenuItem(0);
 
         expect(await page.confirmAuthorMenuIsExpanded()).toBeFalsy();
         expect(await page.confirmAuthorsAreFiltered()).toBeFalsy();
-        expect(await await page.getNumberOfItems()).toEqual(8);
+        expect(await page.getNumberOfItems()).toEqual(8);
     });
 
     it('should react to selecting an item in the status menu', async () => {
@@ -182,7 +187,7 @@ describe('Filters Tests', () => {
     it('should react to pressing clear all', async () => {
 
         // choose Active from Status menu
-        await await page.clickOnStatusMenu();
+        await page.clickOnStatusMenu();
         await page.clickOnStatusMenuItem(1);
         expect(await page.confirmAuthorsAreFiltered()).toBeFalsy();
         expect(await page.confirmStatusIsFiltered()).toBeTruthy();
@@ -195,14 +200,14 @@ describe('Filters Tests', () => {
         expect(await page.confirmClearAllIsVisible()).toBeFalsy();
 
         // choose Inactive from Status menu
-        await await page.clickOnStatusMenu();
+        await page.clickOnStatusMenu();
         await page.clickOnStatusMenuItem(2);
         expect(await page.confirmAuthorsAreFiltered()).toBeFalsy();
         expect(await page.confirmStatusIsFiltered()).toBeTruthy();
         expect(await page.confirmClearAllIsVisible()).toBeTruthy();
 
         // select author using filter
-        await await page.clickOnAuthorMenu();
+        await page.clickOnAuthorMenu();
         await page.clickOnFilter();
         await page.getFilter().sendKeys('g');
         await page.clickOnFilterItem(0);
@@ -215,36 +220,36 @@ describe('Filters Tests', () => {
         expect(await page.confirmAuthorsAreFiltered()).toBeFalsy();
         expect(await page.confirmStatusIsFiltered()).toBeFalsy();
         expect(await page.confirmClearAllIsVisible()).toBeFalsy();
-        expect(await await page.getNumberOfItems()).toEqual(8);
+        expect(await page.getNumberOfItems()).toEqual(8);
 
     });
 
     it('should react to filtering by author', async () => {
 
         // no match
-        await await page.clickOnAuthorMenu();
+        await page.clickOnAuthorMenu();
         await page.clickOnFilter();
         await page.getFilter().sendKeys('x');
-        expect(await await page.getNumberOfFilterItems()).toEqual(0);
+        expect(await page.getNumberOfFilterItems()).toEqual(0);
 
         // upper case
         await page.getFilter().clear();
         await page.getFilter().sendKeys('H');
-        expect(await await page.getNumberOfFilterItems()).toEqual(1);
-        expect(await await page.getFilterItemText(0)).toBe('Ethel Collier');
+        expect(await page.getNumberOfFilterItems()).toEqual(1);
+        expect(await page.getFilterItemText(0)).toBe('Ethel Collier');
 
         // exact characters
         await page.getFilter().clear();
         await page.getFilter().sendKeys('as');
-        expect(await await page.getNumberOfFilterItems()).toEqual(2);
-        expect(await await page.getFilterItemText(0)).toBe('Jesse Bass');
-        expect(await await page.getFilterItemText(1)).toBe('Bradley Mason');
+        expect(await page.getNumberOfFilterItems()).toEqual(2);
+        expect(await page.getFilterItemText(0)).toBe('Jesse Bass');
+        expect(await page.getFilterItemText(1)).toBe('Bradley Mason');
 
         // confirm style of filtered characters
         await page.getFilter().clear();
         await page.getFilter().sendKeys('ro');
-        expect(await await page.getFilterText(0)).toBe('Ro');
-        expect(await await page.getFilterText(1)).toBe('ro');
+        expect(await page.getFilterText(0)).toBe('Ro');
+        expect(await page.getFilterText(1)).toBe('ro');
 
     });
 

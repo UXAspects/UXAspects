@@ -1,14 +1,20 @@
 import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { TooltipsPage } from './tooltips.po.spec';
 
 describe('Tooltips', () => {
 
     let page: TooltipsPage = new TooltipsPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
         expect(await page.cdkOverlayContainer.isPresent()).toBe(false);
         expect(await page.tooltip.isPresent()).toBe(false);
+
+        expect(await imageCompare('tooltip-initial')).toEqual(0);
 
         await page.reset();
     });
@@ -21,6 +27,8 @@ describe('Tooltips', () => {
         // the tooltip should now be visible
         expect(await page.cdkOverlayContainer.isPresent()).toBe(true);
         expect(await page.tooltip.isPresent()).toBe(true);
+
+        expect(await imageCompare('tooltip-open')).toEqual(0);
 
         await page.reset();
     });

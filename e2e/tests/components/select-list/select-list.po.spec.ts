@@ -9,8 +9,8 @@ export class SelectListPage {
     toggleButton = $('#toggle-btn');
     resetButton = $('#reset-btn');
 
-    getPage() {
-        return browser.get('#/select-list');
+    async getPage() {
+        return await browser.get('#/select-list');
     }
 
     async getItemCount(): Promise<number> {

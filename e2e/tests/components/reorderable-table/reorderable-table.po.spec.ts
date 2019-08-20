@@ -11,8 +11,8 @@ export class ReorderableTablePage {
     row3 = element(by.id('row-2'));
     handle3 = element(by.id('handle-2'));
 
-    getPage(): void {
-        browser.get('#/reorderable-table');
+    async getPage(): Promise<void> {
+        await browser.get('#/reorderable-table');
     }
 
     async getDocumentOrder(): Promise<string[]> {

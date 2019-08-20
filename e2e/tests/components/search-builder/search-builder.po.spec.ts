@@ -1,11 +1,11 @@
-import { browser, element, by, ElementFinder, protractor, $, $$ } from 'protractor';
+import { $, $$, browser } from 'protractor';
 
 export namespace SearchBuilderPage {
     
     export class Page {
             
-        getPage(): void {
-            browser.get('#/search-builder');
+        async getPage(): Promise<void> {
+            await browser.get('#/search-builder');
         }
         
         query = $('pre');

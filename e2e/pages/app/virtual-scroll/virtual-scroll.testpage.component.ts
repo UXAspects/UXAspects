@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import 'chance';
 import { Subject } from 'rxjs';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
