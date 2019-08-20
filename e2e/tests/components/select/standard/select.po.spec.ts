@@ -185,7 +185,7 @@ export class SelectPage {
     }
 
     async removeCountry(index: number) {
-        await this.getTag(index).$('button.ux-tag-remove').$('.hpe-close').click();
+        await this.getTag(index).$('button.ux-tag-remove').click();
     }
 
     // other
