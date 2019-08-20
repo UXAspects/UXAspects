@@ -7,7 +7,7 @@ describe('Floating Action Button Tests', () => {
 
     const page: FloatingActionButtonsPage = new FloatingActionButtonsPage();
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         await page.getPage();
     });
 

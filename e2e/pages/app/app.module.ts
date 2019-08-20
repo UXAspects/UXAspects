@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
@@ -203,7 +203,7 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes, { useHash: true }),
-        BrowserAnimationsModule
+        NoopAnimationsModule
     ],
     declarations: [
         AppComponent
