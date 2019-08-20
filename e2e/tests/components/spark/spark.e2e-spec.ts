@@ -1,3 +1,4 @@
+import { imageCompare } from '../common/image-compare';
 import { SparkPage } from './spark.po.spec';
 
 describe('Spark Chart Tests', () => {
@@ -5,7 +6,13 @@ describe('Spark Chart Tests', () => {
     const page = new SparkPage();
 
     // initially load the page
-    page.getPage();
+    beforeAll(async () => {
+        await page.getPage();
+    });
+
+    it('should have the correct appearance', async () => {
+        expect(await imageCompare('spark-initial')).toEqual(0);
+    });
 
     it('should have the correct theme (single value)', async () => {
         expect(await page.getTheme(page.singleValueChart)).toBe('ux-spark-theme-vibrant2');

@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class TimelinePage {
 
-    getPage(): void {
-        browser.get('#/timeline');
+    async getPage(): Promise<void> {
+        await browser.get('#/timeline');
     }
 
     addEvent = element(by.id('button'));

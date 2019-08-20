@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class CustomFacetPage {
 
-    getPage(): void {
-        browser.get('#/custom-facet');
+    async getPage(): Promise<void> {
+        await browser.get('#/custom-facet');
     }
 
     container = element(by.id('customFacetContainer'));

@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class CheckBoxesPage {
 
-    getPage(): void {
-        browser.get('#/checkboxes');
+    async getPage(): Promise<void> {
+        await browser.get('#/checkboxes');
     }
 
     checkbox1 = element(by.id('checkbox1'));
@@ -35,8 +35,8 @@ export class CheckBoxesPage {
         return checkbox.$('.ux-checkbox-simplified').isPresent();
     }
 
-    toggleByKey(checkbox: ElementFinder, key: string) {
-        checkbox.$('.ux-checkbox').sendKeys(key);
+    async toggleByKey(checkbox: ElementFinder, key: string) {
+        await checkbox.$('.ux-checkbox').sendKeys(key);
     }
 }
 

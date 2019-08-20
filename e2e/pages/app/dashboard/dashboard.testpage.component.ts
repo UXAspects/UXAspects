@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DashboardOptions } from '@ux-aspects/ux-aspects';
-import 'chance';
 
 @Component({
     selector: 'dashboard-app',

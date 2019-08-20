@@ -1,4 +1,4 @@
-import { browser, element, by, $, ElementFinder } from 'protractor';
+import { $, browser, by, element } from 'protractor';
 
 export class FloatLabelPage {
 
@@ -11,7 +11,7 @@ export class FloatLabelPage {
     initialLabel = element(by.id('initial-label'));
     modeFocusButton = $('ux-radio-button#mode-focus');
 
-    getPage(): void {
-        browser.get('#/float-label');
+    async getPage(): Promise<void> {
+        await browser.get('#/float-label');
     }
 }

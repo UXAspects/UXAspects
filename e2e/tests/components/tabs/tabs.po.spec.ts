@@ -13,8 +13,8 @@ export class TabsTestPageComponent {
     selectedTab = $('.nav-item.active');
     selectedLabel = $('#selected-tab');
 
-    getPage(): void {
-        browser.get('#/tabs');
+    async getPage(): Promise<void> {
+        await browser.get('#/tabs');
     }
 
     async getTabCount(): Promise<number> {

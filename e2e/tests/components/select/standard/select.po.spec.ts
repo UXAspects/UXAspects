@@ -16,8 +16,8 @@ export class SelectPage {
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
 
-    getPage(): void {
-        browser.get('#/select');
+    async getPage(): Promise<void> {
+        await browser.get('#/select');
     }
 
     // confirm & check
@@ -144,54 +144,54 @@ export class SelectPage {
         return this.getCountry(allowMultiple, index).click();
     }
 
-    clickOnStrings() {
-        this.radioOptions.$('ux-radio-button[option="strings"]').$('.ux-radio-button').click();
+    async clickOnStrings() {
+        await this.radioOptions.$('ux-radio-button[option="strings"]').$('.ux-radio-button').click();
     }
 
-    clickOnObjects() {
-        this.radioOptions.$('ux-radio-button[option="objects"]').$('.ux-radio-button').click();
+    async clickOnObjects() {
+        await this.radioOptions.$('ux-radio-button[option="objects"]').$('.ux-radio-button').click();
     }
 
-    clickOnCheckbox(checkbox: ElementFinder) {
-        checkbox.$('.ux-checkbox').click();
+    async clickOnCheckbox(checkbox: ElementFinder) {
+        await checkbox.$('.ux-checkbox').click();
     }
 
-    clickOnDropDirectionDown() {
-        this.radioDirection.$('ux-radio-button[option="down"]').$('.ux-radio-button').click();
+    async clickOnDropDirectionDown() {
+        await this.radioDirection.$('ux-radio-button[option="down"]').$('.ux-radio-button').click();
     }
 
-    clickOnDropDirectionUp() {
-        this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
+    async clickOnDropDirectionUp() {
+        await this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
     }
 
-    clickOnPlaceholder() {
-        this.getPlaceholder().click();
+    async clickOnPlaceholder() {
+        await this.getPlaceholder().click();
     }
 
-    clickOnPageSize() {
-        this.getPageSize().click();
+    async clickOnPageSize() {
+        await this.getPageSize().click();
     }
 
-    clickOnIncrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').click();
+    async clickOnIncrementPageSize() {
+        await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').click();
     }
 
-    clickOnDecrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
+    async clickOnDecrementPageSize() {
+        await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
-    clickOnTag(index: number) {
-        this.getTag(index).click();
+    async clickOnTag(index: number) {
+        await this.getTag(index).click();
     }
 
-    removeCountry(index: number) {
-        this.getTag(index).$('button.ux-tag-remove').$('.hpe-close').click();
+    async removeCountry(index: number) {
+        await this.getTag(index).$('button.ux-tag-remove').$('.hpe-close').click();
     }
 
 
     // other
-    hoverOverCountry(allowMultiple: boolean, index: number) {
-        browser.actions().mouseMove(this.getCountry(allowMultiple, index)).perform();
+    async hoverOverCountry(allowMultiple: boolean, index: number) {
+        await browser.actions().mouseMove(this.getCountry(allowMultiple, index)).perform();
     }
 
     hoverOverLastCountry(allowMultiple: boolean) {

@@ -1,15 +1,21 @@
+import { imageCompare } from '../common/image-compare';
 import { ExpandingTextAreaPage } from './expanding-text-area.po.spec';
 
 describe('Expanding Text Area Tests', () => {
 
     let page: ExpandingTextAreaPage = new ExpandingTextAreaPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     const height: number = 33;
 
     it('should have correct initial states', async () => {
         expect(await page.getHeight()).toBe(height);
         expect(await page.getText()).toBe('');
+
+        expect(await imageCompare('expanding-text-area-initial')).toEqual(0);
     });
 
     it('should not grow when one line has been entered', async () => {

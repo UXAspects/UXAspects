@@ -8,7 +8,7 @@ export class VirtualForPage {
     reorderBtn = $('#reorder-button');
 
     async getPage(): Promise<void> {
-        return browser.get('#/virtual-for');
+        return await browser.get('#/virtual-for');
     }
 
     async getVisibleRowCount(): Promise<number> {
