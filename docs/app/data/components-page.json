@@ -832,6 +832,10 @@
                         {
                             "title": "Module",
                             "content": "RadioButtonModule"
+                        },
+                        {
+                            "title": "Directive",
+                            "content": "uxRadioButtonGroup"
                         }
                     ]
                 },

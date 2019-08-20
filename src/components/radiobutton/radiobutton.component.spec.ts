@@ -53,7 +53,6 @@ export class RadioButtonValueTestComponent {
     clickable: boolean = true;
 
     onButtonClick(): void {}
-
 }
 
 describe('Radio Button Component - Value', () => {
@@ -76,15 +75,15 @@ describe('Radio Button Component - Value', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
 
-        expect(getRadioButtonContent(0)).toBe('Option1');
-        expect(getRadioButtonContent(1)).toBe('Option2');
-        expect(getRadioButtonContent(2)).toBe('Option3');
+        expect(getRadioButtonContent(0, nativeElement)).toBe('Option1');
+        expect(getRadioButtonContent(1, nativeElement)).toBe('Option2');
+        expect(getRadioButtonContent(2, nativeElement)).toBe('Option3');
     });
 
     it('should have initially selected option', () => {
-        expect(getNativeRadioButton(0).checked).toBeTruthy();
-        expect(getNativeRadioButton(1).checked).toBeFalsy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual(100);
     });
@@ -92,13 +91,13 @@ describe('Radio Button Component - Value', () => {
     it('should select an option when clicked', () => {
 
         // click on the second radio button
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).checked).toBeFalsy();
-        expect(getNativeRadioButton(1).checked).toBeTruthy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual('string');
     });
@@ -107,23 +106,23 @@ describe('Radio Button Component - Value', () => {
        component.disabled = true;
        fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).disabled).toBeTruthy();
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-disabled')).toBeTruthy();
+        expect(getNativeRadioButton(0, nativeElement).disabled).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-disabled')).toBeTruthy();
 
-        expect(getNativeRadioButton(1).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
 
-        expect(getNativeRadioButton(2).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
     });
 
     it('should simplify an option when the [simplified] input changes', () => {
         component.simplified = true;
         fixture.detectChanges();
 
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
     });
 
     it('should not allow an option 2 to be clicked when [clickable] input changes', () => {
@@ -131,7 +130,7 @@ describe('Radio Button Component - Value', () => {
 
         component.clickable = false;
         fixture.detectChanges();
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
         fixture.detectChanges();
 
         expect(component.selected).toEqual(100);
@@ -139,27 +138,11 @@ describe('Radio Button Component - Value', () => {
 
     it('should emit event on radio button click', () => {
         spyOn(component, 'onButtonClick');
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         expect(component.onButtonClick).toHaveBeenCalled();
 
     });
-
-    function getRadioButton(index:  number): HTMLElement {
-        return nativeElement.querySelectorAll<HTMLElement>('ux-radio-button').item(index);
-    }
-
-    function getNativeRadioButton(index: number): HTMLInputElement {
-        return getRadioButton(index).querySelector('input');
-    }
-
-    function getRadioButtonLabel(index: number): HTMLLabelElement {
-        return getRadioButton(index).querySelector('label');
-    }
-
-    function getRadioButtonContent(index: number): string {
-        return getRadioButton(index).querySelector<HTMLDivElement>('.ux-radio-button-label').innerText;
-    }
 });
 
 @Component({
@@ -232,15 +215,15 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
 
-        expect(getRadioButtonContent(0)).toBe('Option1');
-        expect(getRadioButtonContent(1)).toBe('Option2');
-        expect(getRadioButtonContent(2)).toBe('Option3');
+        expect(getRadioButtonContent(0, nativeElement)).toBe('Option1');
+        expect(getRadioButtonContent(1, nativeElement)).toBe('Option2');
+        expect(getRadioButtonContent(2, nativeElement)).toBe('Option3');
     });
 
     it('should have initially selected option', () => {
-        expect(getNativeRadioButton(0).checked).toBeTruthy();
-        expect(getNativeRadioButton(1).checked).toBeFalsy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual(100);
     });
@@ -248,13 +231,13 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
     it('should select an option when clicked', () => {
 
         // click on the second radio button
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).checked).toBeFalsy();
-        expect(getNativeRadioButton(1).checked).toBeTruthy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual('string');
     });
@@ -263,23 +246,23 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
         component.disabled = true;
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).disabled).toBeTruthy();
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-disabled')).toBeTruthy();
+        expect(getNativeRadioButton(0, nativeElement).disabled).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-disabled')).toBeTruthy();
 
-        expect(getNativeRadioButton(1).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
 
-        expect(getNativeRadioButton(2).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
     });
 
     it('should simplify an option when the [simplified] input changes', () => {
         component.simplified = true;
         fixture.detectChanges();
 
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
     });
 
     it('should not allow an option 2 to be clicked when [clickable] input changes', () => {
@@ -287,7 +270,7 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
 
         component.clickable = false;
         fixture.detectChanges();
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
         fixture.detectChanges();
 
         expect(component.selected).toEqual(100);
@@ -295,27 +278,11 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
 
     it('should emit event on radio button click', () => {
         spyOn(component, 'onButtonClick');
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         expect(component.onButtonClick).toHaveBeenCalled();
 
     });
-
-    function getRadioButton(index:  number): HTMLElement {
-        return nativeElement.querySelectorAll<HTMLElement>('ux-radio-button').item(index);
-    }
-
-    function getNativeRadioButton(index: number): HTMLInputElement {
-        return getRadioButton(index).querySelector('input');
-    }
-
-    function getRadioButtonLabel(index: number): HTMLLabelElement {
-        return getRadioButton(index).querySelector('label');
-    }
-
-    function getRadioButtonContent(index: number): string {
-        return getRadioButton(index).querySelector<HTMLDivElement>('.ux-radio-button-label').innerText;
-    }
 });
 
 @Component({
@@ -391,16 +358,16 @@ describe('Radio Button Component - NgModel', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
 
-        expect(getRadioButtonContent(0)).toBe('Option1');
-        expect(getRadioButtonContent(1)).toBe('Option2');
-        expect(getRadioButtonContent(2)).toBe('Option3');
+        expect(getRadioButtonContent(0, nativeElement)).toBe('Option1');
+        expect(getRadioButtonContent(1, nativeElement)).toBe('Option2');
+        expect(getRadioButtonContent(2, nativeElement)).toBe('Option3');
     });
 
     it('should have initially selected option', () => {
 
-        expect(getNativeRadioButton(0).checked).toBeTruthy();
-        expect(getNativeRadioButton(1).checked).toBeFalsy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual(100);
     });
@@ -408,13 +375,13 @@ describe('Radio Button Component - NgModel', () => {
     it('should select an option when clicked', () => {
 
         // click on the second radio button
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).checked).toBeFalsy();
-        expect(getNativeRadioButton(1).checked).toBeTruthy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual('string');
     });
@@ -423,23 +390,23 @@ describe('Radio Button Component - NgModel', () => {
         component.disabled = true;
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).disabled).toBeTruthy();
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-disabled')).toBeTruthy();
+        expect(getNativeRadioButton(0, nativeElement).disabled).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-disabled')).toBeTruthy();
 
-        expect(getNativeRadioButton(1).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
 
-        expect(getNativeRadioButton(2).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
     });
 
     it('should simplify an option when the [simplified] input changes', () => {
         component.simplified = true;
         fixture.detectChanges();
 
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
     });
 
     it('should not allow an option 2 to be clicked when [clickable] input changes', () => {
@@ -447,7 +414,7 @@ describe('Radio Button Component - NgModel', () => {
 
         component.clickable = false;
         fixture.detectChanges();
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
         fixture.detectChanges();
 
         expect(component.selected).toEqual(100);
@@ -455,27 +422,11 @@ describe('Radio Button Component - NgModel', () => {
 
     it('should emit event on radio button click', () => {
         spyOn(component, 'onButtonClick');
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         expect(component.onButtonClick).toHaveBeenCalled();
 
     });
-
-    function getRadioButton(index:  number): HTMLElement {
-        return nativeElement.querySelectorAll<HTMLElement>('ux-radio-button').item(index);
-    }
-
-    function getNativeRadioButton(index: number): HTMLInputElement {
-        return getRadioButton(index).querySelector('input');
-    }
-
-    function getRadioButtonLabel(index: number): HTMLLabelElement {
-        return getRadioButton(index).querySelector('label');
-    }
-
-    function getRadioButtonContent(index: number): string {
-        return getRadioButton(index).querySelector<HTMLDivElement>('.ux-radio-button-label').innerText;
-    }
 });
 
 @Component({
@@ -547,15 +498,15 @@ describe('Radio Button Component - NgModel', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
 
-        expect(getRadioButtonContent(0)).toBe('Option1');
-        expect(getRadioButtonContent(1)).toBe('Option2');
-        expect(getRadioButtonContent(2)).toBe('Option3');
+        expect(getRadioButtonContent(0, nativeElement)).toBe('Option1');
+        expect(getRadioButtonContent(1, nativeElement)).toBe('Option2');
+        expect(getRadioButtonContent(2, nativeElement)).toBe('Option3');
     });
 
     it('should have initially selected option', () => {
-        expect(getNativeRadioButton(0).checked).toBeTruthy();
-        expect(getNativeRadioButton(1).checked).toBeFalsy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual(100);
     });
@@ -563,13 +514,13 @@ describe('Radio Button Component - NgModel', () => {
     it('should select an option when clicked', () => {
 
         // click on the second radio button
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).checked).toBeFalsy();
-        expect(getNativeRadioButton(1).checked).toBeTruthy();
-        expect(getNativeRadioButton(2).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(2, nativeElement).checked).toBeFalsy();
 
         expect(component.selected).toEqual('string');
     });
@@ -578,23 +529,23 @@ describe('Radio Button Component - NgModel', () => {
         component.disabled = true;
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).disabled).toBeTruthy();
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-disabled')).toBeTruthy();
+        expect(getNativeRadioButton(0, nativeElement).disabled).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-disabled')).toBeTruthy();
 
-        expect(getNativeRadioButton(1).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
 
-        expect(getNativeRadioButton(2).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(2, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
     });
 
     it('should simplify an option when the [simplified] input changes', () => {
         component.simplified = true;
         fixture.detectChanges();
 
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(2).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(2, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
     });
 
     it('should not allow an option 2 to be clicked when [clickable] input changes', () => {
@@ -602,7 +553,7 @@ describe('Radio Button Component - NgModel', () => {
 
         component.clickable = false;
         fixture.detectChanges();
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
         fixture.detectChanges();
 
         expect(component.selected).toEqual(100);
@@ -610,27 +561,11 @@ describe('Radio Button Component - NgModel', () => {
 
     it('should emit event on radio button click', () => {
         spyOn(component, 'onButtonClick');
-        getNativeRadioButton(1).click();
+        getNativeRadioButton(1, nativeElement).click();
 
         expect(component.onButtonClick).toHaveBeenCalled();
 
     });
-
-    function getRadioButton(index:  number): HTMLElement {
-        return nativeElement.querySelectorAll<HTMLElement>('ux-radio-button').item(index);
-    }
-
-    function getNativeRadioButton(index: number): HTMLInputElement {
-        return getRadioButton(index).querySelector('input');
-    }
-
-    function getRadioButtonLabel(index: number): HTMLLabelElement {
-        return getRadioButton(index).querySelector('label');
-    }
-
-    function getRadioButtonContent(index: number): string {
-        return getRadioButton(index).querySelector<HTMLDivElement>('.ux-radio-button-label').innerText;
-    }
 });
 
 @Component({
@@ -677,13 +612,13 @@ describe('Radio Button Component - Reactive Form', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
 
-        expect(getRadioButtonContent(0)).toBe('Option 1');
-        expect(getRadioButtonContent(1)).toBe('Option 2');
+        expect(getRadioButtonContent(0, nativeElement)).toBe('Option 1');
+        expect(getRadioButtonContent(1, nativeElement)).toBe('Option 2');
     });
 
     it('should have initially selected option', () => {
-        expect(getNativeRadioButton(0).checked).toBeFalsy();
-        expect(getNativeRadioButton(1).checked).toBeTruthy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeTruthy();
 
         expect(component.form.value.option).toEqual(2);
     });
@@ -691,12 +626,12 @@ describe('Radio Button Component - Reactive Form', () => {
     it('should select an option when clicked', () => {
 
         // click on the first radio button
-        getNativeRadioButton(0).click();
+        getNativeRadioButton(0, nativeElement).click();
 
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).checked).toBeTruthy();
-        expect(getNativeRadioButton(1).checked).toBeFalsy();
+        expect(getNativeRadioButton(0, nativeElement).checked).toBeTruthy();
+        expect(getNativeRadioButton(1, nativeElement).checked).toBeFalsy();
 
         expect(component.form.value.option).toEqual(1);
     });
@@ -705,11 +640,11 @@ describe('Radio Button Component - Reactive Form', () => {
         component.disabled = true;
         fixture.detectChanges();
 
-        expect(getNativeRadioButton(0).disabled).toBeTruthy();
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-disabled')).toBeTruthy();
+        expect(getNativeRadioButton(0, nativeElement).disabled).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-disabled')).toBeTruthy();
 
-        expect(getNativeRadioButton(1).disabled).toBeFalsy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-disabled')).toBeFalsy();
+        expect(getNativeRadioButton(1, nativeElement).disabled).toBeFalsy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-disabled')).toBeFalsy();
 
     });
 
@@ -717,8 +652,8 @@ describe('Radio Button Component - Reactive Form', () => {
         component.simplified = true;
         fixture.detectChanges();
 
-        expect(getRadioButtonLabel(0).classList.contains('ux-radio-button-simplified')).toBeTruthy();
-        expect(getRadioButtonLabel(1).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(0, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
+        expect(getRadioButtonLabel(1, nativeElement).classList.contains('ux-radio-button-simplified')).toBeTruthy();
     });
 
     it('should not allow an option 1 to be clicked when [clickable] input changes', () => {
@@ -726,7 +661,7 @@ describe('Radio Button Component - Reactive Form', () => {
 
         component.clickable = false;
         fixture.detectChanges();
-        getNativeRadioButton(0).click();
+        getNativeRadioButton(0, nativeElement).click();
         fixture.detectChanges();
 
         expect(component.form.value.option).toEqual(2);
@@ -734,26 +669,27 @@ describe('Radio Button Component - Reactive Form', () => {
 
     it('should emit event on radio button click', () => {
         spyOn(component, 'onButtonClick');
-        getNativeRadioButton(0).click();
+        getNativeRadioButton(0, nativeElement).click();
         fixture.detectChanges();
 
         expect(component.onButtonClick).toHaveBeenCalled();
 
     });
-
-    function getRadioButton(index:  number): HTMLElement {
-        return nativeElement.querySelectorAll<HTMLElement>('ux-radio-button').item(index);
-    }
-
-    function getNativeRadioButton(index: number): HTMLInputElement {
-        return getRadioButton(index).querySelector('input');
-    }
-
-    function getRadioButtonLabel(index: number): HTMLLabelElement {
-        return getRadioButton(index).querySelector('label');
-    }
-
-    function getRadioButtonContent(index: number): string {
-        return getRadioButton(index).querySelector<HTMLDivElement>('.ux-radio-button-label').innerText;
-    }
 });
+
+
+function getRadioButton(index:  number, nativeElement: HTMLElement): HTMLElement {
+    return nativeElement.querySelectorAll<HTMLElement>('ux-radio-button').item(index);
+}
+
+function getNativeRadioButton(index: number, nativeElement: HTMLElement): HTMLInputElement {
+    return getRadioButton(index, nativeElement).querySelector('input');
+}
+
+function getRadioButtonLabel(index: number, nativeElement: HTMLElement): HTMLLabelElement {
+    return getRadioButton(index, nativeElement).querySelector('label');
+}
+
+function getRadioButtonContent(index: number, nativeElement: HTMLElement): string {
+    return getRadioButton(index, nativeElement).querySelector<HTMLDivElement>('.ux-radio-button-label').innerText;
+}

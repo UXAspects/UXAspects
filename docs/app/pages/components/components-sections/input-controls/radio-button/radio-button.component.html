@@ -53,7 +53,7 @@
     behavior of the component:
 </p>
 
-<uxd-api-properties tableTitle="Inputs">
+<uxd-api-properties tableTitle="Radio Button Inputs">
     <tr uxd-api-property name="value" type="any">
         This should be a two way binding and will store the currently selected option. Each radio button in the same
         group should have the same <code>value</code> variable.
@@ -71,7 +71,7 @@
     </tr>
 </uxd-api-properties>
 
-<uxd-api-properties tableTitle="Outputs">
+<uxd-api-properties tableTitle="Radio Button Outputs">
     <tr uxd-api-property name="valueChange" type="any">
         Emits when the value has been changed.
     </tr>
@@ -79,8 +79,8 @@
 
 <uxd-api-properties tableTitle="uxRadioButtonGroup Inputs">
     <tr uxd-api-property name="value" type="any">
-        This should be a two way binding and will store the currently selected option. Each radio button in the same
-        group should have the same <code>value</code> variable.
+        This should be a two way binding and will store the currently selected option. Only the top level
+        element should have a <code>value</code> variable.
     </tr>
 </uxd-api-properties>
 
