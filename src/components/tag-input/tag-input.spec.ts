@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { bufferCount } from 'rxjs/operators';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
+import { IconModule } from '../icon/index';
 import { TypeaheadModule } from '../typeahead/index';
 import { TagInputComponent } from './tag-input.component';
 
@@ -19,6 +20,7 @@ describe('Tag Input Component', () => {
                 CommonModule,
                 FormsModule,
                 FocusIfModule,
+                IconModule,
                 TypeaheadModule
             ],
             declarations: [TagInputComponent]
