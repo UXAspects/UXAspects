@@ -65,6 +65,7 @@
     ],
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
-    "no-conflicting-lifecycle": true
+    "no-conflicting-lifecycle": true,
+    "no-output-native": true
   }
 }

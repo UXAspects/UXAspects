@@ -17,7 +17,7 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
     @Output() cancel = new EventEmitter<void>();
 
     /** Emit whenever the enter key is pressed */
-    @Output() submit = new EventEmitter<string>();
+    @Output() submitted = new EventEmitter<string>();
 
     /** Get the current value of the input control */
     get text(): string {
@@ -52,7 +52,7 @@ export class ToolbarSearchFieldDirective implements ControlValueAccessor {
 
     @HostListener('keydown.enter')
     onEnter(): void {
-        this.submit.emit(this.text);
+        this.submitted.emit(this.text);
     }
 
     @HostListener('keydown.escape')

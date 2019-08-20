@@ -20,7 +20,7 @@ export class HierarchyBarPopoverItemComponent implements OnDestroy {
      * the origin before we emit the select event, otherwise
      * the item may not get a focus ring when the keyboard is used.
      */
-    @Output() select = new EventEmitter<HierarchyBarNode>(true);
+    @Output() selected = new EventEmitter<HierarchyBarNode>(true);
 
     /** Allow this to control the focus origin */
     private _focusOrigin: FocusIndicatorOrigin;
@@ -41,7 +41,7 @@ export class HierarchyBarPopoverItemComponent implements OnDestroy {
     @HostListener('click')
     @HostListener('keydown.enter')
     onSelect(): void {
-        this.select.emit(this.node);
+        this.selected.emit(this.node);
     }
 
 }

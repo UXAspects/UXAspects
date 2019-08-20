@@ -122,8 +122,8 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     ) { }
 
     ngAfterContentInit(): void {
-        // Subscribe to the submit event on the input field, triggering the search event
-        this.field.submit.pipe(takeUntil(this._onDestroy)).subscribe((text: string) => this.search.emit(text));
+        // Subscribe to the submitted event on the input field, triggering the search event
+        this.field.submitted.pipe(takeUntil(this._onDestroy)).subscribe((text: string) => this.search.emit(text));
 
         // Subscribe to cancel events coming from the input field
         this.field.cancel.pipe(takeUntil(this._onDestroy)).subscribe(() => this.expanded = false);

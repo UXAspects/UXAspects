@@ -86,11 +86,27 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="activated" type="void">
+        This event is triggered when the tab is activated.
+    </tr>
     <tr uxd-api-property name="select" type="void">
         This event is triggered when the tab is selected.
+        <blockquote>
+            <p><b>Note:</b> This output has been deprecated. Please use <code>activated</code>
+                instead
+            </p>
+        </blockquote>
+    </tr>
+    <tr uxd-api-property name="deactivated" type="void">
+        This event is triggered when the tab is deactivated.
     </tr>
     <tr uxd-api-property name="deselect" type="void">
         This event is triggered when the tab is deselected.
+        <blockquote>
+            <p><b>Note:</b> This output has been deprecated. Please use <code>deactivated</code>
+                instead
+            </p>
+        </blockquote>
     </tr>
 </uxd-api-properties>
 
