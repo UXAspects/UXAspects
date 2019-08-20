@@ -82,7 +82,7 @@
     "@types/prismjs": "1.6.5",
     "@types/semver": "5.5.0",
     "@types/webpack-env": "1.13.2",
-    "@ux-aspects/ux-aspects-scripts": "2.3.1",
+    "@ux-aspects/ux-aspects-scripts": "2.3.2",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "5.2.1",
     "cache-loader": "^1.2.5",

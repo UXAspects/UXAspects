@@ -8,8 +8,6 @@ describe('Page Header Tests', () => {
     beforeEach(() => {
         page = new PageHeaderPage();
         page.getPage();
-
-        page.condensed = false;
     });
 
     it('should have correct initial states', async () => {
