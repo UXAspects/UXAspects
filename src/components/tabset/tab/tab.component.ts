@@ -72,6 +72,7 @@ export class TabComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     selectTab(): void {
