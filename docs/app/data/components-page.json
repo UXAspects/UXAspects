@@ -842,7 +842,7 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-radio-button"
+                            "content": "ux-radio-button, [uxRadioButtonGroup]"
                         },
                         {
                             "title": "Module",

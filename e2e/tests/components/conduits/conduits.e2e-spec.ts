@@ -4,9 +4,9 @@ describe('Conduit Tests', () => {
 
     let page: ConduitsPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new ConduitsPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {

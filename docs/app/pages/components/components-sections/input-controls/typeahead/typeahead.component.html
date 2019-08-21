@@ -5,6 +5,7 @@
                    [ngModelOptions]="{standalone: true}"
                    placeholder="Enter Text"
                    class="form-control"
+                   type="text"
                    (click)="dropdownOpen = true"
                    (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
                    (keydown.escape)="dropdownOpen = false"

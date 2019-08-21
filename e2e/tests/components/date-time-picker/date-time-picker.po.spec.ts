@@ -18,8 +18,8 @@ export class DateTimePickerPage {
     previousHeaderBtn = this.headerButtons.get(0);
     nextHeaderBtn = this.headerButtons.get(1);
 
-    getPage(): void {
-        browser.get('#/date-time-picker');
+    async getPage(): Promise<void> {
+        await browser.get('#/date-time-picker');
     }
 
     async getCurrentDate(): Promise<string> {

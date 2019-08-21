@@ -1,5 +1,4 @@
 import { Component, Pipe, PipeTransform } from '@angular/core';
-import 'chance';
 
 @Component({
     selector: 'e2e-reorderable-group',

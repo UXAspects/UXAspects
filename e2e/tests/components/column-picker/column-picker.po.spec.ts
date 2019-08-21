@@ -21,7 +21,7 @@ export class ColumnPickerPage {
     toggleCustomTitles = $('#toggle-custom-titles');
 
     async getPage(): Promise<void> {
-        return browser.get('#/column-picker');
+        return await browser.get('#/column-picker');
     }
 
     async getButtonDisabled(button: ElementFinder): Promise<boolean> {

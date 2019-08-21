@@ -6,8 +6,8 @@ export class NumberPickerPage {
     numberPicker1 = element(by.id('numberPicker1'));
     numberPicker2 = element(by.id('numberPicker2'));
 
-    getPage(): void {
-        browser.get('#/number-picker');
+    async getPage(): Promise<void> {
+        await browser.get('#/number-picker');
     }
 
     async getNumberPickerMinimum(numberPicker: ElementFinder): Promise<string> {

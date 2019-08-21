@@ -1,4 +1,4 @@
-import { browser, element, by, $, $$, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class MarqueeWizardPage {
 
@@ -8,8 +8,8 @@ export class MarqueeWizardPage {
 
     buttons = $$('button');
 
-    getPage(): void {
-        browser.get('#/marquee-wizard');
+    async getPage(): Promise<void> {
+        await browser.get('#/marquee-wizard');
     }
 
     async getButtonByText(text: string): Promise<ElementFinder> {

@@ -1,12 +1,13 @@
+import { imageCompare } from '../common/image-compare';
 import { HierarchyBarPage } from './hierarchy-bar.po.spec';
 
 describe('Hierarchy Bar Tests', () => {
 
     let page: HierarchyBarPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new HierarchyBarPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -17,6 +18,7 @@ describe('Hierarchy Bar Tests', () => {
         // ensure that the selected change event emits the select node
         expect(await page.getSelectedNodeTitle()).toBe('Theresa Chandler');
 
+        expect(await imageCompare('hierarchy-bar-initial')).toEqual(0);
     });
 
     it('can programmatically set the selected node', async () => {
@@ -42,12 +44,16 @@ describe('Hierarchy Bar Tests', () => {
     it('should display children in popover', async () => {
         const titles = await page.getNodeChildrenTitles(0);
         expect(titles).toEqual(['Leroy Rose', 'Lilly Shaw']);
+
+        expect(await imageCompare('hierarchy-bar-popover')).toEqual(0);
     });
 
     it('should have selected the correct node on popover click', async () => {
         await page.selectPopoverNode(0, 0);
 
         expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
+
+        expect(await imageCompare('hierarchy-bar-selected')).toEqual(0);
     });
 
     it('should show correct children when an obserable is used', async () => {
@@ -108,6 +114,8 @@ describe('Hierarchy Bar Tests', () => {
         const addon = (await page.getAddons())[0];
 
         expect(await addon.getAttribute('innerText')).toBe('TRAILING ADDON');
+
+        expect(await imageCompare('hierarchy-bar-trailing-addon')).toEqual(0);
     });
 
     it('should show right addon', async () => {
@@ -121,6 +129,8 @@ describe('Hierarchy Bar Tests', () => {
         const addon = (await page.getAddons())[0];
 
         expect(await addon.getAttribute('innerText')).toBe('RIGHT ADDON');
+
+        expect(await imageCompare('hierarchy-bar-right-addon')).toEqual(0);
     });
 
     /**

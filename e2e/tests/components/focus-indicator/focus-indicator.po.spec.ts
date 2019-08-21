@@ -8,8 +8,8 @@ export class FocusIndicatorButtonsPage {
     keyboardToggle = element(by.id('keyboard-toggle'));
     programmaticToggle = element(by.id('programmatic-toggle'));
 
-    getPage(): void {
-        browser.get('#/focus-indicator');
+    async getPage(): Promise<void> {
+        await browser.get('#/focus-indicator');
     }
 
     async getFocusIndicatorClass(): Promise<boolean> {

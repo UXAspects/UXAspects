@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class FloatingActionButtonsPage {
 
-    getPage(): void {
-        browser.get('#/floating-action-buttons');
+    async getPage(): Promise<void> {
+        await browser.get('#/floating-action-buttons');
     }
 
     // Floating Action Buttons - Bottom

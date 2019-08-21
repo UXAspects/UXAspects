@@ -24,7 +24,7 @@ export class ColumnReszingTestPageComponent {
                 selected: false,
                 title: `Document ${idx + 1}`,
                 author: `Author ${idx + 1}`,
-                date: new Date()
+                date: new Date(2019, 8, 12)
             });
         }
     }

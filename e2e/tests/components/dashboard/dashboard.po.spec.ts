@@ -8,8 +8,8 @@ export class DashboardPage {
     topFocusTarget = element(by.id('top-focus'));
     bottomFocusTarget = element(by.id('bottom-focus'));
 
-    getPage(): void {
-        browser.get('#/dashboard');
+    async getPage(): Promise<void> {
+        await browser.get('#/dashboard');
     }
 
     async getNumberOfWidgets() {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import 'chance';
 
 @Component({
     selector: 'app-virtual-for',

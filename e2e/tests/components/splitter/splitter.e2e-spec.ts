@@ -1,12 +1,13 @@
+import { imageCompare } from '../common/image-compare';
 import { SplitterPage } from './splitter.po.spec';
 
 describe('SplitterPage Tests', () => {
 
     let page: SplitterPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new SplitterPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have the correct initial properties', async () => {
@@ -18,6 +19,8 @@ describe('SplitterPage Tests', () => {
         expect(valuenow).toBe('40');
         expect(valuemin).toBe('0');
         expect(valuemax).toBe('100');
+
+        expect(await imageCompare('splitter-initial')).toEqual(0);
     });
 
     it('should move left when left arrow key is pressed', async () => {

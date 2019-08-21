@@ -1,7 +1,5 @@
-import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, 
-    FilterRemoveAllEvent } from '@ux-aspects/ux-aspects';
+import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, FilterRemoveAllEvent } from '@ux-aspects/ux-aspects';
 import { Component } from '@angular/core';
-import 'chance';
 
 @Component({
     selector: 'app',

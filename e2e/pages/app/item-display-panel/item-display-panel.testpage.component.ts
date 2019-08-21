@@ -1,6 +1,5 @@
-import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
 import { Component } from '@angular/core';
-import 'chance';
+import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'item-display-panel-app',
@@ -46,7 +45,7 @@ export class ItemDisplayPanelTestPageComponent {
 
     items: Item[] = [{
         id: 1,
-        name: chance.name(),
+        name: 'Jim Baldwin',
         dateString: '3 Oct 2015',
         document: 'Document 4.ppt',
         extension: '.ppt',
@@ -58,7 +57,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 2,
-        name: chance.name(),
+        name: 'Sophie Hunt',
         dateString: '3 Oct 2015',
         document: 'Document 9.pdf',
         extension: '.pdf',
@@ -70,7 +69,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 3,
-        name: chance.name(),
+        name: 'Clayton Mullins',
         dateString: '3 Oct 2015',
         document: 'Document 14.doc',
         extension: '.doc',
@@ -82,7 +81,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 4,
-        name: chance.name(),
+        name: 'Bettie Elliott',
         dateString: '3 Oct 2015',
         document: 'Document 29.pdf',
         extension: '.pdf',
@@ -94,7 +93,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 5,
-        name: chance.name(),
+        name: 'Hannah Washington',
         dateString: '3 Oct 2015',
         document: 'Document 34.doc',
         extension: '.doc',
@@ -111,14 +110,14 @@ export class ItemDisplayPanelTestPageComponent {
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item) {
+    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item): void {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
         this.visible = true;
     }
 
-    previous() {
+    previous(): void {
         if (this.previousEnabled) {
             let id = this.selectedItem.id - 1;
             this.selectedItem = this.items[id - 1];
@@ -126,7 +125,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }
 
-    next() {
+    next(): void {
         if (this.nextEnabled) {
             let id = this.selectedItem.id + 1;
             this.selectedItem = this.items[id - 1];
