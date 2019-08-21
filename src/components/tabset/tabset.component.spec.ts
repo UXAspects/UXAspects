@@ -71,30 +71,48 @@ describe('Tabset Component', () => {
         fixture.detectChanges();
     });
 
-    it('should emit activated output when tab is clicked and emit deactivated output when tab deselected', () => {
+    it('should emit activated output when tab is clicked', () => {
 
         spyOn(component, 'onTabActivated');
-        spyOn(component, 'onTabDeactivated');
 
         const tab = getTab(1, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
         expect(component.onTabActivated).toHaveBeenCalled();
-        expect(component.onTabDeactivated).toHaveBeenCalled();
-
     });
 
-    it('should emit select output when tab is clicked and emit deselect output when tab deselected', () => {
+    it('should emit select output when tab is clicked', () => {
 
         spyOn(component, 'onTabSelect');
-        spyOn(component, 'onTabDeselect');
 
         const tab = getTab(1, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
         expect(component.onTabSelect).toHaveBeenCalled();
+    });
+
+    it('should emit deactivated output when tab is deselected', () => {
+
+        spyOn(component, 'onTabDeactivated');
+
+        const tab = getTab(2, nativeElement);
+
+        dispatchMouseEvent(tab, 'mousedown');
+
+        expect(component.onTabDeactivated).toHaveBeenCalled();
+
+    });
+
+    it('should emit deselect output when tab is deselected', () => {
+
+        spyOn(component, 'onTabDeselect');
+
+        const tab = getTab(2, nativeElement);
+
+        dispatchMouseEvent(tab, 'mousedown');
+
         expect(component.onTabDeselect).toHaveBeenCalled();
     });
 
