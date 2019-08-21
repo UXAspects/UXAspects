@@ -20,7 +20,7 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
      * component and they will be displayed within the button. */
     @Input() set icon(icon: string) {
         this._icon = icon;
-        this._isLegacyIcon = this._icon.indexOf('hpe=') === 0;
+        this._isLegacyIcon = this._icon.indexOf('hpe-') === 0;
     }
 
     get icon(): string {
