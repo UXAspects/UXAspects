@@ -3,7 +3,7 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { getIconType } from '../../../../common/index';
+import { getIconType, IconType } from '../../../../common/index';
 import { tick } from '../../../../common/operators/index';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationItem } from '../navigation.component';
@@ -16,13 +16,26 @@ import { PageHeaderNavigationService } from '../navigation.service';
 export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestroy, FocusableOption {
 
     /** Access the data for this dropdown item */
-    @Input() item: PageHeaderNavigationItem;
+    @Input() set item(item: PageHeaderNavigationItem) {
+        this._item = item;
+        this._iconType = getIconType(item.icon);
+    }
+
+    get item(): PageHeaderNavigationItem {
+        return this._item;
+    }
 
     /** Store the secondary state */
     secondary$: BehaviorSubject<boolean> = this._pageHeaderService.secondary$;
 
     /** Store the open state of the item dropdown */
     isOpen: boolean;
+
+    /** Store the item data */
+    _item: PageHeaderNavigationItem;
+
+    /** Store the icon type */
+    _iconType: IconType;
 
     /** Update the tabindex based on keyboard input */
     _tabindex: Observable<number> = this._navigationService.getTabIndex(this);
@@ -75,9 +88,5 @@ export class PageHeaderNavigationItemComponent implements AfterViewInit, OnDestr
         if (event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW) {
             this._navigationService.onKeydown(event);
         }
-    }
-
-    _getIconType(): string {
-        return getIconType(this.item.icon);
     }
 }

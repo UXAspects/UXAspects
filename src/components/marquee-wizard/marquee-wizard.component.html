@@ -98,9 +98,9 @@
 <ng-template #defaultStepTemplate let-step>
 
     <!-- Show an icon based on a string (deprecated) -->
-    <ng-container *ngIf="step.icon">
-        <i *ngIf="_getIconType(step.icon) !== 'component'" class="marquee-wizard-step-icon" [ngClass]="[_getIconType(step.icon), step.icon]"></i>
-        <ux-icon *ngIf="_getIconType(step.icon) === 'component'" class="marquee-wizard-step-icon" [name]="step.icon"></ux-icon>
+    <ng-container *ngIf="step._icon">
+        <i *ngIf="step._iconType !== 'component'" class="marquee-wizard-step-icon" [ngClass]="[step._iconType, step._icon]"></i>
+        <ux-icon *ngIf="step._iconType === 'component'" class="marquee-wizard-step-icon" [name]="step._icon"></ux-icon>
     </ng-container>
 
     <!-- Insert the icon -->

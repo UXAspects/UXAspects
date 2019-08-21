@@ -19,6 +19,7 @@ ux-checkbox {
             display: inline-flex;
             flex: none;
             color: transparent;
+            font-family: 'ux-icons';
             width: 24px;
             height: 24px;
             border: 1px solid @grey5;
@@ -26,6 +27,8 @@ ux-checkbox {
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
+
+            .ux-icon-checkmark();
 
             .ux-checkbox-input {
                 position: absolute;
@@ -54,6 +57,12 @@ ux-checkbox {
                 .ux-checkbox-container {
                     background-color: @grey6;
                 }
+            }
+        }
+
+        &.ux-checkbox-indeterminate {
+            .ux-checkbox-container {
+                .ux-icon-subtract();
             }
         }
 

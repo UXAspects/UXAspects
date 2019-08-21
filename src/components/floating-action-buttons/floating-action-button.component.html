@@ -15,9 +15,9 @@
           class="floating-action-button-icon"
           [class.hpe-icon]="_isLegacyIcon"
           [class.ux-icon]="!_isLegacyIcon"
-          [ngClass]="icon">
+          [ngClass]="_icon">
     </span>
 
-    <ng-content *ngIf="!icon"></ng-content>
+    <ng-content *ngIf="!_icon"></ng-content>
 
 </button>

@@ -10,11 +10,11 @@
  * @param identifier - The name of the icon
  */
 export function getIconType(identifier: string): IconType {
-    if (identifier.indexOf('hpe') > -1) {
+    if (identifier.trim().indexOf('hpe-') === 0) {
         return IconType.HpeIcon;
     }
 
-    if (identifier.indexOf('ux') > -1) {
+    if (identifier.trim().indexOf('ux-') === 0) {
         return IconType.UxIcon;
     }
 

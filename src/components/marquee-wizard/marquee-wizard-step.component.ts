@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { getIconType, IconType } from '../../common/index';
 import { WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
 import { MarqueeWizardService } from './marquee-wizard.service';
@@ -11,7 +12,14 @@ import { MarqueeWizardService } from './marquee-wizard.service';
 export class MarqueeWizardStepComponent extends WizardStepComponent implements OnInit {
 
     /** @deprecated Define the icon to display - use `uxMarqueeWizardStepIcon directive instead */
-    @Input() icon: string;
+    @Input() set icon(icon: string) {
+        this._icon = icon;
+        this._iconType = getIconType(icon);
+    }
+
+    get icon(): string {
+        return this._icon;
+    }
 
     /** Determine the completed state of this step */
     @Input() completed: boolean = false;
@@ -34,6 +42,13 @@ export class MarqueeWizardStepComponent extends WizardStepComponent implements O
         }
     }
 
+    /** Store the wizard step icon class */
+    _icon: string;
+
+    /** Store the type of icon provided */
+    _iconType: IconType;
+
+    /** Store the validity of the current step */
     private _valid: boolean = true;
 
     constructor(
