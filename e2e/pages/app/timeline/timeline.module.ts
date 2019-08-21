@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TimelineModule } from '@ux-aspects/ux-aspects';
-
+import { RouterModule } from '@angular/router';
+import { IconModule, TimelineModule } from '@ux-aspects/ux-aspects';
 import { TimelineTestPageComponent } from './timeline.testpage.component';
+
 
 @NgModule({
     imports: [
         TimelineModule,
         CommonModule,
         FormsModule,
+        IconModule,
         RouterModule.forChild([
             {
                 path: '',

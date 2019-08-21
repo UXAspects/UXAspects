@@ -5,7 +5,7 @@
 <div class="card-tabs" #tabs>
 
     <button type="button" class="card-tabs-paging-btn card-tabs-paging-btn-previous" aria-label="Previous Tabs" (click)="previous()" *ngIf="offset < bounds.lower">
-        <i class="hpe-icon hpe-previous"></i>
+        <ux-icon name="previous"></ux-icon>
     </button>
 
     <div class="card-tabs-list" role="tablist" #tablist (uxResize)="resize($event)" [style.transform]="'translateX(' + offset + 'px)'">
@@ -27,6 +27,6 @@
     </div>
 
     <button type="button" class="card-tabs-paging-btn card-tabs-paging-btn-next" aria-label="Next Tabs" (click)="next()" *ngIf="offset > bounds.upper">
-        <i class="hpe-icon hpe-next"></i>
+        <ux-icon name="next"></ux-icon>
     </button>
 </div>

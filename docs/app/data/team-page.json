@@ -6,15 +6,15 @@
             "avatar": "assets/img/team/ashley.jpg",
             "social": [
                 {
-                    "icon": "hpe-social-twitter",
+                    "icon": "social-twitter",
                     "url": "https://twitter.com/ashh640"
                 },
                 {
-                    "icon": "hpe-mail",
+                    "icon": "mail",
                     "url": "mailto:ashley-glenn.hunter@microfocus.com"
                 },
                 {
-                    "icon": "hpe-social-github",
+                    "icon": "social-github",
                     "url": "https://github.com/ashh640"
                 }
             ]
@@ -25,7 +25,7 @@
             "avatar": "assets/img/team/donna.jpg",
             "social": [
                 {
-                    "icon": "hpe-mail",
+                    "icon": "mail",
                     "url": "mailto:donna.worby@microfocus.com"
                 }
             ]
@@ -36,7 +36,7 @@
             "avatar": "assets/img/team/roland.jpg",
             "social": [
                 {
-                    "icon": "hpe-mail",
+                    "icon": "mail",
                     "url": "mailto:roland.penny@microfocus.com"
                 }
             ]
@@ -47,7 +47,7 @@
             "avatar": "assets/img/team/user.png",
             "social": [
                 {
-                    "icon": "hpe-mail",
+                    "icon": "mail",
                     "url": "mailto:tara.todd@microfocus.com"
                 }
             ]

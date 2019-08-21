@@ -2,7 +2,7 @@
     <div class="toolbar-left">
         <button type="button" class="btn btn-link button-secondary" (click)="toggle()">
 
-            <span class="hpe-icon hpe-resources"></span>
+            <ux-icon name="resources"></ux-icon>
             <span class="p-l-xs">{{ (showZones | async) ? 'Hide Zones' : 'Show Zones' }}</span>
 
         </button>
@@ -11,7 +11,7 @@
     <div class="toolbar-right">
         <button type="button" class="btn btn-link button-secondary" (click)="clear()">
             <span class="p-r-xs">Clear Search</span>
-            <span class="hpe-icon hpe-close"></span>
+            <ux-icon name="close"></ux-icon>
         </button>
     </div>
 </div>

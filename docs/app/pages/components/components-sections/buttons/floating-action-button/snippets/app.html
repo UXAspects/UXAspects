@@ -1,29 +1,33 @@
 <div class="p-md">
     <ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
 
-        <ux-floating-action-button fab-primary
-                icon="hpe-contract"
-                uxTooltip="Show Actions"
-                aria-label="Show Actions"
-                [placement]="placement">
+        <ux-floating-action-button
+            fab-primary
+            uxTooltip="Show Actions"
+            aria-label="Show Actions"
+            [placement]="placement">
+            <ux-icon name="contract"></ux-icon>
         </ux-floating-action-button>
 
-        <ux-floating-action-button icon="hpe-add"
-                uxTooltip="Add New Item"
-                aria-label="Add New Item"
-                [placement]="placement">
+        <ux-floating-action-button
+            uxTooltip="Add New Item"
+            aria-label="Add New Item"
+            [placement]="placement">
+            <ux-icon name="add"></ux-icon>
         </ux-floating-action-button>
 
-        <ux-floating-action-button icon="hpe-analytics"
-                uxTooltip="Show Analytics"
-                aria-label="Show Analytics"
-                [placement]="placement">
+        <ux-floating-action-button
+            uxTooltip="Show Analytics"
+            aria-label="Show Analytics"
+            [placement]="placement">
+            <ux-icon name="analytics"></ux-icon>
         </ux-floating-action-button>
 
-        <ux-floating-action-button icon="hpe-app"
-                uxTooltip="Show Overview"
-                aria-label="Show Overview"
-                [placement]="placement">
+        <ux-floating-action-button
+            uxTooltip="Show Overview"
+            aria-label="Show Overview"
+            [placement]="placement">
+            <ux-icon name="app"></ux-icon>
         </ux-floating-action-button>
 
     </ux-floating-action-buttons>

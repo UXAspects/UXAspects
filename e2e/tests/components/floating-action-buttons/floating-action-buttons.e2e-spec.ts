@@ -7,7 +7,7 @@ describe('Floating Action Button Tests', () => {
 
     const page: FloatingActionButtonsPage = new FloatingActionButtonsPage();
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         await page.getPage();
     });
 
@@ -66,9 +66,9 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
 
         expect(await imageCompare('fab-bottom-open')).toEqual(0);
     });
@@ -109,9 +109,9 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
 
         expect(await imageCompare('fab-right-open')).toEqual(0);
 
@@ -153,9 +153,9 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
 
         expect(await imageCompare('fab-up-open')).toEqual(0);
 
@@ -197,9 +197,9 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
 
         expect(await imageCompare('fab-left-open')).toEqual(0);
 

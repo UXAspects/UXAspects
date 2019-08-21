@@ -11,12 +11,12 @@ export class NavigationTestPageComponent {
     items: NavigationItem[] = [
         {
             title: 'Dashboard',
-            icon: 'hpe-dashboard',
+            icon: 'dashboard',
             routerLink: '/navigation/dashboard'
         },
         {
             title: 'Products',
-            icon: 'hpe-service-business',
+            icon: 'service-business',
             children: [
                 {
                     title: 'Add Product',
@@ -33,7 +33,7 @@ export class NavigationTestPageComponent {
         },
         {
             title: 'Accounts',
-            icon: 'hpe-user',
+            icon: 'user',
             routerLink: '/navigation/accounts',
             children: [
                 {
