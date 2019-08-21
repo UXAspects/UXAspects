@@ -1,17 +1,35 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { getIconType, IconType } from '../../common/index';
 import { WizardStepComponent } from '../wizard/index';
+import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
 import { MarqueeWizardService } from './marquee-wizard.service';
 
 @Component({
     selector: 'ux-marquee-wizard-step',
-    templateUrl: './marquee-wizard-step.component.html'
+    templateUrl: './marquee-wizard-step.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MarqueeWizardStepComponent extends WizardStepComponent {
+export class MarqueeWizardStepComponent extends WizardStepComponent implements OnInit {
 
-    @Input() icon: string;
+    /** @deprecated Define the icon to display - use `uxMarqueeWizardStepIcon directive instead */
+    @Input() set icon(icon: string) {
+        this._icon = icon;
+        this._iconType = getIconType(icon);
+    }
+
+    get icon(): string {
+        return this._icon;
+    }
+
+    /** Determine the completed state of this step */
     @Input() completed: boolean = false;
+
+    /** Emit when the completed step changes */
     @Output() completedChange = new EventEmitter<boolean>();
-    
+
+    /** Detect if an icon has been defined using the directive */
+    @ContentChild(MarqueeWizardStepIconDirective, { read: TemplateRef, static: false }) _iconTemplate: TemplateRef<void>;
+
     get valid(): boolean {
         return this._valid;
     }
@@ -24,10 +42,26 @@ export class MarqueeWizardStepComponent extends WizardStepComponent {
         }
     }
 
+    /** Store the wizard step icon class */
+    _icon: string;
+
+    /** Store the type of icon provided */
+    _iconType: IconType;
+
+    /** Store the validity of the current step */
     private _valid: boolean = true;
 
-    constructor(private _marqueeWizardService: MarqueeWizardService) {
-        super();
+    constructor(
+        changeDetector: ChangeDetectorRef,
+        private readonly _marqueeWizardService: MarqueeWizardService
+    ) {
+        super(changeDetector);
+    }
+
+    ngOnInit(): void {
+        if (this.icon) {
+            console.warn(`Marquee wizard step [icon] property has been deprecated. Instead use the '*uxMarqueeWizardStepIcon' directive.`);
+        }
     }
 
     /**

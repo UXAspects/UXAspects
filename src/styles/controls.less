@@ -72,7 +72,9 @@ label {
     display: none;
 
     &.hp-icon,
-    &.hpe-icon {
+    &.hpe-icon,
+    &.ux-icon,
+    & ux-icon {
         line-height: 34px;
     }
 }
@@ -180,16 +182,22 @@ label {
 
 /* style icon */
 
-.inner-addon .hpe-icon {
-    position: absolute;
-    padding: 10px;
-    pointer-events: none;
+.inner-addon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
 }
 
 .inner-addon-button {
     position: relative;
 
-    .hpe-icon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -202,12 +210,20 @@ label {
 
 /* align icon */
 
-.left-addon .hpe-icon {
-    left: 0;
+.left-addon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
+        left: 0;
+    }
 }
 
-.right-addon .hpe-icon {
-    right: 0;
+.right-addon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
+        right: 0;
+    }
 }
 
 /* add padding  */
@@ -1945,6 +1961,8 @@ tree-view > div:first-child > ol:nth-of-type(1) {
 
         > .chevron,
         > .chevron .hpe-icon,
+        > .chevron .ux-icon,
+        > .chevron ux-icon,
         > .icon,
         > .title-readonly,
         > .tree-action-button {
@@ -1960,10 +1978,17 @@ tree-view > div:first-child > ol:nth-of-type(1) {
             }
         }
 
-        > .chevron .hpe-icon,
-        > .chevron .hpe-icon:hover,
-        > .chevron .hpe-icon:focus {
-            opacity: 1;
+        > .chevron {
+            .hpe-icon,
+            .ux-icon,
+            ux-icon {
+                opacity: 1;
+
+                &:hover,
+                &:focus {
+                    opacity: 1;
+                }
+            }
         }
     }
 }

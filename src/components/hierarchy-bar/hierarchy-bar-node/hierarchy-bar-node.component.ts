@@ -16,7 +16,7 @@ export class HierarchyBarNodeComponent {
     @Input() popoverTemplate: TemplateRef<any>;
 
     /** Emit when the node is selected */
-    @Output() select = new EventEmitter<HierarchyBarNode>();
+    @Output() selected = new EventEmitter<HierarchyBarNode>();
 
     constructor(public readonly hierarchyBar: HierarchyBarService) { }
 

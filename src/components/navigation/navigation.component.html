@@ -31,7 +31,22 @@
                           class="nav-expander"
                           (click)="item.expanded = !item.expanded; $event.stopPropagation(); $event.preventDefault()">
                     </span>
-                    <span *ngIf="!navigationItemTemplate && item.icon && !tree" class="nav-icon hpe-icon" [ngClass]="item.icon"></span>
+
+                    <!-- Support HPE Icons, UX Icons and Icon Component -->
+                    <ng-container *ngIf="!navigationItemTemplate && item.icon && !tree">
+
+                        <span *ngIf="_getIconType(item) !== 'component'"
+                              class="nav-icon"
+                              [ngClass]="[_getIconType(item), item.icon]">
+                        </span>
+
+                        <ux-icon *ngIf="_getIconType(item) === 'component'"
+                                 class="nav-icon"
+                                 [name]="item.icon">
+                        </ux-icon>
+
+                    </ng-container>
+
                     <img *ngIf="!navigationItemTemplate && item.iconUrl && !tree" class="nav-icon" [src]="item.iconUrl" alt="item.iconLabel">
                     <span *ngIf="!navigationItemTemplate" class="nav-title">{{ item.title }}</span>
 

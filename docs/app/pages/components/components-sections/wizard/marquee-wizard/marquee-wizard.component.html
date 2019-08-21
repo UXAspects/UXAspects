@@ -1,5 +1,5 @@
 <button type="button" class="btn button-primary" (click)="modalOpen = true">
-    <span class="hpe-icon hpe-deployment" aria-hidden="true"></span> Launch Marquee Wizard
+    <ux-icon name="deployment" aria-hidden="true"></ux-icon> Launch Marquee Wizard
 </button>
 
 <div *ngIf="modalOpen"
@@ -23,7 +23,7 @@
             <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
                 <button class="modal-close" uxFocusIndicator (click)="close()" type="button" aria-label="Close Modal" tabindex="0">
-                    <i class="hpe-icon hpe-close"></i>
+                    <ux-icon name="close"></ux-icon>
                 </button>
             </div>
 
@@ -33,7 +33,9 @@
                     <img src="../../../../../assets/img/IconUser.png" alt="">
                 </ng-template>
 
-                <ux-marquee-wizard-step icon="hpe-icon hpe-soa" header="First step">
+                <ux-marquee-wizard-step header="First step">
+                    <ux-icon name="soa" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
 
                     <div class="row">
@@ -51,7 +53,9 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="hpe-icon hpe-schedule-clone" header="Second step" [valid]="!error">
+                <ux-marquee-wizard-step header="Second step" [valid]="!error">
+                    <ux-icon name="schedule-clone" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Second step title</h1>
 
                     <div class="row">
@@ -62,7 +66,9 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="hpe-icon hpe-sync" header="Third step">
+                <ux-marquee-wizard-step header="Third step">
+                    <ux-icon name="sync" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Third step title</h1>
 
                     <div class="row">
@@ -73,7 +79,9 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="hpe-icon hpe-compliance" header="Fourth step" *ngIf="!skip">
+                <ux-marquee-wizard-step header="Fourth step" *ngIf="!skip">
+                    <ux-icon name="compliance" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Fourth step title</h1>
 
                     <div class="row">
@@ -83,7 +91,9 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="hpe-icon hpe-storage" header="Fifth step" *ngIf="!skip">
+                <ux-marquee-wizard-step header="Fifth step" *ngIf="!skip">
+                    <ux-icon name="storage" *uxMarqueeWizardStepIcon></ux-icon>
+
                     <h1 class="m-t-nil">Fifth step title</h1>
 
                     <div class="row">
@@ -93,7 +103,8 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step icon="hpe-icon hpe-scorecard" header="Sixth step" [valid]="requiredText.valid || !validate">
+                <ux-marquee-wizard-step header="Sixth step" [valid]="requiredText.valid || !validate">
+                    <ux-icon name="scorecard" *uxMarqueeWizardStepIcon></ux-icon>
                     <h1 class="m-t-nil">Sixth step title</h1>
 
                     <div class="row">
@@ -286,7 +297,8 @@
         The text to be displayed in the wizard step tab.
     </tr>
     <tr uxd-api-property name="icon" type="string">
-        Specifies the image to be displayed above the wizard steps.
+        Specifies the image to be displayed above the wizard steps. It is recommended to use the <code>*uxMarqueeWizardStepIcon</code>
+        directive instead.
     </tr>
     <tr uxd-api-property name="valid" type="boolean">
         Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property
@@ -310,6 +322,10 @@
         Emits when completed changes.
     </tr>
 </uxd-api-properties>
+
+<p>
+    The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.
+</p>
 
 <p>
     The following code can be used create the example above:

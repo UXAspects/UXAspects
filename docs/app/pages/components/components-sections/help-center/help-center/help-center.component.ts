@@ -20,14 +20,14 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
     crumbs: Breadcrumb[] = [{ title: 'Overview' }];
     menus: PageHeaderIconMenu[] = [
         {
-            icon: 'hpe-help',
+            icon: 'help',
             label: 'Help Menu',
             dropdown: []
         }
     ];
 
     refreshHelpCenterItem: HelpCenterItem = {
-        icon: 'hpe-refresh',
+        icon: 'refresh',
         title: 'Refresh Repositories',
         select: this.loadData.bind(this)
     };

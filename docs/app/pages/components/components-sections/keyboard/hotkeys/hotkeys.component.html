@@ -10,19 +10,19 @@
             aria-label="Active"
             (click)="qText = 'Active'; announce('Active')"
             [focusIf]="qFocused === 1">
-            <i class="hpe-icon hpe-active"></i>
+            <ux-icon name="active"></ux-icon>
         </button>
         <button class="btn button-secondary"
             aria-label="Inactive"
             (click)="qText = 'Inactive'; announce('Inactive')"
             [focusIf]="qFocused === 2">
-            <i class="hpe-icon hpe-inactive"></i>
+            <ux-icon name="inactive"></ux-icon>
         </button>
         <button class="btn button-secondary"
             aria-label="Lock"
             (click)="qText = 'Lock'; announce('Lock')"
             [focusIf]="qFocused === 3">
-            <i class="hpe-icon hpe-lock"></i>
+            <ux-icon name="lock"></ux-icon>
         </button>
     </div>
     <p class="hotkey-demo-text">Selected: <span>{{ qText }}</span></p>
@@ -41,19 +41,19 @@
             aria-label="Decelerate"
             (focus)="wText = 'Decelerate'; announce('Decelerate')"
             [focusIf]="wFocused === 1">
-            <i class="hpe-icon hpe-rewind"></i>
+            <ux-icon name="rewind"></ux-icon>
         </button>
         <button class="btn button-secondary"
             aria-label="Drive"
             (focus)="wText = 'Drive'; announce('Drive')"
             [focusIf]="wFocused === 2">
-            <i class="hpe-icon hpe-play"></i>
+            <ux-icon name="play"></ux-icon>
         </button>
         <button class="btn button-secondary"
             aria-label="Accelerate"
             (focus)="wText = 'Accelerate'; announce('Accelerate')"
             [focusIf]="wFocused === 3">
-            <i class="hpe-icon hpe-fast-forward"></i>
+            <ux-icon name="fast-forward"></ux-icon>
         </button>
     </div>
     <p class="hotkey-demo-text">Selected: <span>{{ wText }}</span></p>

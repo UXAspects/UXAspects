@@ -45,11 +45,11 @@ export class FiltersPage {
     }
 
     confirmAuthorMenuItemCheckExists(index: number) {
-        return $('.ux-dynamic-filter-menu').$$('.ux-menu-item').get(index).$('i.hpe-checkmark').isPresent();
+        return $('.ux-dynamic-filter-menu').$$('.ux-menu-item').get(index).$('ux-icon').isDisplayed();
     }
 
     confirmStatusMenuItemCheckExists(index: number) {
-        return $('.ux-filter-menu').$$('.ux-menu-item').get(index).$('i.hpe-checkmark').isPresent();
+        return $('.ux-filter-menu').$$('.ux-menu-item').get(index).$('ux-icon').isDisplayed();
     }
 
     confirmClearAllIsVisible() {
@@ -57,7 +57,7 @@ export class FiltersPage {
     }
 
     confirmItemStatus(index: number) {
-        return this.table.$$('tr.clickable').get(index).$('td.text-center').$('div.hpe-checkmark').isPresent();
+        return this.table.$$('tr.clickable').get(index).$('td.text-center').$('ux-icon').isPresent();
     }
 
 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, EboxModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, EboxModule, IconModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -60,6 +60,7 @@ const DOCUMENTATION_COMPONENTS = [
         CommonModule,
         EboxModule,
         FormsModule,
+        IconModule,
         PopoverModule,
         RouterModule,
         ScrollModule,

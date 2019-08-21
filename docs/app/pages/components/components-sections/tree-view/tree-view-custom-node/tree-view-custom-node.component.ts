@@ -77,7 +77,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
     setParentNodeState(node: TreeNode) {
 
         if (!node) {
-            return; 
+            return;
         }
 
         let allChildrenChecked = node.children.every(child => child.data.checked);
@@ -95,7 +95,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
     }
 
     /**
-     * When a node lazy loads it's children, update their checkboxes to reflect 
+     * When a node lazy loads it's children, update their checkboxes to reflect
      * the current state of the parent node.
      */
     onChildrenLoaded(node: TreeNode): void {
@@ -130,6 +130,19 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
         }
 
         return this.isNodeVisible(node.parent);
+    }
+
+    getIcon(node: TreeNode): string {
+        if (node.hasChildren && !node.isExpanded) {
+            return 'folder';
+        }
+        if (node.hasChildren && node.isExpanded) {
+            return 'folder-open';
+        }
+
+        if (!node.hasChildren) {
+            return 'document';
+        }
     }
 }
 

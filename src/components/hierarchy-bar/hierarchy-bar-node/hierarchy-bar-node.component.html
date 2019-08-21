@@ -4,7 +4,7 @@
             uxFocusIndicator
             class="hierarchy-bar-node-content"
             [attr.aria-label]="node.title"
-            (click)="select.emit(node)">
+            (click)="selected.emit(node)">
 
         <!-- Show a custom icon if specified -->
         <div class="hierarchy-bar-node-icon" *ngIf="hierarchyBar.icon">

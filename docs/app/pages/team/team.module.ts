@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FlippableCardModule } from '@ux-aspects/ux-aspects';
+import { FlippableCardModule, IconModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { TeamPageComponent } from './team.component';
 
@@ -19,8 +19,9 @@ const routes: Routes = [
     imports: [
         CommonModule,
         DocumentationComponentsModule,
+        FlippableCardModule,
+        IconModule,
         RouterModule.forChild(routes),
-        FlippableCardModule
     ]
 })
-export class TeamPageModule {}
+export class TeamPageModule { }

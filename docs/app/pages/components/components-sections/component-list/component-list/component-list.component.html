@@ -15,7 +15,7 @@
                     *ngIf="items.controls.length > 1"
                     aria-label="Remove field"
                     (click)="remove(idx)">
-                    <i class="hpe-icon hpe-close"></i>
+                    <ux-icon name="close"></ux-icon>
                 </button>
             </div>
 
@@ -30,7 +30,7 @@
         [class.disabled]="form.invalid"
         (click)="add()">
         <span class="component-add-btn">
-            <i class="hpe-icon hpe-add"></i>
+            <ux-icon name="add"></ux-icon>
         </span>
         <span class="component-add-text">Add a field</span>
     </button>

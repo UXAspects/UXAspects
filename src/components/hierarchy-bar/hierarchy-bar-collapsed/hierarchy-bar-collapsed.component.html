@@ -8,7 +8,7 @@
     <ux-hierarchy-bar-node
         [popoverTemplate]="content"
         [node]="_first"
-        (select)="hierarchyBar.selectNode($event)">
+        (selected)="hierarchyBar.selectNode($event)">
     </ux-hierarchy-bar-node>
 
     <div class="hierarchy-bar-overflow" *ngIf="_parents.length > 0">
@@ -42,7 +42,7 @@
         *ngIf="_last !== _first"
         [popoverTemplate]="content"
         [node]="_last"
-        (select)="hierarchyBar.selectNode($event)">
+        (selected)="hierarchyBar.selectNode($event)">
     </ux-hierarchy-bar-node>
 
     <!-- Allow content to be placed after the last node -->
@@ -62,7 +62,7 @@
     <ux-hierarchy-bar-popover
         [loading]="(hierarchyBar.getChildren(node) | async)?.loading"
         [nodes]="(hierarchyBar.getChildren(node) | async)?.children"
-        (select)="hierarchyBar.selectNode($event); popover.hide()">
+        (selected)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>
 
@@ -71,7 +71,7 @@
     <ux-hierarchy-bar-popover
         [nodes]="(_siblings | async)?.children"
         [loading]="(_siblings | async)?.loading"
-        (select)="hierarchyBar.selectNode($event); popover.hide()">
+        (selected)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>
 
@@ -80,7 +80,7 @@
     <ux-hierarchy-bar-popover
         [nodes]="_parents"
         [separator]="true"
-        (select)="hierarchyBar.selectNode($event); popover.hide()">
+        (selected)="hierarchyBar.selectNode($event); popover.hide()">
     </ux-hierarchy-bar-popover>
 </ng-template>
 
@@ -100,6 +100,6 @@
             [hideTriggers]="hierarchyBar.popoverHideTriggers"
             placement="bottom"
             type="button">
-        <i class="hpe-icon hpe-more"></i>
+            <ux-icon name="more"></ux-icon>
     </button>
 </ng-template>

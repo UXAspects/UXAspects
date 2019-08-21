@@ -1,3 +1,4 @@
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 // tslint:disable-next-line: import-blacklist
 import { Subject } from 'rxjs';
@@ -27,16 +28,43 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() size: string;
 
     /** The number of degrees to rotate the icon */
-    @Input() rotate: 90 | 180 | 270;
+    @Input() set rotate(rotation: IconRotation | any) {
+        this._rotate = coerceNumberProperty(rotation) as IconRotation;
+    }
+
+    get rotate() {
+        return this._rotate;
+    }
 
     /** Define if the icon should be horizontally flipped */
-    @Input() flipHorizontal: boolean = false;
+    @Input() set flipHorizontal(flipHorizontal: boolean | any) {
+        this._flipHorizontal = coerceBooleanProperty(flipHorizontal);
+    }
+
+    get flipHorizontal() {
+        return this._flipHorizontal;
+    }
 
     /** Define if the icon should be horizontally flipped */
-    @Input() flipVertical: boolean = false;
+    @Input() set flipVertical(flipVertical: boolean | any) {
+        this._flipVertical = coerceBooleanProperty(flipVertical);
+    }
+
+    get flipVertical() {
+        return this._flipVertical;
+    }
 
     /** Store the matching icon definition */
     _icon: IconDefinition;
+
+    /** Store the numeric value of rotation */
+    private _rotate: IconRotation;
+
+    /** Store the boolean value of flip vertical */
+    private _flipVertical: boolean = false;
+
+    /** Store the boolean value of flip horizontal */
+    private _flipHorizontal: boolean = false;
 
     /** Automatically unsubscribe from observables */
     private readonly _onDestroy = new Subject<void>();
@@ -91,8 +119,11 @@ export class IconComponent implements OnChanges, AfterViewInit, OnDestroy {
         if (this._icon) {
             this._renderer.addClass(this._elementRef.nativeElement, this._icon.iconset);
             this._renderer.addClass(this._elementRef.nativeElement, this._icon.icon);
-        } else {
+        } else if (!!this.name) {
             console.warn(`The icon ${this.name} could not be found. Ensure you are using the correct iconset.`);
         }
     }
 }
+
+
+export type IconRotation = 90 | 180 | 270;

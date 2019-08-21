@@ -1,8 +1,9 @@
-import { Component, EventEmitter, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
     templateUrl: './wizard-step.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'tabpanel',
         '[attr.aria-labelledby]': 'id + "-label"'
@@ -46,6 +47,9 @@ export class WizardStepComponent {
         if (value === true) {
             this.visited = true;
         }
+
+        // mark for change detection
+        this._changeDetector.markForCheck();
     }
 
     @HostBinding('attr.aria-expanded')
@@ -54,4 +58,6 @@ export class WizardStepComponent {
     }
 
     @HostBinding('id') id: string;
+
+    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
 }

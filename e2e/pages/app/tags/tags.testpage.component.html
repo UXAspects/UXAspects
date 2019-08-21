@@ -100,10 +100,10 @@
 </div>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>
+    <span class="m-r-sm"><ux-icon name="tag"></ux-icon></span>
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
     <button *ngIf="api.canRemoveTagAt(index)" type="button" class="ux-tag-remove"
         [disabled]="disabled"
         (click)="api.removeTagAt(index); $event.stopPropagation();"
-        ><i class="hpe-icon hpe-close"></i></button>
+        ><ux-icon name="close"></ux-icon></button>
 </ng-template>

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, FocusIfModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, FocusIfModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -30,13 +30,14 @@ const ROUTES = [
     imports: [
         AccessibilityModule,
         CommonModule,
-        WrappersModule,
-        TabsetModule,
-        FormsModule,
-        FocusIfModule,
-        ReactiveFormsModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FocusIfModule,
+        FormsModule,
+        IconModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

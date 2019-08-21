@@ -11,8 +11,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable single-select" 
-            [class.highlight]="item.id === selectedItem?.id && visible" 
+            <tr class="clickable single-select"
+            [class.highlight]="item.id === selectedItem?.id && visible"
             *ngFor="let item of items" (click)="show(panel, $event, item)">
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
@@ -23,29 +23,31 @@
                 </td>
                 <td>{{ item.dateString }}</td>
                 <td>
-                    <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" 
+                    <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor"
                     [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
                 </td>
                 <td class="text-center vertical-center-icon">
-                    <div class="hpe-icon" [class.text-secondary]="item.active" 
-                    [class.hpe-checkmark]="item.active"></div>
+                    <ux-icon *ngIf="item.active" class="text-secondary" name="checkmark"></ux-icon>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<ux-item-display-panel id="panel1" [(visible)]="visible" top="53" [shadow]="shadow" 
+<ux-item-display-panel id="panel1" [(visible)]="visible" top="53" [shadow]="shadow"
 [title]="selectedItem?.panel.title" [animate]="animate">
 
     <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
 
     <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
         <span class="btn-pair">
-            <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" 
-            tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
-            <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" 
-            tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
+            <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()"
+            tabindex="0">
+            <ux-icon name="previous"></ux-icon>Previous
+        </button>
+            <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">
+                Next<ux-icon name="next"></ux-icon>
+            </button>
         </span>
     </div>
 

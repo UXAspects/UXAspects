@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
+import { IconModule } from '../icon/index';
 import { MenuModule } from '../menu/index';
 import { TooltipModule } from '../tooltip/index';
 import { TypeaheadModule } from '../typeahead/index';
@@ -24,11 +25,12 @@ const DECLARATIONS = [
     imports: [
         A11yModule,
         AccessibilityModule,
-        MenuModule,
         CommonModule,
         FormsModule,
+        IconModule,
+        MenuModule,
         TooltipModule,
-        TypeaheadModule
+        TypeaheadModule,
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

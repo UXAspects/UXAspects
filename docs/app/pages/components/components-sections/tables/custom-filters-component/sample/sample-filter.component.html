@@ -15,7 +15,7 @@
         class="filter-dropdown btn dropdown-toggle"
         [class.active]="selected !== initial">
         {{ selected?.title }}
-        <span class="hpe-icon hpe-down"></span>
+        <ux-icon class="custom-filter-chevron" name="down"></ux-icon>
     </button>
 
     <ul *dropdownMenu
@@ -37,7 +37,7 @@
                 (keydown.enter)="selectFilter(filter, $event); toggle.focus()"
                 (keydown.escape)="toggle.focus()">
 
-                <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+                <ux-icon [name]="filter === selected ? 'checkmark' : null"></ux-icon>
                 <span class="filter-dropdown-title">{{ filter.name }}</span>
             </a>
         </li>

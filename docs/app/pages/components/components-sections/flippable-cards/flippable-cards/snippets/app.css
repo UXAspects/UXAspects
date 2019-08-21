@@ -3,6 +3,7 @@
 }
 
 .flip-card-btn {
+    display: inline-flex;
     position: absolute;
     top: 0;
     right: 0;

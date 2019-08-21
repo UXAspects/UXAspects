@@ -7,7 +7,7 @@
         [uxMenuTriggerFor]="menu"
         #trigger="ux-menu-trigger">
         {{ selected?.title }}
-        <span class="hpe-icon hpe-down"></span>
+        <ux-icon name="down"></ux-icon>
     </button>
 
     <ux-menu #menu menuClass="ux-dynamic-filter-menu" (closed)="onClose()">
@@ -17,13 +17,16 @@
             *ngIf="showTypeahead"
             (click)="removeFilter()"
             (keydown.enter)="removeFilter()">
-            <i class="hpe-icon" [class.hpe-checkmark]="initial === selected"></i>
+            <ux-icon
+                name="checkmark"
+                [style.visibility]="initial === selected ? 'visible' : 'hidden'">
+            </ux-icon>
             <span class="filter-dropdown-title">{{ initial.name }}</span>
         </button>
 
         <!-- Selected Options -->
         <button uxMenuItem *ngIf="selected !== initial && showTypeahead">
-            <i class="hpe-icon hpe-checkmark"></i>
+            <ux-icon name="checkmark"></ux-icon>
             <span class="filter-dropdown-title">{{ selected.name }}</span>
         </button>
 
@@ -65,7 +68,12 @@
                 uxMenuItem
                 (click)="selectFilter(filter); trigger.closeMenu('mouse')"
                 (keydown.enter)="selectFilter(filter); trigger.closeMenu('keyboard')">
-                <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+
+                <ux-icon
+                    name="checkmark"
+                    [style.visibility]="filter === selected ? 'visible' : 'hidden'">
+                </ux-icon>
+
                 <span class="filter-dropdown-title">{{ filter.name }}</span>
             </button>
 

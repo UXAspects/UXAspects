@@ -21,7 +21,7 @@
             (keydown.arrowup)="moveup(item, idx, $event)">
 
             <td class="drag-handle-column">
-                <span uxReorderableHandle class="hpe-icon hpe-more hpe-rotate-90"></span>
+                <ux-icon uxReorderableHandle name="more" rotate="90"></ux-icon>
             </td>
             <td>{{ item.document }}</td>
             <td>{{ item.author }}</td>
@@ -30,7 +30,9 @@
                 <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
             </td>
             <td class="text-center">
-                <div [attr.aria-label]="item.active ? 'Approved' : 'Not approved'" class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+                <ux-icon [name]="item.active ? 'checkmark' : null"
+                         [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
             </td>
         </tr>
     </tbody>

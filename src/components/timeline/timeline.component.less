@@ -6,6 +6,10 @@ ux-timeline {
         position: relative;
 
         &:before {
+            display: none; // prevent AngularJS styles showing
+        }
+
+        .timeline-connector {
             top: 0;
             bottom: 0;
             position: absolute;
@@ -16,12 +20,11 @@ ux-timeline {
             margin-left: -1.5px;
         }
 
-        &:after:extend(.hpe-chevron-down:before) {
-            font-family: 'hpe-icons';
+        .timeline-arrow {
             position: absolute;
             color: @timeline-color;
             left: 56px;
-            bottom: -9px;
+            bottom: -6px;
             transform: translateX(-0.5px);
         }
 
@@ -182,7 +185,7 @@ ux-timeline {
 
     @media only screen and (min-width: 768px) {
         .timeline {
-            &:before {
+            .timeline-connector {
                 left: 64px;
             }
 
@@ -219,7 +222,7 @@ ux-timeline {
 
     @media only screen and (max-width: 767px) {
         .timeline {
-            &:before {
+            .timeline-connector {
                 left: 64px;
             }
 

@@ -25,9 +25,9 @@ export class FlippableCardsPage {
     clickOnCardIcon(card: ElementFinder) {
         return this.confirmIsFlipped(card).then(function (isFlipped: boolean) {
             if (isFlipped) {
-                card.$('div.ux-flipper').$('div.ux-flippable-card-back').$('ux-flippable-card-back').$('i').click();
+                card.$('div.ux-flipper').$('div.ux-flippable-card-back').$('ux-flippable-card-back').$('ux-icon').click();
             } else {
-                card.$('div.ux-flipper').$('div.ux-flippable-card-front').$('ux-flippable-card-front').$('i').click();
+                card.$('div.ux-flipper').$('div.ux-flippable-card-front').$('ux-flippable-card-front').$('ux-icon').click();
             }
         });
     }
