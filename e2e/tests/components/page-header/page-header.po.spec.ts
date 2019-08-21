@@ -31,8 +31,8 @@ export class PageHeaderPage {
         return this.confirmClassExists(element(by.id('pageHeader1')), 'page-header-condensed');
     }
 
-    toggleTheHeader() {
-        this.toggleButton.click();
+    async toggleTheHeader() {
+        await this.toggleButton.click();
     }
 
     async getABreadcrumb(index: number): Promise<string> {
