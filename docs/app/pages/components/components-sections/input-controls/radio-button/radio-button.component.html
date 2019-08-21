@@ -1,7 +1,6 @@
-<div role="radiogroup" class="radio-button-container">
+<div uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option1"
         [disabled]="disabled"
         [simplified]="simplified">
@@ -10,7 +9,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option2"
         [simplified]="simplified">
         Option2
@@ -18,7 +16,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option3"
         [simplified]="simplified">
         Option3
@@ -26,7 +23,6 @@
 
     <ux-radio-button
         name="group"
-        [(value)]="selected"
         [option]="radioOptions.option4"
         [simplified]="simplified">
         Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur
@@ -52,11 +48,13 @@
 <hr>
 
 <p>
-    A radio button can be created by using the <code>ux-radio-button</code> component. The following attributes can be used
-    to configure the appearance and behavior of the component:
+    A radio button can be created by using the <code>ux-radio-button</code> component placed inside a
+    <code>uxRadioButtonGroup</code>. In order to use the radio button in a reactive form, define the
+    <code>formControlName</code> property on the <code>uxRadioButtonGroup</code> element. The following
+    attributes can be used to configure the appearance and behavior of the component:
 </p>
 
-<uxd-api-properties tableTitle="Inputs">
+<uxd-api-properties tableTitle="Radio Button Inputs">
     <tr uxd-api-property name="value" type="any">
         This should be a two way binding and will store the currently selected option. Each radio button in the same
         group should have the same <code>value</code> variable.
@@ -74,8 +72,20 @@
     </tr>
 </uxd-api-properties>
 
-<uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="valueChange" type="any" defaultValue="">
+<uxd-api-properties tableTitle="Radio Button Outputs">
+    <tr uxd-api-property name="valueChange" type="any">
+        Emits when the value has been changed.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="uxRadioButtonGroup Inputs">
+    <tr uxd-api-property name="value" type="any">
+        This should be a two way binding and will store the currently selected option.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="uxRadioButtonGroup Outputs">
+    <tr uxd-api-property name="valueChange" type="any">
         Emits when the value has been changed.
     </tr>
 </uxd-api-properties>
