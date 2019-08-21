@@ -14,6 +14,7 @@ export class ExpandInputNg1Component extends UpgradeComponent {
     @Input() expandAlways: boolean;
     @Input() onEnter: Function;
 
+    // tslint:disable-next-line
     @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(elementRef: ElementRef, injector: Injector) {
