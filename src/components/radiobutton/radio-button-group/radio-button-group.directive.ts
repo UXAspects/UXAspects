@@ -4,10 +4,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-/**
- * Needed for Reactive forms so there is a top level element
- */
-
 export const RADIO_GROUP_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => RadioButtonGroupDirective),

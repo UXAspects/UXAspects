@@ -1,4 +1,4 @@
-<div role="radiogroup" uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
+<div uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
     <ux-radio-button
         name="group"
         [option]="radioOptions.option1"
@@ -49,8 +49,9 @@
 
 <p>
     A radio button can be created by using the <code>ux-radio-button</code> component placed inside a
-    <code>uxRadioButtonGroup</code>. The following attributes can be used to configure the appearance and
-    behavior of the component:
+    <code>uxRadioButtonGroup</code>. In order to use the radio button in a reactive form, define the
+    <code>formControlName</code> property on the <code>uxRadioButtonGroup</code> element. The following
+    attributes can be used to configure the appearance and behavior of the component:
 </p>
 
 <uxd-api-properties tableTitle="Radio Button Inputs">
@@ -104,15 +105,3 @@
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </ux-tab>
 </ux-tabset>
-
-<p>The following code can be used to create a reactive form:</p>
-
-<ux-tabset [minimal]="false">
-    <ux-tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.reactiveFormHtml"></uxd-snippet>
-    </ux-tab>
-    <ux-tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.reactiveFormTs"></uxd-snippet>
-    </ux-tab>
-</ux-tabset>
-
