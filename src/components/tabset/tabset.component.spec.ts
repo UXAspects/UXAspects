@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
 import { dispatchMouseEvent } from '../../common/testing';
 
 @Component({
-    selector: 'app-radio-button-value-test',
+    selector: 'app-tabset-test',
     template: `
         <ux-tabset [minimal]="true" aria-label="Tabset Example">
-            <ux-tab (deselect)="onTabDeselect()"  (deactivated)="onTabDeactivated()" (select)="onTabSelectClick()"  (activated)="onTabActivatedClick()" customClass="text-center" *ngFor="let tab of tabs">
+            <ux-tab (deselect)="onTabDeselect()"  (deactivated)="onTabDeactivated()" (select)="onTabSelect()"  (activated)="onTabActivated()" customClass="text-center" *ngFor="let tab of tabs">
                 <ng-template uxTabHeading>
                     <span>{{ tab.title }}</span>
                 </ng-template>
@@ -41,10 +41,10 @@ export class TabsetTestComponent {
         }
     ];
 
-    onTabSelectClick(): void {
+    onTabSelect(): void {
     }
 
-    onTabActivatedClick(): void {
+    onTabActivated(): void {
     }
 
     onTabDeselect(): void {
@@ -54,7 +54,7 @@ export class TabsetTestComponent {
     }
 }
 
-describe('Radio Button Component - Value', () => {
+describe('Tabset Component', () => {
     let component: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
     let nativeElement: HTMLElement;
@@ -71,40 +71,36 @@ describe('Radio Button Component - Value', () => {
         fixture.detectChanges();
     });
 
-    it('should initialise correctly', () => {
-        expect(component).toBeTruthy();
-    });
-
     it('should emit activated output when tab is clicked and emit deactivated output when tab deselected', () => {
 
-        spyOn(component, 'onTabActivatedClick');
+        spyOn(component, 'onTabActivated');
         spyOn(component, 'onTabDeactivated');
 
         const tab = getTab(1, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
-        expect(component.onTabActivatedClick).toHaveBeenCalled();
+        expect(component.onTabActivated).toHaveBeenCalled();
         expect(component.onTabDeactivated).toHaveBeenCalled();
 
     });
 
     it('should emit select output when tab is clicked and emit deselect output when tab deselected', () => {
 
-        spyOn(component, 'onTabSelectClick');
+        spyOn(component, 'onTabSelect');
         spyOn(component, 'onTabDeselect');
 
         const tab = getTab(1, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
-        expect(component.onTabSelectClick).toHaveBeenCalled();
+        expect(component.onTabSelect).toHaveBeenCalled();
         expect(component.onTabDeselect).toHaveBeenCalled();
     });
 
 });
 
-function getTab(index:  number, nativeElement: HTMLElement): HTMLElement {
+function getTab(index: number, nativeElement: HTMLElement): HTMLElement {
     return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link').item(index);
 }
 
