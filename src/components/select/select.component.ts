@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, takeUntil, skip } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
@@ -185,12 +185,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     ngOnInit(): void {
 
         // Emit change events
-        this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+        this._value$.pipe(skip(1), takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this.valueChange.emit(value);
             this.propagateChange(value);
         });
 
-        this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+        this._input$.pipe(skip(1), takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this.inputChange.emit(value);
         });
 

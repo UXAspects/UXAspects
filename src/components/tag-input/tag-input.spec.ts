@@ -28,9 +28,6 @@ describe('Tag Input Component', () => {
 
         fixture = TestBed.createComponent(TagInputComponent);
         component = fixture.componentInstance;
-
-        // run initial change detection
-        fixture.detectChanges();
     });
 
     afterEach(() => fixture.nativeElement.remove());
@@ -41,8 +38,11 @@ describe('Tag Input Component', () => {
 
     it('should emit tagsChange each time an item is selected', (done) => {
 
+        // run initial change detection
+        fixture.detectChanges();
+
         // listen for tags
-        component.tagsChange.pipe(bufferCount(2)).subscribe(response => {
+        const subscription = component.tagsChange.pipe(bufferCount(2)).subscribe(response => {
             expect(response.length).toBe(2);
             done();
         });
@@ -51,6 +51,51 @@ describe('Tag Input Component', () => {
         component.commitTypeahead('One');
         component.commitTypeahead('Two');
 
+        subscription.unsubscribe();
+    });
+
+    it('should not emit inputChange on initialization', () => {
+        const onInputChange = jasmine.createSpy('inputChange');
+        const subscription = component.inputChange.subscribe(onInputChange);
+
+        // run initial change detection
+        fixture.detectChanges();
+
+        expect(onInputChange).not.toHaveBeenCalled();
+
+        subscription.unsubscribe();
+    });
+
+    it('should not emit tagsChange on initialization', () => {
+        const onTagsChange = jasmine.createSpy('TagsChange');
+        const subscription = component.inputChange.subscribe(onTagsChange);
+
+        // run initial change detection
+        fixture.detectChanges();
+
+        expect(onTagsChange).not.toHaveBeenCalled();
+
+        subscription.unsubscribe();
+    });
+
+    it('should initialize value to empty string', () => {
+        // run initial change detection
+        fixture.detectChanges();
+
+        expect(component.input).toBe('');
+    });
+
+    it('should emit inputChange when input changed', () => {
+        const onInputChange = jasmine.createSpy('inputChange');
+        const subscription = component.inputChange.subscribe(onInputChange);
+        // run initial change detection
+        fixture.detectChanges();
+
+        component.setInputValue('one');
+
+        expect(onInputChange).toHaveBeenCalled();
+
+        subscription.unsubscribe();
     });
 
 });

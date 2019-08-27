@@ -19,7 +19,8 @@
     </li>
     <li *ngIf="isInputVisible()" class="ux-tag-input" role="none">
         <input #tagInput type="text" [attr.id]="id" class="ux-tag-input"
-            [(ngModel)]="input"
+            [ngModel]="input"
+            (ngModelChange)="setInputValue($event)"
             [autocomplete]="autocomplete"
             [class.invalid]="!inputValid"
             [attr.aria-activedescendant]="highlightedElement?.id"
