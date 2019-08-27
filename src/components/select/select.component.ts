@@ -36,9 +36,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     set value(value: T | ReadonlyArray<T>) {
         this._value$.next(value);
     }
-    get value() {
-        return this._value$.value;
-    }
 
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
@@ -171,7 +168,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    private _value$ = new BehaviorSubject<T | ReadonlyArray<T>>(null);
+    _value$ = new Subject<T | ReadonlyArray<T>>();
+    _hasValue = false;
+
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _onDestroy = new Subject<void>();
@@ -188,6 +187,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this.valueChange.emit(value);
             this.propagateChange(value);
+            this._hasValue = !!value;
         });
 
         this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
