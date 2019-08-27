@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TagInputModule, TypeaheadModule, CheckboxModule, NumberPickerModule, RadioButtonModule, AccordionModule } from '@ux-aspects/ux-aspects';
-
+import { RouterModule } from '@angular/router';
+import { AccordionModule, CheckboxModule, IconModule, NumberPickerModule, RadioButtonModule, TagInputModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
 import { TagsTestPageComponent } from './tags.testpage.component';
+
 
 @NgModule({
     imports: [
@@ -13,6 +13,7 @@ import { TagsTestPageComponent } from './tags.testpage.component';
         TypeaheadModule,
         CommonModule,
         CheckboxModule,
+        IconModule,
         RadioButtonModule,
         NumberPickerModule,
         TagInputModule,

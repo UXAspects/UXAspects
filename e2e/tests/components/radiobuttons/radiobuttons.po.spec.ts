@@ -1,9 +1,9 @@
-import { ElementFinder, browser, by, element } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class RadioButtonsPage {
         
-    getPage(): void {
-        browser.get('#/radiobuttons');
+    async getPage(): Promise<void> {
+        await browser.get('#/radiobuttons');
     }
     
     radiobutton1 = element(by.css('ux-radio-button#radiobutton1'));

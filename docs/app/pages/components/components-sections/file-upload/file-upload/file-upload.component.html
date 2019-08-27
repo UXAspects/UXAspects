@@ -22,10 +22,11 @@
             <span>{{ item.file.name }}</span>
             <button uxFocusIndicator
                     [tabIndex]="file.tabIndex"
-                    class="file-upload-queue-remove hpe-icon hpe-close"
+                    class="file-upload-queue-remove"
                     type="button"
                     (click)="item.remove()"
                     aria-label="Remove file">
+                <ux-icon name="close"></ux-icon>
             </button>
         </a>
     </li>

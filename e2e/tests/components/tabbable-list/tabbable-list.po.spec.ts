@@ -8,7 +8,7 @@ export class TabbableListTestPageComponent {
     focusOnShowButton = $('#focus-on-show-button');
 
     async getPage(): Promise<void> {
-        browser.get('#/tabbable-list/simple-list');
+        await browser.get('#/tabbable-list/simple-list');
     }
 
     async getTableRows(): Promise<ElementFinder[]> {

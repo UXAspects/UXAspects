@@ -1,14 +1,14 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { TabsTestPageComponent } from './tabs.po.spec';
 
 describe('Tabs Tests (Angular)', () => {
 
     let page: TabsTestPageComponent;
 
-
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new TabsTestPageComponent();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -26,6 +26,8 @@ describe('Tabs Tests (Angular)', () => {
 
         // expect the tabset not to be stacked
         expect(await page.getTabsetStack()).toBe('none');
+
+        expect(await imageCompare('tabs-initial')).toEqual(0);
     });
 
     it('should select a tab on click', async () => {
@@ -160,6 +162,11 @@ describe('Tabs Tests (Angular)', () => {
         // expect alternative style
         expect(await page.getTabsetStyle()).toBe('alternative');
 
+        // there is a 500ms animation that needs to complete before we can ensure we get a clean screenshot
+        await browser.sleep(500);
+
+        expect(await imageCompare('tabs-alternate')).toEqual(0);
+
     });
 
     it('should allow stacking left', async () => {
@@ -173,6 +180,8 @@ describe('Tabs Tests (Angular)', () => {
         // expect stack left
         expect(await page.getTabsetStack()).toBe('left');
 
+        expect(await imageCompare('tabs-stack-left')).toEqual(0);
+
     });
 
     it('should allow stacking right', async () => {
@@ -185,6 +194,8 @@ describe('Tabs Tests (Angular)', () => {
 
         // expect stack right
         expect(await page.getTabsetStack()).toBe('right');
+
+        expect(await imageCompare('tabs-stack-right')).toEqual(0);
 
     });
 

@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class ToolbarSearchPage {
 
-    getPage(): void {
-        browser.get('#/toolbar-search');
+    async getPage(): Promise<void> {
+        await browser.get('#/toolbar-search');
     }
 
     // ux-toolbar-search component (left)

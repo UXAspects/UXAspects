@@ -24,8 +24,9 @@
                 [attr.aria-hidden]="card.trigger !== 'manual'"
                 [hidden]="card.trigger !== 'manual'"
                 [tabindex]="!card.flipped ? 0 : -1"
-                class="hpe-icon hpe-link-down flip-card-btn"
+                class="flip-card-btn"
                 (click)="card.flipped = true; backFlipBtn.focus()">
+                <ux-icon name="link-down"></ux-icon>
             </button>
 
             <h3 class="flip-card-title">{{ card.title }}</h3>
@@ -66,8 +67,9 @@
                     [attr.aria-hidden]="card.trigger !== 'manual'"
                     [hidden]="card.trigger !== 'manual'"
                     [tabindex]="card.flipped ? 0 : -1"
-                    class="hpe-icon hpe-link-up flip-card-btn text-white"
+                    class="flip-card-btn text-white"
                     (click)="card.flipped = false; frontFlipBtn.focus()">
+                    <ux-icon name="link-up"></ux-icon>
                 </button>
 
                 <h4 class="flip-card-heading">{{ card.title }}</h4>

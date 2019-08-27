@@ -17,8 +17,8 @@ export class TooltipsPage {
     cdkOverlayContainer = $('.cdk-overlay-container');
     tooltip = $('.tooltip');
 
-    getPage() {
-        return browser.get('#/tooltips');
+    async getPage() {
+        return await browser.get('#/tooltips');
     }
 
     async showTooltip(): Promise<void> {

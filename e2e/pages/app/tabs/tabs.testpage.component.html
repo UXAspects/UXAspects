@@ -1,7 +1,8 @@
 <div class="clearfix">
 
     <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example">
-        <ux-tab customClass="text-center" *ngFor="let tab of tabs" [heading]="tab" (select)="selected = tab">
+        <ux-tab customClass="text-center" *ngFor="let tab of tabs" [heading]="tab" (activated)="selected
+        = tab">
             <div class="m-t">
                 <h4 class="tab-content">{{ tab }}</h4>
             </div>

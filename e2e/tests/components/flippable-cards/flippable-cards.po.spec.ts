@@ -1,45 +1,45 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class FlippableCardsPage {
-        
-    getPage(): void {
-        browser.get('#/flippable-cards');
+
+    async getPage(): Promise<void> {
+        await browser.get('#/flippable-cards');
     }
-    
+
     flippableCard1 = element(by.id('flippableCard1'));
     flippableCard2 = element(by.id('flippableCard2'));
     flippableCard3 = element(by.id('flippableCard3'));
-    
+
     confirmIsFlipped(card: ElementFinder) {
         return card.$('div.ux-flip-card').isPresent();
     }
-    
+
     clickOnCard(card: ElementFinder, offset: { x: number, y: number }) {
         return browser.actions().
-                    mouseMove(card, offset).
-                    mouseDown().
-                    mouseUp().
-                    perform();
+            mouseMove(card, offset).
+            mouseDown().
+            mouseUp().
+            perform();
     }
-    
+
     clickOnCardIcon(card: ElementFinder) {
-        return this.confirmIsFlipped(card).then(function(isFlipped: boolean) {
+        return this.confirmIsFlipped(card).then(function (isFlipped: boolean) {
             if (isFlipped) {
-                card.$('div.ux-flipper').$('div.ux-flippable-card-back').$('ux-flippable-card-back').$('i').click();
+                card.$('div.ux-flipper').$('div.ux-flippable-card-back').$('ux-flippable-card-back').$('ux-icon').click();
             } else {
-                card.$('div.ux-flipper').$('div.ux-flippable-card-front').$('ux-flippable-card-front').$('i').click();
+                card.$('div.ux-flipper').$('div.ux-flippable-card-front').$('ux-flippable-card-front').$('ux-icon').click();
             }
         });
     }
-    
+
     getCardDimension(card: ElementFinder, attribute: string) {
         return card.getAttribute(attribute);
     }
-    
+
     hoverOverCard(card: ElementFinder, offset: { x: number, y: number }) {
         return browser.actions().
-                    mouseMove(card, offset).
-                    perform();
-    }    
+            mouseMove(card, offset).
+            perform();
+    }
 }
 

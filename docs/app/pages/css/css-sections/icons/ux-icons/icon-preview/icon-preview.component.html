@@ -10,9 +10,17 @@
         [hideTriggers]="['click', 'clickoutside']">
 
     <ux-icon
+        *ngIf="iconset === 'ux-icons'"
         class="p-r-xs"
+        [size]="size"
         [name]="name">
     </ux-icon>
+
+    <i
+        *ngIf="iconset === 'hpe-icons'"
+        class="hpe-icon p-r-xs"
+        [ngClass]="classname">
+    </i>
 
     <span>{{ iconset === 'ux-icons' ? name : classname }}</span>
 </button>

@@ -35,7 +35,7 @@
                         <ux-spark theme="chart2" [value]="item.storage" [inlineLabel]="item.storage | number" [barHeight]="3"></ux-spark>
                     </td>
                     <td class="text-center vertical-center-icon">
-                        <div class="hpe-icon" [class.text-secondary]="item.active" [class.hpe-checkmark]="item.active"></div>
+                        <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
                     </td>
                 </tr>
             </tbody>
@@ -61,7 +61,7 @@
         </div>
 
         <div *ngIf="!selected" uxItemDisplayPanelContent class="preview-no-record">
-            <i class="hpe-icon hpe-document"></i>
+            <ux-icon name="document"></ux-icon>
             <h2 ng-bind="previewEmptyText">Select an item from the list</h2>
         </div>
 

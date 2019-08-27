@@ -96,7 +96,18 @@
 </div>
 
 <ng-template #defaultStepTemplate let-step>
-    <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
+
+    <!-- Show an icon based on a string (deprecated) -->
+    <ng-container *ngIf="step._icon">
+        <i *ngIf="step._iconType !== 'component'" class="marquee-wizard-step-icon" [ngClass]="[step._iconType, step._icon]"></i>
+        <ux-icon *ngIf="step._iconType === 'component'" class="marquee-wizard-step-icon" [name]="step._icon"></ux-icon>
+    </ng-container>
+
+    <!-- Insert the icon -->
+    <div *ngIf="step._iconTemplate" class="marquee-wizard-step-icon">
+        <ng-container [ngTemplateOutlet]="step._iconTemplate"></ng-container>
+    </div>
+
     <span class="marquee-wizard-step-title">{{ step.header }}</span>
-    <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
+    <ux-icon *ngIf="step.completed" class="marquee-wizard-step-status" name="checkmark"></ux-icon>
 </ng-template>

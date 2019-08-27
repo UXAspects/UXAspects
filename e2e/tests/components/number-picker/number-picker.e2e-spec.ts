@@ -1,9 +1,13 @@
+import { imageCompare } from '../common/image-compare';
 import { NumberPickerPage } from './number-picker.po.spec';
 
 describe('Number Picker Tests', () => {
 
     const page: NumberPickerPage = new NumberPickerPage();
-    page.getPage();
+
+    beforeAll(async () => {
+        await page.getPage();
+    });
 
     it('should have correct initial states', async () => {
 
@@ -27,6 +31,8 @@ describe('Number Picker Tests', () => {
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'up')).toBeFalsy();
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'down')).toBeTruthy();
         expect(await page.confirmErrorMessage2IsVisible()).toBeFalsy();
+
+        expect(await imageCompare('number-picker-initial')).toEqual(0);
 
     });
 
@@ -102,6 +108,8 @@ describe('Number Picker Tests', () => {
         // Number Picker 2
         await page.setNumberPickerValue(page.numberPicker2, '-0.5');
         expect(await page.confirmErrorMessage2IsVisible()).toBeTruthy();
+
+        expect(await imageCompare('number-picker-invalid')).toEqual(0);
 
     });
 

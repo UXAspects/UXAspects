@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { CheckboxComponent } from './checkbox.component';
 
-
 @NgModule({
     imports: [
         AccessibilityModule,

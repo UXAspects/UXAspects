@@ -8,8 +8,8 @@ export class NavigationPage {
     enableAutoCollapse = $('#enable-auto-collapse-btn');
     disableExact = $('#disable-exact');
 
-    getPage(): void {
-        browser.get('#/navigation');
+    async getPage(): Promise<void> {
+        await browser.get('#/navigation');
     }
 
     async getTopLevelItems(): Promise<ElementFinder[]> {

@@ -1,13 +1,14 @@
-import { FloatLabelPage } from './float-label.po.spec';
 import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
+import { FloatLabelPage } from './float-label.po.spec';
 
 describe('Float Label', () => {
 
     let page: FloatLabelPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new FloatLabelPage();
-        page.getPage();
+        await page.getPage();
     });
 
     describe('with mode = input', () => {
@@ -20,6 +21,8 @@ describe('Float Label', () => {
             // Blur username
             await page.locationInput.click();
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
+
+            expect(await imageCompare('float-label-initial')).toEqual(0);
         });
 
         it('should be visible while input has text', async () => {
@@ -34,6 +37,8 @@ describe('Float Label', () => {
             await page.usernameInput.click();
             await page.usernameInput.sendKeys(Key.BACK_SPACE);
             expect(page.usernameLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
+
+            expect(await imageCompare('float-label-raised')).toEqual(0);
         });
 
         it('should become visible when `raised` becomes true', async () => {
@@ -54,8 +59,8 @@ describe('Float Label', () => {
 
     describe('with mode = focus', () => {
 
-        beforeEach(() => {
-            page.modeFocusButton.click();
+        beforeEach(async () => {
+            await page.modeFocusButton.click();
         });
 
         it('should be visible on focus', async () => {

@@ -2,8 +2,8 @@ import { browser, by, element } from 'protractor';
 
 export class FacetCheckListPage {
 
-    getPage(): void {
-        browser.get('#/facet-check-list');
+    async getPage(): Promise<void> {
+        await browser.get('#/facet-check-list');
     }
 
     container = element(by.id('container1'));
@@ -24,8 +24,8 @@ export class FacetCheckListPage {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('span.facet-selected-tag-label').getText();
     }
 
-    closeFacet(index: number) {
-        this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
+    async closeFacet(index: number) {
+        await this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('.facet-selected-remove-btn').click();
     }
 
     getNoItemsLabel() {

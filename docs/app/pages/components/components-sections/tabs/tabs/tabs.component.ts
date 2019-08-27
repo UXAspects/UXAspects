@@ -15,22 +15,22 @@ export class ComponentsTabsComponent extends BaseDocumentationSection implements
 
     tabs: Tab[] = [
         {
-            icon: 'hpe-schedule',
+            icon: 'schedule',
             title: 'Schedule',
             content: chance.paragraph()
         },
         {
-            icon: 'hpe-shield',
+            icon: 'shield',
             title: 'Protection',
             content: chance.paragraph()
         },
         {
-            icon: 'hpe-information',
+            icon: 'information',
             title: 'Solution',
             content: chance.paragraph()
         },
         {
-            icon: 'hpe-analytics',
+            icon: 'analytics',
             title: 'Analytics',
             content: chance.paragraph()
         }

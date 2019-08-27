@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import 'chance';
 import { Facet, FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -15,7 +14,7 @@ export class FacetCheckListTestPageComponent {
 
         // generate some facets
         for (let idx = 0; idx < 30; idx++) {
-            this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100})));
+            this.facets.push(new Facet(`Author ${idx}`, null, idx));
         }
 
         // sort the users alphabetically
@@ -35,11 +34,11 @@ export class FacetCheckListTestPageComponent {
     onEvent(event: FacetEvent) {
 
         if (event instanceof FacetSelect) {
-            this.event = `${ event.facet.title } was selected!`;
+            this.event = `${event.facet.title} was selected!`;
         }
 
         if (event instanceof FacetDeselect) {
-            this.event = `${ event.facet.title } was deselected!`;
+            this.event = `${event.facet.title} was deselected!`;
         }
 
         if (event instanceof FacetDeselectAll) {

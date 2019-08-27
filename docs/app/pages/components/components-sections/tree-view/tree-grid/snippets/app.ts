@@ -213,6 +213,20 @@ export class AppComponent {
             item.expanded = expanded;
         }
     }
+
+    getIcon(item: FileNode): string {
+        if (item.type === 'folder' && !item.expanded) {
+            return 'folder';
+        }
+
+        if (item.type === 'folder' && item.expanded) {
+            return 'folder-open';
+        }
+
+        if (item.type === 'file') {
+            return 'document';
+        }
+    }
 }
 
 interface FileNode extends TreeGridItem {

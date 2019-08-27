@@ -19,7 +19,7 @@ export class HierarchyBarPopoverComponent {
     @Input() separator: boolean = false;
 
     /** Emit a select event when an item ahs been clicked or enter key pressed */
-    @Output() select = new EventEmitter<HierarchyBarNode>();
+    @Output() selected = new EventEmitter<HierarchyBarNode>();
 
     constructor(public readonly hierarchyBar: HierarchyBarService) { }
 

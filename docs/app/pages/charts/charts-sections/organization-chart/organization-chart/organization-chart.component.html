@@ -25,12 +25,12 @@
                 <p class="employee-email">{{ data.email }}</p>
 
                 <div class="employee-icon" *ngIf="node.children && node.children?.length > 0">
-                    <i class="hpe-icon hpe-user-manager"></i>
+                    <ux-icon name="user-manager"></ux-icon>
                     <span class="employee-icon-count">{{ node.children.length }}</span>
                 </div>
 
                 <div class="employee-icon employee-icon-expanded" *ngIf="node.children && node.children?.length > 0">
-                    <i class="hpe-icon hpe-tab-up"></i>
+                    <ux-icon name="tab-up"></ux-icon>
                 </div>
             </div>
         </ng-template>

@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.8.2",
+  "version": "1.8.4",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -28,7 +28,8 @@
     "package:release": "grunt package:release",
     "test": "grunt jasmine:ng1 && karma start --single-run && grunt e2e",
     "test:e2e": "grunt e2e",
-    "test:karma": "karma start --single-run"
+    "test:karma": "karma start --single-run",
+    "docker:ci": "node ./scripts/run-ci-local.js"
   },
   "dependencies": {
     "@angular/animations": "~8.1.2",
@@ -145,6 +146,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prismjs-loader": "0.0.4",
     "protractor": "^5.4.1",
+    "protractor-image-comparison": "^3.3.0",
     "protractor-istanbul-plugin": "2.0.0",
     "protractor-jasmine2-html-reporter": "0.0.7",
     "raw-loader": "0.5.1",

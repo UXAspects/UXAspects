@@ -15,27 +15,27 @@ export class ComponentsAlertComponent extends BaseDocumentationSection implement
     private _alerts: ReadonlyArray<AlertExample> = [
         {
             type: 'info',
-            icon: 'hpe-status-information-filled',
+            icon: 'status-information-filled',
             description: 'This is an example of an info alert message',
         },
         {
             type: 'error',
-            icon: 'hpe-status-error-filled',
+            icon: 'status-error-filled',
             description: 'This is an example of an error alert message',
         },
         {
             type: 'success',
-            icon: 'hpe-status-approved-filled',
+            icon: 'status-approved-filled',
             description: 'This is an example of a success alert message',
         },
         {
             type: 'warning',
-            icon: 'hpe-status-warning-filled',
+            icon: 'status-warning-filled',
             description: 'This is an example of a warning alert message',
         },
         {
             type: 'dark',
-            icon: 'hpe-status-information-filled',
+            icon: 'status-information-filled',
             description: 'This is an example of a dark alert message',
         }
     ];

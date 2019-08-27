@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TimelineComponent } from './timeline.component';
+import { NgModule } from '@angular/core';
+import { IconModule } from '../icon/index';
 import { TimelineEventComponent } from './timeline-event/timeline-event.component';
+import { TimelineComponent } from './timeline.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        IconModule
     ],
     exports: [
         TimelineComponent,

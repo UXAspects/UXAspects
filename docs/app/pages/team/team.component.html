@@ -19,7 +19,7 @@
                     <ux-flippable-card-back>
                         <div class="team-member-social-content">
                             <a class="team-member-social-link" *ngFor="let item of member.social" [href]="item.url">
-                                <i class="hpe-icon {{ item.icon }}"></i>
+                                <ux-icon [name]="item.icon"></ux-icon>
                             </a>
                         </div>
                     </ux-flippable-card-back>

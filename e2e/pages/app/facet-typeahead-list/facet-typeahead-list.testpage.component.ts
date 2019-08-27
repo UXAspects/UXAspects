@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Facet } from '@ux-aspects/ux-aspects';
-import 'chance';
 import { Observable, Observer } from 'rxjs';
 
 @Component({
@@ -19,7 +18,7 @@ export class FacetTypeaheadListPageComponent {
 
         // generate random facet data
         for (let idx = 0; idx < 1000; idx++) {
-            this.users.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
+            this.users.push(new Facet(`Person ${idx}`, null, idx));
         }
 
         // sort the users alphabetically

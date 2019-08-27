@@ -1,5 +1,6 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -64,6 +65,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
     }
 
     set value(value: boolean) {
+
         this._value = value;
 
         // invoke change event
@@ -84,6 +86,11 @@ export class RadioButtonComponent implements ControlValueAccessor {
     onTouchedCallback: () => void = () => { };
     onChangeCallback: (_: any) => void = () => { };
 
+    constructor(
+        private readonly _changeDetector: ChangeDetectorRef,
+        @Optional() private readonly _group: RadioButtonGroupDirective
+    ) {}
+
     toggle(): void {
 
         if (this.disabled || !this.clickable) {
@@ -93,6 +100,12 @@ export class RadioButtonComponent implements ControlValueAccessor {
         // toggle the checked state
         this.value = this.option;
 
+        // if there is a group set the selected value
+        if (this._group) {
+            this._group.value = this.option;
+            this._group.emitChange(this.option);
+        }
+
         // call callback
         this.onChangeCallback(this.value);
     }
@@ -101,6 +114,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
     writeValue(value: boolean): void {
         if (value !== this._value) {
             this._value = value;
+            this._changeDetector.detectChanges();
         }
     }
 

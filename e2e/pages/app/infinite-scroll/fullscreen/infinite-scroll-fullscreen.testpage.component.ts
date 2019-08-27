@@ -1,9 +1,7 @@
-import 'chance';
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-const chance = new Chance();
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
 @Component({

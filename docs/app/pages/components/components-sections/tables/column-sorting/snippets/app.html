@@ -78,11 +78,10 @@
                 </ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon"
-                    [attr.aria-label]="item.active ? 'Approved' : 'Not approved'"
-                    [class.text-accent]="item.active"
-                    [class.hpe-checkmark]="item.active">
-                </div>
+                <ux-icon class="text-accent"
+                         [name]="item.active ? 'checkmark' : null"
+                         [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
             </td>
         </tr>
     </tbody>
