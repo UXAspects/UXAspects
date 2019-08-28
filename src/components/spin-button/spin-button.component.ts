@@ -35,8 +35,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
     @Input() readOnly: boolean = true;
     @Input() scrolling: boolean = true;
     @Input() arrowkeys: boolean = true;
-    @Input() maxLength: number;
-    @Input() patternTime: any;
+    @Input() maxLengthTime: string;
 
     @Input() incrementAriaLabel: string;
     @Input() inputAriaLabel: string;
