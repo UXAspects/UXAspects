@@ -102,4 +102,10 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, AfterVie
         this.writeValue(undefined);
         event.stopPropagation();
     }
+
+    _focusFilter() {
+        if (this.filterInputElement) {
+            this.filterInputElement.nativeElement.focus();
+        }    
+    }
 }
