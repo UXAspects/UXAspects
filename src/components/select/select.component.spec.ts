@@ -199,7 +199,7 @@ describe('Select Component', () => {
 
     });
 
-    it('should reset to previous value when blurred called and value does not match dropdown options', () => {
+    it('should reset to previous value when blurred and value does not match dropdown options', () => {
         component.input = 'One';
         component.value = 'One';
         fixture.detectChanges();
