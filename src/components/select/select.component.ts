@@ -4,16 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import {
-    debounceTime,
-    delay,
-    distinctUntilChanged,
-    filter,
-    first,
-    map,
-    take,
-    takeUntil
-} from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
@@ -303,7 +294,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // when the user types and the value is not empty then we should open the dropdown
         if (event.keyCode !== ESCAPE) {
-            // open the dropdown once the filter debounce has ellapsed
+            // open the dropdown once the filter debounce has elapsed
             this.filter$.pipe(take(1), takeUntil(this._onDestroy))
                 .subscribe(() => this.dropdownOpen = true);
         }

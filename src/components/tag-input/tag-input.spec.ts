@@ -85,17 +85,17 @@ describe('Tag Input Component', () => {
         expect(component.input).toBe('');
     });
 
-    // it('should emit inputChange when input changed', () => {
-    //     const onInputChange = jasmine.createSpy('inputChange');
-    //     const subscription = component.inputChange.subscribe(onInputChange);
-    //     // run initial change detection
-    //     fixture.detectChanges();
-    //
-    //     component.setInputValue('one');
-    //
-    //     expect(onInputChange).toHaveBeenCalled();
-    //
-    //     subscription.unsubscribe();
-    // });
+     it('should emit inputChange when input changed', () => {
+         const onInputChange = jasmine.createSpy('inputChange');
+         const subscription = component.inputChange.subscribe(onInputChange);
+         // run initial change detection
+         fixture.detectChanges();
+
+         component.setInputValue('one');
+
+         expect(onInputChange).toHaveBeenCalled();
+
+         subscription.unsubscribe();
+    });
 
 });
