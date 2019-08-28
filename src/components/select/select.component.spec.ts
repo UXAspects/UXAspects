@@ -10,9 +10,9 @@ import { SelectModule } from './select.module';
 })
 export class SelectTestComponent {
 
-    onValueChange(): void {}
+    onValueChange(): void { }
 
-    onInputChange(): void {}
+    onInputChange(): void { }
 
     input: string = '';
     value: string | string[];
@@ -205,10 +205,12 @@ describe('Select Component', () => {
         fixture.detectChanges();
 
         component.input = 'two';
+        fixture.detectChanges();
 
         expect(component.input).toBe('two');
 
         nativeElement.blur();
+        fixture.detectChanges();
         expect(component.value).toBe('One');
     });
 
