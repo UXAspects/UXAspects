@@ -187,6 +187,32 @@ describe('Select Component', () => {
 
     });
 
+    it('should not lose current value when blurred', () => {
+        component.input = 'One';
+        component.value = 'One';
+        fixture.detectChanges();
+
+        expect(component.value).toBe('One');
+
+        nativeElement.blur();
+        expect(component.value).toBe('One');
+
+    });
+
+    it('should reset to previous value when blurred called and value does not match dropdown options', () => {
+        component.input = 'One';
+        component.value = 'One';
+        fixture.detectChanges();
+
+        component.input = 'two';
+
+        expect(component.input).toBe('two');
+
+        nativeElement.blur();
+        expect(component.value).toBe('One');
+    });
+
+
     function getClearButton(isMultiple: boolean = false): HTMLElement | null {
         return nativeElement.querySelector(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
     }
