@@ -5,10 +5,14 @@ import { SelectModule } from './select.module';
 @Component({
     selector: 'app-select-test',
     template: `
-        <ux-select *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton"></ux-select>
+        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton"></ux-select>
     `
 })
 export class SelectTestComponent {
+
+    onValueChange(): void {}
+
+    onInputChange(): void {}
 
     input: string = '';
     value: string | string[];
@@ -39,8 +43,77 @@ describe('Select Component', () => {
         fixture.detectChanges();
     });
 
-    it('should initialise', () => {
+    it('should not call valueChange on initialization of single select', () => {
+        spyOn(component, 'onValueChange');
         expect(component).toBeTruthy();
+        expect(component.onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('should not call valueChange on initialization of multiple select', () => {
+        component.multiple = true;
+        fixture.detectChanges();
+
+        spyOn(component, 'onValueChange');
+        expect(component).toBeTruthy();
+        expect(component.onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('should not call inputChange on initialization of single select', () => {
+        spyOn(component, 'onInputChange');
+        expect(component).toBeTruthy();
+        expect(component.onInputChange).not.toHaveBeenCalled();
+    });
+
+    it('should not call inputChange on initialization of multiple select', () => {
+        component.multiple = true;
+        fixture.detectChanges();
+
+        spyOn(component, 'onInputChange');
+        expect(component).toBeTruthy();
+        expect(component.onInputChange).not.toHaveBeenCalled();
+    });
+
+    it('should call valueChange when the value is changed in single select', () => {
+        spyOn(component, 'onValueChange');
+
+        component.value = 'One';
+        fixture.detectChanges();
+
+        expect(component.onValueChange).toHaveBeenCalled();
+    });
+
+    it('should call valueChange when the value is changed in multiple select', () => {
+        component.multiple = true;
+        fixture.detectChanges();
+
+        spyOn(component, 'onValueChange');
+
+        component.value = [component.options[0]];
+        fixture.detectChanges();
+
+        expect(component.onValueChange).toHaveBeenCalled();
+    });
+
+
+    it('should call inputChange when the input is changed in single select', () => {
+        spyOn(component, 'onInputChange');
+
+        component.input = 'One';
+        fixture.detectChanges();
+
+        expect(component.onInputChange).toHaveBeenCalled();
+    });
+
+    it('should call inputChange when the input is changed in multiple select', () => {
+        component.multiple = true;
+        fixture.detectChanges();
+
+        spyOn(component, 'onInputChange');
+        component.input = 'One';
+
+        fixture.detectChanges();
+
+        expect(component.onInputChange).toHaveBeenCalled();
     });
 
     it('should not show the clear button by default in single select', () => {

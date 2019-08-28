@@ -51,19 +51,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     }
     set tags(value: ReadonlyArray<T>) {
         this._tags = value;
-        this._onChangeHandler(this._tags);
-        this.tagsChange.emit(this._tags);
     }
 
     /** The editable text appearing in the tag input. */
-    @Input()
-    get input() {
-        return this._input;
-    }
-    set input(value: string) {
-        this._input = value;
-        this.inputChange.emit(value);
-    }
+    @Input() input: string = '';
 
     /**
      * Determines the display value of the `options`, if they are custom objects.
@@ -222,7 +213,6 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         return this.clearButton && this.tags && this.tags.length > 0;
     }
 
-    private _input: string = '';
     private _tags: ReadonlyArray<T> = [];
     private _onChangeHandler: (_: any) => void = () => { };
     private _onTouchedHandler: () => void = () => { };
@@ -498,7 +488,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     commitInput(): void {
         if (this.commit(this.input)) {
             this.selectInput();
-            this.input = '';
+            this.setInputValue('');
         }
     }
 
@@ -508,7 +498,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     commitTypeahead(tag: T): void {
         if (this.addTag(tag)) {
             this.selectInput();
-            this.input = '';
+            this.setInputValue('');
         }
     }
 
@@ -641,6 +631,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
                 // Remove the tag
                 this.tags = this.tags.filter((_tag, index) => index !== tagIndex);
+                this._onChangeHandler(this._tags);
+                this.tagsChange.emit(this._tags);
                 // Set focus again since indices have changed
                 this.selectInput();
                 this.tagRemoved.emit(new TagInputEvent(tag));
@@ -680,8 +672,15 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
 
         this.tags = [];
-        this.input = '';
+        this._onChangeHandler(this._tags);
+        this.tagsChange.emit(this._tags);
+        this.setInputValue('');
         this.focus();
+    }
+
+    setInputValue(text: string): void {
+        this.input = text;
+        this.inputChange.emit(text);
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent): void {
@@ -749,6 +748,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
                     this.tags = [...this.tags, tag];
+                    this._onChangeHandler(this._tags);
+                    this.tagsChange.emit(this._tags);
                     this.tagAdded.emit(new TagInputEvent(tag));
                     this.validate();
                     return true;
