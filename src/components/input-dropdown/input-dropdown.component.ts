@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
@@ -17,7 +17,7 @@ import { coerceCssPixelValue } from '@angular/cdk/coercion';
         }
     ]
 })
-export class InputDropdownComponent<T> implements ControlValueAccessor, OnChanges, OnDestroy {
+export class InputDropdownComponent<T> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     _maxHeightString: string;
 
     /** Define the selected item */
@@ -52,6 +52,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     @ViewChild('filterInput', { static: false }) filterInputElement: ElementRef;
 
     filterText: string = '';
+    private _viewInitialized: boolean = false;
 
     onChange: (_: T) => void = () => { };
     onTouched: () => void = () => { };
@@ -60,12 +61,16 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
-            if (this.menuTrigger) {
+            if (this.menuTrigger && this._viewInitialized) {
                 this.menuTrigger.closeMenu();
             }
             this.onChange(changes.selected.currentValue);
             this.onTouched();
         }
+    }
+
+    ngAfterViewInit(): void {
+        this._viewInitialized = true;
     }
 
     ngOnDestroy(): void {
