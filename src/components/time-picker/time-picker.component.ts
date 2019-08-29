@@ -1,13 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component, ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    Input,
-    Output,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
