@@ -180,6 +180,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _value: T | ReadonlyArray<T>;
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
+    private _valueEmpty: boolean = false;
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -272,7 +273,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             if (!this._element.nativeElement.contains(this._document.activeElement)) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
-                   this.input = this.getDisplay(this.value);
+                    this.input = this.getDisplay(this.value);
                 }
             }
         }, 200);
@@ -301,7 +302,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
 
         // when the user types and the value is not empty then we should open the dropdown
-        if (event.keyCode !== ESCAPE) {
+        if (event.keyCode !== ESCAPE && !this._valueEmpty) {
+            this._valueEmpty = true;
             // open the dropdown once the filter debounce has elapsed
             this.filter$.pipe(take(1), takeUntil(this._onDestroy))
                 .subscribe(() => this.dropdownOpen = true);
