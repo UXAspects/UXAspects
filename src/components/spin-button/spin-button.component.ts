@@ -120,7 +120,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         if (value.toLowerCase().indexOf('e') !== -1) {
 
             // inset the numeric value only if there is one
-            const numericValue = parseInt(value);
+            const numericValue = parseFloat(value);
 
             if (!isNaN(numericValue)) {
                 this.value = numericValue;
@@ -135,6 +135,14 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
         // ensure the value is not longer than the maxLength
         if (typeof value === 'string' && value.length > this.maxLength) {
+
+            // if the type specified is a number then it may begin with a 0
+            // e.g. "02", in which case if we add a second digit we should drop
+            // the leading "0" and allow the non-zero number to be added
+            if (this.type === 'number') {
+                value = parseFloat(value).toString();
+            }
+
             value = value.substring(0, this.maxLength);
 
             // We must manually update the input value in this case rather than relying
