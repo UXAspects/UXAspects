@@ -3,10 +3,10 @@
     <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showHours">
 
         <ux-spin-button
-            type="text"
+            type="number"
             class="time-spinner"
             placeholder="HH"
-            [maxLengthTime]="2"
+            [maxLength]="2"
             [min]="0"
             [max]="showMeridian ? 12 : 23"
             [value]="value | date: showMeridian ? 'h' : 'HH'"
@@ -28,10 +28,10 @@
     <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showMinutes">
 
         <ux-spin-button
-            type="text"
+            type="number"
             class="time-spinner"
             placeholder="MM"
-            [maxLengthTime]="2"
+            [maxLength]="2"
             [min]="0"
             [max]="59"
             [value]="value | date: 'mm'"
@@ -53,10 +53,10 @@
     <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showSeconds">
 
         <ux-spin-button
-            type="text"
+            type="number"
             class="time-spinner"
             placeholder="SS"
-            [maxLengthTime]="2"
+            [maxLength]="2"
             [min]="0"
             [max]="59"
             [value]="value | date: 'ss'"

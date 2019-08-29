@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { E } from '@angular/cdk/keycodes';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -16,13 +17,13 @@ export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
 })
 export class SpinButtonComponent implements ControlValueAccessor {
 
-    @Input() set value(value: any) {
+    @Input() set value(value: string | number) {
         this._value = value;
         this.onChangeCallback(value);
         this.onTouchedCallback();
     }
 
-    get value(): any {
+    get value(): string | number {
         return this._value;
     }
 
@@ -35,21 +36,22 @@ export class SpinButtonComponent implements ControlValueAccessor {
     @Input() readOnly: boolean = true;
     @Input() scrolling: boolean = true;
     @Input() arrowkeys: boolean = true;
-    @Input() maxLengthTime: string;
+    @Input() maxLength: number = Infinity;
+    @Input() minLength: number = 0;
 
     @Input() incrementAriaLabel: string;
     @Input() inputAriaLabel: string;
     @Input() decrementAriaLabel: string;
 
-    @Output() valueChange = new EventEmitter<any>();
+    @Output() valueChange = new EventEmitter<string | number>();
 
     @Output() increment = new EventEmitter<void>();
     @Output() decrement = new EventEmitter<void>();
 
     onTouchedCallback: () => void = () => { };
-    onChangeCallback: (_: any) => void = () => { };
+    onChangeCallback: (_: string | number) => void = () => { };
 
-    private _value: any;
+    private _value: string | number;
 
     scroll(event: WheelEvent): void {
 
@@ -78,11 +80,11 @@ export class SpinButtonComponent implements ControlValueAccessor {
         }
     }
 
-    writeValue(value: any): void {
+    writeValue(value: string | number): void {
         this.value = value;
     }
 
-    registerOnChange(fn: (_: any) => void): void {
+    registerOnChange(fn: (_: string | number) => void): void {
         this.onChangeCallback = fn;
     }
 
@@ -94,4 +96,55 @@ export class SpinButtonComponent implements ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
+    /** Prevent the use of any mathematical letters such as 'e' */
+    onKeydown(event: KeyboardEvent): boolean {
+        // only perform this check if this a number input
+        if (this.type === 'number' && event.keyCode === E) {
+            return false;
+        }
+        return true;
+    }
+
+    /** Prevent the user from pasting in numbers with a mathematical letter such as 'e' */
+    onPaste(event: ClipboardEvent): void {
+
+        // we only need to perform checks if the type is number
+        if (this.type !== 'number') {
+            return;
+        }
+
+        // get the value being pasted
+        const value = event.clipboardData.getData('text');
+
+        // check if it contains the character
+        if (value.toLowerCase().indexOf('e') !== -1) {
+
+            // inset the numeric value only if there is one
+            const numericValue = parseInt(value);
+
+            if (!isNaN(numericValue)) {
+                this.value = numericValue;
+            }
+
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    }
+
+    onValueChange(input: HTMLInputElement, value: string | number): void {
+
+        // ensure the value is not longer than the maxLength
+        if (typeof value === 'string' && value.length > this.maxLength) {
+            value = value.substring(0, this.maxLength);
+
+            // We must manually update the input value in this case rather than relying
+            // on Angular, as if value was previously "11" and we add an additional digit
+            // e.g. "112", after performing the substring, the outputted value would again
+            // be "11" which Angular would not recognize as having changed so it will not
+            // update the value displayed in the input.
+            input.value = value;
+        }
+
+        this.valueChange.emit(value);
+    }
 }
