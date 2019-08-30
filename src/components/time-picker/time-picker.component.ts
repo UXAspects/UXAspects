@@ -229,7 +229,7 @@ export class TimePickerComponent implements ControlValueAccessor {
     hourChange(value: string): void {
 
         // if the value is empty then emit nothing
-        if (value && value.trim() === '') {
+        if (typeof value === 'string' && value.trim() === '') {
             return;
         }
 

@@ -12,7 +12,7 @@
 </button>
 
 <input #input
-       [type]="type"
+       type="number"
        role="spinbutton"
        [min]="min"
        [max]="max"
@@ -30,7 +30,7 @@
        [ngModel]="value"
        (ngModelChange)="onValueChange(input, $event)"
        (wheel)="scroll($event)"
-       (keydown)="onKeydown($event)"
+       (keypress)="onKeypress($event)"
        (paste)="onPaste($event)"
        (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
        (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">

@@ -3,7 +3,6 @@
     <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showHours">
 
         <ux-spin-button
-            type="number"
             class="time-spinner"
             placeholder="HH"
             [maxLength]="2"
@@ -28,7 +27,6 @@
     <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showMinutes">
 
         <ux-spin-button
-            type="number"
             class="time-spinner"
             placeholder="MM"
             [maxLength]="2"
@@ -53,7 +51,6 @@
     <div class="time-picker-column" [class.has-error]="!_valid" *ngIf="showSeconds">
 
         <ux-spin-button
-            type="number"
             class="time-spinner"
             placeholder="SS"
             [maxLength]="2"

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { E } from '@angular/cdk/keycodes';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -27,7 +26,6 @@ export class SpinButtonComponent implements ControlValueAccessor {
         return this._value;
     }
 
-    @Input() type: string = 'text';
     @Input() min: number;
     @Input() max: number;
     @Input() placeholder: string = '';
@@ -96,28 +94,24 @@ export class SpinButtonComponent implements ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
-    /** Prevent the use of any mathematical letters such as 'e' */
-    onKeydown(event: KeyboardEvent): boolean {
-        // only perform this check if this a number input
-        if (this.type === 'number' && event.keyCode === E) {
-            return false;
+    /** Prevents the use of anything other than a digit, a minus sign or a period */
+    onKeypress(event: KeyboardEvent): boolean {
+
+        if (!new RegExp(/^[0-9.,-]+$/).test(event.key)) {
+           return false;
         }
+
         return true;
     }
 
-    /** Prevent the user from pasting in numbers with a mathematical letter such as 'e' */
+    /** Prevent the user from pasting in anything other than a digit, a minus sign or a period */
     onPaste(event: ClipboardEvent): void {
-
-        // we only need to perform checks if the type is number
-        if (this.type !== 'number') {
-            return;
-        }
 
         // get the value being pasted
         const value = event.clipboardData.getData('text');
 
         // check if it contains the character
-        if (value.toLowerCase().indexOf('e') !== -1) {
+        if (!new RegExp(/^[0-9.,-]+$/).test(value)) {
 
             // inset the numeric value only if there is one
             const numericValue = parseFloat(value);
@@ -133,16 +127,19 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     onValueChange(input: HTMLInputElement, value: string | number): void {
 
-        // ensure the value is not longer than the maxLength
+        // convert any numeric value to a string
+        value = typeof value === 'number' ? value.toString() : value;
+
+        // ensure the value is not longer than the maxLength (verify value is a string in case it is
+        // null or undefined, before trying to check the length.
         if (typeof value === 'string' && value.length > this.maxLength) {
 
             // if the type specified is a number then it may begin with a 0
             // e.g. "02", in which case if we add a second digit we should drop
             // the leading "0" and allow the non-zero number to be added
-            if (this.type === 'number') {
-                value = parseFloat(value).toString();
-            }
+            value = parseFloat(value).toString();
 
+            // remove any characters over the max length
             value = value.substring(0, this.maxLength);
 
             // We must manually update the input value in this case rather than relying
