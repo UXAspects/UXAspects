@@ -1,10 +1,10 @@
-import { ENTER } from '@angular/cdk/keycodes';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
@@ -36,8 +36,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     set value(value: T | ReadonlyArray<T>) {
         this._value$.next(value);
     }
-    get value() {
-        return this._value$.value;
+
+    get value(): T | ReadonlyArray<T> {
+        return this._value;
     }
 
     /** The text in the input area. This is used to filter the options dropdown. */
@@ -171,9 +172,15 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    private _value$ = new BehaviorSubject<T | ReadonlyArray<T>>(null);
+    _value$ = new ReplaySubject<T | ReadonlyArray<T>>(1);
+    _hasValue = false;
+
+
+    /** We need to store the most recent value*/
+    private _value: T | ReadonlyArray<T>;
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
+    private _userInput: boolean = false;
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -186,8 +193,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+            this._value = value;
             this.valueChange.emit(value);
             this.propagateChange(value);
+            this._hasValue = !!value;
         });
 
         this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
@@ -207,11 +216,15 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             debounceTime(200)
         );
 
-        // Open the dropdown when filter is nonempty.
+        // open the dropdown once the filter debounce has elapsed
         this.filter$.pipe(
-            filter(value => value && value.length > 0),
-            takeUntil(this._onDestroy)
-        ).subscribe(() => this.dropdownOpen = true);
+            filter(() => this._userInput),
+            take(1),
+            takeUntil(this._onDestroy))
+            .subscribe(() => {
+                this.dropdownOpen = true;
+                this._userInput = false;
+            });
 
         // Update the single-select input when the model changes
         this._value$.pipe(
@@ -284,20 +297,23 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // Standard keys for typeahead (up/down/esc)
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
 
-        switch (event.keyCode) {
-            case ENTER:
-                if (this._dropdownOpen) {
-                    // Set the highlighted option as the value and close
-                    this.value = this.singleTypeahead.highlighted;
-                    this.dropdownOpen = false;
-                } else {
-                    this.dropdownOpen = true;
-                }
+        if (event.keyCode === ENTER) {
+            if (this._dropdownOpen) {
+                // Set the highlighted option as the value and close
+                this.value = this.singleTypeahead.highlighted;
+                this.dropdownOpen = false;
+            } else {
+                this.dropdownOpen = true;
+            }
 
-                // Update the input field. If dropdown isn't open then reset it to the previous value.
-                this.input = this.getDisplay(this.value);
-                event.preventDefault();
-                break;
+            // Update the input field. If dropdown isn't open then reset it to the previous value.
+            this.input = this.getDisplay(this.value);
+            event.preventDefault();
+        }
+
+        // when the user types and the value is not empty then we should open the dropdown
+        if (event.keyCode !== ESCAPE) {
+            this._userInput = true;
         }
     }
 
