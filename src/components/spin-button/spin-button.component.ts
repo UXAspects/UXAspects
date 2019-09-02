@@ -26,6 +26,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         return this._value;
     }
 
+    @Input() type: string = 'text';
     @Input() min: number;
     @Input() max: number;
     @Input() placeholder: string = '';
@@ -94,24 +95,32 @@ export class SpinButtonComponent implements ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
-    /** Prevents the use of anything other than a digit, a minus sign or a period */
     onKeypress(event: KeyboardEvent): boolean {
 
-        if (!new RegExp(/^[0-9.,-]+$/).test(event.key)) {
+        // we only need to perform checks if the type is number
+        if (this.type !== 'number') {
+            return;
+        }
+
+        if (!new RegExp(/^\-?\d+(\.\d+)?$/).test(event.key)) {
            return false;
         }
 
         return true;
     }
 
-    /** Prevent the user from pasting in anything other than a digit, a minus sign or a period */
     onPaste(event: ClipboardEvent): void {
+
+        // we only need to perform checks if the type is number
+        if (this.type !== 'number') {
+            return;
+        }
 
         // get the value being pasted
         const value = event.clipboardData.getData('text');
 
         // check if it contains the character
-        if (!new RegExp(/^[0-9.,-]+$/).test(value)) {
+        if (!new RegExp(/^\-?\d+(\.\d+)?$/).test(value)) {
 
             // inset the numeric value only if there is one
             const numericValue = parseFloat(value);
