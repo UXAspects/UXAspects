@@ -139,7 +139,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         // convert any numeric value to a string
         let valueAsString = typeof value === 'number' ? value.toString() : value;
 
-        if (valueAsString.length < this.maxLength) {
+        if (valueAsString.length < this.maxLength && this.type === 'number') {
             valueAsString = '0' + valueAsString;
             input.value = valueAsString;
         }
