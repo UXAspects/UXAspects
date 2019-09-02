@@ -172,7 +172,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    _value$ = new ReplaySubject<T | ReadonlyArray<T>>(1);
+    _value$ = new Subject<T | ReadonlyArray<T>>();
     _hasValue = false;
 
 
