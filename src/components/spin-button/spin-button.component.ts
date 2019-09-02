@@ -50,8 +50,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
     onChangeCallback: (_: string | number) => void = () => { };
 
     private _value: string | number;
-
-    regex = RegExp(/^\-?\d+(\.\d+)?$/);
+    private _regex = RegExp(/^\-?\d+(\.\d+)?$/);
 
     scroll(event: WheelEvent): void {
 
@@ -103,7 +102,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
             return;
         }
 
-        if (!this.regex.test(event.key)) {
+        if (!this._regex.test(event.key)) {
             return false;
         }
 
@@ -121,7 +120,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         const value = event.clipboardData.getData('text');
 
         // check if it contains the character
-        if (!this.regex.test(value)) {
+        if (!this._regex.test(value)) {
 
             // inset the numeric value only if there is one
             const numericValue = parseFloat(value);
@@ -157,7 +156,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
             }
 
             // remove any characters over the max length
-            valueAsString  = valueAsString.substring(0, this.maxLength);
+            valueAsString = valueAsString.substring(0, this.maxLength);
 
             // We must manually update the input value in this case rather than relying
             // on Angular, as if value was previously "11" and we add an additional digit
