@@ -151,6 +151,7 @@ describe('Select Component', () => {
 
     it('should show the clear button when there is a value in multiple select', () => {
         component.multiple = true;
+        fixture.detectChanges();
         component.value = [component.options[0]];
         component.clearButton = true;
         fixture.detectChanges();
@@ -174,6 +175,7 @@ describe('Select Component', () => {
 
     it('should clear the value when clear button is click in multiple select', () => {
         component.multiple = true;
+        fixture.detectChanges();
         component.clearButton = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
