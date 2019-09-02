@@ -36,7 +36,6 @@ export class SpinButtonComponent implements ControlValueAccessor {
     @Input() scrolling: boolean = true;
     @Input() arrowkeys: boolean = true;
     @Input() maxLength: number = Infinity;
-    @Input() minLength: number = 0;
 
     @Input() incrementAriaLabel: string;
     @Input() inputAriaLabel: string;
@@ -51,6 +50,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     onChangeCallback: (_: string | number) => void = () => { };
 
     private _value: string | number;
+
+    regex = RegExp(/^\-?\d+(\.\d+)?$/);
 
     scroll(event: WheelEvent): void {
 
@@ -102,8 +103,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
             return;
         }
 
-        if (!new RegExp(/^\-?\d+(\.\d+)?$/).test(event.key)) {
-           return false;
+        if (!this.regex.test(event.key)) {
+            return false;
         }
 
         return true;
@@ -120,7 +121,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         const value = event.clipboardData.getData('text');
 
         // check if it contains the character
-        if (!new RegExp(/^\-?\d+(\.\d+)?$/).test(value)) {
+        if (!this.regex.test(value)) {
 
             // inset the numeric value only if there is one
             const numericValue = parseFloat(value);
@@ -137,28 +138,35 @@ export class SpinButtonComponent implements ControlValueAccessor {
     onValueChange(input: HTMLInputElement, value: string | number): void {
 
         // convert any numeric value to a string
-        value = typeof value === 'number' ? value.toString() : value;
+        let valueAsString = typeof value === 'number' ? value.toString() : value;
+
+        if (valueAsString.length < this.maxLength) {
+            valueAsString = '0' + valueAsString;
+            input.value = valueAsString;
+        }
 
         // ensure the value is not longer than the maxLength (verify value is a string in case it is
         // null or undefined, before trying to check the length.
-        if (typeof value === 'string' && value.length > this.maxLength) {
+        if (typeof value === 'string' && valueAsString.length > this.maxLength) {
 
             // if the type specified is a number then it may begin with a 0
             // e.g. "02", in which case if we add a second digit we should drop
             // the leading "0" and allow the non-zero number to be added
-            value = parseFloat(value).toString();
+            if (this.type === 'number') {
+                valueAsString = parseFloat(valueAsString).toString();
+            }
 
             // remove any characters over the max length
-            value = value.substring(0, this.maxLength);
+            valueAsString  = valueAsString.substring(0, this.maxLength);
 
             // We must manually update the input value in this case rather than relying
             // on Angular, as if value was previously "11" and we add an additional digit
             // e.g. "112", after performing the substring, the outputted value would again
             // be "11" which Angular would not recognize as having changed so it will not
             // update the value displayed in the input.
-            input.value = value;
+            input.value = valueAsString;
         }
 
-        this.valueChange.emit(value);
+        this.valueChange.emit(valueAsString);
     }
 }
