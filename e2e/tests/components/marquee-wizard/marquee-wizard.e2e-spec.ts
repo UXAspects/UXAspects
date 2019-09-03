@@ -151,4 +151,211 @@ describe('Marquee Wizard Tests', () => {
         expect(cancel).toBe(null);
     });
 
+    it('should have the correct initial properties when resizable is true', async () => {
+
+        // enable resizable
+        await page.resizeableButton.click();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('25');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+    });
+
+    it('should move splitter left when left arrow key is pressed', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // press the left key
+        await page.sendLeftKey();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('24');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+    });
+
+    it('should move splitter right when right arrow key is pressed', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // press the right key
+        await page.sendRightKey();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('26');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+    });
+
+    it('should move splitter to the start when home key is pressed', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // press the home key
+        await page.sendHomeKey();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('0');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+    });
+
+    it('should move splitter to the end when end key is pressed', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // press the end key
+        await page.sendEndKey();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('100');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+    });
+
+    it('should not move splitter left when left arrow key is pressed and we are at the start', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // move to start
+        await page.sendHomeKey();
+
+        let valuenow = await page.getGutterAriaValue();
+        expect(valuenow).toBe('0');
+
+        // press the left key
+        await page.sendLeftKey();
+
+        valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('0');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+    });
+
+    it('should not move spliter right when right arrow key is pressed and we are at the end', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // move to start
+        await page.sendEndKey();
+
+        let valuenow = await page.getGutterAriaValue();
+        expect(valuenow).toBe('100');
+
+        // press the right key
+        await page.sendRightKey();
+
+        valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('100');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+    });
+
+    it('should move the splitter on mouse move left', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // move to start
+        await page.mouseMoveLeft();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('24');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+    });
+
+    it('should move the splitter on mouse move right', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // move to start
+        await page.mouseMoveRight();
+
+        const valuenow = await page.getGutterAriaValue();
+        const valuemin = await page.getGutterAriaValueMin();
+        const valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('26');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+    });
+
+    it('should update the side panel width to 35', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // check the input fields value
+        const inputValue = await page.getInputField();
+
+        expect(inputValue).toBe('25');
+
+        // updating the input value for the side panel width
+        await page.input.click();
+        await page.input.clear();
+        await page.input.click();
+        await page.input.sendKeys('35');
+
+        const inputValue2 = await page.getInputField();
+
+        expect(inputValue2).toBe('35');
+    });
+
+    it('should emit the updated width', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // move to right
+        await page.mouseMoveRight();
+
+        const valuenow = await page.getGutterAriaValue();
+
+        expect(valuenow).toBe('26');
+        expect(await page.emittedWidth.getText()).toBe('26.3');
+    });
 });

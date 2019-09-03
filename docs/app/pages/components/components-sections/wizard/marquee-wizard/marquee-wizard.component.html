@@ -13,7 +13,7 @@
             <div class="row uxd-customize-row">
                 <div class="col-md-4 col-sm-12">
                     <label>resizeWidth</label>
-                    <ux-number-picker [(value)]="resizeWidth"
+                    <ux-number-picker [(value)]="sidePanelWidth"
                                       [min]="1"
                                       [max]="1000"
                                       [disabled]="!resizable">
@@ -65,7 +65,7 @@
                                (onFinishing)="validate = true"
                                (onFinish)="close()"
                                (onCancel)="close()"
-                               [resizeWidth]="resizeWidth"
+                               [sidePanelWidth]="sidePanelWidth"
                                [gutterSize]="gutterSize"
                                [resizable]="resizable">
 
@@ -305,7 +305,7 @@
         <code>true</code> there will be a resizable splitter between the side panel and main content of
         the wizard.
     </tr>
-    <tr uxd-api-property name="resizeWidth" type="number" defaultValue="25">
+    <tr uxd-api-property name="sidePanelWidth" type="number" defaultValue="25">
         This is a percentage value which determines the width of the side panel.
     </tr>
     <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
@@ -338,7 +338,7 @@
     <tr uxd-api-property name="onFinish" type="void">
         Emits when the 'Finish' button has been pressed and the final step is valid.
     </tr>
-    <tr uxd-api-property name="currentResizeWidth" type="any">
+    <tr uxd-api-property name="sidePanelWidthChange" type="any">
         Emits after a drag of the splitter. The event contains the current width of the side panel in a
         percentage value.
     </tr>

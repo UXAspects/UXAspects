@@ -1,4 +1,5 @@
-<ux-marquee-wizard>
+<ux-marquee-wizard [resizable]="resizable"
+                   [(sidePanelWidth)]="sidePanelWidth">
 
     <ux-marquee-wizard-step header="Step 1">
         <ux-icon *uxMarqueeWizardStepIcon name="soa"></ux-icon>
@@ -21,3 +22,10 @@
     </ux-marquee-wizard-step>
 
 </ux-marquee-wizard>
+
+<button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
+
+<ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
+
+<p id="sidePanelWidthChange">{{ sidePanelWidth | number: '1.1-1' }}</p>
+

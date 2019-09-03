@@ -21,7 +21,7 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
     modalOpen: boolean = false;
     requiredText = new FormControl('', Validators.required);
     resizable: boolean = false;
-    resizeWidth: number = 25;
+    sidePanelWidth: number = 25;
     gutterSize: number = 10;
 
     playground: IPlayground = {
