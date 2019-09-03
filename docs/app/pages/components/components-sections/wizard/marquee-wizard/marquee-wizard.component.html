@@ -306,7 +306,7 @@
         the wizard.
     </tr>
     <tr uxd-api-property name="sidePanelWidth" type="number" defaultValue="25">
-        This is a percentage value which determines the width of the side panel.
+        Width of the side panel as a percent.
     </tr>
     <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
         Width of the splitter in pixels.
@@ -338,9 +338,9 @@
     <tr uxd-api-property name="onFinish" type="void">
         Emits when the 'Finish' button has been pressed and the final step is valid.
     </tr>
-    <tr uxd-api-property name="sidePanelWidthChange" type="any">
-        Emits after a drag of the splitter. The event contains the current width of the side panel in a
-        percentage value.
+    <tr uxd-api-property name="sidePanelWidthChange" type="number">
+        Emits when finished dragging the splitter. The event contains the current width of the side panel
+        in a percentage value.
     </tr>
 </uxd-api-properties>
 
