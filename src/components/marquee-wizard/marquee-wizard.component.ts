@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { WizardComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
@@ -9,13 +9,25 @@ import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.
     templateUrl: './marquee-wizard.component.html',
     providers: [MarqueeWizardService]
 })
-export class MarqueeWizardComponent extends WizardComponent {
+export class MarqueeWizardComponent extends WizardComponent implements OnInit {
 
     /** Provide a custom template for the description in the left panel */
     @Input() description: string | TemplateRef<any>;
 
     /** Provide a custom template for the step in the left panel */
     @Input() stepTemplate: TemplateRef<any>;
+
+    /** If set to true the resizable splitter will be enabled and set to the default width **/
+    @Input() resizable: boolean = false;
+
+    /** Initial set to default width to match 240px on left but can be changed with a perecentage value */
+    @Input() resizeWidth: number = 25;
+
+    /** Width of the splitter - default is 10 */
+    @Input() gutterSize: number = 10;
+
+    /** Emit the current width of the splitter*/
+    @Output() currentResizeWidth = new EventEmitter<any>();
 
     /** Access each step content component */
     @ContentChildren(MarqueeWizardStepComponent) steps = new QueryList<MarqueeWizardStepComponent>();
@@ -24,11 +36,23 @@ export class MarqueeWizardComponent extends WizardComponent {
         return this.description && this.description instanceof TemplateRef;
     }
 
-    constructor(marqueeWizardService: MarqueeWizardService) {
+    showContent = false;
+
+    constructor(marqueeWizardService: MarqueeWizardService,
+                private changeDetection: ChangeDetectorRef) {
         super();
 
         marqueeWizardService.valid$.pipe(filter((event: MarqueeWizardValidEvent) => !event.valid))
             .subscribe(this.validChange.bind(this));
+    }
+
+    ngOnInit() {
+        if (this.resizable) {
+            setTimeout(() => {
+                this.showContent = true;
+                this.changeDetection.detectChanges();
+            }, 100);
+        }
     }
 
     /**

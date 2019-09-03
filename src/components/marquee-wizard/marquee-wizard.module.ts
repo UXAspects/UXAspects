@@ -7,6 +7,7 @@ import { WizardModule } from '../wizard/index';
 import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { MarqueeWizardComponent } from './marquee-wizard.component';
+import { AngularSplitModule } from 'angular-split';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MarqueeWizardComponent } from './marquee-wizard.component';
         IconModule,
         TooltipModule,
         WizardModule,
+        AngularSplitModule,
     ],
     exports: [
         MarqueeWizardComponent,
