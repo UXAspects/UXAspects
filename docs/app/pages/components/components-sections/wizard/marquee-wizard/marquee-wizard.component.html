@@ -12,7 +12,7 @@
             </div>
             <div class="row uxd-customize-row">
                 <div class="col-md-4 col-sm-12">
-                    <label>resizeWidth</label>
+                    <label>sidePanelWidth</label>
                     <ux-number-picker [(value)]="sidePanelWidth"
                                       [min]="1"
                                       [max]="100"
@@ -306,10 +306,10 @@
         the wizard.
     </tr>
     <tr uxd-api-property name="sidePanelWidth" type="number" defaultValue="25">
-        Width of the side panel as a percent.
+        Width of the side panel as a percent. This is only accessible when resizable is enabled.
     </tr>
     <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
-        Width of the splitter in pixels.
+        Width of the splitter in pixels. This is only accessible when resizable is enabled.
     </tr>
 </uxd-api-properties>
 <uxd-api-properties tableTitle="Outputs">
@@ -340,7 +340,7 @@
     </tr>
     <tr uxd-api-property name="sidePanelWidthChange" type="number">
         Emits when finished dragging the splitter. The event contains the current width of the side panel
-        in a percentage value.
+        in a percentage value. This is only accessible when resizable is enabled.
     </tr>
 </uxd-api-properties>
 
