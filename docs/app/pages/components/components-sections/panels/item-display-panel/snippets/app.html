@@ -38,10 +38,7 @@
                     </ux-spark>
                 </td>
                 <td class="text-center vertical-center-icon">
-                    <div class="hpe-icon"
-                        [class.text-secondary]="item.active"
-                        [class.hpe-checkmark]="item.active">
-                    </div>
+                    <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
                 </td>
             </tr>
         </tbody>
@@ -69,14 +66,14 @@
                 [disabled]="!isPreviousEnabled"
                 (click)="previous(); previousBtn.focus()"
                 tabindex="0">
-                <i class="hpe-icon hpe-previous"></i> Previous
+                <ux-icon name="previous"></ux-icon> Previous
             </button>
             <button #nextBtn
                 class="btn button-secondary"
                 [disabled]="!isNextEnabled"
                 (click)="next(); nextBtn.focus()"
                 tabindex="0">
-                Next <i class="hpe-icon hpe-next"></i>
+                Next <ux-icon name="next"></ux-icon>
             </button>
         </span>
     </div>

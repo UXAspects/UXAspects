@@ -6,6 +6,7 @@ import { DragModule } from '../../directives/drag/index';
 import { ReorderableModule } from '../../directives/reorderable/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { SelectionModule } from '../../directives/selection/index';
+import { IconModule } from '../icon/index';
 import { ColumnPickerComponent } from './column-picker/column-picker.component';
 import { ResizableTableCellDirective } from './table-column-resize/resizable-table-cell.directive';
 import { ResizableTableColumnComponent } from './table-column-resize/resizable-table-column.component';
@@ -17,6 +18,7 @@ import { ResizableTableDirective } from './table-column-resize/resizable-table.d
         AccessibilityModule,
         CommonModule,
         DragModule,
+        IconModule,
         ResizeModule,
         ReorderableModule,
         SelectionModule

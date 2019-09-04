@@ -94,10 +94,10 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     }
 
     /** Access the input field element */
-    @ContentChild(ToolbarSearchFieldDirective) field: ToolbarSearchFieldDirective;
+    @ContentChild(ToolbarSearchFieldDirective, { static: true }) field: ToolbarSearchFieldDirective;
 
     /** Access the search button element */
-    @ContentChild(ToolbarSearchButtonDirective) button: ToolbarSearchButtonDirective;
+    @ContentChild(ToolbarSearchButtonDirective, { static: false }) button: ToolbarSearchButtonDirective;
 
     /** Store the CSS position value as this may change to absolute */
     _position: string = 'relative';
@@ -122,8 +122,8 @@ export class ToolbarSearchComponent implements AfterContentInit, OnDestroy {
     ) { }
 
     ngAfterContentInit(): void {
-        // Subscribe to the submit event on the input field, triggering the search event
-        this.field.submit.pipe(takeUntil(this._onDestroy)).subscribe((text: string) => this.search.emit(text));
+        // Subscribe to the submitted event on the input field, triggering the search event
+        this.field.submitted.pipe(takeUntil(this._onDestroy)).subscribe((text: string) => this.search.emit(text));
 
         // Subscribe to cancel events coming from the input field
         this.field.cancel.pipe(takeUntil(this._onDestroy)).subscribe(() => this.expanded = false);

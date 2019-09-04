@@ -150,7 +150,7 @@
             "link": "icons",
             "sections": [
                 {
-                    "title": "UX Aspects Icons",
+                    "title": "Icon Set",
                     "component": "CssUxIconsComponent"
                 },
                 {

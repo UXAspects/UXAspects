@@ -12,16 +12,16 @@ const ROUTES: Routes = [
         component: ChartsPageComponent,
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'bar-charts' },
-            { path: 'bar-charts', loadChildren: './charts-sections/bar-charts/bar-charts.module#ChartsBarChartsModule' },
-            { path: 'donut-charts', loadChildren: './charts-sections/donut-charts/donut-charts.module#ChartsDonutChartsModule' },
-            { path: 'line-charts', loadChildren: './charts-sections/line-charts/line-charts.module#ChartsLineChartsModule' },
-            { path: 'live-chart', loadChildren: './charts-sections/live-charts/live-charts.module#ChartsLiveChartsModule' },
-            { path: 'organization-chart', loadChildren: './charts-sections/organization-chart/organization-chart.module#ChartsOrganizationChartModule' },
-            { path: 'partition-map', loadChildren: './charts-sections/partition-map/partition-map.module#ChartsPartitionMapModule' },
-            { path: 'sankey-chart', loadChildren: './charts-sections/sankey-chart/sankey-charts.module#ChartsSankeyChartModule' },
-            { path: 'scrollable-chart', loadChildren: './charts-sections/scrollable-chart/scrollable-chart.module#ChartsScrollableChartModule' },
-            { path: 'spark-charts', loadChildren: './charts-sections/spark-charts/spark-charts.module#ChartsSparkChartsModule' },
-            { path: 'timeline-chart', loadChildren: './charts-sections/timeline-chart/timeline-chart.module#ChartsTimelineChartModule' }
+            { path: 'bar-charts', loadChildren: () => import('./charts-sections/bar-charts/bar-charts.module').then(m => m.ChartsBarChartsModule) },
+            { path: 'donut-charts', loadChildren: () => import('./charts-sections/donut-charts/donut-charts.module').then(m => m.ChartsDonutChartsModule) },
+            { path: 'line-charts', loadChildren: () => import('./charts-sections/line-charts/line-charts.module').then(m => m.ChartsLineChartsModule) },
+            { path: 'live-chart', loadChildren: () => import('./charts-sections/live-charts/live-charts.module').then(m => m.ChartsLiveChartsModule) },
+            { path: 'organization-chart', loadChildren: () => import('./charts-sections/organization-chart/organization-chart.module').then(m => m.ChartsOrganizationChartModule) },
+            { path: 'partition-map', loadChildren: () => import('./charts-sections/partition-map/partition-map.module').then(m => m.ChartsPartitionMapModule) },
+            { path: 'sankey-chart', loadChildren: () => import('./charts-sections/sankey-chart/sankey-charts.module').then(m => m.ChartsSankeyChartModule) },
+            { path: 'scrollable-chart', loadChildren: () => import('./charts-sections/scrollable-chart/scrollable-chart.module').then(m => m.ChartsScrollableChartModule) },
+            { path: 'spark-charts', loadChildren: () => import('./charts-sections/spark-charts/spark-charts.module').then(m => m.ChartsSparkChartsModule) },
+            { path: 'timeline-chart', loadChildren: () => import('./charts-sections/timeline-chart/timeline-chart.module').then(m => m.ChartsTimelineChartModule) }
         ],
     },
     {

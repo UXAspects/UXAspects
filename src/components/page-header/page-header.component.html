@@ -3,7 +3,7 @@
     <div *ngIf="!condensed" class="page-header-content">
 
         <!-- Logo/product acronym -->
-        <div class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground">
+        <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0 : -1" [class.clickable]="_hasLogoClick" class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
             <img *ngIf="logo" [attr.src]="logo" [alt]="header" class="page-header-logo">
             <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
         </div>
@@ -17,8 +17,8 @@
         <div class="page-header-state-container" role="navigation">
 
             <!-- Back button -->
-            <button *ngIf="backVisible === true" uxFocusIndicator type="button" class="page-header-back-button" (click)="goBack()" aria-label="Go Back">
-                <span class="hpe-icon hpe-previous text-primary"></span>
+            <button *ngIf="backVisible === true" uxFocusIndicator type="button" class="page-header-back-button" (click)="backClick.emit($event)" aria-label="Go Back">
+                <ux-icon name="previous" class="text-primary"></ux-icon>
             </button>
 
             <!-- Breadcrumbs and header -->
@@ -71,7 +71,7 @@
 <div *ngIf="secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))"
     class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation">
 
-    <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children">
+    <ux-tabset *ngIf="(selectedRoot$ | async)?.children; let children" [manual]="true">
         <ux-tab *ngFor="let child of children"
             [heading]="child.title"
             [active]="child === (selected$ | async)"

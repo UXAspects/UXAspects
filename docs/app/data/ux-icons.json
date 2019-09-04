@@ -741,6 +741,10 @@
             "classname": "ux-icon-inherit"
         },
         {
+            "name": "input-to-process",
+            "classname": "ux-icon-input-to-process"
+        },
+        {
             "name": "install",
             "classname": "ux-icon-install"
         },
@@ -913,6 +917,22 @@
             "classname": "ux-icon-new"
         },
         {
+            "name": "news-aggregation",
+            "classname": "ux-icon-news-aggregation"
+        },
+        {
+            "name": "news-collection",
+            "classname": "ux-icon-news-collection"
+        },
+        {
+            "name": "news-content",
+            "classname": "ux-icon-news-content"
+        },
+        {
+            "name": "news",
+            "classname": "ux-icon-news"
+        },
+        {
             "name": "next",
             "classname": "ux-icon-next"
         },
@@ -1075,6 +1095,14 @@
         {
             "name": "satellite",
             "classname": "ux-icon-satellite"
+        },
+        {
+            "name": "save-filled",
+            "classname": "ux-icon-save-filled"
+        },
+        {
+            "name": "save",
+            "classname": "ux-icon-save"
         },
         {
             "name": "schedule-clone",

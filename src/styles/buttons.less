@@ -72,10 +72,6 @@
     padding: 4px 15px;
     box-shadow: @btn-shadow;
 
-    .hpe-icon {
-        line-height: inherit;
-    }
-
     &,
     &:active,
     &.active {
@@ -126,8 +122,14 @@
         }
     }
 
-    .hpe-icon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
         line-height: inherit;
+
+        & + * {
+            margin-left: 4px;
+        }
     }
 }
 
@@ -836,7 +838,9 @@ button {
 
 .dropdown-toggle {
     .hp-icon,
-    .hpe-icon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
         margin-left: 3px;
         line-height: 1;
 

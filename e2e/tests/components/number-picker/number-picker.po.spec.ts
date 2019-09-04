@@ -6,8 +6,8 @@ export class NumberPickerPage {
     numberPicker1 = element(by.id('numberPicker1'));
     numberPicker2 = element(by.id('numberPicker2'));
 
-    getPage(): void {
-        browser.get('#/number-picker');
+    async getPage(): Promise<void> {
+        await browser.get('#/number-picker');
     }
 
     async getNumberPickerMinimum(numberPicker: ElementFinder): Promise<string> {
@@ -49,11 +49,11 @@ export class NumberPickerPage {
     }
 
     async incrementNumberPickerValue(numberPicker: ElementFinder): Promise<void> {
-        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-up').$('span').click();
+        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-up').click();
     }
 
     async decrementNumberPickerValue(numberPicker: ElementFinder): Promise<void> {
-        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').$('span').click();
+        await numberPicker.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
     async confirmErrorMessage1IsVisible(): Promise<boolean> {

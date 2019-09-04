@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+<g id="news-collection">
+	<path d="M20.5,19H4c-0.059,0-0.174,0-0.174,0S3.61,19,3.5,19C1.57,19,0,17.43,0,15.5V4h5V0h19v15.5C24,17.43,22.43,19,20.5,19z
+		 M6.662,17H20.5c0.827,0,1.5-0.673,1.5-1.5V2H7v13.5C7,16.037,6.878,16.545,6.662,17z M2,6v9.5C2,16.327,2.673,17,3.5,17
+		S5,16.327,5,15.5V6H2z"/>
+	<path d="M20,6H9V4h11V6z"/>
+	<path d="M16,10H9V8h7V10z"/>
+	<path d="M18,14H9v-2h9V14z"/>
+	<path d="M0,24l3-4l3,4H0 M9,24h6l-3-4L9,24 M18,24h6l-3-4L18,24"/>
+</g>
+</svg>

@@ -16,8 +16,8 @@ export class SelectPage {
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
 
-    getPage(): void {
-        browser.get('#/select');
+    async getPage(): Promise<void> {
+        await browser.get('#/select');
     }
 
     // confirm & check
@@ -33,7 +33,7 @@ export class SelectPage {
     }
 
     confirmDropdownIsExpanded() {
-        return this.dropdown.$('div.inner-addon').$('ux-typeahead.open').isPresent();
+        return this.dropdown.$('ux-typeahead.open').isPresent();
     }
 
     // use Truthy for "strings" button and Falsy for "objects" button
@@ -81,7 +81,7 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input').$$(this.dropdown.$('ux-tag-input').locator().value + ' > ol').get(0).
                 $('li.ux-tag-input').$('input.ux-tag-input');
         } else {
-            return this.dropdown.$('div.inner-addon').$('input.form-control');
+            return this.dropdown.$('input.form-control');
         }
     }
 
@@ -90,7 +90,7 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').get(index);
         } else {
-            return this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
         }
     }
 
@@ -99,7 +99,7 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').last();
         } else {
-            return this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').last();
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').last();
         }
     }
 
@@ -137,61 +137,60 @@ export class SelectPage {
 
     // click
     clickOnDropdown(allowMultiple: boolean) {
-        this.getDropdown(allowMultiple).click();
+        return this.getDropdown(allowMultiple).click();
     }
 
     clickOnCountry(allowMultiple: boolean, index: number) {
-        this.getCountry(allowMultiple, index).click();
+        return this.getCountry(allowMultiple, index).click();
     }
 
-    clickOnStrings() {
-        this.radioOptions.$('ux-radio-button[option="strings"]').$('.ux-radio-button').click();
+    async clickOnStrings() {
+        await this.radioOptions.$('ux-radio-button[option="strings"]').$('.ux-radio-button').click();
     }
 
-    clickOnObjects() {
-        this.radioOptions.$('ux-radio-button[option="objects"]').$('.ux-radio-button').click();
+    async clickOnObjects() {
+        await this.radioOptions.$('ux-radio-button[option="objects"]').$('.ux-radio-button').click();
     }
 
-    clickOnCheckbox(checkbox: ElementFinder) {
-        checkbox.$('.ux-checkbox').click();
+    async clickOnCheckbox(checkbox: ElementFinder) {
+        await checkbox.$('.ux-checkbox').click();
     }
 
-    clickOnDropDirectionDown() {
-        this.radioDirection.$('ux-radio-button[option="down"]').$('.ux-radio-button').click();
+    async clickOnDropDirectionDown() {
+        await this.radioDirection.$('ux-radio-button[option="down"]').$('.ux-radio-button').click();
     }
 
-    clickOnDropDirectionUp() {
-        this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
+    async clickOnDropDirectionUp() {
+        await this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
     }
 
-    clickOnPlaceholder() {
-        this.getPlaceholder().click();
+    async clickOnPlaceholder() {
+        await this.getPlaceholder().click();
     }
 
-    clickOnPageSize() {
-        this.getPageSize().click();
+    async clickOnPageSize() {
+        await this.getPageSize().click();
     }
 
-    clickOnIncrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').$('span.hpe-up').click();
+    async clickOnIncrementPageSize() {
+        await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-up').click();
     }
 
-    clickOnDecrementPageSize() {
-        this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').$('span.hpe-down').click();
+    async clickOnDecrementPageSize() {
+        await this.pageSize.$('div.number-picker-controls').$('div.number-picker-control-down').click();
     }
 
-    clickOnTag(index: number) {
-        this.getTag(index).click();
+    async clickOnTag(index: number) {
+        await this.getTag(index).click();
     }
 
-    removeCountry(index: number) {
-        this.getTag(index).$('button.ux-tag-remove').$('.hpe-close').click();
+    async removeCountry(index: number) {
+        await this.getTag(index).$('button.ux-tag-remove').click();
     }
-
 
     // other
-    hoverOverCountry(allowMultiple: boolean, index: number) {
-        browser.actions().mouseMove(this.getCountry(allowMultiple, index)).perform();
+    async hoverOverCountry(allowMultiple: boolean, index: number) {
+        await browser.actions().mouseMove(this.getCountry(allowMultiple, index)).perform();
     }
 
     hoverOverLastCountry(allowMultiple: boolean) {
@@ -199,7 +198,7 @@ export class SelectPage {
             browser.actions().mouseMove(this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').last()).perform();
         } else {
-            browser.actions().mouseMove(this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').
+            browser.actions().mouseMove(this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
                 $('ol').$$('li').last()).perform();
         }
     }
@@ -209,8 +208,8 @@ export class SelectPage {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
                 $('ol').$$('li').count();
         } else {
-            return this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').
-                $$(this.dropdown.$('div.inner-addon').$('ux-typeahead').
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
+                $$(this.dropdown.$('ux-typeahead').
                     $('div.ux-typeahead-options').locator().value + ' > ol').get(0).$$('li').count();
         }
     }
@@ -242,7 +241,7 @@ export class SelectPage {
             browser.actions().click(this.dropdown.$('ux-tag-input').$$(this.dropdown.$('ux-tag-input').
                 locator().value + ' > ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input')).perform();
         } else {
-            browser.actions().click(this.dropdown.$('div.inner-addon').$('input.form-control')).perform();
+            browser.actions().click(this.dropdown.$('input.form-control')).perform();
         }
         return this.waitForLoadingToFinish();
     }
@@ -252,7 +251,7 @@ export class SelectPage {
             browser.actions().mouseMove(this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').
                 $('div.ux-typeahead-options').$('ol').$$('li').last()).perform();
         } else {
-            browser.actions().mouseMove(this.dropdown.$('div.inner-addon').$('ux-typeahead').$('div.ux-typeahead-options').
+            browser.actions().mouseMove(this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
                 $('ol').$$('li').last()).perform();
         }
         return this.waitForLoadingToFinish();

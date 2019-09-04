@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { FocusIfModule } from '../../directives/focus-if/index';
 import { DateTimePickerModule } from '../date-time-picker/date-time-picker.module';
+import { IconModule } from '../icon/index';
 import { PopoverModule } from '../popover/index';
 import { SelectModule } from '../select/index';
 import { SearchBuilderFocusService } from './search-builder-focus.service';
@@ -17,38 +18,39 @@ import { SearchSelectComponent } from './search-components/select/select.compone
 import { SearchTextComponent } from './search-components/text/text.component';
 
 @NgModule({
-  imports: [
-    AccessibilityModule,
-    CommonModule,
-    DateTimePickerModule,
-    FocusIfModule,
-    FormsModule,
-    PopoverModule,
-    SelectModule,
-  ],
-  exports: [
-    SearchBuilderComponent,
-    SearchBuilderGroupComponent,
-    BaseSearchComponent
-  ],
-  declarations: [
-    SearchBuilderComponent,
-    SearchBuilderGroupComponent,
-    SearchTextComponent,
-    SearchDateComponent,
-    SearchDateRangeComponent,
-    SearchBuilderOutletDirective,
-    SearchSelectComponent,
-    BaseSearchComponent
-  ],
-  entryComponents: [
-    SearchTextComponent,
-    SearchDateComponent,
-    SearchDateRangeComponent,
-    SearchSelectComponent
-  ],
-  providers: [
-    SearchBuilderFocusService
-  ]
+    imports: [
+        AccessibilityModule,
+        CommonModule,
+        DateTimePickerModule,
+        FocusIfModule,
+        FormsModule,
+        IconModule,
+        PopoverModule,
+        SelectModule,
+    ],
+    exports: [
+        SearchBuilderComponent,
+        SearchBuilderGroupComponent,
+        BaseSearchComponent
+    ],
+    declarations: [
+        SearchBuilderComponent,
+        SearchBuilderGroupComponent,
+        SearchTextComponent,
+        SearchDateComponent,
+        SearchDateRangeComponent,
+        SearchBuilderOutletDirective,
+        SearchSelectComponent,
+        BaseSearchComponent
+    ],
+    entryComponents: [
+        SearchTextComponent,
+        SearchDateComponent,
+        SearchDateRangeComponent,
+        SearchSelectComponent
+    ],
+    providers: [
+        SearchBuilderFocusService
+    ]
 })
 export class SearchBuilderModule { }

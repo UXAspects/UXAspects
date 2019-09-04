@@ -43,5 +43,8 @@ module.exports = {
             nodeargs: ['--max-old-space-size=4096'],
             args: ['--config', 'configs/webpack.docs.prod.config.js']
         }
+    },
+    typescriptTransform: {
+        src: [ join(cwd(), 'scripts', 'typescript-transforms.js') ]
     }
 };

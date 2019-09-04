@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Breadcrumb, PageHeaderNavigationItem, PageHeaderIconMenu } from '@ux-aspects/ux-aspects';
+import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'page-header-app',
@@ -18,11 +18,11 @@ export class PageHeaderTestPageComponent {
 
     items: PageHeaderNavigationItem[] = [
         {
-            icon: 'hpe-home',
+            icon: 'home',
             title: 'Home'
         },
         {
-            icon: 'hpe-analytics',
+            icon: 'analytics',
             title: 'Analytics',
             children: [
                 {
@@ -48,11 +48,11 @@ export class PageHeaderTestPageComponent {
 
     items2: PageHeaderNavigationItem[] = [
         {
-            icon: 'hpe-home',
+            icon: 'home',
             title: 'Home'
         },
         {
-            icon: 'hpe-analytics',
+            icon: 'analytics',
             title: 'Analytics',
             children: [
                 {
@@ -73,30 +73,30 @@ export class PageHeaderTestPageComponent {
 
     iconMenus: PageHeaderIconMenu[] = [
         {
-            icon: 'hpe-notification',
+            icon: 'notification',
             badge: 3,
             dropdown: [
                 {
-                    icon: 'hpe-chat',
+                    icon: 'chat',
                     title: 'You have 16 messages',
                     subtitle: '4 minutes ago',
                     divider: true
                 },
                 {
-                    icon: 'hpe-social-twitter',
+                    icon: 'social-twitter',
                     title: '3 New Followers',
                     subtitle: '12 minutes ago',
                     divider: true
                 },
                 {
-                    icon: 'hpe-cloud',
+                    icon: 'cloud',
                     title: 'Server Rebooted',
                     subtitle: '22 minutes ago'
                 }
             ]
         },
         {
-            icon: 'hpe-actions',
+            icon: 'actions',
             dropdown: [
                 {
                     header: true,
@@ -104,11 +104,11 @@ export class PageHeaderTestPageComponent {
                     divider: true
                 },
                 {
-                    icon: 'hpe-user-settings',
+                    icon: 'user-settings',
                     title: 'Settings'
                 },
                 {
-                    icon: 'hpe-logout',
+                    icon: 'logout',
                     title: 'Log Out'
                 },
                 {

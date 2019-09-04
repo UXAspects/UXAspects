@@ -13,8 +13,7 @@
                 [placeholder]="placeholder"
                 [showTypeaheadOnClick]="showTypeaheadOnClick"
                 [tagDelimiters]="tagDelimiters"
-                [tagPattern]="tagPatternRegExp"
-                [tagTemplate]="demoTagTemplate">
+                [tagPattern]="tagPatternRegExp">
 
                 <ux-typeahead *ngIf="typeaheadEnabled"
                     [filter]="input"
@@ -27,11 +26,11 @@
 
             </ux-tag-input>
             <span *ngIf="tagInput.validationErrors.tagRangeError" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span>
+                <ux-icon name="alert"></ux-icon>
                 Required: number of tags between {{tagInput.validationErrors.tagRangeError.min}} and {{tagInput.validationErrors.tagRangeError.max}}.
             </span>
             <span *ngIf="tagInput.validationErrors.inputPattern" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span>
+                <ux-icon name="alert"></ux-icon>
                 Expected format: {{tagInput.validationErrors.inputPattern.pattern.source}}
             </span>
         </form>
@@ -56,11 +55,11 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="minTags">minTags</label>
-                        <ux-number-picker [(value)]="minTags" min="0" [max]="maxTags"></ux-number-picker>
+                        <ux-number-picker-inline [(value)]="minTags" min="0" [max]="maxTags"></ux-number-picker-inline>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <label for="maxTags">maxTags</label>
-                        <ux-number-picker [(value)]="maxTags" [min]="minTags" max="1000"></ux-number-picker>
+                        <ux-number-picker-inline [(value)]="maxTags" [min]="minTags" max="1000"></ux-number-picker-inline>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <label for="tagPattern">tagPattern</label>
@@ -106,7 +105,7 @@
 </div>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>
+    <i class="ux-icon ux-icon-tag"></i>
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
     <button *ngIf="api.canRemoveTagAt(index)"
             uxFocusIndicator
@@ -114,15 +113,19 @@
             class="ux-tag-remove"
             [disabled]="disabled"
             (click)="api.removeTagAt(index); $event.stopPropagation();">
-        <i class="hpe-icon hpe-close"></i>
+        <i class="ux-icon ux-icon-close"></i>
     </button>
 </ng-template>
 
 <hr>
 
-<p>The <code>ux-tag-input</code> component allows an array of strings or custom objects to be displayed as tags inside a text input box. Optionally, a typeahead dropdown can be configured to aid addition of tags to the control.</p>
+<p>The <code>ux-tag-input</code> component allows an array of strings or custom objects to be displayed as tags inside a
+    text input box. Optionally, a <a fragment="typeahead" [routerLink]="[typeaheadDocumentationRoute]">typeahead dropdown</a>
+    can be configured to aid addition of tags to the control.
+</p>
 
-<p>Many of the customization parameters of the tag input component are available to edit in the example above by expanding the "Customize Example..." section. Documentation of these parameters follows.</p>
+<p>Many of the customization parameters of the tag input component are available to edit in the example above by expanding
+    the "Customize Example..." section. Documentation of these parameters follows.</p>
 
 <h4>Tag Input</h4>
 
@@ -194,8 +197,8 @@
         this expression will not be added as tags.
     </tr>
     <tr uxd-api-property name="tagTemplate" type="TemplateRef">
-        <span>A template which will be rendered as the content of each tag. The following context
-            properties are available in the template:</span>
+        <p>A template which will be rendered as the content of each tag. The following context
+            properties are available in the template:</p>
         <ul>
             <li><code>tag: any</code> - the string or custom object representing the tag.</li>
             <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag
@@ -204,6 +207,10 @@
             <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more
             information.</li>
         </ul>
+        <p>
+            The following code snippet shows how to use a custom template to display an icon alongside the tag text:
+        </p>
+        <uxd-snippet [content]="snippets.compiled.tagTemplateHtml"></uxd-snippet>
     </tr>
     <tr uxd-api-property name="tagClass" type="TagClassFunction">
         <p>A function which returns either a <code>string</code>, <code>string[]</code>, or
@@ -288,119 +295,6 @@
     </tr>
 </uxd-api-properties>
 
-<h4>Typeahead</h4>
-
-<p>Typeahead functionality is provided by defining a <code>ux-typeahead</code> component as a child of the <code>ux-tag-input</code>. It has the following properties:</p>
-
-<uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="options" type="	any[] | InfiniteScrollLoadFunction">
-        <span>If an array is provided, this is the list of options which can be chosen from. It can be an
-             array of strings or custom objects, matching the format used by the tag input control.
-             If custom objects are required, the <code>display</code> property must also be set.</span>
-        <span>If a function is provided, this is used as a callback to dynamically retrieve options in pages.
-            The parameters are:</span>
-        <ul>
-            <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
-            <li><code>pageSize: number</code> - The number of items requested.</li>
-            <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
-        </ul>
-        <span>The return value should be either a promise which resolves to an array, or a plain array in
-            case the data can be loaded synchronously. An empty array or an array with fewer than
-            <code>pageSize</code> items can be returned, which indicates that the end of the data set has
-            been reached.</span>
-    </tr>
-    <tr uxd-api-property name="filter" type="string">
-        The string which is used to filter the list of options. This is matched to the display property
-        if custom objects are used. The tag input <code>input</code> binding can be used here, to refine
-        the typeahead as the user enters text.
-    </tr>
-    <tr uxd-api-property name="open" type="boolean">
-        Controls whether the typeahead dropdown is visible.
-    </tr>
-    <tr uxd-api-property name="display" type="(option: any) => string | string" defaultValue="">
-        Determines the display value of the <code>options</code>, if they are custom objects. This may be
-        a function or a string. If a function is provided, it receives the option object as an argument,
-        and should return the appropriate display value. If the name of a property is provided as a string,
-        that property is used as the display value.
-    </tr>
-    <tr uxd-api-property name="key" type="(option: any) => string | string">
-        Determines the unique key value of the <code>options</code>, if they are custom objects. This is
-        only relevant if multiple options will have the same display value. This may be a function or a
-        string. If a function is provided, it receives the option object as an argument, and should
-        return the appropriate key value. If the name of a property is provided as a string, that property
-        is used as the key value. The default behaviour is to use the <code>display</code> value as the key.
-    </tr>
-    <tr uxd-api-property name="disabledOptions" type="any[]">
-        The list of options which should appear disabled in the typeahead. This is useful if duplicate tags
-        are not wanted in the tag input, in which case the <code>tags</code> binding should also be set here.
-    </tr>
-    <tr uxd-api-property name="dropDirection" type="'up' | 'down'" defaultValue="down">
-        The positioning of the typeahead dropdown in relation to its parent.
-    </tr>
-    <tr uxd-api-property name="maxHeight" type="string" defaultValue="250px">
-        The maximum height of the typeahead dropdown, as a CSS value.
-    </tr>
-    <tr uxd-api-property name="multiselectable" type="boolean" defaultValue="false">
-        Whether the parent control allows multiple selection. This is used to inform assistive technologies.
-    </tr>
-    <tr uxd-api-property name="loadingTemplate" type="TemplateRef">
-        A template which will be rendered in the dropdown while options are being loaded.
-    </tr>
-    <tr uxd-api-property name="optionTemplate" type="TemplateRef">
-        <span>A template which will be rendered in the dropdown for each option. The following context
-            properties are available in the template:</span>
-        <ul>
-            <li><code>option: any</code> - the string or custom object representing the option.</li>
-            <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>,
-            <code>getDisplay</code> and <code>getDisplayHtml</code>. See the section below for more
-            information.</li>
-        </ul>
-    </tr>
-    <tr uxd-api-property name="noOptionsTemplate" type="TemplateRef">
-        A template which will be rendered in the dropdown if no options match the current filter value.
-    </tr>
-    <tr uxd-api-property name="pageSize" type="number" defaultValue="20">
-        The number of options to request in a page. This should ideally be more than twice the number of
-        items which fit into the height of the dropdown, but this is not required.
-    </tr>
-    <tr uxd-api-property name="selectFirst" type="boolean" defaultValue="true">
-        Controls whether the first non-disabled option in the dropdown is highlighted by default.
-    </tr>
-</uxd-api-properties>
-
-<uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="openChange" type="boolean">
-        Emits when open is changed.
-    </tr>
-    <tr uxd-api-property name="optionSelected" type="TypeaheadOptionEvent">
-        Raised when an option on the dropdown is clicked. The <code>option</code> property on the event contains the clicked option.
-    </tr>
-    <tr uxd-api-property name="highlightedChange" type="any">
-        Raised when the highlighted option changes, providing the currently highlighted option.
-    </tr>
-    <tr uxd-api-property name="highlightedElementChange" type="HTMLElement">
-        Raised when the highlighted option changes, providing the currently highlighted DOM element.
-    </tr>
-</uxd-api-properties>
-
-<h4>TypeaheadOptionApi</h4>
-
-<p>The <code>api</code> object available to the <code>optionTemplate</code> has the following interface:</p>
-
-<uxd-api-properties>
-    <tr uxd-api-property name="getKey" args="option: any" returns="string">
-        Returns the unique key value of the given <code>option</code>.
-    </tr>
-    <tr uxd-api-property name="getDisplay" args="option: any" returns="string">
-        Returns the display value of the given <code>option</code>.
-    </tr>
-    <tr uxd-api-property name="getDisplayHtml" args="option: any" returns="string">
-        Returns the display value of the given <code>option</code> with HTML markup added to highlight
-        the part which matches the current <code>filter</code> value. Override the
-        <code>ux-filter-match</code> class in CSS to modify the default appearance.
-    </tr>
-</uxd-api-properties>
-
 <p>The following code was used to create the example at the top of this section.</p>
 
 <ux-tabset [minimal]="false">
@@ -409,5 +303,8 @@
     </ux-tab>
     <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
     </ux-tab>
 </ux-tabset>

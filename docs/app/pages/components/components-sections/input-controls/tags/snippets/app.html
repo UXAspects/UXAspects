@@ -13,8 +13,7 @@
                 [placeholder]="placeholder"
                 [showTypeaheadOnClick]="showTypeaheadOnClick"
                 [tagDelimiters]="tagDelimiters"
-                [tagPattern]="tagPatternRegExp"
-                [tagTemplate]="demoTagTemplate">
+                [tagPattern]="tagPatternRegExp">
 
                 <ux-typeahead *ngIf="typeaheadEnabled"
                     [filter]="input"
@@ -27,12 +26,12 @@
 
             </ux-tag-input>
             <span *ngIf="tagInput.validationErrors.tagRangeError" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span>
+                <ux-icon name="alert"></ux-icon>
                 Required: number of tags between {{tagInput.validationErrors.tagRangeError.min}}
                 and {{tagInput.validationErrors.tagRangeError.max}}.
             </span>
             <span *ngIf="tagInput.validationErrors.inputPattern" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span>
+                <ux-icon name="alert"></ux-icon>
                 Expected format: {{tagInput.validationErrors.inputPattern.pattern.source}}
             </span>
         </form>
@@ -105,15 +104,3 @@
         </div>
     </ux-accordion-panel>
 </ux-accordion>
-
-<ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>
-    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
-    <button *ngIf="api.canRemoveTagAt(index)"
-        uxFocusIndicator
-        type="button"
-        class="ux-tag-remove"
-        [disabled]="disabled"
-        (click)="api.removeTagAt(index); $event.stopPropagation();"
-        ><i class="hpe-icon hpe-close"></i></button>
-</ng-template>

@@ -4,8 +4,8 @@ export class ExpandingTextAreaPage {
 
     textarea = element(by.tagName('textarea'));
 
-    getPage(): void {
-        browser.get('#/expanding-text-area');
+    async getPage(): Promise<void> {
+        await browser.get('#/expanding-text-area');
     }
 
     async setText(text: string): Promise<void> {

@@ -2,8 +2,8 @@ import { $, browser, by, element, ElementFinder } from 'protractor';
 
 export class PageHeaderPage {
 
-    getPage(): void {
-        browser.get('#/page-header');
+    async getPage(): Promise<void> {
+        await browser.get('#/page-header');
     }
 
     pageHeader1 = element(by.id('pageHeader1'));
@@ -31,8 +31,8 @@ export class PageHeaderPage {
         return this.confirmClassExists(element(by.id('pageHeader1')), 'page-header-condensed');
     }
 
-    toggleTheHeader() {
-        this.toggleButton.click();
+    async toggleTheHeader() {
+        await this.toggleButton.click();
     }
 
     async getABreadcrumb(index: number): Promise<string> {
@@ -42,7 +42,7 @@ export class PageHeaderPage {
     async confirmApplicationLogoIsPresent() {
         return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(0).$('.horizontal-navigation-button').
-            $('span.hpe-home').isPresent();
+            $('ux-icon').isPresent();
     }
 
     async getApplicationLogoText(): Promise<string> {
@@ -54,7 +54,7 @@ export class PageHeaderPage {
     confirmDropdownIsPresent() {
         return element(by.id('pageHeader1')).$('div.page-header-navigation').$('ux-page-header-horizontal-navigation').
             $$('ux-page-header-horizontal-navigation-item').get(1).$('.horizontal-navigation-button').
-            $('span.hpe-analytics').isPresent();
+            $('ux-icon').isPresent();
     }
 
     openDropdown() {
@@ -85,7 +85,7 @@ export class PageHeaderPage {
 
     confirmNotificationIconIsPresent() {
         return element(by.id('pageHeader1')).$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(0).$('div.page-header-icon-menu').
-            $('.page-header-icon-menu-button').$('i.hpe-notification').isPresent();
+            $('.page-header-icon-menu-button').$('ux-icon').isPresent();
     }
 
     openNotifications() {
@@ -99,7 +99,7 @@ export class PageHeaderPage {
 
     confirmActionsIconIsPresent() {
         return element(by.id('pageHeader1')).$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).$('div.page-header-icon-menu').
-            $('.page-header-icon-menu-button').$('i.hpe-actions').isPresent();
+            $('.page-header-icon-menu-button').$('ux-icon').isPresent();
     }
 
     openActions() {

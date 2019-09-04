@@ -1,7 +1,12 @@
 <div class="ux-side-panel-inline-container demo-side-panel-container">
 
     <div class="demo-content">
-        <button #launch type="button" class="btn button-primary"
+        <button
+            #launch
+            type="button"
+            class="btn button-primary"
+            uxFocusIndicator
+            programmaticFocusIndicator="false"
             (click)="open = !open; $event.stopPropagation()">
             Toggle Side Panel
         </button>
@@ -28,7 +33,7 @@
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
             <button uxSidePanelClose aria-label="Close Side Panel" type="button" class="btn btn-lg btn-link btn-icon button-secondary">
-                <span class="hpe-icon hpe-close"></span>
+                <ux-icon name="close"></ux-icon>
             </button>
         </div>
 

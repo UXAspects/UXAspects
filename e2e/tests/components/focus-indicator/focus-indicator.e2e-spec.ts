@@ -1,11 +1,12 @@
+import { imageCompare } from '../common/image-compare';
 import { FocusIndicatorButtonsPage } from './focus-indicator.po.spec';
 
 describe('Focus Indicator Tests', () => {
 
     let page = new FocusIndicatorButtonsPage();
 
-    beforeEach(() => {
-        page.getPage();
+    beforeEach(async () => {
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -17,6 +18,8 @@ describe('Focus Indicator Tests', () => {
 
         // the initial indicator state should be false
         expect(await page.getIndicatorLabel()).toBe('false');
+
+        expect(await imageCompare('focus-indicator-initial')).toEqual(0);
     });
 
     it('should not focus on click when mouseFocusIndicator: false', async () => {
@@ -71,6 +74,8 @@ describe('Focus Indicator Tests', () => {
 
         // the indicator state should be false
         expect(await page.getIndicatorLabel()).toBe('true');
+
+        expect(await imageCompare('focus-indicator-focused')).toEqual(0);
     });
 
     it('should not focus on keyboard when keyboardFocusIndicator: false', async () => {

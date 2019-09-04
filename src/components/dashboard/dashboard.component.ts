@@ -39,7 +39,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
 
     @HostBinding('attr.aria-label') ariaLabel: string;
 
-    @ViewChild('dashboard') dashboardElement: ElementRef;
+    @ViewChild('dashboard', { static: true }) dashboardElement: ElementRef;
 
     /** Find all grab handles used in the dashboard */
     @ContentChildren(DashboardGrabHandleDirective, { descendants: true }) handles: QueryList<DashboardGrabHandleDirective>;

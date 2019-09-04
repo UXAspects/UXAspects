@@ -7,6 +7,7 @@ import { DurationPipeModule } from '../../pipes/duration/index';
 import { FileSizePipeModule } from '../../pipes/file-size/index';
 import { AudioServiceModule } from '../../services/audio/index';
 import { FrameExtractionModule } from '../../services/frame-extraction/frame-extraction.module';
+import { IconModule } from '../icon/index';
 import { SliderModule } from '../slider/index';
 import { TooltipModule } from '../tooltip/index';
 import { MediaPlayerBaseExtensionDirective } from './extensions/base-extension.directive';
@@ -25,16 +26,17 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        FrameExtractionModule,
-        TooltipModule,
+        A11yModule,
+        AccessibilityModule,
         AudioServiceModule,
+        ClickOutsideModule,
+        CommonModule,
         DurationPipeModule,
         FileSizePipeModule,
+        FrameExtractionModule,
+        IconModule,
         SliderModule,
-        AccessibilityModule,
-        A11yModule,
-        ClickOutsideModule
+        TooltipModule,
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

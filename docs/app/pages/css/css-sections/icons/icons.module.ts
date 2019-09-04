@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectModule } from '@ux-aspects/ux-aspects';
+import { SelectModule, PopoverModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -13,6 +13,10 @@ import { CssIconColorsComponent } from './icon-colors/icon-colors.component';
 import { CssIconSizeComponent } from './icon-size/icon-size.component';
 import { CssRotateFlipIconsComponent } from './rotate-flip-icons/rotate-flip-icons.component';
 import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
+import { IconModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { IconPreviewComponent } from './ux-icons/icon-preview/icon-preview.component';
+import { IconSnippetComponent } from './ux-icons/icon-preview/icon-snippet/icon-snippet.component';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
 const SECTIONS = [
@@ -22,7 +26,9 @@ const SECTIONS = [
     CssFixedWidthComponent,
     CssRotateFlipIconsComponent,
     CssIconButtonsComponent,
-    CssIconColorsComponent
+    CssIconColorsComponent,
+    IconPreviewComponent,
+    IconSnippetComponent
 ];
 
 const ROUTES = [
@@ -37,14 +43,23 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         DocumentationComponentsModule,
         CommonModule,
         FormsModule,
         SelectModule,
-        RouterModule.forChild(ROUTES)
+        IconModule,
+        TooltipModule,
+        PopoverModule,
+        TabsetModule,
+        RouterModule.forChild(ROUTES),
+        ButtonsModule
     ],
     exports: SECTIONS,
-    declarations: SECTIONS,
+    declarations: [
+        SECTIONS,
+        IconPreviewComponent
+    ],
     entryComponents: SECTIONS
 })
 export class CssIconsModule {

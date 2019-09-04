@@ -14,7 +14,7 @@
             [(menuOpen)]="dropdown.isOpen"
             dropdownToggle
             class="btn dropdown-toggle filter-dropdown">
-            {{ selected }} <span class="hpe-icon hpe-down"></span>
+            {{ selected }} <ux-icon name="down"></ux-icon>
         </button>
 
         <!-- Dropdown List -->
@@ -26,22 +26,23 @@
                     tabindex="-1"
                     uxMenuNavigationItem>
 
-                    <i class="hpe-icon hpe-checkmark sorter-icon"
-                        [class.invisible]="option !== selected">
-                    </i>
+                    <ux-icon name="checkmark"
+                             class="sorter-icon"
+                             [class.invisible]="option !== selected">
+                    </ux-icon>
+
                     <span class="sorter-text">{{ option }}</span>
                 </a>
             </li>
         </ul>
 
         <!-- Sort Direction Toggle -->
-        <button class="sort-icon hpe-icon text-muted"
+        <button class="sort-icon text-muted"
             uxFocusIndicator
             attr.aria-label="{{ descending ? 'Descending' : 'Ascending' }} sort applied, activate
             to apply a {{ !descending ? 'descending' : 'ascending' }} sort"
-            [class.hpe-descend]="descending"
-            [class.hpe-ascend]="!descending"
             (click)="descending = !descending">
+            <ux-icon [name]="descending ? 'descend' : 'ascend'"></ux-icon>
         </button>
     </div>
 </div>

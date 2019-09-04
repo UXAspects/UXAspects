@@ -1,8 +1,8 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/index';
 import { FocusIndicator } from '../focus-indicator/focus-indicator';
 import { FocusIndicatorOriginService } from '../focus-indicator/focus-indicator-origin/focus-indicator-origin.service';
@@ -68,6 +68,9 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     /** Emit when the expanded state changes. */
     @Output() expandedChange = new EventEmitter<boolean>();
+
+    /** Emit when the element receives focus via the tabbable list. */
+    @Output() activated = new EventEmitter<FocusOrigin>();
 
     get tabindex(): number {
         return this._tabbableList.isItemActive(this) ? 0 : -1;
@@ -176,11 +179,17 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
         // check if there are currently any items that are tabbable
         const hasTabbableItem = this._tabbableList.hasTabbableItem();
 
+        // determine the focus origin
+        const origin = hasTabbableItem ? this._focusOriginService.getOrigin() || 'keyboard' : 'keyboard';
+
         // apply focus to the element
-        this.focusWithOrigin(hasTabbableItem ? this._focusOriginService.getOrigin() || 'keyboard' : 'keyboard', !this._tabbableList.shouldScrollInView);
+        this.focusWithOrigin(origin, !this._tabbableList.shouldScrollInView);
 
         // ensure the focus key manager updates the active item correctly
         this._tabbableList.activate(this, hasTabbableItem);
+
+        // emit the focus event
+        this.activated.emit(origin);
     }
 
     @HostListener('focus')

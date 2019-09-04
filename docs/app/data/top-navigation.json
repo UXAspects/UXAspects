@@ -33,8 +33,7 @@
     "social": [
         {
             "title": "Team",
-            "link": "/team",
-            "indicator": true
+            "link": "/team"
         },
         {
             "title": "Blog",

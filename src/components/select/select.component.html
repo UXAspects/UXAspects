@@ -12,7 +12,9 @@
     [placeholder]="placeholder"
     [showTypeaheadOnClick]="true"
     [readonlyInput]="readonlyInput"
-    [icon]="icon">
+    [icon]="icon"
+    [clearButton]="clearButton"
+    [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
         [id]="id + '-typeahead'"
@@ -35,18 +37,11 @@
 </ux-tag-input>
 
 <div *ngIf="!multiple"
-    class="inner-addon right-addon"
+    class="ux-select-container"
     [class.disabled]="disabled"
     role="combobox"
     [attr.aria-expanded]="dropdownOpen"
     aria-haspopup="listbox">
-
-    <i *ngIf="!icon"
-       class="hpe-icon select-arrow"
-       [class.hpe-down]="dropDirection === 'down'"
-       [class.hpe-up]="dropDirection === 'up'"
-       (click)="toggle(); $event.stopPropagation()">
-    </i>
 
     <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
 
@@ -67,6 +62,23 @@
         (blur)="inputBlurHandler()"
         (keydown)="inputKeyHandler($event)"
         [readonly]="readonlyInput">
+
+    <div class="ux-select-icons">
+        <i *ngIf="clearButton && allowNull && value"
+           uxFocusIndicator
+           [attr.tabindex]="disabled ? -1 : 0"
+           [attr.aria-label]="clearButtonAriaLabel"
+           class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
+           (click)="clear(); $event.stopPropagation()"
+           (keydown.enter)="clear(); $event.stopPropagation()">
+        </i>
+        <i *ngIf="!icon"
+           class="ux-select-icon ux-icon ux-select-chevron-icon"
+           [class.ux-icon-up]="dropDirection === 'up'"
+           [class.ux-icon-down]="dropDirection === 'down'"
+           (click)="toggle(); $event.stopPropagation()">
+        </i>
+    </div>
 
     <ux-typeahead #singleTypeahead
         [id]="id + '-typeahead'"

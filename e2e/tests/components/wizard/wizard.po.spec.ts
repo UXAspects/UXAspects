@@ -10,8 +10,8 @@ export class WizardPage {
     addStep5Button = $('#addStep5');
     removeStep5Button = $('#removeStep5');
 
-    getPage(): void {
-        browser.get('#/wizard');
+    async getPage(): Promise<void> {
+        await browser.get('#/wizard');
     }
 
     async getButtonByText(text: string): Promise<ElementFinder> {

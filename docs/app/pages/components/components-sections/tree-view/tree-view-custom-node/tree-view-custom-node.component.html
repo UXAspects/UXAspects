@@ -38,11 +38,7 @@
                          (click)="setChecked(node, !node.data.checked)"
                          (keydown)="setChecked(node, !node.data.checked, $event)">
 
-                        <span class="hpe-icon"
-                              [class.hpe-folder]="node.hasChildren && !node.isExpanded"
-                              [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
-                              [class.hpe-document]="!node.hasChildren">
-                        </span>
+                         <ux-icon [name]="getIcon(node)"></ux-icon>
 
                         <span [class.title]="true">{{ node.data.name }}</span>
 

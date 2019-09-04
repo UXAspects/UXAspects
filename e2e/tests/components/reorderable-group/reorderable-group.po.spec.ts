@@ -1,4 +1,4 @@
-import { browser, $$, element, by } from 'protractor';
+import { $$, browser, by, element } from 'protractor';
 
 export class ReorderableGroupPage {
 
@@ -9,8 +9,8 @@ export class ReorderableGroupPage {
     container2Rows = $$('#container2 > .list-item');
     json2 = element(by.id('json2'));
 
-    getPage(): void {
-        browser.get('#/reorderable-group');
+    async getPage(): Promise<void> {
+        await browser.get('#/reorderable-group');
     }
 
     async getObjects1(): Promise<any[]> {

@@ -13,7 +13,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 export class CssBasicUsageComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     playground: IPlayground = playgroundAdapter({
-        html: this.snippets.raw.sampleHtml
+        html: this.snippets.raw.sampleHtml,
     });
 
     constructor() {

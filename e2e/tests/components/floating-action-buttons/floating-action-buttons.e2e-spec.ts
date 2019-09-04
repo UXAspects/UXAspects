@@ -1,11 +1,15 @@
 import { ElementArrayFinder } from 'protractor';
 import { Constants, Functions } from '../common/common.spec';
+import { imageCompare } from '../common/image-compare';
 import { FloatingActionButtonsPage } from './floating-action-buttons.po.spec';
 
 describe('Floating Action Button Tests', () => {
 
     const page: FloatingActionButtonsPage = new FloatingActionButtonsPage();
-    page.getPage();
+
+    beforeEach(async () => {
+        await page.getPage();
+    });
 
     const constants = new Constants();
     const functions = new Functions();
@@ -40,6 +44,8 @@ describe('Floating Action Button Tests', () => {
         // there should only be the trigger button visible
         expect(await page.fabLeft.$$('ux-floating-action-button').count()).toBe(1);
 
+        expect(await imageCompare('fab-initial')).toEqual(0);
+
     });
 
     it('should change the vertical (bottom) button\'s colour upon hover', async () => {
@@ -60,10 +66,11 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
 
+        expect(await imageCompare('fab-bottom-open')).toEqual(0);
     });
 
     it('should display action buttons in the correct position when the vertical (bottom) button is clicked', async () => {
@@ -102,9 +109,11 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
+
+        expect(await imageCompare('fab-right-open')).toEqual(0);
 
     });
 
@@ -144,9 +153,11 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
+
+        expect(await imageCompare('fab-up-open')).toEqual(0);
 
     });
 
@@ -186,9 +197,11 @@ describe('Floating Action Button Tests', () => {
         expect(await buttons.count()).toBe(4);
 
         // check the icons are correct on each button
-        expect(await buttons.get(1).$('.hpe-icon').getAttribute('class')).toContain('hpe-add');
-        expect(await buttons.get(2).$('.hpe-icon').getAttribute('class')).toContain('hpe-analytics');
-        expect(await buttons.get(3).$('.hpe-icon').getAttribute('class')).toContain('hpe-app');
+        expect(await buttons.get(1).$('ux-icon').getAttribute('name')).toContain('add');
+        expect(await buttons.get(2).$('ux-icon').getAttribute('name')).toContain('analytics');
+        expect(await buttons.get(3).$('ux-icon').getAttribute('name')).toContain('app');
+
+        expect(await imageCompare('fab-left-open')).toEqual(0);
 
     });
 

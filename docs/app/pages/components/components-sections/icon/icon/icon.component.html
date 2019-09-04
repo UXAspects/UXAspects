@@ -1,0 +1,144 @@
+<div class="icon-group">
+    <ux-icon
+        name="attachment"
+        size="24px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
+
+    <ux-icon
+        name="print"
+        size="24px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
+
+    <ux-icon
+        name="search"
+        size="25px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
+</div>
+
+<div class="icon-group">
+    <ux-icon
+        name="configuration"
+        size="16px"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
+
+    <ux-icon
+        name="configuration"
+        size="32px"
+        [flipHorizontal]="true"
+        [flipVertical]="false">
+    </ux-icon>
+
+    <ux-icon
+        name="configuration"
+        size="48px"
+        rotate="90"
+        [flipHorizontal]="false"
+        [flipVertical]="false">
+    </ux-icon>
+</div>
+
+<hr>
+
+<p>The <code>ux-icon</code> component can be used to dynamically display icons and allows easy control of
+    their size and orientation. Icons can be selected from the UX Aspects <a fragment="ux-icons"
+    [routerLink]="[iconSetDocumentationRoute]">ux-icons </a>set. The <code>ux-icon</code> component also
+    allows alternative icons to be loaded from a custom icon set to override default icons. For example,
+    icons for a specific project could be implemented via a custom set, or an icon set created for a
+    particular size could be used.</p>
+<p>
+    The following properties can be used to configure the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="name" type="string">
+        The name of the icon to be displayed. By default this will be one of the UX Aspects icons, unless a
+        custom icon with this name has been defined.
+    </tr>
+    <tr uxd-api-property name="size" type="string">
+        The size of the icon to be displayed. This value is in CSS units for example <code>24px</code> or
+        <code>2rem</code>.
+    </tr>
+    <tr uxd-api-property name="rotate" type="90 | 180 | 270">
+        Rotation of the icon in degrees.
+    </tr>
+    <tr uxd-api-property name="flipHorizontal" type="boolean" defaultValue="false">
+        The icon can be horizontally flipped if set to <code>true</code>.
+    </tr>
+    <tr uxd-api-property name="flipVertical" type="boolean" defaultValue="false">
+        The icon can be vertically flipped if set to <code>true</code>.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<h4>Defining Custom Icons</h4>
+
+<p>Custom icons can be defined to override the default icons which appear within UX Aspects components, or
+    to provide an alternate icon glyph to display when an icon is rendered at a smaller or larger size.</p>
+
+<p>Add this code snippet to your root module file to define icons within your whole application from a
+    different icon set. To customize icons on a per-module basis, the <code>forRoot</code> should be
+    replaced with <code>forChild</code>. See the <code>IconDefinition</code> interface for details of
+    the properties to provide.</p>
+
+<uxd-snippet [content]="snippets.compiled.appModuleTs" language="javascript"></uxd-snippet>
+
+<p>Within an individual component, icons can be added or customized by injecting the <code>IconService</code>.</p>
+
+<uxd-api-properties tableTitle="Icon Service">
+    <tr uxd-api-property name="setIcon" args="IconDefinition">
+        Create a single icon definition. See the <code>IconDefinition</code> interface below for
+        details.
+    </tr>
+    <tr uxd-api-property name="setIcons" args="Array<IconDefinition>">
+        Create multiple icon definitions. It should be passed an array of <code>IconDefinition</code>
+        objects, see below for details.
+    </tr>
+</uxd-api-properties>
+
+<h4>IconDefinition Interface</h4>
+
+<p>This interface defines the properties used to create a custom icon definition.</p>
+
+<p>The custom icon definitions will take precedence over the default icon set, and can therefore be used to
+    customize the icons that appear within UX Aspects components.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" required="true">
+        The name of the icon. This corresponds to the <code>name</code> property of <code>ux-icon</code>.
+    </tr>
+    <tr uxd-api-property name="size" type="string | string[]">
+        The size(s) at which this icon is defined, in CSS units. This corresponds to the <code>size</code>
+        property of <code>ux-icon</code>. This property can be used to provide an alternate icon
+        glyph at different sizes, as an alternative to the browser scaling which would otherwise apply.
+        Note that due to technical limitations this only applies to icons explicitly sized using the
+        <code>size</code> property, and cannot match a size defined in CSS.
+    </tr>
+    <tr uxd-api-property name="icon" type="string" required="true">
+        The CSS class of the font icon which should be rendered for the above <code>name</code>, e.g.
+        <code>qtm-icon-action</code>.
+    </tr>
+    <tr uxd-api-property name="iconset" type="string" required="true">
+        The CSS class of the font icon set containing the given <code>icon</code>, e.g.
+        <code>qtm-font-icon</code>.
+    </tr>
+</uxd-api-properties>
+
+<uxd-snippet [content]="snippets.compiled.serviceTs" language="javascript"></uxd-snippet>

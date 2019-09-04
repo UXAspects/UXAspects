@@ -1,19 +1,22 @@
-import { browser, Key, ElementFinder } from 'protractor';
+import { ElementFinder } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { MarqueeWizardPage } from './marquee-wizard.po.spec';
 
 describe('Marquee Wizard Tests', () => {
 
     let page: MarqueeWizardPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new MarqueeWizardPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct number of steps', async () => {
 
         // there should initially be four steps
         expect(await page.stepHeaders.count()).toBe(4);
+
+        expect(await imageCompare('marquee-wizard-initial')).toEqual(0);
     });
 
     it('should have steps with the correct titles', async () => {

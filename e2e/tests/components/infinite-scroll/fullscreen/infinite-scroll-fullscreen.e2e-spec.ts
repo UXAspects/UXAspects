@@ -1,216 +1,219 @@
 import { Key } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 import { InfiniteScrollFullscreenPage } from './infinite-scroll-fullscreen.po.spec';
 
 describe('Infinite Scroll (Fullscreen) Tests', () => {
 
     let page: InfiniteScrollFullscreenPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new InfiniteScrollFullscreenPage();
-        page.getPage();
+        await page.getPage();
     });
 
-    it('should have correct initial states', () => {
+    it('should have correct initial states', async () => {
 
         // 20 visible employees
-        expect<any>(page.getNumberOfEmployees()).toEqual(20);
+        expect(await page.getNumberOfEmployees()).toEqual(20);
 
         // loadMore not visible
-        expect(page.confirmLoadMoreIsVisible()).toBeFalsy();
+        expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
 
         // loadOnScroll checked
-        expect(page.confirmLoadOnScrollIsChecked()).toBeTruthy();
+        expect(await page.confirmLoadOnScrollIsChecked()).toBeTruthy();
 
         // arrows enabled
-        expect(page.confirmPageSizeButtonIsDisabled('up')).toBeFalsy();
-        expect(page.confirmPageSizeButtonIsDisabled('down')).toBeFalsy();
+        expect(await page.confirmPageSizeButtonIsDisabled('up')).toBeFalsy();
+        expect(await page.confirmPageSizeButtonIsDisabled('down')).toBeFalsy();
 
         // valid value in number picker
-        expect(page.confirmValueIsInvalid()).toBeFalsy();
+        expect(await page.confirmValueIsInvalid()).toBeFalsy();
+
+        expect(await imageCompare('infinite-scroll-fullscreen-initial')).toEqual(0);
 
     });
 
-    it('should display correct text for employee details', () => {
+    it('should display correct text for employee details', async () => {
 
         // employee's name
-        for (var i = 0; i < 20; i++) {
-            expect<any>(page.getEmployeeText(i)).toBe('employee_' + i);
+        for (let i = 0; i < 20; i++) {
+            expect(await page.getEmployeeText(i)).toBe('employee_' + i);
         }
 
         // employee's department
-        for (i = 0; i < 20; i++) {
-            expect<any>(page.getDepartmentText(i)).toBe('(department_' + i + ')');
+        for (let i = 0; i < 20; i++) {
+            expect(await page.getDepartmentText(i)).toBe('(department_' + i + ')');
         }
 
         // employee's email
-        for (i = 0; i < 20; i++) {
-            expect<any>(page.getEmailText(i)).toBe('employee_' + i + '@business.com');
+        for (let i = 0; i < 20; i++) {
+            expect(await page.getEmailText(i)).toBe('employee_' + i + '@business.com');
         }
 
         // employee's ID
-        for (i = 0; i < 20; i++) {
-            expect<any>(page.getEmployeeIDNumber(i)).toBe(i.toString());
+        for (let i = 0; i < 20; i++) {
+            expect(await page.getEmployeeIDNumber(i)).toBe(i.toString());
         }
 
     });
 
-    it('should react to clicking on the loadOnScroll checkbox', () => {
+    it('should react to clicking on the loadOnScroll checkbox', async () => {
 
         // unchecking
-        page.clickOnLoadOnScroll();
-        expect(page.confirmLoadOnScrollIsChecked()).toBeFalsy();
+        await page.clickOnLoadOnScroll();
+        expect(await page.confirmLoadOnScrollIsChecked()).toBeFalsy();
 
         // checking
-        page.clickOnLoadOnScroll();
-        expect(page.confirmLoadOnScrollIsChecked()).toBeTruthy();
+        await page.clickOnLoadOnScroll();
+        expect(await page.confirmLoadOnScrollIsChecked()).toBeTruthy();
 
     });
 
-    it('should display more employees when the LOAD MORE button is clicked', () => {
+    it('should display more employees when the LOAD MORE button is clicked', async () => {
 
-        page.clickOnLoadOnScroll();
+        await page.clickOnLoadOnScroll();
 
         // default number of visible employees
-        expect<any>(page.getNumberOfEmployees()).toEqual(20);
+        expect(await page.getNumberOfEmployees()).toEqual(20);
 
         // scroll down
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(20);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(20);
 
         // click on button
-        page.loadMoreButton.click();
-        expect<any>(page.getNumberOfEmployees()).toEqual(40);
+        await page.loadMoreButton.click();
+        expect(await page.getNumberOfEmployees()).toEqual(40);
 
         // scroll down
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(40);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(40);
 
         // click on button
-        page.loadMoreButton.click();
-        expect<any>(page.getNumberOfEmployees()).toEqual(60);
+        await page.loadMoreButton.click();
+        expect(await page.getNumberOfEmployees()).toEqual(60);
 
     });
 
-    it('should display the LOAD MORE button when appropriate', () => {
+    it('should display the LOAD MORE button when appropriate', async () => {
 
         // visible when loadOnScroll is unchecked
-        page.clickOnLoadOnScroll();
-        expect(page.confirmLoadMoreIsVisible()).toBeTruthy();
+        await page.clickOnLoadOnScroll();
+        expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
 
         // not visible when loadOnScroll is checked
-        page.clickOnLoadOnScroll();
-        expect(page.confirmLoadMoreIsVisible()).toBeFalsy();
+        await page.clickOnLoadOnScroll();
+        expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
 
         // not visible when all employees are on the list
-        page.clickOnLoadOnScroll();
-        page.clickOnPageSize();
-        page.getPageSize().clear();
-        page.getPageSize().sendKeys('10'); // 110
-        expect(page.confirmLoadMoreIsVisible()).toBeTruthy();
-        page.loadMoreButton.click();
-        expect<any>(page.getNumberOfEmployees()).toEqual(111);
-        expect(page.confirmLoadMoreIsVisible()).toBeFalsy();
+        await page.clickOnLoadOnScroll();
+        await page.clickOnPageSize();
+        await page.getPageSize().clear();
+        await page.getPageSize().sendKeys('10'); // 110
+        expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
+        await page.loadMoreButton.click();
+        expect(await page.getNumberOfEmployees()).toEqual(111);
+        expect(await page.confirmLoadMoreIsVisible()).toBeFalsy();
 
     });
 
-    it('should display more employees when scrolling down', () => {
+    it('should display more employees when scrolling down', async () => {
 
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(40);
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(60);
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(80);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(40);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(60);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(80);
 
     });
 
-    it('should be possible to change the page size', () => {
+    it('should be possible to change the page size', async () => {
 
         // increase page size by 1
-        page.clickOnIncrementPageSize(); // 21
+        await page.clickOnIncrementPageSize(); // 21
 
-        expect<any>(page.getNumberOfEmployees()).toEqual(21);
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(42);
+        expect(await page.getNumberOfEmployees()).toEqual(21);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(42);
 
         // decrease page size by 2
-        page.clickOnDecrementPageSize();
-        page.clickOnDecrementPageSize(); // 19
-        expect<any>(page.getNumberOfEmployees()).toEqual(19);
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(38);
+        await page.clickOnDecrementPageSize();
+        await page.clickOnDecrementPageSize(); // 19
+        expect(await page.getNumberOfEmployees()).toEqual(19);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(38);
 
         // change page size to 39
-        page.clickOnPageSize();
-        page.getPageSize().sendKeys(Key.DELETE);
-        page.getPageSize().sendKeys('3'); // 39
-        expect<any>(page.getNumberOfEmployees()).toEqual(39);
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(78);
+        await page.clickOnPageSize();
+        await page.getPageSize().sendKeys(Key.DELETE);
+        await page.getPageSize().sendKeys('3'); // 39
+        expect(await page.getNumberOfEmployees()).toEqual(39);
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(78);
     });
 
-    it('should be possible to filter employees using entered text', () => {
+    it('should be possible to filter employees using entered text', async () => {
 
         // no match
-        page.filter.click();
-        page.filter.sendKeys('-');
-        expect<any>(page.getNumberOfEmployees()).toEqual(0);
+        await page.filter.click();
+        await page.filter.sendKeys('-');
+        expect(await page.getNumberOfEmployees()).toEqual(0);
 
         // upper case
-        page.filter.clear();
-        page.filter.sendKeys('Y');
-        expect<any>(page.getEmployeeText(0)).toBe('employee_0');
-        expect<any>(page.getEmployeeText(1)).toBe('employee_1');
-        expect<any>(page.getEmployeeText(19)).toBe('employee_19');
+        await page.filter.clear();
+        await page.filter.sendKeys('Y');
+        expect(await page.getEmployeeText(0)).toBe('employee_0');
+        expect(await page.getEmployeeText(1)).toBe('employee_1');
+        expect(await page.getEmployeeText(19)).toBe('employee_19');
 
         // names starting with input
-        page.filter.clear();
-        page.filter.sendKeys('e');
-        expect<any>(page.getEmployeeText(0)).toBe('employee_0');
-        expect<any>(page.getEmployeeText(1)).toBe('employee_1');
-        expect<any>(page.getEmployeeText(19)).toBe('employee_19');
+        await page.filter.clear();
+        await page.filter.sendKeys('e');
+        expect(await page.getEmployeeText(0)).toBe('employee_0');
+        expect(await page.getEmployeeText(1)).toBe('employee_1');
+        expect(await page.getEmployeeText(19)).toBe('employee_19');
 
         // names containing input
-        page.filter.clear();
-        page.filter.sendKeys('_1');
-        expect<any>(page.getEmployeeText(0)).toBe('employee_1');
-        expect<any>(page.getEmployeeText(1)).toBe('employee_10');
-        expect<any>(page.getEmployeeText(19)).toBe('employee_108');
+        await page.filter.clear();
+        await page.filter.sendKeys('_1');
+        expect(await page.getEmployeeText(0)).toBe('employee_1');
+        expect(await page.getEmployeeText(1)).toBe('employee_10');
+        expect(await page.getEmployeeText(19)).toBe('employee_108');
 
     });
 
-    it('should be possible to us filtering and page sizing simultaneously', () => {
+    it('should be possible to us filtering and page sizing simultaneously', async () => {
 
         // use filter when loadOnScroll is checked
-        page.filter.sendKeys('0');
-        expect<any>(page.getNumberOfEmployees()).toEqual(20);
-        expect<any>(page.getEmployeeText(0)).toBe('employee_0');
-        expect<any>(page.getEmployeeText(1)).toBe('employee_10');
-        expect<any>(page.getEmployeeText(19)).toBe('employee_109');
+        await page.filter.sendKeys('0');
+        expect(await page.getNumberOfEmployees()).toEqual(20);
+        expect(await page.getEmployeeText(0)).toBe('employee_0');
+        expect(await page.getEmployeeText(1)).toBe('employee_10');
+        expect(await page.getEmployeeText(19)).toBe('employee_109');
 
         // scroll down
-        page.hoverOverLastEmployee();
-        expect<any>(page.getNumberOfEmployees()).toEqual(21);
-        expect<any>(page.getEmployeeText(20)).toBe('employee_110');
+        await page.hoverOverLastEmployee();
+        expect(await page.getNumberOfEmployees()).toEqual(21);
+        expect(await page.getEmployeeText(20)).toBe('employee_110');
 
         // uncheck loadOnScroll
-        page.clickOnLoadOnScroll();
+        await page.clickOnLoadOnScroll();
 
         // set page size to 2
-        page.clickOnPageSize();
-        page.getPageSize().sendKeys(Key.ARROW_RIGHT);
-        page.getPageSize().sendKeys(Key.DELETE);
+        await page.clickOnPageSize();
+        await page.getPageSize().sendKeys(Key.ARROW_RIGHT);
+        await page.getPageSize().sendKeys(Key.DELETE);
 
         // check employee list
-        expect<any>(page.getNumberOfEmployees()).toEqual(2);
-        expect<any>(page.getEmployeeText(0)).toBe('employee_0');
-        expect<any>(page.getEmployeeText(1)).toBe('employee_10');
+        expect(await page.getNumberOfEmployees()).toEqual(2);
+        expect(await page.getEmployeeText(0)).toBe('employee_0');
+        expect(await page.getEmployeeText(1)).toBe('employee_10');
 
         // load more
-        page.loadMoreButton.click();
-        expect<any>(page.getNumberOfEmployees()).toEqual(4);
-        expect<any>(page.getEmployeeText(2)).toBe('employee_20');
-        expect<any>(page.getEmployeeText(3)).toBe('employee_30');
+        await page.loadMoreButton.click();
+        expect(await page.getNumberOfEmployees()).toEqual(4);
+        expect(await page.getEmployeeText(2)).toBe('employee_20');
+        expect(await page.getEmployeeText(3)).toBe('employee_30');
 
     });
 });

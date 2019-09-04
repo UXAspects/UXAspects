@@ -1,13 +1,6 @@
-import { Directive, TemplateRef } from '@angular/core';
-import { TabComponent } from './tab.component';
+import { Directive } from '@angular/core';
 
 @Directive({
     selector: '[uxTabHeading]'
 })
-export class TabHeadingDirective {
-
-    constructor(templateRef: TemplateRef<any>, tab: TabComponent) {
-        tab.headingRef = templateRef;
-    }
-
-}
+export class TabHeadingDirective { }

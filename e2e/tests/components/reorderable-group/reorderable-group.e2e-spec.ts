@@ -1,13 +1,14 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { ReorderableGroupPage } from './reorderable-group.po.spec';
 
 describe('Reorderable Group', () => {
 
     let page: ReorderableGroupPage;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         page = new ReorderableGroupPage();
-        page.getPage();
+        await page.getPage();
     });
 
     it('should have correct initial states', async () => {
@@ -22,6 +23,8 @@ describe('Reorderable Group', () => {
 
         const objects2 = await page.getObjects2();
         expect(objects2.length).toBe(0);
+
+        expect(await imageCompare('reorderable-group-initial')).toEqual(0);
     });
 
     it('should be able to reorder within a container', async () => {

@@ -38,7 +38,7 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
     };
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[];

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, CheckboxModule, ColorPickerModule, ColorServiceModule, NumberPickerModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, CheckboxModule, ColorPickerModule, ColorServiceModule, IconModule, NumberPickerModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -26,14 +26,15 @@ const ROUTES = [
 @NgModule({
     imports: [
         AccordionModule,
+        BsDropdownModule,
         CheckboxModule,
         ColorPickerModule,
         ColorServiceModule,
         CommonModule,
         DocumentationComponentsModule,
         FormsModule,
+        IconModule,
         NumberPickerModule,
-        BsDropdownModule,
         RadioButtonModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,

@@ -1,7 +1,7 @@
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
@@ -33,7 +33,7 @@ const TAGINPUT_VALIDATOR = {
         '[class.invalid]': '!valid || !inputValid'
     }
 })
-export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
+export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, ControlValueAccessor, Validator, OnDestroy {
 
     /** Specify a unique Id for the component */
     @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
@@ -171,6 +171,12 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Define a custom icon to be used instead of the chevron */
     @Input() icon: TemplateRef<any>;
 
+    /** Determine if we should show the clear all button */
+    @Input() clearButton: boolean = false;
+
+    /** Determine an aria label for the clear button */
+    @Input() clearButtonAriaLabel: string = 'Reset selection';
+
     /** Emits when tags is changed. */
     @Output() tagsChange = new EventEmitter<ReadonlyArray<T>>();
 
@@ -197,7 +203,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
-    @ViewChild('tagInput') tagInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
 
     selectedIndex: number = -1;
 
@@ -211,6 +217,10 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     inputValid: boolean = true;
     typeahead: TypeaheadComponent;
     highlightedElement: HTMLElement;
+
+    get _showClearButton(): boolean {
+        return this.clearButton && this.tags && this.tags.length > 0;
+    }
 
     private _input: string = '';
     private _tags: ReadonlyArray<T> = [];
@@ -286,8 +296,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /**
      * Validate the value of the control (tags property).
      */
-    validate(): void {
+    validate(): ValidationErrors | null {
         this.valid = true;
+
         let tagRangeError = null;
         if (this.tags && (this.tags.length < this.minTags || this.tags.length > this.maxTags)) {
             tagRangeError = {
@@ -298,6 +309,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
             this.valid = false;
         }
         this.validationErrors['tagRangeError'] = tagRangeError;
+
+        // forward any error to the form control
+        return tagRangeError;
     }
 
     @HostListener('keydown', ['$event'])
@@ -442,6 +456,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         }
 
         this.selectInput();
+
+        // mark form control as touched
+        this._onTouchedHandler();
     }
 
     inputPasteHandler(event: ClipboardEvent): void {
@@ -655,6 +672,16 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
 
     toggle(): void {
         this.typeahead && this.typeahead.open ? this.typeahead.open = false : this.inputClickHandler();
+    }
+
+    clear(): void {
+        if (this.disabled) {
+            return;
+        }
+
+        this.tags = [];
+        this.input = '';
+        this.focus();
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent): void {

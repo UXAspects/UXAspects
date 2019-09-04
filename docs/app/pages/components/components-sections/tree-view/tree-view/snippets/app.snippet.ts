@@ -83,6 +83,19 @@ export class AppComponent {
             node.treeModel.setFocus(false);
         }
     }
+
+    getIcon(node: TreeNode): string {
+        if (node.hasChildren && !node.isExpanded) {
+            return 'folder';
+        }
+        if (node.hasChildren && node.isExpanded) {
+            return 'folder-open';
+        }
+
+        if (!node.hasChildren) {
+            return 'document';
+        }
+    }
 }
 
 export interface TreeViewExampleNode {

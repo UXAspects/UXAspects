@@ -3,6 +3,7 @@
 :host {
     display: inline-block;
     margin-left: 15px;
+
     a {
         color: @text-color;
     }
@@ -15,31 +16,38 @@
 
 .usage-popover {
     width: 100%;
+
     tr {
-        height: 30;
         border-bottom: 1px solid @grey5;
+
         td {
             padding-top: 10px;
             padding-bottom: 10px;
-            .hpe-clipboard {
+
+            ux-icon {
                 color: @grey5;
                 cursor: pointer;
-                &:hover, &:focus {
+
+                &:hover,
+                &:focus {
                     color: @grey1;
                 }
             }
-        } 
+        }
+
         &:first-child {
             td {
                 padding-top: 0;
             }
         }
+
         &:last-child {
             border-bottom: none;
+
             td {
                 padding-bottom: 0;
             }
-        }  
+        }
     }
 }
 

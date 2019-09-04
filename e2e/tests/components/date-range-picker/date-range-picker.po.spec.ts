@@ -9,7 +9,7 @@ export class DateRangePickerPage {
     disableMinAndMaxBtn = $('#disable-min-max');
 
     async getPage(): Promise<void> {
-        return await browser.get('#/date-range-picker');
+        await browser.get('#/date-range-picker');
     }
 
     async getPicker(picker: Picker): Promise<ElementFinder> {

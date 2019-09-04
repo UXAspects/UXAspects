@@ -122,14 +122,21 @@ export class PageHeaderComponent {
         console.warn(`The 'familyForeground' @Input of the ux-page-header component has been deprecated. Please change to use the 'logoForeground' @Input instead.`);
     }
 
+    get _hasLogoClick(): boolean {
+        return this.logoClick.observers.length > 0;
+    }
+
     /** Emit whenever the back button is clicked */
-    @Output() backClick = new EventEmitter();
+    @Output() backClick = new EventEmitter<MouseEvent>();
+
+    /** Emit whenever the product logo in the left corner is clicked. */
+    @Output() logoClick = new EventEmitter<MouseEvent>();
 
     /** @deprecated - Access a custom template title. Use subheaderTemplate instead */
-    @ContentChild('title') titleTemplate: TemplateRef<any>;
+    @ContentChild('title', { static: false }) titleTemplate: TemplateRef<any>;
 
     /** Access a custom subheader template */
-    @ContentChild('subheader') subheaderTemplate: TemplateRef<any>;
+    @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;
 
     /** Access all the custom menu TemplateRefs */
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
@@ -145,10 +152,6 @@ export class PageHeaderComponent {
     private _logoForeground: string;
 
     constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
-
-    goBack(): void {
-        this.backClick.emit();
-    }
 
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);

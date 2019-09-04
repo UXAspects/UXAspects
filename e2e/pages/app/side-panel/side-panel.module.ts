@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SidePanelModule, RadioButtonModule, CheckboxModule } from '@ux-aspects/ux-aspects';
-
-import { SidePanelTestPageComponent } from './side-panel.testpage.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CheckboxModule, IconModule, RadioButtonModule, SidePanelModule } from '@ux-aspects/ux-aspects';
+import { SidePanelTestPageComponent } from './side-panel.testpage.component';
+
 
 @NgModule({
     imports: [
         FormsModule,
+        IconModule,
         RouterModule.forChild([
             {
                 path: '',

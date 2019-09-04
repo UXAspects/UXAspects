@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, FloatingActionButtonsModule, MenuModule, MenuNavigationModule, PaginationModule, RadioButtonModule, StringFilterModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, FloatingActionButtonsModule, IconModule, MenuModule, MenuNavigationModule, PaginationModule, RadioButtonModule, StringFilterModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -43,6 +43,7 @@ const ROUTES = [
         DocumentationComponentsModule,
         FloatingActionButtonsModule,
         FormsModule,
+        IconModule,
         MenuModule,
         MenuNavigationModule,
         PaginationModule,

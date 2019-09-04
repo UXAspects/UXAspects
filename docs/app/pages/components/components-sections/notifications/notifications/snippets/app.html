@@ -15,13 +15,13 @@
         tabindex="0"
         aria-label="Dismiss Notification"
         (click)="notificationService.dismiss(notificationRef)">
-        <i class="hpe-icon hpe-close"></i>
+        <ux-icon name="close"></ux-icon>
     </button>
 
     <div class="notification-wrapper">
 
         <div class="notification-icon">
-            <span class="hpe-icon hpe-chat"></span>
+            <ux-icon name="chat"></ux-icon>
         </div>
 
         <div class="notification-content">
@@ -60,7 +60,7 @@
                                     [style.background-color]="selected.rgba">
                                     &nbsp;
                                 </span>
-                                <span class="hpe-icon hpe-chevron-down"></span>
+                                <ux-icon name="chevron-down"></ux-icon>
 
                             </button>
 

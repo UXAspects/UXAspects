@@ -289,13 +289,14 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
     }
 
     /**
-     * Remove any existing event subscriptions for the load button `load` event, then attach subscriptions
+     * Remove any existing event subscriptions for the load button `loading` event, then attach
+     * subscriptions
      * for any in the query.
      */
     private attachLoadButtonEvents(): void {
         this._loadButtonSubscriptions.forEach(s => s.unsubscribe());
         this._loadButtonSubscriptions = this._loadButtonQuery.map(
-            loadButton => loadButton.load.subscribe(this.loadNextPage.bind(this))
+            loadButton => loadButton.loading.subscribe(this.loadNextPage.bind(this))
         );
     }
 

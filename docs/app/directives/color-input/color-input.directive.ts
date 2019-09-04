@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges } from '@angular/core';
+import { AfterViewInit, Directive, Input, OnChanges } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Directive({
@@ -7,9 +7,9 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
         '[style.box-shadow]': 'shadowStyle'
     }
 })
-export class ColorInputDirective implements OnChanges {
+export class ColorInputDirective implements AfterViewInit, OnChanges {
 
-    @Input('uxd-color-input') value: string; 
+    @Input('uxd-color-input') value: string;
 
     shadowStyle: SafeStyle;
 
@@ -53,7 +53,7 @@ export class ColorInputDirective implements OnChanges {
     }
 
     private setColor(color: string) {
-        // santize input string 
+        // santize input string
         this.shadowStyle = this.domSanitizer.bypassSecurityTrustStyle(`${color} 0px 4px 0px`);
     }
 

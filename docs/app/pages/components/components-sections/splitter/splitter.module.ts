@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AccessibilityModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { AngularSplitModule } from 'angular-split';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -28,6 +28,7 @@ const ROUTES = [
         AccessibilityModule,
         AngularSplitModule,
         DocumentationComponentsModule,
+        IconModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
     ],

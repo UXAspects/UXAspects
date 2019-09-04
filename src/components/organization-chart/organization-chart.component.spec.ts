@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from '../../common/testing/index';
 import { AccessibilityModule } from '../../directives/accessibility/index';
 import { ResizeDimensions, ResizeService } from '../../directives/resize/index';
+import { IconModule } from '../icon/index';
 import { OrganizationChartComponent, OrganizationChartNode } from './organization-chart.component';
 
 export class MockResizeService {
@@ -87,6 +88,7 @@ describe('Organization Chart Component', () => {
         TestBed.configureTestingModule({
             imports: [
                 AccessibilityModule,
+                IconModule,
                 CommonModule
             ],
             providers: [

@@ -2,7 +2,7 @@
     font-weight: 600;
 }
 
-.ux-custom-filter .hpe-down {
+.ux-custom-filter .custom-filter-chevron {
     font-size: 0.625rem;
 }
 
@@ -10,7 +10,8 @@
     padding-left: 10px;
 }
 
-.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item .hpe-icon {
+.ux-custom-filter .dropdown-menu .dropdown-list-item .dropdown-item ux-icon {
+    display: inline-block;
     width: 16px;
 }
 

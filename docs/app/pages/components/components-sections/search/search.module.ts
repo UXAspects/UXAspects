@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, ColorServiceModule, FocusIfModule, ItemDisplayPanelModule, RadioButtonModule, SearchBuilderModule, SelectListModule, TabsetModule, ToggleSwitchModule, ToolbarSearchModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, ColorServiceModule, FocusIfModule, IconModule, ItemDisplayPanelModule, RadioButtonModule, SearchBuilderModule, SelectListModule, TabsetModule, ToggleSwitchModule, ToolbarSearchModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -35,6 +35,7 @@ const ROUTES = [
         DocumentationComponentsModule,
         FocusIfModule,
         FormsModule,
+        IconModule,
         ItemDisplayPanelModule,
         ModalModule,
         RadioButtonModule,

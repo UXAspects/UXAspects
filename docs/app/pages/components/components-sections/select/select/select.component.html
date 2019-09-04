@@ -12,11 +12,12 @@
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
-                [readonlyInput]="readonlyInput">
+                [readonlyInput]="readonlyInput"
+                [clearButton]="clearButton">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
-                        <i class="hpe-icon hpe-add"></i>
+                        <i class="ux-icon ux-icon-add"></i>
                     </div>
                 </ng-template>
             </ux-select>
@@ -54,6 +55,11 @@
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -203,6 +209,14 @@
     <tr uxd-api-property name="autocomplete" type="string" defaultValue="off">
         Defines the autocomplete property on the input field which can be used to prevent the browser from displaying
         autocomplete suggestions.
+    </tr>
+    <tr uxd-api-property name="clearButton" type="boolean" defaultValue="false">
+        Defines if a clear button should be shown whenever one or more values are selected.
+        The button will remove selected values. When using a single select <code>allowNull</code> must also be set to <code>true</code>
+        for the clear button to be visible.
+    </tr>
+    <tr uxd-api-property name="clearButtonAriaLabel" type="string">
+        Defines the aria label for the clear button.
     </tr>
 </uxd-api-properties>
 

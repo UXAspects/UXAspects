@@ -136,6 +136,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** If `true` the input field will be readonly and selection can only occur by using the dropdown. */
     @Input() readonlyInput: boolean = false;
 
+    /** Determine if we should show the clear all button */
+    @Input() clearButton: boolean = false;
+
+    /** Determine an aria label for the clear button */
+    @Input() clearButtonAriaLabel: string = 'Reset selection';
+
     /**
      * A template which will be rendered in the dropdown for each option.
      * The following context properties are available in the template:
@@ -154,12 +160,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild('icon') icon: TemplateRef<any>;
+    @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
 
-    @ViewChild('singleInput') singleInput: ElementRef;
-    @ViewChild('tagInput') tagInput: TagInputComponent;
-    @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
-    @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
+    @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: TagInputComponent;
+    @ViewChild('multipleTypeahead', { static: false }) multipleTypeahead: TypeaheadComponent;
+    @ViewChild('singleTypeahead', { static: false }) singleTypeahead: TypeaheadComponent;
 
     highlightedElement: HTMLElement;
     filter$: Observable<string>;
@@ -343,6 +349,17 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             // firefox requires a delay before clearing the selection (other browsers don't)
             this._platform.FIREFOX ? requestAnimationFrame(() => element.setSelectionRange(0, 0)) : element.setSelectionRange(0, 0);
         }
+    }
+
+    clear(): void {
+        if (this.disabled) {
+            return;
+        }
+
+        // clear the value and input text
+        this.value = null;
+        this.input = null;
+        this.selectInputText();
     }
 
     private selectInputText(): void {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ColorServiceModule, TabsetModule } from '@ux-aspects/ux-aspects';
+import { ColorServiceModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartsModule } from 'ng2-charts';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -29,6 +29,7 @@ const ROUTES = [
         ColorServiceModule,
         CommonModule,
         DocumentationComponentsModule,
+        IconModule,
         RouterModule.forChild(ROUTES),
         TabsetModule,
     ],
