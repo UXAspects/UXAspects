@@ -50,6 +50,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     onChangeCallback: (_: string | number) => void = () => { };
 
     private _value: string | number;
+    private _regexKeypress = RegExp(/^[0-9.,-]+$/);
+    private _regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
 
     scroll(event: WheelEvent): void {
 
@@ -101,7 +103,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
             return;
         }
 
-        if (!new RegExp(/^[0-9.,-]+$/).test(event.key)) {
+        if (!this._regexKeypress.test(event.key)) {
             return false;
         }
 
@@ -119,7 +121,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         const value = event.clipboardData.getData('text');
 
         // check if it contains the character
-        if (!RegExp(/^\-?\d+(\.\d+)?$/).test(value)) {
+        if (!this._regexPaste.test(value)) {
 
             // inset the numeric value only if there is one
             const numericValue = parseFloat(value);
