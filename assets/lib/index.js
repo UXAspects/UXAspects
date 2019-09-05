@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('angular-split'), require('resize-observer-polyfill'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/common/http'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'angular-split', 'resize-observer-polyfill', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-            (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.angularSplit, global.ResizeObserver, global.dragulaNamespace, global.ng.cdk.observers, global.ng.cdk.overlay, global.ng.common.http, global.d3Ease, global.ng.cdk.portal, global.d3Interpolate, global.d3Shape, global.d3Zoom, global.ng.router, global.d3Hierarchy, global.d3Scale, global.d3Selection, global.d3Transition, global.d3Array, global.ng.cdk.platform, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.animations, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.forms, global.ng.upgrade.static, global.ng.cdk.keycodes, global.ng.core));
-}(this, (function (exports, angularSplit, ResizeObserver, dragulaNamespace, observers, overlay, http, d3Ease, portal, d3Interpolate, d3Shape, d3Zoom, router, d3Hierarchy, d3Scale, d3Selection, d3Transition, d3Array, platform, coercion, a11y, animations, common, rxjs, operators, forms, _static, keycodes, i0) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('resize-observer-polyfill'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('angular-split'), require('@angular/common/http'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'resize-observer-polyfill', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', 'angular-split', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+            (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.ResizeObserver, global.dragulaNamespace, global.ng.cdk.observers, global.ng.cdk.overlay, global.angularSplit, global.ng.common.http, global.d3Ease, global.ng.cdk.portal, global.d3Interpolate, global.d3Shape, global.d3Zoom, global.ng.router, global.d3Hierarchy, global.d3Scale, global.d3Selection, global.d3Transition, global.d3Array, global.ng.cdk.platform, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.animations, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.forms, global.ng.upgrade.static, global.ng.cdk.keycodes, global.ng.core));
+}(this, (function (exports, ResizeObserver, dragulaNamespace, observers, overlay, angularSplit, http, d3Ease, portal, d3Interpolate, d3Shape, d3Zoom, router, d3Hierarchy, d3Scale, d3Selection, d3Transition, d3Array, platform, coercion, a11y, animations, common, rxjs, operators, forms, _static, keycodes, i0) {
     'use strict';
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -13212,11 +13212,14 @@
             this.readOnly = true;
             this.scrolling = true;
             this.arrowkeys = true;
+            this.maxLength = Infinity;
             this.valueChange = new i0.EventEmitter();
             this.increment = new i0.EventEmitter();
             this.decrement = new i0.EventEmitter();
             this.onTouchedCallback = function () { };
             this.onChangeCallback = function () { };
+            this._regexKeypress = RegExp(/^[0-9.,-]+$/);
+            this._regexPaste = RegExp(/^\-?\d+(\.\d+)?$/);
         }
         Object.defineProperty(SpinButtonComponent.prototype, "value", {
             get: /**
@@ -13321,10 +13324,88 @@
             function (isDisabled) {
                 this.disabled = isDisabled;
             };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SpinButtonComponent.prototype.onKeypress = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // we only need to perform checks if the type is number
+                if (this.type !== 'number') {
+                    return;
+                }
+                if (!this._regexKeypress.test(event.key)) {
+                    return false;
+                }
+                return true;
+            };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        SpinButtonComponent.prototype.onPaste = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                // we only need to perform checks if the type is number
+                if (this.type !== 'number') {
+                    return;
+                }
+                // get the value being pasted
+                /** @type {?} */
+                var value = event.clipboardData.getData('text');
+                // check if it contains the character
+                if (!this._regexPaste.test(value)) {
+                    // inset the numeric value only if there is one
+                    /** @type {?} */
+                    var numericValue = parseFloat(value);
+                    if (!isNaN(numericValue)) {
+                        this.value = numericValue;
+                    }
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            };
+        /**
+         * @param {?} input
+         * @param {?} value
+         * @return {?}
+         */
+        SpinButtonComponent.prototype.onValueChange = /**
+         * @param {?} input
+         * @param {?} value
+         * @return {?}
+         */
+            function (input, value) {
+                // ensure the value is not longer than the maxLength (verify value is a string in case it is
+                // null or undefined, before trying to check the length.
+                if (typeof value === 'string' && value.length > this.maxLength) {
+                    // if the type specified is a number then it may begin with a 0
+                    // e.g. "02", in which case if we add a second digit we should drop
+                    // the leading "0" and allow the non-zero number to be added
+                    if (this.type === 'number') {
+                        value = parseFloat(value).toString();
+                    }
+                    // remove any characters over the max length
+                    value = value.substring(0, this.maxLength);
+                    // We must manually update the input value in this case rather than relying
+                    // on Angular, as if value was previously "11" and we add an additional digit
+                    // e.g. "112", after performing the substring, the outputted value would again
+                    // be "11" which Angular would not recognize as having changed so it will not
+                    // update the value displayed in the input.
+                    input.value = value;
+                }
+                // emit the value after all length checks
+                this.valueChange.emit(value);
+            };
         SpinButtonComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-spin-button',
-                        template: "<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n    <ux-icon name=\"up\" class=\"spin-button-up-icon\"></ux-icon>\n</button>\n\n<input [type]=\"type\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"valueChange.emit($event)\"\n       (wheel)=\"scroll($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n    <ux-icon name=\"down\" class=\"spin-button-down-icon\"></ux-icon>\n</button>",
+                        template: "<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"incrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerIncrement()\">\n\n    <ux-icon name=\"up\" class=\"spin-button-up-icon\"></ux-icon>\n</button>\n\n<input #input\n       type=\"text\"\n       role=\"spinbutton\"\n       [min]=\"min\"\n       [max]=\"max\"\n       [tabindex]=\"0\"\n       class=\"form-control\"\n       [placeholder]=\"placeholder\"\n       [readOnly]=\"readOnly\"\n       [disabled]=\"disabled\"\n       [attr.aria-label]=\"inputAriaLabel\"\n       [attr.aria-disabled]=\"disabled\"\n       [attr.aria-valuemin]=\"min\"\n       [attr.aria-valuenow]=\"value\"\n       [attr.aria-valuemax]=\"max\"\n       [attr.aria-readonly]=\"readOnly\"\n       [ngModel]=\"value\"\n       (ngModelChange)=\"onValueChange(input, $event)\"\n       (wheel)=\"scroll($event)\"\n       (keypress)=\"onKeypress($event)\"\n       (paste)=\"onPaste($event)\"\n       (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n       (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n<button type=\"button\"\n        uxFocusIndicator\n        class=\"spin-button\"\n        *ngIf=\"spinners\"\n        tabindex=\"-1\"\n        [disabled]=\"disabled\"\n        [attr.aria-label]=\"decrementAriaLabel\"\n        [attr.aria-disabled]=\"disabled\"\n        (click)=\"triggerDecrement()\">\n\n    <ux-icon name=\"down\" class=\"spin-button-down-icon\"></ux-icon>\n</button>\n",
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [SPIN_BUTTON_VALUE_ACCESSOR]
@@ -13341,6 +13422,7 @@
             readOnly: [{ type: i0.Input }],
             scrolling: [{ type: i0.Input }],
             arrowkeys: [{ type: i0.Input }],
+            maxLength: [{ type: i0.Input }],
             incrementAriaLabel: [{ type: i0.Input }],
             inputAriaLabel: [{ type: i0.Input }],
             decrementAriaLabel: [{ type: i0.Input }],
@@ -13875,7 +13957,7 @@
         TimePickerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-time-picker',
-                        template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"value | date: showMeridian ? 'h' : 'HH'\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'mm'\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"text\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'ss'\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === _meridian\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === _meridian\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>",
+                        template: "<div class=\"time-picker\" aria-label=\"Time picker\">\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showHours\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"HH\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"showMeridian ? 12 : 23\"\n            [value]=\"value | date: showMeridian ? 'h' : 'HH'\"\n            (valueChange)=\"hourChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"hour\"\n            incrementAriaLabel=\"Increment the hour\"\n            decrementAriaLabel=\"Decrement the hour\"\n            (increment)=\"incrementHour()\"\n            (decrement)=\"decrementHour()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showMinutes\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"MM\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'mm'\"\n            (valueChange)=\"minuteChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"minute\"\n            incrementAriaLabel=\"Increment the minute\"\n            decrementAriaLabel=\"Decrement the minute\"\n            (increment)=\"incrementMinute()\"\n            (decrement)=\"decrementMinute()\">\n        </ux-spin-button>\n\n    </div>\n\n    <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n    <div class=\"time-picker-column\" [class.has-error]=\"!_valid\" *ngIf=\"showSeconds\">\n\n        <ux-spin-button\n            type=\"number\"\n            class=\"time-spinner\"\n            placeholder=\"SS\"\n            [maxLength]=\"2\"\n            [min]=\"0\"\n            [max]=\"59\"\n            [value]=\"value | date: 'ss'\"\n            (valueChange)=\"secondChange($event)\"\n            [spinners]=\"showSpinners\"\n            [disabled]=\"disabled\"\n            [readOnly]=\"readOnly\"\n            inputAriaLabel=\"seconds\"\n            incrementAriaLabel=\"Increment the second\"\n            decrementAriaLabel=\"Decrement the second\"\n            (increment)=\"incrementSecond()\"\n            (decrement)=\"decrementSecond()\">\n        </ux-spin-button>\n\n    </div>\n</div>\n\n<div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n    <div class=\"btn-group\" role=\"radiogroup\">\n\n        <button type=\"button\"\n                class=\"btn button-toggle-accent\"\n                *ngFor=\"let meridian of meridians\"\n                role=\"radio\"\n                tabindex=\"0\"\n                [disabled]=\"disabled\"\n                (click)=\"selectMeridian(meridian)\"\n                [class.active]=\"meridian === _meridian\"\n                [attr.aria-label]=\"meridian\"\n                [attr.aria-checked]=\"meridian === _meridian\"\n                [attr.aria-disabled]=\"disabled\">\n                {{ meridian }}\n        </button>\n\n    </div>\n</div>",
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [TIME_PICKER_VALUE_ACCESSOR],
@@ -24860,12 +24942,44 @@
      */
     var MarqueeWizardComponent = /** @class */ (function (_super) {
         __extends(MarqueeWizardComponent, _super);
-        function MarqueeWizardComponent(marqueeWizardService) {
+        function MarqueeWizardComponent(marqueeWizardService, _resizeService, _elementRef) {
             var _this = _super.call(this) || this;
+            _this._resizeService = _resizeService;
+            _this._elementRef = _elementRef;
+            /**
+             * Initial set to default width to match 240px on left but can be changed with a perecentage value
+             */
+            _this.sidePanelWidth = 25;
+            /**
+             * Width of the splitter - default is 10
+             */
+            _this.gutterSize = 10;
+            /**
+             * If set to true the resizable splitter will be enabled and set to the default width *
+             */
+            _this.resizable = false;
+            /**
+             * Emit the current width of the splitter
+             */
+            _this.sidePanelWidthChange = new i0.EventEmitter();
             /**
              * Access each step content component
              */
             _this.steps = new i0.QueryList();
+            /**
+             * If the wizard is in a modal it may initially have a size of 0 until the modal displays
+             * in which case if we are using the splitter it will not render correctly. We use this
+             * variable to only initialise the splitter when the content has a width.
+             */
+            _this._isInitialised = false;
+            /**
+             * Unsubscribe from all subscriptions when component is destroyed
+             */
+            _this._onDestroyed = new rxjs.Subject();
+            // watch for changes to the size
+            _resizeService.addResizeListener(_elementRef.nativeElement)
+                .pipe(operators.takeUntil(_this._onDestroyed))
+                .subscribe(_this.onResize.bind(_this));
             marqueeWizardService.valid$.pipe(operators.filter(function (event) { return !event.valid; }))
                 .subscribe(_this.validChange.bind(_this));
             return _this;
@@ -24879,6 +24993,18 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @return {?}
+         */
+        MarqueeWizardComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                _super.prototype.ngOnDestroy.call(this);
+                this._onDestroyed.next();
+                this._onDestroyed.complete();
+                this._resizeService.removeResizeListener(this._elementRef.nativeElement);
+            };
         /**
          * If the current step is valid, mark it as
          * complete and go to the next step
@@ -24968,22 +25094,58 @@
                     }
                 });
             };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MarqueeWizardComponent.prototype.onResize = /**
+         * @param {?} event
+         * @return {?}
+         */
+            function (event) {
+                if (event.width !== 0 && event.height !== 0) {
+                    this._isInitialised = true;
+                }
+            };
+        /** Whenever the drag event ends, update the internal value and emit the new size */
+        /**
+         * Whenever the drag event ends, update the internal value and emit the new size
+         * @param {?} __0
+         * @return {?}
+         */
+        MarqueeWizardComponent.prototype.onDragEnd = /**
+         * Whenever the drag event ends, update the internal value and emit the new size
+         * @param {?} __0
+         * @return {?}
+         */
+            function (_a) {
+                var sizes = _a.sizes;
+                // we need to only get the size of the first panel which will be the side panel
+                this.sidePanelWidth = sizes[0];
+                this.sidePanelWidthChange.emit(this.sidePanelWidth);
+            };
         MarqueeWizardComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-marquee-wizard',
-                        template: "<div class=\"marquee-wizard-side-panel\">\n\n    <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n        <!-- If a template was provided display it -->\n        <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n        <!-- Otherwise wimply display the string -->\n        <ng-container *ngIf=\"!isTemplate\">\n            <p>{{ description }}</p>\n        </ng-container>\n    </div>\n\n    <ul class=\"marquee-wizard-steps\"\n        uxTabbableList\n        direction=\"vertical\"\n        role=\"tablist\"\n        aria-orientation=\"vertical\">\n\n        <li *ngFor=\"let step of steps; let index = index\"\n            role=\"tab\"\n            uxTabbableListItem\n            [disabled]=\"!step.visited\"\n            class=\"marquee-wizard-step\"\n            [class.active]=\"step.active\"\n            [class.visited]=\"step.visited\"\n            [class.invalid]=\"!step.valid\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"step.active\"\n            [attr.aria-controls]=\"step.id\"\n            [id]=\"step.id + '-label'\"\n            (click)=\"gotoStep(step)\"\n            (keydown.enter)=\"gotoStep(step)\">\n\n            <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n        </li>\n\n    </ul>\n</div>\n\n<div class=\"marquee-wizard-content-panel\">\n    <div class=\"marquee-wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n    <div class=\"modal-footer\">\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-secondary\"\n                *ngIf=\"previousVisible\"\n                [uxTooltip]=\"previousTooltip\"\n                [attr.aria-label]=\"previousAriaLabel\"\n                container=\"body\"\n                [disabled]=\"previousDisabled || step === 0\"\n                (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n        </button>\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-primary\"\n                *ngIf=\"nextVisible && !isLastStep()\"\n                [uxTooltip]=\"nextTooltip\"\n                [attr.aria-label]=\"nextAriaLabel\"\n                container=\"body\"\n                [disabled]=\"nextDisabled\"\n                (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n        </button>\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-primary\"\n                *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                [uxTooltip]=\"finishTooltip\"\n                [attr.aria-label]=\"finishAriaLabel\"\n                container=\"body\"\n                [disabled]=\"finishDisabled\"\n                (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n        </button>\n\n        <button #tip=\"ux-tooltip\"\n                type=\"button\"\n                class=\"btn button-secondary\"\n                *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                [uxTooltip]=\"cancelTooltip\"\n                [attr.aria-label]=\"cancelAriaLabel\"\n                container=\"body\"\n                [disabled]=\"cancelDisabled\"\n                (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n        </button>\n    </div>\n</div>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Show an icon based on a string (deprecated) -->\n    <ng-container *ngIf=\"step._icon\">\n        <i *ngIf=\"step._iconType !== 'component'\" class=\"marquee-wizard-step-icon\" [ngClass]=\"[step._iconType, step._icon]\"></i>\n        <ux-icon *ngIf=\"step._iconType === 'component'\" class=\"marquee-wizard-step-icon\" [name]=\"step._icon\"></ux-icon>\n    </ng-container>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>",
+                        template: "<ng-container *ngIf=\"resizable && _isInitialised\">\n    <split direction=\"horizontal\"\n           [gutterSize]=\"gutterSize\"\n           (dragEnd)=\"onDragEnd($event)\">\n        <split-area [size]=\"sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n        </split-area>\n        <split-area [size]=\"100 - sidePanelWidth\">\n            <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n        </split-area>\n    </split>\n</ng-container>\n\n<ng-container *ngIf=\"!resizable\">\n    <ng-container [ngTemplateOutlet]=\"sidePanel\"></ng-container>\n    <ng-container [ngTemplateOutlet]=\"mainContentPanel\"></ng-container>\n</ng-container>\n\n<ng-template #sidePanel>\n    <div class=\"marquee-wizard-side-panel\" [class.marquee-wizard-side-panel-resize]=\"resizable\">\n\n        <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n            <!-- If a template was provided display it -->\n            <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n            <!-- Otherwise wimply display the string -->\n            <ng-container *ngIf=\"!isTemplate\">\n                <p>{{ description }}</p>\n            </ng-container>\n        </div>\n\n        <ul class=\"marquee-wizard-steps\"\n            uxTabbableList\n            direction=\"vertical\"\n            role=\"tablist\"\n            aria-orientation=\"vertical\">\n\n            <li *ngFor=\"let step of steps; let index = index\"\n                role=\"tab\"\n                uxTabbableListItem\n                [disabled]=\"!step.visited\"\n                class=\"marquee-wizard-step\"\n                [class.active]=\"step.active\"\n                [class.visited]=\"step.visited\"\n                [class.invalid]=\"!step.valid\"\n                [attr.aria-posinset]=\"index + 1\"\n                [attr.aria-setsize]=\"steps.length\"\n                [attr.aria-selected]=\"step.active\"\n                [attr.aria-controls]=\"step.id\"\n                [id]=\"step.id + '-label'\"\n                (click)=\"gotoStep(step)\"\n                (keydown.enter)=\"gotoStep(step)\">\n\n                <ng-container [ngTemplateOutlet]=\"stepTemplate || defaultStepTemplate\" [ngTemplateOutletContext]=\"{ $implicit: step }\"></ng-container>\n            </li>\n\n        </ul>\n    </div>\n</ng-template>\n\n\n<ng-template #mainContentPanel>\n    <div class=\"marquee-wizard-content-panel\" [class.marquee-wizard-content-panel-resize]=\"resizable\">\n        <div class=\"marquee-wizard-content\">\n            <ng-content></ng-content>\n        </div>\n\n        <div class=\"modal-footer\">\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"previousVisible\"\n                    [uxTooltip]=\"previousTooltip\"\n                    [attr.aria-label]=\"previousAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"previousDisabled || step === 0\"\n                    (click)=\"previous(); tip.hide()\">\n                {{ previousText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"nextVisible && !isLastStep()\"\n                    [uxTooltip]=\"nextTooltip\"\n                    [attr.aria-label]=\"nextAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"nextDisabled\"\n                    (click)=\"next(); tip.hide()\">\n                {{ nextText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-primary\"\n                    *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n                    [uxTooltip]=\"finishTooltip\"\n                    [attr.aria-label]=\"finishAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"finishDisabled\"\n                    (click)=\"finish(); tip.hide()\">\n                {{ finishText }}\n            </button>\n\n            <button #tip=\"ux-tooltip\"\n                    type=\"button\"\n                    class=\"btn button-secondary\"\n                    *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n                    [uxTooltip]=\"cancelTooltip\"\n                    [attr.aria-label]=\"cancelAriaLabel\"\n                    container=\"body\"\n                    [disabled]=\"cancelDisabled\"\n                    (click)=\"cancel(); tip.hide()\">\n                {{ cancelText }}\n            </button>\n        </div>\n    </div>\n</ng-template>\n\n<ng-template #defaultStepTemplate let-step>\n\n    <!-- Show an icon based on a string (deprecated) -->\n    <ng-container *ngIf=\"step._icon\">\n        <i *ngIf=\"step._iconType !== 'component'\" class=\"marquee-wizard-step-icon\" [ngClass]=\"[step._iconType, step._icon]\"></i>\n        <ux-icon *ngIf=\"step._iconType === 'component'\" class=\"marquee-wizard-step-icon\" [name]=\"step._icon\"></ux-icon>\n    </ng-container>\n\n    <!-- Insert the icon -->\n    <div *ngIf=\"step._iconTemplate\" class=\"marquee-wizard-step-icon\">\n        <ng-container [ngTemplateOutlet]=\"step._iconTemplate\"></ng-container>\n    </div>\n\n    <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n    <ux-icon *ngIf=\"step.completed\" class=\"marquee-wizard-step-status\" name=\"checkmark\"></ux-icon>\n</ng-template>",
                         providers: [MarqueeWizardService]
                     }] }
         ];
         /** @nocollapse */
         MarqueeWizardComponent.ctorParameters = function () {
             return [
-                { type: MarqueeWizardService }
+                { type: MarqueeWizardService },
+                { type: ResizeService },
+                { type: i0.ElementRef }
             ];
         };
         MarqueeWizardComponent.propDecorators = {
             description: [{ type: i0.Input }],
             stepTemplate: [{ type: i0.Input }],
+            sidePanelWidth: [{ type: i0.Input }],
+            gutterSize: [{ type: i0.Input }],
+            resizable: [{ type: i0.Input }],
+            sidePanelWidthChange: [{ type: i0.Output }],
             steps: [{ type: i0.ContentChildren, args: [MarqueeWizardStepComponent,] }]
         };
         return MarqueeWizardComponent;
@@ -25003,6 +25165,8 @@
                             IconModule,
                             TooltipModule,
                             WizardModule,
+                            angularSplit.AngularSplitModule,
+                            ResizeModule
                         ],
                         exports: [
                             MarqueeWizardComponent,
@@ -36495,16 +36659,18 @@
              */
             this.dropdownOpenChange = new i0.EventEmitter();
             this.propagateChange = function (_) { };
-            this._value$ = new rxjs.BehaviorSubject(null);
+            this._value$ = new rxjs.Subject();
+            this._hasValue = false;
             this._input$ = new rxjs.BehaviorSubject('');
             this._dropdownOpen = false;
+            this._userInput = false;
             this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(SelectComponent.prototype, "value", {
             get: /**
              * @return {?}
              */ function () {
-                return this._value$.value;
+                return this._value;
             },
             /** The selected option (for single select) or array of options (for multiple select). */
             set: /**
@@ -36562,8 +36728,10 @@
                 var _this = this;
                 // Emit change events
                 this._value$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
+                    _this._value = value;
                     _this.valueChange.emit(value);
                     _this.propagateChange(value);
+                    _this._hasValue = !!value;
                 });
                 this._input$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
                     _this.inputChange.emit(value);
@@ -36572,8 +36740,12 @@
                 this._input$.pipe(operators.filter(function () { return _this.allowNull; }), operators.filter(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.value = null; });
                 // Set up filter from input
                 this.filter$ = this._input$.pipe(operators.map(function (input) { return !_this.multiple && input === _this.getDisplay(_this.value) ? '' : input; }), operators.debounceTime(200));
-                // Open the dropdown when filter is nonempty.
-                this.filter$.pipe(operators.filter(function (value) { return value && value.length > 0; }), operators.takeUntil(this._onDestroy)).subscribe(function () { return _this.dropdownOpen = true; });
+                // open the dropdown once the filter debounce has elapsed
+                this.filter$.pipe(operators.filter(function () { return _this._userInput; }), operators.take(1), operators.takeUntil(this._onDestroy))
+                    .subscribe(function () {
+                    _this.dropdownOpen = true;
+                    _this._userInput = false;
+                });
                 // Update the single-select input when the model changes
                 this._value$.pipe(operators.distinctUntilChanged(), operators.delay(0), operators.filter(function (value) { return value !== null && !_this.multiple; }), operators.takeUntil(this._onDestroy)).subscribe(function (value) {
                     _this.input = _this.getDisplay(value);
@@ -36696,20 +36868,22 @@
             function (event) {
                 // Standard keys for typeahead (up/down/esc)
                 this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
-                switch (event.keyCode) {
-                    case keycodes.ENTER:
-                        if (this._dropdownOpen) {
-                            // Set the highlighted option as the value and close
-                            this.value = this.singleTypeahead.highlighted;
-                            this.dropdownOpen = false;
-                        }
-                        else {
-                            this.dropdownOpen = true;
-                        }
-                        // Update the input field. If dropdown isn't open then reset it to the previous value.
-                        this.input = this.getDisplay(this.value);
-                        event.preventDefault();
-                        break;
+                if (event.keyCode === keycodes.ENTER) {
+                    if (this._dropdownOpen) {
+                        // Set the highlighted option as the value and close
+                        this.value = this.singleTypeahead.highlighted;
+                        this.dropdownOpen = false;
+                    }
+                    else {
+                        this.dropdownOpen = true;
+                    }
+                    // Update the input field. If dropdown isn't open then reset it to the previous value.
+                    this.input = this.getDisplay(this.value);
+                    event.preventDefault();
+                }
+                // when the user types and the value is not empty then we should open the dropdown
+                if (event.keyCode !== keycodes.ESCAPE) {
+                    this._userInput = true;
                 }
             };
         /**
@@ -36820,7 +36994,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && value\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"value\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -36930,6 +37104,10 @@
              * Specify a unique Id for the component
              */
             this.id = "ux-tag-input-" + ++uniqueId$9;
+            /**
+             * The editable text appearing in the tag input.
+             */
+            this.input = '';
             /**
              * Controls whether pasting text into the text input area automatically converts that text into one or more tags.
              */
@@ -37049,7 +37227,6 @@
             };
             this.valid = true;
             this.inputValid = true;
-            this._input = '';
             this._tags = [];
             this._onChangeHandler = function () { };
             this._onTouchedHandler = function () { };
@@ -37075,26 +37252,6 @@
              * @return {?}
              */ function (value) {
                 this._tags = value;
-                this._onChangeHandler(this._tags);
-                this.tagsChange.emit(this._tags);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TagInputComponent.prototype, "input", {
-            /** The editable text appearing in the tag input. */
-            get: /**
-             * The editable text appearing in the tag input.
-             * @return {?}
-             */ function () {
-                return this._input;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */ function (value) {
-                this._input = value;
-                this.inputChange.emit(value);
             },
             enumerable: true,
             configurable: true
@@ -37475,7 +37632,7 @@
             function () {
                 if (this.commit(this.input)) {
                     this.selectInput();
-                    this.input = '';
+                    this.setInputValue('');
                 }
             };
         /**
@@ -37494,7 +37651,7 @@
             function (tag) {
                 if (this.addTag(tag)) {
                     this.selectInput();
-                    this.input = '';
+                    this.setInputValue('');
                 }
             };
         /**
@@ -37724,6 +37881,7 @@
                         this.selectInput();
                         // Remove the tag
                         this.tags = this.tags.filter(function (_tag, index) { return index !== tagIndex; });
+                        this.setTagsValue(this._tags);
                         // Set focus again since indices have changed
                         this.selectInput();
                         this.tagRemoved.emit(new TagInputEvent(tag));
@@ -37795,8 +37953,33 @@
                     return;
                 }
                 this.tags = [];
-                this.input = '';
+                this.setTagsValue(this._tags);
+                this.setInputValue('');
                 this.focus();
+            };
+        /**
+         * @param {?} text
+         * @return {?}
+         */
+        TagInputComponent.prototype.setInputValue = /**
+         * @param {?} text
+         * @return {?}
+         */
+            function (text) {
+                this.input = text;
+                this.inputChange.emit(text);
+            };
+        /**
+         * @param {?} tags
+         * @return {?}
+         */
+        TagInputComponent.prototype.setTagsValue = /**
+         * @param {?} tags
+         * @return {?}
+         */
+            function (tags) {
+                this._onChangeHandler(tags);
+                this.tagsChange.emit(tags);
             };
         /**
          * @param {?} typeahead
@@ -37901,6 +38084,7 @@
                         this.tagAdding.emit(tagAddingEvent);
                         if (!tagAddingEvent.defaultPrevented()) {
                             this.tags = __spread(this.tags, [tag]);
+                            this.setTagsValue(this._tags);
                             this.tagAdded.emit(new TagInputEvent(tag));
                             this.validate();
                             return true;
@@ -37990,7 +38174,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n            [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [autocomplete]=\"autocomplete\"\n            [class.invalid]=\"!inputValid\"\n            [attr.aria-activedescendant]=\"highlightedElement?.id\"\n            [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n            [attr.aria-controls]=\"typeahead?.id\"\n            [attr.aria-label]=\"ariaLabel\"\n            aria-multiline=\"false\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"toggle(); $event.stopPropagation()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\"\n            [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n        class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n        [attr.tabindex]=\"disabled ? -1 : 0\"\n        [attr.aria-label]=\"clearButtonAriaLabel\"\n        *ngIf=\"_showClearButton\"\n        (click)=\"clear(); $event.stopPropagation()\"\n        (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n        uxFocusIndicator\n        type=\"button\"\n        class=\"ux-tag-remove\"\n        aria-label=\"Remove Item\"\n        [disabled]=\"disabled\"\n        (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n                      [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n               [ngModel]=\"input\"\n               (ngModelChange)=\"setInputValue($event)\"\n               [autocomplete]=\"autocomplete\"\n               [class.invalid]=\"!inputValid\"\n               [attr.aria-activedescendant]=\"highlightedElement?.id\"\n               [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n               [attr.aria-controls]=\"typeahead?.id\"\n               [attr.aria-label]=\"ariaLabel\"\n               aria-multiline=\"false\"\n               [placeholder]=\"disabled ? '' : (placeholder || '')\"\n               [disabled]=\"disabled\"\n               [focusIf]=\"isSelected(tags.length)\"\n               (click)=\"toggle(); $event.stopPropagation()\"\n               (focus)=\"inputFocusHandler()\"\n               (paste)=\"inputPasteHandler($event)\"\n               [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n       class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n       [attr.tabindex]=\"disabled ? -1 : 0\"\n       [attr.aria-label]=\"clearButtonAriaLabel\"\n       *ngIf=\"_showClearButton\"\n       (click)=\"clear(); $event.stopPropagation()\"\n       (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n            uxFocusIndicator\n            type=\"button\"\n            class=\"ux-tag-remove\"\n            aria-label=\"Remove Item\"\n            [disabled]=\"disabled\"\n            (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -40735,7 +40919,7 @@
          */
             function (changes) {
                 if (changes.selected) {
-                    if (this.menuTrigger) {
+                    if (this.menuTrigger && !changes.selected.firstChange) {
                         this.menuTrigger.closeMenu();
                     }
                     this.onChange(changes.selected.currentValue);
@@ -40812,10 +40996,21 @@
                 this.writeValue(undefined);
                 event.stopPropagation();
             };
+        /**
+         * @return {?}
+         */
+        InputDropdownComponent.prototype._focusFilter = /**
+         * @return {?}
+         */
+            function () {
+                if (this.filterInputElement) {
+                    this.filterInputElement.nativeElement.focus();
+                }
+            };
         InputDropdownComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-input-dropdown',
-                        template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"menuTrigger.toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"filterInputElement.nativeElement.focus()\">\n\n    <div [style.max-height]=\"_maxHeightString\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filterText\"\n                    (input)=\"filterChange.emit(filterText)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"/>\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"filterText.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filterText.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>",
+                        template: "<div class=\"ux-select-container\">\n    <button #button type=\"button\" class=\"form-control\"\n            [uxMenuTriggerFor]=\"menu\">\n        <ng-template #defaultDisplayContent>{{selected ? (selected | json) : '-'}}</ng-template>\n        <ng-container [ngTemplateOutlet]=\"displayContentRef || defaultDisplayContent\"></ng-container>\n    </button>\n    <div class=\"ux-select-icons\">\n        <ux-icon name=\"close\"\n                 uxFocusIndicator\n                 class=\"ux-select-icon ux-select-clear-icon\"\n                 *ngIf=\"allowNull && selected\"\n                 (click)=\"resetValue($event)\"\n                 (keydown.enter)=\"resetValue($event)\"\n                 tabindex=\"0\">\n        </ux-icon>\n        <ux-icon name=\"chevron-down\"\n                 class=\"ux-select-icon ux-select-chevron-icon\"\n                 (click)=\"menuTrigger.toggleMenu(); $event.stopPropagation()\">\n        </ux-icon>\n    </div>\n</div>\n\n<ux-menu #menu menuClass=\"select-menu\"\n         (opened)=\"_focusFilter()\">\n\n    <div [style.max-height]=\"_maxHeightString\"\n         [style.width.px]=\"button.offsetWidth\">\n\n        <div *ngIf=\"!hideFilter\"\n             class=\"filter-container\">\n\n            <input #filterInput\n                    type=\"text\"\n                    [placeholder]=\"placeholder\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"filterText\"\n                    (input)=\"filterChange.emit(filterText)\"\n                    (click)=\"$event.stopPropagation()\"\n                    [attr.aria-label]=\"ariaLabel || placeholder\"/>\n\n            <button type=\"button\"\n                    class=\"btn btn-flat filter-button\"\n                    (click)=\"resetFilter($event)\"\n                    [tabindex]=\"filterText.length > 0 ? 0 : -1\">\n                <ux-icon [name]=\"filterText.length === 0 ? 'search' : 'close'\"></ux-icon>\n            </button>\n        </div>\n\n        <ng-content></ng-content>\n\n    </div>\n</ux-menu>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [
                             {

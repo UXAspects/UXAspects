@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.3-74 
+* @ux-aspects/ux-aspects-docs - v1.8.4-78 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -18515,12 +18515,19 @@ ux-marquee-wizard {
   height: 100%;
   min-height: 500px;
 }
+ux-marquee-wizard split-gutter {
+  background-color: #7b63a3 !important;
+}
 ux-marquee-wizard .marquee-wizard-side-panel {
   display: flex;
   flex-direction: column;
   flex: none;
   width: 240px;
   background-color: #7b63a3;
+}
+ux-marquee-wizard .marquee-wizard-side-panel.marquee-wizard-side-panel-resize {
+  height: 100%;
+  width: 100%;
 }
 ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-description-container {
   padding: 20px;
@@ -18578,6 +18585,9 @@ ux-marquee-wizard .marquee-wizard-content-panel {
   flex-direction: column;
   flex: 1;
   background-color: #fff;
+}
+ux-marquee-wizard .marquee-wizard-content-panel.marquee-wizard-content-panel-resize {
+  height: 100%;
 }
 ux-marquee-wizard .marquee-wizard-content-panel .marquee-wizard-content {
   flex: 1;
