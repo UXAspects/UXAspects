@@ -5,7 +5,6 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { CssButtonAddonsComponent } from './button-addons/button-addons.component';
 import { CssDisabledAreaComponent } from './disabled-inputs/disabled-inputs.component';
-import { CssDropdownAddonsComponent } from './dropdown-addons/dropdown-addons.component';
 import { CssInputErrorComponent } from './input-error/input-error.component';
 import { CssInputGroupsComponent } from './input-groups/input-groups.component';
 import { CssInputHeightComponent } from './input-height/input-height.component';
@@ -28,7 +27,6 @@ const SECTIONS = [
     CssInputGroupsComponent,
     CssButtonAddonsComponent,
     CssInputsHelpTextComponent,
-    CssDropdownAddonsComponent,
     CssSegmentedAddonsComponent
 ];
 

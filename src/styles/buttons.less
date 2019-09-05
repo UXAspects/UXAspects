@@ -869,11 +869,6 @@ fieldset[disabled] .btn-toggle.active {
     color: @link-btn-disabled-color;
 }
 
-.btn-login {
-    width: 100%;
-    height: 48px;
-}
-
 //addon size
 .input-group-btn {
     .btn {
@@ -938,6 +933,10 @@ fieldset[disabled] .btn-toggle.active {
 
     &.btn-circular {
         border-radius: @btn-circular-border-radius;
+
+        &.button-dark {
+            background: @btn-dark;
+        }
     }
 }
 
@@ -1037,224 +1036,6 @@ fieldset[disabled] .btn-toggle.active {
         &:focus {
             color: @hyperlink-hover-color;
             border-bottom: 2px dotted @primary;
-        }
-    }
-}
-
-//inline dropdown styles
-.inline-dropdown-text {
-    font-size: @font-size-md+0.0625rem;
-    vertical-align: 0;
-}
-
-.btn.inline-dropdown {
-    &.dropdown-toggle {
-        background: transparent;
-        padding-left: 5px;
-        padding-top: 2px;
-        padding-right: 5px;
-        box-shadow: none;
-        outline: none;
-        vertical-align: middle;
-
-        & > span {
-            border-bottom: 2px dotted @primary;
-            text-transform: none;
-            font-size: @font-size-md+0.0625rem;
-            color: @text-color;
-
-            &.caret {
-                border-bottom: none;
-            }
-
-            &.hpe-down {
-                font-size: 0.625rem;
-                border-bottom: none;
-            }
-        }
-
-        &:hover {
-            background-color: @link-btn-hover !important;
-        }
-
-        &:focus {
-            border: solid 1px @text-color;
-        }
-
-        &.no-line {
-            & > span {
-                border: none;
-            }
-        }
-    }
-}
-
-.side-inset-toggle,
-.side-inset-splitter-toggle {
-    cursor: pointer;
-
-    > a {
-        color: white;
-        margin-top: 7px;
-    }
-
-    width: 45px;
-    height: 30px;
-    background-color: @primary;
-
-    &.left {
-        border-radius: 0 20px 20px 0;
-
-        > a {
-            margin-left: 22px;
-        }
-    }
-
-    &.right {
-        border-radius: 20px 0 0 20px;
-
-        > a {
-            margin-left: 7px;
-        }
-    }
-}
-
-.side-inset-splitter-toggle-container {
-    width: 0;
-    height: 0;
-    position: relative;
-    z-index: @splitter-toggle-z-index;
-
-    .side-inset-splitter-toggle {
-        width: 32px;
-        height: 30px;
-        position: relative;
-    }
-
-    &.disabled {
-        .side-inset-splitter-toggle {
-            background-color: @btn-primary-disabled-bg;
-            cursor: not-allowed;
-
-            > a {
-                color: @btn-primary-disabled-color;
-                cursor: inherit;
-            }
-        }
-    }
-
-    &.top {
-        left: ~'calc(100% - 30px)';
-
-        .side-inset-splitter-toggle {
-            border-radius: 0 0 20px 20px;
-            width: 30px;
-            height: 32px;
-
-            > a {
-                margin-left: 8px;
-                margin-top: 12px;
-            }
-        }
-    }
-
-    &.bottom {
-        top: -32px;
-        left: ~'calc(100% - 30px)';
-
-        .side-inset-splitter-toggle {
-            border-radius: 20px 20px 0 0;
-            width: 30px;
-            height: 32px;
-
-            > a {
-                margin-left: 8px;
-                margin-bottom: 12px;
-            }
-        }
-    }
-
-    &.left {
-        .side-inset-splitter-toggle {
-            border-radius: 0 20px 20px 0;
-
-            > a {
-                margin-left: 12px;
-            }
-        }
-    }
-
-    &.right {
-        left: -32px;
-
-        .side-inset-splitter-toggle {
-            border-radius: 20px 0 0 20px;
-
-            > a {
-                margin-left: 7px;
-            }
-        }
-    }
-}
-
-.hidden-drag-handle {
-    cursor: default;
-    display: none;
-}
-
-//required to prevent IEs disappearing scrollbar
-@-ms-viewport {
-    width: auto !important;
-}
-
-.scroll-top {
-    position: fixed;
-    width: 45px;
-    height: 30px;
-    background-color: @primary;
-    z-index: @scroll-top-z-index;
-    right: -45px;
-    bottom: 75px;
-    border-radius: 20px 0 0 20px;
-    padding: 5px 17px;
-    cursor: pointer;
-    transition-property: right;
-    transition-duration: 0.4s;
-}
-
-/*
-  Thumbnail
-*/
-
-.thumbnail-button-container {
-    .thumbnail-container {
-        width: 100%;
-        border: 2px solid @thumbnail-border;
-        background-size: cover;
-        background-position: top center;
-        border-bottom: 0;
-    }
-
-    .thumbnail-button {
-        width: 100%;
-        border: 2px solid @thumbnail-border;
-    }
-
-    .no-thumbnail {
-        width: 100%;
-        border: 2px solid @thumbnail-border;
-        border-bottom: 0;
-        position: relative;
-        background-color: @thumbnail-bg;
-
-        .hpe-document {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: 100%;
-            color: @thumbnail-icon-color;
         }
     }
 }

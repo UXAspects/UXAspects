@@ -1,13 +1,13 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { CssPageTitleComponent } from './page-title/page-title.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { CssBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 const SECTIONS = [
-    CssPageTitleComponent
+    CssBreadcrumbComponent,
 ];
 
 const ROUTES = [
@@ -15,7 +15,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Page Title')
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Breadcrumbs')
         }
     }
 ];
@@ -23,13 +23,14 @@ const ROUTES = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
+        TabsetModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class CssPageTitleModule {
+export class CssBreadcrumbsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

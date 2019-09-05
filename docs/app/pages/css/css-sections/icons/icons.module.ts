@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectModule, PopoverModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { SelectModule, PopoverModule, AccessibilityModule, MenuModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -44,16 +44,17 @@ const ROUTES = [
 @NgModule({
     imports: [
         AccessibilityModule,
-        DocumentationComponentsModule,
+        ButtonsModule,
         CommonModule,
+        DocumentationComponentsModule,
         FormsModule,
-        SelectModule,
         IconModule,
-        TooltipModule,
+        MenuModule,
         PopoverModule,
-        TabsetModule,
         RouterModule.forChild(ROUTES),
-        ButtonsModule
+        SelectModule,
+        TabsetModule,
+        TooltipModule,
     ],
     exports: SECTIONS,
     declarations: [

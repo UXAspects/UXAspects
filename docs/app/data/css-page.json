@@ -2,6 +2,16 @@
     "title": "CSS",
     "categories": [
         {
+            "title": "Breadcrumbs",
+            "link": "breadcrumbs",
+            "sections": [
+                {
+                    "title": "Breadcrumb",
+                    "component": "CssBreadcrumbComponent"
+                }
+            ]
+        },
+        {
             "title": "Buttons",
             "link": "buttons",
             "sections": [
@@ -34,114 +44,6 @@
                 {
                     "title": "Color Palette",
                     "component": "CssColorPaletteComponent"
-                }
-            ]
-        },
-        {
-            "title": "Structure",
-            "link": "structure",
-            "sections": [
-                {
-                    "title": "HTML Head",
-                    "component": "CssHtmlHeadComponent"
-                },
-                {
-                    "title": "HTML Body",
-                    "component": "CssHtmlBodyComponent"
-                }
-            ]
-        },
-        {
-            "title": "Responsive Design",
-            "link": "responsive-design",
-            "sections": [
-                {
-                    "title": "Responsive Design",
-                    "component": "CssResponsiveDesignComponent"
-                },
-                {
-                    "title": "Stacked To Horizontal",
-                    "component": "CssStackedToHorizontalComponent"
-                },
-                {
-                    "title": "Mobile and Desktop",
-                    "component": "CssMobileDesktopComponent"
-                },
-                {
-                    "title": "Mobile, Tablet and Desktop",
-                    "component": "CssMobileTabletDesktopComponent"
-                },
-                {
-                    "title": "Responsive Column Resets",
-                    "component": "CssResponsiveColumnResetsComponent"
-                },
-                {
-                    "title": "Offsetting Columns",
-                    "component": "CssOffsettingColumnsComponent"
-                },
-                {
-                    "title": "Nesting Columns",
-                    "component": "CssNestingColumnsComponent"
-                },
-                {
-                    "title": "Column Ordering",
-                    "component": "CssColumnOrderingComponent"
-                }
-            ]
-        },
-        {
-            "title": "Page Header",
-            "link": "page-header",
-            "sections": [
-                {
-                    "title": "Breadcrumb",
-                    "component": "CssBreadcrumbComponent"
-                },
-                {
-                    "title": "Product Name and Logo",
-                    "component": "CssProductNameLogoComponent"
-                }
-            ]
-        },
-        {
-            "title": "Typography",
-            "link": "typography",
-            "sections": [
-                {
-                    "title": "Headings",
-                    "component": "CssHeadingsComponent"
-                },
-                {
-                    "title": "Paragraph Text",
-                    "component": "CssParagraphTextComponent"
-                },
-                {
-                    "title": "Unstyled List",
-                    "component": "CssUnstyledListComponent"
-                },
-                {
-                    "title": "Unordered List",
-                    "component": "CssUnorderedListComponent"
-                },
-                {
-                    "title": "Ordered List",
-                    "component": "CssOrderedListComponent"
-                },
-                {
-                    "title": "Emphasis Classes",
-                    "component": "CssEmphasisClassesComponent"
-                },
-                {
-                    "title": "Blockquotes",
-                    "component": "CssBlockquotesComponent"
-                },
-                {
-                    "title": "Wells",
-                    "component": "CssWellsComponent"
-                },
-                {
-                    "title": "Case Usage Guidelines",
-                    "component": "CssCaseUsageGuidelinesComponent"
                 }
             ]
         },
@@ -194,6 +96,90 @@
             ]
         },
         {
+            "title": "Panels",
+            "link": "panels",
+            "sections": [
+                {
+                    "title": "Basic Panel",
+                    "component": "CssBasicPanelComponent"
+                },
+                {
+                    "title": "EBox Panel",
+                    "component": "CssEboxPanelComponent"
+                }
+            ]
+        },
+        {
+            "title": "Progress",
+            "link": "progress",
+            "sections": [
+                {
+                    "title": "Activity Indicator",
+                    "component": "CssActivityIndicatorComponent"
+                },
+                {
+                    "title": "Activity Indicator Alternative",
+                    "component": "CssActivityIndicatorAlternativeComponent"
+                },
+                {
+                    "title": "Mini Activity Indicator",
+                    "component": "CssMiniActivityIndicatorComponent"
+                }
+            ]
+        },
+        {
+            "title": "Responsive Design",
+            "link": "responsive-design",
+            "sections": [
+                {
+                    "title": "Responsive Design",
+                    "component": "CssResponsiveDesignComponent"
+                },
+                {
+                    "title": "Stacked To Horizontal",
+                    "component": "CssStackedToHorizontalComponent"
+                },
+                {
+                    "title": "Mobile and Desktop",
+                    "component": "CssMobileDesktopComponent"
+                },
+                {
+                    "title": "Mobile, Tablet and Desktop",
+                    "component": "CssMobileTabletDesktopComponent"
+                },
+                {
+                    "title": "Responsive Column Resets",
+                    "component": "CssResponsiveColumnResetsComponent"
+                },
+                {
+                    "title": "Offsetting Columns",
+                    "component": "CssOffsettingColumnsComponent"
+                },
+                {
+                    "title": "Nesting Columns",
+                    "component": "CssNestingColumnsComponent"
+                },
+                {
+                    "title": "Column Ordering",
+                    "component": "CssColumnOrderingComponent"
+                }
+            ]
+        },
+        {
+            "title": "Tables",
+            "link": "tables",
+            "sections": [
+                {
+                    "title": "Tables",
+                    "component": "CssTablesComponent"
+                },
+                {
+                    "title": "Cards",
+                    "component": "CssCardsComponent"
+                }
+            ]
+        },
+        {
             "title": "Text Inputs",
             "link": "text-inputs",
             "sections": [
@@ -236,56 +222,48 @@
                 {
                     "title": "Inputs with Help Text",
                     "component": "CssInputsHelpTextComponent"
-                },
-                {
-                    "title": "Dropdown Addons",
-                    "component": "CssDropdownAddonsComponent"
                 }
             ]
         },
         {
-            "title": "Panels",
-            "link": "panels",
+            "title": "Typography",
+            "link": "typography",
             "sections": [
                 {
-                    "title": "Basic Panel",
-                    "component": "CssBasicPanelComponent"
+                    "title": "Headings",
+                    "component": "CssHeadingsComponent"
                 },
                 {
-                    "title": "EBox Panel",
-                    "component": "CssEboxPanelComponent"
-                }
-            ]
-        },
-        {
-            "title": "Progress",
-            "link": "progress",
-            "sections": [
-                {
-                    "title": "Activity Indicator",
-                    "component": "CssActivityIndicatorComponent"
+                    "title": "Paragraph Text",
+                    "component": "CssParagraphTextComponent"
                 },
                 {
-                    "title": "Activity Indicator Alternative",
-                    "component": "CssActivityIndicatorAlternativeComponent"
+                    "title": "Unstyled List",
+                    "component": "CssUnstyledListComponent"
                 },
                 {
-                    "title": "Mini Activity Indicator",
-                    "component": "CssMiniActivityIndicatorComponent"
-                }
-            ]
-        },
-        {
-            "title": "Tables",
-            "link": "tables",
-            "sections": [
-                {
-                    "title": "Tables",
-                    "component": "CssTablesComponent"
+                    "title": "Unordered List",
+                    "component": "CssUnorderedListComponent"
                 },
                 {
-                    "title": "Cards",
-                    "component": "CssCardsComponent"
+                    "title": "Ordered List",
+                    "component": "CssOrderedListComponent"
+                },
+                {
+                    "title": "Emphasis Classes",
+                    "component": "CssEmphasisClassesComponent"
+                },
+                {
+                    "title": "Blockquotes",
+                    "component": "CssBlockquotesComponent"
+                },
+                {
+                    "title": "Wells",
+                    "component": "CssWellsComponent"
+                },
+                {
+                    "title": "Case Usage Guidelines",
+                    "component": "CssCaseUsageGuidelinesComponent"
                 }
             ]
         }

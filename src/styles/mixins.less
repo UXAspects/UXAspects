@@ -16,25 +16,8 @@
     transform: rotate(@deg);
 }
 
-.opacity (@opacity) {
+.opacity(@opacity) {
     opacity: @opacity;
-    @opacityPercentage: @opacity * 100;
-
-    filter: ~"alpha(opacity = (@{opacityPercentage}))";
-}
-
-.clearfix {
-    zoom: 1;
-
-    &:before,
-    &:after {
-        content: "";
-        display: table;
-    }
-
-    &:after {
-        clear: both;
-    }
 }
 
 .focus-outline {

@@ -111,6 +111,7 @@ abbr[title] {
 */
 
 pre[class*="language-"] {
+    font-size: 15px;
     margin-top: 20px !important;
     margin-bottom: 20px !important;
 }
@@ -1607,4 +1608,49 @@ Spark table documentation styles
 .icon-code-snippet-popover {
     max-width: 500px;
     padding: 10px 5px;
+}
+
+/*
+    Customize section
+*/
+.uxd-customize-example {
+    margin-top: 15px;
+
+    .uxd-customize-row {
+        &:not(:first-child) {
+            margin-top: 15px;
+        }
+
+        & > div {
+            display: flex;
+            align-items: center;
+            min-height: 36px;
+
+            & > * + * {
+                margin-left: 1rem;
+            }
+
+            & > input {
+                min-width: 8rem;
+            }
+
+            & > ux-number-picker-ng1 {
+                width: 100%;
+            }
+        }
+    }
+}
+
+/*
+    Documentation Grids
+*/
+.show-grid {
+    margin: 15px 0;
+}
+
+.show-grid [class^="col-"] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid @table-grid-border;
+    background-color: @table-grid-bg !important;
 }

@@ -1,14 +1,23 @@
 <div class="btn-group">
-    <button class="btn button-secondary dropdown-toggle" data-toggle="dropdown">Action
-        <i class="hpe-icon hpe-down" aria-hidden="true"></i>
+    <button
+        type="button"
+        class="btn button-secondary dropdown-toggle"
+        [uxMenuTriggerFor]="menu">
+        <span>Action</span> <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
     </button>
-    <ul class="dropdown-menu">
-        <li><a href="#/" (click)="clicked($event)"><i class="hpe-icon hpe-checkmark hpe-fw text-muted" aria-hidden="true"></i>&nbsp; Approve</a></li>
-        <li><a href="#/" (click)="clicked($event)"><i class="hpe-icon hpe-close hpe-fw text-muted" aria-hidden="true"></i>&nbsp; Reject</a></li>
-        <li><a href="#/" (click)="clicked($event)"><i class="hpe-icon hpe-edit hpe-fw text-muted" aria-hidden="true"></i>&nbsp; Edit</a></li>
-
-    </ul>
 </div>
+
+<ux-menu #menu>
+    <button type="button" uxMenuItem>
+        <i class="hpe-icon hpe-checkmark hpe-fw text-muted" aria-hidden="true"></i>&nbsp;Approve
+    </button>
+    <button type="button" uxMenuItem>
+        <i class="hpe-icon hpe-close hpe-fw text-muted" aria-hidden="true"></i>&nbsp;Reject
+    </button>
+    <button type="button" uxMenuItem>
+        <i class="hpe-icon hpe-edit hpe-fw text-muted" aria-hidden="true"></i>&nbsp;Edit
+    </button>
+</ux-menu>
 
 <hr>
 

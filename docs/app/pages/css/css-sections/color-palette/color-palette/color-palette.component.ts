@@ -4,7 +4,8 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 
 @Component({
     selector: 'uxd-css-color-palette',
-    templateUrl: './color-palette.component.html'
+    templateUrl: './color-palette.component.html',
+    styleUrls: ['./color-palette.component.less']
 })
 @DocumentationSectionComponent('CssColorPaletteComponent')
 export class CssColorPaletteComponent {
@@ -38,5 +39,5 @@ export class CssColorPaletteComponent {
     };
 
     constructor(private _colorService: ColorService) { }
-    
+
 }

@@ -5,6 +5,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import 'chance';
+
+const chance = new Chance();
 
 @Component({
     selector: 'uxd-components-hierarchy-bar',
