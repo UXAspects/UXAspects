@@ -11,7 +11,8 @@
     <ux-icon name="up" class="spin-button-up-icon"></ux-icon>
 </button>
 
-<input [type]="type"
+<input #input
+       type="text"
        role="spinbutton"
        [min]="min"
        [max]="max"
@@ -27,8 +28,10 @@
        [attr.aria-valuemax]="max"
        [attr.aria-readonly]="readOnly"
        [ngModel]="value"
-       (ngModelChange)="valueChange.emit($event)"
+       (ngModelChange)="onValueChange(input, $event)"
        (wheel)="scroll($event)"
+       (keypress)="onKeypress($event)"
+       (paste)="onPaste($event)"
        (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
        (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
 
