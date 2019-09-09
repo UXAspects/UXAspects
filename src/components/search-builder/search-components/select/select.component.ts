@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { InfiniteScrollLoadFunction } from '../../../../directives/infinite-scroll/index';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
-import { InfiniteScrollLoadFunction } from '../../../../index';
 
 @Component({
   selector: 'ux-search-select',
