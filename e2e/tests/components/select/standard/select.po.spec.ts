@@ -140,8 +140,12 @@ export class SelectPage {
         return this.getDropdown(allowMultiple).click();
     }
 
-    clickOnCountry(allowMultiple: boolean, index: number) {
-        return this.getCountry(allowMultiple, index).click();
+    async clickOnCountry(allowMultiple: boolean, index: number) {
+        const elementTest = await this.getCountry(allowMultiple, index);
+
+        await browser.executeScript('arguments[0].scrollIntoView(true)', elementTest.getWebElement());
+
+        return elementTest.click();
     }
 
     async clickOnStrings() {
