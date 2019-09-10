@@ -20,14 +20,7 @@ export class SelectFormsTestPageComponent implements OnInit {
     maxHeight: string = '250px';
     placeholder = 'Select a country';
 
-    private _pageSize = 20;
-    get pageSize() {
-        return this._pageSize;
-    }
-    set pageSize(value: number) {
-        const numValue = Number(value);
-        this._pageSize = (numValue >= 1) ? numValue : 1;
-    }
+    pageSize = 20;
 
     // Customize settings
     pagingEnabled = new BehaviorSubject<boolean>(false);

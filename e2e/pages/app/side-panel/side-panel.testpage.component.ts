@@ -20,7 +20,7 @@ export class SidePanelTestPageComponent {
     open = false;
     inline = false;
     attachTo = 'window';
-    width = '200px';
+    width = '300px';
     top = '0';
     modal = false;
     closeOnExternalClick = false;
