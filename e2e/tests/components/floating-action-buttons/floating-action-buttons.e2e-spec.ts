@@ -1,5 +1,5 @@
 import { ElementArrayFinder } from 'protractor';
-import { Constants, Functions } from '../common/common.spec';
+import { Functions } from '../common/common.spec';
 import { imageCompare } from '../common/image-compare';
 import { FloatingActionButtonsPage } from './floating-action-buttons.po.spec';
 
@@ -11,35 +11,9 @@ describe('Floating Action Button Tests', () => {
         await page.getPage();
     });
 
-    const constants = new Constants();
     const functions = new Functions();
 
     it('should have correct initial states', async () => {
-
-        // Vertical (bottom) button
-        expect(await functions.getElementColourHex(page.fabBottomTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-        expect(await functions.getElementColourHex(page.fabBottomTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
-
-        // there should only be the trigger button visible
-        expect(await page.fabBottom.$$('ux-floating-action-button').count()).toBe(1);
-
-        // Horizontal (right) button
-        expect(await functions.getElementColourHex(page.fabRightTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-        expect(await functions.getElementColourHex(page.fabRightTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
-
-        // there should only be the trigger button visible
-        expect(await page.fabRight.$$('ux-floating-action-button').count()).toBe(1);
-
-        // Vertical (up) button
-        expect(await functions.getElementColourHex(page.fabUpTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-        expect(await functions.getElementColourHex(page.fabUpTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
-
-        // there should only be the trigger button visible
-        expect(await page.fabUp.$$('ux-floating-action-button').count()).toBe(1);
-
-        // Horizontal (left) button
-        expect(await functions.getElementColourHex(page.fabLeftTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-        expect(await functions.getElementColourHex(page.fabLeftTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
         // there should only be the trigger button visible
         expect(await page.fabLeft.$$('ux-floating-action-button').count()).toBe(1);
@@ -52,8 +26,7 @@ describe('Floating Action Button Tests', () => {
 
         await functions.moveToElement(page.fabBottomTriggerIcon);
 
-        expect(await functions.getElementColourHex(page.fabBottomTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-        expect(await functions.getElementColourHex(page.fabBottomTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
+        expect(await imageCompare('fab-initial-vertical-bottom-buttons-hover')).toEqual(0);
 
     });
 
@@ -95,8 +68,7 @@ describe('Floating Action Button Tests', () => {
 
         await functions.moveToElement(page.fabRightTriggerIcon);
 
-        expect(await functions.getElementColourHex(page.fabRightTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-        expect(await functions.getElementColourHex(page.fabRightTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
+        expect(await imageCompare('fab-initial-horizontal-right-buttons-hover')).toEqual(0);
 
     });
 
@@ -139,8 +111,7 @@ describe('Floating Action Button Tests', () => {
 
         await functions.moveToElement(page.fabUpTriggerIcon);
 
-        expect(await functions.getElementColourHex(page.fabUpTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-        expect(await functions.getElementColourHex(page.fabUpTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
+        expect(await imageCompare('fab-initial-vertical-buttons-hover')).toEqual(0);
 
     });
 
@@ -183,8 +154,7 @@ describe('Floating Action Button Tests', () => {
 
         await functions.moveToElement(page.fabLeftTriggerIcon);
 
-        expect(await functions.getElementColourHex(page.fabLeftTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-        expect(await functions.getElementColourHex(page.fabLeftTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
+        expect(await imageCompare('fab-initial-horizontal-buttons-hover')).toEqual(0);
 
     });
 

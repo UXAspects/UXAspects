@@ -108,7 +108,7 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
         await page.clickOnLoadOnScroll();
         await page.clickOnPageSize();
         await page.getPageSize().clear();
-        await page.getPageSize().sendKeys('10'); // 110
+        await page.getPageSize().sendKeys('110'); // 110
         expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
         await page.loadMoreButton.click();
         expect(await page.getNumberOfEmployees()).toEqual(111);
@@ -145,8 +145,8 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
         // change page size to 39
         await page.clickOnPageSize();
-        await page.getPageSize().sendKeys(Key.DELETE);
-        await page.getPageSize().sendKeys('3'); // 39
+        await page.getPageSize().clear();
+        await page.getPageSize().sendKeys('39'); // 39
         expect(await page.getNumberOfEmployees()).toEqual(39);
         await page.hoverOverLastEmployee();
         expect(await page.getNumberOfEmployees()).toEqual(78);
@@ -201,8 +201,8 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
 
         // set page size to 2
         await page.clickOnPageSize();
-        await page.getPageSize().sendKeys(Key.ARROW_RIGHT);
-        await page.getPageSize().sendKeys(Key.DELETE);
+        await page.getPageSize().clear();
+        await page.getPageSize().sendKeys('2');
 
         // check employee list
         expect(await page.getNumberOfEmployees()).toEqual(2);

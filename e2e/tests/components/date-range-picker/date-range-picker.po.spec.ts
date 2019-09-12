@@ -50,11 +50,11 @@ export class DateRangePickerPage {
 
         for (let idx = 0; idx < elements.length; idx++) {
             const element = elements[idx];
-            const date = await element.getAttribute('innerText');
+            const date = await element.getAttribute('innerHTML');
             const disabled = await element.getAttribute('disabled');
 
             if (disabled) {
-                dates.push(date);
+                dates.push(date.trim());
             }
         }
 

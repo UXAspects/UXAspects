@@ -20,8 +20,8 @@ describe('Side Panel', () => {
             await page.toggle.click();
             expect(page.panel.getAttribute('class')).toContain('open');
             expect(await page.panelHost.getCssValue('position')).toBe('fixed');
-            expect(await page.getRightOffsetFromWindow()).toBe(200);
-            expect(await page.getPanelWidth()).toBe(200);
+            expect(await page.getRightOffsetFromWindow()).toBe(300);
+            expect(await page.getPanelWidth()).toBe(300);
             expect(page.getPanelHeight()).toBe(page.getViewportHeight());
 
             expect(await imageCompare('side-panel-initial')).toEqual(0);
@@ -39,7 +39,7 @@ describe('Side Panel', () => {
             expect(page.panel.getAttribute('class')).toContain('open');
             await page.externalClick1.click();
             expect(page.panel.getAttribute('class')).toContain('open');
-            expect(await page.getRightOffsetFromWindow()).toBe(200);
+            expect(await page.getRightOffsetFromWindow()).toBe(300);
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
@@ -59,7 +59,7 @@ describe('Side Panel', () => {
             await page.toggle.click();
             expect(page.panel.getAttribute('class')).toContain('open');
             expect(await page.panelHost.getCssValue('position')).toBe('static');
-            expect(await page.getInlinePanelWidth()).toBe(200);
+            expect(await page.getInlinePanelWidth()).toBe(300);
             expect(await page.getInlinePanelHeight()).toBe(300);
 
             expect(await imageCompare('side-panel-inline-initial')).toEqual(0);
@@ -70,7 +70,7 @@ describe('Side Panel', () => {
             expect(page.panel.getAttribute('class')).toContain('open');
             await page.externalClick1.click();
             expect(page.panel.getAttribute('class')).toContain('open');
-            expect(await page.getInlinePanelWidth()).toBe(200);
+            expect(await page.getInlinePanelWidth()).toBe(300);
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 
@@ -89,8 +89,8 @@ describe('Side Panel', () => {
         it('should be visible when open', async () => {
             await page.toggle.click();
             expect(page.panel.getAttribute('class')).toContain('open');
-            expect(await page.getRightOffsetFromContainer()).toBe(200);
-            expect(await page.getPanelWidth()).toBe(200);
+            expect(await page.getRightOffsetFromContainer()).toBe(300);
+            expect(await page.getPanelWidth()).toBe(300);
             expect(page.getPanelHeight()).toBe(page.getContainerHeight());
             expect(await page.panelHost.getCssValue('position')).toBe('absolute');
 
@@ -102,7 +102,7 @@ describe('Side Panel', () => {
             expect(page.panel.getAttribute('class')).toContain('open');
             await page.externalClick1.click();
             expect(page.panel.getAttribute('class')).toContain('open');
-            expect(await page.getRightOffsetFromContainer()).toBe(200);
+            expect(await page.getRightOffsetFromContainer()).toBe(300);
             expect(await page.externalClick1.$('input').isSelected()).toBe(true);
         });
 

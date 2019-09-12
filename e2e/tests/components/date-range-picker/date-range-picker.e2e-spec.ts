@@ -163,49 +163,49 @@ describe('Date Range Picker Tests', () => {
     it('should update the range end picker on selection when start date is after the visible end month', async () => {
         await page.clear();
         await page.goToPreviousMonth(Picker.End);
-        expect(await page.getPickerTitle(Picker.End)).toBe('February 2019');
+        expect((await page.getPickerTitle(Picker.End)).toLocaleLowerCase()).toBe('february 2019');
 
         // select a date on the start picker
         await page.selectDate(Picker.Start, 6);
 
         // the range end date should get updated
-        expect(await page.getPickerTitle(Picker.End)).toBe('March 2019');
+        expect((await page.getPickerTitle(Picker.End)).toLocaleLowerCase()).toBe('march 2019');
     });
 
     it('should not update the range end picker on selection when start date is before the visible end month', async () => {
         await page.clear();
         await page.goToNextMonth(Picker.End);
-        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+        expect((await page.getPickerTitle(Picker.End)).toLocaleLowerCase()).toBe('april 2019');
 
         // select a date on the start picker
         await page.selectDate(Picker.Start, 6);
 
         // the range end date should get updated
-        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+        expect((await page.getPickerTitle(Picker.End)).toLocaleLowerCase()).toBe('april 2019');
     });
 
     it('should update the range start picker on selection when end date is before the visible start month', async () => {
         await page.clear();
         await page.goToPreviousMonth(Picker.Start);
-        expect(await page.getPickerTitle(Picker.Start)).toBe('February 2019');
+        expect((await page.getPickerTitle(Picker.Start)).toLocaleLowerCase()).toBe('february 2019');
 
         // select a date on the end picker
         await page.selectDate(Picker.End, 6);
 
         // the range end date should get updated
-        expect(await page.getPickerTitle(Picker.Start)).toBe('February 2019');
+        expect((await page.getPickerTitle(Picker.Start)).toLocaleLowerCase()).toBe('february 2019');
     });
 
     it('should not update the range start picker on selection when end date is after the visible start month', async () => {
         await page.clear();
         await page.goToNextMonth(Picker.Start);
-        expect(await page.getPickerTitle(Picker.Start)).toBe('April 2019');
+        expect((await page.getPickerTitle(Picker.Start)).toLocaleLowerCase()).toBe('april 2019');
 
         // select a date on the end picker
         await page.selectDate(Picker.End, 6);
 
         // the range end date should get updated
-        expect(await page.getPickerTitle(Picker.Start)).toBe('March 2019');
+        expect((await page.getPickerTitle(Picker.Start)).toLocaleLowerCase()).toBe('march 2019');
     });
 
     it('should prevent selection outside of the defined min and max values', async () => {
@@ -225,16 +225,16 @@ describe('Date Range Picker Tests', () => {
 
         // Cannot go to previous month (February) since it has no selectable dates
         await page.goToPreviousMonth(Picker.Start);
-        expect(await page.getPickerTitle(Picker.Start)).toBe('March 2019');
+        expect((await page.getPickerTitle(Picker.Start)).toLocaleLowerCase()).toBe('march 2019');
 
         // Move end picker to April
         await page.goToNextMonth(Picker.End);
-        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+        expect((await page.getPickerTitle(Picker.End)).toLocaleLowerCase()).toBe('april 2019');
         expect(await page.getDisabled(Picker.End)).toEqual(['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '1', '2', '3', '4']);
 
         // Cannot go to May since it has no selectable dates
         await page.goToNextMonth(Picker.End);
-        expect(await page.getPickerTitle(Picker.End)).toBe('April 2019');
+        expect((await page.getPickerTitle(Picker.End)).toLocaleLowerCase()).toBe('april 2019');
 
         // Clicking a date earlier that the min date should do nothing
         await page.selectDate(Picker.Start, 4);

@@ -166,8 +166,6 @@ describe('SlidersPage Tests', () => {
     it('should have custom tooltips', async () => {
 
         // Range Track Style - Custom Callout Styles
-        expect(await page.getTooltipAttribute(page.slider6, 'lower', 'style')).toContain('background-color: rgb(59, 170, 67)');
-        expect(await page.getTooltipAttribute(page.slider6, 'upper', 'style')).toContain('background-color: rgb(59, 170, 67)');
         await page.moveMouseToHandle(page.slider6, 'lower');
         expect(await page.getTooltipValue(page.slider6, 'lower')).toEqual('22');
         await page.moveMouseToHandle(page.slider6, 'upper');
@@ -177,6 +175,7 @@ describe('SlidersPage Tests', () => {
         expect(await page.getTooltipClass(page.slider8, 'lower')).toContain('tooltip-dynamic');
         expect(await page.getTooltipClass(page.slider8, 'upper')).toContain('tooltip-dynamic');
 
+        expect(await imageCompare('sliders-tooltips')).toEqual(0);
     });
 
     it('should have correct initial values', async () => {
