@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DateTimePickerModule } from '@ux-aspects/ux-aspects';
+import { DateTimePickerModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { DateTimePickerTestPageComponent } from './date-time-picker.testpage.component';
 
 @NgModule({
     imports: [
         CommonModule,
         DateTimePickerModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',
