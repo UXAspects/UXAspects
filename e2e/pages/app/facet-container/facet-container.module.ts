@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FacetsModule } from '@ux-aspects/ux-aspects';
+import { FacetsModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 
 import { FacetContainerTestPageComponent } from './facet-container.testpage.component';
 
 @NgModule({
     imports: [
         FacetsModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

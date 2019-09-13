@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SearchBuilderModule } from '@ux-aspects/ux-aspects';
+import { SearchBuilderModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 
 import { SearchBuilderTestPageComponent } from './search-builder.testpage.component';
 
@@ -9,6 +9,7 @@ import { SearchBuilderTestPageComponent } from './search-builder.testpage.compon
     imports: [
         CommonModule,
         SearchBuilderModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

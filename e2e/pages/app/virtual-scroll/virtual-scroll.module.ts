@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { VirtualScrollModule, CheckboxModule, AccordionModule } from '@ux-aspects/ux-aspects';
+import { VirtualScrollModule, CheckboxModule, AccordionModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { VirtualScrollTestPageComponent } from './virtual-scroll.testpage.component';
 
 @NgModule({
@@ -8,6 +8,7 @@ import { VirtualScrollTestPageComponent } from './virtual-scroll.testpage.compon
         AccordionModule,
         CheckboxModule,
         VirtualScrollModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

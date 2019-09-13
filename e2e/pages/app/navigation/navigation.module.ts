@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavigationModule } from '@ux-aspects/ux-aspects';
+import { NavigationModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { NavigationTestPageComponent } from './navigation.testpage.component';
 import { NavigationPageComponent } from './page.component';
 
@@ -9,6 +9,7 @@ import { NavigationPageComponent } from './page.component';
     imports: [
         CommonModule,
         NavigationModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',
