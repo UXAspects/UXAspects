@@ -8,6 +8,7 @@ module.exports = {
         options: {
             font: 'hpe-icons',
             engine: 'node',
+            types: ['woff'],
             hashes: false,
             stylesheet: 'less',
             htmlDemo: false,
@@ -25,6 +26,7 @@ module.exports = {
         options: {
             font: 'ux-icons',
             engine: 'node',
+            types: ['woff'],
             hashes: false,
             stylesheet: 'less',
             htmlDemo: false,
