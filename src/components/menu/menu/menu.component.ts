@@ -170,6 +170,12 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
         // store the open state
         this.isMenuOpen = menuOpen;
 
+        // if we are closing the menu reset some values
+        if (!menuOpen) {
+            this._isHovering$.next(false);
+            this._isFocused$.next(false);
+        }
+
         // check for changes - required to show the menu as we are using `*ngIf`
         this._changeDetector.detectChanges();
 
