@@ -4,6 +4,10 @@ ux-number-picker-inline {
     flex-direction: row;
     height: 34px;
 
+    &.ng-invalid {
+        border-color: @critical;
+    }
+
     &.has-error {
         > .number-picker-input:focus {
             border-color: @critical;

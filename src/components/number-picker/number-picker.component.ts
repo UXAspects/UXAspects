@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -15,7 +15,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
-        '[class.has-error]': '!isValid()'
+        '[class.has-error]': '!_valid && !disabled'
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor {
@@ -52,6 +52,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
         this._value = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
+        this._valid = this.isValid();
     }
 
     /** Defines the minimum value the number picker can set. */
@@ -97,6 +98,11 @@ export class NumberPickerComponent implements ControlValueAccessor {
     get inputId(): string {
         return this.id + '-input';
     }
+
+    /** Store the current valid state */
+    _valid: boolean = true;
+
+    constructor(private _changeDetector: ChangeDetectorRef) {}
 
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
@@ -144,6 +150,8 @@ export class NumberPickerComponent implements ControlValueAccessor {
     writeValue(value: number): void {
         if (value !== undefined) {
             this._value = value;
+            this._valid = this.isValid();
+            this._changeDetector.detectChanges();
         }
     }
 
