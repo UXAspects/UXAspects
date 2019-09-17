@@ -182,7 +182,8 @@
     "docs/styles.less",
     "docs/environments",
     "src",
-    "e2e",
+    "e2e/tests",
+    "e2e/pages",
     "LICENSE.md",
     "README.md"
   ]
