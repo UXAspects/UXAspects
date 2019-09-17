@@ -318,6 +318,8 @@ describe('MenuComponent', () => {
         // the menu should now be closed check the internal menu state is correct
         expect(component.trigger.menu._isHovering$.value).toBeFalsy();
         expect(component.trigger.menu._isFocused$.value).toBeFalsy();
+        expect(component.subMenuTrigger.menu._isHovering$.value).toBeFalsy();
+        expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
 
     });
 });
