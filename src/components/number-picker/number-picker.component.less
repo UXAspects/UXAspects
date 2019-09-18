@@ -4,12 +4,14 @@ ux-number-picker-inline {
     flex-direction: row;
     height: 34px;
 
-    &.ng-invalid {
-        border-color: @critical;
+    &.ux-number-picker-invalid:not([formControlName]) {
+        > .number-picker-input {
+            border-color: @critical;
+        }
     }
 
-    &.has-error {
-        > .number-picker-input:focus {
+    &.ng-invalid {
+        > .number-picker-input {
             border-color: @critical;
         }
     }

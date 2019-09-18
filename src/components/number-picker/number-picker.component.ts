@@ -15,7 +15,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
-        '[class.has-error]': '!_valid && !disabled'
+        '[class.ux-number-picker-invalid]': '!_valid && !disabled'
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor {
