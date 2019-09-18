@@ -1,6 +1,6 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Optional, Output } from '@angular/core';
+import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
 
@@ -15,7 +15,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
-        '[class.ux-number-picker-invalid]': '!_valid && !disabled'
+        '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor {
@@ -102,7 +102,10 @@ export class NumberPickerComponent implements ControlValueAccessor {
     /** Store the current valid state */
     _valid: boolean = true;
 
-    constructor(private _changeDetector: ChangeDetectorRef) {}
+    constructor(
+        private _changeDetector: ChangeDetectorRef,
+        @Optional() public _formGroup: FormGroupDirective
+    ) { }
 
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
