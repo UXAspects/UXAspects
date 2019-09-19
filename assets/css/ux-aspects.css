@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.4-78 
+* @ux-aspects/ux-aspects-docs - v1.8.5-85 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -332,14 +332,7 @@ body > div#ux-plunker-container {
 }
 @font-face {
   font-family: "hpe-icons";
-  src: url("../fonts/hpe-icons.eot");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "hpe-icons";
-  src: url("../fonts/hpe-icons.eot");
-  src: url("../fonts/hpe-icons.eot?#iefix") format("embedded-opentype"), url("../fonts/hpe-icons.woff") format("woff"), url("../fonts/hpe-icons.ttf") format("truetype"), url("../fonts/hpe-icons.svg?#hpe-icons") format("svg");
+  src: url("../fonts/hpe-icons.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -1537,14 +1530,7 @@ body > div#ux-plunker-container {
 }
 @font-face {
   font-family: "ux-icons";
-  src: url("../fonts/ux-icons.eot");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ux-icons";
-  src: url("../fonts/ux-icons.eot");
-  src: url("../fonts/ux-icons.eot?#iefix") format("embedded-opentype"), url("../fonts/ux-icons.woff") format("woff"), url("../fonts/ux-icons.ttf") format("truetype"), url("../fonts/ux-icons.svg?#ux-icons") format("svg");
+  src: url("../fonts/ux-icons.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -8141,7 +8127,6 @@ th:hover .detail-row-header.sort .sort .number {
 .label {
   background-color: #7b63a3;
   color: #fff;
-  font-family: 'Source Sans Pro';
   font-size: 0.8125rem;
   font-weight: 400;
   padding: 3px 8px;
@@ -10974,9 +10959,6 @@ fieldset[disabled] .btn-toggle.active {
 .btn-icon.btn-circular {
   border-radius: 50%;
 }
-.hyperlink {
-  font-family: 'Source Sans Pro';
-}
 .hyperlink:link {
   color: #585858;
   border-bottom: 2px dotted #00a7a2;
@@ -10994,9 +10976,6 @@ fieldset[disabled] .btn-toggle.active {
 .hyperlink:visited {
   color: #585858;
   border-bottom: 2px solid #585858;
-}
-.hyperlink-toggle {
-  font-family: 'Source Sans Pro';
 }
 .hyperlink-toggle:link {
   color: #585858;
@@ -11049,7 +11028,6 @@ fieldset[disabled] .btn-toggle.active {
   border-bottom-color: #00a7a2;
 }
 .hyperlink-hover {
-  font-family: 'Source Sans Pro';
   border-bottom: 2px dotted transparent;
 }
 .hyperlink-hover:link {
@@ -19117,8 +19095,12 @@ ux-number-picker-inline {
   flex-direction: row;
   height: 34px;
 }
-ux-number-picker.has-error > .number-picker-input:focus,
-ux-number-picker-inline.has-error > .number-picker-input:focus {
+ux-number-picker.ux-number-picker-invalid:not(.ng-invalid) > .number-picker-input,
+ux-number-picker-inline.ux-number-picker-invalid:not(.ng-invalid) > .number-picker-input {
+  border-color: #ff454f;
+}
+ux-number-picker.ng-invalid > .number-picker-input,
+ux-number-picker-inline.ng-invalid > .number-picker-input {
   border-color: #ff454f;
 }
 ux-number-picker > .number-picker-input,

@@ -5949,7 +5949,9 @@
         multi: true
     };
     var NumberPickerComponent = /** @class */ (function () {
-        function NumberPickerComponent() {
+        function NumberPickerComponent(_changeDetector, _formGroup) {
+            this._changeDetector = _changeDetector;
+            this._formGroup = _formGroup;
             this._min = -Infinity;
             this._max = Infinity;
             this._step = 1;
@@ -5972,6 +5974,10 @@
              * If two way binding is used this value will be updated any time the number picker value changes.
              */
             this.valueChange = new i0.EventEmitter();
+            /**
+             * Store the current valid state
+             */
+            this._valid = true;
         }
         Object.defineProperty(NumberPickerComponent.prototype, "value", {
             /** Sets the value displayed in the number picker component. */
@@ -5988,6 +5994,7 @@
                 this._value = value;
                 this.valueChange.emit(value);
                 this._propagateChange(value);
+                this._valid = this.isValid();
             },
             enumerable: true,
             configurable: true
@@ -6143,6 +6150,8 @@
             function (value) {
                 if (value !== undefined) {
                     this._value = value;
+                    this._valid = this.isValid();
+                    this._changeDetector.detectChanges();
                 }
             };
         /**
@@ -6182,10 +6191,17 @@
                         template: "<input type=\"number\"\n    [id]=\"inputId\"\n    role=\"spinbutton\"\n    class=\"form-control number-picker-input\"\n    [(ngModel)]=\"value\"\n    [min]=\"min\"\n    [max]=\"max\"\n    (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\"\n    (wheel)=\"onScroll($event)\"\n    step=\"any\"\n    [disabled]=\"disabled\"\n    [attr.aria-valuemin]=\"min\"\n    [attr.aria-valuenow]=\"value\"\n    [attr.aria-valuemax]=\"max\"\n    [attr.aria-labelledby]=\"labelledBy\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control number-picker-control-up\"\n         (click)=\"increment($event)\"\n         [class.disabled]=\"disabled || value >= max\">\n\n        <ux-icon name=\"up\"></ux-icon>\n    </div>\n\n    <div class=\"number-picker-control number-picker-control-down\"\n         (click)=\"decrement($event)\"\n         [class.disabled]=\"disabled || value <= min\">\n\n         <ux-icon name=\"down\"></ux-icon>\n    </div>\n\n</div>",
                         providers: [NUMBER_PICKER_VALUE_ACCESSOR],
                         host: {
-                            '[class.has-error]': '!isValid()'
+                            '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
                         }
                     }] }
         ];
+        /** @nocollapse */
+        NumberPickerComponent.ctorParameters = function () {
+            return [
+                { type: i0.ChangeDetectorRef },
+                { type: forms.FormGroupDirective, decorators: [{ type: i0.Optional }] }
+            ];
+        };
         NumberPickerComponent.propDecorators = {
             id: [{ type: i0.Input }],
             valid: [{ type: i0.Input }],
@@ -20871,6 +20887,11 @@
             function (menuOpen) {
                 // store the open state
                 this.isMenuOpen = menuOpen;
+                // if we are closing the menu reset some values
+                if (!menuOpen) {
+                    this._isHovering$.next(false);
+                    this._isFocused$.next(false);
+                }
                 // check for changes - required to show the menu as we are using `*ngIf`
                 this._changeDetector.detectChanges();
                 // emit the closing event

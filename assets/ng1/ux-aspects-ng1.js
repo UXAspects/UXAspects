@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.4-78 
+* @ux-aspects/ux-aspects-docs - v1.8.5-85 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
