@@ -32,7 +32,7 @@ export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDes
             if (!this.raised && event.isAutofilled) {
                 this.raised = true;
             }
-            if (this.raised && !event.isAutofilled) {
+            if (this.raised && !event.isAutofilled && !this._input) {
                 this.raised = false;
             }
         });
