@@ -1,4 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[uxFloatLabel]',
@@ -6,13 +8,42 @@ import { Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, OnInit
         'class': 'ux-float-label'
     }
 })
-export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
+export class FloatLabelDirective<T = string> implements OnInit, OnChanges, OnDestroy {
 
     @Input('uxFloatLabel')
-    input: HTMLInputElement;
+    set input(input: HTMLInputElement) {
+
+        // remove any previous autofill subscriptions
+        if (this._input) {
+            this._autofillMonitor.stopMonitoring(this._input);
+        }
+
+        this._subscription.unsubscribe();
+
+        this._input = input;
+
+        // if the input is null then don't need to subscribe to autofillMonitor
+        if (!input) {
+            return;
+        }
+
+        // create a new autofillMonitor subscription
+        this._subscription = this._autofillMonitor.monitor(input).subscribe(event => {
+            if (!this.raised && event.isAutofilled) {
+                this.raised = true;
+            }
+            if (this.raised && !event.isAutofilled) {
+                this.raised = false;
+            }
+        });
+    }
+
+    get input(): HTMLInputElement {
+        return this._input;
+    }
 
     @Input()
-    value: any;
+    value: T;
 
     @Input()
     mode: 'focus' | 'input' = 'focus';
@@ -21,10 +52,14 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     raised: boolean = false;
 
 
+    private _input: HTMLInputElement;
     private _focused = false;
     private _eventHandles: any[] = [];
+    private _subscription = new Subscription();
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { }
+    constructor(private _elementRef: ElementRef,
+                private _renderer: Renderer2,
+                private _autofillMonitor: AutofillMonitor) {}
 
     ngOnInit(): void {
         this._eventHandles.push(
@@ -51,6 +86,8 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     ngOnDestroy(): void {
         // Unsubscribe event handles
         this._eventHandles.forEach((eventHandle) => eventHandle());
+        this._autofillMonitor.stopMonitoring(this._input);
+        this._subscription.unsubscribe();
     }
 
     private hasText(): boolean {
