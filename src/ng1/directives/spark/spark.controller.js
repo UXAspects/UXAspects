@@ -1,41 +1,61 @@
-export default function SparkCtrl($colorService) {
-    var sc = this;
-
-    sc.inline = sc.label !== undefined;
+export default class SparkCtrl {
 
     // give the chart a default theme
-    sc.type = sc.type || 'spark-chart1';
-        
-    // ensure 'value' is an array at this point
-    const values = Array.isArray(sc.value) ? sc.value : [sc.value];
+    get _type() {
+        return this.$colorService.resolveColorName(this.type || 'spark-chart1');
+    }
 
-    // get the total value of all lines
-    let total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
+    // determine if the label should be displayed inline
+    get _inline() {
+        return this.label !== undefined;
+    }
 
-    // figure out the percentages for each spark line
-    sc.values = values.map(val => (val / total) * 100);
+    // get the value or values as an array
+    get _values() {
+        // ensure 'value' is an array at this point
+        const values = Array.isArray(this.value) ? this.value : [this.value];
 
-    sc.type = $colorService.resolveColorName(sc.type);
+        // get the total value of all lines
+        const total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
 
-    if (sc.barColor) {
-        if (Array.isArray(sc.barColor)) {
-            sc.barColor = sc.barColor.map(color => $colorService.resolve(color));
-        } else {
-            sc.barColor = $colorService.resolve(sc.barColor);
+        // figure out the percentages for each spark line
+        return values.map(val => (val / total) * 100);
+    }
+
+    get _trackColor() {
+        if (this.trackColor) {
+            return this.$colorService.resolve(this.trackColor);
         }
     }
 
-    if (sc.trackColor) {
-        sc.trackColor = $colorService.resolve(sc.trackColor);
-    }
-    
-    sc.barColor = Array.isArray(sc.barColor) ? sc.barColor : [sc.barColor]; 
+    get _barColor() {
 
-    sc.styles = {
-        height: sc.fillheight + 'px',
-        marginTop: (sc.top !== undefined) ? sc.top : 0 + 'px',
-        backgroundColor: sc.trackColor
-    };
+        if (!this.barColor) {
+            return;
+        }
+
+        if (Array.isArray(this.barColor)) {
+            return this.barColor.map(color => this.$colorService.resolve(color));
+        } else {
+            return [this.$colorService.resolve(this.barColor)];
+        }
+    }
+
+    get _styles() {
+        return {
+            height: this.fillheight + 'px',
+            marginTop: (this.top !== undefined) ? this.top : 0 + 'px',
+            backgroundColor: this._trackColor
+        };
+    }
+
+    constructor($colorService) {
+        this.$colorService = $colorService;
+    }
+
+    segmentTooltip(index) {
+        return Array.isArray(this.sparkTooltips) && this.sparkTooltips.length > index ? this.sparkTooltips[index] : undefined;
+    }
 }
 
 SparkCtrl.$inject = ['$colorService'];

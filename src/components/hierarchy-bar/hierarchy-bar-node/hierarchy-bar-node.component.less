@@ -1,0 +1,66 @@
+ux-hierarchy-bar-node {
+    display: block;
+    flex: none;
+
+    .hierarchy-bar-node {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        max-width: 100%;
+    }
+
+    .hierarchy-bar-node-content {
+        display: inline-flex;
+        align-items: center;
+        border: none;
+        background: transparent;
+        padding: 0;
+
+        &:focus {
+            .native-focus-outline;
+        }
+    }
+
+    .hierarchy-bar-node-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex: none;
+        max-width: 20px;
+        max-height: 18px;
+        margin-right: 5px;
+    }
+
+    .hierarchy-bar-node-title {
+        color: @organization-chart-hierarchy-bar-color;
+        white-space: nowrap;
+    }
+
+    &:last-of-type {
+        .hierarchy-bar-node-title {
+            color: @organization-chart-hierarchy-bar-active-color;
+            font-weight: 600;
+        }
+    }
+
+    .hierarchy-bar-node-arrow {
+        color: @organization-chart-hierarchy-bar-arrow;
+        margin-left: 5px;
+        transition: color 250ms ease-in-out;
+        border: none;
+        background: transparent;
+        padding: 0;
+
+        &:hover {
+            color: @primary;
+        }
+
+        &:focus {
+            color: @primary;
+            .native-focus-outline;
+        }
+    }
+}

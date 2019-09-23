@@ -1,7 +1,14 @@
-<div class="notification" *ngFor="let notificationRef of notifications$ | async; let idx = index" 
-    [style.top.px]="(notificationRef.height + notificationRef.spacing) * idx"
-    [style.height.px]="notificationRef.height"
+<div #notification
+    class="notification"
+    *ngFor="let notificationRef of notifications$ | async; let index = index"
+    [style.height.px]="_getNotificationHeight(notification, notificationRef)"
+    [style.top.px]="_getNotificationPosition(index)"
     [style.background-color]="notificationRef.backgroundColor"
     [@notificationState]>
-    <ng-container *ngTemplateOutlet="notificationRef.templateRef; context: { $implicit: notificationRef }"></ng-container>
+
+    <!-- Notification Content -->
+    <ng-container
+        [ngTemplateOutlet]="notificationRef.templateRef"
+        [ngTemplateOutletContext]="{ $implicit: notificationRef, data: notificationRef.data }">
+    </ng-container>
 </div>

@@ -1,4 +1,4 @@
-export default function TreegridDirective() {
+export function TreegridDirective() {
     return {
         restrict: 'E',
         template: require('./treegrid.html'),
@@ -10,7 +10,8 @@ export default function TreegridDirective() {
             treeData: '=?',
             selected: '=?',
             currentRow: '=?',
-            options: '=?'
+            options: '=?',
+            selectionManager: '&?'
         }
     };
 }

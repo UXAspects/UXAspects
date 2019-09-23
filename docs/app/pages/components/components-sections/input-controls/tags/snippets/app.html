@@ -13,33 +13,33 @@
                 [placeholder]="placeholder"
                 [showTypeaheadOnClick]="showTypeaheadOnClick"
                 [tagDelimiters]="tagDelimiters"
-                [tagPattern]="tagPatternRegExp"
-                [tagTemplate]="demoTagTemplate">
+                [tagPattern]="tagPatternRegExp">
 
                 <ux-typeahead *ngIf="typeaheadEnabled"
                     [filter]="input"
                     [options]="allTags"
                     [disabledOptions]="tags"
                     [dropDirection]="dropDirection"
+                    [multiselectable]="true"
                     [selectFirst]="selectFirst">
                 </ux-typeahead>
 
             </ux-tag-input>
             <span *ngIf="tagInput.validationErrors.tagRangeError" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span> 
+                <ux-icon name="alert"></ux-icon>
                 Required: number of tags between {{tagInput.validationErrors.tagRangeError.min}}
                 and {{tagInput.validationErrors.tagRangeError.max}}.
             </span>
             <span *ngIf="tagInput.validationErrors.inputPattern" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span> 
+                <ux-icon name="alert"></ux-icon>
                 Expected format: {{tagInput.validationErrors.inputPattern.pattern.source}}
             </span>
         </form>
     </div>
 </div>
 
-<accordion>
-    <accordion-group class="accordion-chevron" heading="Customize Example...">
+<ux-accordion>
+    <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
         <div class="row">
             <div class="col-md-4 col-sm-12">
                 <ux-checkbox [(value)]="addOnPaste">addOnPaste</ux-checkbox>
@@ -102,14 +102,5 @@
                     [disabled]="!typeaheadEnabled">up</ux-radio-button>
             </div>
         </div>
-    </accordion-group>
-</accordion>
-
-<ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>
-    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
-    <button *ngIf="api.canRemoveTagAt(index)" type="button" class="ux-tag-remove"
-        [disabled]="disabled"
-        (click)="api.removeTagAt(index); $event.stopPropagation();"
-        ><i class="hpe-icon hpe-close"></i></button>
-</ng-template>
+    </ux-accordion-panel>
+</ux-accordion>

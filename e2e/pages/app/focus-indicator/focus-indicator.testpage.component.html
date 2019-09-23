@@ -1,0 +1,26 @@
+<div tabindex="0" id="container" class="focus-indicator-container">
+    <button #btn
+        id="target"
+        class="btn button-secondary"
+        uxFocusIndicator
+        [mouseFocusIndicator]="mouseFocusIndicator"
+        [keyboardFocusIndicator]="keyboardFocusIndicator"
+        [programmaticFocusIndicator]="programmaticFocusIndicator"
+        (indicator)="hasIndicator = $event">
+        Focusable Button
+    </button>
+</div>
+
+<p>Indicator Visible: <span id="indicator-label">{{ hasIndicator }}</span></p>
+
+<div class="btn-container m-b-sm">
+    <button id="mouse-toggle" class="btn button-primary" (click)="mouseFocusIndicator = !mouseFocusIndicator">
+        Toggle Mouse Indicator
+    </button>
+    <button id="keyboard-toggle" class="btn button-primary" (click)="keyboardFocusIndicator = !keyboardFocusIndicator">
+        Toggle Keyboard Indicator
+    </button>
+    <button id="programmatic-toggle" class="btn button-primary" (click)="programmaticFocusIndicator = !programmaticFocusIndicator">
+        Toggle Programmatic Indicator
+    </button>
+</div>

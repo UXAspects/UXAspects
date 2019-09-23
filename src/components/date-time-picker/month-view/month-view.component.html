@@ -1,8 +1,27 @@
-<ux-date-time-picker-header [header]="year" (previous)="previous()" (next)="next()" (ascend)="showYearPicker()"></ux-date-time-picker-header>
+<div class="calendar" role="grid">
+  <div class="calendar-row" *ngFor="let row of monthService.grid$ | async; trackBy: trackRowByFn" role="row">
 
-<div class="calendar">
-  <div class="calendar-row" *ngFor="let row of months">
-    <div class="calendar-item" *ngFor="let item of row" [class.active]="item === date.getMonth() && year === date.getFullYear()"
-      [class.current]="item === currentDate.getMonth() && year === currentDate.getFullYear()" (mousedown)="select(item)" (keyup.enter)="select(item)" tabindex="0">{{ getMonthName(item) }}</div>
+    <button type="button"
+         uxFocusIndicator
+         uxFocusIndicatorOrigin
+         [programmaticFocusIndicator]="true"
+         role="gridcell"
+         class="calendar-item"
+         *ngFor="let item of row; trackBy: trackMonthByFn"
+         [focusIf]="shouldFocus(item)"
+         [disabled]="getDisabled(item)"
+         [tabindex]="getTabbable(item) ? 0 : -1"
+         [attr.aria-label]="item.name + ' ' + item.year"
+         [attr.aria-selected]="item.isActiveMonth"
+         [class.active]="item.isActiveMonth && !getDisabled(item)"
+         [class.current]="item.isCurrentMonth"
+         (click)="select(item.month); $event.stopPropagation()"
+         (focus)="announceRangeMode()"
+         (keydown.ArrowLeft)="focusMonth(item, -1); $event.preventDefault()"
+         (keydown.ArrowRight)="focusMonth(item, 1); $event.preventDefault()"
+         (keydown.ArrowUp)="focusMonth(item, -4); $event.preventDefault()"
+         (keydown.ArrowDown)="focusMonth(item, 4); $event.preventDefault()">
+         {{ item.name }}
+    </button>
   </div>
 </div>

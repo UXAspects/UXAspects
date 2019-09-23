@@ -1,12 +1,34 @@
 <header class="header">
 
-  <div class="header-navigation" (click)="previous.emit(); $event.stopPropagation()" (keyup.enter)="previous.emit()" tabindex="0">
-    <i class="hpe-icon hpe-previous"></i>
-  </div>
+  <button type="button"
+          uxFocusIndicator
+          [disabled]="isPreviousDisabled()"
+          class="header-navigation"
+          (click)="previous(); $event.stopPropagation()"
+          [attr.aria-label]="previousAria$ | async"
+          tabindex="0">
 
-  <div class="header-title" [class.active]="canAscend" (click)="ascend.emit(); $event.stopPropagation()" (keyup.enter)="ascend.emit()" tabindex="0">{{ header }}</div>
+    <ux-icon name="previous" class="header-navigation-previous-icon"></ux-icon>
+  </button>
 
-  <div class="header-navigation" (click)="next.emit(); $event.stopPropagation()" (keyup.enter)="next.emit()" tabindex="0">
-    <i class="hpe-icon hpe-next"></i>
-  </div>
+  <button type="button"
+          uxFocusIndicator
+          class="header-title"
+          [attr.aria-label]="headerAria$ | async"
+          [class.active]="canAscend$ | async"
+          (click)="ascend(); $event.stopPropagation()"
+          [tabindex]="(canAscend$ | async) ? 0 : -1">
+       {{ datepicker.header$ | async }}
+  </button>
+
+  <button type="button"
+          uxFocusIndicator
+          [disabled]="isNextDisabled()"
+          class="header-navigation"
+          (click)="next(); $event.stopPropagation()"
+          [attr.aria-label]="nextAria$ | async"
+          tabindex="0">
+
+    <ux-icon name="next" class="header-navigation-next-icon"></ux-icon>
+  </button>
 </header>

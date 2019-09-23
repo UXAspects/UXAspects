@@ -1,0 +1,44 @@
+<div class="demo-toolbar">
+
+    <div class="demo-toolbar-left">
+        <ux-toolbar-search [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
+            <input uxToolbarSearchField #searchField type="text" class="form-control" placeholder="Search"
+                aria-label="Search" [(ngModel)]="searchText">
+            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
+                aria-label="Toggle Search" uxTooltip="Search">
+                <ux-icon name="search"></ux-icon>
+            </button>
+            <button *ngIf="searchText" type="button"
+                class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
+                (click)="searchText = ''; searchField.focus()">
+                <ux-icon name="close"></ux-icon>
+            </button>
+        </ux-toolbar-search>
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Add">
+            <ux-icon name="add"></ux-icon>
+        </button>
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Edit">
+            <ux-icon name="edit"></ux-icon>
+        </button>
+    </div>
+
+    <div class="demo-toolbar-right">
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Grid View">
+            <ux-icon name="grid"></ux-icon>
+        </button>
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="List View">
+            <ux-icon name="list"></ux-icon>
+        </button>
+        <ux-toolbar-search direction="left" (search)="onSearchRight($event)">
+            <input uxToolbarSearchField #searchFieldRight type="text" class="form-control"
+                placeholder="Search" aria-label="Search">
+            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
+                aria-label="Toggle Search" uxTooltip="Search">
+                <ux-icon name="search"></ux-icon>
+            </button>
+        </ux-toolbar-search>
+    </div>
+
+</div>
+
+<p class="m-t-md">Searched for: <strong>{{searchedFor}}</strong></p>

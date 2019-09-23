@@ -1,15 +1,14 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HelpCenterModule, IconModule, PageHeaderModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsHelpCenterNg1Component } from './help-center-ng1/help-center-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsHelpCenterNg1Component } from './help-center-ng1/help-center-ng1.component';
 import { ComponentsHelpCenterComponent } from './help-center/help-center.component';
-import { HelpCenterModule, PageHeaderModule } from '../../../../../../src/index';
+
 
 const SECTIONS = [
     ComponentsHelpCenterNg1Component,
@@ -28,13 +27,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
-        HelpCenterModule,
-        PageHeaderModule,
         CommonModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        HelpCenterModule,
+        IconModule,
+        PageHeaderModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

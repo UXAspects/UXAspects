@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Filter } from '../../../../../../../src/index';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { Filter } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-custom-filters',
     templateUrl: './custom-filters.component.html'
 })
 @DocumentationSectionComponent('ComponentsCustomFiltersComponent')
-export class ComponentsCustomFiltersComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsCustomFiltersComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     statusFilters: Filter[] = [{
         group: 'custom',
@@ -27,7 +27,7 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
         name: 'Inactive'
     }];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
@@ -36,7 +36,7 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
             'sample-filter.component.ts': this.snippets.raw.sampleTs
         },
         modules: [{
-            imports: ['FilterModule', 'RadioButtonModule'],
+            imports: ['FilterModule', 'RadioButtonModule', 'MenuNavigationModule'],
             library: '@ux-aspects/ux-aspects'
         }, {
             imports: ['SampleFilterCustomComponent'],

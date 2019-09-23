@@ -138,14 +138,14 @@
 
 <p>Below you can see the sample code used in our example:</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-  </tab>
-  <tab heading="Javascript">
-    <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>    
-  </tab>
-</tabset>
+  </ux-tab>
+  <ux-tab heading="Javascript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>
+  </ux-tab>
+</ux-tabset>
 
 <blockquote>
   <p>Refer to <a href="https://github.com/nervgh/angular-file-upload/">AngularFileUpload</a> for further details on methods

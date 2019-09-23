@@ -1,0 +1,96 @@
+<ux-column-picker [(selected)]="selected" [(deselected)]="deselected" [locked]="locked"></ux-column-picker>
+
+<hr>
+
+<p>
+    A <code>ux-column-picker</code> can be used to allow a user to select, deselect and reorder the columns in a
+    table.
+</p>
+
+<p>
+    The following properties can be used to configure the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="selected" type="ReadonlyArray<string>">
+        Define a list of all selected columns.
+    </tr>
+    <tr uxd-api-property name="locked" type="ReadonlyArray<string>">
+        Define a list of columns that are always selected. The columns cannot be moved or reordered.
+    </tr>
+    <tr uxd-api-property name="deselected" type="ReadonlyArray<string>">
+        Define a list of columns that are not selected or locked.
+    </tr>
+    <tr uxd-api-property name="selectedTitleTemplate" type="TemplateRef<void>">
+        Define a custom selected title template.
+    </tr>
+    <tr uxd-api-property name="deselectedTitleTemplate" type="TemplateRef<void>">
+        Define a custom deselected title template.
+    </tr>
+    <tr uxd-api-property name="deselectedTemplate" type="TemplateRef<string>">
+        Define a custom template for deselected items.
+    </tr>
+    <tr uxd-api-property name="selectedTemplate" type="TemplateRef<string>">
+        Define a custom template for selected items.
+    </tr>
+    <tr uxd-api-property name="lockedTemplate" type="TemplateRef<string>">
+        Define a custom template for locked items.
+    </tr>
+    <tr uxd-api-property name="actionsTemplate" type="TemplateRef<ColumnPickerActionsContext>">
+        Define a custom template for the action buttons columns.
+    </tr>
+    <tr uxd-api-property name="selectedAriaLabel" type="(column: string, index: number) => string">
+        Define a function to get the aria label of reorderable items in the selected column.
+    </tr>
+    <tr uxd-api-property name="columnMovedAnnouncement" type="(column: string, delta: number) => string">
+        Define a function that returns a column move announcement.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="ReadonlyArray<string>">
+        Emits when the selected items change or the order of the selected items change.
+    </tr>
+    <tr uxd-api-property name="deselectedChange" type="ReadonlyArray<string>">
+        Emits when the deselected items change.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="ColumnPickerActionsContext Interface">
+    <tr uxd-api-property name="addSelection" type="ReadonlyArray<string>">
+        An array of items that are currently selected in the left column.
+    </tr>
+    <tr uxd-api-property name="removeSelection" type="ReadonlyArray<string>">
+        An array of items that are currently selected in the right column.
+    </tr>
+    <tr uxd-api-property name="addColumns" type="(columns?: ReadonlyArray<string>) => void">
+        A function that can be called to add columns. If no columns are passed to the function, the items
+        that are selected in the left column will be added.
+    </tr>
+    <tr uxd-api-property name="removeColumns" type="(columns?: ReadonlyArray<string>) => void">
+        A function that can be called to remove columns. If no columns are passed to the function, the items
+        that are selected in the right column will be removed.
+    </tr>
+    <tr uxd-api-property name="addAllColumns" type="() => void">
+        A function that can be called to add all columns.
+    </tr>
+    <tr uxd-api-property name="removeAllColumns" type="() => void">
+        A function that can be called to remove all columns.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The example above can be created using the following code:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

@@ -1,132 +1,106 @@
-<div class="btn-group" dropdown>
-    <button dropdownToggle type="button" class="btn button-secondary dropdown-toggle">
-        Actions <span class="hpe-icon hpe-down dropdown-icon-inline"></span>
+<div class="btn-group">
+    <button
+        type="button"
+        class="btn button-secondary dropdown-toggle"
+        [uxMenuTriggerFor]="menu">
+        Actions <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
     </button>
-    <ul *dropdownMenu class="dropdown-menu dropdown-menu-demo" role="menu">
-        <li role="menuitem" class="dropdown-submenu">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Mark as
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    <i class="hpe-icon hpe-next"></i>
-                </span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-demo" role="menu">
-                <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
-                        <span class="dropdown-menu-icon">
-                            <i class="hpe-icon hpe-more"></i>
-                        </span>
-                        <span class="dropdown-menu-text">
-                            Pending
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+P
-                        </span>
-                    </a>
-                </li>
-                <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
-                        <span class="dropdown-menu-icon">
-                            <i class="hpe-icon hpe-link-up"></i>
-                        </span>
-                        <span class="dropdown-menu-text">
-                            Escalated
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+E
-                        </span>
-                    </a>
-                </li>
-                <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
-                        <span class="dropdown-menu-icon">
-                            <i class="hpe-icon hpe-checkmark"></i>
-                        </span>
-                        <span class="dropdown-menu-text">
-                            Closed
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+C
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="divider"></li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Export
-                </span>
-            </a>
-        </li>
-        <li role="menuitem" class="dropdown-submenu">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Add to case
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    <i class="hpe-icon hpe-next"></i>
-                </span>
-            </a>
-            <div class="dropdown-menu case-dropdown">
-                <div class="case-filter">
-                    <div class="inner-addon right-addon">
-                        <i class="hpe-icon hpe-search"></i>
-                        <input type="text" class="form-control" [(ngModel)]="caseFilter"
-                            (click)="$event.stopPropagation();" />
-                    </div>
-                </div>
-                <div>
-                    <div class="case-items">
-                        <ul>
-                            <li role="menuitem" *ngFor="let case of cases | stringFilter: caseFilter">
-                                <a href="javascript:void(0);">{{case}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Save list
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+L
-                </span>
-            </a>
-        </li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Save search query
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+S
-                </span>
-            </a>
-        </li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon">
-                    <i class="hpe-icon hpe-edit"></i>
-                </span>
-                <span class="dropdown-menu-text">
-                    Annotate
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+A
-                </span>
-            </a>
-        </li>
-    </ul>
 </div>
+
+<ux-menu #menu menuClass="ux-menu-demo">
+
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Mark as</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">
+            <ux-icon name="next"></ux-icon>
+        </span>
+    </button>
+
+    <ux-menu-divider></ux-menu-divider>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Export</span>
+    </button>
+
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="casesMenu">
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Add to case</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">
+            <ux-icon name="next"></ux-icon>
+        </span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Save list</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+L</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Save search query</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+S</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="edit"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Annotate</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+A</span>
+    </button>
+
+</ux-menu>
+
+<ux-menu #markAsMenu menuClass="mark-as-menu">
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="more"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Pending</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="link-up"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Escalated</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="checkmark"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Closed</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
+    </button>
+
+</ux-menu>
+
+<ux-menu #casesMenu>
+    <div class="case-filter">
+        <div class="inner-addon right-addon">
+            <ux-icon name="search"></ux-icon>
+            <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="caseFilter"
+                (click)="$event.stopPropagation();" />
+        </div>
+    </div>
+
+    <div class="case-items">
+        <button
+            type="button"
+            uxMenuItem
+            *ngFor="let case of cases | stringFilter: caseFilter">
+            {{ case }}
+        </button>
+    </div>
+
+</ux-menu>

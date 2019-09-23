@@ -1,19 +1,18 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ColorServiceModule, HybridModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartsModule } from 'ng2-charts';
-
-import { ChartsLineChartNg1Component } from './line-chart-ng1/line-chart-ng1.component';
-import { ChartsMultipleAxisLineChartNg1Component } from './multiple-axis-line-chart-ng1/multiple-axis-line-chart-ng1.component';
-import { ChartsStackedLineChartNg1Component } from './stacked-line-chart-ng1/stacked-line-chart-ng1.component';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsLineChartNg1Component } from './line-chart-ng1/line-chart-ng1.component';
 import { ChartsLineChartComponent } from './line-chart/line-chart.component';
-import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
+import { ChartsMultipleAxisLineChartNg1Component } from './multiple-axis-line-chart-ng1/multiple-axis-line-chart-ng1.component';
 import { ChartsMultipleAxisLineChartComponent } from './multiple-axis-line-chart/multiple-axis-line-chart.component';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { ChartsStackedLineChartNg1Component } from './stacked-line-chart-ng1/stacked-line-chart-ng1.component';
+import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
 
 const SECTIONS = [
     ChartsLineChartNg1Component,
@@ -36,12 +35,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
-        WrappersModule,
-        HybridModule,
-        DocumentationComponentsModule,
         ChartsModule,
-        RouterModule.forChild(ROUTES)
+        ColorServiceModule,
+        CommonModule,
+        DocumentationComponentsModule,
+        HybridModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

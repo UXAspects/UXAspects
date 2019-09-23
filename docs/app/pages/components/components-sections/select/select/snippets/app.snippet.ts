@@ -1,11 +1,13 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
     // ux-select configuration properties
     options: string[] | Function;
@@ -19,8 +21,11 @@ export class AppComponent implements OnInit {
     dropdownOpen: boolean;
     maxHeight: string = '250px';
     placeholder = 'Select a country';
+    readonlyInput: boolean = false;
 
     private _pageSize = 20;
+    private _onDestroy = new Subject<void>();
+
     get pageSize() {
         return this._pageSize;
     }
@@ -35,28 +40,28 @@ export class AppComponent implements OnInit {
     loadOptionsCallback = this.loadOptions.bind(this);
 
     dataSets: { strings?: any[], objects?: any[] } = {};
- 
+
     constructor() {
 
         // Reset select when "multiple" checkbox changes.
-        this.multiple.subscribe((value) => {
+        this.multiple.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
             this.selected = null;
             this.dropdownOpen = false;
         });
 
         // Reset and switch options between array and function when paging checkbox changes.
-        this.pagingEnabled.subscribe((value) => {
+        this.pagingEnabled.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
             this.selected = null;
             this.dropdownOpen = false;
             this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
         });
 
         // Reset and reassign options when the dataset changes. Also set display and key properties.
-        this.dataSet.subscribe((value) => {
+        this.dataSet.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
 
             if (this.multiple.getValue() === true) {
                 this.pagingEnabled.next(false);
-            } 
+            }
 
             this.selected = null;
             this.dropdownOpen = false;
@@ -73,9 +78,14 @@ export class AppComponent implements OnInit {
             return { id: i, name: option };
         });
     }
-    
+
     ngOnInit() {
         this.options = this.selectedDataSet();
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     selectedDataSet(): any[] {

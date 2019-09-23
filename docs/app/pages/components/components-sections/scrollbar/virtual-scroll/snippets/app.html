@@ -1,8 +1,17 @@
-<ux-virtual-scroll class="virtual-scroll-container" [collection]="employees" 
-    [cellHeight]="63" [loadOnScroll]="loadOnScroll"
+<ux-virtual-scroll class="virtual-scroll-container"
+    role="list"
+    [attr.aria-busy]="loading"
+    aria-label="Employee list with virtual scrolling"
+    [collection]="employees"
+    [cellHeight]="63"
+    [loadOnScroll]="loadOnScroll"
     (loading)="loadPage($event)">
 
-    <div *uxVirtualScrollCell="let cell = cell" class="virtual-cell">
+    <div *uxVirtualScrollCell="let cell = cell; let index = index"
+        role="listitem"
+        [attr.aria-setsize]="totalItems"
+        [attr.aria-posinset]="index"
+        class="virtual-cell">
 
         <div class="employee-details">
             <div>
@@ -17,26 +26,16 @@
 
     </div>
 
+    <button *uxVirtualScrollLoadButton
+        type="button"
+        aria-description="Load more items into the list"
+        class="btn btn-link button-primary virtual-scroll-load-more">
+        Load more
+    </button>
+
     <div *uxVirtualScrollLoading class="virtual-scroll-loading">
         <div class="spinner spinner-accent spinner-bounce-middle"></div>
         <div>Loading...</div>
     </div>
 
-    <button *uxVirtualScrollLoadButton type="button" 
-        class="btn btn-link button-primary virtual-scroll-load-more">
-        Load more
-    </button>
-
 </ux-virtual-scroll>
-
-<div class="uxd-customize-example">
-    <accordion>
-        <accordion-group class="accordion-chevron" heading="Customize Example...">
-            <div class="row uxd-customize-row">
-                <div class="col-md-6 col-sm-12">
-                    <ux-checkbox [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
-                </div>
-            </div>
-        </accordion-group>
-    </accordion>
-</div>

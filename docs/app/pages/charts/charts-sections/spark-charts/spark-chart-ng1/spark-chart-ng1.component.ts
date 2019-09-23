@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-charts-spark-chart-ng1',
@@ -10,18 +11,18 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsSparkChartNg1Component')
-export class ChartsSparkChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsSparkChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     charts: ISparkChart[];
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'SparkChartCtrl as vm'
         },
         js: [this.snippets.raw.chartJs],
         css: [this.snippets.raw.chartCss]
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
@@ -74,7 +75,8 @@ export class ChartsSparkChartNg1Component extends BaseDocumentationSection imple
                 barColor: ['#1aac60', '#fcdb1f', '#e5004c'],
                 value: [70, 20, 10],
                 fillHeight: 6,
-                topLeftLabel: "<span class='spark-label'>Multi-value</span>"
+                topLeftLabel: "<span class='spark-label'>Multi-value</span>",
+                tooltip: ['Complete', 'In Progress', 'To Do']
             },
             {
                 type: 'spark-vibrant2',
@@ -86,7 +88,6 @@ export class ChartsSparkChartNg1Component extends BaseDocumentationSection imple
                 bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>'
             }
         ];
-
     }
 }
 
@@ -100,5 +101,5 @@ interface ISparkChart {
     bottomLeftLabel?: string;
     bottomRightLabel?: string;
     inlineLabel?: string;
-    tooltip?: string;
+    tooltip?: string | string[];
 }

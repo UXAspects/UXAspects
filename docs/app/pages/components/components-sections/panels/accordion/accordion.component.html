@@ -1,28 +1,53 @@
-<accordion [closeOthers]="true">
+<ux-accordion [collapseOthers]="true">
 
-    <accordion-group class="accordion-chevron" *ngFor="let group of groups" [heading]="group.heading" [(isOpen)]="group.open">
+    <ux-accordion-panel class="accordion-chevron" *ngFor="let group of groups" [heading]="group.heading" [(expanded)]="group.open">
         <span>{{ group.content }}</span>
-    </accordion-group>
+    </ux-accordion-panel>
 
-</accordion>
+</ux-accordion>
 
 <hr>
 
 <p>
-    The Bootstrap <code>accordion</code> components can be used to create collapsible panels. To display chevrons in the accordion header 
-    add the <code>accordion-chevron</code> class to the <code>accordion-group</code> element.
+    The <code>ux-accordion</code> component can be used to create collapsible panels. To display chevrons in the accordion header
+    add the <code>accordion-chevron</code> class to the <code>ux-accordion-panel</code> element.
 </p>
+
+<uxd-api-properties tableTitle="Accordion Inputs">
+    <tr uxd-api-property name="collapseOthers" type="boolean" [defaultValue]="false">
+        If set to true, only one panel can be expanded at any given time. When a panel is expanded all other will collapse.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Accordion Panel Inputs">
+    <tr uxd-api-property name="heading" type="string">
+        Sets the text to display in the panel heading.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        If set to true the panel will display in the expanded state.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        If set to true the expand/collapse functionality be be disabled.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Accordion Panel Outputs">
+    <tr uxd-api-property name="expandedChange" type="boolean">
+        This event will emit when the expanded state changes.
+    </tr>
+</uxd-api-properties>
 
 <p>
-    Refer to <a href="https://valor-software.com/ngx-bootstrap/#/accordion">ngx-bootstrap</a> for complete documentation on this component.
+    To further customize the header content an <code>ux-accordion-panel-header</code> element may be inserted as a child of a <code>ux-accordion-panel</code>.
+    Inside this element you can place the HTML to display in the panel header.
 </p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="TypeScript">
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

@@ -1,0 +1,32 @@
+<div class="card-tab-content" role="tabpanel" *ngIf="(tabService.tab$ | async)">
+    <ng-content></ng-content>
+</div>
+
+<div class="card-tabs" #tabs>
+
+    <button type="button" class="card-tabs-paging-btn card-tabs-paging-btn-previous" aria-label="Previous Tabs" (click)="previous()" *ngIf="offset < bounds.lower">
+        <ux-icon name="previous"></ux-icon>
+    </button>
+
+    <div class="card-tabs-list" role="tablist" #tablist (uxResize)="resize($event)" [style.transform]="'translateX(' + offset + 'px)'">
+
+        <div class="card-tab"
+            role="tab"
+            tabindex="0" #card
+            *ngFor="let tab of tabService.tabs$ | async"
+            [ngClass]="tabService.position$ | async"
+            [class.active]="tab.active$ | async"
+            [attr.aria-selected]="tab.active$ | async"
+            (click)="select(tab, card)"
+            (focus)="tabs.scrollLeft = 0"
+            (keydown.enter)="select(tab, card)">
+
+            <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+
+    </div>
+
+    <button type="button" class="card-tabs-paging-btn card-tabs-paging-btn-next" aria-label="Next Tabs" (click)="next()" *ngIf="offset > bounds.upper">
+        <ux-icon name="next"></ux-icon>
+    </button>
+</div>

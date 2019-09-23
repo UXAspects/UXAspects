@@ -2,6 +2,12 @@ ux-facet-check-list {
     .facet-check-list-container {
         display: flex;
         flex-direction: column;
+        margin: 0;
+        padding: 0;
+
+        &:focus {
+            outline: none;
+        }
 
         .facet-check-list-item {
             display: flex;
@@ -13,16 +19,12 @@ ux-facet-check-list {
             min-width: 100%;
             max-width: 100%;
 
-            .facet-check-list-item-check {
-                display: flex;
-                flex: none;
-                justify-content: flex-start;
-                align-items: center;
-                color: @accent;
-                opacity: 0;
-                width: 22px;
-                margin-right: 5px;
-                margin-left: 5px;
+            &.ux-focus-indicator-active {
+                .focus-outline();
+            }
+
+            ux-checkbox {
+                pointer-events: none;
             }
 
             .facet-check-list-item-title {
@@ -37,13 +39,8 @@ ux-facet-check-list {
                 color: @grey4;
             }
 
-            &:hover,
-            &:focus {
+            &:hover {
                 background-color: @grey7;
-
-                .facet-check-list-item-check {
-                    opacity: 0.5;
-                }
             }
 
             &.disabled {
@@ -51,10 +48,6 @@ ux-facet-check-list {
             }
 
             &.facet-active {
-                .facet-check-list-item-check {
-                    opacity: 1;
-                }
-
                 &:hover,
                 &:focus {
                     opacity: 1;
@@ -81,7 +74,8 @@ ux-facet-check-list {
                 background-color: transparent;
             }
 
-            &:hover::-webkit-scrollbar-thumb {
+            &:hover::-webkit-scrollbar-thumb,
+            &.facet-check-list-scrollbar-focused::-webkit-scrollbar-thumb {
                 border-radius: 6px;
                 background-color: @grey4;
             }

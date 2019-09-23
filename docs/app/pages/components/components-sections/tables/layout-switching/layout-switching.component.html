@@ -56,8 +56,8 @@
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
 
                 <div class="row uxd-customize-row">
                     <div class="col-md-12">
@@ -76,8 +76,8 @@
                     </div>
                 </div>
 
-            </accordion-group>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>
 
@@ -124,14 +124,14 @@
 
 <p>The following code can be used to create the example shown above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

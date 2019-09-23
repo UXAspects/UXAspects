@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
-import { DashboardService, ActionDirection } from '../dashboard.service';
-import { Subscription } from 'rxjs/Subscription';
+import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ActionDirection, DashboardService } from '../dashboard.service';
 
 @Component({
     selector: 'ux-dashboard-widget',
@@ -8,12 +9,29 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    /** Sets the ID of the widget. Each widget should be given a unique ID. */
     @Input() id: string;
+
+    /** Defines a name for the widget used for accessibility */
+    @Input() name: string;
+
+    /** Defines the column the widget is placed in */
     @Input() col: number;
+
+    /** Defines the row the widget is placed in */
     @Input() row: number;
+
+    /** Defines the number of columns this widget should occupy. */
     @Input() colSpan: number = 1;
+
+    /** Defines the number of rows this widget should occupy. */
     @Input() rowSpan: number = 1;
+
+    /** Defines whether or not this widget can be resized. */
     @Input() resizable: boolean = false;
+
+    /** Defines a function that returns an aria label for the widget */
+    @Input() widgetAriaLabel: (widgets: DashboardWidgetComponent) => string | string = this.getDefaultAriaLabel;
 
     @HostBinding('style.left.px') x: number = 0;
     @HostBinding('style.top.px') y: number = 0;
@@ -21,15 +39,35 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @HostBinding('style.height.px') height: number = 100;
     @HostBinding('style.padding.px') padding: number = 0;
     @HostBinding('style.z-index') zIndex: number = 0;
+    @HostBinding('attr.aria-label') ariaLabel: string;
+    @HostBinding('class.dragging') isDragging: boolean = false;
+    @HostBinding('class.grabbing') isGrabbing: boolean = false;
+    @HostBinding('class.resizing') isResizing: boolean = false;
+
+    isDraggable: boolean = false;
 
     private _column: StackableValue = { regular: undefined, stacked: undefined };
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
-    private _subscription: Subscription;
+    private _onDestroy = new Subject<void>();
 
     constructor(public dashboardService: DashboardService) {
-        this._subscription = dashboardService.options$.subscribe(() => this.update());
+        // subscribe to option changes
+        dashboardService.options$.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.update());
+
+        // every time the layout changes we want to update the aria label
+        dashboardService.layout$.pipe(takeUntil(this._onDestroy))
+            .subscribe(() => this.ariaLabel = this.getAriaLabel());
+
+        // allow widget movements to be animated
+        dashboardService.isDragging$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
+            .subscribe(isDragging => this.isDragging = isDragging);
+
+        // allow widget movements to be animated
+        dashboardService.isGrabbing$.pipe(takeUntil(this._onDestroy), map(widget => widget === this))
+            .subscribe(isGrabbing => this.isGrabbing = isGrabbing);
     }
 
     ngOnInit(): void {
@@ -57,7 +95,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * If component is removed, then unregister it from the service
      */
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
         this.dashboardService.removeWidget(this);
     }
 
@@ -66,7 +105,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      */
     update(): void {
 
-        // get the current options at the time 
+        // get the current options at the time
         const { padding, columns } = this.dashboardService.options;
 
         this.padding = padding;
@@ -147,15 +186,43 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
-        this.dashboardService.onResizeStart({ widget: this, direction: direction, event: event, handle: handle });
+        this.isResizing = true;
+        this.dashboardService.isGrabbing$.next(null);
+        this.dashboardService.onResizeStart({ widget: this, direction, event, handle });
     }
 
     drag(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
-        this.dashboardService.onResizeDrag({ widget: this, direction: direction, event: event, handle: handle });
+        this.dashboardService.onResizeDrag({ widget: this, direction, event, handle });
     }
 
     dragend(): void {
+        this.isResizing = false;
         this.dashboardService.onResizeEnd();
+    }
+
+    getAriaLabel(): string {
+        if (this.widgetAriaLabel && typeof this.widgetAriaLabel === 'string') {
+            return this.widgetAriaLabel;
+        } else if (this.widgetAriaLabel && typeof this.widgetAriaLabel === 'function') {
+            return this.widgetAriaLabel(this);
+        }
+
+        return this.ariaLabel;
+    }
+
+    private getDefaultAriaLabel(widget: DashboardWidgetComponent): string {
+
+        let options: string = '';
+
+        if (widget.resizable && widget.isDraggable) {
+            options = 'It can be moved and resized.';
+        } else if (widget.resizable) {
+            options = 'It can be resized.';
+        } else if (widget.isDraggable) {
+            options = 'It can be moved.';
+        }
+
+        return `${widget.name} panel in row ${widget.getRow()}, column ${widget.getColumn()}, is ${widget.getColumnSpan()} columns wide and ${widget.getRowSpan()} rows high. ${options}`;
     }
 
     /**

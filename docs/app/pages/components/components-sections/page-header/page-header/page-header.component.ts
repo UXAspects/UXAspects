@@ -1,48 +1,60 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Breadcrumb } from '../../../../../../../src/components/breadcrumbs/index';
-import { PageHeaderNavigationItem, PageHeaderIconMenu } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { Breadcrumb, PageHeaderIconMenu, PageHeaderNavigationItem } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-page-header',
     templateUrl: './page-header.component.html'
 })
 @DocumentationSectionComponent('ComponentsPageHeaderComponent')
-export class ComponentsPageHeaderComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsPageHeaderComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.ts': this.snippets.raw.appTs
         },
-        modules: [{
-            imports: ['PageHeaderModule'],
-            library: '@ux-aspects/ux-aspects'
-        },
-        {
-            library: 'ngx-bootstrap/dropdown',
-            imports: ['BsDropdownModule'],
-            providers: ['BsDropdownModule.forRoot()']
-        }]
+        modules: [
+            {
+                imports: ['PageHeaderModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['RouterModule'],
+                library: '@angular/router',
+                providers: ['RouterModule.forRoot([])']
+            },
+            {
+                imports: ['BsDropdownModule'],
+                library: 'ngx-bootstrap/dropdown',
+                providers: ['BsDropdownModule.forRoot()']
+            }
+        ]
     };
-
 
     condensed: boolean = false;
 
-    crumbs: Breadcrumb[] = [{
-        title: 'Archive'
-    }];
+    crumbs: Breadcrumb[] = [
+        {
+            title: 'Archive',
+            onClick: () => { }
+        },
+        {
+            title: '2017',
+            onClick: () => { }
+        }
+    ];
 
     items: PageHeaderNavigationItem[] = [
         {
-            icon: 'hpe-home',
+            icon: 'home',
             title: 'Home'
         },
         {
-            icon: 'hpe-analytics',
+            icon: 'analytics',
             title: 'Analytics',
             children: [
                 {
@@ -68,30 +80,32 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
 
     iconMenus: PageHeaderIconMenu[] = [
         {
-            icon: 'hpe-notification',
+            icon: 'notification',
+            label: 'Notifications. 3 new items.',
             badge: 3,
             dropdown: [
                 {
-                    icon: 'hpe-chat',
+                    icon: 'chat',
                     title: 'You have 16 messages',
                     subtitle: '4 minutes ago',
                     divider: true
                 },
                 {
-                    icon: 'hpe-social-twitter',
+                    icon: 'social-twitter',
                     title: '3 New Followers',
                     subtitle: '12 minutes ago',
                     divider: true
                 },
                 {
-                    icon: 'hpe-cloud',
+                    icon: 'cloud',
                     title: 'Server Rebooted',
                     subtitle: '22 minutes ago'
                 }
             ]
         },
         {
-            icon: 'hpe-actions',
+            icon: 'actions',
+            label: 'Actions',
             dropdown: [
                 {
                     header: true,
@@ -99,11 +113,11 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
                     divider: true
                 },
                 {
-                    icon: 'hpe-user-settings',
+                    icon: 'user-settings',
                     title: 'Settings'
                 },
                 {
-                    icon: 'hpe-logout',
+                    icon: 'logout',
                     title: 'Log Out'
                 },
                 {
@@ -116,5 +130,4 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
-
 }

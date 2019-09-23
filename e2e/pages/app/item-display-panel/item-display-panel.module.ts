@@ -1,8 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ItemDisplayPanelModule, SparkModule } from '../../../../dist';
-
+import { IconModule, ItemDisplayPanelModule, SparkModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { ItemDisplayPanelTestPageComponent } from './item-display-panel.testpage.component';
 
 @NgModule({
@@ -10,6 +9,8 @@ import { ItemDisplayPanelTestPageComponent } from './item-display-panel.testpage
         CommonModule,
         SparkModule,
         ItemDisplayPanelModule,
+        IconModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

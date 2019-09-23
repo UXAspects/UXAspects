@@ -1,22 +1,33 @@
 <ux-tag-input *ngIf="multiple"
-    [(tags)]="value"
+    #tagInput="ux-tag-input"
+    [id]="id + '-input'"
+    [tags]="_value$ | async"
+    (tagsChange)="_value$.next($event)"
     [(input)]="input"
+    [ariaLabel]="ariaLabel"
+    [autocomplete]="autocomplete"
     [addOnPaste]="false"
     [disabled]="disabled"
     [display]="display"
     [freeInput]="false"
     [placeholder]="placeholder"
-    [showTypeaheadOnClick]="true">
+    [showTypeaheadOnClick]="true"
+    [readonlyInput]="readonlyInput"
+    [icon]="icon"
+    [clearButton]="clearButton"
+    [clearButtonAriaLabel]="clearButtonAriaLabel">
 
     <ux-typeahead #multipleTypeahead
+        [id]="id + '-typeahead'"
         [options]="options"
-        [filter]="filter | async"
+        [filter]="filter$ | async"
         [(open)]="dropdownOpen"
         [display]="display"
         [key]="key"
-        [disabledOptions]="value"
+        [disabledOptions]="_value$ | async"
         [dropDirection]="dropDirection"
         [maxHeight]="maxHeight"
+        [multiselectable]="true"
         [pageSize]="pageSize"
         [selectFirst]="true"
         [loadingTemplate]="loadingTemplate"
@@ -26,35 +37,69 @@
 
 </ux-tag-input>
 
-<div *ngIf="!multiple" class="inner-addon right-addon" [class.disabled]="disabled">
+<div *ngIf="!multiple"
+    class="ux-select-container"
+    [class.disabled]="disabled"
+    role="combobox"
+    [attr.aria-expanded]="dropdownOpen"
+    aria-haspopup="listbox">
 
-    <i class="hpe-icon"
-        [class.hpe-down]="dropDirection === 'down'"
-        [class.hpe-up]="dropDirection === 'up'"></i>
+    <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
 
-    <input #singleInput type="text" class="form-control"
+    <input #singleInput type="text"
+        [attr.id]="id + '-input'"
+        class="form-control"
+        [attr.aria-activedescendant]="highlightedElement?.id"
+        aria-autocomplete="list"
+        [attr.aria-controls]="singleTypeahead.id"
+        [attr.aria-label]="ariaLabel"
+        aria-multiline="false"
+        [autocomplete]="autocomplete"
         [(ngModel)]="input"
         [placeholder]="placeholder"
         [disabled]="disabled"
-        (click)="inputClickHandler($event)"
-        (blur)="inputBlurHandler($event)"
-        (keydown)="inputKeyHandler($event)">
+        (click)="toggle()"
+        (focus)="onFocus()"
+        (blur)="inputBlurHandler()"
+        (keydown)="inputKeyHandler($event)"
+        [readonly]="readonlyInput">
+
+    <div class="ux-select-icons">
+        <i *ngIf="clearButton && allowNull && _hasValue"
+           uxFocusIndicator
+           [attr.tabindex]="disabled ? -1 : 0"
+           [attr.aria-label]="clearButtonAriaLabel"
+           class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
+           (click)="clear(); $event.stopPropagation()"
+           (keydown.enter)="clear(); $event.stopPropagation()">
+        </i>
+        <i *ngIf="!icon"
+           class="ux-select-icon ux-icon ux-select-chevron-icon"
+           [class.ux-icon-up]="dropDirection === 'up'"
+           [class.ux-icon-down]="dropDirection === 'down'"
+           (click)="toggle(); $event.stopPropagation()">
+        </i>
+    </div>
 
     <ux-typeahead #singleTypeahead
+        [id]="id + '-typeahead'"
+        [active]="_value$ | async"
         [options]="options"
-        [filter]="filter | async"
+        [filter]="filter$ | async"
         [(open)]="dropdownOpen"
         [display]="display"
         [key]="key"
         [dropDirection]="dropDirection"
         [maxHeight]="maxHeight"
+        [multiselectable]="false"
         [openOnFilterChange]="false"
         [pageSize]="pageSize"
         [selectFirst]="true"
         [loadingTemplate]="loadingTemplate"
         [optionTemplate]="optionTemplate"
         [noOptionsTemplate]="noOptionsTemplate"
-        (optionSelected)="singleOptionSelected($event)" >
+        (optionSelected)="singleOptionSelected($event)"
+        (highlightedElementChange)="highlightedElement = $event">
     </ux-typeahead>
 
 </div>

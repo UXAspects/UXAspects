@@ -1,13 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ux-breadcrumbs',
-    templateUrl: 'breadcrumbs.component.html'
+    templateUrl: './breadcrumbs.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class BreadcrumbsComponent {
 
-    @Input() crumbs: Breadcrumb[];
+    /** The list of breadcrumbs to display. */
+    @Input() crumbs: ReadonlyArray<Breadcrumb>;
 
     clickCrumb(event: MouseEvent, crumb: Breadcrumb) {
         if (crumb.onClick) {

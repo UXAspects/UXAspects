@@ -1,16 +1,20 @@
+import { Component, Inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../services/playground/tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-tags',
-    templateUrl: 'tags.component.html'
+    templateUrl: 'tags.component.html',
+    styleUrls: ['./tags.component.less'],
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
-export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
+    typeaheadDocumentationRoute: string;
 
     tagInput: FormControl;
 
@@ -48,22 +52,21 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
     dropDirection: 'up' | 'down' = 'down';
     showTypeaheadOnClick: boolean = false;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule'],
+            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule', 'AccordionModule'],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'ngx-bootstrap/accordion',
-            imports: ['AccordionModule'],
-            providers: ['AccordionModule.forRoot()']
         }]
     };
 
-    constructor() {
+    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        this.typeaheadDocumentationRoute = _documentationType === DocumentationType.MicroFocus ? 'ui-components/input-controls' : 'components/input-controls';
     }
 }

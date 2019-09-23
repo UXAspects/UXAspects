@@ -1,64 +1,76 @@
-.component-list {
+.component-list-container {
     align-items: flex-end;
     display: flex;
 
-    .component-stack {
+    .component-list {
         flex: 1;
 
-        .component-container {
-            .component-list-component {
-                display: flex;
-                padding: 5px;
-                transition: background-color 0.3s linear;
+        .component-list-component {
+            display: flex;
+            padding: 5px;
+            transition: background-color 0.3s linear;
 
-                &.hoverable:hover {
-                    background-color: @component-list-field-hover;
+            &.hoverable:hover {
+                background-color: @component-list-field-hover;
 
-                    .component-remove {
-                        opacity: 1;
+                .component-remove {
+                    opacity: 1;
+
+                    .hpe-icon {
+                        cursor: pointer;
                     }
 
-                    .component-remove[disabled] {
+                    &[disabled] {
                         opacity: 0.5;
-                    }
 
-                    .component-remove[disabled] .hpe-icon {
-                        cursor: default;
-                    }
-
-                    .component-remove {
                         .hpe-icon {
                             cursor: pointer;
                         }
                     }
                 }
+            }
 
-                .component-content {
-                    flex: 1;
+            .component-content {
+                display: flex;
+                flex: 1;
+
+                *:focus ~ .component-remove {
+                    opacity: 1;
+                }
+            }
+
+            .component-remove {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: none;
+                opacity: 0;
+                transition: opacity 0.3s linear;
+                width: 32px;
+                border: none;
+                background: none;
+
+                &.ux-focus-indicator-active {
+                    opacity: 1;
                 }
 
-                .component-remove {
-                    flex: none;
-                    opacity: 0;
-                    transition: opacity 0.3s linear;
-                    width: 32px;
-
-                    .hpe-icon {
-                        color: @component-list-remove-color;
-                        margin: 9px;
-                    }
+                .hpe-icon {
+                    color: @component-list-remove-color;
                 }
             }
         }
     }
 
-    .component-options {
+    .component-actions {
         align-items: center;
         cursor: pointer;
         display: flex;
         flex: none;
         margin-bottom: 7px;
         margin-left: 48px;
+        border: none;
+        background-color: transparent;
+        padding: 0;
 
         .component-add-btn {
             align-items: center;
@@ -71,9 +83,17 @@
             justify-content: center;
             transition: background-color 0.3s linear;
             width: 30px;
+            border: none;
         }
 
         &:hover {
+            .component-add-btn {
+                background-color: @component-list-add-hover-bg;
+                opacity: @component-list-add-hover-bg-opacity;
+            }
+        }
+
+        &.ux-focus-indicator-active {
             .component-add-btn {
                 background-color: @component-list-add-hover-bg;
                 opacity: @component-list-add-hover-bg-opacity;
@@ -85,16 +105,18 @@
             margin-bottom: 0;
             padding-left: 8px;
         }
-    }
 
-    .component-options[disabled] {
-        cursor: default;
-        opacity: 0.5;
-        outline: none;
+        &[disabled],
+        &.disabled {
+            cursor: default;
+            opacity: 0.5;
+            outline: none;
 
-        &:hover {
-            .component-add-btn {
-                background-color: @component-list-add-bg;
+            &:hover {
+                .component-add-btn {
+                    background-color: @component-list-add-bg;
+                    opacity: 0.5;
+                }
             }
         }
     }

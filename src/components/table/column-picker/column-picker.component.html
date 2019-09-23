@@ -1,0 +1,118 @@
+<div class="column-picker-column">
+
+    <div class="column-picker-stats">
+
+        <ng-container *ngIf="!deselectedTitleTemplate">
+            {{ _deselectedSelection.length }} of {{ deselected.length }} selected
+        </ng-container>
+
+        <ng-container
+            *ngIf="deselectedTitleTemplate"
+            [ngTemplateOutlet]="deselectedTitleTemplate">
+        </ng-container>
+    </div>
+
+    <div class="column-picker-list" [(uxSelection)]="_deselectedSelection">
+
+        <div *ngFor="let column of deselected"
+             class="column-picker-list-item"
+             [uxSelectionItem]="column">
+
+            <ng-container *ngIf="!deselectedTemplate">{{ column }}</ng-container>
+
+            <ng-container
+                *ngIf="deselectedTemplate"
+                [ngTemplateOutlet]="deselectedTemplate"
+                [ngTemplateOutletContext]="{ $implicit: column }">
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="column-picker-actions-column">
+    <!-- Show the default action buttons -->
+    <ng-container *ngIf="!actionsTemplate">
+        <button class="btn button-primary btn-block" [disabled]="_deselectedSelection.length === 0" (click)="addColumns()">
+            <ux-icon name="chevron-right"></ux-icon>
+        </button>
+
+        <button class="btn button-primary btn-block m-b-md" [disabled]="_selectedSelection.length === 0" (click)="removeColumns()">
+            <ux-icon name="chevron-left"></ux-icon>
+        </button>
+
+        <button class="btn button-secondary btn-block" [disabled]="deselected.length === 0" (click)="addAllColumns()">
+            <ux-icon name="chevron-right-double"></ux-icon>
+        </button>
+
+        <button class="btn button-secondary btn-block" [disabled]="selected.length === 0" (click)="removeAllColumns()">
+            <ux-icon name="chevron-left-double"></ux-icon>
+        </button>
+    </ng-container>
+
+    <!-- Allow custom actions template -->
+    <ng-container
+        *ngIf="actionsTemplate"
+        [ngTemplateOutlet]="actionsTemplate"
+        [ngTemplateOutletContext]="_getActionContext()">
+    </ng-container>
+
+</div>
+
+<div class="column-picker-column">
+    <div class="column-picker-stats">
+
+        <ng-container *ngIf="!selectedTitleTemplate">
+            {{ selected.length + locked.length }} columns added
+        </ng-container>
+
+        <ng-container
+            *ngIf="selectedTitleTemplate"
+            [ngTemplateOutlet]="selectedTitleTemplate">
+        </ng-container>
+    </div>
+
+    <div class="column-picker-list">
+
+        <div *ngFor="let column of locked"
+             class="column-picker-list-item column-picker-list-item-locked">
+
+             <ng-container *ngIf="!lockedTemplate">
+                {{ column }} <ux-icon name="lock"></ux-icon>
+            </ng-container>
+
+             <ng-container
+                *ngIf="lockedTemplate"
+                [ngTemplateOutlet]="lockedTemplate"
+                [ngTemplateOutletContext]="{ $implicit: column }">
+            </ng-container>
+        </div>
+
+        <div [(uxSelection)]="_selectedSelection" uxReorderable [reorderableModel]="selected" (reorderableModelChange)="onReorderChange($event)" (reorderStart)="storeSelection()"
+            (reorderEnd)="restoreSelection()" (reorderEnd)="onReorder()">
+
+            <div *ngFor="let column of selected; trackBy: selectedTrackBy; let index = index"
+                 #selectedColumn
+                 uxFocusIndicator
+                 [programmaticFocusIndicator]="true"
+                 class="column-picker-list-item column-picker-list-item-selected"
+                 [uxSelectionItem]="column"
+                 [uxReorderableModel]="column"
+                 [attr.aria-label]="getSelectedAriaLabel(column)"
+                 (keydown.alt.arrowup)="move(column, -1)"
+                 (keydown.alt.arrowdown)="move(column, 1)">
+
+                 <ng-container *ngIf="!selectedTemplate">
+                    <ux-icon uxReorderableHandle name="drag" class="drag-handle-icon"></ux-icon>
+                    {{ column }}
+                 </ng-container>
+
+                 <ng-container
+                    *ngIf="selectedTemplate"
+                    [ngTemplateOutlet]="selectedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: column }">
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -78,7 +78,7 @@ describe('component list control', function () {
       controller.removeField(0);
 
       expect(controller.components.length).toBe(2);
-      
+
     });
 
     it('should ensure component list will add items if it would be more than max-components', function () {
@@ -97,7 +97,7 @@ describe('component list control', function () {
       controller.addField();
 
       expect(controller.components.length).toBe(2);
-      
+
     });
 
     it('should ensure component list wont allow adding of new items if all current fields are not populated', function () {
@@ -114,7 +114,7 @@ describe('component list control', function () {
       controller.addField();
 
       expect(controller.components.length).toBe(2);
-      
+
     });
 
 
@@ -125,21 +125,25 @@ describe('component list control', function () {
     // create a new scope
     $scope = $rootScope.$new();
 
-    $scope.vm = {};
+    // add variables to controller as property
+    $scope.vm = props;
 
-    // iterate each prop and add to scope
+    // prepare the controller
+    var ctrlFn = $controller('ComponentListCtrl', {
+      $scope: $scope
+    }, true);
+
+    // add all props to instance (as this component has bindToController: true)
     for (var prop in props) {
-      $scope.vm[prop] = props[prop];
+      ctrlFn.instance[prop] = props[prop];
     }
 
-    var ctrl = $controller('ComponentListCtrl', {
-      $scope: $scope
-    }, props);
+    // create the controller
+    var ctrl = ctrlFn();
 
     // perform initial digest
     $scope.$digest();
 
     return ctrl;
   }
-
 });

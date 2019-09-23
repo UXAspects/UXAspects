@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RadioButtonModule } from '../../../../dist';
+import { RadioButtonModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 
 import { RadioButtonsTestPageComponent } from './radiobuttons.testpage.component';
 
 @NgModule({
     imports: [
         RadioButtonModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

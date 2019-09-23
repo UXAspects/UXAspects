@@ -1,12 +1,12 @@
 <div class="flex-container">
 
-  <ux-flippable-card id="flippableCard1" #flippableCard="ux-flippable-card" class="m-sm" 
+  <ux-flippable-card id="flippableCard1" #flippableCard="ux-flippable-card" class="m-sm"
     trigger="manual" direction="vertical" width="260" height="220">
 
     <ux-flippable-card-front>
-      <i class="hpe-icon hpe-link-down pull-right clickable-icon" aria-hidden="true" 
-        (click)="flippableCard.toggleFlipped()"></i>
-      <img class="card-logo" src="../../../../docs/app/assets/img/IconCaseColorized36x36.png">
+        <ux-icon name="link-down" class="pull-right clickable-icon" aria-hidden="true"
+        (click)="flippableCard.toggleFlipped()"></ux-icon>
+      <img class="card-logo" src="./icon.png">
       <div class="flip-card-content">
         <p class="front-title">NYC vs Volkswagen</p>
         <div class="m-t-md">
@@ -18,8 +18,8 @@
     </ux-flippable-card-front>
 
     <ux-flippable-card-back>
-      <i class="hpe-icon hpe-link-up pull-right clickable-icon icon-back" 
-         aria-hidden="true" (click)="flippableCard.toggleFlipped()"></i>
+        <ux-icon name="link-up" class="pull-right clickable-icon icon-back" aria-hidden="true"
+        (click)="flippableCard.toggleFlipped()"></ux-icon>
       <div class="flip-card-content card-back">
         <p>NYC vs Volkswagen</p>
         <div class="row">
@@ -68,7 +68,7 @@
             </p>
             <p class="m-b-xxs">
               <span class="muted right-align">active</span>
-              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" 
+              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()"
                 [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
                 value="60" barHeight="5" class="spark-left-align"></ux-spark>
             </p>
@@ -83,7 +83,7 @@
   <ux-flippable-card id="flippableCard2" class="m-sm" trigger="hover" direction="horizontal" height="220" width="260">
 
     <ux-flippable-card-front>
-      <img class="card-logo" src="../../../../docs/app/assets/img/IconCaseColorized36x36.png">
+      <img class="card-logo" src="./icon.png">
       <div class="flip-card-content">
         <p class="front-title">The Dorling Case</p>
         <div class="m-t-md">
@@ -146,7 +146,7 @@
             </p>
             <p class="m-b-xxs">
               <span class="muted right-align">active</span>
-              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" 
+              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()"
                 [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
                 value="65" barHeight="5" class="spark-left-align"></ux-spark>
             </p>
@@ -159,7 +159,7 @@
 
   <ux-flippable-card id="flippableCard3" class="m-sm" trigger="click" direction="horizontal" height="220" width="260">
     <ux-flippable-card-front>
-      <img class="card-logo" src="../../../../docs/app/assets/img/IconCaseColorized36x36.png">
+      <img class="card-logo" src="./icon.png">
       <div class="flip-card-content">
         <p class="front-title">The Salisbury Case</p>
         <div class="m-t-md">
@@ -219,7 +219,7 @@
             </p>
             <p class="m-b-xxs">
               <span class="muted right-align">active</span>
-              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" 
+              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()"
                 [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
                 value="65" barHeight="5" class="spark-left-align"></ux-spark>
             </p>

@@ -1,12 +1,77 @@
-<div class="horizontal-navigation-button" dropdown dropdownToggle placement="bottom left" [isDisabled]="!item?.children" tabindex="0" container="body"
-    #menu="bs-dropdown" (keyup.enter)="menu.toggle()" [class.selected]="item?.selected" (click)="selectItem()">
+<div *ngIf="_item.children && _item.children.length > 0 && !(secondary$ | async)">
 
-    <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
-    <span class="navigation-item-label">{{ item?.title }}</span>
-    <span class="hpe-icon hpe-down" *ngIf="item?.children"></span>
+    <button #navigationBtn
+        type="button"
+        [tabindex]="_tabindex | async"
+        [uxMenuTriggerFor]="menu"
+        [disabled]="_item.disabled"
+        role="menuitem"
+        class="horizontal-navigation-button"
+        [class.disabled]="_item.disabled"
+        [class.selected]="_item.selected"
+        [class.open]="isOpen"
+        [attr.aria-selected]="_item.selected">
 
-    <div *dropdownMenu class="dropdown-menu horizontal-navigation-dropdown-menu" role="menu">
-        <ux-page-header-horizontal-navigation-dropdown-item *ngFor="let item of item?.children" [item]="item" (onSelect)="onItemSelect($event)"></ux-page-header-horizontal-navigation-dropdown-item>
-    </div>
+        <!-- Support all icon types -->
+        <ng-container *ngIf="_item.icon">
+            <i *ngIf="_iconType !== 'component'"
+                class="navigation-item-icon"
+                [ngClass]="[_iconType, _item.icon]">
+            </i>
+
+            <ux-icon *ngIf="_iconType === 'component'"
+                     class="navigation-item-icon"
+                     [name]="_item.icon">
+            </ux-icon>
+
+        </ng-container>
+
+        <span class="navigation-item-label">{{ _item?.title }}</span>
+        <ux-icon class="navigation-item-dropdown-icon" name="down"></ux-icon>
+
+    </button>
+
+    <ux-menu
+        #menu
+        menuClass="horizontal-navigation-dropdown-menu"
+        (opened)="isOpen = true"
+        (closed)="isOpen = false">
+
+        <ux-page-header-horizontal-navigation-dropdown-item
+            *ngFor="let item of _item?.children"
+            [item]="item">
+        </ux-page-header-horizontal-navigation-dropdown-item>
+    </ux-menu>
 
 </div>
+
+<button *ngIf="!_item.children || _item.children.length === 0 || (secondary$ | async)"
+    uxFocusIndicator
+    #navigationBtn
+    type="button"
+    [tabindex]="_tabindex | async"
+    role="menuitem"
+    class="horizontal-navigation-button"
+    [class.disabled]="_item.disabled"
+    [class.selected]="_item.selected"
+    [attr.aria-selected]="_item.selected"
+    (click)="select()"
+    [disabled]="_item.disabled">
+
+    <!-- Support all icon types -->
+    <ng-container *ngIf="_item.icon">
+        <i *ngIf="_iconType !== 'component'"
+            class="navigation-item-icon"
+            [ngClass]="[_iconType, _item.icon]">
+        </i>
+
+        <ux-icon *ngIf="_iconType === 'component'"
+                 class="navigation-item-icon"
+                 [name]="_item.icon">
+        </ux-icon>
+
+    </ng-container>
+
+    <span class="navigation-item-label">{{ _item?.title }}</span>
+
+</button>

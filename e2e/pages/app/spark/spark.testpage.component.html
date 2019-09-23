@@ -1,0 +1,31 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <ux-spark
+            id="single-value"
+            [theme]="singleValueChart.theme"
+            [value]="singleValueChart.value"
+            [barHeight]="singleValueChart.barHeight"
+            [topLeftLabel]="singleValueChart.topLeftLabel"
+            [bottomLeftLabel]="singleValueChart.bottomLeftLabel"
+            [topRightLabel]="singleValueChart.topRightLabel"
+            [bottomRightLabel]="singleValueChart.bottomRightLabel"
+            [aria-label]="singleValueChart.ariaLabel"
+            class="col-md-5 col-sm-5 col-xs-5">
+        </ux-spark>
+
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+        <ux-spark
+            id="multi-value"
+            [barColor]="multiValueChart.barColor"
+            [value]="multiValueChart.value"
+            [barHeight]="multiValueChart.barHeight"
+            [topLeftLabel]="multiValueChart.topLeftLabel"
+            [aria-label]="multiValueChart.ariaLabels"
+            class="col-md-5 col-sm-5 col-xs-5">
+        </ux-spark>
+    </div>
+
+</div>

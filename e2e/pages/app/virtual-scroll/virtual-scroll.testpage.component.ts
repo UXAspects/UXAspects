@@ -1,6 +1,5 @@
-import 'chance';
-import { Component, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
@@ -42,7 +41,7 @@ export class VirtualScrollTestPageComponent {
             if (pageNumber === 10) {
                 this.employees.complete();
             }
-        }, 1000);
+        }, 200);
     }
 }
 

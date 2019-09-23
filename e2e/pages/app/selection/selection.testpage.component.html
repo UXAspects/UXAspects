@@ -1,0 +1,42 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Document</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode" [disabled]="false">
+
+        <tr *ngFor="let item of data; let idx = index"
+            id="row-{{ idx }}"
+            class="clickable"
+            [uxSelectionItem]="item"
+            [uxSelectionDisabled]="item.disabled"
+            [(selected)]="item.selected">
+
+            <td>
+                <ux-checkbox class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>
+                <button type="button" class="row-button" tabindex="5">Test</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button id="select-all" class="btn btn-primary" (click)="select.selectAll()">Select All</button>
+<button id="deselect-all" class="btn btn-primary" (click)="select.deselectAll()">Deselect All</button>
+<button id="disable-item" class="btn btn-primary" (click)="setDisabled()">Disabled Item</button>
+
+<hr>
+
+<ux-radio-button class="simple-mode" [(ngModel)]="mode" option="simple">simple</ux-radio-button>
+<ux-radio-button class="row-mode" [(ngModel)]="mode" option="row">row</ux-radio-button>
+<ux-radio-button class="row-alt-mode" [(ngModel)]="mode" option="row-alt">row-alt</ux-radio-button>
+
+<hr>
+
+<p id="selection">{{ selection | json }}</p>

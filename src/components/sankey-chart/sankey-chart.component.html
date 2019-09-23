@@ -1,0 +1,82 @@
+<div class="ux-sankey-chart-columns" *ngIf="columns && columns.length > 0">
+    <div *ngFor="let column of _columns"
+         class="ux-sankey-chart-column"
+         [style.width.px]="column.width">
+
+        <p class="ux-sankey-chart-column-title"
+            [style.left.px]="column.position">
+            {{ column.title }}
+        </p>
+    </div>
+</div>
+
+<svg #linkContainer
+     [attr.width]="_width"
+     [attr.height]="_height"
+     class="ux-sankey-chart-links"
+     [style.top.px]="!columns || columns.length === 0 ? 8 : null">
+
+    <defs>
+        <linearGradient id="falloff-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop class="ux-sankey-chart-falloff-gradient-start" offset="25%"></stop>
+            <stop class="ux-sankey-chart-falloff-gradient-end" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g>
+        <ng-container *ngFor="let node of _nodes; trackBy: _trackNodeBy">
+            <path *ngFor="let link of node.outputs; trackBy: _trackLinkBy"
+                    [attr.class]="_getLinkClass(link)"
+                    [attr.d]="_getPath(link)"
+                    [style.fill]="_getColor(link)"
+                    (mouseenter)="_setLinkActive(link, true)"
+                    (mouseleave)="_setLinkActive(link, false)"
+                    (mousemove)="_setTooltipPosition($event)">
+            </path>
+            <path *ngIf="node.falloff && _showFalloff(node)"
+                    class="ux-sankey-chart-falloff-indicator"
+                    [attr.d]="_getFalloffPath(node)"
+                    (mouseenter)="_setFalloffTooltip(node, true)"
+                    (mouseleave)="_setFalloffTooltip(node, false)"
+                    (mousemove)="_setTooltipPosition($event)">
+            </path>
+        </ng-container>
+    </g>
+</svg>
+
+<div #nodeContainer
+     class="ux-sankey-chart-nodes"
+     (uxResize)="_onResize($event)"
+     [style.top.px]="!columns || columns.length === 0 ? 8 : null">
+
+    <div *ngFor="let node of _nodes; trackBy: _trackNodeBy"
+        #nodeElement
+        [uxSankeyNode]="node"
+        uxFocusIndicator
+        class="ux-sankey-chart-node"
+        [class.ux-sankey-chart-node-active]="node.active || node.focus"
+        [style.left.px]="node.x"
+        [style.top.px]="node.y"
+        [style.width.px]="node.width"
+        [style.height.px]="node.height"
+        [style.background-color]="_getColor(node)"
+        (mouseenter)="_setNodeActive(node, true)"
+        (mouseleave)="_setNodeActive(node, false)"
+        (indicator)="_setNodeFocus(node, $event, nodeElement)">
+
+        <ng-container
+            [ngTemplateOutlet]="nodeTemplate"
+            [ngTemplateOutletContext]="{ node: node.node, active: node.active, focus: node.focus }">
+        </ng-container>
+    </div>
+
+    <ux-tooltip *ngIf="_isTooltipOpen"
+                class="ux-sankey-tooltip"
+                placement="top"
+                [content]="_tooltipContent"
+                alignment="center"
+                [style.left.px]="_tooltipPosition.x"
+                [style.top.px]="_tooltipPosition.y"
+                [@tooltipAnimation]>
+    </ux-tooltip>
+
+</div>

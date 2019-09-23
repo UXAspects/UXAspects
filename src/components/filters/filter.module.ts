@@ -1,28 +1,36 @@
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
-import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FilterContainerComponent } from './filter-container.component';
-import { FilterBaseComponent } from './filter-base/filter-base.component';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
+import { AccessibilityModule } from '../../directives/accessibility/index';
+import { IconModule } from '../icon/index';
+import { MenuModule } from '../menu/index';
+import { TooltipModule } from '../tooltip/index';
+import { TypeaheadModule } from '../typeahead/index';
+import { FilterBaseComponent } from './filter-base/filter-base.component';
+import { FilterContainerComponent } from './filter-container.component';
+import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
+import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
+import { FilterTypeaheadHighlight } from './filter-dynamic/filter-typeahead-highlight.pipe';
 
 const DECLARATIONS = [
     FilterBaseComponent,
     FilterContainerComponent,
     FilterDropdownComponent,
-    FilterDynamicComponent
+    FilterDynamicComponent,
+    FilterTypeaheadHighlight
 ];
 
 @NgModule({
     imports: [
-        BsDropdownModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        TooltipModule.forRoot(),
+        A11yModule,
+        AccessibilityModule,
+        CommonModule,
         FormsModule,
-        CommonModule
+        IconModule,
+        MenuModule,
+        TooltipModule,
+        TypeaheadModule,
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

@@ -1,4 +1,9 @@
-<ux-page-header header="My Page" [crumbs]="crumbs" [items]="items" [condensed]="condensed" [iconMenus]="iconMenus"></ux-page-header>
+<ux-page-header header="My Page"
+    [crumbs]="crumbs"
+    [items]="items"
+    [condensed]="condensed"
+    [iconMenus]="iconMenus">
+</ux-page-header>
 
 <br>
 
@@ -42,7 +47,7 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="backClick" type="EventEmitter">
+    <tr uxd-api-property name="backClick" type="MouseEvent">
         The event fired when the back button is clicked.
     </tr>
 </uxd-api-properties>
@@ -62,6 +67,9 @@
     <tr uxd-api-property name="children" type="PageHeaderNavigationDropdownItem[]">
         If specified, a dropdown will be displayed containing additional items for the user to select.
     </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        If set to <code>true</code>, the item will be disabled.
+    </tr>
 </uxd-api-properties>
 
 <hr>
@@ -75,6 +83,9 @@
     </tr>
     <tr uxd-api-property name="children" type="PageHeaderNavigationDropdownItem[]">
         If specified, a nested dropdown will be displayed containing additional items for the user to select (maximum of 1 nested level).
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        If set to <code>true</code>, the dropdown item will be disabled.
     </tr>
 </uxd-api-properties>
 
@@ -102,12 +113,19 @@
 
 <uxd-api-properties tableTitle="PageHeaderIconMenu">
     <tr uxd-api-property name="icon" type="string" required="true">
+        The name of an icon from <a routerLink="/css/icons" fragment="ux-icons">UX Aspects Icons</a>.
+    </tr>
+    <tr uxd-api-property name="label" type="string">
+        Description of the purpose of the icon menu, including its badge, for assistive technologies.
     </tr>
     <tr uxd-api-property name="badge" type="string | number">
+        Content to display in a raised badge over the icon.
     </tr>
     <tr uxd-api-property name="select" type="(menu: PageHeaderIconMenu) => void" required="true">
+        Action to execute when the icon is clicked.
     </tr>
     <tr uxd-api-property name="dropdown" type="PageHeaderIconMenuDropdownItem[]">
+        Items to display as a dropdown menu.
     </tr>
 </uxd-api-properties>
 
@@ -137,8 +155,8 @@
 <hr>
 
 <p>
-    Additionally you can add custom menu items to the top right of the page header by using the <code>uxPageHeaderCustomMenu</code> 
-    structural directive as content of the <code>ux-page-header</code> component. This is used to define templates for menu items and 
+    Additionally you can add custom menu items to the top right of the page header by using the <code>uxPageHeaderCustomMenu</code>
+    structural directive as content of the <code>ux-page-header</code> component. This is used to define templates for menu items and
     you can add custom click behavior.
 </p>
 
@@ -146,14 +164,14 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+
+</ux-tabset>

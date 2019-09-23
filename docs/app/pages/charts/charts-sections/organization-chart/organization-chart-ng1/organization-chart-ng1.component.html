@@ -4,33 +4,34 @@
 
 <br>
 
-<ux-radio-button [(ngModel)]="this.options.connector" option="curved">Curved Connector</ux-radio-button>
-<br>
-<ux-radio-button [(ngModel)]="this.options.connector" option="elbow">Elbow Connector</ux-radio-button>
+<div class="radio-button-container">
+    <ux-radio-button [(ngModel)]="this.options.connector" option="curved">Curved Connector</ux-radio-button>
+    <ux-radio-button [(ngModel)]="this.options.connector" option="elbow">Elbow Connector</ux-radio-button>
+</div>
 
 <hr>
 
 <p>The organization chart can be used to present hierarchical data in an interactive and user friendly way. The chart can be
     added to a page using the following code:</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Node HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.chartNodeHtml"></uxd-snippet>        
-    </tab>
-    <tab heading="Search HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.searchItemHtml"></uxd-snippet>        
-    </tab>
-    <tab heading="Javascript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>        
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>        
-    </tab>
-</tabset>
+    </ux-tab>
+    <ux-tab heading="Node HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartNodeHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="Search HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.searchItemHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
 
 <p>The organization chart is designed to fill the size of the parent element.</p>
 
@@ -98,12 +99,12 @@
     </tr>
     <tr uxd-api-property name="template" type="string">
         This should specify the url to a custom template file for the typeahead results. The default template will
-                    show one line of text from a <code>name</code> property on a node. See 
-                    <a href="http://angular-ui.github.io/bootstrap/versioned-docs/0.13.3/#/typeahead">UI Bootstrap</a> 
+                    show one line of text from a <code>name</code> property on a node. See
+                    <a href="http://angular-ui.github.io/bootstrap/versioned-docs/0.13.3/#/typeahead">UI Bootstrap</a>
                     for more information on typeahead templates.
     </tr>
     <tr uxd-api-property name="placeholder" type="string" defaultValue="''">
-        Specifies placeholder text to show in the search input field. 
+        Specifies placeholder text to show in the search input field.
     </tr>
     <tr uxd-api-property name="query" type="function">
         This function controls which items are suggested for any given search query. The function should expect two

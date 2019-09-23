@@ -1,0 +1,19 @@
+<ux-hierarchy-bar [root]="node" [(selected)]="selected">
+    <button *ngIf="showLeftAddon" class="btn button-secondary" uxHierarchyBarLeftAddon>Left Addon</button>
+    <button *ngIf="showTrailingAddon" class="btn button-secondary" uxHierarchyBarTrailingAddon>Trailing Addon</button>
+    <button *ngIf="showRightAddon" class="btn button-secondary" uxHierarchyBarRightAddon>Right Addon</button>
+</ux-hierarchy-bar>
+
+<br>
+
+<p>The selected node is <span id="selected">{{ selected?.title }}</span></p>
+
+<br>
+
+<button id="set-selected-btn" class="btn btn-primary m-b" (click)="setSelected()">Set Selected</button>
+
+<br>
+
+<button id="show-left-addon-btn" class="btn button-secondary m-r" (click)="showLeftAddon = true">Show Left Addon</button>
+<button id="show-trailing-addon-btn" class="btn button-secondary m-r" (click)="showTrailingAddon = true">Show Trailing Addon</button>
+<button id="show-right-addon-btn" class="btn button-secondary" (click)="showRightAddon = true">Show Right Addon</button>

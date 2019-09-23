@@ -3,6 +3,10 @@ ux-flippable-card {
     transform-style: preserve-3d;
     display: inline-block;
 
+    &:focus {
+        .native-focus-outline();
+    }
+
     .ux-flipper.ux-flip-card {
         transform: none;
     }

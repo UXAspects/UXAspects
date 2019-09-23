@@ -1,39 +1,47 @@
 <div class="ux-typeahead-options"
-    [uxInfiniteScroll]="loadOptionsCallback"
-    [(collection)]="visibleOptions"
-    [enabled]="isInfiniteScroll()"
-    [filter]="filter"
-    [loadOnScroll]="true"
-    [pageSize]="pageSize"
-    [scrollElement]="typeaheadElement"
-    (loading)="loading = true"
-    (loaded)="loading = false">
+     [uxInfiniteScroll]="loadOptionsCallback"
+     [collection]="visibleOptions$ | async"
+     (collectionChange)="visibleOptions$.next($event)"
+     [enabled]="hasBeenOpened && isInfiniteScroll()"
+     [filter]="filter"
+     [loadOnScroll]="true"
+     [pageSize]="pageSize"
+     [scrollElement]="typeaheadElement"
+     (loading)="loading = true"
+     (loaded)="loading = false; onLoadedHighlight($event)">
 
-    <ol *ngIf="visibleOptions.length > 0">
-        <li *ngFor="let option of visibleOptions; let i = index"
+    <ol *ngIf="(visibleOptions$ | async).length > 0">
+        <li *ngFor="let option of (visibleOptions$ | async); let i = index"
+            [attr.id]="id + '-option-' + i"
             [class.disabled]="isDisabled(option)"
-            [class.highlighted]="isHighlighted(option)"
-            [uxScrollIntoViewIf]="isHighlighted(option)"
+            [class.highlighted]="highlightedKey === option.key"
+            [class.active]="activeKey === option.key"
+            [attr.aria-selected]="multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)"
+            [uxTypeaheadHighlight]="highlightedKey === option.key"
+            [uxScrollIntoViewIf]="highlightedKey === option.key"
             [scrollParent]="typeaheadElement.nativeElement"
             (mousedown)="optionMousedownHandler($event)"
             (click)="optionClickHandler($event, option)"
             (mouseover)="highlight(option)">
 
-            <ng-container [ngTemplateOutlet]="optionTemplate"
-                [ngTemplateOutletContext]="{option: option, api: optionApi}">
+            <ng-container [ngTemplateOutlet]="optionTemplate || defaultOptionTemplate"
+                [ngTemplateOutletContext]="{option: option.value, api: optionApi}">
             </ng-container>
 
         </li>
     </ol>
 
     <div *uxInfiniteScrollLoading>
-        <ng-container [ngTemplateOutlet]="loadingTemplate">
-        </ng-container>
+        <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
+    </div>
+
+    <div *ngIf="isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading">
+        <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
     </div>
 
 </div>
-<div *ngIf="visibleOptions.length === 0 && !loading">
-    <ng-container [ngTemplateOutlet]="noOptionsTemplate">
+<div *ngIf="(visibleOptions$ | async).length === 0 && !loading">
+    <ng-container [ngTemplateOutlet]="noOptionsTemplate || defaultNoOptionsTemplate">
     </ng-container>
 </div>
 

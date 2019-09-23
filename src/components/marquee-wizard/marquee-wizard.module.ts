@@ -1,24 +1,35 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
+import { NgModule } from '@angular/core';
+import { AccessibilityModule } from '../../directives/accessibility/index';
+import { IconModule } from '../icon/index';
+import { TooltipModule } from '../tooltip/index';
 import { WizardModule } from '../wizard/index';
-import { MarqueeWizardComponent } from './marquee-wizard.component';
+import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
+import { MarqueeWizardComponent } from './marquee-wizard.component';
+import { AngularSplitModule } from 'angular-split';
+import { ResizeModule } from '../../directives/resize/index';
+
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         CommonModule,
+        IconModule,
+        TooltipModule,
         WizardModule,
-        TooltipModule.forRoot()
+        AngularSplitModule,
+        ResizeModule
     ],
     exports: [
         MarqueeWizardComponent,
-        MarqueeWizardStepComponent
+        MarqueeWizardStepComponent,
+        MarqueeWizardStepIconDirective
     ],
     declarations: [
         MarqueeWizardComponent,
-        MarqueeWizardStepComponent
+        MarqueeWizardStepComponent,
+        MarqueeWizardStepIconDirective
     ]
 })
 export class MarqueeWizardModule { }

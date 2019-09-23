@@ -25,6 +25,9 @@ ux-date-time-picker-month-view {
                 margin: 2px;
                 cursor: pointer;
                 font-size: 14px;
+                border: none;
+                background-color: transparent;
+                padding: 0;
 
                 &:first-of-type {
                     margin-left: 0;
@@ -36,6 +39,15 @@ ux-date-time-picker-month-view {
 
                 &:hover {
                     background-color: @date-picker-today-btn-hover-bg;
+                }
+
+                &:disabled {
+                    color: #bdbec0;
+                    cursor: default;
+
+                    &:hover:not(.active):not(.current) {
+                        background-color: transparent;
+                    }
                 }
 
                 &.active {

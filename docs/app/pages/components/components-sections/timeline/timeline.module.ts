@@ -1,15 +1,14 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { IconModule, TabsetModule, TimelineModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsTimelineNg1Component } from './timeline-ng1/timeline-ng1.component';
 import { ComponentsTimelineComponent } from './timeline/timeline.component';
-import { TimelineModule } from './../../../../../../src/components/timeline/timeline.module';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 const SECTIONS = [
     ComponentsTimelineNg1Component,
@@ -28,12 +27,13 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
         CommonModule,
-        TimelineModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        IconModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        TimelineModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

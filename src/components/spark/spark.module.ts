@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SparkComponent } from './spark.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ColorServiceModule } from '../../services/color/index';
+import { TooltipModule } from '../tooltip/index';
 
 @NgModule({
     imports: [
         CommonModule,
         ColorServiceModule,
-        TooltipModule.forRoot()
+        TooltipModule
     ],
     exports: [SparkComponent],
     declarations: [SparkComponent]

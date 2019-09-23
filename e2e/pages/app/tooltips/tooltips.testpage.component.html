@@ -1,0 +1,39 @@
+<div class="m-lg">
+    <button id="show-tooltip-btn"
+            class="btn button-primary"
+            #tooltip="ux-tooltip"
+            [uxTooltip]="content"
+            [placement]="placement"
+            [tooltipClass]="customClass">
+        Show Tooltip
+    </button>
+</div>
+
+<hr>
+
+<button id="placement-top-btn" class="btn button-secondary" (click)="placement = 'top'">Placement Top</button>
+<button id="placement-right-btn" class="btn button-secondary" (click)="placement = 'right'">Placement Right</button>
+<button id="placement-bottom-btn" class="btn button-secondary" (click)="placement = 'bottom'">Placement Bottom</button>
+<button id="placement-left-btn" class="btn button-secondary" (click)="placement = 'left'">Placement Left</button>
+
+<br>
+<br>
+
+<button id="custom-classs-btn" class="btn button-secondary" (click)="customClass = 'my-custom-class'">Add Custom Class</button>
+
+<br>
+<br>
+
+<button id="template-ref-btn" class="btn button-secondary" (click)="content = template">Use Template</button>
+
+<br>
+<br>
+
+<button id="programmatically-show-btn" class="btn button-secondary" (click)="tooltip.show()">Programatically Show</button>
+<button id="programmatically-hide-btn" class="btn button-secondary" (click)="tooltip.hide()">Programatically Hide</button>
+<button id="programmatically-toggle-btn" class="btn button-secondary" (click)="tooltip.toggle()">Programatically Toggle</button>
+<button id="reset-btn" class="btn button-secondary" (click)="tooltip.hide(); reset()">Reset</button>
+
+<ng-template #template>
+    My Template Here
+</ng-template>

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { WizardComponent } from './wizard.component';
 import { WizardStepComponent } from './wizard-step.component';
+import { TooltipModule } from '../tooltip/index';
+import { AccessibilityModule } from '../../directives/accessibility/accessibility.module';
 
 const DECLARATIONS = [
     WizardComponent,
@@ -12,7 +13,8 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        TooltipModule.forRoot()
+        TooltipModule,
+        AccessibilityModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

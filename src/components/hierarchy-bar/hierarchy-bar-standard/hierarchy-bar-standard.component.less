@@ -1,0 +1,32 @@
+ux-hierarchy-bar-standard {
+    display: flex;
+    flex: 1;
+    max-width: 100%;
+
+    .hierarchy-bar-addons {
+        display: inline-flex;
+        flex: none;
+    }
+
+    .hierarchy-bar-nodes {
+        position: relative;
+        display: flex;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .hierarchy-bar-overflow-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 47px;
+        z-index: 1;
+        padding: 16px 0 16px 16px;
+        text-align: left;
+        background-color: @white;
+        box-shadow: 0 0 25px 0 @btn-secondary-active-hover-shadow;
+        cursor: pointer;
+    }
+}

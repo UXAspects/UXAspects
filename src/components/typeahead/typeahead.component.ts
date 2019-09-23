@@ -1,122 +1,190 @@
-import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    AfterViewInit,
-    ChangeDetectorRef
-} from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { TypeaheadService } from './typeahead.service';
+
+let uniqueId = 0;
 
 @Component({
     selector: 'ux-typeahead',
     templateUrl: 'typeahead.component.html',
+    providers: [TypeaheadService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
+        'role': 'listbox',
         '[class.open]': 'open',
         '[class.drop-up]': 'dropDirection === "up"',
         '[style.maxHeight]': 'maxHeight'
     }
 })
-export class TypeaheadComponent implements AfterViewInit, OnChanges {
+export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
-    @Input() options: any[] | InfiniteScrollLoadFunction;
+    /** Define a unique id for the typeahead */
+    @Input() @HostBinding('attr.id') id: string = `ux-typeahead-${++uniqueId}`;
+
+    /** Define the options or infinite load function */
+    @Input() options: T[] | InfiniteScrollLoadFunction;
+
+    /** Define the filter text */
     @Input() filter: string;
 
-    private _open: boolean = false;
-    @Input('open')
+    /** Specify if the typeahead is open */
+    @Input()
     get open() {
-        return this._open;
+        return this._service.open$.getValue();
     }
     set open(value: boolean) {
-        const originalValue = this._open;
-        this._open = value;
-        if (value !== originalValue) {
-            this.openChange.emit(value);
-            if (value) {
-                this.initOptions();
-            }
-        }
+        this._service.open$.next(value);
     }
 
-    @Output() openChange = new EventEmitter<boolean>();
+    /** Extract the test to display from an option */
+    @Input() display: (option: T) => string | string;
 
-    @Input() display: (option: any) => string | string;
-    @Input() key: (option: any) => string | string;
-    @Input() disabledOptions: any[];
+    /** Extract the key from an option */
+    @Input() key: (option: T) => string | string;
+
+    /** Specify which options are disabled */
+    @Input() disabledOptions: T[];
+
+    /** Specify the drop direction */
     @Input() dropDirection: 'up' | 'down' = 'down';
+
+    /** Specify the max height of the dropdown */
     @Input() maxHeight: string = '250px';
+
+    /** Specify the aria multi selectable attribute value */
+    @Input() @HostBinding('attr.aria-multiselectable') multiselectable: boolean = false;
+
+    /** Specify if the dropdown should appear when the filter appears */
     @Input() openOnFilterChange: boolean = true;
+
+    /** Specify the page size */
     @Input() pageSize: number = 20;
+
+    /** Specify if we should select the first item by default */
     @Input() selectFirst: boolean = true;
 
-    @Input() loadingTemplate: TemplateRef<any>;
-    @Input() optionTemplate: TemplateRef<any>;
-    @Input() noOptionsTemplate: TemplateRef<any>;
+    /** Specify if we should select an item on enter key press */
+    @Input() selectOnEnter: boolean = false;
 
-    @Output() optionSelected = new EventEmitter<TypeaheadOptionEvent>();
+    /** Specify the loading state */
+    @Input() loading = false;
 
-    private _highlighted = new BehaviorSubject<any>(null);
-    @Output()
-    get highlighted(): any {
-        return this._highlighted.getValue();
+    /** Specify a custom loading template */
+    @Input() loadingTemplate: TemplateRef<{}>;
+
+    /** Specify a custom option template */
+    @Input() optionTemplate: TemplateRef<TypeaheadOptionContext<T>>;
+
+    /** Specify a custom template to display when there are no options */
+    @Input() noOptionsTemplate: TemplateRef<{}>;
+
+    /** Specify the currently active item */
+    @Input() set active(item: T) {
+        this.activeKey = this.getKey(item);
     }
 
-    @ViewChild('defaultLoadingTemplate') private _defaultLoadingTemplate: TemplateRef<any>;
-    @ViewChild('defaultOptionTemplate') private _defaultOptionTemplate: TemplateRef<any>;
-    @ViewChild('defaultNoOptionsTemplate') private _defaultNoOptionsTemplate: TemplateRef<any>;
+    /** Emit when the open state changes */
+    @Output() openChange = new EventEmitter<boolean>();
 
+    /** Emit when an option is selected */
+    @Output() optionSelected = new EventEmitter<TypeaheadOptionEvent<T>>();
+
+    /** Emit whenever a highlighted item changes */
+    @Output() highlightedChange = new EventEmitter<T>();
+
+    /** Emit the highlighted element when it changes */
+    @Output() highlightedElementChange = new EventEmitter<HTMLElement>();
+
+    activeKey: string = null;
+    clicking = false;
+    hasBeenOpened = false;
+    highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
+    highlightedKey: string = null;
     loadOptionsCallback: InfiniteScrollLoadFunction;
-    visibleOptions: any[] = [];
-    loading = false;
+    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
 
-    optionApi: TypeaheadOptionApi = {
+    get highlighted(): T {
+        const value = this.highlighted$.getValue();
+        return value ? value.value : null;
+    }
+
+    private _onDestroy = new Subject<void>();
+
+    optionApi: TypeaheadOptionApi<T> = {
         getKey: this.getKey.bind(this),
         getDisplay: this.getDisplay.bind(this),
         getDisplayHtml: this.getDisplayHtml.bind(this)
     };
 
-    constructor(public typeaheadElement: ElementRef, private cdRef: ChangeDetectorRef) {
+    constructor(
+        public typeaheadElement: ElementRef,
+        private _changeDetector: ChangeDetectorRef,
+        private _service: TypeaheadService
+    ) {
 
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
+
             if (typeof this.options === 'function') {
-                return this.options(pageNum, pageSize, filter);
+
+                // Invoke the callback which may return an array or a promise.
+                const arrayOrPromise = this.options(pageNum, pageSize, filter);
+
+                // Map the results to an array of TypeaheadVisibleOption.
+                return Promise.resolve(arrayOrPromise).then(newOptions => {
+
+                    if (!Array.isArray(newOptions)) {
+                        return newOptions;
+                    }
+
+                    return newOptions.map((option: T) => {
+                        return {
+                            value: option,
+                            key: this.getKey(option)
+                        };
+                    });
+                });
             }
             return null;
         };
+
+        this._service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((isOpen) => {
+            this.openChange.emit(isOpen);
+
+            if (isOpen) {
+                this.hasBeenOpened = true;
+                this.initOptions();
+            }
+        });
+
+        this.highlighted$.pipe(takeUntil(this._onDestroy)).subscribe((next) => {
+            this.highlightedKey = next ? next.key : null;
+            this.highlightedChange.emit(next ? next.value : null);
+        });
+
+        combineLatest([this._service.open$, this._service.highlightedElement$, this.visibleOptions$])
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(([open, highlightedElement, visibleOptions]) => {
+                this.highlightedElementChange.emit(open && visibleOptions.length > 0 ? highlightedElement : null);
+            });
     }
 
-    ngAfterViewInit() {
-        // Attach default loading template
-        if (!this.loadingTemplate) {
-            this.loadingTemplate = this._defaultLoadingTemplate;
-        }
-
-        // Attach default option template
-        if (!this.optionTemplate) {
-            this.optionTemplate = this._defaultOptionTemplate;
-        }
-
-        // Attach default "no results" template
-        if (!this.noOptionsTemplate) {
-            this.noOptionsTemplate = this._defaultNoOptionsTemplate;
-        }
-
-        this.cdRef.detectChanges();
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         // Open the dropdown if the filter value updates
         if (changes.filter) {
             if (this.openOnFilterChange && changes.filter.currentValue && changes.filter.currentValue.length > 0) {
+
+                // if the dropdown item was just selected, and we set the filter value to match the
+                // selected value then open will have also just been set to `false`, in which case we do
+                // not want to set open to `true`
+                if (changes.open && changes.open.previousValue === true && changes.open.currentValue === false) {
+                    return;
+                }
+
+                // show the dropdown
                 this.open = true;
             }
         }
@@ -125,19 +193,34 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
         this.updateOptions();
     }
 
-    optionMousedownHandler(event: MouseEvent) {
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
+    @HostListener('mousedown')
+    mousedownHandler(): void {
+        this.clicking = true;
+    }
+
+    @HostListener('mouseup')
+    mouseupHandler(): void {
+        this.clicking = false;
+    }
+
+    optionMousedownHandler(event: MouseEvent): void {
         // Workaround to prevent focus changing when an option is clicked
         event.preventDefault();
     }
 
-    optionClickHandler(event: MouseEvent, option: any) {
-        this.select(option);
+    optionClickHandler(_event: MouseEvent, option: TypeaheadVisibleOption<T>): void {
+        this.select(option, 'mouse');
     }
 
     /**
      * Returns the unique key value of the given option.
      */
-    getKey(option: any): string {
+    getKey(option: T): string {
         if (typeof this.key === 'function') {
             return this.key(option);
         }
@@ -150,27 +233,25 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string {
+    getDisplay(option: T): string {
         if (typeof this.display === 'function') {
             return this.display(option);
         }
         if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
-        return option;
+
+        if (typeof option === 'string') {
+            return option;
+        }
     }
 
     /**
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
-     * @param option 
+     * @param option
      */
-    getDisplayHtml(option: any) {
-        let displayText;
-        if (typeof option === 'string') {
-            displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        } else {
-            displayText = this.getDisplay(option.name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
+    getDisplayHtml(option: T): string {
+        const displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         let displayHtml = displayText;
         if (this.filter) {
             const length = this.filter.length;
@@ -184,19 +265,19 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     }
 
     /**
-     * Returns true if the infinite scroll component should load 
+     * Returns true if the infinite scroll component should load
      */
-    isInfiniteScroll() {
+    isInfiniteScroll(): boolean {
         return typeof this.options === 'function';
     }
 
     /**
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
-    select(option: any) {
+    select(option: TypeaheadVisibleOption<T>, origin?: FocusOrigin): void {
         if (!this.isDisabled(option)) {
-            this.optionSelected.emit(new TypeaheadOptionEvent(option));
-            this._highlighted.next(null);
+            this.optionSelected.emit(new TypeaheadOptionEvent(option.value, origin));
+            this.highlighted$.next(null);
             this.open = false;
         }
     }
@@ -204,11 +285,10 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     /**
      * Returns true if the given option is part of the disabledOptions array.
      */
-    isDisabled(option: any): boolean {
+    isDisabled(option: TypeaheadVisibleOption<T>): boolean {
         if (this.disabledOptions) {
-            const optionKey = this.getKey(option);
             const result = this.disabledOptions.find((selectedOption) => {
-                return this.getKey(selectedOption) === optionKey;
+                return this.getKey(selectedOption) === option.key;
             });
             return result !== undefined;
         }
@@ -218,9 +298,10 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     /**
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
-    highlight(option: any) {
+    highlight(option: TypeaheadVisibleOption<T>): void {
         if (!this.isDisabled(option)) {
-            this._highlighted.next(option);
+            this.highlighted$.next(option);
+            this._changeDetector.detectChanges();
         }
     }
 
@@ -228,39 +309,49 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
      * Increment or decrement the highlighted option in the list. Disabled options are skipped.
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
-    moveHighlight(d: number): any {
+    moveHighlight(d: number): T {
+        const visibleOptions = this.visibleOptions$.getValue();
         const highlightIndex = this.indexOfVisibleOption(this.highlighted);
         let newIndex = highlightIndex;
         let disabled = true;
         let inBounds = true;
         do {
             newIndex = newIndex + d;
-            inBounds = (newIndex >= 0 && newIndex < this.visibleOptions.length);
-            disabled = inBounds && this.isDisabled(this.visibleOptions[newIndex]);
+            inBounds = (newIndex >= 0 && newIndex < visibleOptions.length);
+            disabled = inBounds && this.isDisabled(visibleOptions[newIndex]);
         }
         while (inBounds && disabled);
 
         if (!disabled && inBounds) {
-            this._highlighted.next(this.visibleOptions[newIndex]);
+            this.highlight(visibleOptions[newIndex]);
         }
 
         return this.highlighted;
     }
 
-    /**
-     * Returns true if the given option is the highlighted option.
-     */
-    isHighlighted(option: any): boolean {
-        return this.getKey(option) === this.getKey(this.highlighted);
+    selectHighlighted(): void {
+        if (this.highlighted) {
+            this.select({ value: this.highlighted, key: this.getKey(this.highlighted) }, 'keyboard');
+        }
     }
 
     /**
      * Set up the options before the dropdown is displayed.
      */
-    initOptions() {
+    initOptions(): void {
         // Clear previous highlight
-        this._highlighted.next(null);
+        this.highlighted$.next(null);
         if (this.selectFirst) {
+            // This will highlight the first non-disabled option.
+            this.moveHighlight(1);
+        }
+    }
+
+    /**
+     * Display the first item as highlighted when there are several pages
+     */
+    onLoadedHighlight(event: InfiniteScrollLoadedEvent): void {
+        if (this.selectFirst && this.options && event.pageNumber === 0) {
             // This will highlight the first non-disabled option.
             this.moveHighlight(1);
         }
@@ -269,25 +360,35 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     /**
      * Update the visibleOptions array with the current filter.
      */
-    updateOptions() {
+    updateOptions(): void {
         if (typeof this.options === 'object') {
             const normalisedInput = (this.filter || '').toLowerCase();
-            this.visibleOptions = this.options.filter((option) => {
-                return this.getDisplay(option).toLowerCase().indexOf(normalisedInput) >= 0;
-            });
+            const visibleOptions = this.options
+                .filter((option) => {
+                    return this.getDisplay(option).toLowerCase().indexOf(normalisedInput) >= 0;
+                })
+                .map((value) => {
+                    return {
+                        value: value,
+                        key: this.getKey(value)
+                    };
+                });
+            this.visibleOptions$.next(visibleOptions);
         }
 
         this.initOptions();
+
+        this._changeDetector.detectChanges();
     }
 
     /**
      * Return the index of the given option in the visibleOptions array. Returns -1 if the option is not currently visible.
      */
-    private indexOfVisibleOption(option: any): number {
+    private indexOfVisibleOption(option: T): number {
         if (option) {
             const optionKey = this.getKey(option);
-            return this.visibleOptions.findIndex((el) => {
-                return this.getKey(el) === optionKey;
+            return this.visibleOptions$.getValue().findIndex((el) => {
+                return el.key === optionKey;
             });
         }
 
@@ -298,20 +399,30 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
 /**
  * The API available to option templates.
  */
-export interface TypeaheadOptionApi {
+export interface TypeaheadOptionApi<T = any> {
 
     /**
      * Returns the unique key value of the given option.
      */
-    getKey(option: any): string;
+    getKey(option: T): string;
 
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string;
+    getDisplay(option: T): string;
 
     /**
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value. Override the ux-filter-match class in CSS to modify the default appearance.
      */
-    getDisplayHtml(option: any): string;
+    getDisplayHtml(option: T): string;
+}
+
+export interface TypeaheadVisibleOption<T = any> {
+    value: T;
+    key: string;
+}
+
+export interface TypeaheadOptionContext<T> {
+    option: T;
+    api: TypeaheadOptionApi<T>;
 }

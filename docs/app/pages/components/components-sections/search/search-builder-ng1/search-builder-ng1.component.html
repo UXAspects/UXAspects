@@ -52,15 +52,18 @@
       color beside the operator label will be set depending on the operator specified. Recommended options are
       <code>'and'</code>, <code>'or'</code> and <code>'not'</code>.
     </tr>
-    <tr uxd-api-property name="button-text" type="string" binding="variable" required="true">
-      This will specify the text that goes along side the add field button.
+    <tr uxd-api-property name="button-text" type="string | string[]" binding="variable" required="true">
+      This will specify the text that goes along side the add field button. If there should be multiple
+      add field buttons this can be an array containing the text for each button.
     </tr>
-    <tr uxd-api-property name="add-field" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="add-field" type="function | function[]" binding="variable" required="true">
       This will specify the function to be called when the add field button is clicked. This function should return an
       object that contains an <code>id</code> property giving the field a unique id, and a <code>component</code> property
       specifying the name of the component to be added. Additionally this function can return a <code>$q.defer().promise</code>
       if the type of field will not immediately be known. If a promise is returned a placeholder field will be displayed
       until the promise is either resolved or rejected.
+      <br>
+      If there should be multiple add field buttons then this can be an array containing the function for each button.
     </tr>
     <tr uxd-api-property name="remove-field" type="function" binding="variable">
       This will specify the function to be called when the remove field button is clicked. This function should accept
@@ -69,6 +72,9 @@
       Additionally this function can return a <code>$q.defer().promise</code> to determine whether or not to remove the
       field at a later point. The promise can either be resolved with a <code>boolean</code> value or rejected, in which
       case the field will not be removed.
+    </tr>
+    <tr uxd-api-property name="read-only" type="boolean">
+      Setting this to true will hide the add and remove buttons within the group.
     </tr>
 </uxd-api-properties>
 
@@ -89,14 +95,14 @@
 <p>The following example will demonstrate a more complex <code>search-component</code> that uses a controller to update the
   <code>model</code>:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.dateRangeComponentHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet [content]="snippets.compiled.dateRangeComponentJs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <h4 id="search-builder-modal">Search Builder Modal</h4>
 

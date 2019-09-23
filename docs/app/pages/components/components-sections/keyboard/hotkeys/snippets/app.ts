@@ -1,4 +1,5 @@
-import { Component, Inject, ElementRef } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app',
@@ -16,6 +17,12 @@ export class AppComponent {
     qFocused: number = null;
     wFocused: number = null;
 
+    constructor(private _liveAnnouncer: LiveAnnouncer) {}
+
+    announce(item: string): void {
+        this._liveAnnouncer.announce(`${item} selected`);
+    }
+
     focusNextQ() {
         this.qFocused = this.qFocused === null || this.qFocused === 3 ? 0 : this.qFocused + 1;
     }
@@ -23,5 +30,4 @@ export class AppComponent {
     focusNextW() {
         this.wFocused = this.wFocused === null || this.wFocused === 3 ? 0 : this.wFocused + 1;
     }
-
 }

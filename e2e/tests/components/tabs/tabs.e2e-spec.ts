@@ -1,253 +1,221 @@
 import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { TabsTestPageComponent } from './tabs.po.spec';
-import { Constants, Functions } from '../common/common.spec';
 
-describe('Tabs Tests', () => {
+describe('Tabs Tests (Angular)', () => {
 
-  let page: TabsTestPageComponent;
-  let browserName: string;
-  let constants: Constants;
-  let functions: Functions;
+    let page: TabsTestPageComponent;
 
-  beforeEach(() => {
-    page = new TabsTestPageComponent();
-    page.getPage();
-    
-    constants = new Constants();
-    functions = new Functions();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
-  });
-  
-  it('should have correct initial states', () => {
-
-    // Icon only
-    expect(page.getIconOnlyTabHeader(0).getAttribute('class')).toContain('active');
-    expect(page.getIconOnlyTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabHeader(3).getAttribute('class')).not.toContain('active');
-
-    expect(page.getIconOnlyTabHeaderIcon(0).getAttribute('class')).toContain('hpe-schedule');
-    expect(page.getIconOnlyTabHeaderIcon(1).getAttribute('class')).toContain('hpe-shield');
-    expect(page.getIconOnlyTabHeaderIcon(2).getAttribute('class')).toContain('hpe-information');
-    expect(page.getIconOnlyTabHeaderIcon(3).getAttribute('class')).toContain('hpe-analytics');
-
-    expect(page.getIconOnlyTabContent(0).getAttribute('class')).toContain('active');
-    expect(page.getIconOnlyTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabContent(3).getAttribute('class')).not.toContain('active');
-
-    // Text and icon
-    expect(page.getTextAndIconTabHeader(0).getAttribute('class')).toContain('active');
-    expect(page.getTextAndIconTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabHeader(3).getAttribute('class')).not.toContain('active');
-
-    expect(page.getTextAndIconTabHeaderIcon(0).getAttribute('class')).toContain('hpe-schedule');
-    expect(page.getTextAndIconTabHeaderIcon(1).getAttribute('class')).toContain('hpe-shield');
-    expect(page.getTextAndIconTabHeaderIcon(2).getAttribute('class')).toContain('hpe-information');
-    expect(page.getTextAndIconTabHeaderIcon(3).getAttribute('class')).toContain('hpe-analytics');
-
-    expect(page.getTextAndIconTabContent(0).getAttribute('class')).toContain('active');
-    expect(page.getTextAndIconTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabContent(3).getAttribute('class')).not.toContain('active');
-    
-    // Text only
-    expect(page.getTextOnlyTabHeader(0).getAttribute('class')).toContain('active');
-    expect(page.getTextOnlyTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabHeader(3).getAttribute('class')).not.toContain('active');
-
-    expect<any>(page.getTextOnlyTabHeaderText(0).getText()).toBe('Schedule');
-    expect<any>(page.getTextOnlyTabHeaderText(1).getText()).toBe('Protection');
-    expect<any>(page.getTextOnlyTabHeaderText(2).getText()).toBe('Solution');
-    expect<any>(page.getTextOnlyTabHeaderText(3).getText()).toBe('Analytics');
-
-    expect(page.getTextOnlyTabContent(0).getAttribute('class')).toContain('active');
-    expect(page.getTextOnlyTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabContent(3).getAttribute('class')).not.toContain('active');
-    
-    // Alternative style
-    expect(page.getAlternativeStyleTabHeader(0).getAttribute('class')).toContain('active');
-    expect(page.getAlternativeStyleTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabHeader(3).getAttribute('class')).not.toContain('active');
-
-    expect<any>(page.getAlternativeStyleTabHeaderText(0).getText()).toBe('Schedule');
-    expect<any>(page.getAlternativeStyleTabHeaderText(1).getText()).toBe('Protection');
-    expect<any>(page.getAlternativeStyleTabHeaderText(2).getText()).toBe('Solution');
-    expect<any>(page.getAlternativeStyleTabHeaderText(3).getText()).toBe('Analytics');
-
-    expect(page.getAlternativeStyleTabContent(0).getAttribute('class')).toContain('active');
-    expect(page.getAlternativeStyleTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabContent(3).getAttribute('class')).not.toContain('active');
-    
-    // Dynamic tabs
-    expect(page.getDynamicTabsTabHeader(0).getAttribute('class')).toContain('active');
-    expect(page.getDynamicTabsTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getDynamicTabsTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getDynamicTabsTabHeader(3).getAttribute('class')).not.toContain('active');
-
-    expect<any>(page.getDynamicTabsTabHeaderText(0).getText()).toBe('Schedule');
-    expect<any>(page.getDynamicTabsTabHeaderText(1).getText()).toBe('Protection');
-    expect<any>(page.getDynamicTabsTabHeaderText(2).getText()).toBe('Solution');
-    expect<any>(page.getDynamicTabsTabHeaderText(3).getText()).toBe('Analytics');
-
-    expect(page.getDynamicTabsTabContent(0).getAttribute('class')).toContain('active');
-    expect(page.getDynamicTabsTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getDynamicTabsTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getDynamicTabsTabContent(3).getAttribute('class')).not.toContain('active');
-    
-    // Dynamic tabs dropdown menu should not be expanded
-    expect(page.buttonGroup.getAttribute('class')).not.toContain('open');
-    
-  });
-
-  it('should arrange the tabs horizontally', () => {
-
-    // Icon only
-    page.getIconOnlyTabHeader(0).getLocation().then((location0: object) => {
-      page.getIconOnlyTabHeader(1).getLocation().then((location1: object) => {
-        page.getIconOnlyTabHeader(2).getLocation().then((location2: object) => {
-          page.getIconOnlyTabHeader(3).getLocation().then((location3: object) => {
-            expect(Number(location0['y'])).toBe(Number(location1['y']));
-            expect(Number(location1['y'])).toBe(Number(location2['y']));
-            expect(Number(location2['y'])).toBe(Number(location3['y']));
-          });
-        });
-      });
+    beforeEach(async () => {
+        page = new TabsTestPageComponent();
+        await page.getPage();
     });
 
-    // Text and icon
-    page.getTextAndIconTabHeader(0).getLocation().then((location0: object) => {
-      page.getTextAndIconTabHeader(1).getLocation().then((location1: object) => {
-        page.getTextAndIconTabHeader(2).getLocation().then((location2: object) => {
-          page.getTextAndIconTabHeader(3).getLocation().then((location3: object) => {
-            expect(Number(location0['y'])).toBe(Number(location1['y']));
-            expect(Number(location1['y'])).toBe(Number(location2['y']));
-            expect(Number(location2['y'])).toBe(Number(location3['y']));
-          });
-        });
-      });
+    it('should have correct initial states', async () => {
+        // should have 4 tabs
+        expect(await page.getTabCount()).toBe(4);
+
+        // expect the first tab to be selected by default
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
+
+        // expect the tabset to have the minimal styling by default
+        expect(await page.getTabsetStyle()).toBe('minimal');
+
+        // expect the tabset not to be stacked
+        expect(await page.getTabsetStack()).toBe('none');
+
+        expect(await imageCompare('tabs-initial')).toEqual(0);
     });
 
-    // Text only
-    page.getTextOnlyTabHeader(0).getLocation().then((location0: object) => {
-      page.getTextOnlyTabHeader(1).getLocation().then((location1: object) => {
-        page.getTextOnlyTabHeader(2).getLocation().then((location2: object) => {
-          page.getTextOnlyTabHeader(3).getLocation().then((location3: object) => {
-            expect(Number(location0['y'])).toBe(Number(location1['y']));
-            expect(Number(location1['y'])).toBe(Number(location2['y']));
-            expect(Number(location2['y'])).toBe(Number(location3['y']));
-          });
-        });
-      });
+    it('should select a tab on click', async () => {
+
+        // expect the first tab to be selected by default
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
+
+        // click the second tab
+        await page.clickTabAtIndex(1);
+
+        // expect the second tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
     });
 
-    // Alternative style
-    page.getAlternativeStyleTabHeader(0).getLocation().then((location0: object) => {
-      page.getAlternativeStyleTabHeader(1).getLocation().then((location1: object) => {
-        page.getAlternativeStyleTabHeader(2).getLocation().then((location2: object) => {
-          page.getAlternativeStyleTabHeader(3).getLocation().then((location3: object) => {
-            expect(Number(location0['y'])).toBe(Number(location1['y']));
-            expect(Number(location1['y'])).toBe(Number(location2['y']));
-            expect(Number(location2['y'])).toBe(Number(location3['y']));
-          });
-        });
-      });
+    it('should navigate between tabs using arrow keys', async () => {
+
+        // expect the first tab to be selected by default
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
+
+        // click the second tab
+        await page.clickTabAtIndex(1);
+
+        // expect the second tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
+
+        // press the left arrow
+        await page.pressKey(Key.ARROW_LEFT);
+
+        // expect the first tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
+
+        // press the right arrow
+        await page.pressKey(Key.ARROW_RIGHT);
+
+        // expect the second tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
     });
 
-    // Dynamic tabs
-    page.getDynamicTabsTabHeader(0).getLocation().then((location0: object) => {
-      page.getDynamicTabsTabHeader(1).getLocation().then((location1: object) => {
-        page.getDynamicTabsTabHeader(2).getLocation().then((location2: object) => {
-          page.getDynamicTabsTabHeader(3).getLocation().then((location3: object) => {
-            expect(Number(location0['y'])).toBe(Number(location1['y']));
-            expect(Number(location1['y'])).toBe(Number(location2['y']));
-            expect(Number(location2['y'])).toBe(Number(location3['y']));
-          });
-        });
-      });
+    it('should navigate to first tab when Home key is pressed', async () => {
+
+        // expect the first tab to be selected by default
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
+
+        // click the second tab
+        await page.clickTabAtIndex(1);
+
+        // expect the second tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
+
+        // press home key
+        await page.pressKey(Key.HOME);
+
+        // expect the first tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
     });
 
-  });
+    it('should navigate to last tab when End key is pressed', async () => {
 
-  it('should change content when a tab header is clicked', () => {
+        // expect the first tab to be selected by default
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
-    // Icon only
-    page.getIconOnlyTabHeader(1).click();
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Schedule');
 
-    expect(page.getIconOnlyTabHeader(0).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabHeader(1).getAttribute('class')).toContain('active');
-    expect(page.getIconOnlyTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabHeader(3).getAttribute('class')).not.toContain('active');
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-    expect(page.getIconOnlyTabContent(0).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabContent(1).getAttribute('class')).toContain('active');
-    expect(page.getIconOnlyTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getIconOnlyTabContent(3).getAttribute('class')).not.toContain('active');
-    
-    // Text and icon
-    page.getTextAndIconTabHeader(2).click();
+        // expect the second tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
 
-    expect(page.getTextAndIconTabHeader(0).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabHeader(2).getAttribute('class')).toContain('active');
-    expect(page.getTextAndIconTabHeader(3).getAttribute('class')).not.toContain('active');
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Protection');
 
-    expect(page.getTextAndIconTabContent(0).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextAndIconTabContent(2).getAttribute('class')).toContain('active');
-    expect(page.getTextAndIconTabContent(3).getAttribute('class')).not.toContain('active');
+        // press home key
+        await page.pressKey(Key.END);
 
-    // Text only
-    page.getTextOnlyTabHeader(3).click();
+        // expect the last tab to be selected
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('analytics');
 
-    expect(page.getTextOnlyTabHeader(0).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabHeader(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabHeader(3).getAttribute('class')).toContain('active');
+        // expect the correct tab content to be visible
+        expect(await page.getSelectedTabContent()).toBe('Analytics');
+    });
 
-    expect(page.getTextOnlyTabContent(0).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabContent(1).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getTextOnlyTabContent(3).getAttribute('class')).toContain('active');
-    
-    // Alternative style
-    page.getAlternativeStyleTabHeader(1).click();
+    it('should trigger select event on click', async () => {
 
-    expect(page.getAlternativeStyleTabHeader(0).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabHeader(1).getAttribute('class')).toContain('active');
-    expect(page.getAlternativeStyleTabHeader(2).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabHeader(3).getAttribute('class')).not.toContain('active');
+        // expect the first tab to be selected by default
+        expect(await page.getSelectedLabelText()).toBe('The selected tab is: Schedule');
 
-    expect(page.getAlternativeStyleTabContent(0).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabContent(1).getAttribute('class')).toContain('active');
-    expect(page.getAlternativeStyleTabContent(2).getAttribute('class')).not.toContain('active');
-    expect(page.getAlternativeStyleTabContent(3).getAttribute('class')).not.toContain('active');
+        // click the second tab
+        await page.clickTabAtIndex(1);
 
-  });
+        // the selected label text should have update once the event it emitted
+        expect(await page.getSelectedLabelText()).toBe('The selected tab is: Protection');
 
-  it('should add tabs chosen from the dropdown', () => {
+    });
 
-    // Expand the dropdown menu
-    page.dropdown.click();
-    expect(page.buttonGroup.getAttribute('class')).toContain('open');
+    it('should allow alternative styling', async () => {
 
-    // Select second tab from list
-    page.selectTabFromList(1);
+        // expect minimal style
+        expect(await page.getTabsetStyle()).toBe('minimal');
 
-    // Confirm tab has been added
-    expect<any>(page.getDynamicTabsTabHeaderText(4).getText()).toBe('Progress');
+        // toggle the checkbox
+        await page.minimalCheckbox.click();
 
-    // Confirm selected tab is disabled in dropdown menu
-    expect(page.getDropdownMenuItem(1).getAttribute('class')).toContain('tab-option-selected');
-  
-  });
-  
+        // expect alternative style
+        expect(await page.getTabsetStyle()).toBe('alternative');
+
+        // there is a 500ms animation that needs to complete before we can ensure we get a clean screenshot
+        await browser.sleep(500);
+
+        expect(await imageCompare('tabs-alternate')).toEqual(0);
+
+    });
+
+    it('should allow stacking left', async () => {
+
+        // expect no stacking
+        expect(await page.getTabsetStack()).toBe('none');
+
+        // select stack left
+        await page.stackLeftRadio.click();
+
+        // expect stack left
+        expect(await page.getTabsetStack()).toBe('left');
+
+        expect(await imageCompare('tabs-stack-left')).toEqual(0);
+
+    });
+
+    it('should allow stacking right', async () => {
+
+        // expect no stacking
+        expect(await page.getTabsetStack()).toBe('none');
+
+        // select stack right
+        await page.stackRightRadio.click();
+
+        // expect stack right
+        expect(await page.getTabsetStack()).toBe('right');
+
+        expect(await imageCompare('tabs-stack-right')).toEqual(0);
+
+    });
+
+    it('should allow inserting a new tab at the leftmost position', async () => {
+
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // Add a tab at index 0
+        await page.addTab0.click();
+
+        expect(await page.getTabCount()).toBe(5);
+
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
+
+        // Click the newly added tab
+        await page.clickTabAtIndex(0);
+
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('new tab 0');
+        expect(await page.getSelectedTabContent()).toBe('New Tab 0');
+
+    });
+
 });

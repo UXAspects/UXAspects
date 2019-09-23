@@ -1,0 +1,42 @@
+<div class="static-tooltip-demo">
+    <button type="button" class="btn button-primary"
+            [uxPopover]="content" popoverClass="ux-static-tooltip"
+            placement="bottom" [isOpen]="open" [showTriggers]="[]" [hideTriggers]="[]" (click)="open = true">
+        Static Tooltip Example
+    </button>
+
+    <ng-template #content>
+        <div class="static-tooltip-content">
+            <p class="static-tooltip-text">
+                This is an example of a static tooltip. It will appear when the page is loaded until dismissed.
+                It is useful for giving the user information about a specific control.
+            </p>
+
+            <div class="static-tooltip-footer">
+                <a class="hide-tips" (click)="open = false">HIDE TIPS</a>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<hr>
+
+<p>
+    Static tooltips can be added to elements to give the user detailed instructions on the purpose of the control when they first
+    navigate to the page. They are created using a <a routerLink="/components/popover" fragment="popover">popover</a> and manually
+    controlling the open state by using the <code>isOpen</code> attribute and removing the default <code>showTriggers</code> and <code>hideTriggers</code>.
+</p>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

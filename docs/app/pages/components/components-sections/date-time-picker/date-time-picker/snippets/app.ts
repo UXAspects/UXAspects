@@ -1,9 +1,7 @@
-import { Component, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
+import { fromEvent, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app',
@@ -25,8 +23,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     subscription: Subscription;
 
     ngAfterViewInit(): void {
-        this.subscription = Observable.fromEvent(this.dateInput.nativeElement, 'input')
-            .debounceTime(500)
+        this.subscription = fromEvent(this.dateInput.nativeElement, 'input')
+            .pipe(debounceTime(500))
             .subscribe(event => this.parse(this.dateInput.nativeElement.value));
     }
 

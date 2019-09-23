@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-buttons-dropdowns',
     templateUrl: './dropdowns.component.html',
-    styleUrls: ['./dropdowns.component.less']
+    styleUrls: ['./dropdowns.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
-export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    cases = [
+    cases: string[] = [
         'Alpha',
         'Beta',
         'Gamma',
@@ -26,22 +27,21 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
         'Alpha 2',
         'Alpha 3',
     ];
-    caseFilter = '';
 
-    plunk: IPlunk = {
+    caseFilter: string = '';
+
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss,
             'app.component.ts': this.snippets.raw.appTs
         },
-        modules: [{
-            library: 'ngx-bootstrap/dropdown',
-            imports: ['BsDropdownModule'],
-            providers: ['BsDropdownModule.forRoot()']
-        }, {
-            imports: ['StringFilterModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
+        modules: [
+            {
+                imports: ['StringFilterModule', 'MenuModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
     };
 
     constructor() {

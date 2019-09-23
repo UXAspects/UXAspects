@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { Version, VersionService } from '../../services/version/version.service';
@@ -21,7 +21,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     @Input() angularJsButtonClass: string = 'button-toggle-primary';
     @Input() angularButtonClass: string = 'button-toggle-accent';
 
-    @ViewChild('container') container: ElementRef;
+    @ViewChild('container', { static: true }) container: ElementRef;
 
     top: number;
     height: number;
@@ -30,7 +30,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     Version = Version;
 
-    private routeSubscription: Subscription;
+    private _onDestroy = new Subject<void>();
 
     constructor(@Inject(DOCUMENT) private _document: Document,
         private _router: Router,
@@ -39,10 +39,10 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         public versionService: VersionService) {
 
         // Subscribe to version changes in order to re-filter the sections.
-        this.versionService.version.subscribe((value: Version) => this.versionChanged(value));
+        this.versionService.version.pipe(takeUntil(this._onDestroy)).subscribe(() => this.versionChanged());
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Set up fragment IDs
         for (let category of this.navigation.categories) {
@@ -50,30 +50,29 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         }
 
         // Get initial filtered content
-        this.versionChanged(this.versionService.version.getValue());
+        this.versionChanged();
 
         // Fix nav position on navigate
-        this.routeSubscription = this._router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                setTimeout(this.updatePosition.bind(this), 100);
-            }
+        this._router.events.pipe(filter(event => event instanceof NavigationEnd), takeUntil(this._onDestroy)).subscribe(() => {
+            setTimeout(this.updatePosition.bind(this), 100);
         });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         // Delay to allow the document to render in order to get the correct initial height
         setTimeout(this.updatePosition.bind(this), 100);
     }
 
-    ngOnDestroy() {
-        this.routeSubscription.unsubscribe();
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
-    isActive(section: string) {
-        return (section === this._activatedRoute.snapshot.fragment);
+    isActive(section: string): boolean {
+        return section === this._activatedRoute.snapshot.fragment;
     }
 
-    goToSection(category: string, section: string) {
+    goToSection(section: string): void {
         if (this._navigationService.isFragmentActive(section)) {
             this._navigationService.scrollToFragment(section);
         } else {
@@ -81,13 +80,13 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    setPaneWidth(width: number) {
+    setPaneWidth(width: number): void {
         this.width = width;
     }
 
-    private versionChanged(version: Version) {
+    private versionChanged(): void {
         if (this.navigation) {
-            let categories = this.navigation.categories
+            const categories = this.navigation.categories
                 .map(category => {
                     return {
                         link: category.link,
@@ -95,7 +94,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
                         sections: category.sections.filter(section => this.versionService.isSectionVersionMatch(section))
                     };
                 })
-                .filter((category) => category.sections.length > 0);
+                .filter(category => category.sections.length > 0);
 
             this.filteredNavigation = {
                 title: this.navigation.title,
@@ -105,16 +104,16 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     @HostListener('window:scroll')
-    private onWindowScroll() {
+    onWindowScroll(): void {
         this.updatePosition();
     }
 
     @HostListener('window:resize')
-    private onWindowResize() {
+    onWindowResize(): void {
         this.updatePosition();
     }
 
-    private updatePosition() {
+    private updatePosition(): void {
 
         // Adjust the top position to stick to the banner until it disappears under the header.
         const topOffset = BANNER_OFFSET - window.pageYOffset;

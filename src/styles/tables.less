@@ -190,6 +190,16 @@ table {
             outline: 0;
         }
     }
+
+    .hover-action-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+
+        &:focus {
+            .native-focus-outline();
+        }
+    }
 }
 
 .table > tbody > tr {
@@ -252,14 +262,15 @@ table {
 .list-hover-actions {
     position: relative;
     margin-top: 3px;
-    background-color: @table-hover-bg;
     box-shadow: -2px 0 4px @table-hover-bg;
 
-    a.list-hover-action {
+    .list-hover-action {
         display: inline-block;
         padding: 6px;
         color: @text-color;
         opacity: 0.5;
+        border: none;
+        background-color: transparent;
 
         &:hover,
         &:focus,
@@ -471,24 +482,29 @@ table {
     }
 }
 
-//shift/ctrl select item
-//disable hover actions
-.table > tbody > tr.shift-select-selected-bg {
-    background-color: @shift-select-selected-light;
-
-    & > td.item-actions .list-hover-actions {
+// Shift/ctrl select item
+.table {
+    tr.shift-select-selected-bg,
+    tr.ux-selection-selected {
         background-color: @shift-select-selected-light;
-        box-shadow: none;
-    }
-
-    &:hover,
-    &:focus,
-    &.child-focus {
-        background-color: @shift-select-selected-hover-light;
 
         & > td.item-actions .list-hover-actions {
-            background-color: @shift-select-selected-hover-light;
             box-shadow: none;
+        }
+
+        &:hover,
+        &:focus,
+        &.child-focus,
+        &.ux-selection-focused {
+            background-color: @shift-select-selected-hover-light;
+
+            & > td.item-actions .list-hover-actions {
+                box-shadow: none;
+            }
+        }
+
+        &.ux-selection-focused:focus {
+            .native-focus-outline();
         }
     }
 }
@@ -829,6 +845,10 @@ table {
     display: inline-block;
     width: 18px;
     vertical-align: middle;
+
+    &.sortable-header-icon-inline {
+        margin-left: 5px;
+    }
 }
 
 .multiSortTitle {
@@ -869,6 +889,10 @@ table {
     width: 36px;
     display: inline-block;
     height: 22px;
+
+    &.inline-sort-icon {
+        width: 41px;
+    }
 }
 
 .fixed-layout {
@@ -996,20 +1020,24 @@ table {
     }
 
     .sort-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         height: 34px;
         margin-right: 1px;
         float: right;
         padding: 6px;
-        padding-top: 10px;
         cursor: pointer;
+        border: none;
+        background-color: transparent;
 
         &:hover,
         &:focus {
-            background: @table-sort-hover-bg;
+            background-color: @table-sort-hover-bg;
         }
 
         &:focus {
-            outline: 1px solid @table-sort-focus-outline;
+            .native-focus-outline();
         }
     }
 }
@@ -1052,7 +1080,7 @@ table {
     }
 
     .filter {
-        display: inline;
+        display: inline-flex;
         width: 18px;
 
         i {
@@ -1157,5 +1185,14 @@ th {
         overflow-y: scroll;
         min-height: 1px;
         margin-top: -1px;
+    }
+}
+
+/*
+ * Reorderable Table
+ */
+.reorderable-row {
+    &:focus {
+        .native-focus-outline();
     }
 }

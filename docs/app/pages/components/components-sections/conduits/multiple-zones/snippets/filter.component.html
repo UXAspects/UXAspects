@@ -1,0 +1,19 @@
+<div class="input-group m-b">
+    <div class="input-group-addon">
+        <ux-icon name="search" id="conduit-search-icon"></ux-icon>
+    </div>
+    <input type="text"
+           class="form-control"
+           placeholder="Search..."
+           [ngModel]="search | async"
+           (ngModelChange)="search.next($event)"
+           aria-labelledby="conduit-search-icon">
+</div>
+
+<app-zone-inspector *ngIf="showZones | async"
+    [zones]="['toolbar-zone']"
+    [(acceptsInput)]="acceptsInput"
+    [(producesOutput)]="producesOutput"
+    (acceptsInputChange)="setConduitProperties(search, { acceptsInput: acceptsInput, producesOutput: producesOutput })"
+    (producesOutputChange)="setConduitProperties(search, { acceptsInput: acceptsInput, producesOutput: producesOutput })">
+</app-zone-inspector>

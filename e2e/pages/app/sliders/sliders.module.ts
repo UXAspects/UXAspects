@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from '../../../../dist';
+import { SliderModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 
 import { SlidersTestPageComponent } from './sliders.testpage.component';
 
@@ -9,6 +9,7 @@ import { SlidersTestPageComponent } from './sliders.testpage.component';
     imports: [
         FormsModule,
         SliderModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

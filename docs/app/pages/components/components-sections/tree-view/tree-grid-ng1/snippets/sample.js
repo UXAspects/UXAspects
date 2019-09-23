@@ -66,6 +66,7 @@ function TreeGridCtrl($scope, $displayPanel) {
     title: 'Emails',
     date: new Date('2013-03-17'),
     type: 'folder',
+    expanded: true,
     nodes: [{
       id: 21,
       title: 'Inbox',
@@ -109,7 +110,8 @@ function TreeGridCtrl($scope, $displayPanel) {
   vm.selected = null;
 
   vm.options = {
-    childrenProperty: "nodes"
+    childrenProperty: "nodes",
+    expandedProperty: "expanded"
   };
 
   // Display Panel

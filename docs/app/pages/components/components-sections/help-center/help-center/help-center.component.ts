@@ -1,11 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { Breadcrumb, PageHeaderIconMenu, PageHeaderIconMenuDropdownItem, HelpCenterService, HelpCenterItem } from '../../../../../../../src/index';
-import { Subscription } from 'rxjs/Subscription';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { Breadcrumb, HelpCenterItem, HelpCenterService, PageHeaderIconMenu } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { Subscription } from 'rxjs';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-help-center',
@@ -13,25 +13,26 @@ import 'chance';
     styleUrls: ['./help-center.component.less']
 })
 @DocumentationSectionComponent('ComponentsHelpCenterComponent')
-export class ComponentsHelpCenterComponent extends BaseDocumentationSection implements OnDestroy, IPlunkProvider {
+export class ComponentsHelpCenterComponent extends BaseDocumentationSection implements OnDestroy, IPlaygroundProvider {
 
     repositories: HelpCenterTableData[] = [];
     loading: boolean = false;
     crumbs: Breadcrumb[] = [{ title: 'Overview' }];
     menus: PageHeaderIconMenu[] = [
         {
-            icon: 'hpe-help',
+            icon: 'help',
+            label: 'Help Menu',
             dropdown: []
         }
     ];
 
     refreshHelpCenterItem: HelpCenterItem = {
-        icon: 'hpe-refresh',
+        icon: 'refresh',
         title: 'Refresh Repositories',
         select: this.loadData.bind(this)
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
@@ -41,7 +42,12 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
             {
                 imports: ['HelpCenterModule', 'PageHeaderModule'],
                 library: '@ux-aspects/ux-aspects'
-            }
+            },
+            {
+                imports: ['RouterModule'],
+                library: '@angular/router',
+                providers: ['RouterModule.forRoot([])']
+            },
         ]
     };
 

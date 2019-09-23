@@ -1,0 +1,28 @@
+<div class="panel-heading"
+      role="button"
+      uxFocusIndicator
+      [tabindex]="disabled ? -1 : 0"
+      [id]="headingId"
+      [attr.aria-expanded]="expanded"
+      [attr.aria-controls]="panelId"
+      (click)="toggle()"
+      (keydown.enter)="toggle()"
+      (keydown.space)="toggle(); $event.preventDefault()"
+      (keydown.spacebar)="toggle(); $event.preventDefault()">
+
+  <div class="panel-title">
+      {{ heading }}
+      <ng-content select="ux-accordion-panel-header"></ng-content>
+  </div>
+</div>
+
+<div [id]="panelId"
+      class="panel-collapse collapse"
+      [class.in]="expanded"
+      role="tabpanel"
+      [attr.aria-labelledby]="headingId">
+
+  <div class="panel-body">
+    <ng-content></ng-content>
+  </div>
+</div>

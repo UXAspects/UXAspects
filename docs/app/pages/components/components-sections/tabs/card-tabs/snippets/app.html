@@ -1,0 +1,17 @@
+<ux-card-tabset [position]="position">
+
+    <ux-card-tab class="card" *ngFor="let tab of tabs">
+        <h4>{{ tab.title }}</h4>
+        <p>{{ tab.content }}</p>
+
+        <ng-template uxCardTabContent>
+            <h3 class="card-title">{{ tab.title }}</h3>
+
+            <div class="card-image" [ngClass]="tab.image"></div>
+
+            <h3 class="card-value">{{ tab.value }}<small>{{ tab.unit }}</small></h3>
+            <h4 class="card-subtitle">{{ tab.subtitle }}</h4>
+        </ng-template>
+    </ux-card-tab>
+
+</ux-card-tabset>

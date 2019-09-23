@@ -1,32 +1,41 @@
-import { Component, Host, Input, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Host, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { FacetContainerComponent } from '../../facet-container.component';
-import { FacetEvent, FacetDeselectAll, FacetDeselect, FacetSelect } from '../../facet-events';
+import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from '../../facet-events';
 import { Facet } from '../../models/facet';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/filter';
 
+/**
+ * @deprecated - Use Facet Service instead - retained only for backwards compatability
+ */
 @Component({
     selector: 'ux-facet-base',
     template: '',
 })
-export class FacetBaseComponent implements OnInit {
+export class FacetBaseComponent implements OnInit, OnDestroy {
 
     @Input() selected: Facet[] = [];
     @Output() selectedChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
-
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
+
+    protected _onDestroy = new Subject<void>();
 
     constructor( @Host() private facetContainer: FacetContainerComponent, public _elementRef: ElementRef) {
 
         if (facetContainer) {
 
             // subscribe to any deselect events from the facet container
-            facetContainer.events.filter(event => event instanceof FacetDeselect)
-                .filter((event: FacetDeselect) => !!this.selected.find(facet => facet === event.facet))
-                .subscribe((event: FacetDeselect) => this.deselectFacet(event.facet));
+            facetContainer.events.pipe(
+                filter(event => event instanceof FacetDeselect),
+                filter((event: FacetDeselect) => !!this.selected.find(facet => facet === event.facet)),
+                takeUntil(this._onDestroy)
+            ).subscribe((event: FacetDeselect) => this.deselectFacet(event.facet));
 
             // subscribe to any deselect all events from facet container
-            facetContainer.events.filter(event => event instanceof FacetDeselectAll).subscribe(_ => this.deselectAll());
+            facetContainer.events.pipe(
+                filter(event => event instanceof FacetDeselectAll),
+                takeUntil(this._onDestroy)
+            ).subscribe(_ => this.deselectAll());
 
         }
     }
@@ -36,6 +45,11 @@ export class FacetBaseComponent implements OnInit {
         if (this.facetContainer) {
             this.selected.forEach(facet => this.facetContainer.selectFacet(facet));
         }
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     selectFacet(facet: Facet): void {
@@ -63,7 +77,7 @@ export class FacetBaseComponent implements OnInit {
     deselectFacet(facet: Facet): void {
 
         // find facet to remove
-        let index = this.selected.findIndex(selectedFacet => selectedFacet === facet);
+        const index = this.selected.findIndex(selectedFacet => selectedFacet === facet);
 
         // only continue if facet is found
         if (index !== -1) {

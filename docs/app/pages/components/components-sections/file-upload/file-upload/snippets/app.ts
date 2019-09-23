@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
@@ -8,4 +9,8 @@ import { FileUploader } from 'ng2-file-upload';
 export class AppComponent {
     fileOver: boolean = false;
     uploader: FileUploader = new FileUploader({});
+
+    constructor(announcer: LiveAnnouncer) {
+        this.uploader.onCompleteAll = () => announcer.announce('All files have been uploaded.');
+    }
 }

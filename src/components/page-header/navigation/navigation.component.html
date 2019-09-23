@@ -1,2 +1,10 @@
-<ux-page-header-horizontal-navigation-item *ngFor="let item of items" [item]="item" (onSelect)="onSelect($event)"></ux-page-header-horizontal-navigation-item>
-<div class="selected-indicator" [style.opacity]="indicatorVisible ? 1 : 0" [style.margin-left.px]="indicatorX" [style.width.px]="indicatorWidth"></div>
+<ux-page-header-horizontal-navigation-item
+    *ngFor="let item of items$ | async"
+    [item]="item">
+</ux-page-header-horizontal-navigation-item>
+
+<div class="selected-indicator"
+    [style.opacity]="indicatorVisible ? 1 : 0"
+    [style.margin-left.px]="indicatorX"
+    [style.width.px]="indicatorWidth">
+</div>

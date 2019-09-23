@@ -37,6 +37,9 @@
     <tr uxd-api-property name="expanded" type="boolean" defaultValue="true">
         Defines whether or not the Facet Check List should be initially expanded or not.
     </tr>
+    <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
+        Defines whether or not the checkboxes will appear in simplified form.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -52,14 +55,14 @@
 
 <p>The following code will produce the example shown above:</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="TypeScript">
+    <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    
-</tabset>
+    </ux-tab>
+
+</ux-tabset>

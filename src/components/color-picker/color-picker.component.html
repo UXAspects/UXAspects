@@ -1,0 +1,68 @@
+<div class="ux-color-picker" uxTabbableList direction="horizontal">
+    <div class="ux-color-picker-swatch">
+        <div *ngFor="let row of colors" class="ux-color-picker-swatch-row">
+
+            <div *ngFor="let color of row"
+                class="ux-color-picker-color"
+                [class.ux-small]="(buttonSize$ | async) === 'sm'"
+                [class.ux-large]="(buttonSize$ | async) === 'lg'"
+                [class.ux-circle]="buttonStyle === 'circle'"
+                [class.ux-selected]="color === (selected$ | async)">
+
+                <button type="button"
+                    uxFocusIndicator
+                    attr.aria-label="Select color {{color.name}}"
+                    i18n-aria-label
+                    aria-selected="color === (selected$ | async)"
+                    class="btn btn-icon"
+                    [uxColorContrast]="color.hex"
+                    [style.background-color]="color.rgba"
+                    (click)="selected$.next(color)"
+                    uxTabbableListItem
+                    [uxTooltip]="color.name"
+                    [tooltipDisabled]="!showTooltips">
+
+                    <ux-icon name="checkmark"></ux-icon>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showInput" class="ux-color-picker-input-panel">
+        <div class="ux-color-picker-input-header">
+
+            <div class="ux-color-picker-preview"
+                [style.background-color]="(selected$ | async).rgba"
+                [class.ux-circle]="buttonStyle === 'circle'">
+            </div>
+
+            <label *ngIf="inputMode === 'hex'" attr.for="{{id}}-input-field">HEX</label>
+            <label *ngIf="inputMode === 'rgba'" attr.for="{{id}}-input-field">RGBA</label>
+
+            <button type="button"
+                attr.aria-label="Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}" i18n-aria-label
+                class="btn btn-link btn-icon button-secondary ux-color-picker-input-toggle"
+                (click)="toggleColorEntryType(); $event.stopPropagation()">
+                <ux-icon name="chevron-right"></ux-icon>
+            </button>
+        </div>
+
+        <div class="ux-color-picker-input"
+            [class.has-error]="inputField.errors"
+            [class.has-feedback]="inputField.errors">
+
+            <input type="text"
+                attr.id="{{id}}-input-field"
+                attr.aria-description="Edit {{inputMode}} color value" i18n-aria-description
+                class="form-control"
+                #inputField="ngModel"
+                [ngModel]="(selected$ | async)[inputMode]"
+                (ngModelChange)="updateColorValue($event, inputMode)"
+                [pattern]="inputPatterns[inputMode].source"
+                (keyup.enter)="inputSubmit.emit()">
+
+                <ux-icon class="form-control-feedback" name="alert"></ux-icon>
+        </div>
+    </div>
+</div>

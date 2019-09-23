@@ -38,40 +38,50 @@
 
 <hr>
 
-<h4>Creating a Custom Facet Component</h4>
+<h4>Facet Service</h4>
 
 <p>
-    Your custom facet component should extend the <code>FacetBaseComponent</code> component class. This base class will provide
-    you with the following functions:
+    Your custom facet component should inject the <code>FacetService</code> class. This service will provide
+    you with the following:
 </p>
 
-<uxd-api-properties>
-    <tr uxd-api-property name="selectFacet" args="Facet">
+<uxd-api-properties tableTitle="Functions">
+    <tr uxd-api-property name="select" args="Facet">
         Will select the facet and update the selected values in the facet container.
     </tr>
-    <tr uxd-api-property name="deselectFacet" args="Facet">
+    <tr uxd-api-property name="deselect" args="Facet">
         Will deselect the facet and update the selected values in the facet container.
     </tr>
     <tr uxd-api-property name="deselectAll">
         Will deselect all facets associated with this component and update the selected values
         in the facet container.
     </tr>
-    <tr uxd-api-property name="toggleFacetSelection" args="Facet">
-        If the facet passed to this function is currently selected it will be deselected. 
-        If the facet is currently not selected it will be selected. This will update the selected 
+    <tr uxd-api-property name="toggle" args="Facet">
+        If the facet passed to this function is currently selected it will be deselected.
+        If the facet is currently not selected it will be selected. This will update the selected
         values in the facet container.
     </tr>
-    <tr uxd-api-property name="isFacetSelected" args="Facet" returns="boolean">
-        Will return a <code>true</code> if the facet passed to the function is currently selected, 
+    <tr uxd-api-property name="isSelected" args="Facet" returns="boolean">
+        Will return a <code>true</code> if the facet passed to the function is currently selected,
         otherwise will return false.
     </tr>
 </uxd-api-properties>
 
-<p>
-    The base class also adds a <code>selected</code> two way binding and an <code>events</code> output which will automatically
-    be triggered when facets are selected or deselected. The <code>events</code> property is an observable which can be subscribed
-    to to watch for external events such as deselecting being triggered by the Facet Container.
-</p>
+<uxd-api-properties tableTitle="Observables">
+    <tr uxd-api-property name="facets$" type="BehaviorSubject<Facet[]>">
+        This observable contains a list of the currently selected facets.
+    </tr>
+    <tr uxd-api-property name="events$" type="Subject<FacetEvent>">
+        This observable will emit a <code>FacetEvent</code> any time a selection or deselection occurs.
+        There are several types of <code>FacetEvent</code>:
+
+        <ul>
+            <li><code>FacetSelect</code> - Indicates a facet has been selected. It has a <code>facet</code> property containing the affected facet.</li>
+            <li><code>FacetDeselect</code> - Indicates a facet has been deselected. It has a <code>facet</code> property containing the affected facet.</li>
+            <li><code>FacetDeselectAll</code> - Indicates all facets have been deselected.</li>
+        </ul>
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
@@ -87,20 +97,20 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Facet HTML">
+    <ux-tab heading="Facet HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.facetComponentHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Facet TypeScript">
+    <ux-tab heading="Facet TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.facetComponentTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Facet CSS">
+    <ux-tab heading="Facet CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.facetComponentCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

@@ -1,0 +1,14 @@
+<ux-column-picker
+    [selectedTitleTemplate]="showCustomTitles ? title : null"
+    [deselectedTitleTemplate]="showCustomTitles ? title : null"
+    [(selected)]="selected"
+    [(deselected)]="deselected"
+    [locked]="locked">
+</ux-column-picker>
+
+<ng-template #title>Custom Title</ng-template>
+
+<p id="selected-list">{{ selected | json }}</p>
+<p id="deselected-list">{{ deselected | json }}</p>
+
+<button id="toggle-custom-titles" class="btn button-secondary" (click)="showCustomTitles = true">Show Custom Titles</button>

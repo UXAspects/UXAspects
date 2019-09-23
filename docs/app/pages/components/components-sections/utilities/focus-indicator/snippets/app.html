@@ -1,0 +1,24 @@
+<div class="focus-indicator-demo">
+    <button uxFocusIndicator
+            [mouseFocusIndicator]="mouseFocusIndicator"
+            [keyboardFocusIndicator]="keyboardFocusIndicator"
+            class="btn button-secondary"
+            (focus)="isFocused = true"
+            (blur)="isFocused = false"
+            (indicator)="hasIndicator = $event">
+            {{ buttonText }}
+    </button>
+</div>
+
+<ux-accordion class="uxd-customize-example">
+    <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+            <div class="col-sm-6">
+                <ux-checkbox [(value)]="mouseFocusIndicator">mouseFocusIndicator</ux-checkbox>
+            </div>
+            <div class="col-sm-6">
+                <ux-checkbox [(value)]="keyboardFocusIndicator">keyboardFocusIndicator</ux-checkbox>
+            </div>
+        </div>
+    </ux-accordion-panel>
+</ux-accordion>

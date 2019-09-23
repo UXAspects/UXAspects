@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-charts-bar-chart-ng1',
@@ -11,18 +12,18 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsBarChartNg1Component')
-export class ChartsBarChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsBarChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     data: any;
     options: any;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         js: [this.snippets.raw.chartJs],
         htmlAttributes: {
             'ng-controller': 'BarChartCtrl as bc'
         }
-    };
+    });
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

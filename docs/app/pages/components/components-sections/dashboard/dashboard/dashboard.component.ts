@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { DashboardOptions } from '../../../../../../../src/components/dashboard/index';
-import { ColorService } from '../../../../../../../src/index';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { ColorService, DashboardOptions } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-dashboard',
@@ -13,7 +12,7 @@ import 'chance';
     styleUrls: ['./dashboard.component.less']
 })
 @DocumentationSectionComponent('ComponentsDashboardComponent')
-export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[] = [{
@@ -79,7 +78,7 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
         minWidth: 187
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,

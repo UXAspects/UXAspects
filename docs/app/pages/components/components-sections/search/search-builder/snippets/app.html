@@ -1,65 +1,121 @@
-<button class="btn button-primary" (click)="openModal(template)">
-    <span class="hpe-icon hpe-deployment m-r-xs" aria-hidden="true"></span>
+<button type="button" class="btn button-primary" (click)="modalOpen = true">
+    <ux-icon name="deployment" class="m-r-xs" aria-hidden="true"></ux-icon>
     Launch Search Builder Modal
 </button>
-
-<hr>
 
 <h4>Search Query</h4>
 
 <pre>{{ preview }}</pre>
 
-<ng-template #template>
-    <div class="search-builder-dismiss" (click)="cancel()">
-        <button class="btn btn-icon button-dark btn-circular btn-close">
-            <i class="hpe-icon hpe-close"></i>
-        </button>
-    </div>
+<!-- Search Builder modal definition -->
+<div *ngIf="modalOpen" class="modal" tabindex="-1" role="dialog"
+    aria-modal="true" aria-labelledby="search-builder-title"
+    bsModal #modal="bs-modal" [config]="{ show: true, animated: false, focus: false }"
+    (onShown)="modalShown()" (onHidden)="cancel()">
 
-    <div class="search-builder-header">
-        <div class="search-builder-icon"></div>
-        <h1 class="search-builder-title">Search builder</h1>
-    </div>
+    <div role="document" class="modal-dialog modal-lg search-builder-modal"
+        [cdkTrapFocus]="modalOpen"
+        [cdkTrapFocusAutoCapture]="true">
 
-    <div class="search-builder-body">
+        <div class="modal-content">
 
-        <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
-            <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" 
-                (add)="addKeyword()"></ux-search-builder-group>
-            <ux-search-builder-group id="any" header="ANY of the following" operator="or" 
-                (add)="addField('any'); $event.stopPropagation()"
-                [showPlaceholder]="placeholders.any"></ux-search-builder-group>
-            <ux-search-builder-group id="all" header="ALL of the following" 
-                (add)="addField('all'); $event.stopPropagation()" 
-                [showPlaceholder]="placeholders.all"></ux-search-builder-group>
-            <ux-search-builder-group id="none" header="NONE of the following" operator="not" 
-                (add)="addField('none'); $event.stopPropagation()"
-                [showPlaceholder]="placeholders.none"></ux-search-builder-group>
-        </ux-search-builder>
+            <!-- Close button -->
+            <div class="search-builder-dismiss" (click)="cancel()">
+                <button type="button" class="btn btn-icon button-dark btn-circular btn-close"
+                    aria-label="Close search builder modal">
+                    <ux-icon name="close"></ux-icon>
+                </button>
+            </div>
 
-    </div>
+            <!-- Modal header -->
+            <div class="search-builder-header">
+                <div class="search-builder-icon"></div>
+                <h1 id="search-builder-title" class="search-builder-title">Search builder</h1>
+            </div>
 
-    <div class="search-builder-footer">
-        <button type="button" class="btn button-primary m-r-xs" [disabled]="!valid" 
-            (click)="save()">Search</button>
+            <div #searchBuilderContent class="search-builder-body">
 
-        <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
-    </div>
+                <!-- Search Builder -->
+                <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
 
-    <ux-item-display-panel class="search-builder-panel" [class.search-builder-panel-open]="panelOpen" 
-        [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen" 
-        (visibleChange)="onPanelEvent($event)" width="400px">
+                    <ux-search-builder-group id="keywords"
+                        header="Text Keywords"
+                        addText="Add a keyword"
+                        (add)="addKeyword()">
+                    </ux-search-builder-group>
 
-        <div class="field-list-panel" uxItemDisplayPanelContent>
-            <input type="text" placeholder="Find a field" class="form-control" [(ngModel)]="filter">
+                    <ux-search-builder-group id="any"
+                        header="ANY of the following"
+                        operator="or"
+                        (add)="addField('any', $event)"
+                        [showPlaceholder]="placeholders.any">
+                    </ux-search-builder-group>
 
-            <ul class="field-list">
-                <ng-container *ngFor="let field of fields">
-                    <li class="field-list-item" 
-                        *ngIf="field.title.toLowerCase().indexOf(filter.toLowerCase()) !== -1" 
-                        (click)="selectField(field)">{{ field.title }}</li>
-                </ng-container>
-            </ul>
+                    <ux-search-builder-group id="all"
+                        header="ALL of the following"
+                        (add)="addField('all', $event)"
+                        [showPlaceholder]="placeholders.all">
+                    </ux-search-builder-group>
+
+                    <ux-search-builder-group id="none"
+                        header="NONE of the following"
+                        operator="not"
+                        (add)="addField('none', $event)"
+                        [showPlaceholder]="placeholders.none">
+                    </ux-search-builder-group>
+
+                </ux-search-builder>
+
+            </div>
+
+            <!-- Search/Cancel buttons -->
+            <div class="search-builder-footer">
+                <button type="button" class="btn button-primary" [disabled]="!valid" (click)="save()">
+                    Search
+                </button>
+                <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
+            </div>
+
+            <!-- Side panel (used to select field type) -->
+            <ux-item-display-panel class="search-builder-panel"
+                [class.search-builder-panel-open]="panelOpen"
+                [animate]="true"
+                [inline]="true"
+                header="Add Field"
+                [(visible)]="panelOpen"
+                (visibleChange)="onPanelEvent($event)"
+                width="400px"
+                role="dialog"
+                aria-label="Field Type Panel"
+                aria-description="Select a field type to add it to the search builder.">
+
+                <div uxItemDisplayPanelContent class="field-list-panel"
+                    (keydown.esc)="panelOpen = false; $event.stopPropagation()"
+                    [cdkTrapFocus]="panelOpen"
+                    [cdkTrapFocusAutoCapture]="true">
+
+                    <!-- Field type filter field -->
+                    <input type="text"
+                        aria-description="Filter the field type list."
+                        placeholder="Find a field"
+                        class="form-control"
+                        [ngModel]="filter$ | async"
+                        (ngModelChange)="filter$.next($event)"
+                        [focusIf]="panelOpen">
+
+                    <!-- List of field types -->
+                    <ux-select-list *ngIf="panelOpen"
+                        aria-label="Field type list"
+                        aria-description="Select a field type to add it to the search builder."
+                        class="field-list"
+                        (selectedChange)="selectField($event[0])">
+                        <ux-select-list-item *ngFor="let field of filteredFields" [data]="field">
+                            {{field.title}}
+                        </ux-select-list-item>
+                    </ux-select-list>
+
+                </div>
+            </ux-item-display-panel>
         </div>
-    </ux-item-display-panel>
-</ng-template>
+    </div>
+</div>

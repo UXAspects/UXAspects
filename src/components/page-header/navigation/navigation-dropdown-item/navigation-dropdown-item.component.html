@@ -1,19 +1,46 @@
-<div role="menu-item" dropdown [isOpen]="dropdownOpen" container="body" placement="right" [isDisabled]="!item.children" (mouseenter)="hoverStart()"
-    (mouseleave)="hoverLeave()" #subMenu="bs-dropdown">
+<div *ngIf="item.children && item.children.length > 0">
 
-    <!-- Show the menu item and the arrow if there are children -->
-    <a class="dropdown-item" tabindex="0" [class.selected]="item.selected" (keyup.enter)="selectItem(item); subMenu.toggle()" (click)="selectItem(item)">
+    <button
+        type="button"
+        uxMenuItem
+        [disabled]="item.disabled"
+        [class.selected]="item.selected"
+        [attr.aria-selected]="item.selected"
+        [uxMenuTriggerFor]="menu">
+
         <span class="dropdown-item-title">{{ item.title }}</span>
-        <span class="dropdown-item-icon hpe-icon hpe-next" *ngIf="item.children"></span>
-    </a>
+        <ux-icon class="dropdown-item-icon" name="next"></ux-icon>
+    </button>
 
-    <!-- Allow another level of menu items -->
-    <ul *dropdownMenu class="dropdown-menu horizontal-navigation-dropdown-submenu" role="menu" (mouseenter)="hoverStart()" (mouseleave)="hoverLeave()">
+    <ux-menu #menu placement="right" menuClass="horizontal-navigation-dropdown-submenu">
+        <button
+            type="button"
+            *ngFor="let subItem of item.children"
+            uxMenuItem
+            [disabled]="subItem.disabled"
+            [class.selected]="subItem.selected"
+            [attr.aria-selected]="subItem.selected"
+            (click)="select(subItem)"
+            (keydown)="keydownHandler($event, subItem)">
 
-        <li role="menuitem" *ngFor="let subItem of item.children" (click)="selectItem(subItem, item)" (keyup.enter)="selectItem(subItem, item)">
-            <a class="dropdown-item" tabindex="0" [class.selected]="subItem.selected">
-                <span class="dropdown-item-title">{{ subItem.title }}</span>
-            </a>
-        </li>
-    </ul>
+            <span class="dropdown-item-title">{{ subItem.title }}</span>
+        </button>
+    </ux-menu>
+
+</div>
+
+<div *ngIf="!item.children || item.children.length === 0">
+
+    <button
+        type="button"
+        uxMenuItem
+        [disabled]="item.disabled"
+        [class.selected]="item.selected"
+        [attr.aria-selected]="item.selected"
+        (click)="select(item)"
+        (keydown)="keydownHandler($event, item)">
+
+        <span class="dropdown-item-title">{{ item.title }}</span>
+    </button>
+
 </div>

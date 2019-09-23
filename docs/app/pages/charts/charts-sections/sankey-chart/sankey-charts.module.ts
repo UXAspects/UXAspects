@@ -1,16 +1,17 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ChartsSankeyChartNg1Component } from './sankey-chart-ng1/sankey-chart-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
+import { FileSizePipeModule, HybridModule, SankeyChartModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsSankeyChartNg1Component } from './sankey-chart-ng1/sankey-chart-ng1.component';
+import { ChartsSankeyChartComponent } from './sankey-chart/sankey-chart.component';
+
 
 const SECTIONS = [
-    ChartsSankeyChartNg1Component
+    ChartsSankeyChartNg1Component,
+    ChartsSankeyChartComponent
 ];
 
 const ROUTES = [
@@ -25,10 +26,12 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsetModule,
         WrappersModule,
         HybridModule,
+        FileSizePipeModule,
         DocumentationComponentsModule,
+        SankeyChartModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

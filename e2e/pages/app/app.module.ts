@@ -1,179 +1,215 @@
-import * as angular from 'angular';
-
-let app = angular.module('app');
-
-import { NgModule, forwardRef, Component, Injector } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
-import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
-import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
-import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
-import { SideInsetPanelSplitterNg1TestPageComponent } from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
-import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
-import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
-import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
 
-const ROUTES: Routes = [
-  {
-    path: 'button-dropdowns',
-    loadChildren: './button-dropdowns/button-dropdowns.module#ButtonDropdownsTestPageModule'
-  }, {
-    path: 'button-size-variations',
-    loadChildren: './button-size-variations/button-size-variation.module#ButtonSizeVariationsTestPageModule'
-  }, {
-    path: 'buttons-radio-buttons',
-    loadChildren: './buttons-radio-buttons/buttons-radio-buttons.module#ButtonsRadioButtonsTestPageModule'
-  }, {
-    path: 'checkboxes',
-    loadChildren: './checkbox/checkbox.module#CheckboxTestPageModule'
-  }, {
-    path: 'circular-icon-buttons',
-    loadChildren: './circular-icon-buttons/circular-icon-buttons.module#CircularIconButtonsTestPageModule'
-  }, {
-    path: 'custom-facet',
-    loadChildren: './custom-facet/custom-facet.module#CustomFacetTestPageModule'
-  }, {
-    path: 'colored-buttons',
-    loadChildren: './colored-buttons/colored-buttons.module#ColoredButtonsTestPageModule'
-  }, {
-    path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardTestPageModule'
-  }, {
-    path: 'dropdowns',
-    loadChildren: './dropdowns/dropdowns.module#DropdownsTestPageModule'
-  }, {
-    path: 'facet-check-list',
-    loadChildren: './facet-check-list/facet-check-list.module#FacetCheckListTestPageModule'
-  }, {
-    path: 'facet-container',
-    loadChildren: './facet-container/facet-container.module#FacetContainerTestPageModule'
-  }, {
-    path: 'facet-typeahead-list',
-    loadChildren: './facet-typeahead-list/facet-typeahead-list.module#FacetTypeaheadListPageModule'
-  }, {
-    path: 'filters',
-    loadChildren: './filters/filters.module#FiltersTestPageModule'
-  }, {
-    path: 'flippable-cards',
-    loadChildren: './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
-  }, {
-    path: 'floating-action-buttons',
-    loadChildren: './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'
-  }, {
-    path: 'floating-action-buttons-ng1',
-    component: FloatingActionButtonsNg1TestPageComponent
-  }, {
-    path: 'hyperlinks',
-    loadChildren: './hyperlinks/hyperlinks.module#HyperlinksTestPageModule'
-  }, {
-    path: 'infinite-scroll',
-    loadChildren: './infinite-scroll/infinite-scroll.module#InfiniteScrollTestPageModule'
-  }, {
-    path: 'item-display-panel',
-    loadChildren: './item-display-panel/item-display-panel.module#ItemDisplayPanelTestPageModule'
-  }, {
-    path: 'link-buttons',
-    loadChildren: './link-buttons/link-buttons.module#LinkButtonsTestPageModule'
-  }, {
-    path: 'marquee-wizard',
-    loadChildren: './marquee-wizard/marquee-wizard.module#MarqueeWizardTestPageModule'
-  }, {
-    path: 'number-picker',
-    loadChildren: './number-picker/number-picker.module#NumberPickerTestPageModule'
-  }, {
-    path: 'page-header',
-    loadChildren: './page-header/page-header.module#PageHeaderTestPageModule'
-  }, {
-    path: 'pagination',
-    loadChildren: './pagination/pagination.module#PaginationTestPageModule'
-  }, {
-    path: 'radiobuttons',
-    loadChildren: './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
-  }, {
-    path: 'search-builder',
-    loadChildren: './search-builder/search-builder.module#SearchBuilderTestPageModule'
-  }, {
-    path: 'select',
-    loadChildren: './select/select.module#SelectTestPageModule'
-  }, {
-    path: 'side-inset-panel-splitter',
-    component: SideInsetPanelSplitterNg1TestPageComponent
-  }, {
-    path: 'sliders',
-    loadChildren: './sliders/sliders.module#SlidersTestPageModule'
-  }, {
-    path: 'split-button-dropdowns',
-    loadChildren: './split-button-dropdowns/split-button-dropdowns.module#SplitButtonDropdownsTestPageModule'
-  }, {
-    path: 'stacked-tabs',
-    component: StackedTabsNg1TestPageComponent
-  }, {
-    path: 'tabs',
-    component: TabsNg1TestPageComponent
-  }, {
-    path: 'tags',
-    loadChildren: './tags/tags.module#TagsTestPageModule'
-}, {
-    path: 'timeline',
-    loadChildren: './timeline/timeline.module#TimelineTestPageModule'
-  }, {
-    path: 'toggle-button',
-    loadChildren: './toggle-button/toggle-button.module#ToggleButtonTestPageModule'
-  }, {
-    path: 'toggleswitches',
-    loadChildren: './toggleswitches/toggleswitches.module#ToggleSwitchesTestPageModule'
-  }, {
-    path: 'tree-grid',
-    loadChildren: './tree-grid-ng1/tree-grid-ng1.module#TreeGridNg1TestPageModule'
-  }, {
-    path: 'virtual-scroll',
-    loadChildren: './virtual-scroll/virtual-scroll.module#VirtualScrollTestPageModule'
-  }, {
-    path: 'wizard',
-    loadChildren: './wizard/wizard.module#WizardTestPageModule'
-  }
+const routes: Routes = [
+    {
+        path: 'card-tabs',
+        loadChildren: () => import('./card-tabs/card-tabs.module').then(m => m.CardTabsTestPageModule)
+    },
+    {
+        path: 'checkboxes',
+        loadChildren: () => import('./checkbox/checkbox.module').then(m => m.CheckboxTestPageModule)
+    },
+    {
+        path: 'column-resizing',
+        loadChildren: () => import('./column-resizing/column-resizing.module').then(m => m.ColumnResizingTestPageModule)
+    },
+    {
+        path: 'column-picker',
+        loadChildren: () => import('./column-picker/column-picker.module').then(m => m.ColumnPickerTestPageModule)
+    },
+    {
+        path: 'custom-facet',
+        loadChildren: () => import('./custom-facet/custom-facet.module').then(m => m.CustomFacetTestPageModule)
+    },
+    {
+        path: 'conduits',
+        loadChildren: () => import('./conduits/conduits.module').then(m => m.ConduitsTestPageModule)
+    },
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardTestPageModule)
+    },
+    {
+        path: 'date-time-picker',
+        loadChildren: () => import('./date-time-picker/date-time-picker.module').then(m => m.DateTimePickerTestPageModule)
+    },
+    {
+        path: 'date-range-picker',
+        loadChildren: () => import('./date-range-picker/date-range-picker.module').then(m => m.DateRangePickerTestPageModule)
+    },
+    {
+        path: 'expanding-text-area',
+        loadChildren: () => import('./expanding-text-area/expanding-text-area.module').then(m => m.ExpandingTextAreaModule)
+    },
+    {
+        path: 'facet-check-list',
+        loadChildren: () => import('./facet-check-list/facet-check-list.module').then(m => m.FacetCheckListTestPageModule)
+    },
+    {
+        path: 'facet-container',
+        loadChildren: () => import('./facet-container/facet-container.module').then(m => m.FacetContainerTestPageModule)
+    },
+    {
+        path: 'facet-typeahead-list',
+        loadChildren: () => import('./facet-typeahead-list/facet-typeahead-list.module').then(m => m.FacetTypeaheadListPageModule)
+    },
+    {
+        path: 'filters',
+        loadChildren: () => import('./filters/filters.module').then(m => m.FiltersTestPageModule)
+    },
+    {
+        path: 'flippable-cards',
+        loadChildren: () => import('./flippable-cards/flippable-cards.module').then(m => m.FlippableCardsTestPageModule)
+    },
+    {
+        path: 'float-label',
+        loadChildren: () => import('./float-label/float-label.module').then(m => m.FloatLabelTestPageModule)
+    },
+    {
+        path: 'floating-action-buttons',
+        loadChildren: () => import('./floating-action-buttons/floating-action-buttons.module').then(m => m.FloatingActionButtonsTestPageModule)
+    },
+    {
+        path: 'focus-indicator',
+        loadChildren: () => import('./focus-indicator/focus-indicator.module').then(m => m.FocusIndicatorTestPageModule)
+    },
+    {
+        path: 'hierarchy-bar',
+        loadChildren: () => import('./hierarchy-bar/hierarchy-bar.module').then(m => m.HierarchyBarTestPageModule)
+    },
+    {
+        path: 'infinite-scroll',
+        loadChildren: () => import('./infinite-scroll/infinite-scroll.module').then(m => m.InfiniteScrollTestPageModule)
+    },
+    {
+        path: 'item-display-panel',
+        loadChildren: () => import('./item-display-panel/item-display-panel.module').then(m => m.ItemDisplayPanelTestPageModule)
+    },
+    {
+        path: 'marquee-wizard',
+        loadChildren: () => import('./marquee-wizard/marquee-wizard.module').then(m => m.MarqueeWizardTestPageModule)
+    },
+    {
+        path: 'navigation',
+        loadChildren: () => import('./navigation/navigation.module').then(m => m.NavigationTestPageModule)
+    },
+    {
+        path: 'number-picker',
+        loadChildren: () => import('./number-picker/number-picker.module').then(m => m.NumberPickerTestPageModule)
+    },
+    {
+        path: 'page-header',
+        loadChildren: () => import('./page-header/page-header.module').then(m => m.PageHeaderTestPageModule)
+    },
+    {
+        path: 'pagination',
+        loadChildren: () => import('./pagination/pagination.module').then(m => m.PaginationTestPageModule)
+    },
+    {
+        path: 'popover',
+        loadChildren: () => import('./popover/popover.module').then(m => m.PopoverTestPageModule)
+    },
+    {
+        path: 'radiobuttons',
+        loadChildren: () => import('./radiobuttons/radiobuttons.module').then(m => m.RadioButtonsTestPageModule)
+    },
+    {
+        path: 'reorderable-table',
+        loadChildren: () => import('./reorderable-table/reorderable-table.module').then(m => m.ReorderableTableTestPageModule)
+    },
+    {
+        path: 'reorderable-group',
+        loadChildren: () => import('./reorderable-group/reorderable-group.module').then(m => m.ReorderableGroupTestPageModule)
+    },
+    {
+        path: 'search-builder',
+        loadChildren: () => import('./search-builder/search-builder.module').then(m => m.SearchBuilderTestPageModule)
+    },
+    {
+        path: 'select',
+        loadChildren: () => import('./select/select.module').then(m => m.SelectTestPageModule)
+    },
+    {
+        path: 'select-list',
+        loadChildren: () => import('./select-list/select-list.module').then(m => m.SelectListTestPageModule)
+    },
+    {
+        path: 'selection',
+        loadChildren: () => import('./selection/selection.module').then(m => m.SelectionTestPageModule)
+    },
+    {
+        path: 'side-panel',
+        loadChildren: () => import('./side-panel/side-panel.module').then(m => m.SidePanelTestPageModule)
+    },
+    {
+        path: 'sliders',
+        loadChildren: () => import('./sliders/sliders.module').then(m => m.SlidersTestPageModule)
+    },
+    {
+        path: 'spark',
+        loadChildren: () => import('./spark/spark.module').then(m => m.SparkTestPageModule)
+    },
+    {
+        path: 'splitter',
+        loadChildren: () => import('./splitter/splitter.module').then(m => m.SplitterTestPageModule)
+    },
+    {
+        path: 'tabbable-list',
+        loadChildren: () => import('./tabbable-list/tabbable-list.module').then(m => m.TabbableListTestPageModule)
+    },
+    {
+        path: 'tabs',
+        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsTestPageModule)
+    },
+    {
+        path: 'tags',
+        loadChildren: () => import('./tags/tags.module').then(m => m.TagsTestPageModule)
+    },
+    {
+        path: 'timeline',
+        loadChildren: () => import('./timeline/timeline.module').then(m => m.TimelineTestPageModule)
+    },
+    {
+        path: 'toggleswitches',
+        loadChildren: () => import('./toggleswitches/toggleswitches.module').then(m => m.ToggleSwitchesTestPageModule)
+    },
+    {
+        path: 'toolbar-search',
+        loadChildren: () => import('./toolbar-search/toolbar-search.module').then(m => m.ToolbarSearchTestPageModule)
+    },
+    {
+        path: 'tooltips',
+        loadChildren: () => import('./tooltips/tooltips.module').then(m => m.TooltipsTestPageModule)
+    },
+    {
+        path: 'virtual-for',
+        loadChildren: () => import('./virtual-for/virtual-for.module').then(m => m.VirtualForTestPageModule)
+    },
+    {
+        path: 'virtual-scroll',
+        loadChildren: () => import('./virtual-scroll/virtual-scroll.module').then(m => m.VirtualScrollTestPageModule)
+    },
+    {
+        path: 'wizard',
+        loadChildren: () => import('./wizard/wizard.module').then(m => m.WizardTestPageModule)
+    }
 ];
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(ROUTES, { initialNavigation: false, useHash: true }),
-    UpgradeModule,
-    BrowserAnimationsModule
-  ],
-  declarations: [
-    AppComponent,
-    TabsComponent,
-    TabsNg1TestPageComponent,
-    StackedTabsNg1TestPageComponent,
-    StackedTabsComponent,
-    SideInsetPanelSplitterNg1TestPageComponent,
-    SideInsetPanelSplitterComponent,
-    FloatingActionButtonsNg1TestPageComponent,
-    FloatingActionButtonComponent
-  ],
-  providers: [
-    {
-      provide: '$navigationMenu',
-      useFactory: (injector: Injector) => injector.get('$navigationMenu'),
-      deps: ['$injector']
-    }
-  ],
-  entryComponents: [
-    AppComponent
-  ]
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes, { useHash: true }),
+        NoopAnimationsModule
+    ],
+    declarations: [
+        AppComponent
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
-export class AppModule {
-  constructor(private _upgrade: UpgradeModule) { }
-
-  ngDoBootstrap() {
-    this._upgrade.bootstrap(document.body, ['app'], { strictDi: true });
-  }
-}
-
-app.directive('myApp', downgradeComponent({ component: AppComponent }));
+export class AppModule { }

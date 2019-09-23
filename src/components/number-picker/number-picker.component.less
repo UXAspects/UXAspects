@@ -1,10 +1,17 @@
-ux-number-picker {
+ux-number-picker,
+ux-number-picker-inline {
     display: flex;
     flex-direction: row;
     height: 34px;
 
-    &.has-error {
-        > .number-picker-input:focus {
+    &.ux-number-picker-invalid:not(.ng-invalid) {
+        > .number-picker-input {
+            border-color: @critical;
+        }
+    }
+
+    &.ng-invalid {
+        > .number-picker-input {
             border-color: @critical;
         }
     }
@@ -29,8 +36,7 @@ ux-number-picker {
         width: 27px;
         flex: none;
 
-        > .number-picker-control-up,
-        > .number-picker-control-down {
+        > .number-picker-control {
             display: flex;
             height: 50%;
             justify-content: center;

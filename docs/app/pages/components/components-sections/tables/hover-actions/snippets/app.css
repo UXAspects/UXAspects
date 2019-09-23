@@ -7,6 +7,12 @@
     background-color: #f5f5f5;
 }
 
+.hover-action-container .hover-action-btn {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
 .hover-action-container .hover-action-icon {
     display: inline-block;
     padding: 3px 6px;

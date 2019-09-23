@@ -1,4 +1,8 @@
-<table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
+<table class="table"
+    uxFixedHeaderTable
+    [dataset]="people"
+    (tablePaging)="loadPage()"
+    [tableHeight]="500">
     <thead>
         <tr>
             <th class="table-col-id">Id</th>
@@ -10,13 +14,16 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let person of people">
+        <tr *ngFor="let person of people; let index = index"
+            [attr.aria-setsize]="total"
+            [attr.aria-posinset]="index">
+
             <td class="table-col-id">{{ person.id }}</td>
             <td>{{ person.name }}</td>
             <td>{{ person.address }}</td>
             <td>{{ person.phone }}</td>
-            <td>
-                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
+            <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
+                <ux-icon name="checkmark" *ngIf="person.active"></ux-icon>
             </td>
         </tr>
 

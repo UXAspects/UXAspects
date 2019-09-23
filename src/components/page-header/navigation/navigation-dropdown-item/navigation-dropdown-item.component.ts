@@ -1,56 +1,40 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
+import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { Component, Input } from '@angular/core';
+import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',
+    exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
     templateUrl: './navigation-dropdown-item.component.html'
 })
 export class PageHeaderNavigationDropdownItemComponent {
 
+    /** Access the data for this item */
     @Input() item: PageHeaderNavigationDropdownItem;
-    @Output() onSelect: EventEmitter<PageHeaderNavigationDropdownItem> = new EventEmitter<PageHeaderNavigationDropdownItem>();
 
-    dropdownOpen: boolean = false;
+    constructor(private _pageHeaderService: PageHeaderService) { }
 
-    private _dropdownEvents: Subject<boolean> = new Subject<boolean>();
+    select(item: PageHeaderNavigationDropdownItem): void {
 
-    constructor() {
-
-        // subscribe to stream with a debounce (a small debounce is all that is required)
-        this._dropdownEvents.debounceTime(1).subscribe(visible => this.dropdownOpen = visible);
-    }
-
-    selectItem(item: PageHeaderNavigationDropdownItem, parentItem?: PageHeaderNavigationDropdownItem) {
-
-        // clicking on an item with children then return
-        if (item.children) {
+        // clicking on an item that is disabled or with children then return
+        if (item.disabled || item.children) {
             return;
         }
 
         // emit the selected item in an event
-        this.onSelect.emit(item);
+        this._pageHeaderService.select(item);
+    }
 
-        // select the current item
-        item.selected = true;
+    keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
 
-        // now also select the parent menu
-        if (parentItem) {
-            parentItem.selected = true;
+        switch (event.which) {
+            case ENTER:
+            case SPACE:
+                this.select(item);
+                event.preventDefault();
+                event.stopPropagation();
+                break;
         }
-    }
-
-    hoverStart() {
-        this._dropdownEvents.next(true);
-    }
-
-    hoverLeave() {
-        this._dropdownEvents.next(false);
-    }
-
-    close() {
-        this.dropdownOpen = false;
     }
 }

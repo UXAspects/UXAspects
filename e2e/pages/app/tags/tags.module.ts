@@ -1,22 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TagInputModule, TypeaheadModule, CheckboxModule, NumberPickerModule, RadioButtonModule } from '../../../../dist';
-
+import { RouterModule } from '@angular/router';
+import { AccordionModule, CheckboxModule, IconModule, NumberPickerModule, RadioButtonModule, TagInputModule, TypeaheadModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { TagsTestPageComponent } from './tags.testpage.component';
+
 
 @NgModule({
     imports: [
         FormsModule,
-        AccordionModule.forRoot(),
+        AccordionModule,
         TypeaheadModule,
         CommonModule,
         CheckboxModule,
+        IconModule,
         RadioButtonModule,
         NumberPickerModule,
         TagInputModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

@@ -1,7 +1,22 @@
 <div class="ux-column-sorting">
-    <i class="ux-column-sorting-icon hpe-icon" 
-        [class.hpe-ascend]="state === columnSortingState.Ascending" 
-        [class.hpe-descend]="state === columnSortingState.Descending" 
-        [class.column-sorting-icon-hidden]="state === columnSortingState.NoSort"></i>
-    <p class="ux-column-sorting-number">{{ orderNumber }}</p>
+
+    <!-- The default sort indicator -->
+    <ng-container *ngIf="!_sortIndicator">
+
+        <ux-icon
+            class="ux-column-sorting-icon"
+            [class.column-sorting-icon-hidden]="_state === columnSortingState.NoSort"
+            [name]="_icon">
+        </ux-icon>
+
+        <p class="ux-column-sorting-number" aria-hidden="true">{{ order }}</p>
+    </ng-container>
+
+    <!-- Custom sort indicator -->
+    <ng-container
+        *ngIf="_sortIndicator"
+        [ngTemplateOutlet]="_sortIndicator"
+        [ngTemplateOutletContext]="{ state: _state, order: order }">
+    </ng-container>
+
 </div>

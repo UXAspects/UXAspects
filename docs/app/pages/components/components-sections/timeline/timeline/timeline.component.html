@@ -6,8 +6,8 @@
 
                 <div class="m-b-sm">
                     <span>
-                        <i class="hpe-icon hpe-document-time"></i>
-                        <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>        
+                        <ux-icon name="document-time" class="m-r-xs"></ux-icon>
+                        <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>
                     </span>
                 </div>
                 <p class="m-b-nil">Ticket
@@ -39,11 +39,11 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-  </tab>
-  <tab heading="TypeScript">
+  </ux-tab>
+  <ux-tab heading="TypeScript">
     <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>

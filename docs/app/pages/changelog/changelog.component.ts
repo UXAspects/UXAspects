@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IChangeLog } from '../../interfaces/IChangeLog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { IChangeLog } from '../../interfaces/IChangeLog';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-changelog-page',
@@ -11,9 +12,214 @@ export class ChangeLogPageComponent {
 
     logs: IChangeLog[];
 
-    constructor(private domSanitizer: DomSanitizer) {
+    constructor(domSanitizer: DomSanitizer, appConfig: AppConfiguration) {
 
         this.logs = [
+            {
+                version: '1.8.5',
+                date: 'September 19th 2019',
+                content: require('./logs/release-v1.8.5.md')
+            },
+            {
+                version: '1.8.4',
+                date: 'September 5th 2019',
+                content: require('./logs/release-v1.8.4.md')
+            },
+            {
+                version: '1.8.3',
+                date: 'August 22nd 2019',
+                content: require('./logs/release-v1.8.3.md')
+            },
+            {
+                version: '1.8.2',
+                date: 'August 8th 2019',
+                content: require('./logs/release-v1.8.2.md')
+            },
+            {
+                version: '1.8.1',
+                date: 'July 25th 2019',
+                content: require('./logs/release-v1.8.1.md')
+            },
+            {
+                version: '1.8.0',
+                date: 'July 11th 2019',
+                content: require('./logs/release-v1.8.0.md')
+            },
+            {
+                version: '1.7.16',
+                date: 'June 26th 2019',
+                content: require('./logs/release-v1.7.16.md')
+            },
+            {
+                version: '1.7.15',
+                date: 'June 13th 2019',
+                content: require('./logs/release-v1.7.15.md')
+            },
+            {
+                version: '1.7.14',
+                date: 'May 30th 2019',
+                content: require('./logs/release-v1.7.14.md')
+            },
+            {
+                version: '1.7.13',
+                date: 'May 16th 2019',
+                content: require('./logs/release-v1.7.13.md')
+            },
+            {
+                version: '1.7.12',
+                date: 'May 2nd 2019',
+                content: require('./logs/release-v1.7.12.md')
+            },
+            {
+                version: '1.7.11',
+                date: 'April 18th 2019',
+                content: require('./logs/release-v1.7.11.md')
+            },
+            {
+                version: '1.7.10',
+                date: 'April 4th 2019',
+                content: require('./logs/release-v1.7.10.md')
+            },
+            {
+                version: '1.7.9',
+                date: 'March 28th 2019',
+                content: require('./logs/release-v1.7.9.md')
+            },
+            {
+                version: '1.7.8',
+                date: 'March 21st 2019',
+                content: require('./logs/release-v1.7.8.md')
+            },
+            {
+                version: '1.7.7',
+                date: 'March 7th 2019',
+                content: require('./logs/release-v1.7.7.md')
+            },
+            {
+                version: '1.7.6',
+                date: 'February 21st 2019',
+                content: require('./logs/release-v1.7.6.md')
+            },
+            {
+                version: '1.7.5',
+                date: 'February 7th 2019',
+                content: require('./logs/release-v1.7.5.md')
+            },
+            {
+                version: '1.7.4',
+                date: 'January 24th 2019',
+                content: require('./logs/release-v1.7.4.md')
+            },
+            {
+                version: '1.7.3',
+                date: 'January 10th 2019',
+                content: require('./logs/release-v1.7.3.md')
+            },
+            {
+                version: '1.7.2',
+                date: 'December 18th 2018',
+                content: require('./logs/release-v1.7.2.md')
+            },
+            {
+                version: '1.7.1',
+                date: 'December 13th 2018',
+                content: require('./logs/release-v1.7.1.md')
+            },
+            {
+                version: '1.7.0',
+                date: 'November 29th 2018',
+                content: require('./logs/release-v1.7.0.md')
+            },
+            {
+                version: '1.6.8',
+                date: 'November 8th 2018',
+                content: require('./logs/release-v1.6.8.md')
+            },
+            {
+                version: '1.6.7',
+                date: 'October 25th 2018',
+                content: require('./logs/release-v1.6.7.md')
+            },
+            {
+                version: '1.6.5',
+                date: 'October 11th 2018',
+                content: require('./logs/release-v1.6.5.md')
+            },
+            {
+                version: '1.6.4',
+                date: 'September 28th 2018',
+                content: require('./logs/release-v1.6.4.md')
+            },
+            {
+                version: '1.6.3',
+                date: 'September 13th 2018',
+                content: require('./logs/release-v1.6.3.md')
+            },
+            {
+                version: '1.6.2',
+                date: 'August 30th 2018',
+                content: require('./logs/release-v1.6.2.md')
+            },
+            {
+                version: '1.6.1',
+                date: 'August 16th 2018',
+                content: require('./logs/release-v1.6.1.md')
+            },
+            {
+                version: '1.6.0',
+                date: 'August 2nd 2018',
+                content: require('./logs/release-v1.6.0.md')
+            },
+            {
+                version: '1.5.17',
+                date: 'July 19th 2018',
+                content: require('./logs/release-v1.5.17.md')
+            },
+            {
+                version: '1.5.16',
+                date: 'July 5th 2018',
+                content: require('./logs/release-v1.5.16.md')
+            },
+            {
+                version: '1.5.15',
+                date: 'June 20th 2018',
+                content: require('./logs/release-v1.5.15.md')
+            },
+            {
+                version: '1.5.14',
+                date: 'June 7th 2018',
+                content: require('./logs/release-v1.5.14.md')
+            },
+            {
+                version: '1.5.13',
+                date: 'May 25th 2018',
+                content: require('./logs/release-v1.5.13.md')
+            },
+            {
+                version: '1.5.12',
+                date: 'May 10th 2018',
+                content: require('./logs/release-v1.5.12.md')
+            },
+            {
+                version: '1.5.11',
+                date: 'April 30th 2018',
+                content: require('./logs/release-v1.5.11.md')
+            },
+            {
+                version: '1.5.10',
+                date: 'April 25th 2018',
+                content: require('./logs/release-v1.5.10.md')
+            },
+            {
+                version: '1.5.9',
+                date: 'April 12th 2018',
+                content: require('./logs/release-v1.5.9.md')
+            },
+            {
+                version: '1.5.8',
+                date: 'March 29th 2018',
+                content: require('./logs/release-v1.5.8.md')
+            },
             {
                 version: '1.5.7',
                 date: 'March 15th 2018',
@@ -131,9 +337,9 @@ export class ChangeLogPageComponent {
             }
         ];
 
-        // santize blog posts
         this.logs.forEach(log => {
-            log.content = domSanitizer.bypassSecurityTrustHtml(log.content) as string;
+            const markdown = log.content.replace(/{{baseUrl}}/g, appConfig.baseUrl);
+            log.content = domSanitizer.bypassSecurityTrustHtml(markdown) as string;
         });
 
     }

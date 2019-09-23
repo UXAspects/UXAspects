@@ -1,0 +1,1 @@
+@Conduit({ id: 'search' }) search = new BehaviorSubject<string>('');

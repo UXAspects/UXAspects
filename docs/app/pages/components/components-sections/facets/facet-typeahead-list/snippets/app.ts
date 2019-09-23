@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { Facet } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
     selector: 'app',
@@ -12,7 +11,7 @@ export class AppComponent {
 
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
-
+    query: string = '';
     users: Facet[] = [];
 
     constructor() {
@@ -26,7 +25,7 @@ export class AppComponent {
         this.users.sort((userOne, userTwo) => {
             if (userOne.title < userTwo.title) {
                 return -1;
-            } 
+            }
 
             if (userOne.title > userTwo.title) {
                 return 1;
@@ -40,15 +39,13 @@ export class AppComponent {
 
         // Create an observable which can be used for fetching data from server
         this.facets = Observable.create((observer: Observer<Facet[]>) => {
-
-            // get the search query
-            let searchQuery = (<any>observer).destination.outerValue;
-
             // simulate server request
-            setTimeout(_ => {
+            setTimeout(() => {
 
                 // return list of filtered users from "server"
-                observer.next(this.users); 
+                observer.next(this.users.filter(user =>
+                    user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+                ));
             }, 750);
         });
 

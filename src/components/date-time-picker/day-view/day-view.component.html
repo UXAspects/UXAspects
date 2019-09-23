@@ -1,18 +1,44 @@
-<ux-date-time-picker-header [header]="header" (previous)="previous()" (next)="next()" (ascend)="showMonthPicker()"></ux-date-time-picker-header>
-
 <table class="calendar">
-  <thead>
-    <tr>
-      <th *ngFor="let day of weekdays" class="weekday">{{ day }}</th>
-    </tr>
-  </thead>
+    <thead>
+        <tr>
+            <th *ngFor="let day of datePicker.weekdays$ | async | weekDaySort: (datePicker.startOfWeek$ | async)" class="weekday" [attr.aria-label]="day">{{ day }}</th>
+        </tr>
+    </thead>
 
-  <tbody>
-    <tr *ngFor="let row of days">
-      <td *ngFor="let day of row" class="date-cell" [class.current]="day.today" 
-        [class.active]="day.active" [class.preview]="!day.currentMonth" 
-        (mousedown)="select(day.date)" (keyup.enter)="select(day.date)" 
-        tabindex="0">{{ day.date.getDate() }}</td>
-    </tr>
-  </tbody>
+    <tbody role="grid">
+        <tr role="row" *ngFor="let row of dayService.grid$ | async; trackBy: trackWeekByFn">
+
+            <td *ngFor="let item of row; trackBy: trackDayByFn" class="date-cell" role="gridcell">
+
+                <button type="button"
+                        uxFocusIndicator
+                        uxFocusIndicatorOrigin
+                        class="date-button"
+                        [class.range-start]="isRangeStartDate(item.date)"
+                        [class.range-between]="isWithinRange(item.date) || isDateHovered(item.date)"
+                        [class.range-end]="isRangeEndDate(item.date)"
+                        [focusIf]="shouldFocus(item)"
+                        [attr.aria-label]="item.date | date"
+                        [attr.aria-selected]="isItemActive(item.date, item.isActive)"
+                        [attr.aria-hidden]="!item.isCurrentMonth"
+                        [class.current]="item.isToday"
+                        [class.active]="isItemActive(item.date, item.isActive) && !getDisabled(item.date)"
+                        [class.preview]="!item.isCurrentMonth"
+                        [tabindex]="getTabbable(item) ? 0 : -1"
+                        [disabled]="getDisabled(item.date)"
+                        (click)="select(item.date); $event.stopPropagation()"
+                        (mouseenter)="onRangeMouseEnter(item.date)"
+                        (mouseleave)="onRangeMouseLeave(item.date)"
+                        (keydown.ArrowLeft)="focusDate(item, -1); $event.preventDefault()"
+                        (keydown.ArrowRight)="focusDate(item, 1); $event.preventDefault()"
+                        (keydown.ArrowUp)="focusDate(item, -7); $event.preventDefault()"
+                        (keydown.ArrowDown)="focusDate(item, 7); $event.preventDefault()"
+                        (focus)="announceRangeMode()">
+
+                    {{ item.date.getDate() }}
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
 </table>

@@ -1,0 +1,60 @@
+<form class="component-list-container" [formGroup]="form">
+
+    <div class="component-list">
+
+        <div class="component-list-component"
+            [class.hoverable]="items.length > 1"
+            formArrayName="items"
+            *ngFor="let item of items.controls; let idx = index">
+
+            <div class="component-content">
+                <input class="form-control" [focusIf]="true" [formControlName]="idx" placeholder="Enter text">
+
+                <button class="component-remove"
+                    uxFocusIndicator
+                    *ngIf="items.controls.length > 1"
+                    aria-label="Remove field"
+                    (click)="remove(idx)">
+                    <ux-icon name="close"></ux-icon>
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <button type="button"
+        uxFocusIndicator
+        class="component-actions"
+        [tabIndex]="form.invalid ? -1 : 0"
+        [class.disabled]="form.invalid"
+        (click)="add()">
+        <span class="component-add-btn">
+            <ux-icon name="add"></ux-icon>
+        </span>
+        <span class="component-add-text">Add a field</span>
+    </button>
+
+</form>
+
+<hr>
+
+<p>
+    A component list can be used to dynamically add and remove components.
+    It uses Angular's <code>FormGroup</code> and <code>FormArray</code> to store the fields
+    and apply validation rules which can be used to determine whether or not we should be
+    allowed to add additional fields.
+</p>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

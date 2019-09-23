@@ -4,10 +4,9 @@
 
         <div class="uxd-component-section-attributes">
 
-             <!-- Show the CodePen or Plunker link if required -->
-            <uxd-edit-example-link *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
-            <uxd-edit-example-link *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
-        
+             <!-- Show the Plunker link if required -->
+            <uxd-edit-example-link *ngIf="playground" [title]="title" [content]="playground" [version]="version">Edit in Plunker</uxd-edit-example-link>
+
             <!-- Show usage link if required -->
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
@@ -16,24 +15,23 @@
             <span *ngIf="version === 'Angular'" class="label label-accent uxd-component-section-labels">Angular</span>
 
             <a *ngIf="hybrid" href="javascript:void(0)" class="label label-accent uxd-component-section-labels"
-                [popover]="hybridHelpContent" container="body" placement="bottom" [outsideClick]="true"
-                containerClass="uxd-component-section-help-popover">
-                Angular Compatible
-            </a>
+                [uxPopover]="hybridHelpContent" placement="bottom" popoverClass="uxd-component-section-help-popover">Angular Compatible</a>
 
             <!-- Identify as External plugin -->
             <a *ngIf="externalUrl" role="button" class="label label-warning uxd-component-section-labels"
-                tooltip="This component is from a third party library and not included in the UX Aspects component library."
-                container="body" placement="bottom" [href]="externalUrl" target="_blank">
-                External
-            </a>
+                uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
+                placement="bottom" [href]="externalUrl" target="_blank" rel="noopener">External</a>
 
             <!-- Show Deprecated label if required -->
-            <span *ngIf="deprecated" class="label label-critical uxd-component-section-labels"
-                tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                container="body" placement="bottom">
-                Deprecated
-            </span>
+            <span *ngIf="deprecated && !deprecatedLink" class="label label-critical uxd-component-section-labels"
+                uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+                placement="bottom">Deprecated</span>
+
+            <!-- Deprecated label with link to another section -->
+            <a *ngIf="deprecatedLink" class="label label-critical uxd-component-section-labels"
+                [routerLink]="deprecatedLink.link" [fragment]="deprecatedLink.fragment"
+                uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+                placement="bottom">Deprecated</a>
         </div>
 
     </ux-ebox-header>

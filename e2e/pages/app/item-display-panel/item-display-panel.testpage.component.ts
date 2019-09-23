@@ -1,6 +1,5 @@
-import { ColorService, ItemDisplayPanelComponent } from '../../../../dist';
 import { Component } from '@angular/core';
-import 'chance';
+import { ColorService, ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'item-display-panel-app',
@@ -16,37 +15,37 @@ export class ItemDisplayPanelTestPageComponent {
     selectedItem: Item;
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
-    animate: boolean = true;
+    animate: boolean = false;
     shadow: boolean = true;
-    
+
     sparkBarColor: string;
     sparkTrackColor: string;
 
     // templates
     pdf = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview PDF</h1>
-  <p>Praesent venenatis eros vel felis vehicula dictum. Phasellus augue libero, vulputate euismod purus 
-  sed, dictum porta mauris. Nunc vitae purus vel velit dapibus porttitor et sagittis mauris. Etiam non 
+  <p>Praesent venenatis eros vel felis vehicula dictum. Phasellus augue libero, vulputate euismod purus
+  sed, dictum porta mauris. Nunc vitae purus vel velit dapibus porttitor et sagittis mauris. Etiam non
   semper odio, at ultricies velit. Duis non suscipit lectus, vitae fringilla turpis.</p>
 </div>`;
 
     doc = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview DOC</h1>
-  <p>Donec sagittis augue et pellentesque ultrices. Nulla quis orci sit amet sem ornare auctor. Ut in 
-  lobortis turpis. Vivamus ante felis, viverra sed ornare ut, ultricies eget ipsum. 
+  <p>Donec sagittis augue et pellentesque ultrices. Nulla quis orci sit amet sem ornare auctor. Ut in
+  lobortis turpis. Vivamus ante felis, viverra sed ornare ut, ultricies eget ipsum.
   Vivamus commodo convallis tortor.</p>
 </div>`;
 
     ppt = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview PPT</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet faucibus 
-  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus 
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet faucibus
+  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus
   interdum. Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum hendrerit ultrices.</p>
 </div>`;
 
     items: Item[] = [{
         id: 1,
-        name: chance.name(),
+        name: 'Jim Baldwin',
         dateString: '3 Oct 2015',
         document: 'Document 4.ppt',
         extension: '.ppt',
@@ -58,7 +57,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 2,
-        name: chance.name(),
+        name: 'Sophie Hunt',
         dateString: '3 Oct 2015',
         document: 'Document 9.pdf',
         extension: '.pdf',
@@ -70,7 +69,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 3,
-        name: chance.name(),
+        name: 'Clayton Mullins',
         dateString: '3 Oct 2015',
         document: 'Document 14.doc',
         extension: '.doc',
@@ -82,7 +81,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 4,
-        name: chance.name(),
+        name: 'Bettie Elliott',
         dateString: '3 Oct 2015',
         document: 'Document 29.pdf',
         extension: '.pdf',
@@ -94,7 +93,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }, {
         id: 5,
-        name: chance.name(),
+        name: 'Hannah Washington',
         dateString: '3 Oct 2015',
         document: 'Document 34.doc',
         extension: '.doc',
@@ -111,14 +110,14 @@ export class ItemDisplayPanelTestPageComponent {
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item) {
+    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item): void {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
         this.visible = true;
     }
 
-    previous() {
+    previous(): void {
         if (this.previousEnabled) {
             let id = this.selectedItem.id - 1;
             this.selectedItem = this.items[id - 1];
@@ -126,7 +125,7 @@ export class ItemDisplayPanelTestPageComponent {
         }
     }
 
-    next() {
+    next(): void {
         if (this.nextEnabled) {
             let id = this.selectedItem.id + 1;
             this.selectedItem = this.items[id - 1];

@@ -143,7 +143,10 @@ export default function nestedDonut(d3) {
             }
 
             function init_chart() {
-                svg = d3.select(container).append("svg").attr("width", chart_options.size).attr("height", chart_options.size)
+                svg = d3.select(container)
+                    .append("svg").attr("width", chart_options.size)
+                    .attr("focusable", false)
+                    .attr("height", chart_options.size)
                     .append("g").attr("transform", "translate(" + chart_options.size / 2 + "," + chart_options.size / 2 + ")");
 
                 // draw initial chart

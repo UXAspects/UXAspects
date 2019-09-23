@@ -1,4 +1,4 @@
-<table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
+<table class="table" uxFixedHeaderTable [dataset]="people" (tablePaging)="loadPage()" [tableHeight]="500">
     <thead>
         <tr>
             <th class="table-col-id">Id</th>
@@ -10,13 +10,13 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let person of people">
+        <tr *ngFor="let person of people; let index = index" [attr.aria-setsize]="total" [attr.aria-posinset]="index">
             <td class="table-col-id">{{ person.id }}</td>
             <td>{{ person.name }}</td>
             <td>{{ person.address }}</td>
             <td>{{ person.phone }}</td>
-            <td>
-                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
+            <td [attr.aria-label]="person.active ? 'Active' : 'Inactive'">
+                <ux-icon name="checkmark" *ngIf="person.active"></ux-icon>
             </td>
         </tr>
 
@@ -34,7 +34,7 @@
 <hr>
 
 <p>
-    A fixed header table can be created by using the <code>uxFixedHeaderTable</code> directive. 
+    A fixed header table can be created by using the <code>uxFixedHeaderTable</code> directive.
     This allows the table header to remain fixed in place and visible while the table content is scrolled.
 </p>
 
@@ -46,10 +46,16 @@
 <p>The properties of this directive are:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="tableHeight" required="true" type="number | string">
-        This defines the maximum height of the table. 
-        When a number is provided the unit will default to pixels. 
+    <tr uxd-api-property name="tableHeight" [required]="true" type="number | string">
+        This defines the height of the table body.
+        When a number is provided the unit will default to pixels.
         If a string is provided then the CSS unit will need to be specifed as part of the string, e.g. <code>'50%'</code>.
+        If using a percentage value, the table element should also have an explicit height set.
+    </tr>
+    <tr uxd-api-property name="dataset" [required]="false" type="ReadonlyArray<any>">
+        If specifed, any time the dataset changes the layout will be recalculated to ensure the columns headers remain
+        aligned with the columns after a scrollbar has appeared or disappeared. The dataset should be immutable to ensure
+        changes are detected. TypeScript can enforce this immutability by using the <code>ReadonlyArray</code> type.
     </tr>
 </uxd-api-properties>
 
@@ -60,16 +66,22 @@
     </tr>
 </uxd-api-properties>
 
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="setLayout" type="void">
+        This will recalculate the layout of the table to ensure the columns headers remain aligned with the columns after a scrollbar has appeared or disappeared.
+    </tr>
+</uxd-api-properties>
+
 <p>The following code can be used to create the example shown above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

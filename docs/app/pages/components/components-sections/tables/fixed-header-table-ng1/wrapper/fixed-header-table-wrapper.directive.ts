@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+declare const angular: ng.IAngularStatic;
 import { FixedHeaderTableWrapperController } from './fixed-header-table-wrapper.controller';
 
 angular.module('app').directive('uxdFixedHeaderTableWrapper', () => {

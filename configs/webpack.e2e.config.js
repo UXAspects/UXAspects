@@ -1,144 +1,185 @@
 const { join } = require('path');
-const webpack = require('webpack');
-const { NoEmitOnErrorsPlugin } = webpack;
-const { CommonsChunkPlugin } = webpack.optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-const project_dir = process.cwd();
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const { cwd } = require('process');
+const rxAlias = require('rxjs/_esm5/path-mapping');
+const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 
+    mode: 'production',
+
     entry: {
-        main: join(project_dir, 'e2e', 'pages', 'main.ts'),
-        vendor: join(project_dir, 'e2e', 'pages', 'vendor.ts'),
-        polyfills: join(project_dir, 'e2e', 'pages', 'polyfills.ts')
+        main: join(cwd(), 'e2e', 'pages', 'main.ts'),
+        polyfills: join(cwd(), 'e2e', 'pages', 'polyfills.ts'),
+        styles: join(cwd(), 'e2e', 'pages', 'styles.css')
     },
 
     output: {
-        path: join(project_dir, 'e2e', 'dist'),
+        path: join(cwd(), 'e2e', 'dist'),
         filename: '[name].js'
     },
 
     resolve: {
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts'],
+        alias: rxAlias()
+    },
+
+    performance: {
+        hints: false,
     },
 
     module: {
         rules: [{
-                test: /\.ts$/,
-                use: '@ngtools/webpack'
-            },
+            test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+            use: [
+                {
+                    loader: '@angular-devkit/build-optimizer/webpack-loader',
+                    options: {
+                        sourceMap: false
+                    }
+                },
+                '@ngtools/webpack'
+            ]
+        },
+        {
+            test: /\.html$/,
+            use: 'html-loader'
+        },
 
-            {
-                test: /\.html$/,
-                use: 'raw-loader'
-            },
+        {
+            test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
+            use: 'file-loader?name=assets/[name].[ext]'
+        },
 
-            {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
-                use: 'file-loader?name=assets/[name].[ext]'
-            },
+        {
+            test: /\.less$/,
+            include: join(cwd(), 'e2e', 'pages', 'app'),
+            use: ['raw-loader', 'less-loader']
+        },
 
-            {
-                test: /\.less$/,
-                include: join(project_dir, 'e2e', 'pages', 'app'),
-                use: ['raw-loader', 'less-loader']
-            },
+        {
+            test: /\.css$/,
+            exclude: join(cwd(), 'e2e', 'pages', 'app'),
+            use: [MiniCssExtractPlugin.loader, 'css-loader']
+        },
 
-            {
-                test: /\.css$/,
-                exclude: join(project_dir, 'e2e', 'pages', 'app'),
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader'
-                })
-            },
-
-            {
-                test: /\.css$/,
-                include: join(project_dir, 'e2e', 'pages', 'app'),
-                use: 'raw-loader'
-            },
-            
-            {
-              test: /\.js$|\.ts$/,
-              use: {
-                loader: 'istanbul-instrumenter-loader',
-                options: { esModules: true }
-              },
-              enforce: 'post',
-              exclude: [
-                /node_modules/,
-                /ng1/,
-                /e2e\\pages/,
-                /\.e2e-spec\.ts$/,
-                /\.po\.spec\.ts$/
-              ]
-            }
+        {
+            test: /\.css$/,
+            include: join(cwd(), 'e2e', 'pages', 'app'),
+            use: 'raw-loader'
+        },
+        // Disabled until reporting is re-enabled
+        // {
+        //     test: /\.js$|\.ts$/,
+        //     use: {
+        //         loader: 'istanbul-instrumenter-loader',
+        //         options: { esModules: true }
+        //     },
+        //     enforce: 'post',
+        //     exclude: [
+        //         /node_modules/,
+        //         /ng1/,
+        //         /e2e\\pages/,
+        //         /\.e2e-spec\.ts$/,
+        //         /\.po\.spec\.ts$/,
+        //         /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/
+        //     ]
+        // },
+        // Ignore warnings about System.import in Angular
+        {
+            test: /[\/\\]@angular[\/\\].+\.js$/,
+            parser: { system: true }
+        }
         ]
     },
 
     plugins: [
-
-        new CommonsChunkPlugin({
-            name: ['main', 'vendor', 'polyfills']
-        }),
-
         new AngularCompilerPlugin({
-            mainPath: join(project_dir, 'e2e', 'pages', 'main.ts'),
-            tsConfigPath: join(project_dir, 'e2e', 'tsconfig-app.json'),
+            mainPath: join(cwd(), 'e2e', 'pages', 'main.ts'),
+            tsConfigPath: join(cwd(), 'e2e', 'tsconfig.app.json'),
             sourceMap: false,
-            skipCodeGeneration: true
+            skipCodeGeneration: false,
+            nameLazyFiles: false,
         }),
 
-        new NoEmitOnErrorsPlugin(),
-
-        new HtmlWebpackPlugin({
-            template: './e2e/pages/index.ejs'
+        new IndexHtmlWebpackPlugin({
+            input: join(cwd(), 'e2e', 'pages', 'index.html'),
+            output: 'index.html',
+            entrypoints: [
+                'polyfills',
+                'styles',
+                'main'
+            ],
+            sri: false
         }),
 
-        new ExtractTextPlugin('styles.css'),
-
-        new UglifyJsPlugin({
-            extractComments: false,
-            sourceMap: false,
-            cache: false,
-            parallel: true,
-            uglifyOptions: {
-                output: {
-                    ascii_only: true,
-                    comments: false
-                },
-                ecma: 5,
-                warnings: false,
-                ie8: false,
-                compress: true,
-            }
-        }),
-
-        new OptimizeCssAssetsPlugin({
-            cssProcessor: require('cssnano'),
-            cssProcessorOptions: {
-                discardComments: {
-                    removeAll: true
-                }
-            },
-            canPrint: true
-        }),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css'
+        })
     ],
 
-    devServer: {
-        historyApiFallback: true,
-        stats: {
-            colors: true,
-            reasons: true
+    optimization: {
+        noEmitOnErrors: true,
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                default: {
+                    chunks: 'async',
+                    minChunks: 2,
+                    priority: 10
+                },
+                common: {
+                    name: 'common',
+                    chunks: 'async',
+                    minChunks: 2,
+                    enforce: true,
+                    priority: 5
+                },
+                vendors: false,
+                vendor: false
+            }
         },
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    }
+        minimizer: [
+            new CleanCssWebpackPlugin({
+                sourceMap: false,
+                test: (file) => /\.(?:css|less)$/.test(file),
+            }),
+            new TerserPlugin({
+                sourceMap: false,
+                parallel: true,
+                cache: true,
+                terserOptions: {
+                    ecma: 5,
+                    warnings: false,
+                    safari10: true,
+                    output: {
+                        ascii_only: true,
+                        comments: false,
+                        webkit: true,
+                    },
+                    compress: ({
+                        pure_getters: true,
+                        passes: 3,
+                        global_defs: {
+                            ngDevMode: false,
+                        }
+                    }),
+                }
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
+
+    devServer: {
+        port: 4000,
+        historyApiFallback: true,
+        stats: 'minimal'
+    },
+
+    node: false
 
 };

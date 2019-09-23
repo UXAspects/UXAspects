@@ -1,38 +1,35 @@
 const { join } = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const project_dir = process.cwd();
+const { cwd } = require('process');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 
-    entry: join(project_dir, 'src', 'styles', 'index.js'),
+    mode: 'production',
+
+    entry: join(cwd(), 'src', 'styles', 'index.js'),
 
     output: {
-        path: join(project_dir, 'dist', 'docs', 'assets', 'css'),
+        path: join(cwd(), 'dist', 'docs', 'assets', 'css'),
         filename: 'index.js'
     },
 
     module: {
         rules: [{
             test: /\.css$/,
-            include: [join(project_dir, 'src')],
-            use: ExtractTextPlugin.extract({
-                use: 'css-loader'
-            })
+            include: [join(cwd(), 'src')],
+            use: [MiniCssExtractPlugin.loader, 'css-loader']
         }, {
             test: /\.less$/,
-            include: [join(project_dir, 'src')],
-            use: ExtractTextPlugin.extract({
-                use: 'css-loader!less-loader'
-            })
+            include: [join(cwd(), 'src')],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
         }, {
             test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
             use: 'file-loader?name=[name].[ext]'
         }]
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'ux-aspects.css',
-            allChunks: true
+        new MiniCssExtractPlugin({
+            filename: 'ux-aspects.css'
         })
     ]
 

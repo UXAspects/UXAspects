@@ -1,45 +1,48 @@
-import { Directive, ContentChildren, QueryList, HostListener, ElementRef, OnDestroy, Input } from '@angular/core';
-import { HoverActionDirective } from './hover-action.directive';
+import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ManagedFocusContainerService } from '../accessibility/managed-focus-container/managed-focus-container.service';
 import { HoverActionService } from './hover-action.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
     selector: '[uxHoverActionContainer]',
-    providers: [HoverActionService],
-    host: {
-        '[class.hover-action-container-active]': 'active',
-        '[tabindex]': 'tabindex'
-    }
+    providers: [HoverActionService]
 })
-export class HoverActionContainerDirective implements OnDestroy {
+export class HoverActionContainerDirective implements OnInit, OnDestroy {
 
-    @Input() tabindex: number = 0;
+    @Input()
+    @HostBinding('tabindex')
+    tabindex: number = 0;
+
+    @HostBinding('class.hover-action-container-active')
     active: boolean = false;
 
-    private active$: Subscription;
+    private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _hoverActionService: HoverActionService) {
-        // register the container element with the service
-        this._hoverActionService.setContainer(this);
-        
-        // apply a class based on the active state of the container and it's actions
-        this.active$ = this._hoverActionService.active.subscribe(active => this.active = active);
+    constructor(
+        private _elementRef: ElementRef,
+        private _managedFocusContainerService: ManagedFocusContainerService,
+        private _hoverActionService: HoverActionService
+    ) { }
+
+    ngOnInit(): void {
+
+        // Watch for focus within the container element and manage tabindex of descendants
+        this._managedFocusContainerService.register(this._elementRef.nativeElement, this);
+
+        // Track focus and update state for the child directives
+        this._managedFocusContainerService.hasFocus(this._elementRef.nativeElement)
+            .pipe(takeUntil(this._onDestroy)).subscribe(active => {
+                this.active = active;
+                this._hoverActionService.setFocusState(active);
+            });
     }
 
     ngOnDestroy(): void {
-        this.active$.unsubscribe();
-    }
+        this._onDestroy.next();
+        this._onDestroy.complete();
 
-    @HostListener('click') focus(): void {
-        this._elementRef.nativeElement.focus();
-    }
-
-    @HostListener('focus') onFocus(): void {
-        this._hoverActionService.setFocusState(true);
-    }
-
-    @HostListener('blur') onBlur(): void {
-        this._hoverActionService.setFocusState(false);
+        this._managedFocusContainerService.unregister(this._elementRef.nativeElement, this);
     }
 
     @HostListener('mouseenter') onHover(): void {
@@ -48,9 +51,5 @@ export class HoverActionContainerDirective implements OnDestroy {
 
     @HostListener('mouseleave') onLeave(): void {
         this._hoverActionService.setHoverState(false);
-    }
-
-    @HostListener('keydown.arrowright') next(): void {
-        this._hoverActionService.next();
     }
 }

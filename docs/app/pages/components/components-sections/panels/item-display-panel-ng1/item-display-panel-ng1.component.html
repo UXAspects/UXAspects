@@ -12,6 +12,13 @@
 
 <p>The following defining the modal are set in the <code>panel</code> property of each <code>item</code>.</p>
 
+<p>
+    If you have a modal that appears over the top of a display panel ensure you
+    add <code>ng-mouseup="$event.stopPropagation()"</code> to the modal element and any buttons within the modal
+    to prevent the display panel from closing when mouse events occur. Alternatively, setting the <code>outsideClick</code>
+    property to <code>false</code> in the display panel options can also be used.
+</p>
+
 <uxd-api-properties>
     <tr uxd-api-property name="title" type="string">
         Defines the Header title of the item display panel.
@@ -37,16 +44,19 @@
     <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
         A boolean value to set the panel to animate in and out of the screen.
     </tr>
+    <tr uxd-api-property name="outsideClick" type="boolean" defaultValue="true">
+        A boolean value to indicate whether or not clicking outside of the panel should close it.
+    </tr>
 </uxd-api-properties>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.layoutHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet [content]="snippets.compiled.controllerSnippetJs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The next and previous buttons can be added to the panel footer to navigate between the items. The <code>ng-click</code> attribute of the previous button should be set as the <code>previous()</code> function and the <code>ng-click</code> attribute of the next button should be set as the <code>next()</code> function. The previous and next buttons will be disabled accordingly if the <code>ng-disabled</code> attribute is set to <code>previousBtnStatus</code> and <code>nextBtnStatus</code> respectively.</p>
 

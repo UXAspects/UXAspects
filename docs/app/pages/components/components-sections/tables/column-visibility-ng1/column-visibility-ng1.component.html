@@ -54,14 +54,14 @@
     <p><strong>Note</strong>: Dynamic columns do not currently work with multiple sortable table headers</p>
 </blockquote>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.layoutHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Controller">
+    <ux-tab heading="Controller">
         <uxd-snippet language="javascript" [content]="snippets.compiled.controllerJs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+</ux-tabset>

@@ -9,13 +9,13 @@ This can be done by entering `npm init` or `yarn init` into the console for a st
 First install the dependencies:
 
 ```bash
-npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js zone.js rxjs
+npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js zone.js rxjs rxjs-compat
 ```
 
 Next install the developer tool dependencies:
 
 ```bash
-npm install typescript webpack @angular/compiler-cli @ngtools/webpack html-loader css-loader --save-dev
+npm install typescript webpack webpack-cli @angular/compiler-cli @ngtools/webpack raw-loader to-string-loader css-loader @types/angular --save-dev
 ```
 
 ### Setting up TypeScript
@@ -63,8 +63,11 @@ Our basic Webpack config will look something like this. Note, we have created an
 ```javascript
 const { resolve } = require('path');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const rxAlias = require('rxjs/_esm5/path-mapping');
 
 module.exports = {
+
+    mode: 'development',
 
     entry: './src/ng-app/main.ts',
     
@@ -74,7 +77,8 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
+        alias: rxAlias()
     },
 
     module: {
@@ -85,11 +89,11 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                use: 'html-loader'
+                use: 'raw-loader'
             },
             {
                 test: /\.css$/,
-                use: 'css-loader'
+                use: ['to-string-loader', 'css-loader']
             }
         ]
     },
@@ -103,6 +107,8 @@ module.exports = {
     ]
 };
 ```
+
+**Note:** You should also create an additional Webpack configuration for production builds. The production config should set `mode` to `production` and the `AngularCompilerPlugin` should have `skipCodeGeneration` set to `false`. You should also consider using Angular's [PurifyPlugin](https://www.npmjs.com/package/@angular-devkit/build-optimizer) for additional optimizations.
 
 ### Create Our Angular Module
 
@@ -134,9 +140,9 @@ Lastly we bootstrap our app module.
 #### app.module.ts
 
 ```typescript
-declare const angular: any;
+declare const angular: ng.IAngularStatic;
 
-import { NgModule, forwardRef } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule, setAngularJSGlobal } from '@angular/upgrade/static';
 
@@ -211,7 +217,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
     imports: [
-		...
+	...
     ],
     declarations: [
     	HeaderComponent
@@ -225,10 +231,12 @@ export class AppModule {
 }
 
 // downgrade the component for use in AngularJS
-angular.module('app').directive('myHeader', downgradeComponent({ component: HeaderComponent }));
+angular.module('app').directive('appHeader', downgradeComponent({ component: HeaderComponent }));
 ```
 
-Now you can simply use the `my-header` element in your AngularJS application and it should work as expected.
+Now you can simply use the `app-header` element in your AngularJS application and it should work as expected.
+
+**Note:** It is common to provide a selector prefix for all components in your application such as `app-`. This will help prevent any selector collisions with third party components.
 
 ### Downgrading Services
 
@@ -294,14 +302,14 @@ import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'my-branding'
+    selector: 'app-branding'
 })
 export class BrandingComponent extends UpgradeComponent {
 
     @Input() brandName: string;
 
     constructor(elementRef: ElementRef, injector: Injector) {
-        super('myBranding', elementRef, injector);
+        super('appBranding', elementRef, injector);
     }
 }
 ```
@@ -318,7 +326,7 @@ There are several other possibilities regarding inputs and outputs. Below is an 
 
 ```javascript
 scope: {
-	value: '=', // use @Input (and @Output if two way binding is required)
+    value: '=', // use @Input (and @Output if two way binding is required)
     header: '@', // use @Input
     selected: '&' // use @Output
 }
@@ -365,11 +373,11 @@ It is recommended to create a TypeScript interface for the service to give the b
 
 ```typescript
 export interface VersionService {
-	getVersion(): Version;
+    getVersion(): Version;
 }
 
 export interface Version { 
-	major: number; 
+    major: number; 
     minor: number; 
     patch: number;
 };

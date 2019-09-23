@@ -1,11 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, HostListener, ElementRef, ContentChildren, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
-import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
-import { TooltipDirective } from 'ngx-bootstrap/tooltip';
-import { Subscription } from 'rxjs/Subscription';
-import { filter } from 'rxjs/operators/filter';
-
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
-import { FloatingActionButtonsService } from './floating-action-buttons.service';
+import { FloatingActionButtonDirection, FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({
     selector: 'ux-floating-action-buttons',
@@ -27,16 +24,23 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 })
 export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
 
-    @Input() direction: FloatingActionButtonDirection = 'top';
-    @ContentChildren(TooltipDirective) tooltips: QueryList<TooltipDirective>;
+    /** Specify the direction that the FAB should display */
+    @Input() set direction(direction: FloatingActionButtonDirection) { this.fab.direction$.next(direction); }
 
-    private _subscription: Subscription;
+    /** Emit whenever the open state changes */
+    @Output() openChange = new EventEmitter<boolean>();
 
-    constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) { }
+    /** Get all child FAB buttons */
+    @ContentChildren(FloatingActionButtonComponent) buttons: QueryList<FloatingActionButtonComponent>;
+
+    private _subscription: Subscription = new Subscription();
+
+    constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) {
+        this._subscription.add(this.fab.open$.subscribe(value => this.openChange.emit(value)));
+    }
 
     ngAfterViewInit(): void {
-        this._subscription = this.fab.open$.pipe(filter(open => open === false))
-            .subscribe(() => this.tooltips.forEach(tooltip => tooltip.hide()));
+        this.fab.setButtons(this.buttons);
     }
 
     ngOnDestroy(): void {
@@ -52,5 +56,3 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
         }
     }
 }
-
-export type FloatingActionButtonDirection = 'top' | 'right' | 'bottom' | 'left';

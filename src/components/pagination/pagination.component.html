@@ -1,0 +1,77 @@
+<nav role="navigation" [attr.aria-label]="ariaLabel">
+  <ul #container class="pagination"
+    [ngClass]="classes"
+    direction="horizontal"
+    (blur)="isKeyboardEvent = false"
+    (keydown.ArrowLeft)="select(page - 1); isKeyboardEvent = true"
+    (keydown.ArrowRight)="select(page + 1); isKeyboardEvent = true"
+    (keydown.Home)="select(1); isKeyboardEvent = true; $event.preventDefault()"
+    (keydown.End)="select(pageCount); isKeyboardEvent = true; $event.preventDefault()">
+
+    <li class="pagination-prev page-item"
+        *ngIf="directionButtons"
+        uxFocusIndicator
+        [programmaticFocusIndicator]="true"
+        [checkChildren]="true"
+        [class.disabled]="page === 1 || disabled">
+
+      <a class="page-link"
+         [tabindex]="page === 1 || disabled ? -1 : 0"
+         [attr.aria-label]="previousAriaLabel"
+         [ngClass]="pageBtnClass"
+         (click)="select(page - 1)"
+         (keydown.enter)="select(page - 1)">
+        <ng-container [ngTemplateOutlet]="previousBtnTemplate || defaultPreviousBtnTemplate"></ng-container>
+      </a>
+    </li>
+
+    <ng-container *ngFor="let pg of pages; trackBy: trackByFn">
+      <li *ngIf="pg.visible"
+          uxFocusIndicator
+          [programmaticFocusIndicator]="true"
+          [checkChildren]="true"
+          [class.disabled]="disabled"
+          [class.active]="page === pg.index"
+          class="pagination-page page-item">
+
+        <a class="page-link"
+           tabindex="0"
+           [ngClass]="pageBtnClass"
+           [focusIf]="isKeyboardEvent && page === pg.index"
+           [attr.aria-current]="page === pg.index"
+           [attr.aria-setsize]="pageCount"
+           [attr.aria-posinset]="pg.index"
+           (click)="select(pg.index)"
+           (keydown.enter)="select(pg.index)">
+            {{ pg.index }}
+        </a>
+      </li>
+    </ng-container>
+
+    <li class="pagination-next page-item"
+        *ngIf="directionButtons"
+        uxFocusIndicator
+        [programmaticFocusIndicator]="true"
+        [checkChildren]="true"
+        [class.disabled]="page === pageCount || disabled">
+
+      <a class="page-link"
+         [tabindex]="page === pageCount || disabled ? -1 : 0"
+         [attr.aria-label]="nextAriaLabel"
+         [ngClass]="pageBtnClass"
+         (click)="select(page + 1)"
+         (keydown.enter)="select(page + 1)">
+
+        <ng-container [ngTemplateOutlet]="nextBtnTemplate || defaultNextBtnTemplate"></ng-container>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<ng-template #defaultPreviousBtnTemplate>
+    <ux-icon class="pagination-prev-icon-default" name="previous"></ux-icon>
+</ng-template>
+
+<ng-template #defaultNextBtnTemplate>
+    <ux-icon class="pagination-next-icon-default" name="next"></ux-icon>
+</ng-template>

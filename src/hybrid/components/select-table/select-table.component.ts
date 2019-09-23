@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Injector, Input, Output } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
@@ -12,6 +12,8 @@ export class SelectTableNg1Component extends UpgradeComponent {
     @Input() selected: string;
     @Input() searchText: string;
     @Input() tableHeight: string;
+    @Input() template: string;
+    @Input() templateUrl: string;
     @Input() selectHiddenItems: 'clear' | 'reselect';
 
     @Output() selectedChange: EventEmitter<string> = new EventEmitter<string>();

@@ -11,7 +11,15 @@
                 [dropDirection]="dropDirection"
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
-                [placeholder]="placeholder">
+                [placeholder]="placeholder"
+                [readonlyInput]="readonlyInput"
+                [clearButton]="clearButton">
+
+                <ng-template #icon *ngIf="multiple | async">
+                    <div class="ux-select-icon">
+                        <i class="ux-icon ux-icon-add"></i>
+                    </div>
+                </ng-template>
             </ux-select>
         </div>
     </div>
@@ -23,8 +31,8 @@
 </div>
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="dataSet">options</label>
@@ -35,15 +43,23 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [value]="multiple | async"
                             (valueChange)="multiple.next($event)">multiple</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">allowNull</ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -58,7 +74,7 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <ux-checkbox [value]="pagingEnabled | async"
                             (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
                     </div>
@@ -66,24 +82,44 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="pageSize">pageSize</label>
-                        <ux-number-picker [(value)]="pageSize" min="1" max="1000" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
+                        <ux-number-picker [(value)]="pageSize"
+                            [min]="1"
+                            [max]="1000"
+                            [disabled]="!(pagingEnabled | async)">
+                        </ux-number-picker>
                     </div>
                 </div>
-            </accordion-group>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>
 
 <hr>
 
-<p>The <code>ux-select</code> component allows users to choose one or more items from a set via a dropdown interface. It supports filtering and keyboard control. For very large data sets, a paging feature is available, ensuring that data is only loaded as required.</p>
+<p>
+    The <code>ux-select</code> component allows users to choose one or more items from a set via a dropdown interface. It
+    supports filtering and keyboard control. For very large data sets, a paging feature is available, ensuring that data
+    is only loaded as required.
+</p>
 
-<p>The data set may be a collection of strings or objects. Using the "Customize Example..." section above, the <code>options</code> data set can be switched between strings and objects; the JSON display below the select control shows the resulting <code>value</code>.</p>
+<p>
+    The data set may be a collection of strings or objects. Using the "Customize Example..." section above, the
+    <code>options</code> data set can be switched between strings and objects; the JSON display below the select control
+    shows the resulting <code>value</code>.
+</p>
 
-<p>Paged loading of options can also be enabled using the "Enable Option Paging" checkbox. This can be observed in action by scrolling or using the down key to reach the end of the current result set in the select dropdown.</p>
+<p>
+    Paged loading of options can also be enabled using the "Enable Option Paging" checkbox. This can be observed in
+    action by scrolling or using the down key to reach the end of the current result set in the select dropdown.
+</p>
+
+<p>
+    A custom icon can be used instead of the chevron by adding an <code>ng-template</code> as a child element and identifying it as <code>#icon</code>.
+    The <code>ux-select-icon</code> class can be used to provide the default icon styles.
+</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="value" type="any">
+    <tr uxd-api-property name="value" type="any | ReadonlyArray&lt;any&gt;">
         The selected option (for single select) or array of options (for multiple select).
     </tr>
     <tr uxd-api-property name="input" type="string">
@@ -93,26 +129,44 @@
         The status of the typeahead dropdown.
     </tr>
     <tr uxd-api-property name="multiple" type="boolean" defaultValue="false">
-        	Controls whether the user can select more than one option in the select control. If set to true, selected options will appear as tags in the input area. If set to false, the selected value will appear as editable text in the input area.
+        Controls whether the user can select more than one option in the select control. If set to true, selected
+        options will appear as tags in the input area. If set to false, the selected value will appear as editable text
+        in the input area.
     </tr>
     <tr uxd-api-property name="options" type="any[] | InfiniteScrollLoadFunction">
-        <span>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects. If custom objects are required, the <code>display</code> property must also be set.</span>
-        <span>If a function is provided, this is used as a callback to dynamically retrieve data in pages. The parameters are:</span>
+        <p>If an array is provided, this is the list of options which can be chosen from. It can be an array of
+            strings or custom objects. If custom objects are required, the <code>display</code> property must also be
+            set.</p>
+        <p>If a function is provided, this is used as a callback to dynamically retrieve data in pages. The
+            parameters are:</p>
         <ul>
             <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
             <li><code>pageSize: number</code> - The number of items requested.</li>
             <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
         </ul>
-        <span>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</span>
+        <p>The return value should be either a promise which resolves to an array, or a plain array in case the data
+            can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be
+            returned, which indicates that the end of the data set has been reached.</p>
     </tr>
-    <tr uxd-api-property name="display" type="(option: any) => string | string">
-        Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.
+    <tr uxd-api-property name="display" type="((option: any) => string) | string">
+        Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or
+        a string. If a function is provided, it receives the option object as an argument, and should return the
+        appropriate display value. If the name of a property is provided as a string, that property is used as the
+        display value.
     </tr>
-    <tr uxd-api-property name="key" type="(option: any) => string | string">
-        Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.
+    <tr uxd-api-property name="key" type="((option: T) => string) | string">
+        Determines the unique key value of the <code>options</code>, if they are custom objects. This may be a function
+        or a string. If a function is provided, it receives the option object as an argument, and should return the
+        appropriate key value. If the name of a property is provided as a string, that property is used as the key
+        value.
     </tr>
     <tr uxd-api-property name="allowNull" type="boolean">
-        Controls whether the value of the single select control can be cleared by deleting the selected value in the input field. This does not affect the initial state of the control, so specify a value for <code>value</code> if null should never be allowed.
+        Controls whether the value of the single select control can be cleared by deleting the selected value in the
+        input field. This does not affect the initial state of the control, so specify a value for <code>value</code> if
+        null should never be allowed.
+    </tr>
+    <tr uxd-api-property name="ariaLabel" type="string">
+        The aria-label to apply to the child <code>input</code> element.
     </tr>
     <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
         Controls the disabled state of the tag input.
@@ -123,44 +177,69 @@
     <tr uxd-api-property name="maxHeight" type="string" defaultValue="250px">
         The maximum height of the typeahead dropdown, as a CSS value.
     </tr>
+    <tr uxd-api-property name="readonlyInput" type="boolean" defaultValue="false">
+        If <code>true</code> the input field will be readonly and selection can only occur by using the dropdown.
+    </tr>
     <tr uxd-api-property name="loadingTemplate" type="TemplateRef">
         A template which will be rendered in the dropdown while options are being loaded.
     </tr>
     <tr uxd-api-property name="optionTemplate" type="TemplateRef">
-        <span>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</span>
+        <p>A template which will be rendered in the dropdown for each option. The following context properties are
+            available in the template:</p>
         <ul>
             <li><code>option: any</code> - the string or custom object representing the option.</li>
-            <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>, <code>getDisplay</code> and <code>getDisplayHtml</code>. See the <a routerLink="/components/input-controls" fragment="tags">typeahead</a> documentation for details.</li>
+            <li>
+                <code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>,
+                <code>getDisplay</code> and <code>getDisplayHtml</code>.
+                See the <a routerLink="/components/input-controls" fragment="tags">typeahead</a> documentation for
+                details.
+            </li>
         </ul>
     </tr>
     <tr uxd-api-property name="noOptionsTemplate" type="TemplateRef">
         A template which will be rendered in the dropdown if no options match the current filter value.
     </tr>
     <tr uxd-api-property name="pageSize" type="number" defaultValue="20">
-        The number of options to request in a page. This should ideally be more than twice the number of items which fit into the height of the dropdown, but this is not required. 
+        The number of options to request in a page. This should ideally be more than twice the number of items which fit
+        into the height of the dropdown, but this is not required.
     </tr>
     <tr uxd-api-property name="placeholder" type="string">
         The placeholder text which appears in the text input area when it is empty.
     </tr>
+    <tr uxd-api-property name="autocomplete" type="string" defaultValue="off">
+        Defines the autocomplete property on the input field which can be used to prevent the browser from displaying
+        autocomplete suggestions.
+    </tr>
+    <tr uxd-api-property name="clearButton" type="boolean" defaultValue="false">
+        Defines if a clear button should be shown whenever one or more values are selected.
+        The button will remove selected values. When using a single select <code>allowNull</code> must also be set to <code>true</code>
+        for the clear button to be visible.
+    </tr>
+    <tr uxd-api-property name="clearButtonAriaLabel" type="string">
+        Defines the aria label for the clear button.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="valueChange" type="any">
-        Emits when value changes.
+    <tr uxd-api-property name="valueChange" type="any | ReadonlyArray&lt;any&gt;">
+        Emits when <code>value</code> changes.
     </tr>
     <tr uxd-api-property name="inputChange" type="string">
-        Emits when input changes.
+        Emits when <code>input</code> changes.
     </tr>
     <tr uxd-api-property name="dropdownOpenChange" type="boolean">
-        emits when dropdownOpen changes.
+        Emits when <code>dropdownOpen</code> changes.
     </tr>
 </uxd-api-properties>
 
-<tabset>
-    <tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appSnippetTs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appSnippetTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

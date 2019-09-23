@@ -3,7 +3,7 @@
 <ux-number-picker class="number-picker-component-demo" min="-10" max="10" [valid]="form.controls['integer'].valid" [formControl]="form.controls['integer']"></ux-number-picker>
 
 <p class="text-error" *ngIf="form.controls['integer'].invalid">
-    <span class="hpe-icon hpe-alert"></span> Enter a number between -10 and 10.
+    <ux-icon name="alert"></ux-icon> Enter a number between -10 and 10.
 </p>
 
 <p class="m-t-md">Selecting a decimal:</p>
@@ -11,7 +11,7 @@
 <ux-number-picker class="number-picker-component-demo" step="0.5" min="0" max="10" [valid]="form.controls['decimal'].valid" [formControl]="form.controls['decimal']"></ux-number-picker>
 
 <p class="text-error" *ngIf="form.controls['decimal'].invalid">
-    <span class="hpe-icon hpe-alert"></span> Enter a number between 0 and 10.
+    <ux-icon name="alert"></ux-icon> Enter a number between 0 and 10.
 </p>
 
 <hr>
@@ -25,11 +25,14 @@
 <p>The number picker behavior can be customized by using the following attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="id" type="string">
+        Sets the id of the number picker. The child <code>input</code> will have this value with a <code>-input</code> suffix as its id.
+    </tr>
     <tr uxd-api-property name="value" type="number">
         Sets the value displayed in the number picker component.
     </tr>
     <tr uxd-api-property name="step" type="number" defaultValue="1">
-        Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. 
+        Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used.
     </tr>
     <tr uxd-api-property name="min" type="number" defaultValue="-Infinity">
         Defines the minimum value the number picker can set.
@@ -38,8 +41,15 @@
         	Defines the maximum value the number picker can set.
     </tr>
     <tr uxd-api-property name="valid" type="boolean">
-        Can be used to show a red outline around the input to indicate an invalid value. By default the 
+        <p><b>Note:</b> This property has been deprecated. We recommend using <a
+            href="https://angular.io/guide/form-validation#reactive-form-validation">reactive form
+            validation</a> instead.
+        </p>
+        Can be used to show a red outline around the input to indicate an invalid value. By default the
         error state will appear if the user enters a number below the minimum value or above the maximum value.
+    </tr>
+    <tr uxd-api-property name="precision" type="number" defaultValue="6">
+        Define the precision of floating point values.
     </tr>
 </uxd-api-properties>
 
@@ -53,14 +63,14 @@
 
 <p>The following code can be used to create the example shown above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

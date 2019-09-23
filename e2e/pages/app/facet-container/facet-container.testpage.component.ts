@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Facet } from '../../../../dist';
-import 'chance';
+import { Facet } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'facet-container-app',
@@ -10,9 +9,11 @@ export class FacetContainerTestPageComponent {
 
     facets: Facet[] = [];
 
+    count: number = 1;
+
     addFacet() {
 
         // create a new random facet
-        this.facets.push(new Facet(chance.name(), {}, chance.integer({ min: 0, max: 100 })));
+        this.facets.push(new Facet(`User ${this.count++}`, {}, this.count));
     }
 }

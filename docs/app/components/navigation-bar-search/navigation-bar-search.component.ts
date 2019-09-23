@@ -1,15 +1,16 @@
-import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
+import { PersistentDataService } from '@ux-aspects/ux-aspects';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ICategory } from '../../interfaces/ICategory';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ISearchResult } from '../../interfaces/ISearch';
 import { ISection } from '../../interfaces/ISection';
-import { NavigationService } from '../../services/navigation/navigation.service';
-import { PersistentDataService } from '../../../../src/services/persistent-data/persistent-data.service';
-import { Version, VersionService } from '../../services/version/version.service';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
+import { VersionService } from '../../services/version/version.service';
+
 
 const QUERY_MIN_CHARS = 3;
 const MAX_HISTORY = 5;
@@ -24,52 +25,52 @@ const LOCAL_STORAGE_KEY = 'uxd-search-history';
         '[class.active]': 'searching'
     }
 })
-export class NavigationBarSearchComponent {
+export class NavigationBarSearchComponent implements AfterViewInit, OnDestroy {
 
     @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
 
-    searching: boolean;
-    query: BehaviorSubject<string>;
-    results: ISearchResult[];
-    activeIdx: number;
+    searching: boolean = false;
+    query = new BehaviorSubject<string>('');
+    results: ISearchResult[] = [];
+    activeIdx: number = 0;
 
-    private data: ISearchResult[];
-    private history: ISearchResult[] = [];
+    private _data: ISearchResult[] = this.createSearchData();
+    private _history: ISearchResult[] = this.loadHistory();
+    private _onDestroy = new Subject<void>();
 
-    constructor(private router: Router, private navigation: NavigationService, 
-    private versionService: VersionService, private _appConfig: AppConfiguration,
-    private _persistentDataService: PersistentDataService) {
+    constructor(private router: Router,
+        private _navigation: NavigationService,
+        private _versionService: VersionService,
+        private _appConfig: AppConfiguration,
+        private _persistentDataService: PersistentDataService) {
 
-        this.searching = false;
-        this.query = new BehaviorSubject<string>('');
-        this.results = [];
-        this.activeIdx = 0;
+        this.query.pipe(debounceTime(200), takeUntil(this._onDestroy)).subscribe(this.search.bind(this));
+        this._versionService.version.pipe(takeUntil(this._onDestroy)).subscribe(() => this._data = this.createSearchData());
+    }
 
-        this.data = this.createSearchData();
-
-        this.history = this.loadHistory();
-
-        this.query.debounceTime(200).subscribe(this.search.bind(this));
-
-        this.versionService.version.subscribe((value: Version) => {
-            this.data = this.createSearchData();
-        });
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     getSearchResults(page: IDocumentationPage): ISearchResult[] {
+
         if (!page) {
             return;
         }
-        var results: ISearchResult[] = [];
+
+        const results: ISearchResult[] = [];
+
         page.categories.forEach((category: ICategory) => {
 
             category.sections = category.sections || [];
 
-            let showCategory = !!category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
+            let showCategory = !!category.sections.find(section => this._versionService.isSectionVersionMatch(section));
 
-            this.navigation.setSectionIds(category.sections);
+            this._navigation.setSectionIds(category.sections);
+
             category.sections.forEach((section: ISection) => {
-                if (this.versionService.isSectionVersionMatch(section)) {
+                if (this._versionService.isSectionVersionMatch(section)) {
                     results.push({
                         id: page.id || page.title,
                         section: page.title,
@@ -104,7 +105,7 @@ export class NavigationBarSearchComponent {
     ngAfterViewInit() {
 
         // when the input is shown focus it
-        this.searchInput.changes.subscribe((searchInputs: QueryList<ElementRef>) => {
+        this.searchInput.changes.pipe(takeUntil(this._onDestroy)).subscribe((searchInputs: QueryList<ElementRef>) => {
             if (searchInputs.length > 0) {
                 searchInputs.first.nativeElement.focus();
             }
@@ -175,7 +176,7 @@ export class NavigationBarSearchComponent {
         if (value === null || value === '') {
 
             // If the query is empty, show last 5 selected results.
-            this.results = this.history;
+            this.results = this._history;
 
         } else if (value.length < QUERY_MIN_CHARS) {
 
@@ -185,7 +186,7 @@ export class NavigationBarSearchComponent {
         } else {
 
             // get the latest results
-            this.results = this.data.filter((item: ISearchResult) => {
+            this.results = this._data.filter((item: ISearchResult) => {
                 return item.link.title.toLowerCase().indexOf(value.toLowerCase()) !== -1;
             });
         }
@@ -221,21 +222,21 @@ export class NavigationBarSearchComponent {
     private addToHistory(item: ISearchResult) {
 
         // Remove the item if it's already there.
-        const historyIndex = this.history.indexOf(item);
+        const historyIndex = this._history.indexOf(item);
         if (historyIndex >= 0) {
-            this.history.splice(historyIndex, 1);
+            this._history.splice(historyIndex, 1);
         }
 
         // Add to the front of the list.
-        this.history.unshift(item);
+        this._history.unshift(item);
 
         // Remove items to maintain history limit
-        while (this.history.length > MAX_HISTORY) {
-            this.history.pop();
+        while (this._history.length > MAX_HISTORY) {
+            this._history.pop();
         }
 
         // Commit to local storage
-        this.saveHistory(this.history);
+        this.saveHistory(this._history);
     }
 
     private loadHistory(): ISearchResult[] {

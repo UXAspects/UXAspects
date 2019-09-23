@@ -1,0 +1,129 @@
+ux-card-tabset {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &.bottom {
+        flex-direction: column-reverse;
+    }
+
+    .card-tabs {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 4px 0;
+    }
+
+    .card-tabs-list {
+        position: relative;
+        transition: transform 250ms ease-in-out;
+
+        .card-tab {
+            position: relative;
+            display: inline-block;
+            width: 190px;
+            height: 170px;
+            background-color: @card-tab-bg;
+            box-shadow: @card-tab-border 0 1px 8px;
+            cursor: pointer;
+            margin: 5px;
+            border: 1px solid @card-tab-border;
+            transition: border 500ms linear;
+            padding: 7px 9px;
+            outline: none;
+
+            &:hover,
+            &:focus {
+                border-color: @card-tab-hover-border;
+            }
+
+            &.active {
+                border-color: @card-tab-active-border;
+
+                &:before,
+                &:after {
+                    content: '';
+                    border: solid transparent;
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+
+                &.top {
+                    &:before,
+                    &:after {
+                        bottom: 100%;
+                        left: 50%;
+                    }
+
+                    &:before {
+                        border-bottom-color: @card-tab-active-border;
+                        margin-left: -10px;
+                        border-width: 10px;
+                    }
+
+                    &:after {
+                        border-bottom-color: @card-tab-bg;
+                        margin-left: -9px;
+                        border-width: 9px;
+                    }
+                }
+
+                &.bottom {
+                    &:before,
+                    &:after {
+                        top: 100%;
+                        left: 50%;
+                    }
+
+                    &:before {
+                        border-top-color: @card-tab-active-border;
+                        margin-left: -10px;
+                        border-width: 10px;
+                    }
+
+                    &:after {
+                        border-top-color: @card-tab-bg;
+                        margin-left: -9px;
+                        border-width: 9px;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-tabs-paging-btn {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: @card-tab-pagination-color;
+        cursor: pointer;
+        background-color: @card-tab-pagination-bg;
+        border-radius: 50%;
+        transition: background-color 250ms linear;
+        border: none;
+        z-index: 2;
+
+        &:focus {
+            .native-focus-outline();
+        }
+
+        &:hover {
+            background-color: @card-tab-pagination-hover-bg;
+        }
+    }
+
+    .card-tabs-paging-btn-previous {
+        left: 10px;
+    }
+
+    .card-tabs-paging-btn-next {
+        right: 10px;
+    }
+}

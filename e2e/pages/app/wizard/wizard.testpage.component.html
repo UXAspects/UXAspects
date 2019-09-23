@@ -16,4 +16,11 @@
         <p>Step 4 Content</p>
     </ux-wizard-step>
 
+    <ux-wizard-step *ngIf="step5" header="Step 5">
+        <p>Step 5 Content</p>
+    </ux-wizard-step>
+
 </ux-wizard>
+
+<button id="addStep5" class="btn button-secondary" (click)="step5 = true">Add Step 5</button>
+<button id="removeStep5" class="btn button-secondary" (click)="step5 = false">Remove Step 5</button>

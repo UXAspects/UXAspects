@@ -62,13 +62,25 @@
 @accordion-outline: #60798d;
 
 // Alerts
-@alert-info-bg: rgba(139, 107, 193, 0.2);
+@alert-info-bg: rgba(@accent, 0.2);
 @alert-info-color: @accent;
-@alert-info-border: rgba(139, 107, 193, 0.4);
+@alert-info-border: rgba(@accent, 0.4);
 
-@alert-error-bg: rgba(255, 69, 79, 0.2);
+@alert-error-bg: rgba(@critical, 0.2);
 @alert-error-color: @critical;
-@alert-error-border: rgba(255, 69, 79, 0.4);
+@alert-error-border: rgba(@critical, 0.4);
+
+@alert-success-bg: rgba(@ok, 0.2);
+@alert-success-color: @ok;
+@alert-success-border: rgba(@ok, 0.4);
+
+@alert-warning-bg: rgba(@warning, 0.2);
+@alert-warning-color: @warning;
+@alert-warning-border: rgba(@warning, 0.4);
+
+@alert-dark-bg: rgba(@grey2, 0.2);
+@alert-dark-color: @grey2;
+@alert-dark-border: rgba(@grey2, 0.4);
 
 // Base Colors
 @primary: #00a7a2;
@@ -393,6 +405,7 @@
 @dropdown-bg: @white;
 @dropdown-color: @text-color;
 @dropdown-shadow: rgba(86, 96, 117, 0.7);
+@dropdown-divider: #e5e5e5;
 
 @dropdown-hover-bg: #f5f5f5;
 @dropdown-hover-color: @text-color;
@@ -472,9 +485,13 @@
 @file-upload-dropzone-border: rgba(0, 0, 0, 0.3);
 @file-upload-dropzone-color: @text-color;
 
-@file-upload-queue-border: #e5e5e5;
-@file-upload-queue-color: @text-color;
-@file-upload-queue-hover-bg: #f5f5f5;
+@file-upload-queue-bg: @tag-input-tag-bg;
+@file-upload-queue-border: @tag-input-tag-border;
+@file-upload-queue-border-radius: @tag-input-tag-border-radius;
+@file-upload-queue-color: @tag-input-tag-color;
+@file-upload-queue-active-bg: @accent;
+@file-upload-queue-active-border: @accent;
+@file-upload-queue-active-color: @white;
 
 // Float Labels
 @float-label-border: #e5e6e7;

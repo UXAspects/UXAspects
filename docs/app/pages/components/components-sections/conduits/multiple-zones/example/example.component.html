@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <uxd-components-conduit-toolbar [class.zone-outline]="showZones | async"></uxd-components-conduit-toolbar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <uxd-components-conduit-list-view [class.zone-outline]="showZones | async"></uxd-components-conduit-list-view>
+        </div>
+        <div class="col-sm-4">
+            <uxd-components-conduit-filter [class.zone-outline]="showZones | async"></uxd-components-conduit-filter>
+        </div>
+    </div>
+</div>

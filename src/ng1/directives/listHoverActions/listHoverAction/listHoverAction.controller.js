@@ -1,33 +1,48 @@
-ListHoverActionCtrl.$inject = ["$scope"];
+export class ListHoverActionCtrl {
 
-export default function ListHoverActionCtrl($scope) {
+    constructor($scope, $element) {
+        this.$scope = $scope;
+        this.$element = $element;
 
-	var listHoverActionsCtrl = $scope.$parent.lh;
-  var KEYS = {
-    ENTER: 13
-  };
+        this.isFocused = false;
+        this.hoverActions = $scope.$parent.lh.hoverActions;
+        this.iconBase = this.icon && this.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon';
 
-  this.icon = $scope.icon;
+        // when the user first mouses over the action only then should we add a tooltip
+        $scope.$evalAsync(() => $element.one('mouseenter', this.setupTooltip.bind(this)));
 
-  this.iconBase = this.icon && this.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon';
+        // register the hover action in the parent service
+        this.hoverActions.register(this);
 
-  this.click = $scope.click;
+        // unregister if this item is removed
+        $scope.$on('$destroy', () => this.hoverActions.unregister(this));
+    }
 
-  // on focus, set to true for this action
-  this.focus = function() {
-    listHoverActionsCtrl.actionFocused[$scope.$id] = true;
-  };
+    setupTooltip() {
+        this.$element.tooltip({ title: this.name, trigger: 'hover' });
+        this.$element.tooltip('show');
+    }
 
-  // on blur, set to false for this action
-  this.blur = function() {
-    listHoverActionsCtrl.actionFocused[$scope.$id] = false;
-  };
+    focus() {
+        this.$element.focus();
+    }
 
-  // on enter, stop propagation and call same function as click
-  this.enter = function(e) {
-    if (e.keyCode !== KEYS.ENTER) return;
-    e.preventDefault();
-    e.stopPropagation();
-    $scope.click();
-  };
+    // on focus, set to true for this action
+    onFocus() {
+        this.hoverActions.onFocus(this);
+    }
+
+    // on blur, set to false for this action
+    onBlur() {
+        this.hoverActions.onBlur(this);
+    }
+
+    // on click call the scope click function
+    onClick() {
+        if (typeof this.click === 'function') {
+            this.click();
+        }
+    }
 }
+
+ListHoverActionCtrl.$inject = ["$scope", "$element"];

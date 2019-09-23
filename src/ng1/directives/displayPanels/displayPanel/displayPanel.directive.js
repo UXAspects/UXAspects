@@ -1,61 +1,53 @@
-displayPanel.$inject = ["$templateRequest", "$q", "$compile", "$timeout", "$displayPanel", "$document", "$rootScope", "$window"];
-
-export default function displayPanel($templateRequest, $q, $compile, $timeout, $displayPanel, $document, $rootScope, $window) {
+DisplayPanelDirective.$inject = ['$timeout', '$displayPanel', '$document', '$rootScope', '$window'];
+/**
+ * @param {ng.ITimeoutService} $timeout
+ * @param {DisplayPanelService} $displayPanel
+ * @param {ng.IDocumentService} $document
+ * @param {ng.IRootScopeService} $rootScope
+ * @param {ng.IWindowService} $window
+ */
+export function DisplayPanelDirective($timeout, $displayPanel, $document, $rootScope, $window) {
     return {
         restrict: 'A',
         template: require('./displayPanel.html'),
-        link: function(scope, element) {
-
-            var nativeElement = element[0];
-            var displayPanel = nativeElement.querySelector(".display-panel");
-            var affixDisplayPanel = new AffixDisplayPanel(displayPanel, scope.modalOpt);
+        /**
+         * @param {ng.IScope} scope
+         * @param {JQuery} element
+        */
+        link: function (scope, element) {
+            const nativeElement = element[0];
+            const displayPanel = nativeElement.querySelector('.display-panel');
+            const affixDisplayPanel = new AffixDisplayPanel(displayPanel, scope.modalOpt);
 
             if (scope.modalOpt.animate) {
                 //animate in from the right
-                displayPanel.style.transform = "translate(110%)";
+                displayPanel.style.transform = 'translate(110%)';
+                displayPanel.classList.add('display-panel-animate');
 
-                displayPanel.classList.add("display-panel-animate");
-
-                $timeout(function() {
-                    displayPanel.style.transform = "translate(0)";
-                });
+                requestAnimationFrame(() => displayPanel.style.transform = 'translate(0)');
             }
 
             // once the panel appears update its position
-            $timeout(()=> {
-              affixOnScrollEventHandler();
-            });
+            $timeout(() => onScroll());
 
-            scope.close = function() {
-                $displayPanel.close(scope.modalOpt);
-            };
-
-            //go to next item
-            scope.next = function() {
-                $rootScope.$broadcast("$displayPanelNext");
-            };
-
-            //go to previous item
-            scope.previous = function() {
-                $rootScope.$broadcast("$displayPanelPrevious");
-            };
+            scope.close = () => $displayPanel.close(scope.modalOpt);
+            scope.next = () => $rootScope.$broadcast('$displayPanelNext');
+            scope.previous = () => $rootScope.$broadcast('$displayPanelPrevious');
 
             //watch for top changing
-            scope.$watch("modalOpt.top", function() {
-                scope.top = scope.modalOpt.top + "px";
-            });
+            scope.$watch('modalOpt.top', () => scope.top = scope.modalOpt.top + 'px');
 
             //close the panel if click is not on the items or the display panel
-            $document.on('mouseup', clickOutsidePanel);
+            $document.on('mouseup', onOutsideClick);
+            $window.addEventListener('scroll', onScroll);
 
-            scope.$on("$destroy", function() {
-                $document.off('click', clickOutsidePanel);
-                $window.removeEventListener('scroll', affixOnScrollEventHandler);
+            scope.$on('$destroy', function () {
+                $document.off('mouseup', onOutsideClick);
+                $window.removeEventListener('scroll', onScroll);
             });
 
-            $window.addEventListener('scroll', affixOnScrollEventHandler);
 
-            function affixOnScrollEventHandler() {
+            function onScroll() {
                 affixDisplayPanel.currentScrollPosition = $window.pageYOffset;
 
                 if ($displayPanel.panelOpen() && !$displayPanel.panelHidden()) {
@@ -63,43 +55,15 @@ export default function displayPanel($templateRequest, $q, $compile, $timeout, $
                 }
             }
 
-            function clickOutsidePanel(event) {
+            function onOutsideClick(event) {
 
-                var target = event.target;
+                if (scope.modalOpt.outsideClick !== false &&
+                    $displayPanel.panelOpen() && !$displayPanel.panelHidden() &&
+                    angular.element(event.target).closest('.display-panel').length < 1 &&
+                    !$displayPanel.getCurrentPanel().get(0).contains(event.target)) {
 
-                if ($displayPanel.panelOpen() && !$displayPanel.panelHidden() && angular.element(target).closest(".display-panel").length < 1) {
-
-                    // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
-                    if (target.nodeName === 'HTML') {
-                        return;
-                    }
-
-                    var closePanel = true;
-                    while (target && target.nodeName !== "BODY") {
-                        if (isDisplayPanelItem(target)) {
-                            closePanel = false;
-                            break;
-                        } else {
-                            target = target.parentElement;
-                        }
-                    }
-
-                    if (closePanel) {
-                        $displayPanel.close(scope.modalOpt);
-                    }
+                    $displayPanel.close(scope.modalOpt);
                 }
-            }
-
-            function isDisplayPanelItem(target) {
-                if (target.hasAttribute("display-panel-item")) {
-                    return true;
-                }
-                // If opened by the service, check the element passed into the open function
-                var sourceElement = $displayPanel.getCurrentPanel();
-                if (sourceElement && sourceElement.is && sourceElement.has(target).length > 0) {
-                    return true;
-                }
-                return false;
             }
         }
     };
@@ -123,7 +87,7 @@ class AffixDisplayPanel {
 
         // store the modal options
         this.options = options;
-        
+
         // // keep track of the last scroll position to determine if it has changed
         this.previousScrollPosition = 0;
         // //current scrollPosition - will be updated by event handler outside this object
@@ -155,20 +119,20 @@ class AffixDisplayPanel {
                 var trigger = this.updateTrigger(this.displayPanel);
 
                 if (this.currentScrollPosition > trigger) {
-                    
+
                     if (!this.displayPanel.classList.contains('affix-element')) {
                         // set the top position of the element
-                        if(this.reference){
+                        if (this.reference) {
                             this.displayPanel.style.top = this.reference.offsetHeight + 'px';
                         } else {
 
                             let newTop = this.trigger - this.currentScrollPosition;
-                            if (newTop < 0 ){
+                            if (newTop < 0) {
                                 newTop = 0;
                             }
                             this.displayPanel.style.top = newTop + 'px';
                         }
-                        
+
                     } else {
                         // update the top position
                         this.displayPanel.style.top = (this.displayPanel.offsetTop + this.displayPanel.scrollHeight) + 'px';
@@ -184,7 +148,7 @@ class AffixDisplayPanel {
                         this.displayPanel.style.top = this.reference.offsetHeight + 'px';
                     } else {
                         let newTop = this.trigger - this.currentScrollPosition;
-                        if (newTop < 0 ){
+                        if (newTop < 0) {
                             newTop = 0;
                         }
                         this.displayPanel.style.top = newTop + 'px';
@@ -194,7 +158,7 @@ class AffixDisplayPanel {
                         this.triggerSet = false;
                         this.trigger = 0;
                     }
-                    
+
                 }
             }
             this.previousScrollPosition = this.currentScrollPosition;

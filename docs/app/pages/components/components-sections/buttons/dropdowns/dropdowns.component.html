@@ -1,143 +1,128 @@
-<div class="btn-group" dropdown>
-    <button dropdownToggle type="button" class="btn button-secondary dropdown-toggle">
-        Actions <span class="hpe-icon hpe-down dropdown-icon-inline"></span>
+<div class="btn-group">
+    <button
+        type="button"
+        class="btn button-secondary dropdown-toggle"
+        [uxMenuTriggerFor]="menu">
+        Actions <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
     </button>
-    <ul *dropdownMenu class="dropdown-menu dropdown-menu-demo" role="menu">
-        <li role="menuitem" class="dropdown-submenu">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Mark as
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    <i class="hpe-icon hpe-next"></i>
-                </span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-demo" role="menu">
-                <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
-                        <span class="dropdown-menu-icon">
-                            <i class="hpe-icon hpe-more"></i>
-                        </span>
-                        <span class="dropdown-menu-text">
-                            Pending
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+P
-                        </span>
-                    </a>
-                </li>
-                <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
-                        <span class="dropdown-menu-icon">
-                            <i class="hpe-icon hpe-link-up"></i>
-                        </span>
-                        <span class="dropdown-menu-text">
-                            Escalated
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+E
-                        </span>
-                    </a>
-                </li>
-                <li role="menuitem">
-                    <a href="javascript:void(0);" class="dropdown-menu-item">
-                        <span class="dropdown-menu-icon">
-                            <i class="hpe-icon hpe-checkmark"></i>
-                        </span>
-                        <span class="dropdown-menu-text">
-                            Closed
-                        </span>
-                        <span class="dropdown-menu-right dropdown-menu-hint">
-                            ALT+C
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="divider"></li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Export
-                </span>
-            </a>
-        </li>
-        <li role="menuitem" class="dropdown-submenu">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Add to case
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    <i class="hpe-icon hpe-next"></i>
-                </span>
-            </a>
-            <div class="dropdown-menu case-dropdown">
-                <div class="case-filter">
-                    <div class="inner-addon right-addon">
-                        <i class="hpe-icon hpe-search"></i>
-                        <input type="text" class="form-control" [(ngModel)]="caseFilter"
-                            (click)="$event.stopPropagation();" />
-                    </div>
-                </div>
-                <div>
-                    <div class="case-items">
-                        <ul>
-                            <li role="menuitem" *ngFor="let case of cases | stringFilter: caseFilter">
-                                <a href="javascript:void(0);">{{case}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Save list
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+L
-                </span>
-            </a>
-        </li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon"></span>
-                <span class="dropdown-menu-text">
-                    Save search query
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+S
-                </span>
-            </a>
-        </li>
-        <li role="menuitem">
-            <a href="javascript:void(0);" class="dropdown-menu-item">
-                <span class="dropdown-menu-icon">
-                    <i class="hpe-icon hpe-edit"></i>
-                </span>
-                <span class="dropdown-menu-text">
-                    Annotate
-                </span>
-                <span class="dropdown-menu-right dropdown-menu-hint">
-                    ALT+A
-                </span>
-            </a>
-        </li>
-    </ul>
 </div>
+
+<ux-menu #menu menuClass="ux-menu-demo">
+
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="markAsMenu">
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Mark as</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">
+            <ux-icon name="next"></ux-icon>
+        </span>
+    </button>
+
+    <ux-menu-divider></ux-menu-divider>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Export</span>
+    </button>
+
+    <button type="button" uxMenuItem [uxMenuTriggerFor]="casesMenu">
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Add to case</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">
+            <ux-icon name="next"></ux-icon>
+        </span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Save list</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+L</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon"></span>
+        <span class="dropdown-menu-text">Save search query</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+S</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="edit"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Annotate</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+A</span>
+    </button>
+
+</ux-menu>
+
+<ux-menu #markAsMenu menuClass="mark-as-menu">
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="more"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Pending</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+P</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="link-up"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Escalated</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+E</span>
+    </button>
+
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu-icon">
+            <ux-icon name="checkmark"></ux-icon>
+        </span>
+        <span class="dropdown-menu-text">Closed</span>
+        <span class="dropdown-menu-right dropdown-menu-hint">ALT+C</span>
+    </button>
+
+</ux-menu>
+
+<ux-menu #casesMenu>
+    <div class="case-filter">
+        <div class="inner-addon right-addon">
+            <ux-icon name="search"></ux-icon>
+            <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="caseFilter"
+                (click)="$event.stopPropagation();" />
+        </div>
+    </div>
+
+    <div class="case-items">
+        <button
+            type="button"
+            uxMenuItem
+            *ngFor="let case of cases | stringFilter: caseFilter">
+            {{ case }}
+        </button>
+    </div>
+
+</ux-menu>
 
 <hr>
 
-<p>Bootstrap provides directives to create dropdown menus such as the example above. Set <code>dropdownToggle</code> on the button or other element which toggles the dropdown, and <code>dropdownMenu</code> on the menu contents. These should be wrapped in a container with the <code>dropdown</code> directive.</p>
+<p>
+    Dropdown menus can be created using the <code>ux-menu</code> component. Each item within the menu should have a
+    <code>[uxMenuItem]</code> directive applied to it which will automatically add all accessibility attributes and keyboard navigation.
+</p>
+
+<p>
+    The element that launches the menu should have a <code>[uxMenuTriggerFor]</code> directive applied and should be
+    passed the <code>MenuComponent</code> that it should show. The menu can also be programmatically controlled
+    by accessing the menu trigger directive using <code>@ViewChild(MenuTriggerDirective)</code>.
+</p>
+
+<p>
+    The <code>ux-menu-divider</code> component can be used to add separators between menu items.
+</p>
 
 <p>UX Aspects provides additional styles to create menus with common features including gutter icons, keyboard shortcut hints, and submenus.</p>
-
-<p>To style menu items as above, apply the <code>dropdown-menu-item</code> class to the <code>a</code> element of the menu item. This will contain up to three <code>span</code> elements with classes as follows:</p>
 
 <ul>
   <li><code>dropdown-menu-icon</code> - This contains the icon, which may be one of the <a routerLink="/css/icons" fragment="ux-icons">UX Aspects Icons</a> or an image. If no icon is required, leave this empty to ensure a consistent gutter for other items with icons.</li>
@@ -145,22 +130,80 @@
   <li><code>dropdown-menu-right</code> - Optionally, this may contain right aligned text or icons. <code>dropdown-menu-hint</code> provides a default text style for keyboard shortcut hints here.</li>
 </ul>
 
-<blockquote>
-  <p>See <a routerLink="/components/keyboard" fragment="keyboard-service-ng1">Keyboard Service</a> for information on binding keyboard shortcuts.</p>
-</blockquote>
+<p>
+    The following inputs and outputs are available on the menu component and directives:
+</p>
 
-<p>Set the width on the <code>ul</code> element to ensure that the menu contents will fit.</p>
+<uxd-api-properties tableTitle="Menu Inputs">
+    <tr uxd-api-property name="placement" type="'top' | 'right' | 'bottom' | 'left'" defaultValue="bottom">
+        Define where the menu will appear relative to the trigger element.
+    </tr>
+    <tr uxd-api-property name="alignment" type="'start' | 'center' | 'end'" defaultValue="start">
+        Define the alignment of the menu relative to the trigger element.
+    </tr>
+    <tr uxd-api-property name="animate" type="boolean" defaultValue="true">
+        Define if the menu should animate when opening and closing.
+    </tr>
+    <tr uxd-api-property name="menuClass" type="string">
+        Define a class that should be given to the menu.
+    </tr>
+</uxd-api-properties>
 
-<p>To create a menu item which opens a submenu, set the <code>dropdown-submenu</code> class on the <code>li</code> element, and insert the menu contents below the <code>a</code> element. The above example demonstrates both a standard and a custom submenu; see the example code for details.</p>
+<uxd-api-properties tableTitle="Menu Outputs">
+    <tr uxd-api-property name="opening" type="void">
+        Emits when the menu starts opening.
+    </tr>
+    <tr uxd-api-property name="opened" type="void">
+        Emits when the menu has opened, after the animation completes.
+    </tr>
+    <tr uxd-api-property name="closing" type="void">
+        Emits when the menu starts closing.
+    </tr>
+    <tr uxd-api-property name="closed" type="void">
+        Emits when the menu has closed, after the animation completes.
+    </tr>
+</uxd-api-properties>
 
-<tabset>
-    <tab heading="HTML">
+<uxd-api-properties tableTitle="Menu Item Inputs">
+    <tr uxd-api-property name="disabled" type="boolean">
+        Define if this item is disabled.
+    </tr>
+    <tr uxd-api-property name="role" type="'menuitem' | 'menuitemradio' | 'menuitemcheckbox'" defaultValue="menuitem">
+        Define the role of the menu item.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Menu Trigger Directive Inputs">
+    <tr uxd-api-property name="uxMenuTriggerFor" type="MenuComponent">
+        Define the menu to open.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        Define if this trigger is disabled.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Menu Trigger Directive Methods">
+    <tr uxd-api-property name="openMenu">
+        Programmatically open the menu.
+    </tr>
+    <tr uxd-api-property name="closeMenu" args="origin?: FocusOrigin, closeParents?: boolean">
+        Programmatically close the menu. Optionally provide the focus origin and whether or not all parent menus should be closed.
+    </tr>
+    <tr uxd-api-property name="toggleMenu">
+        Programmatically toggle the open state of the menu.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss" language="css"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

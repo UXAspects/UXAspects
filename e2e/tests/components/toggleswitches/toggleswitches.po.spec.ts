@@ -1,11 +1,11 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class ToggleSwitchesPage {
-        
-    getPage(): void {
-        browser.get('#/toggleswitches');
+
+    async getPage(): Promise<void> {
+        await browser.get('#/toggleswitches');
     }
-    
+
     toggleswitch1 = element(by.id('switch1'));
     toggleswitch2 = element(by.id('switch2'));
     toggleswitch3 = element(by.id('switch3'));
@@ -15,16 +15,21 @@ export class ToggleSwitchesPage {
     text3 = element(by.id('text3'));
     text4 = element(by.id('text4'));
     disableButton = element(by.id('button1'));
-    
+    resetButton = element(by.id('reset-button'));
+
     confirmIsChecked(toggleswitch: ElementFinder) {
-        return toggleswitch.$('div.checked').isPresent();
+        return toggleswitch.$('.ux-toggleswitch-checked').isPresent();
     }
-    
+
     confirmIsDisabled(toggleswitch: ElementFinder) {
-        return toggleswitch.$('div.disabled').isPresent();
+        return toggleswitch.$('.ux-toggleswitch-disabled').isPresent();
     }
-    
-    toggleByKey(toggleswitch: ElementFinder, key: string) {
-        toggleswitch.$('div.ux-toggleswitch').sendKeys(key);
+
+    async toggleByKey(toggleswitch: ElementFinder, key: string) {
+        await toggleswitch.$('.ux-toggleswitch').sendKeys(key);
+    }
+
+    reset() {
+        return this.resetButton.click();
     }
 }

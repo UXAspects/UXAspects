@@ -8,6 +8,9 @@
     To use the Dynamic Facet, use the <code>facet-dynamic</code> directive instead of the <code>facet</code> directive. Set
     the
     <code>facet-options</code> attribute with an object containing a <code>title</code> attribute, and an <code>options</code>    property containing collection of objects that follow the interface for the <code>facet-option</code> defined above.
+</p>
+
+<p>
     The Dynamic Facet can be used in the same <code>facet-container</code> as the standard <code>facet</code> directive.
 </p>
 
@@ -24,7 +27,7 @@
         How many entries to show in the typeahead dropdown.
     </tr>
     <tr uxd-api-property name="minIndividualItems" defaultValue="0">
-        How many Facet Options should be displayed regardless of whether a typeahead is visible. 
+        How many Facet Options should be displayed regardless of whether a typeahead is visible.
         Items shown as Facet Options will not be listed in the typeahead dropdown.
     </tr>
     <tr uxd-api-property name="maxIndividualItems" defaultValue="0">
@@ -60,13 +63,23 @@
 <p>Set the <code>placeholder</code> attribute to a string property to set the placeholder text that will be shown in the text
     search input control.</p>
 
+<p>The Dynamic Facet also supports customization of the markup used for facet options (selected and unselected) and the content shown in the typeahead.
+   To customize the facet option, set the <code>facet-option-template</code> property to the URL of a template. Any data available inside
+   each object within the <code>options</code> array can be accessed using "data" as prefix (e.g. <code>data.name</code>, <code>data.count</code>).
+
+<p>To customize the typeahead results, set the <code>facet-option-typeahead</code> attribute. Any data available inside each object within
+    the <code>options</code> array can be accessed using "option" as prefix (e.g. <code>option.name</code>, <code>option.count</code>).</p>
+
 <p>Below is an example for the use of this directive:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.dynamicFacetsSnippetHtml"></uxd-snippet>
-    </tab>
-    <tab heading="Javascript">
+    </ux-tab>
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.dynamicFacetsSnippetJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+    <ux-tab heading="Facet Option Template">
+        <uxd-snippet language="html" [content]="snippets.compiled.facetOptionTemplateSnippetHtml"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

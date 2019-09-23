@@ -1,7 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <ux-facet-container>
-            <ux-facet-typeahead-list header="Authors" [facets]="facets" [suggestions]="suggestions" [simplified]="false"></ux-facet-typeahead-list>
+            <ux-facet-typeahead-list
+                header="Authors"
+                [typeaheadConfig]="{ placeholder: 'Find Author' }"
+                [facets]="facets"
+                [(query)]="query"
+                [suggestions]="suggestions"
+                [simplified]="false">
+            </ux-facet-typeahead-list>
         </ux-facet-container>
     </div>
 </div>
@@ -28,13 +35,12 @@
     A list of suggested facets can be displayed above the typeahead to allow a user to quickly select some options without having to perform a search.
 </p>
 
-<p>The following attributes can be used to customise the behavior of the component:</p>
+<p>The following attributes can be used to customize the behavior of the component:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="facets" type="Facet[] | Observable<Facet[]>">
         Defines the complete list of facets that can be selected. Alternatively an observable can be used to allow values to be fetched
-        dynamically. The search query is available on the <code>destination.outerValue</code> property
-        on the observer.
+        dynamically.
     </tr>
     <tr uxd-api-property name="selected" type="Facet[]">
         This will allow you to define an initial set of selected facets.
@@ -60,11 +66,17 @@
     <tr uxd-api-property name="expanded" type="boolean" defaultValue="true">
         Defines whether or not the Facet Typeahead List should be initially expanded or not.
     </tr>
+    <tr uxd-api-property name="query" type="string">
+        Defines the query displayed in the input field.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="selectedChange" type="Facet[]">
         If two-way binding is used this array will get updated any time the selected facets change.
+    </tr>
+    <tr uxd-api-property name="queryChange" type="string">
+        Emits the current query when the value of the input field changes.
     </tr>
     <tr uxd-api-property name="events" type="FacetEvent">
         This will be triggered when a facet is selected, deselected or all facets are deselected. The event will be an instance of
@@ -76,14 +88,14 @@
 
 <p>The following code will produce the example shown above:</p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="TypeScript">
+    <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    
-</tabset>
+    </ux-tab>
+
+</ux-tabset>

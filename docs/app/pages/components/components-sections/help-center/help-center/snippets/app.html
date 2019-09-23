@@ -1,9 +1,9 @@
 <ux-page-header [crumbs]="crumbs" header="Repositories" [iconMenus]="menus"></ux-page-header>
 
 <div class="help-center-toolbar">
-    <button class="btn button-primary" [disabled]="loading" 
+    <button class="btn button-primary" [disabled]="loading"
             (click)="loadData()" [uxHelpCenterItem]="refreshHelpCenterItem">
-        <i class="hpe-icon hpe-refresh p-r-xs"></i> Refresh
+        <ux-icon name="refresh" class="p-r-xs"></ux-icon> Refresh
     </button>
 </div>
 
@@ -24,7 +24,7 @@
                 <td class="text-black">{{ repository.name }}</td>
                 <td>{{ repository.type }}</td>
                 <td>{{ repository.location }}</td>
-                <td>{{ repository.items.toLocaleString() }}</td>
+                <td>{{ repository.items | number }}</td>
                 <td>{{ repository.size }}</td>
             </tr>
         </tbody>

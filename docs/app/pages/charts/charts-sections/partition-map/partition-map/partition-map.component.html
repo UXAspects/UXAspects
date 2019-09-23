@@ -1,0 +1,121 @@
+<ux-partition-map class="partition-map" [dataset]="dataset" [colors]="colors">
+    <ng-template #partitionMapSegment let-segment="segment" let-value="value">
+
+        <div class="partition-map-custom-segment"
+             (mouseenter)="tooltip.show()"
+             (mouseleave)="tooltip.hide()"
+             (click)="tooltip.hide()">
+
+            <span class="partition-map-segment-label"
+                  #tooltip="ux-tooltip"
+                  [uxTooltip]="segment.name + ': ' + value"
+                  tooltipClass="partition-map-tooltip"
+                  [tooltipDelay]="500"
+                  [showTriggers]="[]"
+                  [hideTriggers]="[]">
+                  {{ segment.name }}
+            </span>
+        </div>
+    </ng-template>
+</ux-partition-map>
+
+<hr>
+
+<p>
+    The partition map can be used to provide a visual representation of a hierarchy structure.
+</p>
+
+<p>The partition map appearance and behavior can be customized using the following:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="dataset" type="Readonly<PartitionMapSegment>" required="true">
+        The root segment of a tree structure defining the partition map.
+        See below for details of the <code>PartitionMapSegment</code> interface.
+    </tr>
+    <tr uxd-api-property name="colors" type="string[][] | ThemeColor[][]" [required]="true">
+        Define the colors to be used for each row and the order they should appear.
+    </tr>
+    <tr uxd-api-property name="selected" type="Readonly<PartitionMapSegment>">
+        Define the currently selected item.
+    </tr>
+    <tr uxd-api-property name="collapsedHeight" type="number" defaultValue="40">
+        Determine the pixel height of collapsed segments.
+    </tr>
+    <tr uxd-api-property name="minSegmentWidth" type="number" defaultValue="5">
+        Define the minimum desired pixel width for a segment. Segments will appear at least this
+        width regardless of their value providing there is sufficient available space.
+    </tr>
+    <tr uxd-api-property name="segmentAnnouncement" type="(info: PartitionMapSegmentAnnouncementInfo) => string">
+        Define the function that will return the aria announcement for a segment. This will be
+        announced when a segment receives focus. By default the focused node name will be announced along with the
+        names of its ancestors.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="PartitionMapSegment">
+        Emits whenever a segment is selected.
+    </tr>
+</uxd-api-properties>
+
+<h4>PartitionMapSegment Interface</h4>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string">
+        Define the name of the segment.
+    </tr>
+    <tr uxd-api-property name="children" type="ReadonlyArray<PartitionMapSegment>">
+        Define the child segments if there are any. If there are no children a <code>value</code> property must be provided.
+    </tr>
+    <tr uxd-api-property name="value" type="number">
+        Define the value this segment represents. This should only be present on segments with no children.
+    </tr>
+    <tr uxd-api-property name="data" type="any">
+        Optionally provide some additional information about this segment. This can be accessed in a custom segment template and used
+        to display additional information.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    Additionally the content of a segment can be customized by adding a child <code>ng-template</code> identified as <code>#partitionMapSegment</code>.
+    This custom template can be used to add functionality such as a tooltip or popover. The custom template can use the <code>segmentFocus</code> and
+    <code>segmentBlur</code> events to trigger events when the segment is focused or blurred.
+</p>
+
+<p>
+    The template context provides access to several variables that can be used to display information within the segment:
+</p>
+
+<uxd-api-properties tableTitle="Partition Map Segment Template Context">
+    <tr uxd-api-property name="segment" type="PartitionMapSegment">
+        This variable contains the segment data. It will also contain any additional custom data that was provided in the <code>data</code> property.
+    </tr>
+    <tr uxd-api-property name="value" type="number">
+        The amount this segment represents. If this segment has children, the value will represent the sum of all child values.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        This represents the expanded state of the segment.
+    </tr>
+    <tr uxd-api-property name="color" type="string">
+        The background color of this segment.
+    </tr>
+    <tr uxd-api-property name="children" type="PartitionMapCustomSegmentContext[]">
+        The contexts for all child segments.
+    </tr>
+</uxd-api-properties>
+
+<ux-tabset [minimal]="false">
+
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
+
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
+
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </ux-tab>
+
+</ux-tabset>

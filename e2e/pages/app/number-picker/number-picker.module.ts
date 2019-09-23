@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NumberPickerModule } from '../../../../dist';
-
+import { IconModule, NumberPickerModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { NumberPickerTestPageComponent } from './number-picker.testpage.component';
 
 @NgModule({
@@ -11,6 +10,8 @@ import { NumberPickerTestPageComponent } from './number-picker.testpage.componen
         CommonModule,
         ReactiveFormsModule,
         NumberPickerModule,
+        IconModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

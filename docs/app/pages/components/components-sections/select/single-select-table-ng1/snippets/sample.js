@@ -1,6 +1,6 @@
-angular.module("app").controller("AdvancedInputCtrl", AdvancedInputCtrl);
+angular.module("app").controller("SingleSelectTableCtrl", SingleSelectTableCtrl);
 
-function AdvancedInputCtrl() {
+function SingleSelectTableCtrl() {
     var vm = this;
     vm.selectedVal = "";
     vm.searchTextSingle = "";

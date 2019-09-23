@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ColorService, SliderCalloutTrigger, SliderOptions, SliderSize, SliderSnap, SliderStyle, SliderType, SliderValue } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-sliders',
     templateUrl: './sliders.component.html'
 })
 @DocumentationSectionComponent('ComponentsSlidersComponent')
-export class ComponentsSlidersComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsSlidersComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     slider1: SliderExample;
     slider2: SliderExample;
@@ -23,7 +23,7 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
     lowerValue: string;
     upperValue: string;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml
@@ -155,6 +155,9 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     callout: {
                         trigger: SliderCalloutTrigger.Persistent,
                         formatter: value => value ? value.toFixed(0) : value
+                    },
+                    keyboard: {
+                        minor: 50
                     }
                 },
                 track: {

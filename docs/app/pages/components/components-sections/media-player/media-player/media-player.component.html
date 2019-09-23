@@ -1,11 +1,12 @@
-<ux-media-player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource"
-    [quietMode]="mode === 'quiet'"></ux-media-player>
+<ux-media-player #player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'">
+    <track label="English" lang="en" default [src]="subtitles">
+</ux-media-player>
 <ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" [source]="audioSource"></ux-media-player>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
 
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
@@ -22,8 +23,8 @@
                         <ux-radio-button [(value)]="mode" option="quiet" [disabled]="type === 'audio'">Quiet</ux-radio-button>
                     </div>
                 </div>
-            </accordion-group>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>
 
@@ -31,7 +32,7 @@
 
 <p>
     The media player component can be used to view video and audio files. It supports a range of the most popular video and audio
-    file formats. A comprehensive list of supported formats in each browser can be <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">found here</a>.
+    file formats. A comprehensive list of supported formats in each browser can be <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">found here</a>.
 </p>
 
 <p>To add a media player to your page use the <code>ux-media-player</code> selector. The following attributes can be used to
@@ -49,18 +50,36 @@
         If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker
         style. Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
     </tr>
+    <tr uxd-api-property name="crossorigin" type="'anonymous' | 'use-credentials'">
+        The <code>anonymous</code> keyword means that there will be no exchange of user credentials when the media source is fetched.
+    </tr>
 </uxd-api-properties>
+
+<p>
+    To provide subtitles or closed captions add an HTML <code>track</code> element as a child of the <code>ux-media-player</code>.
+    More information on the <code>track</code> element can be <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track">found here</a>.
+</p>
+
+<p>
+    Custom controls can be added to the media player by adding a child element with a <code>uxMediaPlayerCustomControl</code> attribute.
+    To programmatically control the media player you can either:
+</p>
+
+<ul>
+    <li>Create a component and inject the <code>MediaPlayerService</code>.</li>
+    <li>Use a template reference variable to access the <code>MediaPlayerService</code> on the <code>ux-media-player</code> component.</li>
+</ul>
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

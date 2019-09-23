@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-marquee-wizard-ng1',
@@ -10,9 +11,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardNg1Component')
-export class ComponentsMarqueeWizardNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsMarqueeWizardNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.modalHtml,
         htmlAttributes: {
             'ng-controller': 'MarqueeModalCtrl as vm'
@@ -36,16 +37,16 @@ export class ComponentsMarqueeWizardNg1Component extends BaseDocumentationSectio
             id: 'fifth.html',
             content: this.snippets.raw.fifthHtml
         }
-        , {
+            , {
             id: 'sixth.html',
             content: this.snippets.raw.sixthHtml
         }],
         css: [this.snippets.raw.sampleCss],
         js: [this.snippets.raw.modalJs, this.snippets.raw.sampleJs]
-    };
+    });
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
-    
+
 }

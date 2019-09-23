@@ -47,14 +47,14 @@
 
 <p>The Partition Map is defined by the <code>partition-map</code> directive.</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-  </tab>
-  <tab heading="Javascript">
+  </ux-tab>
+  <ux-tab heading="Javascript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <uxd-api-properties>
     <tr uxd-api-property name="edit" type="object">
@@ -274,17 +274,17 @@
 
 <p>The code used for the popover template in the example above can be found below:</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet language="html" [content]="snippets.compiled.popoverHtml"></uxd-snippet>
-  </tab>
-  <tab heading="Javascript">
+  </ux-tab>
+  <ux-tab heading="Javascript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.popoverJs"></uxd-snippet>
-  </tab>
-  <tab heading="CSS">
+  </ux-tab>
+  <ux-tab heading="CSS">
     <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <blockquote>
     <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>

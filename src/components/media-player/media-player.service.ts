@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, from, Observable, Observer, ReplaySubject, Subject } from 'rxjs';
+import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
 import { MediaPlayerType } from './media-player.component';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
-import { Observer } from 'rxjs/Observer';
-import { FrameExtractionService, ExtractedFrame } from '../../services/frame-extraction/index';
 
 @Injectable()
 export class MediaPlayerService {
@@ -17,7 +14,7 @@ export class MediaPlayerService {
         Create observables for media player events
     */
     playing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    initEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    initEvent: ReplaySubject<boolean> = new ReplaySubject<boolean>();
     abortEvent: Subject<void> = new Subject<void>();
     canPlayEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     canPlayThroughEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -44,9 +41,9 @@ export class MediaPlayerService {
     progressEvent: Observable<TimeRanges> = Observable.create((observer: Observer<TimeRanges>) => {
 
         // repeat until the whole video has fully loaded
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
 
-            let buffered = this._mediaPlayer.buffered as TimeRanges;
+            const buffered = this._mediaPlayer.buffered as TimeRanges;
             observer.next(buffered);
 
             if (buffered.length === 1 && buffered.start(0) === 0 && buffered.end(0) === this.duration) {
@@ -59,12 +56,12 @@ export class MediaPlayerService {
     private _mediaPlayer: HTMLMediaElement;
     private _hostElement: HTMLElement;
     private _fullscreen: boolean = false;
-    private _quietMode: boolean;    
+    private _quietMode: boolean;
 
-    constructor(private _frameExtractionService: FrameExtractionService) {}
+    constructor(private _frameExtractionService: FrameExtractionService) { }
 
     /*
-        Create all the getters and setters the can be used by media player extensions 
+        Create all the getters and setters the can be used by media player extensions
     */
     get mediaPlayer(): HTMLMediaElement {
         return this._mediaPlayer;
@@ -93,8 +90,8 @@ export class MediaPlayerService {
         return this._mediaPlayer ? this._mediaPlayer.offsetHeight : 0;
     }
 
-    get audioTracks(): AudioTrackList {
-        return this._mediaPlayer ? this._mediaPlayer.audioTracks : null;
+    get audioTracks(): AudioTrackList | Array<any> {
+        return this._mediaPlayer ? this._mediaPlayer.audioTracks : [];
     }
 
     get autoplay(): boolean {
@@ -207,19 +204,21 @@ export class MediaPlayerService {
         this._mediaPlayer.src = value;
     }
 
-    get textTracks(): TextTrackList {
-        return this._mediaPlayer ? this._mediaPlayer.textTracks : new TextTrackList();
+    get textTracks(): Array<TextTrack> {
+        return this._mediaPlayer ? Array.from(this._mediaPlayer.textTracks) : [];
     }
 
-    get videoTracks(): VideoTrackList {
-        return this._mediaPlayer ? this._mediaPlayer.videoTracks : new VideoTrackList();
+    get videoTracks(): Array<VideoTrack> {
+        return this._mediaPlayer ? Array.from(this._mediaPlayer.videoTracks) : [];
     }
 
     get volume(): number {
         return this._mediaPlayer ? this._mediaPlayer.volume : 1;
     }
     set volume(value: number) {
-        this._mediaPlayer.volume = value;
+        if (this._mediaPlayer) {
+            this._mediaPlayer.volume = value;
+        }
     }
 
     get fullscreen(): boolean {
@@ -285,7 +284,7 @@ export class MediaPlayerService {
     /**
      * Adds a new text track to the audio/video
      */
-    addTextTrack(kind: string, label: string, language: string): TextTrack {
+    addTextTrack(kind: 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata', label: string, language: string): TextTrack {
         return this._mediaPlayer.addTextTrack(kind, label, language);
     }
 
@@ -294,14 +293,16 @@ export class MediaPlayerService {
      */
     requestFullscreen(): void {
 
-        if (this._hostElement.requestFullscreen) {
-            this._hostElement.requestFullscreen();
-        } else if (this._hostElement.webkitRequestFullscreen) {
-            this._hostElement.webkitRequestFullscreen();
-        } else if ((<any>this._hostElement).msRequestFullscreen) {
-            (<any>this._hostElement).msRequestFullscreen();
-        } else if ((<any>this._hostElement).mozRequestFullScreen) {
-            (<any>this._hostElement).mozRequestFullScreen();
+        // get the host element (we need to do some browser specific checks and typescript complains)
+        const host = this._hostElement as any;
+        const requestFullscreen = host.requestFullscreen || host.webkitRequestFullscreen || host.msRequestFullscreen || host.mozRequestFullScreen;
+
+        // if we can perform the action then perform it and update the state
+        if (requestFullscreen) {
+            requestFullscreen.call(host);
+
+            // update the internal state
+            this.fullscreen = true;
         }
     }
 
@@ -310,20 +311,17 @@ export class MediaPlayerService {
      */
     exitFullscreen(): void {
 
-        if ((<any>this._hostElement).exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if ((<any>document).msExitFullscreen) {
-            (<any>document).msExitFullscreen();
-        } else if ((<any>document).mozCancelFullScreen) {
-            (<any>document).mozCancelFullScreen();
-        }
-    }
+        // get the document element (we need to do some browser specific checks and typescript complains)
+        const host = document as any;
+        const exitFullscreen = host.exitFullscreen || host.webkitExitFullscreen || host.msExitFullscreen || host.mozCancelFullScreen;
 
-    fullscreenChange(event: Event) {
-        this.fullscreen = (<any>document).fullscreen || document.webkitIsFullScreen || (<any>document).mozFullScreen || (<any>document).msFullscreenElement !== null && (<any>document).msFullscreenElement !== undefined;
-        this.fullscreenEvent.next(this.fullscreen);
+        // if we can perform the action then perform it and update the state
+        if (exitFullscreen) {
+            exitFullscreen.call(host);
+
+            // update the internal state
+            this.fullscreen = false;
+        }
     }
 
     /**
@@ -337,6 +335,14 @@ export class MediaPlayerService {
         }
     }
 
+    fullscreenChange(): void {
+        // get the document element (we need to do some browser specific checks and typescript complains)
+        const host = document as any;
+
+        // set the fullscreen state (this also emits the event)
+        this.fullscreen = host.fullscreen || host.webkitIsFullScreen || host.mozFullScreen || host.msFullscreenElement !== null && host.msFullscreenElement !== undefined;
+    }
+
     /**
      * Extract the frames from the video
      */
@@ -346,6 +352,12 @@ export class MediaPlayerService {
             return this._frameExtractionService.getFrameThumbnails(this.source, width, height, 0, this.duration, 10);
         }
 
-        return Observable.from([]);
+        return from([]);
+    }
+
+    hideSubtitleTracks(): void {
+        for (let index = 0; index < this.textTracks.length; index++) {
+            this.textTracks[index].mode = 'hidden';
+        }
     }
 }

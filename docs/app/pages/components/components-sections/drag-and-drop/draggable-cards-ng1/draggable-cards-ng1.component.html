@@ -1,0 +1,101 @@
+<uxd-draggable-cards-wrapper></uxd-draggable-cards-wrapper>
+
+<hr>
+
+<p>The Draggable Cards control is created using the <code>draggable-cards</code> directive.
+It allows a series of panels to be displayed in a vertical list. 
+Panels can be selected or reordered, with the ability to add edit or remove functionality.</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.draggableCardsHtml" language="html"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.draggableCardsJs" language="javascript"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.draggableCardsCss" language="css"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>
+
+<p>The <code>draggable-cards</code> directive should contain card elements. There are two types of card element: <code>fixed-card</code> and <code>draggable-card</code>.</p>
+
+<p>A <code>fixed-card</code> can have a title and a subtitle only and cannot be moved. The <code>fixed-card</code> elements are grouped together at the top of the list.</p>
+
+<p>A <code>draggable-card</code> can have also have a title and a subtitle. Additionally, they will have reorder controls on the left side of the card. 
+Edit and remove buttons will also be added if functions are specified for these events. 
+The main content of the card should be specified inside the <code>draggable-card</code> element.</p>
+
+<h4 id="options">Options</h4>
+
+<p>The <code>draggable-cards</code> directive can have the following attributes to configure it:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="direction" type="string" binding="literal">
+      Can be set to 'left' or 'right'. This will change the side the callout will display on a selected card.
+    </tr>
+    <tr uxd-api-property name="allow-reordering" type="boolean" binding="variable" defaultValue="true">
+      If specified, this will show or hide the reordering controls on the card.
+    </tr>
+    <tr uxd-api-property name="allow-editing" type="boolean" binding="variable" defaultValue="true">
+      If specified, this will show or hide the edit button on a card. Note, the edit button will not appear if an edit function has not been specified.
+    </tr>
+    <tr uxd-api-property name="allow-removing" type="boolean" binding="variable" defaultValue="true">
+      If specified, this will show or hide the remove button on a card. Note, the remove button will not appear if a remove function has not been specified. 
+    </tr>
+    <tr uxd-api-property name="on-select" type="function" binding="variable">
+      If specified, this function will be called when a card is clicked. The function should accept one parameter which will contain the scope of the selected card.
+    </tr>
+    <tr uxd-api-property name="on-remove" type="function" binding="variable">
+      	If specified, this function will be called when the remove button is clicked on a card. The function should accept one parameter which will contain the scope of the card. In this function you should remove the item from the array of draggable cards in the controller (see sample code). The remove button will not appear on any cards if this has not been set.
+    </tr>
+    <tr uxd-api-property name="on-edit" type="function" binding="variable">
+      If specified, this function will be called when the edit button is clicked on a card. The function should accept one parameter which will contain the scope of the card. The edit button will not appear on any cards if this has not been set.
+    </tr>
+    <tr uxd-api-property name="on-reorder" type="function" binding="variable">
+      If specified, this function will be called when a card is moved. The function should accept one parameter which will contain an array of the card scopes in their new order.
+    </tr>
+</uxd-api-properties>
+
+<p>The <code>fixed-card</code> and <code>draggable-card</code> elements can have the following attributes to configure it:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="card-title" type="string" binding="variable">
+      This will set the title text on the card.
+    </tr>
+    <tr uxd-api-property name="card-subtitle" type="string" binding="variable">
+      This will set the text to the right of the title on the card.
+    </tr>
+    <tr uxd-api-property name="card-selected" type="boolean" biding="variable">
+      If set to true this card will be selected by default. Only one card should have this set to true.
+    </tr>
+    <tr uxd-api-property name="disable-remove" type="boolean" binding="variable">
+      If set to true the remove button will be greyed out and unclickable.
+    </tr>
+    <tr uxd-api-property name="disable-edit" type="boolean" binding="variable">
+      If set to true the edit button will be greyed out and unclickable.
+    </tr>
+    <tr uxd-api-property name="card-icons" type="object" binding="variable">
+      Contains the attributes to add additional icons and functions alongside the card title.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes are contained in the <code>card-icons</code> object.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="icon" type="string" binding="variable" required="true">
+      The icon class to display the icon.
+    </tr>
+    <tr uxd-api-property name="tooltip" type="string" binding="variable">
+      This will be displayed in the tooltip when the icon is hovered.
+    </tr>
+    <tr uxd-api-property name="tooltipPlacement" type="string" binding="variable" defaultValue="top">
+      Can be set to <code>top</code>, <code>bottom</code>, <code>right</code> or <code>left</code>.
+    </tr>
+    <tr uxd-api-property name="click" type="function" binding="variable" required="true">
+      This will be called when the icon is clicked.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" binding="variable">
+      If set to true the icon will be greyed out and unclickable.
+    </tr>
+</uxd-api-properties>

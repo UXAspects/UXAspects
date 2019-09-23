@@ -1,0 +1,34 @@
+<div class="clearfix">
+
+    <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example">
+        <ux-tab customClass="text-center" *ngFor="let tab of tabs" [heading]="tab" (activated)="selected
+        = tab">
+            <div class="m-t">
+                <h4 class="tab-content">{{ tab }}</h4>
+            </div>
+        </ux-tab>
+    </ux-tabset>
+
+</div>
+
+<p id="selected-tab">The selected tab is: {{ selected }}</p>
+
+<div>
+    <ux-checkbox id="minimal-checkbox" [disabled]="stacked === 'left' || stacked === 'right'" [(value)]="minimal">minimal</ux-checkbox>
+</div>
+
+<div>
+    <ux-radio-button id="stack-none-radio" name="stacked" option="none" [(value)]="stacked">Stacked None</ux-radio-button>
+</div>
+
+<div>
+    <ux-radio-button id="stack-left-radio" name="stacked" option="left" [(value)]="stacked">Stacked Left</ux-radio-button>
+</div>
+
+<div>
+    <ux-radio-button id="stack-right-radio" name="stacked" option="right" [(value)]="stacked">Stacked Right</ux-radio-button>
+</div>
+
+<div>
+    <button id="add-tab-0" type="button" class="btn button-secondary" (click)="addTab(0)">Insert tab at index 0</button>
+</div>

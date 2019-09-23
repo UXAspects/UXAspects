@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { SearchBuilderQuery } from './interfaces/query.interface';
-import { SearchBuilderGroupQuery } from './interfaces/group-query.interface';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SearchBuilderQuery } from './interfaces/query.interface';
 
 @Injectable()
 export class SearchBuilderService {

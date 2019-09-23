@@ -1,16 +1,17 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ChartsPartitionMapNg1Component } from './partition-map-ng1/partition-map-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { HybridModule, PartitionMapModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsPartitionMapNg1Component } from './partition-map-ng1/partition-map-ng1.component';
+import { ChartsPartitionMapComponent } from './partition-map/partition-map.component';
+
 
 const SECTIONS = [
-    ChartsPartitionMapNg1Component
+    ChartsPartitionMapNg1Component,
+    ChartsPartitionMapComponent
 ];
 
 const ROUTES = [
@@ -25,11 +26,13 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsetModule,
         WrappersModule,
         HybridModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        PartitionMapModule,
+        TooltipModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

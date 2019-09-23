@@ -1,43 +1,136 @@
-<div class="marquee-wizard-side-panel">
+<ng-container *ngIf="resizable && _isInitialised">
+    <split direction="horizontal"
+           [gutterSize]="gutterSize"
+           (dragEnd)="onDragEnd($event)">
+        <split-area [size]="sidePanelWidth">
+            <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
+        </split-area>
+        <split-area [size]="100 - sidePanelWidth">
+            <ng-container [ngTemplateOutlet]="mainContentPanel"></ng-container>
+        </split-area>
+    </split>
+</ng-container>
 
-    <div class="marquee-wizard-description-container" *ngIf="description">
-        <!-- If a template was provided display it -->
-        <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+<ng-container *ngIf="!resizable">
+    <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
+    <ng-container [ngTemplateOutlet]="mainContentPanel"></ng-container>
+</ng-container>
 
-        <!-- Otherwise wimply display the string -->
-        <ng-container *ngIf="!isTemplate">
-            <p>{{ description }}</p>
-        </ng-container>
+<ng-template #sidePanel>
+    <div class="marquee-wizard-side-panel" [class.marquee-wizard-side-panel-resize]="resizable">
+
+        <div class="marquee-wizard-description-container" *ngIf="description">
+            <!-- If a template was provided display it -->
+            <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+
+            <!-- Otherwise wimply display the string -->
+            <ng-container *ngIf="!isTemplate">
+                <p>{{ description }}</p>
+            </ng-container>
+        </div>
+
+        <ul class="marquee-wizard-steps"
+            uxTabbableList
+            direction="vertical"
+            role="tablist"
+            aria-orientation="vertical">
+
+            <li *ngFor="let step of steps; let index = index"
+                role="tab"
+                uxTabbableListItem
+                [disabled]="!step.visited"
+                class="marquee-wizard-step"
+                [class.active]="step.active"
+                [class.visited]="step.visited"
+                [class.invalid]="!step.valid"
+                [attr.aria-posinset]="index + 1"
+                [attr.aria-setsize]="steps.length"
+                [attr.aria-selected]="step.active"
+                [attr.aria-controls]="step.id"
+                [id]="step.id + '-label'"
+                (click)="gotoStep(step)"
+                (keydown.enter)="gotoStep(step)">
+
+                <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
+            </li>
+
+        </ul>
+    </div>
+</ng-template>
+
+
+<ng-template #mainContentPanel>
+    <div class="marquee-wizard-content-panel" [class.marquee-wizard-content-panel-resize]="resizable">
+        <div class="marquee-wizard-content">
+            <ng-content></ng-content>
+        </div>
+
+        <div class="modal-footer">
+
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-secondary"
+                    *ngIf="previousVisible"
+                    [uxTooltip]="previousTooltip"
+                    [attr.aria-label]="previousAriaLabel"
+                    container="body"
+                    [disabled]="previousDisabled || step === 0"
+                    (click)="previous(); tip.hide()">
+                {{ previousText }}
+            </button>
+
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-primary"
+                    *ngIf="nextVisible && !isLastStep()"
+                    [uxTooltip]="nextTooltip"
+                    [attr.aria-label]="nextAriaLabel"
+                    container="body"
+                    [disabled]="nextDisabled"
+                    (click)="next(); tip.hide()">
+                {{ nextText }}
+            </button>
+
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-primary"
+                    *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
+                    [uxTooltip]="finishTooltip"
+                    [attr.aria-label]="finishAriaLabel"
+                    container="body"
+                    [disabled]="finishDisabled"
+                    (click)="finish(); tip.hide()">
+                {{ finishText }}
+            </button>
+
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-secondary"
+                    *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
+                    [uxTooltip]="cancelTooltip"
+                    [attr.aria-label]="cancelAriaLabel"
+                    container="body"
+                    [disabled]="cancelDisabled"
+                    (click)="cancel(); tip.hide()">
+                {{ cancelText }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #defaultStepTemplate let-step>
+
+    <!-- Show an icon based on a string (deprecated) -->
+    <ng-container *ngIf="step._icon">
+        <i *ngIf="step._iconType !== 'component'" class="marquee-wizard-step-icon" [ngClass]="[step._iconType, step._icon]"></i>
+        <ux-icon *ngIf="step._iconType === 'component'" class="marquee-wizard-step-icon" [name]="step._icon"></ux-icon>
+    </ng-container>
+
+    <!-- Insert the icon -->
+    <div *ngIf="step._iconTemplate" class="marquee-wizard-step-icon">
+        <ng-container [ngTemplateOutlet]="step._iconTemplate"></ng-container>
     </div>
 
-    <ul class="marquee-wizard-steps">
-
-        <li class="marquee-wizard-step" *ngFor="let step of steps" (click)="gotoStep(step)" [class.active]="step.active" [class.visited]="step.visited" [class.invalid]="!step.valid">
-            <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
-            <span class="marquee-wizard-step-title">{{ step.header }}</span>
-            <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
-        </li>
-
-    </ul>
-</div>
-
-<div class="marquee-wizard-content-panel">
-    <div class="marquee-wizard-content">
-        <ng-content></ng-content>
-    </div>
-
-    <div class="modal-footer">
-
-        <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body"
-            [disabled]="previousDisabled || step === 0" (click)="previous(); tip.hide()">{{ previousText }}</button>
-
-        <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body"
-            [disabled]="nextDisabled" (click)="next(); tip.hide()">{{ nextText }}</button>
-
-        <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
-            container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
-
-        <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
-            container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
-    </div>
-</div>
+    <span class="marquee-wizard-step-title">{{ step.header }}</span>
+    <ux-icon *ngIf="step.completed" class="marquee-wizard-step-status" name="checkmark"></ux-icon>
+</ng-template>

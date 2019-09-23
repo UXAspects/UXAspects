@@ -17,17 +17,17 @@ The primary content of the modal should be contained within a <code>div.marquee-
 To add a footer to the modal add a <code>div.marquee-footer</code>. Add any modal buttons to this footer element.
 The height of the modal is set based on the height of the contents of the main panel.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.modalLayoutHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet [content]="snippets.compiled.controllerJs + snippets.compiled.modalControllerJs" language="javascript"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.stylesCss" language="css"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The marquee modal can be initialized using a controller which internally uses the <code>$modal</code> service. 
 The <code>$modal</code> service provides an open method with the following options:</p>

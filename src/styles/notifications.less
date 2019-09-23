@@ -29,7 +29,7 @@
         top: 4px;
 
         &:focus {
-            .aspects-outline;
+            .native-focus-outline;
         }
     }
 }
@@ -38,7 +38,7 @@
     .font-semibold;
 
     &:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 }
 
@@ -194,5 +194,73 @@
                 }
             }
         }
+    }
+}
+
+/*
+ * Angular Alerts
+ */
+ux-alert {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    .alert-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex: none;
+        padding-right: 12px;
+    }
+
+    .alert-content {
+        flex: 1;
+        padding: 2px 0;
+    }
+
+    .alert-close {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex: none;
+        border: none;
+        color: inherit;
+        background: transparent;
+
+        &:focus {
+            .native-focus-outline();
+        }
+    }
+
+    &.ux-alert-info {
+        color: @alert-info-color;
+        background-color: @alert-info-bg;
+        border: 1px solid @alert-info-border;
+    }
+
+    &.ux-alert-error {
+        color: @alert-error-color;
+        background-color: @alert-error-bg;
+        border: 1px solid @alert-error-border;
+    }
+
+    &.ux-alert-success {
+        color: @alert-success-color;
+        background-color: @alert-success-bg;
+        border: 1px solid @alert-success-border;
+    }
+
+    &.ux-alert-warning {
+        color: @alert-warning-color;
+        background-color: @alert-warning-bg;
+        border: 1px solid @alert-warning-border;
+    }
+
+    &.ux-alert-dark {
+        color: @alert-dark-color;
+        background-color: @alert-dark-bg;
+        border: 1px solid @alert-dark-border;
     }
 }

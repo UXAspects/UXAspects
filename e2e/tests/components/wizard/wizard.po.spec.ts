@@ -1,4 +1,4 @@
-import { browser, element, by, $, $$, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class WizardPage {
 
@@ -6,10 +6,12 @@ export class WizardPage {
     stepHeaders = $$('.wizard-step');
     stepContents = $$('ux-wizard-step');
 
-    buttons = $$('button');
+    buttons = $$('ux-wizard button');
+    addStep5Button = $('#addStep5');
+    removeStep5Button = $('#removeStep5');
 
-    getPage(): void {
-        browser.get('#/wizard');
+    async getPage(): Promise<void> {
+        await browser.get('#/wizard');
     }
 
     async getButtonByText(text: string): Promise<ElementFinder> {
@@ -32,17 +34,32 @@ export class WizardPage {
         return await this.getButtonByText('Cancel');
     }
 
-
     async getFinishButton(): Promise<ElementFinder> {
         return await this.getButtonByText('Finish');
     }
 
-    async goToNext() {
+    async goToNext(): Promise<void> {
         // find the next button
-        let next: ElementFinder = await this.getNextButton();
-        
+        const next = await this.getNextButton();
+
         // click on the next button
-        await next.click();
+        return await next.click();
+    }
+
+    async goToPrevious(): Promise<void> {
+        // find the next button
+        const prev = await this.getPreviousButton();
+
+        // click on the next button
+        return await prev.click();
+    }
+
+    async addStep5(): Promise<void> {
+        return await this.addStep5Button.click();
+    }
+
+    async removeStep5(): Promise<void> {
+        return await this.removeStep5Button.click();
     }
 
 }

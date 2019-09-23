@@ -1,22 +1,21 @@
-import { browser, element, by, ElementFinder, protractor } from 'protractor';
+import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
 export class ItemDisplayPanelPage {
-    
-    getPage(): void {
-        browser.get('#/item-display-panel');
+
+    async getPage(): Promise<void> {
+        await browser.get('#/item-display-panel');
     }
-    
+
     table1 = element(by.id('table1'));
     panel1 = element(by.id('panel1'));
-    closeButton = element(by.id('panel1')).$('div.ux-item-display-panel').$('div.item-display-panel-header').
-                  $('div.heading-flex-box').$('span.heading-close-button').$('i');
-    previousButton = element(by.id('panel1')).$('div.ux-item-display-panel').$('div.item-display-panel-footer').
-                     $('div.pull-right').$('span.btn-pair').$$('button').get(0);
-    nextButton = element(by.id('panel1')).$('div.ux-item-display-panel').$('div.item-display-panel-footer').
-                 $('div.pull-right').$('span.btn-pair').$$('button').get(1);
-    
+    header = element(by.id('panel1')).$('div.ux-item-display-panel > div.ux-side-panel-header > h3');
+    closeButton = element(by.id('panel1')).$('div.ux-item-display-panel > div.ux-side-panel-header > button');
+    contentHeader = element(by.id('panel1')).$('div.ux-item-display-panel > div.ux-side-panel-content h1');
+    previousButton = element(by.id('panel1')).$('div.ux-item-display-panel > div.ux-side-panel-footer button:nth-of-type(1)');
+    nextButton = element(by.id('panel1')).$('div.ux-item-display-panel > div.ux-side-panel-footer button:nth-of-type(2)');
+
     confirmClassExists(item: ElementFinder, soughtClass: string) {
-        return item.getAttribute('class').then(function(classes: string) {
+        return item.getAttribute('class').then(function (classes: string) {
             var allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
@@ -25,69 +24,63 @@ export class ItemDisplayPanelPage {
             }
         });
     }
-    
+
     getNumberOfTableRows() {
         return this.table1.$('tbody').$$('tr').count();
     }
-    
+
     confirmRowIsHighlighted(index: number) {
         return this.confirmClassExists(this.table1.$('tbody').$$('tr').get(index), 'highlight');
     }
-    
+
     waitForPanelToBeDisplayed() {
         return browser.wait(protractor.ExpectedConditions.visibilityOf(this.panel1));
     }
-    
+
     confirmPanelIsDisplayed() {
-        return this.confirmClassExists(this.panel1, 'visible-host');
+        return this.confirmClassExists(this.panel1, 'open');
     }
-    
+
     clickARow(index: number) {
         this.table1.$('tbody').$$('tr').get(index).click();
     }
-    
+
     getPanelHeader() {
-        return this.panel1.$('div.ux-item-display-panel').$('div.item-display-panel-header').$('div.heading-flex-box').
-               $('h3').getText();
+        return this.header.getText();
     }
 
     getPanelContent() {
-        return this.panel1.$('div.ux-item-display-panel').$('div.item-display-panel-content').$('div[uxitemdisplaypanelcontent]').
-               $('div.p-r-md').$('h1').getText();
+        return this.contentHeader.getText();
     }
-    
+
     confirmPanelCloseButtonIsVisible() {
         return this.closeButton.isPresent();
     }
-    
-    checkPanelPreviousButtonIsEnabled() {
-        return(this.previousButton.getAttribute('disabled').then(function(attr: string) {
-                return (attr) ? false : true;
-            })
-        );
+
+    async checkPanelPreviousButtonIsEnabled() {
+        const disabled = await this.previousButton.getAttribute('disabled');
+        return disabled ? false : true;
     }
-    
-    checkPanelNextButtonIsEnabled() {
-        return(this.nextButton.getAttribute('disabled').then(function(attr: string) {
-                return (attr) ? false : true;
-            })
-        );
+
+    async checkPanelNextButtonIsEnabled() {
+        const disabled = await this.nextButton.getAttribute('disabled');
+        return disabled ? false : true;
     }
-    
-    clickCloseButton() {
+
+    async clickCloseButton() {
         // Sometimes fails with button no visible. Therefore, wait for it to become visible.
-        var EC = protractor.ExpectedConditions;
-        var elem = this.closeButton;
+        const EC = protractor.ExpectedConditions;
+        const elem = this.closeButton;
         browser.wait(EC.visibilityOf(elem));
-        elem.click();
+        await elem.click();
     }
-    
-    clickPreviousButton() {
-        this.previousButton.click();
+
+    async clickPreviousButton() {
+        await this.previousButton.click();
     }
-    
-    clickNextButton() {
-        this.nextButton.click();
-    }    
+
+    async clickNextButton() {
+        await this.nextButton.click();
+    }
 }
 

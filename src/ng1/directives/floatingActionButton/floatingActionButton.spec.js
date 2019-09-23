@@ -1,11 +1,12 @@
 describe('floating action button', function () {
-  var $compile, $rootScope, $scope, elementBottom, elementRight, elementTop, elementLeft;
+  var $compile, $rootScope, $scope, $document, elementBottom, elementRight, elementTop, elementLeft;
 
   beforeEach(module("ux-aspects.floatingActionButton"));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function (_$compile_, _$rootScope_, _$document_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
+    $document = _$document_;
     $scope = $rootScope.$new();
 
     $scope.selectFloatingActionButton = function () {};
@@ -34,38 +35,45 @@ describe('floating action button', function () {
   }));
 
   it('should not show any children', function () {
-    expect(elementBottom.find('.child-btn-set')[0].classList.contains('child-btn-set-visible')).toBe(false);
+    expect(elementBottom.find('.floating-action-button-list')[0].classList.contains('collapsed')).toBe(true);
   });
 
   it('should call the expand function on click', function () {
-    var scope = angular.element(elementBottom.find('.dir-bottom')[0]).scope();
-    spyOn(scope, "expand");
-    elementBottom.find('.dir-bottom').trigger("click");
+    var scope = angular.element(elementBottom.find('.button-primary')[0]).scope();
+    elementBottom.find('.button-primary').trigger("click");
     $scope.$digest();
-    expect(scope.expand).toHaveBeenCalled();
+    expect(scope.fab.expanded).toBe(true);
   });
 
-  it('should call the collapse function on mouseout', function () {
-    var scope = angular.element(elementBottom.find('.dir-bottom')[0]).scope();
-    spyOn(scope, "collapse");
-    elementBottom.find('.dir-bottom').trigger("mouseout");
+  it('should call the collapse function on click outside', function () {
+    var scope = angular.element(elementBottom.find('.button-primary')[0]).scope();
+
+    elementBottom.find('.button-primary').trigger("click");
     $scope.$digest();
-    expect(scope.collapse).toHaveBeenCalled();
+    expect(scope.fab.expanded).toBe(true);
+
+    $document.trigger("click");
+    $scope.$digest();
+    expect(scope.fab.expanded).toBe(false);
   });
 
   it('should call the selectedCollapse function on click', function () {
-    var scope = angular.element(elementBottom.find('.dir-bottom')[0]).scope();
-    spyOn(scope, "selectedCollapse");
-    elementBottom.find(".button-secondary").trigger("click");
+    var scope = angular.element(elementBottom.find('.button-primary')[0]).scope();
+
+    elementBottom.find('.button-primary').trigger("click");
     $scope.$digest();
-    expect(scope.selectedCollapse).toHaveBeenCalled();
+    expect(scope.fab.expanded).toBe(true);
+
+    elementBottom.find(".button-secondary").first().trigger("click");
+    $scope.$digest();
+    expect(scope.fab.expanded).toBe(false);
   });
 
   it('should expand in the correct direction', function () {
-    expect(elementBottom.find(".button-primary").hasClass("dir-bottom")).toBe(true);
-    expect(elementRight.find(".button-primary").hasClass("dir-right")).toBe(true);
-    expect(elementTop.find(".button-primary").hasClass("dir-top")).toBe(true);
-    expect(elementLeft.find(".button-primary").hasClass("dir-left")).toBe(true);
+    expect(elementBottom.find(".floating-action-button-list").hasClass("bottom")).toBe(true);
+    expect(elementRight.find(".floating-action-button-list").hasClass("right")).toBe(true);
+    expect(elementTop.find(".floating-action-button-list").hasClass("top")).toBe(true);
+    expect(elementLeft.find(".floating-action-button-list").hasClass("left")).toBe(true);
   });
 
 });

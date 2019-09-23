@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, Output, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 
 @Directive({
     selector: '[uxInfiniteScrollLoadButton]'
@@ -27,7 +26,7 @@ export class InfiniteScrollLoadButtonDirective {
         this._visible = value;
     }
 
-    @Output() load: Observable<Event>;
+    @Output() loading: Observable<Event>;
 
     private _visible: boolean = false;
     private _load = new Subject();
@@ -38,7 +37,7 @@ export class InfiniteScrollLoadButtonDirective {
         private _viewContainer: ViewContainerRef,
         private _renderer: Renderer2) {
 
-        this.load = this._load.asObservable() as Observable<Event>;
+        this.loading = this._load.asObservable() as Observable<Event>;
     }
 
     private onClick(event: MouseEvent) {

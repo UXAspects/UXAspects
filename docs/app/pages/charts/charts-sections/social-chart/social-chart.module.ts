@@ -1,15 +1,14 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-import { ChartsSocialChartNg1Component } from './social-chart-ng1/social-chart-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
+import { RouterModule } from '@angular/router';
+import { HybridModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsSocialChartNg1Component } from './social-chart-ng1/social-chart-ng1.component';
+
 
 const SECTIONS = [
     ChartsSocialChartNg1Component
@@ -29,7 +28,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         FormsModule,
-        TabsModule,
+        TabsetModule,
         WrappersModule,
         HybridModule,
         DocumentationComponentsModule,

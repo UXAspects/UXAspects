@@ -12,7 +12,7 @@
 <uxd-snippet [content]="snippets.compiled.sample1Html"></uxd-snippet>
 
 <blockquote>
-    <p>Reference the CodePen for the code used in all examples above</p>
+    <p>Reference the Plunker for the code used in all examples above</p>
 </blockquote>
 
 <h4>Values</h4>
@@ -59,7 +59,7 @@
 
 <uxd-api-properties tableTitle="Handle Options">
     <tr uxd-api-property name="style" defaultValue="button">
-        his allows you to choose the appearance of the drag handles. The two available options are 
+        his allows you to choose the appearance of the drag handles. The two available options are
         <code>button</code> and <code>line</code>.
     </tr>
     <tr uxd-api-property name="callout">
@@ -74,7 +74,7 @@
         <br>
         <ul>
             <li><code>none</code> - The callout will never appear. This is the default option.</li>
-            <li><code>hover</code> - The callout will appear when the mouse is over the handle and will 
+            <li><code>hover</code> - The callout will appear when the mouse is over the handle and will
             remain visible when dragging the handle.</li>
             <li><code>drag</code> - The callout will appear only when the handle is being dragged.</li>
             <li><code>persistent</code> - The callout will always be visible.</li>
@@ -87,8 +87,8 @@
         Specified the text color of the callout.
     </tr>
     <tr uxd-api-property name="formatter">
-        This allows you to specify a function that will format the value in the callout. The function 
-        should accept the value as a parameter and return the modified value. By default the value will 
+        This allows you to specify a function that will format the value in the callout. The function
+        should accept the value as a parameter and return the modified value. By default the value will
         not be modified.
     </tr>
 </uxd-api-properties>
@@ -108,7 +108,7 @@
         are shown on every 10th value with labels, minor ticks are shown every 5 values with no labels.
     </tr>
     <tr uxd-api-property name="colors">
-        Specifies the colors that should be used on different parts of the track. This should be an 
+        Specifies the colors that should be used on different parts of the track. This should be an
         object that can containthe following properties:
         <br>
         <ul>
@@ -135,32 +135,32 @@
         </ul>
     </tr>
     <tr uxd-api-property name="major">
-        Should be an object containing properties that configure the major ticks. Major ticks will be 
+        Should be an object containing properties that configure the major ticks. Major ticks will be
         more prominent that minor ticks and tend to be less frequent.
     </tr>
     <tr uxd-api-property name="minor">
-        Should be an object containing properties that configure the minor ticks. Minor ticks will be 
+        Should be an object containing properties that configure the minor ticks. Minor ticks will be
         less prominent that major ticks and tend to be more frequent.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Major & Minor Tick Options">
     <tr uxd-api-property name="show">
-        Specifies whether this variety of ticks should be shown. The available options are 
+        Specifies whether this variety of ticks should be shown. The available options are
         <code>true</code> or <code>false</code>. By default both major and minor ticks will be shown.
     </tr>
     <tr uxd-api-property name="steps">
-        Specifies at what interval this variety of tick should appear. Default for major ticks is 
-        <code>10</code>, the default for minor ticks is <code>5</code>. Additionally this can be an array 
-        containing precise values of when ticks should appear. This can be useful when ticks should not 
+        Specifies at what interval this variety of tick should appear. Default for major ticks is
+        <code>10</code>, the default for minor ticks is <code>5</code>. Additionally this can be an array
+        containing precise values of when ticks should appear. This can be useful when ticks should not
         appear at regular intervals.
     </tr>
     <tr uxd-api-property name="labels">
-        Specifies whether or not this variety of ticks should display labels. The available options are 
+        Specifies whether or not this variety of ticks should display labels. The available options are
         <code>true</code> or <code>false</code>. By default major ticks will show labels, minor ticks will not.
     </tr>
     <tr uxd-api-property name="formatter">
-        This allows you to specify a function that will format the value in the tick label. This should 
+        This allows you to specify a function that will format the value in the tick label. This should
         accept a value as a parameter and return a modified value. By default the value will not be modified.
     </tr>
 </uxd-api-properties>

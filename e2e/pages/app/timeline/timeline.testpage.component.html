@@ -6,8 +6,8 @@
 
                 <div class="m-b-sm">
                     <span>
-                        <i class="hpe-icon hpe-document-time"></i>
-                        <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>        
+                        <ux-icon name="document-time"></ux-icon>
+                        <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>
                     </span>
                 </div>
                 <p class="m-b-nil">Ticket
@@ -19,3 +19,5 @@
         </ux-timeline>
     </div>
 </div>
+
+<button id="reset-btn" class="btn button-primary" (click)="reset()">Reset</button>

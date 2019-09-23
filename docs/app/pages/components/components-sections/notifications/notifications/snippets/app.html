@@ -1,8 +1,7 @@
 <ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
 <div class="btn-container">
-    <button class="btn button-primary m-r-sm" (click)="notificationService.show(notification,
-        { duration: duration, backgroundColor: backgroundColor })">
+    <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">
         Show Notification
     </button>
     <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
@@ -10,63 +9,95 @@
     </button>
 </div>
 
-<ng-template #notification let-notificationRef>
+<ng-template #notification let-notificationRef let-data="data">
 
-    <div class="dismiss">
-        <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
-    </div>
-    
+    <button class="dismiss"
+        tabindex="0"
+        aria-label="Dismiss Notification"
+        (click)="notificationService.dismiss(notificationRef)">
+        <ux-icon name="close"></ux-icon>
+    </button>
+
     <div class="notification-wrapper">
 
         <div class="notification-icon">
-            <span class="hpe-icon hpe-chat"></span>
+            <ux-icon name="chat"></ux-icon>
         </div>
-    
+
         <div class="notification-content">
             <h4 class="notification-title">Messages Received</h4>
-            <p class="notification-description">You have 16 messages</p>
+            <p class="notification-description">{{ data.description }}</p>
             <p class="notification-timestamp">
                 {{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}
             </p>
         </div>
 
     </div>
-    
 </ng-template>
 
 <hr>
 
 <div class="row uxd-customize-example">
-        <div class="col-md-12">
-            <accordion>
-                <accordion-group class="accordion-chevron" heading="Customize Example...">
-                    <div class="row uxd-customize-row">
-                        <div class="col-md-6 col-sm-12">
-                            <label for="backgroundColor">backgroundColor</label>
-                            <div class="input-group m-b-sm">
-                                <input type="text" placeholder="Enter color" class="form-control"
-                                    [(ngModel)]="backgroundColor">
-                                <span class="input-group-addon color-display"
-                                    [style.background-color]="backgroundColor"></span>
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="backgroundColor">backgroundColor</label>
+                        <div class="btn-group"
+                            (keydown.esc)="isPickerOpen = false; toggleButton.focus()"
+                            dropdown
+                            [(isOpen)]="isPickerOpen"
+                            [autoClose]="false">
+
+                            <button type="button"
+                                aria-label="Select a color"
+                                class="btn button-secondary dropdown-toggle"
+                                #toggleButton
+                                dropdownToggle>
+
+                                <span class="ux-color-picker-button-preview"
+                                    [style.background-color]="selected.rgba">
+                                    &nbsp;
+                                </span>
+                                <ux-icon name="chevron-down"></ux-icon>
+
+                            </button>
+
+                            <div *dropdownMenu
+                                #dropdownMenu
+                                id="color-picker-dropdown"
+                                class="dropdown-menu ux-color-picker-dropdown">
+
+                                <ux-color-picker
+                                    [colors]="colors"
+                                    [(selected)]="selected"
+                                    (selectedChange)="toggleButton.focus(); isPickerOpen = false"
+                                    [columns]="4"
+                                    buttonStyle="circle"
+                                    buttonSize="md"
+                                    [showTooltips]="false"
+                                    [showInput]="false">
+                                </ux-color-picker>
+
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="duration">duration</label>
-                            <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="duration">duration</label>
+                        <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-sm-6">
+                        <label for="backgroundColor">description</label>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Enter description"
+                                class="form-control" [(ngModel)]="description">
                         </div>
                     </div>
-                    <div class="row uxd-customize-row">
-                        <div class="col-md-4 col-sm-12">
-                            <p>
-                                <small>Recommended Colors</small>
-                            </p>
-                            <div class="color-palette">
-                                <div class="color-box" *ngFor="let color of colors"
-                                [style.background-color]="color" (click)="backgroundColor = color"></div>
-                            </div>
-                        </div>
-                    </div>
-                </accordion-group>
-            </accordion>
-        </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
+</div>

@@ -12,12 +12,13 @@ export function SparkDirective() {
             bottomLeftLabel: "=?",
             bottomRightLabel: "=?",
             sparkTooltip: "@?",
+            sparkTooltips: "=?",
             barColor: "=?",
             trackColor: "=?"
         },
-        template: `<spark type="type" spark-tooltip="{{ sparkTooltip }}" value="value" fillheight="fillheight" inline-label="inlineLabel" top="top" top-left-label="topLeftLabel" top-right-label="topRightLabel" bottom-left-label="bottomLeftLabel" bottom-right-label="bottomRightLabel" bar-color="barColor" track-color="trackColor"></spark>`,
+        template: `<spark type="type" spark-tooltip="{{ sparkTooltip }}" spark-tooltips="sparkTooltips" value="value" fillheight="fillheight" inline-label="inlineLabel" top="top" top-left-label="topLeftLabel" top-right-label="topRightLabel" bottom-left-label="bottomLeftLabel" bottom-right-label="bottomRightLabel" bar-color="barColor" track-color="trackColor"></spark>`,
         controller: ['$scope', function($scope) {
-            
+
             $scope.type = typeof $scope.type === 'function' ? $scope.type() : $scope.type;
             $scope.value = typeof $scope.value === 'function' ? $scope.value() : $scope.value;
             $scope.fillheight = typeof $scope.fillheight === 'function' ? $scope.fillheight() : $scope.fillheight;
@@ -29,7 +30,8 @@ export function SparkDirective() {
             $scope.bottomRightLabel = typeof $scope.bottomRightLabel === 'function' ? $scope.bottomRightLabel() : $scope.bottomRightLabel;
             $scope.barColor = typeof $scope.barColor === 'function' ? $scope.barColor() : $scope.barColor;
             $scope.trackColor = typeof $scope.trackColor === 'function' ? $scope.trackColor() : $scope.trackColor;
-            
+            $scope.sparkTooltips = typeof $scope.sparkTooltips === 'function' ? $scope.sparkTooltips() : $scope.sparkTooltips;
+
             this.$onDestroy = function() {
                 $scope.$destroy();
             };

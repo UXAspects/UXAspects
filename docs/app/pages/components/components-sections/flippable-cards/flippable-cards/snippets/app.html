@@ -1,174 +1,115 @@
 <div class="flex-container">
+    <ux-flippable-card
+        *ngFor="let card of cards"
+        [attr.aria-label]="card.label"
+        class="m-sm"
+        [class.flip-card-flipped]="card.flipped"
+        [(flipped)]="card.flipped"
+        (flippedChange)="onCardFlip(card.flipped)"
+        [trigger]="card.trigger"
+        [direction]="card.direction"
+        [width]="260"
+        [height]="180">
 
-  <ux-flippable-card #flippableCard="ux-flippable-card" class="m-sm" 
-    trigger="manual" direction="vertical" [width]="260" [height]="180">
+        <ux-flippable-card-front>
+            <img src="../../../../../assets/img/IconCaseColorized36x36.png"
+                aria-hidden="true"
+                alt="Flippable card icon"
+                class="flip-card-logo">
 
-    <ux-flippable-card-front>
-      <i class="hpe-icon hpe-link-down pull-right clickable-icon" aria-hidden="true" 
-        (click)="flippableCard.toggleFlipped()"></i>
-      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
-      <div class="flip-card-content">
-        <p class="front-title">NYC vs Volkswagen</p>
-        <div class="m-t-sm">
-          <p class="card-text documents">23,456<span class="text-muted"> documents</span></p>
-          <p class="card-text reviewed">19,976<span class="text-muted"> reviewed</span></p>
-          <p class="card-text produced">11,123<span class="text-muted"> produced</span></p>
-        </div>
-        <nested-donut class="flip-card-nested-donut" 
-            [dataset]="donut1" [options]="options"></nested-donut>
-      </div>
-    </ux-flippable-card-front>
+            <button
+                #frontFlipBtn
+                uxFocusIndicator
+                aria-label="Activate to show back of card"
+                [attr.aria-hidden]="card.trigger !== 'manual'"
+                [hidden]="card.trigger !== 'manual'"
+                [tabindex]="!card.flipped ? 0 : -1"
+                class="flip-card-btn"
+                (click)="card.flipped = true; backFlipBtn.focus()">
+                <ux-icon name="link-down"></ux-icon>
+            </button>
 
-    <ux-flippable-card-back>
-      <i class="hpe-icon hpe-link-up pull-right clickable-icon icon-back" 
-         aria-hidden="true" (click)="flippableCard.toggleFlipped()"></i>
-      <div class="flip-card-content card-back">
-        <p>NYC vs Volkswagen</p>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>23,456 <span class="muted"> documents</span></p>
-          </div>
-          <div class="col-xs-7">
-            <p>
-              <span class="muted right-align">total </span>
-              <span class="left-align">1.2 GB</span>
-            </p>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span class="reviewed">19,976</span>
-              <span class="muted"> reviewed</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p class="m-b-xxs">
-              <span class="muted right-align">responsive</span>
-              <ux-spark value="65" barHeight="5" class="spark-left-align"></ux-spark>
-            </p>
-            <p class="m-b-xxs">
-              <span class="muted right-align">privilege</span>
-              <ux-spark value="65" barHeight="5" class="spark-left-align second"></ux-spark>
-            </p>
-          </div>
+            <h3 class="flip-card-title">{{ card.title }}</h3>
 
-        </div>
-      </div>
-    </ux-flippable-card-back>
+            <div class="flip-card-content-front">
 
-  </ux-flippable-card>
+                <div class="flip-card-stats">
+                    <p class="flip-card-stat">
+                        <span>{{ card.stats.documents | number }}</span>
+                        <span class="text-muted"> documents</span>
+                    </p>
+                    <p class="flip-card-stat">
+                        <span class="text-vibrant1">{{ card.stats.reviewed | number }}</span>
+                        <span class="text-muted"> reviewed</span>
+                    </p>
+                    <p class="flip-card-stat">
+                        <span class="text-vibrant2">{{ card.stats.produced | number }}</span>
+                        <span class="text-muted"> produced</span>
+                    </p>
+                </div>
 
+                <nested-donut
+                    class="flip-card-chart"
+                    [dataset]="card.chart"
+                    [options]="options">
+                </nested-donut>
+            </div>
 
-  <ux-flippable-card class="m-sm" trigger="hover" direction="horizontal" [height]="180" [width]="260">
+        </ux-flippable-card-front>
 
-    <ux-flippable-card-front>
-      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
-      <div class="flip-card-content">
-        <p class="front-title">The Dorling Case</p>
-        <div class="m-t-sm">
-          <p class="card-text documents">15,678<span class="text-muted"> documents</span></p>
-          <p class="card-text reviewed">10,123<span class="text-muted"> reviewed</span></p>
-          <p class="card-text produced">3,123<span class="text-muted"> produced</span></p>
-        </div>
-        <nested-donut class="flip-card-nested-donut" 
-            [dataset]="donut2" [options]="options"></nested-donut>
-      </div>
-    </ux-flippable-card-front>
+        <ux-flippable-card-back>
+            <div class="flip-card-content-back">
 
-    <ux-flippable-card-back>
-      <div class="flip-card-content card-back">
-        <p>The Dorling Case</p>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span>15,678</span>
-              <span class="muted"> documents</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p>
-              <span class="muted right-align">total </span>
-              <span class="left-align">0.8 GB</span>
-            </p>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span class="reviewed">10,123</span>
-              <span class="muted"> reviewed</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p class="m-b-xxs">
-              <span class="muted right-align">responsive</span>
-              <ux-spark value="65" barHeight="5" class="spark-left-align"></ux-spark>
-            </p>
-            <p class="m-b-xxs">
-              <span class="muted right-align">privilege</span>
-              <ux-spark value="65" barHeight="5" class="spark-left-align second"></ux-spark>
-            </p>
-          </div>
+                <button
+                    #backFlipBtn
+                    uxFocusIndicator
+                    aria-label="Activate to show front of card"
+                    [attr.aria-hidden]="card.trigger !== 'manual'"
+                    [hidden]="card.trigger !== 'manual'"
+                    [tabindex]="card.flipped ? 0 : -1"
+                    class="flip-card-btn text-white"
+                    (click)="card.flipped = false; frontFlipBtn.focus()">
+                    <ux-icon name="link-up"></ux-icon>
+                </button>
 
-        </div>
-      </div>
-    </ux-flippable-card-back>
-  </ux-flippable-card>
+                <h4 class="flip-card-heading">{{ card.title }}</h4>
 
+                <div class="flip-card-row">
+                    <div class="flip-card-col">
+                        <p>
+                            <span class="text-white">{{ card.stats.documents | number }}</span>
+                            <span class="text-muted"> documents</span>
+                        </p>
+                    </div>
+                    <div class="flip-card-col">
+                        <p>
+                            <span class="text-muted">total</span>
+                            <span class="text-white">{{ card.stats.size }} GB</span>
+                        </p>
+                    </div>
+                </div>
 
-  <ux-flippable-card class="m-sm" trigger="click" direction="horizontal" [height]="180" [width]="260">
-    <ux-flippable-card-front>
-      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
-      <div class="flip-card-content">
-        <p class="front-title">The Salisbury Case</p>
-        <div class="m-t-sm">
-          <p class="card-text documents">256,987<span class="text-muted"> documents</span></p>
-          <p class="card-text reviewed">143,567<span class="text-muted"> reviewed</span></p>
-          <p class="card-text produced">45,678<span class="text-muted"> produced</span></p>
-        </div>
-        <nested-donut class="flip-card-nested-donut" 
-            [dataset]="donut3" [options]="options"></nested-donut>
-      </div>
-    </ux-flippable-card-front>
+                <hr>
 
-    <ux-flippable-card-back>
-      <div class="flip-card-content card-back">
-        <p>The Salisbury Case</p>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>256,987<span class="muted"> documents</span></p>
-          </div>
-          <div class="col-xs-7">
-            <p>
-              <span class="muted right-align">total </span>
-              <span class="left-align">10.7 GB</span>
-            </p>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span class="reviewed">143,567</span>
-              <span class="muted"> reviewed</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p class="m-b-xxs">
-              <span class="muted right-align">responsive</span>
-              <ux-spark value="65" barHeight="5" class="spark-left-align"></ux-spark>
-            </p>
-            <p class="m-b-xxs">
-              <span class="muted right-align">privilege</span>
-              <ux-spark value="65" barHeight="5" class="spark-left-align second"></ux-spark>
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </ux-flippable-card-back>
-  </ux-flippable-card>
+                <div class="flip-card-row">
+                    <div class="flip-card-col">
+                        <p>
+                            <span class="text-vibrant1">{{ card.stats.reviewed | number }}</span>
+                            <span class="text-muted">reviewed</span>
+                        </p>
+                    </div>
+                    <div class="flip-card-col">
+                        <p class="flip-inline-chart">
+                            <span class="text-muted text-right">responsive</span>
+                            <ux-spark [value]="65" [barHeight]="5"></ux-spark>
+                        </p>
+                        <p class="flip-inline-chart">
+                            <span class="text-muted text-right">privilege</span>
+                            <ux-spark [value]="40" [barHeight]="5"></ux-spark>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ux-flippable-card-back>
+    </ux-flippable-card>
 </div>

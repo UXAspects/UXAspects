@@ -1,14 +1,14 @@
+import { from } from 'rxjs/observable/from';
+import { of } from 'rxjs/observable/of';
+import { first } from 'rxjs/operators';
+import { ElementScrollAdapter } from "./adapters/element-scroll.adapter";
 import { ScrollPaneAdapter } from "./adapters/scroll-pane.adapter";
 import { WindowScrollAdapter } from "./adapters/window-scroll.adapter";
-import { ElementScrollAdapter } from "./adapters/element-scroll.adapter";
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
-import 'rxjs/add/operator/first';
 
 export class InfiniteScrollController {
 
     get searchQuery() {
-        return this._query;
+        return this._query || '';
     }
 
     set searchQuery(value) {
@@ -18,19 +18,32 @@ export class InfiniteScrollController {
         }
     }
 
-    constructor($attrs, $templateRequest, $scope, $element, safeInterval, $timeout) {
+    set loading(value) {
+        this._loading = value;
+
+        if (this.loadingChange) {
+            this.loadingChange(value);
+        }
+    }
+
+    get loading() {
+        return this._loading;
+    }
+
+    constructor($attrs, $scope, $element, safeInterval, $timeout) {
         this.page = 0;
         this.items = [];
         this.pages = [];
         this.initialised = true;
         this.template = null;
-        this.loading = false;
         this.complete = false;
         this.$element = $element;
         this.$interval = safeInterval.create($scope);
+        this._loading = false;
+        this._ensureScrollableInterval = null;
 
         // private variables
-        this._query = null;
+        this._query = this._query || null;
         this._subscriptions = [];
 
         // set some default values if required
@@ -44,7 +57,7 @@ export class InfiniteScrollController {
 
         // watch for broadcasted events
         $scope.$on('infiniteScroll.reset', () => this.reset());
-        $scope.$on('infiniteScroll.reload', () => this.reload());        
+        $scope.$on('infiniteScroll.reload', () => this.reload());
         $scope.$on('infiniteScroll.reloadPage', (event, page) => this.getPage(page));
 
         // cleanup after ourselves
@@ -68,11 +81,13 @@ export class InfiniteScrollController {
      */
     ensureScrollable() {
 
+        if (this._ensureScrollableInterval) return;
+
         //if we are using a load more button this is also not required
         if (this.buttonOptions && this.buttonOptions.show) return;
 
         // repeat until we have enough items
-        this.$interval.interval(() => {
+        this._ensureScrollableInterval = this.$interval.interval(() => {
 
             // if we are currently loading or have loaded all pages then do nothing
             if (this.loading || this.complete || document.hidden) {
@@ -92,14 +107,14 @@ export class InfiniteScrollController {
      */
     onScroll(position) {
 
-        // if we are using the load more button 
+        // if we are using the load more button
         // or we are currently loading then stop here
         if (this.loading || this.buttonOptions.show) {
             return;
         }
 
         // otherwise check if the position is greater than the loading position
-        if (position >= this.pagePosition) {
+        if (position >= this.pagePosition && !this.complete) {
             this.getNextPage();
         }
     }
@@ -114,12 +129,12 @@ export class InfiniteScrollController {
 
         // call the specified paging function
         let results = this.pageFn(page, this.pageSize, this.searchQuery);
-        
+
         // convert to an observable
         const observable = angular.isArray(results) ? of(results) : from(results);
 
         // store the subscription - now it is cancellable unlike a promise
-        const subscription = observable.first().subscribe(items => {
+        const subscription = observable.pipe(first()).subscribe(items => {
 
             // remove this request from the list
             this._subscriptions = this._subscriptions.filter(request => request !== subscription);
@@ -149,8 +164,8 @@ export class InfiniteScrollController {
      */
     setPageItems(page, items) {
 
-        // if no items are returned then we have loaded all pages
-        if (items.length === 0) {
+        // if we return less items that the specified page size then we have loaded all items
+        if (items.length < this.pageSize) {
             this.complete = true;
         }
 
@@ -174,9 +189,10 @@ export class InfiniteScrollController {
         this.page = 0;
         this.items = [];
         this.pages = [];
-        
+
         // reset the loading state and cancel any pending requests
         this.loading = false;
+        this.complete = false;
 
         // cancel any pending requests
         if (this._subscriptions) {
@@ -224,4 +240,4 @@ const ScrollType = {
     Standard: 1
 };
 
-InfiniteScrollController.$inject = ['$attrs', '$templateRequest', '$scope', '$element', 'safeInterval', '$timeout'];
+InfiniteScrollController.$inject = ['$attrs', '$scope', '$element', 'safeInterval', '$timeout'];

@@ -11,7 +11,15 @@
                 [dropDirection]="dropDirection"
                 [(dropdownOpen)]="dropdownOpen"
                 [pageSize]="pageSize"
-                [placeholder]="placeholder">
+                [placeholder]="placeholder"
+                [readonlyInput]="readonlyInput"
+                [clearButton]="clearButton">
+
+                <ng-template #icon *ngIf="multiple | async">
+                    <div class="ux-select-icon">
+                        <i class="ux-icon ux-icon-add"></i>
+                    </div>
+                </ng-template>
             </ux-select>
         </div>
     </div>
@@ -23,8 +31,8 @@
 </div>
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="dataSet">options</label>
@@ -35,17 +43,25 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [value]="multiple | async"
                             (valueChange)="multiple.next($event)">multiple</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">
                             allowNull
                         </ux-checkbox>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-3 col-sm-12">
+                        <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -61,7 +77,7 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <ux-checkbox [value]="pagingEnabled | async"
                             (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
                     </div>
@@ -69,10 +85,14 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="pageSize">pageSize</label>
-                        <ux-number-picker [(value)]="pageSize" min="1" max="1000" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
+                        <ux-number-picker [(value)]="pageSize"
+                            [min]="1"
+                            [max]="1000"
+                            [disabled]="!(pagingEnabled | async)">
+                        </ux-number-picker>
                     </div>
                 </div>
-            </accordion-group>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>

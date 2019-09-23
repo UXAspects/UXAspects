@@ -1,5 +1,5 @@
 import { IControllerConstructor, Injectable } from 'angular';
-import * as angular from 'angular';
+declare const angular: ng.IAngularStatic;
 
 class PartitionMapPopoverCtrl {
 

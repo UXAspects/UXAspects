@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
+import { TreeNode } from 'angular-tree-component';
 
 @Component({
     selector: 'app',
@@ -65,6 +65,37 @@ export class AppComponent {
             { name: 'IMG_003.jpg' }
         ]
     }];
+
+    focused: TreeNode;
+
+    /**
+     * If tree view is tabbed to, focus the node
+     */
+    focus(node: TreeNode): void {
+        node.focus();
+        node.treeModel.setFocus(true);
+    }
+
+    /** Ensure the blur state is updated consistently */
+    blur(node: TreeNode): void {
+        if (this.focused === node) {
+            node.blur();
+            node.treeModel.setFocus(false);
+        }
+    }
+
+    getIcon(node: TreeNode): string {
+        if (node.hasChildren && !node.isExpanded) {
+            return 'folder';
+        }
+        if (node.hasChildren && node.isExpanded) {
+            return 'folder-open';
+        }
+
+        if (!node.hasChildren) {
+            return 'document';
+        }
+    }
 }
 
 export interface TreeViewExampleNode {

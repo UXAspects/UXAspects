@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FloatingActionButtonItem } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { FloatingActionButtonItem } from '../../../../../../../src/index';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-floating-action-button-ng1',
@@ -11,30 +12,30 @@ import { FloatingActionButtonItem } from '../../../../../../../src/index';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsFloatingActionButtonNg1Component')
-export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.floatingActionButtonHtml,
         htmlAttributes: {
             'ng-controller': 'FloatingActionButtonCtrl as vm'
         },
         js: [this.snippets.raw.floatingActionButtonJs]
-    };
+    });
 
     itemsOne: FloatingActionButtonItem[] = [
         {
             icon: 'hpe-add',
-            event: () => {},
+            event: () => { },
             tooltip: 'Add New Item'
         },
         {
             icon: 'hpe-analytics',
-            event: () => {},
+            event: () => { },
             tooltip: 'Show Analytics'
         },
         {
             icon: 'hpe-app',
-            event: () => {},
+            event: () => { },
             tooltip: 'Show Overview'
         }
     ];
@@ -42,19 +43,19 @@ export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentatio
     itemsTwo: FloatingActionButtonItem[] = [
         {
             icon: 'hpe-add',
-            event: () => {},
+            event: () => { },
             tooltip: 'Add New Item',
             tooltipPlacement: 'right'
         },
         {
             icon: 'hpe-analytics',
-            event: () => {},
+            event: () => { },
             tooltip: 'Show Analytics',
             tooltipPlacement: 'right'
         },
         {
             icon: 'hpe-app',
-            event: () => {},
+            event: () => { },
             tooltip: 'Show Overview',
             tooltipPlacement: 'right'
         }

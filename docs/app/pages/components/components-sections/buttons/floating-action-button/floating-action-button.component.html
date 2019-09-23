@@ -1,9 +1,33 @@
 <ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
 
-    <ux-floating-action-button fab-primary icon="hpe-contract" tooltip="Show Actions" container="body" [placement]="placement"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-add" tooltip="Add New Item" container="body" [placement]="placement"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-analytics" tooltip="Show Analytics" container="body" [placement]="placement"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-app" tooltip="Show Overview" container="body" [placement]="placement"></ux-floating-action-button>
+    <ux-floating-action-button
+        fab-primary
+        uxTooltip="Show Actions"
+        aria-label="Show Actions"
+        [placement]="placement">
+        <ux-icon name="contract"></ux-icon>
+    </ux-floating-action-button>
+
+    <ux-floating-action-button
+        uxTooltip="Add New Item"
+        aria-label="Add New Item"
+        [placement]="placement">
+        <ux-icon name="add"></ux-icon>
+    </ux-floating-action-button>
+
+    <ux-floating-action-button
+        uxTooltip="Show Analytics"
+        aria-label="Show Analytics"
+        [placement]="placement">
+        <ux-icon name="analytics"></ux-icon>
+    </ux-floating-action-button>
+
+    <ux-floating-action-button
+        uxTooltip="Show Overview"
+        aria-label="Show Overview"
+        [placement]="placement">
+        <ux-icon name="app"></ux-icon>
+    </ux-floating-action-button>
 
 </ux-floating-action-buttons>
 
@@ -11,8 +35,8 @@
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-panel heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-12">
                         <label>direction</label>
@@ -22,13 +46,13 @@
                         <ux-radio-button [(ngModel)]="direction" option="left">left</ux-radio-button>
                     </div>
                 </div>
-            </accordion-panel>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>
 
 <p>
-    Floating Action Buttons are contained in a <code>ux-floating-action-buttons</code> component. 
+    Floating Action Buttons are contained in a <code>ux-floating-action-buttons</code> component.
     Each action button should be added as a child using the <code>ux-floating-action-button</code> component.
 </p>
 
@@ -49,12 +73,9 @@
     </tr>
 </uxd-api-properties>
 
-<p>The following input can be used to customize the appearance of the <code>ux-floating-action-button</code> component:</p>
-
-<uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="icon" type="string">
-        If specified, defines which icon from the icon set to display in the button. If you wish to display custom content 
-        you can simply add children to the component and they will be displayed within the button.
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="openChange" type="boolean">
+        Emits an event when the list of additional buttons is opened or closed.
     </tr>
 </uxd-api-properties>
 
@@ -62,23 +83,18 @@
     The following code can be used to create the example above:
 </p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <blockquote>
     <p><strong>Note</strong>: The root module must import <code>BrowserAnimationsModule</code> from <code>'@angular/platform-browser/animations'</code>.</p>
-</blockquote>
-
-<blockquote>
-    <p><strong>Note</strong>: To display web animations in IE 11 and Edge the <code>web-animations-js</code> polyfill must be imported.</p>
-    <p>Run <code>npm install web-animations-js --save</code> to install the polyfill.</p>
 </blockquote>

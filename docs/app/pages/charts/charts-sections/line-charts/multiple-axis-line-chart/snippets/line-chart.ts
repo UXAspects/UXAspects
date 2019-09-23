@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
@@ -82,13 +82,13 @@ export class AppComponent implements AfterViewInit {
 
                 let sets = chart.data.datasets.map((dataset: Chart.ChartDataSets) => {
                     return `<li class="multi-axis-legend-list-item">
-                                <span class="multi-axis-legend-box" style="background-color: ${dataset.backgroundColor}; border-color: ${dataset.borderColor}"></span> 
+                                <span class="multi-axis-legend-box" style="background-color: ${dataset.backgroundColor}; border-color: ${dataset.borderColor}"></span>
                                 <span class="multi-axis-legend-text">${dataset.label}</span>
                             </li>`;
                 });
 
                 // create html for chart legend
-                return `<ul class="multi-axis-legend-list">${ sets.join('') }</ul>`;
+                return `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
             },
             scales: {
                 xAxes: [{
@@ -184,6 +184,10 @@ export class AppComponent implements AfterViewInit {
         setTimeout(() => {
             this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(this.baseChart.chart.generateLegend());
         });
+    }
+
+    formatDate(date: number): string {
+        return new Date(date).toLocaleDateString();
     }
 
 }

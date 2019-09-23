@@ -1,7 +1,7 @@
-@import '../node_modules/bootstrap/less/bootstrap.less';
-@import '../node_modules/prismjs/themes/prism.css';
+@import '~bootstrap/less/bootstrap.less';
+@import '~prismjs/themes/prism.css';
 @import '../src/styles/ux-aspects.less';
-@import '../node_modules/highlight.js/styles/atelier-heath-light.css';
+@import '~highlight.js/styles/atelier-heath-light.css';
 
 html,
 body {
@@ -72,12 +72,12 @@ uxd-page-footer {
     }
 }
 
-.uxd-component-section-help-popover {
+ux-popover .uxd-component-section-help-popover {
     max-width: 500px;
     margin-left: -180px;
 
     &.popover.bottom > .arrow {
-        margin-left: 169px;
+        margin-left: 80px;
     }
 }
 
@@ -89,6 +89,21 @@ kbd {
     color: #c7254e;
     background-color: #f9f2f4;
     box-shadow: none;
+}
+
+a > code {
+    border-bottom: 2px dotted transparent;
+    padding-bottom: 0;
+
+    &:hover {
+        border-bottom: 2px dotted #c7254e;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+abbr[title] {
+    text-decoration: none;
 }
 
 /*
@@ -911,60 +926,6 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 /*
-    Card Tabs
-*/
-
-.cardTab {
-    padding: 7px 9px;
-}
-
-.cardTab .cardTitle {
-    color: #333;
-    font-size: 17px;
-}
-
-.cardTab .cardValue {
-    text-align: center;
-    font-size: 26px;
-    color: #686868;
-    margin: 0;
-}
-
-.cardTab .cardSubtitle {
-    text-align: center;
-    color: #b8b8b8;
-    margin-bottom: 0;
-}
-
-.cardTab .cardImg {
-    width: 100%;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
-.cardTab .cardImg.img1 {
-    background-image: url("./app/assets/img/card-img1.png");
-}
-
-.cardTab .cardImg.img2 {
-    background-image: url("./app/assets/img/card-img2.png");
-}
-
-.cardTab .cardImg.img3 {
-    background-image: url("./app/assets/img/card-img3.png");
-}
-
-.cardTab .cardImg.img4 {
-    background-image: url("./app/assets/img/card-img4.png");
-}
-
-.cardTab .cardImg.img5 {
-    background-image: url("./app/assets/img/card-img5.png");
-}
-
-/*
     Overflow Tooltip
 */
 
@@ -1630,4 +1591,16 @@ Spark table documentation styles
     width: 50px;
     min-width: 50px;
     flex: none !important;
+}
+
+.ux-usage-popover {
+    style: 350px;
+    max-width: 350px;
+    border-radius: 0;
+    z-index: 1;
+}
+
+.icon-code-snippet-popover {
+    max-width: 500px;
+    padding: 10px 5px;
 }

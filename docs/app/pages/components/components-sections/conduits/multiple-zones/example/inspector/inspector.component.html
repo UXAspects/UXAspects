@@ -1,0 +1,21 @@
+<button type="button" class="btn button-accent" [uxPopover]="popover" placement="bottom">Edit Conduit</button>
+
+<ng-template #popover>
+
+    <ng-container *ngIf="takesInput">
+        <h4>Input:</h4>
+
+        <div class="checkbox-container">
+            <ux-checkbox *ngFor="let zone of zones"
+                [ngModel]="isZoneSelected(zone)"
+                (ngModelChange)="setZoneSelected(zone, $event)">
+                {{ zone }}
+            </ux-checkbox>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="isProducer">
+        <h4>Output:</h4>
+        <ux-checkbox [(ngModel)]="producesOutput" (ngModelChange)="producesOutputChange.emit($event)">Produces Output</ux-checkbox>
+    </ng-container>
+</ng-template>

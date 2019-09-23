@@ -1,5 +1,5 @@
 <ux-filter-container id="container" (events)="filtersChanged($event)">
-    <ux-filter-dynamic id="authorMenu" [filters]="authorFilters" [initial]="authorFilters[0]" 
+    <ux-filter-dynamic id="authorMenu" [filters]="authorFilters" [initial]="authorFilters[0]"
     [options]="typeaheadOptions"></ux-filter-dynamic>
     <ux-filter-dropdown id="statusMenu" [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
 </ux-filter-container>
@@ -24,12 +24,11 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" 
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor"
                 [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
             <td class="text-center vertical-center-icon">
-                <div class="hpe-icon" [class.text-accent]="item.active" 
-                [class.hpe-checkmark]="item.active"></div>
+                <ux-icon *ngIf="item.active" class="text-accent" name="checkmark"></ux-icon>
             </td>
         </tr>
     </tbody>

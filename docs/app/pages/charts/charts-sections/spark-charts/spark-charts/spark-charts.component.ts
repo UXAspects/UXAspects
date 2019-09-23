@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ColorIdentifier, ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { ColorService, ColorIdentifier } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-spark-charts',
     templateUrl: './spark-charts.component.html'
 })
 @DocumentationSectionComponent('ChartsSparkChartsComponent')
-export class ChartsSparkChartsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsSparkChartsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     charts: SparkChart[] = [
         {
@@ -60,7 +60,8 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             value: [70, 20, 10],
             barColor: ['#1aac60', '#fcdb1f', '#e5004c'],
             barHeight: 6,
-            topLeftLabel: "<span class='spark-label'>Multi-value</span>"
+            topLeftLabel: "<span class='spark-label'>Multi-value</span>",
+            ariaLabel: ['70% Documents', '20% Audio', '10% Video']
         },
         {
             theme: 'vibrant2',
@@ -73,7 +74,7 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
         }
     ];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs
@@ -102,4 +103,5 @@ interface SparkChart {
     bottomRightLabel?: string;
     inlineLabel?: string;
     tooltip?: string;
+    ariaLabel?: string | string[];
 }

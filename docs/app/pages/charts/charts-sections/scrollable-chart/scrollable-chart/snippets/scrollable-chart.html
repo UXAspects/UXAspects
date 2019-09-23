@@ -1,20 +1,43 @@
 <div class="demo-chart-container">
 
-    <div class="chart-scroll-previous-btn" *ngIf="hasPreviousPage()" (click)="goToPreviousPage()">
-        <i class="hpe-icon hpe-previous"></i>
+    <div *ngIf="hasPreviousPage()"
+        aria-label="Scroll to previous chart page"
+        class="chart-scroll-previous-btn"
+        (click)="goToPreviousPage()">
+        <ux-icon name="previous"></ux-icon>
     </div>
 
-    <canvas baseChart 
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [colors]="barChartColors"
-            chartType="bar">
+    <canvas aria-label="Bar chart showing file type totals"
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [colors]="barChartColors"
+        chartType="bar">
+
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>File Type</th>
+                    <th>Number of Files</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of barChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>{{barChartData[0].data[idx]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
 
-    <div class="chart-scroll-next-btn" *ngIf="hasNextPage()" (click)="goToNextPage()">
-        <i class="hpe-icon hpe-next"></i>        
+    <div *ngIf="hasNextPage()"
+        aria-label="Scroll to previous chart page"
+        class="chart-scroll-next-btn"
+        (click)="goToNextPage()">
+        <ux-icon name="next"></ux-icon>
     </div>
 
 </div>

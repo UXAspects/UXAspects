@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { DocumentationComponentsModule } from '../../components/components.module';
-
 import { CssPageComponent } from './css.component';
+
+
 
 
 const ROUTES: Routes = [
@@ -12,20 +12,20 @@ const ROUTES: Routes = [
         component: CssPageComponent,
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'buttons' },
-            { path: 'buttons', loadChildren: './css-sections/buttons/buttons.module#CssButtonsModule' },
-            { path: 'color-palette', loadChildren: './css-sections/color-palette/color-palette.module#CssColorPaletteModule' },
-            { path: 'forms', loadChildren: './css-sections/forms/forms.module#CssFormsModule' },
-            { path: 'icons', loadChildren: './css-sections/icons/icons.module#CssIconsModule' },
-            { path: 'labels', loadChildren: './css-sections/labels/labels.module#CssLabelsModule' },
-            { path: 'page-header', loadChildren: './css-sections/page-header/page-header.module#CssPageHeaderModule' },
-            { path: 'page-title', loadChildren: './css-sections/page-title/page-title.module#CssPageTitleModule' },
-            { path: 'panels', loadChildren: './css-sections/panels/panels.module#CssPanelsModule' },
-            { path: 'progress', loadChildren: './css-sections/progress/progress.module#CssProgressModule' },
-            { path: 'responsive-design', loadChildren: './css-sections/responsive-design/responsive-design.module#CssResponsiveDesignModule' },
-            { path: 'structure', loadChildren: './css-sections/structure/structure.module#CssStructureModule' },
-            { path: 'tables', loadChildren: './css-sections/tables/tables.module#CssTablesModule' },
-            { path: 'text-inputs', loadChildren: './css-sections/text-inputs/text-inputs.module#CssTextInputsModule' },
-            { path: 'typography', loadChildren: './css-sections/typography/typography.module#CssTypographyModule' },
+            { path: 'buttons', loadChildren: () => import('./css-sections/buttons/buttons.module').then(m => m.CssButtonsModule) },
+            { path: 'color-palette', loadChildren: () => import('./css-sections/color-palette/color-palette.module').then(m => m.CssColorPaletteModule) },
+            { path: 'forms', loadChildren: () => import('./css-sections/forms/forms.module').then(m => m.CssFormsModule) },
+            { path: 'icons', loadChildren: () => import('./css-sections/icons/icons.module').then(m => m.CssIconsModule) },
+            { path: 'labels', loadChildren: () => import('./css-sections/labels/labels.module').then(m => m.CssLabelsModule) },
+            { path: 'page-header', loadChildren: () => import('./css-sections/page-header/page-header.module').then(m => m.CssPageHeaderModule) },
+            { path: 'page-title', loadChildren: () => import('./css-sections/page-title/page-title.module').then(m => m.CssPageTitleModule) },
+            { path: 'panels', loadChildren: () => import('./css-sections/panels/panels.module').then(m => m.CssPanelsModule) },
+            { path: 'progress', loadChildren: () => import('./css-sections/progress/progress.module').then(m => m.CssProgressModule) },
+            { path: 'responsive-design', loadChildren: () => import('./css-sections/responsive-design/responsive-design.module').then(m => m.CssResponsiveDesignModule) },
+            { path: 'structure', loadChildren: () => import('./css-sections/structure/structure.module').then(m => m.CssStructureModule) },
+            { path: 'tables', loadChildren: () => import('./css-sections/tables/tables.module').then(m => m.CssTablesModule) },
+            { path: 'text-inputs', loadChildren: () => import('./css-sections/text-inputs/text-inputs.module').then(m => m.CssTextInputsModule) },
+            { path: 'typography', loadChildren: () => import('./css-sections/typography/typography.module').then(m => m.CssTypographyModule) },
         ],
     },
     {

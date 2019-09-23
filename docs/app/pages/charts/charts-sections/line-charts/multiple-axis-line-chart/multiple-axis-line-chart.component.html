@@ -1,25 +1,41 @@
 <div class="demo-chart-container">
 
-    <canvas baseChart 
-            [datasets]="lineChartData"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend"
-            [colors]="lineChartColors"
-            chartType="line">
+    <canvas baseChart
+        [datasets]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+        [colors]="lineChartColors"
+        chartType="line">
+
+        <table *ngFor="let dataset of lineChartData" attr.aria-label="{{dataset.label}} chart data">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>{{dataset.label}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let row of dataset.data; let idx = index">
+                    <tr *ngIf="idx % 10 === 0">
+                        <td>{{formatDate(row.x)}}</td>
+                        <td>{{row.y}}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
     </canvas>
 
-    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents"></div>
+    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents" aria-hidden="true"></div>
 
 </div>
 
 <hr>
 
 <p>
-    Multiple Axis Line Charts can be added using the <code>ng2-charts</code> library. 
+    Multiple Axis Line Charts can be added using the <code>ng2-charts</code> library.
     The <code>chart.js</code> library needs to be imported and the <code>ChartsModule</code> needs to be added to the appropriate NgModule.
 </p>
-
-<br>
 
 <p>The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the following attributes can be used to customize the chart behavior and appearance:</p>
 
@@ -54,21 +70,21 @@
 
 <p>The following code can be used to create the example above: </p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.lineChartHtml"></uxd-snippet>
-    </tab>
-    
-    <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.lineChartTs"></uxd-snippet>
-    </tab>
-    
-    <tab heading="CSS">
-        <uxd-snippet language="css" [content]="snippets.compiled.lineChartCss"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.lineChartTs"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.lineChartCss"></uxd-snippet>
+    </ux-tab>
+
+</ux-tabset>
 
 <br>
 
@@ -76,7 +92,7 @@
 
     <p class="m-b-nil">
         <b>Dependencies: </b>
-        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>, 
+        <a class="hyperlink" href="https://www.npmjs.com/package/ng2-charts">ng2-charts</a>,
         <a class="hyperlink" href="https://www.npmjs.com/package/chart.js">chart.js</a>
     </p>
 
@@ -93,7 +109,7 @@
 
     <p class="m-b-nil">
         <b>Documentation: </b>
-        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>, 
+        <a class="hyperlink" href="http://valor-software.com/ng2-charts/">Angular Directive Documentation</a>,
         <a class="hyperlink" href="http://www.chartjs.org/docs/">Chart Library Documentation</a>
     </p>
 </blockquote>

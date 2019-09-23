@@ -1,42 +1,60 @@
-const { readFileSync } = require('fs');
-const { join } = require('path');
-const webpack = require('webpack');
-const { NamedModulesPlugin, NoEmitOnErrorsPlugin } = webpack;
-const { CommonsChunkPlugin } = webpack.optimize;
+const { DefinePlugin } = require('webpack');
+const fs = require('fs');
+const gracefulFs = require('graceful-fs');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { join } = require('path');
+const { cwd } = require('process');
+const rxAlias = require('rxjs/_esm5/path-mapping');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
 
-const project_dir = process.cwd();
+const CssLoaderWithSourceMap = {
+    loader: 'css-loader',
+    options: {
+        sourceMap: true,
+    }
+};
 
-/*
-    Define Compilation Options
-*/
+const LessLoaderWithSourceMap = {
+    loader: 'less-loader',
+    options: {
+        sourceMap: true,
+    }
+};
+
+// Node has a limit to the number of files that can be open - prevent the error
+gracefulFs.gracefulify(fs);
+
 module.exports = {
 
-    entry: {
-        main: join(project_dir, 'docs', 'main.ts'),
-        vendor: join(project_dir, 'docs', 'vendor.ts'),
-        polyfills: join(project_dir, 'docs', 'polyfills.ts')
-    },
-
-    output: {
-        path: join(project_dir, 'dist', 'docs'),
-        filename: '[name].js',
-        chunkFilename: 'modules/[id].chunk.js'
-    },
-
-    devtool: 'none',
+    mode: 'development',
+    devtool: false,
 
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
+        alias: rxAlias(),
     },
 
     resolveLoader: {
         alias: {
-            'code-snippet-loader': join(project_dir, 'configs', 'loaders', 'code-snippet-loader.js')
+            'code-snippet-loader': join(cwd(), 'configs', 'loaders', 'code-snippet-loader.js'),
+            'markdown-highlighter-loader': join(cwd(), 'configs', 'loaders', 'markdown-highlighter-loader.js')
         }
+    },
+
+    entry: {
+        main: './docs/main.ts',
+        polyfills: './docs/polyfills.ts',
+        styles: './docs/styles.less'
+    },
+
+
+    output: {
+        path: join(cwd(), 'dist', 'docs'),
+        filename: '[name].js',
+        chunkFilename: 'modules/[id].chunk.js'
     },
 
     module: {
@@ -49,38 +67,32 @@ module.exports = {
             {
                 test: /\.css$/,
                 exclude: /snippets/,
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader'
-                })
-            },
-            {
-                test: /\.json$/,
-                use: 'json-loader'
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.md$/,
-                use: ['html-loader', 'markdown-code-highlight-loader']
+                use: ['html-loader', 'markdown-highlighter-loader']
             },
             {
                 test: /\.ts$/,
                 exclude: /snippets/,
-                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
+                use: '@ngtools/webpack'
             },
             {
                 test: /\.less$/,
-                include: [join(project_dir, 'docs', 'app')],
-                use: ['to-string-loader', 'css-loader', 'less-loader']
+                include: [
+                    join(cwd(), 'docs', 'app')
+                ],
+                use: ['to-string-loader', CssLoaderWithSourceMap, LessLoaderWithSourceMap]
             },
             {
                 test: /\.less$/,
                 exclude: [
-                    join(project_dir, 'docs', 'app'),
-                    join(project_dir, 'src', 'components'),
-                    join(project_dir, 'src', 'services')
+                    join(cwd(), 'docs', 'app'),
+                    join(cwd(), 'src', 'components'),
+                    join(cwd(), 'src', 'services')
                 ],
-                use: ExtractTextPlugin.extract({
-                    use: ['css-loader', 'less-loader']
-                })
+                use: ['style-loader', CssLoaderWithSourceMap, LessLoaderWithSourceMap]
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
@@ -110,26 +122,22 @@ module.exports = {
                 exclude: [
                     /node_modules/,
                     /snippets/,
-                    join(project_dir, 'src', 'ng1', 'plugins'),
-                    join(project_dir, 'src', 'ng1', 'external')
+                    join(cwd(), 'src', 'ng1', 'plugins'),
+                    join(cwd(), 'src', 'ng1', 'external')
                 ],
                 use: {
                     loader: 'babel-loader',
-                    query: {
-                        cacheDirectory: true,
-                        presets: [
-                            ['env', {
-                                modules: false
-                            }]
-                        ]
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        cacheDirectory: true
                     }
                 }
             },
             {
                 test: /\.js$/,
                 include: [
-                    join(project_dir, 'src', 'ng1', 'plugins'),
-                    join(project_dir, 'src', 'ng1', 'external')
+                    join(cwd(), 'src', 'ng1', 'plugins'),
+                    join(cwd(), 'src', 'ng1', 'external')
                 ],
                 use: 'script-loader'
             },
@@ -137,108 +145,132 @@ module.exports = {
                 test: /\.html$/,
                 use: 'ng-cache-loader?prefix=[dir]/[dir]',
                 include: /(directives|templates)/
+            },
+            // Ignore warnings about System.import in Angular
+            {
+                test: /[\/\\]@angular[\/\\].+\.js$/,
+                parser: { system: true }
             }
         ]
     },
 
+    optimization: {
+        noEmitOnErrors: true,
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                default: {
+                    chunks: 'async',
+                    minChunks: 2,
+                    priority: 10
+                },
+                common: {
+                    name: 'common',
+                    chunks: 'async',
+                    minChunks: 2,
+                    enforce: true,
+                    priority: 5
+                },
+                vendors: false,
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    enforce: true
+                }
+            }
+        }
+    },
+
     plugins: [
 
-        new HtmlWebpackPlugin({
-            template: './docs/index.ejs',
-            favicon: './docs/favicon.ico',
-            hash: false,
-            inject: true,
-            compile: true,
-            minify: false,
-            cache: true,
-            showErrors: true,
-            chunks: 'all',
-            excludeChunks: [],
-            xhtml: true
+        new ScriptsWebpackPlugin({
+            name: 'scripts',
+            sourceMap: false,
+            filename: `scripts.js`,
+            scripts: [
+                join('node_modules', 'jquery', 'dist', 'jquery.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'version.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'widget.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'data.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'ie.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'scroll-parent.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'position.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'unique-id.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'mouse.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'sortable.js'),
+                join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.js'),
+                join('node_modules', 'angular', 'angular.js'),
+            ],
+            basePath: cwd(),
         }),
 
-        new ExtractTextPlugin('styles.css'),
+        new IndexHtmlWebpackPlugin({
+            input: './docs/index.html',
+            output: 'index.html',
+            entrypoints: [
+                'scripts',
+                'polyfills',
+                'styles',
+                'main'
+            ],
+            sri: false
+        }),
 
-        new CopyWebpackPlugin([{
-                from: join(project_dir, 'docs', 'app', 'assets'),
-                to: join(project_dir, 'dist', 'docs', 'assets')
+        new CopyWebpackPlugin([
+            {
+                from: join(cwd(), 'docs', 'favicon.ico'),
+                to: join(cwd(), 'dist', 'docs', 'favicon.ico')
             },
             {
-                from: join(project_dir, 'docs', 'app', 'showcase', 'list_view', 'dist'),
-                to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'dist')
+                from: join(cwd(), 'docs', 'app', 'assets'),
+                to: join(cwd(), 'dist', 'docs', 'assets')
             },
             {
-                from: join(project_dir, 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
-                to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
+                from: join(cwd(), 'src', 'fonts'),
+                to: join(cwd(), 'dist', 'docs', 'assets', 'fonts')
             },
             {
-                from: join(project_dir, 'src', 'fonts'),
-                to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'dist', 'fonts')
+                from: join(cwd(), 'docs', 'app', 'showcase', 'list_view', 'dist'),
+                to: join(cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
             },
             {
-                from: join(project_dir, 'docs', 'app', 'showcase', 'charts', 'dist'),
-                to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'dist')
+                from: join(cwd(), 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
+                to: join(cwd(), 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
             },
             {
-                from: join(project_dir, 'docs', 'app', 'showcase', 'charts', 'bower_components'),
-                to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'bower_components')
+                from: join(cwd(), 'docs', 'app', 'showcase', 'charts', 'dist'),
+                to: join(cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
             },
             {
-                from: join(project_dir, 'src', 'fonts'),
-                to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'dist', 'fonts')
-            }
+                from: join(cwd(), 'docs', 'app', 'showcase', 'charts', 'bower_components'),
+                to: join(cwd(), 'dist', 'docs', 'showcase', 'charts', 'bower_components')
+            },
         ]),
 
-        new CopyWebpackPlugin([{
-            from: join(project_dir, 'dist'),
-            to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'dist')
-        }, {
-            from: join(project_dir, 'dist'),
-            to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'dist')
-        }], {
-            ignore: [
-                '/docs'
-            ]
+        new AngularCompilerPlugin({
+            entryModule: join(cwd(), './docs/app/app.module#AppModule'),
+            tsConfigPath: join(cwd(), 'tsconfig.json'),
+            sourceMap: false,
+            skipCodeGeneration: true,
+            nameLazyFiles: true
         }),
 
-        new CommonsChunkPlugin({
-            name: ['main', 'vendor', 'polyfills']
-        }),
-
-        new NamedModulesPlugin({}),
-
-        new webpack.ContextReplacementPlugin(
-            /(.+)?angular(\\|\/)core(.+)?/,
-            join(project_dir, 'docs')
-        ),
-
-        new ProgressPlugin(),
-
-        new NoEmitOnErrorsPlugin(),
-
-        new webpack.DefinePlugin({
+        new DefinePlugin({
             VERSION: JSON.stringify(require('../src/package.json').version),
             PRODUCTION: false
         }),
+
+        new ProgressPlugin(),
     ],
 
-    stats: {
-        colors: true,
-        reasons: true
-    },    
-
     devServer: {
-        https: {
-            pfx: readFileSync(join(project_dir, 'configs', 'webpack.docs.dev.pfx'))
-        },
         historyApiFallback: true,
-        stats: {
-            colors: true,
-            reasons: true
-        },
+        stats: 'minimal',
         overlay: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
         }
-    }
+    },
+
+    node: false
 };

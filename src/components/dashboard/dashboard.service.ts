@@ -1,65 +1,62 @@
-import { Injectable } from '@angular/core';
-import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { filter } from 'rxjs/operators/filter';
-import { delay } from 'rxjs/operators/delay';
-import { map } from 'rxjs/operators/map';
-import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
-import { Observable } from 'rxjs/Observable';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
-export class DashboardService {
+export class DashboardService implements OnDestroy {
 
-    private _dashboard: HTMLElement;
     private _widgetOrigin: { column?: number, row?: number, columnSpan?: number, rowSpan?: number };
     private _actionWidget: DashboardAction;
     private _rowHeight: number = 0;
     private _cache: DashboardCache[];
-    private _mouseEvent: MouseEvent;
+    private _event: MouseEvent;
 
     widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
     options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
     dimensions$ = new BehaviorSubject<DashboardDimensions>({});
-    height$: Observable<number> = this.dimensions$.pipe(delay(0), map((dimensions: DashboardDimensions) => dimensions.height), distinctUntilChanged());
+    height$: Observable<number> = this.dimensions$.pipe(tick(), map(dimensions => dimensions.height), distinctUntilChanged());
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
     layout$ = new Subject<DashboardLayoutData[]>();
     stacked$ = new BehaviorSubject<boolean>(false);
+    isDragging$ = new BehaviorSubject<DashboardWidgetComponent>(null);
+    isGrabbing$ = new BehaviorSubject<DashboardWidgetComponent>(null);
 
-    get options() {
+    get options(): DashboardOptions {
         return this.options$.getValue();
     }
 
-    get widgets() {
+    get widgets(): DashboardWidgetComponent[] {
         return this.widgets$.getValue();
     }
 
-    get stacked() {
+    get stacked(): boolean {
         return this.stacked$.getValue();
     }
 
-    get dimensions() {
+    get dimensions(): DashboardDimensions {
         return this.dimensions$.getValue();
     }
 
-    get columnWidth() {
+    get columnWidth(): number {
         return this.dimensions.width / this.options.columns;
     }
 
+    /** Unsubscribe from all observables on destroy */
+    private _onDestroy = new Subject<void>();
+
     constructor() {
-        this.layout$.subscribe(this.setLayoutData.bind(this));
-        this.stacked$.pipe(filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
-        this.widgets$.pipe(delay(0)).subscribe(() => this.renderDashboard());
-        this.dimensions$.pipe(delay(0)).subscribe(() => this.renderDashboard());
+        this.layout$.pipe(takeUntil(this._onDestroy)).subscribe(this.setLayoutData.bind(this));
+        this.stacked$.pipe(takeUntil(this._onDestroy), filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
+        this.widgets$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
+        this.dimensions$.pipe(takeUntil(this._onDestroy), tick()).subscribe(() => this.renderDashboard());
     }
 
-    /**
-     * Set the dashboard container element
-     * @param dashboard The HTMLElement that is the dashboard container
-     */
-    setDashboard(dashboard: HTMLElement): void {
-        this._dashboard = dashboard;
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     /**
@@ -167,8 +164,8 @@ export class DashboardService {
     getWidgetsByOrder(): DashboardWidgetComponent[] {
         return this.widgets.sort((w1, w2) => {
 
-            const w1Position = w1.getColumn() * w1.getRow();
-            const w2Position = w2.getColumn() * w2.getRow();
+            const w1Position = w1.getColumn() + (w1.getRow() * this.options.columns);
+            const w2Position = w2.getColumn() + (w2.getRow() * this.options.columns);
 
             if (w1Position < w2Position) {
                 return -1;
@@ -259,7 +256,7 @@ export class DashboardService {
     onResizeStart(action: DashboardAction): void {
 
         // store the mouse event
-        this._mouseEvent = action.event;
+        this._event = action.event;
         this._actionWidget = action;
 
         // bring the widget to the font
@@ -268,13 +265,16 @@ export class DashboardService {
 
     onResizeDrag(action: DashboardAction): void {
 
+        const mousePosX = this._event.pageX - pageXOffset;
+        const mousePosY = this._event.pageY - pageYOffset;
+
         // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+        if (action.event.x === mousePosX && action.event.y === mousePosY) {
             return;
         }
 
         // update the stored mouse event
-        this._mouseEvent = action.event;
+        this._event = action.event;
 
         // get handle for direction
         const { handle } = action;
@@ -287,8 +287,8 @@ export class DashboardService {
         const centerY = bounds.top + (bounds.height / 2);
 
         // get the current mouse position
-        const mouseX = action.event.x - centerX;
-        const mouseY = action.event.y - centerY;
+        const mouseX = mousePosX - centerX;
+        const mouseY = mousePosY - centerY;
 
         // store the new proposed dimensions for the widget
         const dimensions: DashboardWidgetDimensions = {
@@ -438,7 +438,7 @@ export class DashboardService {
         this.placeholder$.next(placeholder);
 
         this._actionWidget = null;
-        this._mouseEvent = null;
+        this._event = null;
 
         // ensure any vacant upper spaces are filled where required
         this.shiftWidgetsUp();
@@ -457,27 +457,32 @@ export class DashboardService {
         this.setWidgetOrigin();
 
         this.cacheWidgets();
+
+        // emit the widget we are dragging
+        this.isDragging$.next(action.widget);
     }
 
     onDragEnd(): void {
         this.onResizeEnd();
 
         this._widgetOrigin = {};
+
+        this.isDragging$.next(null);
     }
 
     onDrag(action: DashboardAction): void {
 
         // if there was no movement then do nothing
-        if (action.event.pageX === this._mouseEvent.pageX && action.event.pageY === this._mouseEvent.pageY) {
+        if (action.event.pageX === this._event.pageX && action.event.pageY === this._event.pageY) {
             return;
         }
 
         // get the current mouse position
-        const mouseX = action.event.pageX - this._mouseEvent.pageX;
-        const mouseY = action.event.pageY - this._mouseEvent.pageY;
+        const mouseX = action.event.pageX - this._event.pageX;
+        const mouseY = action.event.pageY - this._event.pageY;
 
         // store the latest event
-        this._mouseEvent = action.event;
+        this._event = action.event;
 
         const dimensions: DashboardWidgetDimensions = {
             x: action.widget.x + mouseX,
@@ -504,18 +509,32 @@ export class DashboardService {
         return this._rowHeight;
     }
 
-    cacheWidgets(): void {
-        this._cache = this.widgets.map(widget => ({ id: widget.id, column: widget.getColumn(), row: widget.getRow() }));
+    cacheWidgets(): DashboardCache[] {
+        this._cache = this.widgets.map(widget => ({
+            id: widget.id,
+            column: widget.getColumn(),
+            row: widget.getRow(),
+            columnSpan: widget.getColumnSpan(),
+            rowSpan: widget.getRowSpan(),
+        }));
+
+        // return a new array of the cache for custom caching
+        return [...this._cache];
     }
 
-    restoreWidgets(ignoreActionWidget: boolean = false): void {
-        this._cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
+    restoreWidgets(ignoreActionWidget: boolean = false, cache: DashboardCache[] = this._cache, restoreSize: boolean = false): void {
+        cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
 
             const match = this.widgets.find(wgt => wgt.id === widget.id);
 
             if (match) {
                 match.setColumn(widget.column);
                 match.setRow(widget.row);
+
+                if (restoreSize) {
+                    match.setColumnSpan(widget.columnSpan);
+                    match.setRowSpan(widget.rowSpan);
+                }
             }
         });
     }
@@ -562,10 +581,10 @@ export class DashboardService {
                 for (let column = this._widgetOrigin.column; column < this._widgetOrigin.column + this._widgetOrigin.columnSpan; column++) {
 
                     // determine if the block can fit in this space
-                    let requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
+                    const requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
 
                     // check if widget would fit in space
-                    let available = requiredSpaces.every(space => {
+                    const available = requiredSpaces.every(space => {
                         return !grid.find(gridSpace => gridSpace.column === space.column && gridSpace.row === space.row) && space.column < this.getColumnCount();
                     });
 
@@ -595,7 +614,7 @@ export class DashboardService {
             }
 
             // determine the distance that the widget needs to be moved down
-            let distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
+            const distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
 
             // as a last resort move the widget downwards
             this.moveWidgetDown(widget, distance);
@@ -645,16 +664,26 @@ export class DashboardService {
             return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
         });
 
+        // check if any of the target spaces are out of bounds
+        if (targetSpaces.find(space => space.column < 0)) {
+            return false;
+        }
+
         // check if there are widget in the required positions and if so, can they move right?
         const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt)));
 
         if (performMove && moveable) {
 
-            // move all widgets to the right
+            // move all widgets to the left
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
 
-            // move current widget to the right
-            widget.setColumn(widget.getColumn() - 1);
+            // find the target column
+            const column = targetSpaces.reduce((target, space) => Math.min(target, space.column), Infinity);
+
+            // move current widget to the left
+            if (column !== Infinity) {
+                widget.setColumn(column);
+            }
         }
 
         return moveable;
@@ -675,11 +704,18 @@ export class DashboardService {
             return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
         });
 
+        // check if any of the target spaces are out of bounds
+        if (targetSpaces.find(space => space.column >= this.getColumnCount())) {
+            return false;
+        }
+
         // check if there are widget in the required positions and if so, can they move right?
-        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveRight(wgt)));
+        const moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row)
+            .filter(wgt => wgt !== space.widget)
+            .every(wgt => this.canWidgetMoveRight(wgt))
+        );
 
         if (performMove && moveable) {
-
             // move all widgets to the right
             targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
 
@@ -754,7 +790,7 @@ export class DashboardService {
     getWidgetsAtPosition(column: number, row: number, ignoreResizing: boolean = false): DashboardWidgetComponent[] {
         return this.getOccupiedSpaces()
             .filter(space => space.column === column && space.row === row)
-            .filter(space => space.widget !== this._actionWidget.widget || !ignoreResizing)
+            .filter(space => this._actionWidget && space.widget !== this._actionWidget.widget || !ignoreResizing)
             .map(space => space.widget);
     }
 
@@ -764,9 +800,6 @@ export class DashboardService {
     setPlaceholderBounds(visible: boolean, x: number, y: number, width: number, height: number): void {
 
         const placeholder = this.placeholder$.getValue();
-
-        const rounding = this._actionWidget.direction === ActionDirection.Left ||
-            this._actionWidget.direction === ActionDirection.Top ? Rounding.RoundDownBelowHalf : Rounding.RoundUpOverHalf;
 
         placeholder.visible = visible;
 
@@ -1022,7 +1055,7 @@ export class DashboardService {
         // check whether or not changes have been made - if so we need to repeat until stable
         let stable = true;
 
-        // iterate each widget and 
+        // iterate each widget and
         this.widgets.forEach(widget => {
 
             // if widget is already on the top row then do nothing
@@ -1060,11 +1093,171 @@ export class DashboardService {
         }
     }
 
+    getWidgetBelow(widget: DashboardWidgetComponent): DashboardWidgetComponent | null {
+        const target = this.getWidgetsAtPosition(widget.getColumn(), widget.getRow() + widget.getRowSpan(), true);
+
+        return target.length > 0 ? target[0] : null;
+    }
+
     /**
      * Returns the number of columns available
      */
     getColumnCount(): number {
         return this.stacked ? 1 : this.options.columns;
+    }
+
+    onShiftStart(widget: DashboardWidgetComponent): void {
+        this.onDragStart({ direction: ActionDirection.Move, widget });
+    }
+
+    /** Programmatically move a widget in a given direction */
+    onShift(widget: DashboardWidgetComponent, direction: ActionDirection): void {
+
+        // get the current mouse position
+        let deltaX = 0, deltaY = 0;
+
+        // move based on the direction
+        switch (direction) {
+            case ActionDirection.Top:
+                deltaY = -this.getRowHeight();
+                break;
+            case ActionDirection.Right:
+                deltaX = this.getColumnWidth();
+                break;
+            case ActionDirection.Bottom: {
+                deltaY = this.getRowHeight();
+                break;
+            }
+            case ActionDirection.Left:
+                deltaX = -this.getColumnWidth();
+                break;
+        }
+
+        const dimensions: DashboardWidgetDimensions = {
+            x: widget.x + deltaX,
+            y: widget.y + deltaY,
+            width: widget.width,
+            height: widget.height
+        };
+
+
+        // update placeholder position and value
+        this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // update widget position
+        const { x, y } = this.placeholder$.value;
+
+        // move the widget to the placeholder position
+        widget.setBounds(x - this.options.padding, y - this.options.padding, dimensions.width, dimensions.height);
+
+        // update the height of the dashboard
+        this.setDashboardHeight();
+
+    }
+
+    onShiftEnd(): void {
+        // show the widget positions if the current positions and sizes were to persist
+        this.shiftWidgets();
+
+        // the height of the dashboard may have changed after moving widgets
+        this.setDashboardHeight();
+
+        // reset all properties
+        this.onDragEnd();
+    }
+
+    /** Programmatically resize a widget in a given direction */
+    onResize(widget: DashboardWidgetComponent, direction: ActionDirection): void {
+
+        // do not perform resizing if we are in stacked mode
+        if (this.stacked) {
+            return;
+        }
+
+        // perform the resizing
+        let deltaX = 0, deltaY = 0;
+
+        // move based on the direction
+        switch (direction) {
+            case ActionDirection.Top:
+                deltaY = -this.getRowHeight();
+                break;
+            case ActionDirection.Right:
+                deltaX = this.getColumnWidth();
+                break;
+            case ActionDirection.Bottom:
+                deltaY = this.getRowHeight();
+                break;
+            case ActionDirection.Left:
+                deltaX = -this.getColumnWidth();
+                break;
+        }
+
+        const dimensions: DashboardWidgetDimensions = {
+            x: widget.x,
+            y: widget.y,
+            width: widget.width + deltaX,
+            height: widget.height + deltaY
+        };
+
+        const currentWidth = widget.x + widget.width;
+        const currentHeight = widget.y + widget.height;
+
+        // ensure values are within the dashboard bounds
+        if (dimensions.x < 0) {
+            dimensions.x = 0;
+            dimensions.width = currentWidth;
+        }
+
+        if (dimensions.y < 0) {
+            dimensions.y = 0;
+            dimensions.height = currentHeight;
+        }
+
+        if ((dimensions.x + dimensions.width) > this.getColumnWidth() * this.getColumnCount()) {
+            dimensions.width = widget.width;
+        }
+
+        // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
+        if (dimensions.width < this.getColumnWidth()) {
+            dimensions.x = widget.x;
+            dimensions.width = this.getColumnWidth();
+        }
+
+        // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
+        if (dimensions.height < this.getRowHeight()) {
+            dimensions.y = widget.y;
+            dimensions.height = this.getRowHeight();
+        }
+
+        // move the widget to the placeholder position
+        widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // update placeholder position and value
+        this.setPlaceholderBounds(false, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
+        // the height of the dashboard may have changed after moving widgets
+        this.setDashboardHeight();
+    }
+
+    getSurroundingWidgets(widget: DashboardWidgetComponent, direction: ActionDirection): DashboardWidgetComponent[] {
+        let widgets: DashboardWidgetComponent[] = [];
+
+        for (let column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
+
+            switch (direction) {
+
+                case ActionDirection.Top:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() - 1)];
+                    break;
+
+                case ActionDirection.Bottom:
+                    widgets = [...widgets, ...this.getWidgetsAtPosition(column, widget.getRow() + widget.getRowSpan())];
+                    break;
+            }
+        }
+
+        return widgets;
     }
 }
 
@@ -1085,7 +1278,7 @@ export interface DashboardWidgetDimensions {
 export interface DashboardAction {
     widget: DashboardWidgetComponent;
     direction: ActionDirection;
-    event: MouseEvent;
+    event?: MouseEvent;
     handle?: HTMLElement;
 }
 
@@ -1111,6 +1304,8 @@ export interface DashboardCache {
     id: string;
     column: number;
     row: number;
+    columnSpan: number;
+    rowSpan: number;
 }
 
 export interface DashboardLayoutData {

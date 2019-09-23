@@ -1,0 +1,18 @@
+<div #option
+    uxFocusIndicator
+    role="option"
+    class="facet-typeahead-list-selected-option"
+    [attr.aria-checked]="selected"
+    [tabindex]="tabbable ? 0 : -1"
+    (focus)="itemFocus.emit()"
+    (click)="selectedChange.emit(facet)"
+    (keydown.enter)="selectedChange.emit(facet)"
+    (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"
+    (keydown.spacebar)="selectedChange.emit(facet); $event.preventDefault()">
+
+    <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled">
+        <span class="facet-typeahead-list-selected-option-title">{{ facet?.title }}</span>
+        <span *ngIf="facet?.count !== undefined" class="facet-typeahead-list-selected-option-count">({{ facet?.count }})</span>
+    </ux-checkbox>
+
+</div>

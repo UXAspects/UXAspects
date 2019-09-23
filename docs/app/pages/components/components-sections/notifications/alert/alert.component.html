@@ -1,0 +1,64 @@
+<ux-alert *ngFor="let alert of alerts" [type]="alert.type" [dismissible]="true" (dismiss)="remove(alert)">
+    <ux-icon uxAlertIcon [name]="alert.icon"></ux-icon>
+    {{ alert.description }}
+</ux-alert>
+
+<button class="btn button-primary" (click)="reset()">Reset</button>
+
+<hr>
+
+<p>
+    A <code>ux-alert</code> can be used to display a message to the user.
+    The alert color and icon can be used to indicate a status such as success, warning or error.
+</p>
+
+<p>
+    To display an icon in the alert add an icon from our icon set and apply the <code>uxAlertIcon</code> directive.
+</p>
+
+<p>
+    The following can be used to customize the appearance and behavior of the alert:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="type" type="AlertType" defaultValue="info">
+        Defines the background and foreground color of the alert.
+        Valid types are: <code>info</code>, <code>error</code>, <code>warning</code>, <code>success</code> and <code>dark</code>.
+    </tr>
+    <tr uxd-api-property name="dismissible" type="boolean" defaultValue="false">
+        Defines whether or not the dismiss button is visible.
+    </tr>
+    <tr uxd-api-property name="backgroundColor" type="string">
+        To set a background color that is not included in the predefined types, this property can be used
+        to set the background color using a color from our color palette or a CSS color value.
+    </tr>
+    <tr uxd-api-property name="foregroundColor" type="string">
+        To set a foreground color that is not included in the predefined types, this property can be used
+        to set the foreground color using a color from our color palette or a CSS color value.
+    </tr>
+    <tr uxd-api-property name="dismissAriaLabel" type="string" defaultValue="Dismiss Alert">
+        Define a custom aria label for the alert dismiss button.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="dismiss">
+        This event will emit when the dismiss button is clicked.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The example above can be created using the following code:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

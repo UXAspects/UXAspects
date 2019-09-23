@@ -1,18 +1,17 @@
-import {
-    BaseDocumentationSection
-} from '../../../../../components/base-documentation-section/base-documentation-section';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-select',
     templateUrl: 'select.component.html'
 })
 @DocumentationSectionComponent('ComponentsSelectComponent')
-export class ComponentsSelectComponent extends BaseDocumentationSection implements IPlunkProvider, OnInit {
+export class ComponentsSelectComponent extends BaseDocumentationSection implements IPlaygroundProvider, OnInit, OnDestroy {
 
     // ux-select configuration properties
     options: string[] | Function;
@@ -26,8 +25,12 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     dropdownOpen: boolean;
     maxHeight: string = '250px';
     placeholder = 'Select a country';
+    readonlyInput: boolean = false;
+    clearButton: boolean = false;
 
     private _pageSize = 20;
+    private _onDestroy = new Subject<void>();
+
     get pageSize() {
         return this._pageSize;
     }
@@ -43,7 +46,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
 
     dataSets: { strings?: any[], objects?: any[] } = {};
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
@@ -54,13 +57,10 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
                 'SelectModule',
                 'CheckboxModule',
                 'RadioButtonModule',
-                'NumberPickerModule'
+                'NumberPickerModule',
+                'AccordionModule'
             ],
             library: '@ux-aspects/ux-aspects'
-        }, {
-            library: 'ngx-bootstrap/accordion',
-            imports: ['AccordionModule'],
-            providers: ['AccordionModule.forRoot()']
         }]
     };
 
@@ -68,25 +68,25 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // Reset select when "multiple" checkbox changes.
-        this.multiple.subscribe((value) => {
+        this.multiple.pipe(takeUntil(this._onDestroy)).subscribe((vale) => {
             this.selected = null;
             this.dropdownOpen = false;
         });
 
         // Reset and switch options between array and function when paging checkbox changes.
-        this.pagingEnabled.subscribe((value) => {
+        this.pagingEnabled.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
             this.selected = null;
             this.dropdownOpen = false;
             this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
         });
 
         // Reset and reassign options when the dataset changes. Also set display and key properties.
-        this.dataSet.subscribe((value) => {
+        this.dataSet.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
 
-            // WORKAROUND to reset Enable Option Paging when user switches between string and object options. 
+            // WORKAROUND to reset Enable Option Paging when user switches between string and object options.
             if (this.multiple.getValue() === true) {
                 this.pagingEnabled.next(false);
-            } 
+            }
 
             this.selected = null;
             this.dropdownOpen = false;
@@ -104,8 +104,13 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.options = this.selectedDataSet();
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     selectedDataSet(): any[] {

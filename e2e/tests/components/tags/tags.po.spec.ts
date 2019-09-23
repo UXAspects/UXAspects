@@ -1,12 +1,8 @@
-import { browser, element, by, Key, ElementFinder, protractor } from 'protractor';
+import { browser, by, element, ElementFinder, Key, protractor } from 'protractor';
 
 export class TagsPage {
-    
-    getPage(): void {
-        browser.get('#/tags');
-    }
-    
-    tagsInput = element(by.id('tagsInput'));
+
+    tagsInput = element(by.tagName('ux-tag-input'));
     customizeExampleSection = element(by.id('accordion'));
     rangeErrorMessage = element(by.id('rangeErrorMessage'));
     inputPatternErrorMessage = element(by.id('inputPatternErrorMessage'));
@@ -22,39 +18,43 @@ export class TagsPage {
     freeInput = element(by.id('freeInput'));
     selectFirst = element(by.id('selectFirst'));
     showTypeaheadOnClick = element(by.id('showTypeaheadOnClick'));
-    
+
+    async getPage(): Promise<void> {
+        await browser.get('#/tags');
+    }
+
     getNumberOfTags() {
         return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').count();
     }
-    
+
     getTagName(index: number) {
         return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').get(index).$('span.ux-tag-text').getText();
     }
-    
-    sendCharactersToTagsInput(chars: string) {
-        this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(chars);
+
+    async sendCharactersToTagsInput(chars: string) {
+        await this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(chars);
     }
-    
-    clickOnTagsInput() {
-        this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').click();
+
+    async clickOnTagsInput() {
+        await this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').click();
     }
-    
-    typeInATag(tagName: string) {
-        this.sendCharactersToTagsInput(tagName);
-        this.sendCharactersToTagsInput(Key.ENTER);
+
+    async typeInATag(tagName: string) {
+        await this.sendCharactersToTagsInput(tagName);
+        await this.sendCharactersToTagsInput(Key.ENTER);
     }
-    
+
     confirmTagCloseIconIsVisible(index: number) {
         return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').get(index).$('button.ux-tag-remove').isPresent();
     }
-    
+
     closeATag(index: number) {
         return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').get(index).$('button.ux-tag-remove').click();
     }
-    
-    copyAndPasteTags(tags: string) {
+
+    async copyAndPasteTags(tags: string) {
         // Create a temporary input element if it does not already exist.
-        browser.executeScript(function () {
+        await browser.executeScript(function () {
             if (!document.getElementById('tempInput')) {
                 var el = document.createElement('input');
                 el.setAttribute('id', 'tempInput');
@@ -64,17 +64,17 @@ export class TagsPage {
 
         // Set the input value to the specified text.
         var newInput = element(by.id('tempInput'));
-        newInput.clear();
-        newInput.sendKeys(tags);
+        await newInput.clear();
+        await newInput.sendKeys(tags);
 
         // Select all and copy.
-        newInput.sendKeys(Key.chord(Key.CONTROL, 'a'));
-        newInput.sendKeys(Key.chord(Key.CONTROL, 'c'));
-        
+        await newInput.sendKeys(Key.chord(Key.CONTROL, 'a'));
+        await newInput.sendKeys(Key.chord(Key.CONTROL, 'c'));
+
         // Paste into the tags input box.
-        this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(Key.chord(Key.CONTROL, 'v') + Key.ENTER);
+        await this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(Key.chord(Key.CONTROL, 'v') + Key.ENTER);
     }
-    
+
     confirmTagsInputIsAvailable() {
         return browser.isElementPresent(this.tagsInput.$$('ol').get(0).$('li.ux-tag-input'));
     }
@@ -83,25 +83,25 @@ export class TagsPage {
         return browser.isElementPresent(this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('disabled'));
     }
 
-    clearTagsInput() {
-        this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').clear();
+    async clearTagsInput() {
+        await this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').clear();
     }
 
-    changeTagPattern(chars: string) {
-        this.tagPattern.clear();
-        this.tagPattern.sendKeys(chars);
+    async changeTagPattern(chars: string) {
+        await this.tagPattern.clear();
+        await this.tagPattern.sendKeys(chars);
     }
-    
-    changeMinTags(chars: string) {
-        this.minTags.$('input').clear();
-        this.minTags.$('input').sendKeys(chars);
+
+    async changeMinTags(chars: string) {
+        await this.minTags.$('input').clear();
+        await this.minTags.$('input').sendKeys(chars);
     }
-    
-    changeMaxTags(chars: string) {
-        this.maxTags.$('input').clear();
-        this.maxTags.$('input').sendKeys(chars);
+
+    async changeMaxTags(chars: string) {
+        await this.maxTags.$('input').clear();
+        await this.maxTags.$('input').sendKeys(chars);
     }
-    
+
     getTagInputsPlaceholderText() {
         return this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('placeholder');
     }
@@ -109,18 +109,18 @@ export class TagsPage {
     waitForTypeaheadListToBeDisplayed() {
         return browser.wait(protractor.ExpectedConditions.visibilityOf(this.tagsInput.$('ux-typeahead')));
     }
-    
+
     getNumberOfTagsInTypeaheadList() {
         return this.tagsInput.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').count();
     }
-    
+
     getTypeaheadItem(index: number) {
         return this.tagsInput.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
     }
-    
+
     confirmTypeaheadClassExists(item: ElementFinder, soughtClass: string) {
-        return item.getAttribute('class').then(function(classes: string) {
-            var allClasses = classes.split(' ');
+        return item.getAttribute('class').then(function (classes: string) {
+            const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {
@@ -128,49 +128,34 @@ export class TagsPage {
             }
         });
     }
-    
+
     confirmTypeaheadItemIsDisabled(index: number) {
-        var typeaheadItem = this.getTypeaheadItem(index);
+        const typeaheadItem = this.getTypeaheadItem(index);
         return this.confirmTypeaheadClassExists(typeaheadItem, 'disabled');
     }
 
     confirmTypeaheadItemIsHighlighted(index: number) {
-        var typeaheadItem = this.getTypeaheadItem(index);
+        const typeaheadItem = this.getTypeaheadItem(index);
         return this.confirmTypeaheadClassExists(typeaheadItem, 'highlighted');
     }
-    
-    addTypeaheadItem(index: number) {
-        var typeaheadItem = this.getTypeaheadItem(index);
-        typeaheadItem.$('span.ux-typeahead-option').click();
-    }
 
-    toggleCustomizeExampleSection() {
-        this.customizeExampleSection.$('accordion-group').$('div.panel').$('div.panel-heading').$('div.panel-title').$('div.accordion-toggle').click();
-    }
-    
-    confirmCustomizeExampleSectionIsOpen() {
-        return this.customizeExampleSection.$('accordion-group').getAttribute('class').then(function(classes: string) {
-            var allClasses = classes.split(' ');
-            if (allClasses.indexOf('panel-open') > -1) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+    async addTypeaheadItem(index: number) {
+        const typeaheadItem = this.getTypeaheadItem(index);
+        await typeaheadItem.$('span.ux-typeahead-option').click();
     }
 
     confirmRangeErrorIsVisible() {
         return this.rangeErrorMessage.isPresent();
     }
-    
+
     confirmInputPatternErrorIsVisible() {
         return this.inputPatternErrorMessage.isPresent();
     }
-    
+
     getRangeErrorMessage() {
         return this.rangeErrorMessage.getText();
     }
-    
+
     getInputPatternErrorMessage() {
         return this.inputPatternErrorMessage.getText();
     }

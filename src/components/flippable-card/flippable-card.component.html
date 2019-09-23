@@ -1,10 +1,21 @@
-<div class="ux-flipper" [class.ux-flip-card]="flipped" [style.width.px]="width" [style.height.px]="height">
+<div class="ux-flipper"
+     [class.ux-flip-card]="flipped"
+     [style.width.px]="width"
+     [style.height.px]="height">
 
-    <div class="ux-flippable-card-front" [style.width.px]="width" [style.height.px]="height">
+    <div class="ux-flippable-card-front"
+         [style.width.px]="width"
+         [style.height.px]="height"
+         [attr.aria-hidden]="flipped">
+
         <ng-content select="ux-flippable-card-front"></ng-content>
     </div>
 
-    <div class="ux-flippable-card-back" [style.width.px]="width" [style.height.px]="height">
+    <div class="ux-flippable-card-back"
+         [style.width.px]="width"
+         [style.height.px]="height"
+         [attr.aria-hidden]="!flipped">
+
         <ng-content select="ux-flippable-card-back"></ng-content>
     </div>
 </div>

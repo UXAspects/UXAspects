@@ -1,5 +1,6 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { ColumnSortingComponent, ColumnSortingState, ColorService, ColumnSortingOrder } from '@ux-aspects/ux-aspects';
+import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -10,7 +11,7 @@ export class AppComponent {
 
     order: ColumnSortingOrder[] = [];
 
-    sortableTable = [{
+    items: ColumnSortingTableData[] = [{
         id: 1,
         name: 'Document',
         author: chance.name(),
@@ -68,51 +69,66 @@ export class AppComponent {
         active: chance.bool()
     }];
 
-    changeState(columnSortingComponent: ColumnSortingComponent) {
-        this.order = columnSortingComponent.changeState();
-        this.sortByKey(this.sortableTable, this.order);
+    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
+    sparkBarColor = this._colorService.getColor('accent').toHex();
+
+    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) { }
+
+    changeState(title: string, column: ColumnSortingComponent) {
+        this.order = column.changeState();
+        this.items = this.sort(this.items, this.order);
+
+        // announce the change to any screen reader
+        this._announcer.announce(this.getColumnAriaLabel(title, column));
     }
 
-    sortByKey(array: TableData[], order: ColumnSortingOrder[]) {
+    sort(array: ColumnSortingTableData[], sorters: ColumnSortingOrder[]): ColumnSortingTableData[] {
 
-        return array.sort((itemOne: TableData, itemTwo: TableData) => {
+        return array.sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
 
             // iterate through each sorter
-            for (let sorter of order) {
-                let value1 = itemOne[sorter.key];
-                let value2 = itemTwo[sorter.key];
+            for (const sorter of sorters) {
+                const value1 = itemOne[sorter.key];
+                const value2 = itemTwo[sorter.key];
 
-                if (sorter.state === ColumnSortingState.Ascending) {
-                    if (value1 < value2) {
-                        return -1;
-                    } else if (value1 > value2) {
-                        return 1;
-                    }
-                } else {
-                   if (value1 > value2) {
-                        return -1;
-                    } else if (value1 < value2) {
-                        return 1;
-                    } 
+                if (value1 === value2) {
+                    continue;
                 }
 
+                if (sorter.state === ColumnSortingState.Ascending) {
+                    return value1 < value2 ? -1 : 1;
+                } else {
+                    return value1 > value2 ? -1 : 1;
+                }
             }
 
             return itemOne.id < itemTwo.id ? -1 : 1;
         });
     }
 
-    sparkTrackColor: string;
-    sparkBarColor: string;
+    getColumnAriaLabel(title: string, column: ColumnSortingComponent): string {
 
-    constructor(colorService: ColorService) {
- 
-        this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
-        this.sparkBarColor = colorService.getColor('accent').toHex();
+        switch (column.state) {
+
+            case ColumnSortingState.Ascending:
+                return column.order ?
+                    `${ title }: Ascending sort with priority ${column.order} 
+                    applied, activate to apply a Descending sort` :
+                    `${ title }: Ascending sort applied, activate to apply a Descending sort`;
+
+            case ColumnSortingState.Descending:
+                return column.order ?
+                    `${ title }: Descending sort with priority ${column.order} applied, 
+                    activate to apply no sorting` :
+                    `${ title }: Descending sort applied, activate to apply no sorting`;
+
+            default:
+                return `${ title }: No sort applied, activate to apply an Ascending sort`;
+        }
     }
 }
 
-export interface TableData {
+interface ColumnSortingTableData {
     id: number;
     name: string;
     author: string;

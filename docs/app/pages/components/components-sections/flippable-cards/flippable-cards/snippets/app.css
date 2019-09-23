@@ -1,184 +1,110 @@
-/*
-    Flippable Cards
-*/
-.flip-card-content {
-    padding-top: 35px;
-    padding-left: 20px;
-    padding-right: 10px;
-    padding-bottom: 15px;
+.flex-container {
+    display: flex;
 }
 
-.flip-card-content.cursor-pointer {
+.flip-card-btn {
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
     cursor: pointer;
+    color: #999;
+    border: none;
+    background: transparent;
 }
 
-.flip-card-content .front-title {
+.flip-card-logo {
+    margin: 0 20px;
+    transform: translateY(-5px);
+    transition: transform 250ms linear;
+}
+
+.flip-card-title {
     font-size: 21px;
     font-weight: 600;
     color: #333;
-    margin-top: 9px;
-    margin-bottom: 0;
+    margin: 10px 20px;
 }
 
-.flip-card-content.card-back {
-    padding: 15px 10px 10px 10px;
-    background-color: #7B63A3;
+.flip-card-content-front {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 12px 20px;
+}
+
+.flip-card-content-back {
+    padding: 18px 10px 10px;
+    background-color: #7b63a3;
     height: 100%;
-}
-
-.flip-card-content.card-back p {
-    color: #fff;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
-    white-space: nowrap;
 }
 
-.flip-card-content.card-back span.muted {
+.flip-card-content-back .text-muted {
     font-size: 12px;
     color: #ccc;
 }
 
-.flip-card-content.card-back span.right-align {
-    display: inline-block;
-    width: 65px;
-    text-align: right;
-}
-
-.flip-card-content.card-back span.left-align {
-    display: inline-block;
-    width: 70px;
-    text-align: left;
-    margin-left: 5px;
-}
-
-.spark-left-align {
-    display: inline-block;
-    width: 53px;
-    text-align: left;
-    margin-left: 5px;
-}
-
-.spark-left-align.second {
-    width: 35px;
-}
-
-.flip-card-content.card-back span.reviewed {
-    color: #2ad2c9;
-}
-
-.flip-card-content.card-back span.produced {
-    color: #ff8d6d;
-}
-
-.card-back hr {
+.flip-card-content-back hr {
     margin-top: 7px;
     margin-bottom: 7px;
     border-top: 1px solid #ccc;
     opacity: 0.25;
 }
 
-.card-logo {
-    margin-left: 20px;
-    margin-top: -5px;
-    position: absolute;
+.flip-card-stats {
+    flex: 1;
+    color: #666;
 }
 
-.flip-card-nested-donut {
-    position: absolute;
-    right: 10px;
-    bottom: 16px;
-    width: 70px;
-    height: 70px;
+.flip-card-stats .text-muted {
+    font-size: 14px;
+    color: #999;
 }
 
-.card-text {
+.flip-card-stat {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 3px;
 }
 
-.card-text.documents {
-    color: #666;
+.flip-card-chart {
+    flex: none;
+    width: 70px;
+    height: 70px;
+    align-self: center;
 }
 
-.card-text.reviewed {
-    color: #24b2a4;
-}
-
-.card-text.produced {
-    color: #ea7e65;
-    display: inline-block;
-    margin-bottom: 0px;
-}
-
-.card-text .text-muted {
-    font-size: 14px;
-    color: #999;
-}
-
-.clickable-icon {
-    margin: 10px;
-    cursor: pointer;
-    color: #999
-}
-
-.clickable-icon.icon-back {
-    color: white;
-}
-
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-}
-
-.nested-donut-example {
-    width: 100%;
-    margin-top: 15px;
-}
-
-.nested-donut-example:before {
-    content: ' ';
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-}
-
-.nested-donut-example .nested-donut-text {
-    margin-right: 50px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.nested-donut-example .nested-donut-container {
-    vertical-align: middle;
-}
-
-.nested-donut-text p {
-    font-size: 18px;
+.flip-card-heading {
+    color: #fff;
+    font-size: 16px;
     font-weight: 600;
+    margin-top: 0;
 }
 
-.nested-donut-text p.documents {
-    color: #666;
+.flip-card-row {
+    display: flex;
+    justify-content: space-between;
 }
 
-.nested-donut-text p.reviewed {
-    color: #24b2a4;
+.flip-card-col:last-of-type {
+    text-align: right;
 }
 
-.nested-donut-text p.produced {
-    color: #ea7e65;
+.flip-inline-chart {
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 118px;
+    height: 22px;
 }
 
-.nested-donut-text p span+span {
-    font-size: 14px;
-    color: #999;
+.flip-inline-chart ux-spark {
+    width: 53px;
 }
 
-.bold-icon {
-    font-weight: bold;
+.flip-card-flipped .flip-card-logo {
+    transform: translateY(0);
 }

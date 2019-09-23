@@ -7,16 +7,19 @@ export default function SearchGroupCtrl($scope) {
     vm.components = [];
     vm.showPlaceholder = false;
     vm.maxFields = $scope.maxFields ? parseInt($scope.maxFields) : null;
+    vm.readOnly = $scope.readOnly;
 
-    vm.addNewField = function() {
+    vm.addNewField = function(index) {
+
+        const targetFunction = vm.getAddFields()[index];
 
         //call the user function specified to add a field
-        if (!$scope.addField) throw new Error('Search Builder - Add Field function required.');
+        if (!targetFunction) throw new Error('Search Builder - Add Field function required.');
 
         //check to ensure we have not reached the maximum number of fields
         if (vm.maxFields && vm.components.length >= vm.maxFields) return;
 
-        var newField = $scope.addField();
+        var newField = targetFunction();
 
         //if it returns a promise then dont do anything until resolved
         if (newField.then) {
@@ -145,5 +148,17 @@ export default function SearchGroupCtrl($scope) {
 
         //keep everything up to date
         $scope.searchBuilder.setGroupValue($scope.groupId, vm.data);
+    };
+
+    vm.getAddFields = function () {
+        return Array.isArray($scope.addField) ? $scope.addField : [$scope.addField];
+    };
+
+    vm.getButtonText = function (index) {
+        // normalize the data so we are always dealing with an array
+        const labels = Array.isArray($scope.buttonText) ? $scope.buttonText : [$scope.buttonText];
+
+        // get the label at the given index
+        return labels[index];
     };
 }

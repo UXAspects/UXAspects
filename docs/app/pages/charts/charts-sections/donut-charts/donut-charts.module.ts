@@ -1,21 +1,22 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ColorServiceModule, HybridModule, NestedDonutChartModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { ChartsModule } from 'ng2-charts';
-
-import { ChartsDonutChartNg1Component } from './donut-chart-ng1/donut-chart-ng1.component';
-import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nested-donut-chart-ng1.component';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsDonutChartNg1Component } from './donut-chart-ng1/donut-chart-ng1.component';
 import { ChartsDonutChartComponent } from './donut-chart/donut-chart.component';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nested-donut-chart-ng1.component';
+import { ChartsNestedDonutChartComponent } from './nested-donut-chart/nested-donut-chart.component';
 
 const SECTIONS = [
     ChartsDonutChartNg1Component,
     ChartsNestedDonutChartNg1Component,
-    ChartsDonutChartComponent
+    ChartsDonutChartComponent,
+    ChartsNestedDonutChartComponent
 ];
 
 const ROUTES = [
@@ -30,12 +31,15 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        DocumentationComponentsModule,
-        TabsModule,
-        WrappersModule,
-        HybridModule,
         ChartsModule,
-        RouterModule.forChild(ROUTES)
+        ColorServiceModule,
+        CommonModule,
+        DocumentationComponentsModule,
+        HybridModule,
+        NestedDonutChartModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

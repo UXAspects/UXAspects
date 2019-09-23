@@ -57,7 +57,7 @@ angular.module('app').directive('uxdContactsOverflowWrapper', () => {
             vm.onOverflowClick = function () {
                 $modal.open({
                     animation: false,
-                    templateUrl: '../snippets/contacts-overflow-modal.html',
+                    templateUrl: 'contacts-overflow-modal.html',
                     controller: 'ContactsOverflowDemoModalCtrl',
                     controllerAs: 'vm',
                     resolve: {

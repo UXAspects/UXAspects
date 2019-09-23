@@ -1,15 +1,19 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AccessibilityModule, FocusIfModule, IconModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsComponentListNg1Component } from './component-list-ng1/component-list-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsComponentListNg1Component } from './component-list-ng1/component-list-ng1.component';
+import { ComponentsComponentListComponent } from './component-list/component-list.component';
+
 
 const SECTIONS = [
-    ComponentsComponentListNg1Component
+    ComponentsComponentListNg1Component,
+    ComponentsComponentListComponent
 ];
 
 const ROUTES = [
@@ -24,10 +28,16 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
+        AccessibilityModule,
+        CommonModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FocusIfModule,
+        FormsModule,
+        IconModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

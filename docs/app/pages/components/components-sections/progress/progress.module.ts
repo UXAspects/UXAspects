@@ -1,14 +1,13 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ProgressBarModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsProgressBarNg1Component } from './progress-bar-ng1/progress-bar-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsProgressBarNg1Component } from './progress-bar-ng1/progress-bar-ng1.component';
 import { ComponentsProgressBarComponent } from './progress-bar/progress-bar.component';
-import { ProgressBarModule } from '../../../../../../src/index';
+
 
 const SECTIONS = [
     ComponentsProgressBarNg1Component,
@@ -27,11 +26,11 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
-        ProgressBarModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        ProgressBarModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

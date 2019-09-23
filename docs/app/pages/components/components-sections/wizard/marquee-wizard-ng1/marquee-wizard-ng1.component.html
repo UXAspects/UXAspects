@@ -20,17 +20,17 @@
 <p>The below HTML and javascript controller code is for the template we use in the Marquee Wizard example above. Note the use
   of the <code>marquee-wizard</code> tag.</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-  </tab>
-  <tab heading="JavaScript">
+  </ux-tab>
+  <ux-tab heading="JavaScript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-  </tab>
-  <tab heading="Css">
+  </ux-tab>
+  <ux-tab heading="Css">
     <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <p>Attributes that can be defined for the Marquee Wizard:</p>
 
@@ -45,6 +45,7 @@
         <li><code>html</code> - HTML code for the content of the step.</li>
         <li><code>header</code> - String for the title of the wizard step.</li>
         <li><code>templateUrl</code> - Template for the content of the wizard step.</li>
+        <li><code>stepTemplateUrl</code> - Template for the content of the side panel wizard step. The template scope will contain the properties of the associated step.</li>
         <li><code>hidden</code> - When set to true the step will be hidden from the marquee wizard</li>
         <li><code>error</code> - When set to true the step will be highlighted in red.</li>
         <li><code>completed</code> - This value will update as each step is completed but can be overwritten by setting the boolean value.</li>
@@ -66,6 +67,11 @@
         <li><code>previousEnabled</code> - (default: true) - defines whether or not the 'Previous' button is enabled.</li>
         <li><code>nextEnabled</code> - (default: true) - defines whether or not the 'Next' button is enabled.</li>
         <li><code>finishEnabled</code> - (default: true) - defines whether or not the 'Finish' button is enabled.</li>
+        <li><code>visibilityOnStep</code> - (default: undefined) - define a function which can override the visibility
+          of the previous, next, and finish buttons on a per-step basis. This receives the step index as an argument,
+          and should a return an object. On the object, configure the button(s) to be shown or hidden by specifying the
+          boolean properties <code>previous</code>, <code>next</code>, and <code>finish</code>. Leave the property unset
+          to continue using the default show/hide behavior for the respective button.</li>
       </ul>
     </tr>
     <tr uxd-api-property name="on-changing" type="function" binding="variable">
@@ -75,9 +81,10 @@
       a number representing a step index to move to, overriding the <code>to</code> parameter.
     </tr>
     <tr uxd-api-property name="on-finishing" type="function" binding="variable">
-      Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated. The expression
-      should return a boolean or number result. If the function returns a number the wizard will go to that step. If it returns false current step goes into error state and the step change is stopped. e.g.
-      <code>on-finishing="canChange()"</code>.
+      Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated.
+      The expression should return a boolean, number or a promise that resolves to a boolean or number.
+      If the function or promise returns a number the wizard will go to that step.
+      If the function or promise returns false current step goes into error state and the step change is stopped. e.g. <code>on-finishing="canChange()"</code>.
     </tr>
     <tr uxd-api-property name="on-finished" type="function" binding="variable">
       Expression that is called when Finish is clicked, after <code>on-finishing</code> expression is evaluated. e.g. <code>on-finished="wizardComplete()"</code>.
@@ -107,4 +114,4 @@
 
 <uxd-snippet [content]="snippets.compiled.fourthHtml"></uxd-snippet>
 
-<p>To see all the code required to make the demo see the codepen</p>
+<p>To see all the code required to make the demo see the Plunker.</p>

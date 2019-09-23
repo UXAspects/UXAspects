@@ -1,81 +1,56 @@
-import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { TimelinePage } from './timeline.po.spec';
-import { Constants, Functions } from '../common/common.spec';
 
 describe('TimelinePage Tests', () => {
 
-  let page: TimelinePage;
-  let browserName: string;
-  let constants: Constants;
-  let functions: Functions;
+    let page: TimelinePage = new TimelinePage();
 
-  beforeEach(() => {
-    page = new TimelinePage();
-    page.getPage();
-    
-    constants = new Constants();
-    functions = new Functions();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
+    beforeAll(async () => {
+        await page.getPage();
     });
-  });
 
-  it('should start with 4 events', () => {
-    
-    // Four events should be visible.
-    expect(page.timeline.isPresent()).toBeTruthy();
-    expect<any>(page.getNumberOfEvents()).toEqual(4);
-    expect(page.addEvent.isPresent()).toBeTruthy();
-    
-  });
-  
-  it('should allow the addition of events', () => {
-    
-    // Create events, checking the number displayed.
-    page.addEvent.click();
-    page.addEvent.click();
-    expect<any>(page.getNumberOfEvents()).toEqual(6);
-    
-  });
+    it('should start with 4 events', async () => {
 
-  it('should display the correct information for events', () => {    
+        // Four events should be visible.
+        expect(await page.timeline.isPresent()).toBeTruthy();
+        expect(await page.getNumberOfEvents()).toEqual(4);
+        expect(await page.addEvent.isPresent()).toBeTruthy();
 
-    // Check elements of various events.
+        expect(await imageCompare('timeline-initial')).toEqual(0);
 
-    const now = Date.now();
+        await page.reset();
+    });
 
-    const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const dayInMilliSeconds = 24 * 60 * 60 * 1000;
-    
-    // Third event.
-    let thirdEvent = new Date(now + (dayInMilliSeconds * 2));
-    let dayOfWeek = weekdays[thirdEvent.getDay()];
-    let month = months[thirdEvent.getMonth()];
-    let day = thirdEvent.getDate();
-    let badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
-    expect<any>(page.getEventBadgeTitle(1)).toEqual(badgeTitle);
+    it('should allow the addition of events', async () => {
 
-    expect<any>(page.getEventBadge(1).getAttribute('class')).toContain('alternate2');
+        // Create events, checking the number displayed.
+        await page.addEvent.click();
+        await page.addEvent.click();
+        expect(await page.getNumberOfEvents()).toEqual(6);
 
-    // First event.
-    expect<any>(page.getEventBadge(3).getAttribute('class')).toContain('primary');
+        await page.reset();
+    });
 
-    expect<any>(page.getEventPanelText(3)).toContain('was recorded by');
+    it('should display the correct information for events', async () => {
 
-    // Add a fifth event and check it.
-    page.addEvent.click();
+        expect(await page.getEventBadgeTitle(1)).toEqual('Mon Oct 14');
 
-    let newEvent = new Date(now + (dayInMilliSeconds * 4));    
-    dayOfWeek = weekdays[newEvent.getDay()];
-    month = months[newEvent.getMonth()];
-    day = newEvent.getDate();
-    badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
-    expect<any>(page.getEventBadgeTitle(0)).toEqual(badgeTitle);
+        expect(await page.getEventBadge(1).getAttribute('class')).toContain('alternate2');
 
-    expect<any>(page.getEventBadge(0).getAttribute('class')).toContain('grey4');
+        // First event.
+        expect(await page.getEventBadge(3).getAttribute('class')).toContain('primary');
 
-    expect<any>(page.getEventPanelText(0)).toContain('was updated by');
-  });
+        expect(await page.getEventPanelText(3)).toContain('was recorded by');
+
+        // Add a fifth event and check it.
+        await page.addEvent.click();
+
+        expect(await page.getEventBadgeTitle(0)).toEqual('Wed Oct 16');
+
+        expect(await page.getEventBadge(0).getAttribute('class')).toContain('grey4');
+
+        expect(await page.getEventPanelText(0)).toContain('was updated by');
+
+        await page.reset();
+    });
 });

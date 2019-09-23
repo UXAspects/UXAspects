@@ -1,15 +1,22 @@
 <div class="row">
     <div class="col-sm-6 col-xs-12">
         <div class="input-group date m-nil">
-            <span class="input-group-addon" tabindex="1" (click)="popover.show()">
-                <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+            <span class="input-group-btn">
+                <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
+                    <ux-icon name="calendar" aria-hidden="true"></ux-icon>
+                </button>
             </span>
-            <input type="text" #input #popover="bs-popover" 
-                [ngModel]="date | date:'dd MMMM yyyy HH:mm'" 
-                [popover]="popoverTemplate" placement="bottom" 
-                [outsideClick]="true" 
-                containerClass="date-time-picker-popover"
-                class="form-control" aria-label="Selected date">
+            <input type="text"
+                #input
+                #popover="ux-popover"
+                uxFocusIndicatorOrigin
+                [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                [uxPopover]="popoverTemplate"
+                placement="bottom"
+                popoverClass="date-time-picker-popover"
+                class="form-control"
+                aria-label="Selected date"
+                (keydown.enter)="popover.show()">
         </div>
 
         <p class="m-t">Selected date is:
@@ -19,9 +26,14 @@
 </div>
 
 <ng-template #popoverTemplate>
-    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" 
-        [showTime]="showTime" [showMeridian]="showMeridians" 
-        [showSpinners]="showSpinners" [showTimezone]="showTimezones">
+    <ux-date-time-picker
+        [(date)]="date"
+        [(timezone)]="timezone"
+        [showTime]="showTime"
+        [showMeridian]="showMeridians"
+        [showSpinners]="showSpinners"
+        [showTimezone]="showTimezones"
+        (keydown.escape)="popover.hide(); input.focus()">
     </ux-date-time-picker>
 </ng-template>
 
@@ -29,8 +41,8 @@
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
-        <accordion>
-            <accordion-panel class="accordion-chevron" heading="Customize Example...">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
                 <div class="row">
                     <div class="col-md-3">
                         <ux-checkbox [(ngModel)]="showTime">Show Time</ux-checkbox>
@@ -45,7 +57,7 @@
                         <ux-checkbox [(ngModel)]="showSpinners">Show Spinners</ux-checkbox>
                     </div>
                 </div>
-            </accordion-panel>
-        </accordion>
+            </ux-accordion-panel>
+        </ux-accordion>
     </div>
 </div>

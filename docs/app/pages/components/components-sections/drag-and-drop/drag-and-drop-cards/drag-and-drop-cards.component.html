@@ -1,0 +1,172 @@
+<div class="dnd-cards-demo">
+
+    <div role="list"
+        #cardContainer="ux-tabbable-list"
+        class="dnd-cards-container card-view"
+        uxReorderable
+        uxTabbableList
+        [allowAltModifier]="false"
+        [(reorderableModel)]="cards"
+        reorderableGroup="cards-demo">
+
+        <div *ngFor="let component of cards; let idx = index"
+            class="card"
+            role="listitem"
+            uxTabbableListItem
+            [uxReorderableModel]="component"
+            attr.aria-label="{{ component.name }}. Press Alt up and alt down to reorder. Press Alt right to move to the list container."
+            [focusIf]="component === focus"
+            (keydown.arrowright)="listContainer.focusTabbableItem()"
+            (keydown.alt.arrowup)="moveUp(cards, idx, $event)"
+            (keydown.alt.arrowdown)="moveDown(cards, idx, $event)"
+            (keydown.alt.arrowright)="toList(cards, idx, $event)">
+
+            <div class="content">
+                <div uxReorderableHandle class="handle" aria-hidden="true">
+                    <ux-icon name="drag"></ux-icon>
+                </div>
+
+                <ux-icon [name]="component.icon"></ux-icon>
+                <div class="name">{{ component.name }}</div>
+                <div class="type">{{ component.type }}</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div role="list"
+        #listContainer="ux-tabbable-list"
+        class="dnd-list-container"
+        uxReorderable
+        uxTabbableList
+        [allowAltModifier]="false"
+        [(reorderableModel)]="list"
+        reorderableGroup="cards-demo">
+
+        <div *ngFor="let component of list; let idx = index"
+            #listItem="ux-tabbable-list-item"
+            role="listitem"
+            class="demo-list-item"
+            uxTabbableListItem
+            [uxReorderableModel]="component"
+            attr.aria-label="{{ component.name }}. Press Alt up and alt down to reorder. Press Alt left to move to the card container."
+            [focusIf]="component === focus"
+            (keydown.arrowleft)="cardContainer.focusTabbableItem()"
+            (keydown.alt.arrowup)="moveUp(list, idx, $event)"
+            (keydown.alt.arrowdown)="moveDown(list, idx, $event)"
+            (keydown.alt.arrowleft)="toCard(list, idx, $event)">
+
+            <div uxReorderableHandle class="handle" aria-hidden="true">
+                <ux-icon name="drag"></ux-icon>
+            </div>
+
+            <div class="title">{{ component.name }}</div>
+            <div class="component">
+                <ng-container *ngTemplateOutlet="component.content; context: { tabindex: listItem.tabindex }"></ng-container>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #dropdown let-tabindex="tabindex">
+    <div class="btn-group" dropdown #dropdown="bs-dropdown">
+        <button type="button" class="btn button-secondary" [tabindex]="tabindex">Action</button>
+        <button class="btn button-secondary dropdown-toggle"
+            id="dropdown-btn"
+            [tabindex]="tabindex"
+            dropdownToggle
+            uxMenuNavigationToggle
+            #menuNavigationToggle="uxMenuNavigationToggle"
+            aria-label="Toggle Dropdown"
+            aria-haspopup="true"
+            [attr.aria-expanded]="dropdown.isOpen"
+            (keydown.enter)="dropdown.show()">
+            <ux-icon name="down"></ux-icon>
+        </button>
+        <ul class="dropdown-menu"
+            aria-labelledby="dropdown-btn"
+            role="menu"
+            uxMenuNavigation
+            [toggleButton]="menuNavigationToggle"
+            toggleButtonPosition="top"
+            *dropdownMenu>
+            <li>
+                <a [tabindex]="tabindex"
+                   uxMenuNavigationItem
+                   (click)="dropdown.hide()">
+                   Action
+                </a>
+            </li>
+            <li>
+                <a [tabindex]="tabindex"
+                   uxMenuNavigationItem
+                   (click)="dropdown.hide()">
+                   Another action
+                </a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+<ng-template #text let-tabindex="tabindex">
+    <textarea class="form-control" [tabindex]="tabindex" placeholder="Enter text" rows="4"></textarea>
+</ng-template>
+
+<ng-template #buttons let-tabindex="tabindex">
+    <div class="btn-group">
+        <button type="button"
+            class="btn button-toggle-primary"
+            [(ngModel)]="direction"
+            btnRadio="left"
+            [tabindex]="tabindex"
+            [attr.aria-checked]="direction === 'left'">
+            Left
+        </button>
+        <button type="button"
+            class="btn button-toggle-primary"
+            [(ngModel)]="direction"
+            btnRadio="right"
+            [tabindex]="tabindex"
+            [attr.aria-checked]="direction === 'right'">
+            Right
+        </button>
+    </div>
+</ng-template>
+
+<hr>
+
+<p>
+    This example shows how to use
+    <a routerLink="/components/tables" fragment="reorderable-table"><code>uxReorderable</code></a> with a second
+    container. Apply the <code>uxReorderable</code> directive to the required containers, and set the
+    <code>reorderableGroup</code> property on each of them to a common string identifier. Items with the
+    <code>uxReorderableModel</code> directive can be dragged within or between each container in the group, and the
+    respective array on each container will be updated. In this example, a different template is used in each container,
+    allowing the data model to be presented differently depending on the container that it is dragged into.
+</p>
+
+<p>
+    Additionally we use the <code>uxTabbableList</code> directive to provide keyboard navigation and the <code>LiveAnnouncer</code>
+    to provide spoken feedback for screen reader support.
+</p>
+
+<p>
+    See the <a routerLink="/components/tables" fragment="reorderable-table">Reorderable Table</a> documentation for full
+    details of using the <code>uxReorderable</code> directive.
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

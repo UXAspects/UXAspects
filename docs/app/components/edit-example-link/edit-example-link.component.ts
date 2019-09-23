@@ -1,39 +1,28 @@
-import { Input, Component, Inject } from '@angular/core';
-
-import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { IPlayground } from '../../interfaces/IPlayground';
 import { EditExampleService } from '../../services/edit-example/edit-example.service';
-import { ICodePen } from '../../interfaces/ICodePen';
-import { ICodePenTemplate } from '../../interfaces/ICodePenTemplate';
-import { IAppConfiguration } from '../../interfaces/IAppConfiguration';
-import { IPlunk } from '../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-edit-example-link',
     templateUrl: './edit-example-link.component.html',
     styleUrls: ['./edit-example-link.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class.enabled]': 'isLinkEnabled()'
+        '[class.enabled]': '!!content'
     }
 })
 export class EditExampleLinkComponent {
 
     @Input() title: string;
-    @Input() content: ICodePen | IPlunk;
-    @Input() type: 'codepen' | 'plunker';
+    @Input() content: IPlayground;
     @Input() version: 'Angular' | 'AngularJS' = 'Angular';
 
-    constructor(private editExampleService: EditExampleService) {}
+    constructor(private editExampleService: EditExampleService) { }
 
     linkClick(event: MouseEvent) {
-        let target = event.target as HTMLElement;
+        const target = event.target as HTMLElement;
         target.blur();
-        this.editExampleService.launchEditor(this.title, this.content, this.type);
-    }
-
-    isLinkEnabled() {
-        // Present 'Edit in CodePen' link if any of the main codepen properties are defined
-        // return this.codepen && (this.codepen.html || this.codepen.css || this.codepen.js || this.codepen.ts);
-        return this.content;
+        this.editExampleService.launchEditor(this.title, this.content);
     }
 
 }

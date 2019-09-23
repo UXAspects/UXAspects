@@ -1,0 +1,147 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="drag-handle-column"></th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Date Modified</th>
+            <th>Work Completed</th>
+            <th class="text-center">Status</th>
+        </tr>
+    </thead>
+    <tbody uxReorderable [(reorderableModel)]="data">
+        <tr class="reorderable-row"
+            #row
+            uxFocusIndicator
+            *ngFor="let item of data; let idx = index"
+            [uxReorderableModel]="item"
+            tabindex="0"
+            attr.aria-label="{{ item.document }} by {{ item.author }}. Use arrow keys to reorder items."
+            (keydown.arrowdown)="movedown(item, idx, $event)"
+            (keydown.arrowup)="moveup(item, idx, $event)">
+
+            <td class="drag-handle-column">
+                <ux-icon uxReorderableHandle name="more" rotate="90"></ux-icon>
+            </td>
+            <td>{{ item.document }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date }}</td>
+            <td>
+                <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
+            </td>
+            <td class="text-center">
+                <ux-icon [name]="item.active ? 'checkmark' : null"
+                         [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<p>
+    Table rows can be reordered by using the <code>uxReorderable</code> directive. The above example demonstrates how a table can be reordered
+    by adding a handle to each row.
+    The <code>uxReorderable</code> directive can be used in conjunction with <code>ngModel</code> so additional forms of reordering can be implemented,
+    for example, using the keyboard.
+</p>
+
+<p>
+    The <code>uxReorderable</code> directive is not restricted to use on tables, it can be used with any list of elements.
+</p>
+
+<p>
+    By default each immediate child of <code>uxReorderable</code> will become draggable, however you can specify an element within the item
+    to be the drag handle which the user will have to drag to move the item. A handle can be specified by adding the <code>uxReorderableHandle</code> to
+    the element that should be dragged to move the object.
+</p>
+
+<p>
+    The following properties can be used on the <code>uxReorderable</code> directive:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="reorderableModel" type="any[]">
+        <p>
+            This property can be used to provide the <code>uxReorderable</code> directive with a dataset that represents the items that can be reordered.
+            This can used as a two way binding which will ensure the dataset always reflects the current order of items in the list. Each list item should
+            have a <code>uxReorderableModel</code> directive applied, with a value indicating which item in the dataset it represents.
+        </p>
+        <p>
+            If the list is generated using <code>ngFor</code> this property should be bound to the same dataset.
+        </p>
+        <p>
+            If there is no dataset representing the items then this property is not required.
+        </p>
+    </tr>
+    <tr uxd-api-property name="reorderableGroup" type="string">
+        The name of the reorderable group which this container belongs to. <code>uxReorderable</code> elements which
+        belong to the same group can have items dragged between them. Only required if multiple drop containers are
+        being created.
+    </tr>
+    <tr uxd-api-property name="reorderingDisabled" type="boolean" defaultValue="false">
+        Determines if reordering is disabled.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+
+    <tr uxd-api-property name="reorderableModelChange" type="any[]">
+        This event will be triggered when the order changes and will contain an updated dataset containing the items in their current
+        order. This should be used when the list of items is generated using <code>ngFor</code> to ensure the data remains in the same order
+        for both the <code>uxReorderable</code> and <code>ngFor</code> directives.
+    </tr>
+
+    <tr uxd-api-property name="reorderStart" type="ReorderEvent">
+        This event is triggered when a user begins dragging an item. The event will contain the element being moved.
+    </tr>
+
+    <tr uxd-api-property name="reorderCancel" type="ReorderEvent">
+        This event is triggered when the item being dragged is returned to the same location as it began.
+        The event will contain the element that was being moved.
+    </tr>
+
+    <tr uxd-api-property name="reorderEnd" type="ReorderEvent">
+        This event is triggered when a user has relocated an item. The event will contain the element that was moved.
+    </tr>
+
+</uxd-api-properties>
+
+<p>
+    The <code>ReorderEvent</code> interface is as follows:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="element" type="Element">
+        The element that the action is or was being performed on.
+    </tr>
+    <tr uxd-api-property name="model" type="any">
+        The data associated with the element being dragged. This will be null if no <code>uxReorderableModel</code> was specified on the element.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    This directive dynamically applies the following classes to assist with styling:
+</p>
+
+<ul>
+    <li><code>ux-reorderable-moving</code> - this is set on a draggable item while it is being dragged.</li>
+    <li><code>ux-reorderable-container-moving</code> - this is set on the container(s) while an item is being dragged.</li>
+</ul>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="Typescript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

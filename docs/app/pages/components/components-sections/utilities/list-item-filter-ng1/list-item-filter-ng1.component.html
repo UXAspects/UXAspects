@@ -8,11 +8,11 @@
 <p>The only additional step required is to give each <code>li</code> a <code>key</code> attribute. This attribute should contain
     the text each item should be filtered by.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

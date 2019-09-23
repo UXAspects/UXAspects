@@ -1,54 +1,98 @@
-import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const CHECKBOX_VALUE_ACCESSOR: any = {
+export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => CheckboxComponent),
     multi: true
 };
 
+let uniqueCheckboxId = 0;
+
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
-    providers: [CHECKBOX_VALUE_ACCESSOR],
-    host: {
-        '(click)': 'toggleChecked()'
-    }
+    providers: [CHECKBOX_VALUE_ACCESSOR]
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent<T = number> implements ControlValueAccessor {
 
-    @Input() name: string = '';
+    private _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
+
+    /** Determines if the checkbox should be checked, unchecked or indeterminate. */
+    @Input() id: string = this._checkboxId;
+
+    /** Specifies the form name of the element. */
+    @Input() name: string | null;
+
+    /** Specified if this is a required input. */
+    @Input() required: boolean;
+
+    /** Specifies the tabindex of the input. */
+    @Input() tabindex: number = 0;
+
+    /** If set to `true` the checkbox will not toggle state when clicked. */
     @Input() clickable: boolean = true;
-    @Input() disabled: boolean = false;
-    @Input() simplified: boolean = false;
-    @Input() indeterminateValue: any = -1;
-    @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
+    /** If set to `true` the checkbox will be displayed without a border and background. */
+    @Input() simplified: boolean = false;
+
+    /**
+     * If `value` is set to the indeterminate value specified using this attribute, it will neither
+     * display the checkbox as checked or unchecked, and will instead show the indeterminate variation.
+     */
+    @Input() indeterminateValue: T | number = -1;
+
+    /** Specify if the checkbox should be disabled. */
+    @Input() disabled: boolean = false;
+
+    /** Provide an aria label for the checkbox. */
+    @Input('aria-label') ariaLabel: string = '';
+
+    /** Provide an aria-labelled by property for the checkbox. */
+    @Input('aria-labelledby') ariaLabelledby: string = null;
+
+    /** Emits when `value` has been changed. */
+    @Output() valueChange = new EventEmitter<boolean | T>(false);
+
+    /** Determines if the checkbox should be checked, unchecked or indeterminate. */
     @Input()
     get value() {
         return this._value;
     }
 
-    set value(value: any) {
+    set value(value: boolean | T) {
         this._value = value;
+
+        // determine if it is in the indeterminate state
+        this.indeterminate = this._value === this.indeterminateValue;
+
+        // determine the checked state
+        this.ariaChecked = this.indeterminate ? 'mixed' : this._value as boolean;
 
         // invoke change event
         this.valueChange.emit(this._value);
 
         // call callback
         this.onChangeCallback(this._value);
+        this.onTouchedCallback();
     }
 
-    private _value: any = false;
+    get inputId(): string {
+        return `${this.id || this._checkboxId}-input`;
+    }
+
+    private _value: boolean | T = false;
+
+    indeterminate: boolean = false;
+    ariaChecked: boolean | string;
+    focused: boolean = false;
 
     onTouchedCallback: () => void = () => { };
-    onChangeCallback: (_: any) => void = () => { };
+    onChangeCallback: (_: boolean | T) => void = () => { };
 
-    constructor() { }
+    toggle(): void {
 
-    toggleChecked() {
-
-        if (this.disabled === true || this.clickable === false) {
+        if (this.disabled || !this.clickable) {
             return;
         }
 
@@ -61,28 +105,23 @@ export class CheckboxComponent implements ControlValueAccessor {
         this.value = !this.value;
     }
 
-    keyDown(event: KeyboardEvent) {
-        // then toggle the checkbox
-        this.toggleChecked();
-
-        // prevent default browser behavior
-        event.stopPropagation();
-        event.preventDefault();
-    }
-
     // Functions required to update ngModel
 
-    writeValue(value: boolean) {
+    writeValue(value: boolean | T): void {
         if (value !== this._value) {
             this._value = value;
         }
     }
 
-    registerOnChange(fn: any) {
+    registerOnChange(fn: (_: boolean | T) => void): void {
         this.onChangeCallback = fn;
     }
 
-    registerOnTouched(fn: any) {
+    registerOnTouched(fn: () => void): void {
         this.onTouchedCallback = fn;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 }

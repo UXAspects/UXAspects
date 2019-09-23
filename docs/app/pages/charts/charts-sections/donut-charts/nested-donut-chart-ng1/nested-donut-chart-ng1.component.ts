@@ -1,29 +1,30 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
-    selector: 'uxd-charts-nested-donut-chart',
+    selector: 'uxd-charts-nested-donut-chart-ng1',
     templateUrl: './nested-donut-chart-ng1.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsNestedDonutChartNg1Component')
-export class ChartsNestedDonutChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsNestedDonutChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     data: any[];
     options: any;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         js: [this.snippets.raw.chartJs],
         css: [this.snippets.raw.chartCss],
         htmlAttributes: {
             'ng-controller': 'NestedDonutChartCtrl as dc'
         }
-    };
+    });
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
@@ -51,7 +52,7 @@ export class ChartsNestedDonutChartNg1Component extends BaseDocumentationSection
                 // perform any actions here on hover
             },
             onClick: function () {
-                // perform any actions here on hover        
+                // perform any actions here on hover
             },
             tooltip: {
                 show: true,

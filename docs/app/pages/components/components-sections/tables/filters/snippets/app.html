@@ -1,6 +1,8 @@
-<ux-filter-container (events)="filtersChanged($event)">
-    <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]" 
-    [options]="typeaheadOptions"></ux-filter-dynamic>
+<ux-filter-container [(filters)]="filters" (filtersChange)="apply()" (events)="onEvent($event)">
+    <ux-filter-dynamic [filters]="authorFilters"
+        [initial]="authorFilters[0]"
+        [options]="typeaheadOptions">
+    </ux-filter-dynamic>
     <ux-filter-dropdown [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
 </ux-filter-container>
 
@@ -16,21 +18,29 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="clickable" *ngFor="let item of filteredTable">
+        <tr class="clickable" *ngFor="let document of documents">
             <td>
                 <div class="listview-page-icon"></div>
             </td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.author }}</td>
-            <td>{{ item.date }}</td>
+            <td>{{ document.name }}</td>
+            <td>{{ document.author }}</td>
+            <td>{{ document.date }}</td>
             <td>
-                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" 
-                [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark theme="accent"
+                    [value]="document.completed"
+                    barHeight="3"
+                    [inlineLabel]="document.completed">
+                </ux-spark>
             </td>
             <td class="text-center vertical-center-icon">
-                <div class="hpe-icon" [class.text-accent]="item.active" 
-                [class.hpe-checkmark]="item.active"></div>
+                <ux-icon class="text-accent"
+                    [name]="document.active ? 'checkmark' : null"
+                    [attr.aria-label]="document.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
             </td>
         </tr>
     </tbody>
 </table>
+
+<p>Active filters:</p>
+<pre>{{ filters | json }}</pre>

@@ -1,0 +1,14 @@
+<input type="text"
+    id="zone-one-input"
+    class="form-control"
+    placeholder="Search..."
+    [ngModel]="search | async"
+    (ngModelChange)="search.next($event)">
+
+<br>
+
+<ux-checkbox id="zone-1-produces-output" [(ngModel)]="producesOutput" (ngModelChange)="updateConduit()">Produces Output</ux-checkbox>
+<br>
+<ux-checkbox id="zone-1-accepts-input-2" [(ngModel)]="acceptsInput2" (ngModelChange)="updateConduit()">Accepts Input from Zone 2</ux-checkbox>
+<br>
+<ux-checkbox id="zone-1-accepts-input-3" [(ngModel)]="acceptsInput3" (ngModelChange)="updateConduit()">Accepts Input from Zone 3</ux-checkbox>

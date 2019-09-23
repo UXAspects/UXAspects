@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-components-preview-pane-window',
-    templateUrl: './preview-pane-window-ng1.component.html'
+    templateUrl: './preview-pane-window-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsPreviewPaneWindowNg1Component')
-export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    
+export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
+
     sampleCode = this.snippets.compiled.sampleHtml;
     htmlCode = this.snippets.compiled.layoutHtml;
     jsCode = this.snippets.compiled.controllerJs;
     cssCode = this.snippets.compiled.stylesCss;
     footerCode = this.snippets.compiled.footerHtml;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'PreviewPaneWindowCtrl as vm'
@@ -44,12 +46,12 @@ export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSe
                 content: require('./wrapper/previews/PreviewXLS.html')
             }
         ],
-        js: [ 
+        js: [
             this.snippets.raw.controllerJs
         ],
         css: [this.snippets.raw.stylesCss]
-    };
-    
+    });
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

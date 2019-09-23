@@ -1,134 +1,150 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { CheckBoxesPage } from './checkbox.po.spec';
 
 describe('Checkbox Tests', () => {
 
-  let page: CheckBoxesPage;
-  let browserName: string;
+    let page: CheckBoxesPage = new CheckBoxesPage();
 
-  beforeEach(() => {
-    page = new CheckBoxesPage();
-    page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
+    beforeAll(async () => {
+        await page.getPage();
     });
-  });
 
-  it('should have correct initial states', () => {
-    if (browserName === 'internet explorer') {
-        console.log('Skipping test in ' + browserName);
-        return;
-    }   
-    
-    // Initial values.
-    expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox2)).toBeFalsy();
-    expect(page.confirmIsChecked(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsChecked(page.checkbox4)).toBeFalsy();
-    expect<any>(page.text1.getText()).toBe('true');
-    expect<any>(page.text2.getText()).toBe('false');
-    expect<any>(page.text3.getText()).toBe('false');
-    expect<any>(page.text4.getText()).toBe('false');
+    it('should have correct initial states', async () => {
 
-    // All enabled.
-    expect(page.confirmIsDisabled(page.checkbox1)).toBeFalsy();
-    expect(page.confirmIsDisabled(page.checkbox2)).toBeFalsy();
-    expect(page.confirmIsDisabled(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsDisabled(page.checkbox4)).toBeFalsy();
+        // Initial values.
+        expect(await page.confirmIsChecked(page.checkbox1)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox2)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox4)).toBeFalsy();
+        expect(await page.text1.getText()).toBe('true');
+        expect(await page.text2.getText()).toBe('false');
+        expect(await page.text3.getText()).toBe('false');
+        expect(await page.text4.getText()).toBe('false');
 
-    // None indeterminate.
-    expect(page.confirmIsIndeterminate(page.checkbox1)).toBeFalsy();
-    expect(page.confirmIsIndeterminate(page.checkbox2)).toBeFalsy();
-    expect(page.confirmIsIndeterminate(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsIndeterminate(page.checkbox4)).toBeFalsy();
+        // All enabled.
+        expect(await page.confirmIsDisabled(page.checkbox1)).toBeFalsy();
+        expect(await page.confirmIsDisabled(page.checkbox2)).toBeFalsy();
+        expect(await page.confirmIsDisabled(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsDisabled(page.checkbox4)).toBeFalsy();
 
-    // None with simplified style.
-    expect(page.confirmIsSimplified(page.checkbox1)).toBeFalsy();
-    expect(page.confirmIsSimplified(page.checkbox2)).toBeFalsy();
-    expect(page.confirmIsSimplified(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsSimplified(page.checkbox4)).toBeFalsy();
-  });
+        // None indeterminate.
+        expect(await page.confirmIsIndeterminate(page.checkbox1)).toBeFalsy();
+        expect(await page.confirmIsIndeterminate(page.checkbox2)).toBeFalsy();
+        expect(await page.confirmIsIndeterminate(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsIndeterminate(page.checkbox4)).toBeFalsy();
 
-  it('should react to clicks', () => {
-    page.checkbox2.click();
-    page.checkbox3.click();
+        // None with simplified style.
+        expect(await page.confirmIsSimplified(page.checkbox1)).toBeFalsy();
+        expect(await page.confirmIsSimplified(page.checkbox2)).toBeFalsy();
+        expect(await page.confirmIsSimplified(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsSimplified(page.checkbox4)).toBeFalsy();
 
-    expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox2)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox3)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox4)).toBeFalsy();
-    expect<any>(page.text1.getText()).toBe('true');
-    expect<any>(page.text2.getText()).toBe('true');
-    expect<any>(page.text3.getText()).toBe('true');
-    expect<any>(page.text4.getText()).toBe('false');
+        expect(await imageCompare('checkbox-initial')).toEqual(0);
+    });
 
-    page.checkbox1.click();
-    page.checkbox4.click();
+    it('should react to clicks', async () => {
 
-    expect(page.confirmIsChecked(page.checkbox1)).toBeFalsy();
-    expect(page.confirmIsChecked(page.checkbox2)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox3)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox4)).toBeTruthy();
-    expect<any>(page.text1.getText()).toBe('false');
-    expect<any>(page.text2.getText()).toBe('true');
-    expect<any>(page.text3.getText()).toBe('true');
-    expect<any>(page.text4.getText()).toBe('true');
-  });
+        // reset the state
+        await page.resetBtn.click();
 
-  it('should react to disabling', () => {
-    page.disableButton.click();
+        await page.checkbox2.click();
+        await page.checkbox3.click();
 
-    expect(page.confirmIsDisabled(page.checkbox1)).toBeTruthy();
-    expect(page.confirmIsDisabled(page.checkbox2)).toBeFalsy();
-    expect(page.confirmIsDisabled(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsDisabled(page.checkbox4)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox1)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox2)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox3)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox4)).toBeFalsy();
+        expect(await page.text1.getText()).toBe('true');
+        expect(await page.text2.getText()).toBe('true');
+        expect(await page.text3.getText()).toBe('true');
+        expect(await page.text4.getText()).toBe('false');
 
-    page.checkbox1.click();
-    page.checkbox4.click();
+        expect(await imageCompare('checkbox-active')).toEqual(0);
 
-    expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy();
-    expect(page.confirmIsChecked(page.checkbox2)).toBeFalsy();
-    expect(page.confirmIsChecked(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsChecked(page.checkbox4)).toBeTruthy();
-    expect<any>(page.text1.getText()).toBe('true');
-    expect<any>(page.text2.getText()).toBe('false');
-    expect<any>(page.text3.getText()).toBe('false');
-    expect<any>(page.text4.getText()).toBe('true');
-  });
+        await page.checkbox1.click();
+        await page.checkbox4.click();
 
-  it('should react to setting to indeterminate state', () => {
-    page.setToIndeterminateState.click();
+        expect(await page.confirmIsChecked(page.checkbox1)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox2)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox3)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox4)).toBeTruthy();
+        expect(await page.text1.getText()).toBe('false');
+        expect(await page.text2.getText()).toBe('true');
+        expect(await page.text3.getText()).toBe('true');
+        expect(await page.text4.getText()).toBe('true');
+    });
 
-    expect(page.confirmIsIndeterminate(page.checkbox1)).toBeFalsy();
-    expect(page.confirmIsIndeterminate(page.checkbox2)).toBeTruthy();
-    expect(page.confirmIsIndeterminate(page.checkbox3)).toBeFalsy();
-    expect(page.confirmIsIndeterminate(page.checkbox4)).toBeFalsy();
-    expect<any>(page.text1.getText()).toBe('true');
-    expect<any>(page.text2.getText()).toBe('-1');
-    expect<any>(page.text3.getText()).toBe('false');
-    expect<any>(page.text4.getText()).toBe('false');
-  });
+    it('should react to disabling', async () => {
 
-  it('should react to setting to simplified style', () => {
-    page.changeToSimplified.click();
+        // reset the state
+        await page.resetBtn.click();
 
-    expect(page.confirmIsSimplified(page.checkbox1)).toBeTruthy();
-    expect(page.confirmIsSimplified(page.checkbox2)).toBeTruthy();
-    expect(page.confirmIsSimplified(page.checkbox3)).toBeTruthy();
-    expect(page.confirmIsSimplified(page.checkbox4)).toBeTruthy();
-  });
+        await page.disableButton.click();
 
-  it('should toggle the checkbox when pressing space', () => {
-    if ((browserName === 'internet explorer') || (browserName === 'firefox')) {
-        console.log('Skipping test in ' + browserName);
-        return;
-    }    
-    
-    page.toggleByKey(page.checkbox1, Key.SPACE);
-    page.toggleByKey(page.checkbox2, Key.SPACE);
+        expect(await page.confirmIsDisabled(page.checkbox1)).toBeTruthy();
+        expect(await page.confirmIsDisabled(page.checkbox2)).toBeFalsy();
+        expect(await page.confirmIsDisabled(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsDisabled(page.checkbox4)).toBeFalsy();
 
-    expect(page.confirmIsChecked(page.checkbox1)).toBeFalsy();
-    expect(page.confirmIsChecked(page.checkbox2)).toBeTruthy();
-  });
+        await page.checkbox1.click();
+        await page.checkbox4.click();
+
+        expect(await page.confirmIsChecked(page.checkbox1)).toBeTruthy();
+        expect(await page.confirmIsChecked(page.checkbox2)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox4)).toBeTruthy();
+        expect(await page.text1.getText()).toBe('true');
+        expect(await page.text2.getText()).toBe('false');
+        expect(await page.text3.getText()).toBe('false');
+        expect(await page.text4.getText()).toBe('true');
+
+        expect(await imageCompare('checkbox-disabled')).toEqual(0);
+    });
+
+    it('should react to setting to indeterminate state', async () => {
+
+        // reset the state
+        await page.resetBtn.click();
+
+        await page.setToIndeterminateState.click();
+
+        expect(await page.confirmIsIndeterminate(page.checkbox1)).toBeFalsy();
+        expect(await page.confirmIsIndeterminate(page.checkbox2)).toBeTruthy();
+        expect(await page.confirmIsIndeterminate(page.checkbox3)).toBeFalsy();
+        expect(await page.confirmIsIndeterminate(page.checkbox4)).toBeFalsy();
+        expect(await page.text1.getText()).toBe('true');
+        expect(await page.text2.getText()).toBe('-1');
+        expect(await page.text3.getText()).toBe('false');
+        expect(await page.text4.getText()).toBe('false');
+
+        expect(await imageCompare('checkbox-intermediate')).toEqual(0);
+    });
+
+    it('should react to setting to simplified style', async () => {
+
+        // reset the state
+        await page.resetBtn.click();
+
+        await page.changeToSimplified.click();
+
+        expect(await page.confirmIsSimplified(page.checkbox1)).toBeTruthy();
+        expect(await page.confirmIsSimplified(page.checkbox2)).toBeTruthy();
+        expect(await page.confirmIsSimplified(page.checkbox3)).toBeTruthy();
+        expect(await page.confirmIsSimplified(page.checkbox4)).toBeTruthy();
+
+        expect(await imageCompare('checkbox-simplified')).toEqual(0);
+    });
+
+    it('should toggle the checkbox when pressing space', async () => {
+
+        // reset the state
+        await page.resetBtn.click();
+
+        await page.toggleByKey(page.checkbox1, Key.SPACE);
+        await page.toggleByKey(page.checkbox2, Key.SPACE);
+
+        expect(await page.confirmIsChecked(page.checkbox1)).toBeFalsy();
+        expect(await page.confirmIsChecked(page.checkbox2)).toBeTruthy();
+    });
 });

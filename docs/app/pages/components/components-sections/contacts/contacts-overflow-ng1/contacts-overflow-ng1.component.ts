@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-contacts-overflow-ng1',
@@ -11,9 +12,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsContactsOverflowNg1Component')
-export class ComponentsContactsOverflowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsContactsOverflowNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.contactsOverflowHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsOverflowDemoCtrl as vm'
@@ -27,8 +28,8 @@ export class ComponentsContactsOverflowNg1Component extends BaseDocumentationSec
         }],
         css: [this.snippets.raw.contactsOverflowCss],
         js: [this.snippets.raw.contactsOverflowJs, this.snippets.raw.contactsOverflowModalJs]
-    };
-    
+    });
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

@@ -1,0 +1,17 @@
+<ng-content></ng-content>
+
+<div #handle
+     uxDrag
+     uxFocusIndicator
+     tabindex="0"
+     aria-label="Column resize handle. Use arrow keys to change the column width."
+     class="ux-resizable-table-column-handle"
+     *ngIf="!disabled"
+     (onDragStart)="onDragStart($event)"
+     (onDrag)="onDragMove($event, handle)"
+     (onDragEnd)="onDragEnd()"
+     (keydown.ArrowLeft)="onMoveLeft()"
+     (keydown.ArrowRight)="onMoveRight()">
+
+     <div class="ux-resizable-table-column-handle-icon"></div>
+</div>

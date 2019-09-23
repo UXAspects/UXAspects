@@ -1,23 +1,32 @@
 ux-date-time-picker {
     display: block;
-}
 
-.calendar-container {
-    padding: 4px;
-}
+    .calendar-container {
+        padding: 4px;
+    }
 
-.now-button {
-    width: 100%;
-    padding: 4px 5px;
-    text-align: center;
-    height: 30px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-    color: @date-picker-today-btn-color;
+    .now-button {
+        width: 100%;
+        padding: 4px 5px;
+        text-align: center;
+        height: 30px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+        color: @date-picker-today-btn-color;
 
-    &:hover {
-        background-color: @date-picker-today-btn-hover-bg;
+        &:hover:not(:disabled) {
+            background-color: @date-picker-today-btn-hover-bg;
+        }
+
+        &:focus {
+            .native-focus-outline();
+        }
+
+        &:disabled {
+            color: #bdbec0;
+            cursor: default;
+        }
     }
 }

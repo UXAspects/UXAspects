@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { LayoutSwitcherItem } from '../../../../../../../src/directives/layout-switcher/index';
+import { SliderOptions, SliderType } from '@ux-aspects/ux-aspects';
 import 'chance';
-import { SliderOptions, SliderType } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-layout-switching',
@@ -13,7 +12,7 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
     styleUrls: ['./layout-switching.component.less']
 })
 @DocumentationSectionComponent('ComponentsLayoutSwitchingComponent')
-export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     width: number = 100;
     group: string = 'table';
@@ -52,7 +51,7 @@ export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection
         }
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
@@ -60,16 +59,16 @@ export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection
         },
         modules: [
             {
-                imports: ['SliderModule', 'LayoutSwitcherModule' ],
+                imports: ['SliderModule', 'LayoutSwitcherModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
                 library: 'chance'
             },
             {
-                imports: ['AccordionModule', 'ButtonsModule'],
+                imports: ['ButtonsModule'],
                 forRoot: true,
-                library: 'ngx-bootstrap/accordion'
+                library: 'ngx-bootstrap/buttons'
             }
         ]
     };

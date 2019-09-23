@@ -1,12 +1,33 @@
 <div class="demo-chart-container-stack">
 
-    <canvas baseChart 
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend"
-            [colors]="lineChartColors"
-            chartType="line">
+    <canvas aria-label="Line chart showing sales volume by week"
+        baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+        [colors]="lineChartColors"
+        chartType="line">
+
+        <table aria-label="Chart data">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Sales 1</th>
+                    <th>Sales 2</th>
+                    <th>Sales 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let label of lineChartLabels; let idx = index">
+                    <td>{{label}}</td>
+                    <td>&euro;{{lineChartData[0].data[idx]}}</td>
+                    <td>&euro;{{lineChartData[1].data[idx]}}</td>
+                    <td>&euro;{{lineChartData[2].data[idx]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
     </canvas>
 
 </div>

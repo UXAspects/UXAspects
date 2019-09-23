@@ -1,0 +1,19 @@
+ux-select-list-item {
+    display: flex;
+    padding: 5px 10px;
+    cursor: pointer;
+    align-items: center;
+
+    &:hover {
+        background-color: #f5f5f5;
+    }
+
+    &:focus {
+        .native-focus-outline();
+    }
+
+    &.selected {
+        font-weight: 600;
+        background-color: #f5f5f5;
+    }
+}

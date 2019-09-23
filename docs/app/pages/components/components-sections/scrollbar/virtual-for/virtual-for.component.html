@@ -1,0 +1,115 @@
+<table class="table" uxFixedHeaderTable>
+    <thead>
+        <tr>
+            <th class="identity-column">Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+
+    <tbody uxVirtualForContainer uxTabbableList [wrap]="false">
+
+        <tr *uxVirtualFor="let employee of employees; let index = index"
+            uxTabbableListItem
+            [key]="employee.id"
+            [attr.aria-posinset]="index"
+            [attr.aria-setsize]="employees.length">
+            <td class="identity-column">{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.department }}</td>
+        </tr>
+
+        <tr class="virtual-table-action" *ngIf="isLoading">
+            <td class="virtual-loading-indicator" colspan="4">
+                <div class="spinner spinner-accent spinner-bounce-middle"></div>
+                Loading...
+            </td>
+        </tr>
+
+        <tr class="virtual-table-action" *ngIf="!isLoading">
+            <td class="virtual-load-button" colspan="4">
+                <button class="btn btn-link button-primary btn-block" (click)="loadNextPage()">
+                    Load More
+                </button>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+<hr>
+
+<p>
+    The <code>uxVirtualFor</code> directive is an alternative way of implementing virtual scrolling.
+    It differs from the <a routerLink="/components/scrollbar" fragment="virtual-scroll">Virtual Scroll</a> component as it does not
+    provide a built in support for a load more button or loading additional items on scroll. It is instead intended to be a drop-in
+    replacement for the <code>ngFor</code> directive which allows it to be used in places where the Virtual Scroll component
+    is not suitable, for example, within tables.
+</p>
+
+<p>
+    The parent element should also be given the <code>uxVirtualForContainer</code> directive.
+</p>
+
+<p>The following attributes can be used on the <code>uxVirtualForContainer</code> directive:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="itemSize" type="number">
+        Define the height of the virtual items (in pixels).
+        If this is not specified, the height of the first item will be used.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The <code>uxVirtualFor</code> directive provides the same context properties available to <code>ngFor</code>:
+</p>
+
+<uxd-api-properties tableTitle="Context">
+    <tr uxd-api-property name="index" type="number">
+        The position of the current item within the list.
+    </tr>
+    <tr uxd-api-property name="first" type="boolean">
+        Indicates whether the item is first in the list.
+    </tr>
+    <tr uxd-api-property name="last" type="boolean">
+        Indicates whether the item is last in the list.
+    </tr>
+    <tr uxd-api-property name="even" type="boolean">
+        Indicates whether the item is in an even position within the list.
+    </tr>
+    <tr uxd-api-property name="odd" type="boolean">
+        Indicates whether the item is in an odd position within the list.
+    </tr>
+    <tr uxd-api-property name="count" type="number">
+        The number of items in the list.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    Context properties can be accessed by assigning them to variables within the template:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.contextHtml"></uxd-snippet>
+
+<p>
+    The directive also works seamlessly with observables by using the <code>async</code> pipe, as you would with <code>ngFor</code>:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.asyncHtml"></uxd-snippet>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

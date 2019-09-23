@@ -1,47 +1,56 @@
-treegridCell.$inject = ["$templateRequest", "$compile"];
+treegridCell.$inject = ['$templateRequest', '$compile', '$interpolate'];
 
-export default function treegridCell($templateRequest, $compile) {
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-      row: '=',
-      column: '='
-    },
-    link: function(scope, elem) {
-      scope.item = scope.row.dataItem;
-      if (scope.column.template) {
-        $templateRequest(scope.column.template).then(function(html) {
-          var template = angular.element(html);
-          addTooltip(template);
-          elem.replaceWith(template);
-          $compile(template)(scope);
-        });
-      }
-      else {
-        var expr = "";
-        if (angular.isString(scope.column.value) && scope.item.hasOwnProperty(scope.column.value)) {
-          expr = "item[column.value]";
-        }
-        else if (angular.isFunction(scope.column.value)) {
-          expr = "column.value(item)";
-        }
-        var span = angular.element("<span/>", {
-          "ng-bind": expr
-        });
-        addTooltip(span);
-        elem.replaceWith(span);
-        $compile(span)(scope);
-      }
+/**
+ * @param {ng.ITemplateRequestService} $templateRequest
+ * @param {ng.ICompileService} $compile
+ * @param {ng.IInterpolateService} $interpolate
+ */
+export function treegridCell($templateRequest, $compile, $interpolate) {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            row: '=',
+            column: '='
+        },
+        link: function (scope, element) {
 
-      function addTooltip(newElement) {
-        if (scope.column.tooltip) {
-          newElement.attr("tooltip", scope.column.tooltip);
+            scope.item = scope.row.dataItem;
+
+            // if a custom template is provided
+            if (scope.column.template) {
+                $templateRequest(scope.column.template).then(html => {
+                    const template = angular.element(html);
+                    element.replaceWith(template);
+                    $compile(template)(scope);
+                    addTooltip(template);
+                });
+            } else {
+
+                let expression;
+                if (angular.isString(scope.column.value) && scope.item.hasOwnProperty(scope.column.value)) {
+                    expression = 'item[column.value]';
+                } else if (angular.isFunction(scope.column.value)) {
+                    expression = 'column.value(item)';
+                }
+
+                const span = angular.element('<span/>', { 'ng-bind': expression });
+                element.replaceWith(span);
+                $compile(span)(scope);
+
+                addTooltip(span);
+            }
+
+            function addTooltip(newElement) {
+                if (scope.column.tooltip) {
+                    scope.$evalAsync(() => {
+                        newElement.one('mouseenter', () => {
+                            newElement.tooltip({ title: $interpolate(scope.column.tooltip)(scope), placement: scope.column.tooltipPlacement || 'top' });
+                            newElement.tooltip('show');
+                        });
+                    });
+                }
+            }
         }
-        if (scope.column.tooltipPlacement) {
-          newElement.attr("tooltip-placement", scope.column.tooltipPlacement);
-        }
-      }
-    }
-  };
+    };
 }

@@ -1,13 +1,11 @@
-import { Component, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
+import { fromEvent, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DateTimePickerTimezone } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-date-time-picker',
@@ -16,9 +14,9 @@ import 'rxjs/add/operator/debounceTime';
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
-export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlunkProvider, AfterViewInit, OnDestroy {
+export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlaygroundProvider, AfterViewInit, OnDestroy {
 
-    @ViewChild('input') dateInput: ElementRef;
+    @ViewChild('input', { static: true }) dateInput: ElementRef;
 
     date: Date = new Date();
     timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
@@ -29,38 +27,28 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     showSpinners: boolean = true;
     subscription: Subscription;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
-            { 
-                imports: ['DateTimePickerModule', 'CheckboxModule'],
+            {
+                imports: ['DateTimePickerModule', 'CheckboxModule', 'PopoverModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
-            },
-            {
-                imports: ['PopoverModule'],
-                library: 'ngx-bootstrap/popover',
-                forRoot: true
             }
         ]
     };
-    
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     ngAfterViewInit(): void {
-        this.subscription = Observable.fromEvent(this.dateInput.nativeElement, 'input')
-            .debounceTime(500)
-            .subscribe(event => this.parse(this.dateInput.nativeElement.value));
+        this.subscription = fromEvent(this.dateInput.nativeElement, 'input')
+            .pipe(debounceTime(500))
+            .subscribe(() => this.parse(this.dateInput.nativeElement.value));
     }
 
     ngOnDestroy(): void {

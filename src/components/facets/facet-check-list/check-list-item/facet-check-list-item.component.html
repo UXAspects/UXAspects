@@ -1,0 +1,21 @@
+<div #option
+    uxFocusIndicator
+    class="facet-check-list-item"
+    [class.facet-active]="selected"
+    [attr.aria-checked]="selected"
+    role="option"
+    [tabindex]="tabbable ? 0 : -1"
+    (focus)="itemFocus.emit()"
+    (blur)="itemBlur.emit()"
+    (click)="selectedChange.emit(facet)"
+    (keydown.enter)="selectedChange.emit(facet)"
+    (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"
+    (keydown.spacebar)="selectedChange.emit(facet); $event.preventDefault()"
+    [class.disabled]="facet?.disabled">
+
+    <!-- Show check icon to indicate the state -->
+    <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1" [disabled]="disabled">
+        <span class="facet-check-list-item-title">{{ facet?.title }}</span>
+        <span *ngIf="facet?.count !== undefined" class="facet-check-list-item-count">({{ facet?.count }})</span>
+    </ux-checkbox>
+</div>

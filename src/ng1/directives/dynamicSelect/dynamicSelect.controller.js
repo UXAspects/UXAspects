@@ -1,280 +1,289 @@
-DynamicSelectCtrl.$inject = ["$scope", "$element", "$attrs", "$compile", "$timeout", "$sanitize", "debounceService"];
+import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 
-export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $timeout, $sanitize, debounceService) {
-  var vm = this;
+export default class DynamicSelectCtrl {
 
-  var inputModelCtrl = null;
+  /**
+   * @param {ng.IScope} $scope
+   * @param {JQuery} $element
+   * @param {ng.IAttributes} $attrs
+   * @param {ng.ICompileService} $compile
+   * @param {ng.ITimeoutService} $timeout
+   * @param {ng.ISCEService} $sanitize
+   * @param {*} debounceService
+   */
+  constructor($scope, $element, $attrs, $compile, $timeout, $sanitize, debounceService) {
 
-  var Keys = {
-    enter: 13,
-    up: 38,
-    down: 40
-  };
+    // create initial instance variables
+    this.$scope             = $scope;
+    this.$element           = $element;
+    this.$compile           = $compile;
+    this.$sanitize          = $sanitize;
+    this.$timeout           = $timeout;
+    this.inputModelCtrl     = null;
+    this.multiple           = 'multiple' in $attrs;
+    this.dropdownFilterFn   = this.getItemVisible.bind(this);
+    this.tagsModel          = [];
+    this.singleText         = '';
+    this.filterText         = '';
+    this.debouncedFilter    = '';
+    this.dropdownOpen       = false;
+    this.isPaging           = angular.isFunction(this.source);
+    this.highlightedItemKey = null;
+    this.dropdown           = null;
+    this.dropdownScope      = null;
+    this.watchers           = [];
+    this.scrollpane         = null;
+    this.scrollpaneObserver = null;
 
-  // True for multiselect
-  vm.multiple = ("multiple" in $attrs);
+    const defaultOptions = {
+      placeholder: this.multiple ? 'Select some options' : 'Select an option',
+      allowNull: true,
+      scroll: true,
+      pageSize: 20,
+      dropDirection: 'down',
+      initialPlaceholder: false
+    };
 
-  var defaultOptions = {
-    placeholder: vm.multiple ? "Select some options" : "Select an option",
-    allowNull: true,
-    scroll: true,
-    pageSize: 20,
-    dropDirection: "down",
-    initialPlaceholder: false
-  };
+    this.options = angular.extend({}, defaultOptions, this.options);
 
-  vm.allOptions = angular.extend({}, defaultOptions, vm.options);
+    // Options for tag input control
+    this.tagOptions = {
+      placeholder: this.options.placeholder,
+      format: { key: 'key', display: 'display' }
+    };
 
-  // Update UI when model changes
-  $scope.$watch("vm.ngModel", function(nv) {
-    if (vm.multiple) {
-      vm.tagsModel = initTagsModel(nv);
-    }
-    else {
-      if (nv !== null) {
-        vm.singleText = displayValueOf(nv);
-      }
-    }
-  }, true);
+    // support showing placeholder only when there are no selected tags
+    this.tagOptions.initialPlaceholder = this.options.initialPlaceholder;
 
-  // Modified copy of ngModel for tag input control
-  vm.tagsModel = [];
+    // Callbacks from tag input
+    this.tagApi = {
+      onTagAdding: () => false, // Prevent adding, tags are inserted into the model directly
+      onTagRemoved: tag => this.deselect(tag.key) // Allow 'x' button and backspace to deselect from our model
+    };
 
-  // Options for tag input control
-  vm.tagOptions = {
-    placeholder: vm.allOptions.placeholder,
-    format: {
-      key: "key",
-      display: "display"
-    }
-  };
+    // Functions used by select items, using an object so that they can be added to the scope in infinite scroll
+    this.itemApi = {
+      select: item => {
+        if (!this.isSelected(item)) {
+          // Add item to the model
+          this.select(item);
 
-  // support showing placeholder only when there are no selected tags
-  vm.tagOptions.initialPlaceholder = vm.allOptions.initialPlaceholder;
+          // Reset the search text
+          this.filterText = '';
 
-  // Callbacks from tag input
-  vm.tagApi = {
+          // Focus the input field
+          $element.find('input').focus();
 
-    // Prevent adding, tags are inserted into the model directly
-    onTagAdding: function() { return false; },
+          // Close the dropdown
+          this.setDropdownOpen(false);
 
-    // Allow 'x' button and backspace to deselect from our model
-    onTagRemoved: function($tag) {
-      deselect($tag.key);
-    }
-  };
+          // Reset highlight
+          this.highlightedItemKey = null;
+        }
+      },
+      isSelected    : this.isSelected.bind(this),
+      getKey        : this.getItemKey.bind(this),
+      getDisplay    : this.getItemValue.bind(this),
+      getDisplayHtml: this.displayValueWithFilterMatch.bind(this),
+      setHighlighted: this.setHighlighted.bind(this),
+      isHighlighted : this.isHighlighted.bind(this)
+    };
 
-  // Text for single select, either filter or selected value
-  vm.singleText = "";
-  if (!vm.multiple) {
-    $scope.$watch("vm.singleText", function(nv) {
-      if (nv === displayValueOf(vm.ngModel)) {
-        vm.filterText = "";
-        setDirty();
+    // Update UI when model changes
+    this.watchers.push($scope.$watch(() => this.ngModel, query => {
+      if (this.multiple) {
+        this.tagsModel = this.initTagsModel(query || []);
       }
       else {
-        vm.filterText = nv;
-        if (vm.allOptions.allowNull) {
-          vm.ngModel = null;
+        if (query !== null) {
+          this.singleText = this.getItemValue(query);
         }
+      }
+    }, true));
+
+    if (!this.multiple) {
+      this.watchers.push($scope.$watch(() => this.singleText, query => {
+        if (query === this.getItemValue(this.ngModel)) {
+          this.filterText = '';
+          this.setDirty();
+        }
+        else {
+          this.filterText = query;
+          if (this.options.allowNull) {
+            this.ngModel = null;
+          }
+        }
+      }));
+    }
+
+    this.watchers.push($scope.$watch(() => this.filterText, debounceService(query => {
+      this.debouncedFilter = query;
+
+      // Open the dropdown when typing occurs
+      if (query !== '') {
+        this.setDropdownOpen(true);
+      }
+
+      // Reset the highlight
+      this.highlightedItemKey = null;
+    }, 800)));
+
+    // Multiple select input click handler (using jquery since it's a plugin)
+    $element.on('click.dynamicSelect', '.host', () => $scope.$apply(() => this.setDropdownOpen(true)));
+
+    // Blur event handler
+    $element.on('blur.dynamicSelect', 'input', () => {
+      // Close the dropdown if selection leaves the input or its children
+      // Timeout to allow click events in the dropdown to register
+      $timeout(() => {
+        if ($element.has(document.activeElement).length === 0) {
+          this.setDropdownOpen(false);
+
+          // Remove the filter text and show selected value on blur
+          if (!this.multiple) {
+            this.singleText = this.getItemValue(this.ngModel);
+          }
+        }
+      }, 200);
+    });
+
+    // Keyboard control
+    $element.on('keydown.dynamicSelect', 'input', event => {
+      if ([UP_ARROW, DOWN_ARROW, ENTER].indexOf(event.which) === -1) {
+        return;
+      }
+
+      const highlightedElement = $element.find('.el-dynamicselect-dropdown-item.highlighted').first();
+      let nextElement = null;
+
+      switch (event.which) {
+        case UP_ARROW:
+          if (highlightedElement.length > 0 && this.dropdownOpen) {
+            nextElement = highlightedElement.prevAll('li:not(.selected)').first();
+          }
+          break;
+
+        case DOWN_ARROW:
+          if (highlightedElement.length > 0 && this.dropdownOpen) {
+            nextElement = highlightedElement.nextAll('li:not(.selected)').first();
+          }
+          else {
+            nextElement = $element.find('.el-dynamicselect-dropdown-item:not(.selected)').first();
+          }
+          // Show panel
+          if (!this.dropdownOpen) {
+            $scope.$apply(() => this.setDropdownOpen(true));
+          }
+          break;
+
+        case ENTER:
+          if (this.dropdownOpen) {
+            highlightedElement.click();
+          }
+          break;
+      }
+
+      $scope.$apply(() => this.setHighlightOnElement(nextElement));
+
+      event.stopPropagation();
+      event.preventDefault();
+    });
+
+    // Clean up event handlers
+    $scope.$on('$destroy', () => {
+      $element.off('click.dynamicSelect blur.dynamicSelect keydown.dynamicSelect');
+
+      // destroy all watchers
+      this.watchers.forEach(watcher => watcher());
+
+      if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
+      }
+    });
+
+    // Set highlight on first result when opening dropdown
+    this.watchers.push($scope.$watch(() => this.dropdownOpen, isOpen => {
+      if (isOpen) {
+        this.initHighlight();
+      }
+    }));
+
+    // Watch the children of the dropdown list for changes and set highlight on first result if unset
+    // (used when results are loaded asynchronously)
+    $timeout(() => {
+      const dropdownObserver = new MutationObserver(() => $scope.$apply(() => this.initHighlight));
+
+      const list = $element.find('.el-dynamicselect-dropdown ul');
+
+      if (list.length > 0) {
+        dropdownObserver.observe(list.get(0), { childList: true });
       }
     });
   }
 
-  // Filter text from the tag input or single select input
-  vm.filterText = "";
-
-  // Debounced user input to feed into infinite scroll to avoid overlapping requests
-  vm.debouncedFilter = "";
-  $scope.$watch("vm.filterText", debounceService(function(nv) {
-    vm.debouncedFilter = nv;
-
-    // Open the dropdown when typing occurs
-    if (nv !== "") {
-      setDropdown(true);
-    }
-
-    // Reset the highlight
-    vm.highlightedItemKey = null;
-  }, 800));
-
-  // Case insensitive filter for ng-repeat
-  vm.dropdownFilter = function(item) {
-    return displayValueOf(item).toLowerCase().indexOf(vm.debouncedFilter.toLowerCase()) !== -1;
-  };
-
-  // State of the select list
-  vm.dropdownOpen = false;
-
-  // Indicates whether dynamic paging is to be used
-  vm.isPaging = angular.isFunction(vm.source);
-
-  // Current item highlighted by mouseover or keyboard
-  vm.highlightedItemKey = null;
-
-  // Functions used by select items, using an object so that they can be added to the scope in infinite scroll
-  vm.itemApi = {
-    select: function(item) {
-      if (!isSelected(item)) {
-        // Add item to the model
-        select(item);
-
-        // Reset the search text
-        vm.filterText = "";
-
-        // Focus the input field
-        $element.find("input").focus();
-
-        // Close the dropdown 
-        vm.dropdownOpen = false;
-
-        // Reset highlight
-        vm.highlightedItemKey = null;
-      }
-    },
-    isSelected: isSelected,
-    getKey: keyOf,
-    getDisplay: displayValueOf,
-    getDisplayHtml: displayValueWithFilterMatch,
-    setHighlighted: setHighlighted,
-    isHighlighted: isHighlighted
-  };
-
-  // Set up dropdown
-  $element.append(getDropdownHtml());
-
-  // Multiple select input click handler (using jquery since it's a plugin)
-  $element.on("click.dynamicSelect", ".host", function() {
-    $scope.$apply(function() {
-      setDropdown(true);
-    });
-  });
-
   // Single select input click handler
-  vm.onSingleInputClick = function() {
-    setDropdown(true);
+  onSingleInputClick() {
+    this.setDropdownOpen(true);
 
     // Select all text for easy removal
-    $element.find("input.el-dynamicselect-singleinput").select();
-  };
+    this.$element.find('input.el-dynamicselect-singleinput').select();
+  }
 
-  // Blur event handler
-  $element.on("blur.dynamicSelect", "input", function() {
-    // Close the dropdown if selection leaves the input or its children
-    // Timeout to allow click events in the dropdown to register 
-    $timeout(function() {
-      if ($element.has(document.activeElement).length === 0) {
-        vm.dropdownOpen = false;
+  // Case insensitive filter for ng-repeat
+  getItemVisible(item) {
+    return this.getItemValue(item).toLowerCase().indexOf(this.debouncedFilter.toLowerCase()) !== -1;
+  }
 
-        // Remove the filter text and show selected value on blur
-        if (!vm.multiple) {
-          vm.singleText = displayValueOf(vm.ngModel);
-        }
-      }
-    }, 200);
-  });
-
-  // Keyboard control
-  $element.on("keydown.dynamicSelect", "input", function(e) {
-    if ([Keys.up, Keys.down, Keys.enter].indexOf(e.which) === -1) return;
-    var highlightedElement = $element.find(".el-dynamicselect-dropdown-item.highlighted").first();
-    var nextElement = null;
-    switch (e.which) {
-      case Keys.up:
-        if (highlightedElement.length > 0 && vm.dropdownOpen) {
-          nextElement = highlightedElement.prevAll("li:not(.selected)").first();
-        }
-        break;
-      case Keys.down:
-        if (highlightedElement.length > 0 && vm.dropdownOpen) {
-          nextElement = highlightedElement.nextAll("li:not(.selected)").first();
-        }
-        else {
-          nextElement = $element.find(".el-dynamicselect-dropdown-item:not(.selected)").first();
-        }
-        // Show panel
-        $scope.$apply(function() {
-          setDropdown(true);
-        });
-        break;
-      case Keys.enter:
-        if (vm.dropdownOpen) {
-          highlightedElement.click();
-        }
-        break;
-    }
-    $scope.$apply(function() {
-      setHighlightOnElement(nextElement);
+  getDropdown() {
+    const dropdown = angular.element('<div/>', {
+      'class'   : 'el-dynamicselect-dropdown',
+      'ng-class': '{ "open": vm.dropdownOpen, "dropup": vm.options.dropDirection === "up" }'
     });
-    e.stopPropagation();
-    e.preventDefault();
-  });
 
-  // Clean up event handlers
-  $scope.$on("$destroy", function() {
-    $element.off("click.dynamicSelect blur.dynamicSelect keydown.dynamicSelect");
-  });
+    let contentContainer = dropdown;
 
-  // Set highlight on first result when opening dropdown
-  $scope.$watch("vm.dropdownOpen", function(nv) {
-    if (nv) {
-      initHighlight();
-    }
-  });
-
-  // Watch the children of the dropdown list for changes and set highlight on first result if unset
-  // (used when results are loaded asynchronously)
-  $timeout(function() {
-    var dropdownObserver = new MutationObserver(function() {
-      $scope.$apply(initHighlight);
-    });
-    var itemListElement = $element.find(".el-dynamicselect-dropdown ul");
-    if (itemListElement.length > 0) {
-      dropdownObserver.observe(itemListElement.get(0), { childList: true });
-    }
-  });
-
-  function getDropdownHtml() {
-    var dropdown = angular.element("<div/>", {
-      "class": "el-dynamicselect-dropdown",
-      "ng-class": "{'open': vm.dropdownOpen, 'dropup': vm.allOptions.dropDirection === 'up'}"
-    });
-    var contentContainer = dropdown;
-    if (vm.isPaging || vm.allOptions.scroll) {
-      dropdown.addClass("scroll");
-      var scrollPane = angular.element("<div/>", {
-        "scroll-pane": "",
-        "scroll-name": "el-dynamicselect-scroll",
-        "scroll-config": "{autoReinitialise: true}"
+    if (this.isPaging || this.options.scroll) {
+      dropdown.addClass('scroll');
+      const scrollPane = angular.element('<div/>', {
+        'scroll-pane'  : '',
+        'scroll-name'  : 'el-dynamicselect-scroll',
+        'scroll-config': '{ autoReinitialise: true }'
       });
-      if (vm.isPaging) {
-        scrollPane.attr("infinite-scroll", "");
-        scrollPane.attr("page-size", "vm.allOptions.pageSize");
-        scrollPane.attr("page-fn", "vm.source");
-        scrollPane.attr("item-template", "'directives/dynamicSelect/dynamicSelectListItem.tmpl.html'");
-        scrollPane.attr("item-api", "vm.itemApi");
-        scrollPane.attr("container-id", "'el-dynamicselect-scrollcontainer'");
-        scrollPane.attr("search-query", "vm.debouncedFilter");
+      if (this.isPaging) {
+        scrollPane.attr('infinite-scroll', '');
+        scrollPane.attr('page-size', 'vm.options.pageSize');
+        scrollPane.attr('page-fn', 'vm.source');
+        scrollPane.attr('loading-change', 'vm.onLoadingChange()');
+        scrollPane.attr('item-template', '"directives/dynamicSelect/dynamicSelectListItem.tmpl.html"');
+        scrollPane.attr('item-api', 'vm.itemApi');
+        scrollPane.attr('container-id', '"el-dynamicselect-scrollcontainer"');
+        scrollPane.attr('search-query', 'vm.debouncedFilter');
       }
       dropdown.append(scrollPane);
       contentContainer = scrollPane;
     }
 
-    var ul = angular.element("<ul/>");
-    if (vm.isPaging) {
-      ul.attr("infinite-scroll-container", "el-dynamicselect-scrollcontainer");
+    const ul = angular.element('<ul/>');
+    if (this.isPaging) {
+      ul.attr('infinite-scroll-container', 'el-dynamicselect-scrollcontainer');
     }
 
-    if (!vm.isPaging) {
-      var li = angular.element("<li/>", {
-        "ng-repeat": "item in filteredItems = (vm.source | filter: vm.dropdownFilter)",
-        "class": "el-dynamicselect-dropdown-item",
-        "ng-class": "{'selected': vm.itemApi.isSelected(item), 'highlighted': vm.itemApi.isHighlighted(item)}",
-        "data-key": "{{vm.itemApi.getKey(item)}}",
-        "ng-mouseover": "vm.itemApi.setHighlighted(item, true)",
-        "ng-mouseleave": "vm.itemApi.setHighlighted(item, false)",
-        "ng-click": "vm.itemApi.select(item)",
-        "ng-bind-html": "vm.itemApi.getDisplayHtml(item)"
+    if (!this.isPaging) {
+
+      let repeatExpr = 'item in filteredItems = (vm.source | filter: vm.dropdownFilterFn)';
+      if (this.trackBy) {
+        repeatExpr += ` track by item.${this.trackBy}`;
+      }
+
+      const li = angular.element('<li/>', {
+        'ng-repeat'    : repeatExpr,
+        'class'        : 'el-dynamicselect-dropdown-item',
+        'ng-class'     : '{ "selected": vm.itemApi.isSelected(item), "highlighted": vm.itemApi.isHighlighted(item) }',
+        'data-key'     : '{{ vm.itemApi.getKey(item) }}',
+        'ng-mouseover' : 'vm.itemApi.setHighlighted(item, true)',
+        'ng-mouseleave': 'vm.itemApi.setHighlighted(item, false)',
+        'ng-click'     : 'vm.itemApi.select(item)',
+        'ng-bind-html' : 'vm.itemApi.getDisplayHtml(item)'
       });
 
       ul.append(li);
@@ -282,131 +291,213 @@ export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $t
 
     contentContainer.append(ul);
 
-    return $compile(dropdown)($scope);
+    this.dropdownScope = this.$scope.$new();
+
+    // hide the element until the scrollpane is ready
+    dropdown.css({ visibility: 'hidden' });
+
+    // compile the element
+    const compiled = this.$compile(dropdown)(this.dropdownScope);
+
+    // once the scrollpane has initialised make the dropdown visible
+    setTimeout(() => dropdown.css({ visibility: '' }));
+
+    // return the compiled dropdown element
+    return compiled;
   }
 
-  function displayValueOf(modelItem) {
-    return (modelItem && vm.selectAs) ? modelItem[vm.selectAs] : modelItem;
+  getItemValue(item) {
+    return (item && this.selectAs) ? item[this.selectAs] : item;
   }
 
-  function keyOf(modelItem) {
-    return (modelItem && vm.trackBy) ? modelItem[vm.trackBy] : displayValueOf(modelItem);
+  getItemKey(item) {
+    return (item && this.trackBy) ? item[this.trackBy] : this.getItemValue(item);
   }
 
-  function initTagsModel(model) {
-    var tagsModel = [];
-    for (var i in model) {
-      var tag = {
-        key: keyOf(model[i]),
-        display: displayValueOf(model[i])
-      };
-      tagsModel.push(tag);
+  /**
+   * @param {ReadonlyArray<any>} items
+   */
+  initTagsModel(items) {
+    return items.map(item => ({ key: this.getItemKey(item), display: this.getItemValue(item) }));
+  }
+
+  /**
+   * @param {string} key
+   */
+  getModelIndex(key) {
+
+    if (Array.isArray(this.ngModel)) {
+        for (let idx = 0; idx < this.ngModel.length; idx++) {
+            if (this.getItemKey(this.ngModel[idx]) === key) {
+                return idx;
+            }
+        }
     }
-    return tagsModel;
+
+    return -1;
   }
 
-  function modelIndexOfKey(key) {
-    var index = -1;
-    for (var i in vm.ngModel) {
-      if (keyOf(vm.ngModel[i]) === key) {
-        index = i;
-        break;
+  select(item) {
+    if (this.multiple) {
+
+      if (!this.ngModel) {
+        this.ngModel = [];
       }
-    }
-    return index;
-  }
 
-  function select(item) {
-    if (vm.multiple) {
-      if (!vm.ngModel) vm.ngModel = [];
-      if (modelIndexOfKey(keyOf(item)) === -1) {
-        vm.ngModel.push(item);
+      if (this.getModelIndex(this.getItemKey(item)) === -1) {
+        this.ngModel.push(item);
       }
     }
     else {
-      vm.ngModel = item;
+      this.ngModel = item;
     }
   }
 
-  function deselect(key) {
-    if (vm.multiple) {
-      var index = modelIndexOfKey(key);
-      vm.ngModel.splice(index, 1);
+  /**
+   * @param {string} key
+   */
+  deselect(key) {
+    this.ngModel.splice(this.getModelIndex(key), 1);
+  }
+
+  isSelected(item) {
+    return this.multiple ?
+      this.getModelIndex(this.getItemKey(item)) !== -1 :
+      this.getItemKey(item) === this.getItemKey(this.ngModel);
+  }
+
+  setHighlighted(item, status) {
+
+    if (this.isSelected(item)) {
+      return;
     }
+    this.highlightedItemKey = (status ? this.getItemKey(item) : null);
   }
 
-  function isSelected(item) {
-    if (vm.multiple) {
-      return modelIndexOfKey(keyOf(item)) >= 0;
-    }
-    return keyOf(item) === keyOf(vm.ngModel);
+  isHighlighted(item) {
+    return this.getItemKey(item) === this.highlightedItemKey;
   }
 
-  function setHighlighted(item, status) {
-    if (isSelected(item)) return;
-    vm.highlightedItemKey = (status ? keyOf(item) : null);
-  }
-
-  function isHighlighted(item) {
-    return keyOf(item) === vm.highlightedItemKey;
-  }
-
-  function setHighlightOnElement(element) {
+  setHighlightOnElement(element) {
     if (element && element.length > 0) {
-      scrollIntoView(element);
-      var key = element.attr("data-key");
-      vm.highlightedItemKey = key;
+      this.scrollIntoView(element);
+      const key = element.attr('data-key');
+      this.highlightedItemKey = key;
     }
   }
 
-  function initHighlight() {
+  initHighlight() {
     // Set highlight on first available item, unless the user has already scrolled
-    if (vm.highlightedItemKey === null && !isScrolled()) {
-      var firstItem = $element.find(".el-dynamicselect-dropdown-item:not(.selected)").first();
-      setHighlightOnElement(firstItem);
+    if (this.highlightedItemKey === null && !this.isScrolled()) {
+      const firstItem = this.$element.find('.el-dynamicselect-dropdown-item:not(.selected)').first();
+      this.setHighlightOnElement(firstItem);
     }
   }
 
-  function isScrolled() {
-    var scrollPane = $element.find(".jspPane");
+  isScrolled() {
+    const scrollPane = this.$element.find('.jspPane');
     if (scrollPane.length > 0) {
-      var top = parseInt(scrollPane.css("top"));
+      const top = parseInt(scrollPane.css('top'));
       return top < 0;
     }
     return false;
   }
 
-  function scrollIntoView(element) {
-    var scrollPane = element.closest(".scroll-pane");
-    if (scrollPane.length > 0) {
-      var api = scrollPane.data("jsp");
-      api.scrollToElement(element);
+  /**
+   * @param {JQuery} element
+   */
+  scrollIntoView(element) {
+    const scrollpane = element.closest('.scroll-pane').data('jsp');
+
+    if (scrollpane) {
+      scrollpane.scrollToElement(element);
     }
   }
 
-  function displayValueWithFilterMatch(item) {
-    var displayText = $sanitize(displayValueOf(item));
-    var displayHtml = displayText;
-    if (vm.debouncedFilter.length && vm.debouncedFilter.length > 0) {
-      var length = vm.debouncedFilter.length;
-      var matchIndex = displayText.toLowerCase().indexOf(vm.debouncedFilter.toLowerCase());
+  displayValueWithFilterMatch(item) {
+    const displayText = this.$sanitize(this.getItemValue(item));
+    let displayHtml = displayText;
+    if (this.debouncedFilter.length && this.debouncedFilter.length > 0) {
+      const length = this.debouncedFilter.length;
+      const matchIndex = displayText.toLowerCase().indexOf(this.debouncedFilter.toLowerCase());
       if (matchIndex >= 0) {
-        var highlight = "<u>" + displayText.substr(matchIndex, length) + "</u>";
+        const highlight = '<u>' + displayText.substr(matchIndex, length) + '</u>';
         displayHtml = displayText.substr(0, matchIndex) + highlight + displayText.substr(matchIndex + length);
       }
     }
     return displayHtml;
   }
 
-  function setDropdown(state) {
-    vm.dropdownOpen = (state && !vm.ngDisabled);
-  }
+  /**
+   * @param {boolean} open
+   */
+  setDropdownOpen(open) {
 
-  function setDirty() {
-    inputModelCtrl = inputModelCtrl || $element.find("input").controller("ngModel");
-    if (inputModelCtrl) {
-      inputModelCtrl.$setDirty();
+    // if the dropdown is already open then do nothing
+    if (this.dropdownOpen === true && open === true) {
+      return;
+    }
+
+    this.dropdownOpen = (open && !this.ngDisabled);
+
+    if (open === true) {
+      this.dropdown = this.getDropdown();
+      this.$element.append(this.dropdown);
+
+      // remove any existing observer
+      if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
+      }
+
+      // find the scroll pane element
+      this.scrollpane = this.$element.find('.scroll-pane');
+
+      // the scroll pane will not be present if the `scroll` option is set to false
+      if (this.scrollpane.get(0)) {
+          // start watching for any changes
+          this.scrollpaneObserver = new MutationObserver(() => this.updateDropdownHeight());
+
+          this.scrollpaneObserver.observe(this.scrollpane.get(0), { childList: true, subtree: true });
+      }
+
+    } else {
+      if (this.dropdown && this.dropdownScope) {
+        this.dropdownScope.$destroy();
+        this.dropdown.remove();
+      }
+
+      if (this.scrollpaneObserver) {
+          this.scrollpaneObserver.disconnect();
+      }
     }
   }
 
+  setDirty() {
+    this.inputModelCtrl = this.inputModelCtrl || this.$element.find('input').controller('ngModel');
+    if (this.inputModelCtrl) {
+      this.inputModelCtrl.$setDirty();
+    }
+  }
+
+  updateDropdownHeight() {
+
+    if (!this.scrollpane || !this.dropdown) {
+        return;
+    }
+
+    const api = this.scrollpane.data('jsp');
+
+    if (!api) {
+        return;
+    }
+
+    api.reinitialise();
+    this.dropdown.css('height', api.getContentHeight() + parseFloat(this.dropdown.css('padding-top')) + parseFloat(this.dropdown.css('padding-bottom')));
+  }
+
+  onLoadingChange() {
+    this.$timeout(() => this.updateDropdownHeight());
+  }
 }
+
+DynamicSelectCtrl.$inject = ['$scope', '$element', '$attrs', '$compile', '$timeout', '$sanitize', 'debounceService'];

@@ -1,0 +1,17 @@
+<div class="virtual-scroll-content-height" [style.height.px]="getTotalHeight()"></div>
+<div class="virtual-scroll-content" [style.transform]="'translateY(' + scrollTop + 'px)'">
+
+    <!-- Virtually Render Cells -->
+    <ng-container *ngFor="let cell of cells | async">
+        <ng-container *ngTemplateOutlet="cellTemplate; context: { cell: cell.data, index: cell.index }"></ng-container>
+    </ng-container>
+
+    <!-- Loading Indicator -->
+    <ng-container *ngIf="loadingIndicatorTemplate && isLoading" [ngTemplateOutlet]="loadingIndicatorTemplate"></ng-container>
+
+    <!-- Loading Button -->
+    <div class="virtual-scroll-load-button" *ngIf="loadButtonTemplate && !loadOnScroll && !loadingComplete && !isLoading" (click)="loadNextPage()">
+        <ng-container *ngTemplateOutlet="loadButtonTemplate"></ng-container>
+    </div>
+
+</div>

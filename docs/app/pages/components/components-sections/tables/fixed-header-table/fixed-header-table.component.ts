@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-fixed-header-table',
@@ -10,14 +10,15 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
     styleUrls: ['./fixed-header-table.component.less']
 })
 @DocumentationSectionComponent('ComponentsFixedHeaderTableComponent')
-export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    people: Person[] = [];
+    people: ReadonlyArray<Person> = [];
     loading: boolean = false;
+    total: number = 250;
 
     private _page: number = 0;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
@@ -55,7 +56,7 @@ export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSectio
         setTimeout(() => {
 
             // update the list of people and increment the current page
-            this.people = this.people.concat(this.getPeople(this._page++, 50));
+            this.people = [...this.people, ...this.getPeople(this._page++, 50)];
 
             // set the loading state to false
             this.loading = false;
@@ -64,7 +65,7 @@ export class ComponentsFixedHeaderTableComponent extends BaseDocumentationSectio
     }
 
     /**
-     * Generate some data about people 
+     * Generate some data about people
      */
     private getPeople(page: number, count: number): Person[] {
 

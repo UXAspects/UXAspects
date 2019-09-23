@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-buttons-toggle-buttons',
     templateUrl: './toggle-buttons.component.html'
 })
 @DocumentationSectionComponent('ComponentsToggleButtonsComponent')
-export class ComponentsToggleButtonsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsToggleButtonsComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     // Toggle model
     primaryToggleValue: number = 0;
@@ -21,14 +21,14 @@ export class ComponentsToggleButtonsComponent extends BaseDocumentationSection i
         italic: true,
         underline: false
     };
-    
+
     accentCheckValue = {
         bold: false,
         italic: true,
         underline: false
     };
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
             'app.component.ts': this.snippets.raw.appTs

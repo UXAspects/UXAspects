@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { TreeNode } from 'angular-tree-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
 
 @Component({
     selector: 'uxd-components-tree-view',
@@ -70,8 +70,39 @@ export class ComponentsTreeViewComponent extends BaseDocumentationSection {
         ]
     }];
 
+    focused: TreeNode;
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    /**
+     * If tree view is tabbed to, focus the node
+     */
+    focus(node: TreeNode): void {
+        node.focus();
+        node.treeModel.setFocus(true);
+    }
+
+    /** Ensure the blur state is updated consistently */
+    blur(node: TreeNode): void {
+        if (this.focused === node) {
+            node.blur();
+            node.treeModel.setFocus(false);
+        }
+    }
+
+    getIcon(node: TreeNode): string {
+        if (node.hasChildren && !node.isExpanded) {
+            return 'folder';
+        }
+        if (node.hasChildren && node.isExpanded) {
+            return 'folder-open';
+        }
+
+        if (!node.hasChildren) {
+            return 'document';
+        }
     }
 }
 
@@ -79,4 +110,5 @@ export interface TreeViewExampleNode {
     id?: number;
     name: string;
     children?: TreeViewExampleNode[];
+    isExpanded?: boolean;
 }

@@ -1,86 +1,68 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { $, $$, browser, ElementFinder } from 'protractor';
 
 export class TabsTestPageComponent {
-        
-    getPage(): void {
-        browser.get('#/tabs');
-    }
-    
-    // Icon only
-    tabSetIconOnly = element(by.id('tabSetIconOnly'));
 
-    getIconOnlyTabHeader(index: number) {
-        return this.tabSetIconOnly.$('ul').$$('li').get(index);
-    }
-    getIconOnlyTabHeaderIcon(index: number) {
-        return this.getIconOnlyTabHeader(index).$('a').$('tab-heading').$('i.hpe-icon');
-    }
-    getIconOnlyTabContent(index: number) {
-        return this.tabSetIconOnly.$('div.tab-content').$$('div.tab-pane').get(index);
-    }
-    
-    // Text and icon
-    tabSetTextAndIcon = element(by.id('tabSetTextAndIcon'));
+    minimalCheckbox = $('#minimal-checkbox');
+    stackNoneRadio = $('#stack-none-radio');
+    stackLeftRadio = $('#stack-left-radio');
+    stackRightRadio = $('#stack-right-radio');
+    addTab0 = $('#add-tab-0');
+    tabsetHost = $('ux-tabset');
+    tabset = $('.nav-tabs');
+    tabs = $$('.nav-item');
+    selectedTab = $('.nav-item.active');
+    selectedLabel = $('#selected-tab');
 
-    getTextAndIconTabHeader(index: number) {
-        return this.tabSetTextAndIcon.$('ul').$$('li').get(index);
-    }
-    getTextAndIconTabHeaderIcon(index: number) {
-        return this.getTextAndIconTabHeader(index).$('a').$('tab-heading').$('i.hpe-icon');
-    }
-    getTextAndIconTabHeaderText(index: number) {
-        return this.getTextAndIconTabHeader(index).$('a').$('tab-heading').$('span.tab-title');
-    }
-    getTextAndIconTabContent(index: number) {
-        return this.tabSetTextAndIcon.$('div.tab-content').$$('div.tab-pane').get(index);
+    async getPage(): Promise<void> {
+        await browser.get('#/tabs');
     }
 
-    // Text only
-    tabSetTextOnly = element(by.id('tabSetTextOnly'));
-
-    getTextOnlyTabHeader(index: number) {
-        return this.tabSetTextOnly.$('ul').$$('li').get(index);
-    }
-    getTextOnlyTabHeaderText(index: number) {
-        return this.getTextOnlyTabHeader(index).$('a').$('tab-heading').$('span.tab-title');
-    }
-    getTextOnlyTabContent(index: number) {
-        return this.tabSetTextOnly.$('div.tab-content').$$('div.tab-pane').get(index);
+    async getTabCount(): Promise<number> {
+        return await this.tabs.count();
     }
 
-    // Alternative style
-    tabSetAlternativeStyle = element(by.id('tabSetAlternativeStyle'));
-
-    getAlternativeStyleTabHeader(index: number) {
-        return this.tabSetAlternativeStyle.$('ul').$$('li').get(index);
-    }
-    getAlternativeStyleTabHeaderText(index: number) {
-        return this.getAlternativeStyleTabHeader(index).$('a').$('tab-heading').$('span');
-    }
-    getAlternativeStyleTabContent(index: number) {
-        return this.tabSetAlternativeStyle.$('div.tab-content').$$('div.tab-pane').get(index);
+    async getSelectedTab(): Promise<string> {
+        return await this.selectedTab.getText();
     }
 
-    // Dynamic tabs
-    tabSetDynamicTabs = element(by.id('tabSetDynamicTabs'));
-    buttonGroup = element(by.id('buttonGroup'));
-    dropdown = element(by.id('dropdown'));
-    dropdownMenu = element(by.id('dropdownMenu'));
-    
-    getDynamicTabsTabHeader(index: number) {
-        return this.tabSetDynamicTabs.$('ul').$$('li').get(index);
+    async getSelectedTabContent(): Promise<string> {
+        return (await this.getSelectedTabElement()).getText();
     }
-    getDynamicTabsTabHeaderText(index: number) {
-        return this.getDynamicTabsTabHeader(index).$('a').$('tab-heading').$('span.tab-title');
+
+    async getTabsetStyle(): Promise<string> {
+        const classes = await this.tabset.getAttribute('class');
+
+        return classes.includes('minimal-tab') ? 'minimal' : 'alternative';
     }
-    getDynamicTabsTabContent(index: number) {
-        return this.tabSetDynamicTabs.$('div.tab-content').$$('div.tab-pane').get(index);
+
+    async getTabsetStack(): Promise<string> {
+        const classes = await this.tabsetHost.getAttribute('class');
+
+        if (classes.includes('tabs-left')) {
+            return 'left';
+        }
+
+        if (classes.includes('tabs-right')) {
+            return 'right';
+        }
+
+        return 'none';
     }
-    selectTabFromList(index: number) {
-        this.buttonGroup.$('ul').$$('li').get(index).click();
+
+    async clickTabAtIndex(index: number): Promise<void> {
+        await this.tabs.get(index).click();
     }
-    getDropdownMenuItem(index: number) {
-        return this.buttonGroup.$('ul').$$('li').get(1).$('a');
+
+    async pressKey(key: any): Promise<void> {
+        return await browser.actions().sendKeys(key).perform();
+    }
+
+    async getSelectedLabelText(): Promise<string> {
+        return await this.selectedLabel.getText();
+    }
+
+    async getSelectedTabElement(): Promise<ElementFinder> {
+        return await $$('ux-tab > .tab-pane').filter(async pane => await pane.getCssValue('display') === 'block').first();
     }
 
 }

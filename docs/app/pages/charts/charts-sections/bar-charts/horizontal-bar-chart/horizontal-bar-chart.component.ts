@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-horizontal-bar-chart',
     templateUrl: './horizontal-bar-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsHorizontalBarChartComponent')
-export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,
@@ -80,7 +80,7 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
                         return;
                     },
                     label: (item: Chart.ChartTooltipItem) => {
-                        return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
+                        return `x: ${item.xLabel}, y: ${item.yLabel}`;
                     }
                 },
                 displayColors: false

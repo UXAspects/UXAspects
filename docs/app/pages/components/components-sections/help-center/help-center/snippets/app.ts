@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Breadcrumb, PageHeaderIconMenu, HelpCenterItem, HelpCenterService } from '@ux-aspects/ux-aspects';
-import { Subscription } from 'rxjs/Subscription';
+import { Breadcrumb, HelpCenterItem, HelpCenterService, PageHeaderIconMenu } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app',
@@ -16,13 +16,13 @@ export class AppComponent implements OnDestroy {
 
     menus: PageHeaderIconMenu[] = [
         {
-            icon: 'hpe-help',
+            icon: 'help',
             dropdown: []
         }
     ];
 
     refreshHelpCenterItem: HelpCenterItem = {
-        icon: 'hpe-refresh',
+        icon: 'refresh',
         title: 'Refresh Repositories',
         select: this.loadData.bind(this)
     };

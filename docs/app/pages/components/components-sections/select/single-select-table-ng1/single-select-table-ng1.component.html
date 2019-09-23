@@ -1,4 +1,20 @@
-<uxd-single-select-table-wrapper></uxd-single-select-table-wrapper>
+<div class="row">
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <label class="m-l-sm m-t-xs">Select an author</label>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <input type="text" [(ngModel)]="query" placeholder="Search" class="form-control">
+            </div>
+            <br/>
+            <br/>
+        </div>
+        <select-table [values]="authors" [(selected)]="selected" selectKey="name" [searchText]="query"></select-table>
+        <br/>
+        <p>Id of the selected value is : <b>{{ selected?.id }}</b></p>
+    </div>
+</div>
 
 <hr>
 
@@ -29,18 +45,24 @@
         it from the list of visible items. Alternatively, set to <code>'reselect'</code> to both clear the selected
         item, and reselect it when it becomes visible again.
     </tr>
+    <tr uxd-api-property name="template" type="string" binding="variable">
+        Customize the content of each item by providing a template. The scope of the template will be the item data.
+    </tr>
+    <tr uxd-api-property name="template-url" type="string" binding="variable">
+        Customize the content of each item by providing a template url. The scope of the template will be the item data.
+    </tr>
 </uxd-api-properties>
 
 <p>The sample code for the above example is:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <blockquote>
     <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>

@@ -1,0 +1,41 @@
+<!-- Nav tabs -->
+<ul role="tablist"
+    uxTabbableList
+    [direction]="stacked === 'none' ? 'horizontal' : 'vertical'"
+    [allowBoundaryKeys]="true"
+    class="nav nav-tabs"
+    [class.minimal-tab]="minimal"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'">
+
+	<li role="presentation"
+        class="nav-item"
+        *ngFor="let tab of _tabset.tabs; let index = index"
+        [class.active]="tab.active"
+        [class.disabled]="tab.disabled"
+        [ngClass]="tab.customClass">
+
+        <a class="nav-link"
+            [id]="tab.id"
+            role="tab"
+            uxTabbableListItem
+            uxFocusIndicator
+            (mousedown)="_tabset.select(tab)"
+            (activated)="_tabset.select(tab)"
+            [attr.aria-controls]="tab.id"
+            [attr.aria-selected]="tab.active"
+            [attr.aria-disabled]="tab.disabled">
+
+            <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
+
+            <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
+        </a>
+
+	</li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+	<ng-content></ng-content>
+</div>

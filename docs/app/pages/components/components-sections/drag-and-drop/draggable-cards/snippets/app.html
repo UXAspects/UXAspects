@@ -1,0 +1,108 @@
+<div class="draggable-card-demo">
+    <div class="ux-draggable-card-container"
+         uxTabbableList
+         #list="ux-tabbable-list"
+         [allowAltModifier]="false"
+         direction="vertical"
+         [wrap]="true">
+
+    <!-- Fixed Cards -->
+    <div class="ux-draggable-card right"
+        uxTabbableListItem
+        *ngFor="let card of fixedCards"
+        [class.active]="active === card"
+        (click)="active = card"
+        (keydown.enter)="active = card">
+
+      <p class="draggable-card-title">
+        {{ card.title }}
+        <span class="text-muted">({{ card.count }})</span>
+      </p>
+    </div>
+
+    <!-- Draggable Cards -->
+    <div uxReorderable [(reorderableModel)]="draggableCards">
+
+      <div #draggableCard
+          class="ux-draggable-card right"
+          uxTabbableListItem
+          uxFocusWithin
+          #tabbableItem="ux-tabbable-list-item"
+          *ngFor="let card of draggableCards"
+          attr.aria-label="{{ card.title }} {{ card.count }}.
+          {{ card.subtitle }}. Press Alt up and alt down to reorder."
+          [uxReorderableModel]="card"
+          [class.active]="active?.title === card.title"
+          (click)="active = card"
+          (keydown.enter)="active = card"
+          (keydown.alt.arrowup)="move(card, -1)"
+          (keydown.alt.arrowdown)="move(card, 1)">
+
+          <div class="draggable-card-header">
+
+            <p class="draggable-card-title">
+              {{ card.title }}
+              <span class="text-muted">({{ card.count }})</span>
+
+              <button uxFocusIndicator
+                class="draggable-card-action"
+                aria-label="Edit card"
+                [tabindex]="tabbableItem.tabindex">
+                <ux-icon name="edit"></ux-icon>
+              </button>
+            </p>
+
+
+            <button uxFocusIndicator
+              class="draggable-card-action"
+              aria-label="Remove Card"
+              (click)="remove(card, list)"
+              [tabindex]="tabbableItem.tabindex">
+              <ux-icon name="close"></ux-icon>
+            </button>
+          </div>
+
+
+          <div class="draggable-card-content">
+
+            <div class="draggable-card-controls">
+
+              <button uxFocusIndicator
+                class="draggable-card-control draggable-card-control-up"
+                aria-label="Move card up"
+                (click)="move(card, -1)"
+                [tabindex]="tabbableItem.tabindex">
+              </button>
+
+              <div class="draggable-card-drag-handle" aria-hidden="true" uxReorderableHandle></div>
+
+              <button uxFocusIndicator
+                class="draggable-card-control draggable-card-control-down"
+                aria-label="Move card down"
+                (click)="move(card, 1)"
+                [tabindex]="tabbableItem.tabindex">
+              </button>
+            </div>
+
+            <div class="draggable-card-chart">
+                <span class="draggable-card-chart-label">{{ card.chart.count }}M</span>
+                <canvas baseChart
+                  width="60"
+                  height="60"
+                  [colors]="colors"
+                  [options]="options"
+                  [data]="card.chart.segments"
+                  [legend]="false"
+                  chartType="doughnut"></canvas>
+            </div>
+
+            <div class="draggable-card-details">
+              <p class="draggable-card-subtitle">{{ card.subtitle }}</p>
+              <p class="draggable-card-description">{{ card.description }}</p>
+            </div>
+          </div>
+      </div>
+    </div>
+
+	</div>
+</div>

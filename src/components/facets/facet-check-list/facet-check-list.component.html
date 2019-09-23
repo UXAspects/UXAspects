@@ -1,21 +1,23 @@
 <ux-facet-header [header]="header" [(expanded)]="expanded"></ux-facet-header>
 
 <!-- Create a container which will show when section is expanded -->
-<div class="facet-check-list-container" [class.facet-check-list-scrollbar]="scrollbar" *ngIf="expanded">
+<div class="facet-check-list-container"
+    tabindex="-1"
+    role="listbox"
+    [class.facet-check-list-scrollbar]="scrollbar"
+    [class.facet-check-list-scrollbar-focused]="isFocused"
+    *ngIf="expanded">
 
     <!-- Iterate through each possible facet -->
-    <div class="facet-check-list-item" *ngFor="let facet of facets" [class.facet-active]="isFacetSelected(facet)" tabindex="0"
-        (click)="toggleFacetSelection(facet)" (keyup.enter)="toggleFacetSelection(facet)" [class.disabled]="facet.disabled">
+    <ux-facet-check-list-item *ngFor="let facet of facets; let index = index"
+        [facet]="facet"
+        [simplified]="simplified"
+        [tabbable]="activeIndex === index"
+        [selected]="facetService.isSelected(facet)"
+        (selectedChange)="toggleFacet(index, facet)"
+        (keydown)="onKeydown($event)"
+        (itemFocus)="isFocused = true; onFocus(index)"
+        (itemBlur)="isFocused = false">
+    </ux-facet-check-list-item>
 
-        <!-- Show check icon to indicate the state -->
-        <span class="facet-check-list-item-check">
-            <span class="hpe-icon hpe-active"></span>
-        </span>
-
-        <!-- Display the title -->
-        <span class="facet-check-list-item-title">{{ facet.title }}</span>
-
-        <!-- Display the count if specified -->
-        <span class="facet-check-list-item-count" *ngIf="facet.count !== undefined">({{ facet.count }})</span>
-    </div>
 </div>

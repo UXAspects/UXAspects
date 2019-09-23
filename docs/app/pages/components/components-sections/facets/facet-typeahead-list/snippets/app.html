@@ -1,7 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <ux-facet-container>
-            <ux-facet-typeahead-list header="Authors" [facets]="facets" [suggestions]="suggestions" [simplified]="false"></ux-facet-typeahead-list>
+            <ux-facet-typeahead-list
+                header="Authors"
+                [facets]="facets"
+                [(query)]="query"
+                [suggestions]="suggestions"
+                [simplified]="false"
+                [typeaheadConfig]="{ placeholder: 'Find Author' }">
+            </ux-facet-typeahead-list>
         </ux-facet-container>
     </div>
 </div>

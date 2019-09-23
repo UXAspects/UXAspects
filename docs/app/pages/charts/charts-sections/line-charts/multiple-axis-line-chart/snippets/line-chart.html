@@ -1,13 +1,31 @@
 <div class="demo-chart-container">
 
-    <canvas baseChart 
-            [datasets]="lineChartData"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend"
-            [colors]="lineChartColors"
-            chartType="line">
+    <canvas baseChart
+        [datasets]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+        [colors]="lineChartColors"
+        chartType="line">
+
+        <table *ngFor="let dataset of lineChartData" attr.aria-label="{{dataset.label}} chart data">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>{{dataset.label}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let row of dataset.data; let idx = index">
+                    <tr *ngIf="idx % 10 === 0">
+                        <td>{{formatDate(row.x)}}</td>
+                        <td>{{row.y}}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
     </canvas>
 
-    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents"></div>
+    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents" aria-hidden="true"></div>
 
 </div>

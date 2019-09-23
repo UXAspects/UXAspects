@@ -1,21 +1,80 @@
-<pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
-    [maxSize]="maxSize" (numPages)="totalPages = $event"
-    [previousText]="previousButton" [nextText]="nextButton">
-</pagination>
+<ux-pagination
+    [(ngModel)]="currentPage"
+    [totalItems]="totalItems"
+    [itemsPerPage]="itemsPerPage"
+    [maxSize]="maxSize"
+    (numPages)="totalPages = $event">
+</ux-pagination>
 
-<p>Page {{currentPage}} of {{totalPages}}</p>
+<p>Page {{ currentPage }} of {{ totalPages }}</p>
 
 <hr>
 
-<p>The Bootstrap <code>pagination</code> component can be used to create a paging control. Specify the paging parameters using the <code>totalItems</code> and <code>itemsPerPage</code> properties. The active page number is bound to <code>ngModel</code>. The <code>numPages</code> output property receives the total number of pages.</p>
+<p>
+    The <code>ux-pagination</code> component can be used to provide navigation between pages when display and interacting with
+    large datasets. The pagination component can also be used in forms using <code>ngModel</code> or reactive forms.
+</p>
 
-<p>To use the <a routerLink="/css/icons">UX Aspects icons</a> in the previous and next buttons, HTML markup can be assigned to the <code>previousText</code> and <code>nextText</code> properties. See the TypeScript example code below for recommended icon bindings.</p>
+<p>
+    The direction button content can be customized by adding an <code>ng-template</code> as a child of the <code>ux-pagination</code> component.
+</p>
 
-<tabset>
-    <tab heading="HTML">
+<ul>
+    <li>To customize the content of the previous button add <code>#previousBtnTemplate</code> to the <code>ng-template</code> element.</li>
+    <li>To customize the content of the next button add <code>#nextBtnTemplate</code> to the <code>ng-template</code> element.</li>
+</ul>
+
+<p>
+    The following properties can be used to configure the component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="page" type="number" defaultValue="1">
+        Defines which page should currently be active.
+    </tr>
+    <tr uxd-api-property name="totalItems" type="number" [required]="true">
+        Defines the total number of items in the dataset. This will be used in conjunction
+        with the <code>itemsPerPage</code> to determine the number of pages required.
+    </tr>
+    <tr uxd-api-property name="itemsPerPage" type="number" defaultValue="10">
+        Defines the number of items that will be displayed on each page.
+    </tr>
+    <tr uxd-api-property name="maxSize" type="number" defaultValue="5">
+        Defines the number page buttons allowed to be visible at any given time.
+    </tr>
+    <tr uxd-api-property name="directionButtons" type="boolean" defaultValue="true">
+        Defines if the Next and Previous buttons should be shown.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        Allows the component to be disabled.
+    </tr>
+    <tr uxd-api-property name="pageBtnClass" type="string">
+        Allows a custom class to be added to the paging buttons.
+    </tr>
+    <tr uxd-api-property name="previousAriaLabel" type="string">
+        Allows an aria label to be defined for the previous button.
+    </tr>
+    <tr uxd-api-property name="nextAriaLabel" type="string">
+        Allows an aria label to be defined for the previous button.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="pageChange" type="number">
+        Emits whenever the current page changes.
+    </tr>
+    <tr uxd-api-property name="numPages" type="number">
+        Emits whenever the number of pages required changes.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

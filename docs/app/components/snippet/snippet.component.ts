@@ -1,21 +1,23 @@
-import { Component, Input, ViewChild, ViewContainerRef, OnInit, AfterViewInit } from '@angular/core';
-import { NavigationService } from '../../services/navigation/navigation.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { highlight, languages } from 'prismjs';
 
 @Component({
     selector: 'uxd-snippet',
-    templateUrl: './snippet.component.html'
+    templateUrl: './snippet.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SnippetComponent implements OnInit {
 
     @Input() language: string = 'html';
     @Input() code: string;
     @Input() content: any;
+    @Input() synchronous: boolean = false;
 
-    @ViewChild('code', { read: ViewContainerRef }) codeContainer: ViewContainerRef;
+    @ViewChild('code', { read: ViewContainerRef, static: true }) codeContainer: ViewContainerRef;
 
-    constructor(private _navigation: NavigationService) { }
+    constructor() { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (this.code) {
             this.loadCode();
         } else if (this.content) {
@@ -24,12 +26,21 @@ export class SnippetComponent implements OnInit {
         }
     }
 
-    private loadCode() {
+    private loadCode(): void {
+
+        // we might want to perform the render synchronously if its only a small
+        // amount of code as async can cause a delay before showing the code
+        if (this.synchronous) {
+            const code = highlight(this.code, languages[this.language]);
+            this.codeContainer.element.nativeElement.innerHTML = `<code>${code}</code>`;
+            return;
+        }
+
         // create a blob containing prismjs
-        let blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
+        const blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
 
         // create a worker for code highlightinh
-        let worker = new Worker(URL.createObjectURL(blob));
+        const worker = new Worker(URL.createObjectURL(blob));
 
         worker.onmessage = (evt: MessageEvent) => {
 
@@ -47,7 +58,7 @@ export class SnippetComponent implements OnInit {
         }));
     }
 
-    private loadContent() {
+    private loadContent(): void {
         this.codeContainer.element.nativeElement.innerHTML = `<code>${this.content}</code>`;
     }
 }

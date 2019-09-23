@@ -3,12 +3,21 @@ ux-marquee-wizard {
     height: 100%;
     min-height: 500px;
 
+    split-gutter {
+        background-color: @marquee-modal-side-panel-bg !important;
+    }
+
     .marquee-wizard-side-panel {
         display: flex;
         flex-direction: column;
         flex: none;
         width: 240px;
         background-color: @marquee-modal-side-panel-bg;
+
+        &.marquee-wizard-side-panel-resize {
+            height: 100%;
+            width: 100%;
+        }
 
         .marquee-wizard-description-container {
             padding: 20px;
@@ -22,6 +31,7 @@ ux-marquee-wizard {
             list-style-type: none;
             padding: 0;
             margin-top: 0;
+            overflow-y: auto;
 
             .marquee-wizard-step {
                 display: flex;
@@ -57,6 +67,14 @@ ux-marquee-wizard {
                 .marquee-wizard-step-status {
                     flex: none;
                 }
+
+                &:focus {
+                    outline: none;
+
+                    &.cdk-keyboard-focused {
+                        .focus-outline();
+                    }
+                }
             }
         }
     }
@@ -66,6 +84,10 @@ ux-marquee-wizard {
         flex-direction: column;
         flex: 1;
         background-color: @marquee-modal-bg;
+
+        &.marquee-wizard-content-panel-resize {
+            height: 100%;
+        }
 
         .marquee-wizard-content {
             flex: 1;

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
-import { BaseChartDirective } from 'ng2-charts';
-import { Chart } from 'chart.js';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-scrollable-chart',
@@ -13,9 +11,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     styleUrls: ['./scrollable-chart.component.less']
 })
 @DocumentationSectionComponent('ChartsScrollableChartComponent')
-export class ChartsScrollableChartComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsScrollableChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.scrollableChartTs,
             'app.component.html': this.snippets.raw.scrollableChartHtml,

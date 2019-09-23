@@ -1,91 +1,74 @@
-<button class="btn button-primary m-b-sm" (click)="togglePanel()">Toggle Preview</button>
+<button class="btn button-primary m-b-sm" (click)="visible = !visible">Toggle Preview</button>
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="demo-attributes item-display-panel-inline-container item-display-panel-inline-demo">
-            
-            <div class="table-responsive preview-pane-table-demo">
-                <table class="table table-hover item-display-panel-inline animate"
-                [class.item-display-panel-visible]="visible">
-                    <thead>
-                        <tr class="table-header-dark">
-                            <th class="listview-document-th"></th>
-                            <th>NAME</th>
-                            <th>AUTHOR</th>
-                            <th>DATE MODIFIED</th>
-                            <th class="hidden-xs">STORAGE (GB)</th>
-                            <th class="text-center hidden-xs">STATUS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="clickable single-select" 
-                        [class.highlight]="item.id === selectedItem?.id && visible" 
-                        *ngFor="let item of items" (click)="selectItem(item)">
-                            <td class="text-center">
-                                <div class="listview-page-icon"></div>
-                            </td>
-                            <td class="listview-text-emphasis">{{ item.document }}</td>
-                            <td>
-                                <div>{{ item.name }}</div>
-                            </td>
-                            <td>{{ item.dateString }}</td>
-                            <td class="hidden-xs">
-                                <ux-spark theme="chart2" [value]="item.storage" 
-                                [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
-                            </td>
-                            <td class="text-center vertical-center-icon hidden-xs">
-                                <div class="hpe-icon" [class.text-secondary]="item.active" 
-                                [class.hpe-checkmark]="item.active"></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<div class="demo-attributes item-display-panel-inline-container item-display-panel-inline-demo">
+
+    <div class="table-responsive preview-pane-table-demo">
+        <table class="table table-hover item-display-panel-inline animate"
+            [class.item-display-panel-visible]="visible">
+
+            <thead>
+                <tr class="table-header-dark">
+                    <th class="listview-document-th"></th>
+                    <th>NAME</th>
+                    <th>AUTHOR</th>
+                    <th>DATE MODIFIED</th>
+                    <th>STORAGE (GB)</th>
+                    <th class="text-center">STATUS</th>
+                </tr>
+            </thead>
+
+            <tbody uxTabbableList>
+                <tr class="clickable single-select"
+                    uxTabbableListItem
+                    [class.highlight]="item.id === selected?.id && visible"
+                    [attr.aria-describedby]="item.id === selected?.id && visible ? 'inline-panel' : null"
+                    *ngFor="let item of items"
+                    (focus)="selected = item">
+
+                    <td class="text-center">
+                        <div class="listview-page-icon"></div>
+                    </td>
+                    <td class="listview-text-emphasis">{{ item.document }}</td>
+                    <td>{{ item.author }}</td>
+                    <td>{{ item.date | date: 'shortDate' }}</td>
+                    <td>
+                        <ux-spark theme="chart2"
+                            [value]="item.storage"
+                            [inlineLabel]="item.storage | number"
+                            [barHeight]="3">
+                        </ux-spark>
+                    </td>
+                    <td class="text-center vertical-center-icon">
+                        <ux-icon *ngIf="item.active" name="checkmark" class="text-secondary"></ux-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ux-item-display-panel
+        id="inline-panel"
+        [boxShadow]="false"
+        [preventClose]="true"
+        [closeVisible]="false"
+        [inline]="true"
+        [focusOnShow]="false"
+        [(visible)]="visible"
+        [shadow]="!!selected"
+        [header]="selected?.panel.title"
+        [animate]="true">
+
+        <div *ngIf="selected" uxItemDisplayPanelContent>
+            <div class="preview-display">
+                <p>{{ selected?.panel.content }}</p>
             </div>
-
-            <ux-item-display-panel [boxShadow]="false" [preventClose]="true" 
-            [closeVisible]="false" [inline]="true" [(visible)]="visible" [shadow]="shadow" 
-            [header]="selectedItem?.panel.title" [animate]="true">
-
-                <div *ngIf="selectedItem" uxItemDisplayPanelContent>
-                    <div *ngTemplateOutlet="selectedItem?.panel.content"></div>
-                </div>
-
-                <div *ngIf="!selectedItem" uxItemDisplayPanelContent class="preview-no-record">
-                    <i class="hpe-icon hpe-document"></i>
-                    <h2 ng-bind="previewEmptyText" class="ng-binding">Select an item from the list</h2>
-                </div>
-
-            </ux-item-display-panel>
-
         </div>
-    </div>
+
+        <div *ngIf="!selected" uxItemDisplayPanelContent class="preview-no-record">
+            <ux-icon name="document"></ux-icon>
+            <h2 ng-bind="previewEmptyText">Select an item from the list</h2>
+        </div>
+
+    </ux-item-display-panel>
+
 </div>
-
-<ng-template #modalDoc>
-    <div class="preview-display">
-        <h1 class="p-l-md">Preview DOC</h1>
-        <p class="p-l-md">Donec sagittis augue et pellentesque ultrices. Nulla quis orci sit amet sem 
-            ornare auctor. Ut in lobortis turpis. Vivamus ante felis, viverra sed ornare ut, ultricies 
-            eget ipsum. Vivamus commodo convallis tortor.</p>
-    </div>
-</ng-template>
-
-<ng-template #modalPdf>
-    <div class="preview-display">
-        <h1 class="p-l-md">Preview PDF</h1>
-        <p class="p-l-md">Praesent venenatis eros vel felis vehicula dictum. Phasellus augue libero, 
-            vulputate euismod purus sed, dictum porta mauris. Nunc vitae purus vel velit dapibus 
-            porttitor et sagittis mauris. Etiam non semper odio, at ultricies velit. Duis non suscipit 
-            lectus, vitae fringilla turpis.</p>
-    </div>
-</ng-template>
-
-<ng-template #modalPpt>
-    <div class="preview-display">
-        <h1 class="p-l-md">Preview PPT</h1>
-        <p class="p-l-md">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, 
-            nunc sit amet faucibus dapibus, est purus luctus magna, ut tempus orci quam vitae diam. 
-            Proin dapibus elit et rhoncus interdum. Pellentesque ornare nibh ac nulla sodales commodo. 
-            Sed vestibulum hendrerit ultrices.</p>
-    </div>
-</ng-template>

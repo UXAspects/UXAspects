@@ -2,25 +2,53 @@
     <thead>
         <tr uxColumnSorting>
             <th></th>
-            <th class="clickable" (click)="changeState(nameColumn)">
+            <th class="clickable"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
+                [attr.aria-sort]="nameColumn.state"
+                (click)="changeState('Name', nameColumn)"
+                (keydown.enter)="changeState('Name', nameColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">NAME</p>
                     <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(authorColumn)">
+            <th class="clickable"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
+                [attr.aria-sort]="authorColumn.state"
+                (click)="changeState('Author', authorColumn)"
+                (keydown.enter)="changeState('Author', authorColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">AUTHOR</p>
                     <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(dateColumn)">
+            <th class="clickable"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
+                [attr.aria-sort]="dateColumn.state"
+                (click)="changeState('Date Modified', dateColumn)"
+                (keydown.enter)="changeState('Date Modified', dateColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">DATE MODIFIED</p>
                     <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(completedColumn)">
+            <th class="clickable"
+                uxFocusIndicator
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
+                [attr.aria-sort]="completedColumn.state"
+                (click)="changeState('Work Completed', completedColumn)"
+                (keydown.enter)="changeState('Work Completed', completedColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">WORK COMPLETED</p>
                     <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
@@ -30,7 +58,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="clickable" *ngFor="let item of sortableTable">
+        <tr class="clickable" *ngFor="let item of items">
             <td>
                 <div class="listview-page-icon"></div>
             </td>
@@ -38,10 +66,13 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" [barHeight]="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+                <ux-icon class="text-accent"
+                         [name]="item.active ? 'checkmark' : null"
+                         [attr.aria-label]="item.active ? 'Approved' : 'Not approved'">
+                </ux-icon>
             </td>
         </tr>
     </tbody>
@@ -51,14 +82,14 @@
 
 <p>The code used for the above example is shown below:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The component will be exported as <code>ux-column-sorting</code>.</p>
 
@@ -69,12 +100,6 @@
     <tr uxd-api-property name="state" type="ColumnSortingState">
         Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
     </tr>
-    <tr uxd-api-property name="changeState()" type="Object">
-        Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
-        This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
-        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
-        The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.
-    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -83,11 +108,32 @@
     </tr>
 </uxd-api-properties>
 
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="changeState" returns="ColumnSortingOrder[]">
+        Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
+        This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
+        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>.
+        The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.
+    </tr>
+</uxd-api-properties>
+
 <p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="singleSort" type="boolean">
         If set to true the column will sort by only this column, removing sorting from all others.
+    </tr>
+    <tr uxd-api-property name="sortIndicator" type="TemplateRef<ColumnSortingIndicatorContext>">
+        A template can be provided to customize the appearance of the sort indicator.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="ColumnSortingIndicatorContext Interface">
+    <tr uxd-api-property name="state" type="ColumnSortingState">
+        Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
+    </tr>
+    <tr uxd-api-property name="order" type="number">
+        If multiple columns are being sorted this will contain the sort order of the column.
     </tr>
 </uxd-api-properties>
 

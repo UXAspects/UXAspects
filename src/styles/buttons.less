@@ -72,23 +72,24 @@
     padding: 4px 15px;
     box-shadow: @btn-shadow;
 
-    .hpe-icon {
-        line-height: inherit;
+    &,
+    &:active,
+    &.active {
+        &:focus,
+        &.focus {
+            outline: none;
+
+            .native-focus-outline();
+
+            &.ux-focus-indicator.ux-focus-indicator-active {
+                .focus-outline();
+            }
+        }
     }
 
     &:active,
     &.active {
         box-shadow: @btn-active-shadow;
-
-        &:focus,
-        &.focus {
-            .aspects-outline;
-        }
-    }
-
-    &:focus,
-    &.focus {
-        .aspects-outline;
     }
 
     &:hover {
@@ -121,8 +122,14 @@
         }
     }
 
-    .hpe-icon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
         line-height: inherit;
+
+        & + * {
+            margin-left: 4px;
+        }
     }
 }
 
@@ -238,7 +245,8 @@
 
 .button-primary,
 .btn-primary {
-    &.disabled, &[disabled] {
+    &.disabled,
+    &[disabled] {
         .button-primary-disabled;
 
         &:hover,
@@ -701,7 +709,7 @@ button {
 
 .btn-back {
     &:focus {
-        .aspects-outline;
+        .native-focus-outline;
     }
 }
 
@@ -809,7 +817,7 @@ button {
 
     .dropdown-toggle {
         &:focus {
-            .aspects-outline;
+            .native-focus-outline;
 
             z-index: @button-group-front-z-index;
         }
@@ -818,6 +826,10 @@ button {
 
 .dropdown-menu {
     margin-top: 5px;
+
+    &.dropdown-open {
+        display: block;
+    }
 }
 
 .dropdown-icon-inline {
@@ -826,7 +838,9 @@ button {
 
 .dropdown-toggle {
     .hp-icon,
-    .hpe-icon {
+    .hpe-icon,
+    .ux-icon,
+    ux-icon {
         margin-left: 3px;
         line-height: 1;
 
@@ -882,16 +896,16 @@ fieldset[disabled] .btn-toggle.active {
             z-index: @button-group-middle-z-index;
         }
 
-        &:active,
-        &:focus {
+        &:focus.ux-focus-indicator-active {
+            outline: none !important;
             z-index: @button-group-front-z-index;
             box-shadow: 0 0 1px 1px @accent;
         }
     }
 
     .dropdown-toggle {
-        &:focus {
-            outline: 0;
+        &:focus.ux-focus-indicator-active {
+            outline: none !important;
             box-shadow: 0 0 1px 1px @accent;
             z-index: @button-group-front-z-index;
         }
@@ -929,8 +943,6 @@ fieldset[disabled] .btn-toggle.active {
 
 //Hyperlink styles
 .hyperlink {
-    font-family: @font-family;
-
     &:link {
         color: @hyperlink-color;
         border-bottom: 2px dotted @primary;
@@ -1002,7 +1014,6 @@ fieldset[disabled] .btn-toggle.active {
 }
 
 .hyperlink-hover {
-    font-family: @font-family;
     border-bottom: 2px dotted transparent;
 
     &:link {

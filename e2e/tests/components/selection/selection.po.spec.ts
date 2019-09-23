@@ -1,0 +1,96 @@
+import { browser, by, element, ElementFinder, Key } from 'protractor';
+
+export class SelectionPage {
+
+    selection = element(by.id('selection'));
+    simpleMode = element(by.className('simple-mode'));
+    rowMode = element(by.className('row-mode'));
+    rowAltMode = element(by.className('row-alt-mode'));
+    row0 = element(by.id('row-0'));
+    row1 = element(by.id('row-1'));
+    row2 = element(by.id('row-2'));
+    row3 = element(by.id('row-3'));
+    row4 = element(by.id('row-4'));
+    selectAllBtn = element(by.id('select-all'));
+    deselectAllBtn = element(by.id('deselect-all'));
+    disableItemBtn = element(by.id('disable-item'));
+    rows: ElementFinder[] = [this.row0, this.row1, this.row2, this.row3];
+
+    async getPage(): Promise<void> {
+        await browser.get('#/selection');
+    }
+
+    async getSelection() {
+        return await this.selection.getText();
+    }
+
+    async setSimpleMode() {
+        return await this.simpleMode.click();
+    }
+
+    async setRowMode() {
+        return await this.rowMode.click();
+    }
+
+    async setRowAltMode() {
+        return await this.rowAltMode.click();
+    }
+
+    async addDisabledItem() {
+        return await this.disableItemBtn.click();
+    }
+
+    async clickSelectRow(row: ElementFinder, shift: boolean = false, ctrl: boolean = false) {
+
+        if (shift) {
+            return browser.actions().keyDown(Key.SHIFT).click(row).perform();
+        } else if (ctrl) {
+            return browser.actions().keyDown(Key.CONTROL).click(row).perform();
+        } else {
+            return row.click();
+        }
+    }
+
+    async selectAll() {
+        return this.selectAllBtn.click();
+    }
+
+    async deselectAll() {
+        return this.deselectAllBtn.click();
+    }
+
+    async arrowDown(shift: boolean = false, ctrl: boolean = false) {
+        let keys = Key.ARROW_DOWN;
+        if (shift) {
+            keys = Key.chord(Key.SHIFT, Key.ARROW_DOWN);
+        } else if (ctrl) {
+            keys = Key.chord(Key.CONTROL, Key.ARROW_DOWN);
+        }
+        await browser.actions().sendKeys(keys).perform();
+    }
+
+    async arrowUp(shift: boolean = false, ctrl: boolean = false) {
+        let keys = Key.ARROW_UP;
+        if (shift) {
+            keys = Key.chord(Key.SHIFT, Key.ARROW_UP);
+        } else if (ctrl) {
+            keys = Key.chord(Key.CONTROL, Key.ARROW_UP);
+        }
+        await browser.actions().sendKeys(keys).perform();
+    }
+
+    async spacebar() {
+        await browser.actions().sendKeys(Key.SPACE).perform();
+    }
+
+    async getRowButtonTabIndex(row: ElementFinder): Promise<string> {
+        const btn = row.$('.row-button');
+
+        return btn.getAttribute('tabindex');
+    }
+
+    async isRowSelected(row: ElementFinder): Promise<boolean> {
+        const classes = await row.getAttribute('class');
+        return classes.indexOf('ux-selection-selected') > -1;
+    }
+}

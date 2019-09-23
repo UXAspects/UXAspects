@@ -1,7 +1,17 @@
-<ux-virtual-scroll class="virtual-scroll-container" [collection]="employees" [cellHeight]="63" [loadOnScroll]="loadOnScroll"
+<ux-virtual-scroll class="virtual-scroll-container"
+    role="list"
+    [attr.aria-busy]="loading"
+    aria-label="Employee list with virtual scrolling"
+    [collection]="employees"
+    [cellHeight]="63"
+    [loadOnScroll]="loadOnScroll"
     (loading)="loadPage($event)">
 
-    <div *uxVirtualScrollCell="let cell = cell" class="virtual-cell">
+    <div *uxVirtualScrollCell="let cell = cell; let index = index"
+        role="listitem"
+        [attr.aria-setsize]="totalItems"
+        [attr.aria-posinset]="index"
+        class="virtual-cell">
 
         <div class="employee-details">
             <div>
@@ -16,27 +26,30 @@
 
     </div>
 
+    <button *uxVirtualScrollLoadButton
+        type="button"
+        aria-description="Load more items into the list"
+        class="btn btn-link button-primary virtual-scroll-load-more">
+        Load more
+    </button>
+
     <div *uxVirtualScrollLoading class="virtual-scroll-loading">
         <div class="spinner spinner-accent spinner-bounce-middle"></div>
         <div>Loading...</div>
     </div>
 
-    <button *uxVirtualScrollLoadButton type="button" class="btn btn-link button-primary virtual-scroll-load-more">
-        Load more
-    </button>
-
 </ux-virtual-scroll>
 
 <div class="uxd-customize-example">
-    <accordion>
-        <accordion-group class="accordion-chevron" heading="Customize Example...">
+    <ux-accordion>
+        <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
             <div class="row uxd-customize-row">
                 <div class="col-md-6 col-sm-12">
                     <ux-checkbox [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
                 </div>
             </div>
-        </accordion-group>
-    </accordion>
+        </ux-accordion-panel>
+    </ux-accordion>
 </div>
 
 <hr>
@@ -52,8 +65,18 @@
 </p>
 
 <p>
-    The component supports both a "Load More" button and paging on scroll which can be styled using the <code>*uxVirtualScrollLoadButton</code>    
+    The component supports both a "Load More" button and paging on scroll which can be styled using the <code>*uxVirtualScrollLoadButton</code>
     structural directive. The loading indicator can also be defined using the <code>*uxVirtualScrollLoading</code> structural directive.
+</p>
+
+<p>
+    For accessibility, ensure that you apply an appropriate role to the <code>ux-virtual-scroll</code> element and its
+    children. In this example, <code>role="list"</code> and <code>role="listitem"</code> are used respectively. On the
+    cells, specify <code>aria-posinset</code> to indicate the position of the item in the overall collection, and
+    <code>aria-setsize</code> to specify the total number of items if known (use the value <code>-1</code> otherwise).
+    Finally, the example shows use of
+    <a href="https://material.angular.io/cdk/a11y/api#LiveAnnouncer"><code>LiveAnnouncer</code></a> to announce the
+    start and end of the loading period.
 </p>
 
 <p>The following attributes can be used to customize the component:</p>
@@ -61,14 +84,14 @@
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="collection" type="Subject&lt;any[]&gt;">
         A subject observable that will emit a page of items to display in the component. When all pages have been loaded, the <code>.complete()</code>
-        function should be called on the observable to prevent the component from trying to load any additional items. If you want to reset the list 
+        function should be called on the observable to prevent the component from trying to load any additional items. If you want to reset the list
         simply create a new subject instance and the list will remove all current items and request the first page of data.
     </tr>
     <tr uxd-api-property name="loadOnScroll" type="boolean" defaultValue="true">
-        If <code>true</code> the next page of data will be requested when the scrollbar nears the end of the list. If <code>false</code> a "Load More" 
+        If <code>true</code> the next page of data will be requested when the scrollbar nears the end of the list. If <code>false</code> a "Load More"
         button will be displayed at the end of the list allowing the user to request additional items by clicking it.
     </tr>
-    <tr uxd-api-property name="callHeight" type="number">
+    <tr uxd-api-property name="cellHeight" type="number">
         The height of the cells must be specified to allow scrolling to be optimized. Each cell must have the same height. This attribute is mandatory and an error will appear if this value is not defined.
     </tr>
 </uxd-api-properties>
@@ -81,14 +104,14 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
+    </ux-tab>
+    <ux-tab heading="CSS">
         <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

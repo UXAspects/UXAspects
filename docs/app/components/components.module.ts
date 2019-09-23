@@ -1,24 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EboxModule, ScrollIntoViewIfModule, PersistentDataModule } from '../../../src/index';
+import { RouterModule } from '@angular/router';
+import { AccessibilityModule, EboxModule, IconModule, PersistentDataModule, PopoverModule, ScrollModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-
-// Import Layout Components
-import { SideNavigationComponent } from './side-navigation/side-navigation.component';
-import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
-
 // Import UI Components
 import { ApiPropertiesComponent } from './api-properties/api-properties.component';
 import { ApiPropertyComponent } from './api-property/api-property.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 import { EditExampleLinkComponent } from './edit-example-link/edit-example-link.component';
+import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
 import { LandingPageFeatureListComponent } from './landing-page-feature-list/landing-page-feature-list.component';
 import { LandingPageFeatureComponent } from './landing-page-feature/landing-page-feature.component';
 import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
@@ -29,10 +23,11 @@ import { PageFooterComponent } from './page-footer/page-footer.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
 import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
+// Import Layout Components
+import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { SnippetComponent } from './snippet/snippet.component';
 import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
-
 
 const DOCUMENTATION_COMPONENTS = [
     ApiPropertiesComponent,
@@ -59,20 +54,24 @@ const DOCUMENTATION_COMPONENTS = [
 
 @NgModule({
     imports: [
-        BsDropdownModule.forRoot(),
-        ButtonsModule.forRoot(),
+        AccessibilityModule,
+        BsDropdownModule,
+        ButtonsModule,
         CommonModule,
         EboxModule,
         FormsModule,
-        PopoverModule.forRoot(),
+        IconModule,
+        PopoverModule,
         RouterModule,
-        ScrollIntoViewIfModule,
-        TooltipModule.forRoot(),
-        TypeaheadModule.forRoot(),
+        ScrollModule,
+        TooltipModule,
+        TypeaheadModule,
         PersistentDataModule
     ],
-    exports: DOCUMENTATION_COMPONENTS,
-    declarations: DOCUMENTATION_COMPONENTS,
-    providers: [],
+    exports: [
+        DOCUMENTATION_COMPONENTS,
+        AccessibilityModule
+    ],
+    declarations: DOCUMENTATION_COMPONENTS
 })
 export class DocumentationComponentsModule { }

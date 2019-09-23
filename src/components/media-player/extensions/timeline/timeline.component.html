@@ -1,20 +1,51 @@
 <p class="current-time">{{ current | duration }}</p>
 
-<div #timeline class="timeline-bar" (mouseenter)="scrub.visible = true; pop.show()" (mouseleave)="scrub.visible = false; pop.hide()"
-    (mousemove)="updateScrub($event)" (mouseup)="updateScrub($event)" (mousedown)="mouseDown = true; $event.preventDefault()">
+<div #timeline
+     class="timeline-bar"
+     tabindex="0"
+     role="slider"
+     aria-label="Seek slider"
+     i18n-aria-label
+     aria-valuemin="0"
+     [attr.aria-valuemax]="mediaPlayerService.duration | number: '0.0-0'"
+     [attr.aria-valuenow]="mediaPlayerService.currentTime | number: '0.0-0'"
+     attr.aria-valuetext="{{ mediaPlayerService.currentTime | duration }} of {{ mediaPlayerService.duration | duration }}"
+     (keydown.ArrowLeft)="skip(-5)"
+     (keydown.ArrowRight)="skip(5)"
+     (mouseenter)="scrub.visible = true; tooltip.show()"
+     (mouseleave)="scrub.visible = false; tooltip.hide()"
+     (mousemove)="updateScrub($event); tooltip.reposition()"
+     (mouseup)="updateScrub($event)"
+     (mousedown)="mouseDown = true; $event.preventDefault()">
 
-    <div class="buffered-bar" *ngFor="let buffer of buffered" [style.left.%]="buffer.start" [style.width.%]="buffer.end - buffer.start"></div>
-
-    <div class="media-progress-bar" [style.width.%]="position">
-        <div #progressThumb class="media-progress-bar-thumb" (mouseenter)="scrub.visible = false; pop.hide(); $event.stopPropagation()"
-            (mouseleave)="scrub.visible = true; pop.show(); $event.stopPropagation()"></div>
+    <div class="buffered-bar"
+         *ngFor="let buffer of buffered"
+         [style.left.%]="buffer.start"
+         [style.width.%]="buffer.end - buffer.start">
     </div>
 
-    <div class="scrub-handle" [class.scrub-handle-hidden]="!scrub.visible" [style.left.px]="scrub.position" [tooltip]="popTemplate" placement="top" triggers="" #pop="bs-tooltip"
-        container="body" tooltipPopupDelay="100" [isDisabled]="duration === 0"></div>
+    <div class="media-progress-bar" [style.width.%]="position">
+        <div #progressThumb
+             class="media-progress-bar-thumb"
+             (mouseenter)="scrub.visible = false; tooltip.hide(); $event.stopPropagation()"
+             (mouseleave)="scrub.visible = true; tooltip.show(); $event.stopPropagation()">
+        </div>
+    </div>
+
+    <div #tooltip="ux-tooltip"
+         class="scrub-handle"
+         [class.scrub-handle-hidden]="!scrub.visible"
+         [style.left.px]="scrub.position"
+         [uxTooltip]="popTemplate"
+         tooltipClass="ux-media-player-timeline-tooltip"
+         placement="top"
+         [showTriggers]="[]"
+         [hideTriggers]="[]"
+         [tooltipDelay]="100"
+         [tooltipDisabled]="mediaPlayerService.duration === 0"></div>
 </div>
 
-<p class="duration-time">{{ duration | duration }}</p>
+<p class="duration-time">{{ mediaPlayerService.duration | duration }}</p>
 
 <ng-template #popTemplate>
     <span>{{ scrub.time | duration }}</span>

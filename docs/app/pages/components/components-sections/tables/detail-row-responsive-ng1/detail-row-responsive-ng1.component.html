@@ -18,18 +18,18 @@
     inner <code>div</code> element to achieve responsiveness.
 </p>
 
-<tabset>
+<ux-tabset [minimal]="false">
 
-    <tab heading="HTML">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Controller">
+    <ux-tab heading="Controller">
         <uxd-snippet language="javascript" [content]="jsCode"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="CSS">
+    <ux-tab heading="CSS">
         <uxd-snippet language="css" [content]="cssCode"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-</tabset>
+</ux-tabset>

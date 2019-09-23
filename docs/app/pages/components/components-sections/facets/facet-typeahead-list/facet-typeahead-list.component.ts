@@ -1,26 +1,25 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../../../../src/index';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { Facet } from '@ux-aspects/ux-aspects';
 import 'chance';
+import { Observable, Observer } from 'rxjs';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
-export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
-
+    query: string = '';
     users: Facet[] = [];
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml
@@ -43,7 +42,7 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
         this.users.sort((userOne, userTwo) => {
             if (userOne.title < userTwo.title) {
                 return -1;
-            } 
+            }
 
             if (userOne.title > userTwo.title) {
                 return 1;
@@ -57,15 +56,11 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
 
         // Create an observable which can be used for fetching data from server
         this.facets = Observable.create((observer: Observer<Facet[]>) => {
-
-            // get the search query
-            let searchQuery = (<any>observer).destination.outerValue;
-
             // simulate server request
-            setTimeout(_ => {
+            setTimeout(() => {
 
                 // return list of filtered users from "server"
-                observer.next(this.users); 
+                observer.next(this.users.filter(user => user.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1));
             }, 750);
         });
 

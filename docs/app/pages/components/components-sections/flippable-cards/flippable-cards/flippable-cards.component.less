@@ -1,0 +1,114 @@
+.flex-container {
+    display: flex;
+}
+
+.flip-card-btn {
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+    color: #999;
+    border: none;
+    background: transparent;
+}
+
+.flip-card-logo {
+    margin: 0 20px;
+    transform: translateY(-5px);
+    transition: transform 250ms linear;
+}
+
+.flip-card-title {
+    font-size: 21px;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 20px;
+}
+
+.flip-card-content-front {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 12px 20px;
+}
+
+.flip-card-content-back {
+    padding: 18px 10px 10px;
+    background-color: #7b63a3;
+    height: 100%;
+    font-size: 18px;
+    font-weight: 600;
+
+    .text-muted {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    hr {
+        margin-top: 7px;
+        margin-bottom: 7px;
+        border-top: 1px solid #ccc;
+        opacity: 0.25;
+    }
+}
+
+.flip-card-stats {
+    flex: 1;
+    color: #666;
+
+    .text-muted {
+        font-size: 14px;
+        color: #999;
+    }
+}
+
+.flip-card-stat {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.flip-card-chart {
+    flex: none;
+    width: 70px;
+    height: 70px;
+    align-self: center;
+}
+
+.flip-card-heading {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.flip-card-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flip-card-col {
+    &:last-of-type {
+        text-align: right;
+    }
+}
+
+.flip-inline-chart {
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 118px;
+    height: 22px;
+
+    ux-spark {
+        width: 53px;
+    }
+}
+
+.flip-card-flipped {
+    .flip-card-logo {
+        transform: translateY(0);
+    }
+}

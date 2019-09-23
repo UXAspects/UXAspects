@@ -15,8 +15,22 @@ module.exports = {
                 expand: true
             },
             {
-                src: ['bower.json', 'README.md'],
+                src: ['bower.json'],
                 dest: '/'
+            }
+        ]
+    },
+    documentation: {
+        options: {
+            archive: path.join(process.cwd(), 'target', 'docs', 'ux-aspects-docs-<%= package.version %>.tar.gz'),
+            mode: 'tgz'
+        },
+        files: [
+            {
+                cwd: path.join(process.cwd(), 'dist', 'docs'),
+                src: ['**'],
+                dest: '/',
+                expand: true
             }
         ]
     }

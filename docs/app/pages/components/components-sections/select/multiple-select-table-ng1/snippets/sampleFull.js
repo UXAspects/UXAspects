@@ -10,9 +10,9 @@ function MultipleSelectTableCtrl() {
 
     vm.authors = getRandomNameList(40);
 
-    vm.getSelectedIds = function () {
+    vm.getSelection = function () {
         return vm.multipleSelectedVals.map(function (elem) {
-            return elem.id;
+            return elem.name;
         }).join(', ');
     };
 

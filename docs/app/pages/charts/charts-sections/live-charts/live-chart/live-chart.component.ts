@@ -1,19 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-charts-live-chart',
     templateUrl: './live-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsLiveChartComponent')
-export class ChartsLiveChartComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ChartsLiveChartComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.liveChartTs,
             'app.component.html': this.snippets.raw.liveChartHtml,
@@ -32,7 +32,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     };
 
     // access the chart directive properties
-    @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
+    @ViewChild(BaseChartDirective, { static: true }) baseChart: BaseChartDirective;
 
     // configure the directive data
     lineChartData: Chart.ChartDataSets[];
@@ -119,7 +119,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
         });
     }
 
-    getRandomData(): { x: number, y: number}[] {
+    getRandomData(): { x: number, y: number }[] {
 
         if (this.livedata.length) {
             this.livedata = this.livedata.slice(1);

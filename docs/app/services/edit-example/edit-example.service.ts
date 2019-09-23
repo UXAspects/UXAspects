@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core';
+import { IPlayground } from '../../interfaces/IPlayground';
+import { PlaygroundService } from '../playground/playground.service';
 
-import { CodePenService } from '../codepen/codepen.service';
-import { PlunkerService } from '../plunker/plunker.service';
-import { ICodePen } from '../../interfaces/ICodePen';
-import { IPlunk } from '../../interfaces/IPlunk';
-
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class EditExampleService {
 
-    constructor(private codePenService: CodePenService, private plunkerService: PlunkerService) {}
+    constructor(private _playgroundService: PlaygroundService) { }
 
-    launchEditor(title: string, content: any, type: 'codepen' | 'plunker') {
-        switch (type) {
-            case 'codepen':
-                this.codePenService.launch(title, <ICodePen>content);
-                break;
-            case 'plunker':
-                this.plunkerService.launch(title, <IPlunk>content);
-                break;
-        }
+    launchEditor(title: string, content: IPlayground) {
+        this._playgroundService.launch(title, content);
     }
 
 }

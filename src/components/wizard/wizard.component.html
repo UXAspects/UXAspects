@@ -1,29 +1,81 @@
 <div class="wizard-body">
 
-    <div class="wizard-steps">
-    
-        <div class="wizard-step" [class.active]="stp.active" [class.visited]="stp.visited" [class.invalid]="stp.active && !stp.valid && invalidIndicator" (click)="gotoStep(stp)" *ngFor="let stp of steps">
+    <div class="wizard-steps"
+        uxTabbableList
+        [direction]="orientation"
+        role="tablist"
+        [attr.aria-orientation]="orientation">
+
+        <div *ngFor="let stp of steps; let index = index"
+            role="tab"
+            uxFocusIndicator
+            uxTabbableListItem
+            [programmaticFocusIndicator]="true"
+            [disabled]="index !== 0 && !stp.visited"
+            class="wizard-step"
+            [class.active]="stp.active"
+            [class.visited]="stp.visited"
+            [class.invalid]="stp.active && !stp.valid && invalidIndicator"
+            [attr.aria-posinset]="index + 1"
+            [attr.aria-setsize]="steps.length"
+            [attr.aria-selected]="stp.active"
+            [attr.aria-controls]="stp.id"
+            [id]="stp.id + '-label'"
+            (click)="gotoStep(stp)"
+            (keydown.enter)="gotoStep(stp)">
             {{ stp.header }}
         </div>
-    
+
     </div>
-    
+
     <div class="wizard-content">
         <ng-content></ng-content>
     </div>
-    
+
 </div>
 
 <div class="wizard-footer">
-    <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body" [disabled]="previousDisabled || step === 0"
-        (click)="previous(); tip.hide()">{{ previousText }}</button>
+    <button #tip="ux-tooltip"
+            type="button"
+            class="btn button-secondary"
+            *ngIf="previousVisible"
+            [uxTooltip]="previousTooltip"
+            [disabled]="previousDisabled || step === 0"
+            [attr.aria-label]="previousAriaLabel"
+            (click)="previous(); tip.hide()">
+        {{ previousText }}
+    </button>
 
-    <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body" [disabled]="nextDisabled"
-        (click)="next(); tip.hide()">{{ nextText }}</button>
+    <button #tip="ux-tooltip"
+            type="button"
+            class="btn button-primary"
+            *ngIf="nextVisible && !isLastStep()"
+            [uxTooltip]="nextTooltip"
+            [disabled]="nextDisabled"
+            [attr.aria-label]="nextAriaLabel"
+            (click)="next(); tip.hide()">
+        {{ nextText }}
+    </button>
 
-    <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
-        container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
+    <button #tip="ux-tooltip"
+            type="button"
+            class="btn button-primary"
+            *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
+            [uxTooltip]="finishTooltip"
+            [disabled]="finishDisabled"
+            [attr.aria-label]="finishAriaLabel"
+            (click)="finish(); tip.hide()">
+        {{ finishText }}
+    </button>
 
-    <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
-        container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
+    <button #tip="ux-tooltip"
+            type="button"
+            class="btn button-secondary"
+            *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
+            [uxTooltip]="cancelTooltip"
+            [disabled]="cancelDisabled"
+            [attr.aria-label]="cancelAriaLabel"
+            (click)="cancel(); tip.hide()">
+        {{ cancelText }}
+    </button>
 </div>

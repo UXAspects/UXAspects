@@ -1,25 +1,36 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "esNext",
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es2017", "dom"],
+    "baseUrl": "./",
     "noImplicitAny": true,
     "declaration": false,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "downlevelIteration": true,
+    "paths": {
+      "@ux-aspects/ux-aspects/*": [
+        "./src"
+      ],
+      "@ux-aspects/ux-aspects": [
+        "./src"
+      ]
+    }
   },
   "angularCompilerOptions": {
-    "debug": true,
-    "skipMetadataEmit": true
+    "skipMetadataEmit": true,
+    "preserveWhitespaces": true
   },
   "exclude": [
     "node_modules",
     "dist",
     "**/snippets/*.ts",
     "e2e",
-    "test"
+    "test",
+    "**/*.spec.ts"
   ]
 }

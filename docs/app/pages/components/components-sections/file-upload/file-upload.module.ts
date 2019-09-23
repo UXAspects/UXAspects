@@ -1,17 +1,17 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AccessibilityModule, IconModule, ProgressBarModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { FileUploadModule } from 'ng2-file-upload';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsFileUploadNg1Component } from './file-upload-ng1/file-upload-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsFileUploadNg1Component } from './file-upload-ng1/file-upload-ng1.component';
 import { ComponentsFileUploadComponent } from './file-upload/file-upload.component';
-import { ProgressBarModule } from '../../../../../../src/index';
+
+
 
 const SECTIONS = [
     ComponentsFileUploadNg1Component,
@@ -30,13 +30,16 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        A11yModule,
+        AccessibilityModule,
         CommonModule,
-        WrappersModule,
-        TabsModule,
-        FileUploadModule,
-        ProgressBarModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FileUploadModule,
+        IconModule,
+        ProgressBarModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

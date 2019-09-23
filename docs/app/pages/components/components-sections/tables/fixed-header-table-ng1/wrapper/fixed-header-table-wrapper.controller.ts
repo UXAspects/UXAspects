@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+declare const angular: ng.IAngularStatic;
 import 'chance';
 
 export class FixedHeaderTableWrapperController {

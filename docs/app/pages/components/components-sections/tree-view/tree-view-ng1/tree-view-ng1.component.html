@@ -6,14 +6,14 @@
     Explorer-like format and supports dynamic data and editing of content, and is designed for use with an accompanying List
     View or Detail View.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The data to be displayed in the Tree View should be set to the <code>data</code> attribute of the directive. It should adhere
     to the following interface:</p>
@@ -29,8 +29,8 @@
         Used to configure the appearance (see Icon Configuration below for more details).
     </tr>
     <tr uxd-api-property name="tooltip" type="string | function">
-        Allows you to show a tooltip when the node label is hovered. If this value is a function, the 
-        function will be called with the node object as an argument and should return a string to display 
+        Allows you to show a tooltip when the node label is hovered. If this value is a function, the
+        function will be called with the node object as an argument and should return a string to display
         in the tooltip. By default no tooltip will be shown.
     </tr>
     <tr uxd-api-property name="nodes" type="array">
@@ -38,6 +38,9 @@
     </tr>
     <tr uxd-api-property name="className" type="string">
         Set this to the name of a custom class to apply this class to the tree node.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean">
+        Indicate whether this node is disabled or not.
     </tr>
 </uxd-api-properties>
 
@@ -67,10 +70,25 @@
 
 <h4>Icon Configuration</h4>
 
-<p>The Tree View supports extensible types. By default, <code>folder</code> and <code>item</code> types are defined. To display
-    custom icons for your application, define a mapping as shown, using the types you will set on your node objects and icons
-    from the Elements Icon set. You can define <code>collapsed</code> and <code>expanded</code> alternative icons for nodes
-    which you expect to use as containers.</p>
+<uxd-api-properties>
+    <tr uxd-api-property name="item" type="string" defaultValue="hpe-document">
+        Define the icon to be displayed for a node with no children.
+    </tr>
+    <tr uxd-api-property name="folder" type="object" defaultValue="hpe-folder">
+        Defines the icons to be displayed for a node with children. This should be an object with two properties:
+        <ul>
+            <li><code>collapsed</code>: The icon to be displayed when the node is collapsed.</li>
+            <li><code>expanded</code>: The icon to be displayed when the node is expanded.</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="default" type="string" defaultValue="hpe-3d">
+        Define the fallback icon to be displayed if the <code>item</code> or <code>folder</code> icons have not been specified.
+    </tr>
+    <tr uxd-api-property name="template" type="string">
+        If specified, this allows a custom template to be used as the node icon. This should be a url to a template file.
+        The <code>$scope</code> for the template will contain a <code>node</code> property containing the data for the node being displayed.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet [content]="snippets.compiled.codeSnippetJs" language="js"></uxd-snippet>
 
@@ -88,5 +106,9 @@
     <tr uxd-api-property name="loadHeight" type="number">
         The number of pixels that indicates the initial height of the tree. This optional parameter can be set to prevent
         the page flicker during tree load. The user should pass an appropriate value to the <code>loadHeight</code> option.
+    </tr>
+    <tr uxd-api-property name="template" type="string">
+        If specified, this allows a custom template to be used as the node content. This should be a url to a template file.
+        The <code>$scope</code> for the template will contain a <code>node</code> property containing the data for the node being displayed.
     </tr>
 </uxd-api-properties>

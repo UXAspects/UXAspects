@@ -1,18 +1,33 @@
-<label for="file-upload-demo" ng2FileDrop [class.file-upload-dropping]="fileOver" (fileOver)="fileOver = $event" [uploader]="uploader" class="file-upload-dropzone">
+<label for="file-upload-demo"
+    uxFocusIndicator
+    tabindex="0"
+    ng2FileDrop
+    [class.file-upload-dropping]="fileOver"
+    (fileOver)="fileOver = $event"
+    [uploader]="uploader"
+    class="file-upload-dropzone"
+    (keydown.enter)="upload.click()">
     Click here or Drag and Drop to upload files
 </label>
 
-<input type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
+<input #upload tabindex="-1" type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
 
-<ux-progress-bar [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
+<ux-progress-bar aria-label="Upload progress" [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
 
 <p class="file-upload-progress-indicator">{{ uploader.progress ? uploader.progress : 0 }}%</p>
 
-<ul *ngIf="uploader.queue.length" class="file-upload-queue">
+<ul uxTabbableList direction="horizontal" *ngIf="uploader.queue.length" class="file-upload-queue">
     <li *ngFor="let item of uploader.queue">
-        <a (click)="item.remove()">
+        <a #file uxTabbableListItem [attr.aria-label]="item.file.name">
             <span>{{ item.file.name }}</span>
-            <span class="file-upload-queue-remove hpe-icon hpe-close"></span>
+            <button uxFocusIndicator
+                    [tabIndex]="file.tabIndex"
+                    class="file-upload-queue-remove"
+                    type="button"
+                    (click)="item.remove()"
+                    aria-label="Remove file">
+                <ux-icon name="close"></ux-icon>
+            </button>
         </a>
     </li>
 </ul>
@@ -22,11 +37,11 @@
     <button type="button" class="btn button-primary" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
         Upload All
     </button>
-    
+
     <button type="button" class="btn button-secondary" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
         Cancel All
     </button>
-    
+
     <button type="button" class="btn button-secondary" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
         Clear All
     </button>
@@ -43,7 +58,7 @@
 </blockquote>
 
 <p>
-    The File Upload component provides an easy way to let users choose one or more files to upload. 
+    The File Upload component provides an easy way to let users choose one or more files to upload.
     This can either allow users to show a file dialog to choose files or allow them to simply drag and drop
     files into an area on the page.
 </p>
@@ -54,11 +69,11 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
+    </ux-tab>
+    <ux-tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

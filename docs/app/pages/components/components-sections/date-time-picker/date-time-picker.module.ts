@@ -1,29 +1,28 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { AccessibilityModule, AccordionModule, CheckboxModule, DateRangePickerModule, DateTimePickerModule, IconModule, NumberPickerModule, PopoverModule, TabsetModule, TimePickerModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsDatePickerNg1Component } from './date-picker-ng1/date-picker-ng1.component';
-import { ComponentsIntegratedDatePickerNg1Component } from './integrated-date-picker-ng1/integrated-date-picker-ng1.component';
-import { ComponentsDateRangePickerNg1Component } from './date-range-picker-ng1/date-range-picker-ng1.component';
-import { ComponentsTimePickerNg1Component } from './time-picker-ng1/time-picker-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsDatePickerNg1Component } from './date-picker-ng1/date-picker-ng1.component';
+import { ComponentsDateRangePickerNg1Component } from './date-range-picker-ng1/date-range-picker-ng1.component';
+import { ComponentsDateRangePickerComponent } from './date-range-picker/date-range-picker.component';
 import { ComponentsDateTimePickerComponent } from './date-time-picker/date-time-picker.component';
-import { DateTimePickerModule, CheckboxModule } from '../../../../../../src/index';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ComponentsIntegratedDatePickerNg1Component } from './integrated-date-picker-ng1/integrated-date-picker-ng1.component';
+import { ComponentsTimePickerNg1Component } from './time-picker-ng1/time-picker-ng1.component';
+import { ComponentsTimePickerComponent } from './time-picker/time-picker.component';
 
 const SECTIONS = [
     ComponentsDatePickerNg1Component,
-    ComponentsIntegratedDatePickerNg1Component,
     ComponentsDateRangePickerNg1Component,
+    ComponentsDateTimePickerComponent,
+    ComponentsIntegratedDatePickerNg1Component,
+    ComponentsTimePickerComponent,
     ComponentsTimePickerNg1Component,
-    ComponentsDateTimePickerComponent
+    ComponentsDateRangePickerComponent
 ];
 
 const ROUTES = [
@@ -38,16 +37,21 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        AccordionModule.forRoot(),
-        PopoverModule.forRoot(),
-        WrappersModule,
-        TabsModule,
-        DateTimePickerModule,
-        FormsModule,
+        AccessibilityModule,
+        AccordionModule,
         CheckboxModule,
+        CommonModule,
+        DateRangePickerModule,
+        DateTimePickerModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FormsModule,
+        IconModule,
+        NumberPickerModule,
+        PopoverModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        TimePickerModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

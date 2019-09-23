@@ -2,6 +2,7 @@ ux-notification-list {
     position: fixed;
     width: 300px;
     z-index: @notications-z-index;
+    transition: bottom 250ms ease-in-out;
 
     &.top-right {
         top: 12px;
@@ -14,18 +15,19 @@ ux-notification-list {
     }
 
     &.bottom-right {
-        bottom: 200px;
+        bottom: 0;
         right: 12px;
     }
 
     &.bottom-left {
-        bottom: 200px;
+        bottom: 0;
         left: 12px;
     }
 
     .notification {
         position: absolute;
         width: 300px;
+        padding: 17px 0;
         background-color: #7b63a3;
         color: #fff;
         border-radius: 3px;
@@ -41,6 +43,8 @@ ux-notification-list {
             top: 3px;
             cursor: pointer;
             transition: opacity 0.3s linear;
+            background-color: transparent;
+            border: none;
 
             &:hover {
                 opacity: 0.8;

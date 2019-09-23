@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/observable/concat';
+import { concat, fromEvent, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class FrameExtractionService {
@@ -20,9 +18,9 @@ export class FrameExtractionService {
         return canvas;
     }
 
-    private goToFrame(videoPlayer: HTMLVideoElement, time: number): Observable<number> {
+    private goToFrame(videoPlayer: HTMLVideoElement, time: number): Observable<Event> {
         videoPlayer.currentTime = time;
-        return Observable.fromEvent(videoPlayer, time === 0 ? 'loadeddata' : 'seeked');
+        return fromEvent(videoPlayer, time === 0 ? 'loadeddata' : 'seeked');
     }
 
     private getThumbnail(videoPlayer: HTMLVideoElement, canvas: HTMLCanvasElement, time: number, width: number = 160, height: number = 90): Observable<ExtractedFrame> {
@@ -30,7 +28,7 @@ export class FrameExtractionService {
         return Observable.create((observer: Observer<ExtractedFrame>) => {
 
             // go to specified frame
-            let subscription = this.goToFrame(videoPlayer, time).subscribe((event: any) => {
+            let subscription = this.goToFrame(videoPlayer, time).subscribe(() => {
                 // create image from current frame
                 canvas.getContext('2d').drawImage(videoPlayer, 0, 0, width, height);
                 observer.next({ image: canvas.toDataURL(), width: width, height: height, time: time });
@@ -48,7 +46,7 @@ export class FrameExtractionService {
 
         let frameSubscription = this.getThumbnail(videoPlayer, canvas, time, width, height);
 
-        // ensure we release memory after we are finished        
+        // ensure we release memory after we are finished
         frameSubscription.subscribe(null, null, () => {
             videoPlayer = null;
             canvas = null;
@@ -65,7 +63,7 @@ export class FrameExtractionService {
 
         return Observable.create((observer: Observer<ExtractedFrame>) => {
 
-            Observable.fromEvent(videoPlayer, 'loadedmetadata').subscribe(() => {
+            fromEvent(videoPlayer, 'loadedmetadata').subscribe(() => {
 
                 // calculate the frames required
                 let frames = [];
@@ -74,7 +72,7 @@ export class FrameExtractionService {
                     frames.push(this.getThumbnail(videoPlayer, canvas, idx, width, height));
                 }
 
-                Observable.concat(...frames).subscribe((frame: ExtractedFrame) => observer.next(frame), null, () => {
+                concat(...frames).subscribe((frame: ExtractedFrame) => observer.next(frame), null, () => {
                     videoPlayer = null;
                     canvas = null;
                     observer.complete();

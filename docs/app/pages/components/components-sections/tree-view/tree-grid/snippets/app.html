@@ -1,0 +1,169 @@
+<ux-accordion [collapseOthers]="true">
+    <ux-accordion-panel class="accordion-chevron" heading="Tree Grid with Preloaded Data" [expanded]="true">
+
+        <table role="treegrid"
+            aria-multiselectable="true"
+            class="table table-hover"
+            [uxTreeGrid]="items"
+            [(rows)]="rows">
+            <thead>
+                <tr class="treegrid-header table-header-dark">
+                    <th>
+                        <ux-checkbox aria-label="Select all rows" [(value)]="selectAll"></ux-checkbox>
+                        <span class="treegrid-header-text">Title</span>
+                    </th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody [uxSelection]="selected" mode="simple">
+
+                <tr *ngFor="let row of rows"
+                    role="row"
+                    [attr.aria-expanded]="row.expanded"
+                    [attr.aria-level]="row.state.level + 1"
+                    [attr.aria-setsize]="row.state.setSize"
+                    [attr.aria-posinset]="row.state.positionInSet"
+                    class="clickable"
+                    [uxTreeGridRow]="row"
+                    [canExpand]="row.type === 'folder'"
+                    [(expanded)]="row.expanded"
+                    #treeGridRow="uxTreeGridRow"
+                    [uxSelectionItem]="row"
+                    [selected]="isSelected(row)"
+                    (selectedChange)="$event ? select(row) : deselect(row)">
+
+                    <td uxTreeGridIndent>
+                        <span class="treegrid-expander">
+                            <button *ngIf="row.children && row.children.length > 0"
+                                aria-hidden="true"
+                                type="button"
+                                tabindex="-1"
+                                (click)="treeGridRow.toggle(); $event.stopPropagation()">
+
+                                <ux-icon *ngIf="!treeGridRow.loading"
+                                         name="chevron-right"
+                                         class="treegrid-expander-icon">
+                                </ux-icon>
+
+                                <span *ngIf="treeGridRow.loading"
+                                      class="spinner spinner-accent spinner-bounce-middle">
+                                </span>
+                            </button>
+                        </span>
+
+                        <ux-checkbox aria-label="Toggle row selection"
+                            [value]="isSelected(row)"
+                            (valueChange)="$event ? select(row) : deselect(row)"></ux-checkbox>
+
+                        <span class="treegrid-icon">
+                            <ux-icon [name]="getIcon(row)"></ux-icon>
+                        </span>
+
+                        <span>{{ row.title }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.date | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="m-t-md">
+            Selected items:
+            <span *ngFor="let item of selected; let last = last">
+                {{ item.title + (last ? '.' : ', ') }}
+            </span>
+            <em *ngIf="selected?.length === 0">none</em>
+        </p>
+
+    </ux-accordion-panel>
+    <ux-accordion-panel class="accordion-chevron" heading="Tree Grid with Asynchronous Loading">
+
+        <div class="btn-container">
+            <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, true)">
+                <ux-icon name="chevron-down"></ux-icon> Expand All
+            </button>
+            <button type="button" class="btn button-secondary" (click)="setExpanded(asyncItems, false)">
+                <ux-icon name="chevron-right"></ux-icon> Contract All
+            </button>
+            <button type="button" class="btn button-secondary" (click)="clearChildren()">
+                <ux-icon name="close"></ux-icon> Clear Cached Data
+            </button>
+        </div>
+
+        <table role="treegrid"
+            aria-multiselectable="true"
+            class="table table-hover"
+            [uxTreeGrid]="asyncItems"
+            [(rows)]="asyncRows"
+            [loadChildren]="loadChildrenFn">
+            <thead>
+                <tr class="treegrid-header table-header-dark">
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody [(uxSelection)]="asyncSelected" mode="row">
+
+                <tr *ngFor="let row of asyncRows"
+                    role="row"
+                    [attr.aria-expanded]="row.expanded"
+                    [attr.aria-level]="row.state.level + 1"
+                    [attr.aria-setsize]="row.state.setSize"
+                    [attr.aria-posinset]="row.state.positionInSet"
+                    class="clickable"
+                    [uxTreeGridRow]="row"
+                    [canExpand]="row.type === 'folder'"
+                    [(expanded)]="row.expanded"
+                    #treeGridRow="uxTreeGridRow"
+                    [uxSelectionItem]="row">
+
+                    <td uxTreeGridIndent>
+                        <span class="treegrid-expander">
+                            <button *ngIf="row.type === 'folder'"
+                                aria-hidden="true"
+                                type="button"
+                                tabindex="-1"
+                                (click)="treeGridRow.toggle(); $event.stopPropagation()">
+
+                                <ux-icon *ngIf="!treeGridRow.loading"
+                                         name="chevron-right"
+                                         class="treegrid-expander-icon">
+                                </ux-icon>
+
+                                <span *ngIf="treeGridRow.loading"
+                                      class="spinner spinner-accent spinner-bounce-middle">
+                                </span>
+                            </button>
+                        </span>
+
+                        <span class="treegrid-icon">
+                                <ux-icon [name]="getIcon(row)"></ux-icon>
+                        </span>
+
+                        <span>{{ row.title }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.author }}</span>
+                    </td>
+
+                    <td>
+                        <span>{{ row.date | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="m-t-md">
+            Selected items:
+            <span *ngFor="let item of asyncSelected; let last = last">
+                {{ item.title + (last ? '.' : ', ') }}
+            </span>
+            <em *ngIf="asyncSelected?.length === 0">none</em>
+        </p>
+
+    </ux-accordion-panel>
+</ux-accordion>

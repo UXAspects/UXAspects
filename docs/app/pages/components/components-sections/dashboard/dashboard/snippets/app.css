@@ -1,12 +1,29 @@
 .customizable-dashboard .widget-content {
     position: relative;
     background-color: #fff;
-    box-shadow: 0px 2px 10px 0px #ccc;
+    box-shadow: 0 2px 10px 0 #ccc;
     padding: 15px;
     overflow: hidden;
+    transition: box-shadow 250ms ease-in-out;
 }
 
-.customizable-dashboard .widget-content.prominent::after {
+.customizable-dashboard .widget-content .widget-grab-handle {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: move;
+}
+
+.customizable-dashboard .widget-content .widget-grab-handle:focus {
+    outline: 2px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+}
+
+.customizable-dashboard .widget-content.prominent:after {
     content: ' ';
     position: absolute;
     top: 0;
@@ -75,7 +92,7 @@
     padding: 3px 0;
 }
 
-.customizable-dashboard .widget-content .widget-feature-list .widget-feature-list-item::before {
+.customizable-dashboard .widget-content .widget-feature-list .widget-feature-list-item:before {
     content: ' ';
     position: absolute;
     top: 9px;
@@ -86,7 +103,7 @@
     background-color: #00a7a2;
 }
 
-.customizable-dashboard .widget-content .widget-feature-list .widget-feature-list-item.warning::before {
+.customizable-dashboard .widget-content .widget-feature-list .widget-feature-list-item.warning:before {
     border-radius: 0;
     background-color: transparent;
     border-left: 7px solid transparent;
@@ -108,4 +125,21 @@
     color: #999;
     font-weight: 300;
     font-size: 0.875rem;
+}
+
+.customizable-dashboard.dashboard-grabbing .widget-content {
+    opacity: 0.5;
+}
+
+.customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing {
+    opacity: 1;
+    outline: 2px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+    box-shadow: 0 4px 10px 0 #999;
+}
+
+.customizable-dashboard.dashboard-grabbing .widget-content.widget-grabbing .widget-grab-handle {
+    outline: none;
 }

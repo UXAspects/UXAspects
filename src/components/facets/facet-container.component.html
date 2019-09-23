@@ -8,37 +8,50 @@
         <span class="facets-selected-header-label">{{ header }}</span>
 
         <!-- Add a Clear Button -->
-        <div class="facets-selected-clear-button" tabindex="0" [tooltip]="clearTooltip" placement="left" container="body" (click)="deselectAllFacets()"
-            (keyup.enter)="deselectAllFacets()" *ngIf="facets.length > 0">
-
-            <svg class="facets-selected-clear-graphic" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
-                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
-                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
-                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
-                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
-                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
-            </svg>
-        </div>
+        <ng-container *ngIf="(facetService.facets$ | async).length > 0" [ngTemplateOutlet]="clearButton || clearButtonDefault"></ng-container>
 
     </div>
 
     <!-- Display Tags For Selected Items -->
-    <div class="facets-selected-list">
+    <div class="facets-selected-list"
+        uxReorderable
+        role="list"
+        [reorderingDisabled]="!facetsReorderable"
+        [(reorderableModel)]="facets"
+        (reorderableModelChange)="facetsChange.emit(facets)">
 
         <!-- Show Selected Tags -->
-        <div class="facet-selected-tag" tabindex="0" *ngFor="let facet of facets" (mousedown)="$event.preventDefault()" (click)="deselectFacet(facet)" (keyup.enter)="deselectFacet(facet)">
+        <div #tag
+            class="facet-selected-tag"
+            role="listitem"
+            tabindex="0"
+            uxReorderableHandle
+            *ngFor="let facet of (facetService.facets$ | async); trackBy: trackBy"
+            [attr.aria-label]="facet.title"
+            [uxReorderableModel]="facet"
+            (mousedown)="tag.focus()"
+            (keydown.ArrowRight)="shiftRight(facet, tag)"
+            (keydown.ArrowLeft)="shiftLeft(facet, tag)">
 
             <!-- Display Label -->
             <span class="facet-selected-tag-label">{{ facet.title }}</span>
 
             <!-- Display Remove Icon -->
-            <span class="hpe-icon hpe-close"></span>
+            <button type="button"
+                uxFocusIndicator
+                class="facet-selected-remove-btn"
+                i18n-aria-label
+                aria-label="Deselect Facet"
+                (click)="deselectFacet(facet, tag)">
+
+                <ux-icon name="close"></ux-icon>
+            </button>
         </div>
 
     </div>
 
     <!-- Show Message Here if No Facets Selected -->
-    <p class="facets-selected-none-label" *ngIf="emptyText && facets.length === 0">{{ emptyText }}</p>
+    <p class="facets-selected-none-label" *ngIf="emptyText && (facetService.facets$ | async).length === 0">{{ emptyText }}</p>
 
 </div>
 
@@ -46,3 +59,22 @@
 <div class="facets-region">
     <ng-content></ng-content>
 </div>
+
+<ng-template #clearButtonDefault>
+    <button type="button"
+            class="btn btn-link btn-icon button-secondary"
+            tabindex="0"
+            [attr.aria-label]="clearTooltip"
+            [uxTooltip]="clearTooltip"
+            placement="left"
+            (click)="deselectAllFacets()">
+
+            <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
+                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
+                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
+                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
+                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
+            </svg>
+        </button>
+</ng-template>

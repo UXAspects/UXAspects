@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { playgroundAdapter } from '../../../../../services/playground/adapters/legacy-playground-adapter';
 
 @Component({
     selector: 'uxd-charts-stacked-bar-chart-ng1',
@@ -11,22 +12,22 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsStackedBarChartNg1Component')
-export class ChartsStackedBarChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ChartsStackedBarChartNg1Component extends BaseDocumentationSection implements IPlaygroundProvider {
 
     data: any;
     options: any;
 
-    codepen: ICodePen = {
+    playground: IPlayground = playgroundAdapter({
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'StackedBarChartCtrl as bc'
         },
         js: [this.snippets.raw.chartJs]
-    };
+    });
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));
-        
+
         let flotChartColors = {
             chartColor1: colorService.getColor('chart1').setAlpha(0.7).toRgba(),
             chartColor2: colorService.getColor('chart2').setAlpha(0.7).toRgba(),

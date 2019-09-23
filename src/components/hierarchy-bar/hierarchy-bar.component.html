@@ -1,0 +1,32 @@
+<!-- Hierarchy Bar - Standard Layout -->
+<ux-hierarchy-bar-standard *ngIf="mode === 'standard'">
+
+    <!-- Forward the content to the correct layout -->
+    <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>
+    <ng-container ngProjectAs="trailing-addons" [ngTemplateOutlet]="trailingAddons"></ng-container>
+    <ng-container ngProjectAs="right-addons" [ngTemplateOutlet]="rightAddons"></ng-container>
+
+</ux-hierarchy-bar-standard>
+
+<!-- Hierarchy Bar - Collapsed Layout -->
+<ux-hierarchy-bar-collapsed *ngIf="mode === 'collapsed'">
+
+    <!-- Forward the content to the correct layout -->
+    <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>
+    <ng-container ngProjectAs="trailing-addons" [ngTemplateOutlet]="trailingAddons"></ng-container>
+    <ng-container ngProjectAs="right-addons" [ngTemplateOutlet]="rightAddons"></ng-container>
+
+</ux-hierarchy-bar-collapsed>
+
+<!-- We can only have one ng-content so this allows us to use it more than once -->
+<ng-template #leftAddons>
+    <ng-content select="[uxHierarchyBarLeftAddon]"></ng-content>
+</ng-template>
+
+<ng-template #trailingAddons>
+    <ng-content select="[uxHierarchyBarTrailingAddon]"></ng-content>
+</ng-template>
+
+<ng-template #rightAddons>
+    <ng-content select="[uxHierarchyBarRightAddon]"></ng-content>
+</ng-template>

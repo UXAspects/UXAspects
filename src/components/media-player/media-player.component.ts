@@ -1,54 +1,46 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/frame-extraction.service';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { debounceTime, takeUntil, tap } from 'rxjs/operators';
+import { AudioMetadata, AudioService } from '../../services/audio/index';
 import { MediaPlayerService } from './media-player.service';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { AudioService, AudioMetadata } from '../../services/audio/index';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'ux-media-player',
     templateUrl: './media-player.component.html',
-    providers: [ MediaPlayerService ],
+    providers: [MediaPlayerService],
     host: {
-        'tabindex': '0',
-        '(keydown.Space)': 'mediaPlayerService.togglePlay()',
+        '(keydown.Space)': 'mediaPlayerService.togglePlay(); $event.preventDefault()',
         '[class.standard]': '!mediaPlayerService.fullscreen',
         '[class.fullscreen]': 'mediaPlayerService.fullscreen',
         '[class.quiet]': 'quietMode && type === "video" || mediaPlayerService.fullscreen',
-        '[class.hover]': 'hovering',
+        '[class.hover]': 'hovering || focused',
         '[class.video]': 'type === "video"',
         '[class.audio]': 'type === "audio"',
         '(mouseenter)': 'hovering = true',
         '(mouseleave)': 'hovering = false',
-        '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange($event)',
-        '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange($event)',
-        '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange($event)'
+        '(document:fullscreenchange)': 'mediaPlayerService.fullscreenChange()',
+        '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
+        '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
+        '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()'
     }
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('player') private _playerRef: ElementRef;
-    @ViewChild('trackBar') private _trackBarRef: ElementRef;
+    @ViewChild('player', { static: false }) private _playerRef: ElementRef;
 
     hovering: boolean = false;
+    focused: boolean = false;
     audioMetadata: Observable<AudioMetadata>;
-    
-    private _hover$: Subscription;
-    private _clicked$: Subscription;
-    private _paused$: Subscription;
-    private _playing$: Subscription;
-    private _loading$: Subscription;
+
+    /** The `anonymous` keyword means that there will be no exchange of user credentials when the media source is fetched. */
+    @Input() crossorigin: 'use-credentials' | 'anonymous' = 'use-credentials';
 
     get source(): string {
         return this.mediaPlayerService.source;
     }
 
-    @Input() 
+    /** The url to the media file to be loaded by the media player. */
+    @Input()
     set source(value: string) {
         this.mediaPlayerService.source = value;
     }
@@ -57,45 +49,56 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
         return this.mediaPlayerService.type;
     }
 
-    @Input() 
+    /**
+     * Defines the appearance of the media player. The two possible values are `video` and `audio`.
+     * The media player will adapt it's appearance to best suit the type specified.
+     */
+    @Input()
     set type(value: MediaPlayerType) {
         this.mediaPlayerService.type = value;
-    }    
+    }
 
     get quietMode(): boolean {
         return this.mediaPlayerService.quietMode;
     }
 
+    /**
+     * If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker style.
+     * Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
+     */
     @Input()
     set quietMode(value: boolean) {
         this.mediaPlayerService.quietMode = value;
     }
 
+    private _onDestroy = new Subject<void>();
+
     constructor(public mediaPlayerService: MediaPlayerService, private _audioService: AudioService, private _elementRef: ElementRef) {
 
         // show controls when hovering and in quiet mode
-        this._hover$ = Observable.fromEvent(this._elementRef.nativeElement, 'mousemove').switchMap((event: MouseEvent) => {
-            this.hovering = true;         
-            return Observable.of(event);
-        }).debounceTime(2000).subscribe(() => this.hovering = false);
+        fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(
+            tap(() => this.hovering = true),
+            debounceTime(2000),
+            takeUntil(this._onDestroy)
+        ).subscribe(() => this.hovering = false);
     }
 
     ngAfterViewInit(): void {
         this.mediaPlayerService.setMediaPlayer(this._elementRef.nativeElement, this._playerRef.nativeElement);
 
         this.audioMetadata = this._audioService.getAudioFileMetadata(this._playerRef.nativeElement);
-        this._playing$ = this.mediaPlayerService.playingEvent.subscribe(event => this.mediaPlayerService.playing.next(true));
-        this._paused$ = this.mediaPlayerService.pauseEvent.subscribe(event => this.mediaPlayerService.playing.next(false));
-        this._clicked$ = this.mediaPlayerService.mediaClickEvent.subscribe(() => this.mediaPlayerService.togglePlay());
-        this._loading$ = this.mediaPlayerService.loadedMetadataEvent.subscribe(() => this.mediaPlayerService.loaded = true);
+        this.mediaPlayerService.playingEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.playing.next(true));
+        this.mediaPlayerService.pauseEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.playing.next(false));
+        this.mediaPlayerService.mediaClickEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.togglePlay());
+        this.mediaPlayerService.loadedMetadataEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.loaded = true);
+
+        // initially hide all text tracks
+        this.mediaPlayerService.hideSubtitleTracks();
     }
 
     ngOnDestroy(): void {
-        this._hover$.unsubscribe();
-        this._playing$.unsubscribe();
-        this._paused$.unsubscribe();
-        this._clicked$.unsubscribe();
-        this._loading$.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 }
 

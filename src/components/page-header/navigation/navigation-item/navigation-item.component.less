@@ -3,10 +3,10 @@ ux-page-header-horizontal-navigation-item {
         position: relative;
         display: block;
         padding: 17px;
+        border: none;
         color: @page-header-nav-color;
         background-color: @page-header-bg;
         cursor: pointer;
-        outline: none;
         white-space: nowrap;
 
         .navigation-item-icon {
@@ -18,7 +18,7 @@ ux-page-header-horizontal-navigation-item {
             font-size: 0.875rem;
         }
 
-        .hpe-down {
+        .navigation-item-dropdown-icon {
             margin-left: 5px;
             font-size: 0.75rem;
         }
@@ -29,6 +29,10 @@ ux-page-header-horizontal-navigation-item {
             background-color: @page-header-nav-active-bg;
         }
 
+        &:focus {
+            .native-focus-outline;
+        }
+
         &.active,
         &.open {
             color: @page-header-nav-active-color;
@@ -37,6 +41,17 @@ ux-page-header-horizontal-navigation-item {
 
         &.selected {
             color: @page-header-nav-selected-color;
+        }
+
+        &.disabled {
+            cursor: default;
+            color: rgba(@page-header-nav-active-color, 0.35);
+
+            &:hover,
+            &:focus {
+                color: rgba(@page-header-nav-active-color, 0.35);
+                background-color: @page-header-bg;
+            }
         }
     }
 }
@@ -49,23 +64,32 @@ ux-page-header-horizontal-navigation-item {
     margin-top: 0;
     border-radius: 0;
 
-    .dropdown-item {
+    .ux-menu-item {
         display: flex;
         align-items: center;
         color: @page-header-nav-dropdown-color;
         padding: 8px 10px 8px 20px;
         min-width: 200px;
-        outline: none;
+        line-height: inherit;
 
         &:hover,
-        &:focus {
+        &:focus.ux-focus-indicator.ux-focus-indicator-active {
             background-color: @page-header-nav-dropdown-hover-bg;
             color: @page-header-nav-dropdown-hover-color;
+
+            .dropdown-item-title {
+                color: @page-header-nav-dropdown-hover-color;
+            }
+        }
+
+        &:focus.ux-focus-indicator.ux-focus-indicator-active {
+            .native-focus-outline;
         }
 
         .dropdown-item-title {
             flex: 1;
             font-size: 0.875rem;
+            color: @page-header-nav-dropdown-color;
         }
 
         .dropdown-item-icon {
@@ -79,9 +103,16 @@ ux-page-header-horizontal-navigation-item {
                 color: @page-header-nav-dropdown-selected-color;
             }
         }
-    }
-}
 
-.horizontal-navigation-dropdown-submenu {
-    margin-top: -21px;
+        &.disabled,
+        &.disabled .dropdown-item-title {
+            color: rgba(@page-header-nav-active-color, 0.35);
+            cursor: default;
+
+            &:hover,
+            &:focus {
+                background-color: transparent;
+            }
+        }
+    }
 }

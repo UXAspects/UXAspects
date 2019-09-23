@@ -1,12 +1,11 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HybridModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { ComponentsGridNg1Component } from './grid-ng1/grid-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 const SECTIONS = [
     ComponentsGridNg1Component
@@ -24,10 +23,10 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
+        TabsetModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        HybridModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

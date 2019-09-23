@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center">
+
+            <button type="button" class="btn btn button-secondary" uxTooltip="Tooltip on the left"
+                placement="left">
+                Tooltip on left
+            </button>
+
+            <button type="button" class="btn btn button-secondary" uxTooltip="Tooltip on the top"
+                placement="top">
+                Tooltip on top
+            </button>
+
+            <button type="button" class="btn btn button-secondary" uxTooltip="Tooltip on the bottom"
+                placement="bottom">
+                Tooltip on bottom
+            </button>
+
+            <button type="button" class="btn btn button-secondary" uxTooltip="Tooltip on the right"
+                placement="right">
+                Tooltip on right
+            </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    To add a tooltip to an element add the <code>uxTooltip</code> attribute with the required text.
+    The tooltip is placed at the <code>top</code> by default.
+</p>
+
+<p>The following attributes can be used to configure the <code>uxTooltip</code> directive:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxTooltip" type="string | TemplateRef">
+        If a string is specified, the text will be displayed as the tooltip content.
+        If a TemplateRef is provided the content of the template will be inserted into the tooltip.
+    </tr>
+    <tr uxd-api-property name="tooltipDisabled" type="boolean">
+        If set to <code>true</code> the tooltip will not be shown by any of it's triggers.
+    </tr>
+    <tr uxd-api-property name="tooltipClass" type="string">
+        If set, the provided class will be added to the tooltip. This can be used to change the appearance of the tooltip.
+    </tr>
+    <tr uxd-api-property name="tooltipRole" defaultValue="tooltip" type="string">
+        If set, this will alter the role of the tooltip.
+    </tr>
+    <tr uxd-api-property name="tooltipContext" type="object">
+        If a TemplateRef is used as the content this can be used to provide the template with data.
+    </tr>
+    <tr uxd-api-property name="tooltipDelay" type="number">
+        If specified, the tooltip will wait the specified number of milliseconds before showing.
+    </tr>
+    <tr uxd-api-property name="isOpen" type="boolean" defaultValue="false">
+        If set to <code>true</code> this will programmatically show the tooltip.
+    </tr>
+    <tr uxd-api-property name="placement" type="string" defaultValue="top">
+        Defines which direction the tooltip should appear. The possible values are 
+        <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
+    </tr>
+    <tr uxd-api-property name="showTriggers" type="string[]" defaultValue="['mouseenter', 'focus']">
+        Specifies which events will cause the tooltip to appear. 
+        To manually control when the tooltip appears set this to an empty array.
+        Possible events are <code>click</code>, <code>mouseenter</code> and <code>focus</code>.
+    </tr>
+    <tr uxd-api-property name="hideTriggers" type="string[]" defaultValue="['mouseleave', 'blur']">
+        Specifies which events will cause the tooltip to hide. 
+        To manually control when the tooltip hides set this to an empty array.
+        Possible events are <code>click</code>, <code>mouseleave</code> and <code>blur</code>.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="shown" type="void">
+        This event will be triggered when the tooltip is shown.
+    </tr>
+    <tr uxd-api-property name="hidden" type="void">
+        This event will be triggered when the tooltip is hidden.
+    </tr>
+    <tr uxd-api-property name="isOpenChange" type="boolean">
+        This event will be triggered when the tooltip is shown or hidden and will
+        be provided will a boolean representing the visibility of the tooltip.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="show">
+        Open the tooltip.
+    </tr>
+    <tr uxd-api-property name="hide">
+        Hide the tooltip.
+    </tr>
+    <tr uxd-api-property name="toggle">
+        Toggle the visibility of the tooltip.
+    </tr>
+</uxd-api-properties>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

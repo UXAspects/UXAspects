@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Injector, Input, Output } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
@@ -6,17 +6,18 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 })
 export class TreeGridNg1Component extends UpgradeComponent {
 
-    @Input() data: TreeGridData[] | Function;
+    @Input() data: any[] | Function;
     @Input() columns: TreeGridColumn[];
     @Input() treeData: TreeGridData[];
     @Input() selected: any[];
     @Input() currentRow: any;
     @Input() options: TreeGridOptions;
 
-    @Output() optionsChange: EventEmitter<TreeGridOptions> = new EventEmitter<TreeGridOptions>();
-    @Output() selectedChange: EventEmitter<any[]> = new EventEmitter<any[]>();
-    @Output() currentRowChange: EventEmitter<any> = new EventEmitter<any>();
-    @Output() treeDataChange: EventEmitter<TreeGridData[]> = new EventEmitter<TreeGridData[]>();    
+    @Output() optionsChange = new EventEmitter<TreeGridOptions>();
+    @Output() selectedChange = new EventEmitter<any[]>();
+    @Output() currentRowChange = new EventEmitter<any>();
+    @Output() treeDataChange = new EventEmitter<TreeGridData[]>();
+    @Output() selectionManager: EventEmitter<any>;
 
     constructor(elementRef: ElementRef, injector: Injector) {
         super('treegrid', elementRef, injector);

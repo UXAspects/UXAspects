@@ -1,0 +1,48 @@
+ux-spin-button {
+    display: flex;
+    flex-direction: column;
+
+    .spin-button {
+        height: 22px;
+        text-align: center;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+
+        &:disabled {
+            opacity: 0.5;
+        }
+
+        &:focus {
+            .native-focus-outline();
+        }
+
+        ux-icon {
+            color: #666;
+            font-weight: 900;
+            font-size: 14px;
+        }
+    }
+
+    .form-control {
+        text-align: center;
+        padding: 0;
+        font-size: 14px;
+        -moz-appearance: textfield;
+
+        &[readonly] {
+            background-color: #fff;
+            border-color: #e5e6e7;
+            color: #555;
+        }
+
+        &:disabled {
+            color: #b3b3b3;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    }
+}

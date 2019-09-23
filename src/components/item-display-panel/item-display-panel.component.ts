@@ -1,4 +1,9 @@
-import { Component, Directive, Input, SimpleChange, Output, EventEmitter, ContentChild } from '@angular/core';
+import { Component, ContentChild, Directive, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
+import { sidePanelStateAnimation } from '../side-panel/side-panel-animations';
+import { SidePanelComponent } from '../side-panel/side-panel.component';
+import { SidePanelService } from '../side-panel/side-panel.service';
 
 @Directive({
     selector: '[uxItemDisplayPanelContent]'
@@ -13,28 +18,36 @@ export class ItemDisplayPanelFooterDirective { }
 @Component({
     selector: 'ux-item-display-panel',
     templateUrl: './item-display-panel.component.html',
+    providers: [SidePanelService],
+    animations: [sidePanelStateAnimation],
     host: {
-        '(document:click)': 'clickOff($event)',
-        '(document:keyup.escape)': 'visible = false',
-        '[class.inline-host]': 'inline',
-        '[class.visible-host]': 'visible'
+        'class': 'ux-side-panel ux-item-display-panel'
     }
 })
-export class ItemDisplayPanelComponent {
+export class ItemDisplayPanelComponent extends SidePanelComponent implements OnInit {
 
     @Input() header: string;
-    @Input() top: number;
-    @Input() boxShadow: boolean = true;
-    @Input() closeVisible: boolean = true;
-    @Input() preventClose: boolean = false;
-    @Input() inline: boolean = false;
-    @Input() animate: boolean = false;
-    @Input() shadow: boolean = false;
-    @Input() width: number;
 
-    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
+    @Input() boxShadow: boolean = true;
+
+    @Input() closeVisible: boolean = true;
+
+    get preventClose(): boolean {
+        return !this.closeOnExternalClick;
+    }
+
+    @Input()
+    set preventClose(value: boolean) {
+        this.closeOnExternalClick = !value;
+    }
+
+    @Input() shadow: boolean = false;
 
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ContentChild(ItemDisplayPanelFooterDirective, { static: false }) footer: ItemDisplayPanelFooterDirective;
+
+    @ViewChild('panel', { static: true }) panel: ElementRef;
 
     /**
      * @deprecated
@@ -53,53 +66,28 @@ export class ItemDisplayPanelComponent {
 
     @Input()
     set visible(visible: boolean) {
-
-        this._visible = visible;
-
-        // invoke change event
-        this.visibleChange.emit(this._visible);
-
+        this.open = visible;
     }
-    
+
     get visible() {
-        return this._visible;
+        return this.open;
     }
 
-    private _visible: boolean = false;
+    constructor(service: SidePanelService, elementRef: ElementRef, focusOrigin: FocusIndicatorOriginService) {
+        super(service, elementRef, focusOrigin);
 
-    clickOff(event: MouseEvent) {
-
-        // dont close
-        if (this.preventClose) {
-            return;
-        }
-
-        // dont do anything if the panel is hidden
-        if (this._visible) {
-
-            let target = event.target as HTMLElement;
-
-            // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
-            if (target.nodeName === 'HTML') {
-                return;
-            }
-
-            let hidePanel = true;
-
-            while (target && target.nodeName !== 'BODY') {
-                if (target.classList.contains('ux-item-display-panel')) {
-                    hidePanel = false;
-                    break;
-                } else {
-                    target = target.parentElement;
-                }
-            }
-
-            if (hidePanel) {
-                this._visible = false;
-                this.visibleChange.emit(this._visible);
-            }
-        }
+        this.animate = false;
+        this.closeOnExternalClick = true;
     }
 
+    ngOnInit() {
+        super.ngOnInit();
+        this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isVisible => this.visibleChange.emit(isVisible));
+    }
+
+    focus(): void {
+        if (this.panel) {
+            this.panel.nativeElement.focus();
+        }
+    }
 }

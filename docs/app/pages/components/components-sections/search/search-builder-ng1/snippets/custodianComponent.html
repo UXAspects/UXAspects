@@ -1,7 +1,7 @@
 <search-component ng-controller="CustodianComponentCtrl as vm">
   <label class="form-label">Custodian</label>
   <div class="input-group">
-    <dynamic-select multiple ng-model="model" source="vm.custodians" options="vm.selectOptions">
+    <dynamic-select multiple ng-model="model" source="vm.custodians" select-as="name" track-by="id" options="vm.selectOptions">
     </dynamic-select>
     <span class="input-group-addon show-panel-btn" ng-click="vm.showPanel()"><span class="hpe-icon hpe-menu text-black"></span></span>
   </div>

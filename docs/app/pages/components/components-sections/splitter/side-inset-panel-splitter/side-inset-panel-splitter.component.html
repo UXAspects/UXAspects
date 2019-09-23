@@ -1,0 +1,81 @@
+<div class="splitter-demo">
+
+  <split direction="horizontal" gutterSize="10" gutterColor="#f2f2f2" [useTransition]="true">
+
+    <split-area [visible]="visible" size="40" order="1">
+      <div class="splitter-pane">
+        <h3 class="m-t-nil">Lorem Ipsum Nedir?</h3>
+        <p>
+          Lorem ipsum dolor sit amet, ut sit eius erant graecis, in solet iriure prompta vis. Movet noster vix ad. Eu has habeo reque
+          cetero, ne harum iudico sanctus mei. Purto admodum pertinacia in est, vix magna recusabo an, lorem feugait epicuri
+          an eos. Quo eruditi legimus ne.
+        </p>
+        <p>
+          Qui quot praesent tractatos te, ei has summo gubergren efficiendi. Id quo fabulas
+          facilis, id nam adhuc nulla delicata. Ea duo ubique contentiones. Te est iuvaret utroque eleifend. In eum suas
+          mazim, brute paulo gubergren nam et.
+        </p>
+      </div>
+    </split-area>
+
+    <split-area size="60" order="2">
+      <div class="splitter-pane">
+
+        <button class="btn button-primary ux-splitter-toggle-btn left" aria-label="Toggle Panel" (click)="visible = !visible">
+            <ux-icon [name]="visible ? 'previous' : 'next'"></ux-icon>
+        </button>
+
+        <h3 class="m-t-nil">Nereden Gelir</h3>
+        <p>
+          Et per natum atomorum, nostrud comprehensam ne nec. Vim no elitr malorum. Ei timeam nostrud pro, sea habeo rationibus te.
+          His mentitum consulatu in, causae expetenda reprehendunt nec at, te sea quas aliquip. Ne graece ornatus ceteros
+          vim, aeterno adversarium eu vix.
+        </p>
+        <p>
+          Zril soleat definiebas cum te, intellegat repudiandae est ei, nemore quaeque denique
+          eos te. Ex alii nulla eos, percipit tincidunt ut vim. Sed cu harum salutatus posidonium. Nec agam etiam iudico
+          ut, ea rebum mucius dictas vix, posse assum ut mel.
+        </p>
+        <p>
+          Consequat comprehensam ut vim. Velit rationibus consequuntur
+          mel ex, aperiam integre ad vix. Vim et eius oblique philosophia. Ei sea accumsan detracto corrumpit.
+        </p>
+      </div>
+    </split-area>
+
+  </split>
+
+</div>
+
+<hr>
+
+<p>
+  Splitter areas can be toggled by using the <code>visible</code> attribute. When hiding <code>split-area</code> components
+  you should provide also provide an <code>order</code> property to ensure that panels remain in the same order after they have been toggled.
+</p>
+
+<p>
+  To ensure that the toggling of panels is animated add the <code>useTransition</code> property on the <code>split</code> component.
+</p>
+
+<p>
+  To add a toggle button create a button with a <code>ux-splitter-toggle-btn</code> class.
+  You can also specify which way the button should be orientated by adding a <code>top</code>,
+  <code>right</code>, <code>bottom</code> or <code>left</code> class.
+</p>
+
+<p>The following code can be used to create the example above:</p>
+
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </ux-tab>
+
+  <ux-tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </ux-tab>
+
+  <ux-tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </ux-tab>
+</ux-tabset>

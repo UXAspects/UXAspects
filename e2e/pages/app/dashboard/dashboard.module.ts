@@ -1,16 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ChartsModule } from 'ng2-charts';
-import { DashboardModule, SparkModule } from '../../../../dist';
-
+import { CheckboxModule, DashboardModule, IconModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { DashboardTestPageComponent } from './dashboard.testpage.component';
-
 
 @NgModule({
     imports: [
+        CheckboxModule,
+        CommonModule,
         DashboardModule,
-        SparkModule,
-        ChartsModule,
+        AccessibilityModule,
+        IconModule,
         RouterModule.forChild([
             {
                 path: '',

@@ -1,27 +1,54 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ColorService } from '../../services/color/index';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NotificationService {
 
-    // provide default options
+    /**
+     *  Sets the order in which notifications are displayed:
+        `above` - newer notifications will appear above older ones.
+        `below` - newer notifications will appear below older ones.
+     */
+    direction: NotificationListDirection = 'above';
+
+    /**
+     * The list of notifications including notifications that have been dismissed
+     */
+    notifications$: BehaviorSubject<NotificationRef[]> = new BehaviorSubject<NotificationRef[]>([]);
+
+    /**
+     * Access the list of notifications as an array
+     */
+    get notifications(): NotificationRef[] {
+        return this.notifications$.value;
+    }
+
+    /**
+     * Define the default set of notification options
+     */
     options: NotificationOptions = {
         duration: 4,
-        height: 100,
         spacing: 10,
         backgroundColor: this._colorService.getColor('accent').toHex(),
         iconColor: this._colorService.getColor('accent').toHex()
     };
 
-    direction: NotificationListDirection = 'above';
+    /**
+     * This function should be called to show a notification.
+     * It should be given a TemplateRef containing the content to be displayed.
+     * @param templateRef - A TemplateRef containing the content to be displayed
+     * @param options - The properties to configure the notification.
+     * @param context - The context passed to the notification TemplateRef. This can be accessed by adding a let-data="data" to the ng-template element.
+     */
+    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options, context: { [key: string]: any } = {}): NotificationRef {
 
-    notifications$: BehaviorSubject<NotificationRef[]> = new BehaviorSubject<NotificationRef[]>([]);    
-
-    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options): NotificationRef {
-
+        // populate the specified options with the default values for any missing properties
         options = { ...this.options, ...options };
 
+        // create the notificationRef based on the options and context specified
         const notificationRef: NotificationRef = {
             templateRef: templateRef,
             duration: options.duration,
@@ -30,18 +57,15 @@ export class NotificationService {
             height: options.height,
             spacing: options.spacing,
             backgroundColor: options.backgroundColor,
-            iconColor: options.iconColor
+            iconColor: options.iconColor,
+            data: context
         };
 
-        const notifications = this.notifications$.getValue();
+        // add the new notification to the list (either above or below based on direction)
+        this.direction === 'above' ? this.notifications.unshift(notificationRef) : this.notifications.push(notificationRef);
 
-        if (this.direction === 'above') {
-            notifications.unshift(notificationRef);
-        } else {
-            notifications.push(notificationRef);
-        }
-
-        this.notifications$.next(notifications);
+        // update the notifications list
+        this.notifications$.next(this.notifications);
 
         // remove notification after delay
         if (options.duration !== 0) {
@@ -51,40 +75,54 @@ export class NotificationService {
         return notificationRef;
     }
 
+    /**
+     * This function will return a list of all the notifications that have been shown.
+     */
     getHistory(): NotificationRef[] {
-        return this.notifications$.getValue();
+        return this.notifications;
     }
 
+    /**
+     * This function can be called to dismiss a notification. It should be passed the object to dismiss.
+     * @param notificationRef - The notification that should be dismissed
+     */
     dismiss(notificationRef: NotificationRef): void {
         notificationRef.visible = false;
-        this.notifications$.next(this.notifications$.getValue());
-    }
-    
-    dismissAll(): void {
-        this.notifications$.getValue().forEach(notificationRef => notificationRef.visible = false);
-        this.notifications$.next(this.notifications$.getValue());        
+        this.notifications$.next(this.notifications);
     }
 
-    constructor(private _colorService: ColorService) {
+    /**
+     * This function will dismiss any currently visible notifications.
+     */
+    dismissAll(): void {
+        this.notifications.forEach(notificationRef => notificationRef.visible = false);
+        this.notifications$.next(this.notifications);
     }
+
+    constructor(private _colorService: ColorService) { }
 }
 
-export interface NotificationRef {
+export interface NotificationRef extends NotificationOptions {
+    /** The content to display in the notification */
     templateRef: TemplateRef<any>;
-    duration: number;
+    /** The datestamp to display in the notification */
     date: Date;
+    /** Indicated whether or not the notification has been dismissed or not */
     visible?: boolean;
-    height?: number;
-    spacing?: number;
-    backgroundColor?: string;
-    iconColor?: string;
+    /** Additional data passed as template context to the notification */
+    data: { [key: string]: any };
 }
 
 export interface NotificationOptions {
-    duration?: number;
+    /** The duration the notification should display for before it is automatically dismissed */
+    duration: number;
+    /** The height of the notification */
     height?: number;
+    /** The spacing between each notification */
     spacing?: number;
+    /** The background color of the notification */
     backgroundColor?: string;
+    /** The color of the notification icon */
     iconColor?: string;
 }
 

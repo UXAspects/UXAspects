@@ -1,0 +1,50 @@
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+}
+
+.gu-hide {
+    display: none !important;
+}
+
+.gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+.table tr.gu-transit,
+.table tr.gu-transit:hover {
+    background-color: @table-grid-bg;
+}
+
+.table tr.ux-reorderable-moving td {
+    position: relative;
+    color: transparent;
+}
+
+.table tr.ux-reorderable-moving td > * {
+    visibility: hidden;
+}
+
+.table tr.ux-reorderable-moving td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: fade(@primary, 5%);
+    border-top: 1px dashed @primary;
+    border-bottom: 1px dashed @primary;
+}
+
+.table tr.ux-reorderable-moving td:first-of-type:after {
+    border-left: 1px dashed @primary;
+}
+
+.table tr.ux-reorderable-moving td:last-of-type:after {
+    border-right: 1px dashed @primary;
+}

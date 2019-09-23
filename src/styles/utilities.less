@@ -497,6 +497,7 @@
 //===============
 //Angular
 //==============
+[hidden],
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
@@ -509,4 +510,45 @@
 
 ng\:form {
     display: block;
+}
+
+// Support Angular CDK Live Announcer
+.cdk-visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+// Support focus when cdk-keyboard-focus class is present
+.ux-keyboard-focus {
+    &:focus {
+        &:not(.cdk-keyboard-focused) {
+            outline: none;
+        }
+
+        &.cdk-keyboard-focused {
+            .focus-outline();
+        }
+    }
+}
+
+// Support controlled focus using the uxFocus directive
+.ux-focus-indicator {
+    &:focus {
+        &:not(.ux-focus-indicator-active) {
+            outline: none;
+        }
+
+        &.ux-focus-indicator-active {
+            .focus-outline();
+        }
+    }
 }

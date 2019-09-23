@@ -68,15 +68,15 @@
     </tr>
 </uxd-api-properties>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html"  [content]="snippets.compiled.facetOptionSnippetHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Javascript">
+    <ux-tab heading="Javascript">
         <uxd-snippet language="javascript"  [content]="snippets.compiled.facetOptionSnippetJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <uxd-api-properties tableTitle="Function">
     <tr uxd-api-property name="updateSelectCounts">

@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group m-nil">
+            <ux-select id="dropdown" [(ngModel)]="selected" [options]="options" [multiple]="multiple | async" [display]="display"
+                [key]="key" [allowNull]="allowNull" [disabled]="disabled" [dropDirection]="dropDirection"
+                [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder">
+            </ux-select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="selectedLocation" class="col-md-12 m-t-md">
+        Selected location(s): <code>{{selected | json}}</code>
+    </div>
+</div>
+<div class="row uxd-customize-example" style="margin-top: 400px;">
+    <div class="col-md-12">
+        <div class="row uxd-customize-row">
+            <div id="radio1" class="col-md-4 col-sm-12">
+                <label for="dataSet">options</label>
+                <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)" option="strings">strings</ux-radio-button>
+                <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)" option="objects">objects</ux-radio-button>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox id="checkbox1" [value]="multiple | async" (valueChange)="multiple.next($event)">multiple</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox id="checkbox2" [(value)]="disabled">disabled</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox id="checkbox3" [(value)]="allowNull" [disabled]="multiple | async">
+                    allowNull
+                </ux-checkbox>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div id="radio2" class="col-md-4 col-sm-12">
+                <label for="dropDirection">dropDirection</label>
+                <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+                <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <label for="placeholder">placeholder</label>
+                <input id="placeholder" type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-sm-4">
+                <ux-checkbox id="checkbox4" [value]="pagingEnabled | async" (valueChange)="pagingEnabled.next($event)">Enable
+                    Option Paging</ux-checkbox>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="pageSize">pageSize</label>
+                <ux-number-picker id="pageSize" [(value)]="pageSize" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
+            </div>
+        </div>
+    </div>
+</div>

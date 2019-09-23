@@ -1,0 +1,144 @@
+<ux-hierarchy-bar [root]="node" [mode]="mode" [(selected)]="selected">
+    <button class="hierarchy-bar-search" uxFocusIndicator uxHierarchyBarRightAddon>
+        <ux-icon name="search"></ux-icon>
+    </button>
+</ux-hierarchy-bar>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <ux-accordion>
+            <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
+                    </div>
+                </div>
+            </ux-accordion-panel>
+        </ux-accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-hierarchy-bar</code> can be used to display a hierarchy of items, with the rightmost node
+    indicating the selected item and each item to its left being an ancestor.
+    A popover is also present on any items that have children to allow them to be selected.
+</p>
+
+<p>The <code>ux-hierarchy-bar</code> component can be customized using the following attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+
+    <tr uxd-api-property name="root" type="HierarchyBarNode" [required]="true">
+        The root <code>HierarchyBarNode</code> object.
+    </tr>
+
+    <tr uxd-api-property name="selected" type="HierarchyBarNode">
+        If specified, this node will be selected when the component is initialized.
+    </tr>
+
+    <tr uxd-api-property name="mode" type="'standard' | 'collapsed'" defaultValue="standard">
+        Defines how the hierarchy bar should present nodes.
+        <ul>
+            <li>
+                The <code>standard</code> mode will display all parent nodes of the selected node.
+            </li>
+            <li>
+                The <code>collapsed</code> mode will display only the root node and the selected node.
+                All nodes in between will be hidden and accessible using a dropdown.
+            </li>
+        </ul>
+    </tr>
+
+    <tr uxd-api-property name="loadingIndicator" type="TemplateRef">
+        If specified, this will allow customization of the loading indicator that is displayed in a popover when node children are loaded using an observable.
+    </tr>
+
+    <tr uxd-api-property name="overflowTemplate" type="TemplateRef">
+        If specified, this will allow customization of the overflow region. The hidden nodes are available in the implicit template context.
+    </tr>
+
+    <tr uxd-api-property name="popoverShowTriggers" type="string[]" defaultValue="['click']">
+        Specifies which events will cause the popovers to appear.
+        Possible events are <code>click</code>, <code>mouseenter</code> and <code>focus</code>.
+    </tr>
+
+    <tr uxd-api-property name="popoverHideTriggers" type="string[]" defaultValue="['click', 'escape', 'clickoutside']">
+        Specifies which events will cause the popovers to hide.
+        Possible events are <code>click</code>, <code>clickoutside</code>, <code>escape</code>, <code>mouseleave</code> and <code>blur</code>.
+    </tr>
+
+    <tr uxd-api-property name="showSiblingsAriaLabel" type="string" defaultValue="Show siblings">
+        Specifies the aria-label to be used for the show siblings popover button.
+    </tr>
+
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+
+    <tr uxd-api-property name="selectedChange" type="HierarchyBarNode">
+        This will emit the currently selected node any time the selection changes.
+    </tr>
+
+</uxd-api-properties>
+
+<p>
+    The <code>HierarchyBarNode</code> interface is as follows:
+</p>
+
+<uxd-api-properties>
+
+    <tr uxd-api-property name="icon" type="string">
+        If specified, this image will be displayed alongside the name of the node. This should be the url to an image.
+    </tr>
+
+    <tr uxd-api-property name="title" type="string">
+        The text to be displayed on this node.
+    </tr>
+
+    <tr uxd-api-property name="children" type="HierarchyBarNode[] | Observable<HierarchyBarNode[]>">
+        If specified, this provides child nodes that can be selected. If children should only be loaded upon a user requesting to select one you can provide
+        an observable that will return <code>HierarchyBarNode</code> items when they are loaded.
+    </tr>
+
+</uxd-api-properties>
+
+<p>
+    Custom items can be added to the hierarchy bar by adding an element as content of the <code>ux-hierarchy-bar</code> component and
+    adding one of the following attributes to the element:
+</p>
+
+<ul>
+    <li><code>uxHierarchyBarLeftAddon</code> - This will add the element to the left side of the hierarchy bar.</li>
+    <li><code>uxHierarchyBarTrailingAddon</code> - This will add the element immediately after the last visible node.</li>
+    <li><code>uxHierarchyBarRightAddon</code> - This will add the element to the right side of the hierarchy bar.</li>
+</ul>
+
+<p>
+    Custom node icons can be set using the <code>*uxHierarchyBarNodeIcon</code> structural directive on a child element.
+    This directive makes the <code>node</code> object available in the template context, e.g.
+</p>
+
+<uxd-snippet [content]="snippets.compiled.iconHtml"></uxd-snippet>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

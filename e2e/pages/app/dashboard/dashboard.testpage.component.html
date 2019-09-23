@@ -1,76 +1,97 @@
-<ux-dashboard id="dashboardWidgetContainer" class="customizable-dashboard" [options]="options">
+<a id="top-focus" href="javascript:void(0)">Top focus target</a>
 
-    <ux-dashboard-widget id="analytics-1-widget" colSpan="4" rowSpan="2" [resizable]="true">
-        <div class="widget-content" ux-dashboard-widget-drag-handle>
-            <h3 class="widget-title">Usage Analytics</h3>
+<div class="container p-lg">
 
-            <div class="widget-chart">
-                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" 
-                        [labels]="lineChartLabels" [legend]="lineChartLegend"
-                    [colors]="lineChartColors" chartType="line">
-                </canvas>
-            </div>
-        </div>
-    </ux-dashboard-widget>
+    <ux-dashboard #dashboard
+        id="dashboardWidgetContainer"
+        class="customizable-dashboard"
+        [class.dashboard-grabbing]="dashboard.isGrabbing"
+        [options]="options">
 
-    <ux-dashboard-widget id="subscription-widget" colSpan="2">
-        <div class="widget-content" ux-dashboard-widget-drag-handle>
-            <div class="dashboard-split-panel">
-                <div class="dashboard-section-large dashboard-section-divider">
-                    <h3 class="widget-title">Service status</h3>
-                    <ul class="widget-feature-list">
-                        <li class="widget-feature-list-item">Archiving Service</li>
-                        <li class="widget-feature-list-item">Analytics Service</li>
-                        <li class="widget-feature-list-item">Search Service</li>
-                        <li class="widget-feature-list-item warning">Backup Service</li>
-                    </ul>
-                </div>
-                <div class="dashboard-section-small">
-                    <div>
-                        <h4 class="info-title">Package</h4>
-                        <p class="info-value">Aspects Ultimate</p>
-                    </div>
+        <ux-dashboard-widget *ngIf="widget1Enabled"
+            id="analytics-1-widget"
+            name="Usage Analytics"
+            colSpan="4"
+            rowSpan="2"
+            [resizable]="true">
 
-                    <div>
-                        <h4 class="info-title">Last Updated</h4>
-                        <p class="info-value">16 Dec, 2016</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ux-dashboard-widget>
+            <div class="widget-content"
+                 [class.widget-grabbing]="usageHandle.isGrabbing"
+                 uxDashboardWidgetDragHandle>
 
-    <ux-dashboard-widget id="users-widget">
-        <div class="widget-content" ux-dashboard-widget-drag-handle>
-            <h3 class="widget-title">Users</h3>
+                <h3 class="widget-title">Widget 1</h3>
 
-            <div class="widget-split">
-                <h1 class="text-count text-primary">5</h1>
-                <h1 class="text-count text-black">18</h1>
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #usageHandle="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
             </div>
 
-            <ux-spark value="28" barHeight="5" 
-                [trackColor]="colorService.getColor('grey6').toHex()"></ux-spark>
+        </ux-dashboard-widget>
 
-            <div class="widget-split">
-                <p class="text-label">Logged in</p>
-                <p class="text-label">Total</p>
+        <ux-dashboard-widget id="subscription-widget" name="Service" colSpan="2">
+
+            <div class="widget-content"
+                    [class.widget-grabbing]="handle2.isGrabbing"
+                    uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 2</h3>
+
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #handle2="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
             </div>
 
-        </div>
-    </ux-dashboard-widget>
+        </ux-dashboard-widget>
 
-    <ux-dashboard-widget id="alert-widget">
-        <div class="widget-content prominent" ux-dashboard-widget-drag-handle>
-            <h3 class="widget-title">Alert</h3>
+        <ux-dashboard-widget id="users-widget" name="Users">
 
-            <p class="info-title">18 Dec, 2016 10:17 AM</p>
-            <p class="info-value m-t text-black">
-                Planned downtime:
-                <br> 31 Dec, 2016 11PM PST -
-                <br> 01 Jan, 2017 6 AM PST
-            </p>
-        </div>
-    </ux-dashboard-widget>
+            <div class="widget-content"
+                    [class.widget-grabbing]="handle3.isGrabbing"
+                    uxDashboardWidgetDragHandle>
 
-</ux-dashboard>
+                <h3 class="widget-title">Widget 3</h3>
+
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #handle3="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+
+        <ux-dashboard-widget id="alert-widget" name="Alert">
+
+            <div class="widget-content"
+                    [class.widget-grabbing]="handle4.isGrabbing"
+                    uxDashboardWidgetDragHandle>
+
+                <h3 class="widget-title">Widget 4</h3>
+
+                <button class="widget-grab-handle"
+                    uxDashboardGrabHandle
+                    #handle4="ux-dashboard-grab-handle">
+                    <ux-icon name="pan"></ux-icon>
+                </button>
+
+            </div>
+
+        </ux-dashboard-widget>
+
+    </ux-dashboard>
+</div>
+
+<div>
+    <a id="bottom-focus" href="javascript:void(0)">Bottom focus target</a>
+</div>
+
+<div>
+    <ux-checkbox id="widget-1-checkbox" [(value)]="widget1Enabled">Widget 1</ux-checkbox>
+</div>

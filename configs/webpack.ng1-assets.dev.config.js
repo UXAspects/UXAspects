@@ -1,17 +1,25 @@
 const { join } = require('path');
 const { IgnorePlugin } = require('webpack');
-const project_dir = process.cwd();
+const { cwd } = require('process');
 
 module.exports = {
 
+    mode: 'development',
+
     entry: {
-        'ux-aspects-ng1': join(project_dir, 'src', 'ng1', 'ux-aspects-ng1.module.js'),
+        'ux-aspects-ng1': join(cwd(), 'src', 'ng1', 'ux-aspects-ng1.module.js'),
     },
 
     output: {
-        path: join(project_dir, 'dist', 'docs', 'assets', 'ng1'),
+        path: join(cwd(), 'dist', 'docs', 'assets', 'ng1'),
         filename: '[name].js',
         libraryTarget: 'umd'
+    },
+
+    resolveLoader: {
+        alias: {
+            'uglifyjs-loader': join(cwd(), 'configs', 'loaders', 'uglifyjs-loader.js')
+        }
     },
 
     devtool: 'none',
@@ -21,26 +29,11 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             exclude: /(node_modules|plugins|external)/,
-            enforce: 'pre',
-            use: {
-                loader: 'jshint-loader',
-                options: {
-                    emitErrors: false,
-                    failOnHint: true
-                }
-            }
-        }, {
-            test: /\.js$/,
-            exclude: /(node_modules|plugins|external)/,
             use: {
                 loader: 'babel-loader',
-                query: {
-                    cacheDirectory: true,
-                    presets: [
-                        ['env', {
-                            'modules': false
-                        }]
-                    ]
+                options: {
+                    presets: ['@babel/preset-env'],
+                    cacheDirectory: true
                 }
             }
         }, {
@@ -50,20 +43,7 @@ module.exports = {
         }, {
             test: /(plugins|external)/,
             exclude: /(node_modules|bower_components)/,
-            use: [{
-                loader: 'script-loader'
-            }, {
-                loader: 'uglify-loader',
-                options: {
-                    compress: {
-                        warnings: false,
-                    },
-                    comments: false
-                }
-            }]
-        }, {
-            test: join(project_dir, 'node_modules', 'webpack-dev-server', 'client'),
-            loader: 'null-loader'
+            use: ['script-loader', 'uglifyjs-loader']
         }]
     },
 

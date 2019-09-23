@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 @Component({
     selector: 'uxd-components-number-picker-ng1',
     templateUrl: './number-picker.component.html'
 })
 @DocumentationSectionComponent('ComponentsNumberPickerComponent')
-export class ComponentsNumberPickerComponent extends BaseDocumentationSection implements IPlunkProvider {
-    
+export class ComponentsNumberPickerComponent extends BaseDocumentationSection implements IPlaygroundProvider {
+
     form: FormGroup;
 
-    plunk: IPlunk = {
+    playground: IPlayground = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

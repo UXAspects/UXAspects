@@ -1,15 +1,15 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
+import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AccessibilityModule, ColorServiceModule, FlippableCardModule, HybridModule, IconModule, SparkModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsFlippableCardsNg1Component } from './flippable-cards-ng1/flippable-cards-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsFlippableCardsNg1Component } from './flippable-cards-ng1/flippable-cards-ng1.component';
 import { ComponentsFlippableCardsComponent } from './flippable-cards/flippable-cards.component';
-import { FlippableCardModule, ColorServiceModule, SparkModule } from '../../../../../../src/index';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+
 
 const SECTIONS = [
     ComponentsFlippableCardsNg1Component,
@@ -28,14 +28,18 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        HybridModule,
-        TabsModule,
-        SparkModule,
-        FlippableCardModule,
+        A11yModule,
+        AccessibilityModule,
         ColorServiceModule,
+        CommonModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FlippableCardModule,
+        HybridModule,
+        IconModule,
+        RouterModule.forChild(ROUTES),
+        SparkModule,
+        TabsetModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

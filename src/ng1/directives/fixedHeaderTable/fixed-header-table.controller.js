@@ -45,7 +45,8 @@ export class FixedHeaderTableController {
     onScroll() {
 
         // determine if we are scrolled to the bottom and if so load the next page
-        if (this._tableBody.scrollTop === (this._tableBody.scrollHeight - this._tableBody.offsetHeight)) {
+
+        if (this._tableBody.scrollTop === ((this._tableBody.scrollHeight - this._tableBody.clientHeight))) {
             this.requestPage();
         }
     }

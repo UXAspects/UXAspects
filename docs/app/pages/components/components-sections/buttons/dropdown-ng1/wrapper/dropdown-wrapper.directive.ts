@@ -2,10 +2,10 @@ angular.module('app').directive('uxdDropdownWrapper', () => {
     return {
         restrict: 'E',
         scope: {
-            display: '='
+            display: '@'
         },
         template: require('./dropdown-wrapper.directive.html'),
-        controller: ['$templateCache', function ($templateCache) {
+        controller: function () {
             var vm = this;
 
             vm.buttonOpen = false;
@@ -37,7 +37,7 @@ angular.module('app').directive('uxdDropdownWrapper', () => {
                 'Alpha 3',
             ];
             vm.caseFilter = '';
-        }],
+        },
         controllerAs: 'vm'
     };
 });

@@ -1,0 +1,17 @@
+.list-group-item:focus {
+    z-index: 1;
+}
+
+.list-group-item-heading {
+    color: #000;
+}
+
+.list-group-item-subheading {
+    color: #888;
+    font-size: 14px;
+}
+
+.list-group-item-checkbox {
+    margin-top: 4px;
+    text-align: right;
+}

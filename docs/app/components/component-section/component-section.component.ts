@@ -1,11 +1,11 @@
-import { Usage } from './../../interfaces/Usage';
-import { Component, Input, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
-import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../interfaces/ICodePen';
-import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../interfaces/IPlunk';
+import { ILink } from '../../interfaces/ILink';
+import { IPlayground } from '../../interfaces/IPlayground';
+import { IPlaygroundProvider, isIPlaygroundProvider } from '../../interfaces/IPlaygroundProvider';
+import { NavigationService } from '../../services/navigation/navigation.service';
 import { ResolverService } from '../../services/resolver/resolver.service';
+import { Usage } from './../../interfaces/Usage';
 
 @Component({
     selector: 'uxd-component-section',
@@ -20,33 +20,37 @@ export class ComponentSectionComponent implements OnInit {
     @Input() version: string;
     @Input() hybrid: boolean = false;
     @Input() deprecated: boolean = false;
+    @Input() deprecatedFor: string;
     @Input() externalUrl: string;
     @Input() usage: Usage[];
 
-    @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef; 
-    
-    codepen: ICodePen;
-    plunk: IPlunk;
+    @ViewChild('container', { read: ViewContainerRef, static: true }) viewContainer: ViewContainerRef;
 
+    playground: IPlayground;
+    deprecatedLink: ILink;
     hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
-    
-    constructor(private resolverService: ResolverService) { }
 
-    ngOnInit() {
+    constructor(
+        private _resolverService: ResolverService,
+        private _navigationService: NavigationService
+    ) { }
+
+    ngOnInit(): void {
         const component = documentationSectionNames[this.componentName];
 
         if (component) {
-            let factory = this.resolverService.resolveComponentFactory(component);
-            
+            const factory = this._resolverService.resolveComponentFactory(component);
             const componentRef = this.viewContainer.createComponent(factory);
 
-            if (isICodePenProvider(componentRef.instance)) {
-                this.codepen = (<ICodePenProvider>componentRef.instance).codepen;
-            } else if (isIPlunkProvider(componentRef.instance)) {
-                this.plunk = (<IPlunkProvider>componentRef.instance).plunk;
+            if (isIPlaygroundProvider(componentRef.instance)) {
+                this.playground = (<IPlaygroundProvider>componentRef.instance).playground;
             }
         } else {
             console.warn(`ComponentSectionComponent: ${this.componentName} cannot be resolved - decorate component with @DocumentationSectionComponent.`);
+        }
+
+        if (this.deprecatedFor) {
+            this.deprecatedLink = this._navigationService.getComponentLink(this.deprecatedFor);
         }
     }
 }

@@ -1,13 +1,15 @@
 const { join } = require('path');
+const { cwd } = require('process');
 const { ContextReplacementPlugin } = require('webpack');
-const project_dir = process.cwd();
 
 module.exports = {
 
-    entry: join(project_dir, 'src', 'index.ts'),
+    mode: 'production',
+
+    entry: join(cwd(), 'src', 'index.ts'),
 
     output: {
-        path: join(project_dir, 'dist', 'docs', 'assets', 'lib'),
+        path: join(cwd(), 'dist', 'docs', 'assets', 'lib'),
         filename: 'index.js',
         libraryTarget: 'umd'
     },
@@ -18,37 +20,35 @@ module.exports = {
 
     externals: [
         /^@angular\//,
-        /^rxjs\//
+        /^rxjs\//,
+        /^angular-split/
     ],
 
     module: {
         rules: [{
-                test: /\.html$/,
-                use: 'raw-loader'
+            test: /\.html$/,
+            use: 'raw-loader'
+        }, {
+            test: /\.ts$/,
+            use: [{
+                loader: 'awesome-typescript-loader',
+                options: {
+                    configFileName: join(cwd(), 'src', 'tsconfig-build.json')
+                },
             }, {
-                test: /\.ts$/,
-                use: [{
-                    loader: 'awesome-typescript-loader',
-                    options: {
-                        configFileName: join(project_dir, 'src', 'tsconfig-build.json')
-                    },
-                }, {
-                    loader: 'angular2-template-loader'
-                }]
-            }, {
-                test: /\.less$/,
-                use: ['raw-loader', 'less-loader']
-            }, {
-                test: join(project_dir, 'node_modules', 'webpack-dev-server', 'client'),
-                loader: 'null-loader'
-            }
+                loader: 'angular2-template-loader'
+            }]
+        }, {
+            test: /\.less$/,
+            use: ['raw-loader', 'less-loader']
+        }
         ]
     },
 
     plugins: [
         new ContextReplacementPlugin(
             /(.+)?angular(\\|\/)core(.+)?/,
-            join(project_dir, 'docs')
-        ),
+            join(cwd(), 'docs')
+        )
     ]
 };

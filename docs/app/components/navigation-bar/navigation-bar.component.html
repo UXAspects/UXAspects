@@ -1,20 +1,33 @@
 <div class="container uxd-page-container">
 
-    <img [src]="brand.logo" class="navigation-bar-logo">
+    <img alt="UX Aspects Logo" [src]="brand.logo" class="navigation-bar-logo">
     <a class="navigation-bar-brand" routerLink="/landing">{{ brand.title }}</a>
 
     <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
 
-        <a class="navigation-bar-item" *ngFor="let link of links" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
+        <a class="navigation-bar-item"
+           *ngFor="let link of links"
+           [routerLink]="link.link"
+           routerLinkActive="active">
+           {{ link.title }}
+        </a>
+
         <div class="navigation-bar-spacer"></div>
-        <a class="navigation-bar-item" *ngFor="let link of social" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
+
+        <a class="navigation-bar-item"
+           *ngFor="let link of social"
+           [routerLink]="link.link"
+           routerLinkActive="active">
+           {{ link.title }}
+        </a>
+
         <uxd-navigation-bar-search></uxd-navigation-bar-search>
 
     </div>
 
     <div class="navigation-bar-hamburger-container hidden-lg">
         <div class="navigation-bar-hamburger" [class.active]="expanded" (click)="expanded = !expanded">
-            <span class="hpe-icon hpe-menu"></span>
+            <ux-icon name="menu"></ux-icon>
         </div>
     </div>
 

@@ -1,0 +1,40 @@
+<form class="component-list-container" [formGroup]="form">
+
+    <div class="component-list">
+
+        <div class="component-list-component"
+            [class.hoverable]="items.length > 1"
+            formArrayName="items"
+            *ngFor="let item of items.controls; let idx = index">
+
+            <div class="component-content">
+                <input class="form-control"
+                    [focusIf]="true"
+                    [formControlName]="idx"
+                    placeholder="Enter text">
+
+                <button class="component-remove"
+                    uxFocusIndicator
+                    *ngIf="items.controls.length > 1"
+                    aria-label="Remove field"
+                    (click)="remove(idx)">
+                    <ux-icon name="close"></ux-icon>
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <button type="button"
+        class="component-actions"
+        [tabIndex]="form.invalid ? -1 : 0"
+        [class.disabled]="form.invalid"
+        (click)="add()">
+        <span class="component-add-btn">
+            <ux-icon name="add"></ux-icon>
+        </span>
+        <span class="component-add-text">Add a field</span>
+    </button>
+
+</form>

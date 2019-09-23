@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn button-primary" uxPopover="Popover content here!"
+                placement="bottom">
+                Launch Popover
+            </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    To add a popover to an element add the <code>uxPopover</code> attribute with the required text.
+    The popover is placed at the <code>top</code> by default.
+</p>
+
+<p>The following attributes can be used to configure the <code>uxPopover</code> directive:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxPopover" type="string | TemplateRef">
+        If a string is specified, the text will be displayed as the popover content.
+        If a TemplateRef is provided the content of the template will be inserted into the popover.
+    </tr>
+    <tr uxd-api-property name="popoverDisabled" type="boolean">
+        If set to <code>true</code> the popover will not be shown by any of it's triggers.
+    </tr>
+    <tr uxd-api-property name="popoverTitle" type="string">
+        If set, the popover will display a title above as the popover content.
+    </tr>
+    <tr uxd-api-property name="popoverClass" type="string">
+        If set, the provided class will be added to the popover. This can be used to change the appearance of the popover.
+    </tr>
+    <tr uxd-api-property name="popoverRole" defaultValue="popover" type="string">
+        If set, this will alter the role of the popover.
+    </tr>
+    <tr uxd-api-property name="popoverContext" type="object">
+        If a TemplateRef is used as the content this can be used to provide the template with data.
+    </tr>
+    <tr uxd-api-property name="popoverDelay" type="number">
+        If specified, the popover will wait the specified number of milliseconds before showing.
+    </tr>
+    <tr uxd-api-property name="isOpen" type="boolean" defaultValue="false">
+        If set to <code>true</code> this will programmatically show the popover.
+    </tr>
+    <tr uxd-api-property name="placement" type="string" defaultValue="top">
+        Defines which direction the popover should appear relative to the trigger element. The possible values are
+        <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>.
+    </tr>
+    <tr uxd-api-property name="alignment" type="string" defaultValue="center">
+        Defines the position of the arrow relative to the popover. The possible values are
+        <code>start</code>, <code>center</code> and <code>end</code>.
+    </tr>
+    <tr uxd-api-property name="showTriggers" type="string[]" defaultValue="['click']">
+        Specifies which events will cause the popover to appear.
+        To manually control when the popover appears set this to an empty array.
+        Possible events are <code>click</code>, <code>mouseenter</code> and <code>focus</code>.
+    </tr>
+    <tr uxd-api-property name="hideTriggers" type="string[]" defaultValue="['click', 'escape', 'clickoutside']">
+        Specifies which events will cause the popover to hide.
+        To manually control when the popover hides set this to an empty array.
+        Possible events are <code>click</code>, <code>mouseleave</code>, <code>blur</code>, <code>escape</code> and <code>clickoutside</code>.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="shown" type="void">
+        This event will be triggered when the popover is shown.
+    </tr>
+    <tr uxd-api-property name="hidden" type="void">
+        This event will be triggered when the popover is hidden.
+    </tr>
+    <tr uxd-api-property name="isOpenChange" type="boolean">
+        This event will be triggered when the popover is shown or hidden and will
+        be provided will a boolean representing the visibility of the popover.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="show">
+        Open the popover.
+    </tr>
+    <tr uxd-api-property name="hide">
+        Hide the popover.
+    </tr>
+    <tr uxd-api-property name="toggle">
+        Toggle the visibility of the popover.
+    </tr>
+</uxd-api-properties>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

@@ -1,0 +1,21 @@
+<div class="nested-donut-chart-container">
+
+    <ux-nested-donut-chart class="nested-donut-chart" [dataset]="dataset">
+        <h2 class="nested-donut-label">81%</h2>
+
+        <ng-template #tooltip let-name="name" let-value="value" let-color="color">
+            <div class="nested-donut-tooltip-content">
+                <div class="nested-donut-color-box" [style.background-color]="color"></div>
+                <b>{{ value }}</b> {{ name }}
+            </div>
+        </ng-template>
+
+    </ux-nested-donut-chart>
+
+    <ul class="nested-donut-chart-legend">
+        <li *ngFor="let data of dataset">
+            <div class="nested-donut-color-box" [style.background-color]="data.color"></div>
+            {{ data.name }}
+        </li>
+    </ul>
+</div>

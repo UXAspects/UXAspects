@@ -985,3 +985,92 @@
 .back {
     transform: rotateY(-180deg);
 }
+
+/*
+  Draggable Cards (Angular)
+*/
+.ux-draggable-card-container {
+    height: 100%;
+    padding: 5px 20px;
+    background-color: @draggable-card-container-bg;
+    border: 1px solid @draggable-card-container-border;
+    overflow-y: auto;
+}
+
+.ux-draggable-card {
+    position: relative;
+    width: 100%;
+    min-height: 30px;
+    background-color: @draggable-card-bg;
+    margin: 10px 0;
+    border: 1px solid @draggable-card-border;
+    box-shadow: 1px 1px 3px @draggable-card-border;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: border-color 0.5s;
+
+    &.active {
+        box-shadow: 1px 1px 3px @draggable-card-active-shadow;
+        border-color: @draggable-card-active-border;
+
+        &:before,
+        &:after {
+            content: " ";
+            border: solid transparent;
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &:before {
+            border-width: 10px;
+        }
+
+        &:after {
+            border-width: 9px;
+        }
+
+        &.right {
+            &:before,
+            &:after {
+                left: 100%;
+            }
+
+            &:before {
+                border-left-color: @draggable-card-active-border;
+                filter: drop-shadow(3px 0 2px @draggable-card-active-shadow);
+            }
+
+            &:after {
+                border-left-color: @draggable-card-bg;
+            }
+        }
+
+        &.left {
+            &:before,
+            &:after {
+                right: 100%;
+            }
+
+            &:before {
+                border-right-color: @draggable-card-active-border;
+            }
+
+            &:after {
+                border-right-color: @draggable-card-bg;
+            }
+        }
+    }
+
+    &:focus {
+        outline: none !important;
+
+        &.ux-focus-indicator-active {
+            outline: none !important;
+            box-shadow: 0 0 1px 1px @aspects-outline;
+        }
+    }
+}

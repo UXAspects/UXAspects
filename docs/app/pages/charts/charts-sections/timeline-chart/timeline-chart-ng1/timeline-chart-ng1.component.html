@@ -11,15 +11,15 @@
 <p>Timeline Charts are defined by the <code>flot</code> directive. The dataset and options attributes define the chart data
   and options respectively. Dataset and Options are defined within the TimelineChartCtrl.</p>
 
-<tabset>
-  <tab heading="HTML">
+<ux-tabset [minimal]="false">
+  <ux-tab heading="HTML">
     <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
-  </tab>
+  </ux-tab>
 
-  <tab heading="Javascript">
+  <ux-tab heading="Javascript">
     <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
-  </tab>
-</tabset>
+  </ux-tab>
+</ux-tabset>
 
 <p>The <code>lineDataService</code> can be used to add zero-points to the data. This makes the y coordinates as zero when there
   is no data within a specified offset and the graph will lie at the x-axis within this interval.</p>

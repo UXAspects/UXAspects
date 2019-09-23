@@ -1,45 +1,109 @@
 <div class="table-container">
-  <table class="table table-hover treegrid" keyboard-navigable-table>
-    <thead>
-      <tr class="table-header-dark">
-        <th ng-repeat="column in vm.columns" ng-class="column.headerClass" ng-style="{'width': column.width}">
-          <span ng-if="$first && vm.allOptions.select.check" class="treegrid-header-checkbox">
-            <checkbox class="treegrid-multiple-select-checkbox" ng-model="selected" ng-click="vm.toggleAllRows($event); $event.preventDefault();"></checkbox>
-          </span>
-          <span ng-class="[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']" ng-bind="column.name"></span>
-        </th>
-      </tr>
-    </thead>
-    <tbody ng-if="!vm.loading">
-      <tr ng-repeat="row in vm.getGridRows()" class="clickable hover-actions" 
-      ng-class="[row.rowClass, row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']"
-        treegrid-multiple-select-item="row" treegrid-multiple-select-options="vm.allOptions.select" treegrid-row-key-handler
-        treegrid-expand="vm.expand(row)" treegrid-contract="vm.contract(row)" ng-focus="vm.rowFocus(row, $event)" tabindex="-1">
-        <td ng-repeat="col in vm.columns" ng-class="col.cellClass">
-          <span ng-if="$first" class="treegrid-indent" ng-class="row.levelClass"></span>
-          <span ng-if="$first" class="treegrid-expand">
-            <span ng-if="row.canExpand && !row.expanding" class="treegrid-expand-toggle" ng-click="vm.expanderClick(row, $event)" ng-mousedown="$event.preventDefault()">
-              <i ng-if="row.expander.type === 'class'" ng-class="vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)"></i>
-              <img ng-if="row.expander.type === 'url'" ng-src="{{row.expanded ? row.expander.expanded : row.expander.contracted}}" alt="expander" />
-            </span>
-          <span ng-if="row.expanding" class="treegrid-expand-toggle" tooltip="Loading">
-              <i ng-if="row.expander.type === 'class'" ng-class="vm.iconClass(row.expander.expanding)"></i>
-              <img ng-if="row.expander.type === 'url'" ng-src="{{row.expander.expanding}}" alt="expander" />
-            </span>
-          </span>
-          <span ng-if="$first && vm.allOptions.select.check" class="treegrid-checkbox">
-            <checkbox class="treegrid-multiple-select-checkbox" ng-model="row.selected" ng-click="vm.checkboxClick($event);"></checkbox>
-          </span>
-          <span ng-if="$first" class="treegrid-icon">
-            <i ng-if="row.icon.type === 'class'" class="hpe-icon" ng-class="row.icon.get(row.dataItem, row.expanded)"></i>
-            <img ng-if="row.icon.type === 'url'" ng-src="{{row.icon.get(row.dataItem, row.expanded)}}" alt="icon" />
-          </span>
-          <treegrid-cell row="row" column="col"></treegrid-cell>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div ng-if="vm.loading" class="treegrid-loading">
-    Loading...
-  </div>
+    <table class="table table-hover treegrid" treegrid-navigation>
+
+        <thead>
+            <tr class="table-header-dark">
+
+                <th ng-repeat="column in vm.columns"
+                    ng-class="column.headerClass"
+                    ng-style="{'width': column.width}">
+
+                    <span ng-if="$first && vm.allOptions.select.check" class="treegrid-header-checkbox">
+                        <checkbox class="treegrid-multiple-select-checkbox"
+                            ng-model="selected"
+                            ng-click-lazy="vm.toggleAllRows($event); $event.preventDefault();">
+                        </checkbox>
+                    </span>
+
+                    <span
+                        ng-class="[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']"
+                        ng-bind="column.name">
+                    </span>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody ng-if="!vm.loading">
+
+            <tr ng-repeat="row in vm.getGridRows()"
+                class="clickable hover-actions treegrid-row-ng1"
+                ng-class="[row.rowClass, vm.isDisabled(row) ? 'disabled' : '', row.selected ? vm.allOptions.select.rowClass : '', row.level > 0 ? 'sub-row' : '']"
+                treegrid-multiple-select-model="vm.selectionModel"
+                treegrid-multiple-select-item="row"
+                treegrid-multiple-select-item-disabled="vm.isDisabled(row)"
+                treegrid-multiple-select-options="vm.allOptions"
+                treegrid-expand="vm.expandAsync(row)"
+                treegrid-contract="vm.contract(row)"
+                treegrid-navigation-item="row"
+                treegrid-navigation-item-index="$index"
+                treegrid-navigation-item-disabled="vm.isDisabled(row)"
+                ng-focus-lazy="vm.rowFocus(row, $event)"
+                tabindex="-1">
+
+                <td ng-repeat="col in vm.columns" ng-class="col.cellClass">
+
+                    <span ng-if="$first" class="treegrid-indent" ng-class="row.levelClass"></span>
+
+                    <span ng-if="$first" class="treegrid-expand">
+
+                        <span ng-if="row.canExpand && !row.expanding"
+                            class="treegrid-expand-toggle"
+                            ng-click-lazy="vm.expanderClick(row, $event)"
+                            ng-mousedown-lazy="$event.preventDefault()">
+
+                            <i ng-if="row.expander.type === 'class'"
+                               ng-class="vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)">
+                            </i>
+
+                            <img ng-if="row.expander.type === 'url'"
+                                 ng-src="{{row.expanded ? row.expander.expanded : row.expander.contracted}}"
+                                 alt="expander" />
+                        </span>
+
+                        <span ng-if="row.expanding" class="treegrid-expand-toggle" tooltip="Loading">
+
+                            <i ng-if="row.expander.type === 'class'"
+                               ng-class="vm.iconClass(row.expander.expanding)">
+                            </i>
+
+                            <img ng-if="row.expander.type === 'url'"
+                                 ng-src="{{row.expander.expanding}}"
+                                 alt="expander" />
+                        </span>
+
+                    </span>
+
+                    <span ng-if="$first && vm.allOptions.select.check" class="treegrid-checkbox">
+
+                        <checkbox
+                            class="treegrid-multiple-select-checkbox"
+                            ng-model="row.selected"
+                            indeterminate-value="-1"
+                            ng-click-lazy="vm.checkboxClick($event, row);"
+                            ng-disabled="vm.isDisabled(row)"
+                            clickable="false">
+                        </checkbox>
+
+                    </span>
+
+                    <span ng-if="$first" class="treegrid-icon">
+
+                        <i ng-if="row.icon.type === 'class'"
+                           class="hpe-icon"
+                           ng-class="row.icon.get(row.dataItem, row.expanded)">
+                        </i>
+
+                        <img ng-if="row.icon.type === 'url'"
+                             ng-src="{{row.icon.get(row.dataItem, row.expanded)}}"
+                             alt="icon" />
+                    </span>
+
+                    <treegrid-cell row="row" column="col"></treegrid-cell>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-if="vm.loading" class="treegrid-loading">
+        Loading...
+    </div>
 </div>

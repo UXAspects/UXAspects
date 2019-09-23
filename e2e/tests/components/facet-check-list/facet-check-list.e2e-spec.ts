@@ -1,94 +1,93 @@
-import { browser, Key } from 'protractor';
+import { imageCompare } from '../common/image-compare';
 import { FacetCheckListPage } from './facet-check-list.po.spec';
 
 describe('FacetCheckListPage Tests', () => {
 
-  let page: FacetCheckListPage;
-  let browserName: string;
+    let page: FacetCheckListPage = new FacetCheckListPage();
 
-  beforeEach(() => {
-    page = new FacetCheckListPage();
-    page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
+    beforeAll(async () => {
+        await page.getPage();
     });
-  });
 
-  it('should start with no facets', () => {
-    
-    // No facets should be visible.
-    expect<any>(page.getNumberOfFacets()).toEqual(0);
-    expect(page.getClearAllButton().isPresent()).toBeFalsy();
-    expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
-    
-    // No items in the list should be checked.
-    expect<any>(page.getNumberOfFacetsInCheckList()).toEqual(30);
-    expect(page.confirmCheckListScrollbarExists()).toBeTruthy();
-    expect(page.confirmCheckListFacetIsTicked(0)).toBeFalsy();
-    
-  });
-  
-  it('should allow addition of facets', () => {
-    
-    // Check list items, confirming that the corresponding facets are created.
-    page.getFacetFromCheckList(3).click();
-    expect(page.getClearAllButton().isPresent()).toBeTruthy();
-    expect(page.getNoItemsLabel().isPresent()).toBeFalsy();
-    
-    expect(page.confirmCheckListFacetIsTicked(3)).toBeTruthy();
-    expect(page.getFacetName(0)).toEqual(page.getFacetNameFromCheckList(3));
-    
-    page.getFacetFromCheckList(13).click();
-    expect(page.confirmCheckListFacetIsTicked(13)).toBeTruthy();
-    expect(page.getFacetName(1)).toEqual(page.getFacetNameFromCheckList(13));
+    it('should start with no facets', async () => {
 
-    page.getFacetFromCheckList(23).click();
-    expect(page.confirmCheckListFacetIsTicked(23)).toBeTruthy();
-    expect(page.getFacetName(2)).toEqual(page.getFacetNameFromCheckList(23));
-    
-    expect<any>(page.getNumberOfFacets()).toEqual(3);
-    expect<any>(page.getNumberOfFacetsInCheckList()).toEqual(30);
-    
-  });
-  
-  it('should allow deletion of facets one by one', () => {
-    
-    // Create some facets.
-    page.getFacetFromCheckList(0).click();
-    page.getFacetFromCheckList(15).click();
-    page.getFacetFromCheckList(29).click();
-    expect<any>(page.getNumberOfFacets()).toEqual(3);
-    
-    // Close the facets and then confirm that the corresponding list items are unchecked.
-    page.closeFacet(2); 
-    expect<any>(page.getNumberOfFacets()).toEqual(2);
-    page.closeFacet(0);    
-    expect<any>(page.getNumberOfFacets()).toEqual(1);
-    page.closeFacet(0);    
-    expect<any>(page.getNumberOfFacets()).toEqual(0);
-    
-    expect(page.confirmCheckListFacetIsTicked(0)).toBeFalsy();
-    expect(page.confirmCheckListFacetIsTicked(15)).toBeFalsy();
-    expect(page.confirmCheckListFacetIsTicked(29)).toBeFalsy();
-    
-  });
-  
-  it('should allow deletion of all facets', () => {
-    
-    // Create some facets.
-    page.getFacetFromCheckList(23).click();
-    page.getFacetFromCheckList(1).click();
-    page.getFacetFromCheckList(9).click();
-    expect<any>(page.getNumberOfFacets()).toEqual(3);
-    
-    // Close all the facets and then confirm that the corresponding list items are unchecked.
-    page.getClearAllButton().click();
-    expect<any>(page.getNumberOfFacets()).toEqual(0);
-    
-    expect(page.confirmCheckListFacetIsTicked(23)).toBeFalsy();
-    expect(page.confirmCheckListFacetIsTicked(1)).toBeFalsy();
-    expect(page.confirmCheckListFacetIsTicked(9)).toBeFalsy();
-    
-  });
+        // No facets should be visible.
+        expect(await page.getNumberOfFacets()).toEqual(0);
+        expect(await page.getClearAllButton().isPresent()).toBeFalsy();
+        expect(await page.getNoItemsLabel().isPresent()).toBeTruthy();
+
+        // No items in the list should be checked.
+        expect(await page.getNumberOfFacetsInCheckList()).toEqual(30);
+        expect(await page.confirmCheckListScrollbarExists()).toBeTruthy();
+        expect(await page.confirmCheckListFacetIsTicked(0)).toBeFalsy();
+
+        expect(await imageCompare('facet-check-list-initial')).toEqual(0);
+    });
+
+    it('should allow addition of facets', async () => {
+
+        // Check list items, confirming that the corresponding facets are created.
+        await page.getFacetFromCheckList(3).click();
+        expect(await page.getClearAllButton().isPresent()).toBeTruthy();
+        expect(await page.getNoItemsLabel().isPresent()).toBeFalsy();
+
+        expect(await page.confirmCheckListFacetIsTicked(3)).toBeTruthy();
+        expect(await page.getFacetName(0)).toEqual(await page.getFacetNameFromCheckList(3));
+
+        await page.getFacetFromCheckList(13).click();
+        expect(await page.confirmCheckListFacetIsTicked(13)).toBeTruthy();
+        expect(await page.getFacetName(1)).toEqual(await page.getFacetNameFromCheckList(13));
+
+        await page.getFacetFromCheckList(23).click();
+        expect(await page.confirmCheckListFacetIsTicked(23)).toBeTruthy();
+        expect(await page.getFacetName(2)).toEqual(await page.getFacetNameFromCheckList(23));
+
+        expect(await page.getNumberOfFacets()).toEqual(3);
+        expect(await page.getNumberOfFacetsInCheckList()).toEqual(30);
+
+        await page.getClearAllButton().click();
+
+        expect(await imageCompare('facet-check-list-selected')).toEqual(0);
+
+    });
+
+    it('should allow deletion of facets one by one', async () => {
+
+        // Create some facets.
+        await page.getFacetFromCheckList(0).click();
+        await page.getFacetFromCheckList(15).click();
+        await page.getFacetFromCheckList(29).click();
+        expect(await page.getNumberOfFacets()).toEqual(3);
+
+        // Close the facets and then confirm that the corresponding list items are unchecked.
+        await page.closeFacet(2);
+        expect(await page.getNumberOfFacets()).toEqual(2);
+        await page.closeFacet(0);
+        expect(await page.getNumberOfFacets()).toEqual(1);
+        await page.closeFacet(0);
+        expect(await page.getNumberOfFacets()).toEqual(0);
+
+        expect(await page.confirmCheckListFacetIsTicked(0)).toBeFalsy();
+        expect(await page.confirmCheckListFacetIsTicked(15)).toBeFalsy();
+        expect(await page.confirmCheckListFacetIsTicked(29)).toBeFalsy();
+
+    });
+
+    it('should allow deletion of all facets', async () => {
+
+        // Create some facets.
+        await page.getFacetFromCheckList(23).click();
+        await page.getFacetFromCheckList(1).click();
+        await page.getFacetFromCheckList(9).click();
+        expect(await page.getNumberOfFacets()).toEqual(3);
+
+        // Close all the facets and then confirm that the corresponding list items are unchecked.
+        await page.getClearAllButton().click();
+        expect(await page.getNumberOfFacets()).toEqual(0);
+
+        expect(await page.confirmCheckListFacetIsTicked(23)).toBeFalsy();
+        expect(await page.confirmCheckListFacetIsTicked(1)).toBeFalsy();
+        expect(await page.confirmCheckListFacetIsTicked(9)).toBeFalsy();
+
+    });
 });

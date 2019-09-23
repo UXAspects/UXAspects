@@ -1,0 +1,25 @@
+{
+    "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "../dist",
+    "deleteDestPath": true,
+    "whitelistedNonPeerDependencies": [
+      "@angular/cdk",
+      "angular-split",
+      "chart.js",
+      "d3",
+      "dragula",
+      "ng2-charts",
+      "ng2-file-upload",
+      "ngx-mask",
+      "angular-tree-component",
+      "bootstrap",
+      "resize-observer-polyfill"
+    ],
+    "lib": {
+      "entryFile": "./index.ts",
+      "externals": {
+        "@angular/upgrade/static": "./node_modules/@angular/upgrade/bundles/upgrade-static.umd.js",
+        "dragula": "dragula"
+      }
+    }
+  }

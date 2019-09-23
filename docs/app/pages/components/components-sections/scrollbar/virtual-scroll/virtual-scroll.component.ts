@@ -1,10 +1,11 @@
-import 'chance';
-import { BaseDocumentationSection} from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import 'chance';
+import { Subject } from 'rxjs';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlayground } from '../../../../../interfaces/IPlayground';
+import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
@@ -14,12 +15,17 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
     styleUrls: ['./virtual-scroll.component.less']
 })
 @DocumentationSectionComponent('ComponentsVirtualScrollComponent')
-export class ComponentsVirtualScrollComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsVirtualScrollComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
+    loading = false;
 
-    plunk: IPlunk = {
+    pageSize = 2000;
+    totalPages = 10;
+    totalItems: number;
+
+    playground: IPlayground = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
@@ -27,27 +33,29 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['VirtualScrollModule', 'CheckboxModule'],
+                imports: ['VirtualScrollModule', 'CheckboxModule', 'AccordionModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             }
         ]
     };
 
-    constructor() {
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+        this.totalItems = this.pageSize * this.totalPages;
     }
 
     loadPage(pageNumber: number): void {
 
-        const pageSize = 2000;
-        const startIdx = pageNumber * pageSize;
-        const endIdx = startIdx + pageSize;
+        const startIdx = pageNumber * this.pageSize;
+        const endIdx = startIdx + this.pageSize;
         const employees: Employee[] = [];
+
+        this.loading = true;
+        this._liveAnnouncer.announce('Loading more items, please wait.');
 
         // generate sample employee data
         for (let idx = startIdx; idx < endIdx; idx++) {
@@ -65,6 +73,9 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
         // push the next batch of employees to the subject - (delay to simulate server time)
         setTimeout(() => {
             this.employees.next(employees);
+
+            this.loading = false;
+            this._liveAnnouncer.announce(`${employees.length} items loaded.`);
 
             // impose a limit of 10 pages
             if (pageNumber === 10) {

@@ -7,14 +7,14 @@
 
 <p>Add the <code>static-tooltip</code> directive to an element to show a static tooltip.</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
-    <tab heading="JavaScript">
+    </ux-tab>
+    <ux-tab heading="JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>
 
 <p>The following attributes can be used to configure static tooltips:</p>
 

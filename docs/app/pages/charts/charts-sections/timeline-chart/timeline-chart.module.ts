@@ -1,16 +1,17 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
-
-import { ChartsTimelineChartNg1Component } from './timeline-chart-ng1/timeline-chart-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ColorServiceModule, HybridModule, TabsetModule, TimelineChartModule } from '@ux-aspects/ux-aspects';
+import { ChartsModule } from 'ng2-charts';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsTimelineChartNg1Component } from './timeline-chart-ng1/timeline-chart-ng1.component';
+import { ChartsTimelineChartComponent } from './timeline-chart/timeline-chart.component';
 
 const SECTIONS = [
-    ChartsTimelineChartNg1Component
+    ChartsTimelineChartNg1Component,
+    ChartsTimelineChartComponent
 ];
 
 const ROUTES = [
@@ -25,11 +26,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
-        WrappersModule,
-        HybridModule,
+        ChartsModule,
+        ColorServiceModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        HybridModule,
+        RouterModule.forChild(ROUTES),
+        TabsetModule,
+        TimelineChartModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

@@ -1,31 +1,39 @@
 {
     "compilerOptions": {
-        "declaration": true,
-        "target": "es5",
+        "target": "es2015",
         "module": "es2015",
-        "baseUrl": ".",
-        "stripInternal": true,
-        "experimentalDecorators": true,
         "moduleResolution": "node",
-        "outDir": "../dist/lib",
-        "rootDir": ".",
-        "lib": ["es2015", "dom"],
-        "skipLibCheck": true,
-        "suppressImplicitAnyIndexErrors": true,
+        "declaration": true,
+        "sourceMap": true,
+        "inlineSources": true,
         "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "lib": [
+            "dom",
+            "es2018"
+        ],
+        "baseUrl": ".",
+        "outDir": "../dist/lib",
+        "suppressImplicitAnyIndexErrors": true,
         "typeRoots": [
             "../node_modules/@types"
         ]
     },
     "angularCompilerOptions": {
+        "annotateForClosureCompiler": true,
+        "skipTemplateCodegen": true,
         "strictMetadataEmit": true,
-        "skipTemplateCodegen": true
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true,
+        "enableResourceInlining": true
     },
     "files": [
         "./index.ts"
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "**/*.spec.ts"
     ]
 }

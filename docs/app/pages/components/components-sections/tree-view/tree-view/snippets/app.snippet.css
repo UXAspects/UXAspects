@@ -1,3 +1,19 @@
 .tree-view-example-container {
     height: 250px;
 }
+
+.tree-view-node {
+    outline: none;
+}
+
+.tree-view-node.ux-focus-indicator-active > .node-content-wrapper {
+    outline: 2px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+}
+
+.node-content-wrapper {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,104 @@
+<div id="panelContainer" class="ux-side-panel-inline-container demo-side-panel-container">
+
+    <div class="demo-content">
+        <button type="button" id="toggle" class="btn button-primary"
+            (click)="open = !open; $event.stopPropagation()">
+            Toggle Side Panel
+        </button>
+        <ux-checkbox id="externalClick1">External 1</ux-checkbox>
+        <p class="m-t-md">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet
+            faucibus dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit
+            et rhoncus interdum. Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum
+            hendrerit ultrices.
+        </p>
+    </div>
+
+    <ux-side-panel #sidePanel="ux-side-panel"
+        [(open)]="open"
+        [inline]="inline"
+        [attachTo]="attachTo"
+        [top]="top"
+        [width]="width"
+        [modal]="modal"
+        [closeOnExternalClick]="closeOnExternalClick"
+        [animate]="false">
+
+        <div class="ux-side-panel-header">
+            <h3>Side Panel</h3>
+            <button uxSidePanelClose type="button" class="btn btn-lg btn-link btn-icon button-secondary">
+                <ux-icon name="close"></ux-icon>
+            </button>
+        </div>
+
+        <div class="ux-side-panel-content">
+            <p> Lorem ipsum dolor sit amet, utinam ornatus ea pro. Vim ad diam velit apeirian, ei has
+                perpetua dissentias. Tale tacimates eu usu, nec sale omnes ad. Mea ne quas omittantur, vel
+                ne mollis persecuti deseruisse. No partem vocibus per, in ius eius option omittam. </p>
+            <p> Ea quo ipsum concludaturque. Te nam sint doctus facilisi, evertitur prodesset eu sea. Te
+                quot debitis recusabo per, facilisi interesset te vel. Duo cu nibh accusata dissentiet,
+                ferri impedit mea no, viderer prodesset usu an. </p>
+            <p> Est nonumes necessitatibus cu, viris sadipscing liberavisse ei mel, eos te tota elaboraret.
+                Erant oportere id vel. Amet enim possit ei his, usu in impetus laboramus. Qui in sonet
+                possit utamur, solet consetetur mea ut. Dicam tation singulis ad est. </p>
+            <p> Ex munere ornatus euripidis vis, cu est ignota molestie explicari, te per iriure rationibus.
+                No nec causae fabulas, aeque ponderum moderatius vel ut. Virtute singulis abhorreant pro id.
+                Case mutat audiam quo in. Eirmod copiosae dissentiunt vel ex, nusquam suavitate maiestatis
+                ea cum. Cu ignota sanctus assueverit sed, cu diam alienum expetendis per. </p>
+            <p> Per eu etiam mollis legimus, ut percipit invenire oportere mei. Sit ne magna iracundia,
+                congue molestiae disputationi mei ei. Doctus aliquip et mea. An admodum delectus sententiae
+                est, vocent electram suscipiantur eam in. Te mentitum electram ius, his ei molestiae
+                sententiae. </p>
+            <p> Pri suas forensibus id, per id voluptua convenire torquatos. Pro mutat aliquip vocibus ea.
+                No vis erat tempor aliquam. Elit comprehensam in pro, an congue sensibus expetendis quo.
+                Minim detraxit praesent vel et, quo consul delicata scribentur te. Liber incorrupte no duo,
+                ponderum petentium et mei. </p>
+            <p> In mei case nihil dictas. Hinc atqui complectitur no mei, quod summo no nec, cum cu esse
+                fugit vituperatoribus. Stet persius pri ne, in vocibus molestie liberavisse per, mollis
+                perfecto qui id. Oblique appetere per ei. Duo tantas lobortis assentior ne. Delectus
+                inimicus necessitatibus ex cum, paulo quando probatus quo at, ex usu sumo sententiae. </p>
+            <p> Has ut lorem altera laoreet, putent viderer ei has. Vim diam probo ex, stet iisque appareat
+                qui cu. Per ei facer paulo diceret, ius dicunt appetere legendos cu. Vis te stet dicam
+                aliquam, eum alii ludus constituto at. Eu clita prompta virtute usu, pri et mucius
+                iracundia. </p>
+        </div>
+
+        <div class="ux-side-panel-footer btn-container">
+            <button type="button" class="btn button-secondary" (click)="sidePanel.closePanel()">
+                Cancel
+            </button>
+            <button type="button" class="btn button-primary" (click)="sidePanel.closePanel()">
+                Save
+            </button>
+        </div>
+
+    </ux-side-panel>
+
+</div>
+
+<ux-checkbox id="externalClick2">External 2</ux-checkbox>
+
+<div class="form-group">
+    <ux-checkbox id="inline" [(value)]="inline">inline</ux-checkbox>
+</div>
+<div class="form-group">
+    <label>attachTo</label>
+    <ux-radio-button id="attachToWindow" [(value)]="attachTo" option="window" [disabled]="inline">window</ux-radio-button>
+    <ux-radio-button id="attachToContainer" [(value)]="attachTo" option="container" [disabled]="inline">container</ux-radio-button>
+</div>
+<div class="form-group">
+    <label>width</label>
+    <ux-radio-button id="width1" [(value)]="width" option="200px">300px</ux-radio-button>
+    <ux-radio-button id="width2" [(value)]="width" option="50%">50%</ux-radio-button>
+</div>
+<div class="form-group">
+    <label>top</label>
+    <ux-radio-button id="top1" [(value)]="top" option="0">0</ux-radio-button>
+    <ux-radio-button id="top2" [(value)]="top" option="60px">60px</ux-radio-button>
+</div>
+<div class="form-group">
+    <ux-checkbox id="modal" [(value)]="modal" [disabled]="inline">modal</ux-checkbox>
+</div>
+<div class="form-group">
+    <ux-checkbox id="closeOnExternalClick" [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
+</div>

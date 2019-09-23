@@ -2,11 +2,19 @@
 
 <h4>Creating a Custom Filter Component</h4>
 
-<p>Your custom filter component should extend the FilterBaseComponent class. This base class will provide you with the following functions:</p>
-<ul>
-    <li><code>addFilter(filter: Filter): void</code> – Will add a filter to the list of active filters.</li>
-    <li><code>removeFilter(filter: Filter):void</code> – Will remove a filter from the list of active filters.</li>
-</ul>
+<p>Your custom filter component should inject the FilterService. This service will provide you with the following functions:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="add" args="filter: Filter">
+        Will add a filter to the list of active filters.
+    </tr>
+    <tr uxd-api-property name="remove" args="filter: Filter">
+        Will remove a filter to the list of active filters.
+    </tr>
+    <tr uxd-api-property name="removeAll">
+        Will remove all filters from the list of active filters.
+    </tr>
+</uxd-api-properties>
 
 <h4>Sample Custom Filter Component</h4>
 
@@ -18,24 +26,24 @@
 
 <p>The following code can be used to create the example above:</p>
 
-<tabset>
-    <tab heading="HTML">
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="TypeScript">
+    <ux-tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Filter HTML">
+    <ux-tab heading="Filter HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Filter TypeScript">
+    <ux-tab heading="Filter TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleTs"></uxd-snippet>
-    </tab>
+    </ux-tab>
 
-    <tab heading="Filter CSS">
+    <ux-tab heading="Filter CSS">
         <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
-    </tab>
-</tabset>
+    </ux-tab>
+</ux-tabset>

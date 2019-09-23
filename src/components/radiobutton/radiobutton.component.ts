@@ -1,11 +1,14 @@
-import { Component, Input, forwardRef, HostListener, Output, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Optional, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { RadioButtonGroupDirective } from './radio-button-group/radio-button-group.directive';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => RadioButtonComponent),
     multi: true
 };
+
+let uniqueRadioId = 0;
 
 @Component({
     selector: 'ux-radio-button',
@@ -14,20 +17,55 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 })
 export class RadioButtonComponent implements ControlValueAccessor {
 
-    @Input() id: string;
-    @Input() simplified: boolean = false;
-    @Input() disabled: boolean = false;
-    @Input() name: string = '';
+    private _radioButtonId: string = `ux-radio-button-${++uniqueRadioId}`;
+
+    /** Specify a unique Id for this component */
+    @Input() id: string = this._radioButtonId;
+
+    /** Specify a form name for the input element */
+    @Input() name: string | null;
+
+    /** Specify if this is a required input */
+    @Input() required: boolean;
+
+    /** Specify the tabindex */
+    @Input() tabindex: number = 0;
+
+    /** If set to `true` the radio button will not change state when clicked. */
     @Input() clickable: boolean = true;
+
+    /** If this value is set to `true` then the radio button will be disabled */
+    @Input() disabled: boolean = false;
+
+    /** If set to `true` the checkbox will be displayed without a border and background. */
+    @Input() simplified: boolean = false;
+
+    /**
+     * This should contain the value that this radio button represents. This will be stored in the value variable when the radio button is selected.
+     * No two radio buttons should have the same option value within the same group of radio buttons.
+     */
     @Input() option: any;
+
+    /** Specify an aria label for the input element */
+    @Input('aria-label') ariaLabel: string = '';
+
+    /** Specify an aria labelledby property for the input element */
+    @Input('aria-labelledby') ariaLabelledby: string = null;
+
+    /** Specify an aria describedby property for the input element */
+    @Input('aria-describedby') ariaDescribedby: string = null;
+
+    /** Emits when the value has been changed. */
     @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
+    /** This should be a two way binding and will store the currently selected option. Each radio button in the same group should have the same value variable. */
     @Input()
     get value() {
         return this._value;
     }
 
     set value(value: boolean) {
+
         this._value = value;
 
         // invoke change event
@@ -35,49 +73,60 @@ export class RadioButtonComponent implements ControlValueAccessor {
 
         // call callback
         this.onChangeCallback(this._value);
+        this.onTouchedCallback();
+    }
+
+    get inputId(): string {
+        return `${this.id || this._radioButtonId}-input`;
     }
 
     private _value: any = false;
 
+    focused: boolean = false;
     onTouchedCallback: () => void = () => { };
     onChangeCallback: (_: any) => void = () => { };
 
-    @HostListener('click')
-    checkItem() {
+    constructor(
+        private readonly _changeDetector: ChangeDetectorRef,
+        @Optional() private readonly _group: RadioButtonGroupDirective
+    ) {}
 
-        if (this.disabled === true || this.clickable === false) {
+    toggle(): void {
+
+        if (this.disabled || !this.clickable) {
             return;
         }
 
         // toggle the checked state
         this.value = this.option;
 
+        // if there is a group set the selected value
+        if (this._group) {
+            this._group.value = this.option;
+            this._group.emitChange(this.option);
+        }
+
         // call callback
         this.onChangeCallback(this.value);
     }
 
-    keyDown(event: KeyboardEvent) {
-
-        // then toggle the checkbox
-        this.checkItem();
-
-        // prevent default browser behavior
-        event.stopPropagation();
-        event.preventDefault();
-    }
-
     // Functions required to update ng-model
-    writeValue(value: boolean) {
+    writeValue(value: boolean): void {
         if (value !== this._value) {
             this._value = value;
+            this._changeDetector.detectChanges();
         }
     }
 
-    registerOnChange(fn: any) {
+    registerOnChange(fn: any): void {
         this.onChangeCallback = fn;
     }
 
-    registerOnTouched(fn: any) {
+    registerOnTouched(fn: any): void {
         this.onTouchedCallback = fn;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 }

@@ -1,5 +1,10 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
+
+let uniqueId: number = 0;
 
 @Component({
     selector: 'ux-wizard',
@@ -8,46 +13,110 @@ import { WizardStepComponent } from './wizard-step.component';
         '[class]': 'orientation'
     }
 })
-export class WizardComponent implements AfterViewInit {
+export class WizardComponent implements AfterViewInit, OnDestroy {
 
-    private _step: number = 0;
+    /** Defines whether or not the wizard should be displayed in a `horizontal` or `vertical` layout. */
+    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
+
+    /** Defines the text displayed in the 'Next' button. */
+    @Input() nextText: string = 'Next';
+
+    /** Defines the text displayed in the 'Previous' button. */
+    @Input() previousText: string = 'Previous';
+
+    /** Defines the text displayed in the 'Cancel' button. */
+    @Input() cancelText: string = 'Cancel';
+
+    /** Defines the text displayed in the 'Finish' button. */
+    @Input() finishText: string = 'Finish';
+
+    /** Defines the text displayed in the tooltip when the 'Next' button is hovered. */
+    @Input() nextTooltip: string = 'Go to the next step';
+
+    /** Defines the text displayed in the tooltip when the 'Previous' button is hovered. */
+    @Input() previousTooltip: string = 'Go to the previous step';
+
+    /** Defines the text displayed in the tooltip when the 'Cancel' button is hovered. */
+    @Input() cancelTooltip: string = 'Cancel the wizard';
+
+    /** Defines the text displayed in the tooltip when the 'Finish' button is hovered. */
+    @Input() finishTooltip: string = 'Finish the wizard';
+
+    /** Defines the text for the aria label on the 'Next' button. */
+    @Input() nextAriaLabel: string = 'Go to the next step';
+
+    /** Defines the text for the aria label on the 'Previous' button. */
+    @Input() previousAriaLabel: string = 'Go to the previous step';
+
+    /** Defines the text for the aria label on the 'Cancel' button. */
+    @Input() cancelAriaLabel: string = 'Cancel the wizard';
+
+    /** Defines the text for the aria label on the 'Finish' button. */
+    @Input() finishAriaLabel: string = 'Finish the wizard';
+
+    /** If set to `true` the 'Next' button will appear disabled and will not respond to clicks. */
+    @Input() nextDisabled: boolean = false;
+
+    /** If set to `true` the 'Previous' button will appear disabled and will not respond to clicks. */
+    @Input() previousDisabled: boolean = false;
+
+    /** If set to `true` the 'Cancel' button will appear disabled and will not respond to clicks. */
+    @Input() cancelDisabled: boolean = false;
+
+    /** If set to `true` the 'Finish' button will appear disabled and will not respond to clicks. */
+    @Input() finishDisabled: boolean = false;
+
+    /** If set to `false` the 'Next' button will be hidden. */
+    @Input() nextVisible: boolean = true;
+
+    /** If set to `false` the 'Previous' button will be hidden. */
+    @Input() previousVisible: boolean = true;
+
+    /** If set to `false` the 'Cancel' button will be hidden. */
+    @Input() cancelVisible: boolean = true;
+
+    /** If set to false the 'Finish' button will be hidden. */
+    @Input() finishVisible: boolean = true;
+
+    /** If set to `true` the 'Cancel' button will be visible even on the last step. By default it will be hidden on the final step. */
+    @Input() cancelAlwaysVisible: boolean = false;
+
+    /** If set to `true` the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible on the final step of the wizard. */
+    @Input() finishAlwaysVisible: boolean = false;
+
+    /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
+    @Output() onNext = new EventEmitter<number>();
+
+    /** Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter. */
+    @Output() onPrevious = new EventEmitter<number>();
+
+    /** Emits when the 'Cancel' button has been pressed. */
+    @Output() onCancel = new EventEmitter<void>();
+
+    /** Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the validity of the final step. */
+    @Output() onFinishing = new EventEmitter<void>();
+
+    /** Emits when the 'Finish' button has been pressed and the final step is valid. */
+    @Output() onFinish = new EventEmitter<void>();
+
+    /** Emits before the current step changes. The event contains the current step index in the `from` property, and the requested step index in the `to` property. */
+    @Output() stepChanging = new EventEmitter<StepChangingEvent>();
+
+    /** Emits when the current step has changed. */
+    @Output() stepChange = new EventEmitter<number>();
+
+    /** Emits when the user tries to continue but the current step is invalid. */
+    @Output() stepError = new EventEmitter<number>();
 
     @ContentChildren(WizardStepComponent) steps = new QueryList<WizardStepComponent>();
 
-    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
-
-    @Input() nextText: string = 'Next';
-    @Input() previousText: string = 'Previous';
-    @Input() cancelText: string = 'Cancel';
-    @Input() finishText: string = 'Finish';
-
-    @Input() nextTooltip: string = 'Go to the next step';
-    @Input() previousTooltip: string = 'Go to the previous step';
-    @Input() cancelTooltip: string = 'Cancel the wizard';
-    @Input() finishTooltip: string = 'Finish the wizard';
-
-    @Input() nextDisabled: boolean = false;
-    @Input() previousDisabled: boolean = false;
-    @Input() cancelDisabled: boolean = false;
-    @Input() finishDisabled: boolean = false;
-
-    @Input() nextVisible: boolean = true;
-    @Input() previousVisible: boolean = true;
-    @Input() cancelVisible: boolean = true;
-    @Input() finishVisible: boolean = true;
-    @Input() cancelAlwaysVisible: boolean = false;
-    @Input() finishAlwaysVisible: boolean = false;
-
-    @Output() onNext = new EventEmitter<number>();
-    @Output() onPrevious = new EventEmitter<number>();
-    @Output() onCancel = new EventEmitter<void>();
-    @Output() onFinishing = new EventEmitter<void>();
-    @Output() onFinish = new EventEmitter<void>();
-    @Output() stepChanging = new EventEmitter<StepChangingEvent>();
-    @Output() stepChange = new EventEmitter<number>();
-
+    id: string = `ux-wizard-${uniqueId++}`;
     invalidIndicator: boolean = false;
 
+    /**
+     * The current active step. When the step changes an event will be emitted containing the index of the newly active step.
+     * If this is not specifed the wizard will start on the first step.
+     */
     @Input()
     get step() {
         return this._step;
@@ -71,10 +140,32 @@ export class WizardComponent implements AfterViewInit {
         }
     }
 
+    private _step: number = 0;
+    private _onDestroy = new Subject<void>();
+
     ngAfterViewInit(): void {
 
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
+
+        // initially set the ids for each step
+        this.setWizardStepIds();
+
+        // if the steps change then update the ids
+        this.steps.changes.pipe(tick(), takeUntil(this._onDestroy)).subscribe(() => {
+            this.setWizardStepIds();
+            this.update();
+        });
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
+    /** Set ids for each of the wizard steps */
+    setWizardStepIds(): void {
+        this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
     }
 
     /**
@@ -87,6 +178,7 @@ export class WizardComponent implements AfterViewInit {
         // check if current step is invalid
         if (!this.getCurrentStep().valid) {
             this.invalidIndicator = true;
+            this.stepError.next(this.step);
             return;
         }
 
@@ -134,7 +226,9 @@ export class WizardComponent implements AfterViewInit {
 
                 // only fires when the finish button is clicked and the step is valid
                 if (this.getCurrentStep().valid) {
-                    this.onFinish.next();        
+                    this.onFinish.next();
+                } else {
+                    this.stepError.next(this.step);
                 }
 
                 resolve();

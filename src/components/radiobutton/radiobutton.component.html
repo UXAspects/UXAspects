@@ -1,18 +1,31 @@
-<div class="ux-radio-button" tabindex="0"
-    [class.ux-checked]="value === option"
-    [class.ux-simplified]="simplified === true"
-    [class.ux-disabled]="disabled === true"
-    (keydown.space)="keyDown($event)">
+<label [attr.for]="inputId" class="ux-radio-button"
+       [class.ux-radio-button-checked]="value === option"
+       [class.ux-radio-button-simplified]="simplified"
+       [class.ux-radio-button-disabled]="disabled"
+       [class.ux-radio-button-focused]="focused">
 
-    <input type="radio" role="radio" tabindex="-1"
-        [name]="name" 
-        [checked]="value === option" 
-        [disabled]="disabled"
-        [value]="option"
-        [id]="id" />
-        
-</div>
+    <div class="ux-radio-button-container">
 
-<div class="ux-radio-button-content">
-    <ng-content></ng-content>
-</div>
+        <input class="ux-radio-button-input"
+            uxFocusIndicator
+            type="radio"
+            [id]="inputId"
+            [checked]="value === option"
+            [disabled]="disabled"
+            [tabindex]="tabindex || value === option ? 0 : -1"
+            [attr.name]="name"
+            [required]="required"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledby]="ariaLabelledby"
+            [attr.aria-describedby]="ariaDescribedby"
+            [attr.aria-checked]="value === option"
+            (indicator)="focused = $event"
+            (change)="toggle()"
+            (click)="$event.stopPropagation()">
+    </div>
+
+    <span class="ux-radio-button-label">
+        <ng-content></ng-content>
+    </span>
+
+</label>

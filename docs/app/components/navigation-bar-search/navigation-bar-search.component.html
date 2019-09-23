@@ -1,9 +1,9 @@
-<i class="hpe-icon hpe-search"></i>
+<ux-icon name="search"></ux-icon>
 
 <div class="nav-bar-search-container" *ngIf="searching === true" (click)="$event.stopPropagation()">
     <input #searchInput type="text" class="nav-bar-search-input"
         [ngModel]="query | async" (ngModelChange)="query.next($event)" (blur)="hideSearch()"
-        (keydown.escape)="escapeKey()" (keydown.arrowup)="upKey($event)" (keydown.arrowdown)="downKey($event)" 
+        (keydown.escape)="escapeKey()" (keydown.arrowup)="upKey($event)" (keydown.arrowdown)="downKey($event)"
         (keydown.enter)="enterKey()">
 
     <ul class="nav-bar-search-results-container">

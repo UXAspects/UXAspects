@@ -1,21 +1,32 @@
 <div class="row">
     <div class="col-md-6 col-sm-12">
-        <input type="text" class="form-control" placeholder="Filter"
+        <input type="text"
+            aria-label="Filter the employee list"
+            aria-controls="employee-infinite-scroll-list"
+            class="form-control"
+            placeholder="Filter"
             [ngModel]="filterText | async" (ngModelChange)="filterText.next($event)">
     </div>
 </div>
 <div class="row m-t-sm">
     <div class="col-md-6 col-sm-12">
 
-        <div class="employee-list"
+        <div id="employee-infinite-scroll-list" class="employee-list"
             [uxInfiniteScroll]="loadCallback"
             [(collection)]="loadedEmployees"
             [filter]="debouncedFilterText | async"
             [pageSize]="pageSize"
-            [loadOnScroll]="loadOnScroll">
+            [loadOnScroll]="loadOnScroll"
+            (loading)="loading = true"
+            (loaded)="loading = false"
+            (loadError)="loading = false">
 
-            <ol>
-                <li *ngFor="let employee of loadedEmployees" class="employee-item">
+            <ol [attr.aria-busy]="loading" aria-label="Employee list with infinite scrolling">
+                <li *ngFor="let employee of loadedEmployees"
+                    [attr.aria-setsize]="totalItems"
+                    [attr.aria-posinset]="employee.position"
+                    class="employee-item">
+
                     <div class="employee-details">
                         <div>
                             <span class="employee-name">{{employee.name}}</span>
@@ -26,10 +37,13 @@
                         </div>
                     </div>
                     <div class="employee-id">{{employee.id}}</div>
+
                 </li>
             </ol>
 
-            <button *uxInfiniteScrollLoadButton type="button"
+            <button *uxInfiniteScrollLoadButton
+                type="button"
+                aria-description="Load more items into the list"
                 class="btn btn-link button-primary employee-load-more">Load more</button>
 
             <div *uxInfiniteScrollLoading class="employee-loading">
@@ -40,21 +54,4 @@
         </div>
 
     </div>
-</div>
-<div class="uxd-customize-example">
-    <accordion>
-        <accordion-group class="accordion-chevron" heading="Customize Example...">
-            <div class="row uxd-customize-row">
-                <div class="col-md-6 col-sm-12">
-                    <ux-checkbox [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
-                </div>
-            </div>
-            <div class="row uxd-customize-row">
-                <div class="col-md-6 col-sm-12">
-                    <label for="pageSize">pageSize</label>
-                    <ux-number-picker [(value)]="pageSize" min="1" max="1000"></ux-number-picker>
-                </div>
-            </div>
-        </accordion-group>
-    </accordion>
 </div>

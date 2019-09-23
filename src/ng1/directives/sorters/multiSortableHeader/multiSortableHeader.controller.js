@@ -6,6 +6,7 @@ export default function MultiSortableHeaderCtrl($scope, $attrs) {
     vm.headers = $scope.$parent.$eval($attrs.headers);
     vm.activeSorters = $scope.$parent.$eval($attrs.defaultSorter);
     vm.activeOrders = $scope.$parent.$eval($attrs.defaultOrder);
+    vm.inlineIcon = $scope.$parent.$eval($attrs.inlineIcon) || false;
 
     vm.classes = $attrs.class;
 
@@ -40,6 +41,21 @@ export default function MultiSortableHeaderCtrl($scope, $attrs) {
 
     // update data initially
     updateData();
+
+    vm.getHeaderWidth = function(header) {
+        // if there is no icon then fill the whole header
+        if (!vm.columnData[header.sort]) {
+            return { width: '100%' };
+        }
+
+        // if the icon should appear just after the text
+        if (vm.inlineIcon === true) {
+            return { maxWidth: 'calc(100% - 41px)' };
+        }
+
+        // otherwise show icon right aligned
+        return { width: 'calc(100% - 36px)' };
+    };
 
     vm.select = function(header) {
 

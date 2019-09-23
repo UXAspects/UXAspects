@@ -270,7 +270,9 @@
 
         &.scroll {
             height: 250px;
+            max-height: 250px;
             overflow-y: auto;
+            min-height: 34px;
         }
 
         & > .scroll-pane {
@@ -342,4 +344,18 @@ tags-input .tags .input::-moz-placeholder {
 tags-input .tags .input:-ms-input-placeholder {
     color: @form-control-placeholder-color;
     opacity: 1;
+}
+
+// Provide a checkbox/radiobutton layout utility
+.checkbox-container,
+.radio-button-container,
+.toggleswitch-container {
+    display: flex;
+    flex-direction: column;
+
+    ux-checkbox,
+    ux-radio-button,
+    ux-toggleswitch {
+        margin-bottom: 5px;
+    }
 }

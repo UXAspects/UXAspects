@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
+import { PersistentDataService } from '@ux-aspects/ux-aspects';
+import { BehaviorSubject } from 'rxjs';
 import { ISection } from '../../interfaces/ISection';
-import { PersistentDataService } from '../../../../src/index';
 
-@Injectable()
+
+@Injectable({
+    providedIn: 'root'
+})
 export class VersionService {
 
     version: BehaviorSubject<Version> = new BehaviorSubject<Version>(Version.Angular);

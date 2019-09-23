@@ -9,6 +9,7 @@ import 'chance';
 export class AppComponent {
 
     facets: Facet[] = [];
+    allowReorder = false;
 
     addFacet() {
 

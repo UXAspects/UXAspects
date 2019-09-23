@@ -1,0 +1,21 @@
+<div class="static-tooltip-demo">
+    <button type="button" class="btn button-primary"
+            [uxPopover]="content" popoverClass="ux-static-tooltip"
+            placement="bottom" [isOpen]="open" [showTriggers]="[]"
+            [hideTriggers]="[]" (click)="open = true">
+        Static Tooltip Example
+    </button>
+
+    <ng-template #content>
+        <div class="static-tooltip-content">
+            <p class="static-tooltip-text">
+                This is an example of a static tooltip. It will appear when the page is loaded until dismissed.
+                It is useful for giving the user information about a specific control.
+            </p>
+
+            <div class="static-tooltip-footer">
+                <a class="hide-tips" (click)="open = false">HIDE TIPS</a>
+            </div>
+        </div>
+    </ng-template>
+</div>
