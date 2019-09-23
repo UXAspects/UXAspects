@@ -30,7 +30,7 @@ export function TreeGridController($scope, $q, multipleSelectProvider, $timeout)
             type: "class",
             contracted: "hpe-chevron-right",
             expanded: "hpe-chevron-down",
-            expanding: "spinner spinner-accent spinner-bounce-middle"
+            expanding: "spinner spinner-accent"
         },
         icons: {
             type: "class",
