@@ -40,6 +40,7 @@ export class InfiniteScrollController {
         this.$element = $element;
         this.$interval = safeInterval.create($scope);
         this._loading = false;
+        this._ensureScrollableInterval = null;
 
         // private variables
         this._query = this._query || null;
@@ -80,11 +81,13 @@ export class InfiniteScrollController {
      */
     ensureScrollable() {
 
+        if (this._ensureScrollableInterval) return;
+
         //if we are using a load more button this is also not required
         if (this.buttonOptions && this.buttonOptions.show) return;
 
         // repeat until we have enough items
-        this.$interval.interval(() => {
+        this._ensureScrollableInterval = this.$interval.interval(() => {
 
             // if we are currently loading or have loaded all pages then do nothing
             if (this.loading || this.complete || document.hidden) {
