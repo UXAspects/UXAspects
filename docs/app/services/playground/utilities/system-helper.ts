@@ -31,6 +31,7 @@ export class SystemJSHelper {
         { name: '@angular/cdk/scrolling', path: '@angular/cdk@6.4.7/bundles/cdk-scrolling.umd.js' },
         { name: '@angular/cdk/stepper', path: '@angular/cdk@6.4.7/bundles/cdk-stepper.umd.js' },
         { name: '@angular/cdk/table', path: '@angular/cdk@6.4.7/bundles/cdk-table.umd.js' },
+        { name: '@angular/cdk/text-field', path: '@angular/cdk@6.4.7/bundles/cdk-text-field.umd.js' },
         // Dependencies
         { name: 'tslib', path: 'tslib@1.7.1' },
         { name: 'rxjs', path: 'rxjs@6.5.2' },
