@@ -97,28 +97,33 @@
 
 //mini activate spinner
 .spinner {
-    position: relative;
-    display: inline-flex;
-    margin: 0 6px;
-    width: 3px;
-    height: 3px;
-    animation: bounce-middle 2000ms ease-in 200ms infinite;
-
-    &:before, &:after {
-        content: '';
-        position: absolute;
+    &.spinner-bounce-middle,
+    &.spinner-bounce-bottom,
+    &.spinner-bounce-top,
+    &.spinner-blink {
+        position: relative;
+        display: inline-flex;
+        margin: 0 6px;
         width: 3px;
         height: 3px;
-    }
+        animation: bounce-middle 2000ms ease-in 200ms infinite;
 
-    &:before {
-        left: -6px;
-        animation: bounce-middle 2000ms ease-in 0ms infinite;
-    }
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+        }
 
-    &:after {
-        right: -6px;
-        animation: bounce-middle 2000ms ease-in 400ms infinite;
+        &:before {
+            left: -6px;
+            animation: bounce-middle 2000ms ease-in 0ms infinite;
+        }
+
+        &:after {
+            right: -6px;
+            animation: bounce-middle 2000ms ease-in 400ms infinite;
+        }
     }
 }
 
@@ -134,12 +139,15 @@
     0%, 70%, 100% {
         transform: translateY(0);
     }
+
     5%, 10% {
         transform: translateY(25%);
     }
+
     25%, 30% {
         transform: translateY(-75%);
     }
+
     50%, 55% {
         transform: translateY(50%);
     }
