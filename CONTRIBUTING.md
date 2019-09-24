@@ -22,6 +22,14 @@ npm run test
 ```
 6. Commit and Push your changes.
 7. Create a Pull Request. This can be done on GitHub by clicking the "New Pull Request" button on the UX Aspects repository page.
+8. After the Pull Request is created, create a build [here](https://jenkins.swinfra.net/job/SEPG/view/Templates/job/New%20SEPG%20Build/build) with the following parameters:
+* GitHub server: "github.com"
+* GitHub organisation: your GitHub organization (where the fork was created)
+* Repo name: "UXAspects"
+* Branch name: the name of your Pull Request (PR) branch
+9. Add the custom documentation link with your changes to the PR:
+* If the organisation used in the build was "UXAspects", replace the branch name in this link: https://pages.github.houston.softwaregrp.net/sepg-docs-qa/UXAspects_CI_UXAspects_[YOUR-BRANCH]
+* If the PR was created from a forked repository, replace the organisation and branch names in this link: https://pages.github.houston.softwaregrp.net/sepg-docs-qa/[YOUR-ORGANIZATION]_CI_UXAspects_[YOUR-PR-BRANCH]/
 
 Once a Pull Request has been made it will be reviewed by one of our team members. If the Pull Request is approved, it will be merged into UX Aspects allowing everyone else to benefit from your work.
 
