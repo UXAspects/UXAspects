@@ -96,16 +96,19 @@
     margin-right: 3px;
 
     .treegrid-expand-toggle {
-        cursor: pointer;
-        opacity: 0.5;
 
-        .spinner {
-            margin: 5px auto;
-        }
+       :not(.spinner)  {
+            cursor: pointer;
+            opacity: 0.5;
 
-        &:hover {
-            opacity: 1;
+            &:hover {
+                opacity: 1;
+            }
         }
+    }
+
+    .spinner {
+        margin: 4px auto;
     }
 }
 
