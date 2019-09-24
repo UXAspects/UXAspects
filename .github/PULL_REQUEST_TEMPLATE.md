@@ -12,5 +12,14 @@
 
 #### Documentation CI URL
 <!-- Initiate a build at https://jenkins.swinfra.net/job/SEPG/view/Templates/job/New%20SEPG%20Build/build -->
-<!-- Append the branch name to the following URL: -->
+<!--    * GitHub server: "github.com"  -->
+<!--    * GitHub organisation: your GitHub organization (where the fork was created) -->
+<!--    * Repo name: "UXAspects -->
+<!--    * Branch name: the name of your Pull Request (PR) branch -->
+
+<!-- If the build is successful: -->
+<!--    If creating a PR from the UXAspects organisation, append the branch name to the following URL: -->
 https://pages.github.houston.softwaregrp.net/sepg-docs-qa/UXAspects_CI_UXAspects_
+
+<!--    If creating a PR from a forked repository, replace the values below appropriately: -->
+https://pages.github.houston.softwaregrp.net/sepg-docs-qa/[YOUR-ORGANIZATION]_CI_UXAspects_[YOUR-PR-BRANCH]/
