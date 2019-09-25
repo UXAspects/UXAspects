@@ -12,6 +12,5 @@
 
 #### Documentation CI URL
 <!-- Initiate a build at https://jenkins.swinfra.net/job/SEPG/view/Templates/job/New%20SEPG%20Build/build -->
-
 <!-- Append the branch name to the following URL: -->
 https://pages.github.houston.softwaregrp.net/sepg-docs-qa/UXAspects_CI_UXAspects_
