@@ -59,7 +59,10 @@ function SparkChartCtrl() {
             value: [70, 20, 10],
             fillHeight: 6,
             topLeftLabel: `<span class='spark-label'>Multi-value</span>`,
-            tooltip: ['Complete', 'In Progress', 'To Do']
+            tooltip: ['Complete', 'In Progress', 'To Do'],
+            onSegmentClick: function (index) {
+                console.log("Segment [" + index + "] was clicked");
+            }
         },
         {
             type: 'spark-vibrant2',
