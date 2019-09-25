@@ -13,6 +13,5 @@
 #### Documentation CI URL
 <!-- Initiate a build at https://jenkins.swinfra.net/job/SEPG/view/Templates/job/New%20SEPG%20Build/build -->
 
-<!-- Check the Contributing Guide to know what parameters to inform in the build -->
-<!-- and generate the documentation link with the PR changes -->
-https://pages.github.houston.softwaregrp.net/sepg-docs-qa/[ORGANIZATION]_CI_UXAspects_[PR-BRANCH-NAME]/
+<!-- Append the branch name to the following URL: -->
+https://pages.github.houston.softwaregrp.net/sepg-docs-qa/UXAspects_CI_UXAspects_
