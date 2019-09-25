@@ -43,7 +43,7 @@ describe('spark charts', function () {
       var html2 = '<spark type="vm.type2" value="30" fillheight="10" bottom-left-label="vm.label10" top-right-label="vm.label5" bottom-right-label="vm.label6"';
       html2 += 'track-color="vm.redColor" class="col-md-5 col-sm-5 col-xs-5"></spark>';
 
-      var multiValueSparkHtml = '<spark bar-color="vm.barColors" value="[70, 20, 10]" fillheight="5" top-left-label="vm.topLabel" spark-tooltips="vm.tooltips" segment-click="vm.multiValueClicked(index)" class="col-md-5 col-sm-5 col-xs-5"></spark>';
+      var multiValueSparkHtml = '<spark bar-color="vm.barColors" value="[70, 20, 10]" fillheight="5" top-left-label="vm.topLabel" spark-tooltips="vm.tooltips" segment-click="vm.multiValueClicked($event)" class="col-md-5 col-sm-5 col-xs-5"></spark>';
 
       vm.multiValueClicked = function (index) {};
       spyOn(vm, 'multiValueClicked').and.callThrough();

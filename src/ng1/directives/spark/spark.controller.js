@@ -59,7 +59,7 @@ export default class SparkCtrl {
 
     onSegmentClick(index) {
         if (typeof this.segmentClick === 'function') {
-            this.segmentClick(index);
+            this.segmentClick({ $event: index });
         }
     }
 }
