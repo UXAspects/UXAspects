@@ -11,7 +11,7 @@ export class FixedHeaderTableController {
         // add a class to the table
         $element.addClass('ux-fixed-header-table');
 
-        // locate the important elements        
+        // locate the important elements
         this._tableHead = elementRef.querySelector('thead');
         this._tableBody = elementRef.querySelector('tbody');
 
@@ -44,9 +44,9 @@ export class FixedHeaderTableController {
      */
     onScroll() {
 
-        // determine if we are scrolled to the bottom and if so load the next page
-
-        if (this._tableBody.scrollTop === ((this._tableBody.scrollHeight - this._tableBody.clientHeight))) {
+        // If the scroll position approaches the bottom, load a new page of data
+        const remainingScroll = this._tableBody.scrollHeight - (this._tableBody.scrollTop + this._tableBody.clientHeight);
+        if (remainingScroll <= this._tableBody.clientHeight) {
             this.requestPage();
         }
     }
