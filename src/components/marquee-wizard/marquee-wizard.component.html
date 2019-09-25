@@ -114,6 +114,13 @@
                     (click)="cancel(); tip.hide()">
                 {{ cancelText }}
             </button>
+
+            <ng-container *ngIf="footerTemplate"
+                          [ngTemplateOutlet]="footerTemplate"
+                          [ngTemplateOutletContext]="{ step:
+                          footerTemplate.activeStep}">
+            </ng-container>
+
         </div>
     </div>
 </ng-template>

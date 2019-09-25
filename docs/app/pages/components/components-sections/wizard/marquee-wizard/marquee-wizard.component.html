@@ -60,6 +60,7 @@
             <ux-marquee-wizard #wizard
                                class="marquee-wizard"
                                [description]="icon"
+                               [footerTemplate]="footerTemplate"
                                (stepChange)="onChange($event, wizard)"
                                (stepError)="onError()"
                                (onFinishing)="validate = true"
@@ -71,6 +72,13 @@
 
                 <ng-template #icon>
                     <img src="../../../../../assets/img/IconUser.png" alt="">
+                </ng-template>
+
+                <ng-template #footerTemplate let-step="step">
+                    <button type="button"
+                            class="btn button-secondary">
+                        Reset Button - Step: {{step}}
+                    </button>
                 </ng-template>
 
                 <ux-marquee-wizard-step header="First step">
@@ -310,6 +318,11 @@
     </tr>
     <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
         Width of the splitter in pixels. This is only accessible when resizable is enabled.
+    </tr>
+    <tr uxd-api-property name="footerTemplate" type="TemplateRef">
+        Allows customization of the wizard footer by allowing new content to be added to the right of the
+        previous/next buttons. To access the data for the footer use the implicit template context,
+        eg: <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
     </tr>
 </uxd-api-properties>
 <uxd-api-properties tableTitle="Outputs">
