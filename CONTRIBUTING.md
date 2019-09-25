@@ -53,3 +53,5 @@ npm start
 5. The documentation site is hosted at [http://localhost:8080/](http://localhost:8080/). This will automatically reload when changes are made.
 
 To test changes in a specific scenario, you can click "Edit in Plunker" on a documentation section launched via `npm start`. This plunker will point at the development server, although you will have to manually refresh the plunker to pick up new changes.
+
+> Note: Plunker may not always pick up the local JavaScript and CSS files if they are being served over HTTP. To avoid that, run `npm run start:https` instead to serve local files over HTTPS.

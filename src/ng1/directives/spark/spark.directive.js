@@ -16,7 +16,8 @@ export default function SparkDirective() {
             sparkTooltip: "@?",
             sparkTooltips: "=?",
             barColor: '=?',
-            trackColor: '=?'
+            trackColor: '=?',
+            segmentClick: '&?'
         },
         bindToController: true
     };

@@ -14,9 +14,10 @@ export function SparkDirective() {
             sparkTooltip: "@?",
             sparkTooltips: "=?",
             barColor: "=?",
-            trackColor: "=?"
+            trackColor: "=?",
+            segmentClick: "&?"
         },
-        template: `<spark type="type" spark-tooltip="{{ sparkTooltip }}" spark-tooltips="sparkTooltips" value="value" fillheight="fillheight" inline-label="inlineLabel" top="top" top-left-label="topLeftLabel" top-right-label="topRightLabel" bottom-left-label="bottomLeftLabel" bottom-right-label="bottomRightLabel" bar-color="barColor" track-color="trackColor"></spark>`,
+        template: `<spark type="type" spark-tooltip="{{ sparkTooltip }}" spark-tooltips="sparkTooltips" value="value" fillheight="fillheight" inline-label="inlineLabel" top="top" top-left-label="topLeftLabel" top-right-label="topRightLabel" bottom-left-label="bottomLeftLabel" bottom-right-label="bottomRightLabel" bar-color="barColor" track-color="trackColor" segment-click="segmentClick($event)"></spark>`,
         controller: ['$scope', function($scope) {
 
             $scope.type = typeof $scope.type === 'function' ? $scope.type() : $scope.type;
