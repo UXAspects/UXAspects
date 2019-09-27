@@ -110,16 +110,9 @@
         If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard.
         By default this button will only be visible on the final step of the wizard.
     </tr>
-    <tr uxd-api-property name="footerTemplate" type="TemplateRef">
+    <tr uxd-api-property name="footerTemplate" type="TemplateRef<WizardFooterContext>">
         Allows customization of the wizard footer by allowing content to be displayed to the right of the
-        buttons.
-        <p>The following context property is available in the
-        template:</p>
-        <ul>
-            <li><code>step: number</code> - the currently active step.</li>
-        </ul>
-        Content can be added to the footer by using:
-        <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
+        buttons. Content can be added to the footer by using: <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
     </tr>
 </uxd-api-properties>
 
@@ -147,6 +140,12 @@
     </tr>
     <tr uxd-api-property name="onFinish" type="void">
         Emits when the 'Finish' button has been pressed and the final step is valid.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="WizardFooterContext Interface">
+    <tr uxd-api-property name="step" type="number">
+        This will contain the currently active step.
     </tr>
 </uxd-api-properties>
 

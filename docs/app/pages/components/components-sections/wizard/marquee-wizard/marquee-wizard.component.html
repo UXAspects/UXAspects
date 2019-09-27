@@ -311,16 +311,9 @@
     <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
         Width of the splitter in pixels. This is only accessible when resizable is enabled.
     </tr>
-    <tr uxd-api-property name="footerTemplate" type="TemplateRef">
+    <tr uxd-api-property name="footerTemplate" type="TemplateRef<WizardFooterContext>">
         Allows customization of the marquee wizard footer by allowing content to be displayed to the
-        right of the buttons.
-        <p>The following context property is available in the
-        template:</p>
-        <ul>
-            <li><code>step: number</code> - the currently active step.</li>
-        </ul>
-        Content can be added to the footer by using:
-        <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
+        right of the buttons. Content can be added to the footer by using: <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
     </tr>
 </uxd-api-properties>
 <uxd-api-properties tableTitle="Outputs">
@@ -352,6 +345,12 @@
     <tr uxd-api-property name="sidePanelWidthChange" type="number">
         Emits when finished dragging the splitter. The event contains the current width of the side panel
         in a percentage value. This is only accessible when resizable is enabled.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="WizardFooterContext Interface">
+    <tr uxd-api-property name="step" type="number">
+        This will contain the currently active step.
     </tr>
 </uxd-api-properties>
 
