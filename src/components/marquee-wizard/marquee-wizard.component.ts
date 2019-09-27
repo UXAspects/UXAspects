@@ -29,7 +29,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     @Input() resizable: boolean = false;
 
     /** Provide a custom template for the footer, positioned right of the previous/next buttons*/
-    @Input() footerTemplate: TemplateRef<WizardFooterContext>;
+    @Input() footerTemplate: TemplateRef<MarqueeWizardFooterContext>;
 
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
@@ -154,6 +154,6 @@ interface SplitDragEndEvent {
     sizes: number[];
 }
 
-export interface WizardFooterContext {
-    activeStep: number;
+export interface MarqueeWizardFooterContext {
+    step: number;
 }

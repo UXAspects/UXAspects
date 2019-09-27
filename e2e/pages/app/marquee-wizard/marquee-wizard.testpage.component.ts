@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'marquee-wizard-app',
@@ -9,6 +9,5 @@ export class MarqueeWizardTestPageComponent {
 
     resizable: boolean = false;
     sidePanelWidth: number = 25;
-    sidePanelWidthChange: string;
-
+    content: TemplateRef<any>;
 }

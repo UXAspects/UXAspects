@@ -7,6 +7,7 @@ export class MarqueeWizardPage {
     stepContents = $$('ux-marquee-wizard-step');
     gutter = element(by.tagName('split-gutter'));
     resizeableButton = element(by.id('resizeable'));
+    footerTemplateButton = element(by.id('footerTemplate'));
     input = $('input');
     emittedWidth = element(by.id('sidePanelWidthChange'));
 
@@ -39,6 +40,10 @@ export class MarqueeWizardPage {
 
     async getFinishButton(): Promise<ElementFinder> {
         return await this.getButtonByText('Finish');
+    }
+
+    async getResetButton(): Promise<ElementFinder> {
+        return await this.getButtonByText('Reset');
     }
 
     async goToNext() {

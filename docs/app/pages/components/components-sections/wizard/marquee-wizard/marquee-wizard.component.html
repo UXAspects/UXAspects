@@ -60,7 +60,6 @@
             <ux-marquee-wizard #wizard
                                class="marquee-wizard"
                                [description]="icon"
-                               [footerTemplate]="footerTemplate"
                                (stepChange)="onChange($event, wizard)"
                                (stepError)="onError()"
                                (onFinishing)="validate = true"
@@ -72,13 +71,6 @@
 
                 <ng-template #icon>
                     <img src="../../../../../assets/img/IconUser.png" alt="">
-                </ng-template>
-
-                <ng-template #footerTemplate let-step="step">
-                    <button type="button"
-                            class="btn button-secondary">
-                        Reset Button - Step: {{step}}
-                    </button>
                 </ng-template>
 
                 <ux-marquee-wizard-step header="First step">
@@ -221,7 +213,7 @@
 
     <tr uxd-api-property name="step" type="number">
         The current active step. When the step changes an event will be emitted containing the index of the newly active step. If
-        this is not specifed the wizard will start on the first step.
+        this is not specified the wizard will start on the first step.
     </tr>
     <tr uxd-api-property name="description" type="string | TemplateRef">
         Allows descriptive text or custom html content to be added to the side panel of the wizard.
@@ -320,9 +312,14 @@
         Width of the splitter in pixels. This is only accessible when resizable is enabled.
     </tr>
     <tr uxd-api-property name="footerTemplate" type="TemplateRef">
-        Allows customization of the wizard footer by allowing new content to be added to the right of the
-        previous/next buttons. To access the data for the footer use the implicit template context,
-        eg: <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
+        Allows customization of the marquee wizard footer by allowing content to be displayed to the right of the button.
+        <p>The following context property is available in the
+        template:</p>
+        <ul>
+            <li><code>step: number</code> - the currently active step.</li>
+        </ul>
+        Content can be added to the footer by using:
+        <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
     </tr>
 </uxd-api-properties>
 <uxd-api-properties tableTitle="Outputs">

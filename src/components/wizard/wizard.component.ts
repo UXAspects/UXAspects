@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { tick } from '../../common/index';
@@ -83,6 +83,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     /** If set to `true` the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible on the final step of the wizard. */
     @Input() finishAlwaysVisible: boolean = false;
+
+    /** Provide a custom template for the footer, positioned right of the previous/next buttons*/
+    @Input() footerTemplate: TemplateRef<WizardFooterContext>;
 
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
@@ -301,4 +304,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
 export class StepChangingEvent {
     constructor(public from: number, public to: number) { }
+}
+
+export interface WizardFooterContext {
+    step: number;
 }

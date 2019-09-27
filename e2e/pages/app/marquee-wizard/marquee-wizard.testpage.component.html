@@ -1,4 +1,5 @@
 <ux-marquee-wizard [resizable]="resizable"
+                   [footerTemplate]="content"
                    [(sidePanelWidth)]="sidePanelWidth">
 
     <ux-marquee-wizard-step header="Step 1">
@@ -21,9 +22,17 @@
         <p>Step 4 Content</p>
     </ux-marquee-wizard-step>
 
+    <ng-template #footerTemplate let-step="step">
+        <button type="button"
+                class="btn button-secondary">
+            Reset
+        </button>
+    </ng-template>
+
 </ux-marquee-wizard>
 
 <button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
+<button id="footerTemplate" class="btn button-secondary" (click)="content = footerTemplate">Add footerTemplate</button>
 
 <ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
 

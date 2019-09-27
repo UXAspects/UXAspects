@@ -1,4 +1,4 @@
-import { $, $$, browser, ElementFinder } from 'protractor';
+import { $, $$, browser, by, element, ElementFinder } from 'protractor';
 
 export class WizardPage {
 
@@ -9,6 +9,7 @@ export class WizardPage {
     buttons = $$('ux-wizard button');
     addStep5Button = $('#addStep5');
     removeStep5Button = $('#removeStep5');
+    footerTemplateButton = element(by.id('footerTemplate'));
 
     async getPage(): Promise<void> {
         await browser.get('#/wizard');
@@ -36,6 +37,10 @@ export class WizardPage {
 
     async getFinishButton(): Promise<ElementFinder> {
         return await this.getButtonByText('Finish');
+    }
+
+    async getResetButton(): Promise<ElementFinder> {
+        return await this.getButtonByText('Reset');
     }
 
     async goToNext(): Promise<void> {

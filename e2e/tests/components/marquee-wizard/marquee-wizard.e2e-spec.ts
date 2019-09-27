@@ -157,6 +157,21 @@ describe('Marquee Wizard Tests', () => {
         expect(await imageCompare('marquee-wizard-final-step')).toEqual(0);
     });
 
+    it('should allow a footerTemplate to be added', async () => {
+        // check that the reset button is not visible
+        let resetNotVisible = await page.getResetButton();
+        expect(resetNotVisible).toBe(null);
+
+        // enable footerTemplate
+        await page.footerTemplateButton.click();
+
+        // check that the reset button is visible
+        let resetVisible = await page.getResetButton();
+        expect(resetVisible).not.toBe(null);
+
+        expect(await imageCompare('marquee-wizard-footer-template')).toEqual(0);
+    });
+
 
     /**
      * Resizable Marquee Wizard Tests
