@@ -3,7 +3,7 @@
         <div class="form-group m-nil">
             <ux-select id="dropdown" [(value)]="selected" [options]="options" [multiple]="multiple | async" [display]="display"
                 [key]="key" [allowNull]="allowNull" [disabled]="disabled" [dropDirection]="dropDirection"
-                [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder">
+                [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder" [clearButton]="clearButton">
             </ux-select>
         </div>
     </div>
@@ -59,4 +59,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div>
+    <button id="enable-clear-button" class="btn button-primary" (click)="enableClearButton()">Enable Clear Button</button>
 </div>
