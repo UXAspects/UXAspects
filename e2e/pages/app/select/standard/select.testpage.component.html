@@ -53,5 +53,9 @@
             <ux-number-picker id="pageSize" [(value)]="pageSize" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
         </div>
 
+        <div>
+            <button id="enable-clear-button" class="btn button-primary" (click)="enableClearButton()">Enable Clear Button</button>
+        </div>
+
     </div>
 </div>
