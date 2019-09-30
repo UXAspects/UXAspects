@@ -1,6 +1,6 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
-export const numberOfCountries: number = 249;
+export const numberOfCountries: number = 250;
 export const scrollingTimeout: number = 5000;
 
 export class SelectPage {
@@ -114,6 +114,10 @@ export class SelectPage {
 
     getPageSize() {
         return this.pageSize.$('input.form-control');
+    }
+
+    getClearButton(): ElementFinder {
+        return this.dropdown.$('.ux-select-clear-icon');
     }
 
 
@@ -255,5 +259,9 @@ export class SelectPage {
                 $('ol').$$('li').last()).perform();
         }
         return this.waitForLoadingToFinish();
+    }
+
+    async enableClearButton() {
+        await element(by.id('enable-clear-button')).click();
     }
 }

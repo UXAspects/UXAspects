@@ -49,6 +49,7 @@
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
         class="form-control"
+        [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"
         [attr.aria-controls]="singleTypeahead.id"
