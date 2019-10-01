@@ -36,7 +36,8 @@
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="step" type="number">
-        The current active step. When the step changes an event will be emitted containing the index of the newly active step. If this is not specifed the wizard will start on the first step.
+        The current active step. When the step changes an event will be emitted containing the index of
+        the newly active step. If this is not specified the wizard will start on the first step.
     </tr>
     <tr uxd-api-property name="orientation" type="'vertical' | 'horizontal'" defaultValue="horizontal">
         Defines whether or not the wizard should be displayed in a horizontal or vertical layout.
@@ -109,6 +110,10 @@
         If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard.
         By default this button will only be visible on the final step of the wizard.
     </tr>
+    <tr uxd-api-property name="footerTemplate" type="TemplateRef<WizardFooterContext>">
+        Allows customization of the wizard footer by allowing content to be displayed to the right of the
+        buttons. Content can be added to the footer by using: <code>&lt;ng-template #footerTemplate let-step="step"&gt;</code>.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -137,6 +142,16 @@
         Emits when the 'Finish' button has been pressed and the final step is valid.
     </tr>
 </uxd-api-properties>
+
+<h4>Custom Templates</h4>
+
+<p>
+    Custom content can be added to left of the standard wizard buttons in the footer. Add an <code>ng-template</code>
+    named <code>#footerTemplate</code> as a child of the <code>ux-wizard</code> element. The <code>step</code> context
+    variable can be used to access the current step number (zero-based).
+</p>
+
+<uxd-snippet [content]="snippets.compiled.footerTemplateHtml"></uxd-snippet>
 
 <p>
     The following properties can be used to configure the <code>ux-wizard-step</code>:

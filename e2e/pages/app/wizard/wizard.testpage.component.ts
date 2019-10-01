@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
 })
 export class WizardTestPageComponent {
     step5 = false;
+    hasFooterTemplate: boolean = false;
 }
