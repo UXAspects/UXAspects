@@ -10,6 +10,7 @@ export class WizardPage {
     addStep5Button = $('#addStep5');
     removeStep5Button = $('#removeStep5');
     footerTemplateButton = element(by.id('footerTemplate'));
+    resetButton = element(by.id('reset'));
 
     async getPage(): Promise<void> {
         await browser.get('#/wizard');
@@ -37,10 +38,6 @@ export class WizardPage {
 
     async getFinishButton(): Promise<ElementFinder> {
         return await this.getButtonByText('Finish');
-    }
-
-    async getResetButton(): Promise<ElementFinder> {
-        return await this.getButtonByText('Reset');
     }
 
     async goToNext(): Promise<void> {

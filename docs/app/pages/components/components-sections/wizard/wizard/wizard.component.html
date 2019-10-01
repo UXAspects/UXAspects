@@ -143,11 +143,15 @@
     </tr>
 </uxd-api-properties>
 
-<uxd-api-properties tableTitle="WizardFooterContext Interface">
-    <tr uxd-api-property name="step" type="number">
-        This will contain the currently active step.
-    </tr>
-</uxd-api-properties>
+<h4>Custom Templates</h4>
+
+<p>
+    Custom content can be added to left of the standard wizard buttons in the footer. Add an <code>ng-template</code>
+    named <code>#footerTemplate</code> as a child of the <code>ux-wizard</code> element. The <code>step</code> context
+    variable can be used to access the current step number (zero-based).
+</p>
+
+<uxd-snippet [content]="snippets.compiled.footerTemplateHtml"></uxd-snippet>
 
 <p>
     The following properties can be used to configure the <code>ux-wizard-step</code>:

@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'wizard-app',
@@ -6,5 +6,5 @@ import { Component, TemplateRef } from '@angular/core';
 })
 export class WizardTestPageComponent {
     step5 = false;
-    content: TemplateRef<any>;
+    hasFooterTemplate: boolean = false;
 }
