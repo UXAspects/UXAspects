@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.5-85 
+* @ux-aspects/ux-aspects-docs - v1.8.6-2 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -192,6 +192,27 @@ tree-node-checkbox {
   position: fixed;
   width: 100%;
   overflow-y: scroll;
+}
+@keyframes cdk-text-field-autofill-start {
+  /*!*/
+}
+@keyframes cdk-text-field-autofill-end {
+  /*!*/
+}
+.cdk-text-field-autofill-monitored:-webkit-autofill {
+  animation-name: cdk-text-field-autofill-start;
+}
+.cdk-text-field-autofill-monitored:not(:-webkit-autofill) {
+  animation-name: cdk-text-field-autofill-end;
+}
+textarea.cdk-textarea-autosize {
+  resize: none;
+}
+textarea.cdk-textarea-autosize-measuring {
+  height: auto!important;
+  overflow: hidden!important;
+  padding: 2px 0!important;
+  box-sizing: content-box !important;
 }
 .clearfix {
   zoom: 1;
@@ -8748,39 +8769,43 @@ a.accordion-toggle:focus {
   border-bottom: 1.1em solid #00a7a2;
   font-size: 0.4em;
 }
-/* ============================ */
-/* Copyright (c) 2016 by Arthur Camara (http://codepen.io/arthurcamara1/pen/LpNwyq) */
-/* Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-/* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-/* ============================ */
-/* ============================ */
-/* SPINNER BOUNCE MIDDLE        */
-/* ============================ */
-.spinner,
-.spinner:before,
-.spinner:after {
-  width: 2px;
-  height: 10px;
-  background-color: #7b63a3;
-  border-radius: 2px;
-}
-.spinner {
-  display: inline-block;
+.spinner.spinner-bounce-middle,
+.spinner.spinner-bounce-bottom,
+.spinner.spinner-bounce-top,
+.spinner.spinner-blink {
   position: relative;
+  display: inline-flex;
+  margin: 3.5px 6px;
+  width: 3px;
+  height: 3px;
+  animation: bounce-middle 2000ms ease-in 200ms infinite;
 }
-.spinner:before,
-.spinner:after {
-  content: "";
+.spinner.spinner-bounce-middle:before,
+.spinner.spinner-bounce-bottom:before,
+.spinner.spinner-bounce-top:before,
+.spinner.spinner-blink:before,
+.spinner.spinner-bounce-middle:after,
+.spinner.spinner-bounce-bottom:after,
+.spinner.spinner-bounce-top:after,
+.spinner.spinner-blink:after {
+  content: '';
   position: absolute;
-  display: block;
-  top: 0;
+  width: 3px;
+  height: 3px;
 }
-.spinner:before {
-  left: -4px;
+.spinner.spinner-bounce-middle:before,
+.spinner.spinner-bounce-bottom:before,
+.spinner.spinner-bounce-top:before,
+.spinner.spinner-blink:before {
+  left: -6px;
+  animation: bounce-middle 2000ms ease-in 0ms infinite;
 }
-.spinner:after {
-  left: 4px;
+.spinner.spinner-bounce-middle:after,
+.spinner.spinner-bounce-bottom:after,
+.spinner.spinner-bounce-top:after,
+.spinner.spinner-blink:after {
+  right: -6px;
+  animation: bounce-middle 2000ms ease-in 400ms infinite;
 }
 .spinner-hpegreen,
 .spinner-hpegreen:before,
@@ -8796,138 +8821,23 @@ a.accordion-toggle:focus {
   background-color: #7b63a3;
 }
 @keyframes bounce-middle {
-  0% {
-    height: 2px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-  50% {
-    height: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+  0%,
+  70%,
   100% {
-    height: 2px;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    transform: translateY(0);
   }
-}
-.spinner-bounce-middle {
-  animation: bounce-middle 0.6s ease 0.1s infinite;
-}
-.spinner-bounce-middle:before,
-.spinner-bounce-middle:after {
-  top: 50%;
-  transform: translateY(-5px) translateZ(0);
-}
-.spinner-bounce-middle:before {
-  animation: bounce-middle 0.6s ease 0s infinite;
-}
-.spinner-bounce-middle:after {
-  animation: bounce-middle 0.6s ease 0.2s infinite;
-}
-/* ============================ */
-/* SPINNER BOUNCE BOTTOM        */
-/* ============================ */
-@keyframes bounce-bottom {
-  0% {
-    height: 2px;
-    margin-top: 4px;
+  5%,
+  10% {
+    transform: translateY(25%);
   }
-  50% {
-    height: 10px;
-    margin-top: 0;
+  25%,
+  30% {
+    transform: translateY(-75%);
   }
-  100% {
-    height: 2px;
-    margin-top: 4px;
+  50%,
+  55% {
+    transform: translateY(50%);
   }
-}
-.spinner-bounce-bottom {
-  animation: bounce-bottom 0.6s ease 0.1s infinite;
-}
-.spinner-bounce-bottom:before,
-.spinner-bounce-bottom:after {
-  top: auto;
-  bottom: 0;
-}
-.spinner-bounce-bottom:before {
-  animation: bounce-bottom 0.6s ease 0s infinite;
-}
-.spinner-bounce-bottom:after {
-  animation: bounce-bottom 0.6s ease 0.2s infinite;
-}
-/* ============================ */
-/* SPINNER BOUNCE TOP        */
-/* ============================ */
-@keyframes bounce-top {
-  0% {
-    height: 2px;
-    margin-bottom: 4px;
-  }
-  50% {
-    height: 10px;
-    margin-bottom: 0;
-  }
-  100% {
-    height: 2px;
-    margin-bottom: 4px;
-  }
-}
-.spinner-bounce-top {
-  animation: bounce-top 0.6s ease 0.1s infinite;
-}
-.spinner-bounce-top:before {
-  animation: bounce-top 0.6s ease 0s infinite;
-}
-.spinner-bounce-top:after {
-  animation: bounce-top 0.6s ease 0.2s infinite;
-}
-/* ============================ */
-/* SPINNER BLINK                */
-/* ============================ */
-@keyframes glow-hpegreen {
-  0% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: #00a7a2;
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-@keyframes glow-accent {
-  0% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: #7b63a3;
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-.spinner-hpegreen.spinner-blink,
-.spinner-primary.spinner-blink {
-  animation: glow-hpegreen 0.6s 0.1s infinite;
-}
-.spinner-hpegreen.spinner-blink:before,
-.spinner-primary.spinner-blink:before {
-  animation: glow-hpegreen 0.6s 0s infinite;
-}
-.spinner-hpegreen.spinner-blink:after,
-.spinner-primary.spinner-blink:after {
-  animation: glow-hpegreen 0.6s 0.2s infinite;
-}
-.spinner-accent.spinner-blink {
-  animation: glow-accent 0.6s 0.1s infinite;
-}
-.spinner-accent.spinner-blink:before {
-  animation: glow-accent 0.6s 0s infinite;
-}
-.spinner-accent.spinner-blink:after {
-  animation: glow-accent 0.6s 0.2s infinite;
 }
 /*
     Placeholder file for additional fonts provided by theme.
@@ -14398,6 +14308,9 @@ ux-alert.ux-alert-dark {
   margin-right: 3px;
   vertical-align: text-top;
 }
+.hierarchy-bar-popover .popover-content .hierarchy-bar-popover-list .hierarchy-bar-popover-list-item .hierarchy-bar-popover-list-item-image .spinner {
+  margin: 5px auto;
+}
 .loginerrormsg {
   margin-top: 5px;
   color: #fff;
@@ -16176,11 +16089,11 @@ tags-input .tags .input:-ms-input-placeholder {
   margin-left: 2px;
   margin-right: 3px;
 }
-.treegrid-expand .treegrid-expand-toggle {
+.treegrid-expand .treegrid-expand-toggle :not(.spinner) {
   cursor: pointer;
   opacity: 0.5;
 }
-.treegrid-expand .treegrid-expand-toggle:hover {
+.treegrid-expand .treegrid-expand-toggle :not(.spinner):hover {
   opacity: 1;
 }
 .treegrid-expander {
@@ -20268,6 +20181,18 @@ ux-dropdown .ux-select-container .ux-select-icons .ux-select-icon > ux-icon {
   width: 16px;
   height: 16px;
   line-height: 16px;
+}
+ux-select .ux-select-container > input,
+ux-input-dropdown .ux-select-container > input,
+ux-combobox .ux-select-container > input,
+ux-dropdown .ux-select-container > input {
+  padding-right: 31px;
+}
+ux-select .ux-select-container > input.ux-tag-input-clear-inset,
+ux-input-dropdown .ux-select-container > input.ux-tag-input-clear-inset,
+ux-combobox .ux-select-container > input.ux-tag-input-clear-inset,
+ux-dropdown .ux-select-container > input.ux-tag-input-clear-inset {
+  padding-right: 57px;
 }
 ux-select.ux-select-disabled .ux-select-container .ux-select-icons .ux-select-icon,
 ux-input-dropdown.ux-select-disabled .ux-select-container .ux-select-icons .ux-select-icon,

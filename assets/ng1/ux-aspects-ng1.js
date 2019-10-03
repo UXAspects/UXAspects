@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.5-85 
+* @ux-aspects/ux-aspects-docs - v1.8.6-2 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -25486,7 +25486,7 @@ function () {
 
     var elementRef = $element.get(0); // add a class to the table
 
-    $element.addClass('ux-fixed-header-table'); // locate the important elements        
+    $element.addClass('ux-fixed-header-table'); // locate the important elements
 
     this._tableHead = elementRef.querySelector('thead');
     this._tableBody = elementRef.querySelector('tbody'); // bind to scroll events on the table body
@@ -25527,8 +25527,10 @@ function () {
   }, {
     key: "onScroll",
     value: function onScroll() {
-      // determine if we are scrolled to the bottom and if so load the next page
-      if (this._tableBody.scrollTop === this._tableBody.scrollHeight - this._tableBody.clientHeight) {
+      // If the scroll position approaches the bottom, load a new page of data
+      var remainingScroll = this._tableBody.scrollHeight - (this._tableBody.scrollTop + this._tableBody.clientHeight);
+
+      if (remainingScroll <= this._tableBody.clientHeight) {
         this.requestPage();
       }
     }
@@ -27882,7 +27884,8 @@ function () {
     this.complete = false;
     this.$element = $element;
     this.$interval = safeInterval.create($scope);
-    this._loading = false; // private variables
+    this._loading = false;
+    this._ensureScrollableInterval = null; // private variables
 
     this._query = this._query || null;
     this._subscriptions = []; // set some default values if required
@@ -27931,10 +27934,11 @@ function () {
     value: function ensureScrollable() {
       var _this2 = this;
 
-      //if we are using a load more button this is also not required
+      if (this._ensureScrollableInterval) return; //if we are using a load more button this is also not required
+
       if (this.buttonOptions && this.buttonOptions.show) return; // repeat until we have enough items
 
-      this.$interval.interval(function () {
+      this._ensureScrollableInterval = this.$interval.interval(function () {
         // if we are currently loading or have loaded all pages then do nothing
         if (_this2.loading || _this2.complete || document.hidden) {
           return;
@@ -43613,6 +43617,15 @@ function () {
     value: function segmentTooltip(index) {
       return Array.isArray(this.sparkTooltips) && this.sparkTooltips.length > index ? this.sparkTooltips[index] : undefined;
     }
+  }, {
+    key: "onSegmentClick",
+    value: function onSegmentClick(index) {
+      if (typeof this.segmentClick === 'function') {
+        this.segmentClick({
+          $event: index
+        });
+      }
+    }
   }]);
 
   return SparkCtrl;
@@ -43651,7 +43664,8 @@ function SparkDirective() {
       sparkTooltip: "@?",
       sparkTooltips: "=?",
       barColor: '=?',
-      trackColor: '=?'
+      trackColor: '=?',
+      segmentClick: '&?'
     },
     bindToController: true
   };
@@ -43669,7 +43683,7 @@ function SparkDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div>\n<div ng-if=\"sc._inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc._type ]\" ng-style=\"sc._styles\" tooltip=\"{{ sc.sparkTooltip }}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc._values track by $index\" aria-valuenow=\"{{ bar }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc._barColor[$index]}\" aria-valuetext=\"sc.label\" tooltip=\"{{ sc.segmentTooltip($index) }}\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc._inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc._type\" ng-style=\"{ height: sc.fillheight + 'px', backgroundColor: sc._trackColor }\" tooltip=\"{{ sc.sparkTooltip }}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc._values track by $index\" aria-valuenow=\"{{ bar }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc._barColor[$index] }\" aria-valuetext=\"sc.top-left-label\" tooltip=\"{{ sc.segmentTooltip($index) }}\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
+var v1="<div>\n<div ng-if=\"sc._inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc._type ]\" ng-style=\"sc._styles\" tooltip=\"{{ sc.sparkTooltip }}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc._values track by $index\" aria-valuenow=\"{{ bar }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc._barColor[$index]}\" aria-valuetext=\"sc.label\" tooltip=\"{{ sc.segmentTooltip($index) }}\" ng-click=\"sc.onSegmentClick({index: $index})\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc._inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc._type\" ng-style=\"{ height: sc.fillheight + 'px', backgroundColor: sc._trackColor }\" tooltip=\"{{ sc.sparkTooltip }}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc._values track by $index\" aria-valuenow=\"{{ bar }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc._barColor[$index] }\" aria-valuetext=\"sc.top-left-label\" tooltip=\"{{ sc.segmentTooltip($index) }}\" ng-click=\"sc.onSegmentClick({index: $index})\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
 var id1="directives/spark/spark.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -51445,9 +51459,10 @@ function SparkDirective() {
       sparkTooltip: "@?",
       sparkTooltips: "=?",
       barColor: "=?",
-      trackColor: "=?"
+      trackColor: "=?",
+      segmentClick: "&?"
     },
-    template: "<spark type=\"type\" spark-tooltip=\"{{ sparkTooltip }}\" spark-tooltips=\"sparkTooltips\" value=\"value\" fillheight=\"fillheight\" inline-label=\"inlineLabel\" top=\"top\" top-left-label=\"topLeftLabel\" top-right-label=\"topRightLabel\" bottom-left-label=\"bottomLeftLabel\" bottom-right-label=\"bottomRightLabel\" bar-color=\"barColor\" track-color=\"trackColor\"></spark>",
+    template: "<spark type=\"type\" spark-tooltip=\"{{ sparkTooltip }}\" spark-tooltips=\"sparkTooltips\" value=\"value\" fillheight=\"fillheight\" inline-label=\"inlineLabel\" top=\"top\" top-left-label=\"topLeftLabel\" top-right-label=\"topRightLabel\" bottom-left-label=\"bottomLeftLabel\" bottom-right-label=\"bottomRightLabel\" bar-color=\"barColor\" track-color=\"trackColor\" segment-click=\"segmentClick($event)\"></spark>",
     controller: ['$scope', function ($scope) {
       $scope.type = typeof $scope.type === 'function' ? $scope.type() : $scope.type;
       $scope.value = typeof $scope.value === 'function' ? $scope.value() : $scope.value;

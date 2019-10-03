@@ -22,16 +22,16 @@ can just fix the size of their placeholders.
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
 -----------------------------------------------------------------------------------
+Flot plugin for stacking data sets rather than overlyaing them.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+-----------------------------------------------------------------------------------
 * Flot plugin that provides spline interpolation for line graphs
  * author: Alex Bardas < alex.bardas@gmail.com >
  * modified by: Avi Kohn https://github.com/AMKohn
  * based on the spline interpolation described at:
  *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
------------------------------------------------------------------------------------
-Flot plugin for stacking data sets rather than overlyaing them.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 Flot plugin that adds some extra symbols for plotting points.
 
@@ -93,6 +93,13 @@ API.txt for details.
 * Original homepage: http://sites.google.com/site/petrsstuff/projects/flotvallab
 * Released under the MIT license by Petr Blahos, December 2009.
 -----------------------------------------------------------------------------------
+Peity jQuery plugin version 3.0.2
+ (c) 2014 Ben Pickles
+
+ http://benpickles.github.io/peity
+
+ Released under MIT license.
+-----------------------------------------------------------------------------------
 *	jQuery dotdotdot 1.7.4
  *
  *	Copyright (c) Fred Heusschen
@@ -103,13 +110,6 @@ API.txt for details.
  *
  *	Licensed under the MIT license.
  *	http://en.wikipedia.org/wiki/MIT_License
------------------------------------------------------------------------------------
-Peity jQuery plugin version 3.0.2
- (c) 2014 Ben Pickles
-
- http://benpickles.github.io/peity
-
- Released under MIT license.
 -----------------------------------------------------------------------------------
 MIT License:
 
@@ -176,11 +176,6 @@ percentages internally.
 // http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
 //
 -----------------------------------------------------------------------------------
-/* Javascript plotting library for jQuery, version 0.8.3.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
------------------------------------------------------------------------------------
 sigma.js - A JavaScript library dedicated to graph drawing. - Version: 1.0.3 - Author: Alexis Jacomy, Sciences-Po Médialab - License: MIT
 Copyright (C) 2013-2014, Alexis Jacomy, http://sigmajs.org
 
@@ -194,6 +189,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
+-----------------------------------------------------------------------------------
+/* Javascript plotting library for jQuery, version 0.8.3.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 * jquery.inputmask.bundle.js
 * http://github.com/RobinHerbots/jquery.inputmask
@@ -294,10 +294,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -----------------------------------------------------------------------------------
-angular-breadcrumb - v0.3.2-dev-2014-12-14
- * http://ncuillery.github.io/angular-breadcrumb
- * Copyright (c) 2014 Nicolas Cuillery; Licensed MIT
------------------------------------------------------------------------------------
 * The MIT License (MIT)
  
  * Copyright (c) 2014 Brian Hines
@@ -319,6 +315,10 @@ angular-breadcrumb - v0.3.2-dev-2014-12-14
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+-----------------------------------------------------------------------------------
+angular-breadcrumb - v0.3.2-dev-2014-12-14
+ * http://ncuillery.github.io/angular-breadcrumb
+ * Copyright (c) 2014 Nicolas Cuillery; Licensed MIT
 -----------------------------------------------------------------------------------
 The MIT License (MIT)
 
