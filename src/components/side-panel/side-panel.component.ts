@@ -114,8 +114,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
                     ? SidePanelAnimationState.Open
                     : SidePanelAnimationState.OpenImmediate
                 : SidePanelAnimationState.Closed;
-
-            this.openChange.emit(isOpen);
         });
     }
 
