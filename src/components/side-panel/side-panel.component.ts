@@ -99,6 +99,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     /** Store the current open state */
     private _isOpen: boolean = false;
 
+    /** Store the current open state */
+    private _isInitial: boolean = true;
+
     protected _onDestroy = new Subject<void>();
 
     constructor(
@@ -115,8 +118,11 @@ export class SidePanelComponent implements OnInit, OnDestroy {
                 : SidePanelAnimationState.Closed;
 
             // only if the open state changed should we emit the latest value
-            this.openChange.emit(isOpen);
+            if (!this._isInitial) {
+                this.openChange.emit(isOpen);
+            }
             this._isOpen = isOpen;
+            this._isInitial = false;
         });
     }
 
