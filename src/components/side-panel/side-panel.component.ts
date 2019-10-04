@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil, skip } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { SidePanelAnimationState, sidePanelStateAnimation } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
@@ -21,7 +21,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Input()
     @HostBinding('class.open')
     get open(): boolean {
-        return this._isOpen;
+        return this.service.open$.value;
     }
 
     set open(value: boolean) {
@@ -96,9 +96,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     animationPanelState: SidePanelAnimationState = SidePanelAnimationState.Closed;
 
-    /** Store the current open state */
-    private _isOpen: boolean = false;
-
     protected _onDestroy = new Subject<void>();
 
     constructor(
@@ -107,16 +104,16 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         private readonly _focusOrigin: FocusIndicatorOriginService) { }
 
     ngOnInit(): void {
+
+        this.service.open$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
+            .subscribe(isOpen => this.openChange.emit(isOpen));
+
         this.service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe(isOpen => {
             this.animationPanelState = isOpen
                 ? this.animate
                     ? SidePanelAnimationState.Open
                     : SidePanelAnimationState.OpenImmediate
                 : SidePanelAnimationState.Closed;
-
-            // only if the open state changed should we emit the latest value
-            this.openChange.emit(isOpen);
-            this._isOpen = isOpen;
         });
     }
 
