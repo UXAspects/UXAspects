@@ -6,6 +6,7 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 
 const outputDir = join(cwd(), 'target', 'e2e');
 const junitDir = join(outputDir, 'junit');
+const screenshotOutputDir = join( outputDir, 'screenshots');
 
 exports.config = {
     directConnect: true,
@@ -29,16 +30,16 @@ exports.config = {
     specs: ['./tests/**/**/*e2e-spec.ts'],
 
     plugins: [
-        {
-            path: '../node_modules/protractor-istanbul-plugin',
-            outputPath: './e2e/coverage'
-        },
+        // {
+        //     path: '../node_modules/protractor-istanbul-plugin',
+        //     outputPath: './e2e/coverage'
+        // },
         {
             package: 'protractor-image-comparison',
             options: {
                 baselineFolder: join(process.cwd(), './e2e/screenshots'),
                 formatImageName: `{tag}-{logName}-{width}x{height}`,
-                screenshotPath: join(process.cwd(), '.tmp/'),
+                screenshotPath: screenshotOutputDir,
                 savePerInstance: true,
                 autoSaveBaseline: true,
                 ignoreAntialiasing: true
