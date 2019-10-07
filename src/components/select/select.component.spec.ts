@@ -43,6 +43,10 @@ describe('Select Component', () => {
         fixture.detectChanges();
     });
 
+    it('should be initially blank if no placeholder is set', () => {
+        expect(component.input).toBe('');
+    });
+
     it('should not call valueChange on initialization of single select', () => {
         spyOn(component, 'onValueChange');
         expect(component).toBeTruthy();

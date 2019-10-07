@@ -31,6 +31,13 @@ export class SelectTestPageComponent implements OnInit {
 
     dataSets: { strings?: any[], objects?: any[] } = {};
 
+    iconsets: IconSet[] = [
+        { name: 'ux-icon'},
+        { name: 'hpe-icon'}
+    ];
+
+    iconset: IconSet = this.iconsets[0];
+
     constructor() {
 
         // Reset select when "multiple" checkbox changes.
@@ -70,6 +77,8 @@ export class SelectTestPageComponent implements OnInit {
 
     ngOnInit() {
         this.options = this.selectedDataSet();
+
+        this.iconset = this.iconsets[0];
     }
 
     selectedDataSet(): any[] {
@@ -100,4 +109,8 @@ export class SelectTestPageComponent implements OnInit {
         this.allowNull = true;
         this.clearButton = true;
     }
+}
+
+export interface IconSet  {
+    name: string;
 }

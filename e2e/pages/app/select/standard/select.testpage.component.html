@@ -2,15 +2,25 @@
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
             <ux-select id="dropdown" [(value)]="selected" [options]="options" [multiple]="multiple | async" [display]="display"
-                [key]="key" [allowNull]="allowNull" [disabled]="disabled" [dropDirection]="dropDirection"
-                [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder" [clearButton]="clearButton">
+                       [key]="key" [allowNull]="allowNull" [disabled]="disabled" [dropDirection]="dropDirection"
+                       [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder" [clearButton]="clearButton">
+            </ux-select>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group m-nil">
+            <ux-select id="dropdownInitialValue" [(value)]="iconset" [options]="iconsets"
+                       display="name">
             </ux-select>
         </div>
     </div>
 </div>
 <div class="row">
-    <div id="selectedLocation" class="col-md-12 m-t-md">
+    <div id="selectedLocation" class="col-sm-6 col-xs-12">
         Selected location(s): <code>{{selected | json}}</code>
+    </div>
+    <div id="selectedIconset" class="col-sm-6 col-xs-12">
+        Selected iconset: <code>{{iconset.name}}</code>
     </div>
 </div>
 <div class="row uxd-customize-example" style="margin-top: 400px;">

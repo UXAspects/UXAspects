@@ -25,6 +25,16 @@ describe('Select Tests', () => {
         expect(await imageCompare('select-initial')).toEqual(0);
     });
 
+    it('should have correct initial states when dropdown has an initial value', async () => {
+
+        // dropdown list not expanded
+        expect(await page.confirmDropdownIsExpandedIcons()).toBeFalsy();
+
+        // selected iconset - ux-icon
+        expect(await page.getSelectedIconText()).toBe('ux-icon');
+
+    });
+
     it('should display correct text', async () => {
 
         // country list
