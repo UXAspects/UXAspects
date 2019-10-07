@@ -1,7 +1,8 @@
 <ux-tag-input *ngIf="multiple"
     #tagInput="ux-tag-input"
     [id]="id + '-input'"
-    [(tags)]="value"
+    [tags]="_value$ | async"
+    (tagsChange)="_value$.next($event)"
     [(input)]="input"
     [ariaLabel]="ariaLabel"
     [autocomplete]="autocomplete"
@@ -23,7 +24,7 @@
         [(open)]="dropdownOpen"
         [display]="display"
         [key]="key"
-        [disabledOptions]="value"
+        [disabledOptions]="_value$ | async"
         [dropDirection]="dropDirection"
         [maxHeight]="maxHeight"
         [multiselectable]="true"
@@ -48,6 +49,7 @@
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
         class="form-control"
+        [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
         [attr.aria-activedescendant]="highlightedElement?.id"
         aria-autocomplete="list"
         [attr.aria-controls]="singleTypeahead.id"
@@ -64,7 +66,7 @@
         [readonly]="readonlyInput">
 
     <div class="ux-select-icons">
-        <i *ngIf="clearButton && allowNull && value"
+        <i *ngIf="clearButton && allowNull && _hasValue"
            uxFocusIndicator
            [attr.tabindex]="disabled ? -1 : 0"
            [attr.aria-label]="clearButtonAriaLabel"
@@ -82,7 +84,7 @@
 
     <ux-typeahead #singleTypeahead
         [id]="id + '-typeahead'"
-        [active]="value"
+        [active]="_value$ | async"
         [options]="options"
         [filter]="filter$ | async"
         [(open)]="dropdownOpen"

@@ -14,7 +14,7 @@ export class SparkTestPageComponent {
     };
 
     singleValueChart = {
-        theme: 'vibrant2',
+        theme: 'primary',
         value: 30,
         barHeight: 8,
         topLeftLabel: '30%',

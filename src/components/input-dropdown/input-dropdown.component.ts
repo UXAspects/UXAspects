@@ -1,4 +1,18 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
@@ -39,7 +53,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
 
     /** Aria label of the filter field. If not specified, the placeholder will be used. */
     @Input('aria-label') ariaLabel: string = '';
-    
+
     /** Emit when the selected item is changed */
     @Output() selectedChange = new EventEmitter<T>();
 
@@ -60,7 +74,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
-            if (this.menuTrigger) {
+            if (this.menuTrigger && !changes.selected.firstChange) {
                 this.menuTrigger.closeMenu();
             }
             this.onChange(changes.selected.currentValue);
@@ -96,5 +110,11 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     resetValue(event: Event): void {
         this.writeValue(undefined);
         event.stopPropagation();
+    }
+
+    _focusFilter(): void {
+        if (this.filterInputElement) {
+            this.filterInputElement.nativeElement.focus();
+        }
     }
 }

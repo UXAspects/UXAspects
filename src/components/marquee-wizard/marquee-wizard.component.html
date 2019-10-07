@@ -1,99 +1,128 @@
-<div class="marquee-wizard-side-panel">
+<ng-container *ngIf="resizable && _isInitialised">
+    <split direction="horizontal"
+           [gutterSize]="gutterSize"
+           (dragEnd)="onDragEnd($event)">
+        <split-area [size]="sidePanelWidth">
+            <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
+        </split-area>
+        <split-area [size]="100 - sidePanelWidth">
+            <ng-container [ngTemplateOutlet]="mainContentPanel"></ng-container>
+        </split-area>
+    </split>
+</ng-container>
 
-    <div class="marquee-wizard-description-container" *ngIf="description">
-        <!-- If a template was provided display it -->
-        <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+<ng-container *ngIf="!resizable">
+    <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
+    <ng-container [ngTemplateOutlet]="mainContentPanel"></ng-container>
+</ng-container>
 
-        <!-- Otherwise wimply display the string -->
-        <ng-container *ngIf="!isTemplate">
-            <p>{{ description }}</p>
-        </ng-container>
+<ng-template #sidePanel>
+    <div class="marquee-wizard-side-panel" [class.marquee-wizard-side-panel-resize]="resizable">
+
+        <div class="marquee-wizard-description-container" *ngIf="description">
+            <!-- If a template was provided display it -->
+            <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+
+            <!-- Otherwise wimply display the string -->
+            <ng-container *ngIf="!isTemplate">
+                <p>{{ description }}</p>
+            </ng-container>
+        </div>
+
+        <ul class="marquee-wizard-steps"
+            uxTabbableList
+            direction="vertical"
+            role="tablist"
+            aria-orientation="vertical">
+
+            <li *ngFor="let step of steps; let index = index"
+                role="tab"
+                uxTabbableListItem
+                [disabled]="!step.visited"
+                class="marquee-wizard-step"
+                [class.active]="step.active"
+                [class.visited]="step.visited"
+                [class.invalid]="!step.valid"
+                [attr.aria-posinset]="index + 1"
+                [attr.aria-setsize]="steps.length"
+                [attr.aria-selected]="step.active"
+                [attr.aria-controls]="step.id"
+                [id]="step.id + '-label'"
+                (click)="gotoStep(step)"
+                (keydown.enter)="gotoStep(step)">
+
+                <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
+            </li>
+
+        </ul>
     </div>
+</ng-template>
 
-    <ul class="marquee-wizard-steps"
-        uxTabbableList
-        direction="vertical"
-        role="tablist"
-        aria-orientation="vertical">
 
-        <li *ngFor="let step of steps; let index = index"
-            role="tab"
-            uxTabbableListItem
-            [disabled]="!step.visited"
-            class="marquee-wizard-step"
-            [class.active]="step.active"
-            [class.visited]="step.visited"
-            [class.invalid]="!step.valid"
-            [attr.aria-posinset]="index + 1"
-            [attr.aria-setsize]="steps.length"
-            [attr.aria-selected]="step.active"
-            [attr.aria-controls]="step.id"
-            [id]="step.id + '-label'"
-            (click)="gotoStep(step)"
-            (keydown.enter)="gotoStep(step)">
+<ng-template #mainContentPanel>
+    <div class="marquee-wizard-content-panel" [class.marquee-wizard-content-panel-resize]="resizable">
+        <div class="marquee-wizard-content">
+            <ng-content></ng-content>
+        </div>
 
-            <ng-container [ngTemplateOutlet]="stepTemplate || defaultStepTemplate" [ngTemplateOutletContext]="{ $implicit: step }"></ng-container>
-        </li>
+        <div class="modal-footer">
 
-    </ul>
-</div>
+            <ng-container *ngIf="footerTemplate"
+                          [ngTemplateOutlet]="footerTemplate"
+                          [ngTemplateOutletContext]="{ step: step }">
+            </ng-container>
 
-<div class="marquee-wizard-content-panel">
-    <div class="marquee-wizard-content">
-        <ng-content></ng-content>
-    </div>
-
-    <div class="modal-footer">
-
-        <button #tip="ux-tooltip"
-                type="button"
-                class="btn button-secondary"
-                *ngIf="previousVisible"
-                [uxTooltip]="previousTooltip"
-                [attr.aria-label]="previousAriaLabel"
-                container="body"
-                [disabled]="previousDisabled || step === 0"
-                (click)="previous(); tip.hide()">
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-secondary"
+                    *ngIf="previousVisible"
+                    [uxTooltip]="previousTooltip"
+                    [attr.aria-label]="previousAriaLabel"
+                    container="body"
+                    [disabled]="previousDisabled || step === 0"
+                    (click)="previous(); tip.hide()">
                 {{ previousText }}
-        </button>
+            </button>
 
-        <button #tip="ux-tooltip"
-                type="button"
-                class="btn button-primary"
-                *ngIf="nextVisible && !isLastStep()"
-                [uxTooltip]="nextTooltip"
-                [attr.aria-label]="nextAriaLabel"
-                container="body"
-                [disabled]="nextDisabled"
-                (click)="next(); tip.hide()">
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-primary"
+                    *ngIf="nextVisible && !isLastStep()"
+                    [uxTooltip]="nextTooltip"
+                    [attr.aria-label]="nextAriaLabel"
+                    container="body"
+                    [disabled]="nextDisabled"
+                    (click)="next(); tip.hide()">
                 {{ nextText }}
-        </button>
+            </button>
 
-        <button #tip="ux-tooltip"
-                type="button"
-                class="btn button-primary"
-                *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
-                [uxTooltip]="finishTooltip"
-                [attr.aria-label]="finishAriaLabel"
-                container="body"
-                [disabled]="finishDisabled"
-                (click)="finish(); tip.hide()">
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-primary"
+                    *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
+                    [uxTooltip]="finishTooltip"
+                    [attr.aria-label]="finishAriaLabel"
+                    container="body"
+                    [disabled]="finishDisabled"
+                    (click)="finish(); tip.hide()">
                 {{ finishText }}
-        </button>
+            </button>
 
-        <button #tip="ux-tooltip"
-                type="button"
-                class="btn button-secondary"
-                *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
-                [uxTooltip]="cancelTooltip"
-                [attr.aria-label]="cancelAriaLabel"
-                container="body"
-                [disabled]="cancelDisabled"
-                (click)="cancel(); tip.hide()">
+            <button #tip="ux-tooltip"
+                    type="button"
+                    class="btn button-secondary"
+                    *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible"
+                    [uxTooltip]="cancelTooltip"
+                    [attr.aria-label]="cancelAriaLabel"
+                    container="body"
+                    [disabled]="cancelDisabled"
+                    (click)="cancel(); tip.hide()">
                 {{ cancelText }}
-        </button>
+            </button>
+
+        </div>
     </div>
-</div>
+</ng-template>
 
 <ng-template #defaultStepTemplate let-step>
 

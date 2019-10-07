@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FloatingActionButtonsModule, IconModule } from '@ux-aspects/ux-aspects';
+import { FloatingActionButtonsModule, IconModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { FloatingActionButtonsTestPageComponent } from './floating-action-buttons.testpage.component';
 
 @NgModule({
@@ -11,6 +11,7 @@ import { FloatingActionButtonsTestPageComponent } from './floating-action-button
         FormsModule,
         IconModule,
         FloatingActionButtonsModule,
+        AccessibilityModule,
         RouterModule.forChild([{
             path: '',
             component: FloatingActionButtonsTestPageComponent

@@ -1,10 +1,16 @@
-import { $, $$, browser, ElementFinder } from 'protractor';
+import { $, $$, browser, by, element, ElementFinder, Key } from 'protractor';
 
 export class MarqueeWizardPage {
 
     wizard = $('ux-marquee-wizard');
     stepHeaders = $$('.marquee-wizard-step');
     stepContents = $$('ux-marquee-wizard-step');
+    gutter = element(by.tagName('split-gutter'));
+    resizeableButton = element(by.id('resizeable'));
+    footerTemplateButton = element(by.id('footerTemplate'));
+    resetButton = element(by.id('reset'));
+    input = $('input');
+    emittedWidth = element(by.id('sidePanelWidthChange'));
 
     buttons = $$('button');
 
@@ -40,9 +46,52 @@ export class MarqueeWizardPage {
     async goToNext() {
         // find the next button
         let next: ElementFinder = await this.getNextButton();
-        
+
         // click on the next button
         await next.click();
     }
 
+    async getGutterAriaValue(): Promise<string> {
+        return await this.gutter.getAttribute('aria-valuenow');
+    }
+
+    async getGutterAriaValueMin(): Promise<string> {
+        return await this.gutter.getAttribute('aria-valuemin');
+    }
+
+    async getGutterAriaValueMax(): Promise<string> {
+        return await this.gutter.getAttribute('aria-valuemax');
+    }
+
+    async getInputField(): Promise<string> {
+        return await this.input.getAttribute('value');
+    }
+
+    async setGutterFocused(): Promise<void> {
+        return await this.gutter.click();
+    }
+
+    async sendLeftKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.ARROW_LEFT).perform();
+    }
+
+    async sendRightKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.ARROW_RIGHT).perform();
+    }
+
+    async sendHomeKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.HOME).perform();
+    }
+
+    async sendEndKey(): Promise<void> {
+        return await browser.actions().sendKeys(Key.END).perform();
+    }
+
+    async mouseMoveLeft(): Promise<void> {
+        return await browser.actions().dragAndDrop(this.gutter, { x: -10, y: 0 }).perform();
+    }
+
+    async mouseMoveRight(): Promise<void> {
+        return await browser.actions().dragAndDrop(this.gutter, { x: 10, y: 0 }).perform();
+    }
 }

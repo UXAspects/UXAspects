@@ -21,7 +21,7 @@
 </div>
 
 <ux-menu #menu menuClass="select-menu"
-         (opened)="filterInputElement.nativeElement.focus()">
+         (opened)="_focusFilter()">
 
     <div [style.max-height]="_maxHeightString"
          [style.width.px]="button.offsetWidth">

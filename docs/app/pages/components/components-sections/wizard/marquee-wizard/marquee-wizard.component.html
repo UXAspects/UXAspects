@@ -2,6 +2,36 @@
     <ux-icon name="deployment" aria-hidden="true"></ux-icon> Launch Marquee Wizard
 </button>
 
+<div class="uxd-customize-example">
+    <ux-accordion>
+        <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
+            <div class="row uxd-customize-row">
+                <div class="col-md-6 col-sm-12">
+                    <ux-checkbox [(value)]="resizable">resizable</ux-checkbox>
+                </div>
+            </div>
+            <div class="row uxd-customize-row">
+                <div class="col-md-4 col-sm-12">
+                    <label>sidePanelWidth</label>
+                    <ux-number-picker [(value)]="sidePanelWidth"
+                                      [min]="1"
+                                      [max]="100"
+                                      [disabled]="!resizable">
+                    </ux-number-picker>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label>gutterSize</label>
+                    <ux-number-picker [(value)]="gutterSize"
+                                      [min]="1"
+                                      [max]="100"
+                                      [disabled]="!resizable">
+                    </ux-number-picker>
+                </div>
+            </div>
+        </ux-accordion-panel>
+    </ux-accordion>
+</div>
+
 <div *ngIf="modalOpen"
      (onHidden)="close()"
      [config]="{ show: true, animated: false }"
@@ -27,7 +57,17 @@
                 </button>
             </div>
 
-            <ux-marquee-wizard #wizard class="marquee-wizard" [description]="icon" (stepChange)="onChange($event, wizard)" (stepError)="onError()" (onFinishing)="validate = true" (onFinish)="close()" (onCancel)="close()">
+            <ux-marquee-wizard #wizard
+                               class="marquee-wizard"
+                               [description]="icon"
+                               (stepChange)="onChange($event, wizard)"
+                               (stepError)="onError()"
+                               (onFinishing)="validate = true"
+                               (onFinish)="close()"
+                               (onCancel)="close()"
+                               [sidePanelWidth]="sidePanelWidth"
+                               [gutterSize]="gutterSize"
+                               [resizable]="resizable">
 
                 <ng-template #icon>
                     <img src="../../../../../assets/img/IconUser.png" alt="">
@@ -173,7 +213,7 @@
 
     <tr uxd-api-property name="step" type="number">
         The current active step. When the step changes an event will be emitted containing the index of the newly active step. If
-        this is not specifed the wizard will start on the first step.
+        this is not specified the wizard will start on the first step.
     </tr>
     <tr uxd-api-property name="description" type="string | TemplateRef">
         Allows descriptive text or custom html content to be added to the side panel of the wizard.
@@ -260,6 +300,17 @@
         <code>true</code> the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible
         on the final step of the wizard.
     </tr>
+    <tr uxd-api-property name="resizable" type="boolean" defaultValue="false">
+        If set to
+        <code>true</code> there will be a resizable splitter between the side panel and main content of
+        the wizard.
+    </tr>
+    <tr uxd-api-property name="sidePanelWidth" type="number" defaultValue="25">
+        Width of the side panel as a percent. This is only accessible when resizable is enabled.
+    </tr>
+    <tr uxd-api-property name="gutterSize" type="number" defaultValue="10">
+        Width of the splitter in pixels. This is only accessible when resizable is enabled.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -287,6 +338,10 @@
     </tr>
     <tr uxd-api-property name="onFinish" type="void">
         Emits when the 'Finish' button has been pressed and the final step is valid.
+    </tr>
+    <tr uxd-api-property name="sidePanelWidthChange" type="number">
+        Emits when finished dragging the splitter. The event contains the current width of the side panel
+        in a percentage value. This is only accessible when resizable is enabled.
     </tr>
 </uxd-api-properties>
 
@@ -322,6 +377,20 @@
         Emits when completed changes.
     </tr>
 </uxd-api-properties>
+
+<h4>Custom Templates</h4>
+
+<p>
+    The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.
+</p>
+
+<p>
+    Custom content can be added to left of the standard wizard buttons in the footer. Add an <code>ng-template</code>
+    named <code>#footerTemplate</code> as a child of the <code>ux-marquee-wizard</code> element. The <code>step</code>
+    context variable can be used to access the current step number (zero-based).
+</p>
+
+<uxd-snippet [content]="snippets.compiled.footerTemplateHtml"></uxd-snippet>
 
 <p>
     The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.

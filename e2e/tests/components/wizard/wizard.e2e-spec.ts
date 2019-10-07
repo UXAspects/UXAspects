@@ -182,4 +182,26 @@ describe('Wizard Tests', () => {
         expect(await page.getCancelButton()).toBe(null);
     });
 
+    it('should allow a footerTemplate to be added', async () => {
+
+        // check that the reset button is not visible
+        expect(page.resetButton.isPresent()).toBeFalsy();
+
+        // enable footerTemplate
+        await page.footerTemplateButton.click();
+
+        // check that the reset button is visible
+        expect(await page.resetButton.isPresent()).toBeTruthy();
+        expect(await page.resetButton.getText()).toBe('RESET STEP 0');
+
+        expect(await imageCompare('wizard-footer-template')).toEqual(0);
+
+        // Change step
+        await page.goToNext();
+
+        // Check that the step value has updated
+        expect(await page.resetButton.getText()).toBe('RESET STEP 1');
+    });
+
+
 });

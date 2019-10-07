@@ -100,12 +100,14 @@ describe('Marquee Wizard Tests', () => {
         expect(await steps[1].getAttribute('class')).toContain('visited');
         expect(await steps[1].getAttribute('class')).toContain('active');
 
-        // check the content of the wizard is corrent
+        // check the content of the wizard is correct
         let content: ElementFinder[] = await page.stepContents;
 
         // check that only the second step is showing its content
         page.stepContents.each(async (step, idx) =>
             expect(await step.$$('*').count()).toBe(idx === 1 ? 1 : 0));
+
+       expect(await imageCompare('marquee-wizard-next-page')).toEqual(0);
     });
 
     it('should navigate back to the first step if clicking on a visted step header', async () => {
@@ -127,6 +129,8 @@ describe('Marquee Wizard Tests', () => {
         // check that only the first step is showing its content
         page.stepContents.each(async (step, idx) =>
             expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0));
+
+        expect(await imageCompare('marquee-wizard-visited-header')).toEqual(0);
     });
 
     it('should be able to go to the final step', async () => {
@@ -149,6 +153,194 @@ describe('Marquee Wizard Tests', () => {
         // the next and cancel button should now be hidden
         expect(next).toBe(null);
         expect(cancel).toBe(null);
+
+        expect(await imageCompare('marquee-wizard-final-step')).toEqual(0);
     });
 
+    it('should allow a footerTemplate to be added', async () => {
+
+        // check that the reset button is not visible
+        expect(page.resetButton.isPresent()).toBeFalsy();
+
+        // enable footerTemplate
+        await page.footerTemplateButton.click();
+
+        // check that the reset button is visible
+        expect(await page.resetButton.isPresent()).toBeTruthy();
+        expect(await page.resetButton.getText()).toBe('RESET STEP 0');
+
+        expect(await imageCompare('marquee-wizard-footer-template')).toEqual(0);
+
+        // Change step
+        await page.goToNext();
+
+        // Check that the step value has updated
+        expect(await page.resetButton.getText()).toBe('RESET STEP 1');
+    });
+
+
+    /**
+     * Resizable Marquee Wizard Tests
+     */
+
+    it('Side panel can be resized using the mouse when [resizable]="true"', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // get initial values
+        let valuenow = await page.getGutterAriaValue();
+        let valuemin = await page.getGutterAriaValueMin();
+        let valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('25');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // move to start
+        await page.mouseMoveLeft();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('24');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // move to start
+        await page.mouseMoveRight();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('25');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        expect(await imageCompare('marquee-wizard-mouse')).toEqual(0);
+    });
+
+    it('Side panel can be resized using the keyboard when [resizable]="true"', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // get initial values
+        let valuenow = await page.getGutterAriaValue();
+        let valuemin = await page.getGutterAriaValueMin();
+        let valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('25');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // focus the gutter
+        await page.setGutterFocused();
+
+        // press the left key
+        await page.sendLeftKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('24');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // press the right key
+        await page.sendRightKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('25');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // press the home key
+        await page.sendHomeKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('0');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // press the end key
+        await page.sendEndKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('100');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // move to start
+        await page.sendHomeKey();
+
+        valuenow = await page.getGutterAriaValue();
+        expect(valuenow).toBe('0');
+
+        // press the left key
+        await page.sendLeftKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('0');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        // move to end
+        await page.sendEndKey();
+
+        valuenow = await page.getGutterAriaValue();
+        expect(valuenow).toBe('100');
+
+        // press the right key
+        await page.sendRightKey();
+
+        valuenow = await page.getGutterAriaValue();
+        valuemin = await page.getGutterAriaValueMin();
+        valuemax = await page.getGutterAriaValueMax();
+
+        expect(valuenow).toBe('100');
+        expect(valuemin).toBe('0');
+        expect(valuemax).toBe('100');
+
+        expect(await imageCompare('marquee-wizard-keyboard')).toEqual(0);
+
+    });
+
+    it('Side panel can be initialized with a provided width', async () => {
+        // enable resizable
+        await page.resizeableButton.click();
+
+        // check the input fields value
+        const inputValue = await page.getInputField();
+
+        expect(inputValue).toBe('25');
+
+        // updating the input value for the side panel width
+        await page.input.click();
+        await page.input.clear();
+        await page.input.click();
+        await page.input.sendKeys('35');
+
+        const inputValue2 = await page.getInputField();
+
+        expect(inputValue2).toBe('35');
+
+        // check emitted value from the output
+        expect(await page.emittedWidth.getText()).toBe('35.0');
+
+        expect(await imageCompare('marquee-wizard-width')).toEqual(0);
+    });
 });

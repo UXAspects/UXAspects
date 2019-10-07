@@ -35,6 +35,12 @@
 </div>
 
 <div class="wizard-footer">
+
+    <ng-container *ngIf="footerTemplate"
+                  [ngTemplateOutlet]="footerTemplate"
+                  [ngTemplateOutletContext]="{ step: step }">
+    </ng-container>
+
     <button #tip="ux-tooltip"
             type="button"
             class="btn button-secondary"
@@ -78,4 +84,5 @@
             (click)="cancel(); tip.hide()">
         {{ cancelText }}
     </button>
+
 </div>

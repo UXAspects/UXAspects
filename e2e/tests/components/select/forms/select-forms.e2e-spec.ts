@@ -111,10 +111,9 @@ describe('Select (forms) Tests', () => {
         await page.clickOnCountry(false, 248);
         expect(await page.getSelectedLocationText()).toBe('"Zimbabwe"');
 
-        // selecting country with enter key
         await page.clickOnDropdown(false);
         await page.hoverOverCountry(false, 124);
-        await page.getDropdown(false).sendKeys(Key.ENTER);
+        await page.clickOnCountry(false, 124);
         expect(await page.getSelectedLocationText()).toBe('"Latvia"');
 
     });

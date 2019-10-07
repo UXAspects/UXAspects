@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectModule, PopoverModule, AccessibilityModule, MenuModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, IconModule, MenuModule, PopoverModule, SelectModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -12,11 +13,9 @@ import { CssIconButtonsComponent } from './icon-buttons/icon-buttons.component';
 import { CssIconColorsComponent } from './icon-colors/icon-colors.component';
 import { CssIconSizeComponent } from './icon-size/icon-size.component';
 import { CssRotateFlipIconsComponent } from './rotate-flip-icons/rotate-flip-icons.component';
-import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
-import { IconModule, TabsetModule, TooltipModule } from '@ux-aspects/ux-aspects';
 import { IconPreviewComponent } from './ux-icons/icon-preview/icon-preview.component';
 import { IconSnippetComponent } from './ux-icons/icon-preview/icon-snippet/icon-snippet.component';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { CssUxIconsComponent } from './ux-icons/ux-icons.component';
 
 
 const SECTIONS = [

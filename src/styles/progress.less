@@ -73,45 +73,35 @@
     font-size: 0.4em;
 }
 
-/* ============================ */
-
-/* Copyright (c) 2016 by Arthur Camara (http://codepen.io/arthurcamara1/pen/LpNwyq) */
-
-/* Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-/* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-/* ============================ */
-
-/* ============================ */
-
-/* SPINNER BOUNCE MIDDLE        */
-
-/* ============================ */
-//Indicator used in custom dropdowns
-.spinner, .spinner:before, .spinner:after {
-    width: 2px;
-    height: 10px;
-    background-color: @indicator-accent;
-    border-radius: 2px;
-}
-
+//mini activate spinner
 .spinner {
-    display: inline-block;
-    position: relative;
+    &.spinner-bounce-middle,
+    &.spinner-bounce-bottom,
+    &.spinner-bounce-top,
+    &.spinner-blink {
+        position: relative;
+        display: inline-flex;
+        margin: 3.5px 6px;
+        width: 3px;
+        height: 3px;
+        animation: bounce-middle 2000ms ease-in 200ms infinite;
 
-    &:before, &:after {
-        content: "";
-        position: absolute;
-        display: block;
-        top: 0;
-    }
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+        }
 
-    &:before {
-        left: -4px;
-    }
+        &:before {
+            left: -6px;
+            animation: bounce-middle 2000ms ease-in 0ms infinite;
+        }
 
-    &:after {
-        left: 4px;
+        &:after {
+            right: -6px;
+            animation: bounce-middle 2000ms ease-in 400ms infinite;
+        }
     }
 }
 
@@ -124,174 +114,20 @@
 }
 
 @keyframes bounce-middle {
-    0% {
-        height: 2px;
-        margin-top: 4px;
-        margin-bottom: 4px;
+    0%, 70%, 100% {
+        transform: translateY(0);
     }
 
-    50% {
-        height: 10px;
-        margin-top: 0;
-        margin-bottom: 0;
+    5%, 10% {
+        transform: translateY(25%);
     }
 
-    100% {
-        height: 2px;
-        margin-top: 4px;
-        margin-bottom: 4px;
-    }
-}
-
-.spinner-bounce-middle {
-    animation: bounce-middle 0.6s ease 0.1s infinite;
-
-    &:before, &:after {
-        top: 50%;
-        transform: translateY(-5px) translateZ(0);
+    25%, 30% {
+        transform: translateY(-75%);
     }
 
-    &:before {
-        animation: bounce-middle 0.6s ease 0s infinite;
-    }
-
-    &:after {
-        animation: bounce-middle 0.6s ease 0.2s infinite;
-    }
-}
-
-/* ============================ */
-
-/* SPINNER BOUNCE BOTTOM        */
-
-/* ============================ */
-@keyframes bounce-bottom {
-    0% {
-        height: 2px;
-        margin-top: 4px;
-    }
-
-    50% {
-        height: 10px;
-        margin-top: 0;
-    }
-
-    100% {
-        height: 2px;
-        margin-top: 4px;
-    }
-}
-
-.spinner-bounce-bottom {
-    animation: bounce-bottom 0.6s ease 0.1s infinite;
-}
-
-.spinner-bounce-bottom:before,
-.spinner-bounce-bottom:after {
-    top: auto;
-    bottom: 0;
-}
-
-.spinner-bounce-bottom:before {
-    animation: bounce-bottom 0.6s ease 0s infinite;
-}
-
-.spinner-bounce-bottom:after {
-    animation: bounce-bottom 0.6s ease 0.2s infinite;
-}
-
-/* ============================ */
-
-/* SPINNER BOUNCE TOP        */
-
-/* ============================ */
-@keyframes bounce-top {
-    0% {
-        height: 2px;
-        margin-bottom: 4px;
-    }
-
-    50% {
-        height: 10px;
-        margin-bottom: 0;
-    }
-
-    100% {
-        height: 2px;
-        margin-bottom: 4px;
-    }
-}
-
-.spinner-bounce-top {
-    animation: bounce-top 0.6s ease 0.1s infinite;
-}
-
-.spinner-bounce-top:before {
-    animation: bounce-top 0.6s ease 0s infinite;
-}
-
-.spinner-bounce-top:after {
-    animation: bounce-top 0.6s ease 0.2s infinite;
-}
-
-/* ============================ */
-
-/* SPINNER BLINK                */
-
-/* ============================ */
-@keyframes glow-hpegreen {
-    0% {
-        background-color: transparent;
-    }
-
-    50% {
-        background-color: @primary;
-    }
-
-    100% {
-        background-color: transparent;
-    }
-}
-
-@keyframes glow-accent {
-    0% {
-        background-color: transparent;
-    }
-
-    50% {
-        background-color: @accent;
-    }
-
-    100% {
-        background-color: transparent;
-    }
-}
-
-.spinner-hpegreen, .spinner-primary {
-    &.spinner-blink {
-        animation: glow-hpegreen 0.6s 0.1s infinite;
-    }
-
-    &.spinner-blink:before {
-        animation: glow-hpegreen 0.6s 0s infinite;
-    }
-
-    &.spinner-blink:after {
-        animation: glow-hpegreen 0.6s 0.2s infinite;
-    }
-}
-
-.spinner-accent {
-    &.spinner-blink {
-        animation: glow-accent 0.6s 0.1s infinite;
-    }
-
-    &.spinner-blink:before {
-        animation: glow-accent 0.6s 0s infinite;
-    }
-
-    &.spinner-blink:after {
-        animation: glow-accent 0.6s 0.2s infinite;
+    50%, 55% {
+        transform: translateY(50%);
     }
 }
 

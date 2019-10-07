@@ -1,6 +1,6 @@
-import { Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { InfiniteScrollPage } from './infinite-scroll.po.spec';
+import { Key } from 'selenium-webdriver';
 
 describe('Infinite Scroll Tests', () => {
 
@@ -108,7 +108,7 @@ describe('Infinite Scroll Tests', () => {
         await page.clickOnLoadOnScroll();
         await page.clickOnPageSize();
         await page.getPageSize().clear();
-        await page.getPageSize().sendKeys('10'); // 110
+        await page.getPageSize().sendKeys('110'); // 110
         expect(await page.confirmLoadMoreIsVisible()).toBeTruthy();
         await page.loadMoreButton.click();
         expect(await page.getNumberOfEmployees()).toEqual(111);
@@ -143,13 +143,15 @@ describe('Infinite Scroll Tests', () => {
         expect(await page.getNumberOfEmployees()).toEqual(38);
 
         // change page size to 39
+        await page.clickOnLoadOnScroll();
         await page.clickOnPageSize();
-        await page.getPageSize().sendKeys(Key.DELETE);
-        await page.getPageSize().sendKeys('3'); // 39
+        await page.getPageSize().clear();
+        await page.getPageSize().sendKeys('39'); // 39
+
         expect(await page.getNumberOfEmployees()).toEqual(39);
-        await page.hoverOverLastEmployee();
+        await page.loadMoreButton.click();
         expect(await page.getNumberOfEmployees()).toEqual(78);
-        await page.hoverOverLastEmployee();
+        await page.loadMoreButton.click();
         expect(await page.getNumberOfEmployees()).toEqual(111);
 
     });
@@ -203,8 +205,9 @@ describe('Infinite Scroll Tests', () => {
 
         // set page size to 2
         await page.clickOnPageSize();
-        await page.getPageSize().sendKeys(Key.ARROW_RIGHT);
-        await page.getPageSize().sendKeys(Key.DELETE);
+        await page.getPageSize().clear();
+        await page.getPageSize().sendKeys('2');
+
 
         // check employee list
         expect(await page.getNumberOfEmployees()).toEqual(2);
