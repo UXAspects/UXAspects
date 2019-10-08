@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectModule } from './select.module';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-select-test',
     template: `
-        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton"></ux-select>
+        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton" [placeholder]="placeholder"></ux-select>
     `
 })
 export class SelectTestComponent {
@@ -21,6 +22,7 @@ export class SelectTestComponent {
     allowNull: boolean = false;
     clearButton: boolean = false;
     visible: boolean = true;
+    placeholder: string;
 }
 
 describe('Select Component', () => {
@@ -43,8 +45,15 @@ describe('Select Component', () => {
         fixture.detectChanges();
     });
 
-    it('should be initially blank if no placeholder is set', () => {
-        expect(component.input).toBe('');
+    it('should display placeholder as empty string if not set', () => {
+       let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
+       expect(placeholderTextInitial).toBe('');
+
+       component.placeholder = 'Placeholder Text';
+       fixture.detectChanges();
+
+       let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
+       expect(placeholderText).toBe('Placeholder Text');
     });
 
     it('should not call valueChange on initialization of single select', () => {
@@ -224,4 +233,147 @@ describe('Select Component', () => {
     function getClearButton(isMultiple: boolean = false): HTMLElement | null {
         return nativeElement.querySelector(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
     }
+});
+
+@Component({
+    selector: 'app-select-value-test',
+    template: `
+        <ux-select (valueChange)="onValueChange()" [(value)]="value" [options]="options"></ux-select>
+    `
+})
+
+export class SelectValueTestComponent {
+
+    onValueChange(): void { }
+
+    options: string[] = ['One', 'Two', 'Three'];
+    value: string =  this.options[0];
+}
+
+describe('Select Component - Value Input', () => {
+    let component: SelectValueTestComponent;
+    let fixture: ComponentFixture<SelectValueTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [SelectModule],
+            declarations: [SelectValueTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SelectValueTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should have an initial value set One', () => {
+        spyOn(component, 'onValueChange');
+
+        expect(component.value).toEqual('One');
+
+        expect(component.onValueChange).not.toHaveBeenCalled();
+    });
+});
+
+@Component({
+    selector: 'app-select-ng-model-test',
+    template: `
+        <ux-select (ngModelChange)="onValueChange()" [(ngModel)]="value" [options]="options"></ux-select>
+    `
+})
+
+export class SelectNgModelTestComponent {
+
+    onValueChange(): void { }
+
+    options: string[] = ['One', 'Two', 'Three'];
+    value: string =  this.options[0];
+}
+
+describe('Select Component - NgModel Input', () => {
+    let component: SelectNgModelTestComponent;
+    let fixture: ComponentFixture<SelectNgModelTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                SelectModule,
+                FormsModule
+            ],
+            declarations: [SelectNgModelTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SelectNgModelTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should have an initial value set One', () => {
+        spyOn(component, 'onValueChange');
+
+        expect(component.value).toEqual('One');
+
+        expect(component.onValueChange).not.toHaveBeenCalled();
+    });
+});
+
+@Component({
+    selector: 'app-select-reactive-form-test',
+    template: `
+        <form [formGroup]="form">
+            <ux-select formControlName="option" [options]="options"></ux-select>
+        </form>
+    `
+})
+
+export class SelectReactiveFormTestComponent {
+
+    onValueChange(): void { }
+
+    form = new FormGroup({
+        option: new FormControl('One')
+    });
+
+    options: string[] = ['One', 'Two', 'Three'];
+}
+
+describe('Select Component - Reactive Form Input', () => {
+    let component: SelectReactiveFormTestComponent;
+    let fixture: ComponentFixture<SelectReactiveFormTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                SelectModule,
+                ReactiveFormsModule
+            ],
+            declarations: [SelectReactiveFormTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SelectReactiveFormTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should have an initial value set One', () => {
+        spyOn(component, 'onValueChange');
+
+        expect(component.form.value.option).toEqual('One');
+
+        expect(component.onValueChange).not.toHaveBeenCalled();
+    });
 });

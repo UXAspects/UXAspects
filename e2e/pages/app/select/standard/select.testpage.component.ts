@@ -77,8 +77,6 @@ export class SelectTestPageComponent implements OnInit {
 
     ngOnInit() {
         this.options = this.selectedDataSet();
-
-        this.iconset = this.iconsets[0];
     }
 
     selectedDataSet(): any[] {
