@@ -265,4 +265,18 @@ describe('TagsPage Tests', () => {
         expect(await page.getNumberOfTagsInTypeaheadList()).toEqual(24);
 
     });
+
+    /**
+     * Fixing https://portal.digitalsafe.net/browse/EL-3662
+     * Console error was thrown when clicking on the tag input after
+     * max tags had been reached and enforceTagLimits was true
+     */
+    it('should not focus input when max tag limit is reached and enforceTagLimits is true', async () => {
+
+        // set enforce tag limits
+        await page.enforceTagLimits.click();
+        await page.changeMaxTags('3');
+        // ensure there are there 3 tags
+        await page.clickOnTagsInput(); // console error would have been thrown here before fix
+    });
 });

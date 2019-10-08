@@ -405,6 +405,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     @HostListener('click')
     onClick(): void {
 
+        // Prevent error if you click input when at max tag limit
+        if (this.tagInput === undefined) { return; }
+
         // focus the input element
         this.tagInput.nativeElement.focus();
 
