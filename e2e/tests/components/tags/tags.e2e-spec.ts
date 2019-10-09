@@ -277,6 +277,6 @@ describe('TagsPage Tests', () => {
         await page.enforceTagLimits.click();
         await page.changeMaxTags('3');
         // ensure there are there 3 tags
-        await page.clickOnTagsInput(); // console error would have been thrown here before fix
+        await page.tagsInput.click(); // console error would have been thrown here before fix
     });
 });
