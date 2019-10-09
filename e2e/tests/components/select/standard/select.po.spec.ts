@@ -138,7 +138,7 @@ export class SelectPage {
         return this.selectedLocation.$('code').getText();
     }
 
-
+    
     // click
     clickOnDropdown(allowMultiple: boolean) {
         return this.getDropdown(allowMultiple).click();

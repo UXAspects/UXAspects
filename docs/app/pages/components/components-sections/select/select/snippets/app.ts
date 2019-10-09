@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app',
@@ -45,20 +45,20 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor() {
 
         // Reset select when "multiple" checkbox changes.
-        this.multiple.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
+        this.multiple.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((value) => {
             this.selected = null;
             this.dropdownOpen = false;
         });
 
         // Reset and switch options between array and function when paging checkbox changes.
-        this.pagingEnabled.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
+        this.pagingEnabled.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((value) => {
             this.selected = null;
             this.dropdownOpen = false;
             this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
         });
 
         // Reset and reassign options when the dataset changes. Also set display and key properties.
-        this.dataSet.pipe(takeUntil(this._onDestroy)).subscribe((value) => {
+        this.dataSet.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((value) => {
 
             if (this.multiple.getValue() === true) {
                 this.pagingEnabled.next(false);
