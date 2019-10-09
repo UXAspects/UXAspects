@@ -248,6 +248,7 @@ export class TimePickerComponent implements ControlValueAccessor {
         }
 
         const currentHour = this.value.getHours();
+        
         // if the value hasn't changed, do nothing
         if (hour === currentHour) {
             return;
