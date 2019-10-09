@@ -235,12 +235,6 @@ export class TimePickerComponent implements ControlValueAccessor {
 
         // convert the string to a number
         let hour = parseInt(value);
-        const currentHour = this.value.getHours();
-
-        // if the value hasn't changed, do nothing
-        if (hour === currentHour) {
-            return;
-        }
 
         // ensure the hours is valid
         if (!isNaN(hour)) {
@@ -251,6 +245,12 @@ export class TimePickerComponent implements ControlValueAccessor {
             if (hour > (this.showMeridian ? 12 : 23)) {
                 hour = this.showMeridian ? 12 : 23;
             }
+        }
+
+        const currentHour = this.value.getHours();
+        // if the value hasn't changed, do nothing
+        if (hour === currentHour) {
+            return;
         }
 
         hour = isNaN(hour) ? currentHour : hour;
