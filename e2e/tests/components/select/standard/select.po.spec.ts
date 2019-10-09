@@ -6,9 +6,7 @@ export const scrollingTimeout: number = 5000;
 export class SelectPage {
 
     dropdown = element(by.id('dropdown'));
-    dropdownInitial = element(by.id('dropdownInitialValue'));
     selectedLocation = element(by.id('selectedLocation'));
-    selectedIconset = element(by.id('selectedIconset'));
     radioOptions = element(by.id('radio1'));
     radioDirection = element(by.id('radio2'));
     checkboxMulti = element(by.id('checkbox1'));
@@ -36,10 +34,6 @@ export class SelectPage {
 
     confirmDropdownIsExpanded() {
         return this.dropdown.$('ux-typeahead.open').isPresent();
-    }
-
-    confirmDropdownIsExpandedIcons() {
-        return this.dropdownInitial.$('ux-typeahead.open').isPresent();
     }
 
     // use Truthy for "strings" button and Falsy for "objects" button
@@ -91,11 +85,6 @@ export class SelectPage {
         }
     }
 
-    // get item in icon dropdown
-    getDropdownIcon() {
-        return this.dropdownInitial.$('input.form-control');
-    }
-
     getCountry(allowMultiple: boolean, index: number) {
         if (allowMultiple) {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
@@ -137,11 +126,6 @@ export class SelectPage {
         return this.getDropdown(allowMultiple).getAttribute('placeholder');
     }
 
-    // get text
-    getDropdownIconPlaceholderText(allowMultiple: boolean) {
-        return this.getDropdownIcon().getAttribute('placeholder');
-    }
-
     getCountryText(allowMultiple: boolean, index: number) {
         return this.getCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
     }
@@ -153,11 +137,6 @@ export class SelectPage {
     getSelectedLocationText() {
         return this.selectedLocation.$('code').getText();
     }
-
-    getSelectedIconText() {
-        return this.selectedIconset.$('code').getText();
-    }
-
 
     // click
     clickOnDropdown(allowMultiple: boolean) {
