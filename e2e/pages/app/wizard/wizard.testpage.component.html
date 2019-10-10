@@ -20,7 +20,12 @@
         <p>Step 5 Content</p>
     </ux-wizard-step>
 
+    <ng-template *ngIf="hasFooterTemplate" #footerTemplate let-step="step">
+        <button id="reset" type="button" class="btn button-secondary">Reset Step {{step}}</button>
+    </ng-template>
+
 </ux-wizard>
 
 <button id="addStep5" class="btn button-secondary" (click)="step5 = true">Add Step 5</button>
 <button id="removeStep5" class="btn button-secondary" (click)="step5 = false">Remove Step 5</button>
+<button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>

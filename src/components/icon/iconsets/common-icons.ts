@@ -169,6 +169,8 @@ export const commonIcons = [
     'halt',
     'help-circle',
     'help',
+    'highlighting-remove',
+    'highlighting',
     'history',
     'home-filled',
     'home',

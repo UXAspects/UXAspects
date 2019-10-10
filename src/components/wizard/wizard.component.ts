@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { AfterViewInit, Component, ContentChild, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { WizardStepComponent } from './wizard-step.component';
 
@@ -109,6 +109,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     @Output() stepError = new EventEmitter<number>();
 
     @ContentChildren(WizardStepComponent) steps = new QueryList<WizardStepComponent>();
+
+    @ContentChild('footerTemplate', { static: false }) footerTemplate: TemplateRef<WizardFooterContext>;
 
     id: string = `ux-wizard-${uniqueId++}`;
     invalidIndicator: boolean = false;
@@ -301,4 +303,8 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
 export class StepChangingEvent {
     constructor(public from: number, public to: number) { }
+}
+
+export interface WizardFooterContext {
+    step: number;
 }

@@ -213,7 +213,7 @@
 
     <tr uxd-api-property name="step" type="number">
         The current active step. When the step changes an event will be emitted containing the index of the newly active step. If
-        this is not specifed the wizard will start on the first step.
+        this is not specified the wizard will start on the first step.
     </tr>
     <tr uxd-api-property name="description" type="string | TemplateRef">
         Allows descriptive text or custom html content to be added to the side panel of the wizard.
@@ -312,6 +312,7 @@
         Width of the splitter in pixels. This is only accessible when resizable is enabled.
     </tr>
 </uxd-api-properties>
+
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="stepChanging" type="StepChangingEvent">
         Emits before the current step changes. The event contains the current step index in the
@@ -377,9 +378,19 @@
     </tr>
 </uxd-api-properties>
 
+<h4>Custom Templates</h4>
+
 <p>
     The <code>*uxMarqueeWizardStepIcon</code> structural directive can be used to define an icon for each step.
 </p>
+
+<p>
+    Custom content can be added to left of the standard wizard buttons in the footer. Add an <code>ng-template</code>
+    named <code>#footerTemplate</code> as a child of the <code>ux-marquee-wizard</code> element. The <code>step</code>
+    context variable can be used to access the current step number (zero-based).
+</p>
+
+<uxd-snippet [content]="snippets.compiled.footerTemplateHtml"></uxd-snippet>
 
 <p>
     The following code can be used create the example above:
