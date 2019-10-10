@@ -673,6 +673,14 @@
             "classname": "ux-icon-help"
         },
         {
+            "name": "highlighting-remove",
+            "classname": "ux-icon-highlighting-remove"
+        },
+        {
+            "name": "highlighting",
+            "classname": "ux-icon-highlighting"
+        },
+        {
             "name": "history",
             "classname": "ux-icon-history"
         },
