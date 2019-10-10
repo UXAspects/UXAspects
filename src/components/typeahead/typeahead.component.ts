@@ -286,7 +286,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Returns true if the given option is part of the disabledOptions array.
      */
     isDisabled(option: TypeaheadVisibleOption<T>): boolean {
-        if (this.disabledOptions) {
+
+        if (this.disabledOptions && Array.isArray(this.disabledOptions)) {
             const result = this.disabledOptions.find((selectedOption) => {
                 return this.getKey(selectedOption) === option.key;
             });

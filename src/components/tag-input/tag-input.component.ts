@@ -50,7 +50,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         return this._tags;
     }
     set tags(value: ReadonlyArray<T>) {
-        this._tags = value;
+        this._tags = Array.isArray(value) ? value : [];
     }
 
     /** The editable text appearing in the tag input. */
