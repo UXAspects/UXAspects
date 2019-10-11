@@ -89,10 +89,8 @@ export class InfiniteScrollController {
         // repeat until we have enough items
         this._ensureScrollableInterval = this.$interval.interval(() => {
 
-            let isElementHidden = this.$element.is(':hidden');
-
             // if we are currently loading or have loaded all pages then do nothing
-            if (this.loading || this.complete || document.hidden || isElementHidden) {
+            if (this.loading || this.complete || document.hidden || this.$element.is(':hidden')) {
                 return;
             }
 
