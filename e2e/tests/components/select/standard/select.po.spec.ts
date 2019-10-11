@@ -1,6 +1,6 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
-export const numberOfCountries: number = 250;
+export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
 
 export class SelectPage {
@@ -138,7 +138,7 @@ export class SelectPage {
         return this.selectedLocation.$('code').getText();
     }
 
-    
+
     // click
     clickOnDropdown(allowMultiple: boolean) {
         return this.getDropdown(allowMultiple).click();
@@ -220,7 +220,7 @@ export class SelectPage {
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {
         return this.getNumberOfCountries(allowMultiple).then(function (count) {
-            if (count > (numberOfCountries - pageSize)) { // makes sure number can't exceed 249
+            if (count > (numberOfCountries - pageSize)) { // makes sure number can't exceed 251
                 return numberOfCountries;
             } else {
                 return count + pageSize;
