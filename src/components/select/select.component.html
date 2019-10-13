@@ -19,8 +19,7 @@
     [clearButton]="clearButton"
     [clearButtonAriaLabel]="clearButtonAriaLabel"
 >
-    <ux-typeahead
-        #multipleTypeahead
+    <ux-typeahead #multipleTypeahead
         [id]="id + '-typeahead'"
         [options]="options"
         [filter]="filter$ | async"
@@ -35,24 +34,21 @@
         [selectFirst]="true"
         [loadingTemplate]="loadingTemplate"
         [optionTemplate]="optionTemplate"
-        [noOptionsTemplate]="noOptionsTemplate"
-    >
+        [noOptionsTemplate]="noOptionsTemplate">
     </ux-typeahead>
+
 </ux-tag-input>
 
-<div
-    *ngIf="!multiple"
+<div *ngIf="!multiple"
     class="ux-select-container"
     [class.disabled]="disabled"
     role="combobox"
     [attr.aria-expanded]="dropdownOpen"
-    aria-haspopup="listbox"
->
+    aria-haspopup="listbox">
+
     <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
 
-    <input
-        #singleInput
-        type="text"
+    <input #singleInput type="text"
         [attr.id]="id + '-input'"
         class="form-control"
         [class.ux-tag-input-clear-inset]="clearButton && allowNull && _hasValue"
@@ -69,32 +65,26 @@
         (focus)="onFocus()"
         (blur)="inputBlurHandler()"
         (keydown)="inputKeyHandler($event)"
-        [readonly]="readonlyInput"
-    />
+        [readonly]="readonlyInput">
 
     <div class="ux-select-icons">
-        <i
-            *ngIf="clearButton && allowNull && _hasValue"
-            uxFocusIndicator
-            [attr.tabindex]="disabled ? -1 : 0"
-            [attr.aria-label]="clearButtonAriaLabel"
-            class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
-            (click)="clear(); $event.stopPropagation()"
-            (keydown.enter)="clear(); $event.stopPropagation()"
-        >
+        <i *ngIf="clearButton && allowNull && _hasValue"
+           uxFocusIndicator
+           [attr.tabindex]="disabled ? -1 : 0"
+           [attr.aria-label]="clearButtonAriaLabel"
+           class="ux-select-icon ux-icon ux-icon-close ux-select-clear-icon"
+           (click)="clear(); $event.stopPropagation()"
+           (keydown.enter)="clear(); $event.stopPropagation()">
         </i>
-        <i
-            *ngIf="!icon"
-            class="ux-select-icon ux-icon ux-select-chevron-icon"
-            [class.ux-icon-up]="dropDirection === 'up'"
-            [class.ux-icon-down]="dropDirection === 'down'"
-            (click)="toggle(); $event.stopPropagation()"
-        >
+        <i *ngIf="!icon"
+           class="ux-select-icon ux-icon ux-select-chevron-icon"
+           [class.ux-icon-up]="dropDirection === 'up'"
+           [class.ux-icon-down]="dropDirection === 'down'"
+           (click)="toggle(); $event.stopPropagation()">
         </i>
     </div>
 
-    <ux-typeahead
-        #singleTypeahead
+    <ux-typeahead #singleTypeahead
         [id]="id + '-typeahead'"
         [active]="_value$ | async"
         [options]="options"
@@ -112,7 +102,7 @@
         [optionTemplate]="optionTemplate"
         [noOptionsTemplate]="noOptionsTemplate"
         (optionSelected)="singleOptionSelected($event)"
-        (highlightedElementChange)="highlightedElement = $event"
-    >
+        (highlightedElementChange)="highlightedElement = $event">
     </ux-typeahead>
+
 </div>

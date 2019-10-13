@@ -1,43 +1,13 @@
-import { ENTER, ESCAPE } from "@angular/cdk/keycodes";
-import { Platform } from "@angular/cdk/platform";
-import { DOCUMENT } from "@angular/common";
-import {
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    Inject,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    StaticProvider,
-    TemplateRef,
-    ViewChild
-} from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { BehaviorSubject, Observable, ReplaySubject, Subject } from "rxjs";
-import {
-    debounceTime,
-    delay,
-    distinctUntilChanged,
-    filter,
-    map,
-    take,
-    takeUntil,
-    skip
-} from "rxjs/operators";
-import { InfiniteScrollLoadFunction } from "../../directives/infinite-scroll/index";
-import { TagInputComponent } from "../tag-input/index";
-import {
-    TypeaheadComponent,
-    TypeaheadKeyService,
-    TypeaheadOptionEvent
-} from "../typeahead/index";
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { Platform } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
+import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil, skip } from 'rxjs/operators';
+import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { TagInputComponent } from '../tag-input/index';
+import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
 let uniqueId = 0;
 
@@ -48,18 +18,18 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
 };
 
 @Component({
-    selector: "ux-select, ux-combobox, ux-dropdown",
-    templateUrl: "select.component.html",
+    selector: 'ux-select, ux-combobox, ux-dropdown',
+    templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR],
     host: {
-        "[class.ux-select-custom-icon]": "!!icon",
-        "[class.ux-select-disabled]": "disabled"
+        '[class.ux-select-custom-icon]': '!!icon',
+        '[class.ux-select-disabled]': 'disabled'
     }
 })
-export class SelectComponent<T>
-    implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+
     /** A unique id for the component. */
-    @Input() @HostBinding("attr.id") id: string = `ux-select-${++uniqueId}`;
+    @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
 
     /** The selected option (for single select) or array of options (for multiple select). */
     @Input()
@@ -131,10 +101,10 @@ export class SelectComponent<T>
     @Input() disabled: boolean = false;
 
     /** The positioning of the typeahead dropdown in relation to its parent. */
-    @Input() dropDirection: "up" | "down" = "down";
+    @Input() dropDirection: 'up' | 'down' = 'down';
 
     /** The maximum height of the typeahead dropdown, as a CSS value. */
-    @Input() maxHeight: string = "250px";
+    @Input() maxHeight: string = '250px';
 
     /**
      * Controls whether the user can select more than one option in the select control. If set to true, selected
@@ -150,7 +120,7 @@ export class SelectComponent<T>
     @Input() pageSize: number = 20;
 
     /** The placeholder text which appears in the text input area when it is empty. */
-    @Input() placeholder: string = "";
+    @Input() placeholder: string = '';
 
     /**
      * A template which will be rendered as the content of each tag. The following context properties are available in the template:
@@ -164,7 +134,7 @@ export class SelectComponent<T>
      * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
      * displaying autocomplete suggestions.
      */
-    @Input() autocomplete: string = "off";
+    @Input() autocomplete: string = 'off';
 
     /** A template which will be rendered in the dropdown while options are being loaded. */
     @Input() loadingTemplate: TemplateRef<any>;
@@ -179,7 +149,7 @@ export class SelectComponent<T>
     @Input() clearButton: boolean = false;
 
     /** Determine an aria label for the clear button */
-    @Input() clearButtonAriaLabel: string = "Reset selection";
+    @Input() clearButtonAriaLabel: string = 'Reset selection';
 
     /**
      * A template which will be rendered in the dropdown for each option.
@@ -199,25 +169,24 @@ export class SelectComponent<T>
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     /** Allow a custom icon to be used instead of the chevron */
-    @ContentChild("icon", { static: false }) icon: TemplateRef<any>;
+    @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
 
-    @ViewChild("singleInput", { static: false }) singleInput: ElementRef;
-    @ViewChild("tagInput", { static: false }) tagInput: TagInputComponent;
-    @ViewChild("multipleTypeahead", { static: false })
-    multipleTypeahead: TypeaheadComponent;
-    @ViewChild("singleTypeahead", { static: false })
-    singleTypeahead: TypeaheadComponent;
+    @ViewChild('singleInput', { static: false }) singleInput: ElementRef;
+    @ViewChild('tagInput', { static: false }) tagInput: TagInputComponent;
+    @ViewChild('multipleTypeahead', { static: false }) multipleTypeahead: TypeaheadComponent;
+    @ViewChild('singleTypeahead', { static: false }) singleTypeahead: TypeaheadComponent;
 
     highlightedElement: HTMLElement;
     filter$: Observable<string>;
-    propagateChange = (_: any) => {};
+    propagateChange = (_: any) => { };
 
     _value$ = new ReplaySubject<T | ReadonlyArray<T>>(1);
     _hasValue = false;
 
+
     /** We need to store the most recent value*/
     private _value: T | ReadonlyArray<T>;
-    private _input$ = new BehaviorSubject<string>("");
+    private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
     private _onDestroy = new Subject<void>();
@@ -226,93 +195,61 @@ export class SelectComponent<T>
         private _element: ElementRef,
         private _platform: Platform,
         @Inject(DOCUMENT) private _document: any,
-        private _typeaheadKeyService: TypeaheadKeyService
-    ) {}
+        private _typeaheadKeyService: TypeaheadKeyService) { }
 
     ngOnInit(): void {
-        this._value$
-            .pipe(
-                skip(1),
-                distinctUntilChanged(),
-                takeUntil(this._onDestroy)
-            )
+
+        this._value$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
             .subscribe(value => this.valueChange.emit(value));
 
         // Emit change events
-        this._value$
-            .pipe(
-                takeUntil(this._onDestroy),
-                distinctUntilChanged()
-            )
-            .subscribe(value => {
-                this._value = value;
-                this.propagateChange(value);
-                this._hasValue = !!value;
-            });
+        this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+            this._value = value;
+            this.propagateChange(value);
+            this._hasValue = !!value;
+        });
 
-        this._input$
-            .pipe(
-                takeUntil(this._onDestroy),
-                distinctUntilChanged()
-            )
-            .subscribe(value => {
-                this.inputChange.emit(value);
-            });
+        this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+            this.inputChange.emit(value);
+        });
 
         // Changes to the input field
-        this._input$
-            .pipe(
-                filter(() => this.allowNull),
-                filter(
-                    value =>
-                        !this.multiple && value !== this.getDisplay(this.value)
-                ),
-                takeUntil(this._onDestroy)
-            )
-            .subscribe(() => (this.value = null));
+        this._input$.pipe(
+            filter(() => this.allowNull),
+            filter(value => !this.multiple && value !== this.getDisplay(this.value)),
+            takeUntil(this._onDestroy)
+        ).subscribe(() => this.value = null);
 
         // Set up filter from input
         this.filter$ = this._input$.pipe(
-            map(input =>
-                !this.multiple && input === this.getDisplay(this.value)
-                    ? ""
-                    : input
-            ),
+            map(input => !this.multiple && input === this.getDisplay(this.value) ? '' : input),
             debounceTime(200)
         );
 
         // open the dropdown once the filter debounce has elapsed
-        this.filter$
-            .pipe(
-                filter(() => this._userInput),
-                take(1),
-                takeUntil(this._onDestroy)
-            )
+        this.filter$.pipe(
+            filter(() => this._userInput),
+            take(1),
+            takeUntil(this._onDestroy))
             .subscribe(() => {
                 this.dropdownOpen = true;
                 this._userInput = false;
             });
 
         // Update the single-select input when the model changes
-        this._value$
-            .pipe(
-                distinctUntilChanged(),
-                delay(0),
-                filter(value => value !== null && !this.multiple),
-                takeUntil(this._onDestroy)
-            )
-            .subscribe(value => {
-                this.input = this.getDisplay(value);
-            });
+        this._value$.pipe(
+            distinctUntilChanged(),
+            delay(0),
+            filter(value => value !== null && !this.multiple),
+            takeUntil(this._onDestroy)
+        ).subscribe(value => {
+            this.input = this.getDisplay(value);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (
-            changes.multiple &&
-            !changes.multiple.firstChange &&
-            changes.multiple.currentValue !== changes.multiple.previousValue
-        ) {
-            this.input = "";
+        if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
+            this.input = '';
         }
     }
 
@@ -331,7 +268,7 @@ export class SelectComponent<T>
         this.propagateChange = fn;
     }
 
-    registerOnTouched(fn: T): void {}
+    registerOnTouched(fn: T): void { }
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
@@ -343,6 +280,7 @@ export class SelectComponent<T>
     }
 
     inputBlurHandler(): void {
+
         // If a click on the typeahead is in progress, just refocus the input.
         // This works around an issue in IE where clicking a scrollbar drops focus.
         if (this.singleTypeahead && this.singleTypeahead.clicking) {
@@ -352,11 +290,7 @@ export class SelectComponent<T>
 
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
-            if (
-                !this._element.nativeElement.contains(
-                    this._document.activeElement
-                )
-            ) {
+            if (!this._element.nativeElement.contains(this._document.activeElement)) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
@@ -369,6 +303,7 @@ export class SelectComponent<T>
      * Key handler for single select only. Multiple select key handling is in TagInputComponent.
      */
     inputKeyHandler(event: KeyboardEvent): void {
+
         // Standard keys for typeahead (up/down/esc)
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
 
@@ -404,15 +339,12 @@ export class SelectComponent<T>
      */
     getDisplay(option: any): string {
         if (option === null || option === undefined) {
-            return "";
+            return '';
         }
-        if (typeof this.display === "function") {
+        if (typeof this.display === 'function') {
             return this.display(option);
         }
-        if (
-            typeof this.display === "string" &&
-            option.hasOwnProperty(this.display)
-        ) {
+        if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
         return option as any;
@@ -420,6 +352,7 @@ export class SelectComponent<T>
 
     /** Toggle the dropdown open state */
     toggle(): void {
+
         // if the select is disabled then do not show the dropdown
         if (this.disabled) {
             return;
@@ -440,9 +373,7 @@ export class SelectComponent<T>
             const element = this.singleInput.nativeElement as HTMLInputElement;
 
             // firefox requires a delay before clearing the selection (other browsers don't)
-            this._platform.FIREFOX
-                ? requestAnimationFrame(() => element.setSelectionRange(0, 0))
-                : element.setSelectionRange(0, 0);
+            this._platform.FIREFOX ? requestAnimationFrame(() => element.setSelectionRange(0, 0)) : element.setSelectionRange(0, 0);
         }
     }
 
