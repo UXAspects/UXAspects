@@ -7,6 +7,7 @@ jshint.log
 .awcache/
 docs/app/assets/licenses.txt
 src/fonts/*-icons.woff
+src/fonts/*-icons.ttf
 src/styles/hpe-icons.less
 dist/
 .tscache/
