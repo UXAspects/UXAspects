@@ -530,4 +530,12 @@ describe('Select Tests', () => {
         expect(await clearButton.isPresent()).toBeFalsy();
     });
 
+    it('should handle word wrapping on the tag when multiple select is enabled', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+        await page.clickOnCountry(true, 250);
+        expect(await page.getSelectedLocationText()).toBe('[ "Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons" ]');
+        expect(await imageCompare('select-tag-overflow')).toEqual(0);
+    });
+
 });
