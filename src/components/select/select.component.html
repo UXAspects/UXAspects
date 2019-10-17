@@ -44,8 +44,6 @@
     [attr.aria-expanded]="dropdownOpen"
     aria-haspopup="listbox">
 
-    <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
-
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
         class="form-control"
@@ -80,6 +78,9 @@
            [class.ux-icon-down]="dropDirection === 'down'"
            (click)="toggle(); $event.stopPropagation()">
         </i>
+
+        <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
+        
     </div>
 
     <ux-typeahead #singleTypeahead
