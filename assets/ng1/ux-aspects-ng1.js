@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.6-2 
+* @ux-aspects/ux-aspects-docs - v1.8.7-6 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -27940,7 +27940,7 @@ function () {
 
       this._ensureScrollableInterval = this.$interval.interval(function () {
         // if we are currently loading or have loaded all pages then do nothing
-        if (_this2.loading || _this2.complete || document.hidden) {
+        if (_this2.loading || _this2.complete || document.hidden || _this2.$element.is(':hidden')) {
           return;
         } // check if scrollbar is visible
 

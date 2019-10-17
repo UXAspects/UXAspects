@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.6-2 
+* @ux-aspects/ux-aspects-docs - v1.8.7-6 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -353,7 +353,7 @@ body > div#ux-plunker-container {
 }
 @font-face {
   font-family: "hpe-icons";
-  src: url("../fonts/hpe-icons.woff") format("woff");
+  src: url("../fonts/hpe-icons.woff") format("woff"), url("../fonts/hpe-icons.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -867,691 +867,697 @@ body > div#ux-plunker-container {
 .hpe-help:before {
   content: "\f1a5";
 }
-.hpe-history:before {
+.hpe-highlighting-remove:before {
   content: "\f1a6";
 }
-.hpe-home-filled:before {
+.hpe-highlighting:before {
   content: "\f1a7";
 }
-.hpe-home:before {
+.hpe-history:before {
   content: "\f1a8";
 }
-.hpe-host-maintenance:before {
+.hpe-home-filled:before {
   content: "\f1a9";
 }
-.hpe-host:before {
+.hpe-home:before {
   content: "\f1aa";
 }
-.hpe-image-filled:before {
+.hpe-host-maintenance:before {
   content: "\f1ab";
 }
-.hpe-image:before {
+.hpe-host:before {
   content: "\f1ac";
 }
-.hpe-impact:before {
+.hpe-image-filled:before {
   content: "\f1ad";
 }
-.hpe-in-progress:before {
+.hpe-image:before {
   content: "\f1ae";
 }
-.hpe-inactive:before {
+.hpe-impact:before {
   content: "\f1af";
 }
-.hpe-inbox:before {
+.hpe-in-progress:before {
   content: "\f1b0";
 }
-.hpe-indicator-filled:before {
+.hpe-inactive:before {
   content: "\f1b1";
 }
-.hpe-indicator:before {
+.hpe-inbox:before {
   content: "\f1b2";
 }
-.hpe-information-filled:before {
+.hpe-indicator-filled:before {
   content: "\f1b3";
 }
-.hpe-information:before {
+.hpe-indicator:before {
   content: "\f1b4";
 }
-.hpe-inherit-filled:before {
+.hpe-information-filled:before {
   content: "\f1b5";
 }
-.hpe-inherit:before {
+.hpe-information:before {
   content: "\f1b6";
 }
-.hpe-input-to-process:before {
+.hpe-inherit-filled:before {
   content: "\f1b7";
 }
-.hpe-install:before {
+.hpe-inherit:before {
   content: "\f1b8";
 }
-.hpe-integration:before {
+.hpe-input-to-process:before {
   content: "\f1b9";
 }
-.hpe-iteration-filled:before {
+.hpe-install:before {
   content: "\f1ba";
 }
-.hpe-iteration:before {
+.hpe-integration:before {
   content: "\f1bb";
 }
-.hpe-java-filled:before {
+.hpe-iteration-filled:before {
   content: "\f1bc";
 }
-.hpe-java:before {
+.hpe-iteration:before {
   content: "\f1bd";
 }
-.hpe-language:before {
+.hpe-java-filled:before {
   content: "\f1be";
 }
-.hpe-launch:before {
+.hpe-java:before {
   content: "\f1bf";
 }
-.hpe-license-filled:before {
+.hpe-language:before {
   content: "\f1c0";
 }
-.hpe-license:before {
+.hpe-launch:before {
   content: "\f1c1";
 }
-.hpe-like-filled:before {
+.hpe-license-filled:before {
   content: "\f1c2";
 }
-.hpe-like:before {
+.hpe-license:before {
   content: "\f1c3";
 }
-.hpe-line-chart:before {
+.hpe-like-filled:before {
   content: "\f1c4";
 }
-.hpe-link-bottom:before {
+.hpe-like:before {
   content: "\f1c5";
 }
-.hpe-link-down:before {
+.hpe-line-chart:before {
   content: "\f1c6";
 }
-.hpe-link-next:before {
+.hpe-link-bottom:before {
   content: "\f1c7";
 }
-.hpe-link-previous:before {
+.hpe-link-down:before {
   content: "\f1c8";
 }
-.hpe-link-top:before {
+.hpe-link-next:before {
   content: "\f1c9";
 }
-.hpe-link-up:before {
+.hpe-link-previous:before {
   content: "\f1ca";
 }
-.hpe-link:before {
+.hpe-link-top:before {
   content: "\f1cb";
 }
-.hpe-list:before {
+.hpe-link-up:before {
   content: "\f1cc";
 }
-.hpe-location-filled:before {
+.hpe-link:before {
   content: "\f1cd";
 }
-.hpe-location-pin-filled:before {
+.hpe-list:before {
   content: "\f1ce";
 }
-.hpe-location-pin:before {
+.hpe-location-filled:before {
   content: "\f1cf";
 }
-.hpe-location:before {
+.hpe-location-pin-filled:before {
   content: "\f1d0";
 }
-.hpe-lock:before {
+.hpe-location-pin:before {
   content: "\f1d1";
 }
-.hpe-login:before {
+.hpe-location:before {
   content: "\f1d2";
 }
-.hpe-logout:before {
+.hpe-lock:before {
   content: "\f1d3";
 }
-.hpe-mail-attachment:before {
+.hpe-login:before {
   content: "\f1d4";
 }
-.hpe-mail:before {
+.hpe-logout:before {
   content: "\f1d5";
 }
-.hpe-manual:before {
+.hpe-mail-attachment:before {
   content: "\f1d6";
 }
-.hpe-map-location:before {
+.hpe-mail:before {
   content: "\f1d7";
 }
-.hpe-map:before {
+.hpe-manual:before {
   content: "\f1d8";
 }
-.hpe-menu:before {
+.hpe-map-location:before {
   content: "\f1d9";
 }
-.hpe-microphone-filled:before {
+.hpe-map:before {
   content: "\f1da";
 }
-.hpe-microphone:before {
+.hpe-menu:before {
   content: "\f1db";
 }
-.hpe-monitor:before {
+.hpe-microphone-filled:before {
   content: "\f1dc";
 }
-.hpe-more:before {
+.hpe-microphone:before {
   content: "\f1dd";
 }
-.hpe-multiple:before {
+.hpe-monitor:before {
   content: "\f1de";
 }
-.hpe-navigate:before {
+.hpe-more:before {
   content: "\f1df";
 }
-.hpe-new-window:before {
+.hpe-multiple:before {
   content: "\f1e0";
 }
-.hpe-new:before {
+.hpe-navigate:before {
   content: "\f1e1";
 }
-.hpe-news-aggregation:before {
+.hpe-new-window:before {
   content: "\f1e2";
 }
-.hpe-news-collection:before {
+.hpe-new:before {
   content: "\f1e3";
 }
-.hpe-news-content:before {
+.hpe-news-aggregation:before {
   content: "\f1e4";
 }
-.hpe-news:before {
+.hpe-news-collection:before {
   content: "\f1e5";
+}
+.hpe-news-content:before {
+  content: "\f1e6";
+}
+.hpe-news:before {
+  content: "\f1e7";
 }
 .hpe-next:before,
 .breadcrumb > li:after {
-  content: "\f1e6";
-}
-.hpe-notes:before {
-  content: "\f1e7";
-}
-.hpe-notification-filled:before {
   content: "\f1e8";
 }
-.hpe-notification:before {
+.hpe-notes:before {
   content: "\f1e9";
 }
-.hpe-optimization:before {
+.hpe-notification-filled:before {
   content: "\f1ea";
 }
-.hpe-organization:before {
+.hpe-notification:before {
   content: "\f1eb";
 }
-.hpe-overview:before {
+.hpe-optimization:before {
   content: "\f1ec";
 }
-.hpe-pan:before {
+.hpe-organization:before {
   content: "\f1ed";
 }
-.hpe-pause-filled:before {
+.hpe-overview:before {
   content: "\f1ee";
 }
-.hpe-pause:before {
+.hpe-pan:before {
   content: "\f1ef";
 }
-.hpe-payment-google-wallet:before {
+.hpe-pause-filled:before {
   content: "\f1f0";
 }
-.hpe-payment-mastercard:before {
+.hpe-pause:before {
   content: "\f1f1";
 }
-.hpe-payment-paypal:before {
+.hpe-payment-google-wallet:before {
   content: "\f1f2";
 }
-.hpe-payment-square:before {
+.hpe-payment-mastercard:before {
   content: "\f1f3";
 }
-.hpe-payment-visa:before {
+.hpe-payment-paypal:before {
   content: "\f1f4";
 }
-.hpe-pin-filled:before {
+.hpe-payment-square:before {
   content: "\f1f5";
 }
-.hpe-pin:before {
+.hpe-payment-visa:before {
   content: "\f1f6";
 }
-.hpe-plan:before {
+.hpe-pin-filled:before {
   content: "\f1f7";
 }
-.hpe-platform-apple:before {
+.hpe-pin:before {
   content: "\f1f8";
 }
-.hpe-platform-chrome:before {
+.hpe-plan:before {
   content: "\f1f9";
 }
-.hpe-platform-dropbox:before {
+.hpe-platform-apple:before {
   content: "\f1fa";
 }
-.hpe-platform-edge:before {
+.hpe-platform-chrome:before {
   content: "\f1fb";
 }
-.hpe-platform-firefox:before {
+.hpe-platform-dropbox:before {
   content: "\f1fc";
 }
-.hpe-platform-internet-explorer:before {
+.hpe-platform-edge:before {
   content: "\f1fd";
 }
-.hpe-platform-skype:before {
+.hpe-platform-firefox:before {
   content: "\f1fe";
 }
-.hpe-platform-windows:before {
+.hpe-platform-internet-explorer:before {
   content: "\f1ff";
 }
-.hpe-play-filled:before {
+.hpe-platform-skype:before {
   content: "\f200";
 }
-.hpe-play:before {
+.hpe-platform-windows:before {
   content: "\f201";
 }
-.hpe-power:before {
+.hpe-play-filled:before {
   content: "\f202";
 }
-.hpe-previous:before {
+.hpe-play:before {
   content: "\f203";
 }
-.hpe-print:before {
+.hpe-power:before {
   content: "\f204";
 }
-.hpe-quick-view:before {
+.hpe-previous:before {
   content: "\f205";
 }
-.hpe-radial-selected:before {
+.hpe-print:before {
   content: "\f206";
 }
-.hpe-radial:before {
+.hpe-quick-view:before {
   content: "\f207";
 }
-.hpe-refresh:before {
+.hpe-radial-selected:before {
   content: "\f208";
 }
-.hpe-resources:before {
+.hpe-radial:before {
   content: "\f209";
 }
-.hpe-rewind-filled:before {
+.hpe-refresh:before {
   content: "\f20a";
 }
-.hpe-rewind:before {
+.hpe-resources:before {
   content: "\f20b";
 }
-.hpe-risk:before {
+.hpe-rewind-filled:before {
   content: "\f20c";
 }
-.hpe-rss:before {
+.hpe-rewind:before {
   content: "\f20d";
 }
-.hpe-satellite:before {
+.hpe-risk:before {
   content: "\f20e";
 }
-.hpe-save-filled:before {
+.hpe-rss:before {
   content: "\f20f";
 }
-.hpe-save:before {
+.hpe-satellite:before {
   content: "\f210";
 }
-.hpe-schedule-clone:before {
+.hpe-save-filled:before {
   content: "\f211";
 }
-.hpe-schedule-new:before {
+.hpe-save:before {
   content: "\f212";
 }
-.hpe-schedule-play:before {
+.hpe-schedule-clone:before {
   content: "\f213";
 }
-.hpe-schedule:before {
+.hpe-schedule-new:before {
   content: "\f214";
 }
-.hpe-scorecard:before {
+.hpe-schedule-play:before {
   content: "\f215";
 }
-.hpe-search:before {
+.hpe-schedule:before {
   content: "\f216";
 }
-.hpe-secure:before {
+.hpe-scorecard:before {
   content: "\f217";
 }
-.hpe-select-left:before {
+.hpe-search:before {
   content: "\f218";
 }
-.hpe-select:before {
+.hpe-secure:before {
   content: "\f219";
 }
-.hpe-server-cluster:before {
+.hpe-select-left:before {
   content: "\f21a";
 }
-.hpe-server:before {
+.hpe-select:before {
   content: "\f21b";
 }
-.hpe-servers:before {
+.hpe-server-cluster:before {
   content: "\f21c";
 }
-.hpe-service-business:before {
+.hpe-server:before {
   content: "\f21d";
 }
-.hpe-service-start:before {
+.hpe-servers:before {
   content: "\f21e";
 }
-.hpe-share:before {
+.hpe-service-business:before {
   content: "\f21f";
 }
-.hpe-shield-configure:before {
+.hpe-service-start:before {
   content: "\f220";
 }
-.hpe-shield-filled:before {
+.hpe-share:before {
   content: "\f221";
 }
-.hpe-shield:before {
+.hpe-shield-configure:before {
   content: "\f222";
 }
-.hpe-shift:before {
+.hpe-shield-filled:before {
   content: "\f223";
 }
-.hpe-shop-basket:before {
+.hpe-shield:before {
   content: "\f224";
 }
-.hpe-shop-cart:before {
+.hpe-shift:before {
   content: "\f225";
 }
-.hpe-soa:before {
+.hpe-shop-basket:before {
   content: "\f226";
 }
-.hpe-social-email:before {
+.hpe-shop-cart:before {
   content: "\f227";
 }
-.hpe-social-facebook:before {
+.hpe-soa:before {
   content: "\f228";
 }
-.hpe-social-github:before {
+.hpe-social-email:before {
   content: "\f229";
 }
-.hpe-social-google:before {
+.hpe-social-facebook:before {
   content: "\f22a";
 }
-.hpe-social-instagram:before {
+.hpe-social-github:before {
   content: "\f22b";
 }
-.hpe-social-linkedin:before {
+.hpe-social-google:before {
   content: "\f22c";
 }
-.hpe-social-medium:before {
+.hpe-social-instagram:before {
   content: "\f22d";
 }
-.hpe-social-pinterest:before {
+.hpe-social-linkedin:before {
   content: "\f22e";
 }
-.hpe-social-reddit:before {
+.hpe-social-medium:before {
   content: "\f22f";
 }
-.hpe-social-slack:before {
+.hpe-social-pinterest:before {
   content: "\f230";
 }
-.hpe-social-tumblr:before {
+.hpe-social-reddit:before {
   content: "\f231";
 }
-.hpe-social-twitter:before {
+.hpe-social-slack:before {
   content: "\f232";
 }
-.hpe-social-vimeo:before {
+.hpe-social-tumblr:before {
   content: "\f233";
 }
-.hpe-social-youtube:before {
+.hpe-social-twitter:before {
   content: "\f234";
 }
-.hpe-sort:before {
+.hpe-social-vimeo:before {
   content: "\f235";
 }
-.hpe-stakeholder:before {
+.hpe-social-youtube:before {
   content: "\f236";
 }
-.hpe-star-filled:before {
+.hpe-sort:before {
   content: "\f237";
 }
-.hpe-star-half:before {
+.hpe-stakeholder:before {
   content: "\f238";
 }
-.hpe-star:before {
+.hpe-star-filled:before {
   content: "\f239";
 }
-.hpe-status-approved-filled:before {
+.hpe-star-half:before {
   content: "\f23a";
 }
-.hpe-status-error-filled:before {
+.hpe-star:before {
   content: "\f23b";
 }
-.hpe-status-information-filled:before {
+.hpe-status-approved-filled:before {
   content: "\f23c";
 }
-.hpe-status-warning-filled:before {
+.hpe-status-error-filled:before {
   content: "\f23d";
 }
-.hpe-steps-filled:before {
+.hpe-status-information-filled:before {
   content: "\f23e";
 }
-.hpe-steps:before {
+.hpe-status-warning-filled:before {
   content: "\f23f";
 }
-.hpe-storage:before {
+.hpe-steps-filled:before {
   content: "\f240";
 }
-.hpe-street-view-filled:before {
+.hpe-steps:before {
   content: "\f241";
 }
-.hpe-street-view:before {
+.hpe-storage:before {
   content: "\f242";
 }
-.hpe-subtitles:before {
+.hpe-street-view-filled:before {
   content: "\f243";
 }
-.hpe-subtract:before {
+.hpe-street-view:before {
   content: "\f244";
 }
-.hpe-support:before {
+.hpe-subtitles:before {
   content: "\f245";
 }
-.hpe-sync:before {
+.hpe-subtract:before {
   content: "\f246";
 }
-.hpe-system:before {
+.hpe-support:before {
   content: "\f247";
 }
-.hpe-tab-next:before {
+.hpe-sync:before {
   content: "\f248";
 }
-.hpe-tab-previous:before {
+.hpe-system:before {
   content: "\f249";
 }
-.hpe-tab-up:before {
+.hpe-tab-next:before {
   content: "\f24a";
 }
-.hpe-table-add:before {
+.hpe-tab-previous:before {
   content: "\f24b";
 }
-.hpe-table:before {
+.hpe-tab-up:before {
   content: "\f24c";
 }
-.hpe-tag-filled:before {
+.hpe-table-add:before {
   content: "\f24d";
 }
-.hpe-tag:before {
+.hpe-table:before {
   content: "\f24e";
 }
-.hpe-target:before {
+.hpe-tag-filled:before {
   content: "\f24f";
 }
-.hpe-task:before {
+.hpe-tag:before {
   content: "\f250";
 }
-.hpe-template:before {
+.hpe-target:before {
   content: "\f251";
 }
-.hpe-test-desktop:before {
+.hpe-task:before {
   content: "\f252";
 }
-.hpe-test:before {
+.hpe-template:before {
   content: "\f253";
 }
-.hpe-text-wrap:before {
+.hpe-test-desktop:before {
   content: "\f254";
 }
-.hpe-threats:before {
+.hpe-test:before {
   content: "\f255";
 }
-.hpe-ticket:before {
+.hpe-text-wrap:before {
   content: "\f256";
 }
-.hpe-tools:before {
+.hpe-threats:before {
   content: "\f257";
 }
-.hpe-tooltip:before {
+.hpe-ticket:before {
   content: "\f258";
 }
-.hpe-transaction-filled:before {
+.hpe-tools:before {
   content: "\f259";
 }
-.hpe-transaction:before {
+.hpe-tooltip:before {
   content: "\f25a";
 }
-.hpe-trash-filled:before {
+.hpe-transaction-filled:before {
   content: "\f25b";
 }
-.hpe-trash:before {
+.hpe-transaction:before {
   content: "\f25c";
 }
-.hpe-tree:before {
+.hpe-trash-filled:before {
   content: "\f25d";
 }
-.hpe-trigger:before {
+.hpe-trash:before {
   content: "\f25e";
 }
-.hpe-trophy-filled:before {
+.hpe-tree:before {
   content: "\f25f";
 }
-.hpe-trophy:before {
+.hpe-trigger:before {
   content: "\f260";
 }
-.hpe-troubleshooting:before {
+.hpe-trophy-filled:before {
   content: "\f261";
 }
-.hpe-unlock:before {
+.hpe-trophy:before {
   content: "\f262";
 }
-.hpe-up:before {
+.hpe-troubleshooting:before {
   content: "\f263";
 }
-.hpe-update:before {
+.hpe-unlock:before {
   content: "\f264";
 }
-.hpe-upgrade-filled:before {
+.hpe-up:before {
   content: "\f265";
 }
-.hpe-upgrade:before {
+.hpe-update:before {
   content: "\f266";
 }
-.hpe-upload:before {
+.hpe-upgrade-filled:before {
   content: "\f267";
 }
-.hpe-user-add-filled:before {
+.hpe-upgrade:before {
   content: "\f268";
 }
-.hpe-user-add:before {
+.hpe-upload:before {
   content: "\f269";
 }
-.hpe-user-admin:before {
+.hpe-user-add-filled:before {
   content: "\f26a";
 }
-.hpe-user-expert:before {
+.hpe-user-add:before {
   content: "\f26b";
 }
-.hpe-user-female-filled:before {
+.hpe-user-admin:before {
   content: "\f26c";
 }
-.hpe-user-female:before {
+.hpe-user-expert:before {
   content: "\f26d";
 }
-.hpe-user-filled:before {
+.hpe-user-female-filled:before {
   content: "\f26e";
 }
-.hpe-user-manager:before {
+.hpe-user-female:before {
   content: "\f26f";
 }
-.hpe-user-new:before {
+.hpe-user-filled:before {
   content: "\f270";
 }
-.hpe-user-police:before {
+.hpe-user-manager:before {
   content: "\f271";
 }
-.hpe-user-settings:before {
+.hpe-user-new:before {
   content: "\f272";
 }
-.hpe-user-worker:before {
+.hpe-user-police:before {
   content: "\f273";
 }
-.hpe-user:before {
+.hpe-user-settings:before {
   content: "\f274";
 }
-.hpe-validation-filled:before {
+.hpe-user-worker:before {
   content: "\f275";
 }
-.hpe-validation:before {
+.hpe-user:before {
   content: "\f276";
 }
-.hpe-video-filled:before {
+.hpe-validation-filled:before {
   content: "\f277";
 }
-.hpe-video:before {
+.hpe-validation:before {
   content: "\f278";
 }
-.hpe-view-filled:before {
+.hpe-video-filled:before {
   content: "\f279";
 }
-.hpe-view:before {
+.hpe-video:before {
   content: "\f27a";
 }
-.hpe-virtual-machine:before {
+.hpe-view-filled:before {
   content: "\f27b";
 }
-.hpe-vm-maintenance:before {
+.hpe-view:before {
   content: "\f27c";
 }
-.hpe-volume-filled:before {
+.hpe-virtual-machine:before {
   content: "\f27d";
 }
-.hpe-volume-low-filled:before {
+.hpe-vm-maintenance:before {
   content: "\f27e";
 }
-.hpe-volume-low:before {
+.hpe-volume-filled:before {
   content: "\f27f";
 }
-.hpe-volume-mute-filled:before {
+.hpe-volume-low-filled:before {
   content: "\f280";
 }
-.hpe-volume-mute:before {
+.hpe-volume-low:before {
   content: "\f281";
 }
-.hpe-volume:before {
+.hpe-volume-mute-filled:before {
   content: "\f282";
 }
-.hpe-vulnerability:before {
+.hpe-volume-mute:before {
   content: "\f283";
 }
-.hpe-waypoint-filled:before {
+.hpe-volume:before {
   content: "\f284";
 }
-.hpe-waypoint:before {
+.hpe-vulnerability:before {
   content: "\f285";
 }
-.hpe-workshop:before {
+.hpe-waypoint-filled:before {
   content: "\f286";
 }
-.hpe-zoom-in:before {
+.hpe-waypoint:before {
   content: "\f287";
 }
-.hpe-zoom-out:before {
+.hpe-workshop:before {
   content: "\f288";
+}
+.hpe-zoom-in:before {
+  content: "\f289";
+}
+.hpe-zoom-out:before {
+  content: "\f28a";
 }
 @font-face {
   font-family: "ux-icons";
-  src: url("../fonts/ux-icons.woff") format("woff");
+  src: url("../fonts/ux-icons.woff") format("woff"), url("../fonts/ux-icons.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -2073,686 +2079,692 @@ body > div#ux-plunker-container {
 .ux-icon-help:before {
   content: "\f1a8";
 }
-.ux-icon-history:before {
+.ux-icon-highlighting-remove:before {
   content: "\f1a9";
 }
-.ux-icon-home-filled:before {
+.ux-icon-highlighting:before {
   content: "\f1aa";
 }
-.ux-icon-home:before {
+.ux-icon-history:before {
   content: "\f1ab";
 }
-.ux-icon-host-maintenance:before {
+.ux-icon-home-filled:before {
   content: "\f1ac";
 }
-.ux-icon-host:before {
+.ux-icon-home:before {
   content: "\f1ad";
 }
-.ux-icon-image-filled:before {
+.ux-icon-host-maintenance:before {
   content: "\f1ae";
 }
-.ux-icon-image:before {
+.ux-icon-host:before {
   content: "\f1af";
 }
-.ux-icon-impact:before {
+.ux-icon-image-filled:before {
   content: "\f1b0";
 }
-.ux-icon-in-progress:before {
+.ux-icon-image:before {
   content: "\f1b1";
 }
-.ux-icon-inactive:before {
+.ux-icon-impact:before {
   content: "\f1b2";
 }
-.ux-icon-inbox:before {
+.ux-icon-in-progress:before {
   content: "\f1b3";
 }
-.ux-icon-indicator-filled:before {
+.ux-icon-inactive:before {
   content: "\f1b4";
 }
-.ux-icon-indicator:before {
+.ux-icon-inbox:before {
   content: "\f1b5";
 }
-.ux-icon-information-filled:before {
+.ux-icon-indicator-filled:before {
   content: "\f1b6";
 }
-.ux-icon-information:before {
+.ux-icon-indicator:before {
   content: "\f1b7";
 }
-.ux-icon-inherit-filled:before {
+.ux-icon-information-filled:before {
   content: "\f1b8";
 }
-.ux-icon-inherit:before {
+.ux-icon-information:before {
   content: "\f1b9";
 }
-.ux-icon-input-to-process:before {
+.ux-icon-inherit-filled:before {
   content: "\f1ba";
 }
-.ux-icon-install:before {
+.ux-icon-inherit:before {
   content: "\f1bb";
 }
-.ux-icon-integration:before {
+.ux-icon-input-to-process:before {
   content: "\f1bc";
 }
-.ux-icon-iteration-filled:before {
+.ux-icon-install:before {
   content: "\f1bd";
 }
-.ux-icon-iteration:before {
+.ux-icon-integration:before {
   content: "\f1be";
 }
-.ux-icon-java-filled:before {
+.ux-icon-iteration-filled:before {
   content: "\f1bf";
 }
-.ux-icon-java:before {
+.ux-icon-iteration:before {
   content: "\f1c0";
 }
-.ux-icon-language:before {
+.ux-icon-java-filled:before {
   content: "\f1c1";
 }
-.ux-icon-launch:before {
+.ux-icon-java:before {
   content: "\f1c2";
 }
-.ux-icon-license-filled:before {
+.ux-icon-language:before {
   content: "\f1c3";
 }
-.ux-icon-license:before {
+.ux-icon-launch:before {
   content: "\f1c4";
 }
-.ux-icon-like-filled:before {
+.ux-icon-license-filled:before {
   content: "\f1c5";
 }
-.ux-icon-like:before {
+.ux-icon-license:before {
   content: "\f1c6";
 }
-.ux-icon-line-chart:before {
+.ux-icon-like-filled:before {
   content: "\f1c7";
 }
-.ux-icon-link-bottom:before {
+.ux-icon-like:before {
   content: "\f1c8";
 }
-.ux-icon-link-down:before {
+.ux-icon-line-chart:before {
   content: "\f1c9";
 }
-.ux-icon-link-next:before {
+.ux-icon-link-bottom:before {
   content: "\f1ca";
 }
-.ux-icon-link-previous:before {
+.ux-icon-link-down:before {
   content: "\f1cb";
 }
-.ux-icon-link-top:before {
+.ux-icon-link-next:before {
   content: "\f1cc";
 }
-.ux-icon-link-up:before {
+.ux-icon-link-previous:before {
   content: "\f1cd";
 }
-.ux-icon-link:before {
+.ux-icon-link-top:before {
   content: "\f1ce";
 }
-.ux-icon-list:before {
+.ux-icon-link-up:before {
   content: "\f1cf";
 }
-.ux-icon-location-filled:before {
+.ux-icon-link:before {
   content: "\f1d0";
 }
-.ux-icon-location-pin-filled:before {
+.ux-icon-list:before {
   content: "\f1d1";
 }
-.ux-icon-location-pin:before {
+.ux-icon-location-filled:before {
   content: "\f1d2";
 }
-.ux-icon-location:before {
+.ux-icon-location-pin-filled:before {
   content: "\f1d3";
 }
-.ux-icon-lock:before {
+.ux-icon-location-pin:before {
   content: "\f1d4";
 }
-.ux-icon-login:before {
+.ux-icon-location:before {
   content: "\f1d5";
 }
-.ux-icon-logout:before {
+.ux-icon-lock:before {
   content: "\f1d6";
 }
-.ux-icon-mail-attachment:before {
+.ux-icon-login:before {
   content: "\f1d7";
 }
-.ux-icon-mail-filled:before {
+.ux-icon-logout:before {
   content: "\f1d8";
 }
-.ux-icon-mail:before {
+.ux-icon-mail-attachment:before {
   content: "\f1d9";
 }
-.ux-icon-manual:before {
+.ux-icon-mail-filled:before {
   content: "\f1da";
 }
-.ux-icon-map-location:before {
+.ux-icon-mail:before {
   content: "\f1db";
 }
-.ux-icon-map:before {
+.ux-icon-manual:before {
   content: "\f1dc";
 }
-.ux-icon-menu:before {
+.ux-icon-map-location:before {
   content: "\f1dd";
 }
-.ux-icon-microphone-filled:before {
+.ux-icon-map:before {
   content: "\f1de";
 }
-.ux-icon-microphone:before {
+.ux-icon-menu:before {
   content: "\f1df";
 }
-.ux-icon-monitor:before {
+.ux-icon-microphone-filled:before {
   content: "\f1e0";
 }
-.ux-icon-more:before {
+.ux-icon-microphone:before {
   content: "\f1e1";
 }
-.ux-icon-multiple:before {
+.ux-icon-monitor:before {
   content: "\f1e2";
 }
-.ux-icon-navigate:before {
+.ux-icon-more:before {
   content: "\f1e3";
 }
-.ux-icon-new-window:before {
+.ux-icon-multiple:before {
   content: "\f1e4";
 }
-.ux-icon-new:before {
+.ux-icon-navigate:before {
   content: "\f1e5";
 }
-.ux-icon-news-aggregation:before {
+.ux-icon-new-window:before {
   content: "\f1e6";
 }
-.ux-icon-news-collection:before {
+.ux-icon-new:before {
   content: "\f1e7";
 }
-.ux-icon-news-content:before {
+.ux-icon-news-aggregation:before {
   content: "\f1e8";
 }
-.ux-icon-news:before {
+.ux-icon-news-collection:before {
   content: "\f1e9";
 }
-.ux-icon-next:before {
+.ux-icon-news-content:before {
   content: "\f1ea";
 }
-.ux-icon-notes:before {
+.ux-icon-news:before {
   content: "\f1eb";
 }
-.ux-icon-notification-filled:before {
+.ux-icon-next:before {
   content: "\f1ec";
 }
-.ux-icon-notification:before {
+.ux-icon-notes:before {
   content: "\f1ed";
 }
-.ux-icon-optimization:before {
+.ux-icon-notification-filled:before {
   content: "\f1ee";
 }
-.ux-icon-organization:before {
+.ux-icon-notification:before {
   content: "\f1ef";
 }
-.ux-icon-overview:before {
+.ux-icon-optimization:before {
   content: "\f1f0";
 }
-.ux-icon-pan:before {
+.ux-icon-organization:before {
   content: "\f1f1";
 }
-.ux-icon-pause-filled:before {
+.ux-icon-overview:before {
   content: "\f1f2";
 }
-.ux-icon-pause:before {
+.ux-icon-pan:before {
   content: "\f1f3";
 }
-.ux-icon-payment-google-wallet:before {
+.ux-icon-pause-filled:before {
   content: "\f1f4";
 }
-.ux-icon-payment-mastercard:before {
+.ux-icon-pause:before {
   content: "\f1f5";
 }
-.ux-icon-payment-paypal:before {
+.ux-icon-payment-google-wallet:before {
   content: "\f1f6";
 }
-.ux-icon-payment-square:before {
+.ux-icon-payment-mastercard:before {
   content: "\f1f7";
 }
-.ux-icon-payment-visa:before {
+.ux-icon-payment-paypal:before {
   content: "\f1f8";
 }
-.ux-icon-pin-filled:before {
+.ux-icon-payment-square:before {
   content: "\f1f9";
 }
-.ux-icon-pin:before {
+.ux-icon-payment-visa:before {
   content: "\f1fa";
 }
-.ux-icon-plan:before {
+.ux-icon-pin-filled:before {
   content: "\f1fb";
 }
-.ux-icon-platform-apple:before {
+.ux-icon-pin:before {
   content: "\f1fc";
 }
-.ux-icon-platform-chrome:before {
+.ux-icon-plan:before {
   content: "\f1fd";
 }
-.ux-icon-platform-dropbox:before {
+.ux-icon-platform-apple:before {
   content: "\f1fe";
 }
-.ux-icon-platform-edge:before {
+.ux-icon-platform-chrome:before {
   content: "\f1ff";
 }
-.ux-icon-platform-firefox:before {
+.ux-icon-platform-dropbox:before {
   content: "\f200";
 }
-.ux-icon-platform-internet-explorer:before {
+.ux-icon-platform-edge:before {
   content: "\f201";
 }
-.ux-icon-platform-skype:before {
+.ux-icon-platform-firefox:before {
   content: "\f202";
 }
-.ux-icon-platform-windows:before {
+.ux-icon-platform-internet-explorer:before {
   content: "\f203";
 }
-.ux-icon-play-filled:before {
+.ux-icon-platform-skype:before {
   content: "\f204";
 }
-.ux-icon-play:before {
+.ux-icon-platform-windows:before {
   content: "\f205";
 }
-.ux-icon-power:before {
+.ux-icon-play-filled:before {
   content: "\f206";
 }
-.ux-icon-previous:before {
+.ux-icon-play:before {
   content: "\f207";
 }
-.ux-icon-print:before {
+.ux-icon-power:before {
   content: "\f208";
 }
-.ux-icon-quick-view:before {
+.ux-icon-previous:before {
   content: "\f209";
 }
-.ux-icon-radial-selected:before {
+.ux-icon-print:before {
   content: "\f20a";
 }
-.ux-icon-radial:before {
+.ux-icon-quick-view:before {
   content: "\f20b";
 }
-.ux-icon-refresh:before {
+.ux-icon-radial-selected:before {
   content: "\f20c";
 }
-.ux-icon-resources:before {
+.ux-icon-radial:before {
   content: "\f20d";
 }
-.ux-icon-rewind-filled:before {
+.ux-icon-refresh:before {
   content: "\f20e";
 }
-.ux-icon-rewind:before {
+.ux-icon-resources:before {
   content: "\f20f";
 }
-.ux-icon-risk:before {
+.ux-icon-rewind-filled:before {
   content: "\f210";
 }
-.ux-icon-rss:before {
+.ux-icon-rewind:before {
   content: "\f211";
 }
-.ux-icon-satellite:before {
+.ux-icon-risk:before {
   content: "\f212";
 }
-.ux-icon-save-filled:before {
+.ux-icon-rss:before {
   content: "\f213";
 }
-.ux-icon-save:before {
+.ux-icon-satellite:before {
   content: "\f214";
 }
-.ux-icon-schedule-clone:before {
+.ux-icon-save-filled:before {
   content: "\f215";
 }
-.ux-icon-schedule-new:before {
+.ux-icon-save:before {
   content: "\f216";
 }
-.ux-icon-schedule-play:before {
+.ux-icon-schedule-clone:before {
   content: "\f217";
 }
-.ux-icon-schedule:before {
+.ux-icon-schedule-new:before {
   content: "\f218";
 }
-.ux-icon-scorecard:before {
+.ux-icon-schedule-play:before {
   content: "\f219";
 }
-.ux-icon-search:before {
+.ux-icon-schedule:before {
   content: "\f21a";
 }
-.ux-icon-secure:before {
+.ux-icon-scorecard:before {
   content: "\f21b";
 }
-.ux-icon-select-left:before {
+.ux-icon-search:before {
   content: "\f21c";
 }
-.ux-icon-select:before {
+.ux-icon-secure:before {
   content: "\f21d";
 }
-.ux-icon-server-cluster:before {
+.ux-icon-select-left:before {
   content: "\f21e";
 }
-.ux-icon-server:before {
+.ux-icon-select:before {
   content: "\f21f";
 }
-.ux-icon-servers:before {
+.ux-icon-server-cluster:before {
   content: "\f220";
 }
-.ux-icon-service-business:before {
+.ux-icon-server:before {
   content: "\f221";
 }
-.ux-icon-service-start:before {
+.ux-icon-servers:before {
   content: "\f222";
 }
-.ux-icon-share:before {
+.ux-icon-service-business:before {
   content: "\f223";
 }
-.ux-icon-shield-configure:before {
+.ux-icon-service-start:before {
   content: "\f224";
 }
-.ux-icon-shield-filled:before {
+.ux-icon-share:before {
   content: "\f225";
 }
-.ux-icon-shield:before {
+.ux-icon-shield-configure:before {
   content: "\f226";
 }
-.ux-icon-shift:before {
+.ux-icon-shield-filled:before {
   content: "\f227";
 }
-.ux-icon-shop-basket:before {
+.ux-icon-shield:before {
   content: "\f228";
 }
-.ux-icon-shop-cart:before {
+.ux-icon-shift:before {
   content: "\f229";
 }
-.ux-icon-soa:before {
+.ux-icon-shop-basket:before {
   content: "\f22a";
 }
-.ux-icon-social-email:before {
+.ux-icon-shop-cart:before {
   content: "\f22b";
 }
-.ux-icon-social-facebook:before {
+.ux-icon-soa:before {
   content: "\f22c";
 }
-.ux-icon-social-github:before {
+.ux-icon-social-email:before {
   content: "\f22d";
 }
-.ux-icon-social-instagram:before {
+.ux-icon-social-facebook:before {
   content: "\f22e";
 }
-.ux-icon-social-linkedin:before {
+.ux-icon-social-github:before {
   content: "\f22f";
 }
-.ux-icon-social-medium:before {
+.ux-icon-social-instagram:before {
   content: "\f230";
 }
-.ux-icon-social-pinterest:before {
+.ux-icon-social-linkedin:before {
   content: "\f231";
 }
-.ux-icon-social-reddit:before {
+.ux-icon-social-medium:before {
   content: "\f232";
 }
-.ux-icon-social-slack:before {
+.ux-icon-social-pinterest:before {
   content: "\f233";
 }
-.ux-icon-social-tumblr:before {
+.ux-icon-social-reddit:before {
   content: "\f234";
 }
-.ux-icon-social-twitter:before {
+.ux-icon-social-slack:before {
   content: "\f235";
 }
-.ux-icon-social-vimeo:before {
+.ux-icon-social-tumblr:before {
   content: "\f236";
 }
-.ux-icon-social-youtube:before {
+.ux-icon-social-twitter:before {
   content: "\f237";
 }
-.ux-icon-sort:before {
+.ux-icon-social-vimeo:before {
   content: "\f238";
 }
-.ux-icon-stakeholder:before {
+.ux-icon-social-youtube:before {
   content: "\f239";
 }
-.ux-icon-star-filled:before {
+.ux-icon-sort:before {
   content: "\f23a";
 }
-.ux-icon-star-half:before {
+.ux-icon-stakeholder:before {
   content: "\f23b";
 }
-.ux-icon-star:before {
+.ux-icon-star-filled:before {
   content: "\f23c";
 }
-.ux-icon-status-approved-filled:before {
+.ux-icon-star-half:before {
   content: "\f23d";
 }
-.ux-icon-status-error-filled:before {
+.ux-icon-star:before {
   content: "\f23e";
 }
-.ux-icon-status-information-filled:before {
+.ux-icon-status-approved-filled:before {
   content: "\f23f";
 }
-.ux-icon-status-warning-filled:before {
+.ux-icon-status-error-filled:before {
   content: "\f240";
 }
-.ux-icon-steps-filled:before {
+.ux-icon-status-information-filled:before {
   content: "\f241";
 }
-.ux-icon-steps:before {
+.ux-icon-status-warning-filled:before {
   content: "\f242";
 }
-.ux-icon-storage:before {
+.ux-icon-steps-filled:before {
   content: "\f243";
 }
-.ux-icon-street-view-filled:before {
+.ux-icon-steps:before {
   content: "\f244";
 }
-.ux-icon-street-view:before {
+.ux-icon-storage:before {
   content: "\f245";
 }
-.ux-icon-subtitles:before {
+.ux-icon-street-view-filled:before {
   content: "\f246";
 }
-.ux-icon-subtract:before {
+.ux-icon-street-view:before {
   content: "\f247";
 }
-.ux-icon-support:before {
+.ux-icon-subtitles:before {
   content: "\f248";
 }
-.ux-icon-sync:before {
+.ux-icon-subtract:before {
   content: "\f249";
 }
-.ux-icon-system:before {
+.ux-icon-support:before {
   content: "\f24a";
 }
-.ux-icon-tab-next:before {
+.ux-icon-sync:before {
   content: "\f24b";
 }
-.ux-icon-tab-previous:before {
+.ux-icon-system:before {
   content: "\f24c";
 }
-.ux-icon-tab-up:before {
+.ux-icon-tab-next:before {
   content: "\f24d";
 }
-.ux-icon-table-add:before {
+.ux-icon-tab-previous:before {
   content: "\f24e";
 }
-.ux-icon-table:before {
+.ux-icon-tab-up:before {
   content: "\f24f";
 }
-.ux-icon-tag-filled:before {
+.ux-icon-table-add:before {
   content: "\f250";
 }
-.ux-icon-tag:before {
+.ux-icon-table:before {
   content: "\f251";
 }
-.ux-icon-target:before {
+.ux-icon-tag-filled:before {
   content: "\f252";
 }
-.ux-icon-task:before {
+.ux-icon-tag:before {
   content: "\f253";
 }
-.ux-icon-template:before {
+.ux-icon-target:before {
   content: "\f254";
 }
-.ux-icon-test-desktop:before {
+.ux-icon-task:before {
   content: "\f255";
 }
-.ux-icon-test:before {
+.ux-icon-template:before {
   content: "\f256";
 }
-.ux-icon-text-wrap:before {
+.ux-icon-test-desktop:before {
   content: "\f257";
 }
-.ux-icon-threats:before {
+.ux-icon-test:before {
   content: "\f258";
 }
-.ux-icon-ticket:before {
+.ux-icon-text-wrap:before {
   content: "\f259";
 }
-.ux-icon-tools:before {
+.ux-icon-threats:before {
   content: "\f25a";
 }
-.ux-icon-tooltip:before {
+.ux-icon-ticket:before {
   content: "\f25b";
 }
-.ux-icon-transaction-filled:before {
+.ux-icon-tools:before {
   content: "\f25c";
 }
-.ux-icon-transaction:before {
+.ux-icon-tooltip:before {
   content: "\f25d";
 }
-.ux-icon-trash-filled:before {
+.ux-icon-transaction-filled:before {
   content: "\f25e";
 }
-.ux-icon-trash:before {
+.ux-icon-transaction:before {
   content: "\f25f";
 }
-.ux-icon-tree:before {
+.ux-icon-trash-filled:before {
   content: "\f260";
 }
-.ux-icon-trigger:before {
+.ux-icon-trash:before {
   content: "\f261";
 }
-.ux-icon-trophy-filled:before {
+.ux-icon-tree:before {
   content: "\f262";
 }
-.ux-icon-trophy:before {
+.ux-icon-trigger:before {
   content: "\f263";
 }
-.ux-icon-troubleshooting:before {
+.ux-icon-trophy-filled:before {
   content: "\f264";
 }
-.ux-icon-unlock:before {
+.ux-icon-trophy:before {
   content: "\f265";
 }
-.ux-icon-up:before {
+.ux-icon-troubleshooting:before {
   content: "\f266";
 }
-.ux-icon-update:before {
+.ux-icon-unlock:before {
   content: "\f267";
 }
-.ux-icon-upgrade-filled:before {
+.ux-icon-up:before {
   content: "\f268";
 }
-.ux-icon-upgrade:before {
+.ux-icon-update:before {
   content: "\f269";
 }
-.ux-icon-upload:before {
+.ux-icon-upgrade-filled:before {
   content: "\f26a";
 }
-.ux-icon-user-add-filled:before {
+.ux-icon-upgrade:before {
   content: "\f26b";
 }
-.ux-icon-user-add:before {
+.ux-icon-upload:before {
   content: "\f26c";
 }
-.ux-icon-user-admin:before {
+.ux-icon-user-add-filled:before {
   content: "\f26d";
 }
-.ux-icon-user-expert:before {
+.ux-icon-user-add:before {
   content: "\f26e";
 }
-.ux-icon-user-female-filled:before {
+.ux-icon-user-admin:before {
   content: "\f26f";
 }
-.ux-icon-user-female:before {
+.ux-icon-user-expert:before {
   content: "\f270";
 }
-.ux-icon-user-filled:before {
+.ux-icon-user-female-filled:before {
   content: "\f271";
 }
-.ux-icon-user-manager:before {
+.ux-icon-user-female:before {
   content: "\f272";
 }
-.ux-icon-user-new:before {
+.ux-icon-user-filled:before {
   content: "\f273";
 }
-.ux-icon-user-police:before {
+.ux-icon-user-manager:before {
   content: "\f274";
 }
-.ux-icon-user-settings:before {
+.ux-icon-user-new:before {
   content: "\f275";
 }
-.ux-icon-user-worker:before {
+.ux-icon-user-police:before {
   content: "\f276";
 }
-.ux-icon-user:before {
+.ux-icon-user-settings:before {
   content: "\f277";
 }
-.ux-icon-validation-filled:before {
+.ux-icon-user-worker:before {
   content: "\f278";
 }
-.ux-icon-validation:before {
+.ux-icon-user:before {
   content: "\f279";
 }
-.ux-icon-video-filled:before {
+.ux-icon-validation-filled:before {
   content: "\f27a";
 }
-.ux-icon-video:before {
+.ux-icon-validation:before {
   content: "\f27b";
 }
-.ux-icon-view-filled:before {
+.ux-icon-video-filled:before {
   content: "\f27c";
 }
-.ux-icon-view:before {
+.ux-icon-video:before {
   content: "\f27d";
 }
-.ux-icon-virtual-machine:before {
+.ux-icon-view-filled:before {
   content: "\f27e";
 }
-.ux-icon-vm-maintenance:before {
+.ux-icon-view:before {
   content: "\f27f";
 }
-.ux-icon-volume-filled:before {
+.ux-icon-virtual-machine:before {
   content: "\f280";
 }
-.ux-icon-volume-low-filled:before {
+.ux-icon-vm-maintenance:before {
   content: "\f281";
 }
-.ux-icon-volume-low:before {
+.ux-icon-volume-filled:before {
   content: "\f282";
 }
-.ux-icon-volume-mute-filled:before {
+.ux-icon-volume-low-filled:before {
   content: "\f283";
 }
-.ux-icon-volume-mute:before {
+.ux-icon-volume-low:before {
   content: "\f284";
 }
-.ux-icon-volume:before {
+.ux-icon-volume-mute-filled:before {
   content: "\f285";
 }
-.ux-icon-vulnerability:before {
+.ux-icon-volume-mute:before {
   content: "\f286";
 }
-.ux-icon-waypoint-filled:before {
+.ux-icon-volume:before {
   content: "\f287";
 }
-.ux-icon-waypoint:before {
+.ux-icon-vulnerability:before {
   content: "\f288";
 }
-.ux-icon-workshop:before {
+.ux-icon-waypoint-filled:before {
   content: "\f289";
 }
-.ux-icon-zoom-in:before {
+.ux-icon-waypoint:before {
   content: "\f28a";
 }
-.ux-icon-zoom-out:before {
+.ux-icon-workshop:before {
   content: "\f28b";
+}
+.ux-icon-zoom-in:before {
+  content: "\f28c";
+}
+.ux-icon-zoom-out:before {
+  content: "\f28d";
 }
 .hp-icon,
 .hpe-icon,
@@ -8320,7 +8332,7 @@ th:hover .detail-row-header.sort .sort .number {
   width: 100%;
 }
 .accordion-chevron .panel-heading:before {
-  content: "\f207";
+  content: "\f209";
 }
 .accordion-chevron .panel-heading:before {
   font-family: 'ux-icons';
@@ -15474,7 +15486,7 @@ form .button-primary.disabled {
 .el-checkbox-label .el-radiobutton.indeterminate:before,
 .el-radiobutton-label .el-radiobutton.indeterminate:before,
 .el-toggleswitch-label .el-radiobutton.indeterminate:before {
-  content: "\f244";
+  content: "\f246";
 }
 .el-checkbox-label .el-checkbox.checked,
 .el-radiobutton-label .el-checkbox.checked,
@@ -16921,7 +16933,7 @@ ux-checkbox .ux-checkbox.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-chec
   background-color: #eee;
 }
 ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container:before {
-  content: "\f247";
+  content: "\f249";
 }
 ux-checkbox .ux-checkbox .ux-checkbox-label {
   margin-left: 7px;

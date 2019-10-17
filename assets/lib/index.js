@@ -4226,6 +4226,8 @@
         'halt',
         'help-circle',
         'help',
+        'highlighting-remove',
+        'highlighting',
         'history',
         'home-filled',
         'home',
@@ -13854,12 +13856,6 @@
                 // convert the string to a number
                 /** @type {?} */
                 var hour = parseInt(value);
-                /** @type {?} */
-                var currentHour = this.value.getHours();
-                // if the value hasn't changed, do nothing
-                if (hour === currentHour) {
-                    return;
-                }
                 // ensure the hours is valid
                 if (!isNaN(hour)) {
                     if (hour < 0) {
@@ -13868,6 +13864,12 @@
                     if (hour > (this.showMeridian ? 12 : 23)) {
                         hour = this.showMeridian ? 12 : 23;
                     }
+                }
+                /** @type {?} */
+                var currentHour = this.value.getHours();
+                // if the value hasn't changed, do nothing
+                if (hour === currentHour) {
+                    return;
                 }
                 hour = isNaN(hour) ? currentHour : hour;
                 if (this.showMeridian) {
@@ -17658,7 +17660,7 @@
          */
             function (option) {
                 var _this = this;
-                if (this.disabledOptions) {
+                if (this.disabledOptions && Array.isArray(this.disabledOptions)) {
                     /** @type {?} */
                     var result = this.disabledOptions.find(function (selectedOption) {
                         return _this.getKey(selectedOption) === option.key;
@@ -23824,7 +23826,7 @@
             /**
              * Emit the open state when it changes
              */
-            this.open$ = new rxjs.Subject();
+            this.open$ = new rxjs.BehaviorSubject(false);
         }
         /**
          * @return {?}
@@ -23868,17 +23870,13 @@
             this.focusOnShow = false;
             this.openChange = new i0.EventEmitter();
             this.animationPanelState = SidePanelAnimationState.Closed;
-            /**
-             * Store the current open state
-             */
-            this._isOpen = false;
             this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(SidePanelComponent.prototype, "open", {
             get: /**
              * @return {?}
              */ function () {
-                return this._isOpen;
+                return this.service.open$.value;
             },
             set: /**
              * @param {?} value
@@ -23957,15 +23955,14 @@
          */
             function () {
                 var _this = this;
+                this.service.open$.pipe(operators.skip(1), operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy))
+                    .subscribe(function (isOpen) { return _this.openChange.emit(isOpen); });
                 this.service.open$.pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) {
                     _this.animationPanelState = isOpen
                         ? _this.animate
                             ? SidePanelAnimationState.Open
                             : SidePanelAnimationState.OpenImmediate
                         : SidePanelAnimationState.Closed;
-                    // only if the open state changed should we emit the latest value
-                    _this.openChange.emit(isOpen);
-                    _this._isOpen = isOpen;
                 });
             };
         /**
@@ -36652,6 +36649,10 @@
              */
             this.pageSize = 20;
             /**
+             * The placeholder text which appears in the text input area when it is empty.
+             */
+            this.placeholder = '';
+            /**
              * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
              * displaying autocomplete suggestions.
              */
@@ -36681,7 +36682,7 @@
              */
             this.dropdownOpenChange = new i0.EventEmitter();
             this.propagateChange = function (_) { };
-            this._value$ = new rxjs.Subject();
+            this._value$ = new rxjs.ReplaySubject(1);
             this._hasValue = false;
             this._input$ = new rxjs.BehaviorSubject('');
             this._dropdownOpen = false;
@@ -36748,10 +36749,11 @@
          */
             function () {
                 var _this = this;
+                this._value$.pipe(operators.skip(1), operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy))
+                    .subscribe(function (value) { return _this.valueChange.emit(value); });
                 // Emit change events
                 this._value$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
                     _this._value = value;
-                    _this.valueChange.emit(value);
                     _this.propagateChange(value);
                     _this._hasValue = !!value;
                 });
@@ -37016,7 +37018,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -37273,7 +37275,7 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this._tags = value;
+                this._tags = Array.isArray(value) ? value : [];
             },
             enumerable: true,
             configurable: true
@@ -37533,6 +37535,10 @@
          * @return {?}
          */
             function () {
+                // Prevent error if you click input when at max tag limit
+                if (this.tagInput === undefined) {
+                    return;
+                }
                 // focus the input element
                 this.tagInput.nativeElement.focus();
                 // show the typeahead if we need to
