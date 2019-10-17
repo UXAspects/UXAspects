@@ -102,7 +102,7 @@ export class SelectTestPageComponent implements OnInit {
         this.clearButton = true;
     }
 
-    enableCustomIcon(): void {
-        this.customIcon = true;
+    toggleCustomIcon(): void {
+        this.customIcon = !this.customIcon;
     }
 }
