@@ -20,6 +20,7 @@ export class SelectTestPageComponent implements OnInit {
     maxHeight: string = '250px';
     placeholder = 'Select a country';
     clearButton = false;
+    customIcon = false;
 
     pageSize = 20;
 
@@ -99,5 +100,9 @@ export class SelectTestPageComponent implements OnInit {
     enableClearButton(): void {
         this.allowNull = true;
         this.clearButton = true;
+    }
+
+    enableCustomIcon(): void {
+        this.customIcon = true;
     }
 }

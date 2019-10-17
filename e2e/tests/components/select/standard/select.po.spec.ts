@@ -264,4 +264,8 @@ export class SelectPage {
     async enableClearButton() {
         await element(by.id('enable-clear-button')).click();
     }
+
+    async enableCustomIcon() {
+        await element(by.id('enable-custom-icon')).click();
+    }
 }
