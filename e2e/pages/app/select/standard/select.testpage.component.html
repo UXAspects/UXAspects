@@ -6,7 +6,7 @@
                 [dropDirection]="dropDirection" [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize"
                 [placeholder]="placeholder" [clearButton]="clearButton">
                 <ng-template *ngIf="customIcon" #icon>
-                    <div class="ux-select-icon">
+                    <div id="custom-icon" class="ux-select-icon">
                         <ux-icon name="add"></ux-icon>
                     </div>
                 </ng-template>
@@ -75,5 +75,5 @@
 <div>
     <button id="enable-clear-button" class="btn button-primary" (click)="enableClearButton()">Enable Clear
         Button</button>
-    <button id="enable-custom-icon" class="btn button-primary" (click)="toggleCustomIcon()">Toggle Custom Icon</button>
+    <button id="toggle-custom-icon" class="btn button-primary" (click)="toggleCustomIcon()">Toggle Custom Icon</button>
 </div>
