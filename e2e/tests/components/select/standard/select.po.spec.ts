@@ -275,5 +275,4 @@ export class SelectPage {
         await element(by.id('toggle-custom-icon')).click();
     }
 
-    async
 }
