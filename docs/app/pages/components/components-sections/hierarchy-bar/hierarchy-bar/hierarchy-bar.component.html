@@ -15,6 +15,13 @@
                     <div class="col-sm-6 col-md-3">
                         <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
                     </div>
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="alternativeClickBehavior" [(ngModel)]="mode">alternativeClickBehavior
+                        </ux-radio-button>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <ux-radio-button option="readOnly" [(ngModel)]="mode">readOnly</ux-radio-button>
+                    </div>
                 </div>
             </ux-accordion-panel>
         </ux-accordion>
@@ -41,7 +48,9 @@
         If specified, this node will be selected when the component is initialized.
     </tr>
 
-    <tr uxd-api-property name="mode" type="'standard' | 'collapsed'" defaultValue="standard">
+    <tr uxd-api-property name="mode"
+        type="'standard' | 'collapsed' | 'alternativeClickBehavior' | 'readOnly'"
+        defaultValue="standard">
         Defines how the hierarchy bar should present nodes.
         <ul>
             <li>
@@ -50,6 +59,15 @@
             <li>
                 The <code>collapsed</code> mode will display only the root node and the selected node.
                 All nodes in between will be hidden and accessible using a dropdown.
+            </li>
+            <li>
+                The <code>alternativeClickBehavior</code> mode will display all parent nodes of the selected
+                node, clicking anywhere on the node will allow the node to be selected.
+                In this mode the root node will no longer be selectable.
+            </li>
+            <li>
+                The <code>readOnly</code> mode will display all parent nodes of the selected node, but
+                will not be able to be selected.
             </li>
         </ul>
     </tr>

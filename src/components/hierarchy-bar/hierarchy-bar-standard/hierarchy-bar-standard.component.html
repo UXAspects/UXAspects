@@ -21,6 +21,7 @@
     </div>
 
     <ux-hierarchy-bar-node
+        [mode]="mode"
         *ngFor="let node of hierarchyBar.nodes$ | async"
         [node]="node"
         [popoverTemplate]="content"
