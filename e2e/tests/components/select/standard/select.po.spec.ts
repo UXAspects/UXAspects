@@ -15,6 +15,8 @@ export class SelectPage {
     checkboxPaging = element(by.id('checkbox4'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
+    customIcon = element(by.id('custom-icon'));
+
 
     async getPage(): Promise<void> {
         await browser.get('#/select');
@@ -118,6 +120,10 @@ export class SelectPage {
 
     getClearButton(): ElementFinder {
         return this.dropdown.$('.ux-select-clear-icon');
+    }
+
+    getCustomIcon(): ElementFinder {
+        return this.dropdown.$('#custom-icon');
     }
 
 
@@ -264,4 +270,9 @@ export class SelectPage {
     async enableClearButton() {
         await element(by.id('enable-clear-button')).click();
     }
+
+    async toggleCustomIcon() {
+        await element(by.id('toggle-custom-icon')).click();
+    }
+
 }

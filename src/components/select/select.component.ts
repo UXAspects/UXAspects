@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil, skip } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
