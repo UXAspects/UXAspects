@@ -97,9 +97,9 @@ export class SelectTestPageComponent implements OnInit {
         return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
     }
 
-    enableClearButton(): void {
-        this.allowNull = true;
-        this.clearButton = true;
+    toggleClearButton(): void {
+        this.clearButton = !this.clearButton;
+        this.allowNull = !this.allowNull;
     }
 
     toggleCustomIcon(): void {

@@ -267,8 +267,8 @@ export class SelectPage {
         return this.waitForLoadingToFinish();
     }
 
-    async enableClearButton() {
-        await element(by.id('enable-clear-button')).click();
+    async toggleClearButton() {
+        await element(by.id('toggle-clear-button')).click();
     }
 
     async toggleCustomIcon() {
