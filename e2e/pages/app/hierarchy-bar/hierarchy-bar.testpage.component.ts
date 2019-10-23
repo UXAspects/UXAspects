@@ -13,6 +13,7 @@ export class HierarchyBarTestPageComponent {
     showTrailingAddon: boolean = false;
     showRightAddon: boolean = false;
     mode: string = 'standard';
+    readonly: boolean = false;
 
     managerIcon = 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png';
     userIcon = 'https://uxaspects.github.io/UXAspects/assets/IconUser.png';

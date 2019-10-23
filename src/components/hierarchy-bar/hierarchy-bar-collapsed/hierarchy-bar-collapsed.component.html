@@ -28,6 +28,7 @@
             popoverClass="hierarchy-bar-popover"
             role="button"
             tabindex="0"
+            [disabled]="readonly"
             #popover="ux-popover"
             [popoverContext]="{ popover: popover }"
             [showTriggers]="hierarchyBar.popoverShowTriggers"
@@ -90,6 +91,7 @@
 <ng-template #defaultOverflowTemplate>
     <button uxFocusIndicator
             uxFocusIndicatorOrigin
+            [disabled]="readonly"
             class="overflow-button"
             aria-label="Show parents"
             [uxPopover]="parentsTemplate"

@@ -13,7 +13,7 @@ export class HierarchyBarPage {
 
     collapsedMode = $('#collapsed-mode');
     dropdownMode = $('#dropdown-mode');
-    readOnlyMode = $('#readOnly-mode');
+    readOnlyBtn = $('#readonly-btn');
 
     async getPage(): Promise<void> {
         await browser.get('#/hierarchy-bar');
@@ -41,6 +41,13 @@ export class HierarchyBarPage {
     async nodeHasChildren(index: number): Promise<boolean> {
         const node: ElementFinder = await this.getNode(index);
         const arrow: ElementFinder[] = await node.$$('.hierarchy-bar-node-arrow');
+
+        return arrow.length === 1;
+    }
+
+    async nodeHasChildrenDropdown(index: number): Promise<boolean> {
+        const node: ElementFinder = await this.getNode(index);
+        const arrow: ElementFinder[] = await node.$$('.hierarchy-bar-node-arrow-icon-dropdown');
 
         return arrow.length === 1;
     }
@@ -90,7 +97,7 @@ export class HierarchyBarPage {
     async getNodeChildrenDropdown(index: number): Promise<ElementFinder[]> {
 
         // check if the node has any children
-        if (await this.nodeHasChildren(index) === false) {
+        if (await this.nodeHasChildrenDropdown(index) === false) {
             return [];
         }
 

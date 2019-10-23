@@ -81,7 +81,7 @@
         <span class="hierarchy-bar-node-title">{{ node.title }}</span>
 
         <!-- Show a dropdown arrow if there are children -->
-        <div class="hierarchy-bar-node-arrow-icon-dropdown">
+        <div [class.readonly-arrow]="readonly" class="hierarchy-bar-node-arrow-icon-dropdown">
             <ux-icon *ngIf="node.children" name="next"
                      class="hierarchy-bar-node-arrow-icon">
             </ux-icon>
