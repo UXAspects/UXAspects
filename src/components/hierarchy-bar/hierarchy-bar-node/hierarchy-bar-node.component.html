@@ -43,8 +43,8 @@
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
             popoverClass="hierarchy-bar-popover"
-            [showTriggers]="mode !== 'readOnly' ? hierarchyBar.popoverShowTriggers : null"
-            [hideTriggers]="mode !== 'readOnly' ? hierarchyBar.popoverHideTriggers : null"
+            [showTriggers]="mode !== 'readOnly' ? hierarchyBar.popoverShowTriggers : []"
+            [hideTriggers]="mode !== 'readOnly' ? hierarchyBar.popoverHideTriggers : []"
             tabindex="0">
         <ux-icon name="next"
                  class="hierarchy-bar-node-arrow-icon">
