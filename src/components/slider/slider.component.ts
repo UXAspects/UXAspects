@@ -12,7 +12,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     @Input() value: SliderValue | number = 0;
 
     /** A wide range of options can used to customize the appearance and behavior of the component. */
-    @Input() options: SliderOptions;
+    @Input() set options(options: SliderOptions) {
+        this._options = options;
+        this.updateOptions();
+    }
+
+    get options(): SliderOptions {
+        return this._options;
+    }
 
     /** Emits when the `value` changes. */
     @Output() valueChange: EventEmitter<SliderValue | number> = new EventEmitter<SliderValue | number>();
@@ -23,6 +30,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     // store current values for deep change detection
     private _value: SliderValue | number;
+    private _options: SliderOptions;
 
     // expose enums to Angular view
     sliderType = SliderType;
@@ -135,7 +143,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     ngOnInit(): void {
 
-        this.updateOptions();
         this.updateValues();
 
         this.setThumbState(SliderThumb.Lower, false, false);
@@ -330,8 +337,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // get the element widths
         let thumbWidth: number;
 
-        if (this.options.handles.style === SliderStyle.Button) {
-            thumbWidth = this.options.track.height === SliderSize.Narrow ? 16 : 24;
+        if (this._options.handles.style === SliderStyle.Button) {
+            thumbWidth = this._options.track.height === SliderSize.Narrow ? 16 : 24;
         } else {
             thumbWidth = 2;
         }
@@ -344,7 +351,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // update tooltip position
         tooltip.position = -tooltipPosition;
 
-        if (this.options.type === SliderType.Range && this.options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
+        if (this._options.type === SliderType.Range && this._options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
             this.preventTooltipOverlap(tooltip);
         }
     }
@@ -397,7 +404,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let fraction = (position / trackBounds.width);
 
         // convert to value within the range
-        let value = ((this.options.track.max - this.options.track.min) * fraction) + this.options.track.min;
+        let value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
 
         // ensure value is valid
         value = this.validateValue(thumb, value);
@@ -457,14 +464,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         }
 
         // get the track limit
-        let lowerLimit = this.options.track.min;
-        let upperLimit = this.options.track.max;
+        let lowerLimit = this._options.track.min;
+        let upperLimit = this._options.track.max;
 
-        if (this.options.type === SliderType.Range && thumb === SliderThumb.Lower) {
+        if (this._options.type === SliderType.Range && thumb === SliderThumb.Lower) {
             upperLimit = this.thumbs.upper.value;
         }
 
-        if (this.options.type === SliderType.Range && thumb === SliderThumb.Upper) {
+        if (this._options.type === SliderType.Range && thumb === SliderThumb.Upper) {
             lowerLimit = this.thumbs.lower.value;
         }
 
@@ -487,7 +494,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     private snapToTick(value: number, thumb: SliderThumb): number {
 
-        const tickDistances = this.getTickDistances(value, thumb, this.options.track.ticks.snap);
+        const tickDistances = this.getTickDistances(value, thumb, this._options.track.ticks.snap);
 
         // if there are no ticks return the current value
         if (tickDistances.length === 0) {
@@ -501,17 +508,17 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private validateValue(thumb: SliderThumb, value: number): number {
 
         // if slider is not a range value is always valid providing it is within the chart min and max values
-        if (this.options.type === SliderType.Value) {
-            return Math.max(Math.min(value, this.options.track.max), this.options.track.min);
+        if (this._options.type === SliderType.Value) {
+            return Math.max(Math.min(value, this._options.track.max), this._options.track.min);
         }
 
         // check if value is with chart ranges
-        if (value > this.options.track.max) {
-            return thumb === SliderThumb.Lower ? Math.min(this.options.track.max, this.thumbs.upper.value) : this.options.track.max;
+        if (value > this._options.track.max) {
+            return thumb === SliderThumb.Lower ? Math.min(this._options.track.max, this.thumbs.upper.value) : this._options.track.max;
         }
 
-        if (value < this.options.track.min) {
-            return thumb === SliderThumb.Upper ? Math.max(this.options.track.min, this.thumbs.lower.value) : this.options.track.min;
+        if (value < this._options.track.min) {
+            return thumb === SliderThumb.Upper ? Math.max(this._options.track.min, this.thumbs.lower.value) : this._options.track.min;
         }
 
         // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
@@ -537,7 +544,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateOptions(): void {
 
         // add in the default options that user hasn't specified
-        this.options = this.deepMerge(this.options || {}, this.defaultOptions);
+        this._options = this.deepMerge(this._options || {}, this.defaultOptions);
 
         this.updateTrackColors();
         this.updateTicks();
@@ -558,8 +565,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
 
         // calculate the positions as percentages
-        let lowerPosition = (((lowerValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
-        let upperPosition = (((upperValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
+        let lowerPosition = (((lowerValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
+        let upperPosition = (((upperValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
 
         // update thumb positions
         this.thumbs.lower.position = lowerPosition;
@@ -568,7 +575,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // calculate the track sizes
         this.tracks.lower.size = lowerPosition;
         this.tracks.middle.size = upperPosition - lowerPosition;
-        this.tracks.upper.size = this.options.type === SliderType.Value ? 100 - lowerPosition : 100 - upperPosition;
+        this.tracks.upper.size = this._options.type === SliderType.Value ? 100 - lowerPosition : 100 - upperPosition;
 
         // update the value input
         this.setValue(lowerValue, upperValue);
@@ -581,7 +588,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         let previousValue = this.clone(this._value);
 
-        this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
+        this.value = this._options.type === SliderType.Value ? low : { low: low, high: high };
 
         // call the event emitter if changes occured
         if (this.detectValueChange(this.value, previousValue)) {
@@ -606,8 +613,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateTicks(): void {
 
         // get tick options
-        const majorOptions = this.options.track.ticks.major;
-        const minorOptions = this.options.track.ticks.minor;
+        const majorOptions = this._options.track.ticks.major;
+        const minorOptions = this._options.track.ticks.minor;
 
         // check if we should show ticks
         if (majorOptions.show === false && minorOptions.show === false) {
@@ -625,7 +632,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateTrackColors(): void {
 
         // get colors for each part of the track
-        const { lower, range, higher } = this.options.track.colors;
+        const { lower, range, higher } = this._options.track.colors;
 
         // update the controller value
         this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
@@ -643,7 +650,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let output: number[] = [];
 
         // otherwise calculate the steps
-        for (let idx = this.options.track.min; idx <= this.options.track.max; idx += steps) {
+        for (let idx = this._options.track.min; idx <= this._options.track.max; idx += steps) {
             output.push(idx);
         }
 
@@ -656,8 +663,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let steps = this.getSteps(options.steps);
 
         // get some chart options
-        let min = this.options.track.min;
-        let max = this.options.track.max;
+        let min = this._options.track.min;
+        let max = this._options.track.max;
 
         // convert each step to a slider tick and remove invalid ticks
         return steps.map(step => {

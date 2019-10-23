@@ -351,6 +351,15 @@ describe('SlidersPage Tests', () => {
 
     });
 
+    it('should allow track styling to be changed', async () => {
+
+        // set the selected input
+        await page.colorChangeButton.click();
+
+        expect(await imageCompare('slider-range-track-colors')).toEqual(0);
+
+    });
+
     /* it('should synchronize with text inputs', () => {
 
       // Move handles and confirm the associated inputs are updated with the correct values.
