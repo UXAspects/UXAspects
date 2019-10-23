@@ -12,7 +12,7 @@ export class HierarchyBarPage {
     showTrailingAddonBtn = $('#show-trailing-addon-btn');
 
     collapsedMode = $('#collapsed-mode');
-    alternativeClickBehaviorMode = $('#alternativeClickBehavior-mode');
+    dropdownMode = $('#dropdown-mode');
     readOnlyMode = $('#readOnly-mode');
 
     async getPage(): Promise<void> {
@@ -59,8 +59,8 @@ export class HierarchyBarPage {
         await child.click();
     }
 
-    async selectPopoverNodeAlternative(index: number, childIndex: number): Promise<void> {
-        const children = await this.getNodeChildrenAlternative(index);
+    async selectPopoverNodeDropdown(index: number, childIndex: number): Promise<void> {
+        const children = await this.getNodeChildrenDropdown(index);
         const child = children[childIndex];
 
         await child.click();
@@ -87,7 +87,7 @@ export class HierarchyBarPage {
         return await $$('ux-hierarchy-bar-popover-item');
     }
 
-    async getNodeChildrenAlternative(index: number): Promise<ElementFinder[]> {
+    async getNodeChildrenDropdown(index: number): Promise<ElementFinder[]> {
 
         // check if the node has any children
         if (await this.nodeHasChildren(index) === false) {

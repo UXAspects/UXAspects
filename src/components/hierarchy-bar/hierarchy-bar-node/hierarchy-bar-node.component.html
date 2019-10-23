@@ -3,7 +3,7 @@
      [class.hierarchy-bar-node-child-indicator]="node.children">
 
     <ng-container
-        *ngIf="mode === 'alternativeClickBehavior'; then alternativeClickMode; else standardClickMode">
+        *ngIf="mode === 'dropdown'; then dropdownMode; else standardClickMode">
     </ng-container>
 
 </div>
@@ -52,7 +52,7 @@
     </button>
 </ng-template>
 
-<ng-template #alternativeClickMode>
+<ng-template #dropdownClickMode>
     <button type="button"
             uxFocusIndicator
             uxFocusIndicatorOrigin
@@ -81,7 +81,7 @@
         <span class="hierarchy-bar-node-title">{{ node.title }}</span>
 
         <!-- Show a dropdown arrow if there are children -->
-        <div class="hierarchy-bar-node-arrow hierarchy-bar-node-arrow-icon-alternative">
+        <div class="hierarchy-bar-node-arrow hierarchy-bar-node-arrow-icon-dropdown">
             <ux-icon *ngIf="node.children" name="next"
                      class="hierarchy-bar-node-arrow-icon">
             </ux-icon>

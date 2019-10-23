@@ -180,9 +180,9 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
     });
 
-    it('should allow whole node to be selected - alternativeClickBehavior mode', async () => {
+    it('should allow whole node to be selected - dropdown mode', async () => {
         // set the alternative click mode
-        await page.alternativeClickBehaviorMode.click();
+        await page.dropdownMode.click();
 
         // check if the arrow appears on the root node
         expect(await page.nodeHasChildren(0)).toBe(true);
@@ -197,9 +197,9 @@ describe('Hierarchy Bar Tests - standard Mode', () => {
         expect(await page.getSelectedNodeTitle()).toBe('Christian Olson');
     });
 
-    it('should remove children when parent is clicked - alternativeClickBehavior Mode', async () => {
+    it('should remove children when parent is clicked - dropdown Mode', async () => {
         // set the alternative click mode
-        await page.alternativeClickBehaviorMode.click();
+        await page.dropdownMode.click();
 
         // set the selected input
         await page.selectButton.click();
