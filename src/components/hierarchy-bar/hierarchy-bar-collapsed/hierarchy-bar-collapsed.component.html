@@ -6,6 +6,7 @@
 <div #nodes class="hierarchy-bar-nodes">
 
     <ux-hierarchy-bar-node
+        [readonly]="readonly"
         [popoverTemplate]="content"
         [node]="_first"
         (selected)="hierarchyBar.selectNode($event)">
@@ -40,6 +41,7 @@
 
     <ux-hierarchy-bar-node
         *ngIf="_last !== _first"
+        [readonly]="readonly"
         [popoverTemplate]="content"
         [node]="_last"
         (selected)="hierarchyBar.selectNode($event)">

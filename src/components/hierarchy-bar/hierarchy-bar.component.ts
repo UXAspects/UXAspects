@@ -19,6 +19,9 @@ export class HierarchyBarComponent implements IHierachyBarComponent, OnDestroy {
     /** Define which presentational mode we should display */
     @Input() mode: HierarchyBarMode = 'standard';
 
+    /** hierarchy bar as being readonly - default false */
+    @Input() readonly: boolean = false;
+
     /** Define the root node of the hierarchy bar */
     @Input() set root(node: HierarchyBarNode) {
         this._hierarchyBar.setRootNode(node);

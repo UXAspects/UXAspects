@@ -18,6 +18,9 @@ export class HierarchyBarNodeComponent {
     /** Determine the mode of the hierarchy bar */
     @Input() mode: string;
 
+    /** Determine read only state */
+    @Input() readonly: boolean;
+
     /** Emit when the node is selected */
     @Output() selected = new EventEmitter<HierarchyBarNode>();
 

@@ -19,9 +19,6 @@
                         <ux-radio-button option="dropdown" [(ngModel)]="mode">dropdown
                         </ux-radio-button>
                     </div>
-                    <div class="col-sm-6 col-md-3">
-                        <ux-radio-button option="readOnly" [(ngModel)]="mode">readOnly</ux-radio-button>
-                    </div>
                 </div>
             </ux-accordion-panel>
         </ux-accordion>
@@ -49,7 +46,7 @@
     </tr>
 
     <tr uxd-api-property name="mode"
-        type="'standard' | 'collapsed' | 'dropdown' | 'readOnly'"
+        type="'standard' | 'collapsed' | 'dropdown'"
         defaultValue="standard">
         Defines how the hierarchy bar should present nodes.
         <ul>
@@ -64,10 +61,6 @@
                 The <code>dropdown</code> mode will display all parent nodes of the selected
                 node, clicking anywhere on the node will allow the node to be selected.
                 In this mode the root node will no longer be selectable.
-            </li>
-            <li>
-                The <code>readOnly</code> mode will display all parent nodes of the selected node, but
-                will not be able to be selected.
             </li>
         </ul>
     </tr>
@@ -92,6 +85,10 @@
 
     <tr uxd-api-property name="showSiblingsAriaLabel" type="string" defaultValue="Show siblings">
         Specifies the aria-label to be used for the show siblings popover button.
+    </tr>
+
+    <tr uxd-api-property name="readonly" type="boolean" defaultValue="false">
+        Displays all parent nodes of the selected node, but nodes will not be selectable.
     </tr>
 
 </uxd-api-properties>
