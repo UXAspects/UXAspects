@@ -12,9 +12,9 @@
     <button type="button"
             uxFocusIndicator
             class="hierarchy-bar-node-content"
-            [class.hierarchy-bar-node-content-readonly]="readonly"
+            [disabled]="readonly"
             [attr.aria-label]="node.title"
-            (click)="!readonly ? selected.emit(node) : null">
+            (click)="selected.emit(node)">
 
         <!-- Show a custom icon if specified -->
         <div class="hierarchy-bar-node-icon" *ngIf="hierarchyBar.icon">
@@ -38,13 +38,13 @@
             aria-label="Show children"
             role="button"
             class="hierarchy-bar-node-arrow"
-            [class.hierarchy-bar-node-arrow-readonly]="readonly"
+            [disabled]="readonly"
             [uxPopover]="popoverTemplate"
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
             popoverClass="hierarchy-bar-popover"
-            [showTriggers]="!readonly ? hierarchyBar.popoverShowTriggers : []"
-            [hideTriggers]="!readonly ? hierarchyBar.popoverHideTriggers : []"
+            [showTriggers]="hierarchyBar.popoverShowTriggers"
+            [hideTriggers]="hierarchyBar.popoverHideTriggers"
             tabindex="0">
         <ux-icon name="next"
                  class="hierarchy-bar-node-arrow-icon">
@@ -59,13 +59,13 @@
             #popover="ux-popover"
             aria-label="Show children"
             class="hierarchy-bar-node-content"
-            [class.hierarchy-bar-node-content-readonly]="readonly"
+            [disabled]="readonly"
             [uxPopover]="popoverTemplate"
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
             popoverClass="hierarchy-bar-popover"
-            [showTriggers]="!readonly ? hierarchyBar.popoverShowTriggers : []"
-            [hideTriggers]="!readonly ? hierarchyBar.popoverHideTriggers : []"
+            [showTriggers]="hierarchyBar.popoverShowTriggers"
+            [hideTriggers]="hierarchyBar.popoverHideTriggers"
             tabindex="0"
             [attr.aria-label]="node.title">
 
@@ -81,7 +81,7 @@
         <span class="hierarchy-bar-node-title">{{ node.title }}</span>
 
         <!-- Show a dropdown arrow if there are children -->
-        <div [class.hierarchy-bar-node-arrow-readonly]="readonly" class="hierarchy-bar-node-arrow-icon-dropdown">
+        <div class="hierarchy-bar-node-arrow-icon-dropdown">
             <ux-icon *ngIf="node.children" name="next"
                      class="hierarchy-bar-node-arrow-icon">
             </ux-icon>

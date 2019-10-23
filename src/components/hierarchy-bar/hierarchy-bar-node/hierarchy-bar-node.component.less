@@ -23,11 +23,7 @@ ux-hierarchy-bar-node {
         background: transparent;
         padding: 0;
 
-        &.hierarchy-bar-node-content-readonly {
-            cursor: default;
-        }
-
-        &:hover + .hierarchy-bar-node-arrow-icon-dropdown {
+        &:hover > .hierarchy-bar-node-arrow-icon-dropdown {
             color: @primary;
         }
 
@@ -52,7 +48,7 @@ ux-hierarchy-bar-node {
     }
 
     &:last-of-type {
-        .hierarchy-bar-node-title:not(.hierarchy-bar-node-content-readonly) {
+        .hierarchy-bar-node-title {
             color: @organization-chart-hierarchy-bar-active-color;
             font-weight: 600;
         }
@@ -66,15 +62,11 @@ ux-hierarchy-bar-node {
         background: transparent;
         padding: 0;
 
-        &.hierarchy-bar-node-arrow-readonly {
-            cursor: default;
-        }
-
-        &:hover:not(.hierarchy-bar-node-arrow-readonly) {
+        &:hover:not(:disabled) {
             color: @primary;
         }
 
-        &:focus:not(.hierarchy-bar-node-arrow-readonly) {
+        &:focus {
             color: @primary;
             .native-focus-outline;
         }
