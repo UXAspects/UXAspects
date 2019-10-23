@@ -37,19 +37,12 @@ describe('Select Tests', () => {
 
     });
 
-    it('should expand dropdown list', async () => {
+    it('should expand and close dropdown list', async () => {
 
         await page.clickOnDropdown(false);
         expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
 
         expect(await imageCompare('select-dropdown')).toEqual(0);
-
-    });
-
-    it('should close dropdown list if clicked when open', async () => {
-
-        await page.clickOnDropdown(false);
-        expect(await page.confirmDropdownIsExpanded()).toBeTruthy();
 
         await page.clickOnDropdown(false);
         expect(await page.confirmDropdownIsExpanded()).toBeFalsy();
@@ -67,11 +60,16 @@ describe('Select Tests', () => {
         await page.clickOnCountry(false, 248);
         expect(await page.getSelectedLocationText()).toBe('"Zimbabwe"');
 
-        // selecting country with enter key
         await page.clickOnDropdown(false);
         await page.hoverOverCountry(false, 124);
-        await page.getDropdown(false).sendKeys(Key.ENTER);
+        await page.clickOnCountry(false, 124);
         expect(await page.getSelectedLocationText()).toBe('"Latvia"');
+
+        // Verify overflow behavior
+        await page.clickOnDropdown(false);
+        await page.clickOnCountry(false, 249);
+        expect(await page.getSelectedLocationText()).toBe('"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"');
+        expect(await imageCompare('select-overflow')).toEqual(0);
 
     });
 
@@ -507,6 +505,37 @@ describe('Select Tests', () => {
         expect(await page.getCountryText(false, 39)).toBe('Korea, Democratic People\'s Republic of');
         expect(await page.getNumberOfCountries(false)).toEqual(result);
 
+    });
+
+    it('should allow clearing a selected value with a button', async () => {
+
+        const clearButton = page.getClearButton();
+
+        await page.enableClearButton();
+
+        expect(await clearButton.isPresent()).toBeFalsy();
+
+        // Verify overflow behavior
+        await page.clickOnDropdown(false);
+        await page.clickOnCountry(false, 249);
+        expect(await page.getSelectedLocationText()).toBe('"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"');
+        expect(await clearButton.isPresent()).toBeTruthy();
+        expect(await imageCompare('select-clear-button-overflow')).toEqual(0);
+
+        // Clear the control using the clear button
+        await clearButton.click();
+
+        // Cleck the value was cleared
+        expect(await page.getSelectedLocationText()).toBe('null');
+        expect(await clearButton.isPresent()).toBeFalsy();
+    });
+
+    it('should handle word wrapping on the tag when multiple select is enabled', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+        await page.clickOnCountry(true, 250);
+        expect(await page.getSelectedLocationText()).toBe('[ "Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons" ]');
+        expect(await imageCompare('select-tag-overflow')).toEqual(0);
     });
 
 });

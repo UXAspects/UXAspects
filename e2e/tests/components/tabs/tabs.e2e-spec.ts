@@ -16,7 +16,7 @@ describe('Tabs Tests (Angular)', () => {
         expect(await page.getTabCount()).toBe(4);
 
         // expect the first tab to be selected by default
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -33,7 +33,7 @@ describe('Tabs Tests (Angular)', () => {
     it('should select a tab on click', async () => {
 
         // expect the first tab to be selected by default
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -42,7 +42,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.clickTabAtIndex(1);
 
         // expect the second tab to be selected
-        expect(await page.getSelectedTab()).toBe('Protection');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Protection');
@@ -51,7 +51,7 @@ describe('Tabs Tests (Angular)', () => {
     it('should navigate between tabs using arrow keys', async () => {
 
         // expect the first tab to be selected by default
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -60,7 +60,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.clickTabAtIndex(1);
 
         // expect the second tab to be selected
-        expect(await page.getSelectedTab()).toBe('Protection');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Protection');
@@ -69,7 +69,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.pressKey(Key.ARROW_LEFT);
 
         // expect the first tab to be selected
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -78,7 +78,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.pressKey(Key.ARROW_RIGHT);
 
         // expect the second tab to be selected
-        expect(await page.getSelectedTab()).toBe('Protection');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Protection');
@@ -87,7 +87,7 @@ describe('Tabs Tests (Angular)', () => {
     it('should navigate to first tab when Home key is pressed', async () => {
 
         // expect the first tab to be selected by default
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -96,7 +96,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.clickTabAtIndex(1);
 
         // expect the second tab to be selected
-        expect(await page.getSelectedTab()).toBe('Protection');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Protection');
@@ -105,7 +105,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.pressKey(Key.HOME);
 
         // expect the first tab to be selected
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -114,7 +114,7 @@ describe('Tabs Tests (Angular)', () => {
     it('should navigate to last tab when End key is pressed', async () => {
 
         // expect the first tab to be selected by default
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Schedule');
@@ -123,7 +123,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.clickTabAtIndex(1);
 
         // expect the second tab to be selected
-        expect(await page.getSelectedTab()).toBe('Protection');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('protection');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Protection');
@@ -132,7 +132,7 @@ describe('Tabs Tests (Angular)', () => {
         await page.pressKey(Key.END);
 
         // expect the last tab to be selected
-        expect(await page.getSelectedTab()).toBe('Analytics');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('analytics');
 
         // expect the correct tab content to be visible
         expect(await page.getSelectedTabContent()).toBe('Analytics');
@@ -201,19 +201,19 @@ describe('Tabs Tests (Angular)', () => {
 
     it('should allow inserting a new tab at the leftmost position', async () => {
 
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // Add a tab at index 0
         await page.addTab0.click();
 
         expect(await page.getTabCount()).toBe(5);
 
-        expect(await page.getSelectedTab()).toBe('Schedule');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('schedule');
 
         // Click the newly added tab
         await page.clickTabAtIndex(0);
 
-        expect(await page.getSelectedTab()).toBe('New Tab 0');
+        expect((await page.getSelectedTab()).toLocaleLowerCase()).toBe('new tab 0');
         expect(await page.getSelectedTabContent()).toBe('New Tab 0');
 
     });

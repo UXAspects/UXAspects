@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Injector, Input } from '@angular/core';
+import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
@@ -19,6 +19,7 @@ export class SparkChartComponent extends UpgradeComponent {
     @Input() sparkTooltips: any;
     @Input() barColor: any;
     @Input() trackColor: any;
+    @Output() segmentClick = new EventEmitter<any>();
 
     constructor(elementRef: ElementRef, injector: Injector) {
         super('uxSparkNg1', elementRef, injector);

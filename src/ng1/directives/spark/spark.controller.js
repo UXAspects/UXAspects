@@ -56,6 +56,12 @@ export default class SparkCtrl {
     segmentTooltip(index) {
         return Array.isArray(this.sparkTooltips) && this.sparkTooltips.length > index ? this.sparkTooltips[index] : undefined;
     }
+
+    onSegmentClick(index) {
+        if (typeof this.segmentClick === 'function') {
+            this.segmentClick({ $event: index });
+        }
+    }
 }
 
 SparkCtrl.$inject = ['$colorService'];

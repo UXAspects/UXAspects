@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ColorServiceModule, FlippableCardModule, IconModule, SparkModule } from '@ux-aspects/ux-aspects';
+import { ColorServiceModule, FlippableCardModule, IconModule, SparkModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { FlippableCardsTestPageComponent } from './flippable-cards.testpage.component';
-
 
 @NgModule({
     imports: [
@@ -10,6 +9,7 @@ import { FlippableCardsTestPageComponent } from './flippable-cards.testpage.comp
         FlippableCardModule,
         ColorServiceModule,
         IconModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

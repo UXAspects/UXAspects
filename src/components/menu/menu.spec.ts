@@ -16,7 +16,7 @@ import { MenuModule } from './menu.module';
   </ux-menu>
 
   <ux-menu #subMenu>
-    <button uxMenuItem>Sub Item One</button>
+    <button uxMenuItem id="submenu-item-1">Sub Item One</button>
     <button uxMenuItem>Sub Item Two</button>
   </ux-menu>
 
@@ -99,7 +99,7 @@ describe('MenuComponent', () => {
         fixture.detectChanges();
 
         // allow noop animation to complete
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // no menus should be visible
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
@@ -126,7 +126,7 @@ describe('MenuComponent', () => {
         fixture.detectChanges();
 
         // allow noop animation to complete
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // no menus should be visible
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
@@ -141,22 +141,22 @@ describe('MenuComponent', () => {
     it('should close the menu when the trigger is programmatically called', async () => {
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
         component.trigger.closeMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
 
     it('should toggle the menu when the trigger is programmatically called', async () => {
         component.trigger.toggleMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
         component.trigger.toggleMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
 
@@ -185,7 +185,7 @@ describe('MenuComponent', () => {
     it('should make only the first menu item tabbable', async () => {
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         const items = document.querySelectorAll('button[uxmenuitem]');
 
@@ -199,13 +199,13 @@ describe('MenuComponent', () => {
         // open menu
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // close menu by clicking on an item
         const items = document.querySelectorAll<HTMLButtonElement>('button[uxmenuitem]');
         items.item(0).click();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // the trigger element should be focused
         expect(document.activeElement).toBe(triggerElement);
@@ -215,13 +215,13 @@ describe('MenuComponent', () => {
         // open menu
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // dispatch a mouse enter event
         component.subMenuTrigger._onMouseEnter();
 
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         expect(document.querySelectorAll('.ux-menu').length).toBe(2);
     });
@@ -230,13 +230,13 @@ describe('MenuComponent', () => {
         // open menu
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // dispatch a mouse enter event
         component.subMenuTrigger._onMouseEnter();
 
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // get the backdrop element
         const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLDivElement;
@@ -249,7 +249,7 @@ describe('MenuComponent', () => {
         fixture.detectChanges();
 
         // allow noop animation to complete
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // no menus should be visible
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
@@ -259,13 +259,13 @@ describe('MenuComponent', () => {
         // open menu
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // close menu by clicking on an item
         const items = document.querySelectorAll<HTMLButtonElement>('button[uxmenuitem]');
         items.item(0).click();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
 
@@ -273,19 +273,53 @@ describe('MenuComponent', () => {
         // open menu
         component.trigger.openMenu();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // dispatch a mouse enter event
         component.subMenuTrigger._onMouseEnter();
 
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
 
         // close menu by clicking on an item
         const items = document.querySelectorAll<HTMLButtonElement>('button[uxmenuitem]');
         items.item(0).click();
         fixture.detectChanges();
-        await Promise.resolve();
+        await fixture.whenStable();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
+    });
+
+    /**
+     * Test case covering issue: https://portal.digitalsafe.net/browse/EL-3644
+     *
+     * Opening a menu, expanding a submenu and selecting an item would close
+     * the menu, hover when the top level menu is re-opened the internal hover
+     * and focus states were not being reset correctly
+     */
+    it('should correctly reset menu state when closed', async () => {
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        component.subMenuTrigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // get the child submenu item
+        const submenuItem = document.querySelector<HTMLButtonElement>('#submenu-item-1');
+
+        expect(submenuItem).toBeTruthy();
+
+        // perform a click
+        submenuItem.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // the menu should now be closed check the internal menu state is correct
+        expect(component.trigger.menu._isHovering$.value).toBeFalsy();
+        expect(component.trigger.menu._isFocused$.value).toBeFalsy();
+        expect(component.subMenuTrigger.menu._isHovering$.value).toBeFalsy();
+        expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
+
     });
 });

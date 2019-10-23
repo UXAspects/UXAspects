@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, CheckboxModule, IconModule, NumberPickerModule, RadioButtonModule, TagInputModule, TypeaheadModule } from '@ux-aspects/ux-aspects';
+import { AccordionModule, CheckboxModule, IconModule, NumberPickerModule, RadioButtonModule, TagInputModule, TypeaheadModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { TagsTestPageComponent } from './tags.testpage.component';
 
 
@@ -17,6 +17,7 @@ import { TagsTestPageComponent } from './tags.testpage.component';
         RadioButtonModule,
         NumberPickerModule,
         TagInputModule,
+        AccessibilityModule,
         RouterModule.forChild([
             {
                 path: '',

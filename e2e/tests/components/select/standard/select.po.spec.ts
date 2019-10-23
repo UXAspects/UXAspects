@@ -1,6 +1,6 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
-export const numberOfCountries: number = 249;
+export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
 
 export class SelectPage {
@@ -116,6 +116,10 @@ export class SelectPage {
         return this.pageSize.$('input.form-control');
     }
 
+    getClearButton(): ElementFinder {
+        return this.dropdown.$('.ux-select-clear-icon');
+    }
+
 
     // get text
     getDropdownPlaceholderText(allowMultiple: boolean) {
@@ -216,7 +220,7 @@ export class SelectPage {
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {
         return this.getNumberOfCountries(allowMultiple).then(function (count) {
-            if (count > (numberOfCountries - pageSize)) { // makes sure number can't exceed 249
+            if (count > (numberOfCountries - pageSize)) { // makes sure number can't exceed 251
                 return numberOfCountries;
             } else {
                 return count + pageSize;
@@ -255,5 +259,9 @@ export class SelectPage {
                 $('ol').$$('li').last()).perform();
         }
         return this.waitForLoadingToFinish();
+    }
+
+    async enableClearButton() {
+        await element(by.id('enable-clear-button')).click();
     }
 }

@@ -12,7 +12,7 @@ describe('Date Time Picker Tests', () => {
 
     it('should have correct initial states', async () => {
         // expect the correct header
-        expect(await page.header.getText()).toBe('January 2019');
+        expect((await page.header.getText()).toLocaleLowerCase()).toBe('january 2019');
 
         // expect the correct date to be selected
         expect(await page.selectedDate.getText()).toBe('3');

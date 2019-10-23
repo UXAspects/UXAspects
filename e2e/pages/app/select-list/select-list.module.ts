@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectListModule } from '@ux-aspects/ux-aspects';
+import { SelectListModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
 import { SelectListTestPageComponent } from './select-list.testpage.component';
 
 @NgModule({
     imports: [
         CommonModule,
         SelectListModule,
+        AccessibilityModule,
         FormsModule,
         RouterModule.forChild([
             {

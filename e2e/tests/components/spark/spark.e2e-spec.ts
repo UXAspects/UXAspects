@@ -15,7 +15,7 @@ describe('Spark Chart Tests', () => {
     });
 
     it('should have the correct theme (single value)', async () => {
-        expect(await page.getTheme(page.singleValueChart)).toBe('ux-spark-theme-vibrant2');
+        expect(await page.getTheme(page.singleValueChart)).toBe('ux-spark-theme-primary');
     });
 
     it('should have the correct theme (multi value)', async () => {

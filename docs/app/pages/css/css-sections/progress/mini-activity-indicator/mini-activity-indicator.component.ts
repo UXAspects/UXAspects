@@ -14,7 +14,7 @@ import { playgroundAdapter } from '../../../../../services/playground/adapters/l
 export class CssMiniActivityIndicatorComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     playground: IPlayground = playgroundAdapter({
-        html: `${this.snippets.raw.sample1Html} ${this.snippets.raw.sample2Html} ${this.snippets.raw.sample3Html} ${this.snippets.raw.sample4Html}`
+        html: this.snippets.raw.sample1Html
     });
 
     constructor() {

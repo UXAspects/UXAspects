@@ -86,6 +86,7 @@ function DonutChartCtrl($colorService) {
                 }
             },
             grid: {
+                clickable: true,
                 hoverable: true
             },
             tooltip: {
@@ -105,10 +106,10 @@ function DonutChartCtrl($colorService) {
                 labelBoxBorderColor: "transparent"
             }
         },
-        onPlotClick: function () {
+        onPlotClick: function (event, position, item) {
             //Code to be executed when plot is clicked.
         },
-        onPlotHover: function () {
+        onPlotHover: function (event, position, item) {
             //Code to be executed when plot area is hovered.
         },
         donutLabels: {

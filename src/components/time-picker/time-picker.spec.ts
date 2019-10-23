@@ -150,6 +150,22 @@ describe('Time Picker Component', () => {
         expect(hourInput.value).toBe('12');
     });
 
+    it('should not allow 13 in the hour field when meridian is set to true and PM', async () => {
+        component.showMeridian = true;
+        fixture.detectChanges();
+
+        const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');
+        const hourInput = inputs.item(0);
+
+        hourInput.value = '13';
+        hourInput.dispatchEvent(new Event('input'));
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(hourInput.value).toBe('12');
+    });
+
     it('should not allow a number more than 59 to be set in the minute field', async () => {
 
         const inputs = nativeElement.querySelectorAll<HTMLInputElement>('input');

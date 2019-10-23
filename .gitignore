@@ -6,10 +6,8 @@ _SpecRunner.html
 jshint.log
 .awcache/
 docs/app/assets/licenses.txt
-src/fonts/*-icons.eot
-src/fonts/*-icons.ttf
 src/fonts/*-icons.woff
-src/fonts/*-icons.svg
+src/fonts/*-icons.ttf
 src/styles/hpe-icons.less
 dist/
 .tscache/

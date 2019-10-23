@@ -47,6 +47,14 @@ exports.config = {
             ignoreAntialiasing: true
         },
       },
+      {
+        package: 'protractor-console-plugin',
+        failOnError: true,
+        logWarnings: false,
+        exclude: [
+          new RegExp(/favicon.ico/, 'g')
+        ]
+      }
   ],
 
   // For angular tests
