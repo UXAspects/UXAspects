@@ -30,7 +30,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     // store current values for deep change detection
     private _value: SliderValue | number;
-    private _options: SliderOptions;
+     _options: SliderOptions;
 
     // expose enums to Angular view
     sliderType = SliderType;
