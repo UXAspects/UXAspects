@@ -132,11 +132,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
                         formatter: (value: number): string | number => value
                     }
                 },
-                colors: {
-                    lower: colorService.getColor('grey6').toHex(),
-                    range: colorService.getColor('accent').setAlpha(0.75).toRgba(),
-                    higher: colorService.getColor('grey6').toHex()
-                }
+                colors: {}
             }
         };
     }
@@ -635,9 +631,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         const { lower, range, higher } = this._options.track.colors;
 
         // update the controller value
-        this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
-        this.tracks.middle.color = typeof range === 'string' ? range : `linear-gradient(to right, ${range.join(', ')})`;
-        this.tracks.upper.color = typeof higher === 'string' ? higher : `linear-gradient(to right, ${higher.join(', ')})`;
+        this.tracks.lower.color = this.getTrackColorStyle(lower);
+        this.tracks.middle.color = this.getTrackColorStyle(range);
+        this.tracks.upper.color = this.getTrackColorStyle(higher);
+    }
+
+    /** Map the color value to the correct CSS color value */
+    private getTrackColorStyle(color: string | string[] | undefined): string | undefined {
+        return Array.isArray(color) ? `linear-gradient(to right, ${color.join(', ')})` : color;
     }
 
     private getSteps(steps: number | number[]): number[] {

@@ -284,6 +284,14 @@ export class SlidersTestPageComponent {
         this.slider5.options.track.colors.higher = '#0f0';
     }
 
+    trackDefaultColours(): void {
+        this.slider5.options = { ...this.slider5.options };
+
+        this.slider5.options.track.colors.lower = '';
+        this.slider5.options.track.colors.range = '';
+        this.slider5.options.track.colors.higher = '';
+    }
+
 }
 
 interface SliderExample {

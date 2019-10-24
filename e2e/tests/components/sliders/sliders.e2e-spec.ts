@@ -353,7 +353,12 @@ describe('SlidersPage Tests', () => {
 
     it('should allow track styling to be changed', async () => {
 
-        // set the selected input
+        // set the default colours
+        await page.defaultColorButton.click();
+
+        expect(await imageCompare('slider-range-track-colors-default')).toEqual(0);
+
+        // change the default colours
         await page.colorChangeButton.click();
 
         expect(await imageCompare('slider-range-track-colors')).toEqual(0);
