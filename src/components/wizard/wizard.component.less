@@ -11,6 +11,8 @@ ux-wizard {
             margin-bottom: 8px;
 
             .wizard-step {
+                display: flex;
+                align-items: center;
                 flex: 1;
                 max-width: 25%;
                 height: 100%;
@@ -18,10 +20,6 @@ ux-wizard {
                 background: @wizard-steps-disabled-bg;
                 color: @wizard-steps-disabled-color;
                 margin: 0 8px;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                word-break: break-all;
 
                 &.visited {
                     background-color: @wizard-step-complete-bg;
@@ -56,6 +54,18 @@ ux-wizard {
                     &.cdk-keyboard-focused {
                         .focus-outline();
                     }
+                }
+
+                .wizard-step-text {
+                    flex: 1;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    word-break: break-all;
+                }
+
+                .wizard-step-icon {
+                    flex: none;
                 }
             }
         }

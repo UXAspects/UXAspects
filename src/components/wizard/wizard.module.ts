@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WizardComponent } from './wizard.component';
-import { WizardStepComponent } from './wizard-step.component';
-import { TooltipModule } from '../tooltip/index';
+import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/accessibility.module';
+import { IconModule } from '../icon/index';
+import { TooltipModule } from '../tooltip/index';
+import { WizardStepComponent } from './wizard-step.component';
+import { WizardComponent } from './wizard.component';
 
 const DECLARATIONS = [
     WizardComponent,
@@ -12,9 +13,10 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
+        AccessibilityModule,
         CommonModule,
+        IconModule,
         TooltipModule,
-        AccessibilityModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS
