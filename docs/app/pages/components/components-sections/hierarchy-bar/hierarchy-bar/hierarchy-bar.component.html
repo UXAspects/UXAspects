@@ -1,4 +1,4 @@
-<ux-hierarchy-bar [root]="node" [mode]="mode" [(selected)]="selected">
+<ux-hierarchy-bar [readonly]="readonly" [root]="node" [mode]="mode" [(selected)]="selected">
     <button class="hierarchy-bar-search" uxFocusIndicator uxHierarchyBarRightAddon>
         <ux-icon name="search"></ux-icon>
     </button>
@@ -8,16 +8,24 @@
     <div class="col-md-12">
         <ux-accordion>
             <ux-accordion-panel class="accordion-chevron" heading="Customize Example...">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <ux-radio-button option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-1 col-sm-12">
+                        <label>mode</label>
                     </div>
-                    <div class="col-sm-6 col-md-3">
-                        <ux-radio-button option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
+                    <div class="col-md-2 col-sm-12">
+                        <ux-radio-button option="standard" [(ngModel)]="mode">standard</ux-radio-button>
                     </div>
-                    <div class="col-sm-6 col-md-3">
+                    <div class="col-md-2 col-sm-12">
+                        <ux-radio-button option="collapsed" [(ngModel)]="mode">collapsed</ux-radio-button>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
                         <ux-radio-button option="dropdown" [(ngModel)]="mode">dropdown
                         </ux-radio-button>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="readonly">readonly</ux-checkbox>
                     </div>
                 </div>
             </ux-accordion-panel>

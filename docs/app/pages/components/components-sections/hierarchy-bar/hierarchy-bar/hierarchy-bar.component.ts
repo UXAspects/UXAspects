@@ -20,8 +20,11 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
     /** Get the url for the user icon asset */
     userIcon = require('../../../../../assets/img/IconUser.png');
 
-    /** Define the hierarchy bar mode - either standard or collapsed */
+    /** Define the hierarchy bar mode - either standard or collapsed or dropdown*/
     mode: string = 'standard';
+
+    /** Define the hierarchy bar is readonly */
+    readonly: boolean = false;
 
     /** Define the nodes to display */
     node: HierarchyBarNode = {

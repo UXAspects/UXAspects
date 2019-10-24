@@ -59,7 +59,7 @@
             #popover="ux-popover"
             aria-label="Show children"
             class="hierarchy-bar-node-content"
-            [disabled]="readonly"
+            [disabled]="readonly || !node.children"
             [uxPopover]="popoverTemplate"
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
@@ -67,6 +67,7 @@
             [showTriggers]="hierarchyBar.popoverShowTriggers"
             [hideTriggers]="hierarchyBar.popoverHideTriggers"
             tabindex="0"
+            (click)="selected.emit(node)"
             [attr.aria-label]="node.title">
 
         <!-- Show a custom icon if specified -->
