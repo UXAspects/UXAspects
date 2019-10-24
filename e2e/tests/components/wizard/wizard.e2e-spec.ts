@@ -79,12 +79,11 @@ describe('Wizard Tests', () => {
         expect(await steps[1].getAttribute('class')).toContain('visited');
         expect(await steps[1].getAttribute('class')).toContain('active');
 
-        // check the content of the wizard is corrent
-        let content: ElementFinder[] = await page.stepContents;
-
         // check that only the second step is showing its content
         page.stepContents.each(async (step, idx) =>
             expect(await step.$$('*').count()).toBe(idx === 1 ? 1 : 0));
+
+        expect(await imageCompare('wizard-step2')).toEqual(0);
     });
 
     it('should navigate back to the first step if clicking on a visted step header', async () => {
