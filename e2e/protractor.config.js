@@ -8,8 +8,6 @@ const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 const isJenkinsBuild = !!env.RE_BUILD_TYPE;
 
-console.log(`*** protractor: isJenkinsBuild = ${isJenkinsBuild} ***`);
-
 exports.config = {
   directConnect: true,  // Set to false if using Selenium Grid
   chromeDriver: require('chromedriver').path,
