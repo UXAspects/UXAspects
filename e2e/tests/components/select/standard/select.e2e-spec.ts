@@ -511,7 +511,7 @@ describe('Select Tests', () => {
 
         const clearButton = page.getClearButton();
 
-        await page.enableClearButton();
+        await page.toggleClearButton();
 
         expect(await clearButton.isPresent()).toBeFalsy();
 
@@ -546,12 +546,17 @@ describe('Select Tests', () => {
         await page.clickOnCountry(false, 1);
         expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-single')).toEqual(0);
+        await page.toggleClearButton();
+        expect(await imageCompare('select-custom-icon-single-clear-btn')).toEqual(0);
+        await page.toggleClearButton();
         await page.clickOnCheckbox(page.checkboxMulti);
         await page.clickOnDropdown(true);
         await page.clickOnCountry(true, 1);
         await page.clickOnCountry(true, 2);
         expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-multiple')).toEqual(0);
+        await page.toggleClearButton();
+        expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
     });
 
 });

@@ -78,8 +78,9 @@
            [class.ux-icon-down]="dropDirection === 'down'"
            (click)="toggle(); $event.stopPropagation()">
         </i>
-
-        <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
+        <div *ngIf="icon" class="ux-custom-icon">
+            <ng-container [ngTemplateOutlet]="icon"></ng-container>
+        </div>
         
     </div>
 
