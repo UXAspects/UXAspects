@@ -1,6 +1,9 @@
 import { browser, by, element } from 'protractor';
 
 export class SankeyChartPage {
+
+    chart = element(by.id('sankey-chart'));
+
     async getPage(): Promise<void> {
         await browser.get('#/sankey-chart');
     }
@@ -19,7 +22,7 @@ export class SankeyChartPage {
 
     async clickButton(id: string): Promise<void> {
         await element(by.id(id)).click();
-        await browser.actions().mouseMove({ x: 0, y: 0 }).perform();
         await browser.executeScript('window.scrollTo(0, 0);');
+        await browser.actions().mouseMove(this.chart, { x: 0, y: 0 }).perform();
     }
 }
