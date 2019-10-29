@@ -23,7 +23,11 @@ ux-hierarchy-bar-node {
         background: transparent;
         padding: 0;
 
-        &:hover > .hierarchy-bar-node-arrow-icon-dropdown {
+        &:hover > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
+            color: @primary;
+        }
+
+        &:focus > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
             color: @primary;
         }
 
@@ -62,7 +66,7 @@ ux-hierarchy-bar-node {
         background: transparent;
         padding: 0;
 
-        &:hover:not(:disabled) {
+        &:hover:not(:disabled):not(.readonly-arrow) {
             color: @primary;
         }
 
