@@ -351,10 +351,7 @@ describe('SlidersPage Tests', () => {
 
     });
 
-    it('should allow track styling to be changed', async () => {
-
-        // set the default colours
-        await page.defaultColorButton.click();
+    it('should allow track styling to be changed on range and single sliders', async () => {
 
         expect(await imageCompare('slider-range-track-colors-default')).toEqual(0);
 

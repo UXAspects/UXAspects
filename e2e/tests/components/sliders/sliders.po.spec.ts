@@ -13,7 +13,6 @@ export class SlidersPage {
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
     colorChangeButton = $('#track-color-change-btn');
-    defaultColorButton = $('#track-default-colours-btn');
 
     async getPage(): Promise<void> {
         await browser.get('#/sliders');
