@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HierarchyBarNodeComponent } from '../hierarchy-bar-node/hierarchy-bar-node.component';
@@ -11,6 +11,12 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchyBarStandardComponent implements OnDestroy {
+
+    /** Determine the mode of the hierarchy bar */
+    @Input() mode: string;
+
+    /** Determine read only state */
+    @Input() readonly: boolean;
 
     /** Get the elementRef of the node list */
     @ViewChild('nodelist', { static: true }) nodelist: ElementRef;

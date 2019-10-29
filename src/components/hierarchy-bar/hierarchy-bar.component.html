@@ -1,5 +1,5 @@
 <!-- Hierarchy Bar - Standard Layout -->
-<ux-hierarchy-bar-standard *ngIf="mode === 'standard'">
+<ux-hierarchy-bar-standard [readonly]="readonly" [mode]="mode" *ngIf="mode !== 'collapsed'">
 
     <!-- Forward the content to the correct layout -->
     <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>
@@ -9,7 +9,7 @@
 </ux-hierarchy-bar-standard>
 
 <!-- Hierarchy Bar - Collapsed Layout -->
-<ux-hierarchy-bar-collapsed *ngIf="mode === 'collapsed'">
+<ux-hierarchy-bar-collapsed [readonly]="readonly" *ngIf="mode === 'collapsed'">
 
     <!-- Forward the content to the correct layout -->
     <ng-container ngProjectAs="left-addons" [ngTemplateOutlet]="leftAddons"></ng-container>

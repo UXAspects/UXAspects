@@ -1,4 +1,4 @@
-<ux-hierarchy-bar [root]="node" [(selected)]="selected">
+<ux-hierarchy-bar [readonly]="readonly" [mode]="mode" [root]="node" [(selected)]="selected">
     <button *ngIf="showLeftAddon" class="btn button-secondary" uxHierarchyBarLeftAddon>Left Addon</button>
     <button *ngIf="showTrailingAddon" class="btn button-secondary" uxHierarchyBarTrailingAddon>Trailing Addon</button>
     <button *ngIf="showRightAddon" class="btn button-secondary" uxHierarchyBarRightAddon>Right Addon</button>
@@ -17,3 +17,13 @@
 <button id="show-left-addon-btn" class="btn button-secondary m-r" (click)="showLeftAddon = true">Show Left Addon</button>
 <button id="show-trailing-addon-btn" class="btn button-secondary m-r" (click)="showTrailingAddon = true">Show Trailing Addon</button>
 <button id="show-right-addon-btn" class="btn button-secondary" (click)="showRightAddon = true">Show Right Addon</button>
+
+<div class="row">
+    <ux-radio-button id="standard-mode" option="standard" [(ngModel)]="mode">Standard</ux-radio-button>
+    <ux-radio-button id="collapsed-mode" option="collapsed" [(ngModel)]="mode">Collapsed</ux-radio-button>
+    <ux-radio-button id="dropdown-mode" option="dropdown" [(ngModel)]="mode">dropdown</ux-radio-button>
+</div>
+
+<div class="row">
+    <button id="readonly-btn" (click)="readonly = true">readonly</button>
+</div>
