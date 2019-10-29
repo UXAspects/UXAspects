@@ -64,8 +64,8 @@
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
             popoverClass="hierarchy-bar-popover"
-            [showTriggers]="node.children ? hierarchyBar.popoverShowTriggers : null"
-            [hideTriggers]="node.children ? hierarchyBar.popoverHideTriggers : null"
+            [showTriggers]="node.children ? hierarchyBar.popoverShowTriggers : []"
+            [hideTriggers]="node.children ? hierarchyBar.popoverHideTriggers : []"
             tabindex="0"
             [attr.aria-label]="node.title">
 
