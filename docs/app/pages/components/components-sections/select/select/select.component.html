@@ -207,18 +207,19 @@
         The placeholder text which appears in the text input area when it is empty.
     </tr>
     <tr uxd-api-property name="tagTemplate" type="TemplateRef">
-        <p>A template which will be rendered as the content of each tag. The following context
+        <p>A template which will be rendered as the content of each selected option. The following context
             properties are available in the template:</p>
         <ul>
-            <li><code>tag: any</code> - the string or custom object representing the tag.</li>
-            <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag
-            input.</li>
+            <li><code>tag: any</code> - the string or custom object representing the selected option.</li>
+            <li><code>index: number</code> - the zero-based index of the selected option as it appears in
+                the dropdown.</li>
             <li><code>api: TagApi</code> - provides the functions <code>getTagDisplay</code>,
             <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more
             information.</li>
         </ul>
         <p>
-            The following code snippet shows how to use a custom template to display an icon alongside the tag text:
+            The following code snippet shows how to use a custom template to display an icon alongside
+            the selected option text:
         </p>
         <uxd-snippet [content]="snippets.compiled.tagTemplateHtml"></uxd-snippet>
     </tr>

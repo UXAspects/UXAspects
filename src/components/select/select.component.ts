@@ -123,9 +123,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() placeholder: string = '';
 
     /**
-     * A template which will be rendered as the content of each tag. The following context properties are available in the template:
-     * - `tag: any` - the string or custom object representing the tag.
-     * - `index: number` - the zero-based index of the tag as it appears in the tag input.
+     * A template which will be rendered as the content of each selected option. The following context
+     * properties are available in the template:
+     * - `tag: any` - the string or custom object representing the selected option.
+     * - `index: number` - the zero-based index of the selected option as it appears in the dropdown.
      * - `api: TagApi` - provides the functions getTagDisplay, removeTagAt and canRemoveTagAt.
      */
     @Input() tagTemplate: TemplateRef<any>;
