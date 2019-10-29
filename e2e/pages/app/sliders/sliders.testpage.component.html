@@ -67,20 +67,23 @@
         </div>
 
         <div class="col-md-12">
-            <ux-slider id="slider7" [value]="slider7.value" (valueChange)="valueHasChanged($event)" 
+            <ux-slider id="slider7" [value]="slider7.value" (valueChange)="valueHasChanged($event)"
                 [options]="slider7.options"></ux-slider>
         </div>
     </div>
 
     <div class="row m-t-sm p-t-xs">
         <div class="col-sm-2">
-            <input id="input1" type="text" class="form-control m-b" [(ngModel)]="lowerValue" 
+            <input id="input1" type="text" class="form-control m-b" [(ngModel)]="lowerValue"
                 (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
         <div class="col-sm-offset-8 col-sm-2">
-            <input id="input2" type="text" class="form-control m-b" [(ngModel)]="upperValue" 
+            <input id="input2" type="text" class="form-control m-b" [(ngModel)]="upperValue"
                 (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
     </div>
+
+    <button id="track-color-change-btn" class="btn button-primary" (click)="trackColorChange()">Track Color
+    Change</button>
 
 </div>
