@@ -538,7 +538,7 @@ describe('Select Tests', () => {
         expect(await imageCompare('select-tag-overflow')).toEqual(0);
     });
 
-    fit('should allow a custom icon', async () => {
+    it('should allow a custom icon', async () => {
         const customIcon = page.getCustomIcon();
 
         await page.toggleCustomIcon();
