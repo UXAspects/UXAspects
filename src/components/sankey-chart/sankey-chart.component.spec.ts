@@ -504,7 +504,7 @@ describe('Sankey Chart with minHeight', () => {
         expect(component.getNodeHeight(element, 'node6')).toBe(223, 'node6');
     });
 
-    it('should size nodes with minHeight = 109', () => {
+    it('should fail to size nodes with minHeight = 109, and fall back to minHeight = 0', () => {
         component.minHeight = 109;
         fixture.detectChanges();
 
