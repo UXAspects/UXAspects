@@ -45,6 +45,7 @@
                 <version>1.6.0</version>
                 <configuration>
                     <environmentVariables>
+                        <RE_BUILD_TYPE>${RE_BUILD_TYPE}</RE_BUILD_TYPE>
                         <VERSION>${project.version}</VERSION>
                     </environmentVariables>
                 </configuration>
