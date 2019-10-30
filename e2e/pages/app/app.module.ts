@@ -126,6 +126,10 @@ const routes: Routes = [
         loadChildren: () => import('./reorderable-group/reorderable-group.module').then(m => m.ReorderableGroupTestPageModule)
     },
     {
+        path: 'sankey-chart',
+        loadChildren: () => import('./sankey-chart/sankey-chart.module').then(m => m.SankeyChartTestPageModule)
+    },
+    {
         path: 'search-builder',
         loadChildren: () => import('./search-builder/search-builder.module').then(m => m.SearchBuilderTestPageModule)
     },

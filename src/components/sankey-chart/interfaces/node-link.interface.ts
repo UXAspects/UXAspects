@@ -15,6 +15,7 @@ export interface SankeyNodeLink<T> {
     y: number;
     width: number;
     height: number;
+    naturalHeight: number;
     active: boolean;
     focus: boolean;
     inputs: ReadonlyArray<SankeyLink & SankeyLinkPlot & SankeyLinkInteraction>;

@@ -11,25 +11,25 @@ import { SankeyNode } from './interfaces/node.interface';
 import { SankeyNodeDirective } from './sankey-chart-node.directive';
 import { SankeyChartComponent } from './sankey-chart.component';
 
-
 @Component({
     selector: 'app-sankey-chart',
     template: `
-    <ux-sankey-chart [nodes]="nodes" [links]="links" [columns]="columns">
-      <ng-template #sankeyNodeTemplate let-node="node" let-active="active">
-        <span class="node-state">{{ node.data.name }}</span> - <span class="active-state">{{ active }}</span>
-      </ng-template>
-    </ux-sankey-chart>
-  `,
+        <ux-sankey-chart [nodes]="nodes" [links]="links" [columns]="columns">
+            <ng-template #sankeyNodeTemplate let-node="node" let-active="active">
+                <span class="node-state">{{ node.data.name }}</span> - <span class="active-state">{{ active }}</span>
+            </ng-template>
+        </ux-sankey-chart>
+    `,
     styles: [
-        `ux-sankey-chart {
-      width: 800px;
-      height: 800px;
-    }`
+        `
+            ux-sankey-chart {
+                width: 800px;
+                height: 800px;
+            }
+        `
     ]
 })
 export class SankeyChartTestComponent {
-
     nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [
         {
             id: SankeyNodeId.FileSystem,
@@ -119,7 +119,7 @@ export class SankeyChartTestComponent {
         { source: SankeyNodeId.Metadata, target: SankeyNodeId.EmployeeData, value: 1_000_000 },
         { source: SankeyNodeId.Other, target: SankeyNodeId.HealthData, value: 880_000 },
         { source: SankeyNodeId.Other, target: SankeyNodeId.EmployeeData, value: 880_000 },
-        { source: SankeyNodeId.Other, target: SankeyNodeId.FinancialData, value: 440_000 },
+        { source: SankeyNodeId.Other, target: SankeyNodeId.FinancialData, value: 440_000 }
     ];
 
     columns: string[] = ['Repositories', 'Extraction', 'Classification'];
@@ -156,20 +156,9 @@ describe('Sankey Chart Component', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                AccessibilityModule,
-                CommonModule,
-                TooltipModule,
-                ResizeModule,
-                BrowserAnimationsModule
-            ],
-            declarations: [
-                SankeyChartTestComponent,
-                SankeyChartComponent,
-                SankeyNodeDirective,
-            ],
-        })
-            .compileComponents();
+            imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule, BrowserAnimationsModule],
+            declarations: [SankeyChartTestComponent, SankeyChartComponent, SankeyNodeDirective]
+        }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -221,7 +210,6 @@ describe('Sankey Chart Component', () => {
     });
 
     it('should show active state on node hover', () => {
-
         // hover over the first node
         const node = element.querySelectorAll('.ux-sankey-chart-node').item(0);
         dispatchMouseEvent(node, 'mouseenter');
@@ -296,7 +284,6 @@ describe('Sankey Chart Component', () => {
         expect(activeLinks.length).toBe(0);
     });
 
-
     it('should update TemplateRef context on node hover', () => {
         // hover over the first node
         const node = element.querySelectorAll('.ux-sankey-chart-node').item(0);
@@ -308,7 +295,6 @@ describe('Sankey Chart Component', () => {
 
         expect(activeState.innerText).toBe('true');
     });
-
 
     it('should update TemplateRef context on link hover', () => {
         // hover over the first link
@@ -365,7 +351,7 @@ describe('Sankey Chart Component', () => {
         expect(tooltip.innerText).toBe('450,000 items');
     });
 
-    it('should resize nodes when container is resized', (done) => {
+    it('should resize nodes when container is resized', done => {
         const chart = element.querySelector('ux-sankey-chart') as HTMLElement;
         const node = element.querySelectorAll('.ux-sankey-chart-node').item(0) as HTMLElement;
 
@@ -376,6 +362,158 @@ describe('Sankey Chart Component', () => {
             expect(node.offsetWidth).toBe(170);
             done();
         }, 100);
+    });
+});
 
+@Component({
+    selector: 'app-sankey-chart-min-height',
+    template: `
+        <ux-sankey-chart [nodes]="nodes" [links]="links" [columns]="columns" [minHeight]="minHeight">
+            <ng-template #sankeyNodeTemplate let-node="node" let-active="active">
+                <span [attr.id]="'node' + node.id" class="node-state">{{ node.data.name }}</span> - <span class="active-state">{{ active }}</span>
+            </ng-template>
+        </ux-sankey-chart>
+    `,
+    styles: [
+        `
+            ux-sankey-chart {
+                width: 800px;
+                height: 800px;
+            }
+        `
+    ]
+})
+export class SankeyChartMinHeightTestComponent {
+
+    nodes: ReadonlyArray<SankeyNode<{ name: string }>> = [
+        {
+            id: 0,
+            data: { name: 'Node0' }
+        },
+        {
+            id: 1,
+            data: { name: 'Node1' }
+        },
+        {
+            id: 2,
+            data: { name: 'Node2' }
+        },
+        {
+            id: 3,
+            data: { name: 'Node3' }
+        },
+        {
+            id: 4,
+            data: { name: 'Node4' }
+        },
+        {
+            id: 5,
+            data: { name: 'Node5' }
+        },
+        {
+            id: 6,
+            data: { name: 'Node6' }
+        }
+    ];
+
+    links: ReadonlyArray<SankeyLink> = [
+        { source: 0, target: 6, value: 100 },
+        { source: 1, target: 6, value: 200 },
+        { source: 2, target: 6, value: 400 },
+        { source: 3, target: 6, value: 800 },
+        { source: 4, target: 6, value: 1600 },
+        { source: 5, target: 6, value: 3200 }
+    ];
+
+    columns: string[] = ['Column A', 'Column B'];
+
+    minHeight = 0;
+
+    getNodeHeight(parentElement: HTMLElement, id: string): number {
+        const element = parentElement.querySelector(`#${id}`).closest('.ux-sankey-chart-node');
+
+        return element.clientHeight;
+    }
+}
+
+describe('Sankey Chart with minHeight', () => {
+    let component: SankeyChartMinHeightTestComponent;
+    let fixture: ComponentFixture<SankeyChartMinHeightTestComponent>;
+    let element: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [AccessibilityModule, CommonModule, TooltipModule, ResizeModule, BrowserAnimationsModule],
+            declarations: [SankeyChartMinHeightTestComponent, SankeyChartComponent, SankeyNodeDirective]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SankeyChartMinHeightTestComponent);
+        component = fixture.componentInstance;
+        element = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should size nodes with minHeight = 0', () => {
+        expect(component.getNodeHeight(element, 'node0')).toBe(0, 'node0');
+        expect(component.getNodeHeight(element, 'node1')).toBe(7, 'node1');
+        expect(component.getNodeHeight(element, 'node2')).toBe(31, 'node2');
+        expect(component.getNodeHeight(element, 'node3')).toBe(78, 'node3');
+        expect(component.getNodeHeight(element, 'node4')).toBe(170, 'node4');
+        expect(component.getNodeHeight(element, 'node5')).toBe(358, 'node5');
+        expect(component.getNodeHeight(element, 'node6')).toBe(720, 'node6');
+    });
+
+    it('should size nodes with minHeight = 30', () => {
+        component.minHeight = 30;
+        fixture.detectChanges();
+
+        expect(component.getNodeHeight(element, 'node0')).toBe(28, 'node0');
+        expect(component.getNodeHeight(element, 'node1')).toBe(28, 'node1');
+        expect(component.getNodeHeight(element, 'node2')).toBe(28, 'node2');
+        expect(component.getNodeHeight(element, 'node3')).toBe(71, 'node3');
+        expect(component.getNodeHeight(element, 'node4')).toBe(157, 'node4');
+        expect(component.getNodeHeight(element, 'node5')).toBe(328, 'node5');
+        expect(component.getNodeHeight(element, 'node6')).toBe(661, 'node6');
+    });
+
+    it('should size nodes with minHeight = 100', () => {
+        component.minHeight = 100;
+        fixture.detectChanges();
+
+        expect(component.getNodeHeight(element, 'node0')).toBe(98, 'node0');
+        expect(component.getNodeHeight(element, 'node1')).toBe(98, 'node1');
+        expect(component.getNodeHeight(element, 'node2')).toBe(98, 'node2');
+        expect(component.getNodeHeight(element, 'node3')).toBe(98, 'node3');
+        expect(component.getNodeHeight(element, 'node4')).toBe(98, 'node4');
+        expect(component.getNodeHeight(element, 'node5')).toBe(150, 'node5');
+        expect(component.getNodeHeight(element, 'node6')).toBe(303, 'node6');
+    });
+
+    it('should size nodes with minHeight = 108', () => {
+        component.minHeight = 108;
+        fixture.detectChanges();
+
+        expect(component.getNodeHeight(element, 'node0')).toBe(106, 'node0');
+        expect(component.getNodeHeight(element, 'node1')).toBe(106, 'node1');
+        expect(component.getNodeHeight(element, 'node2')).toBe(106, 'node2');
+        expect(component.getNodeHeight(element, 'node3')).toBe(106, 'node3');
+        expect(component.getNodeHeight(element, 'node4')).toBe(106, 'node4');
+        expect(component.getNodeHeight(element, 'node5')).toBe(110, 'node5');
+        expect(component.getNodeHeight(element, 'node6')).toBe(223, 'node6');
+    });
+
+    it('should fail to size nodes with minHeight = 109, and fall back to minHeight = 0', () => {
+        component.minHeight = 109;
+        fixture.detectChanges();
+
+        expect(component.getNodeHeight(element, 'node0')).toBe(0, 'node0');
+        expect(component.getNodeHeight(element, 'node1')).toBe(7, 'node1');
+        expect(component.getNodeHeight(element, 'node2')).toBe(31, 'node2');
+        expect(component.getNodeHeight(element, 'node3')).toBe(77, 'node3');
+        expect(component.getNodeHeight(element, 'node4')).toBe(171, 'node4');
+        expect(component.getNodeHeight(element, 'node5')).toBe(358, 'node5');
+        expect(component.getNodeHeight(element, 'node6')).toBe(720, 'node6');
     });
 });

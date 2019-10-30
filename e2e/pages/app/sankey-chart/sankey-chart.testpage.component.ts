@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { SankeyLink, SankeyNode } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+    selector: 'app-sankey-chart',
+    templateUrl: 'sankey-chart.testpage.component.html',
+    styleUrls: ['./sankey-chart.testpage.component.less']
 })
-export class AppComponent {
+export class SankeyChartTestPageComponent {
 
     nodes: ReadonlyArray<SankeyNode<SankeyNodeData>> = [
         {
@@ -107,14 +107,10 @@ export class AppComponent {
 
     columns: string[] = ['Repositories', 'Extraction', 'Classification'];
 
+    minHeight = 0;
+
     getFileCount(count: number): string {
         return (count / 1_000_000).toPrecision(2) + 'M';
-    }
-
-    getAriaLabel(node: SankeyNode<SankeyNodeData>, size: string): string {
-        return node.data.name + ' has ' +
-            (node.data.files / 1_000_000).toPrecision(2) +
-            ' million files, occupying ' + size + ' of disk space';
     }
 }
 
