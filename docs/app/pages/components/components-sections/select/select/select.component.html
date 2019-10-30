@@ -206,17 +206,8 @@
     <tr uxd-api-property name="placeholder" type="string">
         The placeholder text which appears in the text input area when it is empty.
     </tr>
-    <tr uxd-api-property name="tagTemplate" type="TemplateRef">
-        <p>A template which will be rendered as the content of each selected option. The following context
-            properties are available in the template:</p>
-        <ul>
-            <li><code>tag: any</code> - the string or custom object representing the selected option.</li>
-            <li><code>index: number</code> - the zero-based index of the selected option as it appears in
-                the dropdown.</li>
-            <li><code>api: TagApi</code> - provides the functions <code>getTagDisplay</code>,
-            <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more
-            information.</li>
-        </ul>
+    <tr uxd-api-property name="tagTemplate" type="TemplateRef<TagTemplateContext>">
+        <p>A template which will be rendered as the content of each selected option.
         <p>
             The following code snippet shows how to use a custom template to display an icon alongside
             the selected option text:
@@ -246,6 +237,19 @@
     </tr>
     <tr uxd-api-property name="dropdownOpenChange" type="boolean">
         Emits when <code>dropdownOpen</code> changes.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="TagTemplateContext Interface">
+    <tr uxd-api-property name="tag" type="T">
+        The string or custom object representing the selected option.
+    </tr>
+    <tr uxd-api-property name="index" type="number">
+        The zero-based index of the selected option as it appears in the dropdown.
+    </tr>
+    <tr uxd-api-property name="api" type="TagApi">
+        Provides the functions <code>getTagDisplay</code>, <code>removeTagAt</code> and <code>
+        canRemoveTagAt</code>.
     </tr>
 </uxd-api-properties>
 

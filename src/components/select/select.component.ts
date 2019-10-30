@@ -8,6 +8,7 @@ import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
+import { TagApi } from '../../../dist/components/tag-input';
 
 let uniqueId = 0;
 
@@ -124,12 +125,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /**
      * A template which will be rendered as the content of each selected option. The following context
-     * properties are available in the template:
-     * - `tag: any` - the string or custom object representing the selected option.
+     * properties are available in the template via the TagTemplateContext:
+     * - `tag: T` - the string or custom object representing the selected option.
      * - `index: number` - the zero-based index of the selected option as it appears in the dropdown.
      * - `api: TagApi` - provides the functions getTagDisplay, removeTagAt and canRemoveTagAt.
      */
-    @Input() tagTemplate: TemplateRef<any>;
+    @Input() tagTemplate: TemplateRef<TagTemplateContext>;
 
     /**
      * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
@@ -394,4 +395,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this.singleInput.nativeElement.select();
         }
     }
+}
+
+export interface TagTemplateContext<T = string | any> {
+    tag: T;
+    index: number;
+    api: TagApi;
 }
