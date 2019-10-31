@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.7-6 
+* @ux-aspects/ux-aspects-docs - v1.8.8-10 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -18175,12 +18175,21 @@ ux-hierarchy-bar-node .hierarchy-bar-node {
   cursor: pointer;
   max-width: 100%;
 }
+ux-hierarchy-bar-node .hierarchy-bar-node.hierarchy-bar-node-readonly {
+  cursor: default;
+}
 ux-hierarchy-bar-node .hierarchy-bar-node-content {
   display: inline-flex;
   align-items: center;
   border: none;
   background: transparent;
   padding: 0;
+}
+ux-hierarchy-bar-node .hierarchy-bar-node-content:hover > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
+  color: #00a7a2;
+}
+ux-hierarchy-bar-node .hierarchy-bar-node-content:focus > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
+  color: #00a7a2;
 }
 ux-hierarchy-bar-node .hierarchy-bar-node-content:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
@@ -18205,7 +18214,8 @@ ux-hierarchy-bar-node:last-of-type .hierarchy-bar-node-title {
   color: #333;
   font-weight: 600;
 }
-ux-hierarchy-bar-node .hierarchy-bar-node-arrow {
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow,
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow-icon-dropdown {
   color: #cfcfcf;
   margin-left: 5px;
   transition: color 250ms ease-in-out;
@@ -18213,13 +18223,16 @@ ux-hierarchy-bar-node .hierarchy-bar-node-arrow {
   background: transparent;
   padding: 0;
 }
-ux-hierarchy-bar-node .hierarchy-bar-node-arrow:hover {
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow:hover:not(:disabled):not(.readonly-arrow),
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow-icon-dropdown:hover:not(:disabled):not(.readonly-arrow) {
   color: #00a7a2;
 }
-ux-hierarchy-bar-node .hierarchy-bar-node-arrow:focus {
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow:focus,
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow-icon-dropdown:focus {
   color: #00a7a2;
 }
-ux-hierarchy-bar-node .hierarchy-bar-node-arrow:focus:not(.ux-focus-indicator) {
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow:focus:not(.ux-focus-indicator),
+ux-hierarchy-bar-node .hierarchy-bar-node-arrow-icon-dropdown:focus:not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -18384,13 +18397,13 @@ ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow {
   padding: 0;
   height: 16px;
 }
-ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:hover {
+ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:hover:not(:disabled) {
   color: #00a7a2;
 }
-ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:focus {
+ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:focus:not(:disabled) {
   color: #00a7a2;
 }
-ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:focus:not(.ux-focus-indicator) {
+ux-hierarchy-bar-collapsed .hierarchy-bar-overflow .hierarchy-bar-node-arrow:focus:not(:disabled):not(.ux-focus-indicator) {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
@@ -20151,7 +20164,9 @@ ux-select .ux-select-container .ux-select-icons,
 ux-input-dropdown .ux-select-container .ux-select-icons,
 ux-combobox .ux-select-container .ux-select-icons,
 ux-dropdown .ux-select-container .ux-select-icons {
+  display: flex;
   position: absolute;
+  align-items: center;
   top: 0;
   right: 0;
 }
@@ -20161,7 +20176,7 @@ ux-combobox .ux-select-container .ux-select-icons .ux-select-icon,
 ux-dropdown .ux-select-container .ux-select-icons .ux-select-icon {
   cursor: pointer;
   pointer-events: all;
-  padding: 10px 5px;
+  padding: 9px 5px;
 }
 ux-select .ux-select-container .ux-select-icons .ux-select-icon:last-of-type,
 ux-input-dropdown .ux-select-container .ux-select-icons .ux-select-icon:last-of-type,
@@ -20193,6 +20208,13 @@ ux-dropdown .ux-select-container .ux-select-icons .ux-select-icon > ux-icon {
   width: 16px;
   height: 16px;
   line-height: 16px;
+}
+ux-select .ux-select-container .ux-select-icons .ux-custom-icon,
+ux-input-dropdown .ux-select-container .ux-select-icons .ux-custom-icon,
+ux-combobox .ux-select-container .ux-select-icons .ux-custom-icon,
+ux-dropdown .ux-select-container .ux-select-icons .ux-custom-icon {
+  display: flex;
+  align-items: center;
 }
 ux-select .ux-select-container > input,
 ux-input-dropdown .ux-select-container > input,
@@ -20342,10 +20364,15 @@ ux-slider .track .track-section {
 ux-slider .track .track-section.track-lower {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
+  background: #eee;
 }
 ux-slider .track .track-section.track-higher {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+  background: #eee;
+}
+ux-slider .track .track-section.track-range {
+  background: rgba(123, 99, 163, 0.75);
 }
 ux-slider .track .thumb {
   flex: none;
@@ -20899,7 +20926,11 @@ ux-tag-input .ux-tag-icons .ux-select-icon {
 }
 ux-tag-input .ux-tag-icons .ux-tag-icon:last-of-type,
 ux-tag-input .ux-tag-icons .ux-select-icon:last-of-type {
-  margin-right: 5px;
+  margin-right: 4px;
+}
+ux-tag-input .ux-tag-icons .ux-custom-icon {
+  display: flex;
+  align-items: center;
 }
 ux-time-picker {
   display: inline-flex;
@@ -21372,6 +21403,8 @@ ux-wizard .wizard-body .wizard-steps {
   margin-bottom: 8px;
 }
 ux-wizard .wizard-body .wizard-steps .wizard-step {
+  display: flex;
+  align-items: center;
   flex: 1;
   max-width: 25%;
   height: 100%;
@@ -21379,10 +21412,6 @@ ux-wizard .wizard-body .wizard-steps .wizard-step {
   background: #fafafa;
   color: #c2c2c2;
   margin: 0 8px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: break-all;
 }
 ux-wizard .wizard-body .wizard-steps .wizard-step.visited {
   background-color: #7b63a3;
@@ -21414,6 +21443,16 @@ ux-wizard .wizard-body .wizard-steps .wizard-step:focus.cdk-keyboard-focused {
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step .wizard-step-text {
+  flex: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step .wizard-step-icon {
+  flex: none;
 }
 ux-wizard .wizard-body .wizard-content {
   flex: none;

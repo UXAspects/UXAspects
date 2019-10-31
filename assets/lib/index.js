@@ -22919,6 +22919,10 @@
              */
             this.mode = 'standard';
             /**
+             * hierarchy bar as being readonly - default false
+             */
+            this.readonly = false;
+            /**
              * Emit when the selected node changes
              */
             this.selectedChange = new i0.EventEmitter();
@@ -23039,7 +23043,7 @@
         HierarchyBarComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar',
-                        template: "<!-- Hierarchy Bar - Standard Layout -->\n<ux-hierarchy-bar-standard *ngIf=\"mode === 'standard'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-standard>\n\n<!-- Hierarchy Bar - Collapsed Layout -->\n<ux-hierarchy-bar-collapsed *ngIf=\"mode === 'collapsed'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-collapsed>\n\n<!-- We can only have one ng-content so this allows us to use it more than once -->\n<ng-template #leftAddons>\n    <ng-content select=\"[uxHierarchyBarLeftAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #trailingAddons>\n    <ng-content select=\"[uxHierarchyBarTrailingAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #rightAddons>\n    <ng-content select=\"[uxHierarchyBarRightAddon]\"></ng-content>\n</ng-template>",
+                        template: "<!-- Hierarchy Bar - Standard Layout -->\n<ux-hierarchy-bar-standard [readonly]=\"readonly\" [mode]=\"mode\" *ngIf=\"mode !== 'collapsed'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-standard>\n\n<!-- Hierarchy Bar - Collapsed Layout -->\n<ux-hierarchy-bar-collapsed [readonly]=\"readonly\" *ngIf=\"mode === 'collapsed'\">\n\n    <!-- Forward the content to the correct layout -->\n    <ng-container ngProjectAs=\"left-addons\" [ngTemplateOutlet]=\"leftAddons\"></ng-container>\n    <ng-container ngProjectAs=\"trailing-addons\" [ngTemplateOutlet]=\"trailingAddons\"></ng-container>\n    <ng-container ngProjectAs=\"right-addons\" [ngTemplateOutlet]=\"rightAddons\"></ng-container>\n\n</ux-hierarchy-bar-collapsed>\n\n<!-- We can only have one ng-content so this allows us to use it more than once -->\n<ng-template #leftAddons>\n    <ng-content select=\"[uxHierarchyBarLeftAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #trailingAddons>\n    <ng-content select=\"[uxHierarchyBarTrailingAddon]\"></ng-content>\n</ng-template>\n\n<ng-template #rightAddons>\n    <ng-content select=\"[uxHierarchyBarRightAddon]\"></ng-content>\n</ng-template>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         viewProviders: [HierarchyBarService]
                     }] }
@@ -23052,6 +23056,7 @@
         };
         HierarchyBarComponent.propDecorators = {
             mode: [{ type: i0.Input }],
+            readonly: [{ type: i0.Input }],
             root: [{ type: i0.Input }],
             selected: [{ type: i0.Input }],
             loadingIndicator: [{ type: i0.Input }],
@@ -23515,7 +23520,7 @@
         HierarchyBarCollapsedComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-collapsed',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n\n            <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n            <ux-icon name=\"more\"></ux-icon>\n    </button>\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodes class=\"hierarchy-bar-nodes\">\n\n    <ux-hierarchy-bar-node\n        [readonly]=\"readonly\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_first\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <div class=\"hierarchy-bar-overflow\" *ngIf=\"_parents.length > 0\">\n        <div class=\"hierarchy-bar-overflow-container\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                          [ngTemplateOutletContext]=\"{ $implicit: _parents }\">\n            </ng-container>\n        </div>\n\n        <button [attr.aria-label]=\"hierarchyBar.showSiblingsAriaLabel\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            class=\"hierarchy-bar-node-arrow\"\n            placement=\"bottom\"\n            [uxPopover]=\"siblingsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            [disabled]=\"readonly\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            type=\"button\">\n\n            <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n        </button>\n    </div>\n\n\n    <ux-hierarchy-bar-node\n        *ngIf=\"_last !== _first\"\n        [readonly]=\"readonly\"\n        [popoverTemplate]=\"content\"\n        [node]=\"_last\"\n        (selected)=\"hierarchyBar.selectNode($event)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the siblings popover list -->\n<ng-template #siblingsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"(_siblings | async)?.children\"\n        [loading]=\"(_siblings | async)?.loading\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the parents popover list -->\n<ng-template #parentsTemplate let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [nodes]=\"_parents\"\n        [separator]=\"true\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    <button uxFocusIndicator\n            uxFocusIndicatorOrigin\n            [disabled]=\"readonly\"\n            class=\"overflow-button\"\n            aria-label=\"Show parents\"\n            [uxPopover]=\"parentsTemplate\"\n            popoverClass=\"hierarchy-bar-popover\"\n            role=\"button\"\n            tabindex=\"0\"\n            #popover=\"ux-popover\"\n            [popoverContext]=\"{ popover: popover }\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            placement=\"bottom\"\n            type=\"button\">\n            <ux-icon name=\"more\"></ux-icon>\n    </button>\n</ng-template>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -23529,6 +23534,7 @@
             ];
         };
         HierarchyBarCollapsedComponent.propDecorators = {
+            readonly: [{ type: i0.Input }],
             nodeContainer: [{ type: i0.ViewChild, args: ['nodes', { static: true },] }]
         };
         return HierarchyBarCollapsedComponent;
@@ -23548,7 +23554,7 @@
         HierarchyBarNodeComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-node',
-                        template: "<div class=\"hierarchy-bar-node\" [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"selected.emit(node)\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specifed -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n        <ux-icon name=\"next\" class=\"hierarchy-bar-node-arrow-icon\"></ux-icon>\n    </button>\n\n</div>",
+                        template: "<div class=\"hierarchy-bar-node\"\n     [class.hierarchy-bar-node-readonly]=\"readonly\"\n     [class.hierarchy-bar-node-child-indicator]=\"node.children\">\n\n    <ng-container\n        *ngIf=\"mode === 'dropdown'; then dropdownMode; else standardClickMode\">\n    </ng-container>\n\n</div>\n\n<ng-template #standardClickMode>\n    <button type=\"button\"\n            uxFocusIndicator\n            class=\"hierarchy-bar-node-content\"\n            [disabled]=\"readonly\"\n            [attr.aria-label]=\"node.title\"\n            (click)=\"selected.emit(node)\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specified -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n    </button>\n\n    <!-- Show a dropdown arrow if there are children -->\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            *ngIf=\"node.children\"\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            role=\"button\"\n            class=\"hierarchy-bar-node-arrow\"\n            [disabled]=\"readonly\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n            [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n            tabindex=\"0\">\n        <ux-icon name=\"next\"\n                 class=\"hierarchy-bar-node-arrow-icon\">\n        </ux-icon>\n    </button>\n</ng-template>\n\n<ng-template #dropdownMode>\n    <button type=\"button\"\n            uxFocusIndicator\n            uxFocusIndicatorOrigin\n            #popover=\"ux-popover\"\n            aria-label=\"Show children\"\n            class=\"hierarchy-bar-node-content\"\n            [disabled]=\"readonly\"\n            [uxPopover]=\"popoverTemplate\"\n            [popoverContext]=\"{ node: node, popover: popover }\"\n            placement=\"bottom\"\n            popoverClass=\"hierarchy-bar-popover\"\n            [showTriggers]=\"node.children ? hierarchyBar.popoverShowTriggers : []\"\n            [hideTriggers]=\"node.children ? hierarchyBar.popoverHideTriggers : []\"\n            tabindex=\"0\"\n            [attr.aria-label]=\"node.title\">\n\n        <!-- Show a custom icon if specified -->\n        <div class=\"hierarchy-bar-node-icon\" *ngIf=\"hierarchyBar.icon\">\n            <ng-container [ngTemplateOutlet]=\"hierarchyBar.icon\" [ngTemplateOutletContext]=\"{ node: node, $implicit: node }\"></ng-container>\n        </div>\n\n        <!-- Show an icon if specified -->\n        <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon && !hierarchyBar.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n        <!-- Show the name of the current node -->\n        <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n        <!-- Show a dropdown arrow if there are children -->\n        <div [class.readonly-arrow]=\"readonly\" class=\"hierarchy-bar-node-arrow-icon-dropdown\">\n            <ux-icon *ngIf=\"node.children\" name=\"next\"\n                     class=\"hierarchy-bar-node-arrow-icon\">\n            </ux-icon>\n        </div>\n\n    </button>\n\n</ng-template>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -23561,6 +23567,8 @@
         HierarchyBarNodeComponent.propDecorators = {
             node: [{ type: i0.Input }],
             popoverTemplate: [{ type: i0.Input }],
+            mode: [{ type: i0.Input }],
+            readonly: [{ type: i0.Input }],
             selected: [{ type: i0.Output }]
         };
         return HierarchyBarNodeComponent;
@@ -23744,7 +23752,7 @@
         HierarchyBarStandardComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-hierarchy-bar-standard',
-                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (selected)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            uxFocusIndicator\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (selected)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
+                        template: "<!-- Allow content to be placed on the left of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"left-addons\"></ng-content>\n</div>\n\n<div #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n    <div *ngIf=\"isOverflowing$ | async\"\n         #popover=\"ux-popover\"\n         class=\"hierarchy-bar-overflow-indicator\"\n         [style.left.px]=\"nodelist.scrollLeft\"\n         [uxPopover]=\"overflow\"\n         [showTriggers]=\"hierarchyBar.popoverShowTriggers\"\n         [hideTriggers]=\"hierarchyBar.popoverHideTriggers\"\n         [popoverContext]=\"{ popover: popover }\"\n         placement=\"bottom\"\n         popoverClass=\"hierarchy-bar-popover\">\n        <ng-container [ngTemplateOutlet]=\"hierarchyBar.overflowTemplate || defaultOverflowTemplate\"\n                      [ngTemplateOutletContext]=\"{ $implicit: overflow$ | async }\">\n        </ng-container>\n    </div>\n\n    <ux-hierarchy-bar-node\n        [mode]=\"mode\"\n        [readonly]=\"readonly\"\n        *ngFor=\"let node of hierarchyBar.nodes$ | async\"\n        [node]=\"node\"\n        [popoverTemplate]=\"content\"\n        (selected)=\"hierarchyBar.selectNode(node)\">\n    </ux-hierarchy-bar-node>\n\n    <!-- Allow content to be placed after the last node -->\n    <div class=\"hierarchy-bar-addons\">\n        <ng-content select=\"trailing-addons\"></ng-content>\n    </div>\n\n</div>\n\n<!-- Allow content to be placed on the right of the items -->\n<div class=\"hierarchy-bar-addons\">\n    <ng-content select=\"right-addons\"></ng-content>\n</div>\n\n<!-- Template for the popover list -->\n<ng-template #content let-node=\"node\" let-popover=\"popover\">\n    <ux-hierarchy-bar-popover\n        [loading]=\"(hierarchyBar.getChildren(node) | async)?.loading\"\n        [nodes]=\"(hierarchyBar.getChildren(node) | async)?.children\"\n        (selected)=\"hierarchyBar.selectNode($event); popover.hide()\">\n    </ux-hierarchy-bar-popover>\n</ng-template>\n\n<!-- Template for the overflow popover list -->\n<ng-template #overflow let-popover=\"popover\">\n\n    <div uxTabbableList [returnFocus]=\"true\">\n\n        <ux-hierarchy-bar-popover-item\n            *ngFor=\"let child of overflow$ | async; let first = first\"\n            uxFocusIndicator\n            [node]=\"child\"\n            [focusIf]=\"first\"\n            uxTabbableListItem\n            (selected)=\"hierarchyBar.selectNode(child); popover.hide()\">\n        </ux-hierarchy-bar-popover-item>\n    </div>\n</ng-template>\n\n<!-- Default Overflow Template -->\n<ng-template #defaultOverflowTemplate>\n    . . .\n</ng-template>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -23755,6 +23763,8 @@
             ];
         };
         HierarchyBarStandardComponent.propDecorators = {
+            mode: [{ type: i0.Input }],
+            readonly: [{ type: i0.Input }],
             nodelist: [{ type: i0.ViewChild, args: ['nodelist', { static: true },] }],
             nodes: [{ type: i0.ViewChildren, args: [HierarchyBarNodeComponent, { read: i0.ElementRef },] }]
         };
@@ -24746,7 +24756,7 @@
         WizardComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-wizard',
-                        template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"stp.id\"\n            [id]=\"stp.id + '-label'\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            {{ stp.header }}\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n\n    <ng-container *ngIf=\"footerTemplate\"\n                  [ngTemplateOutlet]=\"footerTemplate\"\n                  [ngTemplateOutletContext]=\"{ step: step }\">\n    </ng-container>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n\n</div>\n",
+                        template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"stp.id\"\n            [id]=\"stp.id + '-label'\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            <span class=\"wizard-step-text\">{{ stp.header }}</span>\n            <ux-icon *ngIf=\"stp.visited && !stp.active\" class=\"wizard-step-icon\" name=\"checkmark\"></ux-icon>\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n\n    <ng-container *ngIf=\"footerTemplate\"\n                  [ngTemplateOutlet]=\"footerTemplate\"\n                  [ngTemplateOutletContext]=\"{ step: step }\">\n    </ng-container>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n\n</div>\n",
                         host: {
                             '[class]': 'orientation'
                         }
@@ -24812,9 +24822,10 @@
         WizardModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [
+                            AccessibilityModule,
                             common.CommonModule,
+                            IconModule,
                             TooltipModule,
-                            AccessibilityModule
                         ],
                         exports: DECLARATIONS$4,
                         declarations: DECLARATIONS$4
@@ -26167,14 +26178,28 @@
                             formatter: function (value) { return value; }
                         }
                     },
-                    colors: {
-                        lower: colorService.getColor('grey6').toHex(),
-                        range: colorService.getColor('accent').setAlpha(0.75).toRgba(),
-                        higher: colorService.getColor('grey6').toHex()
-                    }
+                    colors: {}
                 }
             };
         }
+        Object.defineProperty(SliderComponent.prototype, "options", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return this._options;
+            },
+            /** A wide range of options can used to customize the appearance and behavior of the component. */
+            set: /**
+             * A wide range of options can used to customize the appearance and behavior of the component.
+             * @param {?} options
+             * @return {?}
+             */ function (options) {
+                this._options = options;
+                this.updateOptions();
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -26182,7 +26207,6 @@
          * @return {?}
          */
             function () {
-                this.updateOptions();
                 this.updateValues();
                 this.setThumbState(SliderThumb.Lower, false, false);
                 this.setThumbState(SliderThumb.Upper, false, false);
@@ -26465,8 +26489,8 @@
                 // get the element widths
                 /** @type {?} */
                 var thumbWidth;
-                if (this.options.handles.style === SliderStyle.Button) {
-                    thumbWidth = this.options.track.height === SliderSize.Narrow ? 16 : 24;
+                if (this._options.handles.style === SliderStyle.Button) {
+                    thumbWidth = this._options.track.height === SliderSize.Narrow ? 16 : 24;
                 }
                 else {
                     thumbWidth = 2;
@@ -26478,7 +26502,7 @@
                 var tooltipPosition = Math.ceil((tooltipWidth - thumbWidth) / 2);
                 // update tooltip position
                 tooltip.position = -tooltipPosition;
-                if (this.options.type === SliderType.Range && this.options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
+                if (this._options.type === SliderType.Range && this._options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
                     this.preventTooltipOverlap(tooltip);
                 }
             };
@@ -26560,7 +26584,7 @@
                 var fraction = (position / trackBounds.width);
                 // convert to value within the range
                 /** @type {?} */
-                var value = ((this.options.track.max - this.options.track.min) * fraction) + this.options.track.min;
+                var value = ((this._options.track.max - this._options.track.min) * fraction) + this._options.track.min;
                 // ensure value is valid
                 value = this.validateValue(thumb, value);
                 // snap to a tick if required
@@ -26626,13 +26650,13 @@
                 }
                 // get the track limit
                 /** @type {?} */
-                var lowerLimit = this.options.track.min;
+                var lowerLimit = this._options.track.min;
                 /** @type {?} */
-                var upperLimit = this.options.track.max;
-                if (this.options.type === SliderType.Range && thumb === SliderThumb.Lower) {
+                var upperLimit = this._options.track.max;
+                if (this._options.type === SliderType.Range && thumb === SliderThumb.Lower) {
                     upperLimit = this.thumbs.upper.value;
                 }
-                if (this.options.type === SliderType.Range && thumb === SliderThumb.Upper) {
+                if (this._options.type === SliderType.Range && thumb === SliderThumb.Upper) {
                     lowerLimit = this.thumbs.lower.value;
                 }
                 // Find the closest tick to the current position
@@ -26662,7 +26686,7 @@
          */
             function (value, thumb) {
                 /** @type {?} */
-                var tickDistances = this.getTickDistances(value, thumb, this.options.track.ticks.snap);
+                var tickDistances = this.getTickDistances(value, thumb, this._options.track.ticks.snap);
                 // if there are no ticks return the current value
                 if (tickDistances.length === 0) {
                     return value;
@@ -26682,15 +26706,15 @@
          */
             function (thumb, value) {
                 // if slider is not a range value is always valid providing it is within the chart min and max values
-                if (this.options.type === SliderType.Value) {
-                    return Math.max(Math.min(value, this.options.track.max), this.options.track.min);
+                if (this._options.type === SliderType.Value) {
+                    return Math.max(Math.min(value, this._options.track.max), this._options.track.min);
                 }
                 // check if value is with chart ranges
-                if (value > this.options.track.max) {
-                    return thumb === SliderThumb.Lower ? Math.min(this.options.track.max, this.thumbs.upper.value) : this.options.track.max;
+                if (value > this._options.track.max) {
+                    return thumb === SliderThumb.Lower ? Math.min(this._options.track.max, this.thumbs.upper.value) : this._options.track.max;
                 }
-                if (value < this.options.track.min) {
-                    return thumb === SliderThumb.Upper ? Math.max(this.options.track.min, this.thumbs.lower.value) : this.options.track.min;
+                if (value < this._options.track.min) {
+                    return thumb === SliderThumb.Upper ? Math.max(this._options.track.min, this.thumbs.lower.value) : this._options.track.min;
                 }
                 // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
                 if (thumb === SliderThumb.Lower) {
@@ -26714,7 +26738,7 @@
          */
             function () {
                 // add in the default options that user hasn't specified
-                this.options = this.deepMerge(this.options || {}, this.defaultOptions);
+                this._options = this.deepMerge(this._options || {}, this.defaultOptions);
                 this.updateTrackColors();
                 this.updateTicks();
                 this.updateValues();
@@ -26738,16 +26762,16 @@
                 upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
                 // calculate the positions as percentages
                 /** @type {?} */
-                var lowerPosition = (((lowerValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
+                var lowerPosition = (((lowerValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
                 /** @type {?} */
-                var upperPosition = (((upperValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
+                var upperPosition = (((upperValue - this._options.track.min) / (this._options.track.max - this._options.track.min)) * 100);
                 // update thumb positions
                 this.thumbs.lower.position = lowerPosition;
                 this.thumbs.upper.position = upperPosition;
                 // calculate the track sizes
                 this.tracks.lower.size = lowerPosition;
                 this.tracks.middle.size = upperPosition - lowerPosition;
-                this.tracks.upper.size = this.options.type === SliderType.Value ? 100 - lowerPosition : 100 - upperPosition;
+                this.tracks.upper.size = this._options.type === SliderType.Value ? 100 - lowerPosition : 100 - upperPosition;
                 // update the value input
                 this.setValue(lowerValue, upperValue);
             };
@@ -26766,7 +26790,7 @@
                 this.thumbs.upper.value = high;
                 /** @type {?} */
                 var previousValue = this.clone(this._value);
-                this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
+                this.value = this._options.type === SliderType.Value ? low : { low: low, high: high };
                 // call the event emitter if changes occured
                 if (this.detectValueChange(this.value, previousValue)) {
                     this.valueChange.emit(this.clone(this.value));
@@ -26802,9 +26826,9 @@
             function () {
                 // get tick options
                 /** @type {?} */
-                var majorOptions = this.options.track.ticks.major;
+                var majorOptions = this._options.track.ticks.major;
                 /** @type {?} */
-                var minorOptions = this.options.track.ticks.minor;
+                var minorOptions = this._options.track.ticks.minor;
                 // check if we should show ticks
                 if (majorOptions.show === false && minorOptions.show === false) {
                     this.ticks = [];
@@ -26825,11 +26849,25 @@
          */
             function () {
                 // get colors for each part of the track
-                var _a = this.options.track.colors, lower = _a.lower, range = _a.range, higher = _a.higher;
+                var _a = this._options.track.colors, lower = _a.lower, range = _a.range, higher = _a.higher;
                 // update the controller value
-                this.tracks.lower.color = typeof lower === 'string' ? lower : "linear-gradient(to right, " + lower.join(', ') + ")";
-                this.tracks.middle.color = typeof range === 'string' ? range : "linear-gradient(to right, " + range.join(', ') + ")";
-                this.tracks.upper.color = typeof higher === 'string' ? higher : "linear-gradient(to right, " + higher.join(', ') + ")";
+                this.tracks.lower.color = this.getTrackColorStyle(lower);
+                this.tracks.middle.color = this.getTrackColorStyle(range);
+                this.tracks.upper.color = this.getTrackColorStyle(higher);
+            };
+        /** Map the color value to the correct CSS color value */
+        /**
+         * Map the color value to the correct CSS color value
+         * @param {?} color
+         * @return {?}
+         */
+        SliderComponent.prototype.getTrackColorStyle = /**
+         * Map the color value to the correct CSS color value
+         * @param {?} color
+         * @return {?}
+         */
+            function (color) {
+                return Array.isArray(color) ? "linear-gradient(to right, " + color.join(', ') + ")" : color;
             };
         /**
          * @param {?} steps
@@ -26847,7 +26885,7 @@
                 /** @type {?} */
                 var output = [];
                 // otherwise calculate the steps
-                for (var idx = this.options.track.min; idx <= this.options.track.max; idx += steps) {
+                for (var idx = this._options.track.min; idx <= this._options.track.max; idx += steps) {
                     output.push(idx);
                 }
                 return output;
@@ -26868,9 +26906,9 @@
                 var steps = this.getSteps(options.steps);
                 // get some chart options
                 /** @type {?} */
-                var min = this.options.track.min;
+                var min = this._options.track.min;
                 /** @type {?} */
-                var max = this.options.track.max;
+                var max = this._options.track.max;
                 // convert each step to a slider tick and remove invalid ticks
                 return steps.map(function (step) {
                     return {
@@ -27005,7 +27043,7 @@
         SliderComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-slider',
-                        template: "<div class=\"track\"\n     #track\n     [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n     [class.wide]=\"options.track.height === sliderSize.Wide\"\n     [class.range]=\"options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #lowerthumb\n        [attr.aria-label]=\"options.type === sliderType.Range ? options.handles.aria.lowerThumb : options.handles.aria.thumb\"\n        [attr.aria-valuemin]=\"options?.track?.min\"\n        [attr.aria-valuemax]=\"options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) : options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Lower)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Lower)\"\n        [style.left.%]=\"thumbs.lower.position\"\n        [class.active]=\"thumbs.lower.drag\"\n        [style.z-index]=\"thumbs.lower.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Lower, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Lower, true); $event.preventDefault()\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false\"\n            [style.opacity]=\"tooltips.lower.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.lower.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #upperthumb\n        [attr.aria-label]=\"options.handles.aria.upperThumb\"\n        [attr.aria-valuemin]=\"getThumbValue(sliderThumb.Lower) || options?.track?.min\"\n        [attr.aria-valuemax]=\"options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Upper)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Upper)\"\n        [hidden]=\"options.type !== sliderType.Range\"\n        [class.active]=\"thumbs.upper.drag\"\n        [style.left.%]=\"thumbs.upper.position\"\n        [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Upper, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Upper, true); $event.preventDefault()\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip\n            [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false\"\n            [style.opacity]=\"tooltips.upper.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.upper.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                *ngIf=\"options.type === sliderType.Range\"\n                [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\"\n    role=\"presentation\"\n    *ngIf=\"(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\"\n    [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n    <div class=\"tick\"\n        *ngFor=\"let tick of ticks\"\n        [class.major]=\"tick.type === sliderTickType.Major\"\n        [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\"\n        [hidden]=\"!tick.showTicks\">\n\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" aria-hidden=\"true\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>",
+                        template: "<div class=\"track\"\n     #track\n     [class.narrow]=\"_options.track.height === sliderSize.Narrow\"\n     [class.wide]=\"_options.track.height === sliderSize.Wide\"\n     [class.range]=\"_options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #lowerthumb\n        [attr.aria-label]=\"_options.type === sliderType.Range ? _options.handles.aria.lowerThumb :\n        _options.handles.aria.thumb\"\n        [attr.aria-valuemin]=\"_options?.track?.min\"\n        [attr.aria-valuemax]=\"_options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) :\n        _options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Lower)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Lower)\"\n        [style.left.%]=\"thumbs.lower.position\"\n        [class.active]=\"thumbs.lower.drag\"\n        [style.z-index]=\"thumbs.lower.order\"\n        [class.button]=\"_options.handles.style === sliderStyle.Button\"\n        [class.line]=\"_options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"_options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"_options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Lower, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Lower, true); $event.preventDefault()\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip\n            [class.tooltip-dynamic]=\"_options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&\n             thumbs.lower.drag === false\"\n            [style.opacity]=\"tooltips.lower.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.lower.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"_options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                [style.background-color]=\"_options.handles.callout.background\"\n                [style.color]=\"_options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"_options.type === sliderType.Range\"\n         [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\"\n        uxDrag\n        uxFocusIndicator\n        role=\"slider\"\n        tabindex=\"0\"\n        #upperthumb\n        [attr.aria-label]=\"_options.handles.aria.upperThumb\"\n        [attr.aria-valuemin]=\"getThumbValue(sliderThumb.Lower) || _options?.track?.min\"\n        [attr.aria-valuemax]=\"_options?.track?.max\"\n        [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Upper)\"\n        [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Upper)\"\n        [hidden]=\"_options.type !== sliderType.Range\"\n        [class.active]=\"thumbs.upper.drag\"\n        [style.left.%]=\"thumbs.upper.position\"\n        [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"_options.handles.style === sliderStyle.Button\"\n        [class.line]=\"_options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"_options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"_options.track.height === sliderSize.Wide\"\n        (onDragStart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()\"\n        (onDrag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n        (onDragEnd)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n        (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (focus)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (blur)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n        (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n        (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n        (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()\"\n        (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()\"\n        (keydown.Home)=\"snapToEnd(sliderThumb.Upper, false); $event.preventDefault()\"\n        (keydown.End)=\"snapToEnd(sliderThumb.Upper, true); $event.preventDefault()\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip\n            [class.tooltip-dynamic]=\"_options.handles.callout.trigger === sliderCalloutTrigger.Dynamic &&\n             thumbs.upper.drag === false\"\n            [style.opacity]=\"tooltips.upper.visible ? 1 : 0\"\n            [style.left.px]=\"tooltips.upper.position\">\n\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"_options.handles.callout.background\"></div>\n\n            <div class=\"tooltip-inner\"\n                *ngIf=\"_options.type === sliderType.Range\"\n                [style.background-color]=\"_options.handles.callout.background\"\n                [style.color]=\"_options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\"\n    role=\"presentation\"\n    *ngIf=\"(_options.track.ticks.major.show || _options.track.ticks.minor.show) &&\n    _options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\"\n    [class.show-labels]=\"_options.track.ticks.major.labels || _options.track.ticks.minor.labels\">\n\n    <div class=\"tick\"\n        *ngFor=\"let tick of ticks\"\n        [class.major]=\"tick.type === sliderTickType.Major\"\n        [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\"\n        [hidden]=\"!tick.showTicks\">\n\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" aria-hidden=\"true\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
                     }] }
         ];
@@ -34564,6 +34602,7 @@
          * @this {THIS}
          * @param {?} minWidth
          * @param {?} maxWidth
+         * @param {?} minHeight
          * @return {THIS}
          */
         SankeyChart.prototype.size = /**
@@ -34572,11 +34611,13 @@
          * @this {THIS}
          * @param {?} minWidth
          * @param {?} maxWidth
+         * @param {?} minHeight
          * @return {THIS}
          */
-            function (minWidth, maxWidth) {
+            function (minWidth, maxWidth, minHeight) {
                 ( /** @type {?} */(this))._minWidth = minWidth;
                 ( /** @type {?} */(this))._maxWidth = maxWidth;
+                ( /** @type {?} */(this))._minHeight = minHeight;
                 return ( /** @type {?} */(this));
             };
         /** Get the sizes of each column */
@@ -34726,7 +34767,7 @@
                     var inputs = _this._links.filter(function (link) { return link.target === node.id; });
                     /** @type {?} */
                     var outputs = _this._links.filter(function (link) { return link.source === node.id; });
-                    return ( /** @type {?} */({ node: node, inputs: inputs, outputs: outputs, value: 0, column: 0, x: 0, y: 0, width: 0, height: 0, falloff: 0, active: false, focus: false }));
+                    return ( /** @type {?} */({ node: node, inputs: inputs, outputs: outputs, value: 0, column: 0, x: 0, y: 0, width: 0, height: 0, naturalHeight: 0, falloff: 0, active: false, focus: false }));
                 });
             };
         /** Get the value for the node based on all its inputs and outputs */
@@ -34842,37 +34883,203 @@
          * @return {?}
          */
             function () {
-                var e_3, _a;
+                var e_3, _a, e_4, _b;
                 // get columns by group
                 /** @type {?} */
                 var groups = this.getColumnGroups();
+                /** @type {?} */
+                var groupList = Object.keys(groups).map(function (group) { return groups[group]; });
                 // get the column with the largest total value
                 /** @type {?} */
-                var total = Object.keys(groups).map(function (group) { return groups[group]; }).reduce(function (count, nodes) {
-                    return Math.max(count, nodes.reduce(function (accumulation, node) { return accumulation + node.value; }, 0));
-                }, 0);
-                for (var column in groups) {
-                    /** @type {?} */
-                    var nodeLinks = groups[column];
-                    try {
-                        // get the proportional size of each node based on the available space
-                        for (var nodeLinks_2 = __values(nodeLinks), nodeLinks_2_1 = nodeLinks_2.next(); !nodeLinks_2_1.done; nodeLinks_2_1 = nodeLinks_2.next()) {
-                            var nodeLink = nodeLinks_2_1.value;
-                            nodeLink.height = ((nodeLink.value / total) * this._height) - this._spacing;
+                var total = groupList.reduce(function (count, nodes) { return Math.max(count, nodes.reduce(function (accumulation, node) { return accumulation + node.value; }, 0)); }, 0);
+                try {
+                    // Calculate node heights
+                    for (var groupList_1 = __values(groupList), groupList_1_1 = groupList_1.next(); !groupList_1_1.done; groupList_1_1 = groupList_1.next()) {
+                        var nodeLinks = groupList_1_1.value;
+                        try {
+                            // get the proportional size of each node based on the available space
+                            for (var nodeLinks_2 = __values(nodeLinks), nodeLinks_2_1 = nodeLinks_2.next(); !nodeLinks_2_1.done; nodeLinks_2_1 = nodeLinks_2.next()) {
+                                var nodeLink = nodeLinks_2_1.value;
+                                nodeLink.naturalHeight = ((nodeLink.value / total) * this._height) - this._spacing;
+                                nodeLink.height = Math.max(nodeLink.naturalHeight, this._minHeight);
+                            }
+                        }
+                        catch (e_4_1) {
+                            e_4 = { error: e_4_1 };
+                        }
+                        finally {
+                            try {
+                                if (nodeLinks_2_1 && !nodeLinks_2_1.done && (_b = nodeLinks_2.return))
+                                    _b.call(nodeLinks_2);
+                            }
+                            finally {
+                                if (e_4)
+                                    throw e_4.error;
+                            }
                         }
                     }
-                    catch (e_3_1) {
-                        e_3 = { error: e_3_1 };
+                }
+                catch (e_3_1) {
+                    e_3 = { error: e_3_1 };
+                }
+                finally {
+                    try {
+                        if (groupList_1_1 && !groupList_1_1.done && (_a = groupList_1.return))
+                            _a.call(groupList_1);
+                    }
+                    finally {
+                        if (e_3)
+                            throw e_3.error;
+                    }
+                }
+                // If minHeight is defined, it might cause some columns to exceed the height of the chart following the
+                // initial height calculation.
+                if (this._minHeight > 0) {
+                    try {
+                        // Recalculate node heights until they fit (if possible)
+                        this.adjustNodeHeightsToFit(groupList);
+                    }
+                    catch (error) {
+                        // If the above recalculation fails, give up and use the naturalHeight (ignore minHeight)
+                        this.setNodesToNaturalHeight(groupList);
+                    }
+                }
+            };
+        /**
+         * Recalculate node heights within height limits until they fit (if possible).
+         * @throws If it is not possible to fit all nodes in the chart due to `minHeight`.
+         */
+        /**
+         * Recalculate node heights within height limits until they fit (if possible).
+         * @throws If it is not possible to fit all nodes in the chart due to `minHeight`.
+         * @param {?} groupList
+         * @return {?}
+         */
+        SankeyChart.prototype.adjustNodeHeightsToFit = /**
+         * Recalculate node heights within height limits until they fit (if possible).
+         * @throws If it is not possible to fit all nodes in the chart due to `minHeight`.
+         * @param {?} groupList
+         * @return {?}
+         */
+            function (groupList) {
+                var _this = this;
+                var e_5, _a, e_6, _b;
+                /** @type {?} */
+                var largestColumn = this.getLargestColumn(groupList);
+                while (largestColumn.height > this._height) {
+                    // Get the list of nodes whose height cannot be reduced
+                    /** @type {?} */
+                    var fixedNodes = largestColumn.nodes.filter(function (nodeLink) { return nodeLink.height <= _this._minHeight; });
+                    // Get the total height in the column which cannot shrink (including spacing)
+                    /** @type {?} */
+                    var fixedHeight = fixedNodes.length * this._minHeight + largestColumn.nodes.length * this._spacing;
+                    // If the unshrinkable height is greater than the available height, we can't continue
+                    if (fixedHeight > this._height) {
+                        throw new Error("Cannot fit data into chart with minHeight = " + this._minHeight + "px (need " + fixedHeight + "px; " + this._height + "px available)");
+                    }
+                    // Find the amount of height which can potentially be reduced
+                    /** @type {?} */
+                    var flexibleHeight = largestColumn.height - fixedHeight;
+                    // Find the amount of height that the above needs to fit into
+                    /** @type {?} */
+                    var availableHeight = this._height - fixedHeight;
+                    // Get the multiplier to reduce the nodes in order to fit the available height
+                    /** @type {?} */
+                    var ratio = availableHeight / flexibleHeight;
+                    try {
+                        // Adjust the nodes and reapply the minHeight
+                        for (var groupList_2 = __values(groupList), groupList_2_1 = groupList_2.next(); !groupList_2_1.done; groupList_2_1 = groupList_2.next()) {
+                            var group = groupList_2_1.value;
+                            try {
+                                for (var group_1 = __values(group), group_1_1 = group_1.next(); !group_1_1.done; group_1_1 = group_1.next()) {
+                                    var nodeLink = group_1_1.value;
+                                    if (nodeLink.height > this._minHeight) {
+                                        nodeLink.height *= ratio;
+                                    }
+                                    if (nodeLink.height < this._minHeight) {
+                                        nodeLink.height = this._minHeight;
+                                    }
+                                }
+                            }
+                            catch (e_6_1) {
+                                e_6 = { error: e_6_1 };
+                            }
+                            finally {
+                                try {
+                                    if (group_1_1 && !group_1_1.done && (_b = group_1.return))
+                                        _b.call(group_1);
+                                }
+                                finally {
+                                    if (e_6)
+                                        throw e_6.error;
+                                }
+                            }
+                        }
+                    }
+                    catch (e_5_1) {
+                        e_5 = { error: e_5_1 };
                     }
                     finally {
                         try {
-                            if (nodeLinks_2_1 && !nodeLinks_2_1.done && (_a = nodeLinks_2.return))
-                                _a.call(nodeLinks_2);
+                            if (groupList_2_1 && !groupList_2_1.done && (_a = groupList_2.return))
+                                _a.call(groupList_2);
                         }
                         finally {
-                            if (e_3)
-                                throw e_3.error;
+                            if (e_5)
+                                throw e_5.error;
                         }
+                    }
+                    largestColumn = this.getLargestColumn(groupList);
+                }
+            };
+        /** Set all nodes height to be the same as the naturalHeight. */
+        /**
+         * Set all nodes height to be the same as the naturalHeight.
+         * @param {?} groupList
+         * @return {?}
+         */
+        SankeyChart.prototype.setNodesToNaturalHeight = /**
+         * Set all nodes height to be the same as the naturalHeight.
+         * @param {?} groupList
+         * @return {?}
+         */
+            function (groupList) {
+                var e_7, _a, e_8, _b;
+                try {
+                    for (var groupList_3 = __values(groupList), groupList_3_1 = groupList_3.next(); !groupList_3_1.done; groupList_3_1 = groupList_3.next()) {
+                        var group = groupList_3_1.value;
+                        try {
+                            for (var group_2 = __values(group), group_2_1 = group_2.next(); !group_2_1.done; group_2_1 = group_2.next()) {
+                                var nodeLink = group_2_1.value;
+                                nodeLink.height = nodeLink.naturalHeight;
+                            }
+                        }
+                        catch (e_8_1) {
+                            e_8 = { error: e_8_1 };
+                        }
+                        finally {
+                            try {
+                                if (group_2_1 && !group_2_1.done && (_b = group_2.return))
+                                    _b.call(group_2);
+                            }
+                            finally {
+                                if (e_8)
+                                    throw e_8.error;
+                            }
+                        }
+                    }
+                }
+                catch (e_7_1) {
+                    e_7 = { error: e_7_1 };
+                }
+                finally {
+                    try {
+                        if (groupList_3_1 && !groupList_3_1.done && (_a = groupList_3.return))
+                            _a.call(groupList_3);
+                    }
+                    finally {
+                        if (e_7)
+                            throw e_7.error;
                     }
                 }
             };
@@ -34921,7 +35128,7 @@
          * @return {?}
          */
             function () {
-                var e_4, _a;
+                var e_9, _a;
                 // get all nodes by group
                 /** @type {?} */
                 var groups = this.getColumnGroups();
@@ -34942,8 +35149,8 @@
                             .reduce(function (top, _node) { return top + _node.height; }, 0) + (this._spacing * groups[nodeLink.column].indexOf(nodeLink));
                     }
                 }
-                catch (e_4_1) {
-                    e_4 = { error: e_4_1 };
+                catch (e_9_1) {
+                    e_9 = { error: e_9_1 };
                 }
                 finally {
                     try {
@@ -34951,8 +35158,8 @@
                             _a.call(_b);
                     }
                     finally {
-                        if (e_4)
-                            throw e_4.error;
+                        if (e_9)
+                            throw e_9.error;
                     }
                 }
             };
@@ -34982,7 +35189,7 @@
          * @return {?}
          */
             function () {
-                var e_5, _a, e_6, _b, e_7, _c;
+                var e_10, _a, e_11, _b, e_12, _c;
                 try {
                     for (var _d = __values(this._nodeLinks), _e = _d.next(); !_e.done; _e = _d.next()) {
                         var nodeLink = _e.value;
@@ -34997,8 +35204,8 @@
                                 link.bottomRight = [nodeLink.x, inputY];
                             }
                         }
-                        catch (e_6_1) {
-                            e_6 = { error: e_6_1 };
+                        catch (e_11_1) {
+                            e_11 = { error: e_11_1 };
                         }
                         finally {
                             try {
@@ -35006,8 +35213,8 @@
                                     _b.call(_f);
                             }
                             finally {
-                                if (e_6)
-                                    throw e_6.error;
+                                if (e_11)
+                                    throw e_11.error;
                             }
                         }
                         /** @type {?} */
@@ -35024,8 +35231,8 @@
                                 outputValue += link.value;
                             }
                         }
-                        catch (e_7_1) {
-                            e_7 = { error: e_7_1 };
+                        catch (e_12_1) {
+                            e_12 = { error: e_12_1 };
                         }
                         finally {
                             try {
@@ -35033,16 +35240,16 @@
                                     _c.call(_h);
                             }
                             finally {
-                                if (e_7)
-                                    throw e_7.error;
+                                if (e_12)
+                                    throw e_12.error;
                             }
                         }
                         // determine how much falloff there is
                         nodeLink.falloff = nodeLink.value - outputValue;
                     }
                 }
-                catch (e_5_1) {
-                    e_5 = { error: e_5_1 };
+                catch (e_10_1) {
+                    e_10 = { error: e_10_1 };
                 }
                 finally {
                     try {
@@ -35050,8 +35257,8 @@
                             _a.call(_d);
                     }
                     finally {
-                        if (e_5)
-                            throw e_5.error;
+                        if (e_10)
+                            throw e_10.error;
                     }
                 }
             };
@@ -35083,6 +35290,52 @@
                 /** @type {?} */
                 var width = (this._width - (this._padding * 2)) / ((this.getColumnCount() * 2) - 1);
                 return Math.min(this._maxWidth, Math.max(this._minWidth, width));
+            };
+        /** Get the column with the greatest height (along with its height) */
+        /**
+         * Get the column with the greatest height (along with its height)
+         * @param {?} groupList
+         * @return {?}
+         */
+        SankeyChart.prototype.getLargestColumn = /**
+         * Get the column with the greatest height (along with its height)
+         * @param {?} groupList
+         * @return {?}
+         */
+            function (groupList) {
+                var e_13, _a;
+                /** @type {?} */
+                var largestColumn = null;
+                /** @type {?} */
+                var largestColumnHeight = 0;
+                try {
+                    for (var groupList_4 = __values(groupList), groupList_4_1 = groupList_4.next(); !groupList_4_1.done; groupList_4_1 = groupList_4.next()) {
+                        var group = groupList_4_1.value;
+                        /** @type {?} */
+                        var totalHeight = group.reduce(function (acc, node) { return acc += node.height; }, 0) + group.length * this._spacing;
+                        if (totalHeight > largestColumnHeight) {
+                            largestColumnHeight = totalHeight;
+                            largestColumn = group;
+                        }
+                    }
+                }
+                catch (e_13_1) {
+                    e_13 = { error: e_13_1 };
+                }
+                finally {
+                    try {
+                        if (groupList_4_1 && !groupList_4_1.done && (_a = groupList_4.return))
+                            _a.call(groupList_4);
+                    }
+                    finally {
+                        if (e_13)
+                            throw e_13.error;
+                    }
+                }
+                return {
+                    nodes: largestColumn,
+                    height: largestColumnHeight
+                };
             };
         return SankeyChart;
     }());
@@ -35420,6 +35673,10 @@
              */
             this.maxWidth = Infinity;
             /**
+             * The minimum height of a node.
+             */
+            this.minHeight = 0;
+            /**
              * Define the function to get the contents of a link tooltip
              */
             this.linkTooltip = this.getLinkTooltip;
@@ -35507,7 +35764,7 @@
                     .nodes(this.nodes)
                     .links(this.links)
                     .spacing(14)
-                    .size(this.minWidth, this.maxWidth)
+                    .size(this.minWidth, this.maxWidth, this.minHeight)
                     .width(this._width || this.nodeContainer.nativeElement.offsetWidth)
                     .height(this._height || this.nodeContainer.nativeElement.offsetHeight)
                     .layout();
@@ -35993,6 +36250,7 @@
             columns: [{ type: i0.Input }],
             minWidth: [{ type: i0.Input }],
             maxWidth: [{ type: i0.Input }],
+            minHeight: [{ type: i0.Input }],
             linkTooltip: [{ type: i0.Input }],
             falloffTooltip: [{ type: i0.Input }],
             color: [{ type: i0.Input }],
@@ -37018,7 +37276,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>\r\n",
+                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\"\r\n>\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n        \r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -37051,6 +37309,7 @@
             multiple: [{ type: i0.Input }],
             pageSize: [{ type: i0.Input }],
             placeholder: [{ type: i0.Input }],
+            tagTemplate: [{ type: i0.Input }],
             autocomplete: [{ type: i0.Input }],
             loadingTemplate: [{ type: i0.Input }],
             noOptionsTemplate: [{ type: i0.Input }],
@@ -38202,7 +38461,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n                      [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n               [ngModel]=\"input\"\n               (ngModelChange)=\"setInputValue($event)\"\n               [autocomplete]=\"autocomplete\"\n               [class.invalid]=\"!inputValid\"\n               [attr.aria-activedescendant]=\"highlightedElement?.id\"\n               [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n               [attr.aria-controls]=\"typeahead?.id\"\n               [attr.aria-label]=\"ariaLabel\"\n               aria-multiline=\"false\"\n               [placeholder]=\"disabled ? '' : (placeholder || '')\"\n               [disabled]=\"disabled\"\n               [focusIf]=\"isSelected(tags.length)\"\n               (click)=\"toggle(); $event.stopPropagation()\"\n               (focus)=\"inputFocusHandler()\"\n               (paste)=\"inputPasteHandler($event)\"\n               [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n       class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n       [attr.tabindex]=\"disabled ? -1 : 0\"\n       [attr.aria-label]=\"clearButtonAriaLabel\"\n       *ngIf=\"_showClearButton\"\n       (click)=\"clear(); $event.stopPropagation()\"\n       (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <ng-container *ngIf=\"icon\" [ngTemplateOutlet]=\"icon\"></ng-container>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n            uxFocusIndicator\n            type=\"button\"\n            class=\"ux-tag-remove\"\n            aria-label=\"Remove Item\"\n            [disabled]=\"disabled\"\n            (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n                      [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n               [ngModel]=\"input\"\n               (ngModelChange)=\"setInputValue($event)\"\n               [autocomplete]=\"autocomplete\"\n               [class.invalid]=\"!inputValid\"\n               [attr.aria-activedescendant]=\"highlightedElement?.id\"\n               [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n               [attr.aria-controls]=\"typeahead?.id\"\n               [attr.aria-label]=\"ariaLabel\"\n               aria-multiline=\"false\"\n               [placeholder]=\"disabled ? '' : (placeholder || '')\"\n               [disabled]=\"disabled\"\n               [focusIf]=\"isSelected(tags.length)\"\n               (click)=\"toggle(); $event.stopPropagation()\"\n               (focus)=\"inputFocusHandler()\"\n               (paste)=\"inputPasteHandler($event)\"\n               [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n       class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n       [attr.tabindex]=\"disabled ? -1 : 0\"\n       [attr.aria-label]=\"clearButtonAriaLabel\"\n       *ngIf=\"_showClearButton\"\n       (click)=\"clear(); $event.stopPropagation()\"\n       (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <div *ngIf=\"icon\" class=\"ux-custom-icon\">\n        <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\n    </div>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n            uxFocusIndicator\n            type=\"button\"\n            class=\"ux-tag-remove\"\n            aria-label=\"Remove Item\"\n            [disabled]=\"disabled\"\n            (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
