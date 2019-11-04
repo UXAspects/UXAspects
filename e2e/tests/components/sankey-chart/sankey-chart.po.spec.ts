@@ -22,7 +22,5 @@ export class SankeyChartPage {
 
     async clickButton(id: string): Promise<void> {
         await element(by.id(id)).click();
-        await browser.executeScript('window.scrollTo(0, 0);');
-        await browser.actions().mouseMove(this.chart, { x: 0, y: 0 }).perform();
     }
 }
