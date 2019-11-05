@@ -77,6 +77,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
             if (this.menuTrigger && !changes.selected.firstChange) {
                 this.menuTrigger.closeMenu();
             }
+            this.selectedChange.emit(changes.selected.currentValue);
             this.onChange(changes.selected.currentValue);
             this.onTouched();
         }
@@ -104,7 +105,6 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
 
     writeValue(value: T): void {
         this.selected = value;
-        this.selectedChange.emit(value);
     }
 
     resetValue(event: Event): void {
