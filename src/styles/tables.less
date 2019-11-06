@@ -17,6 +17,15 @@
     }
 }
 
+.table {
+    &.ux-resizable-table-alt {
+        td,
+        th {
+            border: none;
+        }
+    }
+}
+
 // ngx-bootstrap - pagination
 .pagination {
     & > li.page-item {
@@ -1163,6 +1172,26 @@ th {
 .ux-fixed-header-table {
     display: flex;
     flex-direction: column;
+
+    &.ux-resizable-table-alt {
+        thead,
+        tbody {
+            tr {
+                display: flex;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    }
+
+    &.ux-resizable-table-alt-overflow {
+        thead,
+        tbody {
+            tr {
+                display: inline-flex;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    }
 
     thead,
     tbody {

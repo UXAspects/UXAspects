@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CheckboxModule, SelectionModule, TableModule, FixedHeaderTableModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
-import { ColumnReszingTestPageComponent } from './column-resizing.testpage.component';
+import { ColumnReszingTestPageComponent } from './column-resizing-standard/column-resizing.testpage.component';
+import { ColumnReszingAltTestPageComponent } from './column-resizing-alt/column-resizing-alt.testpage.component';
 
 @NgModule({
     imports: [
@@ -18,9 +19,16 @@ import { ColumnReszingTestPageComponent } from './column-resizing.testpage.compo
             {
                 path: '',
                 component: ColumnReszingTestPageComponent
+            },
+            {
+                path: 'column-resizing-alt',
+                component: ColumnReszingAltTestPageComponent
             }
         ])
     ],
-    declarations: [ColumnReszingTestPageComponent]
+    declarations: [
+        ColumnReszingTestPageComponent,
+        ColumnReszingAltTestPageComponent
+    ]
 })
 export class ColumnResizingTestPageModule { }

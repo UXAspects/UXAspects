@@ -42,7 +42,7 @@ export class ResizableTableAltService extends BaseResizableTableService {
         // check to see if we've reached 100% of the table width
         const totalWidth = this.columns.reduce((partial, columnWidth) => partial + columnWidth);
 
-        if (totalWidth > 100) {
+        if (totalWidth > 98) {
             // remove overflow
             this.columns = this.ensureNoOverflow(this.columns);
         } else {
@@ -50,7 +50,7 @@ export class ResizableTableAltService extends BaseResizableTableService {
             const resizableColumns = this._columns.toArray().filter(column => !column.disabled);
 
             // work out what we need to add to each column to make up the full width
-            const newWidth = (100 - totalWidth) / resizableColumns.length;
+            const newWidth = (98 - totalWidth) / resizableColumns.length;
 
             // set the non-disabled columns to the new width
             this.columns = this._columns.map((column, idx) => column.disabled ? this.columns[idx] : newWidth);

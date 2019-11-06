@@ -50,7 +50,7 @@ export class ColumnResizingPage {
         const column = columns[columnIndex];
         const handle = await column.$('.ux-resizable-table-column-handle');
 
-        // perform the drage
+        // perform the drag
         await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseUp().perform();
     }
 }

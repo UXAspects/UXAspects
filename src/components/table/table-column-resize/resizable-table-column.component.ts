@@ -1,7 +1,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
-import { fromEvent, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
 import { RESIZEABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';

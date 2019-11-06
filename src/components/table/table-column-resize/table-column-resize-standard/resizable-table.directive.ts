@@ -1,6 +1,6 @@
 import { ContentChildren, Directive, ElementRef, Inject, QueryList, Renderer2 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { ResizeService } from '../../../../directives/resize';
+import { ResizeService } from '../../../../directives/resize/index';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { ResizableTableService } from './resizable-table.service';
 import { RESIZEABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';

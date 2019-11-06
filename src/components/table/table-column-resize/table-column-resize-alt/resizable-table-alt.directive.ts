@@ -1,5 +1,5 @@
-import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
-import { ResizeService } from '../../../../directives/resize';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { ResizeService } from '../../../../directives/resize/index';
 import { RESIZEABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
 import { ResizableTableAltService } from './resizable-table-alt.service';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
@@ -18,13 +18,17 @@ import { isPlatformBrowser } from '@angular/common';
         }
     ],
     host: {
-        class: 'ux-resizable-table-alt'
+        'class': 'ux-resizable-table-alt',
+        '[class.ux-resizable-table-alt-overflow]': '_overflowX'
     }
 })
-export class ResizableTableAltDirective extends BaseResizableTableDirective implements AfterViewInit {
+export class ResizableTableAltDirective extends BaseResizableTableDirective implements AfterViewInit, OnDestroy {
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
+
+    /** Has horizontal overflow */
+    _overflowX: boolean = false;
 
     constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) table: ResizableTableAltService, renderer: Renderer2, resize: ResizeService, @Inject(PLATFORM_ID) private _platformId: Object) {
         super(elementRef, table, renderer, resize);
@@ -42,7 +46,21 @@ export class ResizableTableAltDirective extends BaseResizableTableDirective impl
                     Array.from(tableHeaders).forEach(thead => this._renderer.setStyle(thead, 'margin-left', `-${body.scrollLeft}px`));
                 });
             }
+
+            /** checks if the table is resizing and allows for a class to be added for when moving from
+             overflow to no overflow */
+            this._table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+                this._overflowX = this._elementRef.nativeElement.tBodies[0].scrollWidth > this._elementRef.nativeElement.tBodies[0].offsetWidth;
+            });
+
         }
+
+    }
+
+    ngOnDestroy(): void {
+        /** destroying watching for resizing */
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     /**
