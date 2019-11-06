@@ -48,14 +48,43 @@
     </tbody>
 </table>
 
+<table *ngIf="type === 'fixedAlt'" class="table" aria-multiselectable="true" uxResizableTableAlt uxFixedHeaderTable [tableHeight]="230">
+    <thead>
+    <tr>
+        <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
+        <th uxResizableTableColumn [(width)]="titleWidth">Title <small class="m-l-xs">{{ titleWidth | number }}px</small></th>
+        <th uxResizableTableColumn [(width)]="authorWidth">Author <small class="m-l-xs">{{ authorWidth | number }}px</small></th>
+        <th uxResizableTableColumn [(width)]="dateWidthAlt">Date <small class="m-l-xs">{{ dateWidthAlt |
+            number}}px</small></th>
+    </tr>
+    </thead>
+    <tbody [(uxSelection)]="selection">
+    <tr *ngFor="let document of documents"
+        [attr.aria-selected]="document.selected"
+        [uxSelectionItem]="document"
+        [(selected)]="document.selected">
+
+        <td class="checkbox-column" uxResizableTableCell>
+            <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected"></ux-checkbox>
+        </td>
+        <td uxResizableTableCell>{{ document.title }}</td>
+        <td uxResizableTableCell>{{ document.author }}</td>
+        <td uxResizableTableCell>{{ document.date | date }}</td>
+    </tr>
+    </tbody>
+</table>
+
 <div class="btn-group m-r">
     <button type="button" class="btn button-toggle-primary"
         [(ngModel)]="type" btnRadio="table">Standard Table</button>
     <button type="button" class="btn button-toggle-primary"
-        [(ngModel)]="type" btnRadio="fixed">Fixed Header Table</button>
+        [(ngModel)]="type" btnRadio="fixed">Fixed Header Table - Standard</button>
+    <button type="button" class="btn button-toggle-primary"
+            [(ngModel)]="type" btnRadio="fixedAlt">Fixed Header Table - Alternate</button>
 </div>
 
-<button class="btn button-secondary" (click)="setToUniform()">Reset</button>
+<button *ngIf="type !== 'fixedAlt'" class="btn button-secondary" (click)="setToUniform()">Reset</button>
+<button *ngIf="type === 'fixedAlt'" class="btn button-secondary" (click)="setToUniformAlt()">Reset</button>
 
 <hr>
 
@@ -79,6 +108,14 @@
     If all columns have a specified width and the column widths do not match the width of the table,
     columns will be scaled proportionally to fill the available space.
     If you wish to prevent this proportional scaling, omit the <code>width</code> property from one column, giving it a variable width.
+</p>
+
+<p>
+    The <code>uxResizableTableAlt</code> directive can be used to allow table columns
+    to be resized by dragging on the rightmost end of a column header. Columns are not resized to fit the
+    table width, but a horizontal scrollbar will be added when the columns widths exceed the table width.
+    Currently this directive can only be used with <code>uxFixedHeaderTable</code> and implemented the
+    same as <code>uxResizableTable</code>.
 </p>
 
 <p>The following methods are available in the <code>uxResizableTable</code> directive:</p>
