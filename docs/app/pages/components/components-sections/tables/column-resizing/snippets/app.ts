@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ResizableTableAltDirective, ResizableTableDirective } from '@ux-aspects/ux-aspects';
+import { ResizableTableExpandDirective, ResizableTableDirective } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -16,10 +16,10 @@ export class AppComponent {
     titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
-    dateWidthAlt: number = 150;
+    dateWidthExpand: number = 150;
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableTableAltDirective, { static: false }) resizableTableAlt: ResizableTableAltDirective;
+    @ViewChild(ResizableTableExpandDirective, { static: false }) resizableTableExpand: ResizableTableExpandDirective;
 
     constructor() {
         // generate some dummy data
@@ -37,8 +37,8 @@ export class AppComponent {
         this.resizableTable.setUniformWidths();
     }
 
-    setToUniformAlt(): void {
-        this.resizableTableAlt.setUniformWidths();
+    setToUniformExpand(): void {
+        this.resizableTableExpand.setUniformWidths();
     }
 }
 

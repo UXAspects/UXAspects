@@ -1,7 +1,7 @@
 import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { ResizeService } from '../../../../directives/resize/index';
 import { RESIZEABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
-import { ResizableTableAltService } from './resizable-table-alt.service';
+import { ResizableTableExpandService } from './resizable-table-expand.service';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { BaseResizableTableDirective } from '../resizable-table-base.directive';
 import { takeUntil } from 'rxjs/operators';
@@ -9,20 +9,20 @@ import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
-    selector: '[uxResizableTableAlt]',
-    exportAs: 'ux-resizable-table-alt',
+    selector: '[uxResizableTableExpand]',
+    exportAs: 'ux-resizable-table-expand',
     providers: [
         {
             provide: RESIZEABLE_TABLE_SERVICE_TOKEN,
-            useClass: ResizableTableAltService
+            useClass: ResizableTableExpandService
         }
     ],
     host: {
-        'class': 'ux-resizable-table-alt',
-        '[class.ux-resizable-table-alt-overflow]': '_overflowX'
+        'class': 'ux-resizable-table-expand',
+        '[class.ux-resizable-table-expand-overflow]': '_overflowX'
     }
 })
-export class ResizableTableAltDirective extends BaseResizableTableDirective implements AfterViewInit, OnDestroy {
+export class ResizableTableExpandDirective extends BaseResizableTableDirective implements AfterViewInit, OnDestroy {
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
@@ -30,7 +30,7 @@ export class ResizableTableAltDirective extends BaseResizableTableDirective impl
     /** Has horizontal overflow */
     _overflowX: boolean = false;
 
-    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) table: ResizableTableAltService, renderer: Renderer2, resize: ResizeService, @Inject(PLATFORM_ID) private _platformId: Object) {
+    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) table: ResizableTableExpandService, renderer: Renderer2, resize: ResizeService, @Inject(PLATFORM_ID) private _platformId: Object) {
         super(elementRef, table, renderer, resize);
     }
 

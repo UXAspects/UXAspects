@@ -48,13 +48,15 @@
     </tbody>
 </table>
 
-<table *ngIf="type === 'fixedAlt'" class="table" aria-multiselectable="true" uxResizableTableAlt uxFixedHeaderTable [tableHeight]="230">
+<table *ngIf="type === 'fixedExpand'" class="table" aria-multiselectable="true" uxResizableTableExpand
+       uxFixedHeaderTable [tableHeight]="230">
     <thead>
     <tr>
         <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
         <th uxResizableTableColumn [(width)]="titleWidth">Title <small class="m-l-xs">{{ titleWidth | number }}px</small></th>
         <th uxResizableTableColumn [(width)]="authorWidth">Author <small class="m-l-xs">{{ authorWidth | number }}px</small></th>
-        <th uxResizableTableColumn [(width)]="dateWidthAlt">Date <small class="m-l-xs">{{ dateWidthAlt |
+        <th uxResizableTableColumn [(width)]="dateWidthExpand">Date <small class="m-l-xs">{{
+            dateWidthExpand |
             number}}px</small></th>
     </tr>
     </thead>
@@ -80,11 +82,12 @@
     <button type="button" class="btn button-toggle-primary"
         [(ngModel)]="type" btnRadio="fixed">Fixed Header Table - Standard</button>
     <button type="button" class="btn button-toggle-primary"
-            [(ngModel)]="type" btnRadio="fixedAlt">Fixed Header Table - Alternate</button>
+            [(ngModel)]="type" btnRadio="fixedExpand">Fixed Header Table - Expand</button>
 </div>
 
-<button *ngIf="type !== 'fixedAlt'" class="btn button-secondary" (click)="setToUniform()">Reset</button>
-<button *ngIf="type === 'fixedAlt'" class="btn button-secondary" (click)="setToUniformAlt()">Reset</button>
+<button *ngIf="type !== 'fixedExpand'" class="btn button-secondary" (click)="setToUniform()">Reset</button>
+<button *ngIf="type === 'fixedExpand'" class="btn button-secondary" (click)="setToUniformExpand()">Reset
+</button>
 
 <hr>
 
@@ -111,7 +114,7 @@
 </p>
 
 <p>
-    The <code>uxResizableTableAlt</code> directive can be used to allow table columns
+    The <code>uxResizableTableExpand</code> directive can be used to allow table columns
     to be resized by dragging on the rightmost end of a column header. Columns are not resized to fit the
     table width, but a horizontal scrollbar will be added when the columns widths exceed the table width.
     Currently this directive can only be used with <code>uxFixedHeaderTable</code> and implemented the

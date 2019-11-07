@@ -62,5 +62,5 @@ export enum ColumnUnit {
 
 export enum ResizableTableType {
     Standard,
-    Alt
+    Expand
 }

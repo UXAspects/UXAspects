@@ -176,7 +176,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
 
 
-        if (this._table.type === ResizableTableType.Alt) {
+        if (this._table.type === ResizableTableType.Expand) {
            this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px`);
         }
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-column-resizing-alt',
-    templateUrl: './column-resizing-alt.testpage.component.html',
+    selector: 'app-column-resizing-expand',
+    templateUrl: './column-resizing-expand.testpage.component.html',
 })
-export class ColumnReszingAltTestPageComponent {
+export class ColumnResizingExpandTestpageComponent {
 
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];

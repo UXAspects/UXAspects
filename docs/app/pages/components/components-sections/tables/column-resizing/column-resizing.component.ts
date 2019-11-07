@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ResizableTableDirective, ResizableTableAltDirective } from '@ux-aspects/ux-aspects';
+import { ResizableTableDirective, ResizableTableExpandDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -14,7 +14,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableTableAltDirective, { static: false }) resizableTableAlt: ResizableTableAltDirective;
+    @ViewChild(ResizableTableExpandDirective, { static: false }) resizableTableExpand: ResizableTableExpandDirective;
 
     type: string = 'table';
     documents: TableDocument[] = [];
@@ -23,7 +23,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
     titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
-    dateWidthAlt: number = 150;
+    dateWidthExpand: number = 150;
 
     playground: IPlayground = {
         files: {
@@ -61,8 +61,8 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         this.resizableTable.setUniformWidths();
     }
 
-    setToUniformAlt(): void {
-        this.resizableTableAlt.setUniformWidths();
+    setToUniformExpand(): void {
+        this.resizableTableExpand.setUniformWidths();
     }
 }
 

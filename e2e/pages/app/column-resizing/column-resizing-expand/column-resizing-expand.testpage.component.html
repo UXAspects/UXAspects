@@ -1,4 +1,5 @@
-<table id="fixed-table-alt" #fixedTableAlt="ux-resizable-table-alt" class="table" uxResizableTableAlt
+<table id="fixed-table-expand" #fixedTableExpand="ux-resizable-table-expand" class="table"
+       uxResizableTableExpand
        uxFixedHeaderTable [tableHeight]="230" (tablePaging)="getPage()">
     <thead>
     <tr>
@@ -33,5 +34,5 @@
     </tbody>
 </table>
 
-<button id="update-layout-btn" class="btn button-primary" (click)="fixedTableAlt.updateLayout();">Update
+<button id="update-layout-btn" class="btn button-primary" (click)="fixedTableExpand.updateLayout();">Update
     Layout</button>
