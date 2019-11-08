@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.8.8",
+  "version": "1.8.9",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -128,6 +128,7 @@
     "jasmine": "2.8.0",
     "jasmine-core": "^3.3.0",
     "jasmine-reporters": "2.2.1",
+    "jasmine-spec-reporter": "^4.2.1",
     "jit-grunt": "0.10.0",
     "jshint": "^2.9.6",
     "karma": "^4.0.1",
