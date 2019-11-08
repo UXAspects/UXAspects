@@ -1,4 +1,4 @@
-import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { ResizeService } from '../../../../directives/resize/index';
 import { RESIZEABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
 import { ResizableTableExpandService } from './resizable-table-expand.service';
@@ -22,7 +22,7 @@ import { isPlatformBrowser } from '@angular/common';
         '[class.ux-resizable-table-expand-overflow]': '_overflowX'
     }
 })
-export class ResizableTableExpandDirective extends BaseResizableTableDirective implements AfterViewInit, OnDestroy {
+export class ResizableTableExpandDirective extends BaseResizableTableDirective implements AfterViewInit {
 
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
@@ -57,12 +57,6 @@ export class ResizableTableExpandDirective extends BaseResizableTableDirective i
 
     }
 
-    ngOnDestroy(): void {
-        /** destroying watching for resizing */
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-
     /**
      * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
      * visibily on screen. We should only setup the table once we actually have a width/
@@ -78,7 +72,7 @@ export class ResizableTableExpandDirective extends BaseResizableTableDirective i
         this._table.tableWidth = this.getScrollWidth();
 
         // set the columns - prevent expression changed error
-        requestAnimationFrame(() => {
+        Promise.resolve().then(() => {
             // initially set the columns
             this._table.setColumns(this.columns);
 
@@ -88,7 +82,7 @@ export class ResizableTableExpandDirective extends BaseResizableTableDirective i
 
         // watch for any future changes to the columns
         this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() =>
-            requestAnimationFrame(() => this._table.setColumns(this.columns))
+            Promise.resolve().then(() => this._table.setColumns(this.columns))
         );
 
         this._initialised = true;
@@ -96,7 +90,7 @@ export class ResizableTableExpandDirective extends BaseResizableTableDirective i
 
     /** Force the layout to recalculate */
     updateLayout(): void {
-        requestAnimationFrame(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
+        Promise.resolve().then(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
     }
 
 }

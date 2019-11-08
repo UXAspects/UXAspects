@@ -46,7 +46,7 @@ export class ResizableTableDirective extends BaseResizableTableDirective {
         this._table.tableWidth = this.getScrollWidth();
 
         // set the columns - prevent expression changed error
-        requestAnimationFrame(() => {
+        Promise.resolve().then(() => {
             // initially set the columns
             this._table.setColumns(this.columns);
 
@@ -56,7 +56,7 @@ export class ResizableTableDirective extends BaseResizableTableDirective {
 
         // watch for any future changes to the columns
         this.columns.changes.pipe(takeUntil(this._onDestroy)).subscribe(() =>
-            requestAnimationFrame(() => this._table.setColumns(this.columns))
+            Promise.resolve().then(() => this._table.setColumns(this.columns))
         );
 
         this._initialised = true;
@@ -64,7 +64,7 @@ export class ResizableTableDirective extends BaseResizableTableDirective {
 
     /** Force the layout to recalculate */
     updateLayout(): void {
-        requestAnimationFrame(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
+        Promise.resolve().then(() => this.columns.forEach((_column, index) => this._table.resizeColumn(index, 0)));
     }
 
     /**
