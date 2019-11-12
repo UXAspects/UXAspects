@@ -216,15 +216,15 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         // Re-filter visibleOptions
         this.updateOptions();
 
-        if(changes.recentOptions) {
+        if (changes.recentOptions) {
             this.updateRecentOptions(changes.recentOptions.currentValue);
         }
     }
 
     private updateRecentOptions(newValue: T[]) {
-        if (Array.isArray(newValue)){
+        if (Array.isArray(newValue)) {
             this.recentOptionsWrapped$.next(
-                newValue.map((value: T) =>
+              newValue.map((value: T) =>
                 ({
                     value: value,
                     key: this.getKey(value)
@@ -256,15 +256,15 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     optionClickHandler(_event: MouseEvent, option: TypeaheadVisibleOption<T>): void {
         this.select(option, 'mouse');
 
-        if(Array.isArray(this.recentOptions)){
+        if (Array.isArray(this.recentOptions)) {
             // If the option is already in the array, remove it first.
             let index = this.recentOptions.indexOf(option.value);
-            if(index != -1){
+            if (index != -1) {
                 this.recentOptions.splice(index, 1);
             }
 
             let numberOfElements = this.recentOptions.unshift(option.value);
-            if(numberOfElements > this.recentOptionsMaxCount){
+            if (numberOfElements > this.recentOptionsMaxCount) {
                 this.recentOptions.pop();
             }
             this.updateRecentOptions(this.recentOptions);
