@@ -13,7 +13,9 @@
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
                 [readonlyInput]="readonlyInput"
-                [clearButton]="clearButton">
+                [clearButton]="clearButton"
+                [recentOptions]="recentOptions"
+                [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
@@ -89,6 +91,22 @@
                             [min]="1"
                             [max]="1000"
                             [disabled]="!(pagingEnabled | async)">
+                        </ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [value]="false"
+                                     (valueChange)="recentOptions = $event ? [] : undefined">
+                            recentOptions
+                        </ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>recentOptionsMaxCount</label>
+                        <ux-number-picker
+                            [disabled]="!recentOptions"
+                            min="1"
+                            [(value)]="recentOptionsMaxCount">
                         </ux-number-picker>
                     </div>
                 </div>

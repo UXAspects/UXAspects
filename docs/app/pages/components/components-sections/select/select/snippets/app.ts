@@ -23,6 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
     placeholder = 'Select a country';
     readonlyInput: boolean = false;
     clearButton: boolean = false;
+    recentOptions: string[];
+    recentOptionsMaxCount: number = 5;
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();

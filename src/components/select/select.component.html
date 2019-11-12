@@ -100,7 +100,10 @@
         [optionTemplate]="optionTemplate"
         [noOptionsTemplate]="noOptionsTemplate"
         (optionSelected)="singleOptionSelected($event)"
-        (highlightedElementChange)="highlightedElement = $event">
+        (highlightedElementChange)="highlightedElement = $event"
+        [(recentOptions)]="recentOptions"
+        [recentOptionsMaxCount]="recentOptionsMaxCount">
+
     </ux-typeahead>
 
 </div>

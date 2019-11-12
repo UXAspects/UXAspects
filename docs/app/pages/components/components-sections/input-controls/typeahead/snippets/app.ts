@@ -17,6 +17,8 @@ export class AppComponent {
     selectOnEnter: boolean = true;
     dropDirection: 'up' | 'down' = 'down';
     selectFirst: boolean = true;
+    recentOptions: string[];
+    recentOptionsMaxCount: number = 5;
 
     input: string = '';
 

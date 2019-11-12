@@ -1,10 +1,24 @@
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
-import { TypeaheadOptionEvent } from './typeahead-event';
-import { TypeaheadService } from './typeahead.service';
+import {FocusOrigin} from '@angular/cdk/a11y';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+    TemplateRef
+} from '@angular/core';
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
+import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
+import {InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction} from '../../directives/infinite-scroll/index';
+import {TypeaheadOptionEvent} from './typeahead-event';
+import {TypeaheadService} from './typeahead.service';
 
 let uniqueId = 0;
 
@@ -87,6 +101,12 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this.activeKey = this.getKey(item);
     }
 
+    /** Container for saving the recently selected options. */
+    @Input() recentOptions: T[];
+
+    /** Maximum number of displayed recent options. */
+    @Input() recentOptionsMaxCount: number = 5;
+
     /** Emit when the open state changes */
     @Output() openChange = new EventEmitter<boolean>();
 
@@ -99,6 +119,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     /** Emit the highlighted element when it changes */
     @Output() highlightedElementChange = new EventEmitter<HTMLElement>();
 
+    /** Emits when recently selected options change.*/
+    @Output() recentOptionsChange =  new EventEmitter<T[]>();
+
     activeKey: string = null;
     clicking = false;
     hasBeenOpened = false;
@@ -106,6 +129,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     highlightedKey: string = null;
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
+    recentOptionsWrapped$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>(null);
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -191,6 +215,22 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         // Re-filter visibleOptions
         this.updateOptions();
+
+        if(changes.recentOptions) {
+            this.updateRecentOptions(changes.recentOptions.currentValue);
+        }
+    }
+
+    private updateRecentOptions(newValue: T[]) {
+        if (Array.isArray(newValue)){
+            this.recentOptionsWrapped$.next(
+                newValue.map((value: T) =>
+                ({
+                    value: value,
+                    key: this.getKey(value)
+                }))
+            );
+        }
     }
 
     ngOnDestroy(): void {
@@ -215,6 +255,20 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     optionClickHandler(_event: MouseEvent, option: TypeaheadVisibleOption<T>): void {
         this.select(option, 'mouse');
+
+        if(Array.isArray(this.recentOptions)){
+            // If the option is already in the array, remove it first.
+            let index = this.recentOptions.indexOf(option.value);
+            if(index != -1){
+                this.recentOptions.splice(index, 1);
+            }
+
+            let numberOfElements = this.recentOptions.unshift(option.value);
+            if(numberOfElements > this.recentOptionsMaxCount){
+                this.recentOptions.pop();
+            }
+            this.updateRecentOptions(this.recentOptions);
+        }
     }
 
     /**

@@ -21,7 +21,9 @@
                           [selectOnEnter]="selectOnEnter"
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
-                          (optionSelected)="input = $event.option">
+                          (optionSelected)="input = $event.option"
+                          [recentOptions]="recentOptions"
+                          [recentOptionsMaxCount]="recentOptionsMaxCount">
             </ux-typeahead>
         </form>
     </div>
@@ -42,6 +44,22 @@
                         <label>dropDirection</label>
                         <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
                         <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [value]="false"
+                                     (valueChange)="recentOptions = $event ? [] : undefined">
+                            recentOptions
+                        </ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>recentOptionsMaxCount</label>
+                        <ux-number-picker
+                            [disabled]="!recentOptions"
+                            min="1"
+                            [(value)]="recentOptionsMaxCount">
+                        </ux-number-picker>
                     </div>
                 </div>
             </ux-accordion-panel>
@@ -142,6 +160,12 @@
     </tr>
     <tr uxd-api-property name="selectOnEnter" type="boolean" defaultValue="false">
         Controls whether an option should be selected on enter key press.
+    </tr>
+    <tr uxd-api-property name="recentOptions" type="T[]">
+        List of recently selected options.
+    </tr>
+    <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
+        Number of displayed recently selected options.
     </tr>
 </uxd-api-properties>
 

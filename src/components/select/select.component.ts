@@ -151,6 +151,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      */
     @Input() optionTemplate: TemplateRef<any>;
 
+    /** Container for saving the recently selected options. */
+    @Input() recentOptions: T[];
+
+    /** Maximum number of displayed recent options. */
+    @Input() recentOptionsMaxCount: number;
+
     /** Emits when `value` changes. */
     @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
 
@@ -159,6 +165,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
+
+    /** Emits when recently selected options change. */
+    @Output() recentOptionsChange =  new EventEmitter<T[]>();
 
     /** Allow a custom icon to be used instead of the chevron */
     @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
