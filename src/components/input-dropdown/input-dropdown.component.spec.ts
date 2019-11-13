@@ -52,6 +52,7 @@ describe('InputDropdownComponent', () => {
     component.writeValue(newValue);
 
     expect(component.selected).toEqual(newValue);
+    expect(component.selectedChange.emit).toHaveBeenCalledWith(newValue);
   });
 
   it('should register onChange', () => {
