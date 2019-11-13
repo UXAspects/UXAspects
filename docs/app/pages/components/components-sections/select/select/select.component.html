@@ -93,8 +93,7 @@
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [value]="false"
-                                     (valueChange)="recentOptions = $event ? [] : undefined">
+                        <ux-checkbox (valueChange)="recentOptions = $event ? [] : undefined">
                             recentOptions
                         </ux-checkbox>
                     </div>
@@ -236,7 +235,7 @@
     <tr uxd-api-property name="clearButtonAriaLabel" type="string">
         Defines the aria label for the clear button.
     </tr>
-    <tr uxd-api-property name="recentOptions" type="ReadonlyArray<T>">
+    <tr uxd-api-property name="recentOptions" type="ReadonlyArray&lt;T&gt;">
         List of recently selected options.
     </tr>
     <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
@@ -253,6 +252,9 @@
     </tr>
     <tr uxd-api-property name="dropdownOpenChange" type="boolean">
         Emits when <code>dropdownOpen</code> changes.
+    </tr>
+    <tr uxd-api-property name="recentOptionsChange" type="ReadonlyArray&lt;T&gt;">
+        Emits when the list of recently selected options changes.
     </tr>
 </uxd-api-properties>
 

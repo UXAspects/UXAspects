@@ -48,8 +48,7 @@
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
-                        <ux-checkbox [value]="false"
-                                     (valueChange)="recentOptions = $event ? [] : undefined">
+                        <ux-checkbox (valueChange)="recentOptions = $event ? [] : undefined">
                             recentOptions
                         </ux-checkbox>
                     </div>
@@ -161,7 +160,7 @@
     <tr uxd-api-property name="selectOnEnter" type="boolean" defaultValue="false">
         Controls whether an option should be selected on enter key press.
     </tr>
-    <tr uxd-api-property name="recentOptions" type="ReadonlyArray<T>">
+    <tr uxd-api-property name="recentOptions" type="ReadonlyArray&lt;T&gt;">
         List of recently selected options.
     </tr>
     <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
@@ -181,6 +180,9 @@
     </tr>
     <tr uxd-api-property name="highlightedElementChange" type="HTMLElement">
         Raised when the highlighted option changes, providing the currently highlighted DOM element.
+    </tr>
+    <tr uxd-api-property name="recentOptionsChange" type="ReadonlyArray&lt;T&gt;">
+        Emits when the list of recently selected options changes.
     </tr>
 </uxd-api-properties>
 
