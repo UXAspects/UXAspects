@@ -107,7 +107,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this._recentOptions = newValue ? [...newValue] : undefined;
         if (newValue) {
             this.recentOptionsWrapped$.next(
-                newValue.map((value: T) => ({value: value, key: this.getKey(value)}))
+                newValue.map((value: T) => ({value: value, key: this.getKey(value), isRecentOption: true}))
             );
         }
     }
@@ -135,6 +135,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     hasBeenOpened = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
     highlightedKey: string = null;
+    highlightedIsRecentOption: boolean = false;
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
     recentOptionsWrapped$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>(null);
@@ -175,7 +176,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                     return newOptions.map((option: T) => {
                         return {
                             value: option,
-                            key: this.getKey(option)
+                            key: this.getKey(option),
+                            isRecentOption: false
                         };
                     });
                 });
@@ -194,6 +196,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         this.highlighted$.pipe(takeUntil(this._onDestroy)).subscribe((next) => {
             this.highlightedKey = next ? next.key : null;
+            this.highlightedIsRecentOption = next ? next.isRecentOption : undefined;
             this.highlightedChange.emit(next ? next.value : null);
         });
 
@@ -419,7 +422,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 .map((value) => {
                     return {
                         value: value,
-                        key: this.getKey(value)
+                        key: this.getKey(value),
+                        isRecentOption: false
                     };
                 });
             this.visibleOptions$.next(visibleOptions);
@@ -469,6 +473,7 @@ export interface TypeaheadOptionApi<T = any> {
 export interface TypeaheadVisibleOption<T = any> {
     value: T;
     key: string;
+    isRecentOption?: boolean;
 }
 
 export interface TypeaheadOptionContext<T> {
