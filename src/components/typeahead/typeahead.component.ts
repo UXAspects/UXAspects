@@ -91,7 +91,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() set recentOptions(options: ReadonlyArray<T>) {
         this._recentOptions = options ? [...options] : undefined;
         if (options) {
-            this.recentOptionsWrapped$.next(
+            this.recentOptionsWithKey$.next(
                 options.map((value: T) => ({value: value, key: this.getKey(value), isRecentOption: true}))
             );
         }
@@ -125,7 +125,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
 
     /** Store the recent options in a typeahead format */
-    recentOptionsWrapped$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>(null);
+    recentOptionsWithKey$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>(null);
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -356,7 +356,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
     moveHighlight(d: number): T {
-        const recentOptions = this.recentOptionsWrapped$.getValue();
+        const recentOptions = this.recentOptionsWithKey$.getValue();
         const visibleOptions = this.visibleOptions$.getValue();
         const selectableOptions = recentOptions ? [...recentOptions, ...visibleOptions] : visibleOptions;
         const highlightIndex = this.indexOfSelectableOption(selectableOptions, this.highlighted$.getValue());

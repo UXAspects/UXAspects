@@ -10,9 +10,9 @@
      (loading)="loading = true"
      (loaded)="loading = false; onLoadedHighlight($event)">
 
-    <ol *ngIf="(recentOptionsWrapped$ | async)?.length > 0"
+    <ol *ngIf="(recentOptionsWithKey$ | async)?.length > 0"
         class="ux-typeahead-recent-options">
-        <li *ngFor="let option of (recentOptionsWrapped$ | async)"
+        <li *ngFor="let option of (recentOptionsWithKey$ | async)"
             [class.disabled]="isDisabled(option)"
             [class.highlighted]="(highlightedKey === option.key) && (highlightedIsRecentOption === option.isRecentOption)"
             [class.active]="activeKey === option.key"
