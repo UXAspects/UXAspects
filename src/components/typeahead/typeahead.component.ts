@@ -35,6 +35,7 @@ let uniqueId = 0;
     }
 })
 export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
+    private _recentOptions: T[];
 
     /** Define a unique id for the typeahead */
     @Input() @HostBinding('attr.id') id: string = `ux-typeahead-${++uniqueId}`;
@@ -102,7 +103,14 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /** Container for saving the recently selected options. */
-    @Input() recentOptions: T[];
+    @Input() set recentOptions(newValue: ReadonlyArray<T>) {
+        this._recentOptions = newValue ? [...newValue] : undefined;
+        if (newValue) {
+            this.recentOptionsWrapped$.next(
+                newValue.map((value: T) => ({value: value, key: this.getKey(value)}))
+            );
+        }
+    }
 
     /** Maximum number of displayed recent options. */
     @Input() recentOptionsMaxCount: number = 5;
@@ -215,22 +223,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         // Re-filter visibleOptions
         this.updateOptions();
-
-        if (changes.recentOptions) {
-            this.updateRecentOptions(changes.recentOptions.currentValue);
-        }
-    }
-
-    private updateRecentOptions(newValue: T[]) {
-        if (Array.isArray(newValue)) {
-            this.recentOptionsWrapped$.next(
-              newValue.map((value: T) =>
-                ({
-                    value: value,
-                    key: this.getKey(value)
-                }))
-            );
-        }
     }
 
     ngOnDestroy(): void {
@@ -256,18 +248,20 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     optionClickHandler(_event: MouseEvent, option: TypeaheadVisibleOption<T>): void {
         this.select(option, 'mouse');
 
-        if (Array.isArray(this.recentOptions)) {
+        if (this._recentOptions) {
             // If the option is already in the array, remove it first.
-            const index = this.recentOptions.indexOf(option.value);
+            const index = this._recentOptions.indexOf(option.value);
+
             if (index > -1) {
-                this.recentOptions.splice(index, 1);
+                this._recentOptions.splice(index, 1);
             }
 
-            let numberOfElements = this.recentOptions.unshift(option.value);
+            let numberOfElements = this._recentOptions.unshift(option.value);
             if (numberOfElements > this.recentOptionsMaxCount) {
-                this.recentOptions.pop();
+                this._recentOptions.pop();
             }
-            this.updateRecentOptions(this.recentOptions);
+
+            this.recentOptions = this._recentOptions;
         }
     }
 
