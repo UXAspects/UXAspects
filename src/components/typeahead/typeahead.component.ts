@@ -1,4 +1,4 @@
-import {FocusOrigin} from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -14,11 +14,11 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
-import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
-import {InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction} from '../../directives/infinite-scroll/index';
-import {TypeaheadOptionEvent} from './typeahead-event';
-import {TypeaheadService} from './typeahead.service';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { TypeaheadOptionEvent } from './typeahead-event';
+import { TypeaheadService } from './typeahead.service';
 
 let uniqueId = 0;
 
@@ -120,7 +120,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Output() highlightedElementChange = new EventEmitter<HTMLElement>();
 
     /** Emits when recently selected options change.*/
-    @Output() recentOptionsChange =  new EventEmitter<T[]>();
+    @Output() recentOptionsChange = new EventEmitter<T[]>();
 
     activeKey: string = null;
     clicking = false;
@@ -258,8 +258,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         if (Array.isArray(this.recentOptions)) {
             // If the option is already in the array, remove it first.
-            let index = this.recentOptions.indexOf(option.value);
-            if (index != -1) {
+            const index = this.recentOptions.indexOf(option.value);
+            if (index > -1) {
                 this.recentOptions.splice(index, 1);
             }
 
