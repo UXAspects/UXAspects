@@ -152,7 +152,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() optionTemplate: TemplateRef<any>;
 
     /** Container for saving the recently selected options. */
-    @Input() recentOptions: T[];
+    @Input() recentOptions: ReadonlyArray<T>;
 
     /** Maximum number of displayed recent options. */
     @Input() recentOptionsMaxCount: number;

@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     placeholder = 'Select a country';
     readonlyInput: boolean = false;
     clearButton: boolean = false;
-    recentOptions: string[];
+    recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
 
     private _pageSize = 20;
