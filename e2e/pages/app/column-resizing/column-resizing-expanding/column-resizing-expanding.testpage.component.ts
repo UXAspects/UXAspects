@@ -3,15 +3,20 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-column-resizing-expanding',
     templateUrl: './column-resizing-expanding.testpage.component.html',
+    styleUrls: ['./column-resizing-expanding.testpage.component.less']
 })
 export class ColumnResizingExpandingTestpageComponent {
 
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
-    titleWidth: number = 260;
-    authorWidth: number = 300;
-    dateWidth: number = 400;
+    titleWidth: number = 470;
+    authorWidth: number = 470;
+    thirdColumn: number = 50;
+    forthColumn: number = 50;
+    fithColumn: number = 50;
+
+    addAdditionalColumns: boolean = false;
 
     constructor() {
         // generate some dummy data
@@ -24,7 +29,6 @@ export class ColumnResizingExpandingTestpageComponent {
                 selected: false,
                 title: `Document ${idx + 1}`,
                 author: `Author ${idx + 1}`,
-                date: new Date(2019, 8, 12)
             });
         }
     }
@@ -34,5 +38,4 @@ interface TableDocument {
     selected: boolean;
     title: string;
     author: string;
-    date: Date;
 }

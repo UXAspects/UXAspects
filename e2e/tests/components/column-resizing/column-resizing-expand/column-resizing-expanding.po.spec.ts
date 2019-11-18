@@ -3,8 +3,9 @@ import { $, browser, ElementFinder } from 'protractor';
 export class ColumnResizingExpandingPage {
 
     table = $('table');
-    fixedExpandTable = $('#fixed-table-expanding');
+    fixedExpandTable = $('#fixed-table-expand');
     updateLayoutBtn = $('#update-layout-btn');
+    updateColumnsBtn = $('#update-columns-btn');
 
     async getPage(): Promise<void> {
         await browser.driver.manage().window().setSize(1200, 900);
@@ -45,6 +46,10 @@ export class ColumnResizingExpandingPage {
         await this.updateLayoutBtn.click();
     }
 
+    async updateColumns(): Promise<void> {
+        await this.updateColumnsBtn.click();
+    }
+
     async resizeColumn(table: ElementFinder, columnIndex: number, amount: number): Promise<void> {
         const columns = await this.getColumnHeaders(table);
         const column = columns[columnIndex];
@@ -55,6 +60,6 @@ export class ColumnResizingExpandingPage {
     }
 
     async getOverflowClass(): Promise<string> {
-        return await this.table.getAttribute('class');
+        return await this.fixedExpandTable.getAttribute('class');
     }
 }

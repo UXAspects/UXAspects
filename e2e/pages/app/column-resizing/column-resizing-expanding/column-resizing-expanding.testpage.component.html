@@ -1,39 +1,48 @@
-<table id="fixed-table-expand" #fixedTableExpanding="ux-resizable-expanding-table" class="table"
-       uxResizableExpandingTable
-       uxFixedHeaderTable [tableHeight]="230" (tablePaging)="getPage()">
-    <thead>
-    <tr>
-        <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-        <th uxResizableTableColumn [(width)]="titleWidth">
-            Title <small class="m-l-xs column-size-label">{{ titleWidth | number }}px</small>
-        </th>
-        <th uxResizableTableColumn [(width)]="authorWidth">
-            Author <small class="m-l-xs column-size-label">{{ authorWidth | number }}px</small>
-        </th>
-        <th uxResizableTableColumn  [(width)]="dateWidth">
-            Date <small class="m-l-xs column-size-label">{{ dateWidth | number }}px</small>
-        </th>
-    </tr>
-    </thead>
-    <tbody [(uxSelection)]="selection">
-    <tr *ngFor="let document of documents"
-        [attr.aria-selected]="document.selected"
-        [uxSelectionItem]="document"
-        [(selected)]="document.selected">
+<div class="table-container-div">
+    <table id="fixed-table-expand" #fixedTableExpanding="ux-resizable-expanding-table" class="table"
+           uxResizableExpandingTable
+           uxFixedHeaderTable [tableHeight]="230" (tablePaging)="getPage()">
+        <thead>
+        <tr>
+            <th uxResizableTableColumn [(width)]="titleWidth">
+                Title <small class="m-l-xs column-size-label">{{ titleWidth | number }}px</small>
+            </th>
+            <th uxResizableTableColumn [(width)]="authorWidth">
+                Author <small class="m-l-xs column-size-label">{{ authorWidth | number }}px</small>
+            </th>
+            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="thirdColumn">
+                Title <small class="m-l-xs column-size-label">{{ thirdColumn | number }}px</small>
+            </th>
+            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="forthColumn">
+                Title <small class="m-l-xs column-size-label">{{ forthColumn | number }}px</small>
+            </th>
+            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="fithColumn">
+                Title <small class="m-l-xs column-size-label">{{ forthColumn | number }}px</small>
+            </th>
+        </tr>
+        </thead>
+        <tbody [(uxSelection)]="selection">
+        <tr *ngFor="let document of documents"
+            [attr.aria-selected]="document.selected"
+            [uxSelectionItem]="document"
+            [(selected)]="document.selected">
 
-        <td class="checkbox-column" uxResizableTableCell>
-            <ux-checkbox aria-hidden="true"
-                         tabindex="-1"
-                         [(ngModel)]="document.selected">
-            </ux-checkbox>
-        </td>
-        <td uxResizableTableCell>{{ document.title }}</td>
-        <td uxResizableTableCell>{{ document.author }}</td>
-        <td uxResizableTableCell>{{ document.date | date }}</td>
-    </tr>
-    </tbody>
-</table>
+            <td uxResizableTableCell>{{ document.title }}</td>
+            <td uxResizableTableCell>{{ document.author }}</td>
+            <td *ngIf="addAdditionalColumns" uxResizableTableCell>{{ document.author }}</td>
+            <td *ngIf="addAdditionalColumns" uxResizableTableCell>{{ document.author }}</td>
+            <td *ngIf="addAdditionalColumns" uxResizableTableCell>{{ document.author }}</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <button id="update-layout-btn" class="btn button-primary"
         (click)="fixedTableExpanding.updateLayout();">Update
     Layout</button>
+
+<button id="update-columns-btn" class="btn button-primary"
+        (click)="addAdditionalColumns = true">Add Columns</button>
+
+
