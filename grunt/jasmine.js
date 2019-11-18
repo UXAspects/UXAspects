@@ -17,6 +17,10 @@ module.exports = {
                 path.join(process.cwd(), 'node_modules', 'angular', 'angular.js'),
                 path.join(process.cwd(), 'node_modules', 'angular-mocks', 'angular-mocks.js'),
             ],
+            styles: [
+                path.join(process.cwd(), 'node_modules', 'bootstrap', 'dist', 'css', 'bootstrap.css'),
+                path.join(process.cwd(), 'dist', 'styles', 'ux-aspects.css'),
+            ],
             keepRunner: true,
             display: 'none',
             summary: true

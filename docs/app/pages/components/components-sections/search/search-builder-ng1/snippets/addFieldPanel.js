@@ -36,6 +36,7 @@ function AddFieldPanelCtrl($scope, searchBuilderPanel, searchBuilderId) {
 
     vm.selectField = function (field) {
         //resolve the deferred object
+        //closePanel can also take in an array of objects
         searchBuilderPanel.closePanel({
             id: searchBuilderId.generateComponentId(field.component, vm.searchQuery),
             component: field.component
