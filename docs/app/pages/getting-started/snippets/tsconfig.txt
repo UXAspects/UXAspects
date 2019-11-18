@@ -1,6 +1,0 @@
-"baseUrl": ".",
-"paths": {
-    "ux-aspects": [
-        "bower_components/ux-aspects/dist"
-    ]
-}
