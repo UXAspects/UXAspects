@@ -109,7 +109,7 @@ This allows consumers to import from `@ux-aspects/ux-aspects` rather than having
 - TSLint is included in our project and your code should conform to the rules it tests for. Run `npm run lint` to check.
 - Where possible components should support a disabled state.
 - Components should provide keyboard support for accessibility purposes.
-- Each component should have automated tests written for it. See [Automated Tests](automated-tests.md).
+- Each component should have automated tests written for it. See [Automated Testing](#automated-testing).
 
 ### Component Styling
 
