@@ -9,17 +9,17 @@ import 'chance';
 })
 export class AppComponent {
 
-    type: string = 'table';
+    type: 'uxResizableTable' | 'uxResizableExpandingTable' = 'uxResizableTable';
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
     titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
-    dateWidthExpand: number = 150;
+    dateWidthExpanding: number = 150;
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableTableExpand: ResizableExpandingTableDirective;
+    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableExpandingTable: ResizableExpandingTableDirective;
 
     constructor() {
         // generate some dummy data
@@ -34,11 +34,12 @@ export class AppComponent {
     }
 
     setToUniform(): void {
-        this.resizableTable.setUniformWidths();
-    }
-
-    setToUniformExpand(): void {
-        this.resizableTableExpand.setUniformWidths();
+        if (this.resizableTable) {
+            this.resizableTable.setUniformWidths();
+        }
+        if (this.resizableExpandingTable) {
+            this.resizableExpandingTable.setUniformWidths();
+        }
     }
 }
 
