@@ -10,7 +10,7 @@ import { IconModule } from '../icon/index';
 import { ColumnPickerComponent } from './column-picker/column-picker.component';
 import { ResizableTableCellDirective } from './table-column-resize/resizable-table-cell.directive';
 import { ResizableTableColumnComponent } from './table-column-resize/resizable-table-column.component';
-import { ResizableTableExpandDirective } from './table-column-resize/table-column-resize-expand/resizable-table-expand.directive';
+import { ResizableExpandingTableDirective } from './table-column-resize/table-column-resize-expanding/resizable-expanding-table.directive';
 import { ResizableTableDirective } from './table-column-resize/table-column-resize-standard/resizable-table.directive';
 
 @NgModule({
@@ -26,14 +26,14 @@ import { ResizableTableDirective } from './table-column-resize/table-column-resi
     ],
     declarations: [
         ResizableTableDirective,
-        ResizableTableExpandDirective,
+        ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
         ResizableTableCellDirective,
         ColumnPickerComponent,
     ],
     exports: [
         ResizableTableDirective,
-        ResizableTableExpandDirective,
+        ResizableExpandingTableDirective,
         ResizableTableColumnComponent,
         ResizableTableCellDirective,
         ColumnPickerComponent,

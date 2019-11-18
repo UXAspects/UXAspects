@@ -1,14 +1,14 @@
 import { $, browser, ElementFinder } from 'protractor';
 
-export class ColumnResizingPageExpand {
+export class ColumnResizingExpandingPage {
 
     table = $('table');
-    fixedExpandTable = $('#fixed-table-expand');
+    fixedExpandTable = $('#fixed-table-expanding');
     updateLayoutBtn = $('#update-layout-btn');
 
     async getPage(): Promise<void> {
         await browser.driver.manage().window().setSize(1200, 900);
-        await browser.get('#/column-resizing/column-resizing-expand');
+        await browser.get('#/column-resizing/column-resizing-expanding');
     }
 
     async getColumnHeaders(table: ElementFinder): Promise<ElementFinder[]> {

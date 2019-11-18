@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ResizableTableExpandDirective, ResizableTableDirective } from '@ux-aspects/ux-aspects';
+import { ResizableExpandingTableDirective, ResizableTableDirective } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -19,7 +19,7 @@ export class AppComponent {
     dateWidthExpand: number = 150;
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableTableExpandDirective, { static: false }) resizableTableExpand: ResizableTableExpandDirective;
+    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableTableExpand: ResizableExpandingTableDirective;
 
     constructor() {
         // generate some dummy data

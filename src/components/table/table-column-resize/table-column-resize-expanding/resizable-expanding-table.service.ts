@@ -3,7 +3,7 @@ import { BaseResizableTableService, ResizableTableType } from '../resizable-tabl
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 
 @Injectable()
-export class ResizableTableExpandService extends BaseResizableTableService {
+export class ResizableExpandingTableService extends BaseResizableTableService {
 
     /** Define the type of resizing we should use */
     type: ResizableTableType = ResizableTableType.Expand;

@@ -1,5 +1,5 @@
-<table id="fixed-table-expand" #fixedTableExpand="ux-resizable-table-expand" class="table"
-       uxResizableTableExpand
+<table id="fixed-table-expand" #fixedTableExpanding="ux-resizable-expanding-table" class="table"
+       uxResizableExpandingTable
        uxFixedHeaderTable [tableHeight]="230" (tablePaging)="getPage()">
     <thead>
     <tr>
@@ -34,5 +34,6 @@
     </tbody>
 </table>
 
-<button id="update-layout-btn" class="btn button-primary" (click)="fixedTableExpand.updateLayout();">Update
+<button id="update-layout-btn" class="btn button-primary"
+        (click)="fixedTableExpanding.updateLayout();">Update
     Layout</button>

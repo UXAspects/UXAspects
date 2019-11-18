@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ResizableTableDirective, ResizableTableExpandDirective } from '@ux-aspects/ux-aspects';
+import { ResizableTableDirective, ResizableExpandingTableDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
@@ -14,7 +14,7 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableTableExpandDirective, { static: false }) resizableTableExpand: ResizableTableExpandDirective;
+    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableTableExpand: ResizableExpandingTableDirective;
 
     type: string = 'table';
     documents: TableDocument[] = [];
