@@ -15,7 +15,7 @@ describe('Column Resizing Expand Tests', () => {
         await browser.driver.manage().window().setSize(800, 600);
     });
 
-    it('should have correct initial states (fixed table expand)', async () => {
+    it('should have correct initial states', async () => {
         await page.updateLayout();
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(50);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(260);
@@ -28,7 +28,7 @@ describe('Column Resizing Expand Tests', () => {
         expect(await imageCompare('column-resize-initial-fixed-expand')).toEqual(0);
     });
 
-    it('can increase the width of a column and the other columns remain the same (fixed table expand)', async () => {
+    it('can increase the width of a column and the other columns remain the same', async () => {
         await page.updateLayout();
         await page.resizeColumn(page.fixedExpandTable, 1, 100);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(50);
@@ -45,7 +45,7 @@ describe('Column Resizing Expand Tests', () => {
         expect(await imageCompare('column-resize-increase-fixed-expand')).toEqual(0);
     });
 
-    it('can decrease the width of a column and the other columns remain the same (fixed table expand)', async () => {
+    it('can decrease the width of a column and the other columns remain the same', async () => {
         await page.updateLayout();
         await page.resizeColumn(page.fixedExpandTable, 1, -100);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(50);
@@ -62,7 +62,7 @@ describe('Column Resizing Expand Tests', () => {
         expect(await imageCompare('column-resize-decrease-fixed-expand')).toEqual(0);
     });
 
-    it('can resize the last column and the other columns remain the same (fixed table expand)', async () => {
+    it('can resize the last column and the other columns remain the same', async () => {
         await page.updateLayout();
         await page.resizeColumn(page.fixedExpandTable, 3, 100);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(50);
@@ -79,7 +79,7 @@ describe('Column Resizing Expand Tests', () => {
         expect(await imageCompare('column-resize-last-column-fixed-expand')).toEqual(0);
     });
 
-    it('can force update layout after pagination (fixed table expand)', async () => {
+    it('can force update layout after pagination', async () => {
         await page.updateLayout();
 
         // check the initial number of rows
@@ -105,7 +105,7 @@ describe('Column Resizing Expand Tests', () => {
 
     });
 
-    it('can resize the last column and the other columns remain the same (fixed table expand)', async () => {
+    it('can resize the last column and the other columns remain the same', async () => {
         await page.updateLayout();
         await page.resizeColumn(page.fixedExpandTable, 3, 1000);
         expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBe(50);

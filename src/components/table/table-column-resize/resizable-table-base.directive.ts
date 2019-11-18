@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize';
 import { BaseResizableTableService } from './resizable-table-base.service';
 import { ResizableTableColumnComponent } from './resizable-table-column.component';
-import { RESIZEABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 
 export abstract class BaseResizableTableDirective implements AfterViewInit, OnDestroy {
 
@@ -16,7 +16,7 @@ export abstract class BaseResizableTableDirective implements AfterViewInit, OnDe
     /** Store the initialised state of the table */
     protected _initialised: boolean = false;
 
-    constructor(protected _elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) protected _table: BaseResizableTableService, protected _renderer: Renderer2, resize: ResizeService) {
+    constructor(protected _elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) protected _table: BaseResizableTableService, protected _renderer: Renderer2, resize: ResizeService) {
         // watch for the table being resized
         resize.addResizeListener(this._elementRef.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(() => {
             // store the latest table size

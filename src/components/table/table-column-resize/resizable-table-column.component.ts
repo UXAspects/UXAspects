@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, I
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
-import { RESIZEABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 
 @Component({
@@ -80,7 +80,7 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) {
+    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) {
 
         // initially emit the size when we have initialised
         _table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))

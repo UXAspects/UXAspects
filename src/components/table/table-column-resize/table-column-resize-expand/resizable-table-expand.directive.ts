@@ -1,6 +1,6 @@
 import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
 import { ResizeService } from '../../../../directives/resize/index';
-import { RESIZEABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
 import { ResizableTableExpandService } from './resizable-table-expand.service';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { BaseResizableTableDirective } from '../resizable-table-base.directive';
@@ -13,7 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
     exportAs: 'ux-resizable-table-expand',
     providers: [
         {
-            provide: RESIZEABLE_TABLE_SERVICE_TOKEN,
+            provide: RESIZABLE_TABLE_SERVICE_TOKEN,
             useClass: ResizableTableExpandService
         }
     ],
@@ -30,7 +30,7 @@ export class ResizableTableExpandDirective extends BaseResizableTableDirective i
     /** Has horizontal overflow */
     _overflowX: boolean = false;
 
-    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) table: ResizableTableExpandService, renderer: Renderer2, resize: ResizeService, @Inject(PLATFORM_ID) private _platformId: Object) {
+    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) table: ResizableTableExpandService, renderer: Renderer2, resize: ResizeService, @Inject(PLATFORM_ID) private _platformId: Object) {
         super(elementRef, table, renderer, resize);
     }
 

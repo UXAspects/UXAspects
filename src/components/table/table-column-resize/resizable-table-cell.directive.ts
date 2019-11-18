@@ -2,7 +2,7 @@ import { Directive, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@an
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
-import { RESIZEABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
 import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 
 @Directive({
@@ -13,7 +13,7 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
     /** Unsubscribe from all subscriptions on destroy */
     private readonly _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService) { }
+    constructor(private _elementRef: ElementRef, private _renderer: Renderer2, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService) { }
 
     ngOnInit(): void {
         // update the sizes when columns are resized

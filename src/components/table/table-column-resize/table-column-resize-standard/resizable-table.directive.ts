@@ -3,7 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../../directives/resize/index';
 import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { ResizableTableService } from './resizable-table.service';
-import { RESIZEABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
 import { BaseResizableTableDirective } from '../resizable-table-base.directive';
 
 @Directive({
@@ -11,7 +11,7 @@ import { BaseResizableTableDirective } from '../resizable-table-base.directive';
     exportAs: 'ux-resizable-table',
     providers: [
         {
-            provide: RESIZEABLE_TABLE_SERVICE_TOKEN,
+            provide: RESIZABLE_TABLE_SERVICE_TOKEN,
             useClass: ResizableTableService
         }
     ],
@@ -25,7 +25,7 @@ export class ResizableTableDirective extends BaseResizableTableDirective {
     /** Get all the column headers */
     @ContentChildren(ResizableTableColumnComponent, { descendants: true }) columns: QueryList<ResizableTableColumnComponent>;
 
-    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZEABLE_TABLE_SERVICE_TOKEN) table: ResizableTableService, renderer: Renderer2, resize: ResizeService) {
+    constructor(elementRef: ElementRef<HTMLTableElement>, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) table: ResizableTableService, renderer: Renderer2, resize: ResizeService) {
         super(elementRef, table, renderer, resize);
         // we should hide any horizontal overflow when we are resizing
         this._table.isResizing$.pipe(takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
