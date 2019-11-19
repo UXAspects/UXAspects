@@ -439,6 +439,7 @@ mounted allowing you to run the `e2e` tests and produce baseline images.
 Follow these steps to run the tests in a CI environment locally:
 
 1. `npm run docker:ci`
+    * This starts a Linux Docker container, and spawns an interactive shell. Enter the subsequent commands at the resulting prompt in order to execute them within the container.
 2. `npm ci`
     * Note that `npm run docker:ci` will try to backup and restore the Linux platform dependencies; if this was successful, there will be a message informing you that `npm ci` is unnecessary, which can save a lot of time.
 3. `npm run build:library`
