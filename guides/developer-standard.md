@@ -102,6 +102,8 @@ This allows consumers to import from `@ux-aspects/ux-aspects` rather than having
 - All instance variables that are used within the view should be public.
 - Mark any other instance variables or functions as private that you do not wish to expose outside of the component.
 - All private instance variables should be prefixed with an underscore.
+- New components should use `changeDetection: ChangeDetectionStrategy.OnPush` to improve efficiency. See [Angular OnPush Change Detection and Component Design](https://blog.angular-university.io/onpush-change-detection-how-it-works/) for more information on designing components to work with `ChangeDetectionStrategy.OnPush`.
+- `@Input()` properties should have immutable types, such as `ReadonlyArray<string>` rather than `string[]` to help avoid changes that would not be detected when using `ChangeDetectionStrategy.OnPush`.
 - Any component that may be used in a form e.g. checkboxes or radiobuttons, should support **both** `ngModel` and an alternative two way binding property to get/set the value.
 - Use attributes on the template to manipulate the DOM where possible rather than using TypeScript to manipulate the DOM. In the rare occasion where it is not possible, inject `Renderer2` and use it rather than directly touching the DOM.
 - When using key events in the View specify the key in the attribute rather than performing a condition check on the event `keyCode` e.g. `(keydown.uparrow)="upKeyPress()"`.
