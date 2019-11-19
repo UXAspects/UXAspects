@@ -36,7 +36,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule'],
+                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule', 'AccordionModule', 'RadioButtonModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
