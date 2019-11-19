@@ -1,104 +1,128 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
+
 <uxd-text-page-layout>
+    <p>
+        UX Aspects components can be used in Angular projects (Angular 6, 7, and 8 are currently supported). The
+        stylesheet can also be used in non-Angular projects to style basic controls.
+    </p>
 
-    <h3>Installation</h3>
+    <ol>
+        <li><a routerLink="." fragment="pre-requisites">Pre-Requisites</a></li>
+        <li><a routerLink="." fragment="seed-project">Seed Project</a></li>
+        <li><a routerLink="." fragment="add-to-an-existing-project">Add to an Existing Project</a></li>
+        <li><a routerLink="." fragment="consuming-ux-aspects-components">Consuming UX Aspects Components</a></li>
+        <li><a routerLink="." fragment="contributing">Contributing</a></li>
+        <li><a routerLink="." fragment="getting-help">Getting Help</a></li>
+    </ol>
 
-    <div class="row-divider"></div>
+    <section>
+        <h2 id="pre-requisites">Pre-Requisites</h2>
 
-    <p>UX Aspects components can be used in Angular projects (Angular or AngularJS 1.x), and those shown in the
-        <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using the components
-        are shown below. The installation instructions are broken down into four alternative methods as detailed in the
-        following tabsets:</p>
+        <p>Instructions on this page refer to the following software:</p>
 
-    <ux-tabset [minimal]="false">
-        <ux-tab heading="NPM">
-            <ol>
-                <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
-                <li>Install the UX Aspects package and its dependencies: <kbd>npm install @ux-aspects/ux-aspects --save</kbd></li>
-                <li>Install <code>rxjs-compat</code> for Angular 6 applications: <kbd>npm install rxjs-compat --save</kbd></li>
-                <li>Install the Angular CDK: <kbd>npm install @angular/cdk --save</kbd></li>
-            </ol>
-        </ux-tab>
-        <ux-tab heading="Direct Download">
-            <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from the
-                <a href="https://github.com/UXAspects/UXAspects/releases">GitHub releases page</a>.</p>
-        </ux-tab>
-        <ux-tab heading="Building from Source">
-            <ol>
-                <li>Clone the <a href="https://github.com/UXAspects/UXAspects">GitHub repository</a>.</li>
-                <li>Install the dependencies: <kbd>npm install</kbd></li>
-                <li>Build the project: <kbd>grunt build</kbd>. The resources (scripts, CSS, fonts, and images) can be found in the
-                    <code>dist</code> folder.
-                </li>
-            </ol>
-        </ux-tab>
-    </ux-tabset>
+        <ul>
+            <li>
+                <a href="https://nodejs.org/">Node.js</a> v10 &mdash; this provides the <code>npm</code> command, which
+                is used to install application dependencies.
+            </li>
+            <li>
+                <a href="https://git-scm.com/">Git</a> &mdash; used to download the seed project, or to build UX Aspects
+                from source.
+            </li>
+            <li>
+                <a href="https://cli.angular.io/">Angular CLI</a> &mdash; used to build the seed project or create a new
+                Angular application.
+            </li>
+            <li><a href="https://gruntjs.com/using-the-cli">Grunt</a> &mdash; used to build UX Aspects from source.</li>
+        </ul>
+    </section>
 
-    <h3>Applying the Stylesheet</h3>
+    <section>
+        <h2 id="seed-project">Seed Project</h2>
 
-    <div class="row-divider"></div>
+        <p class="m-b">
+            The easiest way to get started with UX Aspects is to download our
+            <a href="https://github.com/UXAspects/UXAspects-Seed">Seed Project</a>. This is a starter project, suitable
+            for building a new Angular application using UX Aspects. Since it is built with Angular CLI, it is easy to
+            extend with new pages and components.
+        </p>
 
-    <p>The UX Aspects stylesheet can be applied in three different ways as outlined in the following tabs:</p>
+        <ol>
+            <li>
+                Clone the repository:
+                <code>git clone https://github.com/UXAspects/UXAspects-Seed.git <i>my-project</i></code>
+            </li>
+            <li>Switch to the directory which was downloaded.</li>
+            <li>Install the dependencies: <code>npm install</code></li>
+            <li>Build and run the site using the Angular CLI development server: <code>ng serve</code></li>
+        </ol>
 
-    <ux-tabset [minimal]="false">
-        <ux-tab heading="Angular CLI">
-            <p>If using the CLI, the UX Aspects stylesheet can be added in the <code>angular-cli.json</code> file:</p>
-            <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
-        </ux-tab>
-        <ux-tab heading="Webpack">
-            <p>When using Webpack the UX Aspects stylesheet can be included in the main stylesheet of the application:</p>
-            <uxd-snippet [code]="stylesheetCss" language="css"></uxd-snippet>
-        </ux-tab>
-        <ux-tab heading="Non-Angular Sites">
-            <p>
-                If your application does not use Node or Webpack, you can download UX Aspects and copy the fonts, img, and styles
-                directories to your application. The UX Aspects stylesheet can be applied from <code>styles/ux-aspects.css</code>
-                by adding a <code>link</code> tag in the page header. This is the only required step for non-Angular sites.
-            </p>
-        </ux-tab>
-    </ux-tabset>
+        <p>
+            A complete guide on using the Seed Project can be
+            <a href="https://github.com/UXAspects/UXAspects-Seed/blob/master/README.md">found here</a>.
+        </p>
+    </section>
 
-    <h3>Using UX Aspects</h3>
+    <section>
+        <h2 id="add-to-an-existing-project">Add to an Existing Project</h2>
 
-    <div class="row-divider"></div>
+        <p>If you want to consume UX Aspects in an existing application follow the steps below:</p>
 
-    <p>UX Aspects can be used in Angular and AngularJS projects as follows:</p>
+        <h3>Install UX Aspects</h3>
 
-    <ux-tabset [minimal]="false">
-        <ux-tab heading="Angular">
+        <pre>npm install --save @ux-aspects/ux-aspects</pre>
 
-            <p>Import the required component module(s) into the module that will be using them.</p>
+        <h3>Install Peer Dependencies</h3>
 
-            <uxd-snippet [code]="angular4Ts" language="javascript"></uxd-snippet>
+        <p>
+            UX Aspects has a number of peer dependencies which should be met to ensure proper functionality across all
+            components. You can select the version of each peer dependency that suits your application, provided it
+            matches the peer version criteria.
+        </p>
 
-            <h4>Upgrading AngularJS Components</h4>
+        <h3>Stylesheets</h3>
 
-            <p>If the component is marked <span class="label label-primary">AngularJS</span> in the documentation, it will need to be
-                upgraded using Angular's <a href="https://angular.io/docs/ts/latest/api/upgrade/index/UpgradeAdapter-class.html">UpgradeAdapter</a>.</p>
+        <p>
+            Add the Bootstrap and UX Aspects stylesheets to the application. If using Angular CLI, add these via the
+            <code>angular.json</code> file; otherwise, they can be imported into the master stylesheet. Note that the
+            order of import is significant.
+        </p>
 
-            <uxd-snippet [code]="angular4UpgradeTs" language="javascript"></uxd-snippet>
-        </ux-tab>
+        <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
+    </section>
 
-        <ux-tab heading="AngularJS">
+    <section>
+        <h2 id="consuming-ux-aspects-components">Consuming UX Aspects Components</h2>
 
-            <p>The components marked <span class="label label-primary">AngularJS</span> can be included by importing
-                <code>@ux-aspects/ux-aspects/ng1/ux-aspects-ng1.js</code>. Over the coming months, these will be replaced with Angular components, so
-                it is recommended to set up the project as a hybrid AngularJS/Angular site. See the
-                <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
-                for details on modifying a project to support Angular components. Components marked <span class="label label-accent">Angular</span>
-                in the documentation should be included via the <code>import</code> keyword and downgraded to be used in a hybrid site.</p>
+        <p>
+            Import the required component module(s) into the module that will be using them. The Usage dropdown in the
+            documentation lists the module to import, where appropriate.
+        </p>
 
-            <uxd-snippet [code]="angular1DowngradeJs" language="javascript"></uxd-snippet>
-        </ux-tab>
+        <uxd-snippet [code]="moduleTs" language="javascript"></uxd-snippet>
+    </section>
 
-    </ux-tabset>
+    <section>
+        <h2 id="contributing">Contributing</h2>
 
-    <h3>Additional Information</h3>
+        <p>
+            UX Aspects is an open source project, which means that everyone is welcome to participate in making
+            improvements!
+        </p>
 
-    <div class="row-divider"></div>
+        <p>
+            See
+            <a href="https://github.com/UXAspects/UXAspects/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>
+            on GitHub for information on building, testing, and submitting pull requests for UX Aspects.
+        </p>
+    </section>
 
-    <p>The <a routerLink="/changelog">changelog</a> contains details of current and previous releases of UX Aspects.</p>
+    <section>
+        <h2 id="getting-help">Getting Help</h2>
 
-    <p>The <a routerLink="/licenses">licenses page</a> contains the licensing details for UX Aspects and the 3rd party libraries that it depends upon.</p>
-
+        <p>
+            To get help with anything related to UX Aspects, please
+            <a href="https://github.com/UXAspects/UXAspects/issues">raise an issue</a> on GitHub.
+        </p>
+    </section>
 </uxd-text-page-layout>
