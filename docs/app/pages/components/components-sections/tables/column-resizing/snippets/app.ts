@@ -33,11 +33,10 @@ export class AppComponent {
         }
     }
 
-    setToUniform(): void {
-        if (this.resizableTable) {
+    setToUniform(type: string): void {
+        if (type === 'uxResizableTable') {
             this.resizableTable.setUniformWidths();
-        }
-        if (this.resizableExpandingTable) {
+        } else {
             this.resizableExpandingTable.setUniformWidths();
         }
     }

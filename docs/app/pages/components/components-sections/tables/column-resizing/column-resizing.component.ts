@@ -62,11 +62,10 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         this.uxFixedHeaderComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/tables' : 'components/tables';
     }
 
-    setToUniform(): void {
-        if (this.resizableTable) {
+    setToUniform(type: string): void {
+        if (type === 'uxResizableTable') {
             this.resizableTable.setUniformWidths();
-        }
-        if (this.resizableExpandingTable) {
+        } else {
             this.resizableExpandingTable.setUniformWidths();
         }
     }
