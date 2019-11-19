@@ -1,6 +1,9 @@
 <ux-accordion [collapseOthers]="true">
     <ux-accordion-panel class="accordion-chevron" heading="Fixed Header Table" [expanded]="true">
-        <table *ngIf="type === 'uxResizableTable'" class="table" aria-multiselectable="true" uxResizableTable uxFixedHeaderTable [tableHeight]="230">
+        <table *ngIf="type === 'uxResizableTable'"
+               class="table" aria-multiselectable="true"
+               uxResizableTable uxFixedHeaderTable
+               [tableHeight]="230">
             <thead>
             <tr>
                 <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
@@ -16,16 +19,21 @@
             </tr>
             </thead>
             <tbody [(uxSelection)]="selection">
-            <tr *ngFor="let document of documents" [attr.aria-selected]="document.selected" [uxSelectionItem]="document" [(selected)]="document.selected">
+                <tr *ngFor="let document of documents"
+                    [attr.aria-selected]="document.selected"
+                    [uxSelectionItem]="document"
+                    [(selected)]="document.selected">
 
-                <td class="checkbox-column" uxResizableTableCell>
-                    <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected">
-                    </ux-checkbox>
-                </td>
-                <td uxResizableTableCell>{{ document.title }}</td>
-                <td uxResizableTableCell>{{ document.author }}</td>
-                <td uxResizableTableCell>{{ document.date | date }}</td>
-            </tr>
+                    <td class="checkbox-column" uxResizableTableCell>
+                        <ux-checkbox aria-hidden="true"
+                                     tabindex="-1"
+                                     [(ngModel)]="document.selected">
+                        </ux-checkbox>
+                    </td>
+                    <td uxResizableTableCell>{{ document.title }}</td>
+                    <td uxResizableTableCell>{{ document.author }}</td>
+                    <td uxResizableTableCell>{{ document.date | date }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -34,8 +42,14 @@
             <thead>
             <tr>
                 <th uxResizableTableColumn [width]="50" [disabled]="true"></th>
-                <th uxResizableTableColumn [(width)]="titleWidth">Title <small class="m-l-xs">{{ titleWidth | number }}px</small></th>
-                <th uxResizableTableColumn [(width)]="authorWidth">Author <small class="m-l-xs">{{ authorWidth | number }}px</small></th>
+                <th uxResizableTableColumn [(width)]="titleWidth">Title
+                    <small class="m-l-xs">{{ titleWidth | number }}px
+                    </small>
+                </th>
+                <th uxResizableTableColumn [(width)]="authorWidth">Author
+                    <small class="m-l-xs">{{ authorWidth | number }}px
+                    </small>
+                </th>
                 <th uxResizableTableColumn [(width)]="dateWidthExpanding">Date
                     <small class="m-l-xs">{{dateWidthExpanding | number}}px
                     </small>
@@ -43,15 +57,18 @@
             </tr>
             </thead>
             <tbody [(uxSelection)]="selection">
-            <tr *ngFor="let document of documents" [attr.aria-selected]="document.selected" [uxSelectionItem]="document" [(selected)]="document.selected">
+                <tr *ngFor="let document of documents"
+                    [attr.aria-selected]="document.selected"
+                    [uxSelectionItem]="document"
+                    [(selected)]="document.selected">
 
-                <td class="checkbox-column" uxResizableTableCell>
-                    <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected"></ux-checkbox>
-                </td>
-                <td uxResizableTableCell>{{ document.title }}</td>
-                <td uxResizableTableCell>{{ document.author }}</td>
-                <td uxResizableTableCell>{{ document.date | date }}</td>
-            </tr>
+                    <td class="checkbox-column" uxResizableTableCell>
+                        <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected"></ux-checkbox>
+                    </td>
+                    <td uxResizableTableCell>{{ document.title }}</td>
+                    <td uxResizableTableCell>{{ document.author }}</td>
+                    <td uxResizableTableCell>{{ document.date | date }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -78,16 +95,19 @@
             </tr>
             </thead>
             <tbody [(uxSelection)]="selection">
-            <tr *ngFor="let document of documents | slice:0:5" [attr.aria-selected]="document.selected" [uxSelectionItem]="document" [(selected)]="document.selected">
+                <tr *ngFor="let document of documents | slice:0:5"
+                    [attr.aria-selected]="document.selected"
+                    [uxSelectionItem]="document"
+                    [(selected)]="document.selected">
 
-                <td class="checkbox-column">
-                    <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected">
-                    </ux-checkbox>
-                </td>
-                <td>{{ document.title }}</td>
-                <td>{{ document.author }}</td>
-                <td>{{ document.date | date }}</td>
-            </tr>
+                    <td class="checkbox-column">
+                        <ux-checkbox aria-hidden="true" tabindex="-1" [(ngModel)]="document.selected">
+                        </ux-checkbox>
+                    </td>
+                    <td>{{ document.title }}</td>
+                    <td>{{ document.author }}</td>
+                    <td>{{ document.date | date }}</td>
+                </tr>
             </tbody>
         </table>
     </ux-accordion-panel>

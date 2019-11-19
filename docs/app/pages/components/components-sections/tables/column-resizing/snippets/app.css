@@ -3,7 +3,7 @@
 }
 
 td, th {
-    min-width: 50px !important;
+    min-width: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

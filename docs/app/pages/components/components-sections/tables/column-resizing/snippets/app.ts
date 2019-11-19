@@ -18,8 +18,11 @@ export class AppComponent {
     dateWidth: number;
     dateWidthExpanding: number = 150;
 
-    @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableExpandingTable: ResizableExpandingTableDirective;
+    @ViewChild(ResizableTableDirective, { static: false })
+    resizableTable: ResizableTableDirective;
+
+    @ViewChild(ResizableExpandingTableDirective, { static: false })
+    resizableExpandingTable: ResizableExpandingTableDirective;
 
     constructor() {
         // generate some dummy data
