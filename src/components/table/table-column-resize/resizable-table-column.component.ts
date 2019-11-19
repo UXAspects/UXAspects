@@ -77,6 +77,9 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Store the position of the mouse within the drag handle */
     private _offset: number;
 
+    /** Min width of the column*/
+    private _minWidth: number;
+
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
@@ -84,7 +87,12 @@ export class ResizableTableColumnComponent implements OnDestroy {
 
         // initially emit the size when we have initialised
         _table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
-            .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
+            .subscribe(() => {
+                // get the current min-width
+                this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
+
+                this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
+            });
 
         // ensure the correct width gets emitted on column size change
         _table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
@@ -177,7 +185,8 @@ export class ResizableTableColumnComponent implements OnDestroy {
 
 
         if (this._table.type === ResizableTableType.Expand) {
-           this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px`);
+            const minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel), this._minWidth);
+            this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${minWidth}px`);
         }
 
         this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);

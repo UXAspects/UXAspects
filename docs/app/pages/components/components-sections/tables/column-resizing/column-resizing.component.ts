@@ -23,7 +23,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
     dateWidth: number;
     dateWidthExpanding: number = 150;
 
-    uxFixedHeaderComponentRoute: string;
+    uxFixedHeaderComponentRoute: string = this._documentationType === DocumentationType.MicroFocus ? '/ui-components/tables' : 'components/tables';
 
     @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
     @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableExpandingTable: ResizableExpandingTableDirective;
@@ -58,8 +58,6 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
                 date: chance.date({ year: new Date().getFullYear() }) as Date
             });
         }
-
-        this.uxFixedHeaderComponentRoute = _documentationType === DocumentationType.MicroFocus ? '/ui-components/tables' : 'components/tables';
     }
 
     setToUniform(type: string): void {

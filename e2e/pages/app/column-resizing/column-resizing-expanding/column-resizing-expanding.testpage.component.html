@@ -13,11 +13,11 @@
             <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="thirdColumn">
                 Title <small class="m-l-xs column-size-label">{{ thirdColumn | number }}px</small>
             </th>
-            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="forthColumn">
-                Title <small class="m-l-xs column-size-label">{{ forthColumn | number }}px</small>
+            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="fourthColumn">
+                Title <small class="m-l-xs column-size-label">{{ fourthColumn | number }}px</small>
             </th>
-            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="fithColumn">
-                Title <small class="m-l-xs column-size-label">{{ forthColumn | number }}px</small>
+            <th *ngIf="addAdditionalColumns" uxResizableTableColumn [(width)]="fifthColumn">
+                Title <small class="m-l-xs column-size-label">{{ fifthColumn | number }}px</small>
             </th>
         </tr>
         </thead>
@@ -39,7 +39,7 @@
 </div>
 
 <button id="update-layout-btn" class="btn button-primary"
-        (click)="fixedTableExpanding.updateLayout();">Update
+        (click)="fixedTableExpanding.updateLayout()">Update
     Layout</button>
 
 <button id="update-columns-btn" class="btn button-primary"

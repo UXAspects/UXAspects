@@ -13,9 +13,14 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
     /** Unsubscribe from all subscriptions on destroy */
     private readonly _onDestroy = new Subject<void>();
 
+    /** Min width of the column*/
+    private _minWidth: number;
+
     constructor(private _elementRef: ElementRef, private _renderer: Renderer2, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService) { }
 
     ngOnInit(): void {
+        this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
+
         // update the sizes when columns are resized
         combineLatest([this._table.onResize$, this._table.isResizing$]).pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.setColumnWidth();
@@ -40,7 +45,8 @@ export class ResizableTableCellDirective implements OnInit, OnDestroy {
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
 
         if (this._table.type === ResizableTableType.Expand) {
-            this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px`);
+            const minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel), this._minWidth);
+            this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${minWidth}px`);
         }
 
         this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);

@@ -146,4 +146,12 @@ describe('Column Resizing Expanding Table Tests', () => {
 
     });
 
+    it('cannot be scrolled below the min-width set on the column', async () => {
+        await page.resizeColumn(page.fixedExpandTable, 0, -450);
+
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeGreaterThanOrEqual(50);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 0)).toBeLessThanOrEqual(56);
+        expect(await page.getColumnHeaderWidth(page.fixedExpandTable, 1)).toBe(470);
+    });
+
 });

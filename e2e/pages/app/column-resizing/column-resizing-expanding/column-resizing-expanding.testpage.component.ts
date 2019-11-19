@@ -13,8 +13,8 @@ export class ColumnResizingExpandingTestpageComponent {
     titleWidth: number = 470;
     authorWidth: number = 470;
     thirdColumn: number = 50;
-    forthColumn: number = 50;
-    fithColumn: number = 50;
+    fourthColumn: number = 50;
+    fifthColumn: number = 50;
 
     addAdditionalColumns: boolean = false;
 
