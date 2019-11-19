@@ -101,6 +101,8 @@ UX Aspects uses Karma for unit tests, and Protractor for end-to-end (e2e) tests.
 npm run test
 ````
 
+> Note: Due to technical limitations, when running the tests on a non-Linux platform (e.g. Windows) only a subset of the tests will run. See [Screenshot Testing](https://github.com/UXAspects/UXAspects/blob/master/guides/developer-standard.md#screenshot-testing) for a workaround, or verify the test result using a Jenkins build.
+
 ## Start a Jenkins build
 
 > Note: The Jenkins server is only available on the intranet. If the following link is not accessible, this part can be skipped.
