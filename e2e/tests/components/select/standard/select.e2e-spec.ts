@@ -558,17 +558,17 @@ describe('Select Tests', () => {
         await page.clickOnCountry(multi, 1);
         await checkRecentOptions(multi, ['United Kingdom']);
 
-        await page.clickOnCountry(multi, 8);
-        await checkRecentOptions(multi, ['Angola', 'United Kingdom']);
+        await page.clickOnCountry(multi, 2);
+        await checkRecentOptions(multi, ['Afghanistan', 'United Kingdom']);
 
         await page.clickOnRecentCountry(multi, 1);
-        await checkRecentOptions(multi, ['United Kingdom', 'Angola']);
+        await checkRecentOptions(multi, ['United Kingdom', 'Afghanistan']);
 
-        await page.clickOnCountry(multi, 13);
-        await checkRecentOptions(multi, ['Armenia', 'United Kingdom', 'Angola']);
+        await page.clickOnCountry(multi, 4);
+        await checkRecentOptions(multi, ['Albania', 'United Kingdom', 'Afghanistan']);
 
-        await page.clickOnCountry(multi, 16);
-        await checkRecentOptions(multi, ['Austria', 'Armenia', 'United Kingdom']);
+        await page.clickOnCountry(multi, 3);
+        await checkRecentOptions(multi, ['Aland Islands', 'Albania', 'United Kingdom']);
     }
 
     it('should handle recent options correctly: single selection', async () => {
@@ -584,7 +584,7 @@ describe('Select Tests', () => {
         
         await page.removeCountry(3);
         await page.clickOnDropdown(true);
-        await checkRecentOptions(true, ['Austria', 'Armenia', 'United Kingdom']);
+        await checkRecentOptions(true, ['Aland Islands', 'Albania', 'United Kingdom']);
 
         // Recent options list with three entries
         expect(await imageCompare('select-recent-multi')).toEqual(0);
@@ -594,13 +594,13 @@ describe('Select Tests', () => {
         await page.clickOnCheckbox(page.checkboxRecentOptions);
         
         await page.fillRecentOptionsButton();
-        await checkRecentOptions(false, ['Hungary', 'Germany', 'Luxembourg']);
+        await checkRecentOptions(false, ['Afghanistan', 'United States', 'Algeria']);
 
         await page.clickOnRecentCountry(false, 2);
-        await checkRecentOptions(false, ['Luxembourg', 'Hungary', 'Germany']);
+        await checkRecentOptions(false, ['Algeria', 'Afghanistan', 'United States']);
 
-        await page.clickOnCountry(false, 20);
-        await checkRecentOptions(false, ['Bangladesh', 'Luxembourg', 'Hungary']);
+        await page.clickOnCountry(false, 1);
+        await checkRecentOptions(false, ['United Kingdom', 'Algeria', 'Afghanistan']);
 
         // Recent options list with three entries
         expect(await imageCompare('select-recent-filled')).toEqual(0);

@@ -104,6 +104,6 @@ export class SelectTestPageComponent implements OnInit {
     }
 
     public fillRecentOptions() {
-        this.recentOptions = ['Hungary', 'Germany', 'Luxembourg'];
+        this.recentOptions = ['Afghanistan', 'United States', 'Algeria'];
     }
 }
