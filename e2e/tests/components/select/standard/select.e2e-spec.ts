@@ -589,4 +589,20 @@ describe('Select Tests', () => {
         // Recent options list with three entries
         expect(await imageCompare('select-recent-multi')).toEqual(0);
     });
+
+    it('should handle recent options correctly: recent options filled', async () => {
+        await page.clickOnCheckbox(page.checkboxRecentOptions);
+        
+        await page.fillRecentOptionsButton();
+        await checkRecentOptions(false, ['Hungary', 'Germany', 'Luxembourg']);
+
+        await page.clickOnRecentCountry(false, 2);
+        await checkRecentOptions(false, ['Luxembourg', 'Hungary', 'Germany']);
+
+        await page.clickOnCountry(false, 20);
+        await checkRecentOptions(false, ['Bangladesh', 'Luxembourg', 'Hungary']);
+
+        // Recent options list with three entries
+        expect(await imageCompare('select-recent-filled')).toEqual(0);
+    });
 });

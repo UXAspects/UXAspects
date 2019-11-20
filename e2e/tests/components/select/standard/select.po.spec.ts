@@ -294,4 +294,8 @@ export class SelectPage {
     async enableClearButton() {
         await element(by.id('enable-clear-button')).click();
     }
+
+    async fillRecentOptionsButton() {
+        await element(by.id('fill-recent-options-button')).click();
+    }
 }

@@ -102,4 +102,8 @@ export class SelectTestPageComponent implements OnInit {
         this.allowNull = true;
         this.clearButton = true;
     }
+
+    public fillRecentOptions() {
+        this.recentOptions = ['Hungary', 'Germany', 'Luxembourg'];
+    }
 }
