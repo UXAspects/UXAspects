@@ -1,12 +1,15 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ColumnUnit, ResizableTableService } from './resizable-table.service';
+import { ColumnUnit } from './table-column-resize-standard/resizable-table.service';
+import { RESIZABLE_TABLE_SERVICE_TOKEN } from './resizable-table-service.token';
+import { BaseResizableTableService, ResizableTableType } from './resizable-table-base.service';
 
 @Component({
     selector: '[uxResizableTableColumn]',
     templateUrl: './resizable-table-column.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'ux-resizable-table-column'
     }
@@ -36,7 +39,9 @@ export class ResizableTableColumnComponent implements OnDestroy {
 
         // if we have not initialised then set the element width
         if (!this._table.isInitialised$.value) {
+
             this._renderer.setStyle(this._elementRef.nativeElement, 'width', `${this._width}px`);
+
         } else {
 
             // if it is initialised then resize the column
@@ -69,17 +74,25 @@ export class ResizableTableColumnComponent implements OnDestroy {
     /** Store the width specifically set by the input */
     private _width: number;
 
-    /** Store the position of the mouse within the drag hanlde */
+    /** Store the position of the mouse within the drag handle */
     private _offset: number;
+
+    /** Min width of the column*/
+    private _minWidth: number;
 
     /** Emit when all observables should be unsubscribed */
     private _onDestroy = new Subject<void>();
 
-    constructor(private _elementRef: ElementRef, private _table: ResizableTableService, private _renderer: Renderer2) {
+    constructor(private _elementRef: ElementRef, @Inject(RESIZABLE_TABLE_SERVICE_TOKEN) private _table: BaseResizableTableService, private _renderer: Renderer2) {
 
         // initially emit the size when we have initialised
         _table.isInitialised$.pipe(takeUntil(this._onDestroy), filter(isInitialised => isInitialised))
-            .subscribe(() => this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)));
+            .subscribe(() => {
+                // get the current min-width
+                this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
+
+                this.widthChange.emit(_table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel));
+            });
 
         // ensure the correct width gets emitted on column size change
         _table.onResize$.pipe(takeUntil(this._onDestroy)).subscribe(() => {
@@ -169,6 +182,12 @@ export class ResizableTableColumnComponent implements OnDestroy {
         const width = this._table.isResizing$.value ?
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel)}px` :
             `${this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage)}%`;
+
+
+        if (this._table.type === ResizableTableType.Expand) {
+            const minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel), this._minWidth);
+            this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', `${minWidth}px`);
+        }
 
         this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
         this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', null);

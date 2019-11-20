@@ -1,14 +1,22 @@
 .ux-resizable-table {
     table-layout: fixed;
+
+    .ux-resizable-table-column {
+        position: relative;
+
+        &:last-of-type {
+            .ux-resizable-table-column-handle {
+                display: none;
+            }
+        }
+    }
 }
 
-.ux-resizable-table-column {
-    position: relative;
+.ux-resizable-expanding-table {
+    table-layout: fixed;
 
-    &:last-of-type {
-        .ux-resizable-table-column-handle {
-            display: none;
-        }
+    .ux-resizable-table-column {
+        position: relative;
     }
 }
 
