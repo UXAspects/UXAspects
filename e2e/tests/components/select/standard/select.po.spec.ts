@@ -13,6 +13,7 @@ export class SelectPage {
     checkboxDisabled = element(by.id('checkbox2'));
     checkboxAllowNull = element(by.id('checkbox3'));
     checkboxPaging = element(by.id('checkbox4'));
+    checkboxRecentOptions = element(by.id('checkbox5'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
 
@@ -88,9 +89,9 @@ export class SelectPage {
     getCountry(allowMultiple: boolean, index: number) {
         if (allowMultiple) {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
-                $('ol').$$('li').get(index);
+            $$('ol').last().$$('li').get(index);
         } else {
-            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$$('ol').last().$$('li').get(index);
         }
     }
 
@@ -100,6 +101,16 @@ export class SelectPage {
                 $('ol').$$('li').last();
         } else {
             return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').last();
+        }
+    }
+
+    getRecentCountry(allowMultiple: boolean, index: number) {
+        if (allowMultiple) {
+            return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
+            $('ol.ux-typeahead-recent-options').$$('li').get(index);
+        } else {
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
+            $('ol.ux-typeahead-recent-options').$$('li').get(index);
         }
     }
 
@@ -130,6 +141,10 @@ export class SelectPage {
         return this.getCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
     }
 
+    getRecentCountryText(allowMultiple: boolean, index: number) {
+        return this.getRecentCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
+    }
+
     getFilterText(index: number) {
         return this.getCountry(false, index).$('span.ux-typeahead-option').$('span.ux-filter-match').getText();
     }
@@ -146,6 +161,10 @@ export class SelectPage {
 
     clickOnCountry(allowMultiple: boolean, index: number) {
         return this.getCountry(allowMultiple, index).click();
+    }
+
+    clickOnRecentCountry(allowMultiple: boolean, index: number) {
+        return this.getRecentCountry(allowMultiple, index).click();
     }
 
     async clickOnStrings() {
@@ -210,11 +229,22 @@ export class SelectPage {
     getNumberOfCountries(allowMultiple: boolean) {
         if (allowMultiple) {
             return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
-                $('ol').$$('li').count();
+            $$('ol').last().$$('li').count();
         } else {
             return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
                 $$(this.dropdown.$('ux-typeahead').
-                    $('div.ux-typeahead-options').locator().value + ' > ol').get(0).$$('li').count();
+                    $('div.ux-typeahead-options').locator().value + ' > ol').last().$$('li').count();
+        }
+    }
+
+    getNumberOfRecentCountries(allowMultiple: boolean) {
+        if (allowMultiple) {
+            return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
+                $('ol.ux-typeahead-recent-options').$$('li').count();
+        } else {
+            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
+                $(this.dropdown.$('ux-typeahead').
+                $('div.ux-typeahead-options').locator().value + ' > ol.ux-typeahead-recent-options').$$('li').count();
         }
     }
 

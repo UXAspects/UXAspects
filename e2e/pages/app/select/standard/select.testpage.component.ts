@@ -27,6 +27,8 @@ export class SelectTestPageComponent implements OnInit {
     pagingEnabled = new BehaviorSubject<boolean>(false);
     dataSet = new BehaviorSubject<string>('strings');
     loadOptionsCallback = this.loadOptions.bind(this);
+    recentOptions: ReadonlyArray<string> = null;
+    recentOptionsMaxCount = 3;
 
 
     dataSets: { strings?: any[], objects?: any[] } = {};

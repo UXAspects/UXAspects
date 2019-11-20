@@ -3,7 +3,8 @@
         <div class="form-group m-nil">
             <ux-select id="dropdown" [(value)]="selected" [options]="options" [multiple]="multiple | async" [display]="display"
                 [key]="key" [allowNull]="allowNull" [disabled]="disabled" [dropDirection]="dropDirection"
-                [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder" [clearButton]="clearButton">
+                [(dropdownOpen)]="dropdownOpen" [pageSize]="pageSize" [placeholder]="placeholder" [clearButton]="clearButton"
+                [(recentOptions)]="recentOptions" [recentOptionsMaxCount]="recentOptionsMaxCount">
             </ux-select>
         </div>
     </div>
@@ -56,6 +57,21 @@
             <div class="col-md-4 col-sm-12">
                 <label for="pageSize">pageSize</label>
                 <ux-number-picker id="pageSize" [(value)]="pageSize" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox id="checkbox5" (valueChange)="recentOptions = $event ? [] : undefined">
+                    recentOptions
+                </ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label>recentOptionsMaxCount</label>
+                <ux-number-picker
+                        [disabled]="!recentOptions"
+                        min="1"
+                        [(value)]="recentOptionsMaxCount">
+                </ux-number-picker>
             </div>
         </div>
     </div>

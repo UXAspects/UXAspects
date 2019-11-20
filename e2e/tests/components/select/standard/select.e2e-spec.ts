@@ -538,4 +538,55 @@ describe('Select Tests', () => {
         expect(await imageCompare('select-tag-overflow')).toEqual(0);
     });
 
+    async function checkRecentOptions(multi: boolean, expectedOptions: string[]) {
+        if (!multi) {
+            await page.clickOnDropdown(multi);
+        }
+        expect(await page.getNumberOfRecentCountries(multi)).toBe(expectedOptions.length);
+        for (let index = 0 ; index < expectedOptions.length ; index++) {
+            expect(await page.getRecentCountryText(multi, index)).toBe(expectedOptions[index]);
+        }
+    }
+
+    async function testRecentOptionsFeature(multi: boolean) {
+        await page.clickOnCheckbox(page.checkboxRecentOptions);
+        await page.clickOnDropdown(multi);
+
+        // Initial state: recent option list is not shown
+        expect(await imageCompare('select-initial')).toEqual(0);
+
+        await page.clickOnCountry(multi, 1);
+        await checkRecentOptions(multi, ['United Kingdom']);
+
+        await page.clickOnCountry(multi, 8);
+        await checkRecentOptions(multi, ['Angola', 'United Kingdom']);
+
+        await page.clickOnRecentCountry(multi, 1);
+        await checkRecentOptions(multi, ['United Kingdom', 'Angola']);
+
+        await page.clickOnCountry(multi, 13);
+        await checkRecentOptions(multi, ['Armenia', 'United Kingdom', 'Angola']);
+
+        await page.clickOnCountry(multi, 16);
+        await checkRecentOptions(multi, ['Austria', 'Armenia', 'United Kingdom']);
+    }
+
+    it('should handle recent options correctly: single selection', async () => {
+        await testRecentOptionsFeature(false);
+
+        // Recent options list with three entries
+        expect(await imageCompare('select-recent-single')).toEqual(0);
+    });
+
+    it('should handle recent options correctly: multi selection', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await testRecentOptionsFeature(true);
+        
+        await page.removeCountry(3);
+        await page.clickOnDropdown(true);
+        await checkRecentOptions(true, ['Austria', 'Armenia', 'United Kingdom']);
+
+        // Recent options list with three entries
+        expect(await imageCompare('select-recent-multi')).toEqual(0);
+    });
 });
