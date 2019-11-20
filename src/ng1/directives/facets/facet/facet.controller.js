@@ -1,6 +1,4 @@
-FacetCtrl.$inject = ['$scope'];
-
-export default function FacetCtrl($scope) {
+export default function FacetCtrl() {
   var vm = this;
   if (vm.expanded === undefined) {
     vm.expanded = true;
