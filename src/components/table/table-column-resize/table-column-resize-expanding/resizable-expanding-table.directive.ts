@@ -1,12 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ContentChildren, Directive, ElementRef, Inject, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ResizeService } from '../../../../directives/resize/index';
+import { BaseResizableTableDirective } from '../resizable-table-base.directive';
+import { ResizableTableColumnComponent } from '../resizable-table-column.component';
 import { RESIZABLE_TABLE_SERVICE_TOKEN } from '../resizable-table-service.token';
 import { ResizableExpandingTableService } from './resizable-expanding-table.service';
-import { ResizableTableColumnComponent } from '../resizable-table-column.component';
-import { BaseResizableTableDirective } from '../resizable-table-base.directive';
-import { takeUntil } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
     selector: '[uxResizableExpandingTable]',
@@ -65,6 +65,15 @@ export class ResizableExpandingTableDirective extends BaseResizableTableDirectiv
 
         // if we have already initialised or the table width is currently 0 then do nothing
         if (this._initialised || this.getScrollWidth() === 0) {
+
+            // if the table has been initialized but the width is now 0
+            // for example, due to the element being hidden (eg. in a collapsed accordion)
+            // we would need to re-run this logic whenever the width is back over 0
+            // to do this we can mark the table as not having been initialized
+            if (this._initialised && this.getScrollWidth() === 0) {
+                this._initialised = false;
+            }
+
             return;
         }
 
