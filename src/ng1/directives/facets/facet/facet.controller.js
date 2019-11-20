@@ -2,8 +2,9 @@ FacetCtrl.$inject = ['$scope'];
 
 export default function FacetCtrl($scope) {
   var vm = this;
-  vm.name = $scope.name;
-  vm.expanded = true;
+  if (vm.expanded === undefined) {
+    vm.expanded = true;
+  }
   vm.scrollConfig = {
     autoReinitialise: true,
     showOnlyOnHover: true,
