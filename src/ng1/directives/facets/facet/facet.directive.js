@@ -10,16 +10,18 @@ export default function facet($rootScope, $timeout) {
     scope: {
       name: "=",
       facetScroll: "@",
-      loadDelay: "=?"
+      loadDelay: "=?",
+      expanded: "=?"
     },
+    bindToController: true,
     link: {
        pre: FacetDirectiveLinkFn
     }
   };
 
-  function FacetDirectiveLinkFn (scope, element) {
+  function FacetDirectiveLinkFn (scope, element, attrs, controller) {
 
-    scope.enableScroll = (scope.facetScroll !== "off");
+    controller.enableScroll = (controller.facetScroll !== "off");
 
     var facetScrollContainer = [];
     var paneMaxHeight = null;
@@ -35,8 +37,8 @@ export default function facet($rootScope, $timeout) {
 
         paneMaxHeight = getMaxHeight(facetScrollContainer);
 
-        if (!(scope.loadDelay === undefined || scope.loadDelay <= 0)) {
-          $timeout(reinitialize, scope.loadDelay);
+        if (!(controller.loadDelay === undefined || controller.loadDelay <= 0)) {
+          $timeout(reinitialize, controller.loadDelay);
         }
         scope.$watch('fac.expanded', function () {
           //this is done to re-initialise the custom scrollbar on facets

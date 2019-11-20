@@ -21,6 +21,9 @@
     <tr uxd-api-property name="name" type="string" binding="variable" required="true">
         The facet title.
     </tr>
+    <tr uxd-api-property name="expanded" type="boolean" binding="variable" defaultValue="true">
+        Whether the facet is expanded.
+    </tr>
     <tr uxd-api-property name="facet-scroll" type="string" binding="literal" defaultValue="on">
         Set to "on" to enable a scrollbar for the facet options, or "off" to disable it.
     </tr>
@@ -41,14 +44,14 @@
         An optional bindable property which will appear alongside the name in braces. Note that the count should update as facets are applied.
     </tr>
     <tr uxd-api-property name="select" type="function" binding="variable" required="true">
-        A function expression which will be called when the option is selected. This function should perform any 
-        filtering that is required and update counts as necessary. The select count should update as facets are applied, 
+        A function expression which will be called when the option is selected. This function should perform any
+        filtering that is required and update counts as necessary. The select count should update as facets are applied,
         based on the number of items selected which will be displayed on the toolbar in selection mode.
     </tr>
     <tr uxd-api-property name="deselect" type="function" binding="variable" required="true">
-        a function expression which will be called when the option is deselected. This function should 
-        perform any filtering that is required and update counts as necessary. The select count should 
-        update as facets are applied, based on the number of items selected which will be displayed on the 
+        a function expression which will be called when the option is deselected. This function should
+        perform any filtering that is required and update counts as necessary. The select count should
+        update as facets are applied, based on the number of items selected which will be displayed on the
         toolbar in selection mode.
     </tr>
     <tr uxd-api-property name="load-delay" type="number" binding="variable" required="true">
@@ -80,8 +83,8 @@
 
 <uxd-api-properties tableTitle="Function">
     <tr uxd-api-property name="updateSelectCounts">
-        A function expression which will be called when facet option is selected (<code>select</code>) or 
-        deselected (<code>deselect</code>). This will update the count based on the number of items that 
+        A function expression which will be called when facet option is selected (<code>select</code>) or
+        deselected (<code>deselect</code>). This will update the count based on the number of items that
         are selected in selection mode when the filtering is done on facets.
     </tr>
 </uxd-api-properties>
