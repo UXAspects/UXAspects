@@ -3,6 +3,10 @@
   "version": "2.0.0-beta.4",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UXAspects/UXAspects.git"
+  },
   "contributors": [
     "Ashley Hunter",
     "Alastair McKee",
@@ -165,11 +169,11 @@
     "docs/app/pages",
     "docs/app/services",
     "docs/app/wrappers",
-    "docs/styles.less",
     "docs/environments",
-    "src",
-    "e2e/tests",
+    "docs/styles.less",
     "e2e/pages",
+    "e2e/tests",
+    "src",
     "LICENSE.md",
     "README.md"
   ]
