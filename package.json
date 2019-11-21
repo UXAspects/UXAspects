@@ -78,7 +78,7 @@
     "@babel/preset-env": "^7.1.5",
     "@ngtools/webpack": "^8.1.2",
     "@types/chance": "0.7.35",
-    "@types/chart.js": "^2.7.45",
+    "@types/chart.js": "2.7.45",
     "@types/d3": "^5.7.2",
     "@types/dragula": "2.1.33",
     "@types/jasmine": "2.6.2",
