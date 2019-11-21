@@ -28,7 +28,7 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>1.8.9-SNAPSHOT</version>
+    <version>1.8.9-18</version>
     <packaging>pom</packaging>
 
     <properties>
