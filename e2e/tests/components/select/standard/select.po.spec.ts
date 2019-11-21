@@ -16,6 +16,8 @@ export class SelectPage {
     checkboxRecentOptions = element(by.id('checkbox5'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
+    customIcon = element(by.id('custom-icon'));
+
 
     async getPage(): Promise<void> {
         await browser.get('#/select');
@@ -129,6 +131,10 @@ export class SelectPage {
 
     getClearButton(): ElementFinder {
         return this.dropdown.$('.ux-select-clear-icon');
+    }
+
+    getCustomIcon(): ElementFinder {
+        return this.dropdown.$('#custom-icon');
     }
 
 
@@ -291,9 +297,14 @@ export class SelectPage {
         return this.waitForLoadingToFinish();
     }
 
-    async enableClearButton() {
-        await element(by.id('enable-clear-button')).click();
+    async toggleClearButton() {
+        await element(by.id('toggle-clear-button')).click();
     }
+
+    async toggleCustomIcon() {
+        await element(by.id('toggle-custom-icon')).click();
+    }
+
 
     async fillRecentOptionsButton() {
         await element(by.id('fill-recent-options-button')).click();

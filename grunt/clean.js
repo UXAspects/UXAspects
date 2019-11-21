@@ -32,7 +32,7 @@ module.exports = {
     less: 'dist/less',
     licenses: 'dist/Licenses',
     md: 'dist/*.md',
-    e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage', 'e2e/html', 'e2e/xml'],
+    e2e: ['e2e/dist', 'target/e2e'],
     shim: 'dist/dist',
     target: ['target/bower', 'target/npm', 'target/artifactory', 'target/release-staging', 'target/docs']
 };

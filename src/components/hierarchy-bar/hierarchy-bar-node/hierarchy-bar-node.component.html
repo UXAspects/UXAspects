@@ -1,8 +1,18 @@
-<div class="hierarchy-bar-node" [class.hierarchy-bar-node-child-indicator]="node.children">
+<div class="hierarchy-bar-node"
+     [class.hierarchy-bar-node-readonly]="readonly"
+     [class.hierarchy-bar-node-child-indicator]="node.children">
 
+    <ng-container
+        *ngIf="mode === 'dropdown'; then dropdownMode; else standardClickMode">
+    </ng-container>
+
+</div>
+
+<ng-template #standardClickMode>
     <button type="button"
             uxFocusIndicator
             class="hierarchy-bar-node-content"
+            [disabled]="readonly"
             [attr.aria-label]="node.title"
             (click)="selected.emit(node)">
 
@@ -11,7 +21,7 @@
             <ng-container [ngTemplateOutlet]="hierarchyBar.icon" [ngTemplateOutletContext]="{ node: node, $implicit: node }"></ng-container>
         </div>
 
-        <!-- Show an icon if specifed -->
+        <!-- Show an icon if specified -->
         <img class="hierarchy-bar-node-icon" *ngIf="node.icon && !hierarchyBar.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
 
         <!-- Show the name of the current node -->
@@ -28,6 +38,7 @@
             aria-label="Show children"
             role="button"
             class="hierarchy-bar-node-arrow"
+            [disabled]="readonly"
             [uxPopover]="popoverTemplate"
             [popoverContext]="{ node: node, popover: popover }"
             placement="bottom"
@@ -35,7 +46,47 @@
             [showTriggers]="hierarchyBar.popoverShowTriggers"
             [hideTriggers]="hierarchyBar.popoverHideTriggers"
             tabindex="0">
-        <ux-icon name="next" class="hierarchy-bar-node-arrow-icon"></ux-icon>
+        <ux-icon name="next"
+                 class="hierarchy-bar-node-arrow-icon">
+        </ux-icon>
+    </button>
+</ng-template>
+
+<ng-template #dropdownMode>
+    <button type="button"
+            uxFocusIndicator
+            uxFocusIndicatorOrigin
+            #popover="ux-popover"
+            aria-label="Show children"
+            class="hierarchy-bar-node-content"
+            [disabled]="readonly"
+            [uxPopover]="popoverTemplate"
+            [popoverContext]="{ node: node, popover: popover }"
+            placement="bottom"
+            popoverClass="hierarchy-bar-popover"
+            [showTriggers]="node.children ? hierarchyBar.popoverShowTriggers : []"
+            [hideTriggers]="node.children ? hierarchyBar.popoverHideTriggers : []"
+            tabindex="0"
+            [attr.aria-label]="node.title">
+
+        <!-- Show a custom icon if specified -->
+        <div class="hierarchy-bar-node-icon" *ngIf="hierarchyBar.icon">
+            <ng-container [ngTemplateOutlet]="hierarchyBar.icon" [ngTemplateOutletContext]="{ node: node, $implicit: node }"></ng-container>
+        </div>
+
+        <!-- Show an icon if specified -->
+        <img class="hierarchy-bar-node-icon" *ngIf="node.icon && !hierarchyBar.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+
+        <!-- Show the name of the current node -->
+        <span class="hierarchy-bar-node-title">{{ node.title }}</span>
+
+        <!-- Show a dropdown arrow if there are children -->
+        <div [class.readonly-arrow]="readonly" class="hierarchy-bar-node-arrow-icon-dropdown">
+            <ux-icon *ngIf="node.children" name="next"
+                     class="hierarchy-bar-node-arrow-icon">
+            </ux-icon>
+        </div>
+
     </button>
 
-</div>
+</ng-template>

@@ -11,6 +11,10 @@ export class HierarchyBarPage {
     showRightAddonBtn = $('#show-right-addon-btn');
     showTrailingAddonBtn = $('#show-trailing-addon-btn');
 
+    collapsedMode = $('#collapsed-mode');
+    dropdownMode = $('#dropdown-mode');
+    readOnlyBtn = $('#readonly-btn');
+
     async getPage(): Promise<void> {
         await browser.get('#/hierarchy-bar');
     }
@@ -41,8 +45,14 @@ export class HierarchyBarPage {
         return arrow.length === 1;
     }
 
-    async showNodePopover(index: number): Promise<void> {
+    async nodeHasChildrenDropdown(index: number): Promise<boolean> {
+        const node: ElementFinder = await this.getNode(index);
+        const arrow: ElementFinder[] = await node.$$('.hierarchy-bar-node-arrow-icon-dropdown');
 
+        return arrow.length === 1;
+    }
+
+    async showNodePopover(index: number): Promise<void> {
         const node: ElementFinder = await this.getNode(index);
         const arrow: ElementFinder = await node.$('.hierarchy-bar-node-arrow');
 
@@ -51,6 +61,20 @@ export class HierarchyBarPage {
 
     async selectPopoverNode(index: number, childIndex: number): Promise<void> {
         const children = await this.getNodeChildren(index);
+        const child = children[childIndex];
+
+        await child.click();
+    }
+
+    async selectPopoverNodeDropdown(index: number, childIndex: number): Promise<void> {
+        const children = await this.getNodeChildrenDropdown(index);
+        const child = children[childIndex];
+
+        await child.click();
+    }
+
+    async selectPopoverNodeCollapsed(childIndex: number): Promise<void> {
+        const children = await this.getOverflowNodesCollapsed();
         const child = children[childIndex];
 
         await child.click();
@@ -65,6 +89,20 @@ export class HierarchyBarPage {
 
         // if it does have children then open the popover
         await this.showNodePopover(index);
+
+        // return all the list items
+        return await $$('ux-hierarchy-bar-popover-item');
+    }
+
+    async getNodeChildrenDropdown(index: number): Promise<ElementFinder[]> {
+
+        // check if the node has any children
+        if (await this.nodeHasChildrenDropdown(index) === false) {
+            return [];
+        }
+
+        // if it does have children then open the popover
+        await this.clickNode(index);
 
         // return all the list items
         return await $$('ux-hierarchy-bar-popover-item');
@@ -86,10 +124,12 @@ export class HierarchyBarPage {
         return titles;
     }
 
-    async isOverflowIndicatorVisible(): Promise<boolean> {
-        const indicator: ElementFinder[] = await $$('.hierarchy-bar-overflow-indicator');
+    async getOverflowNodesCollapsed(): Promise<ElementFinder[]> {
+        const content: ElementFinder = await $('.hierarchy-bar-overflow');
 
-        return indicator.length !== 0;
+        await content.click();
+
+        return await $$('ux-hierarchy-bar-popover-item');
     }
 
     async getOverflowNodes(): Promise<ElementFinder[]> {

@@ -24,7 +24,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js', '.ts'],
+        extensions: ['.ts', '.js'],
         alias: rxAlias()
     },
 

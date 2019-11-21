@@ -30,9 +30,14 @@ export default function SearchGroupCtrl($scope) {
             //when field type is known
             newField.then(function(field) {
 
-                //create new component
-                var component = vm.findComponentByName(field.component);
-                vm.createComponent(field.id, component);
+                //check if there is an array of fields being added
+                var fields = Array.isArray(field) ? field : [field];
+
+                //create new components
+                for (var i = 0; i < fields.length; i++) {
+                    var component = vm.findComponentByName(fields[i].component);
+                    vm.createComponent(fields[i].id, component);
+                }
 
                 //hide placeholder now that promise has been resolved
                 vm.showPlaceholder = false;
@@ -44,9 +49,14 @@ export default function SearchGroupCtrl($scope) {
             });
         } else {
 
-            //create new component
-            var component = vm.findComponentByName(newField.component);
-            vm.createComponent(newField.id, component);
+            //check if there is an array of fields being added
+            var newFields = Array.isArray(newField) ? newField : [newField];
+
+            //create new components
+            for (var i = 0; i < newFields.length; i++) {
+                var component = vm.findComponentByName(newFields[i].component);
+                vm.createComponent(newFields[i].id, component);
+            }
         }
     };
 

@@ -68,6 +68,10 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
             data: { name: 'Financial', files: 2_540_000, space: 17_600_000_000 }
         },
         {
+            id: SankeyNodeId.LegalData,
+            data: { name: 'Legal', files: 640_000, space: 30_000_000 }
+        },
+        {
             id: SankeyNodeId.PersonalData,
             data: { name: 'Personal', files: 2_480_000, space: 20_900_000_000 }
         },
@@ -81,9 +85,9 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
         { source: SankeyNodeId.FileSystem, target: SankeyNodeId.Video, value: 950_000 },
         { source: SankeyNodeId.FileSystem, target: SankeyNodeId.Metadata, value: 200_000 },
         { source: SankeyNodeId.FileSystem, target: SankeyNodeId.Other, value: 950_000 },
-        { source: SankeyNodeId.Exchange, target: SankeyNodeId.Text, value: 2_000_000 },
+        { source: SankeyNodeId.Exchange, target: SankeyNodeId.Text, value: 2_440_000 },
         { source: SankeyNodeId.Exchange, target: SankeyNodeId.Entity, value: 1_700_000 },
-        { source: SankeyNodeId.Office365, target: SankeyNodeId.Text, value: 300_000 },
+        { source: SankeyNodeId.Office365, target: SankeyNodeId.Text, value: 500_000 },
         { source: SankeyNodeId.Office365, target: SankeyNodeId.Audio, value: 1_000_000 },
         { source: SankeyNodeId.Office365, target: SankeyNodeId.Other, value: 300_000 },
         { source: SankeyNodeId.SharePoint, target: SankeyNodeId.Audio, value: 300_000 },
@@ -93,6 +97,7 @@ export class ChartsSankeyChartComponent extends BaseDocumentationSection impleme
         { source: SankeyNodeId.SharePoint, target: SankeyNodeId.Other, value: 1_250_000 },
         { source: SankeyNodeId.Text, target: SankeyNodeId.EmployeeData, value: 1_150_000 },
         { source: SankeyNodeId.Text, target: SankeyNodeId.FinancialData, value: 920_000 },
+        { source: SankeyNodeId.Text, target: SankeyNodeId.LegalData, value: 640_000 },
         { source: SankeyNodeId.Text, target: SankeyNodeId.PersonalData, value: 230_000 },
         { source: SankeyNodeId.Audio, target: SankeyNodeId.HealthData, value: 520_000 },
         { source: SankeyNodeId.Audio, target: SankeyNodeId.OtherData, value: 780_000 },
@@ -157,6 +162,7 @@ export enum SankeyNodeId {
     EmployeeData,
     HealthData,
     FinancialData,
+    LegalData,
     PersonalData,
     OtherData
 }

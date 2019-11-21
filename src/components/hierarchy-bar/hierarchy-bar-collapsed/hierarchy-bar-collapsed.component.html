@@ -6,6 +6,7 @@
 <div #nodes class="hierarchy-bar-nodes">
 
     <ux-hierarchy-bar-node
+        [readonly]="readonly"
         [popoverTemplate]="content"
         [node]="_first"
         (selected)="hierarchyBar.selectNode($event)">
@@ -27,6 +28,7 @@
             popoverClass="hierarchy-bar-popover"
             role="button"
             tabindex="0"
+            [disabled]="readonly"
             #popover="ux-popover"
             [popoverContext]="{ popover: popover }"
             [showTriggers]="hierarchyBar.popoverShowTriggers"
@@ -40,6 +42,7 @@
 
     <ux-hierarchy-bar-node
         *ngIf="_last !== _first"
+        [readonly]="readonly"
         [popoverTemplate]="content"
         [node]="_last"
         (selected)="hierarchyBar.selectNode($event)">
@@ -88,6 +91,7 @@
 <ng-template #defaultOverflowTemplate>
     <button uxFocusIndicator
             uxFocusIndicatorOrigin
+            [disabled]="readonly"
             class="overflow-button"
             aria-label="Show parents"
             [uxPopover]="parentsTemplate"

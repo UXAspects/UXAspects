@@ -48,14 +48,16 @@ ux-dropdown {
         }
 
         .ux-select-icons {
+            display: flex;
             position: absolute;
+            align-items: center;
             top: 0;
             right: 0;
 
             .ux-select-icon {
                 cursor: pointer;
                 pointer-events: all;
-                padding: 10px 5px;
+                padding: 9px 5px;
 
                 &:last-of-type {
                     margin-right: 5px;
@@ -75,6 +77,11 @@ ux-dropdown {
                     height: 16px;
                     line-height: 16px;
                 }
+            }
+
+            .ux-custom-icon {
+                display: flex;
+                align-items: center;
             }
         }
 

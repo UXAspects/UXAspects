@@ -42,6 +42,9 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
     /** Define the maximum width of a node */
     @Input() maxWidth: number = Infinity;
 
+    /** The minimum height of a node. */
+    @Input() minHeight: number = 0;
+
     /** Define the function to get the contents of a link tooltip */
     @Input() linkTooltip: (link: SankeyLink) => string = this.getLinkTooltip;
 
@@ -128,7 +131,7 @@ export class SankeyChartComponent<T> implements OnChanges, AfterViewInit {
             .nodes(this.nodes)
             .links(this.links)
             .spacing(14)
-            .size(this.minWidth, this.maxWidth)
+            .size(this.minWidth, this.maxWidth, this.minHeight)
             .width(this._width || this.nodeContainer.nativeElement.offsetWidth)
             .height(this._height || this.nodeContainer.nativeElement.offsetHeight)
             .layout();

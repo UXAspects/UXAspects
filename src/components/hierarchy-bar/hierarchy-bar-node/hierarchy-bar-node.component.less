@@ -10,6 +10,10 @@ ux-hierarchy-bar-node {
         margin-bottom: 5px;
         cursor: pointer;
         max-width: 100%;
+
+        &.hierarchy-bar-node-readonly {
+            cursor: default;
+        }
     }
 
     .hierarchy-bar-node-content {
@@ -18,6 +22,14 @@ ux-hierarchy-bar-node {
         border: none;
         background: transparent;
         padding: 0;
+
+        &:hover > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
+            color: @primary;
+        }
+
+        &:focus > .hierarchy-bar-node-arrow-icon-dropdown:not(.readonly-arrow) {
+            color: @primary;
+        }
 
         &:focus {
             .native-focus-outline;
@@ -46,7 +58,7 @@ ux-hierarchy-bar-node {
         }
     }
 
-    .hierarchy-bar-node-arrow {
+    .hierarchy-bar-node-arrow, .hierarchy-bar-node-arrow-icon-dropdown {
         color: @organization-chart-hierarchy-bar-arrow;
         margin-left: 5px;
         transition: color 250ms ease-in-out;
@@ -54,7 +66,7 @@ ux-hierarchy-bar-node {
         background: transparent;
         padding: 0;
 
-        &:hover {
+        &:hover:not(:disabled):not(.readonly-arrow) {
             color: @primary;
         }
 

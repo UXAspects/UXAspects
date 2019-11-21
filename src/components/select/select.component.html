@@ -1,4 +1,5 @@
-<ux-tag-input *ngIf="multiple"
+<ux-tag-input
+    *ngIf="multiple"
     #tagInput="ux-tag-input"
     [id]="id + '-input'"
     [tags]="_value$ | async"
@@ -11,12 +12,13 @@
     [display]="display"
     [freeInput]="false"
     [placeholder]="placeholder || ''"
+    [tagTemplate]="tagTemplate"
     [showTypeaheadOnClick]="true"
     [readonlyInput]="readonlyInput"
     [icon]="icon"
     [clearButton]="clearButton"
-    [clearButtonAriaLabel]="clearButtonAriaLabel">
-
+    [clearButtonAriaLabel]="clearButtonAriaLabel"
+>
     <ux-typeahead #multipleTypeahead
         [id]="id + '-typeahead'"
         [options]="options"
@@ -45,8 +47,6 @@
     role="combobox"
     [attr.aria-expanded]="dropdownOpen"
     aria-haspopup="listbox">
-
-    <ng-container *ngIf="icon" [ngTemplateOutlet]="icon"></ng-container>
 
     <input #singleInput type="text"
         [attr.id]="id + '-input'"
@@ -82,6 +82,10 @@
            [class.ux-icon-down]="dropDirection === 'down'"
            (click)="toggle(); $event.stopPropagation()">
         </i>
+        <div *ngIf="icon" class="ux-custom-icon">
+            <ng-container [ngTemplateOutlet]="icon"></ng-container>
+        </div>
+        
     </div>
 
     <ux-typeahead #singleTypeahead

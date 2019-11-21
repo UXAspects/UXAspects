@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { imageCompare } from '../common/image-compare';
+import { imageCompareFullPageScreen } from '../common/image-compare';
 import { SlidersPage } from './sliders.po.spec';
 
 describe('SlidersPage Tests', () => {
@@ -40,7 +40,7 @@ describe('SlidersPage Tests', () => {
         expect(await page.getHandleAttribute(page.slider8, 'lower', 'hidden')).toBeNull();
         expect(await page.getHandleAttribute(page.slider8, 'upper', 'hidden')).toBeNull();
 
-        expect(await imageCompare('sliders-initial')).toEqual(0);
+        expect(await imageCompareFullPageScreen('sliders-initial')).toEqual(0);
     });
 
     it('should display the expected ticks', async () => {
@@ -175,7 +175,7 @@ describe('SlidersPage Tests', () => {
         expect(await page.getTooltipClass(page.slider8, 'lower')).toContain('tooltip-dynamic');
         expect(await page.getTooltipClass(page.slider8, 'upper')).toContain('tooltip-dynamic');
 
-        expect(await imageCompare('sliders-tooltips')).toEqual(0);
+        expect(await imageCompareFullPageScreen('sliders-tooltips')).toEqual(0);
     });
 
     it('should have correct initial values', async () => {
@@ -348,6 +348,17 @@ describe('SlidersPage Tests', () => {
         expect(await page.getTooltipValue(page.slider6, 'lower')).toEqual(await page.getTooltipValue(page.slider6, 'upper'));
 
         expect(await page.getSliderRangeAttribute(page.slider6, 'style')).toContain('flex-grow: 0;');
+
+    });
+
+    it('should allow track styling to be changed on range and single sliders', async () => {
+
+        expect(await imageCompareFullPageScreen('slider-range-track-colors-default')).toEqual(0);
+
+        // change the default colours
+        await page.colorChangeButton.click();
+
+        expect(await imageCompareFullPageScreen('slider-range-track-colors')).toEqual(0);
 
     });
 

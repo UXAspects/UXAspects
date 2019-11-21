@@ -87,4 +87,5 @@ export class AppComponent {
 
     selected: HierarchyBarNode = this.node.children[0];
 
+    readonly: boolean = false;
 }

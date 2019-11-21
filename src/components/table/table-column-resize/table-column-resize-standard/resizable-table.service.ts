@@ -1,32 +1,15 @@
-import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { ResizableTableColumnComponent } from './resizable-table-column.component';
+import { Injectable, QueryList } from '@angular/core';
+import { ResizableTableColumnComponent } from '../resizable-table-column.component';
+import { BaseResizableTableService, ResizableTableType } from '../resizable-table-base.service';
 
 @Injectable()
-export class ResizableTableService implements OnDestroy {
+export class ResizableTableService extends BaseResizableTableService {
 
-    /** Indicate when the columns are ready */
-    isInitialised$ = new BehaviorSubject<boolean>(false);
-
-    /** Determine if we are currently resizing */
-    isResizing$ = new BehaviorSubject<boolean>(false);
-
-    /** Store the percentage widths of each column */
-    columns: ReadonlyArray<number> = [];
-
-    /** Store the current width of the table */
-    tableWidth: number = 0;
-
-    /** Emit an event whenever a column is resized */
-    onResize$ = new Subject<void>();
+    /** Define the type of resizing we should use */
+    type: ResizableTableType = ResizableTableType.Standard;
 
     /** Store the QueryList of columns */
     private _columns: QueryList<ResizableTableColumnComponent>;
-
-    /** Cleanup when service is disposed */
-    ngOnDestroy(): void {
-        this.onResize$.complete();
-    }
 
     /** Store the size of each column */
     setColumns(columns: QueryList<ResizableTableColumnComponent>): void {
@@ -132,25 +115,6 @@ export class ResizableTableService implements OnDestroy {
         }
 
         return columns;
-    }
-
-    /** Update the resizing state */
-    setResizing(isResizing: boolean): void {
-        this.isResizing$.next(isResizing);
-    }
-
-    /** Get the width of a column in a specific unit */
-    getColumnWidth(index: number, unit: ColumnUnit, columns: ReadonlyArray<number> = this.columns): number {
-
-        switch (unit) {
-
-            case ColumnUnit.Percentage:
-                return columns[index];
-
-            case ColumnUnit.Pixel:
-                return (this.tableWidth / 100) * columns[index];
-        }
-
     }
 
     /** Allow setting the column size in any unit */

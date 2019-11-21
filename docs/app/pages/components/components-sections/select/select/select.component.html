@@ -223,6 +223,14 @@
     <tr uxd-api-property name="placeholder" type="string">
         The placeholder text which appears in the text input area when it is empty.
     </tr>
+    <tr uxd-api-property name="tagTemplate" type="TemplateRef<TagTemplateContext>">
+        <p>A template which will be rendered as the content of each selected option.
+        <p>
+            The following code snippet shows how to use a custom template to display an icon alongside
+            the selected option text:
+        </p>
+        <uxd-snippet [content]="snippets.compiled.tagTemplateHtml"></uxd-snippet>
+    </tr>
     <tr uxd-api-property name="autocomplete" type="string" defaultValue="off">
         Defines the autocomplete property on the input field which can be used to prevent the browser from displaying
         autocomplete suggestions.
@@ -255,6 +263,19 @@
     </tr>
     <tr uxd-api-property name="recentOptionsChange" type="ReadonlyArray&lt;T&gt;">
         Emits when the list of recently selected options changes.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="TagTemplateContext Interface">
+    <tr uxd-api-property name="tag" type="T">
+        The string or custom object representing the selected option.
+    </tr>
+    <tr uxd-api-property name="index" type="number">
+        The zero-based index of the selected option as it appears in the dropdown.
+    </tr>
+    <tr uxd-api-property name="api" type="TagApi">
+        Provides the functions <code>getTagDisplay</code>, <code>removeTagAt</code> and <code>
+        canRemoveTagAt</code>.
     </tr>
 </uxd-api-properties>
 

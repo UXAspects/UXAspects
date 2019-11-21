@@ -28,7 +28,7 @@
 
     <groupId>com.github.uxaspects</groupId>
     <artifactId>aspects-core</artifactId>
-    <version>1.8.8-SNAPSHOT</version>
+    <version>1.8.10-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -45,6 +45,7 @@
                 <version>1.6.0</version>
                 <configuration>
                     <environmentVariables>
+                        <RE_BUILD_TYPE>${RE_BUILD_TYPE}</RE_BUILD_TYPE>
                         <VERSION>${project.version}</VERSION>
                     </environmentVariables>
                 </configuration>

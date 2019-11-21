@@ -18,8 +18,28 @@ export class FixedHeaderTableController {
         // bind to scroll events on the table body
         this._tableBody.addEventListener('scroll', this.onScroll.bind(this));
 
+        // Wait until the table has a width before proceeding
+        const initWatcher = $scope.$watch(() => this._tableBody.offsetWidth, (newValue, oldValue) => {
+
+            // we need to re-run the setLayout function if the table width is greater than 0
+            // and it was 0 when we first run it as it won't have correctly applied the padding to
+            // the table header when there is no table width.
+            if (newValue > 0 && oldValue === 0) {
+                this.setLayout();
+            }
+
+            // remove the watcher after the table has a width as it is no longer needed
+            if (newValue > 0) {
+                initWatcher();
+            }
+        });
+
+        
         // wait until bindings are available
         $scope.$evalAsync(this.onInit.bind(this));
+
+        // ensure we have destroyed all watchers on component destroy
+        $scope.$on('$destroy', () => initWatcher());
     }
 
     /**

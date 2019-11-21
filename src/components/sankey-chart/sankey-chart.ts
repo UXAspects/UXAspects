@@ -20,6 +20,9 @@ export class SankeyChart<T> {
     /** Define the maximum width of the nodes */
     private _maxWidth: number = Infinity;
 
+    /** The minimum height of a node. */
+    private _minHeight: number;
+
     /** Define the width of the chart */
     private _width: number;
 
@@ -63,9 +66,10 @@ export class SankeyChart<T> {
     }
 
     /** Define the minimum and maximum size of the nodes */
-    size(minWidth: number, maxWidth: number): this {
+    size(minWidth: number, maxWidth: number, minHeight: number): this {
         this._minWidth = minWidth;
         this._maxWidth = maxWidth;
+        this._minHeight = minHeight;
         return this;
     }
 
@@ -160,7 +164,7 @@ export class SankeyChart<T> {
             const inputs = this._links.filter(link => link.target === node.id);
             const outputs = this._links.filter(link => link.source === node.id);
 
-            return { node, inputs, outputs, value: 0, column: 0, x: 0, y: 0, width: 0, height: 0, falloff: 0, active: false, focus: false } as SankeyNodeLink<T>;
+            return { node, inputs, outputs, value: 0, column: 0, x: 0, y: 0, width: 0, height: 0, naturalHeight: 0, falloff: 0, active: false, focus: false } as SankeyNodeLink<T>;
         });
     }
 
@@ -205,17 +209,89 @@ export class SankeyChart<T> {
 
         // get columns by group
         const groups = this.getColumnGroups();
+        const groupList = Object.keys(groups).map<SankeyNodeLink<T>[]>(group => groups[group]);
 
         // get the column with the largest total value
-        const total = Object.keys(groups).map(group => groups[group]).reduce((count: number, nodes: SankeyNodeLink<T>[]) =>
-            Math.max(count, nodes.reduce((accumulation: number, node: SankeyNodeLink<T>) => accumulation + node.value, 0)), 0);
+        const total = groupList.reduce(
+            (count, nodes) => Math.max(count, nodes.reduce((accumulation, node) => accumulation + node.value, 0)),
+            0
+        );
 
-        for (const column in groups) {
-            const nodeLinks = groups[column];
+        // Calculate node heights
+        for (const nodeLinks of groupList) {
 
             // get the proportional size of each node based on the available space
             for (const nodeLink of nodeLinks) {
-                nodeLink.height = ((nodeLink.value / total) * this._height) - this._spacing;
+                nodeLink.naturalHeight = ((nodeLink.value / total) * this._height) - this._spacing;
+                nodeLink.height = Math.max(nodeLink.naturalHeight, this._minHeight);
+            }
+        }
+
+        // If minHeight is defined, it might cause some columns to exceed the height of the chart following the
+        // initial height calculation.
+        if (this._minHeight > 0) {
+
+            try {
+                // Recalculate node heights until they fit (if possible)
+                this.adjustNodeHeightsToFit(groupList);
+            } catch (error) {
+                // If the above recalculation fails, give up and use the naturalHeight (ignore minHeight)
+                this.setNodesToNaturalHeight(groupList);
+            }
+        }
+    }
+
+    /**
+     * Recalculate node heights within height limits until they fit (if possible).
+     * @throws If it is not possible to fit all nodes in the chart due to `minHeight`.
+     */
+    private adjustNodeHeightsToFit(groupList: SankeyNodeLink<T>[][]) {
+
+        let largestColumn = this.getLargestColumn(groupList);
+
+        while (largestColumn.height > this._height) {
+
+            // Get the list of nodes whose height cannot be reduced
+            const fixedNodes = largestColumn.nodes.filter(nodeLink => nodeLink.height <= this._minHeight);
+
+            // Get the total height in the column which cannot shrink (including spacing)
+            const fixedHeight = fixedNodes.length * this._minHeight + largestColumn.nodes.length * this._spacing;
+
+            // If the unshrinkable height is greater than the available height, we can't continue
+            if (fixedHeight > this._height) {
+                throw new Error(`Cannot fit data into chart with minHeight = ${this._minHeight}px (need ${fixedHeight}px; ${this._height}px available)`);
+            }
+
+            // Find the amount of height which can potentially be reduced
+            const flexibleHeight = largestColumn.height - fixedHeight;
+
+            // Find the amount of height that the above needs to fit into
+            const availableHeight = this._height - fixedHeight;
+
+            // Get the multiplier to reduce the nodes in order to fit the available height
+            const ratio = availableHeight / flexibleHeight;
+
+            // Adjust the nodes and reapply the minHeight
+            for (const group of groupList) {
+                for (const nodeLink of group) {
+                    if (nodeLink.height > this._minHeight) {
+                        nodeLink.height *= ratio;
+                    }
+                    if (nodeLink.height < this._minHeight) {
+                        nodeLink.height = this._minHeight;
+                    }
+                }
+            }
+
+            largestColumn = this.getLargestColumn(groupList);
+        }
+    }
+
+    /** Set all nodes height to be the same as the naturalHeight. */
+    private setNodesToNaturalHeight(groupList: SankeyNodeLink<T>[][]) {
+        for (const group of groupList) {
+            for (const nodeLink of group) {
+                nodeLink.height = nodeLink.naturalHeight;
             }
         }
     }
@@ -320,4 +396,29 @@ export class SankeyChart<T> {
         const width = (this._width - (this._padding * 2)) / ((this.getColumnCount() * 2) - 1);
         return Math.min(this._maxWidth, Math.max(this._minWidth, width));
     }
+
+    /** Get the column with the greatest height (along with its height) */
+    private getLargestColumn(groupList: SankeyNodeLink<T>[][]): ColumnWithHeight<T> {
+
+        let largestColumn = null;
+        let largestColumnHeight = 0;
+
+        for (const group of groupList) {
+            let totalHeight = group.reduce((acc, node) => acc += node.height, 0) + group.length * this._spacing;
+            if (totalHeight > largestColumnHeight) {
+                largestColumnHeight = totalHeight;
+                largestColumn = group;
+            }
+        }
+
+        return {
+            nodes: largestColumn,
+            height: largestColumnHeight
+        };
+    }
+}
+
+interface ColumnWithHeight<T> {
+    nodes: SankeyNodeLink<T>[];
+    height: number;
 }

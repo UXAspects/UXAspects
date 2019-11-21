@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-column-resizing',
     templateUrl: './column-resizing.testpage.component.html',
 })
-export class ColumnReszingTestPageComponent {
+export class ColumnResizingTestPageComponent {
 
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
