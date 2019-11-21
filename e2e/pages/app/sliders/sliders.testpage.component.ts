@@ -152,9 +152,6 @@ export class SlidersTestPageComponent {
                         minor: {
                             show: false
                         }
-                    },
-                    colors: {
-                        range: colorService.getColor('accent').toHex()
                     }
                 }
             }
@@ -276,6 +273,18 @@ export class SlidersTestPageComponent {
         this.upperValue = value.high;
     }
 
+    trackColorChange(): void {
+        this.slider5.options = { ...this.slider5.options };
+
+        this.slider5.options.track.colors.lower = '#0f0';
+        this.slider5.options.track.colors.range = '#f00';
+        this.slider5.options.track.colors.higher = '#0f0';
+
+        this.slider2.options = { ...this.slider2.options };
+
+        this.slider2.options.track.colors.lower = '#0f0';
+        this.slider2.options.track.colors.higher = '#f00';
+    }
 }
 
 interface SliderExample {

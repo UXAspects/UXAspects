@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./getting-started.component.less']
 })
 export class GettingStartedPageComponent {
+
     moduleTs = require('!!raw-loader!./snippets/module.ts.txt');
-    stylesheetCss = require('!!raw-loader!./snippets/stylesheet.css');
+    cliJson = require('!!raw-loader!./snippets/cli.txt');
 }

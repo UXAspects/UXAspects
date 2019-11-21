@@ -1,4 +1,5 @@
 node_modules/
+.node_modules__*/
 !docs/app/showcase/charts/dist/
 !docs/app/showcase/list_view/dist/
 .grunt/
@@ -7,6 +8,7 @@ jshint.log
 .awcache/
 docs/app/assets/licenses.txt
 src/fonts/*-icons.woff
+src/fonts/*-icons.ttf
 src/styles/hpe-icons.less
 dist/
 .tscache/

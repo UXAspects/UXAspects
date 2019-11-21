@@ -1,20 +1,29 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
+
 <uxd-text-page-layout>
     <p>
-        UX Aspects <a routerLink="/components">components</a> and <a routerLink="/charts">charts</a> can be used in
-        Angular projects (Angular 6, 7, and 8 are currently supported), and those shown in the
-        <a routerLink="/css">CSS</a> section can be used in non-Angular projects.
+        UX Aspects components can be used in Angular projects (Angular 6, 7, and 8 are currently supported). The
+        stylesheet can also be used in non-Angular projects to style basic controls.
     </p>
 
+    <ol>
+        <li><a routerLink="." fragment="pre-requisites">Pre-Requisites</a></li>
+        <li><a routerLink="." fragment="seed-project">Seed Project</a></li>
+        <li><a routerLink="." fragment="add-to-an-existing-project">Add to an Existing Project</a></li>
+        <li><a routerLink="." fragment="consuming-ux-aspects-components">Consuming UX Aspects Components</a></li>
+        <li><a routerLink="." fragment="contributing">Contributing</a></li>
+        <li><a routerLink="." fragment="getting-help">Getting Help</a></li>
+    </ol>
+
     <section>
-        <h2>Pre-Requisites</h2>
+        <h2 id="pre-requisites">Pre-Requisites</h2>
 
         <p>Instructions on this page refer to the following software:</p>
 
         <ul>
             <li>
-                <a href="https://nodejs.org/">Node.js</a> (v10 or higher) &mdash; this provides the
-                <code>npm</code> command, which is used to install application dependencies.
+                <a href="https://nodejs.org/">Node.js</a> v10 &mdash; this provides the <code>npm</code> command, which
+                is used to install application dependencies.
             </li>
             <li>
                 <a href="https://git-scm.com/">Git</a> &mdash; used to download the seed project, or to build UX Aspects
@@ -29,13 +38,13 @@
     </section>
 
     <section>
-        <h2>Seed Project</h2>
+        <h2 id="seed-project">Seed Project</h2>
 
-        <p>
+        <p class="m-b">
             The easiest way to get started with UX Aspects is to download our
             <a href="https://github.com/UXAspects/UXAspects-Seed">Seed Project</a>. This is a starter project, suitable
-            for building a new Angular application using UX Aspects. Since it is built with Angular CLI, it
-            is easy to extend with new pages and components.
+            for building a new Angular application using UX Aspects. Since it is built with Angular CLI, it is easy to
+            extend with new pages and components.
         </p>
 
         <ol>
@@ -55,7 +64,7 @@
     </section>
 
     <section>
-        <h2>Add to an Existing Project</h2>
+        <h2 id="add-to-an-existing-project">Add to an Existing Project</h2>
 
         <p>If you want to consume UX Aspects in an existing application follow the steps below:</p>
 
@@ -67,8 +76,8 @@
 
         <p>
             UX Aspects has a number of peer dependencies which should be met to ensure proper functionality across all
-            components. Refer to the output of the above command to see which dependencies are unmet, and install them
-            manually.
+            components. You can select the version of each peer dependency that suits your application, provided it
+            matches the peer version criteria.
         </p>
 
         <h3>Stylesheets</h3>
@@ -79,11 +88,11 @@
             order of import is significant.
         </p>
 
-        <uxd-snippet [code]="stylesheetCss" language="css"></uxd-snippet>
+        <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
     </section>
 
     <section>
-        <h2>Consuming UX Aspects Components</h2>
+        <h2 id="consuming-ux-aspects-components">Consuming UX Aspects Components</h2>
 
         <p>
             Import the required component module(s) into the module that will be using them. The Usage dropdown in the
@@ -94,41 +103,26 @@
     </section>
 
     <section>
-        <h2>Contributing</h2>
+        <h2 id="contributing">Contributing</h2>
 
         <p>
-            Found a bug or thought of a new feature that would benefit others? Well you can help make UX Aspects even
-            better by contributing to the project. Contributing is easy, and all fixes are welcome, no matter how small.
+            UX Aspects is an open source project, which means that everyone is welcome to participate in making
+            improvements!
         </p>
 
         <p>
-            A complete guide on contributing can be
-            <a href="https://github.com/UXAspects/UXAspects/blob/master/CONTRIBUTING.md">found here</a>.
+            See
+            <a href="https://github.com/UXAspects/UXAspects/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>
+            on GitHub for information on building, testing, and submitting pull requests for UX Aspects.
         </p>
-
-        <h3>Building UX Aspects</h3>
-
-        <ol>
-            <li>Clone the <a href="https://github.com/UXAspects/UXAspects">UX Aspects GitHub repository</a>.</li>
-            <li>Switch to the <code>UXAspects</code> directory.</li>
-            <li>Install the dependencies: <code>npm install</code></li>
-            <li>Build the project: <code>grunt build</code></li>
-        </ol>
-
-        <p>The resources (scripts, CSS, fonts, and images) can be found in the <code>dist</code> folder.</p>
     </section>
 
     <section>
-        <h2>Additional Information</h2>
+        <h2 id="getting-help">Getting Help</h2>
 
         <p>
-            The <a routerLink="/changelog">changelog</a> contains details of current and previous releases of UX
-            Aspects.
-        </p>
-
-        <p>
-            The <a routerLink="/licenses">licenses page</a> contains the licensing details for UX Aspects and the 3rd
-            party libraries that it depends upon.
+            To get help with anything related to UX Aspects, please
+            <a href="https://github.com/UXAspects/UXAspects/issues">raise an issue</a> on GitHub.
         </p>
     </section>
 </uxd-text-page-layout>

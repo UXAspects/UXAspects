@@ -77,11 +77,11 @@ ux-hierarchy-bar-collapsed {
             padding: 0;
             height: 16px;
 
-            &:hover {
+            &:hover:not(:disabled) {
                 color: @primary;
             }
 
-            &:focus {
+            &:focus:not(:disabled) {
                 color: @primary;
                 .native-focus-outline;
             }

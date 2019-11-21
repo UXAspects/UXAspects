@@ -1,6 +1,6 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
 
-export const numberOfCountries: number = 250;
+export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
 
 export class SelectPage {
@@ -15,6 +15,8 @@ export class SelectPage {
     checkboxPaging = element(by.id('checkbox4'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
+    customIcon = element(by.id('custom-icon'));
+
 
     async getPage(): Promise<void> {
         await browser.get('#/select');
@@ -120,6 +122,10 @@ export class SelectPage {
         return this.dropdown.$('.ux-select-clear-icon');
     }
 
+    getCustomIcon(): ElementFinder {
+        return this.dropdown.$('#custom-icon');
+    }
+
 
     // get text
     getDropdownPlaceholderText(allowMultiple: boolean) {
@@ -220,7 +226,7 @@ export class SelectPage {
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {
         return this.getNumberOfCountries(allowMultiple).then(function (count) {
-            if (count > (numberOfCountries - pageSize)) { // makes sure number can't exceed 249
+            if (count > (numberOfCountries - pageSize)) { // makes sure number can't exceed 251
                 return numberOfCountries;
             } else {
                 return count + pageSize;
@@ -261,7 +267,12 @@ export class SelectPage {
         return this.waitForLoadingToFinish();
     }
 
-    async enableClearButton() {
-        await element(by.id('enable-clear-button')).click();
+    async toggleClearButton() {
+        await element(by.id('toggle-clear-button')).click();
     }
+
+    async toggleCustomIcon() {
+        await element(by.id('toggle-custom-icon')).click();
+    }
+
 }

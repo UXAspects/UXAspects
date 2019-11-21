@@ -31,6 +31,21 @@ export class ChangeLogPageComponent {
                 content: require('./logs/release-v2.0.0-beta.2.md')
             },
             {
+                version: '1.8.9',
+                date: 'November 21st 2019',
+                content: require('./logs/release-v1.8.9.md')
+            },
+            {
+                version: '1.8.8',
+                date: 'October 31st 2019',
+                content: require('./logs/release-v1.8.8.md')
+            },
+            {
+                version: '1.8.7',
+                date: 'October 17th 2019',
+                content: require('./logs/release-v1.8.7.md')
+            },
+            {
                 version: '1.8.6',
                 date: 'October 2nd 2019',
                 content: require('./logs/release-v1.8.6.md')

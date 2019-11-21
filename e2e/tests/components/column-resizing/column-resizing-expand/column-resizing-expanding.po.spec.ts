@@ -1,14 +1,15 @@
 import { $, browser, ElementFinder } from 'protractor';
 
-export class ColumnResizingPage {
+export class ColumnResizingExpandingPage {
 
-    standardTable = $('#standard-table');
-    fixedTable = $('#fixed-table');
+    table = $('table');
+    fixedExpandTable = $('#fixed-table-expand');
     updateLayoutBtn = $('#update-layout-btn');
+    updateColumnsBtn = $('#update-columns-btn');
 
     async getPage(): Promise<void> {
         await browser.driver.manage().window().setSize(1200, 900);
-        await browser.get('#/column-resizing');
+        await browser.get('#/column-resizing/column-resizing-expanding');
     }
 
     async getColumnHeaders(table: ElementFinder): Promise<ElementFinder[]> {
@@ -45,13 +46,20 @@ export class ColumnResizingPage {
         await this.updateLayoutBtn.click();
     }
 
+    async updateColumns(): Promise<void> {
+        await this.updateColumnsBtn.click();
+    }
+
     async resizeColumn(table: ElementFinder, columnIndex: number, amount: number): Promise<void> {
         const columns = await this.getColumnHeaders(table);
         const column = columns[columnIndex];
         const handle = await column.$('.ux-resizable-table-column-handle');
 
-        // perform the drage
+        // perform the drag
         await browser.actions().mouseDown(handle).mouseMove({ x: amount, y: 0 }).mouseUp().perform();
     }
-}
 
+    async getOverflowClass(): Promise<string> {
+        return await this.fixedExpandTable.getAttribute('class');
+    }
+}

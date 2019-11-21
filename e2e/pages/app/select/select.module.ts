@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule, CheckboxModule, NumberPickerModule, RadioButtonModule, ResizeModule, SelectModule, AccessibilityModule } from '@ux-aspects/ux-aspects';
+import { AccessibilityModule, AccordionModule, CheckboxModule, IconModule, NumberPickerModule, RadioButtonModule, ResizeModule, SelectModule } from '@ux-aspects/ux-aspects';
 import { SelectFormsTestPageComponent } from './forms/select-forms.testpage.component';
 import { SelectTestPageComponent } from './standard/select.testpage.component';
 
@@ -16,6 +16,7 @@ import { SelectTestPageComponent } from './standard/select.testpage.component';
         NumberPickerModule,
         AccessibilityModule,
         FormsModule,
+        IconModule,
         ResizeModule,
         RouterModule.forChild([
             {

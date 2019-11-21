@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewChild, Input } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { tick } from '../../../common/operators/index';
@@ -13,6 +13,9 @@ import { HierarchyBarNode } from '../interfaces/hierarchy-bar-node.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchyBarCollapsedComponent implements AfterViewInit, OnDestroy {
+
+    /** Determine read only state */
+    @Input() readonly: boolean;
 
     /** Get the first node to display */
     get _first(): HierarchyBarNode {

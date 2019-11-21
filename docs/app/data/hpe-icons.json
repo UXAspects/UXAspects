@@ -661,6 +661,14 @@
             "classname": "hpe-help"
         },
         {
+            "name": "highlighting-remove",
+            "classname": "hpe-highlighting-remove"
+        },
+        {
+            "name": "highlighting",
+            "classname": "hpe-highlighting"
+        },
+        {
             "name": "history",
             "classname": "hpe-history"
         },

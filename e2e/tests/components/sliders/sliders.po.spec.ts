@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { $, browser, by, element, ElementFinder } from 'protractor';
 
 export class SlidersPage {
 
@@ -12,6 +12,7 @@ export class SlidersPage {
     slider8 = element(by.id('slider8'));
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
+    colorChangeButton = $('#track-color-change-btn');
 
     async getPage(): Promise<void> {
         await browser.get('#/sliders');

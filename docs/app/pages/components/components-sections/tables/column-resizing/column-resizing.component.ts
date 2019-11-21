@@ -1,9 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { ResizableTableDirective } from '@ux-aspects/ux-aspects';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { ResizableTableDirective, ResizableExpandingTableDirective } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+import { DOCUMENTATION_TOKEN, DocumentationType } from '../../../../../services/playground/tokens/documentation.token';
 
 @Component({
     selector: 'uxd-components-column-resizing',
@@ -13,15 +14,19 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsColumnResizingComponent')
 export class ComponentsColumnResizingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
-
-    type: string = 'table';
+    type: 'uxResizableTable' | 'uxResizableExpandingTable' = 'uxResizableTable';
     documents: TableDocument[] = [];
     selection: TableDocument[] = [];
 
     titleWidth: number = 260;
     authorWidth: number = 300;
     dateWidth: number;
+    dateWidthExpanding: number = 150;
+
+    uxFixedHeaderComponentRoute: string = this._documentationType === DocumentationType.MicroFocus ? '/ui-components/tables' : 'components/tables';
+
+    @ViewChild(ResizableTableDirective, { static: false }) resizableTable: ResizableTableDirective;
+    @ViewChild(ResizableExpandingTableDirective, { static: false }) resizableExpandingTable: ResizableExpandingTableDirective;
 
     playground: IPlayground = {
         files: {
@@ -31,7 +36,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule'],
+                imports: ['TableModule', 'CheckboxModule', 'FixedHeaderTableModule', 'SelectionModule', 'AccordionModule', 'RadioButtonModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
@@ -41,7 +46,7 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         ]
     };
 
-    constructor() {
+    constructor(@Inject(DOCUMENTATION_TOKEN) private _documentationType: DocumentationType) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // generate some dummy data
@@ -55,8 +60,12 @@ export class ComponentsColumnResizingComponent extends BaseDocumentationSection 
         }
     }
 
-    setToUniform(): void {
-        this.resizableTable.setUniformWidths();
+    setToUniform(type: string): void {
+        if (type === 'uxResizableTable') {
+            this.resizableTable.setUniformWidths();
+        } else {
+            this.resizableExpandingTable.setUniformWidths();
+        }
     }
 }
 

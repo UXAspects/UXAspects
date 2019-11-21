@@ -1,3 +1,5 @@
+# Developer Standard
+
 ## Writing Angular Components
 
 This is a guide on how you should write Angular components.
@@ -100,14 +102,16 @@ This allows consumers to import from `@ux-aspects/ux-aspects` rather than having
 - All instance variables that are used within the view should be public.
 - Mark any other instance variables or functions as private that you do not wish to expose outside of the component.
 - All private instance variables should be prefixed with an underscore.
+- New components should use `changeDetection: ChangeDetectionStrategy.OnPush` to improve efficiency. See [Angular OnPush Change Detection and Component Design](https://blog.angular-university.io/onpush-change-detection-how-it-works/) for more information on designing components to work with `ChangeDetectionStrategy.OnPush`.
+- `@Input()` properties should have immutable types, such as `ReadonlyArray<string>` rather than `string[]` to help avoid changes that would not be detected when using `ChangeDetectionStrategy.OnPush`.
 - Any component that may be used in a form e.g. checkboxes or radiobuttons, should support **both** `ngModel` and an alternative two way binding property to get/set the value.
 - Use attributes on the template to manipulate the DOM where possible rather than using TypeScript to manipulate the DOM. In the rare occasion where it is not possible, inject `Renderer2` and use it rather than directly touching the DOM.
-- When using key events in the View specify the key in the attribute rather than performing a condition check on the event `keyCode` e.g. (keydown.uparrow)="upKeyPress()".
+- When using key events in the View specify the key in the attribute rather than performing a condition check on the event `keyCode` e.g. `(keydown.uparrow)="upKeyPress()"`.
 - When binding directly to a style property in the view, place the unit in the attribute rather than using string interpolation eg. `<div [style.top.px]="topValue"></div>` rather than `<div [style.top]="topValue + 'px'"></div>`.
-- TSLint is included in our project and your code should conform to the rules it tests for.
+- TSLint is included in our project and your code should conform to the rules it tests for. Run `npm run lint` to check.
 - Where possible components should support a disabled state.
 - Components should provide keyboard support for accessibility purposes.
-- Each component should have unit tests written for it. A complete guide on writing unit tests can be [found here](https://github.com/UXAspects/UXAspects/blob/develop/UNIT-TESTS.md).
+- Each component should have automated tests written for it. See [Automated Testing](#automated-testing).
 
 ### Component Styling
 
@@ -123,7 +127,7 @@ The tag element should be styled rather than adding a `div` in the component tem
 
 We should follow this [style guide](http://codeguide.co/#css-syntax) when writing our stylesheet, below are some of the most important points:
 
-##### Never add a margin to a `component` element.
+#### Never add a margin to a `component` element.
 
 We should leave it up to the consuming application as to how much spacing is around any component.
 
@@ -134,7 +138,7 @@ ux-checkbox {
 }
 ```
 
-##### Use descriptive class names.
+#### Use descriptive class names.
 
 ```less
 // Good
@@ -148,7 +152,7 @@ ux-checkbox {
 }
 ```
 
-##### Use color variables in components.
+#### Use color variables in components.
 
 ```less
 // Good
@@ -162,7 +166,7 @@ ux-checkbox {
 }
 ```
 
-##### One selector per line
+#### One selector per line
 
 ```less
 // Good
@@ -175,7 +179,7 @@ ux-checkbox {
 }
 ```
 
-##### Include one space before the opening brace of declaration blocks for legibility.
+#### Include one space before the opening brace of declaration blocks for legibility.
 
 ```less
 // Good
@@ -187,7 +191,7 @@ ux-checkbox {
 }
 ```
 
-##### Include one space after `:` for each declaration.
+#### Include one space after `:` for each declaration.
 
 ```less
 // Good
@@ -199,7 +203,7 @@ background-color:#ddd;
 color:#fff;
 ```
 
-##### End all declarations with a semi-colon.
+#### End all declarations with a semi-colon.
 
 ```less
 // Good
@@ -215,7 +219,7 @@ color:#fff;
 }
 ```
 
-##### Comma-separated property values should include a space after each comma.
+#### Comma-separated property values should include a space after each comma.
 
 ```less
 // Good
@@ -229,7 +233,7 @@ color:#fff;
 }
 ```
 
-##### Lowercase all hex values and use shorthand hex values where available.
+#### Lowercase all hex values and use shorthand hex values where available.
 
 ```less
 // Good
@@ -243,7 +247,7 @@ color:#fff;
 }
 ```
 
-##### Avoid specifying units for zero values.
+#### Avoid specifying units for zero values.
 
 ```less
 // Good
@@ -253,7 +257,7 @@ margin: 0;
 margin: 0px;
 ```
 
-##### Avoid using shorthand notation for margin and padding when only setting one or two sides.
+#### Avoid using shorthand notation for margin and padding when only setting one or two sides.
 
 ```less
 // Good
@@ -266,7 +270,20 @@ margin: 10px 0 0 10px;
 
 ## Documenting Angular Components
 
-Each documentation section should have its own module to enabled code splitting. The module should import any dependencies unless provided by a parent module.
+Every component in UX Aspects should be documented fully, including all inputs, output, public functions to be used when exported, content templates, and related components or directives. A documentation section should have the following structure:
+1. A working example of the component. Some important options may be included in the example via the use of a Customize section.
+2. A description of the component and any associated sub-components or directives.
+3. An API listing of the inputs, outputs, and public functions. Each of these should be implemented with the `uxd-api-properties` component, containing a table row for each item.
+4. Any associated types should be described using the `uxd-api-properties` component.
+5. Other customization information, such as available content templates or classes that can be overridden for styling.
+6. The code listing, which should come from the `snippets` directory as noted below.
+
+Some good reference examples include:
+* [Date Range Picker](https://uxaspects.github.io/UXAspects/#/components/date-time-picker#date-range-picker)
+* [Tag Input](https://uxaspects.github.io/UXAspects/#/components/input-controls#tags)
+* [Hierarchy Bar](https://uxaspects.github.io/UXAspects/#/components/hierarchy-bar#hierarchy-bar)
+
+Each documentation section should have its own module to enable code splitting. The module should import any dependencies unless provided by a parent module.
 
 Each subsection should be a separate component, and should be decorated with the `@DocumentationSectionComponent()` decorator, passing the class name as a string parameter.
 
@@ -308,17 +325,21 @@ Any code snippets should be placed in a snippets folder in the appropriate secti
 
 Where possible, a Plunker example should be provided. The code snippets displayed in the section should also be used to produce the example where possible.
 
-To add a Plunker example to a section the class should implement the `IPlunkProvider` interface. This requires having a public `plunker` property on the class. The following options can be provided:
+To add a Plunker example to a section the class should implement the `IPlaygroundProvider` interface. This requires having a public `playground` property on the class. The following options can be provided:
 
 ```typescript
-export interface IPlunk {
+export interface IPlayground {
+    framework?: 'angular' | 'angularjs';
     files: {
         [key: string]: string;
     };
     modules?: {
         imports?: string | string[];
+        providers?: string | string[];
         library?: string;
         importAs?: boolean;
+        declaration?: boolean;
+        forRoot?: boolean;
     }[];
 }
 ```
@@ -341,3 +362,95 @@ export interface ISection {
 ```
 
 This is required for your component to be displayed in the documentation site correctly.
+
+## Automated Testing
+
+Most component changes will require an update to the automated tests. UX Aspects uses two kinds of automated tests.
+
+### Karma Tests
+
+Unit tests are implemented using [Karma](https://karma-runner.github.io/latest/index.html) with the [Jasmine](https://jasmine.github.io/) framework. An example unit test case might be described as:
+
+```typescript
+it('should show the widget when [showWidget]="true"', ...);
+```
+
+Karma tests are implemented in a file named `my-component.component.spec.ts`, and will automatically be picked up by the the Karma runner when running `npm run test:karma`.
+
+### End-to-End Tests
+
+End-to-end tests should focus on use cases or requirements. When fixing a bug, the repro case for the bug will often make a good end-to-end test. For lower level unit tests, use Karma tests. An example end-to-end test case might be:
+
+```typescript
+it('should allow all text to be localized', ...);
+```
+
+These tests can also use screenshot comparison to verify styling and colors.
+
+For end-to-end testing, there is a separate Angular application which hosts a number of pages containing the test cases. [Protractor](https://www.protractortest.org/#/) is then used to run the tests against this live application. Both the application and the test cases live in the `e2e` top level directory.
+
+> Note: Many existing e2e tests within the project currently work as unit tests. These were written before the Karma suite was added. Please stick to the above guidelines for unit tests vs. end-to-end tests when creating new tests.
+
+#### Implementing e2e Tests
+
+To implement a new test page, create a new component under `e2e/pages/app` which defines the UI of the test case. Update `routes` in `e2e/pages/app/app.module.ts` to link the test page into the app. Run the command `npm run start:e2e` to start up the e2e application, and visit `http://localhost:4000/#/my-test-case` to verify the functionality of the test UI.
+
+To implement the tests for the new test page, create a directory under `e2e/tests/components`. Create `my-test-case.po.spec.ts`, which contains the page object that the tests will use. By convention, this includes a `getPage` function which loads the appropriate page from the e2e application.
+
+```ts
+async getPage(): Promise<void> {
+    await browser.get('#/my-test-case');
+}
+```
+
+Next, create `my-test-case.e2e-spec.ts`, which will contain the Jasmine specs used to run the test cases. Set up the page object using `beforeEach`.
+
+```typescript
+describe('My test case', () => {
+
+    let page: MyTestCasePage;
+
+    beforeEach(async () => {
+        page = new MyTestCasePage();
+        await page.getPage();
+    });
+
+    it('should allow all text to be localized', async () => {
+        //...
+    });
+});
+```
+
+#### Screenshot Testing
+
+To prevent style regressions we can add screenshot comparisons to e2e tests:
+
+```typescript
+expect(await imageCompare('checkbox-initial')).toEqual(0);
+```
+
+If this test is run and there is no baseline image to compare against one will be generated in the `e2e/screenshots` folder. Subsequent runs
+will then test against the previous baseline image.
+
+If a component has been updated and has visually changed, the baseline image needs to be updated otherwise tests will fail.
+Our CI build runs in a Linux environment, which has different font rendering than a Windows environment, therefore to prevent differences in the font variation baseline images should be generated in a Linux environment.
+
+We provide an `npm` script that allows you to use Docker to run a CI environment on your local machine. Your current developer environment will be
+mounted allowing you to run the `e2e` tests and produce baseline images.
+
+Follow these steps to run the tests in a CI environment locally:
+
+1. `npm run docker:ci`
+    * This starts a Linux Docker container, and spawns an interactive shell. Enter the subsequent commands at the resulting prompt in order to execute them within the container.
+2. `npm ci`
+    * Note that `npm run docker:ci` will try to backup and restore the Linux platform dependencies; if this was successful, there will be a message informing you that `npm ci` is unnecessary, which can save a lot of time.
+3. `npm run build:library`
+4. `npm run test:e2e`
+
+To exit the docker container and restore your developer environment run the following:
+
+1. `exit`
+2. `npm ci`
+    * Note that `npm run docker:ci` will try to backup and restore the Linux platform dependencies; if this was successful, there will be a message informing you that `npm ci` is unnecessary, which can save a lot of time.
+
+If there are any differences, the generated screenshots will be found under `target/e2e/screenshots`.

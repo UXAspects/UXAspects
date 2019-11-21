@@ -1,0 +1,12 @@
+<ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
+    <ux-icon [name]="tag.icon"></ux-icon>
+    <span class="ux-tag-text">{{tag.text}}</span>
+    <button *ngIf="api.canRemoveTagAt(index)"
+            uxFocusIndicator
+            type="button"
+            class="ux-tag-remove"
+            [disabled]="disabled"
+            (click)="api.removeTagAt(index); $event.stopPropagation();">
+        <ux-icon name="close"></ux-icon>
+    </button>
+</ng-template>

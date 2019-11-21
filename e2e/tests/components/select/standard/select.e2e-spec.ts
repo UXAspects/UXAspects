@@ -1,4 +1,4 @@
-import { Key } from 'protractor';
+import { browser, Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
@@ -511,7 +511,7 @@ describe('Select Tests', () => {
 
         const clearButton = page.getClearButton();
 
-        await page.enableClearButton();
+        await page.toggleClearButton();
 
         expect(await clearButton.isPresent()).toBeFalsy();
 
@@ -528,6 +528,37 @@ describe('Select Tests', () => {
         // Cleck the value was cleared
         expect(await page.getSelectedLocationText()).toBe('null');
         expect(await clearButton.isPresent()).toBeFalsy();
+    });
+
+    it('should handle word wrapping on the tag when multiple select is enabled', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+        await page.clickOnCountry(true, 250);
+        expect(await page.getSelectedLocationText()).toBe('[ "Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons" ]');
+        expect(await imageCompare('select-tag-overflow')).toEqual(0);
+    });
+
+    it('should allow a custom icon', async () => {
+        const customIcon = page.getCustomIcon();
+
+        await page.toggleCustomIcon();
+        await page.clickOnDropdown(false);
+        await page.clickOnCountry(false, 1);
+        expect(await customIcon.isPresent()).toBeTruthy();
+        expect(await imageCompare('select-custom-icon-single')).toEqual(0);
+        await page.toggleClearButton();
+        await browser.executeScript('window.scroll(0, 0)');
+        expect(await imageCompare('select-custom-icon-single-clear-btn')).toEqual(0);
+        await page.toggleClearButton();
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnDropdown(true);
+        await page.clickOnCountry(true, 1);
+        await page.clickOnCountry(true, 2);
+        expect(await customIcon.isPresent()).toBeTruthy();
+        expect(await imageCompare('select-custom-icon-multiple')).toEqual(0);
+        await page.toggleClearButton();
+        await browser.executeScript('window.scroll(0, 0)');
+        expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
     });
 
 });

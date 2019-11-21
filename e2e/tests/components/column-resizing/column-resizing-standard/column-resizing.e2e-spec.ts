@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { imageCompare } from '../common/image-compare';
+import { imageCompare } from '../../common/image-compare';
 import { ColumnResizingPage } from './column-resizing.po.spec';
 
 describe('Column Resizing Tests', () => {

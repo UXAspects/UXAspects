@@ -17,4 +17,4 @@ export interface IHierachyBarComponent {
     popoverHideTriggers: OverlayTrigger[];
 }
 
-export type HierarchyBarMode = 'standard' | 'collapsed';
+export type HierarchyBarMode = 'standard' | 'collapsed' | 'dropdown';

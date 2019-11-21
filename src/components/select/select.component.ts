@@ -4,9 +4,9 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, skip, take, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
-import { TagInputComponent } from '../tag-input/index';
+import { TagApi, TagInputComponent } from '../tag-input/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
 let uniqueId = 0;
@@ -120,7 +120,16 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     @Input() pageSize: number = 20;
 
     /** The placeholder text which appears in the text input area when it is empty. */
-    @Input() placeholder: string;
+    @Input() placeholder: string = '';
+
+    /**
+     * A template which will be rendered as the content of each selected option. The following context
+     * properties are available in the template via the TagTemplateContext:
+     * - `tag: T` - the string or custom object representing the selected option.
+     * - `index: number` - the zero-based index of the selected option as it appears in the dropdown.
+     * - `api: TagApi` - provides the functions getTagDisplay, removeTagAt and canRemoveTagAt.
+     */
+    @Input() tagTemplate: TemplateRef<TagTemplateContext>;
 
     /**
      * Defines the `autocomplete` property on the `input` element which can be used to prevent the browser from
@@ -172,7 +181,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    _value$ = new Subject<T | ReadonlyArray<T>>();
+    _value$ = new ReplaySubject<T | ReadonlyArray<T>>(1);
     _hasValue = false;
 
 
@@ -191,10 +200,12 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     ngOnInit(): void {
 
+        this._value$.pipe(skip(1), distinctUntilChanged(), takeUntil(this._onDestroy))
+            .subscribe(value => this.valueChange.emit(value));
+
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this._value = value;
-            this.valueChange.emit(value);
             this.propagateChange(value);
             this._hasValue = !!value;
         });
@@ -383,4 +394,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             this.singleInput.nativeElement.select();
         }
     }
+}
+
+export interface TagTemplateContext<T = string | any> {
+    tag: T;
+    index: number;
+    api: TagApi;
 }

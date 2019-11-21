@@ -67,13 +67,14 @@
     "@types/dragula": "^2.1.33"
   },
   "peerDependencies": {
-    "@angular/common": ">=6.0.0",
-    "@angular/compiler": ">=6.0.0",
-    "@angular/core": ">=6.0.0",
-    "@angular/forms": ">=6.0.0",
-    "@angular/upgrade": ">=6.0.0",
-    "@angular/animations": ">=6.0.0",
+    "@angular/animations": ">=6.0.0 <9.0.0",
+    "@angular/cdk": ">=6.0.0 <9.0.0",
+    "@angular/common": ">=6.0.0 <9.0.0",
+    "@angular/compiler": ">=6.0.0 <9.0.0",
+    "@angular/core": ">=6.0.0 <9.0.0",
+    "@angular/forms": ">=6.0.0 <9.0.0",
+    "@angular/upgrade": ">=6.0.0 <9.0.0",
     "angular-tree-component": ">=5.2.0",
-    "@angular/cdk": ">=6.0.0"
+    "rxjs-compat": ">=6.0.0"
   }
 }
