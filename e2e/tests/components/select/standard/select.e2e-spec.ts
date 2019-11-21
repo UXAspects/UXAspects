@@ -553,7 +553,7 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(multi);
 
         // Initial state: recent option list is not shown
-        expect(await imageCompare('select-initial')).toEqual(0);
+        expect(await imageCompare('select-open')).toEqual(0);
 
         await page.clickOnCountry(multi, 1);
         await checkRecentOptions(multi, ['United Kingdom']);
