@@ -41209,6 +41209,7 @@
                     if (this.menuTrigger && !changes.selected.firstChange) {
                         this.menuTrigger.closeMenu();
                     }
+                    this.selectedChange.emit(changes.selected.currentValue);
                     this.onChange(changes.selected.currentValue);
                     this.onTouched();
                 }
@@ -41269,7 +41270,6 @@
          */
             function (value) {
                 this.selected = value;
-                this.selectedChange.emit(value);
             };
         /**
          * @param {?} event
@@ -41935,41 +41935,116 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var ResizableTableService = /** @class */ (function () {
-        function ResizableTableService() {
+    /**
+     * @abstract
+     */
+    var /**
+     * @abstract
+     */ BaseResizableTableService = /** @class */ (function () {
+        function BaseResizableTableService() {
             /**
-             * Indicate when the columns are ready
+             * Emit an event whenever a column is resized
              */
-            this.isInitialised$ = new rxjs.BehaviorSubject(false);
-            /**
-             * Determine if we are currently resizing
-             */
-            this.isResizing$ = new rxjs.BehaviorSubject(false);
-            /**
-             * Store the percentage widths of each column
-             */
-            this.columns = [];
+            this.onResize$ = new rxjs.Subject();
             /**
              * Store the current width of the table
              */
             this.tableWidth = 0;
             /**
-             * Emit an event whenever a column is resized
+             * Determine if we are currently resizing
              */
-            this.onResize$ = new rxjs.Subject();
+            this.isResizing$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Indicate when the columns are ready
+             */
+            this.isInitialised$ = new rxjs.BehaviorSubject(false);
+            /**
+             * Store the percentage widths of each column
+             */
+            this.columns = [];
         }
         /** Cleanup when service is disposed */
         /**
          * Cleanup when service is disposed
          * @return {?}
          */
-        ResizableTableService.prototype.ngOnDestroy = /**
+        BaseResizableTableService.prototype.ngOnDestroy = /**
          * Cleanup when service is disposed
          * @return {?}
          */
             function () {
                 this.onResize$.complete();
             };
+        /** Update the resizing state */
+        /**
+         * Update the resizing state
+         * @param {?} isResizing
+         * @return {?}
+         */
+        BaseResizableTableService.prototype.setResizing = /**
+         * Update the resizing state
+         * @param {?} isResizing
+         * @return {?}
+         */
+            function (isResizing) {
+                this.isResizing$.next(isResizing);
+            };
+        /** Get the width of a column in a specific unit */
+        /**
+         * Get the width of a column in a specific unit
+         * @param {?} index
+         * @param {?} unit
+         * @param {?=} columns
+         * @return {?}
+         */
+        BaseResizableTableService.prototype.getColumnWidth = /**
+         * Get the width of a column in a specific unit
+         * @param {?} index
+         * @param {?} unit
+         * @param {?=} columns
+         * @return {?}
+         */
+            function (index, unit, columns) {
+                if (columns === void 0) {
+                    columns = this.columns;
+                }
+                switch (unit) {
+                    case ColumnUnit.Percentage:
+                        return columns[index];
+                    case ColumnUnit.Pixel:
+                        return (this.tableWidth / 100) * columns[index];
+                }
+            };
+        return BaseResizableTableService;
+    }());
+    /** @enum {number} */
+    var ColumnUnit = {
+        Pixel: 0,
+        Percentage: 1,
+    };
+    ColumnUnit[ColumnUnit.Pixel] = 'Pixel';
+    ColumnUnit[ColumnUnit.Percentage] = 'Percentage';
+    /** @enum {number} */
+    var ResizableTableType = {
+        Standard: 0,
+        Expand: 1,
+    };
+    ResizableTableType[ResizableTableType.Standard] = 'Standard';
+    ResizableTableType[ResizableTableType.Expand] = 'Expand';
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ResizableTableService = /** @class */ (function (_super) {
+        __extends(ResizableTableService, _super);
+        function ResizableTableService() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            /**
+             * Define the type of resizing we should use
+             */
+            _this.type = ResizableTableType.Standard;
+            return _this;
+        }
         /** Store the size of each column */
         /**
          * Store the size of each column
@@ -42056,17 +42131,17 @@
                 }
                 // if there is overflow identify which columns can be resized
                 /** @type {?} */
-                var variableColumns = this._columns.filter(function (column) { return !column.disabled && _this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns) > column.minWidth; });
+                var variableColumns = this._columns.filter(function (column) { return !column.disabled && _this.getColumnWidth(column.getCellIndex(), ColumnUnit$1.Pixel, columns) > column.minWidth; });
                 // if there are no columns that can be resized then stop here
                 if (variableColumns.length === 0) {
                     return columns;
                 }
                 // determine the total width of the variable columns
                 /** @type {?} */
-                var totalWidth = this._columns.reduce(function (width, column) { return width + _this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns); }, 0);
+                var totalWidth = this._columns.reduce(function (width, column) { return width + _this.getColumnWidth(column.getCellIndex(), ColumnUnit$1.Pixel, columns); }, 0);
                 // determine to the width of all the variable columns
                 /** @type {?} */
-                var variableColumnsWidth = variableColumns.reduce(function (width, column) { return width + _this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns); }, 0);
+                var variableColumnsWidth = variableColumns.reduce(function (width, column) { return width + _this.getColumnWidth(column.getCellIndex(), ColumnUnit$1.Pixel, columns); }, 0);
                 // determine how much the columns are currently too large (ignoring fixed columns)
                 /** @type {?} */
                 var targetWidth = this.tableWidth - (totalWidth - variableColumnsWidth);
@@ -42077,58 +42152,18 @@
                 /** @type {?} */
                 var target = variableColumns.reduce(function (widest, column) {
                     /** @type {?} */
-                    var columnWidth = _this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel, columns);
+                    var columnWidth = _this.getColumnWidth(column.getCellIndex(), ColumnUnit$1.Pixel, columns);
                     /** @type {?} */
-                    var widestWidth = _this.getColumnWidth(widest.getCellIndex(), ColumnUnit.Pixel, columns);
+                    var widestWidth = _this.getColumnWidth(widest.getCellIndex(), ColumnUnit$1.Pixel, columns);
                     return columnWidth > widestWidth ? column : widest;
                 });
                 // perform the resize
-                columns = this.setColumnWidth(target.getCellIndex(), this.getColumnWidth(target.getCellIndex(), ColumnUnit.Pixel, columns) - difference, ColumnUnit.Pixel, columns);
+                columns = this.setColumnWidth(target.getCellIndex(), this.getColumnWidth(target.getCellIndex(), ColumnUnit$1.Pixel, columns) - difference, ColumnUnit$1.Pixel, columns);
                 // check if we are still over the limit (allow some variance for javascript double precision)
                 if (columns.reduce(function (width, column) { return width + column; }) > 100.01) {
                     return this.ensureNoOverflow(columns);
                 }
                 return columns;
-            };
-        /** Update the resizing state */
-        /**
-         * Update the resizing state
-         * @param {?} isResizing
-         * @return {?}
-         */
-        ResizableTableService.prototype.setResizing = /**
-         * Update the resizing state
-         * @param {?} isResizing
-         * @return {?}
-         */
-            function (isResizing) {
-                this.isResizing$.next(isResizing);
-            };
-        /** Get the width of a column in a specific unit */
-        /**
-         * Get the width of a column in a specific unit
-         * @param {?} index
-         * @param {?} unit
-         * @param {?=} columns
-         * @return {?}
-         */
-        ResizableTableService.prototype.getColumnWidth = /**
-         * Get the width of a column in a specific unit
-         * @param {?} index
-         * @param {?} unit
-         * @param {?=} columns
-         * @return {?}
-         */
-            function (index, unit, columns) {
-                if (columns === void 0) {
-                    columns = this.columns;
-                }
-                switch (unit) {
-                    case ColumnUnit.Percentage:
-                        return columns[index];
-                    case ColumnUnit.Pixel:
-                        return (this.tableWidth / 100) * columns[index];
-                }
             };
         /** Allow setting the column size in any unit */
         /**
@@ -42155,10 +42190,10 @@
                 /** @type {?} */
                 var sizes = __spread(columns);
                 switch (unit) {
-                    case ColumnUnit.Percentage:
+                    case ColumnUnit$1.Percentage:
                         sizes[index] = value;
                         break;
-                    case ColumnUnit.Pixel:
+                    case ColumnUnit$1.Pixel:
                         sizes[index] = (value / this.tableWidth) * 100;
                         break;
                 }
@@ -42195,10 +42230,10 @@
                 /** @type {?} */
                 var columns = ( /** @type {?} */(__spread(this.columns)));
                 // resize the column to the desired size
-                columns = ( /** @type {?} */(this.setColumnWidth(index, Math.round(this.getColumnWidth(index, ColumnUnit.Pixel) + delta), ColumnUnit.Pixel, columns)));
-                columns = ( /** @type {?} */(this.setColumnWidth(sibling, Math.round(this.getColumnWidth(sibling, ColumnUnit.Pixel) - delta), ColumnUnit.Pixel, columns)));
+                columns = ( /** @type {?} */(this.setColumnWidth(index, Math.round(this.getColumnWidth(index, ColumnUnit$1.Pixel) + delta), ColumnUnit$1.Pixel, columns)));
+                columns = ( /** @type {?} */(this.setColumnWidth(sibling, Math.round(this.getColumnWidth(sibling, ColumnUnit$1.Pixel) - delta), ColumnUnit$1.Pixel, columns)));
                 // if the move is not possible then stop here
-                if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit.Pixel, columns)) || !this.isWidthValid(sibling, this.getColumnWidth(sibling, ColumnUnit.Pixel, columns))) {
+                if (!this.isWidthValid(index, this.getColumnWidth(index, ColumnUnit$1.Pixel, columns)) || !this.isWidthValid(sibling, this.getColumnWidth(sibling, ColumnUnit$1.Pixel, columns))) {
                     return;
                 }
                 // check that we add up to exactly 100%
@@ -42235,7 +42270,7 @@
                 /** @type {?} */
                 var variableColumns = this._columns.filter(function (column) { return !column.isFixedWidth && !column.disabled; });
                 // find one that is greater than its min width by enough
-                return variableColumns.reverse().find(function (column) { return _this.getColumnWidth(column.getCellIndex(), ColumnUnit.Pixel) >= column.minWidth + delta; });
+                return variableColumns.reverse().find(function (column) { return _this.getColumnWidth(column.getCellIndex(), ColumnUnit$1.Pixel) >= column.minWidth + delta; });
             };
         /**
          * @param {?} index
@@ -42319,14 +42354,20 @@
             { type: i0.Injectable }
         ];
         return ResizableTableService;
-    }());
+    }(BaseResizableTableService));
     /** @enum {number} */
-    var ColumnUnit = {
+    var ColumnUnit$1 = {
         Pixel: 0,
         Percentage: 1,
     };
-    ColumnUnit[ColumnUnit.Pixel] = 'Pixel';
-    ColumnUnit[ColumnUnit.Percentage] = 'Percentage';
+    ColumnUnit$1[ColumnUnit$1.Pixel] = 'Pixel';
+    ColumnUnit$1[ColumnUnit$1.Percentage] = 'Percentage';
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var RESIZABLE_TABLE_SERVICE_TOKEN = new i0.InjectionToken('RESIZABLE_TABLE_SERVICE_TOKEN');
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42349,8 +42390,9 @@
          */
             function () {
                 var _this = this;
+                this._minWidth = parseFloat(getComputedStyle(this._elementRef.nativeElement).minWidth);
                 // update the sizes when columns are resized
-                rxjs.combineLatest(this._table.onResize$, this._table.isResizing$).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                rxjs.combineLatest([this._table.onResize$, this._table.isResizing$]).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                     _this.setColumnWidth();
                     _this.setColumnFlex();
                 });
@@ -42389,8 +42431,13 @@
             function () {
                 /** @type {?} */
                 var width = this._table.isResizing$.value || this._table.getColumnDisabled(this.getCellIndex()) ?
-                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel) + "px" :
-                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage) + "%";
+                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Pixel) + "px" :
+                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Percentage) + "%";
+                if (this._table.type === ResizableTableType.Expand) {
+                    /** @type {?} */
+                    var minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Pixel), this._minWidth);
+                    this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', minWidth + "px");
+                }
                 this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
             };
         /** Set the flex value of the column */
@@ -42409,7 +42456,7 @@
                     return;
                 }
                 /** @type {?} */
-                var flex = this._table.isInitialised$.value ? "0 1 " + this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage) + "%" : '';
+                var flex = this._table.isInitialised$.value ? "0 1 " + this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Percentage) + "%" : '';
                 this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
             };
         ResizableTableCellDirective.decorators = [
@@ -42422,7 +42469,7 @@
             return [
                 { type: i0.ElementRef },
                 { type: i0.Renderer2 },
-                { type: ResizableTableService }
+                { type: BaseResizableTableService, decorators: [{ type: i0.Inject, args: [RESIZABLE_TABLE_SERVICE_TOKEN,] }] }
             ];
         };
         return ResizableTableCellDirective;
@@ -42455,14 +42502,18 @@
             this._onDestroy = new rxjs.Subject();
             // initially emit the size when we have initialised
             _table.isInitialised$.pipe(operators.takeUntil(this._onDestroy), operators.filter(function (isInitialised) { return isInitialised; }))
-                .subscribe(function () { return _this.widthChange.emit(_table.getColumnWidth(_this.getCellIndex(), ColumnUnit.Pixel)); });
+                .subscribe(function () {
+                // get the current min-width
+                _this._minWidth = parseFloat(getComputedStyle(_this._elementRef.nativeElement).minWidth);
+                _this.widthChange.emit(_table.getColumnWidth(_this.getCellIndex(), ColumnUnit$1.Pixel));
+            });
             // ensure the correct width gets emitted on column size change
             _table.onResize$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                 _this.setColumnWidth();
                 _this.setColumnFlex();
                 // get the current table width
                 /** @type {?} */
-                var width = _table.getColumnWidth(_this.getCellIndex(), ColumnUnit.Pixel);
+                var width = _table.getColumnWidth(_this.getCellIndex(), ColumnUnit$1.Pixel);
                 // check if the width actually changed - otherwise don't emit
                 if (_this._width === undefined || Math.max(width, _this._width) - Math.min(width, _this._width) >= 1) {
                     _this.widthChange.emit(width);
@@ -42500,7 +42551,7 @@
                 else {
                     // if it is initialised then resize the column
                     /** @type {?} */
-                    var currentWidth = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel);
+                    var currentWidth = this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Pixel);
                     // resize the column by the difference in size
                     this._table.resizeColumn(this.getCellIndex(), this._width - currentWidth, false);
                 }
@@ -42658,8 +42709,13 @@
                 }
                 /** @type {?} */
                 var width = this._table.isResizing$.value ?
-                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Pixel) + "px" :
-                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage) + "%";
+                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Pixel) + "px" :
+                    this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Percentage) + "%";
+                if (this._table.type === ResizableTableType.Expand) {
+                    /** @type {?} */
+                    var minWidth = Math.max(this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Pixel), this._minWidth);
+                    this._renderer.setStyle(this._elementRef.nativeElement, 'min-width', minWidth + "px");
+                }
                 this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
                 this._renderer.setStyle(this._elementRef.nativeElement, 'max-width', null);
             };
@@ -42678,13 +42734,14 @@
                     this._renderer.setStyle(this._elementRef.nativeElement, 'flex', 'none');
                 }
                 /** @type {?} */
-                var flex = this._table.isInitialised$.value ? "0 1 " + this._table.getColumnWidth(this.getCellIndex(), ColumnUnit.Percentage) + "%" : '';
+                var flex = this._table.isInitialised$.value ? "0 1 " + this._table.getColumnWidth(this.getCellIndex(), ColumnUnit$1.Percentage) + "%" : '';
                 this._renderer.setStyle(this._elementRef.nativeElement, 'flex', flex);
             };
         ResizableTableColumnComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: '[uxResizableTableColumn]',
                         template: "<ng-content></ng-content>\n\n<div #handle\n     uxDrag\n     uxFocusIndicator\n     tabindex=\"0\"\n     aria-label=\"Column resize handle. Use arrow keys to change the column width.\"\n     class=\"ux-resizable-table-column-handle\"\n     *ngIf=\"!disabled\"\n     (onDragStart)=\"onDragStart($event)\"\n     (onDrag)=\"onDragMove($event, handle)\"\n     (onDragEnd)=\"onDragEnd()\"\n     (keydown.ArrowLeft)=\"onMoveLeft()\"\n     (keydown.ArrowRight)=\"onMoveRight()\">\n\n     <div class=\"ux-resizable-table-column-handle-icon\"></div>\n</div>\n",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             class: 'ux-resizable-table-column'
                         }
@@ -42694,7 +42751,7 @@
         ResizableTableColumnComponent.ctorParameters = function () {
             return [
                 { type: i0.ElementRef },
-                { type: ResizableTableService },
+                { type: BaseResizableTableService, decorators: [{ type: i0.Inject, args: [RESIZABLE_TABLE_SERVICE_TOKEN,] }] },
                 { type: i0.Renderer2 }
             ];
         };
@@ -42709,20 +42766,23 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
-    var ResizableTableDirective = /** @class */ (function () {
-        function ResizableTableDirective(_elementRef, _table, _renderer, resize) {
+    /**
+     * @abstract
+     */
+    var BaseResizableTableDirective = /** @class */ (function () {
+        function BaseResizableTableDirective(_elementRef, _table, _renderer, resize) {
             var _this = this;
             this._elementRef = _elementRef;
             this._table = _table;
             this._renderer = _renderer;
             /**
-             * Store the initialised state of the table
-             */
-            this._initialised = false;
-            /**
              * Unsubscribe from the observables
              */
             this._onDestroy = new rxjs.Subject();
+            /**
+             * Store the initialised state of the table
+             */
+            this._initialised = false;
             // watch for the table being resized
             resize.addResizeListener(this._elementRef.nativeElement).pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
                 // store the latest table size
@@ -42730,15 +42790,13 @@
                 // run the initial logic if the table is fully visible
                 _this.onTableReady();
             });
-            // we should hide any horizontal overflow when we are resizing
-            this._table.isResizing$.pipe(operators.takeUntil(this._onDestroy)).subscribe(this.setOverflow.bind(this));
         }
         /** Once we have the columns make them resizable and watch for changes to columns */
         /**
          * Once we have the columns make them resizable and watch for changes to columns
          * @return {?}
          */
-        ResizableTableDirective.prototype.ngAfterViewInit = /**
+        BaseResizableTableDirective.prototype.ngAfterViewInit = /**
          * Once we have the columns make them resizable and watch for changes to columns
          * @return {?}
          */
@@ -42750,7 +42808,7 @@
          * Cleanup after the component is destroyed
          * @return {?}
          */
-        ResizableTableDirective.prototype.ngOnDestroy = /**
+        BaseResizableTableDirective.prototype.ngOnDestroy = /**
          * Cleanup after the component is destroyed
          * @return {?}
          */
@@ -42758,6 +42816,430 @@
                 this._onDestroy.next();
                 this._onDestroy.complete();
             };
+        /** Set all resizable columns to the same width */
+        /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+        BaseResizableTableDirective.prototype.setUniformWidths = /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+            function () {
+                this._table.setUniformWidths();
+            };
+        /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
+        /**
+         * Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable)
+         * @return {?}
+         */
+        BaseResizableTableDirective.prototype.getScrollWidth = /**
+         * Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable)
+         * @return {?}
+         */
+            function () {
+                return Array.from((( /** @type {?} */(this._elementRef.nativeElement))).tBodies)
+                    .reduce(function (width, tbody) { return Math.min(width, tbody.scrollWidth); }, (( /** @type {?} */(this._elementRef.nativeElement))).offsetWidth);
+            };
+        /** @nocollapse */
+        BaseResizableTableDirective.ctorParameters = function () {
+            return [
+                { type: i0.ElementRef },
+                { type: BaseResizableTableService, decorators: [{ type: i0.Inject, args: [RESIZABLE_TABLE_SERVICE_TOKEN,] }] },
+                { type: i0.Renderer2 },
+                { type: ResizeService }
+            ];
+        };
+        return BaseResizableTableDirective;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ResizableExpandingTableService = /** @class */ (function (_super) {
+        __extends(ResizableExpandingTableService, _super);
+        function ResizableExpandingTableService() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            /**
+             * Define the type of resizing we should use
+             */
+            _this.type = ResizableTableType.Expand;
+            return _this;
+        }
+        /** Store the size of each column */
+        /**
+         * Store the size of each column
+         * @param {?} columns
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.setColumns = /**
+         * Store the size of each column
+         * @param {?} columns
+         * @return {?}
+         */
+            function (columns) {
+                var _this = this;
+                // store the current columns
+                this._columns = columns;
+                // store the sizes
+                this.columns = columns.map(function (column) { return (column.getNaturalWidth() / _this.tableWidth) * 100; });
+                // ensure all the columns fit
+                this._columns.forEach(function (column, idx) {
+                    if (!column.disabled) {
+                        _this.columns = _this.setColumnWidth(idx, _this.columns[idx], ColumnUnit$2.Percentage, _this.columns);
+                    }
+                });
+                // indicate we are now initialised
+                if (this.isInitialised$.value === false) {
+                    this.isInitialised$.next(true);
+                }
+            };
+        /** Set all resizable columns to the same width */
+        /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.setUniformWidths = /**
+         * Set all resizable columns to the same width
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // set any disabled columns to their specified width
+                this.columns = this._columns.map(function (column) { return column.disabled ? (column.getNaturalWidth() / _this.tableWidth) * 100 : 0; });
+                // check to see if we've reached 100% of the table width
+                /** @type {?} */
+                var totalWidth = this.columns.reduce(function (partial, columnWidth) { return partial + columnWidth; });
+                if (totalWidth > 98) {
+                    // remove overflow
+                    this.columns = this.ensureNoOverflow(this.columns);
+                }
+                else {
+                    // get the list of resizable columns
+                    /** @type {?} */
+                    var resizableColumns = this._columns.toArray().filter(function (column) { return !column.disabled; });
+                    // work out what we need to add to each column to make up the full width
+                    /** @type {?} */
+                    var newWidth_1 = (98 - totalWidth) / resizableColumns.length;
+                    // set the non-disabled columns to the new width
+                    this.columns = this._columns.map(function (column, idx) { return column.disabled ? _this.columns[idx] : newWidth_1; });
+                }
+                // do the resizing
+                this._columns.forEach(function (column, idx) {
+                    if (!column.disabled) {
+                        _this.resizeColumn(idx, 0, false);
+                    }
+                });
+            };
+        /**
+         * @param {?} columns
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.ensureNoOverflow = /**
+         * @param {?} columns
+         * @return {?}
+         */
+            function (columns) {
+                var _this = this;
+                // get the total width
+                /** @type {?} */
+                var total = columns.reduce(function (width, column) { return width + column; });
+                // if we have no overflow then we don't need to do anything
+                if (total <= 100) {
+                    return columns;
+                }
+                // if there is overflow identify which columns can be resized
+                /** @type {?} */
+                var variableColumns = this._columns.filter(function (column) { return !column.disabled && _this.getColumnWidth(column.getCellIndex(), ColumnUnit$2.Pixel, columns) > column.minWidth; });
+                // if there are no columns that can be resized then stop here
+                if (variableColumns.length === 0) {
+                    return columns;
+                }
+                // determine the total width of the variable columns
+                /** @type {?} */
+                var totalWidth = this._columns.reduce(function (width, column) { return width + _this.getColumnWidth(column.getCellIndex(), ColumnUnit$2.Pixel, columns); }, 0);
+                // determine to the width of all the variable columns
+                /** @type {?} */
+                var variableColumnsWidth = variableColumns.reduce(function (width, column) { return width + _this.getColumnWidth(column.getCellIndex(), ColumnUnit$2.Pixel, columns); }, 0);
+                // determine how much the columns are currently too large (ignoring fixed columns)
+                /** @type {?} */
+                var targetWidth = this.tableWidth - (totalWidth - variableColumnsWidth);
+                // determine how much we need to reduce a column by
+                /** @type {?} */
+                var difference = variableColumnsWidth - targetWidth;
+                // find the column with the largest size
+                /** @type {?} */
+                var target = variableColumns.reduce(function (widest, column) {
+                    /** @type {?} */
+                    var columnWidth = _this.getColumnWidth(column.getCellIndex(), ColumnUnit$2.Pixel, columns);
+                    /** @type {?} */
+                    var widestWidth = _this.getColumnWidth(widest.getCellIndex(), ColumnUnit$2.Pixel, columns);
+                    return columnWidth > widestWidth ? column : widest;
+                });
+                // perform the resize
+                columns = this.setColumnWidth(target.getCellIndex(), this.getColumnWidth(target.getCellIndex(), ColumnUnit$2.Pixel, columns) - difference, ColumnUnit$2.Pixel, columns);
+                // check if we are still over the limit (allow some variance for javascript double precision)
+                if (columns.reduce(function (width, column) { return width + column; }) > 100.01) {
+                    return this.ensureNoOverflow(columns);
+                }
+                return columns;
+            };
+        /** Allow setting the column size in any unit */
+        /**
+         * Allow setting the column size in any unit
+         * @param {?} index
+         * @param {?} value
+         * @param {?} unit
+         * @param {?=} columns
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.setColumnWidth = /**
+         * Allow setting the column size in any unit
+         * @param {?} index
+         * @param {?} value
+         * @param {?} unit
+         * @param {?=} columns
+         * @return {?}
+         */
+            function (index, value, unit, columns) {
+                if (columns === void 0) {
+                    columns = this.columns;
+                }
+                // create a new array so we keep the instance array immutable
+                /** @type {?} */
+                var sizes = __spread(columns);
+                switch (unit) {
+                    case ColumnUnit$2.Percentage:
+                        sizes[index] = value;
+                        break;
+                    case ColumnUnit$2.Pixel:
+                        sizes[index] = (value / this.tableWidth) * 100;
+                        break;
+                }
+                // update the instance variable
+                return sizes;
+            };
+        /** Resize a column by a specific pixel amount */
+        /**
+         * Resize a column by a specific pixel amount
+         * @param {?} index
+         * @param {?} delta
+         * @param {?=} isDragging
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.resizeColumn = /**
+         * Resize a column by a specific pixel amount
+         * @param {?} index
+         * @param {?} delta
+         * @param {?=} isDragging
+         * @return {?}
+         */
+            function (index, delta, isDragging) {
+                if (isDragging === void 0) {
+                    isDragging = true;
+                }
+                /** @type {?} */
+                var columns = ( /** @type {?} */(__spread(this.columns)));
+                // convert the delta to a percentage value
+                /** @type {?} */
+                var percentageDelta = (delta / this.tableWidth) * 100;
+                columns = this.setColumnWidth(index, this.columns[index] + percentageDelta, ColumnUnit$2.Percentage, this.columns);
+                this.columns = columns;
+                // emit the resize event for each column
+                this.onResize$.next();
+            };
+        /**
+         * @param {?} index
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.getColumn = /**
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                return this._columns ? this._columns.toArray()[index] : null;
+            };
+        /**
+         * @param {?} index
+         * @return {?}
+         */
+        ResizableExpandingTableService.prototype.getColumnDisabled = /**
+         * @param {?} index
+         * @return {?}
+         */
+            function (index) {
+                return this.getColumn(index) ? this.getColumn(index).disabled : false;
+            };
+        ResizableExpandingTableService.decorators = [
+            { type: i0.Injectable }
+        ];
+        return ResizableExpandingTableService;
+    }(BaseResizableTableService));
+    /** @enum {number} */
+    var ColumnUnit$2 = {
+        Pixel: 0,
+        Percentage: 1,
+    };
+    ColumnUnit$2[ColumnUnit$2.Pixel] = 'Pixel';
+    ColumnUnit$2[ColumnUnit$2.Percentage] = 'Percentage';
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ResizableExpandingTableDirective = /** @class */ (function (_super) {
+        __extends(ResizableExpandingTableDirective, _super);
+        function ResizableExpandingTableDirective(elementRef, table, renderer, resize, _platformId) {
+            var _this = _super.call(this, elementRef, table, renderer, resize) || this;
+            _this._platformId = _platformId;
+            /**
+             * Has horizontal overflow
+             */
+            _this._overflowX = false;
+            return _this;
+        }
+        /**
+         * @return {?}
+         */
+        ResizableExpandingTableDirective.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                var e_1, _a;
+                _super.prototype.ngAfterViewInit.call(this);
+                if (common.isPlatformBrowser(this._platformId)) {
+                    /** @type {?} */
+                    var tableHeaders_1 = this._elementRef.nativeElement.querySelectorAll('thead > tr');
+                    var _loop_1 = function (body) {
+                        rxjs.fromEvent(body, 'scroll').pipe(operators.takeUntil(this_1._onDestroy)).subscribe(function () {
+                            Array.from(tableHeaders_1).forEach(function (thead) { return _this._renderer.setStyle(thead, 'margin-left', "-" + body.scrollLeft + "px"); });
+                        });
+                    };
+                    var this_1 = this;
+                    try {
+                        for (var _b = __values(Array.from(this._elementRef.nativeElement.tBodies)), _c = _b.next(); !_c.done; _c = _b.next()) {
+                            var body = _c.value;
+                            _loop_1(body);
+                        }
+                    }
+                    catch (e_1_1) {
+                        e_1 = { error: e_1_1 };
+                    }
+                    finally {
+                        try {
+                            if (_c && !_c.done && (_a = _b.return))
+                                _a.call(_b);
+                        }
+                        finally {
+                            if (e_1)
+                                throw e_1.error;
+                        }
+                    }
+                    /** checks if the table is resizing and allows for a class to be added for when moving from
+                     overflow to no overflow */
+                    this._table.onResize$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                        _this._overflowX = _this._elementRef.nativeElement.tBodies[0].scrollWidth > _this._elementRef.nativeElement.tBodies[0].offsetWidth;
+                    });
+                }
+            };
+        /**
+         * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+         * visibily on screen. We should only setup the table once we actually have a width/
+         */
+        /**
+         * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+         * visibily on screen. We should only setup the table once we actually have a width/
+         * @return {?}
+         */
+        ResizableExpandingTableDirective.prototype.onTableReady = /**
+         * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
+         * visibily on screen. We should only setup the table once we actually have a width/
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                // if we have already initialised or the table width is currently 0 then do nothing
+                if (this._initialised || this.getScrollWidth() === 0) {
+                    // if the table has been initialized but the width is now 0
+                    // for example, due to the element being hidden (eg. in a collapsed accordion)
+                    // we would need to re-run this logic whenever the width is back over 0
+                    // to do this we can mark the table as not having been initialized
+                    if (this._initialised && this.getScrollWidth() === 0) {
+                        this._initialised = false;
+                    }
+                    return;
+                }
+                // ensure we initially set the table width
+                this._table.tableWidth = this.getScrollWidth();
+                // set the columns - prevent expression changed error
+                Promise.resolve().then(function () {
+                    // initially set the columns
+                    _this._table.setColumns(_this.columns);
+                    // force relayout to occur to ensure the UI is consistent with the internal state
+                    _this.updateLayout();
+                });
+                // watch for any future changes to the columns
+                this.columns.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
+                    return Promise.resolve().then(function () { return _this._table.setColumns(_this.columns); });
+                });
+                this._initialised = true;
+            };
+        /** Force the layout to recalculate */
+        /**
+         * Force the layout to recalculate
+         * @return {?}
+         */
+        ResizableExpandingTableDirective.prototype.updateLayout = /**
+         * Force the layout to recalculate
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                Promise.resolve().then(function () { return _this.columns.forEach(function (_column, index) { return _this._table.resizeColumn(index, 0); }); });
+            };
+        ResizableExpandingTableDirective.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[uxResizableExpandingTable]',
+                        exportAs: 'ux-resizable-expanding-table',
+                        providers: [
+                            {
+                                provide: RESIZABLE_TABLE_SERVICE_TOKEN,
+                                useClass: ResizableExpandingTableService
+                            }
+                        ],
+                        host: {
+                            'class': 'ux-resizable-expanding-table',
+                            '[class.ux-resizable-expanding-table-overflow]': '_overflowX'
+                        }
+                    },] }
+        ];
+        /** @nocollapse */
+        ResizableExpandingTableDirective.ctorParameters = function () {
+            return [
+                { type: i0.ElementRef },
+                { type: ResizableExpandingTableService, decorators: [{ type: i0.Inject, args: [RESIZABLE_TABLE_SERVICE_TOKEN,] }] },
+                { type: i0.Renderer2 },
+                { type: ResizeService },
+                { type: Object, decorators: [{ type: i0.Inject, args: [i0.PLATFORM_ID,] }] }
+            ];
+        };
+        ResizableExpandingTableDirective.propDecorators = {
+            columns: [{ type: i0.ContentChildren, args: [ResizableTableColumnComponent, { descendants: true },] }]
+        };
+        return ResizableExpandingTableDirective;
+    }(BaseResizableTableDirective));
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var ResizableTableDirective = /** @class */ (function (_super) {
+        __extends(ResizableTableDirective, _super);
+        function ResizableTableDirective(elementRef, table, renderer, resize) {
+            var _this = _super.call(this, elementRef, table, renderer, resize) || this;
+            // we should hide any horizontal overflow when we are resizing
+            _this._table.isResizing$.pipe(operators.takeUntil(_this._onDestroy)).subscribe(_this.setOverflow.bind(_this));
+            return _this;
+        }
         /**
          * If this is being used within a modal the table width may initially be zero. This can cause some issues when it does actually appear
          * visibily on screen. We should only setup the table once we actually have a width/
@@ -42781,7 +43263,7 @@
                 // ensure we initially set the table width
                 this._table.tableWidth = this.getScrollWidth();
                 // set the columns - prevent expression changed error
-                requestAnimationFrame(function () {
+                Promise.resolve().then(function () {
                     // initially set the columns
                     _this._table.setColumns(_this.columns);
                     // force relayout to occur to ensure the UI is consistent with the internal state
@@ -42789,7 +43271,7 @@
                 });
                 // watch for any future changes to the columns
                 this.columns.changes.pipe(operators.takeUntil(this._onDestroy)).subscribe(function () {
-                    return requestAnimationFrame(function () { return _this._table.setColumns(_this.columns); });
+                    return Promise.resolve().then(function () { return _this._table.setColumns(_this.columns); });
                 });
                 this._initialised = true;
             };
@@ -42804,19 +43286,7 @@
          */
             function () {
                 var _this = this;
-                requestAnimationFrame(function () { return _this.columns.forEach(function (_column, index) { return _this._table.resizeColumn(index, 0); }); });
-            };
-        /** Set all resizable columns to the same width */
-        /**
-         * Set all resizable columns to the same width
-         * @return {?}
-         */
-        ResizableTableDirective.prototype.setUniformWidths = /**
-         * Set all resizable columns to the same width
-         * @return {?}
-         */
-            function () {
-                this._table.setUniformWidths();
+                Promise.resolve().then(function () { return _this.columns.forEach(function (_column, index) { return _this._table.resizeColumn(index, 0); }); });
             };
         /**
          * We should hide any horizontal overflow whenever we are resizing, this is because when we are dragging a column
@@ -42842,24 +43312,16 @@
                 Array.from((( /** @type {?} */(this._elementRef.nativeElement))).tBodies)
                     .forEach(function (tbody) { return _this._renderer.setStyle(tbody, 'overflow-x', isResizing ? 'hidden' : null); });
             };
-        /** Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable) */
-        /**
-         * Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable)
-         * @return {?}
-         */
-        ResizableTableDirective.prototype.getScrollWidth = /**
-         * Get the smallest tbody width taking into account scrollbars (uxFixedHeaderTable)
-         * @return {?}
-         */
-            function () {
-                return Array.from((( /** @type {?} */(this._elementRef.nativeElement))).tBodies)
-                    .reduce(function (width, tbody) { return Math.min(width, tbody.scrollWidth); }, (( /** @type {?} */(this._elementRef.nativeElement))).offsetWidth);
-            };
         ResizableTableDirective.decorators = [
             { type: i0.Directive, args: [{
                         selector: '[uxResizableTable]',
                         exportAs: 'ux-resizable-table',
-                        providers: [ResizableTableService],
+                        providers: [
+                            {
+                                provide: RESIZABLE_TABLE_SERVICE_TOKEN,
+                                useClass: ResizableTableService
+                            }
+                        ],
                         host: {
                             class: 'ux-resizable-table'
                         }
@@ -42869,7 +43331,7 @@
         ResizableTableDirective.ctorParameters = function () {
             return [
                 { type: i0.ElementRef },
-                { type: ResizableTableService },
+                { type: ResizableTableService, decorators: [{ type: i0.Inject, args: [RESIZABLE_TABLE_SERVICE_TOKEN,] }] },
                 { type: i0.Renderer2 },
                 { type: ResizeService }
             ];
@@ -42878,7 +43340,7 @@
             columns: [{ type: i0.ContentChildren, args: [ResizableTableColumnComponent, { descendants: true },] }]
         };
         return ResizableTableDirective;
-    }());
+    }(BaseResizableTableDirective));
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
@@ -42904,15 +43366,17 @@
                         ],
                         declarations: [
                             ResizableTableDirective,
+                            ResizableExpandingTableDirective,
                             ResizableTableColumnComponent,
                             ResizableTableCellDirective,
-                            ColumnPickerComponent
+                            ColumnPickerComponent,
                         ],
                         exports: [
                             ResizableTableDirective,
+                            ResizableExpandingTableDirective,
                             ResizableTableColumnComponent,
                             ResizableTableCellDirective,
-                            ColumnPickerComponent
+                            ColumnPickerComponent,
                         ]
                     },] }
         ];
@@ -49583,6 +50047,7 @@
     exports.ColumnPickerComponent = ColumnPickerComponent;
     exports.ResizableTableCellDirective = ResizableTableCellDirective;
     exports.ResizableTableColumnComponent = ResizableTableColumnComponent;
+    exports.ResizableExpandingTableDirective = ResizableExpandingTableDirective;
     exports.ResizableTableDirective = ResizableTableDirective;
     exports.TableModule = TableModule;
     exports.TabHeadingDirective = TabHeadingDirective;
@@ -49798,12 +50263,17 @@
     exports.ɵbd = SidePanelAnimationState;
     exports.ɵbe = sidePanelStateAnimation;
     exports.ɵbc = SidePanelService;
-    exports.ɵbn = ResizableTableService;
+    exports.ɵbp = BaseResizableTableDirective;
+    exports.ɵbo = BaseResizableTableService;
+    exports.ɵbn = RESIZABLE_TABLE_SERVICE_TOKEN;
+    exports.ɵbr = ResizableExpandingTableService;
+    exports.ɵbs = ResizableTableService;
     exports.ɵq = TypeaheadHighlightDirective;
     exports.ɵp = TypeaheadService;
-    exports.ɵbo = HoverActionService;
-    exports.ɵbp = MenuNavigationService;
-    exports.ɵbq = TreeGridService;
+    exports.ɵbt = HoverActionService;
+    exports.ɵbu = MenuNavigationService;
+    exports.ɵbq = ResizeService;
+    exports.ɵbv = TreeGridService;
     exports.ɵa = KEPPEL_COLOR_SET;
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
     Object.defineProperty(exports, '__esModule', { value: true });

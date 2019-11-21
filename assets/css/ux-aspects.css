@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.8-10 
+* @ux-aspects/ux-aspects-docs - v1.8.9-18 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -6716,6 +6716,10 @@ tags-input[disabled] .tags .input {
 .table > tbody > tr > td.vertical-center-icon {
   vertical-align: middle;
 }
+.table.ux-resizable-expanding-table td,
+.table.ux-resizable-expanding-table th {
+  border: none;
+}
 .pagination > li.page-item > a {
   border-radius: 0;
   font-size: 0.875rem;
@@ -7891,6 +7895,16 @@ th:hover .detail-row-header.sort .sort .number {
 .ux-fixed-header-table {
   display: flex;
   flex-direction: column;
+}
+.ux-fixed-header-table.ux-resizable-expanding-table thead tr,
+.ux-fixed-header-table.ux-resizable-expanding-table tbody tr {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+.ux-fixed-header-table.ux-resizable-expanding-table-overflow thead tr,
+.ux-fixed-header-table.ux-resizable-expanding-table-overflow tbody tr {
+  display: inline-flex;
+  border-bottom: 1px solid #ddd;
 }
 .ux-fixed-header-table thead,
 .ux-fixed-header-table tbody {
@@ -21548,11 +21562,17 @@ ux-wizard.vertical .wizard-body .wizard-content {
 .ux-resizable-table {
   table-layout: fixed;
 }
-.ux-resizable-table-column {
+.ux-resizable-table .ux-resizable-table-column {
   position: relative;
 }
-.ux-resizable-table-column:last-of-type .ux-resizable-table-column-handle {
+.ux-resizable-table .ux-resizable-table-column:last-of-type .ux-resizable-table-column-handle {
   display: none;
+}
+.ux-resizable-expanding-table {
+  table-layout: fixed;
+}
+.ux-resizable-expanding-table .ux-resizable-table-column {
+  position: relative;
 }
 .ux-resizable-table-column-handle {
   content: '';

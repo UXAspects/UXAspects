@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.8-10 
+* @ux-aspects/ux-aspects-docs - v1.8.9-18 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -24005,11 +24005,13 @@ angular.module("ux-aspects.extendedCheckboxHit", []).directive('extendedCheckbox
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FacetCtrl; });
-FacetCtrl.$inject = ['$scope'];
-function FacetCtrl($scope) {
+function FacetCtrl() {
   var vm = this;
-  vm.name = $scope.name;
-  vm.expanded = true;
+
+  if (vm.expanded === undefined) {
+    vm.expanded = true;
+  }
+
   vm.scrollConfig = {
     autoReinitialise: true,
     showOnlyOnHover: true,
@@ -24060,15 +24062,17 @@ function facet($rootScope, $timeout) {
     scope: {
       name: "=",
       facetScroll: "@",
-      loadDelay: "=?"
+      loadDelay: "=?",
+      expanded: "=?"
     },
+    bindToController: true,
     link: {
       pre: FacetDirectiveLinkFn
     }
   };
 
-  function FacetDirectiveLinkFn(scope, element) {
-    scope.enableScroll = scope.facetScroll !== "off";
+  function FacetDirectiveLinkFn(scope, element, attrs, controller) {
+    controller.enableScroll = controller.facetScroll !== "off";
     var facetScrollContainer = [];
     var paneMaxHeight = null;
     $timeout(function () {
@@ -24081,8 +24085,8 @@ function facet($rootScope, $timeout) {
         scope.uniqueId = facetScrollContainer.attr('id');
         paneMaxHeight = getMaxHeight(facetScrollContainer);
 
-        if (!(scope.loadDelay === undefined || scope.loadDelay <= 0)) {
-          $timeout(reinitialize, scope.loadDelay);
+        if (!(controller.loadDelay === undefined || controller.loadDelay <= 0)) {
+          $timeout(reinitialize, controller.loadDelay);
         }
 
         scope.$watch('fac.expanded', function () {
@@ -24165,7 +24169,7 @@ function facet($rootScope, $timeout) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"facet\">\n<a class=\"facet-header\" href=\"\" ng-click=\"fac.toggleExpand($event)\" ng-keydown=\"fac.toggleExpandKey($event)\" tabindex=\"1\">\n<span single-line-overflow-tooltip class=\"facet-name\" ng-bind=\"name\"></span>\n<span class=\"pull-right hpe-icon\" ng-class=\"{'hpe-down':fac.expanded,'hpe-previous':!fac.expanded}\"></span>\n</a>\n<div ng-if=\"enableScroll\" class=\"facet-scroll\" scroll-config=\"fac.scrollConfig\" scroll-pane scroll-name=\"facetScroll\">\n<ul class=\"facet-options\" ng-transclude ng-show=\"fac.expanded\">\n</ul>\n</div>\n<div ng-if=\"!enableScroll\">\n<ul class=\"facet-options\" ng-transclude ng-show=\"fac.expanded\">\n</ul>\n</div>\n</div>\n";
+var v1="<div class=\"facet\">\n<a class=\"facet-header\" href=\"\" ng-click=\"fac.toggleExpand($event)\" ng-keydown=\"fac.toggleExpandKey($event)\" tabindex=\"1\">\n<span single-line-overflow-tooltip class=\"facet-name\" ng-bind=\"fac.name\"></span>\n<span class=\"pull-right hpe-icon\" ng-class=\"{'hpe-down':fac.expanded,'hpe-previous':!fac.expanded}\"></span>\n</a>\n<div ng-if=\"fac.enableScroll\" class=\"facet-scroll\" scroll-config=\"fac.scrollConfig\" scroll-pane scroll-name=\"facetScroll\">\n<ul class=\"facet-options\" ng-transclude ng-show=\"fac.expanded\">\n</ul>\n</div>\n<div ng-if=\"!fac.enableScroll\">\n<ul class=\"facet-options\" ng-transclude ng-show=\"fac.expanded\">\n</ul>\n</div>\n</div>\n";
 var id1="facets/facet/facet.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -25479,6 +25483,8 @@ var FixedHeaderTableController =
 /*#__PURE__*/
 function () {
   function FixedHeaderTableController($element, $scope) {
+    var _this = this;
+
     _classCallCheck(this, FixedHeaderTableController);
 
     this.$element = $element;
@@ -25491,10 +25497,30 @@ function () {
     this._tableHead = elementRef.querySelector('thead');
     this._tableBody = elementRef.querySelector('tbody'); // bind to scroll events on the table body
 
-    this._tableBody.addEventListener('scroll', this.onScroll.bind(this)); // wait until bindings are available
+    this._tableBody.addEventListener('scroll', this.onScroll.bind(this)); // Wait until the table has a width before proceeding
 
 
-    $scope.$evalAsync(this.onInit.bind(this));
+    var initWatcher = $scope.$watch(function () {
+      return _this._tableBody.offsetWidth;
+    }, function (newValue, oldValue) {
+      // we need to re-run the setLayout function if the table width is greater than 0
+      // and it was 0 when we first run it as it won't have correctly applied the padding to
+      // the table header when there is no table width.
+      if (newValue > 0 && oldValue === 0) {
+        _this.setLayout();
+      } // remove the watcher after the table has a width as it is no longer needed
+
+
+      if (newValue > 0) {
+        initWatcher();
+      }
+    }); // wait until bindings are available
+
+    $scope.$evalAsync(this.onInit.bind(this)); // ensure we have destroyed all watchers on component destroy
+
+    $scope.$on('$destroy', function () {
+      return initWatcher();
+    });
   }
   /**
    * Triggered when bindings are available
@@ -25512,11 +25538,11 @@ function () {
   }, {
     key: "requestPage",
     value: function requestPage() {
-      var _this = this;
+      var _this2 = this;
 
       if (angular.isFunction(this.tablePaging)) {
         this.$scope.$evalAsync(function () {
-          return _this.tablePaging();
+          return _this2.tablePaging();
         });
       }
     }
@@ -38139,9 +38165,14 @@ function SearchGroupCtrl($scope) {
       vm.showPlaceholder = true; //when field type is known
 
       newField.then(function (field) {
-        //create new component
-        var component = vm.findComponentByName(field.component);
-        vm.createComponent(field.id, component); //hide placeholder now that promise has been resolved
+        //check if there is an array of fields being added
+        var fields = Array.isArray(field) ? field : [field]; //create new components
+
+        for (var i = 0; i < fields.length; i++) {
+          var component = vm.findComponentByName(fields[i].component);
+          vm.createComponent(fields[i].id, component);
+        } //hide placeholder now that promise has been resolved
+
 
         vm.showPlaceholder = false;
       }); //if the promise is rejected then hide the placeholder
@@ -38150,9 +38181,13 @@ function SearchGroupCtrl($scope) {
         vm.showPlaceholder = false;
       });
     } else {
-      //create new component
-      var component = vm.findComponentByName(newField.component);
-      vm.createComponent(newField.id, component);
+      //check if there is an array of fields being added
+      var newFields = Array.isArray(newField) ? newField : [newField]; //create new components
+
+      for (var i = 0; i < newFields.length; i++) {
+        var component = vm.findComponentByName(newFields[i].component);
+        vm.createComponent(newFields[i].id, component);
+      }
     }
   };
 
