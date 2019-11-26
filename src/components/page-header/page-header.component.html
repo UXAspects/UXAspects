@@ -3,9 +3,15 @@
     <div *ngIf="!condensed" class="page-header-content">
 
         <!-- Logo/product acronym -->
-        <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0 : -1" [class.clickable]="_hasLogoClick" class="page-header-logo-container" role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
-            <img *ngIf="logo" [attr.src]="logo" [alt]="header" class="page-header-logo">
-            <h1 *ngIf="header && !logo" class="page-header-acronym">{{header}}</h1>
+        <div uxFocusIndicator (keydown.enter)="logoClick.emit($event)" [attr.tabindex]="_hasLogoClick ? 0: -1"
+             [class.page-header-logo-template]="logoTemplate" [class.clickable]="_hasLogoClick"
+             class="page-header-logo-container"
+             role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
+            <img *ngIf="logo && !logoTemplate" [attr.src]="logo" [alt]="header" class="page-header-logo">
+            <h1 *ngIf="header && !logo && !logoTemplate" class="page-header-acronym">{{header}}</h1>
+            <div *ngIf="logoTemplate">
+                <ng-container [ngTemplateOutlet]="logoTemplate"></ng-container>
+            </div>
         </div>
 
         <!-- Sub-title -->
