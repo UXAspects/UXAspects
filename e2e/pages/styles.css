@@ -1,2 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "../../dist/library/styles/ux-aspects.min.css";
+
+* {
+    caret-color: transparent;
+}
