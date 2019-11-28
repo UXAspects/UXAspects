@@ -274,6 +274,30 @@ describe('Date Range Picker Tests', () => {
 
     });
 
+    it('should allow localization to be added to both the date and time', async () => {
+        // check the headers
+        expect(await page.getPickerDateHeader(Picker.Start)).toBe('4 March 2019');
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00 AM');
+        expect(await page.getPickerDateHeader(Picker.End)).toBe('21 March 2019');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59 PM');
+
+        // click the date locale button
+        await page.enableDateLocalization();
+
+        // check the date headers
+        expect(await page.getPickerDateHeader(Picker.Start)).toBe('3/4/19');
+        expect(await page.getPickerDateHeader(Picker.End)).toBe('3/21/19');
+
+        // click the time locale button
+        await page.enableTimeLocalization();
+
+        // check the time headers
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00:00 AM GMT+00:00');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59:00 PM GMT+00:00');
+
+        expect(await imageCompare('date-range-localization')).toEqual(0);
+    });
+
     // take into account the current timezone
     function getTimezoneOffset(offset: number = 0): string {
         offset = new Date().getTimezoneOffset() + (offset * -60);

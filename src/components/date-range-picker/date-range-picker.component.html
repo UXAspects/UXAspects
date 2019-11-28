@@ -2,9 +2,21 @@
 
   <div class="header-section">
     <div *ngIf="!rangeService.start" class="select-header">{{ selectStartTitle }}</div>
-    <div *ngIf="rangeService.start" class="date-header">{{ rangeService.start | date: 'd MMMM y' }}</div>
+      <div *ngIf="rangeService.start" class="date-header">
+          <ng-container *ngIf="!dateLocalization">
+              {{ rangeService.start | date: 'd MMMM y' }}
+          </ng-container>
+          <ng-container *ngIf="dateLocalization">
+              {{ rangeService.start | dateLocale: dateLocalization }}
+          </ng-container>
+      </div>
     <div [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'" class="time-header">
-        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}
+        <ng-container *ngIf="!timeLocalization">
+            {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm'}}
+        </ng-container>
+        <ng-container *ngIf="timeLocalization">
+            {{ rangeService.start | dateLocale: timeLocalization}}
+        </ng-container>
     </div>
   </div>
 
@@ -17,9 +29,21 @@
 
   <div class="header-section">
     <div *ngIf="!rangeService.end" class="select-header">{{ selectEndTitle }}</div>
-    <div *ngIf="rangeService.end" class="date-header">{{ rangeService.end | date: 'd MMMM y' }}</div>
+    <div *ngIf="rangeService.end" class="date-header">
+        <ng-container *ngIf="!dateLocalization">
+            {{ rangeService.end | date: 'd MMMM y' }}
+        </ng-container>
+        <ng-container *ngIf="dateLocalization">
+            {{ rangeService.end| dateLocale: dateLocalization }}
+        </ng-container>
+    </div>
     <div [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'" class="time-header">
-        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}
+        <ng-container *ngIf="!timeLocalization">
+            {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm'}}
+        </ng-container>
+        <ng-container *ngIf="timeLocalization">
+            {{ rangeService.end | dateLocale: timeLocalization}}
+        </ng-container>
     </div>
   </div>
 

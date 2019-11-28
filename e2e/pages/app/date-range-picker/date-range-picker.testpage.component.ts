@@ -44,6 +44,12 @@ export class DateRangePickerTestPageComponent {
     /** Indicate if the show now should be visible */
     showNowBtn: boolean = false;
 
+    /** Time localization */
+    timeLocalization: string;
+
+    /** Date localization */
+    dateLocalization: string;
+
     /** Store the currently selected timezones */
     private _startTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
     private _endTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
@@ -124,6 +130,14 @@ export class DateRangePickerTestPageComponent {
     disableMinAndMax(): void {
         this.min = null;
         this.max = null;
+    }
+
+    addDateLocale(): void {
+        this.dateLocalization = 'M/d/yy';
+    }
+
+    addTimeLocale(): void {
+        this.timeLocalization = 'h:mm:ss a zzzz';
     }
 
     /** Account for the timezone offset */

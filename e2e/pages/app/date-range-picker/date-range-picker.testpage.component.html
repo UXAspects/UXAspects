@@ -17,6 +17,8 @@
     [showTimezone]="showTimezone"
     [showSeconds]="showSeconds"
     [showSpinners]="showSpinners"
+    [dateLocalization]="dateLocalization"
+    [timeLocalization]="timeLocalization"
     [showNowBtn]="showNowBtn"
     (startChange)="onRangeChange()"
     (endChange)="onRangeChange()"
@@ -29,3 +31,6 @@
 <button id="clear-btn" class="btn button-secondary" (click)="clear()">Clear</button>
 <button type="button" id="enable-min-max" class="btn button-secondary" (click)="enableMinAndMax()">Enable min/max</button>
 <button type="button" id="disable-min-max" class="btn button-secondary" (click)="disableMinAndMax()">Disable min/max</button>
+<button type="button" id="date-locale" class="btn button-secondary" (click)="addDateLocale()">Add Date
+    Locale</button>
+<button type="button" id="time-locale" class="btn button-secondary" (click)="addTimeLocale()">Add Time Locale</button>
