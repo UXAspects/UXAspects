@@ -447,7 +447,7 @@ Follow these steps to run the tests in a CI environment locally:
 3. `npm run build:library`
 4. `npm run test:e2e`
 
-The Docker container can continue to be used for additional test runs. If you wish to exit it simply type `exit` in the linux bash shell.
-Periodic use of `docker ps`, from your host terminal, will show you any running Docker images. These can be terminated using `docker kill CONTAINER ID`.
+The Docker container can continue to be used for additional test runs. If you wish to exit the container simply type `exit` in the Linux bash shell.
+Periodic use of `docker ps` from your host terminal, will show you any running Docker images. These can be terminated using `docker kill CONTAINER ID`.
 
 If there are any differences, the generated screenshots will be found under `target/e2e/screenshots`.

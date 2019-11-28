@@ -1,12 +1,10 @@
 const { execSync } = require('child_process');
-const { renameSync } = require('fs');
-const { join, basename } = require('path');
 const { mkdirpSync } = require('fs-extra');
+const { join } = require('path');
 
 const cwd = process.cwd();
 
-const nodeModulesDir = join(cwd, 'node_modules');
-const nodeModulesDockerDir = join(cwd, '.node_modules__docker');
+const nodeModulesDocker = join(cwd, '.node_modules__docker');
 //const dockerImage = 'uxaspects/buildenv:latest';
 const dockerImage = 'cafinternal/prereleases:buildenv-1.3.0-EL-3727-SNAPSHOT';
 
