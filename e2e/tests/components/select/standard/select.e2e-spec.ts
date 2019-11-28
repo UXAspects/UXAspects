@@ -547,7 +547,6 @@ describe('Select Tests', () => {
         expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-single')).toEqual(0);
         await page.toggleClearButton();
-        await browser.executeScript('window.scroll(0, 0)');
         expect(await imageCompare('select-custom-icon-single-clear-btn')).toEqual(0);
         await page.toggleClearButton();
         await page.clickOnCheckbox(page.checkboxMulti);
@@ -557,7 +556,6 @@ describe('Select Tests', () => {
         expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-multiple')).toEqual(0);
         await page.toggleClearButton();
-        await browser.executeScript('window.scroll(0, 0)');
         expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
     });
 
