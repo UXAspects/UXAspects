@@ -561,41 +561,8 @@ describe('Select Tests', () => {
         expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
     });
 
-    async function checkRecentOptions(multi: boolean, expectedOptions: string[]) {
-        if (!multi) {
-            await page.clickOnDropdown(multi);
-        }
-        expect(await page.getNumberOfRecentCountries(multi)).toBe(expectedOptions.length);
-        for (let index = 0 ; index < expectedOptions.length ; index++) {
-            expect(await page.getRecentCountryText(multi, index)).toBe(expectedOptions[index]);
-        }
-    }
-
-    async function testRecentOptionsFeature(multi: boolean) {
-        await page.clickOnCheckbox(page.checkboxRecentOptions);
-        await page.clickOnDropdown(multi);
-
-        // Initial state: recent option list is not shown
-        expect(await imageCompare('select-open-' + (multi ? 'multi' : 'single'))).toEqual(0);
-
-        await page.clickOnCountry(multi, 1);
-        await checkRecentOptions(multi, ['United Kingdom']);
-
-        await page.clickOnCountry(multi, 2);
-        await checkRecentOptions(multi, ['Afghanistan', 'United Kingdom']);
-
-        await page.clickOnRecentCountry(multi, 1);
-        await checkRecentOptions(multi, ['United Kingdom', 'Afghanistan']);
-
-        await page.clickOnCountry(multi, 4);
-        await checkRecentOptions(multi, ['Albania', 'United Kingdom', 'Afghanistan']);
-
-        await page.clickOnCountry(multi, 3);
-        await checkRecentOptions(multi, ['Aland Islands', 'Albania', 'United Kingdom']);
-    }
-
     it('should handle recent options correctly: single selection', async () => {
-        await testRecentOptionsFeature(false);
+        await page.testRecentOptionsFeature(false);
 
         // Recent options list with three entries
         expect(await imageCompare('select-recent-single')).toEqual(0);
@@ -603,11 +570,11 @@ describe('Select Tests', () => {
 
     it('should handle recent options correctly: multi selection', async () => {
         await page.clickOnCheckbox(page.checkboxMulti);
-        await testRecentOptionsFeature(true);
+        await page.testRecentOptionsFeature(true);
         
         await page.removeCountry(3);
         await page.clickOnDropdown(true);
-        await checkRecentOptions(true, ['Aland Islands', 'Albania', 'United Kingdom']);
+        await page.checkRecentOptions(true, ['Aland Islands', 'Albania', 'United Kingdom']);
 
         // Recent options list with three entries
         expect(await imageCompare('select-recent-multi')).toEqual(0);
@@ -617,13 +584,13 @@ describe('Select Tests', () => {
         await page.clickOnCheckbox(page.checkboxRecentOptions);
         
         await page.fillRecentOptionsButton();
-        await checkRecentOptions(false, ['Afghanistan', 'United States', 'Algeria']);
+        await page.checkRecentOptions(false, ['Afghanistan', 'United States', 'Algeria']);
 
         await page.clickOnRecentCountry(false, 2);
-        await checkRecentOptions(false, ['Algeria', 'Afghanistan', 'United States']);
+        await page.checkRecentOptions(false, ['Algeria', 'Afghanistan', 'United States']);
 
         await page.clickOnCountry(false, 1);
-        await checkRecentOptions(false, ['United Kingdom', 'Algeria', 'Afghanistan']);
+        await page.checkRecentOptions(false, ['United Kingdom', 'Algeria', 'Afghanistan']);
 
         // Recent options list with three entries
         expect(await imageCompare('select-recent-filled')).toEqual(0);

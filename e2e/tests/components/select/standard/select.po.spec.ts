@@ -1,4 +1,5 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 
 export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
@@ -308,5 +309,38 @@ export class SelectPage {
 
     async fillRecentOptionsButton() {
         await element(by.id('fill-recent-options-button')).click();
+    }
+
+    async checkRecentOptions(multi: boolean, expectedOptions: string[]) {
+        if (!multi) {
+            await this.clickOnDropdown(multi);
+        }
+        expect(await this.getNumberOfRecentCountries(multi)).toBe(expectedOptions.length);
+        for (let index = 0 ; index < expectedOptions.length ; index++) {
+            expect(await this.getRecentCountryText(multi, index)).toBe(expectedOptions[index]);
+        }
+    }
+
+    async testRecentOptionsFeature(multi: boolean) {
+        await this.clickOnCheckbox(this.checkboxRecentOptions);
+        await this.clickOnDropdown(multi);
+
+        // Initial state: recent option list is not shown
+        expect(await imageCompare('select-open-' + (multi ? 'multi' : 'single'))).toEqual(0);
+
+        await this.clickOnCountry(multi, 1);
+        await this.checkRecentOptions(multi, ['United Kingdom']);
+
+        await this.clickOnCountry(multi, 2);
+        await this.checkRecentOptions(multi, ['Afghanistan', 'United Kingdom']);
+
+        await this.clickOnRecentCountry(multi, 1);
+        await this.checkRecentOptions(multi, ['United Kingdom', 'Afghanistan']);
+
+        await this.clickOnCountry(multi, 4);
+        await this.checkRecentOptions(multi, ['Albania', 'United Kingdom', 'Afghanistan']);
+
+        await this.clickOnCountry(multi, 3);
+        await this.checkRecentOptions(multi, ['Aland Islands', 'Albania', 'United Kingdom']);
     }
 }
