@@ -443,14 +443,11 @@ Follow these steps to run the tests in a CI environment locally:
 1. `npm run docker:ci`
     * This starts a Linux Docker container, and spawns an interactive shell. Enter the subsequent commands at the resulting prompt in order to execute them within the container.
 2. `npm ci`
-    * Note that `npm run docker:ci` will try to backup and restore the Linux platform dependencies; if this was successful, there will be a message informing you that `npm ci` is unnecessary, which can save a lot of time.
+    * Note that `npm run docker:ci` uses `.node_modules__docker` on your host environment to store node modules for the linux platform. Therefore `npm ci` is only required when package updates have been made. 
 3. `npm run build:library`
 4. `npm run test:e2e`
 
-To exit the docker container and restore your developer environment run the following:
-
-1. `exit`
-2. `npm ci`
-    * Note that `npm run docker:ci` will try to backup and restore the Linux platform dependencies; if this was successful, there will be a message informing you that `npm ci` is unnecessary, which can save a lot of time.
+The Docker container can continue to be used for additional test runs. If you wish to exit it simply type `exit` in the linux bash shell.
+Periodic use of `docker ps`, from your host terminal, will show you any running Docker images. These can be terminated using `docker kill CONTAINER ID`.
 
 If there are any differences, the generated screenshots will be found under `target/e2e/screenshots`.
