@@ -9,9 +9,7 @@
              role="presentation" [style.backgroundColor]="logoBackground" [style.color]="logoForeground" (click)="logoClick.emit($event)">
             <img *ngIf="logo && !logoTemplate" [attr.src]="logo" [alt]="header" class="page-header-logo">
             <h1 *ngIf="header && !logo && !logoTemplate" class="page-header-acronym">{{header}}</h1>
-            <div *ngIf="logoTemplate">
-                <ng-container [ngTemplateOutlet]="logoTemplate"></ng-container>
-            </div>
+            <ng-container *ngIf="logoTemplate" [ngTemplateOutlet]="logoTemplate"></ng-container>
         </div>
 
         <!-- Sub-title -->
