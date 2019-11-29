@@ -16,11 +16,11 @@ const http_proxy = process.env.HTTP_PROXY || process.env.http_proxy;
 const https_proxy = process.env.HTTPS_PROXY || process.env.https_proxy;
 
 if (!http_proxy){
-    console.warn(`An http proxy has not been defined.`);
+    console.warn(`Neither HTTP_PROXY nor http_proxy have been defined in the host environment.`);
 }
 
 if (!https_proxy){
-    console.warn(`An https proxy has not been defined.`);
+    console.warn(`Neither HTTPS_PROXY nor https_proxy have been defined in the host environment.`);
 }
 
 // produce the docker command string
