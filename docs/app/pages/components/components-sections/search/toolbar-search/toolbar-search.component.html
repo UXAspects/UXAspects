@@ -69,12 +69,15 @@
 <p>
     Other components can be added as required. The toolbar search component on the left above shows how to include an
     optional "clear" button to the input field using the built-in <code>ux-toolbar-search-clear</code> class.
-    If the clear button is added, you should add <code>[class.ux-toolbar-search-clear-offset]="clickEvent"</code> to the
-    <code>Input</code> field element (with <code>"clickEvent"</code> being the name of the click event variable).
-    This will bind the <code>ux-toolbar-search-clear-offset</code> class to the click event and add the correct padding.
+    If the "clear" button is added, you should add the <code>ux-toolbar-search-clear-offset</code> to the <code>input</code>
+    field element to apply the appropriate padding. The sample code shows an example of binding this class.
+</p>
+
+<p>
     Another common use-case is to include a <a href="https://valor-software.com/ngx-bootstrap/#/typeahead">typeahead</a> list to
     hint results as the user is typing.
 </p>
+
 
 <p>The following properties are available to configure <code>ux-toolbar-search</code>:</p>
 
