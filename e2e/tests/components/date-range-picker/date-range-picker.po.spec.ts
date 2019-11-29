@@ -7,8 +7,8 @@ export class DateRangePickerPage {
     clearBtn = $('#clear-btn');
     enableMinAndMaxBtn = $('#enable-min-max');
     disableMinAndMaxBtn = $('#disable-min-max');
-    dateLocaleBtn = $('#date-locale');
-    timeLocaleBtn = $('#time-locale');
+    dateFormatBtn = $('#date-format');
+    timeFormatBtn = $('#time-format');
 
     async getPage(): Promise<void> {
         await browser.get('#/date-range-picker');
@@ -179,12 +179,12 @@ export class DateRangePickerPage {
         await this.disableMinAndMaxBtn.click();
     }
 
-    async enableDateLocalization(): Promise<void> {
-        await this.dateLocaleBtn.click();
+    async enableDateFormat(): Promise<void> {
+        await this.dateFormatBtn.click();
     }
 
-    async enableTimeLocalization(): Promise<void> {
-        await this.timeLocaleBtn.click();
+    async enableTimeFormat(): Promise<void> {
+        await this.timeFormatBtn.click();
     }
 }
 

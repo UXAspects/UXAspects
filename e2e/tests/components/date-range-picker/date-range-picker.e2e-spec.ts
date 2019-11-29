@@ -282,20 +282,20 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59 PM');
 
         // click the date locale button
-        await page.enableDateLocalization();
+        await page.enableDateFormat();
 
         // check the date headers
         expect(await page.getPickerDateHeader(Picker.Start)).toBe('3/4/19');
         expect(await page.getPickerDateHeader(Picker.End)).toBe('3/21/19');
 
         // click the time locale button
-        await page.enableTimeLocalization();
+        await page.enableTimeFormat();
 
         // check the time headers
         expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00:00 AM GMT+00:00');
         expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59:00 PM GMT+00:00');
 
-        expect(await imageCompare('date-range-localization')).toEqual(0);
+        expect(await imageCompare('date-range-format')).toEqual(0);
     });
 
     // take into account the current timezone

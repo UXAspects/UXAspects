@@ -45,10 +45,10 @@ export class DateRangePickerTestPageComponent {
     showNowBtn: boolean = false;
 
     /** Time localization */
-    timeLocalization: string;
+    timeFormat: string;
 
     /** Date localization */
-    dateLocalization: string;
+    dateFormat: string;
 
     /** Store the currently selected timezones */
     private _startTimezone: DateTimePickerTimezone = this.getCurrentTimezone();
@@ -132,12 +132,18 @@ export class DateRangePickerTestPageComponent {
         this.max = null;
     }
 
-    addDateLocale(): void {
-        this.dateLocalization = 'M/d/yy';
+    addDateFormat(): void {
+        this.dateFormat = 'M/d/yy';
     }
 
-    addTimeLocale(): void {
-        this.timeLocalization = 'h:mm:ss a zzzz';
+    addTimeFormat(): void {
+        this.timeFormat = this.getTimeLocale(this.start);
+    }
+
+    getTimeLocale(date: Date): string {
+        if (date) {
+            return 'h:mm:ss a zzzz';
+        }
     }
 
     /** Account for the timezone offset */
