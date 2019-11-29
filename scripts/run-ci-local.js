@@ -5,8 +5,7 @@ const { join } = require('path');
 const cwd = process.cwd();
 
 const nodeModulesDocker = join(cwd, '.node_modules__docker');
-//const dockerImage = 'uxaspects/buildenv:latest';
-const dockerImage = 'cafinternal/prereleases:buildenv-1.3.0-EL-3727-SNAPSHOT';
+const dockerImage = 'uxaspects/buildenv:latest';
 
 // Ensure the docker node_modules__docker directory exists
 mkdirpSync(nodeModulesDocker);
