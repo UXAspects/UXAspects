@@ -1,4 +1,4 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
 import { imageCompare } from '../../common/image-compare';
 import { numberOfCountries, SelectPage } from './select.po.spec';
 
@@ -226,12 +226,6 @@ describe('Select Tests', () => {
         // confirm countries are disabled
         expect(await page.confirmCountryIsDisabled(true, 60)).toBeTruthy();
         expect(await page.confirmCountryIsDisabled(true, 70)).toBeTruthy();
-
-        // reselect countries and confirm that nothing happened
-        await page.clickOnCountry(true, 60);
-        expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
-        await page.clickOnCountry(true, 70);
-        expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
     });
 
