@@ -342,6 +342,41 @@ describe('Toolbar Search', () => {
 
         });
 
+        it('should not allow text to overflow behind buttons on toolbar search component', async () => {
+
+            await page.leftButton.click();
+            await browser.wait(ec.visibilityOf(page.leftInput), ANIMATION_TIMEOUT);
+
+            // Verify states (left)
+            expect(await page.leftInput.isDisplayed()).toBeTruthy();
+            expect(await page.leftButton.isDisplayed()).toBeTruthy();
+            expect(await page.leftClear.isPresent()).toBeFalsy();
+            expect(await page.searchedFor.getText()).toBe('');
+
+            // Enter search text
+            await page.leftInput.sendKeys('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+
+            // verify states (left)
+            expect(await page.leftClear.isPresent()).toBeTruthy();
+
+            // verify padding class applied for clear button
+            expect(await page.leftInput.getAttribute('class')).toContain('ux-toolbar-search-clear-offset');
+
+            await page.rightButton.click();
+
+            await browser.wait(ec.visibilityOf(page.rightInput), ANIMATION_TIMEOUT);
+
+            // Verify states (right)
+            expect(await page.rightInput.isDisplayed()).toBeTruthy();
+            expect(await page.rightButton.isDisplayed()).toBeTruthy();
+            expect(await page.rightClear.isPresent()).toBeFalsy();
+            expect(await page.searchedFor.getText()).toBe('');
+
+            // Enter search text
+            await page.rightInput.sendKeys('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+
+            expect(await imageCompare('toolbar-search-not-overflow-clear')).toEqual(0);
+        });
     });
 
 });

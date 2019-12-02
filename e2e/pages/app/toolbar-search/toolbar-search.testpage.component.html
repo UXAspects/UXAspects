@@ -13,6 +13,7 @@
                 class="form-control"
                 placeholder="Search"
                 aria-label="Search"
+                [class.ux-toolbar-search-clear-offset]="searchText"
                 [(ngModel)]="searchText">
 
             <button uxToolbarSearchButton
