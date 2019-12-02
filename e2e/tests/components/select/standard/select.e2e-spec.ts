@@ -234,6 +234,7 @@ describe('Select Tests', () => {
         // expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
 
+
     });
 
     it('should be possible to remove tags', async () => {
