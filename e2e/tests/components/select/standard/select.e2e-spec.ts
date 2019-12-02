@@ -227,6 +227,13 @@ describe('Select Tests', () => {
         expect(await page.confirmCountryIsDisabled(true, 60)).toBeTruthy();
         expect(await page.confirmCountryIsDisabled(true, 70)).toBeTruthy();
 
+        // reselect countries and confirm that nothing happened
+        await page.clickOnCountry(true, 60);
+        expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
+        await page.clickOnCountry(true, 70);
+        expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
+
+
     });
 
     it('should be possible to remove tags', async () => {
