@@ -1,80 +1,85 @@
 <div class="range-header">
 
-  <div class="header-section">
-    <div *ngIf="!rangeService.start" class="select-header">{{ selectStartTitle }}</div>
-    <div *ngIf="rangeService.start" class="date-header">{{ rangeService.start | date: 'd MMMM y' }}</div>
-    <div [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'" class="time-header">
-        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}
+    <div class="header-section">
+        <div *ngIf="!rangeService.start" class="select-header">{{ selectStartTitle }}</div>
+        <div *ngIf="rangeService.start" class="date-header">
+            {{ rangeService.start | formatDate: dateFormat || 'd MMMM y' }}
+        </div>
+        <div [style.visibility]="rangeService.start && showTime ? 'visible' : 'hidden'" class="time-header">
+            {{ rangeService.start | formatDate: timeFormat || (showMeridian ? 'shortTime' : 'HH:mm') }}
+        </div>
     </div>
-  </div>
 
-  <div class="header-separator">
-    <ux-icon name="link-next"></ux-icon>
-    <p class="duration" [style.visibility]="_duration !== null && _duration !== undefined ? 'visible' : 'hidden'">
-        {{ durationTitle(_duration || 0) }}
-    </p>
-  </div>
-
-  <div class="header-section">
-    <div *ngIf="!rangeService.end" class="select-header">{{ selectEndTitle }}</div>
-    <div *ngIf="rangeService.end" class="date-header">{{ rangeService.end | date: 'd MMMM y' }}</div>
-    <div [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'" class="time-header">
-        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}
+    <div class="header-separator">
+        <ux-icon name="link-next"></ux-icon>
+        <p class="duration"
+           [style.visibility]="_duration !== null && _duration !== undefined ? 'visible' : 'hidden'">
+            {{ durationTitle(_duration || 0) }}
+        </p>
     </div>
-  </div>
+
+    <div class="header-section">
+        <div *ngIf="!rangeService.end" class="select-header">{{ selectEndTitle }}</div>
+        <div *ngIf="rangeService.end" class="date-header">
+            {{ rangeService.end | formatDate: dateFormat || 'd MMMM y'}}
+        </div>
+        <div [style.visibility]="rangeService.end && showTime ? 'visible' : 'hidden'" class="time-header">
+            {{ rangeService.end | formatDate: timeFormat || (showMeridian ? 'shortTime' : 'HH:mm') }}
+        </div>
+    </div>
 
 </div>
 
 <div class="content">
-  <ux-date-time-picker
-    uxDateRangePicker
-    picker="start"
-    class="start-date-picker"
-    [date]="rangeService.start"
-    (dateChange)="startChange$.next($event)"
-    [min]="min"
-    [max]="max"
-    [weekdays]="weekdays"
-    [startOfWeek]="startOfWeek"
-    [showTime]="showTime"
-    [showTimezone]="showTimezone"
-    [showSeconds]="showSeconds"
-    [showMeridian]="showMeridian"
-    [showSpinners]="showSpinners"
-    [months]="months"
-    [monthsShort]="monthsShort"
-    [meridians]="meridians"
-    [nowBtnText]="nowBtnText"
-    [showNowBtn]="showNowBtn"
-    [nowBtnAriaLabel]="nowBtnAriaLabel"
-    [timezones]="timezones"
-    [(timezone)]="startTimezone"
-    (timezoneChange)="startTimezoneChange.emit($event)">
-  </ux-date-time-picker>
+    <ux-date-time-picker
+        uxDateRangePicker
+        picker="start"
+        class="start-date-picker"
+        [date]="rangeService.start"
+        (dateChange)="startChange$.next($event)"
+        [min]="min"
+        [max]="max"
+        [weekdays]="weekdays"
+        [startOfWeek]="startOfWeek"
+        [showTime]="showTime"
+        [showTimezone]="showTimezone"
+        [showSeconds]="showSeconds"
+        [showMeridian]="showMeridian"
+        [showSpinners]="showSpinners"
+        [months]="months"
+        [monthsShort]="monthsShort"
+        [meridians]="meridians"
+        [nowBtnText]="nowBtnText"
+        [showNowBtn]="showNowBtn"
+        [nowBtnAriaLabel]="nowBtnAriaLabel"
+        [timezones]="timezones"
+        [(timezone)]="startTimezone"
+        (timezoneChange)="startTimezoneChange.emit($event)">
+    </ux-date-time-picker>
 
-  <ux-date-time-picker
-    uxDateRangePicker
-    picker="end"
-    class="end-date-picker"
-    [date]="rangeService.end"
-    (dateChange)="endChange$.next($event)"
-    [min]="min"
-    [max]="max"
-    [weekdays]="weekdays"
-    [startOfWeek]="startOfWeek"
-    [showTime]="showTime"
-    [showTimezone]="showTimezone"
-    [showSeconds]="showSeconds"
-    [showMeridian]="showMeridian"
-    [showSpinners]="showSpinners"
-    [months]="months"
-    [monthsShort]="monthsShort"
-    [meridians]="meridians"
-    [nowBtnText]="nowBtnText"
-    [showNowBtn]="showNowBtn"
-    [nowBtnAriaLabel]="nowBtnAriaLabel"
-    [timezones]="timezones"
-    [(timezone)]="endTimezone"
-    (timezoneChange)="endTimezoneChange.emit($event)">
-  </ux-date-time-picker>
+    <ux-date-time-picker
+        uxDateRangePicker
+        picker="end"
+        class="end-date-picker"
+        [date]="rangeService.end"
+        (dateChange)="endChange$.next($event)"
+        [min]="min"
+        [max]="max"
+        [weekdays]="weekdays"
+        [startOfWeek]="startOfWeek"
+        [showTime]="showTime"
+        [showTimezone]="showTimezone"
+        [showSeconds]="showSeconds"
+        [showMeridian]="showMeridian"
+        [showSpinners]="showSpinners"
+        [months]="months"
+        [monthsShort]="monthsShort"
+        [meridians]="meridians"
+        [nowBtnText]="nowBtnText"
+        [showNowBtn]="showNowBtn"
+        [nowBtnAriaLabel]="nowBtnAriaLabel"
+        [timezones]="timezones"
+        [(timezone)]="endTimezone"
+        (timezoneChange)="endTimezoneChange.emit($event)">
+    </ux-date-time-picker>
 </div>

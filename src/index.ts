@@ -89,6 +89,7 @@ export * from './hybrid/index';
 export * from './pipes/duration/index';
 export * from './pipes/file-size/index';
 export * from './pipes/string-filter/index';
+export * from './pipes/date-formatter/index';
 /*
  * Export Plugins
  */
