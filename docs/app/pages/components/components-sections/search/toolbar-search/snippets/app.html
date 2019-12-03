@@ -3,7 +3,8 @@
     <div class="demo-toolbar-left">
         <ux-toolbar-search [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
             <input uxToolbarSearchField #searchField type="text" class="form-control" placeholder="Search"
-                aria-label="Search" [(ngModel)]="searchText">
+                aria-label="Search" [(ngModel)]="searchText"
+                [class.ux-toolbar-search-clear-offset]="searchText">
             <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
                 aria-label="Toggle Search" uxTooltip="Search">
                 <ux-icon name="search"></ux-icon>

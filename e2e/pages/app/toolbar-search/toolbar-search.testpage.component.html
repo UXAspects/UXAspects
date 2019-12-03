@@ -5,6 +5,7 @@
             [alwaysExpanded]="alwaysExpanded"
             [(expanded)]="expanded"
             direction="right"
+            background="white"
             (search)="onSearch($event)">
 
             <input uxToolbarSearchField
@@ -13,6 +14,7 @@
                 class="form-control"
                 placeholder="Search"
                 aria-label="Search"
+                [class.ux-toolbar-search-clear-offset]="searchText"
                 [(ngModel)]="searchText">
 
             <button uxToolbarSearchButton
@@ -53,6 +55,7 @@
             id="searchRight"
             [alwaysExpanded]="alwaysExpanded"
             direction="left"
+            background="white"
             (search)="onSearchRight()">
 
             <input uxToolbarSearchField
