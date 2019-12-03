@@ -208,7 +208,7 @@ describe('Select Tests', () => {
 
     });
 
-    fit('should disable selected countries when in multiple mode', async () => {
+    it('should disable selected countries when in multiple mode', async () => {
 
         // click on multiple button
         await page.clickOnCheckbox(page.checkboxMulti);
