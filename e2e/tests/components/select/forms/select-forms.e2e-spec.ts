@@ -280,6 +280,7 @@ describe('Select (forms) Tests', () => {
         await page.clickOnCountry(true, 70);
         expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
+        await page.clickOnDropdown(true);
         expect(await imageCompare('select-forms-multiple-disabled')).toEqual(0);
 
     });
