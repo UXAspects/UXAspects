@@ -275,13 +275,9 @@ describe('Select (forms) Tests', () => {
         // reselect countries and confirm that nothing happened
         await page.clickOnCountry(true, 60);
         expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
-
-        await page.clickOnDropdown(true);
         await page.clickOnCountry(true, 70);
         expect(await page.getSelectedLocationText()).toBe('[ "Cyprus", "Eritrea" ]');
 
-        await page.clickOnDropdown(true);
-        await page.clickOnCountry(true, 70);
         expect(await imageCompare('select-forms-multiple-disabled')).toEqual(0);
 
     });

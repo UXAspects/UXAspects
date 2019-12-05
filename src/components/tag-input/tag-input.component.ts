@@ -412,7 +412,7 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         this.tagInput.nativeElement.focus();
 
         // show the typeahead if we need to
-        this.toggle();
+        this.inputClickHandler();
     }
 
     tagClickHandler(event: MouseEvent, tag: T, index: number): void {
