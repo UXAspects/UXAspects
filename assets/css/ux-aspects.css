@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.9-18 
+* @ux-aspects/ux-aspects-docs - v1.8.10-24 
 * © Copyright 2019 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -21304,8 +21304,12 @@ ux-toolbar-search.expanded.left {
   right: -4px;
 }
 ux-toolbar-search.expanded [uxToolbarSearchField] {
+  padding-right: 35px;
   visibility: visible;
   transition: visibility 0s;
+}
+ux-toolbar-search.expanded [uxToolbarSearchField].ux-toolbar-search-clear-offset {
+  padding-right: 67px;
 }
 ux-toolbar-search.expanded [uxToolbarSearchButton] {
   right: 4px;

@@ -12297,7 +12297,7 @@
         DateRangePickerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-date-range-picker',
-                        template: "<div class=\"range-header\">\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n    <div *ngIf=\"rangeService.start\" class=\"date-header\">{{ rangeService.start | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.start | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n  <div class=\"header-separator\">\n    <ux-icon name=\"link-next\"></ux-icon>\n    <p class=\"duration\" [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n        {{ durationTitle(_duration || 0) }}\n    </p>\n  </div>\n\n  <div class=\"header-section\">\n    <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n    <div *ngIf=\"rangeService.end\" class=\"date-header\">{{ rangeService.end | date: 'd MMMM y' }}</div>\n    <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n        {{ rangeService.end | date: showMeridian ? 'shortTime' : 'HH:mm' }}\n    </div>\n  </div>\n\n</div>\n\n<div class=\"content\">\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"start\"\n    class=\"start-date-picker\"\n    [date]=\"rangeService.start\"\n    (dateChange)=\"startChange$.next($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"startTimezone\"\n    (timezoneChange)=\"startTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n\n  <ux-date-time-picker\n    uxDateRangePicker\n    picker=\"end\"\n    class=\"end-date-picker\"\n    [date]=\"rangeService.end\"\n    (dateChange)=\"endChange$.next($event)\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [weekdays]=\"weekdays\"\n    [startOfWeek]=\"startOfWeek\"\n    [showTime]=\"showTime\"\n    [showTimezone]=\"showTimezone\"\n    [showSeconds]=\"showSeconds\"\n    [showMeridian]=\"showMeridian\"\n    [showSpinners]=\"showSpinners\"\n    [months]=\"months\"\n    [monthsShort]=\"monthsShort\"\n    [meridians]=\"meridians\"\n    [nowBtnText]=\"nowBtnText\"\n    [showNowBtn]=\"showNowBtn\"\n    [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n    [timezones]=\"timezones\"\n    [(timezone)]=\"endTimezone\"\n    (timezoneChange)=\"endTimezoneChange.emit($event)\">\n  </ux-date-time-picker>\n</div>\n",
+                        template: "<div class=\"range-header\">\n\n    <div class=\"header-section\">\n        <div *ngIf=\"!rangeService.start\" class=\"select-header\">{{ selectStartTitle }}</div>\n        <div *ngIf=\"rangeService.start\" class=\"date-header\">\n            {{ rangeService.start | formatDate: dateFormat || 'd MMMM y' }}\n        </div>\n        <div [style.visibility]=\"rangeService.start && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n            {{ rangeService.start | formatDate: timeFormat || (showMeridian ? 'shortTime' : 'HH:mm') }}\n        </div>\n    </div>\n\n    <div class=\"header-separator\">\n        <ux-icon name=\"link-next\"></ux-icon>\n        <p class=\"duration\"\n           [style.visibility]=\"_duration !== null && _duration !== undefined ? 'visible' : 'hidden'\">\n            {{ durationTitle(_duration || 0) }}\n        </p>\n    </div>\n\n    <div class=\"header-section\">\n        <div *ngIf=\"!rangeService.end\" class=\"select-header\">{{ selectEndTitle }}</div>\n        <div *ngIf=\"rangeService.end\" class=\"date-header\">\n            {{ rangeService.end | formatDate: dateFormat || 'd MMMM y'}}\n        </div>\n        <div [style.visibility]=\"rangeService.end && showTime ? 'visible' : 'hidden'\" class=\"time-header\">\n            {{ rangeService.end | formatDate: timeFormat || (showMeridian ? 'shortTime' : 'HH:mm') }}\n        </div>\n    </div>\n\n</div>\n\n<div class=\"content\">\n    <ux-date-time-picker\n        uxDateRangePicker\n        picker=\"start\"\n        class=\"start-date-picker\"\n        [date]=\"rangeService.start\"\n        (dateChange)=\"startChange$.next($event)\"\n        [min]=\"min\"\n        [max]=\"max\"\n        [weekdays]=\"weekdays\"\n        [startOfWeek]=\"startOfWeek\"\n        [showTime]=\"showTime\"\n        [showTimezone]=\"showTimezone\"\n        [showSeconds]=\"showSeconds\"\n        [showMeridian]=\"showMeridian\"\n        [showSpinners]=\"showSpinners\"\n        [months]=\"months\"\n        [monthsShort]=\"monthsShort\"\n        [meridians]=\"meridians\"\n        [nowBtnText]=\"nowBtnText\"\n        [showNowBtn]=\"showNowBtn\"\n        [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n        [timezones]=\"timezones\"\n        [(timezone)]=\"startTimezone\"\n        (timezoneChange)=\"startTimezoneChange.emit($event)\">\n    </ux-date-time-picker>\n\n    <ux-date-time-picker\n        uxDateRangePicker\n        picker=\"end\"\n        class=\"end-date-picker\"\n        [date]=\"rangeService.end\"\n        (dateChange)=\"endChange$.next($event)\"\n        [min]=\"min\"\n        [max]=\"max\"\n        [weekdays]=\"weekdays\"\n        [startOfWeek]=\"startOfWeek\"\n        [showTime]=\"showTime\"\n        [showTimezone]=\"showTimezone\"\n        [showSeconds]=\"showSeconds\"\n        [showMeridian]=\"showMeridian\"\n        [showSpinners]=\"showSpinners\"\n        [months]=\"months\"\n        [monthsShort]=\"monthsShort\"\n        [meridians]=\"meridians\"\n        [nowBtnText]=\"nowBtnText\"\n        [showNowBtn]=\"showNowBtn\"\n        [nowBtnAriaLabel]=\"nowBtnAriaLabel\"\n        [timezones]=\"timezones\"\n        [(timezone)]=\"endTimezone\"\n        (timezoneChange)=\"endTimezoneChange.emit($event)\">\n    </ux-date-time-picker>\n</div>\n",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [DateRangeService]
                     }] }
@@ -12311,6 +12311,8 @@
         DateRangePickerComponent.propDecorators = {
             start: [{ type: i0.Input }],
             end: [{ type: i0.Input }],
+            dateFormat: [{ type: i0.Input }],
+            timeFormat: [{ type: i0.Input }],
             min: [{ type: i0.Input }],
             max: [{ type: i0.Input }],
             showTimezone: [{ type: i0.Input }],
@@ -16290,6 +16292,56 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var DateFormatterPipe = /** @class */ (function () {
+        function DateFormatterPipe() {
+        }
+        /**
+         * @param {?} value
+         * @param {?} formatter
+         * @return {?}
+         */
+        DateFormatterPipe.prototype.transform = /**
+         * @param {?} value
+         * @param {?} formatter
+         * @return {?}
+         */
+            function (value, formatter) {
+                // we may not initially have  a value
+                if (!value) {
+                    return '';
+                }
+                return typeof formatter === 'function' ? formatter(value) : common.formatDate(value, formatter, navigator.language);
+            };
+        DateFormatterPipe.decorators = [
+            { type: i0.Pipe, args: [{
+                        name: 'formatDate'
+                    },] }
+        ];
+        return DateFormatterPipe;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var DateFormatterPipeModule = /** @class */ (function () {
+        function DateFormatterPipeModule() {
+        }
+        DateFormatterPipeModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        exports: [DateFormatterPipe],
+                        declarations: [DateFormatterPipe]
+                    },] }
+        ];
+        return DateFormatterPipeModule;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var DateRangePickerModule = /** @class */ (function () {
         function DateRangePickerModule() {
         }
@@ -16298,11 +16350,12 @@
                         imports: [
                             common.CommonModule,
                             DateTimePickerModule,
-                            IconModule
+                            IconModule,
+                            DateFormatterPipeModule
                         ],
                         declarations: [
                             DateRangePickerComponent,
-                            DateRangePickerDirective
+                            DateRangePickerDirective,
                         ],
                         exports: [
                             DateRangePickerComponent
@@ -32366,7 +32419,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-page-header',
                         exportAs: 'ux-page-header',
-                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0 : -1\" [class.clickable]=\"_hasLogoClick\" class=\"page-header-logo-container\" role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo\" class=\"page-header-acronym\">{{header}}</h1>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <ux-icon name=\"previous\" class=\"text-primary\"></ux-icon>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\" [manual]=\"true\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
+                        template: "<div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n    <div *ngIf=\"!condensed\" class=\"page-header-content\">\n\n        <!-- Logo/product acronym -->\n        <div uxFocusIndicator (keydown.enter)=\"logoClick.emit($event)\" [attr.tabindex]=\"_hasLogoClick ? 0: -1\"\n             [class.page-header-logo-template]=\"logoTemplate\" [class.clickable]=\"_hasLogoClick\"\n             class=\"page-header-logo-container\"\n             role=\"presentation\" [style.backgroundColor]=\"logoBackground\" [style.color]=\"logoForeground\" (click)=\"logoClick.emit($event)\">\n            <img *ngIf=\"logo && !logoTemplate\" [attr.src]=\"logo\" [alt]=\"header\" class=\"page-header-logo\">\n            <h1 *ngIf=\"header && !logo && !logoTemplate\" class=\"page-header-acronym\">{{header}}</h1>\n            <ng-container *ngIf=\"logoTemplate\" [ngTemplateOutlet]=\"logoTemplate\"></ng-container>\n        </div>\n\n        <!-- Sub-title -->\n        <div *ngIf=\"subheader || subheaderTemplate || titleTemplate\" class=\"page-header-subtitle-container\">\n            <span *ngIf=\"subheader\" class=\"page-header-subtitle\">{{subheader}}</span>\n            <ng-container [ngTemplateOutlet]=\"subheaderTemplate || titleTemplate\"></ng-container>\n        </div>\n\n        <div class=\"page-header-state-container\" role=\"navigation\">\n\n            <!-- Back button -->\n            <button *ngIf=\"backVisible === true\" uxFocusIndicator type=\"button\" class=\"page-header-back-button\" (click)=\"backClick.emit($event)\" aria-label=\"Go Back\">\n                <ux-icon name=\"previous\" class=\"text-primary\"></ux-icon>\n            </button>\n\n            <!-- Breadcrumbs and header -->\n            <div class=\"page-header-title-container\">\n\n                <ux-breadcrumbs *ngIf=\"crumbs && crumbs.length > 0\"\n                    [class.ux-breadcrumbs-small]=\"crumbsStyle === 'small'\"\n                    [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                <h1 class=\"page-header-title\">{{header}}</h1>\n\n            </div>\n\n        </div>\n\n        <!-- Primary navigation -->\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <!-- Icon menus -->\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n    </div>\n\n    <!-- Display This Section Optimized for Condensed Mode -->\n    <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n        <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n        </div>\n\n        <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n            <!-- The Top Navigation Options -->\n            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n        </div>\n\n        <div class=\"page-header-icon-menus\" role=\"toolbar\">\n            <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n            <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n        </div>\n\n    </div>\n\n</div>\n\n<div *ngIf=\"secondaryNavigation && ((selectedRoot$ | async) !== (selected$ | async))\"\n    class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\">\n\n    <ux-tabset *ngIf=\"(selectedRoot$ | async)?.children; let children\" [manual]=\"true\">\n        <ux-tab *ngFor=\"let child of children\"\n            [heading]=\"child.title\"\n            [active]=\"child === (selected$ | async)\"\n            (select)=\"select(child)\"\n            [uxPageHeaderNavigationSecondaryItem]=\"child\"\n            [disabled]=\"child.disabled\">\n        </ux-tab>\n    </ux-tabset>\n\n</div>\n",
                         providers: [PageHeaderService]
                     }] }
         ];
@@ -32400,6 +32453,7 @@
             logoClick: [{ type: i0.Output }],
             titleTemplate: [{ type: i0.ContentChild, args: ['title', { static: false },] }],
             subheaderTemplate: [{ type: i0.ContentChild, args: ['subheader', { static: false },] }],
+            logoTemplate: [{ type: i0.ContentChild, args: ['logoTemplate', { static: false },] }],
             customMenus: [{ type: i0.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: i0.TemplateRef },] }]
         };
         return PageHeaderComponent;
@@ -50211,6 +50265,8 @@
     exports.FileSizePipe = FileSizePipe;
     exports.StringFilterPipe = StringFilterPipe;
     exports.StringFilterModule = StringFilterModule;
+    exports.DateFormatterPipeModule = DateFormatterPipeModule;
+    exports.DateFormatterPipe = DateFormatterPipe;
     exports.TimelineChartPlugin = TimelineChartPlugin;
     exports.TimelineChartModule = TimelineChartModule;
     exports.TimelineHandle = TimelineHandle;
