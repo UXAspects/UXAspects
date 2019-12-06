@@ -3,7 +3,8 @@
     <div class="demo-toolbar-left">
         <ux-toolbar-search [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
             <input uxToolbarSearchField #searchField type="text" class="form-control" placeholder="Search"
-                aria-label="Search" [(ngModel)]="searchText">
+                aria-label="Search" [(ngModel)]="searchText"
+                [class.ux-toolbar-search-clear-offset]="searchText">
             <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
                 aria-label="Toggle Search" uxTooltip="Search">
                 <ux-icon name="search"></ux-icon>
@@ -67,8 +68,13 @@
 
 <p>
     Other components can be added as required. The toolbar search component on the left above shows how to include an
-    optional "clear" button to the input field using the built-in <code>ux-toolbar-search-clear</code> class. Another
-    common use-case is to include a <a href="https://valor-software.com/ngx-bootstrap/#/typeahead">typeahead</a> list to
+    optional "clear" button to the input field using the built-in <code>ux-toolbar-search-clear</code> class.
+    If the "clear" button is added, you should add the <code>ux-toolbar-search-clear-offset</code> to the <code>input</code>
+    field element to apply the appropriate padding. The sample code shows an example of binding this class.
+</p>
+
+<p>
+    Another common use-case is to include a <a href="https://valor-software.com/ngx-bootstrap/#/typeahead">typeahead</a> list to
     hint results as the user is typing.
 </p>
 

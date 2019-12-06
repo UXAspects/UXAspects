@@ -138,6 +138,9 @@ export class PageHeaderComponent {
     /** Access a custom subheader template */
     @ContentChild('subheader', { static: false }) subheaderTemplate: TemplateRef<any>;
 
+    /** Define a custom logo template  */
+    @ContentChild('logoTemplate', { static: false }) logoTemplate: TemplateRef<any>;
+
     /** Access all the custom menu TemplateRefs */
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
 

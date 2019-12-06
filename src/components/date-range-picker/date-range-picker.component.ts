@@ -4,6 +4,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DateTimePickerTimezone, differenceBetweenDates, timezones as defaultTimezones } from '../date-time-picker/date-time-picker.utils';
 import { DateRangeService } from './date-range.service';
+import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
 
 @Component({
     selector: 'ux-date-range-picker',
@@ -22,6 +23,12 @@ export class DateRangePickerComponent implements OnDestroy {
     @Input() set end(end: Date) {
         this.rangeService.end = end;
     }
+
+    /** Define the date localization that should be used can be either a string on a function */
+    @Input() dateFormat: string | DateFormatter;
+
+    /** Define the time localization that should be used can be either a string on a function */
+    @Input() timeFormat: string | DateFormatter;
 
     /** The earliest selectable date. */
     @Input() min: Date;
