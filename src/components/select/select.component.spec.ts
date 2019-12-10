@@ -241,7 +241,6 @@ describe('Select Component', () => {
         component.input = 'One';
         component.value = 'One';
         fixture.detectChanges();
-        // expect(component.value).toBe('One');
 
         // click on icon to open typeahead, expect a class of open
         getCustomIcon().click();
@@ -339,7 +338,6 @@ describe('Select Component - Value Input', () => {
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
-        // expect(component.value).toBe('One');
 
         // click on icon to open typeahead, expect a class of open
         getCustomIcon().click();
@@ -436,7 +434,6 @@ describe('Select Component - NgModel Input', () => {
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
-        // expect(component.value).toBe('One');
 
         // click on icon to open typeahead, expect a class of open
         getCustomIcon().click();
@@ -539,7 +536,6 @@ describe('Select Component - Reactive Form Input', () => {
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
-        // expect(component.value).toBe('One');
 
         // click on icon to open typeahead, expect a class of open
         getCustomIcon().click();
