@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Optional, Output, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -102,7 +102,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
     /** Store the current valid state */
     _valid: boolean = true;
 
-    /* */
+    /** Setting the isDestroy variable */
     private _isDestroyed: boolean = false;
 
 
@@ -163,12 +163,11 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
         if (value !== undefined) {
             this._value = value;
             this._valid = this.isValid();
-
             // if the component is not destroyed then run change detection
             // workaround for Angular bug (https://portal.digitalsafe.net/browse/EL-3694)
             if (!this._isDestroyed) {
-            this._changeDetector.detectChanges();
-        }
+                this._changeDetector.detectChanges();
+            }
         }
     }
 
