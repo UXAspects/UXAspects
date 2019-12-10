@@ -31,8 +31,8 @@
                [placeholder]="disabled ? '' : (placeholder || '')"
                [disabled]="disabled"
                [focusIf]="isSelected(tags.length)"
-               (click)="toggle(); $event.stopPropagation(); onTouched.emit()"
-               (focus)="inputFocusHandler()"
+               (click)="toggle(); $event.stopPropagation()"
+               (focus)="inputFocusHandler(); onTouched.emit()"
                (paste)="inputPasteHandler($event)"
                [readonly]="readonlyInput">
     </li>
