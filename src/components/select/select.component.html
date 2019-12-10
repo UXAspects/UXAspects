@@ -13,6 +13,7 @@
     [freeInput]="false"
     [placeholder]="placeholder || ''"
     [tagTemplate]="tagTemplate"
+    (onTouched)="onFocus()"
     [showTypeaheadOnClick]="true"
     [readonlyInput]="readonlyInput"
     [icon]="icon"
@@ -83,7 +84,7 @@
         <div *ngIf="icon" class="ux-custom-icon">
             <ng-container [ngTemplateOutlet]="icon"></ng-container>
         </div>
-        
+
     </div>
 
     <ux-typeahead #singleTypeahead

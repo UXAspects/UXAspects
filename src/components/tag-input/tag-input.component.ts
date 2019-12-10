@@ -192,6 +192,9 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     /** Raised when a tag has been clicked. The `tag` property of the event contains the clicked tag. Call `preventDefault()` on the event to prevent the default behaviour of selecting the tag. */
     @Output() tagClick = new EventEmitter<TagInputEvent>();
 
+    // When clicking on the input during mutliple mode it will send a on touched event to the parent component
+    @Output() onTouched = new EventEmitter<TagInputEvent>();
+
     @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
     @ViewChild('tagInput', { static: false }) tagInput: ElementRef;
