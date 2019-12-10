@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SelectModule } from './select.module';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from './select.module';
 
 @Component({
     selector: 'app-select-test',
     template: `
-        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton" [placeholder]="placeholder"></ux-select>
+        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton" [placeholder]="placeholder">
+            <ng-template #icon *ngIf="multiple">
+                <div class="ux-select-icon">
+                    <i class="ux-icon ux-icon-add"></i>
+                </div>
+            </ng-template>
+        </ux-select>
     `
 })
 export class SelectTestComponent {
@@ -46,14 +52,14 @@ describe('Select Component', () => {
     });
 
     it('should display placeholder as empty string if not set', () => {
-       let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
-       expect(placeholderTextInitial).toBe('');
+        let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderTextInitial).toBe('');
 
-       component.placeholder = 'Placeholder Text';
-       fixture.detectChanges();
+        component.placeholder = 'Placeholder Text';
+        fixture.detectChanges();
 
-       let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
-       expect(placeholderText).toBe('Placeholder Text');
+        let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderText).toBe('Placeholder Text');
     });
 
     it('should not call valueChange on initialization of single select', () => {
@@ -229,16 +235,49 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
+    it('should close the typeahead once the custom icon is clicked on after opening', () => {
+        component.multiple = true;
+        fixture.detectChanges();
+        component.input = 'One';
+        component.value = 'One';
+        fixture.detectChanges();
+        // expect(component.value).toBe('One');
+
+        // click on icon to open typeahead, expect a class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
+
+        // Click on button again to close, expect no class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
 
     function getClearButton(isMultiple: boolean = false): HTMLElement | null {
         return nativeElement.querySelector(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
+    }
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
+
+    function getCustomIcon(): HTMLElement | null {
+        return nativeElement.querySelector('.ux-tag-icons');
     }
 });
 
 @Component({
     selector: 'app-select-value-test',
     template: `
-        <ux-select (valueChange)="onValueChange()" [(value)]="value" [options]="options" [multiple]="multiple"></ux-select>
+        <ux-select (valueChange)="onValueChange()" [(value)]="value" [options]="options" [multiple]="multiple">
+            <ng-template #icon *ngIf="multiple">
+                <div class="ux-select-icon">
+                    <i class="ux-icon ux-icon-add"></i>
+                </div>
+            </ng-template>
+        </ux-select>
     `
 })
 
@@ -270,7 +309,7 @@ describe('Select Component - Value Input', () => {
         nativeElement = fixture.nativeElement;
     });
 
-    it('should have an initial value set to One', async() => {
+    it('should have an initial value set to One', async () => {
         component.value = component.options[0];
         fixture.autoDetectChanges();
         await fixture.whenStable();
@@ -295,12 +334,43 @@ describe('Select Component - Value Input', () => {
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
+
+    it('should close the typeahead once the custom icon is clicked on after opening', () => {
+        component.multiple = true;
+        component.value = [component.options[0]];
+        fixture.detectChanges();
+        // expect(component.value).toBe('One');
+
+        // click on icon to open typeahead, expect a class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
+
+        // Click on button again to close, expect no class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
+
+    function getCustomIcon(): HTMLElement | null {
+        return nativeElement.querySelector('.ux-tag-icons');
+    }
 });
 
 @Component({
     selector: 'app-select-ng-model-test',
     template: `
-        <ux-select (ngModelChange)="onValueChange()" [(ngModel)]="value" [options]="options" [multiple]="multiple"></ux-select>
+        <ux-select (ngModelChange)="onValueChange()" [(ngModel)]="value" [options]="options" [multiple]="multiple">
+            <ng-template #icon *ngIf="multiple">
+                <div class="ux-select-icon">
+                    <i class="ux-icon ux-icon-add"></i>
+                </div>
+            </ng-template>
+        </ux-select>
     `
 })
 
@@ -361,13 +431,45 @@ describe('Select Component - NgModel Input', () => {
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
+
+    it('should close the typeahead once the custom icon is clicked on after opening', () => {
+        component.multiple = true;
+        component.value = [component.options[0]];
+        fixture.detectChanges();
+        // expect(component.value).toBe('One');
+
+        // click on icon to open typeahead, expect a class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
+
+        // Click on button again to close, expect no class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
+
+    function getCustomIcon(): HTMLElement | null {
+        return nativeElement.querySelector('.ux-tag-icons');
+    }
 });
 
 @Component({
     selector: 'app-select-reactive-form-test',
     template: `
         <form [formGroup]="form">
-            <ux-select formControlName="select" [options]="options" [multiple]="multiple"></ux-select>
+            <ux-select formControlName="select" [options]="options" [multiple]="multiple">
+                <ng-template #icon *ngIf="multiple">
+                    <div class="ux-select-icon">
+                        <i class="ux-icon ux-icon-add"></i>
+                    </div>
+                </ng-template>
+            </ux-select>
         </form>
     `
 })
@@ -432,4 +534,30 @@ describe('Select Component - Reactive Form Input', () => {
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
+
+    it('should close the typeahead once the custom icon is clicked on after opening', () => {
+        component.multiple = true;
+        component.value = [component.options[0]];
+        fixture.detectChanges();
+        // expect(component.value).toBe('One');
+
+        // click on icon to open typeahead, expect a class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
+
+        // Click on button again to close, expect no class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
+
+    function getCustomIcon(): HTMLElement | null {
+        return nativeElement.querySelector('.ux-tag-icons');
+    }
 });
