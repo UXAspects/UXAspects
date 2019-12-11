@@ -75,6 +75,11 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         this._columnSpan.regular = this.colSpan;
         this._rowSpan.regular = this.rowSpan;
 
+        // added the 2 below lines
+        this._rowSpan.stacked = this.rowSpan;
+
+        this.render();
+
         if (!this.id) {
             console.warn('Dashboard Widget is missing an ID.');
 
@@ -117,7 +122,9 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      */
     render(): void {
         this.x = this.getColumn() * this.dashboardService.getColumnWidth();
-        this.y = this.getRow() * this.dashboardService.getRowHeight();
+        // added previously this.y = this.getRow() * this.dashboardService.getRowHeight();
+        this.y = this.getRow() * this.width;
+
         this.width = this.getColumnSpan() * this.dashboardService.getColumnWidth();
         this.height = this.getRowSpan() * this.dashboardService.getRowHeight();
     }
