@@ -172,6 +172,16 @@
     <tr uxd-api-property name="endPickerAriaLabel" type="string" defaultValue="Selecting the end date">
         Defines the aria-live announcement when a date in the end picker is focused.
     </tr>
+    <tr uxd-api-property name="dateFormat" type="string | (date: Date) => string">
+        Allows formatting of the start/end date strings. The pre-defined date formats can be found at
+        <a href="https://angular.io/api/common/DatePipe#pre-defined-format-options">Date Pipe</a> format
+        options.
+    </tr>
+    <tr uxd-api-property name="timeFormat" type="string | (date: Date) => string">
+        Allows formatting of the start/end time strings. The pre-defined time formats can be found at
+        <a href="https://angular.io/api/common/DatePipe#pre-defined-format-options">Date Pipe</a> format
+        options.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
