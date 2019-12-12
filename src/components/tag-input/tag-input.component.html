@@ -32,7 +32,7 @@
                [disabled]="disabled"
                [focusIf]="isSelected(tags.length)"
                (click)="toggle(); $event.stopPropagation()"
-               (focus)="inputFocusHandler(); inputFocus.emit()"
+               (focus)="inputFocusHandler(); inputFocus.emit($event)"
                (paste)="inputPasteHandler($event)"
                [readonly]="readonlyInput">
     </li>
