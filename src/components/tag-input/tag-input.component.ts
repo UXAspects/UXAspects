@@ -687,10 +687,6 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
         this.inputChange.emit(text);
     }
 
-    setInputFocus(event: FocusEvent) {
-        this.inputFocus.emit(event);
-    }
-
     setTagsValue(tags: ReadonlyArray<T>): void {
         this._onChangeHandler(tags);
         this.tagsChange.emit(tags);
