@@ -238,8 +238,7 @@ describe('Select Component', () => {
 @Component({
     selector: 'app-select-value-test',
     template: `
-        <ux-select (valueChange)="onValueChange()" [(value)]="value" [options]="options" [multiple]="multiple">
-        </ux-select>
+        <ux-select (valueChange)="onValueChange()" [(value)]="value" [options]="options" [multiple]="multiple"></ux-select>
     `
 })
 
@@ -301,8 +300,7 @@ describe('Select Component - Value Input', () => {
 @Component({
     selector: 'app-select-ng-model-test',
     template: `
-        <ux-select (ngModelChange)="onValueChange()" [(ngModel)]="value" [options]="options" [multiple]="multiple">
-        </ux-select>
+        <ux-select (ngModelChange)="onValueChange()" [(ngModel)]="value" [options]="options" [multiple]="multiple"></ux-select>
     `
 })
 
@@ -369,8 +367,7 @@ describe('Select Component - NgModel Input', () => {
     selector: 'app-select-reactive-form-test',
     template: `
         <form [formGroup]="form">
-            <ux-select formControlName="select" [options]="options" [multiple]="multiple">
-            </ux-select>
+            <ux-select formControlName="select" [options]="options" [multiple]="multiple"></ux-select>
         </form>
     `
 })
