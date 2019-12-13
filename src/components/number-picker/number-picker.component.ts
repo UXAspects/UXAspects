@@ -102,8 +102,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
     /** Store the current valid state */
     _valid: boolean = true;
 
-    /**To determine if the component has been destroyed to avoid change detection being after the component
-     * is no longer instantiated. A workaround for Angular Forms bug (https://portal.digitalsafe.net/browse/EL-369) */
+    /** This is a flag to indicate when the component has been destroyed to avoid change detection being made after the component
+     *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
     private _isDestroyed: boolean = false;
 
 
