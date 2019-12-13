@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SelectModule } from './select.module';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from './select.module';
 
 @Component({
     selector: 'app-select-test',
@@ -46,14 +46,14 @@ describe('Select Component', () => {
     });
 
     it('should display placeholder as empty string if not set', () => {
-       let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
-       expect(placeholderTextInitial).toBe('');
+        let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderTextInitial).toBe('');
 
-       component.placeholder = 'Placeholder Text';
-       fixture.detectChanges();
+        component.placeholder = 'Placeholder Text';
+        fixture.detectChanges();
 
-       let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
-       expect(placeholderText).toBe('Placeholder Text');
+        let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderText).toBe('Placeholder Text');
     });
 
     it('should not call valueChange on initialization of single select', () => {
@@ -270,7 +270,7 @@ describe('Select Component - Value Input', () => {
         nativeElement = fixture.nativeElement;
     });
 
-    it('should have an initial value set to One', async() => {
+    it('should have an initial value set to One', async () => {
         component.value = component.options[0];
         fixture.autoDetectChanges();
         await fixture.whenStable();
@@ -361,6 +361,34 @@ describe('Select Component - NgModel Input', () => {
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
+
+    it('should change from untouched to touched when clicking the input in single mode', async () => {
+        component.multiple = false;
+        component.value = component.options[0];
+        fixture.autoDetectChanges();
+        await fixture.whenStable();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-untouched');
+
+        getSelect(component.multiple).click();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
+
+    });
+
+    it('should change from untouched to touched when clicking the input in multiple mode', async () => {
+        component.multiple = true;
+        component.value = [component.options[0]];
+        fixture.autoDetectChanges();
+        await fixture.whenStable();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-untouched');
+
+        getSelect(component.multiple).click();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
+
+    });
+
+    function getSelect(isMultiple: boolean): HTMLElement | null {
+        return nativeElement.querySelector(`ux-select ${isMultiple ? 'ux-tag-input' : 'input.form-control'}`);
+    }
 });
 
 @Component({
