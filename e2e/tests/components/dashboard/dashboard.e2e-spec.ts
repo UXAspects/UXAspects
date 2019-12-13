@@ -287,7 +287,6 @@ describe('Dashboard Tests', () => {
 
     it('should not change the order of widgets when moving from regular to stacked mode', async () => {
         // drag the top widget down
-        // drag the top widget down
         await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
 
         expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220);
@@ -311,6 +310,13 @@ describe('Dashboard Tests', () => {
 
         expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
         expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(220);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
+
 
         expect(await imageCompare('dashboard-stacked-mode-widget-order')).toEqual(0);
     });
