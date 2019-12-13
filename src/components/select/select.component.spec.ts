@@ -481,7 +481,7 @@ describe('Select Component - With custom Icon', () => {
         nativeElement = fixture.nativeElement;
     });
 
-    it('Clicking custom icon should close dropdown in multiple mode', () => {
+    it('should close the dropdown when clicking on custom icon multiple mode', () => {
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
@@ -498,7 +498,7 @@ describe('Select Component - With custom Icon', () => {
         fixture.detectChanges();
     });
 
-    it('Clicking custom icon should close dropdown in single mode', () => {
+    it('should close the dropdown when clicking on custom icon single mode', () => {
         component.multiple = false;
         component.value = component.options[0];
         fixture.detectChanges();
