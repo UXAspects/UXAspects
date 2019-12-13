@@ -362,7 +362,7 @@ describe('Select Component - NgModel Input', () => {
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
 
-    fit('should change from untouched to touched when clicking the input in single mode', async () => {
+    it('should change from untouched to touched when clicking the input in single mode', async () => {
         component.multiple = false;
         component.value = component.options[0];
         fixture.detectChanges();
@@ -375,7 +375,7 @@ describe('Select Component - NgModel Input', () => {
 
     });
 
-    fit('should change from untouched to touched when clicking the input in multiple mode', async () => {
+    it('should change from untouched to touched when clicking the input in multiple mode', async () => {
         component.multiple = true;
         component.value = [component.options[0]];
         fixture.detectChanges();
