@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SelectModule } from './select.module';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from './select.module';
 
 @Component({
     selector: 'app-select-test',
@@ -46,14 +46,14 @@ describe('Select Component', () => {
     });
 
     it('should display placeholder as empty string if not set', () => {
-       let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
-       expect(placeholderTextInitial).toBe('');
+        let placeholderTextInitial = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderTextInitial).toBe('');
 
-       component.placeholder = 'Placeholder Text';
-       fixture.detectChanges();
+        component.placeholder = 'Placeholder Text';
+        fixture.detectChanges();
 
-       let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
-       expect(placeholderText).toBe('Placeholder Text');
+        let placeholderText = fixture.nativeElement.querySelector('input').placeholder;
+        expect(placeholderText).toBe('Placeholder Text');
     });
 
     it('should not call valueChange on initialization of single select', () => {
@@ -229,7 +229,6 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
-
     function getClearButton(isMultiple: boolean = false): HTMLElement | null {
         return nativeElement.querySelector(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
     }
@@ -270,7 +269,7 @@ describe('Select Component - Value Input', () => {
         nativeElement = fixture.nativeElement;
     });
 
-    it('should have an initial value set to One', async() => {
+    it('should have an initial value set to One', async () => {
         component.value = component.options[0];
         fixture.autoDetectChanges();
         await fixture.whenStable();
@@ -432,4 +431,96 @@ describe('Select Component - Reactive Form Input', () => {
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
+});
+
+@Component({
+    selector: 'app-select-test',
+    template: `
+        <ux-select (valueChange)="onValueChange()" (inputChange)="onInputChange()" *ngIf="visible" [(input)]="input" [(value)]="value" [options]="options" [multiple]="multiple" [allowNull]="allowNull" [clearButton]="clearButton" [placeholder]="placeholder">
+            <ng-template #icon *ngIf="multiple">
+                <div class="ux-select-icon">
+                    <i class="ux-icon ux-icon-add"></i>
+                </div>
+            </ng-template>
+        </ux-select>
+    `
+})
+
+export class SingleSelectWithCustomIconTestComponent {
+
+    onValueChange(): void { }
+    getCustomIcon(): void { }
+    onInputChange(): void { }
+
+    input: string = '';
+    value: string | string[];
+    options: string[] = ['One', 'Two', 'Three'];
+    multiple: boolean = false;
+    allowNull: boolean = false;
+    clearButton: boolean = false;
+    visible: boolean = true;
+    placeholder: string;
+}
+
+describe('Select Component - With custom Icon', () => {
+    let component: SingleSelectWithCustomIconTestComponent;
+    let fixture: ComponentFixture<SingleSelectWithCustomIconTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [SelectModule],
+            declarations: [SingleSelectWithCustomIconTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SingleSelectWithCustomIconTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+    });
+
+    it('should close the dropdown when clicking on custom icon multiple mode', () => {
+        component.multiple = true;
+        component.value = [component.options[0]];
+        fixture.detectChanges();
+
+        // click on icon to open typeahead, expect a class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
+
+        // Click on button again to close, expect no class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+        fixture.detectChanges();
+    });
+
+    it('should close the dropdown when clicking on custom icon single mode', () => {
+        component.multiple = false;
+        component.value = component.options[0];
+        fixture.detectChanges();
+
+        // click on icon to open typeahead, expect a class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
+        fixture.detectChanges();
+
+        // Click on button again to close, expect no class of open
+        getCustomIcon().click();
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+        fixture.detectChanges();
+    });
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
+
+    function getCustomIcon(): HTMLElement | null {
+        return nativeElement.querySelector('.ux-select-icon');
+    }
 });
