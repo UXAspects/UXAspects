@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Optional, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -18,7 +18,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
         '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
 })
-export class NumberPickerComponent implements ControlValueAccessor {
+export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
 
     private _min: number = -Infinity;
     private _max: number = Infinity;
@@ -102,10 +102,20 @@ export class NumberPickerComponent implements ControlValueAccessor {
     /** Store the current valid state */
     _valid: boolean = true;
 
+    /** This is a flag to indicate when the component has been destroyed to avoid change detection being made after the component
+     *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803) */
+    private _isDestroyed: boolean = false;
+
+
     constructor(
         private _changeDetector: ChangeDetectorRef,
         @Optional() public _formGroup: FormGroupDirective
+
     ) { }
+
+    ngOnDestroy(): void {
+        this._isDestroyed = true;
+    }
 
     increment(event?: MouseEvent | KeyboardEvent): void {
         if (event) {
@@ -154,7 +164,11 @@ export class NumberPickerComponent implements ControlValueAccessor {
         if (value !== undefined) {
             this._value = value;
             this._valid = this.isValid();
-            this._changeDetector.detectChanges();
+            // if the component is not destroyed then run change detection
+            // workaround for Angular bug (https://portal.digitalsafe.net/browse/EL-3694)
+            if (!this._isDestroyed) {
+                this._changeDetector.detectChanges();
+            }
         }
     }
 
