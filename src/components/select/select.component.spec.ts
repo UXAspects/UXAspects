@@ -360,6 +360,36 @@ describe('Select Component - NgModel Input', () => {
 
         expect(component.onValueChange).not.toHaveBeenCalled();
     });
+
+    it('should change from untouched to touched when clicking the input in single mode', async () => {
+        component.multiple = false;
+        component.value = component.options[0];
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-untouched');
+
+        getSelect(component.multiple).click();
+        fixture.detectChanges();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
+
+    });
+
+    it('should change from untouched to touched when clicking the input in multiple mode', async () => {
+        component.multiple = true;
+        component.value = [component.options[0]];
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-untouched');
+
+        getSelect(component.multiple).click();
+        fixture.detectChanges();
+        expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
+
+    });
+
+    function getSelect(isMultiple: boolean): HTMLElement | null {
+        return nativeElement.querySelector(`ux-select ${isMultiple ? 'ux-tag-input' : 'input.form-control'}`);
+    }
 });
 
 @Component({
