@@ -169,15 +169,15 @@ export class DashboardService implements OnDestroy {
             const w1Position = w1.getColumn(DashboardStackMode.Regular) + (w1.getRow(DashboardStackMode.Regular) * this.options.columns);
             const w2Position = w2.getColumn(DashboardStackMode.Regular) + (w2.getRow(DashboardStackMode.Regular) * this.options.columns);
 
-                if (w1Position < w2Position) {
-                    return -1;
-                }
+            if (w1Position < w2Position) {
+                return -1;
+            }
 
-                if (w1Position > w2Position) {
-                    return 1;
-                }
+            if (w1Position > w2Position) {
+                return 1;
+            }
 
-                return 0;
+            return 0;
 
         });
     }
