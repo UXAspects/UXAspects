@@ -282,7 +282,7 @@ describe('Dashboard Tests', () => {
         // rowSpan remains as 2 in stacked mode
         expect(widgetSpan).toContain('widget-row-span-2');
 
-        expect(await  imageCompareFullPageScreen('dashboard-stacked-mode-rowSpan')).toEqual(0);
+        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-rowSpan')).toEqual(0);
     });
 
     it('should not change the order of widgets when moving from regular to stacked mode', async () => {
@@ -318,6 +318,6 @@ describe('Dashboard Tests', () => {
         expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
 
 
-        expect(await  imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
+        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
     });
 });
