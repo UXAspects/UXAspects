@@ -3,6 +3,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
+0
 
 @Component({
     selector: 'uxd-components-media-player',
@@ -14,6 +15,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
 
     type: string = 'video';
     mode: string = 'standard';
+    displayName: string = 'Display Name';
 
     videoSource: string = require('../../../../../assets/media/catchingwave.mp4');
     audioSource: string = require('../../../../../assets/media/Ocean-Waves.mp3');
@@ -26,7 +28,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['RadioButtonModule', 'MediaPlayerModule', 'AccordionModule'],
+            imports: ['RadioButtonModule', 'MediaPlayerModule', 'AccordionModule', 'SelectModule', 'FormsModule', 'ReactiveFormsModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };
