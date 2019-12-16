@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule, MediaPlayerModule, RadioButtonModule, TabsetModule } from '@ux-aspects/ux-aspects';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -27,6 +28,7 @@ const ROUTES = [
         MediaPlayerModule,
         RadioButtonModule,
         AccordionModule,
+        FormsModule,
         DocumentationComponentsModule,
         CommonModule,
         RouterModule.forChild(ROUTES)
