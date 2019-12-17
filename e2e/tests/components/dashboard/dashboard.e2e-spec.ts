@@ -1,5 +1,5 @@
 import { browser, ElementFinder, Key } from 'protractor';
-import { imageCompare } from '../common/image-compare';
+import { imageCompare, imageCompareFullPageScreen } from '../common/image-compare';
 import { DashboardPage, Direction } from './dashboard.po.spec';
 
 describe('Dashboard Tests', () => {
@@ -270,5 +270,66 @@ describe('Dashboard Tests', () => {
         let announcement = await page.getAnnouncerText();
 
         expect(announcement).toBe('Moving and resizing cancelled. Dashboard with 4 columns, containing 4 panels. Usage Analytics panel in row 0, column 0, is 4 columns wide and 2 rows high. Service panel in row 2, column 0, is 2 columns wide and 1 rows high. Users panel in row 2, column 2, is 1 columns wide and 1 rows high. Alert panel in row 2, column 3, is 1 columns wide and 1 rows high. Press space to move and resize the Usage Analytics panel.');
+    });
+
+    it('should allow the rowSpan to remain the same size in stacked mode as regular mode', async () => {
+        // resize page so in stacked mode
+        await browser.driver.manage().window().setSize(400, 600);
+
+        // check we are in grab mode
+        const widgetSpan = await widget1.$('div').getAttribute('class');
+
+        // rowSpan remains as 2 in stacked mode
+        expect(widgetSpan).toContain('widget-row-span-2');
+
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(660);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(880);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
+
+        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-rowSpan')).toEqual(0);
+    });
+
+    it('should not change the order of widgets when moving from regular to stacked mode', async () => {
+        // drag the top widget down
+        await browser.actions().dragAndDrop(widget1, { x: 0, y: 250 }).perform();
+
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(220);
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(554);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(831);
+
+        // resize page so in stacked mode
+        await browser.driver.manage().window().setSize(400, 600);
+
+        // expect the widgets not to shift order
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(660);
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(220);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
+
+
+        expect(await imageCompareFullPageScreen('dashboard-stacked-mode-widget-order')).toEqual(0);
     });
 });
