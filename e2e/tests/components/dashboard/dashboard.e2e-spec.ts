@@ -282,6 +282,18 @@ describe('Dashboard Tests', () => {
         // rowSpan remains as 2 in stacked mode
         expect(widgetSpan).toContain('widget-row-span-2');
 
+        expect(await page.getWidgetLocationValue(widget1, 'top')).toBe(0);
+        expect(await page.getWidgetLocationValue(widget1, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget2, 'top')).toBe(440);
+        expect(await page.getWidgetLocationValue(widget2, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget3, 'top')).toBe(660);
+        expect(await page.getWidgetLocationValue(widget3, 'left')).toBe(0);
+
+        expect(await page.getWidgetLocationValue(widget4, 'top')).toBe(880);
+        expect(await page.getWidgetLocationValue(widget4, 'left')).toBe(0);
+
         expect(await imageCompareFullPageScreen('dashboard-stacked-mode-rowSpan')).toEqual(0);
     });
 
