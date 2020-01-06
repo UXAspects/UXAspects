@@ -5980,6 +5980,11 @@
              * Store the current valid state
              */
             this._valid = true;
+            /**
+             * This is a flag to indicate when the component has been destroyed to avoid change detection being made after the component
+             *  is no longer instantiated. A workaround for Angular Forms bug (https://github.com/angular/angular/issues/27803)
+             */
+            this._isDestroyed = false;
         }
         Object.defineProperty(NumberPickerComponent.prototype, "value", {
             /** Sets the value displayed in the number picker component. */
@@ -6079,6 +6084,15 @@
             configurable: true
         });
         /**
+         * @return {?}
+         */
+        NumberPickerComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this._isDestroyed = true;
+            };
+        /**
          * @param {?=} event
          * @return {?}
          */
@@ -6153,7 +6167,11 @@
                 if (value !== undefined) {
                     this._value = value;
                     this._valid = this.isValid();
-                    this._changeDetector.detectChanges();
+                    // if the component is not destroyed then run change detection
+                    // workaround for Angular bug (https://portal.digitalsafe.net/browse/EL-3694)
+                    if (!this._isDestroyed) {
+                        this._changeDetector.detectChanges();
+                    }
                 }
             };
         /**
@@ -8431,6 +8449,20 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /** @enum {number} */
+    var DashboardStackMode = {
+        Regular: 0,
+        Stacked: 1,
+        /** Determine the mode automatically based on dashboard width. */
+        Auto: 2,
+    };
+    DashboardStackMode[DashboardStackMode.Regular] = 'Regular';
+    DashboardStackMode[DashboardStackMode.Stacked] = 'Stacked';
+    DashboardStackMode[DashboardStackMode.Auto] = 'Auto';
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var DashboardService = /** @class */ (function () {
         function DashboardService() {
             var _this = this;
@@ -8668,25 +8700,32 @@
          * @return {?}
          */
             function () {
-                // iterate through each widget set it's stacked state and
-                this.getWidgetsByOrder().forEach(function (widget, idx) {
+                // iterate through each widget set it's stacked state and retain the rowSpan
+                this.getWidgetsByOrder().forEach(function (widget, idx, widgets) {
+                    /** @type {?} */
+                    var widgetsAbove = widgets.slice(0, idx);
+                    /** @type {?} */
+                    var row = widgetsAbove.reduce(function (currentRow, _widget) { return currentRow + _widget.getRowSpan(); }, 0);
                     widget.setColumn(0);
-                    widget.setRow(idx);
+                    widget.setRow(row);
                 });
             };
+        /** Get widgets in the order they visually appear as the widgets array order does not reflect this */
         /**
+         * Get widgets in the order they visually appear as the widgets array order does not reflect this
          * @return {?}
          */
         DashboardService.prototype.getWidgetsByOrder = /**
+         * Get widgets in the order they visually appear as the widgets array order does not reflect this
          * @return {?}
          */
             function () {
                 var _this = this;
-                return this.widgets.sort(function (w1, w2) {
+                return __spread(this.widgets).sort(function (w1, w2) {
                     /** @type {?} */
-                    var w1Position = w1.getColumn() + (w1.getRow() * _this.options.columns);
+                    var w1Position = w1.getColumn(DashboardStackMode.Regular) + (w1.getRow(DashboardStackMode.Regular) * _this.options.columns);
                     /** @type {?} */
-                    var w2Position = w2.getColumn() + (w2.getRow() * _this.options.columns);
+                    var w2Position = w2.getColumn(DashboardStackMode.Regular) + (w2.getRow(DashboardStackMode.Regular) * _this.options.columns);
                     if (w1Position < w2Position) {
                         return -1;
                     }
@@ -9797,7 +9836,7 @@
                     distance = 1;
                 }
                 // move the widget down one position
-                widget.setRow(widget.getRow() + distance);
+                widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
                 // check every space the widget occupies for collisions
                 this.forEachBlock(widget, function (column, row) {
                     return _this.getWidgetsAtPosition(column, row, true)
@@ -10173,6 +10212,7 @@
             function () {
                 this._columnSpan.regular = this.colSpan;
                 this._rowSpan.regular = this.rowSpan;
+                this._rowSpan.stacked = this.rowSpan;
                 if (!this.id) {
                     console.warn('Dashboard Widget is missing an ID.');
                     // set random id - keeps things working but prevents exporting of positions
@@ -10242,22 +10282,46 @@
                 this.height = this.getRowSpan() * this.dashboardService.getRowHeight();
             };
         /**
+         * @param {?=} mode
          * @return {?}
          */
         DashboardWidgetComponent.prototype.getColumn = /**
+         * @param {?=} mode
          * @return {?}
          */
-            function () {
-                return this.getStackableValue(this._column);
+            function (mode) {
+                if (mode === void 0) {
+                    mode = DashboardStackMode.Auto;
+                }
+                switch (mode) {
+                    case DashboardStackMode.Auto:
+                        return this.getStackableValue(this._column);
+                    case DashboardStackMode.Regular:
+                        return this._column.regular;
+                    case DashboardStackMode.Stacked:
+                        return this._column.stacked;
+                }
             };
         /**
+         * @param {?=} mode
          * @return {?}
          */
         DashboardWidgetComponent.prototype.getRow = /**
+         * @param {?=} mode
          * @return {?}
          */
-            function () {
-                return this.getStackableValue(this._row);
+            function (mode) {
+                if (mode === void 0) {
+                    mode = DashboardStackMode.Auto;
+                }
+                switch (mode) {
+                    case DashboardStackMode.Auto:
+                        return this.getStackableValue(this._row);
+                    case DashboardStackMode.Regular:
+                        return this._row.regular;
+                    case DashboardStackMode.Stacked:
+                        return this._row.stacked;
+                }
             };
         /**
          * @param {?} column
@@ -36993,12 +37057,13 @@
              * Emits when `dropdownOpen` changes.
              */
             this.dropdownOpenChange = new i0.EventEmitter();
-            this.propagateChange = function (_) { };
             this._value$ = new rxjs.ReplaySubject(1);
             this._hasValue = false;
             this._input$ = new rxjs.BehaviorSubject('');
             this._dropdownOpen = false;
             this._userInput = false;
+            this._onChange = function (_) { };
+            this._onTouched = function () { };
             this._onDestroy = new rxjs.Subject();
         }
         Object.defineProperty(SelectComponent.prototype, "value", {
@@ -37066,7 +37131,7 @@
                 // Emit change events
                 this._value$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
                     _this._value = value;
-                    _this.propagateChange(value);
+                    _this._onChange(value);
                     _this._hasValue = !!value;
                 });
                 this._input$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged()).subscribe(function (value) {
@@ -37132,7 +37197,7 @@
          * @return {?}
          */
             function (fn) {
-                this.propagateChange = fn;
+                this._onChange = fn;
             };
         /**
          * @param {?} fn
@@ -37142,7 +37207,9 @@
          * @param {?} fn
          * @return {?}
          */
-            function (fn) { };
+            function (fn) {
+                this._onTouched = fn;
+            };
         /**
          * @param {?} isDisabled
          * @return {?}
@@ -37292,6 +37359,8 @@
          * @return {?}
          */
             function () {
+                // mark form control as touched
+                this._onTouched();
                 // if the input is readonly we do not want to select the text on focus
                 if (this.readonlyInput) {
                     // cast the select input element
@@ -37330,7 +37399,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\"\r\n>\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n        \r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>",
+                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\"\r\n>\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -37556,6 +37625,8 @@
              * Raised when a tag has been clicked. The `tag` property of the event contains the clicked tag. Call `preventDefault()` on the event to prevent the default behaviour of selecting the tag.
              */
             this.tagClick = new i0.EventEmitter();
+            // When clicking on the input during mutliple mode it will send a on touched event to the parent component
+            this.inputFocus = new i0.EventEmitter();
             this.selectedIndex = -1;
             this.tagApi = {
                 getTagDisplay: this.getTagDisplay.bind(this),
@@ -38515,7 +38586,7 @@
             { type: i0.Component, args: [{
                         selector: 'ux-tag-input',
                         exportAs: 'ux-tag-input',
-                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n                      [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n               [ngModel]=\"input\"\n               (ngModelChange)=\"setInputValue($event)\"\n               [autocomplete]=\"autocomplete\"\n               [class.invalid]=\"!inputValid\"\n               [attr.aria-activedescendant]=\"highlightedElement?.id\"\n               [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n               [attr.aria-controls]=\"typeahead?.id\"\n               [attr.aria-label]=\"ariaLabel\"\n               aria-multiline=\"false\"\n               [placeholder]=\"disabled ? '' : (placeholder || '')\"\n               [disabled]=\"disabled\"\n               [focusIf]=\"isSelected(tags.length)\"\n               (click)=\"toggle(); $event.stopPropagation()\"\n               (focus)=\"inputFocusHandler()\"\n               (paste)=\"inputPasteHandler($event)\"\n               [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n       class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n       [attr.tabindex]=\"disabled ? -1 : 0\"\n       [attr.aria-label]=\"clearButtonAriaLabel\"\n       *ngIf=\"_showClearButton\"\n       (click)=\"clear(); $event.stopPropagation()\"\n       (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <div *ngIf=\"icon\" class=\"ux-custom-icon\">\n        <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\n    </div>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n            uxFocusIndicator\n            type=\"button\"\n            class=\"ux-tag-remove\"\n            aria-label=\"Remove Item\"\n            [disabled]=\"disabled\"\n            (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
+                        template: "<ol [attr.role]=\"typeahead ? 'combobox' : 'none'\"\n    [attr.aria-haspopup]=\"typeahead ? 'listbox' : null\"\n    [class.ux-tag-input-clear-inset]=\"_showClearButton\"\n    [class.ux-tag-input-icon-inset]=\"icon\"\n    (click)=\"toggle()\">\n\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n        [attr.tabindex]=\"disabled ? null : 0\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i); $event.stopPropagation()\"\n        (focus)=\"selectTagAt(i)\">\n\n        <ng-container [ngTemplateOutlet]=\"tagTemplate || defaultTagTemplate\"\n                      [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\" role=\"none\">\n        <input #tagInput type=\"text\" [attr.id]=\"id\" class=\"ux-tag-input\"\n               [ngModel]=\"input\"\n               (ngModelChange)=\"setInputValue($event)\"\n               [autocomplete]=\"autocomplete\"\n               [class.invalid]=\"!inputValid\"\n               [attr.aria-activedescendant]=\"highlightedElement?.id\"\n               [attr.aria-autocomplete]=\"typeahead ? 'list' : 'none'\"\n               [attr.aria-controls]=\"typeahead?.id\"\n               [attr.aria-label]=\"ariaLabel\"\n               aria-multiline=\"false\"\n               [placeholder]=\"disabled ? '' : (placeholder || '')\"\n               [disabled]=\"disabled\"\n               [focusIf]=\"isSelected(tags.length)\"\n               (click)=\"toggle(); $event.stopPropagation()\"\n               (focus)=\"inputFocusHandler(); inputFocus.emit($event)\"\n               (paste)=\"inputPasteHandler($event)\"\n               [readonly]=\"readonlyInput\">\n    </li>\n</ol>\n\n<!-- Insert the custom icon if provided -->\n<div class=\"ux-tag-icons\" *ngIf=\"icon || _showClearButton\" (click)=\"toggle(); $event.stopPropagation()\">\n\n    <!-- Clear All Button -->\n    <i uxFocusIndicator\n       class=\"ux-tag-icon ux-icon ux-icon-close ux-select-clear-icon\"\n       [attr.tabindex]=\"disabled ? -1 : 0\"\n       [attr.aria-label]=\"clearButtonAriaLabel\"\n       *ngIf=\"_showClearButton\"\n       (click)=\"clear(); $event.stopPropagation()\"\n       (keydown.enter)=\"clear(); $event.stopPropagation()\">\n    </i>\n\n    <!-- Custom Icon -->\n    <div *ngIf=\"icon\" class=\"ux-custom-icon\">\n        <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\n    </div>\n</div>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{ api.getTagDisplay(tag) }}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\"\n            uxFocusIndicator\n            type=\"button\"\n            class=\"ux-tag-remove\"\n            aria-label=\"Remove Item\"\n            [disabled]=\"disabled\"\n            (click)=\"api.removeTagAt(index); $event.stopPropagation();\">\n        <ux-icon name=\"close\"></ux-icon>\n    </button>\n</ng-template>",
                         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                         host: {
                             '[class.disabled]': 'disabled',
@@ -38566,6 +38637,7 @@
             tagRemoving: [{ type: i0.Output }],
             tagRemoved: [{ type: i0.Output }],
             tagClick: [{ type: i0.Output }],
+            inputFocus: [{ type: i0.Output }],
             typeaheadQuery: [{ type: i0.ContentChildren, args: [TypeaheadComponent,] }],
             tagInput: [{ type: i0.ViewChild, args: ['tagInput', { static: false },] }],
             keyHandler: [{ type: i0.HostListener, args: ['keydown', ['$event'],] }],

@@ -1,6 +1,6 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.8.10-24 
-* © Copyright 2019 EntIT Software LLC, a Micro Focus company
+* @ux-aspects/ux-aspects-docs - v1.8.11-32 
+* © Copyright 2020 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
