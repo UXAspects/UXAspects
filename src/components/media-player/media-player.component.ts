@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
@@ -24,7 +24,7 @@ import { MediaPlayerService } from './media-player.service';
         '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()'
     }
 })
-export class MediaPlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     @ViewChild('player', { static: false }) private _playerRef: ElementRef;
 
@@ -91,7 +91,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     ngAfterViewInit(): void {
         this.mediaPlayerService.setMediaPlayer(this._elementRef.nativeElement, this._playerRef.nativeElement);
 
-        this.audioMetadata = this._audioService.getAudioFileMetadata(this._playerRef.nativeElement, this.displayName);
+        this.audioMetadata = this._audioService.getAudioFileMetadata(this._playerRef.nativeElement);
         this.mediaPlayerService.playingEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.playing.next(true));
         this.mediaPlayerService.pauseEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.playing.next(false));
         this.mediaPlayerService.mediaClickEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.togglePlay());
@@ -99,13 +99,6 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
 
         // initially hide all text tracks
         this.mediaPlayerService.hideSubtitleTracks();
-        console.log('metaData', this.audioMetadata);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log('something changed!');
-        this.audioMetadata = this._audioService.getAudioFileMetadata(this._playerRef.nativeElement, this.displayName);
-
     }
 
     ngOnDestroy(): void {

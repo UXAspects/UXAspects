@@ -3,7 +3,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
-0
 
 @Component({
     selector: 'uxd-components-media-player',

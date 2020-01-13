@@ -13,35 +13,16 @@ export class AudioService {
 
     constructor(private _http: HttpClient) { }
 
-    getAudioFileMetadata(mediaElement: HTMLMediaElement, displayName: string): Observable<AudioMetadata> {
+    getAudioFileMetadata(mediaElement: HTMLMediaElement): Observable<AudioMetadata> {
         return Observable.create((observer: Observer<AudioMetadata>) => {
             this._http.get(mediaElement.src, { responseType: 'blob' }).subscribe(response => {
 
                 const extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
                 let filename;
-
                 let description;
+                let sourceString: string = mediaElement.src;
 
-
-                if (displayName) {
-                    console.log('display name present')
-                    filename = displayName;
-                } else {
-                    console.log('false')
-                    filename = mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
-                }
-
-                // switch (displayName) {
-                //     case 'string':
-                //         filename = displayName;
-                //         break;
-
-                //     default:
-                //         filename = mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
-                //         break;
-                // }
-
-                console.log(filename);
+                sourceString.includes('base64') ? filename = '' : filename = sourceString.substring(mediaElement.src.lastIndexOf('/') + 1);
 
                 switch (extension) {
                     case 'mp3':
@@ -77,8 +58,7 @@ export class AudioService {
                     filename: filename,
                     extension: extension,
                     description: description,
-                    size: response.size,
-                    displayName: displayName
+                    size: response.size
                 });
             });
         });
@@ -192,5 +172,4 @@ export interface AudioMetadata {
     extension: string;
     description: string;
     size: number;
-    displayName: string;
 }
