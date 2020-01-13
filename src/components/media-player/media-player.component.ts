@@ -38,8 +38,6 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     @Input()
     displayName: string;
 
-
-
     get source(): string {
         return this.mediaPlayerService.source;
     }
