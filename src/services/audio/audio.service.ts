@@ -18,8 +18,6 @@ export class AudioService {
             this._http.get(mediaElement.src, { responseType: 'blob' }).subscribe(response => {
 
                 let description;
-                let sourceString: string = mediaElement.src;
-
                 const extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
                 const filename = mediaElement.src.indexOf('base64') !== -1 ? '' : mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
 

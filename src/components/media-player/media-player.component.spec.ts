@@ -4,8 +4,7 @@ import { MediaPlayerModule } from './media-player.module';
 
 @Component({
     selector: 'ux-media-player-audio',
-    template: `<ux-media-player class="media-player" [type]="'audio'" [filename]="filename" [source]="audioSource"></ux-media-player>
-    `
+    template: `<ux-media-player class="media-player" type="audio" [filename]="filename" [source]="audioSource"></ux-media-player>`
 })
 
 export class MediaPlayerAudioComponent {
@@ -37,7 +36,6 @@ describe('Media Player Component - Audio', () => {
         fixture.detectChanges();
     });
 
-
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
     });
@@ -46,10 +44,10 @@ describe('Media Player Component - Audio', () => {
         component.audioSource = 'data:audio/mpeg;base64,/+MYxAAAAANIAAAAAExBTUUzLjk4LjIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
         component.filename = '';
         fixture.detectChanges();
-        expect(getTitle()).toBeFalsy();
+        expect(getTitle()).toBe('');
     });
 
-    it('should display Display Name when one is added to the markup', () => {
+    it('should display Display Name when one is added to the mark up', () => {
         component.filename = 'Display Name';
         fixture.detectChanges();
         expect(getTitle()).toBe('Display Name');
@@ -68,6 +66,6 @@ describe('Media Player Component - Audio', () => {
     });
 
     function getTitle(): string {
-        return (<HTMLElement>nativeElement.querySelector('.player-container .audio-player .audio-file-name')).innerText;
+        return nativeElement.querySelector<HTMLParagraphElement>('.player-container .audio-player .audio-file-name').innerText;
     }
 });

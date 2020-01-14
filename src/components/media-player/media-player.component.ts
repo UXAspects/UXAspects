@@ -35,7 +35,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     /** The `anonymous` keyword means that there will be no exchange of user credentials when the media source is fetched. */
     @Input() crossorigin: 'use-credentials' | 'anonymous' = 'use-credentials';
 
-    /** Overwrite the filename displayed in the audio meida player */
+    /** Overwrite the filename displayed in the audio media player */
     @Input()
     filename: string;
 
