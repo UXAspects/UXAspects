@@ -8,6 +8,7 @@ export class MarqueeWizardPage {
     gutter = element(by.tagName('split-gutter'));
     resizeableButton = element(by.id('resizeable'));
     footerTemplateButton = element(by.id('footerTemplate'));
+    validationButton = element(by.id('validation'));
     resetButton = element(by.id('reset'));
     input = $('input');
     emittedWidth = element(by.id('sidePanelWidthChange'));

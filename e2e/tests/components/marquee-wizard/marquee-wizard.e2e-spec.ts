@@ -85,6 +85,15 @@ describe('Marquee Wizard Tests', () => {
         expect(attr).toBeNull();
     });
 
+    it('should disable the next button when the validation true', async () => {
+        // enable validation
+        await page.validationButton.click();
+
+        let next: ElementFinder = await page.getNextButton();
+        let attr = await next.getAttribute('disabled');
+        expect(attr).not.toBeNull();
+    });
+
     it('should navigate to the next page when the next button is clicked', async () => {
         // go to the next step
         await page.goToNext();

@@ -89,6 +89,23 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         }
     }
 
+
+    /**
+     * If the validation is true then disable the next button
+     * and do not allow progression onto the next step
+     */
+    isDisabled(): boolean {
+
+         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+         if (step.valid) {
+            return false;
+         } else {
+            return true;
+        }
+    }
+
+
     /**
      * Emit the onFinishing event and if valid the onFinish event.
      * Also mark the final step as completed if it is valid
