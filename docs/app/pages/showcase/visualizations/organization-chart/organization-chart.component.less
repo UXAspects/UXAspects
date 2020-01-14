@@ -1,0 +1,148 @@
+:host {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.chart-container {
+    display: block;
+    flex-direction: column;
+    background-color: #fff;
+    flex: 1;
+
+    ux-organization-chart {
+        position: absolute;
+        height: calc(100% - 180px);
+    }
+
+    .hierarchy-bar {
+        overflow: visible;
+
+        .search-container {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            width: 300px;
+
+        }
+
+    }
+
+}
+
+.typeahead-option {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px;
+    margin: 0 -10px;
+    border-bottom: 1px solid #EBEBEB;
+
+    .typeahead-option-title {
+        color: #000;
+        margin: 0;
+    }
+
+    .typeahead-option-subtitle {
+        color: #656668;
+        margin-bottom: 0;
+    }
+
+}
+
+ux-toolbar-search.expanded.left {
+    right: 0;
+}
+
+.organization-chart-node {
+    padding: 8px 14px;
+    user-select: none;
+
+    .employee-icon {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        transition: opacity 0.3s ease-in-out;
+        opacity: 0.5;
+
+        .employee-icon-count {
+            text-align: center;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        &.employee-icon-expanded {
+            visibility: hidden;
+        }
+
+    }
+
+    .employee-name {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
+        color: #000;
+        padding-right: 16px;
+    }
+
+    .employee-job-title {
+        margin-top: 0;
+        margin-bottom: 4px;
+        font-size: 1rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
+        padding-right: 16px;
+    }
+
+    .employee-email {
+        margin: 0;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
+    }
+}
+
+.organization-chart-node.organization-chart-node-marker:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 16px 16px 0;
+    border-color: transparent #ff8d6d transparent transparent;
+}
+
+.organization-chart-node:hover .employee-icon,
+.organization-chart-node.organization-chart-node-focused .employee-icon,
+.organization-chart-node:hover .employee-icon-count,
+.organization-chart-node.organization-chart-node-focused .employee-icon-count {
+    opacity: 1;
+}
+
+.organization-chart-node:hover.organization-chart-node-expanded .employee-icon,
+.organization-chart-node.organization-chart-node-focused.organization-chart-node-expanded .employee-icon {
+    visibility: hidden;
+}
+
+.organization-chart-node:hover.organization-chart-node-expanded .employee-icon.employee-icon-expanded,
+.organization-chart-node.organization-chart-node-focused.organization-chart-node-expanded
+.employee-icon.employee-icon-expanded {
+    visibility: visible;
+}
+
+.organization-chart-node:hover.organization-chart-node-expanded .employee-icon-count,
+.organization-chart-node.organization-chart-node-focused.organization-chart-node-expanded
+.employee-icon-count {
+    opacity: 0;
+}

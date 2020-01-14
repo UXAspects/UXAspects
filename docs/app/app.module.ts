@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { PersistentDataService } from '@ux-aspects/ux-aspects';
+import { PageHeaderModule, PersistentDataService } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -42,6 +42,7 @@ const appRoutes: Routes = [
         NgxMaskModule.forRoot(),
         RouterModule.forRoot(appRoutes, { useHash: true }),
         TypeaheadModule.forRoot(),
+        PageHeaderModule,
     ],
     providers: [
         PersistentDataService,
