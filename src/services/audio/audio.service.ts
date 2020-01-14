@@ -17,12 +17,11 @@ export class AudioService {
         return Observable.create((observer: Observer<AudioMetadata>) => {
             this._http.get(mediaElement.src, { responseType: 'blob' }).subscribe(response => {
 
-                const extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
-                let filename;
                 let description;
                 let sourceString: string = mediaElement.src;
 
-                sourceString.includes('base64') ? filename = '' : filename = sourceString.substring(mediaElement.src.lastIndexOf('/') + 1);
+                const extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
+                const filename = mediaElement.src.indexOf('base64') !== -1 ? '' : mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
 
                 switch (extension) {
                     case 'mp3':

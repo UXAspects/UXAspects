@@ -1,7 +1,7 @@
 <ux-media-player #player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'">
     <track label="English" lang="en" default [src]="subtitles">
 </ux-media-player>
-<ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio"  [source]="audioSource" [displayName]="displayName"></ux-media-player>
+<ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio"  [source]="audioSource" [filename]="filename"></ux-media-player>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
@@ -20,13 +20,6 @@
                         <label for="dataSet">Mode</label>
                         <ux-radio-button [(value)]="mode" option="standard" [disabled]="type === 'audio'">Standard</ux-radio-button>
                         <ux-radio-button [(value)]="mode" option="quiet" [disabled]="type === 'audio'">Quiet</ux-radio-button>
-                    </div>
-                </div>
-
-                <div class="row uxd-customize-row">
-                    <div class="col-sm-5 col-xs-12">
-                        <label for="dataSet">Display Name</label>
-                        <input [(ngModel)]="displayName" type="text" placeholder="Enter text" class="form-control m-b">
                     </div>
                 </div>
             </ux-accordion-panel>
@@ -52,8 +45,8 @@
     <tr uxd-api-property name="source" type="string">
         The url to the media file to be loaded by the media player.
     </tr>
-    <tr uxd-api-property name="displayName" type="string">
-        A overwrite to the name of the audio file.
+    <tr uxd-api-property name="filename" type="string">
+        An overwrite to the filename that is displayed in the audio media player.
     </tr>
     <tr uxd-api-property name="quietMode" type="boolean">
         If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker

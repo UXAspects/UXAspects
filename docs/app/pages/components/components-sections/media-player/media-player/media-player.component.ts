@@ -14,7 +14,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
 
     type: string = 'video';
     mode: string = 'standard';
-    displayName: string = 'Display Name';
+    filename: string = '';
 
     videoSource: string = require('../../../../../assets/media/catchingwave.mp4');
     audioSource: string = require('../../../../../assets/media/Ocean-Waves.mp3');
@@ -27,7 +27,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
             'app.component.css': this.snippets.raw.appCss
         },
         modules: [{
-            imports: ['RadioButtonModule', 'MediaPlayerModule', 'AccordionModule', 'SelectModule', 'FormsModule', 'ReactiveFormsModule'],
+            imports: ['RadioButtonModule', 'MediaPlayerModule', 'AccordionModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

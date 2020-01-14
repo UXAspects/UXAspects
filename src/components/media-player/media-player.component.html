@@ -64,7 +64,7 @@
             </g>
         </svg>
 
-        <p class="audio-file-name">{{ this.displayName ? this.displayName :  (audioMetadata | async)?.filename }}</p>
+        <p class="audio-file-name">{{ this.filename ? this.filename :  (audioMetadata | async)?.filename }}</p>
         <p class="audio-file-format">{{ (audioMetadata | async)?.description }}</p>
         <p class="audio-file-size">{{ (audioMetadata | async)?.size | fileSize }}</p>
 
