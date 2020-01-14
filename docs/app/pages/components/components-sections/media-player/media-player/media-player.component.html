@@ -1,7 +1,7 @@
 <ux-media-player #player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'">
     <track label="English" lang="en" default [src]="subtitles">
 </ux-media-player>
-<ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio"  [source]="audioSource"></ux-media-player>
+<ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" [source]="audioSource"></ux-media-player>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
