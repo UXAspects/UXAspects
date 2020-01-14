@@ -14,7 +14,6 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
 
     type: string = 'video';
     mode: string = 'standard';
-    filename: string = '';
 
     videoSource: string = require('../../../../../assets/media/catchingwave.mp4');
     audioSource: string = require('../../../../../assets/media/Ocean-Waves.mp3');
