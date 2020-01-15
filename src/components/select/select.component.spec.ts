@@ -229,6 +229,24 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
+    it('should not open dropdown when tabbing past select', () => {
+        fixture.detectChanges();
+
+        const tabEvent: Event = new KeyboardEvent('keydown', {
+            'code': '9'
+        });
+        for (let i = 0; i < 5; i++) {
+            window.dispatchEvent(tabEvent);
+            fixture.detectChanges();
+        }
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
+
     function getClearButton(isMultiple: boolean = false): HTMLElement | null {
         return nativeElement.querySelector(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
     }
