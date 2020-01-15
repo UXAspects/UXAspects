@@ -45,8 +45,8 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         }
     };
 
-    private _volume: number = 50;
-    private _previousVolume = 50;
+    private _volume: number = 100;
+    private _previousVolume = 100;
     private _onDestroy = new Subject<void>();
 
     get volume(): number {

@@ -138,7 +138,7 @@ export class MediaPlayerService {
     }
 
     get duration(): number {
-        return this._mediaPlayer ? this._mediaPlayer.duration : 0;
+        return this._mediaPlayer && !isNaN(this.mediaPlayer.duration) ? this._mediaPlayer.duration : 0;
     }
 
     get ended(): boolean {
