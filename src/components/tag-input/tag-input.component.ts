@@ -211,6 +211,8 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
     inputValid: boolean = true;
     typeahead: TypeaheadComponent;
     highlightedElement: HTMLElement;
+    mouseFocusIndicator: boolean = true;
+    keyboardFocusIndicator: boolean = true;
 
     get _showClearButton(): boolean {
         return this.clearButton && this.tags && this.tags.length > 0;

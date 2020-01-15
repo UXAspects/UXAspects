@@ -4,7 +4,10 @@
     [class.ux-tag-input-icon-inset]="icon"
     (click)="toggle()">
 
-    <li *ngFor="let tag of tags; let i = index" class="ux-tag"
+    <li uxFocusIndicator
+        [mouseFocusIndicator]="mouseFocusIndicator"
+        [keyboardFocusIndicator]="keyboardFocusIndicator"
+        *ngFor="let tag of tags; let i = index" class="ux-tag"
         [class.disabled]="disabled"
         [ngClass]="tagClass(tag, i, isSelected(i))"
         [attr.tabindex]="disabled ? null : 0"
