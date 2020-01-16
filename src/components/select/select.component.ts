@@ -233,6 +233,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             take(1),
             takeUntil(this._onDestroy))
             .subscribe(() => {
+                this.dropdownOpen = true;
                 this._userInput = false;
             });
 
