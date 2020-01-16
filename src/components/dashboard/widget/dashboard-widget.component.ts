@@ -2,6 +2,7 @@ import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit } from 
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ActionDirection, DashboardService } from '../dashboard.service';
+import { DashboardStackMode } from './dashboard-stack-mode.enum';
 
 @Component({
     selector: 'ux-dashboard-widget',
@@ -74,6 +75,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
 
         this._columnSpan.regular = this.colSpan;
         this._rowSpan.regular = this.rowSpan;
+        this._rowSpan.stacked = this.rowSpan;
 
         if (!this.id) {
             console.warn('Dashboard Widget is missing an ID.');
@@ -122,12 +124,30 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         this.height = this.getRowSpan() * this.dashboardService.getRowHeight();
     }
 
-    getColumn(): number {
-        return this.getStackableValue(this._column);
+    getColumn(mode: DashboardStackMode = DashboardStackMode.Auto): number {
+        switch (mode) {
+            case DashboardStackMode.Auto:
+                return this.getStackableValue(this._column);
+
+            case DashboardStackMode.Regular:
+                return this._column.regular;
+
+            case DashboardStackMode.Stacked:
+                return this._column.stacked;
+        }
     }
 
-    getRow(): number {
-        return this.getStackableValue(this._row);
+    getRow(mode: DashboardStackMode = DashboardStackMode.Auto): number {
+        switch (mode) {
+            case DashboardStackMode.Auto:
+                return this.getStackableValue(this._row);
+
+            case DashboardStackMode.Regular:
+                return this._row.regular;
+
+            case DashboardStackMode.Stacked:
+                return this._row.stacked;
+        }
     }
 
     setColumn(column: number, render: boolean = true): void {

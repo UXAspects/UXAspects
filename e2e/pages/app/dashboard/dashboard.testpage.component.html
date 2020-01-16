@@ -3,17 +3,17 @@
 <div class="container p-lg">
 
     <ux-dashboard #dashboard
-        id="dashboardWidgetContainer"
-        class="customizable-dashboard"
-        [class.dashboard-grabbing]="dashboard.isGrabbing"
-        [options]="options">
+                  id="dashboardWidgetContainer"
+                  class="customizable-dashboard"
+                  [class.dashboard-grabbing]="dashboard.isGrabbing"
+                  [options]="options">
 
         <ux-dashboard-widget *ngIf="widget1Enabled"
-            id="analytics-1-widget"
-            name="Usage Analytics"
-            colSpan="4"
-            rowSpan="2"
-            [resizable]="true">
+                             id="analytics-1-widget"
+                             name="Usage Analytics"
+                             [colSpan]="4"
+                             [rowSpan]="2"
+                             [resizable]="true">
 
             <div class="widget-content"
                  [class.widget-grabbing]="usageHandle.isGrabbing"
@@ -22,8 +22,8 @@
                 <h3 class="widget-title">Widget 1</h3>
 
                 <button class="widget-grab-handle"
-                    uxDashboardGrabHandle
-                    #usageHandle="ux-dashboard-grab-handle">
+                        uxDashboardGrabHandle
+                        #usageHandle="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
 
@@ -31,17 +31,16 @@
 
         </ux-dashboard-widget>
 
-        <ux-dashboard-widget id="subscription-widget" name="Service" colSpan="2">
-
+        <ux-dashboard-widget id="subscription-widget" name="Service" [colSpan]="2">
             <div class="widget-content"
-                    [class.widget-grabbing]="handle2.isGrabbing"
-                    uxDashboardWidgetDragHandle>
+                 [class.widget-grabbing]="handle2.isGrabbing"
+                 uxDashboardWidgetDragHandle>
 
                 <h3 class="widget-title">Widget 2</h3>
 
                 <button class="widget-grab-handle"
-                    uxDashboardGrabHandle
-                    #handle2="ux-dashboard-grab-handle">
+                        uxDashboardGrabHandle
+                        #handle2="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
 
@@ -52,14 +51,14 @@
         <ux-dashboard-widget id="users-widget" name="Users">
 
             <div class="widget-content"
-                    [class.widget-grabbing]="handle3.isGrabbing"
-                    uxDashboardWidgetDragHandle>
+                 [class.widget-grabbing]="handle3.isGrabbing"
+                 uxDashboardWidgetDragHandle>
 
                 <h3 class="widget-title">Widget 3</h3>
 
                 <button class="widget-grab-handle"
-                    uxDashboardGrabHandle
-                    #handle3="ux-dashboard-grab-handle">
+                        uxDashboardGrabHandle
+                        #handle3="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
 
@@ -70,14 +69,14 @@
         <ux-dashboard-widget id="alert-widget" name="Alert">
 
             <div class="widget-content"
-                    [class.widget-grabbing]="handle4.isGrabbing"
-                    uxDashboardWidgetDragHandle>
+                 [class.widget-grabbing]="handle4.isGrabbing"
+                 uxDashboardWidgetDragHandle>
 
                 <h3 class="widget-title">Widget 4</h3>
 
                 <button class="widget-grab-handle"
-                    uxDashboardGrabHandle
-                    #handle4="ux-dashboard-grab-handle">
+                        uxDashboardGrabHandle
+                        #handle4="ux-dashboard-grab-handle">
                     <ux-icon name="pan"></ux-icon>
                 </button>
 
