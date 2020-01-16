@@ -28,6 +28,9 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
+    /** If set to true the nextinvalid will be enabled and current behavior will enable async validation. **/
+    @Input() nextInvalid: boolean = false;
+
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 
@@ -94,15 +97,9 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
      * If the validation is true then disable the next button
      * and do not allow progression onto the next step
      */
-    isDisabled(): boolean {
+    stepDisabled(): boolean {
 
-         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
-
-         if (step.valid) {
-            return false;
-         } else {
-            return true;
-        }
+         return this.nextInvalid &&  !this.getCurrentStep().valid;
     }
 
 

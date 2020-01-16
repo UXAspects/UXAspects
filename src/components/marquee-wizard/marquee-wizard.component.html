@@ -91,7 +91,7 @@
                     [uxTooltip]="nextTooltip"
                     [attr.aria-label]="nextAriaLabel"
                     container="body"
-                    [disabled]="nextDisabled || isDisabled()"
+                    [disabled]="nextDisabled || stepDisabled()"
                     (click)="next(); tip.hide()">
                 {{ nextText }}
             </button>

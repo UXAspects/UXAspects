@@ -1,8 +1,9 @@
 <ux-marquee-wizard [resizable]="resizable"
+                    [nextInvalid]="nextInvalid"
                    [(sidePanelWidth)]="sidePanelWidth">
 
-    <ux-marquee-wizard-step header="Step 1" [valid]="!validation">
-        <ux-icon *uxMarqueeWizardStepIcon name="soa"></ux-icon>
+    <ux-marquee-wizard-step header="Step 1" [valid]="!stepInvalid">
+        <ux-icon *uxMarqueeWizardStepIcon name="soa" ></ux-icon>
         <p>Step 1 Content</p>
     </ux-marquee-wizard-step>
 
@@ -29,7 +30,8 @@
 
 <button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
-<button id="validation" class="btn button-secondary" (click)="validation = true">Add Validation</button>
+<button id="stepInvalid" class="btn button-secondary" (click)="stepInvalid = true">Set Step Invalid</button>
+<button id="nextInvalid" class="btn button-secondary" (click)="nextInvalid = true">Set Next Invalid</button>
 
 <ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
 
