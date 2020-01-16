@@ -1,3 +1,4 @@
+import { TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -230,9 +231,9 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
-    fit('should not open dropdown when tabbing past select', (done) => {
+    it('should not open dropdown when tabbing past select', (done) => {
         for (let i = 0; i < 10; i++) {
-            dispatchKeyboardEvent(document, 'keydown', 9);
+            dispatchKeyboardEvent(document, 'keydown', TAB);
             fixture.detectChanges();
         }
 
