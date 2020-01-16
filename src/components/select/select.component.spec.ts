@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { SelectModule } from './select.module';
 
 @Component({
@@ -229,18 +230,16 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
-    it('should not open dropdown when tabbing past select', () => {
-        fixture.detectChanges();
-
-        const tabEvent: Event = new KeyboardEvent('keydown', {
-            'code': '9'
-        });
-        for (let i = 0; i < 5; i++) {
-            window.dispatchEvent(tabEvent);
+    fit('should not open dropdown when tabbing past select', (done) => {
+        for (let i = 0; i < 10; i++) {
+            dispatchKeyboardEvent(document, 'keydown', 9);
             fixture.detectChanges();
         }
-        fixture.detectChanges();
-        expect(getTypeahead()).toBeFalsy();
+
+        setTimeout(() => {
+            expect(getTypeahead()).toBeFalsy();
+            done();
+        }, 1000);
     });
 
     function getTypeahead(): HTMLElement | null {
