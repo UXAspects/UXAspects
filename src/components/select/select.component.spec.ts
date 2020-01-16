@@ -232,16 +232,19 @@ describe('Select Component', () => {
     });
 
     it('should not open dropdown when tabbing past select', (done) => {
+
+        Promise.resolve(dispatchTabs()).then(() => {
+            expect(getTypeahead()).toBeFalsy();
+            done();
+        });
+    });
+
+    function dispatchTabs() {
         for (let i = 0; i < 10; i++) {
             dispatchKeyboardEvent(document, 'keydown', TAB);
             fixture.detectChanges();
         }
-
-        setTimeout(() => {
-            expect(getTypeahead()).toBeFalsy();
-            done();
-        }, 1000);
-    });
+    }
 
     function getTypeahead(): HTMLElement | null {
         return nativeElement.querySelector('ux-typeahead.open');
