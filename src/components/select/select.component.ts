@@ -1,4 +1,4 @@
-import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { ENTER, ESCAPE, TAB } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
@@ -233,6 +233,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             take(1),
             takeUntil(this._onDestroy))
             .subscribe(() => {
+                this.dropdownOpen = true;
                 this._userInput = false;
             });
 
@@ -323,8 +324,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             event.preventDefault();
         }
 
-        // when the user types and the value is not empty then we should open the dropdown
-        if (event.keyCode !== ESCAPE) {
+        // when the user types and the value is not empty then we should open the dropdown except for the tab and escape keys.
+        if (!(event.keyCode === ESCAPE || event.keyCode === TAB)) {
             this._userInput = true;
         }
     }
