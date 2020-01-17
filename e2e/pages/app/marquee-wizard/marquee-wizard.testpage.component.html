@@ -1,10 +1,10 @@
 <ux-marquee-wizard [resizable]="resizable"
-                    [nextInvalid]="nextInvalid"
                    [(sidePanelWidth)]="sidePanelWidth">
 
-    <ux-marquee-wizard-step header="Step 1" [valid]="!stepInvalid">
+    <ux-marquee-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!stepInvalid">
         <ux-icon *uxMarqueeWizardStepIcon name="soa" ></ux-icon>
         <p>Step 1 Content</p>
+        <ux-checkbox [(value)]="stepInvalid" id= "stepInvalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ux-marquee-wizard-step header="Step 2">
@@ -17,9 +17,10 @@
         <p>Step 3 Content</p>
     </ux-marquee-wizard-step>
 
-    <ux-marquee-wizard-step header="Step 4">
+    <ux-marquee-wizard-step header="Step 4" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!stepInvalid">
         <ux-icon *uxMarqueeWizardStepIcon name="storage"></ux-icon>
         <p>Step 4 Content</p>
+        <ux-checkbox [(value)]="stepInvalid" id= "stepInvalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ng-template *ngIf="hasFooterTemplate" #footerTemplate let-step="step">
@@ -30,9 +31,7 @@
 
 <button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
-<button id="stepInvalid" class="btn button-secondary" (click)="stepInvalid = true">Set Step Invalid</button>
-<button id="nextInvalid" class="btn button-secondary" (click)="nextInvalid = true">Set Next Invalid</button>
-
+<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = true">Set Next Invalid</button>
 <ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
 
 <p id="sidePanelWidthChange">{{ sidePanelWidth | number: '1.1-1' }}</p>

@@ -85,23 +85,38 @@ describe('Marquee Wizard Tests', () => {
         expect(attr).toBeNull();
     });
 
-    it('should disable the next button when the validation true', async () => {
+    it('should disable the next button when the step is invalid and disableNextWhenInvalid = true', async () => {
         // enable validation
         await page.stepInvalidButton.click();
-        await page.nextInvalidButton.click();
+        await page.disableNextWhenInvalidButton.click();
 
         let next: ElementFinder = await page.getNextButton();
         let attr = await next.getAttribute('disabled');
         expect(attr).not.toBeNull();
-    });
 
-    it('should not go to next step when the validation true', async () => {
         // enable validation
         await page.stepInvalidButton.click();
+        let attr2 = await next.getAttribute('disabled');
+        expect(attr2).toBeNull();
+    });
 
-        let next: ElementFinder = await page.getNextButton();
-        let attr = await next.getAttribute('disabled');
-        expect(attr).toBeNull();
+    it('should disable the finish button when the final step is invalid and disableNextWhenInvalid = true', async () => { 
+        // go to last step
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+
+        await page.stepInvalidButton.click();
+        await page.disableNextWhenInvalidButton.click();
+
+        // Checks if finish button is disabled
+        const finish = await page.getFinishButton();
+        let attr = await finish.getAttribute('disabled');
+        expect(attr).not.toBeNull();
+
+        await page.stepInvalidButton.click();
+        let attr2 = await finish.getAttribute('disabled');
+        expect(attr2).toBeNull();
     });
 
     it('should navigate to the next page when the next button is clicked', async () => {

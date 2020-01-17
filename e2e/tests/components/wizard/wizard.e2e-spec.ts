@@ -107,6 +107,40 @@ describe('Wizard Tests', () => {
             expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0));
     });
 
+    it('should disable the next button when the step is invalid and disableNextWhenInvalid = true', async () => {
+        // enable validation
+        await page.stepInvalidButton.click();
+        await page.disableNextWhenInvalidButton.click();
+
+        let next: ElementFinder = await page.getNextButton();
+        let attr = await next.getAttribute('disabled');
+        expect(attr).not.toBeNull();
+
+        // enable validation
+        await page.stepInvalidButton.click();
+        let attr2 = await next.getAttribute('disabled');
+        expect(attr2).toBeNull();
+    });
+
+    it('should disable the finish button when the final step is invalid and disableNextWhenInvalid = true', async () => { 
+        // go to last step
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+
+        await page.stepInvalidButton.click();
+        await page.disableNextWhenInvalidButton.click();
+
+        // Checks if finish button is disabled
+        const finish = await page.getFinishButton();
+        let attr = await finish.getAttribute('disabled');
+        expect(attr).not.toBeNull();
+
+        await page.stepInvalidButton.click();
+        let attr2 = await finish.getAttribute('disabled');
+        expect(attr2).toBeNull();
+    });
+
     it('should be able to go to the final step', async () => {
         await page.goToNext();
         await page.goToNext();

@@ -11,5 +11,5 @@ export class MarqueeWizardTestPageComponent {
     sidePanelWidth: number = 25;
     hasFooterTemplate: boolean = false;
     stepInvalid: boolean = false;
-    nextInvalid: boolean = false;
+    disableNextWhenInvalid: boolean = false;
 }

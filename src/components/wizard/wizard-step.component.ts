@@ -14,6 +14,9 @@ export class WizardStepComponent {
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
 
+    /** If set to true it will become disabled when the current step is invalid **/
+    @Input() disableNextWhenInvalid: boolean = false;
+
     /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */
     @Input() valid: boolean = true;
 

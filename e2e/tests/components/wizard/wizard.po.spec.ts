@@ -11,6 +11,8 @@ export class WizardPage {
     removeStep5Button = $('#removeStep5');
     footerTemplateButton = element(by.id('footerTemplate'));
     resetButton = element(by.id('reset'));
+    stepInvalidButton = element(by.id('stepInvalid'));
+    disableNextWhenInvalidButton = element(by.id('disableNextWhenInvalid'));
 
     async getPage(): Promise<void> {
         await browser.get('#/wizard');

@@ -1,7 +1,8 @@
 <ux-wizard>
 
-    <ux-wizard-step header="Step 1">
+    <ux-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!stepInvalid">
         <p>Step 1 Content</p>
+        <ux-checkbox [(value)]="stepInvalid" id= "stepInvalid">Set this step to error state</ux-checkbox>
     </ux-wizard-step>
 
     <ux-wizard-step header="Step 2">
@@ -12,8 +13,9 @@
         <p>Step 3 Content</p>
     </ux-wizard-step>
 
-    <ux-wizard-step header="Step 4">
+    <ux-wizard-step header="Step 4" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!stepInvalid">
         <p>Step 4 Content</p>
+        <ux-checkbox [(value)]="stepInvalid" id= "stepInvalid">Set this step to error state</ux-checkbox>
     </ux-wizard-step>
 
     <ux-wizard-step *ngIf="step5" header="Step 5">
@@ -29,3 +31,4 @@
 <button id="addStep5" class="btn button-secondary" (click)="step5 = true">Add Step 5</button>
 <button id="removeStep5" class="btn button-secondary" (click)="step5 = false">Remove Step 5</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
+<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = true">Set Next Invalid</button>
