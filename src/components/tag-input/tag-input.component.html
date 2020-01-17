@@ -7,7 +7,8 @@
     <li uxFocusIndicator
         mouseFocusIndicator="true"
         programmaticFocusIndicator="true"
-        *ngFor="let tag of tags; let i = index" class="ux-tag"
+        *ngFor="let tag of tags; let i = index"
+        class="ux-tag"
         [class.disabled]="disabled"
         [ngClass]="tagClass(tag, i, isSelected(i))"
         [attr.tabindex]="disabled ? null : 0"
