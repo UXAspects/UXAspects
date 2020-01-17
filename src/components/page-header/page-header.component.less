@@ -77,6 +77,26 @@ ux-page-header {
 
             ux-breadcrumbs {
                 height: 22px;
+
+                .breadcrumb {
+                    li {
+                        a,
+                        span {
+                            color: @primary;
+                        }
+
+                        a:hover {
+                            color: @white;
+                        }
+
+                        + li {
+                            &:before {
+                                color: @primary;
+                                opacity: 0.8;
+                            }
+                        }
+                    }
+                }
             }
 
             .page-header-title-container {
@@ -130,6 +150,26 @@ ux-page-header {
 
                     ux-breadcrumbs {
                         height: 22px;
+
+                        .breadcrumb {
+                            li {
+                                a,
+                                span {
+                                    color: @primary;
+                                }
+
+                                a:hover {
+                                    color: @white;
+                                }
+
+                                + li {
+                                    &:before {
+                                        color: @primary;
+                                        opacity: 0.8;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     .breadcrumb li:last-of-type span {
