@@ -44,7 +44,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: string) {
-        console.log(this._input$)
         this._input$.next(value);
     }
     get input() {
@@ -220,10 +219,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(() => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-        ).subscribe(() => {
-            this.value = null
-            console.log(this.value)
-        });
+        ).subscribe(() => this.value = null);
 
         // Set up filter from input
         this.filter$ = this._input$.pipe(
@@ -237,7 +233,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             take(1),
             takeUntil(this._onDestroy))
             .subscribe(() => {
-                console.log('filtered')
                 this.dropdownOpen = true;
                 this._userInput = false;
             });
