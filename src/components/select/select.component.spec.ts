@@ -408,7 +408,7 @@ describe('Select Component - NgModel Input', () => {
 
     });
 
-    fit('should not open dropdown when tabbing past select', (done) => {
+    it('should not open dropdown when tabbing past select', (done) => {
         fixture.detectChanges();
 
         function focusInput() {
@@ -427,7 +427,7 @@ describe('Select Component - NgModel Input', () => {
         });
     });
 
-    fit('should open dropdown when entering value', (done) => {
+    it('should open dropdown when entering value', (done) => {
         fixture.detectChanges();
 
         function focusInput() {
