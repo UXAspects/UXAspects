@@ -408,43 +408,31 @@ describe('Select Component - NgModel Input', () => {
 
     });
 
-    it('should not open dropdown when tabbing past select', (done) => {
+    it('should not open dropdown when tabbing past select', async () => {
         fixture.detectChanges();
 
-        function focusInput() {
-            const input = getInput();
-            input.focus();
-            dispatchKeyboardEvent(input, 'keydown', TAB);
-        }
+        const input = getInput();
+        input.focus();
+        dispatchKeyboardEvent(input, 'keydown', TAB);
 
-        Promise.resolve(focusInput()).then(() => {
-            setTimeout(() => {
-                fixture.detectChanges();
-                expect(getTypeahead()).toBeFalsy();
-                done();
+        await fixture.whenStable();
 
-            }, 200);
-        });
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
     });
 
-    it('should open dropdown when entering value', (done) => {
+    it('should open dropdown when entering value', async () => {
         fixture.detectChanges();
 
-        function focusInput() {
-            const input = getInput();
-            input.focus();
-            dispatchKeyboardEvent(input, 'keydown', O);
-            component.value = 'O';
-        }
+        const input = getInput();
+        input.focus();
+        component.value = 'O';
+        dispatchKeyboardEvent(input, 'keydown', O);
 
-        Promise.resolve(focusInput()).then(() => {
-            setTimeout(() => {
-                fixture.detectChanges();
-                expect(getTypeahead()).toBeTruthy();
-                done();
+        await fixture.whenStable();
 
-            }, 250);
-        });
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeTruthy();
     });
 
 
