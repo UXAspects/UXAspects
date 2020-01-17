@@ -1,4 +1,4 @@
-import { TAB } from '@angular/cdk/keycodes';
+import { O, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -407,6 +407,54 @@ describe('Select Component - NgModel Input', () => {
         expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
 
     });
+
+    fit('should not open dropdown when tabbing past select', (done) => {
+        fixture.detectChanges();
+
+        function focusInput() {
+            const input = getInput();
+            input.focus();
+            dispatchKeyboardEvent(input, 'keydown', TAB);
+        }
+
+        Promise.resolve(focusInput()).then(() => {
+            setTimeout(() => {
+                fixture.detectChanges();
+                expect(getTypeahead()).toBeFalsy();
+                done();
+
+            }, 200);
+        });
+    });
+
+    fit('should open dropdown when entering value', (done) => {
+        fixture.detectChanges();
+
+        function focusInput() {
+            const input = getInput();
+            input.focus();
+            dispatchKeyboardEvent(input, 'keydown', O);
+            component.value = 'O';
+        }
+
+        Promise.resolve(focusInput()).then(() => {
+            setTimeout(() => {
+                fixture.detectChanges();
+                expect(getTypeahead()).toBeTruthy();
+                done();
+
+            }, 250);
+        });
+    });
+
+
+    function getInput(): HTMLElement | null {
+        return nativeElement.querySelector('input.form-control');
+    }
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
 
     function getSelect(isMultiple: boolean): HTMLElement | null {
         return nativeElement.querySelector(`ux-select ${isMultiple ? 'ux-tag-input' : 'input.form-control'}`);
