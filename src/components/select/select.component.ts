@@ -44,6 +44,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     /** The text in the input area. This is used to filter the options dropdown. */
     @Input()
     set input(value: string) {
+        console.log(this._input$)
         this._input$.next(value);
     }
     get input() {
@@ -219,7 +220,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             filter(() => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value)),
             takeUntil(this._onDestroy)
-        ).subscribe(() => this.value = null);
+        ).subscribe(() => {
+            this.value = null
+            console.log(this.value)
+        });
 
         // Set up filter from input
         this.filter$ = this._input$.pipe(
@@ -233,6 +237,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             take(1),
             takeUntil(this._onDestroy))
             .subscribe(() => {
+                console.log('filtered')
                 this.dropdownOpen = true;
                 this._userInput = false;
             });
@@ -327,6 +332,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // when the user types and the value is not empty then we should open the dropdown except for the tab and escape keys.
         if (!(event.keyCode === ESCAPE || event.keyCode === TAB)) {
             this._userInput = true;
+            this._dropdownOpen = true;
         }
     }
 
