@@ -330,6 +330,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
             // Update the input field. If dropdown isn't open then reset it to the previous value.
             this.input = this.getDisplay(this.value);
+            this._typeaheadKeyService.addToRecentOptions(this.value, this.singleTypeahead);
             event.preventDefault();
         }
 

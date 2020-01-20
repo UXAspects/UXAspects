@@ -304,20 +304,23 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             this.optionSelected.emit(new TypeaheadOptionEvent(option.value, origin));
             this.highlighted$.next(null);
             this.open = false;
+            this.addToRecentOptions(option.value);
         }
+    }
 
+    addToRecentOptions(value: T) {
         if (this._recentOptions) {
             // create a new instance of the recent items array that we can mutate
             const recentOptions = [...this._recentOptions];
 
             // If the option is already in the array, remove it first.
-            const index = recentOptions.indexOf(option.value);
+            const index = recentOptions.indexOf(value);
 
             if (index > -1) {
                 recentOptions.splice(index, 1);
             }
 
-            let numberOfElements = recentOptions.unshift(option.value);
+            let numberOfElements = recentOptions.unshift(value);
             if (numberOfElements > this.recentOptionsMaxCount) {
                 recentOptions.pop();
             }
