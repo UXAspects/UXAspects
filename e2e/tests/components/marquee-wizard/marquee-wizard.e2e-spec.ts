@@ -58,7 +58,7 @@ describe('Marquee Wizard Tests', () => {
 
         // only the first one should actually have any content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0));
+            expect(await step.$$('*').count()).toBe(idx === 0 ? 6 : 0));
     });
 
     it('should show the correct buttons by default', async () => {
@@ -162,7 +162,7 @@ describe('Marquee Wizard Tests', () => {
 
         // check that only the first step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0));
+            expect(await step.$$('*').count()).toBe(idx === 0 ? 6 : 0));
 
         expect(await imageCompare('marquee-wizard-visited-header')).toEqual(0);
     });
@@ -174,7 +174,7 @@ describe('Marquee Wizard Tests', () => {
 
         // check that only the last step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 3 ? 1 : 0));
+            expect(await step.$$('*').count()).toBe(idx === 3 ? 6 : 0));
 
         // check that the finish button is visible
         let finish = await page.getFinishButton();
