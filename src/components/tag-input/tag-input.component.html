@@ -5,8 +5,6 @@
     (click)="toggle()">
 
     <li uxFocusIndicator
-        mouseFocusIndicator="true"
-        programmaticFocusIndicator="true"
         *ngFor="let tag of tags; let i = index"
         class="ux-tag"
         [class.disabled]="disabled"
