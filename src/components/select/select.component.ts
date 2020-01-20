@@ -1,4 +1,4 @@
-import { ENTER, ESCAPE, TAB } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
@@ -325,7 +325,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
 
         // when the user types and the value is not empty then we should open the dropdown except for non printable keys.
-        if (event.ctrlKey === false && event.shiftKey === false && event.altKey === false && event.metaKey === false && !(event.keyCode === TAB) && !(event.keyCode === ESCAPE)) {
+        if (event.key.length <= 1) {
             this._userInput = true;
             this._dropdownOpen = true;
         }
