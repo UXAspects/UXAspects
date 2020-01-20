@@ -325,7 +325,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
 
         // when the user types and the value is not empty then we should open the dropdown except for non printable keys.
-        if (event.key.length <= 1) {
+        if (event.key.length === 1) {
             this._userInput = true;
             this._dropdownOpen = true;
         }
