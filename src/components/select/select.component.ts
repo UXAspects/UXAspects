@@ -324,8 +324,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             event.preventDefault();
         }
 
-        // when the user types and the value is not empty then we should open the dropdown except for the tab and escape keys.
-        if (!(event.keyCode === ESCAPE || event.keyCode === TAB)) {
+        // when the user types and the value is not empty then we should open the dropdown except for non printable keys.
+        if (event.ctrlKey === false && event.shiftKey === false && event.altKey === false && event.metaKey === false && !(event.keyCode === TAB) && !(event.keyCode === ESCAPE)) {
             this._userInput = true;
             this._dropdownOpen = true;
         }
