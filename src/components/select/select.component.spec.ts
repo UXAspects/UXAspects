@@ -231,25 +231,6 @@ describe('Select Component', () => {
         expect(component.value).toBe('One');
     });
 
-    it('should not open dropdown when tabbing past select', (done) => {
-
-        Promise.resolve(dispatchTabs()).then(() => {
-            expect(getTypeahead()).toBeFalsy();
-            done();
-        });
-    });
-
-    function dispatchTabs() {
-        for (let i = 0; i < 10; i++) {
-            dispatchKeyboardEvent(document, 'keydown', TAB);
-            fixture.detectChanges();
-        }
-    }
-
-    function getTypeahead(): HTMLElement | null {
-        return nativeElement.querySelector('ux-typeahead.open');
-    }
-
     function getClearButton(isMultiple: boolean = false): HTMLElement | null {
         return nativeElement.querySelector(`.${isMultiple ? 'ux-tag-icon' : 'ux-select-icon'}.ux-icon-close`);
     }
