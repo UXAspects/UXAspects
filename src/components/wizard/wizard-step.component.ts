@@ -14,7 +14,10 @@ export class WizardStepComponent {
     /** The text to be displayed in the wizard step tab. */
     @Input() header: string;
 
-    /** If set to true it will become disabled when the current step is invalid **/
+    /**
+     * If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid.
+     * This will override the value set on the `ux-wizard`.
+     */
     @Input() disableNextWhenInvalid: boolean | undefined;
 
     /** Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false. */

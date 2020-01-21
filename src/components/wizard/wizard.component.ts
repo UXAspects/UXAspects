@@ -69,9 +69,6 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /** If set to `false` the 'Next' button will be hidden. */
     @Input() nextVisible: boolean = true;
 
-    /** If set to true the 'Next' button will become disabled when the current step is invalid **/
-    @Input() disableNextWhenInvalid: boolean | undefined;
-
     /** If set to `false` the 'Previous' button will be hidden. */
     @Input() previousVisible: boolean = true;
 
@@ -86,6 +83,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     /** If set to `true` the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible on the final step of the wizard. */
     @Input() finishAlwaysVisible: boolean = false;
+
+    /** If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid. */
+    @Input() disableNextWhenInvalid: boolean = false;
 
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
@@ -197,16 +197,15 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     }
 
      /**
-     * If the validation is false then disable the next button
-     * and do not allow progression onto the next step however
-     * if the validation is set to true then the next button
-     * disable the next button and give a greyed out
-     * appearance as an indicator
-     */
+      * Whether the Next or Finish button should be disabled.
+      */
     isNextDisabled(): boolean {
 
         const step = this.getCurrentStep();
 
+        // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
+        // based on validation.
+        // If not defined on the WizardStepComponent, use the value from WizardComponent.
         return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step.valid;
     }
 
