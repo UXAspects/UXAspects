@@ -407,12 +407,12 @@ describe('Select Component - NgModel Input', () => {
 
         const input = getInput();
         input.focus();
+
+        dispatchKeyboardEvent(input, 'keydown', O, null, 'o');
         component.value = 'O';
-        dispatchKeyboardEvent(input, 'keydown', O);
+        fixture.detectChanges();
 
         await fixture.whenStable();
-
-        fixture.detectChanges();
         expect(getTypeahead()).toBeTruthy();
     });
 
