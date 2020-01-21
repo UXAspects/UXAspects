@@ -320,27 +320,4 @@ export class SelectPage {
             expect(await this.getRecentCountryText(multi, index)).toBe(expectedOptions[index]);
         }
     }
-
-    async testRecentOptionsFeature(multi: boolean) {
-        await this.clickOnCheckbox(this.checkboxRecentOptions);
-        await this.clickOnDropdown(multi);
-
-        // Initial state: recent option list is not shown
-        expect(await imageCompare('select-open-' + (multi ? 'multi' : 'single'))).toEqual(0);
-
-        await this.clickOnCountry(multi, 1);
-        await this.checkRecentOptions(multi, ['United Kingdom']);
-
-        await this.clickOnCountry(multi, 2);
-        await this.checkRecentOptions(multi, ['Afghanistan', 'United Kingdom']);
-
-        await this.clickOnRecentCountry(multi, 1);
-        await this.checkRecentOptions(multi, ['United Kingdom', 'Afghanistan']);
-
-        await this.clickOnCountry(multi, 4);
-        await this.checkRecentOptions(multi, ['Albania', 'United Kingdom', 'Afghanistan']);
-
-        await this.clickOnCountry(multi, 3);
-        await this.checkRecentOptions(multi, ['Aland Islands', 'Albania', 'United Kingdom']);
-    }
 }
