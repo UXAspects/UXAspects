@@ -1,10 +1,10 @@
 <ux-marquee-wizard [resizable]="resizable"
                    [(sidePanelWidth)]="sidePanelWidth">
 
-    <ux-marquee-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!stepInvalid">
+    <ux-marquee-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!step1Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="soa" ></ux-icon>
         <p>Step 1 Content</p>
-        <ux-checkbox [(value)]="stepInvalid" id= "stepInvalid">Set this step to error state</ux-checkbox>
+        <ux-checkbox [(value)]="step1Invalid" id="step1Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ux-marquee-wizard-step header="Step 2">
@@ -17,10 +17,10 @@
         <p>Step 3 Content</p>
     </ux-marquee-wizard-step>
 
-    <ux-marquee-wizard-step header="Step 4" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!stepInvalid">
+    <ux-marquee-wizard-step header="Step 4" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!step4Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="storage"></ux-icon>
         <p>Step 4 Content</p>
-        <ux-checkbox [(value)]="stepInvalid" id= "stepInvalid">Set this step to error state</ux-checkbox>
+        <ux-checkbox [(value)]="step4Invalid" id="step4Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ng-template *ngIf="hasFooterTemplate" #footerTemplate let-step="step">

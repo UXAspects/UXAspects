@@ -259,8 +259,7 @@
         Defines the text for the aria label on the 'Finish' button.
     </tr>
     <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
-        If set to
-        <code>true</code> the 'Next' button will become disabled when the current step is invalid.
+        If set to <code>true</code> the 'Next' button will become disabled when the current step is invalid.
     </tr>
     <tr uxd-api-property name="previousDisabled" type="boolean">
         If set to
@@ -366,6 +365,10 @@
     <tr uxd-api-property name="completed" type="boolean">
         Defines whether or not this step has previously been completed. A completed step can be clicked on and jumped to at any time.
         By default, steps will become 'completed' when the user navigates to the next step.
+    </tr>
+    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+        If set to <code>true</code> the 'Next' button will become disabled when the current step is invalid. This will override the value
+        set on the <code>ux-marquee-wizard</code>.
     </tr>
 </uxd-api-properties>
 

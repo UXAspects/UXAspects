@@ -28,9 +28,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
     /** If set to true the resizable splitter will be enabled and set to the default width **/
     @Input() resizable: boolean = false;
 
-    /** If set to true the 'Next' button will become disabled when the current step is invalid **/
-    @Input() disableNextWhenInvalid: boolean = false;
-
     /** Emit the current width of the splitter*/
     @Output() sidePanelWidthChange = new EventEmitter<number>();
 
@@ -91,20 +88,6 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
             this.stepError.next(this.step);
         }
     }
-
-
-    /**
-     * If the validation is false then disable the next button
-     * and do not allow progression onto the next step however
-     * if the validation is set to true then the next button
-     * disable the next button and give a greyed out
-     * appearance as an indicator
-     */
-    isNextDisabled(): boolean {
-        const { valid, disableNextWhenInvalid } = this.getCurrentStep() as MarqueeWizardStepComponent;
-        return disableNextWhenInvalid && !valid;
-    }
-
 
     /**
      * Emit the onFinishing event and if valid the onFinish event.

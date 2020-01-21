@@ -10,6 +10,7 @@ export class MarqueeWizardTestPageComponent {
     resizable: boolean = false;
     sidePanelWidth: number = 25;
     hasFooterTemplate: boolean = false;
-    stepInvalid: boolean = false;
+    step1Invalid: boolean = false;
+    step4Invalid: boolean = false;
     disableNextWhenInvalid: boolean = false;
 }

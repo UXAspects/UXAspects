@@ -8,7 +8,8 @@ export class MarqueeWizardPage {
     gutter = element(by.tagName('split-gutter'));
     resizeableButton = element(by.id('resizeable'));
     footerTemplateButton = element(by.id('footerTemplate'));
-    stepInvalidButton = element(by.id('stepInvalid'));
+    step4InvalidButton = element(by.id('step4Invalid'));
+    step1InvalidButton = element(by.id('step1Invalid'));
     disableNextWhenInvalidButton = element(by.id('disableNextWhenInvalid'));
     resetButton = element(by.id('reset'));
     input = $('ux-number-picker input');
