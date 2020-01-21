@@ -101,7 +101,34 @@ describe('Marquee Wizard Tests', () => {
         expect(attr2).toBeNull();
     });
 
-    it('should disable the finish button when the final step is invalid and disableNextWhenInvalid = true', async () => { 
+    it('should allow disableNextWhenInvalid at the step level to override the wizard input', async () => {
+        await page.disableNextWhenInvalidButton.click();
+        await page.disableNextWhenInvalidWizardButton.click();
+        await page.step1InvalidButton.click();
+
+        // Checks if next button is disabled
+        const next: ElementFinder = await page.getNextButton();
+        const attr = await next.getAttribute('disabled');
+        expect(attr).not.toBeNull();
+
+        // Setting step to be invalid
+        await page.step1InvalidButton.click();
+        const attr2 = await next.getAttribute('disabled');
+        expect(attr2).toBeNull();
+    });
+
+    it('should disable the next button when the step is invalid and disableNextWhenInvalidWizard = true', async () => {
+        await page.disableNextWhenInvalidWizardButton.click();
+        await page.goToNext();
+        await page.step2InvalidButton.click();
+
+        // Checks if next button is disabled
+        const next: ElementFinder = await page.getNextButton();
+        const attr = await next.getAttribute('disabled');
+        expect(attr).not.toBeNull();
+    });
+
+    it('should disable the finish button when the final step is invalid and disableNextWhenInvalid = true', async () => {
         // go to last step
         await page.goToNext();
         await page.goToNext();
@@ -140,7 +167,7 @@ describe('Marquee Wizard Tests', () => {
 
         // check that only the second step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 1 ? 1 : 0));
+            expect(await step.$$('*').count() > 0).toBe(idx === 1));
         expect(await imageCompare('marquee-wizard-next-page')).toEqual(0);
     });
 

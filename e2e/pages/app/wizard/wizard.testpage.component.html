@@ -1,12 +1,13 @@
-<ux-wizard>
+<ux-wizard [disableNextWhenInvalid]="disableNextWhenInvalidWizard">
 
     <ux-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!step1Invalid">
         <p>Step 1 Content</p>
         <ux-checkbox [(value)]="step1Invalid" id="step1Invalid">Set this step to error state</ux-checkbox>
     </ux-wizard-step>
 
-    <ux-wizard-step header="Step 2">
+    <ux-wizard-step header="Step 2" [valid]="!step2Invalid">
         <p>Step 2 Content</p>
+        <ux-checkbox [(value)]="step2Invalid" id="step2Invalid">Set this step to error state</ux-checkbox>
     </ux-wizard-step>
 
     <ux-wizard-step header="Step 3">
@@ -31,4 +32,5 @@
 <button id="addStep5" class="btn button-secondary" (click)="step5 = true">Add Step 5</button>
 <button id="removeStep5" class="btn button-secondary" (click)="step5 = false">Remove Step 5</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
-<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = true">Set Next Invalid</button>
+<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = !disableNextWhenInvalid">Set Next Invalid(Step)</button>
+<button id="disableNextWhenInvalidWizard" class="btn button-secondary" (click)="disableNextWhenInvalidWizard = true">Set Next Invalid(Wizard)</button>

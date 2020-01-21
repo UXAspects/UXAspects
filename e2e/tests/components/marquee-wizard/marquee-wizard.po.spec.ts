@@ -10,7 +10,9 @@ export class MarqueeWizardPage {
     footerTemplateButton = element(by.id('footerTemplate'));
     step4InvalidButton = element(by.id('step4Invalid'));
     step1InvalidButton = element(by.id('step1Invalid'));
+    step2InvalidButton = element(by.id('step2Invalid'));
     disableNextWhenInvalidButton = element(by.id('disableNextWhenInvalid'));
+    disableNextWhenInvalidWizardButton = element(by.id('disableNextWhenInvalidWizard'));
     resetButton = element(by.id('reset'));
     input = $('ux-number-picker input');
     emittedWidth = element(by.id('sidePanelWidthChange'));

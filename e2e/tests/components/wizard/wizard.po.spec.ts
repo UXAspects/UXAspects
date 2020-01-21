@@ -5,7 +5,6 @@ export class WizardPage {
     wizard = $('ux-wizard');
     stepHeaders = $$('.wizard-step');
     stepContents = $$('ux-wizard-step');
-
     buttons = $$('ux-wizard button');
     addStep5Button = $('#addStep5');
     removeStep5Button = $('#removeStep5');
@@ -13,6 +12,8 @@ export class WizardPage {
     resetButton = element(by.id('reset'));
     step1InvalidButton = element(by.id('step1Invalid'));
     step4InvalidButton = element(by.id('step4Invalid'));
+    step2InvalidButton = element(by.id('step2Invalid'));
+    disableNextWhenInvalidWizardButton = element(by.id('disableNextWhenInvalidWizard'));
     disableNextWhenInvalidButton = element(by.id('disableNextWhenInvalid'));
 
     async getPage(): Promise<void> {

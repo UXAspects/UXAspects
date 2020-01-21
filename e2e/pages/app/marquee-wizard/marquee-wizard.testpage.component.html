@@ -1,6 +1,6 @@
 <ux-marquee-wizard [resizable]="resizable"
-                    [disableNextWhenInvalid]="disableNextWhenInvalidWizard"
-                    [(sidePanelWidth)]="sidePanelWidth">
+                   [disableNextWhenInvalid]="disableNextWhenInvalidWizard"
+                   [(sidePanelWidth)]="sidePanelWidth">
 
     <ux-marquee-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!step1Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="soa" ></ux-icon>
@@ -8,9 +8,10 @@
         <ux-checkbox [(value)]="step1Invalid" id="step1Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
-    <ux-marquee-wizard-step header="Step 2">
+    <ux-marquee-wizard-step header="Step 2" [valid]="!step2Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="schedule-clone"></ux-icon>
         <p>Step 2 Content</p>
+        <ux-checkbox [(value)]="step2Invalid" id="step2Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ux-marquee-wizard-step header="Step 3">
@@ -32,7 +33,7 @@
 
 <button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
-<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = true">Set Next Invalid(Step)</button>
+<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = !disableNextWhenInvalid">Set Next Invalid(Step)</button>
 <button id="disableNextWhenInvalidWizard" class="btn button-secondary" (click)="disableNextWhenInvalidWizard = true">Set Next Invalid(Wizard)</button>
 <ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
 
