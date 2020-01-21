@@ -13,6 +13,6 @@ export class MarqueeWizardTestPageComponent {
     step1Invalid: boolean = false;
     step4Invalid: boolean = false;
     step2Invalid: boolean = false;
-    disableNextWhenInvalid: boolean = false;
+    disableNextWhenInvalidStep1: boolean = undefined;
     disableNextWhenInvalidWizard: boolean = false;
 }

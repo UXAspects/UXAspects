@@ -14,7 +14,7 @@ export class WizardPage {
     step4InvalidButton = element(by.id('step4Invalid'));
     step2InvalidButton = element(by.id('step2Invalid'));
     disableNextWhenInvalidWizardButton = element(by.id('disableNextWhenInvalidWizard'));
-    disableNextWhenInvalidButton = element(by.id('disableNextWhenInvalid'));
+    disableNextWhenInvalidStep1Button = element(by.id('disableNextWhenInvalidStep1'));
 
     async getPage(): Promise<void> {
         await browser.get('#/wizard');

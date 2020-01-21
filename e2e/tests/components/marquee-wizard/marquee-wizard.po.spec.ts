@@ -11,7 +11,7 @@ export class MarqueeWizardPage {
     step4InvalidButton = element(by.id('step4Invalid'));
     step1InvalidButton = element(by.id('step1Invalid'));
     step2InvalidButton = element(by.id('step2Invalid'));
-    disableNextWhenInvalidButton = element(by.id('disableNextWhenInvalid'));
+    disableNextWhenInvalidStep1Button = element(by.id('disableNextWhenInvalidStep1'));
     disableNextWhenInvalidWizardButton = element(by.id('disableNextWhenInvalidWizard'));
     resetButton = element(by.id('reset'));
     input = $('ux-number-picker input');
