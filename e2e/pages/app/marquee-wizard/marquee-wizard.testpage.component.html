@@ -1,5 +1,6 @@
 <ux-marquee-wizard [resizable]="resizable"
-                   [(sidePanelWidth)]="sidePanelWidth">
+                    [disableNextWhenInvalid]="disableNextWhenInvalidWizard"
+                    [(sidePanelWidth)]="sidePanelWidth">
 
     <ux-marquee-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalid" [valid]="!step1Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="soa" ></ux-icon>
@@ -31,7 +32,8 @@
 
 <button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
-<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = true">Set Next Invalid</button>
+<button id="disableNextWhenInvalid" class="btn button-secondary" (click)="disableNextWhenInvalid = true">Set Next Invalid(Step)</button>
+<button id="disableNextWhenInvalidWizard" class="btn button-secondary" (click)="disableNextWhenInvalidWizard = true">Set Next Invalid(Wizard)</button>
 <ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
 
 <p id="sidePanelWidthChange">{{ sidePanelWidth | number: '1.1-1' }}</p>

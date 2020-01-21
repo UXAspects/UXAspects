@@ -70,7 +70,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     @Input() nextVisible: boolean = true;
 
     /** If set to true the 'Next' button will become disabled when the current step is invalid **/
-    @Input() disableNextWhenInvalid: boolean = false;
+    @Input() disableNextWhenInvalid: boolean | undefined = undefined;
 
     /** If set to `false` the 'Previous' button will be hidden. */
     @Input() previousVisible: boolean = true;
@@ -204,8 +204,10 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
      * appearance as an indicator
      */
     isNextDisabled(): boolean {
-        const { valid, disableNextWhenInvalid } = this.getCurrentStep();
-        return disableNextWhenInvalid && !valid;
+
+        const step = this.getCurrentStep();
+
+        return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step.valid;
     }
 
     /**
