@@ -1,4 +1,4 @@
-import { O, TAB } from '@angular/cdk/keycodes';
+import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -394,7 +394,20 @@ describe('Select Component - NgModel Input', () => {
 
         const input = getInput();
         input.focus();
-        dispatchKeyboardEvent(input, 'keydown', TAB);
+        dispatchKeyboardEvent(input, 'keydown', TAB, null, 'Tab');
+
+        await fixture.whenStable();
+
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+    it('should not open dropdown when pressing a not printable key such as shift', async () => {
+        fixture.detectChanges();
+
+        const input = getInput();
+        input.focus();
+        dispatchKeyboardEvent(input, 'keydown', SHIFT, null, 'Shift');
 
         await fixture.whenStable();
 
