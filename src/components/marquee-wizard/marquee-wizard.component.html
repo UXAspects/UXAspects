@@ -91,7 +91,7 @@
                     [uxTooltip]="nextTooltip"
                     [attr.aria-label]="nextAriaLabel"
                     container="body"
-                    [disabled]="nextDisabled"
+                    [disabled]="nextDisabled || isNextDisabled()"
                     (click)="next(); tip.hide()">
                 {{ nextText }}
             </button>
@@ -103,7 +103,7 @@
                     [uxTooltip]="finishTooltip"
                     [attr.aria-label]="finishAriaLabel"
                     container="body"
-                    [disabled]="finishDisabled"
+                    [disabled]="finishDisabled || isNextDisabled()"
                     (click)="finish(); tip.hide()">
                 {{ finishText }}
             </button>
@@ -119,7 +119,6 @@
                     (click)="cancel(); tip.hide()">
                 {{ cancelText }}
             </button>
-
         </div>
     </div>
 </ng-template>

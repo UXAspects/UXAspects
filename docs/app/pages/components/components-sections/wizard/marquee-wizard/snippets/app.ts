@@ -15,6 +15,9 @@ export class AppComponent {
     validate: boolean = false;
     modalOpen: boolean = false;
     requiredText = new FormControl('', Validators.required);
+    resizable: boolean = false;
+    sidePanelWidth: number = 25;
+    gutterSize: number = 10;
 
     constructor(private _announcer: LiveAnnouncer) {}
 

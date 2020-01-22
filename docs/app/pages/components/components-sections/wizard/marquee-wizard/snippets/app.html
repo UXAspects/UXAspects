@@ -1,10 +1,17 @@
 <button type="button" class="btn button-primary" (click)="modalOpen = true">
-    <span class="ux-icon ux-icon-deployment" aria-hidden="true"></span> Launch Marquee Wizard
+    <ux-icon name="deployment" aria-hidden="true"></ux-icon> Launch Marquee Wizard
 </button>
 
-<div *ngIf="modalOpen" (onHidden)="close()" [config]="{ show: true, animated: false }"
-        bsModal #modal="bs-modal" class="modal marquee-modal-window" tabindex="-1"
-        role="dialog" aria-modal="true" aria-labelledby="marquee-wizard-title">
+<div *ngIf="modalOpen"
+     (onHidden)="close()"
+     [config]="{ show: true, animated: false }"
+     bsModal
+     #modal="bs-modal"
+     class="modal marquee-modal-window"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="marquee-wizard-title">
 
     <div class="modal-dialog modal-lg"
         role="document"
@@ -13,33 +20,35 @@
 
         <div class="modal-content">
 
-            <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
-                <button class="modal-close"
-                    uxFocusIndicator
-                    (click)="close()"
-                    type="button"
+                <button type="button"
+                    class="modal-close"
                     aria-label="Close Modal"
-                    tabindex="0">
-                    <i class="ux-icon ux-icon-close"></i>
+                    tabindex="0"
+                    uxFocusIndicator
+                    (click)="close()">
+                    <ux-icon name="close"></ux-icon>
                 </button>
             </div>
 
             <ux-marquee-wizard #wizard
-                class="marquee-wizard"
-                [description]="icon"
-                (stepChange)="onChange($event, wizard)"
-                (stepError)="onError()"
-                (onFinishing)="validate = true"
-                (onFinish)="close()"
-                (onCancel)="close()">
+                               class="marquee-wizard"
+                               [description]="icon"
+                               [sidePanelWidth]="sidePanelWidth"
+                               [gutterSize]="gutterSize"
+                               [resizable]="resizable"
+                               [disableNextWhenInvalid]="true"
+                               (stepChange)="onChange($event, wizard)"
+                               (stepError)="onError()"
+                               (onFinishing)="validate = true"
+                               (onFinish)="close()"
+                               (onCancel)="close()">
 
                 <ng-template #icon>
-                    <img src="https://uxaspects.github.io/UXAspects/assets/img/IconUser.png" alt="">
+                    <img src="https://uxaspects.github.io/UXAspects/assets/img/IconUser.png" alt="User icon">
                 </ng-template>
 
                 <ux-marquee-wizard-step header="First step">
-
                     <ux-icon name="soa" *uxMarqueeWizardStepIcon></ux-icon>
 
                     <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
@@ -59,15 +68,13 @@
                                 <label for="step-one-description" class="form-label">Description</label>
                                 <textarea id="step-one-description"
                                     placeholder="Enter Description"
-                                    class="form-control">
-                                </textarea>
+                                    class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
 
                 <ux-marquee-wizard-step header="Second step" [valid]="!error">
-
                     <ux-icon name="schedule-clone" *uxMarqueeWizardStepIcon></ux-icon>
 
                     <h1 class="m-t-nil">Second step title</h1>
@@ -81,7 +88,6 @@
                 </ux-marquee-wizard-step>
 
                 <ux-marquee-wizard-step header="Third step">
-
                     <ux-icon name="sync" *uxMarqueeWizardStepIcon></ux-icon>
 
                     <h1 class="m-t-nil">Third step title</h1>
@@ -95,7 +101,6 @@
                 </ux-marquee-wizard-step>
 
                 <ux-marquee-wizard-step header="Fourth step" *ngIf="!skip">
-
                     <ux-icon name="compliance" *uxMarqueeWizardStepIcon></ux-icon>
 
                     <h1 class="m-t-nil">Fourth step title</h1>
@@ -108,7 +113,6 @@
                 </ux-marquee-wizard-step>
 
                 <ux-marquee-wizard-step header="Fifth step" *ngIf="!skip">
-
                     <ux-icon name="storage" *uxMarqueeWizardStepIcon></ux-icon>
 
                     <h1 class="m-t-nil">Fifth step title</h1>
@@ -120,11 +124,8 @@
                     </div>
                 </ux-marquee-wizard-step>
 
-                <ux-marquee-wizard-step header="Sixth step"
-                    [valid]="requiredText.valid || !validate">
-
+                <ux-marquee-wizard-step header="Sixth step" [valid]="requiredText.valid || !validate">
                     <ux-icon name="scorecard" *uxMarqueeWizardStepIcon></ux-icon>
-
                     <h1 class="m-t-nil">Sixth step title</h1>
 
                     <div class="row">
@@ -133,9 +134,13 @@
                                 <label for="requiredText" class="control-label">
                                     Required Text <span class="form-control-validation">*</span>
                                 </label>
-                                <input type="text" id="requiredText" placeholder="Text"
-                                    class="form-control" [formControl]="requiredText">
-                                <span class="ux-icon ux-icon-alert form-control-feedback" aria-hidden="true"></span>
+                                <input type="text"
+                                    id="requiredText"
+                                    placeholder="Text"
+                                    class="form-control"
+                                    [formControl]="requiredText">
+                                <span class="hpe-icon hpe-alert form-control-feedback"
+                                    aria-hidden="true"></span>
                             </div>
 
                             <div class="form-group form-group-validation">

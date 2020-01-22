@@ -58,7 +58,7 @@
             class="btn button-primary"
             *ngIf="nextVisible && !isLastStep()"
             [uxTooltip]="nextTooltip"
-            [disabled]="nextDisabled"
+            [disabled]="nextDisabled || isNextDisabled()"
             [attr.aria-label]="nextAriaLabel"
             (click)="next(); tip.hide()">
         {{ nextText }}
@@ -69,7 +69,7 @@
             class="btn button-primary"
             *ngIf="finishVisible && isLastStep() || finishAlwaysVisible"
             [uxTooltip]="finishTooltip"
-            [disabled]="finishDisabled"
+            [disabled]="finishDisabled || isNextDisabled()"
             [attr.aria-label]="finishAriaLabel"
             (click)="finish(); tip.hide()">
         {{ finishText }}
