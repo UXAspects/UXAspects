@@ -110,6 +110,9 @@
         If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard.
         By default this button will only be visible on the final step of the wizard.
     </tr>
+    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -152,6 +155,10 @@
     </tr>
     <tr uxd-api-property name="visited" type="boolean">
         Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at any time. By default, steps will become 'visited' when the user navigates to a step for the first time.
+    </tr>
+    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid. This will override the value
+        set on the <code>ux-wizard</code>.
     </tr>
 </uxd-api-properties>
 

@@ -60,17 +60,18 @@
             <ux-marquee-wizard #wizard
                                class="marquee-wizard"
                                [description]="icon"
+                               [sidePanelWidth]="sidePanelWidth"
+                               [gutterSize]="gutterSize"
+                               [resizable]="resizable"
+                               [disableNextWhenInvalid]="true"
                                (stepChange)="onChange($event, wizard)"
                                (stepError)="onError()"
                                (onFinishing)="validate = true"
                                (onFinish)="close()"
-                               (onCancel)="close()"
-                               [sidePanelWidth]="sidePanelWidth"
-                               [gutterSize]="gutterSize"
-                               [resizable]="resizable">
+                               (onCancel)="close()">
 
                 <ng-template #icon>
-                    <img src="../../../../../assets/img/IconUser.png" alt="">
+                    <img src="../../../../../assets/img/IconUser.png" alt="User icon">
                 </ng-template>
 
                 <ux-marquee-wizard-step header="First step">
@@ -259,8 +260,7 @@
         Defines the text for the aria label on the 'Finish' button.
     </tr>
     <tr uxd-api-property name="nextDisabled" type="boolean">
-        If set to
-        <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.
+        If set to <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.
     </tr>
     <tr uxd-api-property name="previousDisabled" type="boolean">
         If set to
@@ -299,6 +299,9 @@
         If set to
         <code>true</code> the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible
         on the final step of the wizard.
+    </tr>
+    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid.
     </tr>
     <tr uxd-api-property name="resizable" type="boolean" defaultValue="false">
         If set to
@@ -366,6 +369,10 @@
     <tr uxd-api-property name="completed" type="boolean">
         Defines whether or not this step has previously been completed. A completed step can be clicked on and jumped to at any time.
         By default, steps will become 'completed' when the user navigates to the next step.
+    </tr>
+    <tr uxd-api-property name="disableNextWhenInvalid" type="boolean">
+        If set to <code>true</code> the 'Next' or 'Finish' button will become disabled when the current step is invalid. This will override the value
+        set on the <code>ux-marquee-wizard</code>.
     </tr>
 </uxd-api-properties>
 
