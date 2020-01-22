@@ -29,7 +29,7 @@
             *ngFor="let facet of (facetService.facets$ | async); trackBy: trackBy"
             [attr.aria-label]="facet.title"
             [uxReorderableModel]="facet"
-            (mousedown)="tag.focus()"
+            (mousedown)="tag.focus(); $event.StopPropagation()"
             (keydown.ArrowRight)="shiftRight(facet, tag)"
             (keydown.ArrowLeft)="shiftLeft(facet, tag)">
 
