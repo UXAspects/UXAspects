@@ -1,4 +1,4 @@
-import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
@@ -324,9 +324,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             event.preventDefault();
         }
 
-        // when the user types and the value is not empty then we should open the dropdown
-        if (event.keyCode !== ESCAPE) {
+        // when the user types and the value is not empty then we should open the dropdown except for non printable keys.
+        if (event.key.length === 1) {
             this._userInput = true;
+            this._dropdownOpen = true;
         }
     }
 
