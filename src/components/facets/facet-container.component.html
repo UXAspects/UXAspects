@@ -30,6 +30,7 @@
             [attr.aria-label]="facet.title"
             [uxReorderableModel]="facet"
             (mousedown)="tag.focus()"
+            (touchmove)="$event.preventDefault()"
             (keydown.ArrowRight)="shiftRight(facet, tag)"
             (keydown.ArrowLeft)="shiftLeft(facet, tag)">
 
