@@ -27,6 +27,12 @@ ux-typeahead {
             margin-bottom: 0;
             padding: 0;
 
+            &.ux-typeahead-recent-options {
+                border-bottom: solid 1px @dropdown-divider;
+                padding-bottom: 8px;
+                margin-bottom: 8px;
+            }
+
             & > li {
                 display: list-item;
                 list-style: none;
@@ -34,6 +40,10 @@ ux-typeahead {
                 padding: 0 10px;
                 line-height: 24px;
                 cursor: pointer;
+
+                &.active {
+                    transition: none;
+                }
 
                 &.highlighted {
                     background-color: @dropdown-highlight-bg;

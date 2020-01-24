@@ -27,6 +27,8 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     placeholder = 'Select a country';
     readonlyInput: boolean = false;
     clearButton: boolean = false;
+    recentOptions: ReadonlyArray<string>;
+    recentOptionsMaxCount: number = 5;
 
     private _pageSize = 20;
     private _onDestroy = new Subject<void>();

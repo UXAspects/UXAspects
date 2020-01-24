@@ -41,4 +41,10 @@ export class TypeaheadKeyService<T = any> {
                 }
         }
     }
+
+    addToRecentOptions(value: T, typeahead: TypeaheadComponent<T>) {
+        if (typeahead) {
+            typeahead.addToRecentOptions(value);
+        }
+    }
 }

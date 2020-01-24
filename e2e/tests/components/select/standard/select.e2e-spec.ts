@@ -559,4 +559,73 @@ describe('Select Tests', () => {
         expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
     });
 
+    it('should handle recent options correctly: single selection', async () => {
+        await page.clickOnCheckbox(page.checkboxRecentOptions);
+        await page.clickOnDropdown(false);
+
+        // Initial state: recent option list is not shown
+        expect(await imageCompare('select-open-single')).toEqual(0);
+
+        await page.clickOnCountry(false, 1);
+        await page.checkRecentOptions(false, ['United Kingdom']);
+
+        await page.clickOnCountry(false, 2);
+        await page.checkRecentOptions(false, ['Afghanistan', 'United Kingdom']);
+
+        await page.clickOnRecentCountry(false, 1);
+        await page.checkRecentOptions(false, ['United Kingdom', 'Afghanistan']);
+
+        await page.clickOnCountry(false, 4);
+        await page.checkRecentOptions(false, ['Albania', 'United Kingdom', 'Afghanistan']);
+
+        await page.clickOnCountry(false, 3);
+        await page.checkRecentOptions(false, ['Aland Islands', 'Albania', 'United Kingdom']);
+
+        // Recent options list with three entries
+        expect(await imageCompare('select-recent-single')).toEqual(0);
+    });
+
+    it('should handle recent options correctly: multi selection', async () => {
+        await page.clickOnCheckbox(page.checkboxMulti);
+        await page.clickOnCheckbox(page.checkboxRecentOptions);
+        await page.clickOnDropdown(true);
+
+        // Initial state: recent option list is not shown
+        expect(await imageCompare('select-open-multi')).toEqual(0);
+
+        await page.clickOnCountry(true, 1);
+        await page.checkRecentOptions(true, ['United Kingdom']);
+
+        await page.clickOnCountry(true, 2);
+        await page.checkRecentOptions(true, ['Afghanistan', 'United Kingdom']);
+
+        await page.clickOnCountry(true, 4);
+        await page.checkRecentOptions(true, ['Albania', 'Afghanistan', 'United Kingdom']);
+
+        await page.clickOnCountry(true, 3);
+        await page.checkRecentOptions(true, ['Aland Islands', 'Albania', 'Afghanistan']);
+        
+        await page.removeCountry(3);
+        await page.clickOnDropdown(true);
+        await page.checkRecentOptions(true, ['Aland Islands', 'Albania', 'Afghanistan']);
+
+        // Recent options list with three entries
+        expect(await imageCompare('select-recent-multi')).toEqual(0);
+    });
+
+    it('should handle recent options correctly: recent options filled', async () => {
+        await page.clickOnCheckbox(page.checkboxRecentOptions);
+        
+        await page.fillRecentOptionsButton();
+        await page.checkRecentOptions(false, ['Afghanistan', 'United States', 'Algeria']);
+
+        await page.clickOnRecentCountry(false, 2);
+        await page.checkRecentOptions(false, ['Algeria', 'Afghanistan', 'United States']);
+
+        await page.clickOnCountry(false, 1);
+        await page.checkRecentOptions(false, ['United Kingdom', 'Algeria', 'Afghanistan']);
+
+        // Recent options list with three entries
+        expect(await imageCompare('select-recent-filled')).toEqual(0);
+    });
 });
