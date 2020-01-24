@@ -298,6 +298,24 @@ describe('Date Range Picker Tests', () => {
         expect(await imageCompare('date-range-format')).toEqual(0);
     });
 
+    fit('should update date picker when input date is updated', async () => {
+        expect(await page.setInputText('1 January 2020  12:00 AM GMT — 3 January 2020  11:59 PM GMT'));
+
+        // check the headers
+        expect(await page.getPickerDateHeader(Picker.Start)).toBe('1 January 2020');
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00 AM');
+        expect(await page.getPickerDateHeader(Picker.End)).toBe('3 January 2020');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59 PM');
+
+        expect(await page.setInputText('2 January 2020  04:34 PM GMT — 17 February 2020  09:45 AM GMT'));
+
+        // check the headers
+        expect(await page.getPickerDateHeader(Picker.Start)).toBe('2 January 2020');
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('04:34 PM');
+        expect(await page.getPickerDateHeader(Picker.End)).toBe('17 February 2020');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('09:45 AM');
+    });
+
     // take into account the current timezone
     function getTimezoneOffset(offset: number = 0): string {
         offset = new Date().getTimezoneOffset() + (offset * -60);
