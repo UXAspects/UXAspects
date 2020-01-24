@@ -69,7 +69,7 @@ export class DateRangePickerComponent {
     // endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
 }
 
-fdescribe('Date Range Picker', () => {
+describe('Date Range Picker', () => {
     let component: DateRangePickerComponent;
     let fixture: ComponentFixture<DateRangePickerComponent>;
     let nativeElement: HTMLElement;
@@ -92,19 +92,5 @@ fdescribe('Date Range Picker', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
     });
-
-    it('should set the date in the picker when changing the input value', () => {
-        expect(component).toBeTruthy();
-
-        component.date = '1 January 2020  12:00 AM GMT — 21 February 2020  7:00 PM GMT';
-        fixture.detectChanges();
-
-        expect(getDatePicker().querySelector('.date-header').innerHTML).toBe('1 January 2020');
-    });
-
-    function getDatePicker(): HTMLElement | null {
-        return nativeElement.querySelector('ux-date-range-picker');
-    }
-
 });
 

@@ -298,7 +298,7 @@ describe('Date Range Picker Tests', () => {
         expect(await imageCompare('date-range-format')).toEqual(0);
     });
 
-    fit('should update date picker when input date is updated', async () => {
+    it('should update date picker when input date is updated', async () => {
         expect(await page.setInputText('1 January 2020  12:00 AM GMT — 3 January 2020  11:59 PM GMT'));
 
         // check the headers
