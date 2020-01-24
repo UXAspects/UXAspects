@@ -78,7 +78,7 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
         // check if the date contains a hyphen
         const parts = (date.indexOf('—') ? date.split('—') : date.split('-'));
         const startDate = Date.parse(parts[0].trim());
-        const endDate = Date.parse(parts[0].trim());
+        const endDate = Date.parse(parts[1].trim());
 
         if (parts.length >= 1 && !isNaN(startDate)) {
             this.start = new Date(startDate);
@@ -149,7 +149,7 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
         const timezone = date.match(/GMT(\+|-)([0-9]+)/gi);
 
         // check if there is a matching timezone
-        if (timezone.length === 0) {
+        if (timezone == null) {
             return { name: 'GMT', offset: 0 };
         } else {
             const match = timezones.find(_timezone => _timezone.name.toLowerCase() === timezone[0].trim().toLowerCase());
