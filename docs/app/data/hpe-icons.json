@@ -1061,6 +1061,10 @@
             "classname": "hpe-radial"
         },
         {
+            "name": "redo",
+            "classname": "hpe-redo"
+        },
+        {
             "name": "refresh",
             "classname": "hpe-refresh"
         },
@@ -1095,6 +1099,10 @@
         {
             "name": "save",
             "classname": "hpe-save"
+        },
+        {
+            "name": "scale-out-repository",
+            "classname": "hpe-scale-out-repository"
         },
         {
             "name": "schedule-clone",
@@ -1135,6 +1143,10 @@
         {
             "name": "server-cluster",
             "classname": "hpe-server-cluster"
+        },
+        {
+            "name": "server-started",
+            "classname": "hpe-server-started"
         },
         {
             "name": "server",
@@ -1419,6 +1431,10 @@
         {
             "name": "troubleshooting",
             "classname": "hpe-troubleshooting"
+        },
+        {
+            "name": "undo",
+            "classname": "hpe-undo"
         },
         {
             "name": "unlock",

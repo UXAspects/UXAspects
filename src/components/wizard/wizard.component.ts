@@ -84,6 +84,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
     /** If set to `true` the 'Finish' button will be visible on all steps of the wizard. By default this button will only be visible on the final step of the wizard. */
     @Input() finishAlwaysVisible: boolean = false;
 
+    /** If set to `true` the 'Next' or 'Finish' button will become disabled when the current step is invalid. */
+    @Input() disableNextWhenInvalid: boolean = false;
+
     /** Emits when the wizard has moved to the next step. It will receive the current step index as a parameter. */
     @Output() onNext = new EventEmitter<number>();
 
@@ -191,6 +194,19 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
             // emit the current step
             this.onNext.next(this.step);
         }
+    }
+
+     /**
+      * Whether the Next or Finish button should be disabled.
+      */
+    isNextDisabled(): boolean {
+
+        const step = this.getCurrentStep();
+
+        // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
+        // based on validation.
+        // If not defined on the WizardStepComponent, use the value from WizardComponent.
+        return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step.valid;
     }
 
     /**

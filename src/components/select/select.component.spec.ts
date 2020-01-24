@@ -1,6 +1,8 @@
+import { O, SHIFT, TAB } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { dispatchKeyboardEvent } from '../../common/testing/dispatch-event';
 import { SelectModule } from './select.module';
 
 @Component({
@@ -386,6 +388,55 @@ describe('Select Component - NgModel Input', () => {
         expect(nativeElement.querySelector('ux-select').classList).toContain('ng-touched');
 
     });
+
+    it('should not open dropdown when tabbing past select', async () => {
+        fixture.detectChanges();
+
+        const input = getInput();
+        input.focus();
+        dispatchKeyboardEvent(input, 'keydown', TAB, null, 'Tab');
+
+        await fixture.whenStable();
+
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+    it('should not open dropdown when pressing a not printable key such as shift', async () => {
+        fixture.detectChanges();
+
+        const input = getInput();
+        input.focus();
+        dispatchKeyboardEvent(input, 'keydown', SHIFT, null, 'Shift');
+
+        await fixture.whenStable();
+
+        fixture.detectChanges();
+        expect(getTypeahead()).toBeFalsy();
+    });
+
+    it('should open dropdown when entering value', async () => {
+        fixture.detectChanges();
+
+        const input = getInput();
+        input.focus();
+
+        dispatchKeyboardEvent(input, 'keydown', O, null, 'o');
+        component.value = 'O';
+        fixture.detectChanges();
+
+        await fixture.whenStable();
+        expect(getTypeahead()).toBeTruthy();
+    });
+
+
+    function getInput(): HTMLElement | null {
+        return nativeElement.querySelector('input.form-control');
+    }
+
+    function getTypeahead(): HTMLElement | null {
+        return nativeElement.querySelector('ux-typeahead.open');
+    }
 
     function getSelect(isMultiple: boolean): HTMLElement | null {
         return nativeElement.querySelector(`ux-select ${isMultiple ? 'ux-tag-input' : 'input.form-control'}`);
