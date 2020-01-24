@@ -16,13 +16,11 @@ export class DateRangePickerComponent implements OnDestroy {
 
     /** The selected start date to be displayed in the component. */
     @Input() set start(start: Date) {
-        console.log('input component start =>', start);
         this.rangeService.start = start;
     }
 
     /** The selected end date to be displayed in the component. */
     @Input() set end(end: Date) {
-        console.log('input component end =>', end);
         this.rangeService.end = end;
     }
 
