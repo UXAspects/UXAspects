@@ -299,21 +299,20 @@ describe('Date Range Picker Tests', () => {
     });
 
     it('should update date picker when input date is updated', async () => {
-        expect(await page.setInputText('1 January 2020  12:00 AM GMT — 3 January 2020  11:59 PM GMT'));
 
-        // check the headers
+        // Clear input and enter new date
+        await page.input.clear();
+        await page.input.sendKeys('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM');
+        expect(await page.getInputText()).toBe('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM');
+
+        // remove focus from input
+        expect(await page.clickOnElement(Picker.Start));
+
+        // Check date picker has been updated
         expect(await page.getPickerDateHeader(Picker.Start)).toBe('1 January 2020');
-        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('12:00 AM');
+        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('9:00 AM');
         expect(await page.getPickerDateHeader(Picker.End)).toBe('3 January 2020');
-        expect(await page.getPickerTimeHeader(Picker.End)).toBe('11:59 PM');
-
-        expect(await page.setInputText('2 January 2020  04:34 PM GMT — 17 February 2020  09:45 AM GMT'));
-
-        // check the headers
-        expect(await page.getPickerDateHeader(Picker.Start)).toBe('2 January 2020');
-        expect(await page.getPickerTimeHeader(Picker.Start)).toBe('04:34 PM');
-        expect(await page.getPickerDateHeader(Picker.End)).toBe('17 February 2020');
-        expect(await page.getPickerTimeHeader(Picker.End)).toBe('09:45 AM');
+        expect(await page.getPickerTimeHeader(Picker.End)).toBe('10:59 PM');
     });
 
     // take into account the current timezone

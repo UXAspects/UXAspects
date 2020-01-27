@@ -5,33 +5,10 @@ import { PopoverModule } from '../../components/popover';
 import { IconModule } from '../icon';
 import { DateRangePickerModule } from './date-range-picker.module';
 
+
 @Component({
     selector: 'ux-components-date-range-picker',
     template: `
-        <div class="input-group" [class.has-error]="invalid">
-            <input type="text"
-                    #input
-                    #popover="ux-popover"
-                    placeholder="Select a date range"
-                    [ngModel]="date"
-                    uxFocusIndicatorOrigin
-                    (ngModelChange)="onDateChange($event)"
-                    [uxPopover]="popoverTemplate"
-                    placement="bottom"
-                    [popoverClass]="showNowBtn ? 'date-range-picker-now-btn-popover' : 'date-range-picker-popover'"
-                    class="form-control"
-                    aria-label="Selected date"
-                    (keydown.enter)="popover.show()">
-
-            <span class="input-group-btn">
-                <button class="btn button-secondary"
-                        [style.visibility]="date !== '' && date !== undefined && date !== null ? 'visible' : 'hidden'"
-                        aria-label="Clear"
-                        (click)="clear()">
-                    <ux-icon name="close" aria-hidden="true"></ux-icon>
-                </button>
-            </span>
-        </div>
         <ng-template #popoverTemplate>
             <ux-date-range-picker
                 [(start)]="start"
@@ -65,8 +42,8 @@ export class DateRangePickerComponent {
     showMeridian: boolean = true;
     showSpinners: boolean = true;
     showNowBtn: boolean = false;
-    // startTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
-    // endTimezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
+    startTimezone: any = { name: 'GMT', offset: 0 };
+    endTimezone: any = { name: 'GMT', offset: 0 };
 }
 
 describe('Date Range Picker', () => {

@@ -32,6 +32,11 @@ export class DateRangePickerPage {
         return await pickerElement.$('.range-start').getAttribute('innerText');
     }
 
+    async clickOnElement(picker: Picker): Promise<string> {
+        const pickerElement = await this.getPicker(picker);
+        return await pickerElement.click();
+    }
+
     async getRange(picker: Picker): Promise<string[]> {
         const pickerElement = await this.getPicker(picker);
         const elements: ElementFinder[] = await pickerElement.$$('.range-between');
