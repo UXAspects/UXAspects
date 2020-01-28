@@ -1,4 +1,4 @@
-import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
@@ -179,8 +179,6 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     highlightedElement: HTMLElement;
     filter$: Observable<string>;
-    propagateChange = (_: any) => { };
-
     _value$ = new ReplaySubject<T | ReadonlyArray<T>>(1);
     _hasValue = false;
 
@@ -190,6 +188,8 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
     private _userInput: boolean = false;
+    private _onChange = (_: any) => { };
+    private _onTouched = () => { };
     private _onDestroy = new Subject<void>();
 
     constructor(
@@ -206,7 +206,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         // Emit change events
         this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
             this._value = value;
-            this.propagateChange(value);
+            this._onChange(value);
             this._hasValue = !!value;
         });
 
@@ -265,11 +265,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         }
     }
 
-    registerOnChange(fn: any): void {
-        this.propagateChange = fn;
+    registerOnChange(fn: (value: T) => void): void {
+        this._onChange = fn;
     }
 
-    registerOnTouched(fn: T): void { }
+    registerOnTouched(fn: () => void): void {
+        this._onTouched = fn;
+    }
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
@@ -322,9 +324,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
             event.preventDefault();
         }
 
-        // when the user types and the value is not empty then we should open the dropdown
-        if (event.keyCode !== ESCAPE) {
+        // when the user types and the value is not empty then we should open the dropdown except for non printable keys.
+        if (event.key.length === 1) {
             this._userInput = true;
+            this._dropdownOpen = true;
         }
     }
 
@@ -368,6 +371,10 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Handle input focus events */
     onFocus(): void {
+
+        // mark form control as touched
+        this._onTouched();
+
         // if the input is readonly we do not want to select the text on focus
         if (this.readonlyInput) {
             // cast the select input element

@@ -4,6 +4,7 @@ import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { tick } from '../../common/index';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
+import { DashboardStackMode } from './widget/dashboard-stack-mode.enum';
 
 @Injectable()
 export class DashboardService implements OnDestroy {
@@ -143,7 +144,6 @@ export class DashboardService implements OnDestroy {
      * Determine where widgets should be positioned based on their positions, width and the size of the container
      */
     setDashboardLayout(): void {
-
         // find any widgets that do not currently have a position set
         this.widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
             .forEach(widget => this.setWidgetPosition(widget));
@@ -152,20 +152,22 @@ export class DashboardService implements OnDestroy {
     }
 
     updateWhenStacked(): void {
-
-        // iterate through each widget set it's stacked state and
-        this.getWidgetsByOrder().forEach((widget, idx) => {
+        // iterate through each widget set it's stacked state and retain the rowSpan
+        this.getWidgetsByOrder().forEach((widget, idx, widgets) => {
+            const widgetsAbove = widgets.slice(0, idx);
+            const row = widgetsAbove.reduce((currentRow, _widget) => currentRow + _widget.getRowSpan(), 0);
             widget.setColumn(0);
-            widget.setRow(idx);
+            widget.setRow(row);
         });
 
     }
 
+    /** Get widgets in the order they visually appear as the widgets array order does not reflect this */
     getWidgetsByOrder(): DashboardWidgetComponent[] {
-        return this.widgets.sort((w1, w2) => {
+        return [...this.widgets].sort((w1, w2) => {
 
-            const w1Position = w1.getColumn() + (w1.getRow() * this.options.columns);
-            const w2Position = w2.getColumn() + (w2.getRow() * this.options.columns);
+            const w1Position = w1.getColumn(DashboardStackMode.Regular) + (w1.getRow(DashboardStackMode.Regular) * this.options.columns);
+            const w2Position = w2.getColumn(DashboardStackMode.Regular) + (w2.getRow(DashboardStackMode.Regular) * this.options.columns);
 
             if (w1Position < w2Position) {
                 return -1;
@@ -176,6 +178,7 @@ export class DashboardService implements OnDestroy {
             }
 
             return 0;
+
         });
     }
 
@@ -1036,9 +1039,8 @@ export class DashboardService implements OnDestroy {
      * @param widget The widget to move downwards
      */
     moveWidgetDown(widget: DashboardWidgetComponent, distance: number = 1): void {
-
         // move the widget down one position
-        widget.setRow(widget.getRow() + distance);
+        widget.setRow((widget.getRow(DashboardStackMode.Auto)) + distance);
 
         // check every space the widget occupies for collisions
         this.forEachBlock(widget, (column, row) =>

@@ -8,8 +8,13 @@ export class MarqueeWizardPage {
     gutter = element(by.tagName('split-gutter'));
     resizeableButton = element(by.id('resizeable'));
     footerTemplateButton = element(by.id('footerTemplate'));
+    step4InvalidButton = element(by.id('step4Invalid'));
+    step1InvalidButton = element(by.id('step1Invalid'));
+    step2InvalidButton = element(by.id('step2Invalid'));
+    disableNextWhenInvalidStep1Button = element(by.id('disableNextWhenInvalidStep1'));
+    disableNextWhenInvalidWizardButton = element(by.id('disableNextWhenInvalidWizard'));
     resetButton = element(by.id('reset'));
-    input = $('input');
+    input = $('ux-number-picker input');
     emittedWidth = element(by.id('sidePanelWidthChange'));
 
     buttons = $$('button');

@@ -38,7 +38,7 @@ describe('Wizard Tests', () => {
 
         // only the first one should actually have any content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0)
+            expect(await step.$$('*').count() > 0).toBe(idx === 0)
         );
 
         // Initial set of buttons
@@ -81,7 +81,7 @@ describe('Wizard Tests', () => {
 
         // check that only the second step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 1 ? 1 : 0));
+            expect(await step.$$('*').count() > 0).toBe(idx === 1));
 
         expect(await imageCompare('wizard-step2')).toEqual(0);
     });
@@ -104,7 +104,101 @@ describe('Wizard Tests', () => {
 
         // check that only the first step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 0 ? 1 : 0));
+            expect(await step.$$('*').count() > 0).toBe(idx === 0));
+    });
+
+    it('should disable the next and finish buttons when the step is invalid and disableNextWhenInvalid = true', async () => {
+        // Set disableNextWhenInvalid = true
+        await page.disableNextWhenInvalidWizardButton.click();
+
+        // Setting step 1 to be invalid
+        await page.step1InvalidButton.click();
+
+        // Next button should be disabled
+        const next: ElementFinder = await page.getNextButton();
+        expect(await next.isEnabled()).toBe(false, 'Step 1 next button should be disabled when invalid');
+
+        // setting the step to be valid by clicking it a second time
+        await page.step1InvalidButton.click();
+        expect(await next.isEnabled()).toBe(true, 'Step 1 next button should be enabled when valid');
+
+        // go to last step
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+
+        // Setting step 4 to be invalid
+        await page.step4InvalidButton.click();
+
+        // Checks if finish button is disabled
+        const finish: ElementFinder = await page.getFinishButton();
+        expect(await finish.isEnabled()).toBe(false, 'Step 4 finish button should be disabled when invalid');
+
+        // Set step 4 to be valid
+        await page.step4InvalidButton.click();
+        expect(await finish.isEnabled()).toBe(true, 'Step 4 finish button should be enabled when valid');
+    });
+
+    it('should not disable the next and finish buttons when the step is invalid and disableNextWhenInvalid = false', async () => {
+        // Setting step 1 to be invalid
+        await page.step1InvalidButton.click();
+
+        // Next button should not be disabled
+        const next: ElementFinder = await page.getNextButton();
+        expect(await next.isEnabled()).toBe(true, 'Step 1 next button should be enabled when invalid');
+
+        // setting the step to be valid by clicking it a second time
+        await page.step1InvalidButton.click();
+        expect(await next.isEnabled()).toBe(true, 'Step 1 next button should be enabled when valid');
+
+        // go to last step
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+
+        // Setting step 4 to be invalid
+        await page.step4InvalidButton.click();
+
+        // Finish button should not be disabled
+        const finish: ElementFinder = await page.getFinishButton();
+        expect(await finish.isEnabled()).toBe(true, 'Step 4 finish button should be enabled when invalid');
+
+        // Set step 4 to be valid
+        await page.step4InvalidButton.click();
+        expect(await finish.isEnabled()).toBe(true, 'Step 4 finish button should be enabled when valid');
+    });
+
+    it('should allow disableNextWhenInvalid at the step level to override the wizard input', async () => {
+        // Set disableNextWhenInvalid = true on ux-wizard-step.
+        // disableNextWhenInvalid on ux-wizard remains false
+        await page.disableNextWhenInvalidStep1Button.click();
+
+        // Setting step 1 to be invalid
+        await page.step1InvalidButton.click();
+
+        // Check the next button is disabled
+        const next = await page.getNextButton();
+        expect(await next.isEnabled()).toBe(false, 'Step 1 next button should be disabled when invalid');
+
+        // Setting step 1 to be valid
+        await page.step1InvalidButton.click();
+        expect(await next.isEnabled()).toBe(true, 'Step 1 next button should be enabled when valid');
+
+        // go to last step
+        await page.goToNext();
+        await page.goToNext();
+        await page.goToNext();
+
+        // Setting step 4 to be invalid
+        await page.step4InvalidButton.click();
+
+        // Finish button should not be disabled due to not overriding disableNextWhenInvalid
+        const finish: ElementFinder = await page.getFinishButton();
+        expect(await finish.isEnabled()).toBe(true, 'Step 4 finish button should be enabled when invalid');
+
+        // Set step 4 to be valid
+        await page.step4InvalidButton.click();
+        expect(await finish.isEnabled()).toBe(true, 'Step 4 finish button should be enabled when valid');
     });
 
     it('should be able to go to the final step', async () => {
@@ -114,7 +208,8 @@ describe('Wizard Tests', () => {
 
         // check that only the last step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 3 ? 1 : 0));
+            expect(await step.$$('*').count() > 0).toBe(idx === 3));
+
 
         // check that the finish button is visible
         let finish = await page.getFinishButton();
@@ -146,7 +241,7 @@ describe('Wizard Tests', () => {
 
         // check that only the last step is showing its content
         page.stepContents.each(async (step, idx) =>
-            expect(await step.$$('*').count()).toBe(idx === 4 ? 1 : 0)
+            expect(await step.$$('*').count() > 0).toBe(idx === 4)
         );
 
         // the finish button should now be visible

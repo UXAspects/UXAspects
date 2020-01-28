@@ -1,14 +1,17 @@
 <ux-marquee-wizard [resizable]="resizable"
+                   [disableNextWhenInvalid]="disableNextWhenInvalidWizard"
                    [(sidePanelWidth)]="sidePanelWidth">
 
-    <ux-marquee-wizard-step header="Step 1">
-        <ux-icon *uxMarqueeWizardStepIcon name="soa"></ux-icon>
+    <ux-marquee-wizard-step header="Step 1" [disableNextWhenInvalid]="disableNextWhenInvalidStep1" [valid]="!step1Invalid">
+        <ux-icon *uxMarqueeWizardStepIcon name="soa" ></ux-icon>
         <p>Step 1 Content</p>
+        <ux-checkbox [(value)]="step1Invalid" id="step1Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
-    <ux-marquee-wizard-step header="Step 2">
+    <ux-marquee-wizard-step header="Step 2" [valid]="!step2Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="schedule-clone"></ux-icon>
         <p>Step 2 Content</p>
+        <ux-checkbox [(value)]="step2Invalid" id="step2Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ux-marquee-wizard-step header="Step 3">
@@ -16,9 +19,10 @@
         <p>Step 3 Content</p>
     </ux-marquee-wizard-step>
 
-    <ux-marquee-wizard-step header="Step 4">
+    <ux-marquee-wizard-step header="Step 4" [valid]="!step4Invalid">
         <ux-icon *uxMarqueeWizardStepIcon name="storage"></ux-icon>
         <p>Step 4 Content</p>
+        <ux-checkbox [(value)]="step4Invalid" id="step4Invalid">Set this step to error state</ux-checkbox>
     </ux-marquee-wizard-step>
 
     <ng-template *ngIf="hasFooterTemplate" #footerTemplate let-step="step">
@@ -29,7 +33,8 @@
 
 <button id="resizeable" class="btn button-primary" (click)="resizable = true">Enable resizable</button>
 <button id="footerTemplate" class="btn button-secondary" (click)="hasFooterTemplate = true">Add footerTemplate</button>
-
+<button id="disableNextWhenInvalidStep1" class="btn button-secondary" (click)="disableNextWhenInvalidStep1 = !disableNextWhenInvalidStep1">Set Next Invalid(Step)</button>
+<button id="disableNextWhenInvalidWizard" class="btn button-secondary" (click)="disableNextWhenInvalidWizard = true">Set Next Invalid(Wizard)</button>
 <ux-number-picker [(value)]="sidePanelWidth"></ux-number-picker>
 
 <p id="sidePanelWidthChange">{{ sidePanelWidth | number: '1.1-1' }}</p>

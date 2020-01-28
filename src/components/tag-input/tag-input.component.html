@@ -32,14 +32,14 @@
                [disabled]="disabled"
                [focusIf]="isSelected(tags.length)"
                (click)="toggle(); $event.stopPropagation()"
-               (focus)="inputFocusHandler()"
+               (focus)="inputFocusHandler(); inputFocus.emit($event)"
                (paste)="inputPasteHandler($event)"
                [readonly]="readonlyInput">
     </li>
 </ol>
 
 <!-- Insert the custom icon if provided -->
-<div class="ux-tag-icons" *ngIf="icon || _showClearButton">
+<div class="ux-tag-icons" *ngIf="icon || _showClearButton" (click)="toggle(); $event.stopPropagation()">
 
     <!-- Clear All Button -->
     <i uxFocusIndicator
