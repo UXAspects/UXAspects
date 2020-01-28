@@ -6,31 +6,33 @@ import { IconModule } from '../icon';
 import { DateRangePickerModule } from './date-range-picker.module';
 
 
+
 @Component({
     selector: 'ux-components-date-range-picker',
     template: `
-        <ng-template #popoverTemplate>
-            <ux-date-range-picker
-                [(start)]="start"
-                [(end)]="end"
-                [showTime]="showTime"
-                [showTimezone]="showTimezone"
-                [showSeconds]="showSeconds"
-                [showMeridian]="showMeridian"
-                [showSpinners]="showSpinners"
-                [showNowBtn]="showNowBtn"
-                [startTimezone]="startTimezone"
-                [endTimezone]="endTimezone"
-                (startChange)="onRangeChange()"
-                (endChange)="onRangeChange()"
-                (keydown.escape)="popover.hide(); input.focus()"
-                (startTimezoneChange)="onTimezoneChange(true, $event)"
-                (endTimezoneChange)="onTimezoneChange(false, $event)">
-            </ux-date-range-picker>
-        </ng-template>
+        <ux-date-range-picker
+            [(start)]="start"
+            [(end)]="end"
+            [showTime]="showTime"
+            [showTimezone]="showTimezone"
+            [showSeconds]="showSeconds"
+            [showMeridian]="showMeridian"
+            [showSpinners]="showSpinners"
+            [showNowBtn]="showNowBtn"
+            [startTimezone]="startTimezone"
+            [endTimezone]="endTimezone"
+            (startChange)="onRangeChange()"
+            (endChange)="onRangeChange()"
+            (keydown.escape)="popover.hide(); input.focus()"
+            (startTimezoneChange)="onTimezoneChange(true, $event)"
+            (endTimezoneChange)="onTimezoneChange(false, $event)">
+        </ux-date-range-picker>
     `
 })
 export class DateRangePickerComponent {
+
+    onRangeChange(): void { }
+    endChange(): void { }
 
     start: Date;
     end: Date;
@@ -46,7 +48,7 @@ export class DateRangePickerComponent {
     endTimezone: any = { name: 'GMT', offset: 0 };
 }
 
-describe('Date Range Picker', () => {
+fdescribe('Date Range Picker', () => {
     let component: DateRangePickerComponent;
     let fixture: ComponentFixture<DateRangePickerComponent>;
     let nativeElement: HTMLElement;
@@ -69,5 +71,32 @@ describe('Date Range Picker', () => {
     it('should initialise correctly', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should update start date and call onRangeChange when start date is changed ', async () => {
+        spyOn(component, 'onRangeChange');
+        component.start = new Date('Tue Jan 07 2020 00:00:00 GMT+0000 (Greenwich Mean Time)');
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getDate().innerHTML).toBe(' 7 January 2020 ');
+        expect(component.onRangeChange).toHaveBeenCalled();
+    });
+
+    it('should update end date and call onRangeChange when end date is changed', async () => {
+        spyOn(component, 'onRangeChange');
+        component.end = new Date('Thu Jan 23 2020 23:59:59 GMT+0000 (Greenwich Mean Time)');
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getDate().innerHTML).toBe(' 23 January 2020 ');
+        expect(component.onRangeChange).toHaveBeenCalled();
+    });
+
+    function getDate(): HTMLElement | null {
+        return nativeElement.querySelector('ux-date-range-picker .header-section .date-header');
+    }
+
 });
 
