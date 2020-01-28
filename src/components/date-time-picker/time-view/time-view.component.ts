@@ -58,11 +58,16 @@ export class TimeViewComponent implements OnInit, OnDestroy {
             this.value.setFullYear(date.getFullYear());
             this.value.setMonth(date.getMonth());
             this.value.setDate(date.getDate());
+            this.value.setHours(date.getHours());
+            this.value.setMinutes(date.getMinutes());
+            this.value = new Date(this.value);
+
             _changeDetector.detectChanges();
         });
 
         if (!this._isRangeMode) {
-            datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy)).subscribe(date => this.value = new Date(date));
+            datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy))
+                .subscribe(date => this.value = new Date(date));
         }
 
         if (this._isRangeMode && this._isRangeStart) {
