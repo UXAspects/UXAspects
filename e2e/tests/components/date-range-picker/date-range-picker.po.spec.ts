@@ -9,6 +9,7 @@ export class DateRangePickerPage {
     disableMinAndMaxBtn = $('#disable-min-max');
     dateFormatBtn = $('#date-format');
     timeFormatBtn = $('#time-format');
+    dateHeader = $('.date-header');
 
     async getPage(): Promise<void> {
         await browser.get('#/date-range-picker');
@@ -32,9 +33,8 @@ export class DateRangePickerPage {
         return await pickerElement.$('.range-start').getAttribute('innerText');
     }
 
-    async clickOnElement(picker: Picker): Promise<string> {
-        const pickerElement = await this.getPicker(picker);
-        return await pickerElement.click();
+    async clickOnRangeHeader(): Promise<void> {
+        return await this.dateHeader.click();
     }
 
     async getRange(picker: Picker): Promise<string[]> {

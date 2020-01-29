@@ -302,11 +302,11 @@ describe('Date Range Picker Tests', () => {
 
         // Clear input and enter new date
         await page.input.clear();
-        await page.input.sendKeys('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM');
-        expect(await page.getInputText()).toBe('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM');
+        await page.input.sendKeys('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM GMT');
+        expect(await page.getInputText()).toBe('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM GMT');
 
         // remove focus from input
-        expect(await page.clickOnElement(Picker.Start));
+        await page.clickOnRangeHeader();
 
         // Check date picker has been updated
         expect(await page.getPickerDateHeader(Picker.Start)).toBe('1 January 2020');
