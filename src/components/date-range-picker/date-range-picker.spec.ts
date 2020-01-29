@@ -21,8 +21,8 @@ import { DateRangePickerModule } from './date-range-picker.module';
             [showNowBtn]="showNowBtn"
             [startTimezone]="startTimezone"
             [endTimezone]="endTimezone"
-            (startChange)="onRangeChange()"
-            (endChange)="onRangeChange()"
+            (startChange)="onStartChange()"
+            (endChange)="onEndChange()"
             (keydown.escape)="popover.hide(); input.focus()"
             (startTimezoneChange)="onTimezoneChange(true, $event)"
             (endTimezoneChange)="onTimezoneChange(false, $event)">
@@ -31,8 +31,8 @@ import { DateRangePickerModule } from './date-range-picker.module';
 })
 export class DateRangePickerComponent {
 
-    onRangeChange(): void { }
-    endChange(): void { }
+    onStartChange(): void { }
+    onEndChange(): void { }
 
     start: Date;
     end: Date;
@@ -72,26 +72,26 @@ describe('Date Range Picker', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update start date and call onRangeChange when start date is changed ', async () => {
-        spyOn(component, 'onRangeChange');
+    it('should update start date and call onStartChange when start date is changed ', async () => {
+        spyOn(component, 'onStartChange');
         component.start = new Date('Tue Jan 07 2020 00:00:00 GMT+0000 (Greenwich Mean Time)');
 
         fixture.detectChanges();
         await fixture.whenStable();
 
         expect(getDate().innerHTML).toBe(' 7 January 2020 ');
-        expect(component.onRangeChange).toHaveBeenCalled();
+        expect(component.onStartChange).toHaveBeenCalled();
     });
 
-    it('should update end date and call onRangeChange when end date is changed', async () => {
-        spyOn(component, 'onRangeChange');
+    it('should update end date and call onEndChange when end date is changed', async () => {
+        spyOn(component, 'onEndChange');
         component.end = new Date('Thu Jan 23 2020 23:59:59 GMT+0000 (Greenwich Mean Time)');
 
         fixture.detectChanges();
         await fixture.whenStable();
 
         expect(getDate().innerHTML).toBe(' 23 January 2020 ');
-        expect(component.onRangeChange).toHaveBeenCalled();
+        expect(component.onEndChange).toHaveBeenCalled();
     });
 
     function getDate(): HTMLElement | null {
