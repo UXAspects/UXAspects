@@ -13,9 +13,9 @@
         </div>
 
         <!-- Sub-title -->
-        <div *ngIf="subheader || subheaderTemplate || titleTemplate" class="page-header-subtitle-container">
+        <div *ngIf="subheader || subheaderTemplate" class="page-header-subtitle-container">
             <span *ngIf="subheader" class="page-header-subtitle">{{subheader}}</span>
-            <ng-container [ngTemplateOutlet]="subheaderTemplate || titleTemplate"></ng-container>
+            <ng-container [ngTemplateOutlet]="subheaderTemplate"></ng-container>
         </div>
 
         <div class="page-header-state-container" role="navigation">
@@ -79,7 +79,7 @@
         <ux-tab *ngFor="let child of children"
             [heading]="child.title"
             [active]="child === (selected$ | async)"
-            (select)="select(child)"
+            (activated)="select(child)"
             [uxPageHeaderNavigationSecondaryItem]="child"
             [disabled]="child.disabled">
         </ux-tab>

@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
 import { TabsetService } from '../tabset.service';
 import { TabHeadingDirective } from './tab-heading.directive';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 let uniqueTabId = 0;
@@ -11,7 +10,7 @@ let uniqueTabId = 0;
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabComponent implements OnInit, OnDestroy {
+export class TabComponent implements OnDestroy {
 
     /** Define the tab unique id */
     @Input() id: string = `ux-tab-${++uniqueTabId}`;
@@ -28,15 +27,8 @@ export class TabComponent implements OnInit, OnDestroy {
     /** provide a custom class for the tab */
     @Input() customClass: string;
 
-    /** @deprecated Emit when this tab is selected - use activated output instead */
-        // tslint:disable-next-line
-    @Output() select = new EventEmitter<void>();
-
     /** Emit when this tab is selected */
     @Output() activated = new EventEmitter<void>();
-
-    /** @deprecated Emit when this tab is deselected - - use deactivated output instead */
-    @Output() deselect = new EventEmitter<void>();
 
     /** Emit when this tab is deselected */
     @Output() deactivated = new EventEmitter<void>();
@@ -51,24 +43,6 @@ export class TabComponent implements OnInit, OnDestroy {
         private readonly _tabset: TabsetService,
         private readonly _changeDetector: ChangeDetectorRef
     ) { }
-
-    ngOnInit(): void {
-        // warn anyone using the select output that it is deprecated
-        if (this.select.observers.length > 0) {
-            console.warn('Tab Component - (select) output is deprecated use activated instead');
-        }
-
-        // warn anyone using the deselect output that it is deprecated
-        if (this.deselect.observers.length > 0) {
-            console.warn('Tab Component - (deselect) output is deprecated use deactivated instead');
-        }
-
-        // for backwards compatibility emit deprecated select event
-        this.activated.pipe(takeUntil(this._onDestroy)).subscribe(() => this.select.emit());
-
-        // for backwards compatibility emit deprecated deselect event
-        this.deactivated.pipe(takeUntil(this._onDestroy)).subscribe(() => this.deselect.emit());
-    }
 
     ngOnDestroy(): void {
         this._onDestroy.next();

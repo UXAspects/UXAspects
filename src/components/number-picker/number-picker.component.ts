@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Optional, Output, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -18,7 +18,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
         '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
 })
-export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
+export class NumberPickerComponent implements ControlValueAccessor, OnChanges, OnDestroy {
 
     private _min: number = -Infinity;
     private _max: number = Infinity;
@@ -30,7 +30,8 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
     /** Sets the id of the number picker. The child input will have this value with a -input suffix as its id. */
     @Input() id: string = `ux-number-picker-${uniqueId++}`;
 
-    /** Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
+    /** @deprecated - Use reactive form validation instead.
+    * Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if the user enters a number below the minimum value or above the maximum value. */
     @Input() valid: boolean = true;
 
     /** Provice an aria labelledby attribute */
@@ -115,6 +116,12 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
 
     ngOnDestroy(): void {
         this._isDestroyed = true;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.valid && changes.valid.isFirstChange()) {
+            console.warn(`ux-number-picker [valid] property has been deprecated. Instead use reactive form validation.`);
+        }
     }
 
     increment(event?: MouseEvent | KeyboardEvent): void {

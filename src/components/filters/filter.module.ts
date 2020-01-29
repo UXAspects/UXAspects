@@ -7,14 +7,12 @@ import { IconModule } from '../icon/index';
 import { MenuModule } from '../menu/index';
 import { TooltipModule } from '../tooltip/index';
 import { TypeaheadModule } from '../typeahead/index';
-import { FilterBaseComponent } from './filter-base/filter-base.component';
 import { FilterContainerComponent } from './filter-container.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
 import { FilterTypeaheadHighlight } from './filter-dynamic/filter-typeahead-highlight.pipe';
 
 const DECLARATIONS = [
-    FilterBaseComponent,
     FilterContainerComponent,
     FilterDropdownComponent,
     FilterDynamicComponent,

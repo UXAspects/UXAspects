@@ -8,7 +8,6 @@ import { IconModule } from '../icon/index';
 import { TooltipModule } from '../tooltip/index';
 import { TypeaheadModule } from '../typeahead/index';
 import { ReorderableModule } from './../../directives/reorderable/reorderable.module';
-import { FacetBaseComponent } from './base/facet-base/facet-base.component';
 import { FacetHeaderComponent } from './base/facet-header/facet-header.component';
 import { FacetCheckListItemComponent } from './facet-check-list/check-list-item/facet-check-list-item.component';
 import { FacetCheckListComponent } from './facet-check-list/facet-check-list.component';
@@ -20,7 +19,6 @@ import { FacetTypeaheadListItemComponent } from './facet-typeahead-list/typeahea
 const DECLARATIONS = [
     FacetContainerComponent,
     FacetHeaderComponent,
-    FacetBaseComponent,
     FacetCheckListComponent,
     FacetCheckListItemComponent,
     FacetTypeaheadListComponent,

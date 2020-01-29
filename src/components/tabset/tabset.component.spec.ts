@@ -7,7 +7,7 @@ import { dispatchMouseEvent } from '../../common/testing';
     selector: 'app-tabset-test',
     template: `
         <ux-tabset [minimal]="true" aria-label="Tabset Example">
-            <ux-tab (deselect)="onTabDeselect()"  (deactivated)="onTabDeactivated()" (select)="onTabSelect()"  (activated)="onTabActivated()" customClass="text-center" *ngFor="let tab of tabs">
+            <ux-tab (deactivated)="onTabDeactivated()" (activated)="onTabActivated()" customClass="text-center" *ngFor="let tab of tabs">
                 <ng-template uxTabHeading>
                     <span>{{ tab.title }}</span>
                 </ng-template>
@@ -41,13 +41,7 @@ export class TabsetTestComponent {
         }
     ];
 
-    onTabSelect(): void {
-    }
-
     onTabActivated(): void {
-    }
-
-    onTabDeselect(): void {
     }
 
     onTabDeactivated(): void {
@@ -82,17 +76,6 @@ describe('Tabset Component', () => {
         expect(component.onTabActivated).toHaveBeenCalled();
     });
 
-    it('should emit select output when tab is clicked', () => {
-
-        spyOn(component, 'onTabSelect');
-
-        const tab = getTab(1, nativeElement);
-
-        dispatchMouseEvent(tab, 'mousedown');
-
-        expect(component.onTabSelect).toHaveBeenCalled();
-    });
-
     it('should emit deactivated output when tab is deselected', () => {
 
         spyOn(component, 'onTabDeactivated');
@@ -103,17 +86,6 @@ describe('Tabset Component', () => {
 
         expect(component.onTabDeactivated).toHaveBeenCalled();
 
-    });
-
-    it('should emit deselect output when tab is deselected', () => {
-
-        spyOn(component, 'onTabDeselect');
-
-        const tab = getTab(2, nativeElement);
-
-        dispatchMouseEvent(tab, 'mousedown');
-
-        expect(component.onTabDeselect).toHaveBeenCalled();
     });
 
 });

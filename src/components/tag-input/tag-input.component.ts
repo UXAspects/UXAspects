@@ -153,12 +153,6 @@ export class TagInputComponent<T = any> implements AfterContentInit, OnChanges, 
      */
     @Input('createTag') createTagHandler: (value: string) => any;
 
-    /**
-     * @deprecated
-     * Workaround for EL-3224 - No longer needed
-     */
-    @Input() trackAriaDescendant: boolean = true;
-
     /** Define a custom icon to be used instead of the chevron */
     @Input() icon: TemplateRef<any>;
 

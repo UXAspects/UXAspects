@@ -13,20 +13,6 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 })
 export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
 
-    /**
-     * @deprecated - Use ng-content instead
-     * If specified, defines which icon from the icon set to display in the button.
-     * If you wish to display custom content you can simply add children to the
-     * component and they will be displayed within the button. */
-    @Input() set icon(icon: string) {
-        this._icon = icon;
-        this._isLegacyIcon = this._icon.indexOf('hpe-') === 0;
-    }
-
-    get icon(): string {
-        return this._icon;
-    }
-
     /** Define the aria label for the button */
     @Input('aria-label') ariaLabel: string;
 
@@ -39,12 +25,6 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     /** Store the tabindex */
     tabindex$ = new BehaviorSubject<number>(-1);
 
-    /** Store the icon */
-    _icon: string;
-
-    /** Determine if the icon is from the legacy `hpe` iconset or `ux` iconset */
-    _isLegacyIcon: boolean = false;
-
     /** Unsubscribe from all observables on component destroy */
     private readonly _onDestroy = new Subject<void>();
 
@@ -53,11 +33,6 @@ export class FloatingActionButtonComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-
-        // warn about use of deprecated input
-        if (this.icon) {
-            console.warn('ux-floating-action-button - `icon` input is deprecated. Instead add the icon as content of the `ux-floating-action-button` element.');
-        }
 
         if (this._tooltip) {
             // ensure the tooltip gets hidden when the button is hidden
