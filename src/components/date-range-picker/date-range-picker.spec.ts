@@ -48,7 +48,7 @@ export class DateRangePickerComponent {
     endTimezone: any = { name: 'GMT', offset: 0 };
 }
 
-fdescribe('Date Range Picker', () => {
+describe('Date Range Picker', () => {
     let component: DateRangePickerComponent;
     let fixture: ComponentFixture<DateRangePickerComponent>;
     let nativeElement: HTMLElement;
