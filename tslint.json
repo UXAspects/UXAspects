@@ -2,8 +2,12 @@
   "rulesDirectory": [
     "codelyzer"
   ],
+  "extends": [
+    "tslint-defocus"
+  ],
   "rules": {
     "no-inferrable-types": false,
+    "defocus": true,
     "class-name": true,
     "comment-format": [
       true,
