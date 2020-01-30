@@ -27,7 +27,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     placeholder = 'Select a country';
     readonlyInput: boolean = false;
     clearButton: boolean = false;
-    recentOptions: ReadonlyArray<string>;
+    recentOptions: ReadonlyArray<any>;
     recentOptionsMaxCount: number = 5;
 
     private _pageSize = 20;
@@ -85,7 +85,6 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
         // Reset and reassign options when the dataset changes. Also set display and key properties.
         this.dataSet.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((value) => {
 
-            // WORKAROUND to reset Enable Option Paging when user switches between string and object options.
             if (this.multiple.getValue() === true) {
                 this.pagingEnabled.next(false);
             }
@@ -93,6 +92,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
             this.selected = null;
             this.dropdownOpen = false;
             this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
+            this.recentOptions = this.recentOptions ? [] : null;
             this.display = (value === 'objects') ? 'name' : null;
             this.key = (value === 'objects') ? 'id' : null;
         });

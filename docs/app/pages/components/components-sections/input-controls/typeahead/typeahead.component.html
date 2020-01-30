@@ -22,7 +22,7 @@
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
                           (optionSelected)="input = $event.option"
-                          [recentOptions]="recentOptions"
+                          [(recentOptions)]="recentOptions"
                           [recentOptionsMaxCount]="recentOptionsMaxCount">
             </ux-typeahead>
         </form>
@@ -48,7 +48,9 @@
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
-                        <ux-checkbox (valueChange)="recentOptions = $event ? [] : undefined">
+                        <ux-checkbox
+                            [value]="!!recentOptions"
+                            (valueChange)="recentOptions = $event ? [] : undefined">
                             recentOptions
                         </ux-checkbox>
                     </div>
@@ -161,10 +163,11 @@
         Controls whether an option should be selected on enter key press.
     </tr>
     <tr uxd-api-property name="recentOptions" type="ReadonlyArray&lt;T&gt;">
-        List of recently selected options.
+        An initial list of recently selected options, to be presented above the full list of options. Bind an empty
+        array to <code>recentOptions</code> to enable this feature without providing an initial set.
     </tr>
     <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
-        Number of displayed recently selected options.
+        Maximum number of displayed recently selected options.
     </tr>
 </uxd-api-properties>
 

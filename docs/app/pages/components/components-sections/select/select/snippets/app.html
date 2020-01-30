@@ -1,4 +1,4 @@
-<div class="row drop-direction-up">
+<div class="row" [class.drop-direction-up]="dropDirection === 'up'">
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
             <ux-select [(value)]="selected"
@@ -14,7 +14,7 @@
                 [placeholder]="placeholder"
                 [readonlyInput]="readonlyInput"
                 [clearButton]="clearButton"
-                [recentOptions]="recentOptions"
+                [(recentOptions)]="recentOptions"
                 [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
@@ -29,6 +29,11 @@
 <div class="row">
     <div class="col-md-12 m-t-md">
         Selected location(s): <code>{{selected | json}}</code>
+    </div>
+</div>
+<div *ngIf="recentOptions" class="row">
+    <div class="col-md-12 m-t-md">
+        Recent options: <code>{{recentOptions | json}}</code>
     </div>
 </div>
 <div class="row uxd-customize-example">
@@ -53,9 +58,8 @@
                         <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
                     </div>
                     <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">
-                            allowNull
-                        </ux-checkbox>
+                        <ux-checkbox [(value)]="allowNull"
+                            [disabled]="multiple | async">allowNull</ux-checkbox>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <ux-checkbox [(value)]="readonlyInput">readonlyInput</ux-checkbox>
@@ -63,7 +67,8 @@
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-3 col-sm-12">
-                        <ux-checkbox [(value)]="clearButton" [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
+                        <ux-checkbox [(value)]="clearButton"
+                            [disabled]="!(multiple | async) && !allowNull">clearButton</ux-checkbox>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -74,8 +79,27 @@
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <label for="placeholder">placeholder</label>
-                        <input type="text" name="placeholder" class="form-control"
+                        <input type="text"
+                            name="placeholder"
+                            class="form-control"
                             [(ngModel)]="placeholder">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox
+                            [value]="!!recentOptions"
+                            (valueChange)="recentOptions = $event ? [] : undefined">
+                            recentOptions
+                        </ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>recentOptionsMaxCount</label>
+                        <ux-number-picker
+                            [disabled]="!recentOptions"
+                            min="1"
+                            [(value)]="recentOptionsMaxCount">
+                        </ux-number-picker>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -91,21 +115,6 @@
                             [min]="1"
                             [max]="1000"
                             [disabled]="!(pagingEnabled | async)">
-                        </ux-number-picker>
-                    </div>
-                </div>
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <ux-checkbox (valueChange)="recentOptions = $event ? [] : undefined">
-                            recentOptions
-                        </ux-checkbox>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <label>recentOptionsMaxCount</label>
-                        <ux-number-picker
-                            [disabled]="!recentOptions"
-                            min="1"
-                            [(value)]="recentOptionsMaxCount">
                         </ux-number-picker>
                     </div>
                 </div>

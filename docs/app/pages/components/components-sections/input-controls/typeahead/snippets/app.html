@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" [class.drop-direction-up]="dropDirection === 'up'">
     <div class="col-md-12 has-feedback">
         <form class="input-typeahead-form">
             <input [(ngModel)]="input"
@@ -22,10 +22,9 @@
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
                           (optionSelected)="input = $event.option"
-                          [recentOptions]="recentOptions"
+                          [(recentOptions)]="recentOptions"
                           [recentOptionsMaxCount]="recentOptionsMaxCount">
             </ux-typeahead>
         </form>
     </div>
 </div>
-
