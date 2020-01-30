@@ -21,7 +21,9 @@
                           [selectOnEnter]="selectOnEnter"
                           [selectFirst]="selectFirst"
                           [dropDirection]="dropDirection"
-                          (optionSelected)="input = $event.option">
+                          (optionSelected)="input = $event.option"
+                          [recentOptions]="recentOptions"
+                          [recentOptionsMaxCount]="recentOptionsMaxCount">
             </ux-typeahead>
         </form>
     </div>
