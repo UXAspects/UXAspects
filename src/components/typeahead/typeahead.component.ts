@@ -92,14 +92,17 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this.activeKey = this.getKey(item);
     }
 
-    /** Container for saving the recently selected options. */
+    /**
+     * An initial list of recently selected options, to be presented above the full list of options.
+     * Bind an empty array to `recentOptions` to enable this feature without providing an initial set.
+     */
     @Input() set recentOptions(recentOptions: ReadonlyArray<T>) {
         this._recentOptions = recentOptions
             ? recentOptions.slice(0, this.recentOptionsMaxCount)
             : undefined;
     }
 
-    /** Maximum number of displayed recent options. */
+    /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number = 5;
 
     /** Emit when the open state changes */
@@ -123,9 +126,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOptionsCollection<T>>(new TypeaheadVisibleOptionsCollection());
-
-    /** Store the recent options in a typeahead format */
-    recentOptionsWithKey$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>(null);
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -159,13 +159,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                         return newOptions;
                     }
 
-                    return newOptions.map((option: T) => {
-                        return {
-                            value: option,
-                            key: this.getKey(option),
-                            isRecentOption: false
-                        };
-                    });
+                    return this.getVisibleOptions(newOptions, '');
                 });
             }
             return null;
@@ -247,6 +241,15 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this.select(option, 'mouse');
     }
 
+    infiniteScrollCollectionChanged(options: TypeaheadVisibleOption[]): void {
+        this.visibleOptions$.next(
+            new TypeaheadVisibleOptionsCollection(
+                options,
+                this.getVisibleOptions(this._recentOptions, '', true)
+            )
+        );
+    }
+
     /**
      * Returns the unique key value of the given option.
      */
@@ -326,12 +329,14 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     addToRecentOptions(value: T) {
         if (this._recentOptions) {
-            this.recentOptions = [
+            this._recentOptions = [
                 value,
                 ...this._recentOptions.filter(
                     recentOption => recentOption !== value
                 )
             ].slice(0, this.recentOptionsMaxCount);
+
+            this.recentOptionsChange.emit(this._recentOptions);
         }
     }
 
@@ -413,16 +418,16 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Update the visibleOptions collection with the current filter.
      */
     updateOptions(): void {
-        if (typeof this.options === 'object') {
-            const normalisedInput = (this.filter || '').toLowerCase();
+        const normalisedInput = (this.filter || '').toLowerCase();
 
-            const visibleOptions = new TypeaheadVisibleOptionsCollection<T>(
-                this.getVisibleOptions(this.options, normalisedInput),
-                this.getVisibleOptions(this._recentOptions, normalisedInput, true)
-            );
+        const visibleOptions = new TypeaheadVisibleOptionsCollection<T>(
+            typeof this.options === 'object'
+                ? this.getVisibleOptions(this.options, normalisedInput)
+                : this.visibleOptions$.getValue().options,
+            this.getVisibleOptions(this._recentOptions, normalisedInput, true)
+        );
 
-            this.visibleOptions$.next(visibleOptions);
-        }
+        this.visibleOptions$.next(visibleOptions);
 
         this.initOptions();
 
@@ -435,7 +440,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * @param filter The filter expression
      * @param isRecentOptions Whether `options` is a set of recent options
      */
-    private getVisibleOptions(options: T[], filter: string, isRecentOptions: boolean = false): TypeaheadVisibleOption<T>[] {
+    private getVisibleOptions(options: T[], filter: string = '', isRecentOptions: boolean = false): TypeaheadVisibleOption<T>[] {
         if (options) {
             return options
                 .filter(option => this.getDisplay(option).toLowerCase().indexOf(filter) >= 0)
