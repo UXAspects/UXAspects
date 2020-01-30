@@ -41,7 +41,7 @@ export class SystemJSHelper {
         { name: 'chart.js', path: 'chart.js/dist/Chart.bundle.min.js' },
         { name: 'ng2-charts', path: 'ng2-charts@1.6.0/charts/charts.js' },
         { name: 'ng2-file-upload', path: 'ng2-file-upload/bundles/ng2-file-upload.umd.js' },
-        { name: 'angular-split', path: 'angular-split@1.0.0-rc.3/bundles/angular-split.umd.js' },
+        { name: 'angular-split', path: 'angular-split@3.0.2/bundles/angular-split.umd.js' },
         { name: 'dragula', path: 'dragula/dist/dragula.js' },
         { name: 'dragula/dist/dragula', path: 'dragula/dist/dragula.js' },
         { name: 'ngx-mask', path: 'ngx-mask/bundles/ngx-mask.umd.js' },

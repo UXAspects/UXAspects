@@ -1,8 +1,8 @@
-import { browser, by, element, Key } from 'protractor';
+import { browser, Key, $ } from 'protractor';
 
 export class SplitterPage {
 
-    gutter = element(by.tagName('split-gutter'));
+    gutter = $('.as-split-gutter');
 
     async getPage(): Promise<void> {
         await browser.get('#/splitter');

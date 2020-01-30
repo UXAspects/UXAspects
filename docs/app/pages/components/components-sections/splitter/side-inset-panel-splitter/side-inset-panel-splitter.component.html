@@ -1,8 +1,8 @@
 <div class="splitter-demo">
 
-  <split direction="horizontal" gutterSize="10" gutterColor="#f2f2f2" [useTransition]="true">
+  <as-split direction="horizontal" gutterSize="10" [useTransition]="true">
 
-    <split-area [visible]="visible" size="40" order="1">
+    <as-split-area [visible]="visible" size="40" order="1">
       <div class="splitter-pane">
         <h3 class="m-t-nil">Lorem Ipsum Nedir?</h3>
         <p>
@@ -16,9 +16,9 @@
           mazim, brute paulo gubergren nam et.
         </p>
       </div>
-    </split-area>
+    </as-split-area>
 
-    <split-area size="60" order="2">
+    <as-split-area size="60" order="2">
       <div class="splitter-pane">
 
         <button class="btn button-primary ux-splitter-toggle-btn left" aria-label="Toggle Panel" (click)="visible = !visible">
@@ -41,21 +41,22 @@
           mel ex, aperiam integre ad vix. Vim et eius oblique philosophia. Ei sea accumsan detracto corrumpit.
         </p>
       </div>
-    </split-area>
+    </as-split-area>
 
-  </split>
+  </as-split>
 
 </div>
 
 <hr>
 
 <p>
-  Splitter areas can be toggled by using the <code>visible</code> attribute. When hiding <code>split-area</code> components
+  Splitter areas can be toggled by using the <code>visible</code> attribute. When hiding <code>as-split-area</code> components
   you should provide also provide an <code>order</code> property to ensure that panels remain in the same order after they have been toggled.
 </p>
 
 <p>
-  To ensure that the toggling of panels is animated add the <code>useTransition</code> property on the <code>split</code> component.
+  To ensure that the toggling of panels is animated add the <code>useTransition</code> property on the
+    <code>as-split</code> component.
 </p>
 
 <p>

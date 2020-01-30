@@ -285,9 +285,9 @@ describe('Marquee Wizard Tests', () => {
         let valuemin = await page.getGutterAriaValueMin();
         let valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('25');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('25');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // move to start
         await page.mouseMoveLeft();
@@ -296,20 +296,20 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('24');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('24');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // move to start
-        await page.mouseMoveRight();
+       await page.mouseMoveRight();
 
         valuenow = await page.getGutterAriaValue();
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('25');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('25');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         expect(await imageCompare('marquee-wizard-mouse')).toEqual(0);
     });
@@ -323,9 +323,9 @@ describe('Marquee Wizard Tests', () => {
         let valuemin = await page.getGutterAriaValueMin();
         let valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('25');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('25');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // focus the gutter
         await page.setGutterFocused();
@@ -337,9 +337,9 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('24');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('24');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // press the right key
         await page.sendRightKey();
@@ -348,9 +348,9 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('25');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('25');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // press the home key
         await page.sendHomeKey();
@@ -359,9 +359,9 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('0');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('0');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // press the end key
         await page.sendEndKey();
@@ -370,15 +370,15 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('100');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('100');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // move to start
         await page.sendHomeKey();
 
         valuenow = await page.getGutterAriaValue();
-        expect(valuenow).toBe('0');
+        expect(valuenow).toContain('0');
 
         // press the left key
         await page.sendLeftKey();
@@ -387,15 +387,15 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('0');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('0');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         // move to end
         await page.sendEndKey();
 
         valuenow = await page.getGutterAriaValue();
-        expect(valuenow).toBe('100');
+        expect(valuenow).toContain('100');
 
         // press the right key
         await page.sendRightKey();
@@ -404,9 +404,9 @@ describe('Marquee Wizard Tests', () => {
         valuemin = await page.getGutterAriaValueMin();
         valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('100');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('100');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         expect(await imageCompare('marquee-wizard-keyboard')).toEqual(0);
 
@@ -419,7 +419,7 @@ describe('Marquee Wizard Tests', () => {
         // check the input fields value
         const inputValue = await page.getInputField();
 
-        expect(inputValue).toBe('25');
+        expect(inputValue).toContain('25');
 
         // updating the input value for the side panel width
         await page.input.click();
@@ -429,7 +429,7 @@ describe('Marquee Wizard Tests', () => {
 
         const inputValue2 = await page.getInputField();
 
-        expect(inputValue2).toBe('35');
+        expect(inputValue2).toContain('35');
 
         // check emitted value from the output
         expect(await page.emittedWidth.getText()).toBe('35.0');

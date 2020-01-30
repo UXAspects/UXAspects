@@ -16,9 +16,9 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('40');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('40');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
 
         expect(await imageCompare('splitter-initial')).toEqual(0);
     });
@@ -35,9 +35,9 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('39');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('39');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 
     it('should move right when right arrow key is pressed', async () => {
@@ -52,9 +52,9 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('41');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('41');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 
     it('should move to the start when home key is pressed', async () => {
@@ -69,9 +69,9 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('0');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('0');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 
     it('should move to the end when end key is pressed', async () => {
@@ -86,9 +86,9 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('100');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('100');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 
     it('should not move left when left arrow key is pressed and we are at the start', async () => {
@@ -100,7 +100,7 @@ describe('SplitterPage Tests', () => {
         await page.sendHomeKey();
 
         let valuenow = await page.getGutterAriaValue();
-        expect(valuenow).toBe('0');
+        expect(valuenow).toContain('0');
 
         // press the left key
         await page.sendLeftKey();
@@ -109,9 +109,9 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('0');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('0');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 
     it('should not move right when right arrow key is pressed and we are at the end', async () => {
@@ -123,7 +123,7 @@ describe('SplitterPage Tests', () => {
         await page.sendEndKey();
 
         let valuenow = await page.getGutterAriaValue();
-        expect(valuenow).toBe('100');
+        expect(valuenow).toContain('100');
 
         // press the right key
         await page.sendRightKey();
@@ -132,8 +132,8 @@ describe('SplitterPage Tests', () => {
         const valuemin = await page.getGutterAriaValueMin();
         const valuemax = await page.getGutterAriaValueMax();
 
-        expect(valuenow).toBe('100');
-        expect(valuemin).toBe('0');
-        expect(valuemax).toBe('100');
+        expect(valuenow).toContain('100');
+        expect(valuemin).toContain('0');
+        expect(valuemax).toContain('100');
     });
 });

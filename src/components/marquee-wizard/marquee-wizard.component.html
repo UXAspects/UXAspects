@@ -1,14 +1,14 @@
 <ng-container *ngIf="resizable && _isInitialised">
-    <split direction="horizontal"
+    <as-split direction="horizontal"
            [gutterSize]="gutterSize"
            (dragEnd)="onDragEnd($event)">
-        <split-area [size]="sidePanelWidth">
+        <as-split-area [size]="sidePanelWidth">
             <ng-container [ngTemplateOutlet]="sidePanel"></ng-container>
-        </split-area>
-        <split-area [size]="100 - sidePanelWidth">
+        </as-split-area>
+        <as-split-area [size]="100 - sidePanelWidth">
             <ng-container [ngTemplateOutlet]="mainContentPanel"></ng-container>
-        </split-area>
-    </split>
+        </as-split-area>
+    </as-split>
 </ng-container>
 
 <ng-container *ngIf="!resizable">
