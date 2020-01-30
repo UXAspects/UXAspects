@@ -322,15 +322,14 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         if (event.keyCode === ENTER) {
             if (this._dropdownOpen) {
                 // Set the highlighted option as the value and close
-                this.value = this.singleTypeahead.highlighted;
-                this.dropdownOpen = false;
+                this.singleTypeahead.selectHighlighted();
             } else {
                 this.dropdownOpen = true;
             }
 
             // Update the input field. If dropdown isn't open then reset it to the previous value.
             this.input = this.getDisplay(this.value);
-            this._typeaheadKeyService.addToRecentOptions(this.value, this.singleTypeahead);
+
             event.preventDefault();
         }
 
