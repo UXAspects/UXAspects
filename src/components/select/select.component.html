@@ -105,10 +105,10 @@
         [loadingTemplate]="loadingTemplate"
         [optionTemplate]="optionTemplate"
         [noOptionsTemplate]="noOptionsTemplate"
-        (optionSelected)="singleOptionSelected($event)"
-        (highlightedElementChange)="highlightedElement = $event"
         [(recentOptions)]="recentOptions"
-        [recentOptionsMaxCount]="recentOptionsMaxCount">
+        [recentOptionsMaxCount]="recentOptionsMaxCount"
+        (optionSelected)="singleOptionSelected($event)"
+        (highlightedElementChange)="highlightedElement = $event">
 
     </ux-typeahead>
 

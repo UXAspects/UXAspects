@@ -4,6 +4,9 @@ import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
+import { TypeaheadOptionApi } from './typeahead-option-api';
+import { TypeaheadOptionContext } from './typeahead-option-context';
+import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
 
 let uniqueId = 0;
@@ -56,7 +59,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() maxHeight: string = '250px';
 
     /** Specify the aria multi selectable attribute value */
-    @Input() @HostBinding('attr.aria-multiselectable') multiselectable: boolean = false;
+    @Input()
+    @HostBinding('attr.aria-multiselectable')
+    multiselectable: boolean = false;
 
     /** Specify if the dropdown should appear when the filter appears */
     @Input() openOnFilterChange: boolean = true;
@@ -88,13 +93,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /** Container for saving the recently selected options. */
-    @Input() set recentOptions(options: ReadonlyArray<T>) {
-        this._recentOptions = options ? [...options] : undefined;
-        if (options) {
-            this.recentOptionsWithKey$.next(
-                options.map((value: T) => ({value: value, key: this.getKey(value), isRecentOption: true}))
-            );
-        }
+    @Input() set recentOptions(recentOptions: ReadonlyArray<T>) {
+        this._recentOptions = recentOptions
+            ? recentOptions.slice(0, this.recentOptionsMaxCount)
+            : undefined;
     }
 
     /** Maximum number of displayed recent options. */
@@ -119,10 +121,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     clicking = false;
     hasBeenOpened = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
-    highlightedKey: string = null;
-    highlightedIsRecentOption: boolean = false;
     loadOptionsCallback: InfiniteScrollLoadFunction;
-    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
+    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOptionsCollection<T>>(new TypeaheadVisibleOptionsCollection());
 
     /** Store the recent options in a typeahead format */
     recentOptionsWithKey$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>(null);
@@ -148,17 +148,13 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         private _changeDetector: ChangeDetectorRef,
         private _service: TypeaheadService
     ) {
-
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
-
             if (typeof this.options === 'function') {
-
                 // Invoke the callback which may return an array or a promise.
                 const arrayOrPromise = this.options(pageNum, pageSize, filter);
 
                 // Map the results to an array of TypeaheadVisibleOption.
                 return Promise.resolve(arrayOrPromise).then(newOptions => {
-
                     if (!Array.isArray(newOptions)) {
                         return newOptions;
                     }
@@ -175,25 +171,31 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return null;
         };
 
-        this._service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((isOpen) => {
-            this.openChange.emit(isOpen);
+        this._service.open$
+            .pipe(distinctUntilChanged(), takeUntil(this._onDestroy))
+            .subscribe(isOpen => {
+                this.openChange.emit(isOpen);
 
-            if (isOpen) {
-                this.hasBeenOpened = true;
-                this.initOptions();
-            }
-        });
+                if (isOpen) {
+                    this.hasBeenOpened = true;
+                    this.initOptions();
+                }
+            });
 
-        this.highlighted$.pipe(takeUntil(this._onDestroy)).subscribe((next) => {
-            this.highlightedKey = next ? next.key : null;
-            this.highlightedIsRecentOption = next ? next.isRecentOption : undefined;
+        this.highlighted$.pipe(takeUntil(this._onDestroy)).subscribe(next => {
             this.highlightedChange.emit(next ? next.value : null);
         });
 
-        combineLatest([this._service.open$, this._service.highlightedElement$, this.visibleOptions$])
+        combineLatest([
+            this._service.open$,
+            this._service.highlightedElement$,
+            this.visibleOptions$
+        ])
             .pipe(takeUntil(this._onDestroy))
             .subscribe(([open, highlightedElement, visibleOptions]) => {
-                this.highlightedElementChange.emit(open && visibleOptions.length > 0 ? highlightedElement : null);
+                this.highlightedElementChange.emit(
+                    open && visibleOptions.all.length > 0 ? highlightedElement : null
+                );
             });
     }
 
@@ -201,11 +203,14 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         // Open the dropdown if the filter value updates
         if (changes.filter) {
             if (this.openOnFilterChange && changes.filter.currentValue && changes.filter.currentValue.length > 0) {
-
                 // if the dropdown item was just selected, and we set the filter value to match the
                 // selected value then open will have also just been set to `false`, in which case we do
                 // not want to set open to `true`
-                if (changes.open && changes.open.previousValue === true && changes.open.currentValue === false) {
+                if (
+                    changes.open &&
+                    changes.open.previousValue === true &&
+                    changes.open.currentValue === false
+                ) {
                     return;
                 }
 
@@ -262,6 +267,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         if (typeof this.display === 'function') {
             return this.display(option);
         }
+
         if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
@@ -276,14 +282,22 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * @param option
      */
     getDisplayHtml(option: T): string {
-        const displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const displayText = this.getDisplay(option)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
         let displayHtml = displayText;
         if (this.filter) {
             const length = this.filter.length;
-            const matchIndex = displayText.toLowerCase().indexOf(this.filter.toLowerCase());
+            const matchIndex = displayText
+                .toLowerCase()
+                .indexOf(this.filter.toLowerCase());
             if (matchIndex >= 0) {
                 var highlight = `<span class="ux-filter-match">${displayText.substr(matchIndex, length)}</span>`;
-                displayHtml = displayText.substr(0, matchIndex) + highlight + displayText.substr(matchIndex + length);
+                displayHtml =
+                    displayText.substr(0, matchIndex) +
+                    highlight +
+                    displayText.substr(matchIndex + length);
             }
         }
         return displayHtml;
@@ -300,8 +314,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
     select(option: TypeaheadVisibleOption<T>, origin?: FocusOrigin): void {
-        if (!this.isDisabled(option)) {
-            this.optionSelected.emit(new TypeaheadOptionEvent(option.value, origin));
+        if (!option.isDisabled) {
+            this.optionSelected.emit(
+                new TypeaheadOptionEvent(option.value, origin)
+            );
             this.highlighted$.next(null);
             this.open = false;
             this.addToRecentOptions(option.value);
@@ -310,34 +326,22 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     addToRecentOptions(value: T) {
         if (this._recentOptions) {
-            // create a new instance of the recent items array that we can mutate
-            const recentOptions = [...this._recentOptions];
-
-            // If the option is already in the array, remove it first.
-            const index = recentOptions.indexOf(value);
-
-            if (index > -1) {
-                recentOptions.splice(index, 1);
-            }
-
-            let numberOfElements = recentOptions.unshift(value);
-            if (numberOfElements > this.recentOptionsMaxCount) {
-                recentOptions.pop();
-            }
-
-            // update the list of recent options
-            this.recentOptions = recentOptions;
+            this.recentOptions = [
+                value,
+                ...this._recentOptions.filter(
+                    recentOption => recentOption !== value
+                )
+            ].slice(0, this.recentOptionsMaxCount);
         }
     }
 
     /**
      * Returns true if the given option is part of the disabledOptions array.
      */
-    isDisabled(option: TypeaheadVisibleOption<T>): boolean {
-
+    isDisabled(option: T): boolean {
         if (this.disabledOptions && Array.isArray(this.disabledOptions)) {
-            const result = this.disabledOptions.find((selectedOption) => {
-                return this.getKey(selectedOption) === option.key;
+            const result = this.disabledOptions.find(selectedOption => {
+                return this.getKey(selectedOption) === this.getKey(option);
             });
             return result !== undefined;
         }
@@ -348,7 +352,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
     highlight(option: TypeaheadVisibleOption<T>): void {
-        if (!this.isDisabled(option)) {
+        if (!option.isDisabled) {
             this.highlighted$.next(option);
             this._changeDetector.detectChanges();
         }
@@ -358,23 +362,20 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * Increment or decrement the highlighted option in the list. Disabled options are skipped.
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
-    moveHighlight(d: number): T {
-        const recentOptions = this.recentOptionsWithKey$.getValue();
-        const visibleOptions = this.visibleOptions$.getValue();
-        const selectableOptions = recentOptions ? [...recentOptions, ...visibleOptions] : visibleOptions;
-        const highlightIndex = this.indexOfSelectableOption(selectableOptions, this.highlighted$.getValue());
+    moveHighlight(d: -1 | 1): T {
+        const allVisibleOptions = this.visibleOptions$.getValue().all;
+        const highlightIndex = this.indexOfVisibleOption(this.highlighted$.getValue());
         let newIndex = highlightIndex;
         let disabled = true;
         let inBounds = true;
         do {
             newIndex = newIndex + d;
-            inBounds = (newIndex >= 0 && newIndex < selectableOptions.length);
-            disabled = inBounds && this.isDisabled(selectableOptions[newIndex]);
-        }
-        while (inBounds && disabled);
+            inBounds = newIndex >= 0 && newIndex < allVisibleOptions.length;
+            disabled = inBounds && allVisibleOptions[newIndex].isDisabled;
+        } while (inBounds && disabled);
 
         if (!disabled && inBounds) {
-            this.highlight(selectableOptions[newIndex]);
+            this.highlight(allVisibleOptions[newIndex]);
         }
 
         return this.highlighted;
@@ -409,22 +410,17 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /**
-     * Update the visibleOptions array with the current filter.
+     * Update the visibleOptions collection with the current filter.
      */
     updateOptions(): void {
         if (typeof this.options === 'object') {
             const normalisedInput = (this.filter || '').toLowerCase();
-            const visibleOptions = this.options
-                .filter((option) => {
-                    return this.getDisplay(option).toLowerCase().indexOf(normalisedInput) >= 0;
-                })
-                .map((value) => {
-                    return {
-                        value: value,
-                        key: this.getKey(value),
-                        isRecentOption: false
-                    };
-                });
+
+            const visibleOptions = new TypeaheadVisibleOptionsCollection<T>(
+                this.getVisibleOptions(this.options, normalisedInput),
+                this.getVisibleOptions(this._recentOptions, normalisedInput, true)
+            );
+
             this.visibleOptions$.next(visibleOptions);
         }
 
@@ -434,12 +430,37 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /**
-     * Return the index of the given option in the selectableOptions array. Returns -1 if the option is not currently visible.
+     * Convert a set of raw options into a filtered list of `TypeaheadVisibleOption` objects.
+     * @param options Set of raw options
+     * @param filter The filter expression
+     * @param isRecentOptions Whether `options` is a set of recent options
      */
-    private indexOfSelectableOption(selectableOptions: TypeaheadVisibleOption<T>[], option: TypeaheadVisibleOption<T>): number {
+    private getVisibleOptions(options: T[], filter: string, isRecentOptions: boolean = false): TypeaheadVisibleOption<T>[] {
+        if (options) {
+            return options
+                .filter(option => this.getDisplay(option).toLowerCase().indexOf(filter) >= 0)
+                .map(value => ({
+                    value: value,
+                    key: this.getKey(value),
+                    isDisabled: this.isDisabled(value),
+                    isRecentOption: isRecentOptions
+                }));
+        }
+
+        return [];
+    }
+
+    /**
+     * Return the index of the given option in the visibleOptions array.
+     * Returns -1 if the option is not currently visible.
+     */
+    private indexOfVisibleOption(option: TypeaheadVisibleOption<T>): number {
         if (option) {
-            return selectableOptions.findIndex((el) => {
-                return (el.key === option.key) && (el.isRecentOption === option.isRecentOption);
+            return this.visibleOptions$.getValue().all.findIndex(el => {
+                return (
+                    el.key === option.key &&
+                    el.isRecentOption === option.isRecentOption
+                );
             });
         }
 
@@ -447,34 +468,16 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 }
 
-/**
- * The API available to option templates.
- */
-export interface TypeaheadOptionApi<T = any> {
+/** A type encapsulating the data required to present the `options` and `recentOptions` in the template. */
+export class TypeaheadVisibleOptionsCollection<T> {
 
-    /**
-     * Returns the unique key value of the given option.
-     */
-    getKey(option: T): string;
+    /** An array of both recentOptions and options in the order presented in the UI. */
+    all: TypeaheadVisibleOption<T>[];
 
-    /**
-     * Returns the display value of the given option.
-     */
-    getDisplay(option: T): string;
-
-    /**
-     * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value. Override the ux-filter-match class in CSS to modify the default appearance.
-     */
-    getDisplayHtml(option: T): string;
-}
-
-export interface TypeaheadVisibleOption<T = any> {
-    value: T;
-    key: string;
-    isRecentOption?: boolean;
-}
-
-export interface TypeaheadOptionContext<T> {
-    option: T;
-    api: TypeaheadOptionApi<T>;
+    constructor(
+        public options: TypeaheadVisibleOption<T>[] = [],
+        public recent: TypeaheadVisibleOption<T>[] = []
+    ) {
+        this.all = [...recent, ...options];
+    }
 }

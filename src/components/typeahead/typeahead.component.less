@@ -22,18 +22,22 @@ ux-typeahead {
         bottom: 100%;
     }
 
+    ux-typeahead-options-list {
+        display: block;
+
+        + ux-typeahead-options-list {
+            padding-top: 8px;
+            border-top: solid 1px @dropdown-divider;
+            margin-top: 8px;
+        }
+    }
+
     .ux-typeahead-options {
-        & > ol {
+        ol {
             margin-bottom: 0;
             padding: 0;
 
-            &.ux-typeahead-recent-options {
-                border-bottom: solid 1px @dropdown-divider;
-                padding-bottom: 8px;
-                margin-bottom: 8px;
-            }
-
-            & > li {
+            li {
                 display: list-item;
                 list-style: none;
                 margin: 0;
