@@ -4,7 +4,7 @@
         [attr.id]="id + '-option-' + (i + startIndex)"
         [class.disabled]="option.isDisabled"
         [class.highlighted]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
-        [class.active]="activeKey === option.key"
+        [class.active]="activeKey === option.key && !option.isRecentOption"
         [attr.aria-selected]="isMultiselectable ? option.isDisabled : (activeKey === option.key ? true : null)"
         [uxTypeaheadHighlight]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
         [uxScrollIntoViewIf]="highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption"
