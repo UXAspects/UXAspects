@@ -604,7 +604,7 @@ describe('Select Tests', () => {
 
         await page.clickOnCountry(true, 3);
         await page.checkRecentOptions(true, ['Aland Islands', 'Albania', 'Afghanistan']);
-        
+
         await page.removeCountry(3);
         await page.clickOnDropdown(true);
         await page.checkRecentOptions(true, ['Aland Islands', 'Albania', 'Afghanistan']);
@@ -615,7 +615,7 @@ describe('Select Tests', () => {
 
     it('should handle recent options correctly: recent options filled', async () => {
         await page.clickOnCheckbox(page.checkboxRecentOptions);
-        
+
         await page.fillRecentOptionsButton();
         await page.checkRecentOptions(false, ['Afghanistan', 'United States', 'Algeria']);
 
