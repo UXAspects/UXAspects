@@ -48,4 +48,12 @@ as-split {
             .native-focus-outline();
         }
     }
+
+    /* Added to fix an issue in IE11 when the last 0 in the flex value was ignored - https://github.com/bertrandg/angular-split/issues/188 */
+    .as-split-area {
+        &.as-hidden {
+            /* stylelint-disable-next-line length-zero-no-unit */
+            flex: 0 1 0px !important;
+        }
+    }
 }
