@@ -8,7 +8,11 @@ import { TypeaheadOptionsListComponent } from './typeahead-options-list.componen
 import { TypeaheadComponent } from './typeahead.component';
 
 @NgModule({
-    imports: [CommonModule, InfiniteScrollModule, ScrollModule],
+    imports: [
+        CommonModule,
+        InfiniteScrollModule,
+        ScrollModule
+    ],
     exports: [TypeaheadComponent],
     declarations: [
         TypeaheadComponent,

@@ -413,7 +413,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /**
-     * Update the visibleOptions collection with the current filter.
+     * Update the visibleOptions and visibleRecentOptions arrays with the current filter.
      */
     updateOptions(): void {
         const normalisedInput = (this.filter || '').toLowerCase();
