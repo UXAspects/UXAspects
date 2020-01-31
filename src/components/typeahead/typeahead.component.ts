@@ -125,7 +125,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     hasBeenOpened = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption<T>>(null);
     loadOptionsCallback: InfiniteScrollLoadFunction;
-    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOptionsCollection<T>>(new TypeaheadVisibleOptionsCollection());
+    visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
+    visibleRecentOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
+    allVisibleOptions: TypeaheadVisibleOption<T>[] = [];
 
     get highlighted(): T {
         const value = this.highlighted$.getValue();
@@ -180,6 +182,12 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             this.highlightedChange.emit(next ? next.value : null);
         });
 
+        combineLatest([this.visibleOptions$, this.visibleRecentOptions$])
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(([visibleOptions, visibleRecentOptions]) => {
+                this.allVisibleOptions = [...visibleRecentOptions, ...visibleOptions];
+            });
+
         combineLatest([
             this._service.open$,
             this._service.highlightedElement$,
@@ -188,7 +196,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             .pipe(takeUntil(this._onDestroy))
             .subscribe(([open, highlightedElement, visibleOptions]) => {
                 this.highlightedElementChange.emit(
-                    open && visibleOptions.all.length > 0 ? highlightedElement : null
+                    open && visibleOptions.length > 0 ? highlightedElement : null
                 );
             });
     }
@@ -239,15 +247,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     optionClickHandler(_event: MouseEvent, option: TypeaheadVisibleOption<T>): void {
         this.select(option, 'mouse');
-    }
-
-    infiniteScrollCollectionChanged(options: TypeaheadVisibleOption[]): void {
-        this.visibleOptions$.next(
-            new TypeaheadVisibleOptionsCollection(
-                options,
-                this.getVisibleOptions(this._recentOptions, '', true)
-            )
-        );
     }
 
     /**
@@ -368,19 +367,18 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
     moveHighlight(d: -1 | 1): T {
-        const allVisibleOptions = this.visibleOptions$.getValue().all;
         const highlightIndex = this.indexOfVisibleOption(this.highlighted$.getValue());
         let newIndex = highlightIndex;
         let disabled = true;
         let inBounds = true;
         do {
             newIndex = newIndex + d;
-            inBounds = newIndex >= 0 && newIndex < allVisibleOptions.length;
-            disabled = inBounds && allVisibleOptions[newIndex].isDisabled;
+            inBounds = newIndex >= 0 && newIndex < this.allVisibleOptions.length;
+            disabled = inBounds && this.allVisibleOptions[newIndex].isDisabled;
         } while (inBounds && disabled);
 
         if (!disabled && inBounds) {
-            this.highlight(allVisibleOptions[newIndex]);
+            this.highlight(this.allVisibleOptions[newIndex]);
         }
 
         return this.highlighted;
@@ -420,14 +418,12 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     updateOptions(): void {
         const normalisedInput = (this.filter || '').toLowerCase();
 
-        const visibleOptions = new TypeaheadVisibleOptionsCollection<T>(
-            typeof this.options === 'object'
-                ? this.getVisibleOptions(this.options, normalisedInput)
-                : this.visibleOptions$.getValue().options,
-            this.getVisibleOptions(this._recentOptions, normalisedInput, true)
-        );
+        // Create new visibleOptions only if `options` is not a function
+        if (typeof this.options === 'object') {
+            this.visibleOptions$.next(this.getVisibleOptions(this.options, normalisedInput));
+        }
 
-        this.visibleOptions$.next(visibleOptions);
+        this.visibleRecentOptions$.next(this.getVisibleOptions(this._recentOptions, normalisedInput, true));
 
         this.initOptions();
 
@@ -456,12 +452,12 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     /**
-     * Return the index of the given option in the visibleOptions array.
+     * Return the index of the given option in the allVisibleOptions array.
      * Returns -1 if the option is not currently visible.
      */
     private indexOfVisibleOption(option: TypeaheadVisibleOption<T>): number {
         if (option) {
-            return this.visibleOptions$.getValue().all.findIndex(el => {
+            return this.allVisibleOptions.findIndex(el => {
                 return (
                     el.key === option.key &&
                     el.isRecentOption === option.isRecentOption
@@ -470,19 +466,5 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         }
 
         return -1;
-    }
-}
-
-/** A type encapsulating the data required to present the `options` and `recentOptions` in the template. */
-export class TypeaheadVisibleOptionsCollection<T> {
-
-    /** An array of both recentOptions and options in the order presented in the UI. */
-    all: TypeaheadVisibleOption<T>[];
-
-    constructor(
-        public options: TypeaheadVisibleOption<T>[] = [],
-        public recent: TypeaheadVisibleOption<T>[] = []
-    ) {
-        this.all = [...recent, ...options];
     }
 }

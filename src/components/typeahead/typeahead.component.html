@@ -1,7 +1,7 @@
 <div class="ux-typeahead-options"
      [uxInfiniteScroll]="loadOptionsCallback"
-     [collection]="(visibleOptions$ | async).options"
-     (collectionChange)="infiniteScrollCollectionChanged($event)"
+     [collection]="visibleOptions$ | async"
+     (collectionChange)="visibleOptions$.next($event)"
      [enabled]="hasBeenOpened && isInfiniteScroll()"
      [filter]="filter"
      [loadOnScroll]="true"
@@ -12,9 +12,10 @@
 
      <!-- Recent options -->
     <ux-typeahead-options-list
-        *ngIf="(visibleOptions$ | async).recent.length > 0"
+        *ngIf="(visibleRecentOptions$ | async).length > 0"
+        class="ux-typeahead-recent-options"
         [id]="id"
-        [options]="(visibleOptions$ | async).recent"
+        [options]="visibleRecentOptions$ | async"
         [highlighted]="highlighted$ | async"
         [activeKey]="activeKey"
         [disabledOptions]="disabledOptions"
@@ -29,10 +30,11 @@
 
     <!-- All options -->
     <ux-typeahead-options-list
-        *ngIf="(visibleOptions$ | async).options.length > 0"
+        *ngIf="(visibleOptions$ | async).length > 0"
+        class="ux-typeahead-all-options"
         [id]="id"
-        [startIndex]="(visibleOptions$ | async).recent.length"
-        [options]="(visibleOptions$ | async).options"
+        [startIndex]="(visibleRecentOptions$ | async).length"
+        [options]="visibleOptions$ | async"
         [highlighted]="highlighted$ | async"
         [activeKey]="activeKey"
         [disabledOptions]="disabledOptions"
@@ -49,12 +51,12 @@
         <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
     </div>
 
-    <div *ngIf="isInfiniteScroll() === false && (visibleOptions$ | async).options.length === 0 && loading">
+    <div *ngIf="isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading">
         <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
     </div>
 
 </div>
-<div *ngIf="(visibleOptions$ | async).options.length === 0 && !loading">
+<div *ngIf="(visibleOptions$ | async).length === 0 && !loading">
     <ng-container [ngTemplateOutlet]="noOptionsTemplate || defaultNoOptionsTemplate">
     </ng-container>
 </div>
