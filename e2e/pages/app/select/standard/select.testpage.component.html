@@ -108,12 +108,12 @@
 
         <div>
             <label for="pageSize">pageSize</label>
-            <ux-number-picker
+            <ux-number-picker-inline
                 id="pageSize"
                 [(value)]="pageSize"
                 [disabled]="!(pagingEnabled | async)"
             >
-            </ux-number-picker>
+            </ux-number-picker-inline>
         </div>
 
         <div>
@@ -124,11 +124,11 @@
 
         <div>
             <label>recentOptionsMaxCount</label>
-            <ux-number-picker
+            <ux-number-picker-inline
                 [disabled]="!recentOptions"
                 min="1"
                 [(value)]="recentOptionsMaxCount">
-            </ux-number-picker>
+            </ux-number-picker-inline>
         </div>
 
         <div>
