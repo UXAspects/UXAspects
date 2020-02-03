@@ -96,11 +96,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
      * An initial list of recently selected options, to be presented above the full list of options.
      * Bind an empty array to `recentOptions` to enable this feature without providing an initial set.
      */
-    @Input() set recentOptions(recentOptions: ReadonlyArray<T>) {
-        this._recentOptions = recentOptions
-            ? recentOptions.slice(0, this.recentOptionsMaxCount)
-            : undefined;
-    }
+    @Input() recentOptions: ReadonlyArray<T>;
 
     /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number = 5;
@@ -218,6 +214,20 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
                 // show the dropdown
                 this.open = true;
+            }
+        }
+
+        // Cut off recentOptions at recentOptionsMaxCount
+        if (changes.recentOptions || changes.recentOptionsMaxCount) {
+            this._recentOptions = this.recentOptions
+                ? this.recentOptions.slice(0, this.recentOptionsMaxCount)
+                : undefined;
+
+            if (changes.recentOptionsMaxCount) {
+                // Avoid ExpressionChangedAfterChecked error
+                setTimeout(() => {
+                    this.recentOptionsChange.emit(this._recentOptions);
+                });
             }
         }
 

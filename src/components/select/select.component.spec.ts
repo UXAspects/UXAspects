@@ -605,3 +605,107 @@ describe('Select Component - With custom Icon', () => {
         return nativeElement.querySelector('.ux-select-icon');
     }
 });
+
+@Component({
+    selector: 'app-select-with-recent-options-test',
+    template: `
+        <ux-select [(value)]="value"
+            [options]="options"
+            [multiple]="multiple"
+            [allowNull]="allowNull"
+            [(dropdownOpen)]="dropdownOpen"
+            [(recentOptions)]="recentOptions"
+            [recentOptionsMaxCount]="recentOptionsMaxCount"
+            (recentOptionsChange)="onRecentOptionsChange($event)"></ux-select>
+    `
+})
+export class SelectWithRecentOptionsTestComponent {
+
+    value: string | string[];
+    options: string[] = ['One', 'Two', 'Three'];
+    multiple: boolean = false;
+    allowNull: boolean = false;
+    dropdownOpen: boolean = true;
+    recentOptions: string[] = [];
+    recentOptionsMaxCount = 2;
+
+    onRecentOptionsChange(): void {}
+}
+
+fdescribe('Select with recent options', () => {
+
+    let component: SelectWithRecentOptionsTestComponent;
+    let fixture: ComponentFixture<SelectWithRecentOptionsTestComponent>;
+    let nativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [SelectModule],
+            declarations: [SelectWithRecentOptionsTestComponent],
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SelectWithRecentOptionsTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    });
+
+    it('should initially display no recent options', () => {
+        expect(nativeElement.querySelector('.ux-typeahead-recent-options')).toBeNull();
+    });
+
+    it('should display provided recent options', () => {
+        component.recentOptions = ['One', 'Two'];
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('.ux-typeahead-recent-options')).not.toBeNull();
+
+        const recentOptionListItems = nativeElement.querySelectorAll('.ux-typeahead-recent-options li');
+        expect(recentOptionListItems.length).toBe(2);
+        expect((recentOptionListItems[0] as HTMLElement).innerText).toBe('One');
+        expect((recentOptionListItems[1] as HTMLElement).innerText).toBe('Two');
+    });
+
+    it('should not allow more than the maximum recent options', async () => {
+        component.recentOptions = ['One', 'Two', 'Three'];
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(nativeElement.querySelector('.ux-typeahead-recent-options')).not.toBeNull();
+
+        const recentOptionListItems = nativeElement.querySelectorAll('.ux-typeahead-recent-options li');
+        expect(recentOptionListItems.length).toBe(2);
+        expect((recentOptionListItems[0] as HTMLElement).innerText).toBe('One');
+        expect((recentOptionListItems[1] as HTMLElement).innerText).toBe('Two');
+
+        expect(component.recentOptions.length).toBe(2);
+        expect(component.recentOptions[0]).toBe('One');
+        expect(component.recentOptions[1]).toBe('Two');
+    });
+
+    it('should update recent options when maximum recent options changes', async () => {
+        component.recentOptions = ['One', 'Two'];
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('.ux-typeahead-recent-options')).not.toBeNull();
+
+        let recentOptionListItems = nativeElement.querySelectorAll('.ux-typeahead-recent-options li');
+        expect(recentOptionListItems.length).toBe(2);
+        expect((recentOptionListItems[0] as HTMLElement).innerText).toBe('One');
+        expect((recentOptionListItems[1] as HTMLElement).innerText).toBe('Two');
+
+        component.recentOptionsMaxCount = 1;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        recentOptionListItems = nativeElement.querySelectorAll('.ux-typeahead-recent-options li');
+        expect(recentOptionListItems.length).toBe(1);
+        expect((recentOptionListItems[0] as HTMLElement).innerText).toBe('One');
+
+        expect(component.recentOptions.length).toBe(1);
+        expect(component.recentOptions[0]).toBe('One');
+    });
+
+});
