@@ -4,8 +4,7 @@
      class="timeline-bar"
      tabindex="0"
      role="slider"
-     aria-label="Seek slider"
-     i18n-aria-label
+     [attr.aria-label]="mediaPlayerService.seekAriaLabel"
      aria-valuemin="0"
      [attr.aria-valuemax]="mediaPlayerService.duration | number: '0.0-0'"
      [attr.aria-valuenow]="mediaPlayerService.currentTime | number: '0.0-0'"

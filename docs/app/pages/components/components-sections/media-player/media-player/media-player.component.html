@@ -55,6 +55,43 @@
     <tr uxd-api-property name="crossorigin" type="'anonymous' | 'use-credentials'">
         The <code>anonymous</code> keyword means that there will be no exchange of user credentials when the media source is fetched.
     </tr>
+    <tr uxd-api-property name="muteAriaLabel" type="(volume: number) => string">
+        If specified the function will be called passing the current volume as an argument.
+        It should return an appropriate aria-label for the mute/unmute button.
+    </tr>
+    <tr uxd-api-property name="playAriaLabel" type="(isPlaying: boolean) => string">
+        If specified the function will be called passing the current playing state as an argument.
+        It should return an appropriate aria-label for the play/pause button.
+    </tr>
+    <tr uxd-api-property name="fullscreenAriaLabel" type="(isFullscreen: boolean) => string">
+        If specified the function will be called passing the current fullscreen state as an argument.
+        It should return an appropriate aria-label for the fullscreen toggle button.
+    </tr>
+    <tr uxd-api-property name="selectSubtitlesAriaLabel" type="(track: string) => string">
+        If specified the function will be called passing the current track as an argument.
+        It should return an appropriate aria-label for the subtitle selection button.
+    </tr>
+    <tr uxd-api-property name="goToStartAriaLabel" type="string">
+        Define an aria-label for the go to start button.
+    </tr>
+    <tr uxd-api-property name="goToEndAriaLabel" type="string">
+        Define an aria-label for the go to end button.
+    </tr>
+    <tr uxd-api-property name="subtitlesTitleAriaLabel" type="string">
+        Define an aria-label for the title displayed in the subtitle selection popover.
+    </tr>
+    <tr uxd-api-property name="subtitlesOffAriaLabel" type="string">
+        Define an aria-label to indicate subtitle are not currently enabled.
+    </tr>
+    <tr uxd-api-property name="noSubtitlesAriaLabel" type="string">
+        Define an aria-label to indicate there are no subtitles available.
+    </tr>
+    <tr uxd-api-property name="mediaPlayerAriaLabel" type="string">
+        Define an aria-label for the media player.
+    </tr>
+    <tr uxd-api-property name="seekAriaLabel" type="string">
+        Define an aria-label for the the seek element.
+    </tr>
 </uxd-api-properties>
 
 <p>

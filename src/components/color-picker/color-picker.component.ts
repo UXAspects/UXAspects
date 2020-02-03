@@ -93,6 +93,18 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
     @Input()
     inputMode: ColorPickerInputMode = 'hex';
 
+    /** Defines a function that returns an aria-label for ColorPickerColor. */
+    @Input()
+    colorAriaLabel: (color: ColorPickerColor) => string = this.getColorAriaLabel;
+
+    /** Defines a function that returns an aria-label for the button that switches input modes. */
+    @Input()
+    switchModeAriaLabel: (mode: ColorPickerInputMode) => string = this.getSwitchModeAriaLabel;
+
+    /** Define a function that returns an aria-label for the input control. */
+    @Input()
+    inputAriaLabel: (mode: ColorPickerInputMode) => string = this.getInputAriaLabel;
+
     /** Emitted when the user changes the selected color, either by clicking a color swatch button, or entering a valid color value into the input panel text field. */
     @Output()
     selectedChange = new EventEmitter<ColorPickerColor>();
@@ -150,5 +162,17 @@ export class ColorPickerComponent implements OnInit, OnDestroy {
 
     toggleColorEntryType(): void {
         this.inputMode = (this.inputMode === 'hex') ? 'rgba' : 'hex';
+    }
+
+    private getColorAriaLabel(color: ColorPickerColor): string {
+        return `Select color ${color.name}`;
+    }
+
+    private getSwitchModeAriaLabel(mode: ColorPickerInputMode): string {
+        return `Switch input mode to ${mode === 'hex' ? 'RGBA' : 'hex'}`;
+    }
+
+    private getInputAriaLabel(mode: ColorPickerInputMode): string {
+        return `Edit ${mode} color value`;
     }
 }

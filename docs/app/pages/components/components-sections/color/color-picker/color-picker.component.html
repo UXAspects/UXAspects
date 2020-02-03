@@ -149,6 +149,15 @@
         The default input mode to display in the input panel.
         The user can switch modes using the toggle button.
     </tr>
+    <tr uxd-api-property name="colorAriaLabel" type="(color: ColorPickerColor) => string">
+        Define a function that returns an aria-label for a <code>ColorPickerColor</code>.
+    </tr>
+    <tr uxd-api-property name="switchModeAriaLabel" type="(mode: ColorPickerInputMode) => string">
+        Define a function that returns an aria-label for the button that switches input modes.
+    </tr>
+    <tr uxd-api-property name="inputAriaLabel" type="(mode: ColorPickerInputMode) => string">
+        Define a function that returns an aria-label for the input control.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">

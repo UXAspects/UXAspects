@@ -41,6 +41,9 @@ export class ItemDisplayPanelComponent extends SidePanelComponent implements OnI
         this.closeOnExternalClick = !value;
     }
 
+    /** Defines the aria-label for the close button */
+    @Input() closeAriaLabel: string = 'Close';
+
     @Input() shadow: boolean = false;
 
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();

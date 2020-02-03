@@ -11,8 +11,7 @@
 
                 <button type="button"
                     uxFocusIndicator
-                    attr.aria-label="Select color {{color.name}}"
-                    i18n-aria-label
+                    [attr.aria-label]="colorAriaLabel(color)"
                     aria-selected="color === (selected$ | async)"
                     class="btn btn-icon"
                     [uxColorContrast]="color.hex"
@@ -37,11 +36,11 @@
                 [class.ux-circle]="buttonStyle === 'circle'">
             </div>
 
-            <label *ngIf="inputMode === 'hex'" attr.for="{{id}}-input-field">HEX</label>
-            <label *ngIf="inputMode === 'rgba'" attr.for="{{id}}-input-field">RGBA</label>
+            <label *ngIf="inputMode === 'hex'" attr.for="{{ id }}-input-field">HEX</label>
+            <label *ngIf="inputMode === 'rgba'" attr.for="{{ id }}-input-field">RGBA</label>
 
             <button type="button"
-                attr.aria-label="Switch input mode to {{inputMode === 'hex' ? 'RGBA' : 'hex'}}" i18n-aria-label
+                [attr.aria-label]="switchModeAriaLabel(inputMode)"
                 class="btn btn-link btn-icon button-secondary ux-color-picker-input-toggle"
                 (click)="toggleColorEntryType(); $event.stopPropagation()">
                 <ux-icon name="chevron-right"></ux-icon>
@@ -54,7 +53,7 @@
 
             <input type="text"
                 attr.id="{{id}}-input-field"
-                attr.aria-description="Edit {{inputMode}} color value" i18n-aria-description
+                [attr.aria-description]="inputAriaLabel(inputMode)"
                 class="form-control"
                 #inputField="ngModel"
                 [ngModel]="(selected$ | async)[inputMode]"
