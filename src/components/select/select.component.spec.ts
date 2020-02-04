@@ -632,7 +632,7 @@ export class SelectWithRecentOptionsTestComponent {
     onRecentOptionsChange(): void {}
 }
 
-fdescribe('Select with recent options', () => {
+describe('Select with recent options', () => {
 
     let component: SelectWithRecentOptionsTestComponent;
     let fixture: ComponentFixture<SelectWithRecentOptionsTestComponent>;
