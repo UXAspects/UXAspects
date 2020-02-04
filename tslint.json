@@ -1,6 +1,7 @@
 {
   "rulesDirectory": [
-    "codelyzer"
+    "codelyzer",
+    "node_modules/tslint-jasmine"
   ],
   "rules": {
     "no-inferrable-types": false,
@@ -66,6 +67,9 @@
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "no-conflicting-lifecycle": true,
-    "no-output-native": true
+    "no-output-native": true,
+    "no-jasmine-focus": true,
+    "no-jasmine-exclude": true,
+    "no-jasmine-pending": true
   }
 }

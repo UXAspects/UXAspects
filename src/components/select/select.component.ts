@@ -160,6 +160,15 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      */
     @Input() optionTemplate: TemplateRef<any>;
 
+    /**
+     * An initial list of recently selected options, to be presented above the full list of options.
+     * Bind an empty array to `recentOptions` to enable this feature without providing an initial set.
+     */
+    @Input() recentOptions: ReadonlyArray<T>;
+
+    /** Maximum number of displayed recently selected options. */
+    @Input() recentOptionsMaxCount: number;
+
     /** Emits when `value` changes. */
     @Output() valueChange = new EventEmitter<T | ReadonlyArray<T>>();
 
@@ -168,6 +177,9 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
 
     /** Emits when `dropdownOpen` changes. */
     @Output() dropdownOpenChange = new EventEmitter<boolean>();
+
+    /** Emits when recently selected options change. */
+    @Output() recentOptionsChange = new EventEmitter<ReadonlyArray<T>>();
 
     /** Allow a custom icon to be used instead of the chevron */
     @ContentChild('icon', { static: false }) icon: TemplateRef<any>;
@@ -313,8 +325,7 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
         if (event.keyCode === ENTER) {
             if (this._dropdownOpen) {
                 // Set the highlighted option as the value and close
-                this.value = this.singleTypeahead.highlighted;
-                this.dropdownOpen = false;
+                this.singleTypeahead.selectHighlighted();
             } else {
                 this.dropdownOpen = true;
             }

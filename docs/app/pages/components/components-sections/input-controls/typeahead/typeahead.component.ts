@@ -24,6 +24,8 @@ export class ComponentsTypeaheadComponent extends BaseDocumentationSection imple
     selectOnEnter: boolean = true;
     dropDirection: 'up' | 'down' = 'down';
     selectFirst: boolean = true;
+    recentOptions: ReadonlyArray<string>;
+    recentOptionsMaxCount: number = 5;
 
     input: string = '';
 
