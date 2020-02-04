@@ -15,7 +15,8 @@
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
                 [clearButton]="clearButton"
-            >
+                [(recentOptions)]="recentOptions"
+                [recentOptionsMaxCount]="recentOptionsMaxCount">
                 <ng-template *ngIf="customIcon" #icon>
                     <div id="custom-icon" class="ux-select-icon">
                         <ux-icon name="add"></ux-icon>
@@ -107,12 +108,27 @@
 
         <div>
             <label for="pageSize">pageSize</label>
-            <ux-number-picker
+            <ux-number-picker-inline
                 id="pageSize"
                 [(value)]="pageSize"
                 [disabled]="!(pagingEnabled | async)"
             >
-            </ux-number-picker>
+            </ux-number-picker-inline>
+        </div>
+
+        <div>
+            <ux-checkbox id="checkbox5" (valueChange)="recentOptions = $event ? [] : undefined">
+                recentOptions
+            </ux-checkbox>
+        </div>
+
+        <div>
+            <label>recentOptionsMaxCount</label>
+            <ux-number-picker-inline
+                [disabled]="!recentOptions"
+                min="1"
+                [(value)]="recentOptionsMaxCount">
+            </ux-number-picker-inline>
         </div>
 
         <div>
@@ -129,6 +145,13 @@
                 (click)="toggleCustomIcon()"
             >
                 Toggle Custom Icon
+            </button>
+            <button
+                id="fill-recent-options-button"
+                class="btn button-secondary"
+                (click)="fillRecentOptions()"
+            >
+                Fill Recent Options
             </button>
         </div>
     </div>
