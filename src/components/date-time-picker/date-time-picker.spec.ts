@@ -59,8 +59,7 @@ describe('Date Time Picker', () => {
 
     it('should update date and call onDateChange when start date is changed ', async () => {
         spyOn(component, 'onDateChange');
-        component.date = new Date('Tue Jan 07 2020 00:00:00 GMT+0000 (Greenwich Mean Time)');
-
+        component.date = new Date(2020, 0, 7);
         fixture.detectChanges();
         await fixture.whenStable();
 
