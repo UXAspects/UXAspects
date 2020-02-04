@@ -10,26 +10,42 @@
      (loading)="loading = true"
      (loaded)="loading = false; onLoadedHighlight($event)">
 
-    <ol *ngIf="(visibleOptions$ | async).length > 0">
-        <li *ngFor="let option of (visibleOptions$ | async); let i = index"
-            [attr.id]="id + '-option-' + i"
-            [class.disabled]="isDisabled(option)"
-            [class.highlighted]="highlightedKey === option.key"
-            [class.active]="activeKey === option.key"
-            [attr.aria-selected]="multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)"
-            [uxTypeaheadHighlight]="highlightedKey === option.key"
-            [uxScrollIntoViewIf]="highlightedKey === option.key"
-            [scrollParent]="typeaheadElement.nativeElement"
-            (mousedown)="optionMousedownHandler($event)"
-            (click)="optionClickHandler($event, option)"
-            (mouseover)="highlight(option)">
+     <!-- Recent options -->
+    <ux-typeahead-options-list
+        *ngIf="(visibleRecentOptions$ | async).length > 0"
+        class="ux-typeahead-recent-options"
+        [id]="id"
+        [options]="visibleRecentOptions$ | async"
+        [highlighted]="highlighted$ | async"
+        [activeKey]="activeKey"
+        [disabledOptions]="disabledOptions"
+        [isMultiselectable]="multiselectable"
+        [optionTemplate]="optionTemplate || defaultOptionTemplate"
+        [optionApi]="optionApi"
+        [typeaheadElement]="typeaheadElement"
+        (optionMouseover)="highlight($event.option)"
+        (optionMousedown)="optionMousedownHandler($event.event)"
+        (optionClick)="optionClickHandler($event.event, $event.option)"
+    ></ux-typeahead-options-list>
 
-            <ng-container [ngTemplateOutlet]="optionTemplate || defaultOptionTemplate"
-                [ngTemplateOutletContext]="{option: option.value, api: optionApi}">
-            </ng-container>
-
-        </li>
-    </ol>
+    <!-- All options -->
+    <ux-typeahead-options-list
+        *ngIf="(visibleOptions$ | async).length > 0"
+        class="ux-typeahead-all-options"
+        [id]="id"
+        [startIndex]="(visibleRecentOptions$ | async).length"
+        [options]="visibleOptions$ | async"
+        [highlighted]="highlighted$ | async"
+        [activeKey]="activeKey"
+        [disabledOptions]="disabledOptions"
+        [isMultiselectable]="multiselectable"
+        [optionTemplate]="optionTemplate || defaultOptionTemplate"
+        [optionApi]="optionApi"
+        [typeaheadElement]="typeaheadElement"
+        (optionMouseover)="highlight($event.option)"
+        (optionMousedown)="optionMousedownHandler($event.event)"
+        (optionClick)="optionClickHandler($event.event, $event.option)"
+    ></ux-typeahead-options-list>
 
     <div *uxInfiniteScrollLoading>
         <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>

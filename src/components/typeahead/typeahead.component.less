@@ -22,18 +22,34 @@ ux-typeahead {
         bottom: 100%;
     }
 
+    ux-typeahead-options-list {
+        display: block;
+        width: 100%;
+        overflow-x: hidden;
+
+        + ux-typeahead-options-list {
+            padding-top: 8px;
+            border-top: solid 1px @dropdown-divider;
+            margin-top: 8px;
+        }
+    }
+
     .ux-typeahead-options {
-        & > ol {
+        ol {
             margin-bottom: 0;
             padding: 0;
 
-            & > li {
+            li {
                 display: list-item;
                 list-style: none;
                 margin: 0;
                 padding: 0 10px;
                 line-height: 24px;
                 cursor: pointer;
+
+                &.active {
+                    transition: none;
+                }
 
                 &.highlighted {
                     background-color: @dropdown-highlight-bg;
