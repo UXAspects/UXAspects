@@ -160,10 +160,13 @@ export class SelectComponent<T> implements OnInit, OnChanges, OnDestroy, Control
      */
     @Input() optionTemplate: TemplateRef<any>;
 
-    /** Container for saving the recently selected options. */
+    /**
+     * An initial list of recently selected options, to be presented above the full list of options.
+     * Bind an empty array to `recentOptions` to enable this feature without providing an initial set.
+     */
     @Input() recentOptions: ReadonlyArray<T>;
 
-    /** Maximum number of displayed recent options. */
+    /** Maximum number of displayed recently selected options. */
     @Input() recentOptionsMaxCount: number;
 
     /** Emits when `value` changes. */
