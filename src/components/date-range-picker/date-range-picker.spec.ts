@@ -22,10 +22,7 @@ import { DateRangePickerModule } from './date-range-picker.module';
             [startTimezone]="startTimezone"
             [endTimezone]="endTimezone"
             (startChange)="onStartChange()"
-            (endChange)="onEndChange()"
-            (keydown.escape)="popover.hide(); input.focus()"
-            (startTimezoneChange)="onTimezoneChange(true, $event)"
-            (endTimezoneChange)="onTimezoneChange(false, $event)">
+            (endChange)="onEndChange()">
         </ux-date-range-picker>
     `
 })
@@ -92,6 +89,14 @@ describe('Date Range Picker', () => {
 
         expect(getDate().innerHTML).toBe(' 23 January 2020 ');
         expect(component.onEndChange).toHaveBeenCalled();
+    });
+
+    it('should not through an error when dates set to undefined', async () => {
+        component.start = undefined;
+        component.end = undefined;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
     });
 
     function getDate(): HTMLElement | null {
