@@ -55,7 +55,7 @@ export class SidePanelTestComponent {
     onToggleChange(): void { }
 }
 
-fdescribe('Side Panel Component', () => {
+describe('Side Panel Component', () => {
     let component: SidePanelTestComponent;
     let fixture: ComponentFixture<SidePanelTestComponent>;
     let nativeElement: HTMLElement;
@@ -115,7 +115,7 @@ fdescribe('Side Panel Component', () => {
         expect(component.onToggleChange).toHaveBeenCalled();
     });
 
-    it('should close side panel when closeOnEscape is set to true and "esc" key is pressed', async () => {
+    it('should close side panel when [closeOnEscape] is set to true and "esc" key is pressed', async () => {
         // check closeOnEscape is set to true (as is default)
         expect(component.closeOnEscape).toBeTruthy();
 
@@ -140,7 +140,7 @@ fdescribe('Side Panel Component', () => {
 
     });
 
-    it('should not close side panel when closeOnEscape is set to false and "esc" key is pressed', async () => {
+    it('should not close side panel when [closeOnEscape] is set to false and "esc" key is pressed', async () => {
         // check closeOnEscape is set to true (as is default)
         expect(component.closeOnEscape).toBeTruthy();
 
@@ -161,7 +161,7 @@ fdescribe('Side Panel Component', () => {
 
         // check that side panel is still visible
         sidePanelContainer = nativeElement.querySelector('.ux-side-panel-content');
-        expect(sidePanelContainer).toBeFalsy();
+        expect(sidePanelContainer).toBeTruthy();
 
     });
 
