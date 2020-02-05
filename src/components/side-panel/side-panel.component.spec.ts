@@ -120,18 +120,22 @@ fdescribe('Side Panel Component', () => {
         expect(component.closeOnEscape).toBeTruthy();
 
         // find the side panel container
-        const sidePanelContainer: HTMLElement = nativeElement.querySelector('.ux-side-panel-content');
+        let sidePanelContainer: HTMLElement = nativeElement.querySelector('.ux-side-panel-content');
         expect(sidePanelContainer).toBeTruthy();
 
-        // press the 'Esc''key
+        // access the SidePanelComponent instance
+        const sidePanelElement = fixture.debugElement.query(By.directive(SidePanelComponent));
+        const sidePanelInstance = sidePanelElement.componentInstance as SidePanelComponent;
 
-        const sidePanel = fixture.debugElement.query(By.directive(SidePanelTestComponent));
-        sidePanel.triggerEventHandler('document:keyup.escape', {});
+        // the hostlistener is bound to the document, to to test the function we have to manually
+        // call the function to simulate the event (see known issue: https://github.com/angular/angular/issues/12518)
+        sidePanelInstance._onDocumentEscape();
 
-        sidePanel.detectChanges();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         // check that side panel is not visible
+        sidePanelContainer = nativeElement.querySelector('.ux-side-panel-content');
         expect(sidePanelContainer).toBeFalsy();
 
     });
@@ -144,16 +148,20 @@ fdescribe('Side Panel Component', () => {
         component.closeOnEscape = false;
 
         // find the side panel container
-        const sidePanelContainer: HTMLElement = nativeElement.querySelector('.ux-side-panel-content');
+        let sidePanelContainer: HTMLElement = nativeElement.querySelector('.ux-side-panel-content');
         expect(sidePanelContainer).toBeTruthy();
 
-        // press the 'Esc''key
-        fixture.debugElement.triggerEventHandler('document:keyup.escape', {});
-        fixture.detectChanges();
-        await fixture.whenStable();
+        // access the SidePanelComponent instance
+        const sidePanelElement = fixture.debugElement.query(By.directive(SidePanelComponent));
+        const sidePanelInstance = sidePanelElement.componentInstance as SidePanelComponent;
+
+        // the hostlistener is bound to the document, to to test the function we have to manually
+        // call the function to simulate the event (see known issue: https://github.com/angular/angular/issues/12518)
+        sidePanelInstance._onDocumentEscape();
 
         // check that side panel is still visible
-        expect(sidePanelContainer).toBeTruthy();
+        sidePanelContainer = nativeElement.querySelector('.ux-side-panel-content');
+        expect(sidePanelContainer).toBeFalsy();
 
     });
 
