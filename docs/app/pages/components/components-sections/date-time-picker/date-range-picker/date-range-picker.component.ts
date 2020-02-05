@@ -80,7 +80,7 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
         const startDate = Date.parse(parts[0].trim());
         const endDate = Date.parse(parts[1].trim());
 
-        if (parts.length >= 1 && !isNaN(startDate)) {
+        if (!isNaN(startDate)) {
             this.start = new Date(startDate);
             this.startTimezone = this.getTimezone(parts[0]);
         } else if (parts.length >= 1 && isNaN(startDate)) {
@@ -88,7 +88,7 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
             this.start = null;
         }
 
-        if (parts.length === 2 && !isNaN(endDate)) {
+        if (!isNaN(endDate)) {
             this.end = new Date(endDate);
             this.endTimezone = this.getTimezone(parts[1]);
         } else if (parts.length === 2 && isNaN(endDate)) {
@@ -149,7 +149,7 @@ export class ComponentsDateRangePickerComponent extends BaseDocumentationSection
         const timezone = date.match(/GMT(\+|-)([0-9]+)/gi);
 
         // check if there is a matching timezone
-        if (timezone == null) {
+        if (timezone === null) {
             return { name: 'GMT', offset: 0 };
         } else {
             const match = timezones.find(_timezone => _timezone.name.toLowerCase() === timezone[0].trim().toLowerCase());

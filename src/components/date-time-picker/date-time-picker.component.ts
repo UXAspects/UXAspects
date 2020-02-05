@@ -129,11 +129,13 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy {
     /** The selected date to be displayed in the component. */
     @Input()
     set date(value: Date) {
-        if (this._isRangeMode && value && !dateComparator(value, this.datepicker.date$.value)) {
-            this.datepicker.date$.next(new Date(value));
-            this.datepicker.selected$.next(new Date(value));
-        } else if (!this._isRangeMode && value && !dateComparator(value, this.datepicker.date$.value)) {
-            this.datepicker.selected$.next(new Date(value));
+        if (value && !dateComparator(value, this.datepicker.date$.value)) {
+            if (this._isRangeMode) {
+                this.datepicker.date$.next(new Date(value));
+                this.datepicker.selected$.next(new Date(value));
+            } else {
+               this.datepicker.selected$.next(new Date(value));
+            }
         }
     }
 

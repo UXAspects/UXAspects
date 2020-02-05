@@ -300,10 +300,13 @@ describe('Date Range Picker Tests', () => {
 
     it('should update date picker when input date is updated', async () => {
 
+        // click the show seconds format button
+        await page.showSecondsFormat();
+
         // Clear input and enter new date
         await page.input.clear();
-        await page.input.sendKeys('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM GMT');
-        expect(await page.getInputText()).toBe('1 January 2020  09:00 AM GMT — 3 January 2020  10:59 PM GMT');
+        await page.input.sendKeys('1 January 2020 09:00:01 AM GMT — 3 January 2020 10:59:02 PM GMT');
+        expect(await page.getInputText()).toBe('1 January 2020 09:00:01 AM GMT — 3 January 2020 10:59:02 PM GMT');
 
         // remove focus from input
         await page.clickOnRangeHeader();
@@ -313,6 +316,14 @@ describe('Date Range Picker Tests', () => {
         expect(await page.getPickerTimeHeader(Picker.Start)).toBe('9:00 AM');
         expect(await page.getPickerDateHeader(Picker.End)).toBe('3 January 2020');
         expect(await page.getPickerTimeHeader(Picker.End)).toBe('10:59 PM');
+
+        expect(await page.getSpinnerHour(Picker.Start)).toBe('9');
+        expect(await page.getSpinnerMinute(Picker.Start)).toBe('00');
+        expect(await page.getSpinnerSecond(Picker.Start)).toBe('01');
+
+        expect(await page.getSpinnerHour(Picker.End)).toBe('10');
+        expect(await page.getSpinnerMinute(Picker.End)).toBe('59');
+        expect(await page.getSpinnerSecond(Picker.End)).toBe('02');
     });
 
     // take into account the current timezone

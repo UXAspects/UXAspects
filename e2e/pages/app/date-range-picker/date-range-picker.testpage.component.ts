@@ -61,20 +61,18 @@ export class DateRangePickerTestPageComponent {
         this.invalid = false;
 
         // check if the date contains a hyphen
-        const parts = (date.indexOf('—') ? date.split('—') : date.split('-'));
-        const startDate = Date.parse(parts[0].trim());
-        const endDate = Date.parse(parts[1].trim());
+        const parts = (date.indexOf('—') ? date.split('—') : date.split('-')).map(part => Date.parse(part.trim()));
 
-        if (parts.length >= 1 && !isNaN(startDate)) {
-            this.start = new Date(startDate);
-        } else if (parts.length >= 1 && isNaN(startDate)) {
+        if (parts.length >= 1 && !isNaN(parts[0])) {
+            this.start = new Date(parts[0]);
+        } else if (parts.length >= 1 && isNaN(parts[0])) {
             this.invalid = true;
             this.start = null;
         }
 
-        if (parts.length === 2 && !isNaN(endDate)) {
-            this.end = new Date(endDate);
-        } else if (parts.length === 2 && isNaN(endDate)) {
+        if (parts.length === 2 && !isNaN(parts[1])) {
+            this.end = new Date(parts[1]);
+        } else if (parts.length === 2 && isNaN(parts[1])) {
             this.invalid = true;
             this.end = null;
         }

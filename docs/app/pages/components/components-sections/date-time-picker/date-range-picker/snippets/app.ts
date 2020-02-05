@@ -57,7 +57,7 @@ export class AppComponent {
         const startDate = Date.parse(parts[0].trim());
         const endDate = Date.parse(parts[1].trim());
 
-        if (parts.length >= 1 && !isNaN(startDate)) {
+        if (!isNaN(startDate)) {
             this.start = new Date(startDate);
             this.startTimezone = this.getTimezone(parts[0]);
         } else if (parts.length >= 1 && isNaN(startDate)) {
@@ -65,7 +65,7 @@ export class AppComponent {
             this.start = null;
         }
 
-        if (parts.length === 2 && !isNaN(endDate)) {
+        if (!isNaN(endDate)) {
             this.end = new Date(endDate);
             this.endTimezone = this.getTimezone(parts[1]);
         } else if (parts.length === 2 && isNaN(endDate)) {

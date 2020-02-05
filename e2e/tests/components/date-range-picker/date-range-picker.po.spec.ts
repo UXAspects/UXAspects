@@ -10,6 +10,7 @@ export class DateRangePickerPage {
     dateFormatBtn = $('#date-format');
     timeFormatBtn = $('#time-format');
     rangeHeader = $('.range-header');
+    secondsFormatBtn = $('#show-seconds');
 
     async getPage(): Promise<void> {
         await browser.get('#/date-range-picker');
@@ -141,6 +142,27 @@ export class DateRangePickerPage {
         return buttons[1].click();
     }
 
+    async getSpinnerHour(picker: Picker): Promise<string> {
+        const pickerElement = await this.getPicker(picker);
+        const spinners = await pickerElement.$$('ux-spin-button input');
+        const spinner = spinners[0];
+        return await spinner.getAttribute('value');
+    }
+
+    async getSpinnerMinute(picker: Picker): Promise<string> {
+        const pickerElement = await this.getPicker(picker);
+        const spinners = await pickerElement.$$('ux-spin-button input');
+        const spinner = spinners[1];
+        return await spinner.getAttribute('value');
+    }
+
+    async getSpinnerSecond(picker: Picker): Promise<string> {
+        const pickerElement = await this.getPicker(picker);
+        const spinners = await pickerElement.$$('ux-spin-button input');
+        const spinner = spinners[2];
+        return await spinner.getAttribute('value');
+    }
+
     async incrementTimezone(picker: Picker): Promise<void> {
         const pickerElement = await this.getPicker(picker);
         const spinner = await pickerElement.$('.time-zone-spinner');
@@ -190,6 +212,10 @@ export class DateRangePickerPage {
 
     async enableTimeFormat(): Promise<void> {
         await this.timeFormatBtn.click();
+    }
+
+    async showSecondsFormat(): Promise<void> {
+        await this.secondsFormatBtn.click();
     }
 }
 
