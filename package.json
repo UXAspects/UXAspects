@@ -46,7 +46,7 @@
     "@angular/router": "~8.1.2",
     "@angular/upgrade": "~8.1.2",
     "angular-split": "^3.0.2",
-    "angular-tree-component": "^8.0.0",
+    "angular-tree-component": "~8.4.1",
     "bootstrap": "^3.3.7",
     "chance": "^1.0.10",
     "chart.js": "~2.7.3",
