@@ -28,7 +28,8 @@
         [width]="width"
         [modal]="modal"
         [animate]="animate"
-        [closeOnExternalClick]="closeOnExternalClick">
+        [closeOnExternalClick]="closeOnExternalClick"
+        [closeOnEscape]="closeOnEscape">
 
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
@@ -116,6 +117,9 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
                     </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="closeOnEscape">closeOnEscape</ux-checkbox>
+                    </div>
                 </div>
             </ux-accordion-panel>
         </ux-accordion>
@@ -189,6 +193,9 @@
     </tr>
     <tr uxd-api-property name="focusOnShow" type="boolean" defaultValue="false">
         Whether the panel should become focused when it is opened.
+    </tr>
+    <tr uxd-api-property name="closeOnEscape" type="boolean" defaultValue="true">
+        Whether the panel should close when the 'Esc' key is pressed.
     </tr>
 </uxd-api-properties>
 
