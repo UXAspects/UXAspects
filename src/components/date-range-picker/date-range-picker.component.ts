@@ -1,10 +1,10 @@
 import { WeekDay } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
 import { DateTimePickerTimezone, differenceBetweenDates, timezones as defaultTimezones } from '../date-time-picker/date-time-picker.utils';
 import { DateRangeService } from './date-range.service';
-import { DateFormatter } from '../../pipes/date-formatter/date-formatter.type';
 
 @Component({
     selector: 'ux-date-range-picker',
@@ -153,7 +153,7 @@ export class DateRangePickerComponent implements OnDestroy {
     /** Use an observable to debounce rapid end changes */
     endChange$ = new Subject<Date>();
 
-    /** Unsubscribe from all observablesprivate  */
+    /** Unsubscribe from all observables private  */
     private _onDestroy = new Subject<void>();
 
     constructor(public rangeService: DateRangeService) {
@@ -171,7 +171,7 @@ export class DateRangePickerComponent implements OnDestroy {
         this.rangeService.clear();
     }
 
-    /** Get the timezome based on the machine timezone */
+    /** Get the timezone based on the machine timezone */
     private getCurrentTimezone(): DateTimePickerTimezone {
         return this.timezones.find(timezone => timezone.offset === new Date().getTimezoneOffset());
     }

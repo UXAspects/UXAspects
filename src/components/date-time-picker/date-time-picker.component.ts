@@ -1,7 +1,7 @@
 import { WeekDay } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Optional, Output } from '@angular/core';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../date-range-picker/date-range.service';
 import { DatePickerMode, DateTimePickerService } from './date-time-picker.service';
@@ -129,8 +129,13 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy {
     /** The selected date to be displayed in the component. */
     @Input()
     set date(value: Date) {
-        if (value && !dateComparator(value, this.datepicker.selected$.value)) {
-            this.datepicker.selected$.next(new Date(value));
+        if (value && !dateComparator(value, this.datepicker.date$.value)) {
+            if (this._isRangeMode) {
+                this.datepicker.date$.next(new Date(value));
+                this.datepicker.selected$.next(new Date(value));
+            } else {
+               this.datepicker.selected$.next(new Date(value));
+            }
         }
     }
 
@@ -199,10 +204,10 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy {
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
 
-        datepicker.selected$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(dateComparator))
+        datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
             .subscribe(date => this.dateChange.emit(date));
 
-        datepicker.timezone$.pipe(takeUntil(this._onDestroy), distinctUntilChanged(timezoneComparator))
+        datepicker.timezone$.pipe(distinctUntilChanged(timezoneComparator), takeUntil(this._onDestroy))
             .subscribe((timezone: DateTimePickerTimezone) => this.timezoneChange.emit(timezone));
     }
 
