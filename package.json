@@ -85,6 +85,7 @@
     "@types/dragula": "2.1.33",
     "@types/jasmine": "2.6.2",
     "@types/jquery": "2.0.48",
+    "@types/lodash": "^4.14.149",
     "@types/moment-timezone": "0.2.35",
     "@types/node": "7.0.46",
     "@types/prismjs": "1.6.5",
