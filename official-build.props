@@ -8,3 +8,5 @@ GENERIC_1_EXPECTED_ARTIFACT_COUNT=2
 GENERIC_2_TARGET_URL=${sepgStagingRepo}/saas-npm-release-local/${path}/${filename}
 GENERIC_2_ARTIFACTS=target/release-staging/**/*.tgz
 GENERIC_2_EXPECTED_ARTIFACT_COUNT=2
+
+DISABLE_FORK_SUPPORT=TRUE

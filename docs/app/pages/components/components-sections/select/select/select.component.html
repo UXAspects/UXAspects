@@ -13,7 +13,9 @@
                 [pageSize]="pageSize"
                 [placeholder]="placeholder"
                 [readonlyInput]="readonlyInput"
-                [clearButton]="clearButton">
+                [clearButton]="clearButton"
+                [(recentOptions)]="recentOptions"
+                [recentOptionsMaxCount]="recentOptionsMaxCount">
 
                 <ng-template #icon *ngIf="multiple | async">
                     <div class="ux-select-icon">
@@ -27,6 +29,11 @@
 <div class="row">
     <div class="col-md-12 m-t-md">
         Selected location(s): <code>{{selected | json}}</code>
+    </div>
+</div>
+<div *ngIf="recentOptions" class="row">
+    <div class="col-md-12 m-t-md">
+        Recent options: <code>{{recentOptions | json}}</code>
     </div>
 </div>
 <div class="row uxd-customize-example">
@@ -71,6 +78,23 @@
                     <div class="col-md-8 col-sm-12">
                         <label for="placeholder">placeholder</label>
                         <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox
+                            [value]="!!recentOptions"
+                            (valueChange)="recentOptions = $event ? [] : undefined">
+                            recentOptions
+                        </ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>recentOptionsMaxCount</label>
+                        <ux-number-picker
+                            [disabled]="!recentOptions"
+                            min="1"
+                            [(value)]="recentOptionsMaxCount">
+                        </ux-number-picker>
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
@@ -226,6 +250,13 @@
     <tr uxd-api-property name="clearButtonAriaLabel" type="string">
         Defines the aria label for the clear button.
     </tr>
+    <tr uxd-api-property name="recentOptions" type="ReadonlyArray&lt;T&gt;">
+        An initial list of recently selected options, to be presented above the full list of options. Bind an empty
+        array to <code>recentOptions</code> to enable this feature without providing an initial set.
+    </tr>
+    <tr uxd-api-property name="recentOptionsMaxCount" type="number" defaultValue="5">
+        Maximum number of displayed recently selected options.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -237,6 +268,9 @@
     </tr>
     <tr uxd-api-property name="dropdownOpenChange" type="boolean">
         Emits when <code>dropdownOpen</code> changes.
+    </tr>
+    <tr uxd-api-property name="recentOptionsChange" type="ReadonlyArray&lt;T&gt;">
+        Emits when the list of recently selected options changes.
     </tr>
 </uxd-api-properties>
 

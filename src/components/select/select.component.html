@@ -35,7 +35,11 @@
         [selectFirst]="true"
         [loadingTemplate]="loadingTemplate"
         [optionTemplate]="optionTemplate"
-        [noOptionsTemplate]="noOptionsTemplate">
+        [noOptionsTemplate]="noOptionsTemplate"
+        [recentOptions]="recentOptions"
+        [recentOptionsMaxCount]="recentOptionsMaxCount"
+        (recentOptionsChange)="recentOptionsChange.emit($event)"
+    >
     </ux-typeahead>
 
 </ux-tag-input>
@@ -103,8 +107,13 @@
         [loadingTemplate]="loadingTemplate"
         [optionTemplate]="optionTemplate"
         [noOptionsTemplate]="noOptionsTemplate"
+        [recentOptions]="recentOptions"
+        [recentOptionsMaxCount]="recentOptionsMaxCount"
         (optionSelected)="singleOptionSelected($event)"
-        (highlightedElementChange)="highlightedElement = $event">
+        (highlightedElementChange)="highlightedElement = $event"
+        (recentOptionsChange)="recentOptionsChange.emit($event)"
+    >
+
     </ux-typeahead>
 
 </div>

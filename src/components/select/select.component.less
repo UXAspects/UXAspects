@@ -7,11 +7,17 @@ ux-select {
         }
     }
 
-    ux-typeahead .ux-typeahead-options > ol > li {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-break: break-all;
+    ux-typeahead {
+        .ux-typeahead-options {
+            ol {
+                li {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-all;
+                }
+            }
+        }
     }
 
     .ux-select-container {
