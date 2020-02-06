@@ -12191,7 +12191,7 @@
              */
             this.endChange$ = new rxjs.Subject();
             /**
-             * Unsubscribe from all observablesprivate
+             * Unsubscribe from all observables private
              */
             this._onDestroy = new rxjs.Subject();
             this.startChange$.pipe(operators.takeUntil(this._onDestroy), operators.debounceTime(0)).subscribe(function (date) { return _this.onStartChange(date); });
@@ -12312,13 +12312,13 @@
             function () {
                 this.rangeService.clear();
             };
-        /** Get the timezome based on the machine timezone */
+        /** Get the timezone based on the machine timezone */
         /**
-         * Get the timezome based on the machine timezone
+         * Get the timezone based on the machine timezone
          * @return {?}
          */
         DateRangePickerComponent.prototype.getCurrentTimezone = /**
-         * Get the timezome based on the machine timezone
+         * Get the timezone based on the machine timezone
          * @return {?}
          */
             function () {
@@ -12458,6 +12458,56 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var DateFormatterPipe = /** @class */ (function () {
+        function DateFormatterPipe() {
+        }
+        /**
+         * @param {?} value
+         * @param {?} formatter
+         * @return {?}
+         */
+        DateFormatterPipe.prototype.transform = /**
+         * @param {?} value
+         * @param {?} formatter
+         * @return {?}
+         */
+            function (value, formatter) {
+                // we may not initially have  a value
+                if (!value) {
+                    return '';
+                }
+                return typeof formatter === 'function' ? formatter(value) : common.formatDate(value, formatter, navigator.language);
+            };
+        DateFormatterPipe.decorators = [
+            { type: i0.Pipe, args: [{
+                        name: 'formatDate'
+                    },] }
+        ];
+        return DateFormatterPipe;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    var DateFormatterPipeModule = /** @class */ (function () {
+        function DateFormatterPipeModule() {
+        }
+        DateFormatterPipeModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        exports: [DateFormatterPipe],
+                        declarations: [DateFormatterPipe]
+                    },] }
+        ];
+        return DateFormatterPipeModule;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var DateTimePickerConfig = /** @class */ (function () {
         function DateTimePickerConfig() {
             this.showDate = true;
@@ -12528,7 +12578,7 @@
                     _this.setViewportYear(date.getFullYear());
                 }
                 // emit the new date to the component host but only if they are different
-                if (dateComparator(date, _this.date$.value)) {
+                if (!dateComparator(date, _this.selected$.value)) {
                     _this.date$.next(date);
                 }
             });
@@ -12786,9 +12836,9 @@
             // expose enum to view
             this.DatePickerMode = DatePickerMode;
             this._onDestroy = new rxjs.Subject();
-            datepicker.selected$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(dateComparator))
+            datepicker.selected$.pipe(operators.distinctUntilChanged(dateComparator), operators.takeUntil(this._onDestroy))
                 .subscribe(function (date) { return _this.dateChange.emit(date); });
-            datepicker.timezone$.pipe(operators.takeUntil(this._onDestroy), operators.distinctUntilChanged(timezoneComparator))
+            datepicker.timezone$.pipe(operators.distinctUntilChanged(timezoneComparator), operators.takeUntil(this._onDestroy))
                 .subscribe(function (timezone) { return _this.timezoneChange.emit(timezone); });
         }
         Object.defineProperty(DateTimePickerComponent.prototype, "showDate", {
@@ -13000,8 +13050,14 @@
              * @param {?} value
              * @return {?}
              */ function (value) {
-                if (value && !dateComparator(value, this.datepicker.selected$.value)) {
-                    this.datepicker.selected$.next(new Date(value));
+                if (value && !dateComparator(value, this.datepicker.date$.value)) {
+                    if (this._isRangeMode) {
+                        this.datepicker.date$.next(new Date(value));
+                        this.datepicker.selected$.next(new Date(value));
+                    }
+                    else {
+                        this.datepicker.selected$.next(new Date(value));
+                    }
                 }
             },
             enumerable: true,
@@ -15631,13 +15687,12 @@
             this._onDestroy = new rxjs.Subject();
             // when the date changes we should update the value
             datepicker.date$.pipe(operators.filter(function (date) { return date && _this.value instanceof Date; }), operators.takeUntil(this._onDestroy)).subscribe(function (date) {
-                _this.value.setFullYear(date.getFullYear());
-                _this.value.setMonth(date.getMonth());
-                _this.value.setDate(date.getDate());
+                _this.value = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
                 _changeDetector.detectChanges();
             });
             if (!this._isRangeMode) {
-                datepicker.selected$.pipe(operators.filter(function (date) { return !!date; }), operators.takeUntil(this._onDestroy)).subscribe(function (date) { return _this.value = new Date(date); });
+                datepicker.selected$.pipe(operators.filter(function (date) { return !!date; }), operators.takeUntil(this._onDestroy))
+                    .subscribe(function (date) { return _this.value = new Date(date); });
             }
             if (this._isRangeMode && this._isRangeStart) {
                 this.value = new Date();
@@ -16351,56 +16406,6 @@
                     },] }
         ];
         return DateTimePickerModule;
-    }());
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var DateFormatterPipe = /** @class */ (function () {
-        function DateFormatterPipe() {
-        }
-        /**
-         * @param {?} value
-         * @param {?} formatter
-         * @return {?}
-         */
-        DateFormatterPipe.prototype.transform = /**
-         * @param {?} value
-         * @param {?} formatter
-         * @return {?}
-         */
-            function (value, formatter) {
-                // we may not initially have  a value
-                if (!value) {
-                    return '';
-                }
-                return typeof formatter === 'function' ? formatter(value) : common.formatDate(value, formatter, navigator.language);
-            };
-        DateFormatterPipe.decorators = [
-            { type: i0.Pipe, args: [{
-                        name: 'formatDate'
-                    },] }
-        ];
-        return DateFormatterPipe;
-    }());
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
-     */
-    var DateFormatterPipeModule = /** @class */ (function () {
-        function DateFormatterPipeModule() {
-        }
-        DateFormatterPipeModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        exports: [DateFormatterPipe],
-                        declarations: [DateFormatterPipe]
-                    },] }
-        ];
-        return DateFormatterPipeModule;
     }());
     /**
      * @fileoverview added by tsickle
@@ -17469,6 +17474,10 @@
              */
             this.loading = false;
             /**
+             * Maximum number of displayed recently selected options.
+             */
+            this.recentOptionsMaxCount = 5;
+            /**
              * Emit when the open state changes
              */
             this.openChange = new i0.EventEmitter();
@@ -17484,12 +17493,17 @@
              * Emit the highlighted element when it changes
              */
             this.highlightedElementChange = new i0.EventEmitter();
+            /**
+             * Emits when recently selected options change.
+             */
+            this.recentOptionsChange = new i0.EventEmitter();
             this.activeKey = null;
             this.clicking = false;
             this.hasBeenOpened = false;
             this.highlighted$ = new rxjs.BehaviorSubject(null);
-            this.highlightedKey = null;
             this.visibleOptions$ = new rxjs.BehaviorSubject([]);
+            this.visibleRecentOptions$ = new rxjs.BehaviorSubject([]);
+            this.allVisibleOptions = [];
             this._onDestroy = new rxjs.Subject();
             this.optionApi = {
                 getKey: this.getKey.bind(this),
@@ -17506,17 +17520,14 @@
                         if (!Array.isArray(newOptions)) {
                             return newOptions;
                         }
-                        return newOptions.map(function (option) {
-                            return {
-                                value: option,
-                                key: _this.getKey(option)
-                            };
-                        });
+                        return _this.getVisibleOptions(newOptions, '');
                     });
                 }
                 return null;
             };
-            this._service.open$.pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy)).subscribe(function (isOpen) {
+            this._service.open$
+                .pipe(operators.distinctUntilChanged(), operators.takeUntil(this._onDestroy))
+                .subscribe(function (isOpen) {
                 _this.openChange.emit(isOpen);
                 if (isOpen) {
                     _this.hasBeenOpened = true;
@@ -17524,10 +17535,19 @@
                 }
             });
             this.highlighted$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (next) {
-                _this.highlightedKey = next ? next.key : null;
                 _this.highlightedChange.emit(next ? next.value : null);
             });
-            rxjs.combineLatest([this._service.open$, this._service.highlightedElement$, this.visibleOptions$])
+            rxjs.combineLatest([this.visibleOptions$, this.visibleRecentOptions$])
+                .pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function (_a) {
+                var _b = __read(_a, 2), visibleOptions = _b[0], visibleRecentOptions = _b[1];
+                _this.allVisibleOptions = __spread(visibleRecentOptions, visibleOptions);
+            });
+            rxjs.combineLatest([
+                this._service.open$,
+                this._service.highlightedElement$,
+                this.visibleOptions$
+            ])
                 .pipe(operators.takeUntil(this._onDestroy))
                 .subscribe(function (_a) {
                 var _b = __read(_a, 3), open = _b[0], highlightedElement = _b[1], visibleOptions = _b[2];
@@ -17583,17 +17603,32 @@
          * @return {?}
          */
             function (changes) {
+                var _this = this;
                 // Open the dropdown if the filter value updates
                 if (changes.filter) {
                     if (this.openOnFilterChange && changes.filter.currentValue && changes.filter.currentValue.length > 0) {
                         // if the dropdown item was just selected, and we set the filter value to match the
                         // selected value then open will have also just been set to `false`, in which case we do
                         // not want to set open to `true`
-                        if (changes.open && changes.open.previousValue === true && changes.open.currentValue === false) {
+                        if (changes.open &&
+                            changes.open.previousValue === true &&
+                            changes.open.currentValue === false) {
                             return;
                         }
                         // show the dropdown
                         this.open = true;
+                    }
+                }
+                // Cut off recentOptions at recentOptionsMaxCount
+                if (changes.recentOptions || changes.recentOptionsMaxCount) {
+                    this._recentOptions = this.recentOptions
+                        ? this.recentOptions.slice(0, this.recentOptionsMaxCount)
+                        : undefined;
+                    if (changes.recentOptionsMaxCount) {
+                        // Avoid ExpressionChangedAfterChecked error
+                        setTimeout(function () {
+                            _this.recentOptionsChange.emit(_this._recentOptions);
+                        });
                     }
                 }
                 // Re-filter visibleOptions
@@ -17714,18 +17749,26 @@
          */
             function (option) {
                 /** @type {?} */
-                var displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                var displayText = this.getDisplay(option)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
                 /** @type {?} */
                 var displayHtml = displayText;
                 if (this.filter) {
                     /** @type {?} */
                     var length_1 = this.filter.length;
                     /** @type {?} */
-                    var matchIndex = displayText.toLowerCase().indexOf(this.filter.toLowerCase());
+                    var matchIndex = displayText
+                        .toLowerCase()
+                        .indexOf(this.filter.toLowerCase());
                     if (matchIndex >= 0) {
                         /** @type {?} */
                         var highlight = "<span class=\"ux-filter-match\">" + displayText.substr(matchIndex, length_1) + "</span>";
-                        displayHtml = displayText.substr(0, matchIndex) + highlight + displayText.substr(matchIndex + length_1);
+                        displayHtml =
+                            displayText.substr(0, matchIndex) +
+                                highlight +
+                                displayText.substr(matchIndex + length_1);
                     }
                 }
                 return displayHtml;
@@ -17760,10 +17803,27 @@
          * @return {?}
          */
             function (option, origin) {
-                if (!this.isDisabled(option)) {
+                if (!option.isDisabled) {
                     this.optionSelected.emit(new TypeaheadOptionEvent(option.value, origin));
                     this.highlighted$.next(null);
                     this.open = false;
+                    this.addToRecentOptions(option.value);
+                }
+            };
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        TypeaheadComponent.prototype.addToRecentOptions = /**
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                if (this._recentOptions) {
+                    this._recentOptions = __spread([
+                        value
+                    ], this._recentOptions.filter(function (recentOption) { return recentOption !== value; })).slice(0, this.recentOptionsMaxCount);
+                    this.recentOptionsChange.emit(this._recentOptions);
                 }
             };
         /**
@@ -17784,7 +17844,7 @@
                 if (this.disabledOptions && Array.isArray(this.disabledOptions)) {
                     /** @type {?} */
                     var result = this.disabledOptions.find(function (selectedOption) {
-                        return _this.getKey(selectedOption) === option.key;
+                        return _this.getKey(selectedOption) === _this.getKey(option);
                     });
                     return result !== undefined;
                 }
@@ -17804,7 +17864,7 @@
          * @return {?}
          */
             function (option) {
-                if (!this.isDisabled(option)) {
+                if (!option.isDisabled) {
                     this.highlighted$.next(option);
                     this._changeDetector.detectChanges();
                 }
@@ -17825,9 +17885,7 @@
          */
             function (d) {
                 /** @type {?} */
-                var visibleOptions = this.visibleOptions$.getValue();
-                /** @type {?} */
-                var highlightIndex = this.indexOfVisibleOption(this.highlighted);
+                var highlightIndex = this.indexOfVisibleOption(this.highlighted$.getValue());
                 /** @type {?} */
                 var newIndex = highlightIndex;
                 /** @type {?} */
@@ -17836,11 +17894,11 @@
                 var inBounds = true;
                 do {
                     newIndex = newIndex + d;
-                    inBounds = (newIndex >= 0 && newIndex < visibleOptions.length);
-                    disabled = inBounds && this.isDisabled(visibleOptions[newIndex]);
+                    inBounds = newIndex >= 0 && newIndex < this.allVisibleOptions.length;
+                    disabled = inBounds && this.allVisibleOptions[newIndex].isDisabled;
                 } while (inBounds && disabled);
                 if (!disabled && inBounds) {
-                    this.highlight(visibleOptions[newIndex]);
+                    this.highlight(this.allVisibleOptions[newIndex]);
                 }
                 return this.highlighted;
             };
@@ -17851,8 +17909,8 @@
          * @return {?}
          */
             function () {
-                if (this.highlighted) {
-                    this.select({ value: this.highlighted, key: this.getKey(this.highlighted) }, 'keyboard');
+                if (this.highlighted$.getValue()) {
+                    this.select(this.highlighted$.getValue(), 'keyboard');
                 }
             };
         /**
@@ -17894,56 +17952,90 @@
                 }
             };
         /**
-         * Update the visibleOptions array with the current filter.
+         * Update the visibleOptions and visibleRecentOptions arrays with the current filter.
          */
         /**
-         * Update the visibleOptions array with the current filter.
+         * Update the visibleOptions and visibleRecentOptions arrays with the current filter.
          * @return {?}
          */
         TypeaheadComponent.prototype.updateOptions = /**
-         * Update the visibleOptions array with the current filter.
+         * Update the visibleOptions and visibleRecentOptions arrays with the current filter.
          * @return {?}
          */
             function () {
-                var _this = this;
+                /** @type {?} */
+                var normalisedInput = (this.filter || '').toLowerCase();
+                // Create new visibleOptions only if `options` is not a function
                 if (typeof this.options === 'object') {
-                    /** @type {?} */
-                    var normalisedInput_1 = (this.filter || '').toLowerCase();
-                    /** @type {?} */
-                    var visibleOptions = this.options
-                        .filter(function (option) {
-                        return _this.getDisplay(option).toLowerCase().indexOf(normalisedInput_1) >= 0;
-                    })
-                        .map(function (value) {
-                        return {
-                            value: value,
-                            key: _this.getKey(value)
-                        };
-                    });
-                    this.visibleOptions$.next(visibleOptions);
+                    this.visibleOptions$.next(this.getVisibleOptions(this.options, normalisedInput));
                 }
+                this.visibleRecentOptions$.next(this.getVisibleOptions(this._recentOptions, normalisedInput, true));
                 this.initOptions();
                 this._changeDetector.detectChanges();
             };
         /**
-         * Return the index of the given option in the visibleOptions array. Returns -1 if the option is not currently visible.
+         * Convert a set of raw options into a filtered list of `TypeaheadVisibleOption` objects.
+         * @param options Set of raw options
+         * @param filter The filter expression
+         * @param isRecentOptions Whether `options` is a set of recent options
          */
         /**
-         * Return the index of the given option in the visibleOptions array. Returns -1 if the option is not currently visible.
+         * Convert a set of raw options into a filtered list of `TypeaheadVisibleOption` objects.
+         * @param {?} options Set of raw options
+         * @param {?=} filter The filter expression
+         * @param {?=} isRecentOptions Whether `options` is a set of recent options
+         * @return {?}
+         */
+        TypeaheadComponent.prototype.getVisibleOptions = /**
+         * Convert a set of raw options into a filtered list of `TypeaheadVisibleOption` objects.
+         * @param {?} options Set of raw options
+         * @param {?=} filter The filter expression
+         * @param {?=} isRecentOptions Whether `options` is a set of recent options
+         * @return {?}
+         */
+            function (options, filter, isRecentOptions) {
+                var _this = this;
+                if (filter === void 0) {
+                    filter = '';
+                }
+                if (isRecentOptions === void 0) {
+                    isRecentOptions = false;
+                }
+                if (options) {
+                    return options
+                        .filter(function (option) { return _this.getDisplay(option).toLowerCase().indexOf(filter) >= 0; })
+                        .map(function (value) {
+                        return ({
+                            value: value,
+                            key: _this.getKey(value),
+                            isDisabled: _this.isDisabled(value),
+                            isRecentOption: isRecentOptions
+                        });
+                    });
+                }
+                return [];
+            };
+        /**
+         * Return the index of the given option in the allVisibleOptions array.
+         * Returns -1 if the option is not currently visible.
+         */
+        /**
+         * Return the index of the given option in the allVisibleOptions array.
+         * Returns -1 if the option is not currently visible.
          * @param {?} option
          * @return {?}
          */
         TypeaheadComponent.prototype.indexOfVisibleOption = /**
-         * Return the index of the given option in the visibleOptions array. Returns -1 if the option is not currently visible.
+         * Return the index of the given option in the allVisibleOptions array.
+         * Returns -1 if the option is not currently visible.
          * @param {?} option
          * @return {?}
          */
             function (option) {
                 if (option) {
-                    /** @type {?} */
-                    var optionKey_1 = this.getKey(option);
-                    return this.visibleOptions$.getValue().findIndex(function (el) {
-                        return el.key === optionKey_1;
+                    return this.allVisibleOptions.findIndex(function (el) {
+                        return (el.key === option.key &&
+                            el.isRecentOption === option.isRecentOption);
                     });
                 }
                 return -1;
@@ -17951,7 +18043,7 @@
         TypeaheadComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-typeahead',
-                        template: "<div class=\"ux-typeahead-options\"\n     [uxInfiniteScroll]=\"loadOptionsCallback\"\n     [collection]=\"visibleOptions$ | async\"\n     (collectionChange)=\"visibleOptions$.next($event)\"\n     [enabled]=\"hasBeenOpened && isInfiniteScroll()\"\n     [filter]=\"filter\"\n     [loadOnScroll]=\"true\"\n     [pageSize]=\"pageSize\"\n     [scrollElement]=\"typeaheadElement\"\n     (loading)=\"loading = true\"\n     (loaded)=\"loading = false; onLoadedHighlight($event)\">\n\n    <ol *ngIf=\"(visibleOptions$ | async).length > 0\">\n        <li *ngFor=\"let option of (visibleOptions$ | async); let i = index\"\n            [attr.id]=\"id + '-option-' + i\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"highlightedKey === option.key\"\n            [class.active]=\"activeKey === option.key\"\n            [attr.aria-selected]=\"multiselectable ? isDisabled(option) : (activeKey === option.key ? true : null)\"\n            [uxTypeaheadHighlight]=\"highlightedKey === option.key\"\n            [uxScrollIntoViewIf]=\"highlightedKey === option.key\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate || defaultOptionTemplate\"\n                [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
+                        template: "<div class=\"ux-typeahead-options\"\n     [uxInfiniteScroll]=\"loadOptionsCallback\"\n     [collection]=\"visibleOptions$ | async\"\n     (collectionChange)=\"visibleOptions$.next($event)\"\n     [enabled]=\"hasBeenOpened && isInfiniteScroll()\"\n     [filter]=\"filter\"\n     [loadOnScroll]=\"true\"\n     [pageSize]=\"pageSize\"\n     [scrollElement]=\"typeaheadElement\"\n     (loading)=\"loading = true\"\n     (loaded)=\"loading = false; onLoadedHighlight($event)\">\n\n     <!-- Recent options -->\n    <ux-typeahead-options-list\n        *ngIf=\"(visibleRecentOptions$ | async).length > 0\"\n        class=\"ux-typeahead-recent-options\"\n        [id]=\"id\"\n        [options]=\"visibleRecentOptions$ | async\"\n        [highlighted]=\"highlighted$ | async\"\n        [activeKey]=\"activeKey\"\n        [disabledOptions]=\"disabledOptions\"\n        [isMultiselectable]=\"multiselectable\"\n        [optionTemplate]=\"optionTemplate || defaultOptionTemplate\"\n        [optionApi]=\"optionApi\"\n        [typeaheadElement]=\"typeaheadElement\"\n        (optionMouseover)=\"highlight($event.option)\"\n        (optionMousedown)=\"optionMousedownHandler($event.event)\"\n        (optionClick)=\"optionClickHandler($event.event, $event.option)\"\n    ></ux-typeahead-options-list>\n\n    <!-- All options -->\n    <ux-typeahead-options-list\n        *ngIf=\"(visibleOptions$ | async).length > 0\"\n        class=\"ux-typeahead-all-options\"\n        [id]=\"id\"\n        [startIndex]=\"(visibleRecentOptions$ | async).length\"\n        [options]=\"visibleOptions$ | async\"\n        [highlighted]=\"highlighted$ | async\"\n        [activeKey]=\"activeKey\"\n        [disabledOptions]=\"disabledOptions\"\n        [isMultiselectable]=\"multiselectable\"\n        [optionTemplate]=\"optionTemplate || defaultOptionTemplate\"\n        [optionApi]=\"optionApi\"\n        [typeaheadElement]=\"typeaheadElement\"\n        (optionMouseover)=\"highlight($event.option)\"\n        (optionMousedown)=\"optionMousedownHandler($event.event)\"\n        (optionClick)=\"optionClickHandler($event.event, $event.option)\"\n    ></ux-typeahead-options-list>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
                         providers: [TypeaheadService],
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
@@ -17990,10 +18082,13 @@
             optionTemplate: [{ type: i0.Input }],
             noOptionsTemplate: [{ type: i0.Input }],
             active: [{ type: i0.Input }],
+            recentOptions: [{ type: i0.Input }],
+            recentOptionsMaxCount: [{ type: i0.Input }],
             openChange: [{ type: i0.Output }],
             optionSelected: [{ type: i0.Output }],
             highlightedChange: [{ type: i0.Output }],
             highlightedElementChange: [{ type: i0.Output }],
+            recentOptionsChange: [{ type: i0.Output }],
             mousedownHandler: [{ type: i0.HostListener, args: ['mousedown',] }],
             mouseupHandler: [{ type: i0.HostListener, args: ['mouseup',] }]
         };
@@ -18954,6 +19049,45 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    /**
+     * @template T
+     */
+    var TypeaheadOptionsListComponent = /** @class */ (function () {
+        function TypeaheadOptionsListComponent() {
+            this.startIndex = 0;
+            this.isMultiselectable = false;
+            this.optionMouseover = new i0.EventEmitter();
+            this.optionMousedown = new i0.EventEmitter();
+            this.optionClick = new i0.EventEmitter();
+        }
+        TypeaheadOptionsListComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'ux-typeahead-options-list',
+                        template: "<ol>\n\n    <li *ngFor=\"let option of options; let i = index\"\n        [attr.id]=\"id + '-option-' + (i + startIndex)\"\n        [class.disabled]=\"option.isDisabled\"\n        [class.highlighted]=\"highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption\"\n        [class.active]=\"activeKey === option.key && !option.isRecentOption\"\n        [attr.aria-selected]=\"isMultiselectable ? option.isDisabled : (activeKey === option.key ? true : null)\"\n        [uxTypeaheadHighlight]=\"highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption\"\n        [uxScrollIntoViewIf]=\"highlighted?.key === option.key && highlighted?.isRecentOption === option.isRecentOption\"\n        [scrollParent]=\"typeaheadElement.nativeElement\"\n        (mouseover)=\"optionMouseover.emit({ option: option, event: $event })\"\n        (mousedown)=\"optionMousedown.emit({ option: option, event: $event })\"\n        (click)=\"optionClick.emit({ option: option, event: $event })\">\n\n        <ng-container [ngTemplateOutlet]=\"optionTemplate\"\n            [ngTemplateOutletContext]=\"{option: option.value, api: optionApi}\">\n        </ng-container>\n\n    </li>\n\n</ol>\n",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush
+                    }] }
+        ];
+        TypeaheadOptionsListComponent.propDecorators = {
+            id: [{ type: i0.Input }],
+            startIndex: [{ type: i0.Input }],
+            options: [{ type: i0.Input }],
+            highlighted: [{ type: i0.Input }],
+            activeKey: [{ type: i0.Input }],
+            disabledOptions: [{ type: i0.Input }],
+            isMultiselectable: [{ type: i0.Input }],
+            optionTemplate: [{ type: i0.Input }],
+            optionApi: [{ type: i0.Input }],
+            typeaheadElement: [{ type: i0.Input }],
+            optionMouseover: [{ type: i0.Output }],
+            optionMousedown: [{ type: i0.Output }],
+            optionClick: [{ type: i0.Output }]
+        };
+        return TypeaheadOptionsListComponent;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     var TypeaheadModule = /** @class */ (function () {
         function TypeaheadModule() {
         }
@@ -18965,8 +19099,12 @@
                             ScrollModule
                         ],
                         exports: [TypeaheadComponent],
-                        declarations: [TypeaheadComponent, TypeaheadHighlightDirective],
-                        providers: [TypeaheadKeyService],
+                        declarations: [
+                            TypeaheadComponent,
+                            TypeaheadHighlightDirective,
+                            TypeaheadOptionsListComponent
+                        ],
+                        providers: [TypeaheadKeyService]
                     },] }
         ];
         return TypeaheadModule;
@@ -37087,6 +37225,10 @@
              * Emits when `dropdownOpen` changes.
              */
             this.dropdownOpenChange = new i0.EventEmitter();
+            /**
+             * Emits when recently selected options change.
+             */
+            this.recentOptionsChange = new i0.EventEmitter();
             this._value$ = new rxjs.ReplaySubject(1);
             this._hasValue = false;
             this._input$ = new rxjs.BehaviorSubject('');
@@ -37304,8 +37446,7 @@
                 if (event.keyCode === keycodes.ENTER) {
                     if (this._dropdownOpen) {
                         // Set the highlighted option as the value and close
-                        this.value = this.singleTypeahead.highlighted;
-                        this.dropdownOpen = false;
+                        this.singleTypeahead.selectHighlighted();
                     }
                     else {
                         this.dropdownOpen = true;
@@ -37430,7 +37571,7 @@
         SelectComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-select, ux-combobox, ux-dropdown',
-                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\"\r\n>\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\">\r\n    </ux-typeahead>\r\n\r\n</div>",
+                        template: "<ux-tag-input\r\n    *ngIf=\"multiple\"\r\n    #tagInput=\"ux-tag-input\"\r\n    [id]=\"id + '-input'\"\r\n    [tags]=\"_value$ | async\"\r\n    (tagsChange)=\"_value$.next($event)\"\r\n    [(input)]=\"input\"\r\n    [ariaLabel]=\"ariaLabel\"\r\n    [autocomplete]=\"autocomplete\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder || ''\"\r\n    [tagTemplate]=\"tagTemplate\"\r\n    (inputFocus)=\"onFocus()\"\r\n    [showTypeaheadOnClick]=\"true\"\r\n    [readonlyInput]=\"readonlyInput\"\r\n    [icon]=\"icon\"\r\n    [clearButton]=\"clearButton\"\r\n    [clearButtonAriaLabel]=\"clearButtonAriaLabel\"\r\n>\r\n    <ux-typeahead #multipleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"_value$ | async\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"true\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\"\r\n    >\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\"\r\n    class=\"ux-select-container\"\r\n    [class.disabled]=\"disabled\"\r\n    role=\"combobox\"\r\n    [attr.aria-expanded]=\"dropdownOpen\"\r\n    aria-haspopup=\"listbox\">\r\n\r\n    <input #singleInput type=\"text\"\r\n        [attr.id]=\"id + '-input'\"\r\n        class=\"form-control\"\r\n        [class.ux-tag-input-clear-inset]=\"clearButton && allowNull && _hasValue\"\r\n        [attr.aria-activedescendant]=\"highlightedElement?.id\"\r\n        aria-autocomplete=\"list\"\r\n        [attr.aria-controls]=\"singleTypeahead.id\"\r\n        [attr.aria-label]=\"ariaLabel\"\r\n        aria-multiline=\"false\"\r\n        [autocomplete]=\"autocomplete\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder || ''\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"toggle()\"\r\n        (focus)=\"onFocus()\"\r\n        (blur)=\"inputBlurHandler()\"\r\n        (keydown)=\"inputKeyHandler($event)\"\r\n        [readonly]=\"readonlyInput\">\r\n\r\n    <div class=\"ux-select-icons\">\r\n        <i *ngIf=\"clearButton && allowNull && _hasValue\"\r\n           uxFocusIndicator\r\n           [attr.tabindex]=\"disabled ? -1 : 0\"\r\n           [attr.aria-label]=\"clearButtonAriaLabel\"\r\n           class=\"ux-select-icon ux-icon ux-icon-close ux-select-clear-icon\"\r\n           (click)=\"clear(); $event.stopPropagation()\"\r\n           (keydown.enter)=\"clear(); $event.stopPropagation()\">\r\n        </i>\r\n        <i *ngIf=\"!icon\"\r\n           class=\"ux-select-icon ux-icon ux-select-chevron-icon\"\r\n           [class.ux-icon-up]=\"dropDirection === 'up'\"\r\n           [class.ux-icon-down]=\"dropDirection === 'down'\"\r\n           (click)=\"toggle(); $event.stopPropagation()\">\r\n        </i>\r\n        <div *ngIf=\"icon\" class=\"ux-custom-icon\">\r\n            <ng-container [ngTemplateOutlet]=\"icon\"></ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [id]=\"id + '-typeahead'\"\r\n        [active]=\"_value$ | async\"\r\n        [options]=\"options\"\r\n        [filter]=\"filter$ | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [multiselectable]=\"false\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        [recentOptions]=\"recentOptions\"\r\n        [recentOptionsMaxCount]=\"recentOptionsMaxCount\"\r\n        (optionSelected)=\"singleOptionSelected($event)\"\r\n        (highlightedElementChange)=\"highlightedElement = $event\"\r\n        (recentOptionsChange)=\"recentOptionsChange.emit($event)\"\r\n    >\r\n\r\n    </ux-typeahead>\r\n\r\n</div>",
                         providers: [SELECT_VALUE_ACCESSOR],
                         host: {
                             '[class.ux-select-custom-icon]': '!!icon',
@@ -37471,9 +37612,12 @@
             clearButton: [{ type: i0.Input }],
             clearButtonAriaLabel: [{ type: i0.Input }],
             optionTemplate: [{ type: i0.Input }],
+            recentOptions: [{ type: i0.Input }],
+            recentOptionsMaxCount: [{ type: i0.Input }],
             valueChange: [{ type: i0.Output }],
             inputChange: [{ type: i0.Output }],
             dropdownOpenChange: [{ type: i0.Output }],
+            recentOptionsChange: [{ type: i0.Output }],
             icon: [{ type: i0.ContentChild, args: ['icon', { static: false },] }],
             singleInput: [{ type: i0.ViewChild, args: ['singleInput', { static: false },] }],
             tagInput: [{ type: i0.ViewChild, args: ['tagInput', { static: false },] }],
@@ -50401,38 +50545,39 @@
     exports.ɵk = YearViewService;
     exports.ɵn = FacetCheckListItemComponent;
     exports.ɵo = FacetTypeaheadListItemComponent;
-    exports.ɵt = FloatingActionButtonsService;
-    exports.ɵy = HierarchyBarCollapsedComponent;
-    exports.ɵv = HierarchyBarNodeIconDirective;
-    exports.ɵx = HierarchyBarNodeComponent;
-    exports.ɵba = HierarchyBarPopoverItemComponent;
-    exports.ɵz = HierarchyBarPopoverComponent;
-    exports.ɵw = HierarchyBarStandardComponent;
-    exports.ɵu = HierarchyBarService;
-    exports.ɵbb = commonIcons;
-    exports.ɵbf = MarqueeWizardService;
-    exports.ɵbg = MediaPlayerService;
-    exports.ɵr = MENU_OPTIONS_TOKEN;
-    exports.ɵbk = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbj = PageHeaderNavigationItemComponent;
-    exports.ɵbl = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbi = PageHeaderNavigationService;
-    exports.ɵbh = PageHeaderService;
-    exports.ɵbm = SankeyFocusManager;
-    exports.ɵbd = SidePanelAnimationState;
-    exports.ɵbe = sidePanelStateAnimation;
-    exports.ɵbc = SidePanelService;
-    exports.ɵbp = BaseResizableTableDirective;
-    exports.ɵbo = BaseResizableTableService;
-    exports.ɵbn = RESIZABLE_TABLE_SERVICE_TOKEN;
-    exports.ɵbr = ResizableExpandingTableService;
-    exports.ɵbs = ResizableTableService;
+    exports.ɵu = FloatingActionButtonsService;
+    exports.ɵz = HierarchyBarCollapsedComponent;
+    exports.ɵw = HierarchyBarNodeIconDirective;
+    exports.ɵy = HierarchyBarNodeComponent;
+    exports.ɵbb = HierarchyBarPopoverItemComponent;
+    exports.ɵba = HierarchyBarPopoverComponent;
+    exports.ɵx = HierarchyBarStandardComponent;
+    exports.ɵv = HierarchyBarService;
+    exports.ɵbc = commonIcons;
+    exports.ɵbg = MarqueeWizardService;
+    exports.ɵbh = MediaPlayerService;
+    exports.ɵs = MENU_OPTIONS_TOKEN;
+    exports.ɵbl = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbk = PageHeaderNavigationItemComponent;
+    exports.ɵbm = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbj = PageHeaderNavigationService;
+    exports.ɵbi = PageHeaderService;
+    exports.ɵbn = SankeyFocusManager;
+    exports.ɵbe = SidePanelAnimationState;
+    exports.ɵbf = sidePanelStateAnimation;
+    exports.ɵbd = SidePanelService;
+    exports.ɵbq = BaseResizableTableDirective;
+    exports.ɵbp = BaseResizableTableService;
+    exports.ɵbo = RESIZABLE_TABLE_SERVICE_TOKEN;
+    exports.ɵbs = ResizableExpandingTableService;
+    exports.ɵbt = ResizableTableService;
     exports.ɵq = TypeaheadHighlightDirective;
+    exports.ɵr = TypeaheadOptionsListComponent;
     exports.ɵp = TypeaheadService;
-    exports.ɵbt = HoverActionService;
-    exports.ɵbu = MenuNavigationService;
-    exports.ɵbq = ResizeService;
-    exports.ɵbv = TreeGridService;
+    exports.ɵbu = HoverActionService;
+    exports.ɵbv = MenuNavigationService;
+    exports.ɵbr = ResizeService;
+    exports.ɵbw = TreeGridService;
     exports.ɵa = KEPPEL_COLOR_SET;
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
     Object.defineProperty(exports, '__esModule', { value: true });
