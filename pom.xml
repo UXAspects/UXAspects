@@ -47,7 +47,7 @@
                     <environmentVariables>
                         <RE_BUILD_TYPE>${RE_BUILD_TYPE}</RE_BUILD_TYPE>
                         <VERSION>${project.version}</VERSION>
-                        <VERSION_PRERELEASE>beta.6</VERSION_PRERELEASE>
+                        <VERSION_PRERELEASE>rc.1</VERSION_PRERELEASE>
                     </environmentVariables>
                 </configuration>
                 <executions>
