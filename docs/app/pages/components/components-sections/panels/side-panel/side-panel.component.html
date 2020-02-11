@@ -117,6 +117,8 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
                     </div>
+                </div>
+                <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="closeOnEscape">closeOnEscape</ux-checkbox>
                     </div>
@@ -191,11 +193,11 @@
         Whether the panel should close when the user clicks outside the panel. <strong>Note:</strong> if using this
         option, be sure to call <code>$event.stopPropagation()</code> in the click handler used to open the side panel.
     </tr>
-    <tr uxd-api-property name="focusOnShow" type="boolean" defaultValue="false">
-        Whether the panel should become focused when it is opened.
-    </tr>
     <tr uxd-api-property name="closeOnEscape" type="boolean" defaultValue="true">
         Whether the panel should close when the 'Esc' key is pressed.
+    </tr>
+    <tr uxd-api-property name="focusOnShow" type="boolean" defaultValue="false">
+        Whether the panel should become focused when it is opened.
     </tr>
 </uxd-api-properties>
 
