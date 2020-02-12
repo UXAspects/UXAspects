@@ -1,5 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
@@ -8,6 +8,8 @@ import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { ResizeService } from '../../directives/resize/index';
 
 let uniqueId = 0;
 
@@ -53,7 +55,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() disabledOptions: T[];
 
     /** Specify the drop direction */
-    @Input() dropDirection: 'up' | 'down' = 'down';
+    @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
 
     /** Specify the max height of the dropdown */
     @Input() maxHeight: string = '250px';
@@ -125,6 +127,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     visibleRecentOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
     allVisibleOptions: TypeaheadVisibleOption<T>[] = [];
 
+    /** The last measured value for the input client bounding rect. */
+    _typeaheadInput: ClientRect;
+
     get highlighted(): T {
         const value = this.highlighted$.getValue();
         return value ? value.value : null;
@@ -144,7 +149,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     constructor(
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
-        private _service: TypeaheadService
+        private _service: TypeaheadService,
+        private _viewportRuler: ViewportRuler,
+        private _renderer: Renderer2,
+        private _resizeService: ResizeService,
     ) {
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
@@ -162,6 +170,13 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             }
             return null;
         };
+
+        // watch for changes to the typeahead size
+        this._resizeService.addResizeListener(this.typeaheadElement.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(event => {
+            if (this.dropDirection === 'auto') {
+                this.checkOverlayWithinViewport();
+            }
+        });
 
         this._service.open$
             .pipe(distinctUntilChanged(), takeUntil(this._onDestroy))
@@ -233,11 +248,14 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         // Re-filter visibleOptions
         this.updateOptions();
+
+        this._typeaheadInput = this.typeaheadElement.nativeElement.parentElement.getBoundingClientRect();
     }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+        this._resizeService.removeResizeListener(this.typeaheadElement.nativeElement);
     }
 
     @HostListener('mousedown')
@@ -477,4 +495,18 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         return -1;
     }
+
+    public checkOverlayWithinViewport(): void {
+
+        const itemHeight = this.typeaheadElement.nativeElement.offsetHeight;
+        const viewportSize = this._viewportRuler.getViewportSize();
+        const bottomSpaceAvailable = viewportSize.height - this._typeaheadInput.bottom - itemHeight;
+
+        if (bottomSpaceAvailable <= 0) {
+            this._renderer.addClass(this.typeaheadElement.nativeElement, 'drop-up');
+        } else {
+            this._renderer.removeClass(this.typeaheadElement.nativeElement, 'drop-up');
+        }
+    }
+
 }

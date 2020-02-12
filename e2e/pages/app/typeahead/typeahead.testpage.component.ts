@@ -5,20 +5,21 @@ import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Component({
-    selector: 'app',
-    templateUrl: 'app.component.html',
-    styleUrls: ['./app.component.css'],
+    selector: 'typeahead-app',
+    templateUrl: './typeahead.testpage.component.html',
+    styleUrls: ['./typeahead.testpage.component.less'],
 })
-export class AppComponent {
+export class TypeaheadTestPageComponent {
 
     values: ReadonlyArray<string> = [];
 
     dropdownOpen: boolean = false;
     selectOnEnter: boolean = true;
-    dropDirection: 'auto' | 'up' | 'down' = 'down';
+    dropDirection: 'down' | 'up' | 'auto' = 'auto';
     selectFirst: boolean = true;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
+    maxHeight: string = '200px';
 
     input: string = '';
 
