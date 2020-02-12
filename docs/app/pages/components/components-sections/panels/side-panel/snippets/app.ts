@@ -15,6 +15,7 @@ export class AppComponent {
     modal = false;
     animate = true;
     closeOnExternalClick = false;
+    closeOnEscape = true;
 
     constructor(private _liveAnnouncer: LiveAnnouncer) { }
 

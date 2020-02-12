@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil, skip } from 'rxjs/operators';
+import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 import { FocusIndicatorOriginService } from '../../directives/accessibility/index';
 import { SidePanelAnimationState, sidePanelStateAnimation } from './side-panel-animations';
 import { SidePanelService } from './side-panel.service';
@@ -57,6 +57,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     @Output()
     openChange = new EventEmitter<boolean>();
+
+    @Input()
+    closeOnEscape: boolean = true;
 
     get position(): string {
         if (this.inline) {
@@ -132,7 +135,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     @HostListener('document:keyup.escape')
     _onDocumentEscape(): void {
-        if (this.open) {
+        if (this.open && this.closeOnEscape) {
             this._focusOrigin.setOrigin('keyboard');
             this.closePanel();
         }
