@@ -1,6 +1,4 @@
 import { TypeaheadPage } from './typeahead.po.spec';
-import { imageCompareFullPageScreen } from '../common/image-compare';
-import { browser } from 'protractor';
 
 describe('TypeaheadPage Tests', () => {
 
