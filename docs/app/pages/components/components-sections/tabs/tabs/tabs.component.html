@@ -1,6 +1,6 @@
 <div class="tab-demo-container clearfix">
 
-    <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example">
+    <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example" #tabset>
         <ux-tab customClass="text-center" *ngFor="let tab of tabs">
             <ng-template uxTabHeading>
                 <ux-icon [name]="tab.icon" aria-hidden="true"></ux-icon>
@@ -13,9 +13,8 @@
             </div>
         </ux-tab>
     </ux-tabset>
-
+    <button class="btn button-primary" (click)="tabset.selectTab(1)">Select Second Tab</button>
 </div>
-
 <div class="uxd-customize-example">
     <ux-accordion>
         <ux-accordion-panel heading="Customize Example...">
@@ -62,6 +61,11 @@
     </tr>
 </uxd-api-properties>
 
+<uxd-api-properties tableTitle="Methods">
+    <tr uxd-api-property name="selectTab" args="tab: number | TabComponent">
+        Programmatically select a tab. Method accepts a tab index or a tab instance as an arguement.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The <code>ux-tab</code> can be customized using the following:

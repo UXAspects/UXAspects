@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TabsetModule } from './tabset.module';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { dispatchMouseEvent } from '../../common/testing';
+import { TabsetModule } from './tabset.module';
 
 @Component({
     selector: 'app-tabset-test',
     template: `
-        <ux-tabset [minimal]="true" aria-label="Tabset Example">
+        <ux-tabset [minimal]="true" aria-label="Tabset Example" #tabset>
             <ux-tab (deselect)="onTabDeselect()"  (deactivated)="onTabDeactivated()" (select)="onTabSelect()"  (activated)="onTabActivated()" customClass="text-center" *ngFor="let tab of tabs">
                 <ng-template uxTabHeading>
                     <span>{{ tab.title }}</span>
@@ -18,6 +18,7 @@ import { dispatchMouseEvent } from '../../common/testing';
                 </div>
             </ux-tab>
         </ux-tabset>
+        <button class="btn button-primary" (click)="tabset.selectTab(2)">Select Tab</button>
     `
 })
 export class TabsetTestComponent {
@@ -116,10 +117,33 @@ describe('Tabset Component', () => {
         expect(component.onTabDeselect).toHaveBeenCalled();
     });
 
+    it('should change to new tab when tab is programmatically selected', () => {
+
+        const tab1 = getTabForClass(0, nativeElement);
+        const tab2 = getTabForClass(2, nativeElement);
+
+        // check first tab is active
+        expect(tab1.classList.contains('active')).toBeTruthy();
+
+        const tabButton: HTMLElement = nativeElement.querySelector('.button-primary');
+        expect(tabButton).toBeTruthy();
+
+        // programatically change tab
+        tabButton.click();
+
+        // check second tab is now active/first tab is not active
+        expect(tab2.classList.contains('active')).toBeTruthy();
+        expect(tab1.classList.contains('active')).toBeFalsy();
+    });
+
 });
 
 function getTab(index: number, nativeElement: HTMLElement): HTMLElement {
     return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link').item(index);
+}
+
+function getTabForClass(index: number, nativeElement: HTMLElement): HTMLElement {
+    return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-item').item(index);
 }
 
 export interface Tab {

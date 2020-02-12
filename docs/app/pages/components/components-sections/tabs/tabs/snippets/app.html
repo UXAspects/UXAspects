@@ -1,6 +1,6 @@
 <div class="tab-demo-container clearfix">
 
-    <ux-tabset [minimal]="true" aria-label="Tabset Example">
+    <ux-tabset [minimal]="true" aria-label="Tabset Example" #tabset>
         <ux-tab customClass="text-center" *ngFor="let tab of tabs">
             <ng-template uxTabHeading>
                 <ux-icon [name]="tab.icon" aria-hidden="true"></ux-icon>
@@ -13,5 +13,5 @@
             </div>
         </ux-tab>
     </ux-tabset>
-
+    <button class="btn button-primary" (click)="tabset.selectTab(1)">Select Second Tab</button>
 </div>
