@@ -26,6 +26,6 @@
     class="now-button"
     [attr.aria-label]="nowBtnAriaLabel"
     [disabled]="_isTodayDisabled"
-    (click)="setToNow()">
+    (click)="setToNow(); $event.stopPropagation()">
     {{ datepicker.nowBtnText$ | async }}
 </button>
