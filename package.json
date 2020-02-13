@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.8.13",
+  "version": "1.8.14",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -44,7 +44,7 @@
     "@angular/upgrade": "~8.1.2",
     "angular": "~1.3.2",
     "angular-split": "1.0.0-rc.3",
-    "angular-tree-component": "^8.0.0",
+    "angular-tree-component": "~8.4.1",
     "bootstrap": "^3.3.7",
     "chance": "^1.0.10",
     "chart.js": "^2.7.3",
@@ -85,6 +85,7 @@
     "@types/dragula": "2.1.33",
     "@types/jasmine": "2.6.2",
     "@types/jquery": "2.0.48",
+    "@types/lodash": "^4.14.149",
     "@types/moment-timezone": "0.2.35",
     "@types/node": "7.0.46",
     "@types/prismjs": "1.6.5",

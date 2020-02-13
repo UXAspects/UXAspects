@@ -1,7 +1,9 @@
-import { async, ComponentFixture, TestBed} from '@angular/core/testing';
-import { SidePanelModule } from './side-panel.module';
 import { Component } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SidePanelComponent } from './side-panel.component';
+import { SidePanelModule } from './side-panel.module';
 
 @Component({
     selector: 'app-page-side-panel',
@@ -18,7 +20,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
                        [top]="top"
                        [width]="width"
                        [animate]="animate"
-                       (openChange)="onToggleChange()">
+                       (openChange)="onToggleChange()"
+                       [closeOnEscape]='closeOnEscape'>
 
             <div class="ux-side-panel-header">
                 <h2>Side Panel</h2>
@@ -47,8 +50,9 @@ export class SidePanelTestComponent {
     width = '300px';
     top = '56px';
     animate = true;
+    closeOnEscape: boolean = true;
 
-    onToggleChange(): void {}
+    onToggleChange(): void { }
 }
 
 describe('Side Panel Component', () => {
@@ -56,7 +60,7 @@ describe('Side Panel Component', () => {
     let fixture: ComponentFixture<SidePanelTestComponent>;
     let nativeElement: HTMLElement;
 
-    beforeEach(async( () => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SidePanelModule, NoopAnimationsModule],
             declarations: [SidePanelTestComponent]
@@ -71,7 +75,7 @@ describe('Side Panel Component', () => {
         fixture.detectChanges();
     });
 
-    it ('should open the side panel on load when open is set to true initially', async () => {
+    it('should open the side panel on load when open is set to true initially', async () => {
         // set up a spy for the onToggleChange function
         spyOn(component, 'onToggleChange');
 
@@ -83,7 +87,7 @@ describe('Side Panel Component', () => {
 
     });
 
-    it ('should remain closed initially when open is set to false', async () => {
+    it('should remain closed initially when open is set to false', async () => {
         component.panelOpen = false;
         fixture.detectChanges();
         await fixture.whenStable();
@@ -98,7 +102,7 @@ describe('Side Panel Component', () => {
 
     });
 
-    it ('should emit event on closing side panel', async () => {
+    it('should emit event on closing side panel', async () => {
         // find the toggle button
         const toggleButton: HTMLElement = nativeElement.querySelector('.ux-panel-toggle');
         expect(toggleButton).toBeTruthy();
@@ -109,6 +113,56 @@ describe('Side Panel Component', () => {
         fixture.detectChanges();
 
         expect(component.onToggleChange).toHaveBeenCalled();
+    });
+
+    it('should close side panel when [closeOnEscape] is set to true and "esc" key is pressed', async () => {
+        // check closeOnEscape is set to true (as is default)
+        expect(component.closeOnEscape).toBeTruthy();
+
+        // find the side panel container
+        let sidePanelContainer: HTMLElement = nativeElement.querySelector('.ux-side-panel-content');
+        expect(sidePanelContainer).toBeTruthy();
+
+        // access the SidePanelComponent instance
+        const sidePanelElement = fixture.debugElement.query(By.directive(SidePanelComponent));
+        const sidePanelInstance = sidePanelElement.componentInstance as SidePanelComponent;
+
+        // the hostlistener is bound to the document, to to test the function we have to manually
+        // call the function to simulate the event (see known issue: https://github.com/angular/angular/issues/12518)
+        sidePanelInstance._onDocumentEscape();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // check that side panel is not visible
+        sidePanelContainer = nativeElement.querySelector('.ux-side-panel-content');
+        expect(sidePanelContainer).toBeFalsy();
+
+    });
+
+    it('should not close side panel when [closeOnEscape] is set to false and "esc" key is pressed', async () => {
+        // check closeOnEscape is set to true (as is default)
+        expect(component.closeOnEscape).toBeTruthy();
+
+        // set value to false
+        component.closeOnEscape = false;
+
+        // find the side panel container
+        let sidePanelContainer: HTMLElement = nativeElement.querySelector('.ux-side-panel-content');
+        expect(sidePanelContainer).toBeTruthy();
+
+        // access the SidePanelComponent instance
+        const sidePanelElement = fixture.debugElement.query(By.directive(SidePanelComponent));
+        const sidePanelInstance = sidePanelElement.componentInstance as SidePanelComponent;
+
+        // the hostlistener is bound to the document, to to test the function we have to manually
+        // call the function to simulate the event (see known issue: https://github.com/angular/angular/issues/12518)
+        sidePanelInstance._onDocumentEscape();
+
+        // check that side panel is still visible
+        sidePanelContainer = nativeElement.querySelector('.ux-side-panel-content');
+        expect(sidePanelContainer).toBeTruthy();
+
     });
 
 });
