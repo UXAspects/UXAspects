@@ -156,4 +156,22 @@ describe('Number Picker Tests', () => {
         expect(await page.confirmUpDownControlIsDisabled(page.numberPicker2, 'down')).toBeFalsy();
 
     });
+
+    it('should not continue to display ux-number-picker-invalid class when value changed from above max value to max value', async () => {
+
+        // Number Picker 1
+        await page.setNumberPickerValue(page.numberPicker1, '11');
+        await page.decrementNumberPickerValue(page.numberPicker1);
+        expect(page.numberPicker1.getAttribute('class')).not.toContain('ux-number-picker-invalid');
+
+    });
+
+    it('should not continue to display ux-number-picker-invalid class when value changed from below min value to min value', async () => {
+
+        // Number Picker 1
+        await page.setNumberPickerValue(page.numberPicker1, '-11');
+        await page.incrementNumberPickerValue(page.numberPicker1);
+        expect(page.numberPicker1.getAttribute('class')).not.toContain('ux-number-picker-invalid');
+
+    });
 });
