@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
     selector: 'app-number-picker-form',
     template: `<ux-number-picker min="-10"
                                  max="10"
-                                 [valid]="form.controls['integer'].valid" 
+                                 [valid]="form.controls['integer'].valid"
                                  [formControl]="form.controls['integer']">
                 </ux-number-picker>
                 <ux-number-picker min="-10"
@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
                                   [valid]="form.controls['integer2'].valid"
                                   [formControl]="form.controls['integer2']">
                 </ux-number-picker>
-    
+
     `
 })
 export class NumberPickerTestFormGroupComponent {
@@ -99,6 +99,17 @@ describe('Number Picker Component - FormGroup', () => {
         expect(numberPicker1.classList.contains('ng-invalid')).toBe(true);
     });
 
+    it ('should not continue to display ng-invalid class when value changed from above max value to max value', async() => {
+        component.form.controls.integer.setValue(20);
+        fixture.detectChanges();
+        component.form.controls.integer.setValue(10);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input1.value).toBe('10');
+        expect(numberPicker1.classList.contains('ng-invalid')).toBe(false);
+    });
+
     it ('should display ng-invalid class when value below min value', async() => {
         component.form.controls.integer.setValue(-20);
         fixture.detectChanges();
@@ -106,6 +117,17 @@ describe('Number Picker Component - FormGroup', () => {
 
         expect(input1.value).toBe('-20');
         expect(numberPicker1.classList.contains('ng-invalid')).toBe(true);
+    });
+
+    it ('should not continue to display ng-invalid class when value changed from below min value to min value', async() => {
+        component.form.controls.integer.setValue(-20);
+        fixture.detectChanges();
+        component.form.controls.integer.setValue(-10);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input1.value).toBe('-10');
+        expect(numberPicker1.classList.contains('ng-invalid')).toBe(false);
     });
 
     it ('should not display ng-invalid class when value above max value and disabled', async() => {
@@ -125,7 +147,7 @@ describe('Number Picker Component - FormGroup', () => {
                                  [disabled]="disabled"
                                  [(ngModel)]="value">
                 </ux-number-picker>
-    
+
     `
 })
 export class NumberPickerTestNgModelComponent {
@@ -187,6 +209,18 @@ describe('Number Picker Component - ngModel', () => {
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
     });
 
+    it ('should not continue to display ux-number-picker-invalid class when value changed from above max value to max value', async() => {
+        component.value = 90;
+        fixture.detectChanges();
+        component.value = 10;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(input.value).toBe('10');
+
+        fixture.detectChanges();
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
+    });
+
     it ('should display ux-number-picker-invalid class when value below min value', async() => {
         component.value = -20;
         fixture.detectChanges();
@@ -195,6 +229,18 @@ describe('Number Picker Component - ngModel', () => {
 
         fixture.detectChanges();
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
+    });
+
+    it ('should not continue to display ux-number-picker-invalid class when value changed from below min value to min value', async() => {
+        component.value = -20;
+        fixture.detectChanges();
+        component.value = -10;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(input.value).toBe('-10');
+
+        fixture.detectChanges();
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 
     it ('should not display ux-number-picker-invalid class when value above max value and disabled', async() => {
@@ -216,7 +262,7 @@ describe('Number Picker Component - ngModel', () => {
                                  [disabled]="disabled"
                                  [value]="value">
                 </ux-number-picker>
-    
+
     `
 })
 export class NumberPickerTestValueComponent {
@@ -277,6 +323,17 @@ describe('Number Picker Component - value', () => {
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
     });
 
+    it ('should not continue to display ux-number-picker-invalid class when value changed from above max value to max value', async() => {
+        component.value = 78;
+        fixture.detectChanges();
+        component.value = 10;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(input.value).toBe('10');
+
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
+    });
+
     it ('should display ux-number-picker-invalid class when value below min value', async() => {
         component.value = -20;
         fixture.detectChanges();
@@ -284,6 +341,17 @@ describe('Number Picker Component - value', () => {
 
         expect(input.value).toBe('-20');
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
+    });
+
+    it ('should not continue to display ux-number-picker-invalid class when value changed from below min value to min value', async() => {
+        component.value = -20;
+        fixture.detectChanges();
+        component.value = -10;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(input.value).toBe('-10');
+
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 
     it ('should not display ux-number-picker-invalid class when value above max value and disabled', async() => {
