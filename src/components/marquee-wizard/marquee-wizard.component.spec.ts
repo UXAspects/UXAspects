@@ -49,7 +49,7 @@ export class MarqueeWizardComponent {
     }
 }
 
-fdescribe('Marquee Wizard', () => {
+describe('Marquee Wizard', () => {
     let component: MarqueeWizardComponent;
     let fixture: ComponentFixture<MarqueeWizardComponent>;
     let nativeElement: HTMLElement;
@@ -153,7 +153,7 @@ export class MarqueeWizardNgForComponent {
     }
 }
 
-fdescribe('Marquee wizard ngFor example', () => {
+describe('Marquee wizard ngFor example', () => {
 
     let component: MarqueeWizardComponent;
     let fixture: ComponentFixture<MarqueeWizardComponent>;
