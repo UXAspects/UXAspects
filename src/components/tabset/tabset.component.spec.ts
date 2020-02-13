@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { dispatchMouseEvent } from '../../common/testing';
+import { TabsetComponent } from './tabset.component';
 import { TabsetModule } from './tabset.module';
 
 @Component({
@@ -19,6 +20,7 @@ import { TabsetModule } from './tabset.module';
             </ux-tab>
         </ux-tabset>
         <button class="btn button-primary" (click)="tabset.selectTab(2)">Select Tab</button>
+        <button class="btn button-secondary" (click)="tabset.selectTab(tabset._tabset.tabs[2])">Select Tab</button>
     `
 })
 export class TabsetTestComponent {
@@ -56,6 +58,7 @@ export class TabsetTestComponent {
 }
 
 describe('Tabset Component', () => {
+    let tabset: TabsetComponent;
     let component: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
     let nativeElement: HTMLElement;
@@ -117,10 +120,10 @@ describe('Tabset Component', () => {
         expect(component.onTabDeselect).toHaveBeenCalled();
     });
 
-    it('should change to new tab when tab is programmatically selected', () => {
+    it('should change to new tab when tab is programmatically selected by tab index', () => {
 
         const tab1 = getTabForClass(0, nativeElement);
-        const tab2 = getTabForClass(2, nativeElement);
+        const tab3 = getTabForClass(2, nativeElement);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
@@ -128,12 +131,39 @@ describe('Tabset Component', () => {
         const tabButton: HTMLElement = nativeElement.querySelector('.button-primary');
         expect(tabButton).toBeTruthy();
 
-        // programatically change tab
+        spyOn(component, 'onTabActivated');
+
+        // programatically change tab by index
         tabButton.click();
 
         // check second tab is now active/first tab is not active
-        expect(tab2.classList.contains('active')).toBeTruthy();
+        expect(tab3.classList.contains('active')).toBeTruthy();
         expect(tab1.classList.contains('active')).toBeFalsy();
+
+        expect(component.onTabActivated).toHaveBeenCalled();
+    });
+
+    it('should change to new tab when tab is programmatically selected by tab instance', () => {
+
+        const tab1 = getTabForClass(0, nativeElement);
+        const tab3 = getTabForClass(2, nativeElement);
+
+        // check first tab is active
+        expect(tab1.classList.contains('active')).toBeTruthy();
+
+        const tabButton: HTMLElement = nativeElement.querySelector('.button-secondary');
+        expect(tabButton).toBeTruthy();
+
+        spyOn(component, 'onTabActivated');
+
+        // programatically change tab by instance
+        tabButton.click();
+
+        // check second tab is now active/first tab is not active
+        expect(tab3.classList.contains('active')).toBeTruthy();
+        expect(tab1.classList.contains('active')).toBeFalsy();
+
+        expect(component.onTabActivated).toHaveBeenCalled();
     });
 
 });
