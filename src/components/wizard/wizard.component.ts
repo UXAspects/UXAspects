@@ -170,7 +170,9 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     /** Set ids for each of the wizard steps */
     setWizardStepIds(): void {
-        this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
+        setTimeout(() => {
+            this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
+        });
     }
 
     /**
@@ -200,13 +202,15 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
       * Whether the Next or Finish button should be disabled.
       */
     isNextDisabled(): boolean {
-
+        // Check if there is a step
+        if (this.step > 0) {
         const step = this.getCurrentStep();
 
         // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
         // based on validation.
         // If not defined on the WizardStepComponent, use the value from WizardComponent.
         return (step.disableNextWhenInvalid === undefined ? this.disableNextWhenInvalid : step.disableNextWhenInvalid) && !step.valid;
+        }
     }
 
     /**
