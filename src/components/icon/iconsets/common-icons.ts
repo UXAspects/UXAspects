@@ -260,6 +260,7 @@ export const commonIcons = [
     'platform-edge',
     'platform-firefox',
     'platform-internet-explorer',
+    'platform-kubernetes',
     'platform-skype',
     'platform-windows',
     'play-filled',
