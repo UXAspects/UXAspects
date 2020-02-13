@@ -167,6 +167,7 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, O
     writeValue(value: number): void {
         if (value !== undefined) {
             this._value = value;
+            this._valid = this.isValid();
             // if the component is not destroyed then run change detection
             // workaround for Angular bug (https://portal.digitalsafe.net/browse/EL-3694)
             if (!this._isDestroyed) {
