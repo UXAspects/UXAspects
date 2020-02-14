@@ -157,21 +157,27 @@ describe('Number Picker Tests', () => {
 
     });
 
-    it('should not continue to display ux-number-picker-invalid class when value changed from above max value to max value', async () => {
+    it('should update validation when value changes to max or min', async () => {
 
         // Number Picker 1
         await page.setNumberPickerValue(page.numberPicker1, '11');
+        expect(page.numberPicker1.getAttribute('class')).toContain('ux-number-picker-invalid');
         await page.decrementNumberPickerValue(page.numberPicker1);
         expect(page.numberPicker1.getAttribute('class')).not.toContain('ux-number-picker-invalid');
-
-    });
-
-    it('should not continue to display ux-number-picker-invalid class when value changed from below min value to min value', async () => {
-
-        // Number Picker 1
         await page.setNumberPickerValue(page.numberPicker1, '-11');
+        expect(page.numberPicker1.getAttribute('class')).toContain('ux-number-picker-invalid');
         await page.incrementNumberPickerValue(page.numberPicker1);
         expect(page.numberPicker1.getAttribute('class')).not.toContain('ux-number-picker-invalid');
+
+        // Number Picker 2
+        await page.setNumberPickerValue(page.numberPicker2, '10.1');
+        expect(page.numberPicker2.getAttribute('class')).toContain('ux-number-picker-invalid');
+        await page.decrementNumberPickerValue(page.numberPicker2);
+        expect(page.numberPicker2.getAttribute('class')).not.toContain('ux-number-picker-invalid');
+        await page.setNumberPickerValue(page.numberPicker2, '-10.1');
+        expect(page.numberPicker2.getAttribute('class')).toContain('ux-number-picker-invalid');
+        await page.incrementNumberPickerValue(page.numberPicker2);
+        expect(page.numberPicker2.getAttribute('class')).not.toContain('ux-number-picker-invalid');
 
     });
 });
