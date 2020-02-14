@@ -119,8 +119,6 @@ describe('Marquee Wizard', () => {
 
         const firstStep = steps.item(0);
 
-        debugger;
-       // expect(firstStep[0].classList.contains('active'));
         expect(firstStep).toBeTruthy();
 
       });
@@ -180,7 +178,7 @@ describe('Marquee wizard ngFor example', () => {
 
         const steps = document.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
         expect(steps).toBeTruthy();
-        debugger;
+
 
     }));
 
