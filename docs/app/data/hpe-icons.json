@@ -1021,6 +1021,10 @@
             "classname": "hpe-platform-internet-explorer"
         },
         {
+            "name": "platform-kubernetes",
+            "classname": "hpe-platform-kubernetes"
+        },
+        {
             "name": "platform-skype",
             "classname": "hpe-platform-skype"
         },
