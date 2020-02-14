@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '../../common/testing';
 import { TabsetComponent } from './tabset.component';
 import { TabsetModule } from './tabset.module';
@@ -19,8 +20,6 @@ import { TabsetModule } from './tabset.module';
                 </div>
             </ux-tab>
         </ux-tabset>
-        <button class="btn button-primary" (click)="tabset.selectTab(2)">Select Tab</button>
-        <button class="btn button-secondary" (click)="tabset.selectTab(tabset._tabset.tabs[2])">Select Tab</button>
     `
 })
 export class TabsetTestComponent {
@@ -55,13 +54,14 @@ export class TabsetTestComponent {
 
     onTabDeactivated(): void {
     }
+
 }
 
-describe('Tabset Component', () => {
-    let tabset: TabsetComponent;
+fdescribe('Tabset Component', () => {
     let component: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
     let nativeElement: HTMLElement;
+    let tabset: TabsetComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -72,6 +72,7 @@ describe('Tabset Component', () => {
         fixture = TestBed.createComponent(TabsetTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
+        tabset = fixture.debugElement.query(By.directive(TabsetComponent)).componentInstance;
         fixture.detectChanges();
     });
 
@@ -128,13 +129,10 @@ describe('Tabset Component', () => {
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
 
-        const tabButton: HTMLElement = nativeElement.querySelector('.button-primary');
-        expect(tabButton).toBeTruthy();
-
         spyOn(component, 'onTabActivated');
 
         // programatically change tab by index
-        tabButton.click();
+        tabset.selectTab(2);
 
         // check second tab is now active/first tab is not active
         expect(tab3.classList.contains('active')).toBeTruthy();
@@ -151,13 +149,10 @@ describe('Tabset Component', () => {
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
 
-        const tabButton: HTMLElement = nativeElement.querySelector('.button-secondary');
-        expect(tabButton).toBeTruthy();
-
         spyOn(component, 'onTabActivated');
 
         // programatically change tab by instance
-        tabButton.click();
+        tabset.selectTab(tabset._tabset.tabs[2]);
 
         // check second tab is now active/first tab is not active
         expect(tab3.classList.contains('active')).toBeTruthy();
