@@ -1037,6 +1037,10 @@
             "classname": "ux-icon-platform-internet-explorer"
         },
         {
+            "name": "platform-kubernetes",
+            "classname": "ux-icon-platform-kubernetes"
+        },
+        {
             "name": "platform-skype",
             "classname": "ux-icon-platform-skype"
         },
