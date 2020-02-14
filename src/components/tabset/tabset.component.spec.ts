@@ -57,7 +57,7 @@ export class TabsetTestComponent {
 
 }
 
-fdescribe('Tabset Component', () => {
+describe('Tabset Component', () => {
     let component: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
     let nativeElement: HTMLElement;
