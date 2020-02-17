@@ -122,6 +122,11 @@ describe('Number Picker Component - FormGroup', () => {
     it ('should not display ux-number-picker-invalid when max value increased to match input value  ', async() => {
         component.form.controls.integer.setValue(15);
         fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input1.value).toBe('15');
+        expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(true);
+
         component.max = 15;
         fixture.detectChanges();
         component.form.controls.integer.setValidators(([Validators.required, Validators.min(-10), Validators.max(15)]));
@@ -129,13 +134,17 @@ describe('Number Picker Component - FormGroup', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(input1.value).toBe('15');
         expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 
     it ('should not display ux-number-picker-invalid when min value decreased to match input value  ', async() => {
         component.form.controls.integer.setValue(-15);
         fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input1.value).toBe('-15');
+        expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(true);
+
         component.min = -15;
         fixture.detectChanges();
         component.form.controls.integer.setValidators(([Validators.required, Validators.min(-15), Validators.max(10)]));
@@ -143,7 +152,6 @@ describe('Number Picker Component - FormGroup', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(input1.value).toBe('-15');
         expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 });
@@ -222,10 +230,15 @@ describe('Number Picker Component - ngModel', () => {
     it ('should not display ux-number-picker-invalid class when max value increased to match input value', async() => {
         component.value = 15;
         fixture.detectChanges();
+        await fixture.whenStable();
+        expect(input.value).toBe('15');
+
+        fixture.detectChanges();
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
+
         component.max = 15;
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(input.value).toBe('15');
 
         fixture.detectChanges();
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
@@ -234,10 +247,15 @@ describe('Number Picker Component - ngModel', () => {
     it ('should not display ux-number-picker-invalid class when min value decreased to match input value', async() => {
         component.value = -15;
         fixture.detectChanges();
+        await fixture.whenStable();
+        expect(input.value).toBe('-15');
+
+        fixture.detectChanges();
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
+
         component.min = -15;
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(input.value).toBe('-15');
 
         fixture.detectChanges();
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
@@ -347,10 +365,14 @@ describe('Number Picker Component - value', () => {
     it ('should not display ux-number-picker-invalid class when max value increased to match input value', async() => {
         component.value = 15;
         fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input.value).toBe('15');
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
+
         component.max = 15;
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(input.value).toBe('15');
 
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
@@ -358,10 +380,14 @@ describe('Number Picker Component - value', () => {
     it ('should not display ux-number-picker-invalid class when min value decreased to match input value', async() => {
         component.value = -15;
         fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input.value).toBe('-15');
+        expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(true);
+
         component.min = -15;
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(input.value).toBe('-15');
 
         expect(numberPicker.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
