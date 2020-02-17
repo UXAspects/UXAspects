@@ -494,5 +494,4 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         return -1;
     }
-
 }
