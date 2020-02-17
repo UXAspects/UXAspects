@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ViewportListenerService } from './viewport-listener.service';
-import { ResizeModule } from '../../../dist/directives/resize';
+import { ResizeModule } from '../../directives/resize/index';
 
 @NgModule({
     imports: [ResizeModule],
