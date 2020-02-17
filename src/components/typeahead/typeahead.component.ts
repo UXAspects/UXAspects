@@ -10,13 +10,14 @@ import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ResizeService } from '../../directives/resize/index';
+import { ViewportListenerService, ViewportDirection } from '../../services/viewport-listerner/viewport-listener.service';
 
 let uniqueId = 0;
 
 @Component({
     selector: 'ux-typeahead',
     templateUrl: 'typeahead.component.html',
-    providers: [TypeaheadService],
+    providers: [TypeaheadService, ViewportListenerService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'listbox',
@@ -127,9 +128,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     visibleRecentOptions$ = new BehaviorSubject<TypeaheadVisibleOption<T>[]>([]);
     allVisibleOptions: TypeaheadVisibleOption<T>[] = [];
 
-    /** The last measured value for the input client bounding rect. */
-    _typeaheadInput: ClientRect;
-
     get highlighted(): T {
         const value = this.highlighted$.getValue();
         return value ? value.value : null;
@@ -149,6 +147,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     constructor(
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
+        private _dynamicDropdown: ViewportListenerService,
         private _service: TypeaheadService,
         private _viewportRuler: ViewportRuler,
         private _renderer: Renderer2,
@@ -171,13 +170,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             return null;
         };
 
-        // watch for changes to the typeahead size
-        this._resizeService.addResizeListener(this.typeaheadElement.nativeElement).pipe(takeUntil(this._onDestroy)).subscribe(event => {
-            if (this.dropDirection === 'auto') {
-                this.checkOverlayWithinViewport();
-            }
-        });
-
         this._service.open$
             .pipe(distinctUntilChanged(), takeUntil(this._onDestroy))
             .subscribe(isOpen => {
@@ -186,6 +178,16 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 if (isOpen) {
                     this.hasBeenOpened = true;
                     this.initOptions();
+                }
+            });
+
+        this._dynamicDropdown.createViewportListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement)
+            .change$.pipe(takeUntil(this._onDestroy))
+            .subscribe(direction => {
+                if (this.dropDirection === 'auto' && direction === ViewportDirection.Up) {
+                    this._renderer.addClass(this.typeaheadElement.nativeElement, 'drop-up');
+                } else {
+                    this._renderer.removeClass(this.typeaheadElement.nativeElement, 'drop-up');
                 }
             });
 
@@ -248,14 +250,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         // Re-filter visibleOptions
         this.updateOptions();
-
-        this._typeaheadInput = this.typeaheadElement.nativeElement.parentElement.getBoundingClientRect();
     }
 
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
-        this._resizeService.removeResizeListener(this.typeaheadElement.nativeElement);
     }
 
     @HostListener('mousedown')
@@ -494,19 +493,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         }
 
         return -1;
-    }
-
-    public checkOverlayWithinViewport(): void {
-
-        const itemHeight = this.typeaheadElement.nativeElement.offsetHeight;
-        const viewportSize = this._viewportRuler.getViewportSize();
-        const bottomSpaceAvailable = viewportSize.height - this._typeaheadInput.bottom - itemHeight;
-
-        if (bottomSpaceAvailable <= 0) {
-            this._renderer.addClass(this.typeaheadElement.nativeElement, 'drop-up');
-        } else {
-            this._renderer.removeClass(this.typeaheadElement.nativeElement, 'drop-up');
-        }
     }
 
 }

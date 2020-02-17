@@ -9,22 +9,6 @@ describe('TypeaheadPage Tests', () => {
         await page.getPage();
     });
 
-    it('should allow dropDirection to be set to up and down and change the direction of the dropdown', async () => {
-
-        await page.clickOnDropDirectionDown();
-
-        await page.typeaheadInput.click();
-        expect(await page.getTypeaheadOptionListClass()).toContain('ux-typeahead-all-options');
-        expect(await page.getTypeaheadClass()).not.toContain('drop-up');
-
-        await page.clickOnDropDirectionUp();
-
-        await page.typeaheadInput.click();
-        expect(await page.getTypeaheadOptionListClass()).toContain('ux-typeahead-all-options');
-        expect(await page.getTypeaheadClass()).toContain('drop-up');
-    });
-
-
     it('should allow dropDirection to be auto and automatically change the drop direction depending on the available space', async () => {
 
         await page.clickOnMaxHeight();

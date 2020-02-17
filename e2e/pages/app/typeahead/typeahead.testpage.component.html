@@ -29,11 +29,7 @@
             </ux-typeahead>
         </form>
     </div>
-    <div id="radio1" class="col-md-4 col-sm-12">
-        <label for="dropDirection">dropDirection</label>
-        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
-        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
-        <ux-radio-button [(value)]="dropDirection" option="auto">auto</ux-radio-button>
+    <div class="col-md-4 col-sm-12">
         <button id="max-height" class="btn button-primary" (click)="maxHeight = '500px'">Increase maxHeight</button>
         <button id="max-height-decrease" class="btn button-primary" (click)="maxHeight = '250px'">Decrease
             maxHeight</button>

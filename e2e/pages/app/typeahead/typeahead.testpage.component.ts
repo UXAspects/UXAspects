@@ -15,7 +15,7 @@ export class TypeaheadTestPageComponent {
 
     dropdownOpen: boolean = false;
     selectOnEnter: boolean = true;
-    dropDirection: 'down' | 'up' | 'auto' = 'auto';
+    dropDirection: 'auto' = 'auto';
     selectFirst: boolean = true;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
