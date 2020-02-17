@@ -5,13 +5,13 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 
 @Component({
     selector: 'app-number-picker-form',
-    template: `<ux-number-picker min="-10"
-                                 max="10"
+    template: `<ux-number-picker [min]="min"
+                                 [max]="max"
                                  [valid]="form.controls['integer'].valid"
                                  [formControl]="form.controls['integer']">
                 </ux-number-picker>
-                <ux-number-picker min="-10"
-                                  max="10"
+                <ux-number-picker [min]="min"
+                                  [max]="max"
                                   [valid]="form.controls['integer2'].valid"
                                   [formControl]="form.controls['integer2']">
                 </ux-number-picker>
@@ -22,6 +22,8 @@ export class NumberPickerTestFormGroupComponent {
 
     form: FormGroup;
     disabled = false;
+    min = -10;
+    max = 10;
 
     constructor(formBuilder: FormBuilder) {
 
@@ -115,6 +117,34 @@ describe('Number Picker Component - FormGroup', () => {
 
         expect(input2.value).toBe('20');
         expect(numberPicker2.classList.contains('ng-invalid')).toBe(false);
+    });
+
+    it ('should not display ux-number-picker-invalid when max value increased to match input value  ', async() => {
+        component.form.controls.integer.setValue(15);
+        fixture.detectChanges();
+        component.max = 15;
+        fixture.detectChanges();
+        component.form.controls.integer.setValidators(([Validators.required, Validators.min(-10), Validators.max(15)]));
+        component.form.controls.integer.updateValueAndValidity();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input1.value).toBe('15');
+        expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
+    });
+
+    it ('should not display ux-number-picker-invalid when min value decreased to match input value  ', async() => {
+        component.form.controls.integer.setValue(-15);
+        fixture.detectChanges();
+        component.min = -15;
+        fixture.detectChanges();
+        component.form.controls.integer.setValidators(([Validators.required, Validators.min(-15), Validators.max(10)]));
+        component.form.controls.integer.updateValueAndValidity();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(input1.value).toBe('-15');
+        expect(numberPicker1.classList.contains('ux-number-picker-invalid')).toBe(false);
     });
 });
 
