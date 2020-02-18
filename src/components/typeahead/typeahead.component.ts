@@ -183,8 +183,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 }
             });
 
-        this._popoverOrientationDirection = this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement)
-            .orientation$.pipe(takeUntil(this._onDestroy))
+        this._popoverOrientationDirection = this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
+
+        this._popoverOrientationDirection.orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {
                 if (this.dropDirection === 'auto' && direction === PopoverOrientationDirection.Up) {
                     this._renderer.addClass(this.typeaheadElement.nativeElement, 'drop-up');
