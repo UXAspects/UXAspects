@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output, OnChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -18,7 +18,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
         '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
 })
-export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
+export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
 
     private _min: number = -Infinity;
     private _max: number = Infinity;
@@ -112,6 +112,10 @@ export class NumberPickerComponent implements ControlValueAccessor, OnDestroy {
         @Optional() public _formGroup: FormGroupDirective
 
     ) { }
+
+    ngOnChanges(): void {
+        this._valid = this.isValid();
+    }
 
     ngOnDestroy(): void {
         this._isDestroyed = true;
