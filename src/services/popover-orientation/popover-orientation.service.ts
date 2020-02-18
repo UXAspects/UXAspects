@@ -28,7 +28,7 @@ export class PopoverOrientationService {
 export class PopoverOrientationListener {
 
     /** Allow subscribing to state changes */
-    orientation$ = new Subject<PopoverOrientationDirection>();
+    orientation$ = new Subject<PopoverOrientation>();
 
     /** Store the last known position and size */
     private _rect: ClientRect;
@@ -66,11 +66,11 @@ export class PopoverOrientationListener {
         const viewportSize = this._viewportRuler.getViewportSize();
         const bottomSpaceAvailable = viewportSize.height - this._rect.bottom - itemHeight;
 
-        this.orientation$.next(bottomSpaceAvailable <= 0 ? PopoverOrientationDirection.Up : PopoverOrientationDirection.Down);
+        this.orientation$.next(bottomSpaceAvailable <= 0 ? PopoverOrientation.Up : PopoverOrientation.Down);
     }
 }
 
-export const enum PopoverOrientationDirection {
+export const enum PopoverOrientation {
     Up,
     Down
 }
