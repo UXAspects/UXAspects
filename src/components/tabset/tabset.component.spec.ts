@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '../../common/testing';
@@ -55,13 +55,15 @@ export class TabsetTestComponent {
     onTabDeactivated(): void {
     }
 
+    @ViewChild('tabset', { static: true })
+    public tabset: TabsetComponent;
+
 }
 
 describe('Tabset Component', () => {
     let component: TabsetTestComponent;
     let fixture: ComponentFixture<TabsetTestComponent>;
     let nativeElement: HTMLElement;
-    let tabset: TabsetComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -72,7 +74,6 @@ describe('Tabset Component', () => {
         fixture = TestBed.createComponent(TabsetTestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        tabset = fixture.debugElement.query(By.directive(TabsetComponent)).componentInstance;
         fixture.detectChanges();
     });
 
@@ -80,7 +81,7 @@ describe('Tabset Component', () => {
 
         spyOn(component, 'onTabActivated');
 
-        const tab = getTab(1, nativeElement);
+        const tab = getTabLink(1, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
@@ -91,7 +92,7 @@ describe('Tabset Component', () => {
 
         spyOn(component, 'onTabSelect');
 
-        const tab = getTab(1, nativeElement);
+        const tab = getTabLink(1, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
@@ -102,7 +103,7 @@ describe('Tabset Component', () => {
 
         spyOn(component, 'onTabDeactivated');
 
-        const tab = getTab(2, nativeElement);
+        const tab = getTabLink(2, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
@@ -114,7 +115,7 @@ describe('Tabset Component', () => {
 
         spyOn(component, 'onTabDeselect');
 
-        const tab = getTab(2, nativeElement);
+        const tab = getTabLink(2, nativeElement);
 
         dispatchMouseEvent(tab, 'mousedown');
 
@@ -123,8 +124,8 @@ describe('Tabset Component', () => {
 
     it('should change to new tab when tab is programmatically selected by tab index', () => {
 
-        const tab1 = getTabForClass(0, nativeElement);
-        const tab3 = getTabForClass(2, nativeElement);
+        const tab1 = getTabItem(0, nativeElement);
+        const tab3 = getTabItem(2, nativeElement);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
@@ -132,19 +133,22 @@ describe('Tabset Component', () => {
         spyOn(component, 'onTabActivated');
 
         // programatically change tab by index
-        tabset.selectTab(2);
+        component.tabset.selectTab(2);
 
         // check second tab is now active/first tab is not active
         expect(tab3.classList.contains('active')).toBeTruthy();
         expect(tab1.classList.contains('active')).toBeFalsy();
+
+        // check tab content matches tab heading
+        expect(verifyTabContent(2, nativeElement)).toBeTruthy();
 
         expect(component.onTabActivated).toHaveBeenCalled();
     });
 
     it('should change to new tab when tab is programmatically selected by tab instance', () => {
 
-        const tab1 = getTabForClass(0, nativeElement);
-        const tab3 = getTabForClass(2, nativeElement);
+        const tab1 = getTabItem(0, nativeElement);
+        const tab3 = getTabItem(2, nativeElement);
 
         // check first tab is active
         expect(tab1.classList.contains('active')).toBeTruthy();
@@ -152,23 +156,44 @@ describe('Tabset Component', () => {
         spyOn(component, 'onTabActivated');
 
         // programatically change tab by instance
-        tabset.selectTab(tabset._tabset.tabs[2]);
+        component.tabset.selectTab(component.tabset._tabset.tabs[2]);
 
         // check second tab is now active/first tab is not active
         expect(tab3.classList.contains('active')).toBeTruthy();
         expect(tab1.classList.contains('active')).toBeFalsy();
 
+        // check tab content matches tab heading
+        expect(verifyTabContent(2, nativeElement)).toBeTruthy();
+
         expect(component.onTabActivated).toHaveBeenCalled();
+
     });
 
 });
 
-function getTab(index: number, nativeElement: HTMLElement): HTMLElement {
+function getTabLink(index: number, nativeElement: HTMLElement): HTMLElement {
     return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link').item(index);
 }
 
-function getTabForClass(index: number, nativeElement: HTMLElement): HTMLElement {
+function getTabItem(index: number, nativeElement: HTMLElement): HTMLElement {
     return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-item').item(index);
+}
+
+function getTabHeader(index: number, nativeElement: HTMLElement) {
+    return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link span').item(index).innerHTML;
+}
+
+function getTabContent(index: number, nativeElement: HTMLElement) {
+    return nativeElement.querySelectorAll<HTMLAnchorElement>('.m-t h4').item(index).innerHTML;
+}
+
+function verifyTabContent(index: number, nativeElement: HTMLElement) {
+
+    if (getTabHeader(index, nativeElement) === getTabContent(index, nativeElement)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 export interface Tab {
