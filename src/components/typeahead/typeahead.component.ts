@@ -138,6 +138,8 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
+    private _popoverOrientationDirection: PopoverOrientationListener;
+
     optionApi: TypeaheadOptionApi<T> = {
         getKey: this.getKey.bind(this),
         getDisplay: this.getDisplay.bind(this),
@@ -181,7 +183,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 }
             });
 
-        this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement)
+        this._popoverOrientationDirection = this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement)
             .orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {
                 if (this.dropDirection === 'auto' && direction === PopoverOrientationDirection.Up) {
@@ -255,7 +257,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
-        this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement).destroy();
+        this._popoverOrientationDirection.destroy();
     }
 
     @HostListener('mousedown')
