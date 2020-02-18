@@ -7,7 +7,7 @@ import { TypeaheadKeyService } from './typeahead-key.service';
 import { TypeaheadOptionsListComponent } from './typeahead-options-list.component';
 import { TypeaheadComponent } from './typeahead.component';
 import { ResizeModule } from '../../directives/resize/index';
-import { ViewportListenerService } from '../../services/viewport-listerner/viewport-listener.service';
+import { PopoverOrientationService } from '../../services/popover-orientation/popover-orientation.service';
 
 @NgModule({
     imports: [
@@ -22,6 +22,6 @@ import { ViewportListenerService } from '../../services/viewport-listerner/viewp
         TypeaheadHighlightDirective,
         TypeaheadOptionsListComponent
     ],
-    providers: [TypeaheadKeyService, ViewportListenerService]
+    providers: [TypeaheadKeyService, PopoverOrientationService]
 })
 export class TypeaheadModule {}

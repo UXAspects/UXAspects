@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TypeaheadModule } from './typeahead.module';
-import 'chance';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from '../../directives/infinite-scroll/index';
 import { ScrollModule } from '../../directives/scroll/index';
@@ -78,7 +77,7 @@ export class TypeaheadTestComponent {
 
         /* Adding values to typeahead list */
         for (let index = 0; index < 200; index++) {
-            this.values = [...this.values, chance.name()];
+            this.values = [...this.values, 'One', 'Two', 'Three'];
         }
     }
 

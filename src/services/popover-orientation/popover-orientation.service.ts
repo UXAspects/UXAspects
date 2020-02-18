@@ -5,8 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
 
 @Injectable()
-/** Rename  */
-export class ViewportListenerService {
+export class PopoverOrientationService {
 
     constructor(
         public elementRef: ElementRef,
@@ -15,21 +14,21 @@ export class ViewportListenerService {
         public _renderer: Renderer2) {
     }
 
-    public createViewportListener(element: ElementRef | HTMLElement, parentElement?: ElementRef | HTMLElement): ViewportListener {
+    public createPopoverOrientationListener(element: ElementRef | HTMLElement, parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
 
         const nativeElement = element instanceof ElementRef ? element.nativeElement : element;
 
         const nativeElementParent = parentElement instanceof ElementRef ? parentElement.nativeElement : element;
 
-        return new ViewportListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler, this._renderer);
+        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler, this._renderer);
     }
 
 }
 
-export class ViewportListener implements OnDestroy {
+export class PopoverOrientationListener {
 
     /** Allow subscribing to state changes */
-    change$ = new Subject<ViewportDirection>();
+    orientation$ = new Subject<PopoverOrientationDirection>();
 
     /** Store the last known position and size */
     private _rect: ClientRect;
@@ -54,8 +53,8 @@ export class ViewportListener implements OnDestroy {
 
     }
 
-    ngOnDestroy(): void {
-        this.change$.complete();
+    destroy(): void {
+        this.orientation$.complete();
         this._onDestroy.next();
         this._onDestroy.complete();
         this._resizeService.removeResizeListener(this._element);
@@ -67,11 +66,11 @@ export class ViewportListener implements OnDestroy {
         const viewportSize = this._viewportRuler.getViewportSize();
         const bottomSpaceAvailable = viewportSize.height - this._rect.bottom - itemHeight;
 
-        this.change$.next(bottomSpaceAvailable <= 0 ? ViewportDirection.Up : ViewportDirection.Down);
+        this.orientation$.next(bottomSpaceAvailable <= 0 ? PopoverOrientationDirection.Up : PopoverOrientationDirection.Down);
     }
 }
 
-export const enum ViewportDirection {
+export const enum PopoverOrientationDirection {
     Up,
     Down
 }

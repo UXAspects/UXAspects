@@ -10,14 +10,14 @@ import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ResizeService } from '../../directives/resize/index';
-import { ViewportListenerService, ViewportDirection } from '../../services/viewport-listerner/viewport-listener.service';
+import { PopoverOrientationService, PopoverOrientationDirection, PopoverOrientationListener } from '../../services/popover-orientation/popover-orientation.service';
 
 let uniqueId = 0;
 
 @Component({
     selector: 'ux-typeahead',
     templateUrl: 'typeahead.component.html',
-    providers: [TypeaheadService, ViewportListenerService],
+    providers: [TypeaheadService, PopoverOrientationService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'listbox',
@@ -147,7 +147,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     constructor(
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
-        private _dynamicDropdown: ViewportListenerService,
+        private _popoverOrientation: PopoverOrientationService,
         private _service: TypeaheadService,
         private _viewportRuler: ViewportRuler,
         private _renderer: Renderer2,
@@ -181,10 +181,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 }
             });
 
-        this._dynamicDropdown.createViewportListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement)
-            .change$.pipe(takeUntil(this._onDestroy))
+        this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement)
+            .orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {
-                if (this.dropDirection === 'auto' && direction === ViewportDirection.Up) {
+                if (this.dropDirection === 'auto' && direction === PopoverOrientationDirection.Up) {
                     this._renderer.addClass(this.typeaheadElement.nativeElement, 'drop-up');
                 } else {
                     this._renderer.removeClass(this.typeaheadElement.nativeElement, 'drop-up');
@@ -255,6 +255,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+        this._popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement).destroy();
     }
 
     @HostListener('mousedown')
