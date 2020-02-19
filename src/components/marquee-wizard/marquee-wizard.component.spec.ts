@@ -206,8 +206,14 @@ describe('Marquee wizard with delayed step creation', () => {
 
         steps = getSteps();
         expect(steps.length).toBe(2);
-        expect(steps[0].querySelector<HTMLElement>('.marquee-wizard-step-title').innerText).toBe('First Step');
-        expect(steps[1].querySelector<HTMLElement>('.marquee-wizard-step-title').innerText).toBe('Second Step');
+        expect(
+            steps[0].querySelector<HTMLElement>('.marquee-wizard-step-title')
+                .innerText
+        ).toBe('First Step');
+        expect(
+            steps[1].querySelector<HTMLElement>('.marquee-wizard-step-title')
+                .innerText
+        ).toBe('Second Step');
 
         expect(component.step).toBe(0);
     }));
@@ -228,7 +234,9 @@ describe('Marquee wizard with delayed step creation', () => {
 
         await whenStepsLoaded();
 
-        const button = nativeElement.querySelector<HTMLButtonElement>('.modal-footer .button-primary');
+        const button = nativeElement.querySelector<HTMLButtonElement>(
+            '.modal-footer .button-primary'
+        );
 
         expect(button.hasAttribute('disabled')).toBeTruthy();
     }));
@@ -239,15 +247,20 @@ describe('Marquee wizard with delayed step creation', () => {
     }
 
     function getSteps(): NodeListOf<HTMLUListElement> {
-        return nativeElement.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
+        return nativeElement.querySelectorAll<HTMLUListElement>(
+            '.marquee-wizard-step'
+        );
     }
 
     function getContentText(): string {
-        return nativeElement.querySelector<HTMLElement>('.test-step-content').innerText;
+        return nativeElement.querySelector<HTMLElement>('.test-step-content')
+            .innerText;
     }
 
     async function clickNext(): Promise<void> {
-        const nextButton = nativeElement.querySelector<HTMLButtonElement>('.modal-footer .button-primary');
+        const nextButton = nativeElement.querySelector<HTMLButtonElement>(
+            '.modal-footer .button-primary'
+        );
         nextButton.click();
         fixture.detectChanges();
         await fixture.whenStable();
