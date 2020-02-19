@@ -278,7 +278,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     }
 
     @HostBinding('class.drop-up')
-    private _dropUp: boolean;
+    _dropUp: boolean;
 
     optionMousedownHandler(event: MouseEvent): void {
         // Workaround to prevent focus changing when an option is clicked
