@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { async, ComponentFixture, TestBed, fakeAsync, tick , } from '@angular/core/testing';
 import { MarqueeWizardModule } from './marquee-wizard.module';
+import { By } from '@angular/platform-browser';
+import {CheckboxComponent} from '../checkbox/checkbox.component';
+import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 
 @Component({
     selector: 'marquee-wizard-app',
@@ -25,8 +28,13 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
         </p>
     </ng-template>
 
-    <ux-marquee-wizard-step *ngFor="let step of steps; index as pageIndex" [header]="step.title">
-        <h3 class="marquee-step-title m-t-nil">Marquee wizard Step</h3>
+        <ux-marquee-wizard-step *ngFor="let step of steps; index as pageIndex" [header]="step.title">
+        <h3 class="marquee-step-title m-t-nil">{{step.stepTitle}}</h3>
+        <div class="row">
+            <div class="col-xs-7">
+                <p class="marquee-wizard-text">Content of second step</p>
+            </div>
+        </div>
     </ux-marquee-wizard-step>
 
 
@@ -37,8 +45,8 @@ export class MarqueeWizardComponent {
     step: number = 0;
 
     steps = [
-        { title: 'first step' },
-        { title: 'second step' },
+        { title: 'step one', stepTitle: 'Marquee wizard' , },
+        { title: 'step two', stepTitle: 'Marquee wizard Step', contentStep: 'Content of second step' },
     ];
 
     /**
@@ -118,7 +126,6 @@ describe('Marquee Wizard', () => {
         const steps = document.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
 
         const firstStep = steps.item(0);
-
         expect(firstStep).toBeTruthy();
 
       });
@@ -132,54 +139,177 @@ describe('Marquee Wizard', () => {
     selector: 'marquee-wizard-app',
     template: `
 <ux-marquee-wizard class="marquee-wizard">
-    <ux-marquee-wizard-step *ngFor="let step of steps" [header]="step.title">
-        <h3 class="marquee-step-title m-t-nil">Marquee wizard Step</h3>
+    <ux-marquee-wizard-step *ngFor="let step of steps" [header]="step.title" [valid]="valid" [disableNextWhenInvalid]="disableNextWhenInvalid">
+        <h3 class="marquee-step-title m-t-nil">{{step.stepTitle}}</h3>
+        <div *ngIf="step?.contentStep" class="row">
+            <div class="col-xs-7">
+                <p class="marquee-wizard-text">{{step.contentStep}}</p>
+            </div>
+        </div>
     </ux-marquee-wizard-step>
-</ux-marquee-wizard>`
+ </ux-marquee-wizard>
+`
 })
-export class MarqueeWizardNgForComponent {
+export class MarqueeWizardNgForComponent implements OnDestroy {
     step: number = 0;
     steps = [];
+    valid: boolean = true;
+    _timeout: number;
+    disableNextWhenInvalid: boolean;
 
     constructor() {
-        setTimeout(() => {
+        this._timeout = window.setTimeout(() => {
             this.steps = [
-                { title: 'first step' },
-                { title: 'second step' },
+                { title: 'first step', stepTitle: 'Marquee wizard' },
+                { title: 'second step', stepTitle: 'Marquee wizard Step', contentStep: 'Content of second step' },
             ];
         }, 3000);
+    }
+
+    ngOnDestroy(): void {
+        clearTimeout(this._timeout);
     }
 }
 
 describe('Marquee wizard ngFor example', () => {
 
-    let component: MarqueeWizardComponent;
-    let fixture: ComponentFixture<MarqueeWizardComponent>;
+    let component: MarqueeWizardNgForComponent;
+    let fixture: ComponentFixture<MarqueeWizardNgForComponent>;
     let nativeElement: HTMLElement;
+    let checkboxNativeElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MarqueeWizardModule],
-            declarations: [MarqueeWizardComponent],
+            declarations: [MarqueeWizardNgForComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MarqueeWizardComponent);
+        fixture = TestBed.createComponent(MarqueeWizardNgForComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         fixture.detectChanges();
     });
 
-    it('should update steps after delay (eg. server delay)', fakeAsync(() => {
+     it('should have no steps before the timeout is rendered', () => {
+        const stepsInitial = document.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
+        expect(stepsInitial.length).toBe(0);
+     });
+
+
+    it('should update steps after delay (eg. server delay)', fakeAsync(async () => {
         tick(4000);
+        await detectChanges();
+
         // see if steps are present now
-
         const steps = document.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
-        expect(steps).toBeTruthy();
-
-
+        expect(steps.length).toBe(2);
     }));
+
+     it('should have the correct step titles' , fakeAsync(async () => {
+        tick(4000);
+        await detectChanges();
+
+        const steps = document.querySelectorAll<HTMLElement>('.marquee-wizard-steps');
+
+        const firstStep = steps.item(0);
+        expect(firstStep).toBeTruthy();
+
+        const title = nativeElement.querySelector<HTMLHeadingElement>('.marquee-step-title');
+        expect(title.innerText).toBe('Marquee wizard');
+
+        let footer = nativeElement.querySelector('.modal-footer');
+        let buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
+
+        expect(buttons.length).toBe(1);
+
+        // clicking the next button
+        buttons.item(0).click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const secondSteps = document.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
+
+        const secondStep = steps.item(0);
+        expect(secondStep).toBeTruthy();
+
+        // check title shows
+        const titleOne = nativeElement.querySelector<HTMLHeadingElement>('.marquee-step-title');
+        expect(titleOne.innerText).toBe('Marquee wizard Step');
+
+     }));
+
+       it('Should contain some text about the second step', fakeAsync(async () => {
+        tick(4000);
+        await detectChanges();
+
+        let footer = nativeElement.querySelector('.modal-footer');
+        let buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
+
+        expect(buttons.length).toBe(1);
+
+        // clicking the next button
+        buttons.item(0).click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const text = nativeElement.querySelector<HTMLTextAreaElement>('.marquee-wizard-text');
+        let compiled = fixture.debugElement.nativeElement;
+         expect(text.innerText).toContain('Content of second step');
+
+     }));
+
+     it('should go to next step when button is pressed', fakeAsync(async () => {
+        tick(4000);
+        await detectChanges();
+         const steps = document.querySelectorAll<HTMLUListElement>('.marquee-wizard-step');
+
+         const firstStep = steps.item(0);
+         expect(firstStep).toBeTruthy();
+
+         let footer = nativeElement.querySelector('.modal-footer');
+         let buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
+
+         expect(buttons.length).toBe(1);
+         // click into next step
+         buttons.item(0).click();
+         fixture.detectChanges();
+         await fixture.whenStable();
+
+         buttons = footer.querySelectorAll<HTMLButtonElement>('.button-primary');
+         expect(buttons.length).toBe(1);
+
+       }));
+
+       it('should disable the next button when the step has an error' , fakeAsync( async() => {
+         tick(4000);
+         component.disableNextWhenInvalid = true;
+         component.valid = false;
+         fixture.detectChanges();
+         await fixture.whenStable();
+
+         let footer = nativeElement.querySelector('.modal-footer');
+         let button = footer.querySelector<HTMLButtonElement>('.button-primary');
+
+         button.click();
+         fixture.detectChanges();
+         await fixture.whenStable();
+
+         expect(button.hasAttribute('disabled')).toBeTruthy();
+
+       }));
+
+    // we need to run CD three time for component update and ngFor update and wizard step update
+    async function detectChanges() {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+    }
 
 });
