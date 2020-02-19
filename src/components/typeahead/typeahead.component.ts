@@ -187,10 +187,10 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         this._popoverOrientationListener.orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {
-                if (this.dropDirection === 'auto' && direction === PopoverOrientation.Up || this.dropDirection === 'up') {
-                    this._renderer.addClass(this.typeaheadElement.nativeElement, 'drop-up');
+                if (this.dropDirection === 'auto') {
+                    this._dropUp = direction === PopoverOrientation.Up;
                 } else {
-                    this._renderer.removeClass(this.typeaheadElement.nativeElement, 'drop-up');
+                    this._dropUp = this.dropDirection === 'up';
                 }
             });
 
@@ -251,6 +251,12 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             }
         }
 
+        if (changes.dropDirection.currentValue === 'auto') {
+            this._dropUp = this._popoverOrientationListener.orientation$.getValue() === PopoverOrientation.Up;
+        } else {
+            this._dropUp = changes.dropDirection.currentValue === 'up';
+        }
+
         // Re-filter visibleOptions
         this.updateOptions();
     }
@@ -265,6 +271,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     mousedownHandler(): void {
         this.clicking = true;
     }
+
+    @HostBinding('class.drop-up')
+    private _dropUp: boolean;
 
     @HostListener('mouseup')
     mouseupHandler(): void {

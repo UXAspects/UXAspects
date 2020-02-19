@@ -1,8 +1,8 @@
-import { ElementRef, Injectable, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ResizeService } from '../../directives/resize/index';
 import { takeUntil } from 'rxjs/operators';
-import { fromEvent, Subject } from 'rxjs';
+import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 
 @Injectable()
 export class PopoverOrientationService {
@@ -28,7 +28,7 @@ export class PopoverOrientationService {
 export class PopoverOrientationListener {
 
     /** Allow subscribing to state changes */
-    orientation$ = new Subject<PopoverOrientation>();
+    orientation$ = new BehaviorSubject<PopoverOrientation>(null);
 
     /** Store the last known position and size */
     private _rect: ClientRect;
