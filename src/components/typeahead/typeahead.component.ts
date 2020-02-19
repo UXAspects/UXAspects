@@ -251,10 +251,12 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             }
         }
 
-        if (changes.dropDirection.currentValue === 'auto') {
-            this._dropUp = this._popoverOrientationListener.orientation$.getValue() === PopoverOrientation.Up;
-        } else {
-            this._dropUp = changes.dropDirection.currentValue === 'up';
+        if (changes.dropDirection) {
+            if (changes.dropDirection.currentValue === 'auto') {
+                this._dropUp = this._popoverOrientationListener.orientation$.getValue() === PopoverOrientation.Up;
+            } else {
+                this._dropUp = changes.dropDirection.currentValue === 'up';
+            }
         }
 
         // Re-filter visibleOptions
