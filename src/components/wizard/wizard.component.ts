@@ -170,9 +170,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     /** Set ids for each of the wizard steps */
     setWizardStepIds(): void {
-        setTimeout(() => {
-            this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
-        });
+        this.steps.forEach((step, idx) => step.setId(`${this.id}-step-${idx}`));
     }
 
     /**
