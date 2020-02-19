@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '../../common/testing';
 import { TabsetComponent } from './tabset.component';
 import { TabsetModule } from './tabset.module';
@@ -139,8 +138,8 @@ describe('Tabset Component', () => {
         expect(tab3.classList.contains('active')).toBeTruthy();
         expect(tab1.classList.contains('active')).toBeFalsy();
 
-        // check tab content matches tab heading
-        expect(verifyTabContent(2, nativeElement)).toBeTruthy();
+        // check tab contains correct content
+        expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
 
         expect(component.onTabActivated).toHaveBeenCalled();
     });
@@ -162,8 +161,8 @@ describe('Tabset Component', () => {
         expect(tab3.classList.contains('active')).toBeTruthy();
         expect(tab1.classList.contains('active')).toBeFalsy();
 
-        // check tab content matches tab heading
-        expect(verifyTabContent(2, nativeElement)).toBeTruthy();
+        // check tab contains correct content
+        expect(nativeElement.querySelector('.tab-pane[aria-hidden="false"] h4').innerHTML).toEqual('Solution');
 
         expect(component.onTabActivated).toHaveBeenCalled();
 
@@ -177,23 +176,6 @@ function getTabLink(index: number, nativeElement: HTMLElement): HTMLElement {
 
 function getTabItem(index: number, nativeElement: HTMLElement): HTMLElement {
     return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-item').item(index);
-}
-
-function getTabHeader(index: number, nativeElement: HTMLElement) {
-    return nativeElement.querySelectorAll<HTMLAnchorElement>('ux-tabset ul .nav-link span').item(index).innerHTML;
-}
-
-function getTabContent(index: number, nativeElement: HTMLElement) {
-    return nativeElement.querySelectorAll<HTMLAnchorElement>('.m-t h4').item(index).innerHTML;
-}
-
-function verifyTabContent(index: number, nativeElement: HTMLElement) {
-
-    if (getTabHeader(index, nativeElement) === getTabContent(index, nativeElement)) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 export interface Tab {
