@@ -22,7 +22,7 @@ export class ComponentsTypeaheadComponent extends BaseDocumentationSection imple
 
     dropdownOpen: boolean = false;
     selectOnEnter: boolean = true;
-    dropDirection: 'up' | 'down' = 'down';
+    dropDirection: 'auto' | 'up' | 'down' = 'down';
     selectFirst: boolean = true;
     recentOptions: ReadonlyArray<string>;
     recentOptionsMaxCount: number = 5;
