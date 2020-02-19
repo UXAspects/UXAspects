@@ -40,11 +40,6 @@
                     <div class="col-md-4 col-sm-12">
                         <ux-checkbox [(value)]="selectOnEnter">selectOnEnter</ux-checkbox>
                     </div>
-                    <div class="col-md-4 col-sm-12">
-                        <label>dropDirection</label>
-                        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
-                        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
-                    </div>
                 </div>
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
@@ -61,6 +56,14 @@
                             min="1"
                             [(value)]="recentOptionsMaxCount">
                         </ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label>dropDirection</label>
+                        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+                        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+                        <ux-radio-button [(value)]="dropDirection" option="auto">auto</ux-radio-button>
                     </div>
                 </div>
             </ux-accordion-panel>
@@ -121,8 +124,10 @@
         The list of options which should appear disabled in the typeahead. This is useful if duplicate tags
         are not wanted in the tag input, in which case the <code>tags</code> binding should also be set here.
     </tr>
-    <tr uxd-api-property name="dropDirection" type="'up' | 'down'" defaultValue="down">
-        The positioning of the typeahead dropdown in relation to its parent.
+    <tr uxd-api-property name="dropDirection" type="'up' | 'down' | 'auto'" defaultValue="down">
+        The positioning of the typeahead dropdown in relation to its parent. If 'auto' is used the
+        typeahead dropdown direction will default to 'down' unless there is not enough space for the
+        dropdown to fully display and the dropdown direction will change to 'up'.
     </tr>
     <tr uxd-api-property name="maxHeight" type="string" defaultValue="250px">
         The maximum height of the typeahead dropdown, as a CSS value.
