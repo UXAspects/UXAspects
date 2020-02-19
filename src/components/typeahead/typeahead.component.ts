@@ -22,7 +22,6 @@ let uniqueId = 0;
     host: {
         'role': 'listbox',
         '[class.open]': 'open',
-        '[class.drop-up]': 'dropDirection === "up"',
         '[style.maxHeight]': 'maxHeight'
     }
 })
@@ -152,7 +151,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     constructor(
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
-        public popoverOrientation: PopoverOrientationService,
+        popoverOrientation: PopoverOrientationService,
         private _service: TypeaheadService,
         private _viewportRuler: ViewportRuler,
         private _renderer: Renderer2,
@@ -186,7 +185,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 }
             });
 
-        this._popoverOrientationListener = this.popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
+        this._popoverOrientationListener = popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
 
         this._popoverOrientationListener.orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {
