@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, Renderer2 } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ResizeService } from '../../directives/resize/index';
 import { takeUntil } from 'rxjs/operators';
@@ -10,8 +10,7 @@ export class PopoverOrientationService {
     constructor(
         public elementRef: ElementRef,
         public _resizeService: ResizeService,
-        public _viewportRuler: ViewportRuler,
-        public _renderer: Renderer2) {
+        public _viewportRuler: ViewportRuler) {
     }
 
     public createPopoverOrientationListener(element: ElementRef | HTMLElement, parentElement?: ElementRef | HTMLElement): PopoverOrientationListener {
@@ -20,7 +19,7 @@ export class PopoverOrientationService {
 
         const nativeElementParent = parentElement instanceof ElementRef ? parentElement.nativeElement : element;
 
-        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler, this._renderer);
+        return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler);
     }
 
 }
@@ -28,7 +27,7 @@ export class PopoverOrientationService {
 export class PopoverOrientationListener {
 
     /** Allow subscribing to state changes */
-    orientation$ = new BehaviorSubject<PopoverOrientation>(null);
+    orientation$ = new BehaviorSubject<PopoverOrientation>(1);
 
     /** Store the last known position and size */
     private _rect: ClientRect;
@@ -38,8 +37,7 @@ export class PopoverOrientationListener {
     constructor(private _element: HTMLElement,
                 private _elementParent: HTMLElement,
                 private _resizeService: ResizeService,
-                private _viewportRuler: ViewportRuler,
-                private _renderer: Renderer2) {
+                private _viewportRuler: ViewportRuler) {
 
         // watch for changes to the typeahead size
         this._resizeService.addResizeListener(this._element).pipe(takeUntil(this._onDestroy))

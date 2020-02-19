@@ -140,6 +140,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     private _popoverOrientationListener: PopoverOrientationListener;
 
+    @HostBinding('class.drop-up')
+    dropUp: boolean;
+
     optionApi: TypeaheadOptionApi<T> = {
         getKey: this.getKey.bind(this),
         getDisplay: this.getDisplay.bind(this),
@@ -188,9 +191,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
         this._popoverOrientationListener.orientation$.pipe(takeUntil(this._onDestroy))
             .subscribe(direction => {
                 if (this.dropDirection === 'auto') {
-                    this._dropUp = direction === PopoverOrientation.Up;
-                } else {
-                    this._dropUp = this.dropDirection === 'up';
+                    this.dropUp = direction === PopoverOrientation.Up;
                 }
             });
 
@@ -253,9 +254,9 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
         if (changes.dropDirection) {
             if (changes.dropDirection.currentValue === 'auto') {
-                this._dropUp = this._popoverOrientationListener.orientation$.getValue() === PopoverOrientation.Up;
+                this.dropUp = this._popoverOrientationListener.orientation$.getValue() === PopoverOrientation.Up;
             } else {
-                this._dropUp = changes.dropDirection.currentValue === 'up';
+                this.dropUp = changes.dropDirection.currentValue === 'up';
             }
         }
 
@@ -278,9 +279,6 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     mouseupHandler(): void {
         this.clicking = false;
     }
-
-    @HostBinding('class.drop-up')
-    _dropUp: boolean;
 
     optionMousedownHandler(event: MouseEvent): void {
         // Workaround to prevent focus changing when an option is clicked
