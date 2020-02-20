@@ -37,7 +37,7 @@ import { MarqueeWizardModule } from './marquee-wizard.module';
             </ng-template>
 
             <ux-marquee-wizard-step
-                *ngFor="let step of steps; index as pageIndex"
+                *ngFor="let step of steps"
                 [header]="step.title"
             >
                 <h3 class="marquee-step-title m-t-nil">{{ step.stepTitle }}</h3>
