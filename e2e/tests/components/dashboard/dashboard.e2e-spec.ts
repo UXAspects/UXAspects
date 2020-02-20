@@ -44,6 +44,30 @@ describe('Dashboard Tests', () => {
         expect(await imageCompare('dashboard-initial')).toEqual(0);
     });
 
+    it('should react correctly when dashboard options are changed', async () => {
+
+        // click 'change options' button
+        await page.changeOptions.click();
+
+        expect(await page.getWidgetLocationValue(widget1, 'width')).toBe(888);
+        expect(await page.getWidgetLocationValue(widget1, 'height')).toBe(500);
+        expect(await page.getWidgetLocationValue(widget1, 'padding')).toBe(20);
+
+        expect(await page.getWidgetLocationValue(widget2, 'width')).toBe(444);
+        expect(await page.getWidgetLocationValue(widget2, 'height')).toBe(250);
+        expect(await page.getWidgetLocationValue(widget2, 'padding')).toBe(20);
+
+        expect(await page.getWidgetLocationValue(widget3, 'width')).toBe(222);
+        expect(await page.getWidgetLocationValue(widget3, 'height')).toBe(250);
+        expect(await page.getWidgetLocationValue(widget3, 'padding')).toBe(20);
+
+        expect(await page.getWidgetLocationValue(widget4, 'width')).toBe(222);
+        expect(await page.getWidgetLocationValue(widget4, 'height')).toBe(250);
+        expect(await page.getWidgetLocationValue(widget4, 'padding')).toBe(20);
+
+        expect(await imageCompare('dashboard-option-change')).toEqual(0);
+    });
+
     it('should react correctly when a widget is moved down', async () => {
 
         // drag the top widget down
