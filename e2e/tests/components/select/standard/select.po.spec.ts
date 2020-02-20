@@ -1,5 +1,4 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
-import { imageCompare } from '../../common/image-compare';
 
 export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
@@ -17,8 +16,6 @@ export class SelectPage {
     checkboxRecentOptions = element(by.id('checkbox5'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
-    customIcon = element(by.id('custom-icon'));
-
 
     async getPage(): Promise<void> {
         await browser.get('#/select');
@@ -27,7 +24,7 @@ export class SelectPage {
     // confirm & check
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
-            var allClasses = classes.split(' ');
+            let allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {
@@ -222,6 +219,10 @@ export class SelectPage {
 
     getNumberOfRecentCountries(_allowMultiple: boolean) {
         return this.dropdown.$$('.ux-typeahead-recent-options li').count();
+    }
+
+    checkRecentOptionsList() {
+        return this.dropdown.$$('.ux-typeahead-recent-options');
     }
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {

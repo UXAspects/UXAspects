@@ -547,6 +547,7 @@ describe('Select Tests', () => {
         expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-single')).toEqual(0);
         await page.toggleClearButton();
+        expect(await page.getClearButton().isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-single-clear-btn')).toEqual(0);
         await page.toggleClearButton();
         await page.clickOnCheckbox(page.checkboxMulti);
@@ -556,6 +557,7 @@ describe('Select Tests', () => {
         expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-multiple')).toEqual(0);
         await page.toggleClearButton();
+        expect(await page.getClearButton().isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
     });
 
@@ -564,6 +566,7 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(false);
 
         // Initial state: recent option list is not shown
+        expect(await page.checkRecentOptionsList().isPresent()).toBeFalsy();
         expect(await imageCompare('select-open-single')).toEqual(0);
 
         await page.clickOnCountry(false, 1);
@@ -582,6 +585,7 @@ describe('Select Tests', () => {
         await page.checkRecentOptions(false, ['Aland Islands', 'Albania', 'United Kingdom']);
 
         // Recent options list with three entries
+        expect(await page.checkRecentOptionsList().isPresent()).toBeTruthy();
         expect(await imageCompare('select-recent-single')).toEqual(0);
     });
 
@@ -591,6 +595,7 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(true);
 
         // Initial state: recent option list is not shown
+        expect(await page.checkRecentOptionsList().isPresent()).toBeFalsy();
         expect(await imageCompare('select-open-multi')).toEqual(0);
 
         await page.clickOnCountry(true, 1);
@@ -610,6 +615,7 @@ describe('Select Tests', () => {
         await page.checkRecentOptions(true, ['Aland Islands', 'Albania', 'Afghanistan']);
 
         // Recent options list with three entries
+        expect(await page.checkRecentOptionsList().isPresent()).toBeTruthy();
         expect(await imageCompare('select-recent-multi')).toEqual(0);
     });
 
