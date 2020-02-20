@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('resize-observer-polyfill'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('angular-split'), require('@angular/common/http'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('@angular/cdk/text-field'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
-        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'resize-observer-polyfill', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', 'angular-split', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', '@angular/cdk/text-field', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
-            (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.ResizeObserver, global.dragulaNamespace, global.ng.cdk.observers, global.ng.cdk.overlay, global.angularSplit, global.ng.common.http, global.d3Ease, global.ng.cdk.portal, global.d3Interpolate, global.d3Shape, global.d3Zoom, global.ng.router, global.d3Hierarchy, global.d3Scale, global.d3Selection, global.d3Transition, global.d3Array, global.ng.cdk.platform, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.animations, global.ng.common, global.ng.cdk['text-field'], global.rxjs, global.rxjs.operators, global.ng.forms, global.ng.upgrade.static, global.ng.cdk.keycodes, global.ng.core));
-}(this, (function (exports, ResizeObserver, dragulaNamespace, observers, overlay, angularSplit, http, d3Ease, portal, d3Interpolate, d3Shape, d3Zoom, router, d3Hierarchy, d3Scale, d3Selection, d3Transition, d3Array, platform, coercion, a11y, animations, common, textField, rxjs, operators, forms, _static, keycodes, i0) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('resize-observer-polyfill'), require('@angular/cdk/scrolling'), require('dragula/dist/dragula'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('angular-split'), require('@angular/common/http'), require('d3-ease'), require('@angular/cdk/portal'), require('d3-interpolate'), require('d3-shape'), require('d3-zoom'), require('@angular/router'), require('d3-hierarchy'), require('d3-scale'), require('d3-selection'), require('d3-transition'), require('d3-array'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/common'), require('@angular/cdk/text-field'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/upgrade/static'), require('@angular/cdk/keycodes'), require('@angular/core')) :
+        typeof define === 'function' && define.amd ? define('@ux-aspects/ux-aspects', ['exports', 'resize-observer-polyfill', '@angular/cdk/scrolling', 'dragula/dist/dragula', '@angular/cdk/observers', '@angular/cdk/overlay', 'angular-split', '@angular/common/http', 'd3-ease', '@angular/cdk/portal', 'd3-interpolate', 'd3-shape', 'd3-zoom', '@angular/router', 'd3-hierarchy', 'd3-scale', 'd3-selection', 'd3-transition', 'd3-array', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/animations', '@angular/common', '@angular/cdk/text-field', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/upgrade/static', '@angular/cdk/keycodes', '@angular/core'], factory) :
+            (factory((global['ux-aspects'] = global['ux-aspects'] || {}, global['ux-aspects']['ux-aspects'] = {}), global.ResizeObserver, global.ng.cdk.scrolling, global.dragulaNamespace, global.ng.cdk.observers, global.ng.cdk.overlay, global.angularSplit, global.ng.common.http, global.d3Ease, global.ng.cdk.portal, global.d3Interpolate, global.d3Shape, global.d3Zoom, global.ng.router, global.d3Hierarchy, global.d3Scale, global.d3Selection, global.d3Transition, global.d3Array, global.ng.cdk.platform, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.animations, global.ng.common, global.ng.cdk['text-field'], global.rxjs, global.rxjs.operators, global.ng.forms, global.ng.upgrade.static, global.ng.cdk.keycodes, global.ng.core));
+}(this, (function (exports, ResizeObserver, scrolling, dragulaNamespace, observers, overlay, angularSplit, http, d3Ease, portal, d3Interpolate, d3Shape, d3Zoom, router, d3Hierarchy, d3Scale, d3Selection, d3Transition, d3Array, platform, coercion, a11y, animations, common, textField, rxjs, operators, forms, _static, keycodes, i0) {
     'use strict';
     ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
     var dragulaNamespace__default = 'default' in dragulaNamespace ? dragulaNamespace['default'] : dragulaNamespace;
@@ -4317,6 +4317,7 @@
         'platform-edge',
         'platform-firefox',
         'platform-internet-explorer',
+        'platform-kubernetes',
         'platform-skype',
         'platform-windows',
         'play-filled',
@@ -6087,6 +6088,15 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @return {?}
+         */
+        NumberPickerComponent.prototype.ngOnChanges = /**
+         * @return {?}
+         */
+            function () {
+                this._valid = this.isValid();
+            };
         /**
          * @return {?}
          */
@@ -17426,17 +17436,111 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
+    var PopoverOrientationService = /** @class */ (function () {
+        function PopoverOrientationService(elementRef, _resizeService, _viewportRuler) {
+            this.elementRef = elementRef;
+            this._resizeService = _resizeService;
+            this._viewportRuler = _viewportRuler;
+        }
+        /**
+         * @param {?} element
+         * @param {?=} parentElement
+         * @return {?}
+         */
+        PopoverOrientationService.prototype.createPopoverOrientationListener = /**
+         * @param {?} element
+         * @param {?=} parentElement
+         * @return {?}
+         */
+            function (element, parentElement) {
+                /** @type {?} */
+                var nativeElement = element instanceof i0.ElementRef ? element.nativeElement : element;
+                /** @type {?} */
+                var nativeElementParent = parentElement instanceof i0.ElementRef ? parentElement.nativeElement : element;
+                return new PopoverOrientationListener(nativeElement, nativeElementParent, this._resizeService, this._viewportRuler);
+            };
+        PopoverOrientationService.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        PopoverOrientationService.ctorParameters = function () {
+            return [
+                { type: i0.ElementRef },
+                { type: ResizeService },
+                { type: scrolling.ViewportRuler }
+            ];
+        };
+        return PopoverOrientationService;
+    }());
+    var PopoverOrientationListener = /** @class */ (function () {
+        function PopoverOrientationListener(_element, _elementParent, _resizeService, _viewportRuler) {
+            var _this = this;
+            this._element = _element;
+            this._elementParent = _elementParent;
+            this._resizeService = _resizeService;
+            this._viewportRuler = _viewportRuler;
+            /**
+             * Allow subscribing to state changes
+             */
+            this.orientation$ = new rxjs.BehaviorSubject(1);
+            this._onDestroy = new rxjs.Subject();
+            // watch for changes to the typeahead size
+            this._resizeService.addResizeListener(this._element).pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function () {
+                _this.onScrollOrResize();
+            });
+            // watch for changes to the typeahead position when scrolling
+            rxjs.fromEvent(window, 'scroll', { passive: true }).pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function () { return _this.onScrollOrResize(); });
+        }
+        /**
+         * @return {?}
+         */
+        PopoverOrientationListener.prototype.destroy = /**
+         * @return {?}
+         */
+            function () {
+                this.orientation$.complete();
+                this._onDestroy.next();
+                this._onDestroy.complete();
+                this._resizeService.removeResizeListener(this._element);
+            };
+        /**
+         * @return {?}
+         */
+        PopoverOrientationListener.prototype.onScrollOrResize = /**
+         * @return {?}
+         */
+            function () {
+                this._rect = this._elementParent ? this._elementParent.parentElement.getBoundingClientRect() : this._element.parentElement.getBoundingClientRect();
+                /** @type {?} */
+                var itemHeight = this._element.offsetHeight;
+                /** @type {?} */
+                var viewportSize = this._viewportRuler.getViewportSize();
+                /** @type {?} */
+                var bottomSpaceAvailable = viewportSize.height - this._rect.bottom - itemHeight;
+                this.orientation$.next(bottomSpaceAvailable <= 0 ? 0 /* Up */ : 1 /* Down */);
+            };
+        return PopoverOrientationListener;
+    }());
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+     */
     /** @type {?} */
     var uniqueId$3 = 0;
     /**
      * @template T
      */
     var TypeaheadComponent = /** @class */ (function () {
-        function TypeaheadComponent(typeaheadElement, _changeDetector, _service) {
+        function TypeaheadComponent(typeaheadElement, _changeDetector, popoverOrientation, _service, _viewportRuler, _renderer, _resizeService) {
             var _this = this;
             this.typeaheadElement = typeaheadElement;
             this._changeDetector = _changeDetector;
             this._service = _service;
+            this._viewportRuler = _viewportRuler;
+            this._renderer = _renderer;
+            this._resizeService = _resizeService;
             /**
              * Define a unique id for the typeahead
              */
@@ -17532,6 +17636,13 @@
                 if (isOpen) {
                     _this.hasBeenOpened = true;
                     _this.initOptions();
+                }
+            });
+            this._popoverOrientationListener = popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
+            this._popoverOrientationListener.orientation$.pipe(operators.takeUntil(this._onDestroy))
+                .subscribe(function (direction) {
+                if (_this.dropDirection === 'auto') {
+                    _this.dropUp = direction === 0 /* Up */;
                 }
             });
             this.highlighted$.pipe(operators.takeUntil(this._onDestroy)).subscribe(function (next) {
@@ -17631,6 +17742,14 @@
                         });
                     }
                 }
+                if (changes.dropDirection) {
+                    if (changes.dropDirection.currentValue === 'auto') {
+                        this.dropUp = this._popoverOrientationListener.orientation$.getValue() === 0 /* Up */;
+                    }
+                    else {
+                        this.dropUp = changes.dropDirection.currentValue === 'up';
+                    }
+                }
                 // Re-filter visibleOptions
                 this.updateOptions();
             };
@@ -17643,6 +17762,7 @@
             function () {
                 this._onDestroy.next();
                 this._onDestroy.complete();
+                this._popoverOrientationListener.destroy();
             };
         /**
          * @return {?}
@@ -18044,12 +18164,11 @@
             { type: i0.Component, args: [{
                         selector: 'ux-typeahead',
                         template: "<div class=\"ux-typeahead-options\"\n     [uxInfiniteScroll]=\"loadOptionsCallback\"\n     [collection]=\"visibleOptions$ | async\"\n     (collectionChange)=\"visibleOptions$.next($event)\"\n     [enabled]=\"hasBeenOpened && isInfiniteScroll()\"\n     [filter]=\"filter\"\n     [loadOnScroll]=\"true\"\n     [pageSize]=\"pageSize\"\n     [scrollElement]=\"typeaheadElement\"\n     (loading)=\"loading = true\"\n     (loaded)=\"loading = false; onLoadedHighlight($event)\">\n\n     <!-- Recent options -->\n    <ux-typeahead-options-list\n        *ngIf=\"(visibleRecentOptions$ | async).length > 0\"\n        class=\"ux-typeahead-recent-options\"\n        [id]=\"id\"\n        [options]=\"visibleRecentOptions$ | async\"\n        [highlighted]=\"highlighted$ | async\"\n        [activeKey]=\"activeKey\"\n        [disabledOptions]=\"disabledOptions\"\n        [isMultiselectable]=\"multiselectable\"\n        [optionTemplate]=\"optionTemplate || defaultOptionTemplate\"\n        [optionApi]=\"optionApi\"\n        [typeaheadElement]=\"typeaheadElement\"\n        (optionMouseover)=\"highlight($event.option)\"\n        (optionMousedown)=\"optionMousedownHandler($event.event)\"\n        (optionClick)=\"optionClickHandler($event.event, $event.option)\"\n    ></ux-typeahead-options-list>\n\n    <!-- All options -->\n    <ux-typeahead-options-list\n        *ngIf=\"(visibleOptions$ | async).length > 0\"\n        class=\"ux-typeahead-all-options\"\n        [id]=\"id\"\n        [startIndex]=\"(visibleRecentOptions$ | async).length\"\n        [options]=\"visibleOptions$ | async\"\n        [highlighted]=\"highlighted$ | async\"\n        [activeKey]=\"activeKey\"\n        [disabledOptions]=\"disabledOptions\"\n        [isMultiselectable]=\"multiselectable\"\n        [optionTemplate]=\"optionTemplate || defaultOptionTemplate\"\n        [optionApi]=\"optionApi\"\n        [typeaheadElement]=\"typeaheadElement\"\n        (optionMouseover)=\"highlight($event.option)\"\n        (optionMousedown)=\"optionMousedownHandler($event.event)\"\n        (optionClick)=\"optionClickHandler($event.event, $event.option)\"\n    ></ux-typeahead-options-list>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n    <div *ngIf=\"isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading\">\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate || defaultLoadingTemplate\"></ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"(visibleOptions$ | async).length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate || defaultNoOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>",
-                        providers: [TypeaheadService],
+                        providers: [TypeaheadService, PopoverOrientationService],
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
                             'role': 'listbox',
                             '[class.open]': 'open',
-                            '[class.drop-up]': 'dropDirection === "up"',
                             '[style.maxHeight]': 'maxHeight'
                         }
                     }] }
@@ -18059,7 +18178,11 @@
             return [
                 { type: i0.ElementRef },
                 { type: i0.ChangeDetectorRef },
-                { type: TypeaheadService }
+                { type: PopoverOrientationService },
+                { type: TypeaheadService },
+                { type: scrolling.ViewportRuler },
+                { type: i0.Renderer2 },
+                { type: ResizeService }
             ];
         };
         TypeaheadComponent.propDecorators = {
@@ -18089,6 +18212,7 @@
             highlightedChange: [{ type: i0.Output }],
             highlightedElementChange: [{ type: i0.Output }],
             recentOptionsChange: [{ type: i0.Output }],
+            dropUp: [{ type: i0.HostBinding, args: ['class.drop-up',] }],
             mousedownHandler: [{ type: i0.HostListener, args: ['mousedown',] }],
             mouseupHandler: [{ type: i0.HostListener, args: ['mouseup',] }]
         };
@@ -19096,6 +19220,7 @@
                         imports: [
                             common.CommonModule,
                             InfiniteScrollModule,
+                            ResizeModule,
                             ScrollModule
                         ],
                         exports: [TypeaheadComponent],
@@ -19104,7 +19229,7 @@
                             TypeaheadHighlightDirective,
                             TypeaheadOptionsListComponent
                         ],
-                        providers: [TypeaheadKeyService]
+                        providers: [TypeaheadKeyService, PopoverOrientationService]
                     },] }
         ];
         return TypeaheadModule;
@@ -24138,6 +24263,7 @@
             this.closeOnExternalClick = false;
             this.focusOnShow = false;
             this.openChange = new i0.EventEmitter();
+            this.closeOnEscape = true;
             this.animationPanelState = SidePanelAnimationState.Closed;
             this._onDestroy = new rxjs.Subject();
         }
@@ -24269,7 +24395,7 @@
          * @return {?}
          */
             function () {
-                if (this.open) {
+                if (this.open && this.closeOnEscape) {
                     this._focusOrigin.setOrigin('keyboard');
                     this.closePanel();
                 }
@@ -24322,6 +24448,7 @@
             closeOnExternalClick: [{ type: i0.Input }],
             focusOnShow: [{ type: i0.Input }],
             openChange: [{ type: i0.Output }],
+            closeOnEscape: [{ type: i0.Input }],
             componentWidth: [{ type: i0.HostBinding, args: ['style.width',] }],
             _onDocumentEscape: [{ type: i0.HostListener, args: ['document:keyup.escape',] }],
             _onDocumentClick: [{ type: i0.HostListener, args: ['document:click', ['$event.target'],] }]
@@ -24524,8 +24651,10 @@
      * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
      */
     var WizardStepComponent = /** @class */ (function () {
-        function WizardStepComponent(_changeDetector) {
+        function WizardStepComponent(_changeDetector, _elementRef, _renderer) {
             this._changeDetector = _changeDetector;
+            this._elementRef = _elementRef;
+            this._renderer = _renderer;
             /**
              * Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
              */
@@ -24583,21 +24712,34 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @param {?} id
+         * @return {?}
+         */
+        WizardStepComponent.prototype.setId = /**
+         * @param {?} id
+         * @return {?}
+         */
+            function (id) {
+                this._renderer.setAttribute(this._elementRef.nativeElement, 'id', id);
+                this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-labelledby', id + "-label");
+            };
         WizardStepComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-wizard-step',
                         template: "<ng-container *ngIf=\"active\">\n    <ng-content></ng-content>\n</ng-container>",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         host: {
-                            'role': 'tabpanel',
-                            '[attr.aria-labelledby]': 'id + "-label"'
+                            'role': 'tabpanel'
                         }
                     }] }
         ];
         /** @nocollapse */
         WizardStepComponent.ctorParameters = function () {
             return [
-                { type: i0.ChangeDetectorRef }
+                { type: i0.ChangeDetectorRef },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 }
             ];
         };
         WizardStepComponent.propDecorators = {
@@ -24606,8 +24748,7 @@
             valid: [{ type: i0.Input }],
             visitedChange: [{ type: i0.Input }],
             visited: [{ type: i0.Input }],
-            active: [{ type: i0.HostBinding, args: ['attr.aria-expanded',] }],
-            id: [{ type: i0.HostBinding, args: ['id',] }]
+            active: [{ type: i0.HostBinding, args: ['attr.aria-expanded',] }]
         };
         return WizardStepComponent;
     }());
@@ -24823,7 +24964,7 @@
          */
             function () {
                 var _this = this;
-                this.steps.forEach(function (step, idx) { return step.id = _this.id + "-step-" + idx; });
+                this.steps.forEach(function (step, idx) { return step.setId(_this.id + "-step-" + idx); });
             };
         /**
          * Navigate to the next step
@@ -24865,6 +25006,11 @@
             function () {
                 /** @type {?} */
                 var step = this.getCurrentStep();
+                // ensure the step is not null before we try to access its properties. It may be null if an ngFor is being
+                // used and the steps haven't rendered yet
+                if (!step) {
+                    return false;
+                }
                 // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
                 // based on validation.
                 // If not defined on the WizardStepComponent, use the value from WizardComponent.
@@ -25039,7 +25185,7 @@
         WizardComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'ux-wizard',
-                        template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"stp.id\"\n            [id]=\"stp.id + '-label'\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            <span class=\"wizard-step-text\">{{ stp.header }}</span>\n            <ux-icon *ngIf=\"stp.visited && !stp.active\" class=\"wizard-step-icon\" name=\"checkmark\"></ux-icon>\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n\n    <ng-container *ngIf=\"footerTemplate\"\n                  [ngTemplateOutlet]=\"footerTemplate\"\n                  [ngTemplateOutletContext]=\"{ step: step }\">\n    </ng-container>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n\n</div>\n",
+                        template: "<div class=\"wizard-body\">\n\n    <div class=\"wizard-steps\"\n        uxTabbableList\n        [direction]=\"orientation\"\n        role=\"tablist\"\n        [attr.aria-orientation]=\"orientation\">\n\n        <div *ngFor=\"let stp of steps; let index = index\"\n            role=\"tab\"\n            class=\"wizard-step\"\n            [class.active]=\"stp.active\"\n            [class.visited]=\"stp.visited\"\n            [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\"\n            [attr.aria-posinset]=\"index + 1\"\n            [attr.aria-setsize]=\"steps.length\"\n            [attr.aria-selected]=\"stp.active\"\n            [attr.aria-controls]=\"id + '-step-' + index\"\n            [id]=\"id + '-step-' + index + '-label'\"\n            uxFocusIndicator\n            uxTabbableListItem\n            [programmaticFocusIndicator]=\"true\"\n            [disabled]=\"index !== 0 && !stp.visited\"\n            (click)=\"gotoStep(stp)\"\n            (keydown.enter)=\"gotoStep(stp)\">\n            <span class=\"wizard-step-text\">{{ stp.header }}</span>\n            <ux-icon *ngIf=\"stp.visited && !stp.active\" class=\"wizard-step-icon\" name=\"checkmark\"></ux-icon>\n        </div>\n\n    </div>\n\n    <div class=\"wizard-content\">\n        <ng-content></ng-content>\n    </div>\n\n</div>\n\n<div class=\"wizard-footer\">\n\n    <ng-container *ngIf=\"footerTemplate\"\n                  [ngTemplateOutlet]=\"footerTemplate\"\n                  [ngTemplateOutletContext]=\"{ step: step }\">\n    </ng-container>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"previousVisible\"\n            [uxTooltip]=\"previousTooltip\"\n            [disabled]=\"previousDisabled || step === 0\"\n            [attr.aria-label]=\"previousAriaLabel\"\n            (click)=\"previous(); tip.hide()\">\n        {{ previousText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"nextVisible && !isLastStep()\"\n            [uxTooltip]=\"nextTooltip\"\n            [disabled]=\"nextDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"nextAriaLabel\"\n            (click)=\"next(); tip.hide()\">\n        {{ nextText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-primary\"\n            *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\"\n            [uxTooltip]=\"finishTooltip\"\n            [disabled]=\"finishDisabled || isNextDisabled()\"\n            [attr.aria-label]=\"finishAriaLabel\"\n            (click)=\"finish(); tip.hide()\">\n        {{ finishText }}\n    </button>\n\n    <button #tip=\"ux-tooltip\"\n            type=\"button\"\n            class=\"btn button-secondary\"\n            *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\"\n            [uxTooltip]=\"cancelTooltip\"\n            [disabled]=\"cancelDisabled\"\n            [attr.aria-label]=\"cancelAriaLabel\"\n            (click)=\"cancel(); tip.hide()\">\n        {{ cancelText }}\n    </button>\n\n</div>\n",
                         host: {
                             '[class]': 'orientation'
                         }
@@ -25146,8 +25292,8 @@
      */
     var MarqueeWizardStepComponent = /** @class */ (function (_super) {
         __extends(MarqueeWizardStepComponent, _super);
-        function MarqueeWizardStepComponent(changeDetector, _marqueeWizardService) {
-            var _this = _super.call(this, changeDetector) || this;
+        function MarqueeWizardStepComponent(changeDetector, elementRef, renderer, _marqueeWizardService) {
+            var _this = _super.call(this, changeDetector, elementRef, renderer) || this;
             _this._marqueeWizardService = _marqueeWizardService;
             /**
              * Determine the completed state of this step
@@ -25239,6 +25385,8 @@
         MarqueeWizardStepComponent.ctorParameters = function () {
             return [
                 { type: i0.ChangeDetectorRef },
+                { type: i0.ElementRef },
+                { type: i0.Renderer2 },
                 { type: MarqueeWizardService }
             ];
         };
@@ -25337,7 +25485,7 @@
                 // get the current step
                 /** @type {?} */
                 var step = ( /** @type {?} */(this.getCurrentStep()));
-                if (step.valid) {
+                if (step && step.valid) {
                     _super.prototype.next.call(this);
                     // mark this step as completed
                     step.setCompleted(true);
@@ -31567,6 +31715,20 @@
             function () {
                 this._onDestroy$.next();
                 this._onDestroy$.complete();
+            };
+        /**
+         * @param {?} tab
+         * @return {?}
+         */
+        TabsetComponent.prototype.selectTab = /**
+         * @param {?} tab
+         * @return {?}
+         */
+            function (tab) {
+                // pass tab to select method
+                this._tabset.select(tab instanceof TabComponent ? tab : this._tabs.toArray()[tab]);
+                // run change detection
+                this._changeDetector.detectChanges();
             };
         TabsetComponent.decorators = [
             { type: i0.Component, args: [{
@@ -50545,41 +50707,42 @@
     exports.ɵk = YearViewService;
     exports.ɵn = FacetCheckListItemComponent;
     exports.ɵo = FacetTypeaheadListItemComponent;
-    exports.ɵu = FloatingActionButtonsService;
-    exports.ɵz = HierarchyBarCollapsedComponent;
-    exports.ɵw = HierarchyBarNodeIconDirective;
-    exports.ɵy = HierarchyBarNodeComponent;
-    exports.ɵbb = HierarchyBarPopoverItemComponent;
-    exports.ɵba = HierarchyBarPopoverComponent;
-    exports.ɵx = HierarchyBarStandardComponent;
-    exports.ɵv = HierarchyBarService;
-    exports.ɵbc = commonIcons;
-    exports.ɵbg = MarqueeWizardService;
-    exports.ɵbh = MediaPlayerService;
-    exports.ɵs = MENU_OPTIONS_TOKEN;
-    exports.ɵbl = PageHeaderNavigationDropdownItemComponent;
-    exports.ɵbk = PageHeaderNavigationItemComponent;
-    exports.ɵbm = PageHeaderNavigationSecondaryItemDirective;
-    exports.ɵbj = PageHeaderNavigationService;
-    exports.ɵbi = PageHeaderService;
-    exports.ɵbn = SankeyFocusManager;
-    exports.ɵbe = SidePanelAnimationState;
-    exports.ɵbf = sidePanelStateAnimation;
-    exports.ɵbd = SidePanelService;
-    exports.ɵbq = BaseResizableTableDirective;
-    exports.ɵbp = BaseResizableTableService;
-    exports.ɵbo = RESIZABLE_TABLE_SERVICE_TOKEN;
-    exports.ɵbs = ResizableExpandingTableService;
-    exports.ɵbt = ResizableTableService;
-    exports.ɵq = TypeaheadHighlightDirective;
-    exports.ɵr = TypeaheadOptionsListComponent;
+    exports.ɵv = FloatingActionButtonsService;
+    exports.ɵba = HierarchyBarCollapsedComponent;
+    exports.ɵx = HierarchyBarNodeIconDirective;
+    exports.ɵz = HierarchyBarNodeComponent;
+    exports.ɵbc = HierarchyBarPopoverItemComponent;
+    exports.ɵbb = HierarchyBarPopoverComponent;
+    exports.ɵy = HierarchyBarStandardComponent;
+    exports.ɵw = HierarchyBarService;
+    exports.ɵbd = commonIcons;
+    exports.ɵbh = MarqueeWizardService;
+    exports.ɵbi = MediaPlayerService;
+    exports.ɵt = MENU_OPTIONS_TOKEN;
+    exports.ɵbm = PageHeaderNavigationDropdownItemComponent;
+    exports.ɵbl = PageHeaderNavigationItemComponent;
+    exports.ɵbn = PageHeaderNavigationSecondaryItemDirective;
+    exports.ɵbk = PageHeaderNavigationService;
+    exports.ɵbj = PageHeaderService;
+    exports.ɵbo = SankeyFocusManager;
+    exports.ɵbf = SidePanelAnimationState;
+    exports.ɵbg = sidePanelStateAnimation;
+    exports.ɵbe = SidePanelService;
+    exports.ɵbr = BaseResizableTableDirective;
+    exports.ɵbq = BaseResizableTableService;
+    exports.ɵbp = RESIZABLE_TABLE_SERVICE_TOKEN;
+    exports.ɵbt = ResizableExpandingTableService;
+    exports.ɵbu = ResizableTableService;
+    exports.ɵr = TypeaheadHighlightDirective;
+    exports.ɵs = TypeaheadOptionsListComponent;
     exports.ɵp = TypeaheadService;
-    exports.ɵbu = HoverActionService;
-    exports.ɵbv = MenuNavigationService;
-    exports.ɵbr = ResizeService;
-    exports.ɵbw = TreeGridService;
+    exports.ɵbv = HoverActionService;
+    exports.ɵbw = MenuNavigationService;
+    exports.ɵbs = ResizeService;
+    exports.ɵbx = TreeGridService;
     exports.ɵa = KEPPEL_COLOR_SET;
     exports.ɵb = MICRO_FOCUS_COLOR_SET;
+    exports.ɵq = PopoverOrientationService;
     Object.defineProperty(exports, '__esModule', { value: true });
 })));
 //# sourceMappingURL=ux-aspects-ux-aspects.umd.js.map
