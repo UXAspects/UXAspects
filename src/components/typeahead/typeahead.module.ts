@@ -6,11 +6,14 @@ import { TypeaheadHighlightDirective } from './typeahead-highlight.directive';
 import { TypeaheadKeyService } from './typeahead-key.service';
 import { TypeaheadOptionsListComponent } from './typeahead-options-list.component';
 import { TypeaheadComponent } from './typeahead.component';
+import { ResizeModule } from '../../directives/resize/index';
+import { PopoverOrientationService } from '../../services/popover-orientation/popover-orientation.service';
 
 @NgModule({
     imports: [
         CommonModule,
         InfiniteScrollModule,
+        ResizeModule,
         ScrollModule
     ],
     exports: [TypeaheadComponent],
@@ -19,6 +22,6 @@ import { TypeaheadComponent } from './typeahead.component';
         TypeaheadHighlightDirective,
         TypeaheadOptionsListComponent
     ],
-    providers: [TypeaheadKeyService]
+    providers: [TypeaheadKeyService, PopoverOrientationService]
 })
 export class TypeaheadModule {}
