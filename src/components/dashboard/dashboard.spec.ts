@@ -90,4 +90,4 @@ describe('Dashboard', () => {
 
         expect(component.options.emptyRow).toBe(true);
     });
-})
+});
