@@ -190,6 +190,10 @@ const routes: Routes = [
         loadChildren: () => import('./tooltips/tooltips.module').then(m => m.TooltipsTestPageModule)
     },
     {
+        path: 'typeahead',
+        loadChildren: () => import('./typeahead/typeahead.module').then(m => m.TypeaheadTestPageModule)
+    },
+    {
         path: 'virtual-for',
         loadChildren: () => import('./virtual-for/virtual-for.module').then(m => m.VirtualForTestPageModule)
     },

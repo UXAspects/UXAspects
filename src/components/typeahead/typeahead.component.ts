@@ -1,5 +1,5 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InfiniteScrollLoadedEvent, InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
@@ -8,18 +8,20 @@ import { TypeaheadOptionApi } from './typeahead-option-api';
 import { TypeaheadOptionContext } from './typeahead-option-context';
 import { TypeaheadVisibleOption } from './typeahead-visible-option';
 import { TypeaheadService } from './typeahead.service';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { ResizeService } from '../../directives/resize/index';
+import { PopoverOrientationService, PopoverOrientation, PopoverOrientationListener } from '../../services/popover-orientation/popover-orientation.service';
 
 let uniqueId = 0;
 
 @Component({
     selector: 'ux-typeahead',
     templateUrl: 'typeahead.component.html',
-    providers: [TypeaheadService],
+    providers: [TypeaheadService, PopoverOrientationService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         'role': 'listbox',
         '[class.open]': 'open',
-        '[class.drop-up]': 'dropDirection === "up"',
         '[style.maxHeight]': 'maxHeight'
     }
 })
@@ -53,7 +55,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     @Input() disabledOptions: T[];
 
     /** Specify the drop direction */
-    @Input() dropDirection: 'up' | 'down' = 'down';
+    @Input() dropDirection: 'auto' | 'up' | 'down' = 'down';
 
     /** Specify the max height of the dropdown */
     @Input() maxHeight: string = '250px';
@@ -135,6 +137,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
 
     private _onDestroy = new Subject<void>();
 
+    private _popoverOrientationListener: PopoverOrientationListener;
+
+    @HostBinding('class.drop-up')
+    dropUp: boolean;
+
     optionApi: TypeaheadOptionApi<T> = {
         getKey: this.getKey.bind(this),
         getDisplay: this.getDisplay.bind(this),
@@ -144,7 +151,11 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     constructor(
         public typeaheadElement: ElementRef,
         private _changeDetector: ChangeDetectorRef,
-        private _service: TypeaheadService
+        popoverOrientation: PopoverOrientationService,
+        private _service: TypeaheadService,
+        private _viewportRuler: ViewportRuler,
+        private _renderer: Renderer2,
+        private _resizeService: ResizeService,
     ) {
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
@@ -171,6 +182,15 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
                 if (isOpen) {
                     this.hasBeenOpened = true;
                     this.initOptions();
+                }
+            });
+
+        this._popoverOrientationListener = popoverOrientation.createPopoverOrientationListener(this.typeaheadElement.nativeElement, this.typeaheadElement.nativeElement.parentElement);
+
+        this._popoverOrientationListener.orientation$.pipe(takeUntil(this._onDestroy))
+            .subscribe(direction => {
+                if (this.dropDirection === 'auto') {
+                    this.dropUp = direction === PopoverOrientation.Up;
                 }
             });
 
@@ -231,6 +251,14 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
             }
         }
 
+        if (changes.dropDirection) {
+            if (changes.dropDirection.currentValue === 'auto') {
+                this.dropUp = this._popoverOrientationListener.orientation$.getValue() === PopoverOrientation.Up;
+            } else {
+                this.dropUp = changes.dropDirection.currentValue === 'up';
+            }
+        }
+
         // Re-filter visibleOptions
         this.updateOptions();
     }
@@ -238,6 +266,7 @@ export class TypeaheadComponent<T = any> implements OnChanges, OnDestroy {
     ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
+        this._popoverOrientationListener.destroy();
     }
 
     @HostListener('mousedown')

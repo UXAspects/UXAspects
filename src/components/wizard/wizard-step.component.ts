@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, Renderer2, ElementRef } from '@angular/core';
 
 @Component({
     selector: 'ux-wizard-step',
     templateUrl: './wizard-step.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        'role': 'tabpanel',
-        '[attr.aria-labelledby]': 'id + "-label"'
+        'role': 'tabpanel'
     }
 })
 export class WizardStepComponent {
@@ -63,7 +62,13 @@ export class WizardStepComponent {
         return this._active;
     }
 
-    @HostBinding('id') id: string;
+    constructor(
+        private readonly _changeDetector: ChangeDetectorRef,
+        private readonly _elementRef: ElementRef,
+        private readonly _renderer: Renderer2) { }
 
-    constructor(private readonly _changeDetector: ChangeDetectorRef) { }
+    setId(id: string): void {
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'id', id);
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-labelledby', `${id}-label`);
+    }
 }

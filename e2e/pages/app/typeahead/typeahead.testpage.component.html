@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-4 col-sm-12 has-feedback">
+        <form class="input-typeahead-form">
+            <input [(ngModel)]="input"
+                   [ngModelOptions]="{standalone: true}"
+                   placeholder="Enter Text"
+                   class="form-control"
+                   type="text"
+                   id="typeahead-input"
+                   (click)="dropdownOpen = true"
+                   (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+                   (keydown.escape)="dropdownOpen = false"
+                   (blur)="dropdownOpen = false">
+
+            <ux-typeahead #typeahead
+                          class="typeahead-example"
+                          [(open)]="dropdownOpen"
+                          [filter]="input"
+                          [options]="loadOptionsFn"
+                          [openOnFilterChange]="true"
+                          [pageSize]="40"
+                          [maxHeight]="maxHeight"
+                          [selectOnEnter]="selectOnEnter"
+                          [selectFirst]="selectFirst"
+                          [dropDirection]="dropDirection"
+                          (optionSelected)="input = $event.option"
+                          [(recentOptions)]="recentOptions"
+                          [recentOptionsMaxCount]="recentOptionsMaxCount">
+            </ux-typeahead>
+        </form>
+    </div>
+    <div id="radio1" class="col-md-4 col-sm-12">
+        <label for="dropDirection">dropDirection</label>
+        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+        <ux-radio-button [(value)]="dropDirection" option="auto">auto</ux-radio-button>
+        <button id="max-height" class="btn button-primary" (click)="maxHeight = '500px'">Increase maxHeight</button>
+        <button id="max-height-decrease" class="btn button-primary" (click)="maxHeight = '250px'">Decrease
+            maxHeight</button>
+    </div>
+</div>
