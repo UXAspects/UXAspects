@@ -170,7 +170,7 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
 
     /** Set ids for each of the wizard steps */
     setWizardStepIds(): void {
-        this.steps.forEach((step, idx) => step.id = `${this.id}-step-${idx}`);
+        this.steps.forEach((step, idx) => step.setId(`${this.id}-step-${idx}`));
     }
 
     /**
@@ -200,8 +200,13 @@ export class WizardComponent implements AfterViewInit, OnDestroy {
       * Whether the Next or Finish button should be disabled.
       */
     isNextDisabled(): boolean {
-
         const step = this.getCurrentStep();
+
+        // ensure the step is not null before we try to access its properties. It may be null if an ngFor is being
+        // used and the steps haven't rendered yet
+        if (!step) {
+            return false;
+        }
 
         // Use the `disableNextWhenInvalid` setting to determine whether to disable the Next/Finish button
         // based on validation.
