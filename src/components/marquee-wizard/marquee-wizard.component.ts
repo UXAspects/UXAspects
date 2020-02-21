@@ -79,7 +79,7 @@ export class MarqueeWizardComponent extends WizardComponent implements OnDestroy
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
-        if (step.valid) {
+        if (step && step.valid) {
             super.next();
 
             // mark this step as completed
