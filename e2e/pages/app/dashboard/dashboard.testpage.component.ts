@@ -29,5 +29,5 @@ export class DashboardTestPageComponent {
     changeOptions(): void {
         this.options = this.adjustedOptions;
     }
-
+    
 }
