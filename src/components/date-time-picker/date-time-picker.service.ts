@@ -93,9 +93,9 @@ export class DateTimePickerService implements OnDestroy {
     setDate(day: number, month: number, year: number, hours?: number, minutes?: number, seconds?: number): void {
         const date = new Date(this.selected$.value);
 
-        date.setDate(day);
-        date.setMonth(month);
         date.setFullYear(year);
+        date.setMonth(month);
+        date.setDate(day);
 
         if (hours !== undefined) {
             date.setHours(hours);
