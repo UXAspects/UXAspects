@@ -221,8 +221,8 @@ export class SelectPage {
         return this.dropdown.$$('.ux-typeahead-recent-options li').count();
     }
 
-    checkRecentOptionsList() {
-        return this.dropdown.$$('.ux-typeahead-recent-options');
+    checkRecentOptionsList(): ElementFinder {
+        return this.dropdown.$('.ux-typeahead-recent-options');
     }
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {
