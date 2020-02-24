@@ -24,7 +24,7 @@ export class SelectPage {
     // confirm & check
     confirmClassExists(item: ElementFinder, soughtClass: string) {
         return item.getAttribute('class').then(function (classes: string) {
-            let allClasses = classes.split(' ');
+            const allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
             } else {
@@ -219,10 +219,6 @@ export class SelectPage {
 
     getNumberOfRecentCountries(_allowMultiple: boolean) {
         return this.dropdown.$$('.ux-typeahead-recent-options li').count();
-    }
-
-    checkRecentOptionsList(): ElementFinder {
-        return this.dropdown.$('.ux-typeahead-recent-options');
     }
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {
