@@ -519,6 +519,7 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(false);
         await page.clickOnCountry(false, 249);
         expect(await page.getSelectedLocationText()).toBe('"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"');
+        expect(await clearButton.isPresent()).toBeTruthy();
         expect(await imageCompare('select-clear-button-overflow')).toEqual(0);
 
         // Clear the control using the clear button
@@ -543,6 +544,7 @@ describe('Select Tests', () => {
         await page.toggleCustomIcon();
         await page.clickOnDropdown(false);
         await page.clickOnCountry(false, 1);
+        expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-single')).toEqual(0);
         await page.toggleClearButton();
         expect(await imageCompare('select-custom-icon-single-clear-btn')).toEqual(0);
@@ -551,6 +553,7 @@ describe('Select Tests', () => {
         await page.clickOnDropdown(true);
         await page.clickOnCountry(true, 1);
         await page.clickOnCountry(true, 2);
+        expect(await customIcon.isPresent()).toBeTruthy();
         expect(await imageCompare('select-custom-icon-multiple')).toEqual(0);
         await page.toggleClearButton();
         expect(await imageCompare('select-custom-icon-multiple-clear-btn')).toEqual(0);
