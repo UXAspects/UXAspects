@@ -1,3 +1,7 @@
 .input-typeahead-form {
     position: relative;
 }
+
+.drop-direction-up {
+    margin-top: 250px;
+}

@@ -55,14 +55,15 @@ export class TimeViewComponent implements OnInit, OnDestroy {
 
         // when the date changes we should update the value
         datepicker.date$.pipe(filter(date => date && this.value instanceof Date), takeUntil(this._onDestroy)).subscribe(date => {
-            this.value.setFullYear(date.getFullYear());
-            this.value.setMonth(date.getMonth());
-            this.value.setDate(date.getDate());
+
+            this.value = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+
             _changeDetector.detectChanges();
         });
 
         if (!this._isRangeMode) {
-            datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy)).subscribe(date => this.value = new Date(date));
+            datepicker.selected$.pipe(filter(date => !!date), takeUntil(this._onDestroy))
+                .subscribe(date => this.value = new Date(date));
         }
 
         if (this._isRangeMode && this._isRangeStart) {

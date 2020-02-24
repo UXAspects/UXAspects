@@ -64,7 +64,7 @@ export class DateTimePickerService implements OnDestroy {
             }
 
             // emit the new date to the component host but only if they are different
-            if (dateComparator(date, this.date$.value)) {
+            if (!dateComparator(date, this.selected$.value)) {
                 this.date$.next(date);
             }
         });

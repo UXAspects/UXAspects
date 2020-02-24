@@ -15,8 +15,8 @@
             [attr.aria-posinset]="index + 1"
             [attr.aria-setsize]="steps.length"
             [attr.aria-selected]="stp.active"
-            [attr.aria-controls]="stp.id"
-            [id]="stp.id + '-label'"
+            [attr.aria-controls]="id + '-step-' + index"
+            [id]="id + '-step-' + index + '-label'"
             uxFocusIndicator
             uxTabbableListItem
             [programmaticFocusIndicator]="true"

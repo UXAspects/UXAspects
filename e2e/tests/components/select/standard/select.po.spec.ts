@@ -1,4 +1,5 @@
 import { browser, by, element, ElementFinder, protractor } from 'protractor';
+import { imageCompare } from '../../common/image-compare';
 
 export const numberOfCountries: number = 251;
 export const scrollingTimeout: number = 5000;
@@ -13,6 +14,7 @@ export class SelectPage {
     checkboxDisabled = element(by.id('checkbox2'));
     checkboxAllowNull = element(by.id('checkbox3'));
     checkboxPaging = element(by.id('checkbox4'));
+    checkboxRecentOptions = element(by.id('checkbox5'));
     placeholder = element(by.id('placeholder'));
     pageSize = element(by.id('pageSize'));
     customIcon = element(by.id('custom-icon'));
@@ -80,29 +82,22 @@ export class SelectPage {
     // get item
     getDropdown(allowMultiple: boolean) {
         if (allowMultiple) {
-            return this.dropdown.$('ux-tag-input').$$(this.dropdown.$('ux-tag-input').locator().value + ' > ol').get(0).
-                $('li.ux-tag-input').$('input.ux-tag-input');
+            return this.dropdown.$('input.ux-tag-input');
         } else {
             return this.dropdown.$('input.form-control');
         }
     }
 
-    getCountry(allowMultiple: boolean, index: number) {
-        if (allowMultiple) {
-            return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
-                $('ol').$$('li').get(index);
-        } else {
-            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
-        }
+    getCountry(_allowMultiple: boolean, index: number) {
+        return this.dropdown.$$('.ux-typeahead-all-options li').get(index);
     }
 
-    getLastCountry(allowMultiple: boolean) {
-        if (allowMultiple) {
-            return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
-                $('ol').$$('li').last();
-        } else {
-            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').last();
-        }
+    getLastCountry(_allowMultiple: boolean) {
+        return this.dropdown.$$('.ux-typeahead-all-options li').last();
+    }
+
+    getRecentCountry(_allowMultiple: boolean, index: number) {
+        return this.dropdown.$$('.ux-typeahead-recent-options li').get(index);
     }
 
     getTag(index: number) {
@@ -136,6 +131,10 @@ export class SelectPage {
         return this.getCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
     }
 
+    getRecentCountryText(allowMultiple: boolean, index: number) {
+        return this.getRecentCountry(allowMultiple, index).$('span.ux-typeahead-option').getText();
+    }
+
     getFilterText(index: number) {
         return this.getCountry(false, index).$('span.ux-typeahead-option').$('span.ux-filter-match').getText();
     }
@@ -152,6 +151,10 @@ export class SelectPage {
 
     clickOnCountry(allowMultiple: boolean, index: number) {
         return this.getCountry(allowMultiple, index).click();
+    }
+
+    clickOnRecentCountry(allowMultiple: boolean, index: number) {
+        return this.getRecentCountry(allowMultiple, index).click();
     }
 
     async clickOnStrings() {
@@ -213,15 +216,12 @@ export class SelectPage {
         }
     }
 
-    getNumberOfCountries(allowMultiple: boolean) {
-        if (allowMultiple) {
-            return this.dropdown.$('ux-tag-input.focus').$('ux-typeahead.open').$('div.ux-typeahead-options').
-                $('ol').$$('li').count();
-        } else {
-            return this.dropdown.$('ux-typeahead').$('div.ux-typeahead-options').
-                $$(this.dropdown.$('ux-typeahead').
-                    $('div.ux-typeahead-options').locator().value + ' > ol').get(0).$$('li').count();
-        }
+    getNumberOfCountries(_allowMultiple: boolean) {
+        return this.dropdown.$$('.ux-typeahead-all-options li').count();
+    }
+
+    getNumberOfRecentCountries(_allowMultiple: boolean) {
+        return this.dropdown.$$('.ux-typeahead-recent-options li').count();
     }
 
     calculateNewNumberOfCountries(allowMultiple: boolean, pageSize: number) {
@@ -275,4 +275,18 @@ export class SelectPage {
         await element(by.id('toggle-custom-icon')).click();
     }
 
+
+    async fillRecentOptionsButton() {
+        await element(by.id('fill-recent-options-button')).click();
+    }
+
+    async checkRecentOptions(multi: boolean, expectedOptions: string[]) {
+        if (!multi) {
+            await this.clickOnDropdown(multi);
+        }
+        expect(await this.getNumberOfRecentCountries(multi)).toBe(expectedOptions.length);
+        for (let index = 0 ; index < expectedOptions.length ; index++) {
+            expect(await this.getRecentCountryText(multi, index)).toBe(expectedOptions[index]);
+        }
+    }
 }

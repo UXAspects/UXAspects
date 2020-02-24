@@ -1,5 +1,5 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Optional, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnDestroy, Optional, Output, OnChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let uniqueId = 0;
@@ -18,7 +18,7 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
         '[class.ux-number-picker-invalid]': '!_valid && !disabled && !_formGroup'
     }
 })
-export class NumberPickerComponent implements ControlValueAccessor, OnChanges, OnDestroy {
+export class NumberPickerComponent implements ControlValueAccessor, OnDestroy, OnChanges {
 
     private _min: number = -Infinity;
     private _max: number = Infinity;
@@ -114,14 +114,12 @@ export class NumberPickerComponent implements ControlValueAccessor, OnChanges, O
 
     ) { }
 
-    ngOnDestroy(): void {
-        this._isDestroyed = true;
+    ngOnChanges(): void {
+        this._valid = this.isValid();
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.valid && changes.valid.isFirstChange()) {
-            console.warn(`ux-number-picker [valid] property has been deprecated. Instead use reactive form validation.`);
-        }
+    ngOnDestroy(): void {
+        this._isDestroyed = true;
     }
 
     increment(event?: MouseEvent | KeyboardEvent): void {

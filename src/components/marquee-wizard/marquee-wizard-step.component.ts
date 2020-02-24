@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, Output, Renderer2, TemplateRef } from '@angular/core';
 import { WizardStepComponent } from '../wizard/index';
 import { MarqueeWizardStepIconDirective } from './marquee-wizard-step-icon.directive';
 import { MarqueeWizardService } from './marquee-wizard.service';
@@ -36,9 +36,11 @@ export class MarqueeWizardStepComponent extends WizardStepComponent {
 
     constructor(
         changeDetector: ChangeDetectorRef,
+        elementRef: ElementRef,
+        renderer: Renderer2,
         private readonly _marqueeWizardService: MarqueeWizardService
     ) {
-        super(changeDetector);
+        super(changeDetector, elementRef, renderer);
     }
 
     /**
