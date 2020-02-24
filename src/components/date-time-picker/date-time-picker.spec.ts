@@ -74,8 +74,28 @@ describe('Date Time Picker', () => {
         await fixture.whenStable();
     });
 
+    it('should display the correct date when the last day in the month is selected', async () => {
+        component.date = new Date(2020, 1, 18);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.date.getDate()).toBe(18);
+        expect(getSelected().innerHTML).toBe(' 18 ');
+
+        component.date = new Date(2020, 2, 31);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.date.getDate()).toBe(31);
+        expect(getSelected().innerHTML).toBe(' 31 ');
+    });
+
     function getDate(): HTMLElement | null {
         return nativeElement.querySelector('ux-date-time-picker .header-title');
+    }
+
+    function getSelected(): HTMLElement | null {
+        return nativeElement.querySelector('ux-date-time-picker-day-view .active');
     }
 
 });
