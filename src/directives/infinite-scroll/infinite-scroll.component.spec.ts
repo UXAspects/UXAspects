@@ -55,11 +55,6 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
                                 </li>
                             </ol>
 
-                            <button *uxInfiniteScrollLoadButton
-                                type="button"
-                                aria-description="Load more items into the list"
-                                class="btn btn-link button-primary employee-load-more">Load more</button>
-
                             <div *uxInfiniteScrollLoading class="employee-loading">
                                 <div class="spinner spinner-accent spinner-bounce-middle"></div>
                                 <div>Loading...</div>
@@ -68,7 +63,8 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
                         </div>
 
                     </div>
-                </div>`
+                </div>
+    `
 })
 export class InfiniteScrollTestComponent {
 
@@ -115,3 +111,33 @@ export class InfiniteScrollTestComponent {
         }
     }
 }
+
+describe('Directive - Infinite Scroll', () => {
+    let component: InfiniteScrollTestComponent;
+    let fixture: ComponentFixture<InfiniteScrollTestComponent>;
+    let nativeElement: HTMLElement;
+    let filterInput: HTMLInputElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [InfiniteScrollModule],
+            declarations: [InfiniteScrollTestComponent],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(InfiniteScrollTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        filterInput = nativeElement.querySelector<HTMLInputElement>('input');
+        fixture.detectChanges();
+
+    });
+
+    it ('should initialise correctly', () => {
+
+        expect(component).toBeTruthy();
+    });
+
+})
