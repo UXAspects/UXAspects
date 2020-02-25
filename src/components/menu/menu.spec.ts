@@ -322,4 +322,18 @@ describe('MenuComponent', () => {
         expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
 
     });
+
+    it('should hide the menu when the trigger element is destroyed.' , async () => {
+        component.trigger.openMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(document.querySelectorAll('.ux-menu').length).toBe(1);
+        component.trigger.closeMenu();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(document.querySelectorAll('.ux-menu').length).toBe(0);
+
+      });
 });
