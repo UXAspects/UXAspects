@@ -63,19 +63,43 @@ describe('Date Time Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(getDate().innerHTML).toBe(' January 2020 ');
+        expect(getHeader().innerHTML).toBe(' January 2020 ');
         expect(component.onDateChange).toHaveBeenCalled();
     });
 
-    it('should not through an error when dates set to undefined', async () => {
+    it('should not cause an error when dates set to undefined', async () => {
+        const now = new Date();
         component.date = undefined;
 
         fixture.detectChanges();
         await fixture.whenStable();
+
+        expect(getHeader().innerHTML.trim()).toBe(now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }));
+        expect(getSelected().innerHTML.trim()).toBe(now.getDate().toString());
     });
 
-    function getDate(): HTMLElement | null {
+    it('should display the correct date when the last day in the month is selected', async () => {
+        component.date = new Date(2020, 1, 18);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.date.getDate()).toBe(18);
+        expect(getSelected().innerHTML).toBe(' 18 ');
+
+        component.date = new Date(2020, 2, 31);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.date.getDate()).toBe(31);
+        expect(getSelected().innerHTML).toBe(' 31 ');
+    });
+
+    function getHeader(): HTMLElement | null {
         return nativeElement.querySelector('ux-date-time-picker .header-title');
+    }
+
+    function getSelected(): HTMLElement | null {
+        return nativeElement.querySelector('ux-date-time-picker-day-view .active');
     }
 
 });

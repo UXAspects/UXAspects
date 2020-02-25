@@ -87,20 +87,24 @@ describe('Date Range Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(getDate().innerHTML).toBe(' 23 January 2020 ');
+        expect(getDate(1).innerHTML).toBe(' 23 January 2020 ');
         expect(component.onEndChange).toHaveBeenCalled();
     });
 
-    it('should not through an error when dates set to undefined', async () => {
+    it('should not cause an error when dates set to undefined', async () => {
         component.start = undefined;
         component.end = undefined;
 
         fixture.detectChanges();
         await fixture.whenStable();
+
+        expect(getDate(0)).toBeNull();
+        expect(getDate(1)).toBeNull();
     });
 
-    function getDate(): HTMLElement | null {
-        return nativeElement.querySelector('ux-date-range-picker .header-section .date-header');
+    function getDate(index: number = 0): HTMLElement | null {
+        const headerSections = nativeElement.querySelectorAll('ux-date-range-picker .header-section');
+        return headerSections[index].querySelector('.date-header');
     }
 
 });
