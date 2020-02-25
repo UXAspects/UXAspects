@@ -10,7 +10,55 @@ import { DashboardModule } from './dashboard.module';
                     [options]="options">
 
                     <ux-dashboard-widget
-                        id="run-widget-A"
+                        id="host-widget"
+                        name="Hosts"
+                        [colSpan]="3">
+
+                        <h2 class="dashboard-widget-title">Runs</h2>
+
+                            <div class="dashboard-widget-content-list">
+
+                                <div class="dashboard-widget-content stacked">
+
+                                    <div class="dashboard-run-info">
+                                        <h3 class="dashboard-run-info-title">NV Test</h3>
+                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
+                                    </div>
+
+                                    <div class="dashboard-run-info">
+                                        <h3 class="dashboard-run-info-title">PC_IRENA</h3>
+                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
+                                    </div>
+
+                                    <div class="dashboard-run-info muted">
+                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
+                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
+                                    </div>
+
+                                </div>
+
+                                <div class="dashboard-widget-content stacked">
+                                    <div class="dashboard-run-info">
+                                        <h3 class="dashboard-run-info-title">NV Test_22</h3>
+                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
+                                    </div>
+
+                                    <div class="dashboard-run-info">
+                                        <h3 class="dashboard-run-info-title">PC_hiLA</h3>
+                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
+                                    </div>
+
+                                    <div class="dashboard-run-info muted">
+                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
+                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </ux-dashboard-widget>
+
+                    <ux-dashboard-widget
+                        id="widget-B"
                         name="Runs"
                         [colSpan]="2">
 
@@ -59,9 +107,9 @@ import { DashboardModule } from './dashboard.module';
                         </div>
                     </ux-dashboard-widget>
                     <ux-dashboard-widget
-                        id="run-widget-B"
+                        id="widget-C"
                         name="Runs"
-                        [colSpan]="2">
+                        [colSpan]="1">
 
                         <div class="dashboard-widget-container">
 
@@ -107,6 +155,7 @@ import { DashboardModule } from './dashboard.module';
                             </div>
                         </div>
                     </ux-dashboard-widget>
+
                 </ux-dashboard>
     `
 })
@@ -114,24 +163,20 @@ export class DashboardComponent {
 
     options: DashboardOptions;
     initialOptions: DashboardOptions  = {
-        columns: 6,
+        columns: 3,
         padding: 10,
         rowHeight: 200,
         emptyRow: false,
         minWidth: 187
     };
-    adjustedOptions: DashboardOptions  = {
-        columns: 4,
-        padding: 10,
-        rowHeight: 400,
-        emptyRow: false,
-        minWidth: 187
-    };
 }
 
-fdescribe('Dashboard', () => {
+describe('Dashboard', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
+    let nativeElement: HTMLLIElement;
+    let widget: HTMLLIElement;
+    let widgetC: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -144,6 +189,9 @@ fdescribe('Dashboard', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(DashboardComponent);
         component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        widget = nativeElement.querySelector('ux-dashboard-widget');
+        widgetC = nativeElement.querySelector('#widget-C');
         fixture.detectChanges();
     });
 
@@ -151,57 +199,79 @@ fdescribe('Dashboard', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should change columns option if columns option adjusted', async() => {
+    it('should reposition widgets if columns option adjusted', async() => {
+        let adjustedOptions: DashboardOptions  = {
+            columns: 5,
+            padding: 5,
+            rowHeight: 400,
+            emptyRow: false,
+            minWidth: 187
+        };
         component.options = component.initialOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.options.columns).toBe(6);
-        component.options = component.adjustedOptions
+        expect(widgetC.style.top).toBe('200px');
 
+        component.options = adjustedOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.options.columns).toBe(4);
+        expect(widgetC.style.top).toBe('400px');
     });
 
-    // it('should change padding option if padding option adjusted', async() => {
-    //     expect(component.options.padding).toBe(10);
+    it('should increase widget padding if padding option increased', async() => {
+        let adjustedOptions: DashboardOptions  = {
+            columns: 6,
+            padding: 10,
+            rowHeight: 200,
+            emptyRow: false,
+            minWidth: 187
+        };
+        expect(widget.style.padding).toBe('5px');
 
-    //     component.options.padding = 20;
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
+        component.options = adjustedOptions;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-    //     expect(component.options.padding).toBe(20);
-    // });
+        expect(widget.style.padding).toBe('10px');
+    });
 
-    // it('should change rowHeight option if rowHeight option adjusted', async() => {
-    //     expect(component.options.rowHeight).toBe(300);
+    it('should increase widget rowHeight if rowHeight option increased', async() => {
+        let adjustedOptions: DashboardOptions  = {
+            columns: 6,
+            padding: 10,
+            rowHeight: 400,
+            emptyRow: false,
+            minWidth: 187
+        };
 
-    //     component.options.rowHeight = 600;
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
+        component.options = component.initialOptions;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-    //     expect(component.options.rowHeight).toBe(600);
-    // });
+        expect(widget.style.height).toBe('200px');
 
-    // it('should change minWidth option if minWidth option adjusted', async() => {
-    //     expect(component.options.minWidth).toBe(187);
+        component.options = adjustedOptions;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-    //     component.options.minWidth = 100;
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
+        expect(widget.style.height).toBe('400px');
+    });
 
-    //     expect(component.options.minWidth).toBe(100);
-    // });
+    it('should set widget rowHeight to equal options minWidth if rowHeight less than minWidth', async() => {
+        let adjustedOptions: DashboardOptions  = {
+            columns: 6,
+            padding: 10,
+            rowHeight: 200,
+            emptyRow: false,
+            minWidth: 400
+        };
 
-    // it('should change emptyRow option if emptyRow option adjusted', async() => {
-    //     expect(component.options.emptyRow).toBe(false);
+        component.options = adjustedOptions;
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-    //     component.options.emptyRow = true;
-    //     fixture.detectChanges();
-    //     await fixture.whenStable();
-
-    //     expect(component.options.emptyRow).toBe(true);
-    // });
+        expect(widget.style.height).toBe('400px');
+    });
 });
