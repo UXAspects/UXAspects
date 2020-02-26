@@ -29,6 +29,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
 
     @Input() enabled: boolean = true;
     @Input() filter: any;
+    @Input() loadOnInit: boolean = true;
     @Input() loadOnScroll: boolean = true;
     @Input() pageSize: number = 20;
 
@@ -81,6 +82,11 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         }
 
         this._loadButtonEnabled.next(!this.loadOnScroll);
+
+        // Initial update.
+        if (this.loadOnInit) {
+            this.loadNextPage();
+        }
     }
 
     ngAfterContentInit(): void {
