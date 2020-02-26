@@ -41,7 +41,7 @@ export class DashboardComponent {
 
 }
 
-fdescribe('Dashboard', () => {
+describe('Dashboard', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
     let nativeElement;
