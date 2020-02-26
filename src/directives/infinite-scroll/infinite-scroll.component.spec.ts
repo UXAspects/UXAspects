@@ -96,13 +96,12 @@ export class InfiniteScrollTestComponent {
             });
         }
     }
+
 }
 
 fdescribe('Directive - Infinite Scroll', () => {
     let component: InfiniteScrollTestComponent;
     let fixture: ComponentFixture<InfiniteScrollTestComponent>;
-    let nativeElement: HTMLElement;
-    let filterInput: HTMLInputElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -115,8 +114,6 @@ fdescribe('Directive - Infinite Scroll', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(InfiniteScrollTestComponent);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        filterInput = nativeElement.querySelector<HTMLInputElement>('input');
         fixture.detectChanges();
 
     });
@@ -126,4 +123,15 @@ fdescribe('Directive - Infinite Scroll', () => {
         expect(component).toBeTruthy();
     });
 
-})
+    it ('should initially load with a filterText value of ""', async() => {
+        const input = component.filterText.value
+        spyOn(component, 'load');
+
+        expect(component.filterText.value).toEqual('');
+        component.load(1, 20, input);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.load).toHaveBeenCalled();
+    });
+});
