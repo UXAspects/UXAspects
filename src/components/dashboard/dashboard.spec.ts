@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardOptions } from './dashboard.component';
 import { DashboardModule } from './dashboard.module';
@@ -10,50 +10,9 @@ import { DashboardModule } from './dashboard.module';
                     [options]="options">
 
                     <ux-dashboard-widget
-                        id="host-widget"
+                        id="widget-A"
                         name="Hosts"
                         [colSpan]="3">
-
-                        <h2 class="dashboard-widget-title">Runs</h2>
-
-                            <div class="dashboard-widget-content-list">
-
-                                <div class="dashboard-widget-content stacked">
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">NV Test</h3>
-                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">PC_IRENA</h3>
-                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info muted">
-                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
-                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
-                                    </div>
-
-                                </div>
-
-                                <div class="dashboard-widget-content stacked">
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">NV Test_22</h3>
-                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">PC_hiLA</h3>
-                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info muted">
-                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
-                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
-                                    </div>
-                                </div>
-                            </div>
 
                     </ux-dashboard-widget>
 
@@ -62,98 +21,14 @@ import { DashboardModule } from './dashboard.module';
                         name="Runs"
                         [colSpan]="2">
 
-                        <div class="dashboard-widget-container">
 
-                            <h2 class="dashboard-widget-title">Runs</h2>
-
-                            <div class="dashboard-widget-content-list">
-
-                                <div class="dashboard-widget-content stacked">
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">NV Test</h3>
-                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">PC_IRENA</h3>
-                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info muted">
-                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
-                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
-                                    </div>
-
-                                </div>
-
-                                <div class="dashboard-widget-content stacked">
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">NV Test_22</h3>
-                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">PC_hiLA</h3>
-                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info muted">
-                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
-                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </ux-dashboard-widget>
+
                     <ux-dashboard-widget
                         id="widget-C"
                         name="Runs"
                         [colSpan]="2">
 
-                        <div class="dashboard-widget-container">
-
-                            <h2 class="dashboard-widget-title">Runs</h2>
-
-                            <div class="dashboard-widget-content-list">
-
-                                <div class="dashboard-widget-content stacked">
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">NV Test</h3>
-                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">PC_IRENA</h3>
-                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info muted">
-                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
-                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
-                                    </div>
-
-                                </div>
-
-                                <div class="dashboard-widget-content stacked">
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">NV Test_22</h3>
-                                        <h4 class="dashboard-run-info-subtitle">ID Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info">
-                                        <h3 class="dashboard-run-info-title">PC_hiLA</h3>
-                                        <h4 class="dashboard-run-info-subtitle">Test Name</h4>
-                                    </div>
-
-                                    <div class="dashboard-run-info muted">
-                                        <h3 class="dashboard-run-info-title">16/01/2017</h3>
-                                        <h4 class="dashboard-run-info-subtitle">16:32 14min</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </ux-dashboard-widget>
 
                 </ux-dashboard>
@@ -161,27 +36,25 @@ import { DashboardModule } from './dashboard.module';
 })
 export class DashboardComponent {
 
+    // defaultOptions: DashboardOptions = { columns: 5, padding: 5, minWidth: 100, minHeight: 100, emptyRow: true };
     options: DashboardOptions;
-    initialOptions: DashboardOptions  = {
-        columns: 3,
-        padding: 10,
-        rowHeight: 200,
-        emptyRow: false,
-        minWidth: 187
-    };
+
 }
 
-describe('Dashboard', () => {
+fdescribe('Dashboard', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
-    let nativeElement: HTMLLIElement;
-    let widget: HTMLLIElement;
-    let widgetC: HTMLElement;
+    let nativeElement;
+    let widgetA;
+    let widgetC;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [DashboardModule],
             declarations: [DashboardComponent]
+        })
+        .overrideComponent(DashboardComponent, {
+            set: { changeDetection: ChangeDetectionStrategy.Default }
         })
             .compileComponents();
     }));
@@ -190,7 +63,7 @@ describe('Dashboard', () => {
         fixture = TestBed.createComponent(DashboardComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
-        widget = nativeElement.querySelector('ux-dashboard-widget');
+        widgetA = nativeElement.querySelector('#widget-A');
         widgetC = nativeElement.querySelector('#widget-C');
         fixture.detectChanges();
     });
@@ -199,79 +72,64 @@ describe('Dashboard', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should reposition widgets if columns option adjusted', async() => {
-        let adjustedOptions: DashboardOptions  = {
-            columns: 3,
-            padding: 5,
-            rowHeight: 400,
-            emptyRow: false,
-            minWidth: 187
-        };
-        component.options = component.initialOptions;
+    it('should stack widgets if columns reduced allowing only one widget per row', async() => {
+        // default columns option needs to be applied for test to be setup correctly
+        const defaultOptions = { ...component.options, columns: 5 };
+
+        component.options = defaultOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.top).toBe('400px');
+        expect(widgetC.style.top).toBe('151.6px');
+
+        const adjustedOptions = { ...component.options, columns: 3 };
 
         component.options = adjustedOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.top).toBe('800px');
+        expect(widgetC.style.top).toBe('252.667px');
     });
 
     it('should increase widget padding if padding option increased', async() => {
-        let adjustedOptions: DashboardOptions  = {
-            columns: 6,
-            padding: 10,
-            rowHeight: 200,
-            emptyRow: false,
-            minWidth: 187
-        };
-        expect(widget.style.padding).toBe('5px');
+        const adjustedOptions = { ...component.options, padding: 20 };
+        expect(widgetA.style.padding).toBe('5px');
 
         component.options = adjustedOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widget.style.padding).toBe('10px');
+        expect(widgetA.style.padding).toBe('20px');
     });
 
     it('should increase widget rowHeight if rowHeight option increased', async() => {
-        let adjustedOptions: DashboardOptions  = {
-            columns: 6,
-            padding: 10,
-            rowHeight: 400,
-            emptyRow: false,
-            minWidth: 187
-        };
-
-        component.options = component.initialOptions;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(widget.style.height).toBe('200px');
+        const adjustedOptions = { ...component.options, rowHeight: 400 };
+        expect(widgetA.style.height).toBe('100px');
 
         component.options = adjustedOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widget.style.height).toBe('400px');
+        expect(widgetA.style.height).toBe('400px');
     });
 
-    it('should set widget rowHeight to equal options minWidth if rowHeight less than minWidth', async() => {
-        let adjustedOptions: DashboardOptions  = {
-            columns: 6,
-            padding: 10,
-            rowHeight: 200,
-            emptyRow: false,
-            minWidth: 400
-        };
+    it('should increase dashboard rows from two to three when minWidth Increased', async() => {
+        // setup columns option so row one has widgetA and Row two has widgetB/C
+        const columnsSetup = { ...component.options, columns: 4 };
 
-        component.options = adjustedOptions;
+        component.options = columnsSetup;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widget.style.height).toBe('400px');
+        expect(widgetC.style.left).toBe('378px');
+
+        const increasedMinWidth = { ...component.options, minWidth: 3000 };
+
+        component.options = increasedMinWidth;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(widgetC.style.left).toBe('0px');
     });
+
 });
