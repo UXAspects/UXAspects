@@ -88,6 +88,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     /** Access all child menu items for accessibility purposes */
     private readonly _items$ = new BehaviorSubject<(MenuItemComponent | MenuTabbableItemDirective)[]>([]);
 
+    /** Remember if this component has been destroyed */
+    private _destroyed: boolean = false;
+
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
 
@@ -137,6 +140,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this._destroyed = true;
         this._onDestroy$.next();
         this._onDestroy$.complete();
         this._closeAll$.complete();
@@ -167,6 +171,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     /** Internal function to set the open state and run change detection */
     _setMenuOpen(menuOpen: boolean): void {
+
         // store the open state
         this.isMenuOpen = menuOpen;
 
@@ -177,7 +182,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
         }
 
         // check for changes - required to show the menu as we are using `*ngIf`
-        this._changeDetector.detectChanges();
+        if (!this._destroyed) {
+            this._changeDetector.detectChanges();
+        }
 
         // emit the closing event
         menuOpen ? this.opening.emit() : this.closing.emit();
