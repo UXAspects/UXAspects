@@ -80,7 +80,7 @@ describe('Dashboard', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.top).toBe('151.6px');
+        expect(widgetC.style.top).toBe('154px');
 
         const adjustedOptions = { ...component.options, columns: 3 };
 
@@ -88,7 +88,7 @@ describe('Dashboard', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.top).toBe('252.667px');
+        expect(widgetC.style.top).toBe('256.667px');
     });
 
     it('should increase widget padding if padding option increased', async() => {
@@ -121,7 +121,7 @@ describe('Dashboard', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.left).toBe('378px');
+        expect(widgetC.style.left).toBe('384px');
 
         const increasedMinWidth = { ...component.options, minWidth: 3000 };
 
