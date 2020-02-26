@@ -109,7 +109,7 @@ import { DashboardModule } from './dashboard.module';
                     <ux-dashboard-widget
                         id="widget-C"
                         name="Runs"
-                        [colSpan]="1">
+                        [colSpan]="2">
 
                         <div class="dashboard-widget-container">
 
@@ -201,7 +201,7 @@ describe('Dashboard', () => {
 
     it('should reposition widgets if columns option adjusted', async() => {
         let adjustedOptions: DashboardOptions  = {
-            columns: 5,
+            columns: 3,
             padding: 5,
             rowHeight: 400,
             emptyRow: false,
@@ -211,13 +211,13 @@ describe('Dashboard', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.top).toBe('200px');
+        expect(widgetC.style.top).toBe('400px');
 
         component.options = adjustedOptions;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(widgetC.style.top).toBe('400px');
+        expect(widgetC.style.top).toBe('800px');
     });
 
     it('should increase widget padding if padding option increased', async() => {
