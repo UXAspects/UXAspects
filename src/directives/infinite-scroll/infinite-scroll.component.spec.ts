@@ -99,7 +99,7 @@ export class InfiniteScrollTestComponent {
 
 }
 
-fdescribe('Directive - Infinite Scroll', () => {
+describe('Directive - Infinite Scroll', () => {
     let component: InfiniteScrollTestComponent;
     let fixture: ComponentFixture<InfiniteScrollTestComponent>;
 
@@ -115,7 +115,6 @@ fdescribe('Directive - Infinite Scroll', () => {
         fixture = TestBed.createComponent(InfiniteScrollTestComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
     });
 
     it ('should initialise correctly', () => {
@@ -128,7 +127,7 @@ fdescribe('Directive - Infinite Scroll', () => {
         spyOn(component, 'load');
 
         expect(component.filterText.value).toEqual('');
-        component.load(1, 20, input);
+        component.load(0, 20, input);
         fixture.detectChanges();
         await fixture.whenStable();
 
