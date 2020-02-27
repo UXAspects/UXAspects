@@ -209,6 +209,9 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy, OnInit
 
         datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
             .subscribe(date => this.dateChange.emit(date));
+
+        datepicker.timezone$.pipe(distinctUntilChanged(timezoneComparator), takeUntil(this._onDestroy))
+            .subscribe((timezone: DateTimePickerTimezone) => this.timezoneChange.emit(timezone));
     }
 
     ngOnInit(): void {
