@@ -138,7 +138,8 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         }
 
         if (this.enabled) {
-            if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue) {
+            // discount filter.previousValue if null or undefined.
+            if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue && changes.filter.previousValue !== undefined && changes.filter.previousValue !== null) {
                 this.reset();
                 check = false;
             }
@@ -176,7 +177,10 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         if (!this.enabled) {
             return;
         }
-
+        // filter should consider null/undefined to be ''.
+        if (!this.filter || this.filter === null) {
+            this.filter = '';
+        }
         this._updateRequests.next({
             check: false,
             pageNumber: this._nextPageNum,
