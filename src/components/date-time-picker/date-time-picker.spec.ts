@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { PopoverModule } from '../../components/popover';
 import { IconModule } from '../icon';
 import { DateTimePickerModule } from './date-time-picker.module';
-
-
+import { DateTimePickerTimezone } from './date-time-picker.utils';
 
 @Component({
     selector: 'ux-components-date-time-picker',
@@ -17,6 +16,8 @@ import { DateTimePickerModule } from './date-time-picker.module';
             [showTimezone]="showTimezone"
             [showMeridian]="showMeridian"
             [showSpinners]="showSpinners"
+            [timezones]="timezones"
+            [timezone]="timezone"
             (dateChange)="onDateChange()">
         </ux-date-time-picker>
     `
@@ -28,9 +29,11 @@ export class DateRangePickerComponent {
     date: Date;
     showTime: boolean = false;
     showDate: boolean = true;
-    showTimezone: boolean = false;
+    showTimezone: boolean;
     showMeridian: boolean = true;
     showSpinners: boolean = true;
+    timezone: DateTimePickerTimezone;
+    timezones: DateTimePickerTimezone[];
 }
 
 describe('Date Time Picker', () => {
@@ -94,12 +97,38 @@ describe('Date Time Picker', () => {
         expect(getSelected().innerHTML).toBe(' 31 ');
     });
 
+    it('should default to local timezone', async() => {
+        component.showTime = true;
+        component.showTimezone = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getGMT().getAttribute('ng-reflect-value')).toBe('GMT');
+    });
+
+    it('should allow a half time zone to be set if it is present in the timezone array', async() => {
+        component.showTime = true;
+        component.showTimezone = true;
+        component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
+        component.timezone = { name: 'GMT-3.5', offset: 210 };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getGMT().getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+    });
+
     function getHeader(): HTMLElement | null {
         return nativeElement.querySelector('ux-date-time-picker .header-title');
     }
 
     function getSelected(): HTMLElement | null {
         return nativeElement.querySelector('ux-date-time-picker-day-view .active');
+    }
+
+    function getGMT(): HTMLElement | null {
+        return nativeElement.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button');
     }
 
 });

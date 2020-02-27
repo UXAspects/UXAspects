@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { PopoverModule } from '../../components/popover';
 import { IconModule } from '../icon';
 import { DateRangePickerModule } from './date-range-picker.module';
-
-
+import { DateTimePickerTimezone } from '../date-time-picker';
 
 @Component({
     selector: 'ux-components-date-range-picker',
@@ -21,6 +20,7 @@ import { DateRangePickerModule } from './date-range-picker.module';
             [showNowBtn]="showNowBtn"
             [startTimezone]="startTimezone"
             [endTimezone]="endTimezone"
+            [timezones]="timezones"
             (startChange)="onStartChange()"
             (endChange)="onEndChange()">
         </ux-date-range-picker>
@@ -41,8 +41,9 @@ export class DateRangePickerComponent {
     showMeridian: boolean = true;
     showSpinners: boolean = true;
     showNowBtn: boolean = false;
-    startTimezone: any = { name: 'GMT', offset: 0 };
-    endTimezone: any = { name: 'GMT', offset: 0 };
+    startTimezone: DateTimePickerTimezone;
+    endTimezone: DateTimePickerTimezone;
+    timezones: DateTimePickerTimezone[];
 }
 
 describe('Date Range Picker', () => {
@@ -102,9 +103,44 @@ describe('Date Range Picker', () => {
         expect(getDate(1)).toBeNull();
     });
 
+    it('should allow a half time zone to be set if it is present in the timezone array', async() => {
+        component.showTime = true;
+        component.showTimezone = true;
+        component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
+        component.startTimezone = { name: 'GMT-3.5', offset: 210 };
+        component.endTimezone = { name: 'GMT-3.5', offset: 210 };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+    });
+
+    it('should allow a half time zone to be set if it is present in the timezone array', async() => {
+        component.showTime = true;
+        component.showTimezone = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT');
+        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT');
+    });
+
     function getDate(index: number = 0): HTMLElement | null {
         const headerSections = nativeElement.querySelectorAll('ux-date-range-picker .header-section');
         return headerSections[index].querySelector('.date-header');
+    }
+
+    function getPicker(index: number = 0): HTMLElement | null {
+        const pickers = nativeElement.querySelectorAll('ux-date-range-picker');
+        return pickers[index].querySelector('ux-date-time-picker');
+    }
+
+    function getGMTValue(index: number = 0): HTMLElement | null {
+        const picker = getPicker(index);
+        return picker.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button');
     }
 
 });
