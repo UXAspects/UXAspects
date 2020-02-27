@@ -5,15 +5,15 @@ import { IPlayground } from '../../../../../interfaces/IPlayground';
 import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvider';
 
 
-@Pipe({name: 'highlightSearch'})
+@Pipe({ name: 'highlightSearch' })
 export class HighlightSearch implements PipeTransform {
     transform(text: string, filter: string): string {
         const highlightIndex = text.toLowerCase().indexOf(filter.toLowerCase());
         return (highlightIndex < 0) ?
-               text :
-               text.substr(0, highlightIndex) +
-                 '<b>' + text.substr(highlightIndex, filter.length) + '</b>' +
-                 text.substr(highlightIndex + filter.length);
+            text :
+            text.substr(0, highlightIndex) +
+            '<b>' + text.substr(highlightIndex, filter.length) + '</b>' +
+            text.substr(highlightIndex + filter.length);
     }
 }
 
@@ -33,6 +33,7 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
     allowNull: boolean = false;
+    dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
 
@@ -47,7 +48,7 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
                 imports: ['HighlightSearch'],
                 library: './app.component',
                 declaration: true
-            }, 
+            },
             {
                 imports: ['AccordionModule', 'CheckboxModule', 'NumberPickerModule', 'RadioButtonModule', 'InputDropdownModule'],
                 library: '@ux-aspects/ux-aspects'
@@ -71,9 +72,13 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     setFilter(filter: string): void {
         this.filter = filter;
         this.filteredOptionList =
-          this.filter && (this.filter.length > 0) ?
-          this.optionList.filter(option => (this.index(option.name) > -1)) :
-          this.optionList;
+            this.filter && (this.filter.length > 0) ?
+                this.optionList.filter(option => (this.index(option.name) > -1)) :
+                this.optionList;
+    }
+
+    dropdownOpenChange(value: boolean) {
+        this.dropdownOpen = value;
     }
 }
 

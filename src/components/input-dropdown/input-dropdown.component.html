@@ -21,7 +21,8 @@
 </div>
 
 <ux-menu #menu menuClass="select-menu"
-         (opened)="_focusFilter()">
+         (opened)="_focusFilter()"
+         [attr.aria-expanded]="dropdownOpen">
 
     <div [style.max-height]="_maxHeightString"
          [style.width.px]="button.offsetWidth">
@@ -36,7 +37,9 @@
                     [(ngModel)]="filterText"
                     (input)="filterChange.emit(filterText)"
                     (click)="$event.stopPropagation()"
-                    [attr.aria-label]="ariaLabel || placeholder"/>
+                    [attr.aria-label]="ariaLabel || placeholder"
+                    (blur)="inputBlurHandler()"
+                    (focus)="inputFocusHandler()">
 
             <button type="button"
                     class="btn btn-flat filter-button"

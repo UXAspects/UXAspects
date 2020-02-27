@@ -3,6 +3,8 @@
 
         <ux-input-dropdown
             [(selected)]="selected"
+            [dropdownOpen]="dropdownOpen"
+            (dropdownOpenChange)="dropdownOpenChange($event)"
             (filterChange)="setFilter($event)"
             [allowNull]="allowNull"
             [maxHeight]="maxHeight"
@@ -54,6 +56,11 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="dropdownOpen">dropdownOpen</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
                     <div class="col-md-2 col-sm-12">
                         <label>placeholder</label>
                     </div>
@@ -96,6 +103,9 @@
     <tr uxd-api-property name="aria-label" type="string">
         Aria label of the filter field. If not specified, the placeholder will be used.
     </tr>
+    <tr uxd-api-property name="dropdownOpen" type="boolean">
+        The status of the typeahead dropdown.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
@@ -104,6 +114,9 @@
     </tr>
     <tr uxd-api-property name="selectedChange" type="T[]">
         Emits when the selection changes. The event will contain the new selected items.
+    </tr>
+    <tr uxd-api-property name="dropdownOpenChange" type="boolean">
+        Emits when <code>dropdownOpen</code> changes.
     </tr>
 </uxd-api-properties>
 

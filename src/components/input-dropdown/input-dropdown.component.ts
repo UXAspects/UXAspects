@@ -1,23 +1,8 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MenuTriggerDirective } from '../menu/menu-trigger/menu-trigger.directive';
-import { coerceCssPixelValue } from '@angular/cdk/coercion';
-
 
 @Component({
     selector: 'ux-input-dropdown',
@@ -53,12 +38,31 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
 
     /** Aria label of the filter field. If not specified, the placeholder will be used. */
     @Input('aria-label') ariaLabel: string = '';
-    
+
     /** Emit when the selected item is changed */
     @Output() selectedChange = new EventEmitter<T>();
 
     /** Emit when the filter text is changed */
     @Output() filterChange = new EventEmitter<string>();
+
+    /** Emits when `dropdownOpen` changes. */
+    @Output() dropdownOpenChange = new EventEmitter<boolean>();
+
+    /** The status of the dropdown. */
+    @Input()
+    set dropdownOpen(value: boolean) {
+
+        this._dropdownOpen = value;
+        this.dropdownOpenChange.emit(value);
+
+        if (value) {
+            this.menuTrigger.openMenu();
+        }
+    }
+
+    get dropdownOpen() {
+        return this._dropdownOpen;
+    }
 
     @ContentChild('displayContent', { static: false }) displayContentRef: TemplateRef<void>;
 
@@ -71,6 +75,7 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     onTouched: () => void = () => { };
 
     private readonly _onDestroy$ = new Subject<void>();
+    private _dropdownOpen: boolean = false;
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected) {
@@ -115,6 +120,14 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
     _focusFilter(): void {
         if (this.filterInputElement) {
             this.filterInputElement.nativeElement.focus();
-        }    
+        }
+    }
+
+    inputBlurHandler() {
+        this.dropdownOpen = false;
+    }
+
+    inputFocusHandler() {
+        this.dropdownOpen = true;
     }
 }
