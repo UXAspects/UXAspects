@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../tooltip/index';
@@ -88,9 +88,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     /** Access all child menu items for accessibility purposes */
     private readonly _items$ = new BehaviorSubject<(MenuItemComponent | MenuTabbableItemDirective)[]>([]);
 
-    /** Remember if this component has been destroyed */
-    private _destroyed: boolean = false;
-
     /** Automatically unsubscribe when the component is destroyed */
     private readonly _onDestroy$ = new Subject<void>();
 
@@ -140,7 +137,6 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this._destroyed = true;
         this._onDestroy$.next();
         this._onDestroy$.complete();
         this._closeAll$.complete();
@@ -181,8 +177,14 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
             this._isFocused$.next(false);
         }
 
+        // the change detector is actually an instance of a ViewRef (which extends ChangeDetectorRef) when used within a component
+        // and the ViewRef contains the destroyed state of the component which is more reliable
+        // than setting a flag in ngOnDestroy as the component can be destroyed before
+        // the lifecycle hook is called
+        const viewRef = this._changeDetector as ViewRef;
+
         // check for changes - required to show the menu as we are using `*ngIf`
-        if (!this._destroyed) {
+        if (!viewRef.destroyed) {
             this._changeDetector.detectChanges();
         }
 

@@ -1,16 +1,10 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, ViewChild, NgModule, HostListener } from '@angular/core';
-import {
-    async,
-    ComponentFixture,
-    inject,
-    TestBed
-} from '@angular/core/testing';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuModule } from './menu.module';
 import { IconModule } from '../icon/index';
-import { StringFilterModule } from '../../pipes/string-filter';
 
 @Component({
     selector: 'app-menu-test',
@@ -62,8 +56,7 @@ describe('MenuComponent', () => {
             imports: [
                 MenuModule,
                 NoopAnimationsModule,
-                IconModule,
-                StringFilterModule
+                IconModule
             ],
             declarations: [MenuTestComponent]
         }).compileComponents();
@@ -359,116 +352,63 @@ describe('MenuComponent', () => {
 @Component({
     selector: 'app-menu-test',
     template: `
-        <div class="btn-group" *ngIf="!destroyed">
-            <button
-                type="button"
-                class="btn button-secondary dropdown-toggle"
-                [uxMenuTriggerFor]="menu"
-            >
-                Actions
-                <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
-            </button>
-        </div>
+    <div class="btn-group" *ngIf="showTrigger">
+        <button
+            type="button"
+            class="btn button-secondary dropdown-toggle"
+            [uxMenuTriggerFor]="menu">
+            Actions <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
+        </button>
+    </div>
 
-        <ux-menu #menu>
-            <button uxMenuItem>Item One</button>
-            <ux-menu-divider></ux-menu-divider>
-            <button
-                uxMenuItem
-                #subMenuTrigger="ux-menu-trigger"
-                [uxMenuTriggerFor]="subMenu"
-            >
-                Item Two
-            </button>
-            <button uxMenuItem>Item Three</button>
-        </ux-menu>
+    <ux-menu #menu>
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save list</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+L</span>
+        </button>
 
-        <ux-menu #subMenu>
-            <button
-                uxMenuItem
-                id="submenu-item-1"
-                *ngFor="let case of cases | stringFilter: caseFilter"
-            >
-                {{ case }}
-            </button>
-            <button uxMenuItem>Sub Item Two</button>
-        </ux-menu>
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon"></span>
+            <span class="dropdown-menu-text">Save search query</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+S</span>
+        </button>
 
-        <div>
-            <button
-                id="trigger"
-                #menuTrigger="ux-menu-trigger"
-                [uxMenuTriggerFor]="menu"
-            >
-                Open Menu
-            </button>
-        </div>
+        <button type="button" uxMenuItem>
+            <span class="dropdown-menu-icon">
+                <ux-icon name="edit"></ux-icon>
+            </span>
+            <span class="dropdown-menu-text">Annotate</span>
+            <span class="dropdown-menu-right dropdown-menu-hint">ALT+A</span>
+        </button>
+    </ux-menu>
+
     `
 })
 export class MenuNgForTestComponent {
-    @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
-    @ViewChild('subMenuTrigger', { static: true })
-    subMenuTrigger: MenuTriggerDirective;
-    cases: string[] = [
-        'Alpha',
-        'Beta',
-        'Gamma',
-        'Delta',
-        'Epsilon',
-        'Zeta',
-        'Eta',
-        'Theta',
-        'Iota',
-        'Kappa',
-        'Alpha 2',
-        'Alpha 3'
-    ];
+    @ViewChild(MenuTriggerDirective, { static: false }) trigger: MenuTriggerDirective;
 
-    caseFilter: string = '';
-
-    destroyed: boolean = false;
-
-    @HostListener('keydown.space')
-    onSpace(): void {
-        this.destroyed = true;
-    }
+    showTrigger: boolean = true;
 }
 
 describe('MenuNgForTestComponent', () => {
     let component: MenuNgForTestComponent;
     let fixture: ComponentFixture<MenuNgForTestComponent>;
-    let nativeElement: HTMLElement;
-    let triggerElement: HTMLButtonElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 MenuModule,
                 NoopAnimationsModule,
-                IconModule,
-                StringFilterModule
+                IconModule
             ],
             declarations: [MenuNgForTestComponent]
         }).compileComponents();
-
-        // access the overlay container
-        inject([OverlayContainer], (oc: OverlayContainer) => {
-            overlayContainer = oc;
-            overlayContainerElement = oc.getContainerElement();
-        })();
     }));
-
-    afterEach(() => {
-        overlayContainer.ngOnDestroy();
-    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(MenuNgForTestComponent);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
-        triggerElement = nativeElement.querySelector('#trigger');
 
         fixture.detectChanges();
     });
@@ -480,11 +420,11 @@ describe('MenuNgForTestComponent', () => {
 
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
 
-        component.trigger.ngOnDestroy();
+        component.showTrigger = false;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(component.cases).toBeTruthy();
+        expect(component.trigger).toBeFalsy();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
     });
 });
