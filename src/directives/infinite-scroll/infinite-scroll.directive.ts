@@ -29,6 +29,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
 
     @Input() enabled: boolean = true;
     @Input() filter: any;
+    @Input() loadOnInit: boolean = true;
     @Input() loadOnScroll: boolean = true;
     @Input() pageSize: number = 20;
 
@@ -98,7 +99,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         }
 
         // Connect the Load More button visible state.
-        this._canLoadManually.pipe(auditTime(500), takeUntil(this._onDestroy)).subscribe(canLoad => {
+        this._canLoadManually.pipe(takeUntil(this._onDestroy)).subscribe(canLoad => {
             this._loadButtonQuery.forEach(loadButton => {
                 loadButton.visible = canLoad;
             });
@@ -116,6 +117,11 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         this._loadButtonQuery.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.attachLoadButtonEvents();
         });
+
+        // Initial update.
+        if (this.loadOnInit) {
+            this.loadNextPage();
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
