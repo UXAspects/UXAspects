@@ -34,7 +34,7 @@ export class DashboardComponent {
     options: DashboardOptions = { columns: 5, padding: 5, minWidth: 100, rowHeight: 100, emptyRow: true };
 }
 
-fdescribe('Dashboard', () => {
+describe('Dashboard', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
     let nativeElement: HTMLElement;
