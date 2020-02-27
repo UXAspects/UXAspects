@@ -123,7 +123,7 @@ describe('Directive - Infinite Scroll', () => {
     });
 
     it ('should initially load with a filterText value of ""', async() => {
-        const input = component.filterText.value
+        const input = component.filterText.value;
         spyOn(component, 'load');
 
         expect(component.filterText.value).toEqual('');
