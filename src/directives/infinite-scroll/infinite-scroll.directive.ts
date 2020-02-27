@@ -138,8 +138,8 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         }
 
         if (this.enabled) {
-            // discount filter.previousValue if null or undefined.
-            if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue && changes.filter.previousValue !== undefined && changes.filter.previousValue !== null) {
+
+            if (changes.filter && this.coerceFilter(changes.filter.currentValue) !== this.coerceFilter(changes.filter.previousValue)) {
                 this.reset();
                 check = false;
             }
@@ -159,7 +159,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
                 check: check,
                 pageNumber: this._nextPageNum,
                 pageSize: this.pageSize,
-                filter: this.filter
+                filter: this.coerceFilter(this.filter) as T
             });
         }
     }
@@ -177,15 +177,12 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
         if (!this.enabled) {
             return;
         }
-        // filter should consider null/undefined to be ''.
-        if (!this.filter || this.filter === null) {
-            this.filter = '';
-        }
+
         this._updateRequests.next({
             check: false,
             pageNumber: this._nextPageNum,
             pageSize: this.pageSize,
-            filter: this.filter
+            filter: this.coerceFilter(this.filter) as T
         });
     }
 
@@ -201,7 +198,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             check: true,
             pageNumber: this._nextPageNum,
             pageSize: this.pageSize,
-            filter: this.filter
+            filter: this.coerceFilter(this.filter) as T
         });
     }
 
@@ -252,9 +249,14 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
             check: false,
             pageNumber: pageNum,
             pageSize: this.pageSize,
-            filter: this.filter,
+            filter: this.coerceFilter(this.filter) as T,
             reload: true
         });
+    }
+
+    /** A filter value of null or undefined should be considered the same as an empty string */
+    private coerceFilter(value: T | null | undefined): T | string {
+        return value === undefined || value === null ? '' : value;
     }
 
     /**
@@ -318,7 +320,13 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
 
             const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
-            const subscription = observable.pipe(first()).subscribe(
+            let subscription: Subscription;
+
+            // subscription needs to be a let here if subscription completes right away the complete function can be called
+            // before the assignment. While browsers will ignore this currently as we transpile
+            // all const/let statements to var, when this is no longer the case (or we are running in a test environment)
+            // const will be used and this can throw an error if we try to access a const variable before it is assigned
+            subscription = observable.pipe(first()).subscribe(
                 items => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.
