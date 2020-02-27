@@ -1,33 +1,68 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgModule, HostListener} from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuModule } from './menu.module';
+import { IconModule } from '../icon/index';
+import { StringFilterModule } from '../../pipes/string-filter';
 
 @Component({
     selector: 'app-menu-test',
     template: `
+    <div class="btn-group" *ngIf="!destroyed">
+    <button
+        type="button"
+        class="btn button-secondary dropdown-toggle"
+        [uxMenuTriggerFor]="menu">
+        Actions <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
+    </button>
+    </div>
+
   <ux-menu #menu>
     <button uxMenuItem>Item One</button>
     <ux-menu-divider></ux-menu-divider>
-    <button uxMenuItem #subMenuTrigger="ux-menu-trigger" [uxMenuTriggerFor]="subMenu">Item Two</button>
+    <button uxMenuItem #subMenuTrigger="ux-menu-trigger" [uxMenuTriggerFor]="subMenu"> Item Two</button>
     <button uxMenuItem>Item Three</button>
   </ux-menu>
 
   <ux-menu #subMenu>
-    <button uxMenuItem id="submenu-item-1">Sub Item One</button>
+    <button uxMenuItem id="submenu-item-1" *ngFor="let case of cases | stringFilter: caseFilter">
+            {{ case }}</button>
     <button uxMenuItem>Sub Item Two</button>
   </ux-menu>
 
   <div>
     <button id="trigger" #menuTrigger="ux-menu-trigger" [uxMenuTriggerFor]="menu">Open Menu</button>
-  </div>`
+    </div>`
 })
 export class MenuTestComponent {
 
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
     @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
+    cases: string[] = [
+        'Alpha',
+        'Beta',
+        'Gamma',
+        'Delta',
+        'Epsilon',
+        'Zeta',
+        'Eta',
+        'Theta',
+        'Iota',
+        'Kappa',
+        'Alpha 2',
+        'Alpha 3',
+    ];
+
+    caseFilter: string = '';
+
+    destroyed: boolean = false;
+
+    @HostListener('keydown.space')
+    onSpace(): void {
+      this.destroyed = true;
+    }
 
 }
 
@@ -41,7 +76,7 @@ describe('MenuComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MenuModule, NoopAnimationsModule],
+            imports: [MenuModule, NoopAnimationsModule, IconModule, StringFilterModule],
             declarations: [MenuTestComponent],
         })
             .compileComponents();
@@ -164,7 +199,7 @@ describe('MenuComponent', () => {
         component.trigger.openMenu();
         fixture.detectChanges();
         // find the menu items
-        expect(document.querySelectorAll('button[uxmenuitem]').length).toBe(3);
+        expect(document.querySelectorAll('button[uxmenuitem]').length).toBe(14);
     });
 
     it('should display the menu divider', () => {
@@ -322,18 +357,21 @@ describe('MenuComponent', () => {
         expect(component.subMenuTrigger.menu._isFocused$.value).toBeFalsy();
 
     });
-
     it('should hide the menu when the trigger element is destroyed.' , async () => {
         component.trigger.openMenu();
         fixture.detectChanges();
         await fixture.whenStable();
 
         expect(document.querySelectorAll('.ux-menu').length).toBe(1);
-        component.trigger.closeMenu();
+
+        component.trigger.ngOnDestroy();
         fixture.detectChanges();
         await fixture.whenStable();
 
+        expect(component.cases).toBeTruthy();
         expect(document.querySelectorAll('.ux-menu').length).toBe(0);
 
       });
+
+
 });
