@@ -4,7 +4,6 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuTriggerDirective } from './menu-trigger/menu-trigger.directive';
 import { MenuModule } from './menu.module';
-import { IconModule } from '../icon/index';
 
 @Component({
     selector: 'app-menu-test',
@@ -56,7 +55,6 @@ describe('MenuComponent', () => {
             imports: [
                 MenuModule,
                 NoopAnimationsModule,
-                IconModule
             ],
             declarations: [MenuTestComponent]
         }).compileComponents();
@@ -350,37 +348,32 @@ describe('MenuComponent', () => {
 });
 
 @Component({
-    selector: 'app-menu-test',
+    selector: 'app-menu-ngfor-test',
     template: `
     <div class="btn-group" *ngIf="showTrigger">
         <button
             type="button"
             class="btn button-secondary dropdown-toggle"
             [uxMenuTriggerFor]="menu">
-            Actions <ux-icon name="down" class="dropdown-icon-inline"></ux-icon>
+            Actions
         </button>
     </div>
 
     <ux-menu #menu>
-        <button type="button" uxMenuItem>
-            <span class="dropdown-menu-icon"></span>
-            <span class="dropdown-menu-text">Save list</span>
-            <span class="dropdown-menu-right dropdown-menu-hint">ALT+L</span>
-        </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu"></span>
+        <span class="dropdown-menu-text">Export</span>
+    </button>
 
-        <button type="button" uxMenuItem>
-            <span class="dropdown-menu-icon"></span>
-            <span class="dropdown-menu-text">Save search query</span>
-            <span class="dropdown-menu-right dropdown-menu-hint">ALT+S</span>
-        </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu"></span>
+        <span class="dropdown-menu-text">Annotate</span>
+    </button>
 
-        <button type="button" uxMenuItem>
-            <span class="dropdown-menu-icon">
-                <ux-icon name="edit"></ux-icon>
-            </span>
-            <span class="dropdown-menu-text">Annotate</span>
-            <span class="dropdown-menu-right dropdown-menu-hint">ALT+A</span>
-        </button>
+    <button type="button" uxMenuItem>
+        <span class="dropdown-menu"></span>
+        <span class="dropdown-menu-text">Save List</span>
+    </button>
     </ux-menu>
 
     `
@@ -400,7 +393,6 @@ describe('MenuNgForTestComponent', () => {
             imports: [
                 MenuModule,
                 NoopAnimationsModule,
-                IconModule
             ],
             declarations: [MenuNgForTestComponent]
         }).compileComponents();
