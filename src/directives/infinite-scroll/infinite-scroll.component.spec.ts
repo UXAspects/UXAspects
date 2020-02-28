@@ -28,7 +28,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class InfiniteScrollTestComponent {
 
-    filterText: string;
+    filterText: any;
     pageSize = 20;
     loadOnScroll: boolean = false;
     loading: boolean = false;
@@ -65,23 +65,18 @@ fdescribe('Directive - Infinite Scroll', () => {
         expect(component).toBeTruthy();
     });
 
-    it ('should initially load with a filterText value of ""', async() => {
-        expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
-    });
+    it ('should initially call load with filter value of "" if filter input value is undefined', async() => {
 
-    it ('should call load if filter input value changes to "filter"', async() => {
-
-        expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
-
-        component.filterText = 'filter';
+        expect(component.filterText).toBe(undefined)
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(loadSpy).toHaveBeenCalledWith(0, 20, 'filter');
+        expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
     });
 
     it ('should call load with filter value of "" if filter input value changes to null', async() => {
+
         component.filterText = null;
 
         fixture.detectChanges();
@@ -90,13 +85,43 @@ fdescribe('Directive - Infinite Scroll', () => {
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
     });
 
-    it ('should call load with filter value of "" if filter input value changes to undefined', async() => {
-        component.filterText = undefined;
+    it ('should call load with filter value of "some string" if filter input value changes to string', async() => {
+
+        component.filterText = 'some string';
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
+        expect(loadSpy).toHaveBeenCalledWith(0, 20, 'some string');
     });
 
+    it ('should call load with filter value of 10 if filter input value changes to number', async() => {
+
+        component.filterText = 10;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(loadSpy).toHaveBeenCalledWith(0, 20, 10);
+    });
+
+    it ('should call load with filter value of true if filter input value changes to boolean', async() => {
+
+        component.filterText = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(loadSpy).toHaveBeenCalledWith(0, 20, true);
+    });
+
+    it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async() => {
+
+        component.filterText = { name: "somebody" };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(loadSpy).toHaveBeenCalledWith(0, 20, { name: "somebody" });
+    });
 });
