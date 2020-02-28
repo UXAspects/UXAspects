@@ -19,7 +19,7 @@ export class TooltipDirectiveSpecComponent {
     showTrigger: boolean = true;
 }
 
-fdescribe('Tooltip Directive', () => {
+describe('Tooltip Directive', () => {
 
     let component: TooltipDirectiveSpecComponent;
     let fixture: ComponentFixture<TooltipDirectiveSpecComponent>;
