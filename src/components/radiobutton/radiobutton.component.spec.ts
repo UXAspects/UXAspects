@@ -1,11 +1,143 @@
-import { ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RadioButtonModule } from './radiobutton.module';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RadioButtonComponent } from './radiobutton.component';
+
+describe('Radio Button Component', () => {
+    let fixture: ComponentFixture<RadioButtonComponent>;
+    let component: RadioButtonComponent;
+    let nativeElement: HTMLElement;
+    let valueChangeSpy: jasmine.Spy;
+    let changeCallbackSpy: jasmine.Spy;
+    let touchedCallbackSpy: jasmine.Spy;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [RadioButtonModule]
+        })
+            .overrideComponent(RadioButtonComponent, {
+                set: { changeDetection: ChangeDetectionStrategy.Default }
+            })
+            .compileComponents();
+
+        fixture = TestBed.createComponent(RadioButtonComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        valueChangeSpy = spyOn(component.valueChange, 'emit');
+        changeCallbackSpy = spyOn(component, 'onChangeCallback');
+        touchedCallbackSpy = spyOn(component, 'onTouchedCallback');
+
+        component.option = true;
+
+        fixture.detectChanges();
+    }));
+
+    it('should initialise with the correct values', () => {
+        expect(component).toBeTruthy();
+        expect(component.value).toBeFalsy();
+    });
+
+    it('should not emit valueChange initially', () => {
+        expect(valueChangeSpy).not.toHaveBeenCalled();
+        expect(changeCallbackSpy).not.toHaveBeenCalled();
+        expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not emit valueChange when the value input changes', async () => {
+        component.value = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(valueChangeSpy).not.toHaveBeenCalled();
+        expect(changeCallbackSpy).not.toHaveBeenCalled();
+        expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not emit valueChange when the value input changes via ngModel or form control', async () => {
+        component.writeValue(true);
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(valueChangeSpy).not.toHaveBeenCalled();
+        expect(changeCallbackSpy).not.toHaveBeenCalled();
+        expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    it('should emit valueChange whenever the user toggle the input via clicking', async () => {
+        expect(component.value).toBeFalsy();
+        await toggle();
+
+        expect(component.value).toBeTruthy();
+
+        expect(valueChangeSpy).toHaveBeenCalledWith(true);
+        expect(valueChangeSpy).toHaveBeenCalledTimes(1);
+
+        expect(changeCallbackSpy).toHaveBeenCalledWith(true);
+        expect(changeCallbackSpy).toHaveBeenCalledTimes(1);
+
+        expect(touchedCallbackSpy).toHaveBeenCalled();
+        expect(touchedCallbackSpy).toHaveBeenCalledTimes(1);
+
+        // clicking again should not toggle and should now emit a second time
+        await toggle();
+
+        expect(component.value).toBeTruthy();
+
+        expect(valueChangeSpy).toHaveBeenCalledTimes(1);
+        expect(changeCallbackSpy).toHaveBeenCalledTimes(1);
+        expect(touchedCallbackSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not allow toggling whenever the radio button is disabled via disabled input', async () => {
+        component.disabled = true;
+        await toggle();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.value).toBeFalsy();
+        expect(valueChangeSpy).not.toHaveBeenCalled();
+        expect(changeCallbackSpy).not.toHaveBeenCalled();
+        expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not allow toggling whenever the radio button is disabled via Angular forms', async () => {
+        component.setDisabledState(true);
+        await toggle();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.value).toBeFalsy();
+        expect(valueChangeSpy).not.toHaveBeenCalled();
+        expect(changeCallbackSpy).not.toHaveBeenCalled();
+        expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not allow toggling whenever the radio button is marked as not clickable', async () => {
+        component.clickable = false;
+        await toggle();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.value).toBeFalsy();
+        expect(valueChangeSpy).not.toHaveBeenCalled();
+        expect(changeCallbackSpy).not.toHaveBeenCalled();
+        expect(touchedCallbackSpy).not.toHaveBeenCalled();
+    });
+
+    function getInput(): HTMLInputElement {
+        return nativeElement.querySelector('input');
+    }
+
+    async function toggle(): Promise<void> {
+        getInput().click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+});
 
 @Component({
     selector: 'app-radio-button-value-test',
-    template: `        
+    template: `
         <div role="radiogroup" class="radio-button-container">
             <ux-radio-button
                 name="group"
@@ -147,7 +279,7 @@ describe('Radio Button Component - Value', () => {
 
 @Component({
     selector: 'app-radio-button-value-test',
-    template: `        
+    template: `
         <div role="radiogroup" uxRadioButtonGroup [(value)]="selected" class="radio-button-container">
             <ux-radio-button
                 name="group"
@@ -287,7 +419,7 @@ describe('Radio Button Component - Value with uxRadioButtonGroup', () => {
 
 @Component({
     selector: 'app-radio-button-value-test',
-    template: `        
+    template: `
         <div role="radiogroup" class="radio-button-container">
             <ux-radio-button
                 name="group"
@@ -431,7 +563,7 @@ describe('Radio Button Component - NgModel', () => {
 
 @Component({
     selector: 'app-radio-button-value-test',
-    template: `        
+    template: `
         <div role="radiogroup" uxRadioButtonGroup (ngModelChange)="onButtonClick()" [(ngModel)]="selected" class="radio-button-container">
             <ux-radio-button
                 name="group"
@@ -570,7 +702,7 @@ describe('Radio Button Component - NgModel', () => {
 
 @Component({
     selector: 'app-radio-button-value-test',
-    template: `  
+    template: `
         <form [formGroup]="form">
             <div (valueChange)="onButtonClick()" uxRadioButtonGroup formControlName="option">
                 <ux-radio-button [clickable]="clickable" [disabled]="disabled" [simplified]="simplified" [option]="1">Option 1</ux-radio-button>

@@ -1,15 +1,16 @@
-<label [attr.for]="inputId" class="ux-radio-button"
+<label [attr.for]="(id || _radioButtonId) + '-input'"
+       class="ux-radio-button"
        [class.ux-radio-button-checked]="value === option"
        [class.ux-radio-button-simplified]="simplified"
        [class.ux-radio-button-disabled]="disabled"
-       [class.ux-radio-button-focused]="focused">
+       [class.ux-radio-button-focused]="_focused">
 
     <div class="ux-radio-button-container">
 
         <input class="ux-radio-button-input"
             uxFocusIndicator
             type="radio"
-            [id]="inputId"
+            [id]="(id || _radioButtonId) + '-input'"
             [checked]="value === option"
             [disabled]="disabled"
             [tabindex]="tabindex || value === option ? 0 : -1"
@@ -19,8 +20,8 @@
             [attr.aria-labelledby]="ariaLabelledby"
             [attr.aria-describedby]="ariaDescribedby"
             [attr.aria-checked]="value === option"
-            (indicator)="focused = $event"
-            (change)="toggle()"
+            (indicator)="_focused = $event"
+            (change)="select()"
             (click)="$event.stopPropagation()">
     </div>
 
