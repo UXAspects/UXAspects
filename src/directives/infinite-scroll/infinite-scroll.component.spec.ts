@@ -67,7 +67,7 @@ describe('Directive - Infinite Scroll', () => {
 
     it ('should initially call load with filter value of "" if filter input value is undefined', async() => {
 
-        expect(component.filterText).toBe(undefined)
+        expect(component.filterText).toBe(undefined);
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -117,11 +117,11 @@ describe('Directive - Infinite Scroll', () => {
 
     it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async() => {
 
-        component.filterText = { name: "somebody" };
+        component.filterText = { name: 'somebody' };
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(loadSpy).toHaveBeenCalledWith(0, 20, { name: "somebody" });
+        expect(loadSpy).toHaveBeenCalledWith(0, 20, { name: 'somebody' });
     });
 });
