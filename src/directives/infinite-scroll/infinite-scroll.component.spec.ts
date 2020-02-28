@@ -5,34 +5,16 @@ import { FormsModule } from '@angular/forms';
 
 
 @Component({
-    template: `<div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <input id="filter" type="text" class="form-control" placeholder="Filter"
-                            [(ngModel)]="filterText">
-                    </div>
-                </div>
-                <div class="row m-t-sm">
-                    <div class="col-md-6 col-sm-12">
-
-                        <div class="employee-list"
-                            [uxInfiniteScroll]="load"
-                            [filter]="filterText"
-                            [pageSize]="pageSize"
-                            [loadOnScroll]="loadOnScroll">
-
-                        </div>
-
-                    </div>
+    template: `<div [uxInfiniteScroll]="load"
+                    [filter]="filterText"
+                    [pageSize]="20"
+                    [loadOnScroll]="false">
                 </div>
     `
 })
 export class InfiniteScrollTestComponent {
 
     filterText: any;
-    pageSize = 20;
-    loadOnScroll: boolean = false;
-    loading: boolean = false;
-    exhausted: boolean = false;
 
     load(pageNum: number, pageSize: number, filter: any): any[] {
         return [];
@@ -57,20 +39,10 @@ describe('Directive - Infinite Scroll', () => {
         fixture = TestBed.createComponent(InfiniteScrollTestComponent);
         component = fixture.componentInstance;
         loadSpy = spyOn(component, 'load').and.callThrough();
-        component.filterText = undefined;
         fixture.detectChanges();
-    });
-
-    it ('should initialise correctly', () => {
-        expect(component).toBeTruthy();
     });
 
     it ('should initially call load with filter value of "" if filter input value is undefined', async() => {
-
-        expect(component.filterText).toBe(undefined);
-
-        fixture.detectChanges();
-        await fixture.whenStable();
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
     });
