@@ -1,11 +1,11 @@
-import { CheckboxModule } from './checkbox.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CheckboxComponent } from './checkbox.component';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { ToggleSwitchComponent } from './toggleswitch.component';
+import { ToggleSwitchModule } from './toggleswitch.module';
 
-describe('Checkbox Component', () => {
-    let fixture: ComponentFixture<CheckboxComponent>;
-    let component: CheckboxComponent;
+describe('Toggle Switch Component', () => {
+    let fixture: ComponentFixture<ToggleSwitchComponent>;
+    let component: ToggleSwitchComponent;
     let nativeElement: HTMLElement;
     let valueChangeSpy: jasmine.Spy;
     let changeCallbackSpy: jasmine.Spy;
@@ -13,14 +13,14 @@ describe('Checkbox Component', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [CheckboxModule]
+            imports: [ToggleSwitchModule]
         })
-            .overrideComponent(CheckboxComponent, {
+            .overrideComponent(ToggleSwitchComponent, {
                 set: { changeDetection: ChangeDetectionStrategy.Default }
             })
             .compileComponents();
 
-        fixture = TestBed.createComponent<CheckboxComponent>(CheckboxComponent);
+        fixture = TestBed.createComponent(ToggleSwitchComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         valueChangeSpy = spyOn(component.valueChange, 'emit');
@@ -32,7 +32,6 @@ describe('Checkbox Component', () => {
     it('should initialise with the correct values', () => {
         expect(component).toBeTruthy();
         expect(component.value).toBe(false);
-        expect(component.indeterminateValue).toBe(-1);
     });
 
     it('should not emit valueChange initially', () => {
@@ -88,15 +87,7 @@ describe('Checkbox Component', () => {
         expect(touchedCallbackSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should allow an indeterminate value to be set', async () => {
-        component.value = -1;
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(getInput().indeterminate).toBeTruthy();
-    });
-
-    it('should not allow toggling whenever the checkbox is disabled via disabled input', async () => {
+    it('should not allow toggling whenever the toggle switch is disabled via disabled input', async () => {
         component.disabled = true;
         await toggle();
         fixture.detectChanges();
@@ -108,7 +99,7 @@ describe('Checkbox Component', () => {
         expect(touchedCallbackSpy).not.toHaveBeenCalled();
     });
 
-    it('should not allow toggling whenever the checkbox is disabled via Angular forms', async () => {
+    it('should not allow toggling whenever the toggle switch is disabled via Angular forms', async () => {
         component.setDisabledState(true);
         await toggle();
         fixture.detectChanges();
@@ -120,7 +111,7 @@ describe('Checkbox Component', () => {
         expect(touchedCallbackSpy).not.toHaveBeenCalled();
     });
 
-    it('should not allow toggling whenever the checkbox is marked as not clickable', async () => {
+    it('should not allow toggling whenever the toggle switch is marked as not clickable', async () => {
         component.clickable = false;
         await toggle();
         fixture.detectChanges();
