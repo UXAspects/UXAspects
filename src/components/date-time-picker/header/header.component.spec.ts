@@ -5,7 +5,7 @@ import { DateRangeService } from '../../date-range-picker';
 import { IconModule } from '../../icon/icon.module';
 import { ChangeDetectorRef } from '@angular/core';
 
-fdescribe('Date Time Picker Header', () => {
+describe('Date Time Picker Header', () => {
     let component: HeaderComponent;
     let fixture: ComponentFixture<HeaderComponent>;
     let nativeElement: HTMLElement;
@@ -27,6 +27,8 @@ fdescribe('Date Time Picker Header', () => {
         dateRangeService = TestBed.get(DateRangeService);
         fixture.detectChanges();
     });
+
+
 
     it('should detect changes on range change', fakeAsync(() => {
         // spy on the changeDetector detectChanges function
