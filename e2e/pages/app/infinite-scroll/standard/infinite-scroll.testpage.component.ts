@@ -34,7 +34,7 @@ export class InfiniteScrollTestPageComponent {
                     .filter((e) => this.isFilterMatch(e))
                     .slice(pageStart, pageStart + pageSize);
                 resolve(newItems);
-            }, 200);
+            }, 2000);
         });
 
         return promise;
