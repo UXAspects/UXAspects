@@ -113,19 +113,19 @@ describe('Date Range Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT-3.5');
-        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+        await expect(getGMTValue(0).getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+        await expect(getGMTValue(1).getAttribute('ng-reflect-value')).toBe('GMT-3.5');
     });
 
-    it('should allow a half time zone to be set if it is present in the timezone array', async() => {
+    it('should default to local timezone', async() => {
         component.showTime = true;
         component.showTimezone = true;
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT');
-        expect(getGMTValue().getAttribute('ng-reflect-value')).toBe('GMT');
+        await expect(getGMTValue(0).getAttribute('ng-reflect-value')).toBe('GMT');
+        await expect(getGMTValue(1).getAttribute('ng-reflect-value')).toBe('GMT');
     });
 
     function getDate(index: number = 0): HTMLElement | null {
@@ -133,12 +133,16 @@ describe('Date Range Picker', () => {
         return headerSections[index].querySelector('.date-header');
     }
 
-    function getPicker(index: number = 0): HTMLElement | null {
-        const pickers = nativeElement.querySelectorAll('ux-date-range-picker');
-        return pickers[index].querySelector('ux-date-time-picker');
+    function getPicker(index: number = 0): HTMLElement {
+        const pickers = nativeElement.querySelector('ux-date-range-picker .content');
+        if (index === 0) {
+            return pickers.querySelector('.start-date-picker');
+        } else {
+            return pickers.querySelector('.end-date-picker');
+        }
     }
 
-    function getGMTValue(index: number = 0): HTMLElement | null {
+    function getGMTValue(index: number): HTMLElement | null {
         const picker = getPicker(index);
         return picker.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button');
     }
