@@ -1,14 +1,14 @@
-<label [attr.for]="inputId"
+<label [attr.for]="(id || _toggleSwitchId) + '-input'"
        class="ux-toggleswitch"
        [class.ux-toggleswitch-checked]="value"
        [class.ux-toggleswitch-disabled]="disabled"
-       [class.ux-toggleswitch-focused]="focused">
+       [class.ux-toggleswitch-focused]="_focused">
 
     <input class="ux-toggleswitch-input"
            uxFocusIndicator
            type="checkbox"
            role="switch"
-           [id]="inputId"
+           [id]="(id || _toggleSwitchId) + '-input'"
            [checked]="value"
            [disabled]="disabled"
            [attr.name]="name"
@@ -16,7 +16,7 @@
            [attr.aria-label]="ariaLabel"
            [attr.aria-labelledby]="ariaLabelledby"
            [attr.aria-checked]="value"
-           (indicator)="focused = $event"
+           (indicator)="_focused = $event"
            (change)="toggle()"
            (click)="$event.stopPropagation()">
 

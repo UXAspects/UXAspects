@@ -1,4 +1,4 @@
-<label [attr.for]="(this.id || this._checkboxId) + '-input'"
+<label [attr.for]="(id || _checkboxId) + '-input'"
        class="ux-checkbox"
        [class.ux-checkbox-checked]="value === true"
        [class.ux-checkbox-indeterminate]="value === indeterminateValue"
@@ -11,7 +11,7 @@
         <input type="checkbox"
                uxFocusIndicator
                class="ux-checkbox-input"
-               [id]="(this.id || this._checkboxId) + '-input'"
+               [id]="(id || _checkboxId) + '-input'"
                [required]="required"
                [checked]="value"
                [attr.value]="value"
