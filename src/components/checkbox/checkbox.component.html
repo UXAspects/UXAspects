@@ -1,28 +1,28 @@
-<label [attr.for]="inputId"
+<label [attr.for]="(this.id || this._checkboxId) + '-input'"
        class="ux-checkbox"
        [class.ux-checkbox-checked]="value === true"
-       [class.ux-checkbox-indeterminate]="indeterminate"
+       [class.ux-checkbox-indeterminate]="value === indeterminateValue"
        [class.ux-checkbox-simplified]="simplified"
        [class.ux-checkbox-disabled]="disabled"
-       [class.ux-checkbox-focused]="focused">
+       [class.ux-checkbox-focused]="_focused">
 
     <div class="ux-checkbox-container">
 
         <input type="checkbox"
                uxFocusIndicator
                class="ux-checkbox-input"
-               [id]="inputId"
+               [id]="(this.id || this._checkboxId) + '-input'"
                [required]="required"
                [checked]="value"
                [attr.value]="value"
                [disabled]="disabled"
                [attr.name]="name"
                [tabindex]="tabindex"
-               [indeterminate]="indeterminate"
+               [indeterminate]="value === indeterminateValue"
                [attr.aria-label]="ariaLabel"
                [attr.aria-labelledby]="ariaLabelledby"
-               [attr.aria-checked]="ariaChecked"
-               (indicator)="focused = $event"
+               [attr.aria-checked]="value === indeterminateValue ? 'mixed' : value"
+               (indicator)="_focused = $event"
                (change)="$event.stopPropagation()"
                (click)="toggle()">
     </div>

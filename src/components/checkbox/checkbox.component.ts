@@ -1,4 +1,4 @@
-import { Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, ExistingProvider, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: ExistingProvider = {
@@ -12,17 +12,22 @@ let uniqueCheckboxId = 0;
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
-    providers: [CHECKBOX_VALUE_ACCESSOR]
+    providers: [CHECKBOX_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent<T = number> implements ControlValueAccessor {
 
-    private _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
+    /** Provide a default unique id value for the checkbox */
+    _checkboxId: string = `ux-checkbox-${++uniqueCheckboxId}`;
 
     /** Determines if the checkbox should be checked, unchecked or indeterminate. */
     @Input() id: string = this._checkboxId;
 
     /** Specifies the form name of the element. */
     @Input() name: string | null;
+
+    /** Determines if the checkbox should be checked, unchecked or indeterminate. */
+    @Input() value: boolean | T = false;
 
     /** Specified if this is a required input. */
     @Input() required: boolean;
@@ -52,44 +57,18 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
     @Input('aria-labelledby') ariaLabelledby: string = null;
 
     /** Emits when `value` has been changed. */
-    @Output() valueChange = new EventEmitter<boolean | T>(false);
+    @Output() valueChange = new EventEmitter<boolean | T>();
 
-    /** Determines if the checkbox should be checked, unchecked or indeterminate. */
-    @Input()
-    get value() {
-        return this._value;
-    }
+    /** Determine if the underlying input component has been focused with the keyboard */
+    _focused: boolean = false;
 
-    set value(value: boolean | T) {
-        this._value = value;
-
-        // determine if it is in the indeterminate state
-        this.indeterminate = this._value === this.indeterminateValue;
-
-        // determine the checked state
-        this.ariaChecked = this.indeterminate ? 'mixed' : this._value as boolean;
-
-        // invoke change event
-        this.valueChange.emit(this._value);
-
-        // call callback
-        this.onChangeCallback(this._value);
-        this.onTouchedCallback();
-    }
-
-    get inputId(): string {
-        return `${this.id || this._checkboxId}-input`;
-    }
-
-    private _value: boolean | T = false;
-
-    indeterminate: boolean = false;
-    ariaChecked: boolean | string;
-    focused: boolean = false;
-
+    /** Used to inform Angular forms that the component has been touched */
     onTouchedCallback: () => void = () => { };
+
+    /** Used to inform Angular forms that the component value has changed */
     onChangeCallback: (_: boolean | T) => void = () => { };
 
+    /** Toggle the current state of the checkbox */
     toggle(): void {
 
         if (this.disabled || !this.clickable) {
@@ -98,29 +77,39 @@ export class CheckboxComponent<T = number> implements ControlValueAccessor {
 
         if (this.value === this.indeterminateValue) {
             this.value = true;
-            return;
+        } else {
+            // toggle the checked state
+            this.value = !this.value;
         }
 
-        // toggle the checked state
-        this.value = !this.value;
+        // emit the value
+        this.valueChange.emit(this.value);
+
+        // update the value if used within a form control
+        this.onChangeCallback(this.value);
+
+        // mark the component as touched
+        this.onTouchedCallback();
     }
 
     // Functions required to update ngModel
-
     writeValue(value: boolean | T): void {
-        if (value !== this._value) {
-            this._value = value;
+        if (value !== this.value) {
+            this.value = value;
         }
     }
 
+    /** Allow Angular forms for provide us with a callback for when the input value changes */
     registerOnChange(fn: (_: boolean | T) => void): void {
         this.onChangeCallback = fn;
     }
 
+    /** Allow Angular forms for provide us with a callback for when the touched state changes */
     registerOnTouched(fn: () => void): void {
         this.onTouchedCallback = fn;
     }
 
+    /** Allow Angular forms to disable the component */
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
