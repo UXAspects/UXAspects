@@ -320,6 +320,7 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
 
             const observable = Array.isArray(loadResult) ? of(loadResult) : from(loadResult);
 
+            let completed: boolean = false;
             let subscription: Subscription;
 
             // subscription needs to be a let here if subscription completes right away the complete function can be called
@@ -346,11 +347,16 @@ export class InfiniteScrollDirective<T = any> implements OnInit, AfterContentIni
                 () => {
                     // remove this request from the list
                     this._subscriptions = this._subscriptions.filter(s => s !== subscription);
+
+                    completed = true;
                 }
             );
 
-            // add the subscription to the list of requests
-            this._subscriptions.push(subscription);
+            // only add the subscription to the list of requests if it isnt complete.
+            if (!completed) {
+                this._subscriptions.push(subscription);
+            }
+
         }
     }
 
