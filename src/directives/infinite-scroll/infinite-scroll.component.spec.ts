@@ -40,7 +40,7 @@ export class InfiniteScrollTestComponent {
 
 }
 
-fdescribe('Directive - Infinite Scroll', () => {
+describe('Directive - Infinite Scroll', () => {
     let component: InfiniteScrollTestComponent;
     let fixture: ComponentFixture<InfiniteScrollTestComponent>;
     let loadSpy: jasmine.Spy;
