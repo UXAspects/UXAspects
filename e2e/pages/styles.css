@@ -4,3 +4,7 @@
 * {
     caret-color: transparent;
 }
+
+.form-control {
+    transition: none;
+}
