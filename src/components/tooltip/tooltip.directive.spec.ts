@@ -49,14 +49,11 @@ describe('Tooltip Directive', () => {
 
     it('should show tooltip', fakeAsync(() => {
 
-        const isOpenChangeSpy = spyOn(component.tooltipDirective.isOpenChange, 'emit');
         const shownSpy = spyOn(component.tooltipDirective.shown, 'emit');
 
         component.tooltipDirective.show();
         tick(0);
         expect(getTooltip()).toBeTruthy();
-        // expect(isOpenChangeSpy).toHaveBeenCalledWith(true);
-        // expect(isOpenChangeSpy).toHaveBeenCalledTimes(1);
         expect(shownSpy).toHaveBeenCalledTimes(1);
     }));
 
