@@ -109,6 +109,7 @@ export class MenuTriggerDirective implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.destroyMenu();
         this._onDestroy$.next();
         this._onDestroy$.complete();
     }
