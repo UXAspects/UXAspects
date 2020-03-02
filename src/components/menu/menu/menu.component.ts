@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewChild, ViewRef } from '@angular/core';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AnchorAlignment, AnchorPlacement } from '../../tooltip/index';
@@ -167,6 +167,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     /** Internal function to set the open state and run change detection */
     _setMenuOpen(menuOpen: boolean): void {
+
         // store the open state
         this.isMenuOpen = menuOpen;
 
@@ -176,8 +177,16 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
             this._isFocused$.next(false);
         }
 
+        // the change detector is actually an instance of a ViewRef (which extends ChangeDetectorRef) when used within a component
+        // and the ViewRef contains the destroyed state of the component which is more reliable
+        // than setting a flag in ngOnDestroy as the component can be destroyed before
+        // the lifecycle hook is called
+        const viewRef = this._changeDetector as ViewRef;
+
         // check for changes - required to show the menu as we are using `*ngIf`
-        this._changeDetector.detectChanges();
+        if (!viewRef.destroyed) {
+            this._changeDetector.detectChanges();
+        }
 
         // emit the closing event
         menuOpen ? this.opening.emit() : this.closing.emit();
