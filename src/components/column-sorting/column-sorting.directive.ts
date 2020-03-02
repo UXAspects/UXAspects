@@ -37,6 +37,11 @@ export class ColumnSortingDirective implements OnDestroy {
     /** Explicitly set the column state */
     setColumnState(key: string, state: ColumnSortingState): void {
 
+        // check if the sorting has actually changed
+        if (this.order.find(column => column.key === key && column.state === state)) {
+            return;
+        }
+
         // if only one column can be sorted and the current column has a sort direction remove all others
         if (this.singleSort && state !== ColumnSortingState.NoSort) {
             this.order = [];
@@ -47,7 +52,7 @@ export class ColumnSortingDirective implements OnDestroy {
 
         // if the column has active sorting then we should add it to the array again
         if (state === ColumnSortingState.Ascending || state === ColumnSortingState.Descending) {
-            this.order = [...this.order, { key, state }];
+            this.order = [{ key, state }, ...this.order];
         }
     }
 
@@ -61,8 +66,8 @@ export class ColumnSortingDirective implements OnDestroy {
         // reorder columns here
         const idx = this.order.findIndex(column => column.key === sorting.key);
 
-        // if wasn't previously selected add to list
-        if (idx === -1) {
+        // if wasn't previously selected add to list and it is being sorted
+        if (idx === -1 && sorting.state !== ColumnSortingState.NoSort) {
             return [...this.order, { key: sorting.key, state: sorting.state }];
         }
 

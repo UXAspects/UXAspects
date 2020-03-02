@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrder, ColumnSortingState } from './column-sorting.directive';
@@ -9,7 +9,7 @@ import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrd
     exportAs: 'ux-column-sorting',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnSortingComponent implements OnInit, OnDestroy {
+export class ColumnSortingComponent implements OnInit, OnChanges, OnDestroy {
 
     /** Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`. */
     @Input() state: ColumnSortingState = ColumnSortingState.NoSort;
@@ -46,17 +46,20 @@ export class ColumnSortingComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject<void>();
 
     constructor(private readonly _sorter: ColumnSortingDirective,
-                private readonly _changeDetector: ChangeDetectorRef) { }
+                private readonly _changeDetector: ChangeDetectorRef) {
+    }
 
     ngOnInit(): void {
-        // set the initial sorting state
-        if (this.state !== ColumnSortingState.NoSort) {
-            this._sorter.setColumnState(this.key, this.state);
-        }
-
         // listen for changes triggered by the directive
         this._sorter.events.pipe(takeUntil(this._onDestroy$))
             .subscribe(columns => this.updateState(columns));
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        // if the state input is changed then apply the change
+        if (changes.state && changes.state.currentValue !== changes.state.previousValue) {
+            this._sorter.setColumnState(this.key, this.state);
+        }
     }
 
     ngOnDestroy(): void {
@@ -102,7 +105,9 @@ export class ColumnSortingComponent implements OnInit, OnDestroy {
         this.order = columns.length < 2 || columnIdx === -1 ? null : columnIdx + 1;
 
         // emit the latest order value
-        this.orderChange.emit(this.order);
+        if (typeof this.order === 'number') {
+            this.orderChange.emit(this.order);
+        }
 
         // change detection should be run
         this._changeDetector.markForCheck();
