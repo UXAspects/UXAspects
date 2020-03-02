@@ -5,8 +5,8 @@
 
         <ux-icon
             class="ux-column-sorting-icon"
-            [class.column-sorting-icon-hidden]="_state === columnSortingState.NoSort"
-            [name]="_icon">
+            [class.column-sorting-icon-hidden]="state === ColumnSortingState.NoSort"
+            [name]="state === ColumnSortingState.Ascending ? 'ascend' : 'descend'">
         </ux-icon>
 
         <p class="ux-column-sorting-number" aria-hidden="true">{{ order }}</p>
@@ -16,7 +16,7 @@
     <ng-container
         *ngIf="_sortIndicator"
         [ngTemplateOutlet]="_sortIndicator"
-        [ngTemplateOutletContext]="{ state: _state, order: order }">
+        [ngTemplateOutletContext]="{ state: state, order: order }">
     </ng-container>
 
 </div>

@@ -14,9 +14,9 @@ import { IPlaygroundProvider } from '../../../../../interfaces/IPlaygroundProvid
 @DocumentationSectionComponent('ComponentsColumnSortingComponent')
 export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlaygroundProvider {
 
-    order: ColumnSortingOrder[] = [];
+    order: ReadonlyArray<ColumnSortingOrder> = [];
 
-    items: ColumnSortingTableData[] = [{
+    items: ReadonlyArray<ColumnSortingTableData> = [{
         id: 1,
         name: 'Document',
         author: chance.name(),
@@ -106,9 +106,9 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         this._announcer.announce(this.getColumnAriaLabel(title, column));
     }
 
-    sort(array: ColumnSortingTableData[], sorters: ColumnSortingOrder[]): ColumnSortingTableData[] {
+    sort(array: ReadonlyArray<ColumnSortingTableData>, sorters: ReadonlyArray<ColumnSortingOrder>): ReadonlyArray<ColumnSortingTableData> {
 
-        return array.sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
+        return [...array].sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
 
             // iterate through each sorter
             for (const sorter of sorters) {

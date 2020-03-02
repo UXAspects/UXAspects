@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrder, ColumnSortingState } from './column-sorting.directive';
@@ -9,28 +9,19 @@ import { ColumnSortingDirective, ColumnSortingIndicatorContext, ColumnSortingOrd
     exportAs: 'ux-column-sorting',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnSortingComponent implements OnDestroy {
+export class ColumnSortingComponent implements OnInit, OnDestroy {
 
     /** Defines the sorting order of a column: `NoSort`, `Ascending` or `Descending`. */
-    @Input() set state(state: ColumnSortingState) {
-        this._state = state;
-
-        // update the column sorting icon
-        if (this.state === ColumnSortingState.Ascending) {
-            this._icon = 'ascend';
-        }
-
-        if (this.state === ColumnSortingState.Descending) {
-            this._icon = 'descend';
-        }
-    }
-
-    get state(): ColumnSortingState {
-        return this._state;
-    }
+    @Input() state: ColumnSortingState = ColumnSortingState.NoSort;
 
     /** Defines a unique identifier for the column that can be used when sorting. */
     @Input() key: string;
+
+    /** Store the order of the sorting - used when multiple columns are being sorted at once */
+    @Input() order: number;
+
+    /** Determine if a column can have a `NoSort` state */
+    @Input() allowNoSort: boolean = true;
 
     /**
      * Changes the state of the sorting on the column between `NoSort`, `Ascending` and `Descending`.
@@ -40,39 +31,41 @@ export class ColumnSortingComponent implements OnDestroy {
      */
     @Output() stateChange = new EventEmitter<ColumnSortingState>();
 
-    /** Store the order of the sorting - used when multiple columns are being sorted at once */
-    order: number;
+    /** Emit whenever the order changes */
+    @Output() orderChange = new EventEmitter<number>();
 
     /** Expose the sorting state enum to the view */
-    columnSortingState = ColumnSortingState;
-
-    /** Determine which icon should be shown based on sort order */
-    _icon: string;
+    ColumnSortingState = ColumnSortingState;
 
     /** Access the custom sort indicator if one was provided */
     get _sortIndicator(): TemplateRef<ColumnSortingIndicatorContext> {
         return this._sorter.sortIndicator;
     }
 
-    /** Store the current sort state */
-    _state: ColumnSortingState;
-
     /** Unsubscribe from all observables on component destroy */
-    private _onDestroy = new Subject<void>();
+    private _onDestroy$ = new Subject<void>();
 
-    constructor(private _sorter: ColumnSortingDirective, private _changeDetector: ChangeDetectorRef) {
+    constructor(private readonly _sorter: ColumnSortingDirective,
+                private readonly _changeDetector: ChangeDetectorRef) { }
+
+    ngOnInit(): void {
+        // set the initial sorting state
+        if (this.state !== ColumnSortingState.NoSort) {
+            this._sorter.setColumnState(this.key, this.state);
+        }
+
         // listen for changes triggered by the directive
-        this._sorter.events.pipe(takeUntil(this._onDestroy))
-            .subscribe(this.updateState.bind(this));
+        this._sorter.events.pipe(takeUntil(this._onDestroy$))
+            .subscribe(columns => this.updateState(columns));
     }
 
     ngOnDestroy(): void {
-        this._onDestroy.next();
-        this._onDestroy.complete();
+        this._onDestroy$.next();
+        this._onDestroy$.complete();
     }
 
-    /** Toggle the sorting state of a column - this is designed to be programmtically called by the consuming component */
-    changeState(): ColumnSortingOrder[] {
+    /** Toggle the sorting state of a column - this is designed to be programmatically called by the consuming component */
+    changeState(): ReadonlyArray<ColumnSortingOrder> {
 
         switch (this.state) {
 
@@ -81,7 +74,7 @@ export class ColumnSortingComponent implements OnDestroy {
                 break;
 
             case ColumnSortingState.Descending:
-                this.state = ColumnSortingState.NoSort;
+                this.state = this.allowNoSort ? ColumnSortingState.NoSort : ColumnSortingState.Ascending;
                 break;
 
             default:
@@ -96,7 +89,7 @@ export class ColumnSortingComponent implements OnDestroy {
     }
 
     /** Update the state based on column order */
-    private updateState(columns: ColumnSortingOrder[]): void {
+    private updateState(columns: ReadonlyArray<ColumnSortingOrder>): void {
         // if we are sorting this column then find the matching data
         const columnIdx = columns.findIndex(_column => _column.key === this.key);
 
@@ -107,6 +100,9 @@ export class ColumnSortingComponent implements OnDestroy {
 
         // only store the number if we have 2 or more columns being sorted
         this.order = columns.length < 2 || columnIdx === -1 ? null : columnIdx + 1;
+
+        // emit the latest order value
+        this.orderChange.emit(this.order);
 
         // change detection should be run
         this._changeDetector.markForCheck();

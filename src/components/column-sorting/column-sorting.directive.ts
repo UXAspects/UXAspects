@@ -13,17 +13,17 @@ export class ColumnSortingDirective implements OnDestroy {
     @Input() sortIndicator: TemplateRef<ColumnSortingIndicatorContext>;
 
     /** Emit the current sort state for all columns within the table */
-    events = new Subject<ColumnSortingOrder[]>();
+    events = new Subject<ReadonlyArray<ColumnSortingOrder>>();
 
     /** Store the current sort state for all columns within the table */
-    order: ColumnSortingOrder[] = [];
+    order: ReadonlyArray<ColumnSortingOrder> = [];
 
     ngOnDestroy(): void {
         this.events.complete();
     }
 
     /** Toggle the sorting state of a column */
-    toggleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[] {
+    toggleColumn(sorting: ColumnSortingOrder): ReadonlyArray<ColumnSortingOrder> {
 
         // apply sorting based on the single or multiple sort
         this.order = this.singleSort ? this.toggleSingleColumn(sorting) : this.toggleMultipleColumn(sorting);
@@ -32,6 +32,23 @@ export class ColumnSortingDirective implements OnDestroy {
         this.events.next(this.order);
 
         return this.order;
+    }
+
+    /** Explicitly set the column state */
+    setColumnState(key: string, state: ColumnSortingState): void {
+
+        // if only one column can be sorted and the current column has a sort direction remove all others
+        if (this.singleSort && state !== ColumnSortingState.NoSort) {
+            this.order = [];
+        } else {
+            // remove the item from the state if present
+            this.order = this.order.filter(column => column.key !== key);
+        }
+
+        // if the column has active sorting then we should add it to the array again
+        if (state === ColumnSortingState.Ascending || state === ColumnSortingState.Descending) {
+            this.order = [...this.order, { key, state }];
+        }
     }
 
     /** Toggle the sorting state of a column when using single select */
@@ -44,7 +61,7 @@ export class ColumnSortingDirective implements OnDestroy {
         // reorder columns here
         const idx = this.order.findIndex(column => column.key === sorting.key);
 
-        // if wasnt previously selected add to list
+        // if wasn't previously selected add to list
         if (idx === -1) {
             return [...this.order, { key: sorting.key, state: sorting.state }];
         }
