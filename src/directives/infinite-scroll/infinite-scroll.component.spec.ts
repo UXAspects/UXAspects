@@ -45,6 +45,7 @@ describe('Directive - Infinite Scroll', () => {
     it ('should initially call load with filter value of "" if filter input value is undefined', async() => {
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
+        expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
     it ('should call load with filter value of "" if filter input value changes to null', async() => {
@@ -55,6 +56,7 @@ describe('Directive - Infinite Scroll', () => {
         await fixture.whenStable();
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, '');
+        expect(loadSpy).toHaveBeenCalledTimes(1);
     });
 
     it ('should call load with filter value of "some string" if filter input value changes to string', async() => {
@@ -65,6 +67,7 @@ describe('Directive - Infinite Scroll', () => {
         await fixture.whenStable();
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, 'some string');
+        expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
     it ('should call load with filter value of 10 if filter input value changes to number', async() => {
@@ -75,6 +78,7 @@ describe('Directive - Infinite Scroll', () => {
         await fixture.whenStable();
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, 10);
+        expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
     it ('should call load with filter value of true if filter input value changes to boolean', async() => {
@@ -85,6 +89,7 @@ describe('Directive - Infinite Scroll', () => {
         await fixture.whenStable();
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, true);
+        expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 
     it ('should call load with filter value of { name: "somebody" } if filter input value changes to object', async() => {
@@ -95,5 +100,6 @@ describe('Directive - Infinite Scroll', () => {
         await fixture.whenStable();
 
         expect(loadSpy).toHaveBeenCalledWith(0, 20, { name: 'somebody' });
+        expect(loadSpy).toHaveBeenCalledTimes(2);
     });
 });
