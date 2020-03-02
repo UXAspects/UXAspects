@@ -29,8 +29,7 @@ import { MenuModule } from './menu.module';
             <button
                 id="trigger"
                 #menuTrigger="ux-menu-trigger"
-                [uxMenuTriggerFor]="menu"
-            >
+                [uxMenuTriggerFor]="menu">
                 Open Menu
             </button>
         </div>
@@ -38,8 +37,7 @@ import { MenuModule } from './menu.module';
 })
 export class MenuTestComponent {
     @ViewChild('menuTrigger', { static: true }) trigger: MenuTriggerDirective;
-    @ViewChild('subMenuTrigger', { static: true })
-    subMenuTrigger: MenuTriggerDirective;
+    @ViewChild('subMenuTrigger', { static: true }) subMenuTrigger: MenuTriggerDirective;
 }
 
 describe('MenuComponent', () => {
@@ -52,10 +50,7 @@ describe('MenuComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                MenuModule,
-                NoopAnimationsModule,
-            ],
+            imports: [MenuModule, NoopAnimationsModule],
             declarations: [MenuTestComponent]
         }).compileComponents();
 
@@ -350,36 +345,36 @@ describe('MenuComponent', () => {
 @Component({
     selector: 'app-menu-ngfor-test',
     template: `
-    <div class="btn-group" *ngIf="showTrigger">
-        <button
-            type="button"
-            class="btn button-secondary dropdown-toggle"
-            [uxMenuTriggerFor]="menu">
-            Actions
-        </button>
-    </div>
+        <div class="btn-group" *ngIf="showTrigger">
+            <button
+                type="button"
+                class="btn button-secondary dropdown-toggle"
+                [uxMenuTriggerFor]="menu">
+                Actions
+            </button>
+        </div>
 
-    <ux-menu #menu>
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu"></span>
-        <span class="dropdown-menu-text">Export</span>
-    </button>
+        <ux-menu #menu>
+            <button type="button" uxMenuItem>
+                <span class="dropdown-menu"></span>
+                <span class="dropdown-menu-text">Export</span>
+            </button>
 
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu"></span>
-        <span class="dropdown-menu-text">Annotate</span>
-    </button>
+            <button type="button" uxMenuItem>
+                <span class="dropdown-menu"></span>
+                <span class="dropdown-menu-text">Annotate</span>
+            </button>
 
-    <button type="button" uxMenuItem>
-        <span class="dropdown-menu"></span>
-        <span class="dropdown-menu-text">Save List</span>
-    </button>
-    </ux-menu>
-
+            <button type="button" uxMenuItem>
+                <span class="dropdown-menu"></span>
+                <span class="dropdown-menu-text">Save List</span>
+            </button>
+        </ux-menu>
     `
 })
 export class MenuNgForTestComponent {
-    @ViewChild(MenuTriggerDirective, { static: false }) trigger: MenuTriggerDirective;
+    @ViewChild(MenuTriggerDirective, { static: false })
+    trigger: MenuTriggerDirective;
 
     showTrigger: boolean = true;
 }
@@ -390,10 +385,7 @@ describe('MenuNgForTestComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                MenuModule,
-                NoopAnimationsModule,
-            ],
+            imports: [MenuModule, NoopAnimationsModule],
             declarations: [MenuNgForTestComponent]
         }).compileComponents();
     }));
