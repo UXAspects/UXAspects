@@ -21,6 +21,8 @@ import { DateTimePickerTimezone } from '../date-time-picker';
             [startTimezone]="startTimezone"
             [endTimezone]="endTimezone"
             [timezones]="timezones"
+            (startTimezoneChange)="onTimezoneStartChange()"
+            (endTimezoneChange)="onTimezoneEndChange()"
             (startChange)="onStartChange()"
             (endChange)="onEndChange()">
         </ux-date-range-picker>
@@ -30,6 +32,8 @@ export class DateRangePickerComponent {
 
     onStartChange(): void { }
     onEndChange(): void { }
+    onTimezoneStartChange(): void { }
+    onTimezoneEndChange(): void { }
 
     start: Date;
     end: Date;
@@ -70,7 +74,7 @@ describe('Date Range Picker', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update start date and call onStartChange when start date is changed ', async () => {
+    it('should update start date and not call onStartChange when start date is changed ', async () => {
         spyOn(component, 'onStartChange');
         component.start = new Date('Tue Jan 07 2020 00:00:00 GMT+0000 (Greenwich Mean Time)');
 
@@ -78,10 +82,10 @@ describe('Date Range Picker', () => {
         await fixture.whenStable();
 
         expect(getDate().innerHTML).toBe(' 7 January 2020 ');
-        expect(component.onStartChange).toHaveBeenCalled();
+        expect(component.onStartChange).not.toHaveBeenCalled();
     });
 
-    it('should update end date and call onEndChange when end date is changed', async () => {
+    it('should update end date and not call onEndChange when end date is changed', async () => {
         spyOn(component, 'onEndChange');
         component.end = new Date('Thu Jan 23 2020 23:59:59 GMT+0000 (Greenwich Mean Time)');
 
@@ -89,7 +93,7 @@ describe('Date Range Picker', () => {
         await fixture.whenStable();
 
         expect(getDate(1).innerHTML).toBe(' 23 January 2020 ');
-        expect(component.onEndChange).toHaveBeenCalled();
+        expect(component.onEndChange).not.toHaveBeenCalled();
     });
 
     it('should not cause an error when dates set to undefined', async () => {
@@ -103,7 +107,9 @@ describe('Date Range Picker', () => {
         expect(getDate(1)).toBeNull();
     });
 
-    it('should allow a half time zone to be set if it is present in the timezone array', async() => {
+    it('should allow a half time zone to be set if it is present in the timezone array and not call startTimezoneChange or endTimzoneChange', async() => {
+        spyOn(component, 'onTimezoneStartChange');
+        spyOn(component, 'onTimezoneEndChange');
         component.showTime = true;
         component.showTimezone = true;
         component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
@@ -113,22 +119,14 @@ describe('Date Range Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        await expect(getGMTValue(0).getAttribute('ng-reflect-value')).toBe('GMT-3.5');
-        await expect(getGMTValue(1).getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+        await expect(getGMTValue(0).value).toBe('GMT-3.5');
+        await expect(getGMTValue(1).value).toBe('GMT-3.5');
+
+        expect(component.onTimezoneStartChange).not.toHaveBeenCalled();
+        expect(component.onTimezoneEndChange).not.toHaveBeenCalled();
     });
 
-    it('should default to local timezone', async() => {
-        component.showTime = true;
-        component.showTimezone = true;
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        await expect(getGMTValue(0).getAttribute('ng-reflect-value')).toBe('GMT');
-        await expect(getGMTValue(1).getAttribute('ng-reflect-value')).toBe('GMT');
-    });
-
-    function getDate(index: number = 0): HTMLElement | null {
+    function getDate(index: number = 0): HTMLElement {
         const headerSections = nativeElement.querySelectorAll('ux-date-range-picker .header-section');
         return headerSections[index].querySelector('.date-header');
     }
@@ -142,9 +140,9 @@ describe('Date Range Picker', () => {
         }
     }
 
-    function getGMTValue(index: number): HTMLElement | null {
+    function getGMTValue(index: number): HTMLInputElement {
         const picker = getPicker(index);
-        return picker.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button');
+        return picker.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button input');
     }
 
 });

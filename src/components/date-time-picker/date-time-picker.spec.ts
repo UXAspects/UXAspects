@@ -18,6 +18,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
             [showSpinners]="showSpinners"
             [timezones]="timezones"
             [timezone]="timezone"
+            (timezoneChange)="onTimezoneChange()"
             (dateChange)="onDateChange()">
         </ux-date-time-picker>
     `
@@ -25,6 +26,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
 export class DateRangePickerComponent {
 
     onDateChange(): void { }
+    onTimezoneChange(): void { }
 
     date: Date;
     showTime: boolean = false;
@@ -60,14 +62,14 @@ describe('Date Time Picker', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update date and call onDateChange when start date is changed ', async () => {
+    it('should update date and not call onDateChange when start date is changed ', async () => {
         spyOn(component, 'onDateChange');
         component.date = new Date(2020, 0, 7);
         fixture.detectChanges();
         await fixture.whenStable();
 
         expect(getHeader().innerHTML).toBe(' January 2020 ');
-        expect(component.onDateChange).toHaveBeenCalled();
+        expect(component.onDateChange).not.toHaveBeenCalled();
     });
 
     it('should not cause an error when dates set to undefined', async () => {
@@ -97,17 +99,8 @@ describe('Date Time Picker', () => {
         expect(getSelected().innerHTML).toBe(' 31 ');
     });
 
-    it('should default to local timezone', async() => {
-        component.showTime = true;
-        component.showTimezone = true;
-
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(getGMT().getAttribute('ng-reflect-value')).toBe('GMT');
-    });
-
-    it('should allow a half time zone to be set if it is present in the timezone array', async() => {
+    it('should allow a half time zone to be set if it is present in the timezone array and not call timezoneChange', async() => {
+        spyOn(component, 'onTimezoneChange');
         component.showTime = true;
         component.showTimezone = true;
         component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
@@ -116,7 +109,8 @@ describe('Date Time Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(getGMT().getAttribute('ng-reflect-value')).toBe('GMT-3.5');
+        expect(getGMT().value).toBe('GMT-3.5');
+        expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
     function getHeader(): HTMLElement | null {
@@ -127,8 +121,8 @@ describe('Date Time Picker', () => {
         return nativeElement.querySelector('ux-date-time-picker-day-view .active');
     }
 
-    function getGMT(): HTMLElement | null {
-        return nativeElement.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button');
+    function getGMT(): HTMLInputElement {
+        return nativeElement.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button input');
     }
 
 });

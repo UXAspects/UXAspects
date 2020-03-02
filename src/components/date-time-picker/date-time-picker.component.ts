@@ -107,7 +107,6 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy, OnInit
     @Input() set timezones(value: DateTimePickerTimezone[]) {
         if (value !== undefined) {
             this.datepicker.timezones$.next(value);
-            this.datepicker.getCurrentTimezone();
         }
     }
 
@@ -131,12 +130,8 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy, OnInit
     @Input()
     set date(value: Date) {
         if (value && !dateComparator(value, this.datepicker.date$.value)) {
-            if (this._isRangeMode) {
-                this.datepicker.date$.next(new Date(value));
-                this.datepicker.selected$.next(new Date(value));
-            } else {
-               this.datepicker.selected$.next(new Date(value));
-            }
+            this.datepicker.date$.next(new Date(value));
+            this.datepicker.selected$.next(new Date(value));
         }
     }
 
@@ -206,27 +201,37 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy, OnInit
         public datepicker: DateTimePickerService,
         @Optional() private _rangeService: DateRangeService,
         @Optional() private _rangeOptions: DateRangeOptions) {
-
-        datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
-            .subscribe(date => this.dateChange.emit(date));
-
-        datepicker.timezone$.pipe(distinctUntilChanged(timezoneComparator), takeUntil(this._onDestroy))
-            .subscribe((timezone: DateTimePickerTimezone) => this.timezoneChange.emit(timezone));
     }
 
     ngOnInit(): void {
+
         // if there is no defined timezone then try and use the system default, otherwise fallback to
         // offset of 0, e.g. GMT or user defined equivalent
         if (!this.timezone) {
             this.datepicker.timezone$.next(this.datepicker.getCurrentTimezone());
         }
 
+        this.datepicker.selected$.pipe(distinctUntilChanged(dateComparator), takeUntil(this._onDestroy))
+            .subscribe(date => {
+                if (!this.date && !date || dateComparator(this.datepicker.date$.value, date)) {
+                    return;
+                }
+                this.dateChange.emit(date);
+            });
+
         this.datepicker.timezone$.pipe(takeUntil(this._onDestroy))
             .subscribe((timezone: DateTimePickerTimezone) => {
                 if (!this.datepicker.timezone$.value && timezone || !timezoneComparator(this.datepicker.timezone$.value, timezone)) {
                     this.timezone = timezone;
-                    this.timezoneChange.emit(timezone);
                 }
+            });
+
+        this.datepicker.timezone$.pipe(distinctUntilChanged(timezoneComparator), takeUntil(this._onDestroy))
+            .subscribe((timezone: DateTimePickerTimezone) => {
+                if (!this.timezone && !timezone || timezoneComparator(this.datepicker.timezone$.value, timezone)) {
+                    return;
+                }
+                this.timezoneChange.emit(timezone);
             });
     }
 
@@ -243,7 +248,6 @@ export class DateTimePickerComponent implements AfterViewInit, OnDestroy, OnInit
      * Change the date to the current date and time
      */
     setToNow(): void {
-
         if (this._isRangeMode) {
             const date = new Date();
 
