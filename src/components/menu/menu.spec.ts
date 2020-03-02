@@ -343,7 +343,7 @@ describe('MenuComponent', () => {
 });
 
 @Component({
-    selector: 'app-menu-ngfor-test',
+    selector: 'app-menu-trigger-test',
     template: `
         <div class="btn-group" *ngIf="showTrigger">
             <button
@@ -372,26 +372,26 @@ describe('MenuComponent', () => {
         </ux-menu>
     `
 })
-export class MenuNgForTestComponent {
+export class MenuTriggerDestroyTestComponent {
     @ViewChild(MenuTriggerDirective, { static: false })
     trigger: MenuTriggerDirective;
 
     showTrigger: boolean = true;
 }
 
-describe('MenuNgForTestComponent', () => {
-    let component: MenuNgForTestComponent;
-    let fixture: ComponentFixture<MenuNgForTestComponent>;
+describe('MenuTriggerDestroyTestComponent', () => {
+    let component: MenuTriggerDestroyTestComponent;
+    let fixture: ComponentFixture<MenuTriggerDestroyTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MenuModule, NoopAnimationsModule],
-            declarations: [MenuNgForTestComponent]
+            declarations: [MenuTriggerDestroyTestComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MenuNgForTestComponent);
+        fixture = TestBed.createComponent(MenuTriggerDestroyTestComponent);
         component = fixture.componentInstance;
 
         fixture.detectChanges();
