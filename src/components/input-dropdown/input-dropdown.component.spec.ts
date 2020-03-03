@@ -1,12 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IconModule } from '../icon';
-import { MenuModule } from '../menu';
 import { InputDropdownComponent } from './input-dropdown.component';
-
+import { InputDropdownModule } from './input-dropdown.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('InputDropdownComponent', () => {
     let component: InputDropdownComponent<any>;
@@ -14,17 +10,19 @@ describe('InputDropdownComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [InputDropdownComponent],
-            imports: [CommonModule, FormsModule, IconModule, MenuModule, BrowserAnimationsModule]
-        })
-            .compileComponents();
+            imports: [
+                InputDropdownModule,
+                NoopAnimationsModule
+            ]
+        }).overrideComponent(InputDropdownComponent, {
+            set: { changeDetection: ChangeDetectionStrategy.Default }
+        }).compileComponents();
     }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(InputDropdownComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        component.filterInputElement = new ElementRef({ focus: () => true });
     });
 
     it('should create', () => {
@@ -77,15 +75,15 @@ describe('InputDropdownComponent', () => {
 
     it('should open dropdown when dropdownOpen is programmatically set to true', async () => {
 
-        // check dropdownOpen is currently false
-        expect(component.dropdownOpen).toBeFalsy();
+        // ngOnChanges does not get called in unit tests when there are no bindings set up so we must manually do this
+        // to simulate the change of the dropdownOpen input
+        component.ngOnChanges({
+            dropdownOpen: new SimpleChange(false, true, false)
+        });
 
-        // set dropdownOpen to be true
-        component.dropdownOpen = true;
         fixture.detectChanges();
-        await fixture.whenStable();
 
-        let dropdown = document.querySelector('.filter-container');
+        const dropdown = document.querySelector('.filter-container');
         expect(dropdown).toBeTruthy();
     });
 
