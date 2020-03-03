@@ -15,16 +15,17 @@
         </ux-icon>
         <ux-icon name="chevron-down"
                  class="ux-select-icon ux-select-chevron-icon"
-                 (click)="menuTrigger.toggleMenu(); $event.stopPropagation()">
+                 (click)="toggleMenu(); $event.stopPropagation()">
         </ux-icon>
     </div>
 </div>
 
 <ux-menu #menu menuClass="select-menu"
-         (opened)="_focusFilter()"
+         (opened)="onMenuOpen()"
+         (closed)="onMenuClose()"
          [attr.aria-expanded]="dropdownOpen">
 
-    <div [style.max-height]="_maxHeightString"
+    <div [style.max-height]="_maxHeight"
          [style.width.px]="button.offsetWidth">
 
         <div *ngIf="!hideFilter"
@@ -34,18 +35,17 @@
                     type="text"
                     [placeholder]="placeholder"
                     class="form-control"
-                    [(ngModel)]="filterText"
-                    (input)="filterChange.emit(filterText)"
+                    [(ngModel)]="_filterText"
+                    (input)="filterChange.emit(_filterText)"
                     (click)="$event.stopPropagation()"
                     [attr.aria-label]="ariaLabel || placeholder"
-                    (blur)="inputBlurHandler()"
                     (focus)="inputFocusHandler()">
 
             <button type="button"
                     class="btn btn-flat filter-button"
                     (click)="resetFilter($event)"
-                    [tabindex]="filterText.length > 0 ? 0 : -1">
-                <ux-icon [name]="filterText.length === 0 ? 'search' : 'close'"></ux-icon>
+                    [tabindex]="_filterText.length > 0 ? 0 : -1">
+                <ux-icon [name]="_filterText.length === 0 ? 'search' : 'close'"></ux-icon>
             </button>
         </div>
 

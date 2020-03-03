@@ -33,7 +33,7 @@ export class ComponentsInputDropdownComponent extends BaseDocumentationSection i
     filteredOptionList: ReadonlyArray<RadioOption> = this.optionList;
     filter: string = '';
     allowNull: boolean = false;
-    dropdownOpen: boolean = true;
+    dropdownOpen: boolean = false;
     maxHeight: string = '400px';
     placeholder: string = 'Type to search...';
 

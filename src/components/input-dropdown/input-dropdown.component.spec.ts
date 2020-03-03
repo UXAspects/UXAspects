@@ -32,7 +32,7 @@ describe('InputDropdownComponent', () => {
     });
 
     it('should reset filter correctly', () => {
-        component.filterText = 'Tralala';
+        component._filterText = 'Tralala';
 
         spyOn(component.filterChange, 'emit');
         spyOn(component.filterInputElement.nativeElement, 'focus');
@@ -40,7 +40,7 @@ describe('InputDropdownComponent', () => {
         component.resetFilter(new MouseEvent('click'));
 
         fixture.detectChanges();
-        expect(component.filterText).toEqual('');
+        expect(component._filterText).toEqual('');
         expect(component.filterChange.emit).toHaveBeenCalledWith('');
         expect(component.filterInputElement.nativeElement.focus).toHaveBeenCalledWith();
     });
