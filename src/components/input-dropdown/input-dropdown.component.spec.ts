@@ -1,12 +1,15 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { ChangeDetectionStrategy, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputDropdownComponent } from './input-dropdown.component';
 import { InputDropdownModule } from './input-dropdown.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('InputDropdownComponent', () => {
     let component: InputDropdownComponent<any>;
     let fixture: ComponentFixture<InputDropdownComponent<any>>;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -17,12 +20,27 @@ describe('InputDropdownComponent', () => {
         }).overrideComponent(InputDropdownComponent, {
             set: { changeDetection: ChangeDetectionStrategy.Default }
         }).compileComponents();
+
+        // access the overlay container
+        inject([OverlayContainer], (oc: OverlayContainer) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        })();
     }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(InputDropdownComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+
+    });
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
     });
 
     it('should create', () => {
@@ -82,6 +100,7 @@ describe('InputDropdownComponent', () => {
         });
 
         fixture.detectChanges();
+        await fixture.whenStable();
 
         const dropdown = document.querySelector('.filter-container');
         expect(dropdown).toBeTruthy();
@@ -89,17 +108,51 @@ describe('InputDropdownComponent', () => {
 
     it('should close dropdown when dropdownOpen is programmatically set to false', async () => {
 
-        component.dropdownOpen = true;
-        fixture.detectChanges();
-        await fixture.whenStable();
-        expect(component.dropdownOpen).toBeTruthy();
+        component.ngOnChanges({
+            dropdownOpen: new SimpleChange(false, true, false)
+        });
 
-        component.dropdownOpen = false;
         fixture.detectChanges();
         await fixture.whenStable();
 
-        let dropdown = document.querySelector('.filter-container');
-        expect(dropdown).toBeFalsy();
+        component.ngOnChanges({
+            dropdownOpen: new SimpleChange(true, false, false)
+        });
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const filter = document.querySelector('.filter-container');
+        expect(filter).toBeFalsy();
+    });
+
+    it('dropdownOpenChange should not emit when dropdownOpen is programmatically set', async () => {
+
+        component.ngOnChanges({
+            dropdownOpen: new SimpleChange(false, true, false)
+        });
+
+        spyOn(component.dropdownOpenChange, 'emit');
+
+        component.ngOnChanges({
+            dropdownOpen: new SimpleChange(true, false, false)
+        });
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.dropdownOpenChange.emit).not.toHaveBeenCalled();
+    });
+
+    it('dropdownOpenChange should emit when dropdownOpen is set by the component', async () => {
+
+        spyOn(component.dropdownOpenChange, 'emit');
+
+        component.inputFocusHandler();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(true);
     });
 
 });
