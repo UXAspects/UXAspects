@@ -55,13 +55,19 @@ export class InputDropdownComponent<T> implements ControlValueAccessor, OnChange
         this._dropdownOpen = value;
         this.dropdownOpenChange.emit(value);
 
-        if (value) {
-            this.menuTrigger.openMenu();
-        }
+        // if (value) {
+        //     this.menuTrigger.openMenu();
+        // }
     }
 
     get dropdownOpen() {
         return this._dropdownOpen;
+    }
+
+    ngAfterViewInit(): void {
+        if (this.dropdownOpen) {
+            this.menuTrigger.openMenu();
+        }
     }
 
     @ContentChild('displayContent', { static: false }) displayContentRef: TemplateRef<void>;

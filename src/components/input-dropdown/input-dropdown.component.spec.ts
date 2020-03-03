@@ -24,7 +24,6 @@ describe('InputDropdownComponent', () => {
         fixture = TestBed.createComponent(InputDropdownComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
         component.filterInputElement = new ElementRef({ focus: () => true });
     });
 
@@ -77,22 +76,37 @@ describe('InputDropdownComponent', () => {
     });
 
     it('should open dropdown when dropdownOpen is programmatically set to true', () => {
+        debugger;
+        // check dropdownOpen is currently false
         expect(component.dropdownOpen).toBeFalsy();
         spyOn(component.dropdownOpenChange, 'emit');
 
+        // set dropdownOpen to be true
         component.dropdownOpen = true;
         fixture.detectChanges();
+        debugger;
+        // Check the filter-container is now visible
+        let dropdown = document.querySelector('.filter-container');
+        expect(dropdown).toBeTruthy();
+
         expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(true);
     });
 
-    it('should close dropdown when dropdownOpen is programmatically set to false', () => {
+    it('should close dropdown when dropdownOpen is programmatically set to false', async () => {
+
         component.dropdownOpen = true;
         fixture.detectChanges();
         expect(component.dropdownOpen).toBeTruthy();
 
         spyOn(component.dropdownOpenChange, 'emit');
+
         component.dropdownOpen = false;
         fixture.detectChanges();
+        await fixture.whenStable();
+
+        let dropdown = document.querySelector('.filter-container');
+        expect(dropdown).toBeFalsy();
+
         expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(false);
     });
 });
