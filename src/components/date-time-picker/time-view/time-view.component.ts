@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { DateRangeOptions } from '../../date-range-picker/date-range-picker.directive';
 import { DateRangePicker, DateRangeService } from '../../date-range-picker/date-range.service';
 import { DateTimePickerService } from '../date-time-picker.service';
-import { compareDays } from '../date-time-picker.utils';
+import { compareDays, DateTimePickerTimezone } from '../date-time-picker.utils';
 
 @Component({
     selector: 'ux-date-time-picker-time-view',
@@ -44,6 +44,9 @@ export class TimeViewComponent implements OnInit, OnDestroy {
     get _rangeEnd(): Date | null {
         return this._isRangeMode && this._rangeService ? this._rangeService.end : null;
     }
+
+    /** Emit when the timezone changes. */
+    @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
 
     private _onDestroy = new Subject<void>();
 
@@ -157,7 +160,7 @@ export class TimeViewComponent implements OnInit, OnDestroy {
         const timezone = timezones.find(_timezone => _timezone.name === name);
 
         if (timezone) {
-            this.datepicker.setTimezone(timezone);
+            this.timezoneChange.emit(timezone);
         }
     }
 
@@ -168,7 +171,7 @@ export class TimeViewComponent implements OnInit, OnDestroy {
         const currentZone = timezones.findIndex(zone => zone.name === timezone.name && zone.offset === timezone.offset);
 
         // try to get the previous zone
-        this.datepicker.setTimezone(timezones[currentZone + 1] ? timezones[currentZone + 1] : timezones[currentZone]);
+        this.timezoneChange.emit(timezones[currentZone + 1] ? timezones[currentZone + 1] : timezones[currentZone]);
     }
 
     decrementTimezone(): void {
@@ -178,7 +181,7 @@ export class TimeViewComponent implements OnInit, OnDestroy {
         const currentZone = timezones.findIndex(zone => zone.name === timezone.name && zone.offset === timezone.offset);
 
         // try to get the previous zone
-        this.datepicker.setTimezone(timezones[currentZone - 1] ? timezones[currentZone - 1] : timezones[currentZone]);
+        this.timezoneChange.emit(timezones[currentZone - 1] ? timezones[currentZone - 1] : timezones[currentZone]);
     }
 
     @HostListener('focusin')

@@ -62,14 +62,14 @@ describe('Date Time Picker', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update date and not call onDateChange when start date is changed ', async () => {
+    it('should update date and call onDateChange when start date is changed ', async () => {
         spyOn(component, 'onDateChange');
         component.date = new Date(2020, 0, 7);
         fixture.detectChanges();
         await fixture.whenStable();
 
         expect(getHeader().innerHTML).toBe(' January 2020 ');
-        expect(component.onDateChange).not.toHaveBeenCalled();
+        expect(component.onDateChange).toHaveBeenCalled();
     });
 
     it('should not cause an error when dates set to undefined', async () => {
@@ -109,7 +109,7 @@ describe('Date Time Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        expect(getGMT().value).toBe('GMT-3.5');
+        expect(getTimezone().value).toBe('GMT-3.5');
         expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
@@ -121,7 +121,7 @@ describe('Date Time Picker', () => {
         return nativeElement.querySelector('ux-date-time-picker-day-view .active');
     }
 
-    function getGMT(): HTMLInputElement {
+    function getTimezone(): HTMLInputElement {
         return nativeElement.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button input');
     }
 

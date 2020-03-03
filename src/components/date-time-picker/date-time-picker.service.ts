@@ -174,10 +174,6 @@ export class DateTimePickerService implements OnDestroy {
         }
     }
 
-    setTimezone(timezone: DateTimePickerTimezone): void {
-        this.timezone$.next(timezone);
-    }
-
     isInRange(date: Date): boolean {
         return (!this.min$.value || date >= this.min$.value) && (!this.max$.value || date <= this.max$.value);
     }

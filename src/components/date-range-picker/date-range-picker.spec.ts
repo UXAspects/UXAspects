@@ -74,7 +74,7 @@ describe('Date Range Picker', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should update start date and not call onStartChange when start date is changed ', async () => {
+    it('should update start date and call onStartChange when start date is changed ', async () => {
         spyOn(component, 'onStartChange');
         component.start = new Date('Tue Jan 07 2020 00:00:00 GMT+0000 (Greenwich Mean Time)');
 
@@ -82,10 +82,10 @@ describe('Date Range Picker', () => {
         await fixture.whenStable();
 
         expect(getDate().innerHTML).toBe(' 7 January 2020 ');
-        expect(component.onStartChange).not.toHaveBeenCalled();
+        expect(component.onStartChange).toHaveBeenCalled();
     });
 
-    it('should update end date and not call onEndChange when end date is changed', async () => {
+    it('should update end date and call onEndChange when end date is changed', async () => {
         spyOn(component, 'onEndChange');
         component.end = new Date('Thu Jan 23 2020 23:59:59 GMT+0000 (Greenwich Mean Time)');
 
@@ -93,7 +93,7 @@ describe('Date Range Picker', () => {
         await fixture.whenStable();
 
         expect(getDate(1).innerHTML).toBe(' 23 January 2020 ');
-        expect(component.onEndChange).not.toHaveBeenCalled();
+        expect(component.onEndChange).toHaveBeenCalled();
     });
 
     it('should not cause an error when dates set to undefined', async () => {
@@ -119,8 +119,8 @@ describe('Date Range Picker', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        await expect(getGMTValue(0).value).toBe('GMT-3.5');
-        await expect(getGMTValue(1).value).toBe('GMT-3.5');
+        await expect(getTimezone(0).value).toBe('GMT-3.5');
+        await expect(getTimezone(1).value).toBe('GMT-3.5');
 
         expect(component.onTimezoneStartChange).not.toHaveBeenCalled();
         expect(component.onTimezoneEndChange).not.toHaveBeenCalled();
@@ -140,7 +140,7 @@ describe('Date Range Picker', () => {
         }
     }
 
-    function getGMTValue(index: number): HTMLInputElement {
+    function getTimezone(index: number): HTMLInputElement {
         const picker = getPicker(index);
         return picker.querySelector('ux-date-time-picker-time-view .time-zone-picker ux-spin-button input');
     }
