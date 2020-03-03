@@ -75,30 +75,26 @@ describe('InputDropdownComponent', () => {
         expect(callbackObject.callback).toHaveBeenCalledWith();
     });
 
-    it('should open dropdown when dropdownOpen is programmatically set to true', () => {
-        debugger;
+    it('should open dropdown when dropdownOpen is programmatically set to true', async () => {
+
         // check dropdownOpen is currently false
         expect(component.dropdownOpen).toBeFalsy();
-        spyOn(component.dropdownOpenChange, 'emit');
 
         // set dropdownOpen to be true
         component.dropdownOpen = true;
         fixture.detectChanges();
-        debugger;
-        // Check the filter-container is now visible
+        await fixture.whenStable();
+
         let dropdown = document.querySelector('.filter-container');
         expect(dropdown).toBeTruthy();
-
-        expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(true);
     });
 
     it('should close dropdown when dropdownOpen is programmatically set to false', async () => {
 
         component.dropdownOpen = true;
         fixture.detectChanges();
+        await fixture.whenStable();
         expect(component.dropdownOpen).toBeTruthy();
-
-        spyOn(component.dropdownOpenChange, 'emit');
 
         component.dropdownOpen = false;
         fixture.detectChanges();
@@ -106,7 +102,6 @@ describe('InputDropdownComponent', () => {
 
         let dropdown = document.querySelector('.filter-container');
         expect(dropdown).toBeFalsy();
-
-        expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(false);
     });
+
 });
