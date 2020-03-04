@@ -18,7 +18,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
             [showSpinners]="showSpinners"
             [timezones]="timezones"
             [timezone]="timezone"
-            (timezoneChange)="onTimezoneChange()"
+            (timezoneChange)="onTimezoneChange($event)"
             (dateChange)="onDateChange()">
         </ux-date-time-picker>
     `
@@ -26,7 +26,7 @@ import { DateTimePickerTimezone } from './date-time-picker.utils';
 export class DateRangePickerComponent {
 
     onDateChange(): void { }
-    onTimezoneChange(): void { }
+    onTimezoneChange(value: DateTimePickerTimezone): void {}
 
     date: Date;
     showTime: boolean = false;
@@ -111,6 +111,35 @@ describe('Date Time Picker', () => {
 
         expect(getTimezone().value).toBe('GMT-3.5');
         expect(component.onTimezoneChange).not.toHaveBeenCalled();
+    });
+
+    it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async() => {
+        spyOn(component, 'onTimezoneChange');
+        component.showTime = true;
+        component.showTimezone = true;
+        component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
+        component.timezone = { name: 'GMT-3.5x', offset: 3000 };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getTimezone().value).toBe('GMT');
+        expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async() => {
+        spyOn(component, 'onTimezoneChange');
+        component.showTime = true;
+        component.showTimezone = true;
+        component.timezone = { name: 'GMT-3.5x', offset: 3000 };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(getTimezone().value).toBe('GMT');
+        expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
     });
 
     function getHeader(): HTMLElement | null {

@@ -15,7 +15,7 @@
 
         <ux-spin-button
             class="time-zone-spinner"
-            [value]="(datepicker.timezone$ | async).name"
+            [value]="(datepicker.timezone$ | async)?.name"
             [readOnly]="true"
             (increment)="incrementTimezone()"
             (decrement)="decrementTimezone()"
@@ -29,13 +29,13 @@
 
         <select class="form-control time-zone-select"
                 tabindex="0"
-                [ngModel]="(datepicker.timezone$ | async).name"
+                [ngModel]="(datepicker.timezone$ | async)?.name"
                 (ngModelChange)="selectTimezone($event)"
                 aria-label="Timezone"
-                [attr.aria-valuenow]="(datepicker.timezone$ | async).name">
+                [attr.aria-valuenow]="(datepicker.timezone$ | async)?.name">
 
             <option *ngFor="let zone of datepicker.timezones$ | async"
-                    [selected]="zone.name === (datepicker.timezone$ | async).name"
+                    [selected]="zone.name === (datepicker.timezone$ | async)?.name"
                     [value]="zone.name">
                 {{ zone?.name }}
             </option>

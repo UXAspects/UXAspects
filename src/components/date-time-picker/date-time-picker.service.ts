@@ -9,7 +9,7 @@ export class DateTimePickerService implements OnDestroy {
 
     mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
     date$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
-    timezone$ = new BehaviorSubject<DateTimePickerTimezone>(this.getCurrentTimezone());
+    timezone$ = new BehaviorSubject<DateTimePickerTimezone>(null);
     selected$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
 
     // the month and year to display in the viewport
@@ -163,15 +163,15 @@ export class DateTimePickerService implements OnDestroy {
         this.header$.next(header);
     }
 
-    getCurrentTimezone(): DateTimePickerTimezone {
-        const setTimezone = this.timezone$ ? this.timezone$.value.offset : null;
+    getTimezoneOrDefault(timezone: DateTimePickerTimezone = this.timezone$.value): DateTimePickerTimezone {
+        const timezoneOffset = timezone ? timezone.offset : null;
         const offset = new Date().getTimezoneOffset();
         const zones = this.timezones$ ? this.timezones$.value : timezones;
-        const matchingZone = setTimezone ? zones.find(timezone => timezone.offset === setTimezone) : zones.find(timezone => timezone.offset === offset);
+        const matchingZone = timezoneOffset !== null ? zones.find(_timezone => _timezone.offset === timezoneOffset) : zones.find(_timezone => _timezone.offset === offset);
         if (matchingZone) {
             return matchingZone;
         } else {
-            return zones.find(timezone => timezone.offset === 0) || { name: 'GMT', offset: 0 };
+            return zones.find(_timezone => _timezone.offset === 0) || { name: 'GMT', offset: 0 };
         }
     }
 

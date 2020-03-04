@@ -21,8 +21,8 @@ import { DateTimePickerTimezone } from '../date-time-picker';
             [startTimezone]="startTimezone"
             [endTimezone]="endTimezone"
             [timezones]="timezones"
-            (startTimezoneChange)="onTimezoneStartChange()"
-            (endTimezoneChange)="onTimezoneEndChange()"
+            (startTimezoneChange)="onTimezoneStartChange($event)"
+            (endTimezoneChange)="onTimezoneEndChange($event)"
             (startChange)="onStartChange()"
             (endChange)="onEndChange()">
         </ux-date-range-picker>
@@ -32,8 +32,8 @@ export class DateRangePickerComponent {
 
     onStartChange(): void { }
     onEndChange(): void { }
-    onTimezoneStartChange(): void { }
-    onTimezoneEndChange(): void { }
+    onTimezoneStartChange(value: DateTimePickerTimezone): void { }
+    onTimezoneEndChange(value: DateTimePickerTimezone): void { }
 
     start: Date;
     end: Date;
@@ -124,6 +124,47 @@ describe('Date Range Picker', () => {
 
         expect(component.onTimezoneStartChange).not.toHaveBeenCalled();
         expect(component.onTimezoneEndChange).not.toHaveBeenCalled();
+    });
+
+    it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async() => {
+        spyOn(component, 'onTimezoneStartChange');
+        spyOn(component, 'onTimezoneEndChange');
+        component.showTime = true;
+        component.showTimezone = true;
+        component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
+        component.startTimezone = { name: 'GMT-3.5x', offset: 3000 };
+        component.endTimezone = { name: 'GMT-3.5x', offset: 3000 };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        await expect(getTimezone(0).value).toBe('GMT');
+        await expect(getTimezone(1).value).toBe('GMT');
+
+        expect(component.onTimezoneStartChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneStartChange).toHaveBeenCalledTimes(1);
+        expect(component.onTimezoneEndChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneEndChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async() => {
+        spyOn(component, 'onTimezoneStartChange');
+        spyOn(component, 'onTimezoneEndChange');
+        component.showTime = true;
+        component.showTimezone = true;
+        component.startTimezone = { name: 'GMT-3.5x', offset: 3000 };
+        component.endTimezone = { name: 'GMT-3.5x', offset: 3000 };
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        await expect(getTimezone(0).value).toBe('GMT');
+        await expect(getTimezone(1).value).toBe('GMT');
+
+        expect(component.onTimezoneStartChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneStartChange).toHaveBeenCalledTimes(1);
+        expect(component.onTimezoneEndChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneEndChange).toHaveBeenCalledTimes(1);
     });
 
     function getDate(index: number = 0): HTMLElement {
