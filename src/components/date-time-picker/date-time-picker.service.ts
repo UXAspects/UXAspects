@@ -163,16 +163,21 @@ export class DateTimePickerService implements OnDestroy {
         this.header$.next(header);
     }
 
-    getTimezoneOrDefault(timezone: DateTimePickerTimezone = this.timezone$.value): DateTimePickerTimezone {
-        const timezoneOffset = timezone ? timezone.offset : null;
-        const offset = new Date().getTimezoneOffset();
-        const zones = this.timezones$ ? this.timezones$.value : timezones;
-        const matchingZone = timezoneOffset !== null ? zones.find(_timezone => _timezone.offset === timezoneOffset) : zones.find(_timezone => _timezone.offset === offset);
-        if (matchingZone) {
-            return matchingZone;
-        } else {
-            return zones.find(_timezone => _timezone.offset === 0) || { name: 'GMT', offset: 0 };
+    isTimezoneAvailable(timezone: DateTimePickerTimezone): boolean {
+        if (!timezone || !this.timezones$.value) {
+            return false;
         }
+
+        return this.timezones$.value.findIndex(_timezone => _timezone.offset === timezone.offset) !== -1;
+    }
+
+    getDefaultTimezone(): DateTimePickerTimezone {
+        const offset = new Date().getTimezoneOffset();
+        const matchingZone = this.timezones$.value.find(_timezone => _timezone.offset === offset);
+
+        console.log(`getDefaultTimezone: offset = ${offset}; matchingZone = ${JSON.stringify(matchingZone)}`);
+
+        return matchingZone || this.timezones$.value.find(_timezone => _timezone.offset === 0) || { name: 'GMT', offset: 0 };
     }
 
     isInRange(date: Date): boolean {

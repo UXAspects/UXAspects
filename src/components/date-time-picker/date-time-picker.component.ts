@@ -238,33 +238,38 @@ export class DateTimePickerComponent implements OnInit, AfterViewInit, OnDestroy
             this.datepicker.setDateToNow();
         }
     }
-    onTimezoneChange(timezone: DateTimePickerTimezone): void {
+
+    _onTimezoneChange(timezone: DateTimePickerTimezone): void {
         if (!timezoneComparator(this.datepicker.timezone$.value, timezone)) {
             this.timezoneChange.emit(timezone);
         }
     }
 
+    /**
+     * Update the service with the new timezone value, falling back on the default if it is undefined or
+     * not present in `timezones`.
+     */
     private setTimezone(timezone: DateTimePickerTimezone | undefined): void {
         // if the user does not provide a timezone, set it to the current timezone and emit the change
         if (!timezone) {
-            this.datepicker.timezone$.next(this.datepicker.getTimezoneOrDefault());
+            this.datepicker.timezone$.next(this.datepicker.getDefaultTimezone());
             this.timezoneChange.emit(this.datepicker.timezone$.value);
             return;
         }
 
-        // if the user has supplied a timezone, store it without emitting if the timezone has changed
-        if (timezone && !this.datepicker.timezone$.value || !timezoneComparator(this.datepicker.timezone$.value, timezone)) {
+        // Check if the timezone is available in the timezones list; if not, get the default timezone
+        if (this.datepicker.isTimezoneAvailable(timezone)) {
+            this.datepicker.timezone$.next(timezone);
+        } else {
+            // This is probably an unintended state so emit a warning
+            console.warn(`ux-date-time-picker: specified timezone ${JSON.stringify(timezone)} is not present in the timezones array.`);
 
-            // verify the timezone is available
-            const targetTimezone = this.datepicker.getTimezoneOrDefault(timezone);
-            this.datepicker.timezone$.next(targetTimezone);
-
-            // if the user provided us with a timezone but that timezone was not valid we need to emit
-            // the corrected timezone
-            if (!timezoneComparator(targetTimezone, timezone)) {
-                this.timezoneChange.emit(targetTimezone);
+            // Fall back on the default timezone
+            const defaultTimezone = this.datepicker.getDefaultTimezone();
+            if (!this.datepicker.timezone$.value || !timezoneComparator(defaultTimezone, this.datepicker.timezone$.value)) {
+                this.datepicker.timezone$.next(defaultTimezone);
+                this.timezoneChange.emit(defaultTimezone);
             }
         }
-
     }
 }

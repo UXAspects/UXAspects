@@ -16,7 +16,7 @@
   </ng-container>
 
   <!-- Display a Time Picker -->
-  <ux-date-time-picker-time-view (timezoneChange)="onTimezoneChange($event)"
+  <ux-date-time-picker-time-view (timezoneChange)="_onTimezoneChange($event)"
                                  *ngIf="datepicker.showTime$ | async"></ux-date-time-picker-time-view>
 
 </div>

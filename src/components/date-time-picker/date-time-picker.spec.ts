@@ -42,6 +42,7 @@ describe('Date Time Picker', () => {
     let component: DateRangePickerComponent;
     let fixture: ComponentFixture<DateRangePickerComponent>;
     let nativeElement: HTMLElement;
+    let onTimezoneChangeSpy: jasmine.Spy;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -55,6 +56,7 @@ describe('Date Time Picker', () => {
         fixture = TestBed.createComponent(DateRangePickerComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
+        onTimezoneChangeSpy = spyOn(component, 'onTimezoneChange');
         fixture.detectChanges();
     });
 
@@ -100,7 +102,9 @@ describe('Date Time Picker', () => {
     });
 
     it('should allow a half time zone to be set if it is present in the timezone array and not call timezoneChange', async() => {
-        spyOn(component, 'onTimezoneChange');
+        // Ignore the initial call from timezone being set to default
+        onTimezoneChangeSpy.calls.reset();
+
         component.showTime = true;
         component.showTimezone = true;
         component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
@@ -114,7 +118,11 @@ describe('Date Time Picker', () => {
     });
 
     it('should not allow a timezone to be set that is not in the provided timezone list and default to GMT', async() => {
-        spyOn(component, 'onTimezoneChange');
+        // Verify the initial `timezone` change from undefined to GMT and reset the spy
+        expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
+        onTimezoneChangeSpy.calls.reset();
+
         component.showTime = true;
         component.showTimezone = true;
         component.timezones = [{ name: 'GMT-3.5', offset: 210 }, { name: 'GMT-3', offset: 180 }, { name: 'GMT-2', offset: 120 }, { name: 'GMT-1', offset: 60 }, { name: 'GMT', offset: 0 }];
@@ -124,12 +132,17 @@ describe('Date Time Picker', () => {
         await fixture.whenStable();
 
         expect(getTimezone().value).toBe('GMT');
-        expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
-        expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
+
+        // Timezone was changed to GMT on initialization, so we do not expect another call with the same value
+        expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
     it('should not allow a timezone to be set that is not in the default timezone list and default to GMT', async() => {
-        spyOn(component, 'onTimezoneChange');
+        // Verify the initial `timezone` change from undefined to GMT and reset the spy
+        expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
+        expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
+        onTimezoneChangeSpy.calls.reset();
+
         component.showTime = true;
         component.showTimezone = true;
         component.timezone = { name: 'GMT-3.5x', offset: 3000 };
@@ -138,8 +151,9 @@ describe('Date Time Picker', () => {
         await fixture.whenStable();
 
         expect(getTimezone().value).toBe('GMT');
-        expect(component.onTimezoneChange).toHaveBeenCalledWith({ name: 'GMT', offset: 0 });
-        expect(component.onTimezoneChange).toHaveBeenCalledTimes(1);
+
+        // Timezone was changed to GMT on initialization, so we do not expect another call with the same value
+        expect(component.onTimezoneChange).not.toHaveBeenCalled();
     });
 
     function getHeader(): HTMLElement | null {
