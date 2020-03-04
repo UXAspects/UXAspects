@@ -1,7 +1,8 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, SimpleChange } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RadioButtonModule } from '../radiobutton/radiobutton.module';
 import { InputDropdownComponent } from './input-dropdown.component';
 import { InputDropdownModule } from './input-dropdown.module';
 
@@ -20,27 +21,12 @@ describe('InputDropdownComponent', () => {
         }).overrideComponent(InputDropdownComponent, {
             set: { changeDetection: ChangeDetectionStrategy.Default }
         }).compileComponents();
-
-        // access the overlay container
-        inject([OverlayContainer], (oc: OverlayContainer) => {
-            overlayContainer = oc;
-            overlayContainerElement = oc.getContainerElement();
-        })();
     }));
-
-    afterEach(() => {
-        overlayContainer.ngOnDestroy();
-    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(InputDropdownComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
-    });
-
-    afterEach(() => {
-        overlayContainer.ngOnDestroy();
     });
 
     it('should create', () => {
@@ -90,14 +76,92 @@ describe('InputDropdownComponent', () => {
 
         expect(callbackObject.callback).toHaveBeenCalledWith();
     });
+});
+
+@Component({
+    selector: 'app-dropdown-test',
+    template: `
+        <ux-input-dropdown
+            [(selected)]="selected"
+            [dropdownOpen]="dropdownOpen"
+            (dropdownOpenChange)="dropdownOpenChange($event)"
+            (filterChange)="setFilter($event)"
+            [allowNull]="allowNull"
+            [maxHeight]="maxHeight"
+            [placeholder]="placeholder"
+            aria-label="Filter input">
+
+            <ng-template #displayContent>
+                <b>Selection:</b> {{ selected ? selected.name : '(none)' }}
+            </ng-template>
+
+            <div class="radio-button-container"
+                 uxTabbableList>
+                <ux-radio-button
+                    uxTabbableListItem
+                    *ngFor="let option of filteredOptionList"
+                    name="group"
+                    [(value)]="selected"
+                    [option]="option"
+                    (keydown.space)="selectOption($event, option)">
+                    <!-- <span [innerHTML]="option.name | highlightSearch: filter">
+                    </span> -->
+                </ux-radio-button>
+            </div>
+
+        </ux-input-dropdown>
+    `
+})
+export class InputDropdownTestComponent {
+
+    inputFocusHandler() {
+        this.dropdownOpen = true;
+        this.dropdownOpenChange.emit(this.dropdownOpen);
+    }
+
+    /** Emits when `dropdownOpen` changes. */
+    @Output() dropdownOpenChange = new EventEmitter<boolean>();
+    @Input() dropdownOpen: boolean = false;
+}
+
+describe('InputDropdownComponent', () => {
+    let component: InputDropdownTestComponent;
+    let fixture: ComponentFixture<InputDropdownTestComponent>;
+    let nativeElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                InputDropdownModule,
+                NoopAnimationsModule,
+                RadioButtonModule
+            ],
+            declarations: [InputDropdownTestComponent]
+        }).overrideComponent(InputDropdownTestComponent, {
+            set: { changeDetection: ChangeDetectionStrategy.Default }
+        }).compileComponents();
+
+        // access the overlay container
+        inject([OverlayContainer], (oc: OverlayContainer) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        })();
+
+        fixture = TestBed.createComponent(InputDropdownTestComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+        fixture.detectChanges();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
 
     it('should open dropdown when dropdownOpen is programmatically set to true', async () => {
 
-        // ngOnChanges does not get called in unit tests when there are no bindings set up so we must manually do this
-        // to simulate the change of the dropdownOpen input
-        component.ngOnChanges({
-            dropdownOpen: new SimpleChange(false, true, false)
-        });
+        component.dropdownOpen = true;
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -108,16 +172,12 @@ describe('InputDropdownComponent', () => {
 
     it('should close dropdown when dropdownOpen is programmatically set to false', async () => {
 
-        component.ngOnChanges({
-            dropdownOpen: new SimpleChange(false, true, false)
-        });
+        component.dropdownOpen = true;
 
         fixture.detectChanges();
         await fixture.whenStable();
 
-        component.ngOnChanges({
-            dropdownOpen: new SimpleChange(true, false, false)
-        });
+        component.dropdownOpen = false;
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -128,15 +188,13 @@ describe('InputDropdownComponent', () => {
 
     it('dropdownOpenChange should not emit when dropdownOpen is programmatically set', async () => {
 
-        component.ngOnChanges({
-            dropdownOpen: new SimpleChange(false, true, false)
-        });
+        component.dropdownOpen = true;
+
+        fixture.detectChanges();
+        await fixture.whenStable();
 
         spyOn(component.dropdownOpenChange, 'emit');
-
-        component.ngOnChanges({
-            dropdownOpen: new SimpleChange(true, false, false)
-        });
+        component.dropdownOpen = false;
 
         fixture.detectChanges();
         await fixture.whenStable();
@@ -154,5 +212,4 @@ describe('InputDropdownComponent', () => {
 
         expect(component.dropdownOpenChange.emit).toHaveBeenCalledWith(true);
     });
-
 });
