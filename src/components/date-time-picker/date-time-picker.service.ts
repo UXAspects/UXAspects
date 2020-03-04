@@ -164,9 +164,10 @@ export class DateTimePickerService implements OnDestroy {
     }
 
     getCurrentTimezone(): DateTimePickerTimezone {
-        const offset = this.timezone$ ? this.timezone$.value.offset : new Date().getTimezoneOffset();
+        const setTimezone = this.timezone$ ? this.timezone$.value.offset : null;
+        const offset = new Date().getTimezoneOffset();
         const zones = this.timezones$ ? this.timezones$.value : timezones;
-        const matchingZone = zones.find(timezone => timezone.offset === offset);
+        const matchingZone = setTimezone ? zones.find(timezone => timezone.offset === setTimezone) : zones.find(timezone => timezone.offset === offset);
         if (matchingZone) {
             return matchingZone;
         } else {
